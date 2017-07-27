@@ -59,8 +59,7 @@ as_tsibble <- function(x, ...) {
 #' @export
 as_tsibble.default <- function(x, key = key_vars(), index, ...) {
   index <- enquo(index)
-  output <- tsibble_(x, key = key, index = index)
-  return(output)
+  tsibble_(x, key = key, index = index)
 }
 
 #' @rdname as-tsibble
@@ -83,8 +82,7 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
 as_tsibble.mts <- function(x, tz = "UTC", ...) {
   long_tbl <- mts2tbl(x, tz = tz)
   colnames(long_tbl)[3] <- deparse(substitute(x))
-  output <- as_tsibble.default(long_tbl, key = key_vars(key), index = time)
-  return(output)
+  as_tsibble.default(long_tbl, key = key_vars(key), index = time)
 }
 
 #' @rdname as-tsibble
@@ -106,10 +104,9 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   # this would work around the special character issue in headers for parse()
   sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
   chr_key <- paste(sym_key, collapse = ":")
-  output <- as_tsibble.default(
+  as_tsibble.default(
     out_hts, key = key_vars(!!parse_expr(chr_key), "|"), index = time
   )
-  return(output)
 }
 
 #' @rdname as-tsibble
@@ -141,10 +138,9 @@ as_tsibble.gts <- function(x, tz = "UTC", ...) {
   # this would work around the special character issue in headers for parse()
   sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
   chr_key <- paste(sym_key, collapse = ":")
-  output <- as_tsibble.default(
+  as_tsibble.default(
     out_hts, key = key_vars(!!parse_expr(chr_key), "*"), index = time
   )
-  return(output)
 }
 
 ## tsibble is a special class of tibble that handles temporal data. It
@@ -205,8 +201,7 @@ tsibble_ <- function(..., key = key_vars(), index) {
   attr(tbl, "key") <- pkey
   attr(tbl, "index") <- index
   attr(tbl, "interval") <- tbl_interval
-  output <- structure(tbl, class = cls_tbl)
-  return(output)
+  structure(tbl, class = cls_tbl)
 }
 
 get_key <- function(tbl_ts) {
@@ -234,6 +229,7 @@ print.tbl_ts <- function(x, ...) {
     )
   }
   NextMethod()
+  invisible(x)
 }
 
 #' @param ... Unquoted variable(s).
