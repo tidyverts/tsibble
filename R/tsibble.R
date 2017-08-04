@@ -74,7 +74,7 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
     key = key_vars(), index = time,
   )
   colnames(output)[2] <- deparse(substitute(x))
-  return(output)
+  output
 }
 
 #' @rdname as-tsibble
@@ -93,7 +93,9 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   labels <- x$labels[-1]
   labels <- labels[-length(labels)]
   nr <- nrow(bts)
-  chr_labs <- map(seq_along(labels), ~ rep_nodes(labels[[.]], nodes, level = .))
+  chr_labs <- map2(
+    labels, seq_along(labels), ~ .x[rep_nodes(nodes, level = .y)]
+  )
   full_labs <- map(rev.default(chr_labs), ~ rep(., each = nr))
   names(full_labs) <- names(labels)
 
@@ -258,18 +260,16 @@ cat_chr.tbl_gts <- function(.data, ...) { # ... is quos
 
 mts2tbl <- function(x, tz = "UTC") {
   tbl <- bind_cols(time = time2date(x, tz = tz), as_tibble(x))
-  long_tbl <- tbl %>% 
-    gather(key = key, value = value, -time)
-  return(long_tbl)
+  gather(tbl, key = key, value = value, -time)
 }
 
 # recursive function to repeat nodes for hts
-rep_nodes <- function(labels, nodes, level) {
-  labels <- rep(labels, nodes[[level]])
+rep_nodes <- function(nodes, index = seq_along(nodes[[level]]), level = 1L) {
+  index <- rep.int(index, nodes[[level]])
   if (level == length(nodes)) {
-    return(labels)
+    return(index)
   } else {
-    return(rep_nodes(labels, nodes, level + 1))
+    rep_nodes(nodes, index, level + 1L)
   }
 }
 

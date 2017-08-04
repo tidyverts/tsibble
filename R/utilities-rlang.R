@@ -9,6 +9,5 @@ possibly_identity <- function(x) { # x can be a list or a vector
 
 dots2str <- function(...) { # list
   peel <- map(..., get_expr) # quosure to expr
-  strs <- map_chr(peel, deparse) # expr to string
-  return(strs) # return a vector of characters
+  map_chr(peel, deparse) # expr to string
 }

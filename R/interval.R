@@ -4,34 +4,29 @@ gen_interval <- function(date) {
 }
 
 gen_interval.default <- function(date) {
-  output <- min_interval(date) # num of years
-  return(output)
+  min_interval(date) # num of years
 }
 
 gen_interval.POSIXt <- function(date) {
   dttm <- as.numeric(date)
-  output <- min_interval(dttm) # num of seconds
-  return(output)
+  min_interval(dttm) # num of seconds
 }
 
 gen_interval.Date <- function(date) {
   date <- as.numeric(date)
-  output <- min_interval(date) # num of days
-  return(output)
+  min_interval(date) # num of days
 }
 
 gen_interval.yearmon <- function(date) {
   # num of months
   mon <- as.numeric(date)
-  output <- ceiling(min_interval(mon) * 12)
-  return(output)
+  ceiling(min_interval(mon) * 12)
 }
 
 gen_interval.yearqtr <- function(date) {
   # num of quarters
   qtr <- as.numeric(date)
-  output <- ceiling(min_interval(qtr) * 4)
-  return(output)
+  ceiling(min_interval(qtr) * 4)
 }
 
 # Assume date is regularly spaced
@@ -43,60 +38,53 @@ pull_interval <- function(date) {
 pull_interval.POSIXt <- function(date) {
   nhms <- gen_interval.POSIXt(date)
   period <- period2list(nhms)
-  output <- structure(
+  structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
     class = c("hms", "frequency")
   )
-  return(output)
 }
 
 pull_interval.Date <- function(date) {
   ndays <- gen_interval.Date(date)
-  output <- structure(list(day = ndays), class = c("day", "frequency"))
-  return(output)
+  structure(list(day = ndays), class = c("day", "frequency"))
 }
 
 pull_interval.yearmon <- function(date) {
   nmonths <- gen_interval.yearmon(date)
-  output <- structure(list(month = nmonths), class = c("month", "frequency"))
-  return(output)
+  structure(list(month = nmonths), class = c("month", "frequency"))
 }
 
 pull_interval.yearqtr <- function(date) {
   nqtrs <- gen_interval.yearqtr(date)
-  output <- structure(list(quarter = nqtrs), class = c("quarter", "frequency"))
-  return(output)
+  structure(list(quarter = nqtrs), class = c("quarter", "frequency"))
 }
 
 pull_interval.default <- function(date) {
   nyrs <- gen_interval.default(date)
-  output <- structure(list(year = nyrs), class = c("year", "frequency"))
-  return(output)
+  structure(list(year = nyrs), class = c("year", "frequency"))
 }
 
 display_int <- function(x) {
   not_zero <- !map_lgl(x, function(x) x == 0)
   output <- x[not_zero]
-  return(paste0(rlang::flatten_dbl(output), toupper(names(output))))
+  paste0(rlang::flatten_dbl(output), toupper(names(output)))
 }
 
 ## helper function
 period2list <- function(x) {
   output <- seconds_to_period(x)
-  return(list(
+  list(
     year = output$year, month = output$month, day = output$day,
     hour = output$hour, minute = output$minute, second = output$second
-  ))
+  )
 } 
 
 min_interval <- function(date) {
-  return(min(abs(diff(as.numeric(date), na.rm = TRUE))))
+  min(abs(diff(as.numeric(date), na.rm = TRUE)))
 }
 
 support_cls <- function() {
-  return(c(
-    "Date", "POSIXt", "yearmon", "yearqtr", "integer", "numeric"
-  ))
+  c("Date", "POSIXt", "yearmon", "yearqtr", "integer", "numeric")
 }
 
 # from ts time to dates
@@ -108,26 +96,25 @@ time2date.ts <- function(x, tz = "UTC", ...) {
   freq <- frequency(x)
   time_x <- time(x)
   if (freq == 12) { # monthly
-    output <- as.yearmon(time_x)
+    return(as.yearmon(time_x))
   } else if (freq == 4) { # quarterly
-    output <- as.yearqtr(time_x)
+    return(as.yearqtr(time_x))
   } else if (freq == 1) { # yearly
-    output <- as.numeric(time_x)
+    return(as.numeric(time_x))
   } else {
-    output <- date_decimal(as.numeric(time_x), tz = tz)
+    return(date_decimal(as.numeric(time_x), tz = tz))
   }
-  return(output)
 }
 
 #' @export
 # rep S3 methods for yearmon & yearqtr
 rep.yearmon <- function(x, ...) {
   x <- NextMethod()
-  return(structure(x, class = "yearmon"))
+  structure(x, class = "yearmon")
 }
 
 #' @export
 rep.yearqtr <- function(x, ...) {
   x <- NextMethod()
-  return(structure(x, class = "yearqtr"))
+  structure(x, class = "yearqtr")
 }
