@@ -1,54 +1,56 @@
-# ToDo: parse_key(key = key_vars((x * y) | z))
-#   [[1]] z
-#   [[1]][[1]] x
-#   [[1]][[2]] y
-# ToDo: print method for "key_ts" and etc
-parse_key <- function(data, key = key_vars()) {
-  key_exprs <- exprs(!!!get_expr(key))
-  cn <- colnames(data)
-  if (is_empty(key) || length(key) > 2) { # univariate || three or more vars
-    # parse_key(key = key_vars())
-    # parse_key(key = key_vars(x, y, z))
-    key2 <- syms(select_vars(cn, !!!key_exprs))
-    return(structure(key2, class = "key_ts"))
+reduce_key <- function(lst_keys) {
+  if (is_empty(lst_keys)) {
+    return(lst_keys)
+  }
+  nest_lgl <- is_nest(lst_keys)
+  comb_keys <- lst_keys[!nest_lgl]
+  if (any(nest_lgl)) {
+    nest_keys <- purrr::map(lst_keys[nest_lgl], ~ .[[1]])
+    comb_keys <- c(nest_keys, comb_keys)
+  }
+  quos_auto_name(comb_keys)
+}
+
+validate_key <- function(data, ...) {
+  col_names <- colnames(data)
+  keys <- parse_key(...)
+  nest_lgl <- is_nest(keys)
+  valid_keys <- syms(dplyr::select_vars(col_names, !!! keys[!nest_lgl]))
+  if (any(nest_lgl)) {
+    nest_keys <- purrr::map(
+      keys[nest_lgl], 
+      ~ syms(dplyr::select_vars(col_names, !!! flatten(.)))
+    )
+    valid_keys <- c(nest_keys, valid_keys)
+  }
+  valid_keys
+}
+
+is_nest <- function(lst_syms) {
+  purrr::map_lgl(lst_syms, is_list) # expected to be a list not call
+}
+
+parse_key <- function(...) {
+  key_quos <- quos(...) # quosures
+  purrr::map(key_quos, ~ flatten_nest(.[[-1]]))
+}
+
+# A | B | C nested calls
+flatten_nest <- function(key) { # call
+  if (length(key) == 2 && key[[1]] != sym("-")) {
+    return(flatten_nest(key[[2]]))
+  }
+  if (length(key) < 3) 
+    return(key)
+  op <- key[[1]]
+  x <- key[[2]]
+  y <- key[[3]]
+  if (op == sym("|")) {
+    c(flatten_nest(x), flatten_nest(y))
+  } else if (op == sym("-")) {
+    c(flatten_nest(x), expr(-flatten_nest(y)))
   } else {
-    len_key <- length(key_exprs)
-    syms_all <- c("|", "*")
-    if (len_key == 2) {
-      exprs_2 <- key_exprs[[2]]
-      if (is_symbol(exprs_2)) {
-        # parse_key(key = key_vars(x, y))
-        key2 <- syms(select_vars(cn, !!!key_exprs))
-        return(structure(key2, class = "key_ts"))
-      } else if (exprs_2 == syms_all[2]) {
-        # parse_key(key = key_vars(x:z, "*"))
-        key2 <- syms(select_vars(cn, !!!key_exprs[1]))
-        return(structure(key2, class = "key_gts"))
-      } else {
-        # parse_key(key = key_vars(-x, "|"))
-        # parse_key(key = key_vars(y:z, "|"))
-        # parse_key(key = key_vars(x:z, "|"))
-        key2 <- syms(select_vars(cn, !!!key_exprs[1]))
-        return(structure(key2, class = "key_hts"))
-      }
-    } else { # len_key == 1
-      all_exprs <- all.vars(key_exprs[[1]], functions = TRUE)
-      syms_has <- all_exprs[1]
-      if (is_false(syms_has %in% syms_all)) {
-        # parse_key(key = key_vars(x))
-        # parse_key(key = key_vars(x:z))
-        key2 <- syms(select_vars(cn, !!!key_exprs))
-        return(structure(key2, class = "key_ts"))
-      } else if (syms_has == syms_all[2]) {
-        # parse_key(key = key_vars(x * y * z))
-        key2 <- syms(select_vars(cn, all_exprs[-1]))
-        return(structure(key2, class = "key_gts"))
-      } else {
-        # parse_key(key = key_vars(x | y | z))
-        key2 <- syms(select_vars(cn, all_exprs[-1]))
-        return(structure(key2, class = "key_hts"))
-      }
-    }
+    key
   }
 }
 

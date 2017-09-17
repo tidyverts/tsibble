@@ -72,7 +72,7 @@ display_int <- function(x) {
 
 ## helper function
 period2list <- function(x) {
-  output <- seconds_to_period(x)
+  output <- lubridate::seconds_to_period(x)
   list(
     year = output$year, month = output$month, day = output$day,
     hour = output$hour, minute = output$minute, second = output$second
@@ -80,6 +80,9 @@ period2list <- function(x) {
 } 
 
 min_interval <- function(date) {
+  if (has_length(date, 1)) {
+    return(NA_integer_)
+  }
   min(abs(diff(as.numeric(date), na.rm = TRUE)))
 }
 
