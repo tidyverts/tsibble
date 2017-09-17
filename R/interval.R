@@ -65,7 +65,7 @@ pull_interval.default <- function(date) {
 }
 
 display_int <- function(x) {
-  not_zero <- !map_lgl(x, function(x) x == 0)
+  not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   output <- x[not_zero]
   paste0(rlang::flatten_dbl(output), toupper(names(output)))
 }
@@ -80,14 +80,10 @@ period2list <- function(x) {
 } 
 
 min_interval <- function(date) {
-  if (has_length(date, 1)) {
+  if (has_length(date, 1)) { # only one time index
     return(NA_integer_)
   }
   min(abs(diff(as.numeric(date), na.rm = TRUE)))
-}
-
-support_cls <- function() {
-  c("Date", "POSIXt", "yearmon", "yearqtr", "integer", "numeric")
 }
 
 # from ts time to dates
