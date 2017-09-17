@@ -3,9 +3,9 @@
 # ToDo: filter(pkgs_ts, ~ year() == 2016)? => tbl_ts
 # ToDo: filter(pkgs_ts, ~ month() == 1)? => tbl_df
 filter.tbl_ts <- function(.data, ...) {
-  key <- get_key(.data)
-  index <- get_index(.data)
-  interval <- get_interval(.data)
+  key <- key(.data)
+  index <- index(.data)
+  interval <- interval(.data)
   cls <- class(.data)
   .data <- NextMethod()
   return(structure(
@@ -18,9 +18,9 @@ filter.tbl_ts <- function(.data, ...) {
 # ToDo: select should work with everything(), ends_with() and etc. too
 select.tbl_ts <- function(.data, ...) {
   cls <- class(.data)
-  key <- get_key(.data)
-  index <- get_index(.data)
-  interval <- get_interval(.data)
+  key <- key(.data)
+  index <- index(.data)
+  interval <- interval(.data)
   .data <- NextMethod()
   dots_cap <- quos(...)
   idx_there <- any(map_lgl(dots_cap, function(x) x == index))
@@ -39,9 +39,9 @@ select.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::mutate]
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
-  key <- get_key(.data)
-  index <- get_index(.data)
-  interval <- get_interval(.data)
+  key <- key(.data)
+  index <- index(.data)
+  interval <- interval(.data)
   cls <- class(.data)
   .data <- NextMethod()
   return(structure(
@@ -52,9 +52,9 @@ mutate.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::group_by]
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
-  key <- get_key(.data)
-  index <- get_index(.data)
-  interval <- get_interval(.data)
+  key <- key(.data)
+  index <- index(.data)
+  interval <- interval(.data)
   .data <- NextMethod(.Generic, object = .data, add = add)
   cls <- c("tbl_ts", class(.data))
   return(structure(
@@ -75,7 +75,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @author Earo Wang
 #' @rdname summarise
 #' @seealso [dplyr::summarise]
-#' @details It's S3 method implemented for [tsibble()] (`tbl_ts`) obtained from
+#' @details It's S3 method implemented for tsibble() (`tbl_ts`) obtained from
 #'    [dplyr::summarise()]. A formula with `~` followed by one of calendar component
 #'    functions from base, [lubridate] and [zoo] specifies the period when summary
 #'    functions are carried out.  Currently `~ year()` indicates yearly aggregates.
@@ -84,7 +84,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @return A tsibble class when the `~` is present.
 #'
 #' @examples
-#'    # pkgs_ts <- as_tsibble(tidypkgs, key = key_vars(package), index = date)
+#'    # pkgs_ts <- as_tsibble(tidypkgs, index = date, package)
 #'    # pkgs_ts %>% 
 #'    #   group_by(package) %>% 
 #'    # summarise(avg_count = mean(count), month = ~ as.yearmon())
@@ -94,7 +94,7 @@ summarise.tbl_ts <- function(.data, ...) {
   cls <- class(.data)
   grped <- is.grouped_df(.data)
   if (grped) grps <- groups(.data)
-  index <- get_index(.data)
+  index <- index(.data)
   dots_cap <- quos(..., .named = TRUE)
   # Find the special formula from a set of quos
   sp_f <- tilde_detect(dots_cap)
@@ -130,7 +130,7 @@ summarise.tbl_ts <- function(.data, ...) {
       # ToDo: check if grouping vars should be key variables
         map(grps, as_quosure)
       } else {
-        key_vars()
+        as_quosure()
       }
     attr(.data, "index") <- sym_time
     attr(.data, "interval") <- pull_interval(

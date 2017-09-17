@@ -24,7 +24,7 @@ It computes summary statistics for a tsibble over calendar
 periods, usually used in combination of \link{group_by}.
 }
 \details{
-It's S3 method implemented for \code{\link[=tsibble]{tsibble()}} (\code{tbl_ts}) obtained from
+It's S3 method implemented for tsibble() (\code{tbl_ts}) obtained from
 \code{\link[dplyr:summarise]{dplyr::summarise()}}. A formula with \code{~} followed by one of calendar component
 functions from base, \link{lubridate} and \link{zoo} specifies the period when summary
 functions are carried out.  Currently \code{~ year()} indicates yearly aggregates.
@@ -32,7 +32,7 @@ functions are carried out.  Currently \code{~ year()} indicates yearly aggregate
 monthly aggregates. \code{~ as_date()} or \code{as.Date()} indicates daily aggregates.
 }
 \examples{
-   # pkgs_ts <- as_tsibble(tidypkgs, key = key_vars(package), index = date)
+   # pkgs_ts <- as_tsibble(tidypkgs, index = date, package)
    # pkgs_ts \%>\% 
    #   group_by(package) \%>\% 
    # summarise(avg_count = mean(count), month = ~ as.yearmon())

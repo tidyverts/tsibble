@@ -1,5 +1,102 @@
+globalVariables(c("key", "value"))
+
+#' Coerce to a tsibble object
+#'
+#' @param x Other objects to be coerced to tsibble.
+#' @param ... Key variables.
+#'
+#' @return A tsibble object.
+#' @author Earo Wang
+#' @seealso [tibble::as_tibble]
+#' @rdname as-tsibble
+#'
+#' @examples
+#'    # coerce data.frame to tsibble
+#'    # as_tsibble(tidypkgs, index = date, package) 
+#'
+#'    # coerce ts to tsibble
+#'    as_tsibble(AirPassengers)
+#'    as_tsibble(sunspot.year)
+#'    as_tsibble(sunspot.month)
+#'    as_tsibble(austres)
+#'
+#' @export
 as_tsibble <- function(x, ...) {
   UseMethod("as_tsibble")
+}
+
+#' @rdname as-tsibble
+#' @param tz Time zone.
+#' @export
+as_tsibble.ts <- function(x, tz = "UTC", ...) {
+  idx <- time2date(x, tz = tz)
+  value <- unclass(x) # rm its ts class
+
+  output <- as_tsibble(tibble::tibble(time = idx, value = value), index = time)
+  colnames(output)[2] <- deparse(substitute(x))
+  output
+}
+
+#' @rdname as-tsibble
+#' @export
+as_tsibble.mts <- function(x, tz = "UTC", ...) {
+  long_tbl <- mts2tbl(x, tz = tz)
+  colnames(long_tbl)[3] <- deparse(substitute(x))
+  as_tsibble(long_tbl, index = time, key)
+}
+
+#' @rdname as-tsibble
+#' @export
+as_tsibble.hts <- function(x, tz = "UTC", ...) {
+  bts <- x$bts
+  nodes <- x$nodes[-1]
+  labels <- x$labels[-1]
+  labels <- labels[-length(labels)]
+  nr <- nrow(bts)
+  chr_labs <- map2(
+    labels, seq_along(labels), ~ .x[rep_nodes(nodes, level = .y)]
+  )
+  full_labs <- map(rev.default(chr_labs), ~ rep(., each = nr))
+  names(full_labs) <- names(labels)
+
+  tbl <- mts2tbl(bts, tz = tz) %>% 
+    dplyr::select(time, value, key)
+  colnames(tbl)[3] <- deparse(substitute(x))
+  out_hts <- bind_cols(tbl, full_labs)
+  # this would work around the special character issue in headers for parse()
+  sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
+  as_tsibble(out_hts, index = time, sym_key)
+}
+
+#' @rdname as-tsibble
+#' @export
+as_tsibble.gts <- function(x, tz = "UTC", ...) {
+  bts <- x$bts
+  group <- x$group[-1, , drop = FALSE]
+  group <- group[-nrow(group), , drop = FALSE]
+  labels <- x$labels
+  if (is_empty(labels)) {
+    abort("I don't know how to handle a grouped time series with no group.")
+  }
+  seq_labs <- seq_along(labels)
+  grp_label <- map(seq_labs, ~ labels[[.]][group[., ]])
+  chr_labs <- vector(mode = "list", length = length(labels))
+  for (i in seq_labs) {
+    chr_labs[[i]] <- map_chr(
+      strsplit(grp_label[[i]], split = "/", fixed = TRUE), ~ .[2]
+    )
+  }
+  nr <- nrow(bts)
+  full_labs <- map(chr_labs, ~ rep(., each = nr))
+  names(full_labs) <- names(labels)
+
+  tbl <- mts2tbl(bts, tz = tz) %>% 
+    dplyr::select(time, value)
+  colnames(tbl)[2] <- deparse(substitute(x))
+  out_hts <- bind_cols(tbl, full_labs)
+  # this would work around the special character issue in headers for parse()
+  sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
+  as_tsibble(out_hts, index = time, key = sym_key)
 }
 
 as_tsibble.tbl_df <- function(x, index, ...) {
@@ -11,10 +108,7 @@ as.tsibble.data.frame <- as_tsibble.tbl_df
 
 as.tsibble.tbl <- as_tsibble.tbl_df
 
-as_tsibble.list <- function(x, index, ...) {
-  index <- enquo(index)
-  tsibble_tbl(x, index = index, ...)
-}
+as_tsibble.list <- as_tsibble.tbl_df
 
 key <- function(tbl_ts) {
   attr(tbl_ts, "key")
@@ -28,6 +122,8 @@ index <- function(tbl_ts) {
   attr(tbl_ts, "index")
 }
 
+## tsibble is a special class of tibble that handles temporal data. It
+## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, index, ...) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
@@ -61,6 +157,8 @@ detect_type <- function() {
   c("time", "dttm", "date", "yrmon", "yrqtr")
 }
 
+## Although the "index" arg is possible to automate the detection of time
+## objects, it would fail when tsibble contain multiple time objects. 
 extract_index_var <- function(data, index) {
   cols_type <- purrr::map_chr(data, tibble::type_sum)
   if (quo_is_missing(index)) {
@@ -98,4 +196,10 @@ extract_interval <- function(lst_idx) {
   vec_interval <- vapply(lst_idx, function(x) gen_interval(x), numeric(1))
   idx_interval <- which.min(vec_interval)
   pull_interval(lst_idx[[idx_interval]])
+}
+
+nest_data <- function(data, ...) {
+  data %>% 
+    dplyr::group_by(!!! quos(...)) %>% 
+    tidyr::nest()
 }
