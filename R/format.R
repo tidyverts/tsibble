@@ -13,6 +13,12 @@ print.key <- function(x, ...) {
   invisible(x)
 }
 
+dim_tbl_ts <- function(x) {
+  dim_x <- dim(x)
+  format_dim <- purrr::map_chr(dim_x, ~ formatC(., big.mark = ","))
+  paste(format_dim, collapse = " x ")
+}
+
 format.key <- function(x, ...) {
   if (is_empty(x)) {
     return(NULL)
