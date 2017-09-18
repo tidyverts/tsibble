@@ -96,30 +96,44 @@ as_tsibble.gts <- function(x, tz = "UTC", ...) {
   out_hts <- bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
   sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
-  as_tsibble(out_hts, index = time, key = sym_key)
+  as_tsibble(out_hts, index = time, sym_key)
 }
 
+#' @rdname as-tsibble
+#' @export
 as_tsibble.tbl_df <- function(x, index, ...) {
   index <- enquo(index)
   tsibble_tbl(x, index = index, ...)
 }
 
+#' @rdname as-tsibble
+#' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
+#' @rdname as-tsibble
+#' @export
 as_tsibble.tbl <- as_tsibble.tbl_df
 
+#' @rdname as-tsibble
+#' @export
 as_tsibble.list <- as_tsibble.tbl_df
 
-key <- function(tbl_ts) {
-  attr(tbl_ts, "key")
+#' @rdname as-tsibble
+#' @export
+key <- function(x) {
+  attr(x, "key")
 }
 
-interval <- function(tbl_ts) {
-  attr(tbl_ts, "interval")
+#' @rdname as-tsibble
+#' @export
+interval <- function(x) {
+  attr(x, "interval")
 }
 
-index <- function(tbl_ts) {
-  attr(tbl_ts, "index")
+#' @rdname as-tsibble
+#' @export
+index <- function(x) {
+  attr(x, "index")
 }
 
 ## tsibble is a special class of tibble that handles temporal data. It

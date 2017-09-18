@@ -24,6 +24,10 @@
 \alias{year}
 \alias{reexports}
 \alias{as_date}
+\alias{reexports}
+\alias{tbl_sum}
+\alias{reexports}
+\alias{type_sum}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -36,6 +40,8 @@ below to see their documentation.
   \item{lubridate}{\code{\link[lubridate]{year}}, \code{\link[lubridate]{as_date}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{tibble}{\code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{type_sum}}}
 
   \item{zoo}{\code{\link[zoo]{as.yearmon}}, \code{\link[zoo]{as.yearqtr}}}
 }}

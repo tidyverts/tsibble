@@ -6,6 +6,13 @@
 \alias{as_tsibble.mts}
 \alias{as_tsibble.hts}
 \alias{as_tsibble.gts}
+\alias{as_tsibble.tbl_df}
+\alias{as_tsibble.data.frame}
+\alias{as_tsibble.tbl}
+\alias{as_tsibble.list}
+\alias{key}
+\alias{interval}
+\alias{index}
 \title{Coerce to a tsibble object}
 \usage{
 as_tsibble(x, ...)
@@ -17,6 +24,20 @@ as_tsibble(x, ...)
 \method{as_tsibble}{hts}(x, tz = "UTC", ...)
 
 \method{as_tsibble}{gts}(x, tz = "UTC", ...)
+
+\method{as_tsibble}{tbl_df}(x, index, ...)
+
+\method{as_tsibble}{data.frame}(x, index, ...)
+
+\method{as_tsibble}{tbl}(x, index, ...)
+
+\method{as_tsibble}{list}(x, index, ...)
+
+key(x)
+
+interval(x)
+
+index(x)
 }
 \arguments{
 \item{x}{Other objects to be coerced to tsibble.}
