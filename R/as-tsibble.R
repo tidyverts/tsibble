@@ -138,7 +138,7 @@ index <- function(x) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, index, ...) {
+tsibble_tbl <- function(x, index, ..., validate = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
 
@@ -153,9 +153,10 @@ tsibble_tbl <- function(x, index, ...) {
     c("tbl_ts", cls_tbl)
   }
   # validate tbl_ts
-  eval_lst_idx <- validate_tbl_ts(data = tbl, index = index, key = key_vars)
-
-  tbl_interval <- extract_interval(eval_lst_idx)
+  if (validate) {
+    eval_lst_idx <- validate_tbl_ts(data = tbl, index = index, key = key_vars)
+    tbl_interval <- extract_interval(eval_lst_idx)
+  }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
   attr(tbl, "index") <- structure(index, class = "index")

@@ -4,10 +4,12 @@ print.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   invisible(x)
 }
 
+#' @export
 format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   format(tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }
 
+#' @export
 print.key <- function(x, ...) {
   cat_line(format(x, ...))
   invisible(x)
@@ -24,15 +26,16 @@ format.key <- function(x, ...) {
     return(NULL)
   }
   nest_lgl <- is_nest(x)
-  comb_keys <- paste(as.character(x[!nest_lgl]), collapse = ", ")
+  comb_keys <- paste(as.character(x[!nest_lgl]), sep = ", ")
   if (any(nest_lgl)) {
     nest_keys <- as.character(purrr::map(x[nest_lgl], ~ .[[1]]))
-    cond_keys <- paste(nest_keys, collapse = " | ")
+    cond_keys <- paste(nest_keys, sep = " | ")
     comb_keys <- paste(cond_keys, comb_keys, collapse = ", ")
   }
   comb_keys
 }
 
+#' @export
 print.interval <- function(x, ...) {
   cat_line(format(x, ...))
   invisible(x)
