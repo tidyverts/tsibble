@@ -104,9 +104,9 @@ as_tsibble.tbl_df <- function(x, index, ...) {
   tsibble_tbl(x, index = index, ...)
 }
 
-as.tsibble.data.frame <- as_tsibble.tbl_df
+as_tsibble.data.frame <- as_tsibble.tbl_df
 
-as.tsibble.tbl <- as_tsibble.tbl_df
+as_tsibble.tbl <- as_tsibble.tbl_df
 
 as_tsibble.list <- as_tsibble.tbl_df
 
@@ -143,9 +143,9 @@ tsibble_tbl <- function(x, index, ...) {
 
   tbl_interval <- extract_interval(eval_lst_idx)
 
-  attr(tbl, "key") <- key_vars
-  attr(tbl, "index") <- index
-  attr(tbl, "interval") <- tbl_interval
+  attr(tbl, "key") <- structure(key_vars, class = "key")
+  attr(tbl, "index") <- structure(index, class = "index")
+  attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   structure(tbl, class = cls_tbl)
 }
 
@@ -192,6 +192,8 @@ validate_tbl_ts <- function(data, index, key) {
   eval_lst_idx
 }
 
+# pull_interval takes a vector of evaluated time index,
+# extract_interval deals with a list of time index instead.
 extract_interval <- function(lst_idx) {
   vec_interval <- vapply(lst_idx, function(x) gen_interval(x), numeric(1))
   idx_interval <- which.min(vec_interval)

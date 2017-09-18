@@ -1,47 +1,44 @@
 #' @export
-print.tbl_ts <- function(x, ...) {
-  int_x <- interval(x)
-  grp_var <- key(x)
-  if (is_empty(grp_var)) {
-    cat("# A tsibble of", display_int(int_x), "time interval", "\n")
-  } else {
-    cat(
-      "# A tsibble of", display_int(int_x), "time interval", "for", 
-      cat_chr(x, grp_var), "\n"
-    )
-  }
-  NextMethod()
+print.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
+  cat_line(format(x, ..., n = n, width = width, n_extra = n_extra))
   invisible(x)
 }
 
-cat_chr <- function(.data, ...) {
-  UseMethod("cat_chr")
+format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
+  format(tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }
 
-cat_chr.tbl_ts <- function(.data, ...) { # ... is quos
-  paste(dots2str(...), collapse = ", ")
+print.key <- function(x, ...) {
+  cat_line(format(x, ...))
+  invisible(x)
 }
 
-cat_chr.tbl_hts <- function(.data, ...) { # ... is quos
-  paste(dots2str(...), collapse = " | ")
-}
-
-cat_chr.tbl_gts <- function(.data, ...) { # ... is quos
-  paste(dots2str(...), collapse = " * ")
-}
-
-mts2tbl <- function(x, tz = "UTC") {
-  tbl <- bind_cols(time = time2date(x, tz = tz), as_tibble(x))
-  gather(tbl, key = key, value = value, -time)
-}
-
-# recursive function to repeat nodes for hts
-rep_nodes <- function(nodes, index = seq_along(nodes[[level]]), level = 1L) {
-  index <- rep.int(index, nodes[[level]])
-  if (level == length(nodes)) {
-    return(index)
-  } else {
-    rep_nodes(nodes, index, level + 1L)
+format.key <- function(x, ...) {
+  if (is_empty(x)) {
+    return(NULL)
   }
+  nest_lgl <- is_nest(x)
+  comb_keys <- paste(as.character(x[!nest_lgl]), collapse = ", ")
+  if (any(nest_lgl)) {
+    nest_keys <- as.character(purrr::map(x[nest_lgl], ~ .[[1]]))
+    cond_keys <- paste(nest_keys, collapse = " | ")
+    comb_keys <- paste(cond_keys, comb_keys, collapse = ", ")
+  }
+  comb_keys
 }
 
+print.interval <- function(x, ...) {
+  cat_line(format(x, ...))
+  invisible(x)
+}
+
+format.interval <- function(x, ...) {
+  not_zero <- !purrr::map_lgl(x, function(x) x == 0)
+  output <- x[not_zero]
+  paste0(rlang::flatten_dbl(output), toupper(names(output)))
+}
+
+# ref: tibble:::cat_line
+cat_line <- function(...) {
+  cat(paste0(..., "\n"), sep = "")
+}

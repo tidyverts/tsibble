@@ -30,3 +30,11 @@ lubridate::year
 
 #' @export
 lubridate::as_date
+
+#' @importFrom tibble tbl_sum
+#' @export
+tibble::tbl_sum
+
+#' @importFrom tibble type_sum
+#' @export
+tibble::type_sum

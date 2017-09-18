@@ -40,34 +40,28 @@ pull_interval.POSIXt <- function(date) {
   period <- period2list(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
-    class = c("hms", "frequency")
+    class = c("hms", "interval")
   )
 }
 
 pull_interval.Date <- function(date) {
   ndays <- gen_interval.Date(date)
-  structure(list(day = ndays), class = c("day", "frequency"))
+  structure(list(day = ndays), class = c("day", "interval"))
 }
 
 pull_interval.yearmon <- function(date) {
   nmonths <- gen_interval.yearmon(date)
-  structure(list(month = nmonths), class = c("month", "frequency"))
+  structure(list(month = nmonths), class = c("month", "interval"))
 }
 
 pull_interval.yearqtr <- function(date) {
   nqtrs <- gen_interval.yearqtr(date)
-  structure(list(quarter = nqtrs), class = c("quarter", "frequency"))
+  structure(list(quarter = nqtrs), class = c("quarter", "interval"))
 }
 
 pull_interval.default <- function(date) {
   nyrs <- gen_interval.default(date)
-  structure(list(year = nyrs), class = c("year", "frequency"))
-}
-
-display_int <- function(x) {
-  not_zero <- !purrr::map_lgl(x, function(x) x == 0)
-  output <- x[not_zero]
-  paste0(rlang::flatten_dbl(output), toupper(names(output)))
+  structure(list(year = nyrs), class = c("year", "interval"))
 }
 
 ## helper function
@@ -92,7 +86,7 @@ time2date <- function(x, ...) {
 }
 
 time2date.ts <- function(x, tz = "UTC", ...) {
-  freq <- frequency(x)
+  freq <- stats::frequency(x)
   time_x <- time(x)
   if (freq == 12) { # monthly
     return(as.yearmon(time_x))
@@ -101,7 +95,7 @@ time2date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 1) { # yearly
     return(as.numeric(time_x))
   } else {
-    return(date_decimal(as.numeric(time_x), tz = tz))
+    return(lubridate::date_decimal(as.numeric(time_x), tz = tz))
   }
 }
 
