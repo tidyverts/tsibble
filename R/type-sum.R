@@ -8,6 +8,7 @@ type_sum.yearqtr <- function(x, ...) {
   "yrqtr"
 }
 
+#' @export
 tbl_sum.tbl_ts <- function(x) {
   int_x <- interval(x)
   key_var <- key(x)

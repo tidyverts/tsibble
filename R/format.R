@@ -17,7 +17,7 @@ print.key <- function(x, ...) {
 
 dim_tbl_ts <- function(x) {
   dim_x <- dim(x)
-  format_dim <- purrr::map_chr(dim_x, ~ formatC(., big.mark = ","))
+  format_dim <- purrr::map_chr(dim_x, big_mark)
   paste(format_dim, collapse = " x ")
 }
 
@@ -26,11 +26,11 @@ format.key <- function(x, ...) {
     return(NULL)
   }
   nest_lgl <- is_nest(x)
-  comb_keys <- paste(as.character(x[!nest_lgl]), sep = ", ")
+  comb_keys <- paste(as.character(x[!nest_lgl]), collapse = ", ")
   if (any(nest_lgl)) {
-    nest_keys <- as.character(purrr::map(x[nest_lgl], ~ .[[1]]))
-    cond_keys <- paste(nest_keys, sep = " | ")
-    comb_keys <- paste(cond_keys, comb_keys, collapse = ", ")
+    nest_keys <- as.character(purrr::flatten(x[nest_lgl]))
+    cond_keys <- paste(nest_keys, collapse = " | ")
+    comb_keys <- paste(cond_keys, comb_keys, sep = ", ")
   }
   comb_keys
 }
@@ -45,6 +45,13 @@ format.interval <- function(x, ...) {
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   output <- x[not_zero]
   paste0(rlang::flatten_dbl(output), toupper(names(output)))
+}
+
+## helpers
+# ref: tibble:::big_mark
+big_mark <- function(x, ...) {
+  mark <- if (identical(getOption("OutDec"), ",")) "." else ","
+  formatC(x, big.mark = mark, ...)
 }
 
 # ref: tibble:::cat_line
