@@ -159,7 +159,7 @@ tsibble_tbl <- function(x, index, ..., validate = TRUE) {
   # extract or pass the index var
   index_var <- extract_index_var(tbl, index = index)
   # validate key vars
-  key_vars <- validate_key(data = x, ...)
+  key_vars <- validate_key(data = tbl, ...)
   key_lens <- length(key_vars)
   cls_tbl <- if (key_lens > 1) {
     c("tbl_gts", "tbl_ts", cls_tbl)
