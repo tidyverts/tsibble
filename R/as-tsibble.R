@@ -120,6 +120,20 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @rdname as-tsibble
 #' @export
+as_tsibble.grouped_df <- function(x, index, ...) {
+  x <- dplyr::ungroup(x)
+  index <- enquo(index)
+  tsibble_tbl(x, index = index, ...)
+}
+
+#' @rdname as-tsibble
+#' @export
+as_tsibble.default <- function(x, index, ...) {
+  abort("as_tsibble doesn't know how to deal with this type of class yet.")
+}
+
+#' @rdname as-tsibble
+#' @export
 key <- function(x) {
   attr(x, "key")
 }

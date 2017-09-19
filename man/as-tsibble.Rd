@@ -10,6 +10,8 @@
 \alias{as_tsibble.data.frame}
 \alias{as_tsibble.tbl}
 \alias{as_tsibble.list}
+\alias{as_tsibble.grouped_df}
+\alias{as_tsibble.default}
 \alias{key}
 \alias{interval}
 \alias{index}
@@ -32,6 +34,10 @@ as_tsibble(x, ...)
 \method{as_tsibble}{tbl}(x, index, ...)
 
 \method{as_tsibble}{list}(x, index, ...)
+
+\method{as_tsibble}{grouped_df}(x, index, ...)
+
+\method{as_tsibble}{default}(x, index, ...)
 
 key(x)
 
