@@ -19,15 +19,15 @@
 \usage{
 as_tsibble(x, ...)
 
-\method{as_tsibble}{tbl_df}(x, index, ...)
+\method{as_tsibble}{tbl_df}(x, index, ..., validate = TRUE)
 
-\method{as_tsibble}{data.frame}(x, index, ...)
+\method{as_tsibble}{data.frame}(x, index, ..., validate = TRUE)
 
-\method{as_tsibble}{tbl}(x, index, ...)
+\method{as_tsibble}{tbl}(x, index, ..., validate = TRUE)
 
-\method{as_tsibble}{list}(x, index, ...)
+\method{as_tsibble}{list}(x, index, ..., validate = TRUE)
 
-\method{as_tsibble}{grouped_df}(x, index, ...)
+\method{as_tsibble}{grouped_df}(x, index, ..., validate = TRUE)
 
 \method{as_tsibble}{default}(x, index, ...)
 
@@ -48,9 +48,11 @@ index(x)
 \arguments{
 \item{x}{Other objects to be coerced to tsibble.}
 
-\item{...}{Key Bare variables.}
+\item{...}{Key variables.}
 
 \item{index}{A bare (or unquoted) variable indicating time index}
+
+\item{validate}{Logical.}
 
 \item{tz}{Time zone.}
 }

@@ -4,7 +4,8 @@ globalVariables(c("key", "value"))
 #'
 #' @param x Other objects to be coerced to tsibble.
 #' @param index A bare (or unquoted) variable indicating time index
-#' @param ... Key Bare variables.
+#' @param ... Key variables.
+#' @param validate Logical.
 #'
 #' @return A tsibble object.
 #' @author Earo Wang
@@ -28,9 +29,9 @@ as_tsibble <- function(x, ...) {
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_df <- function(x, index, ...) {
+as_tsibble.tbl_df <- function(x, index, ..., validate = TRUE) {
   index <- enquo(index)
-  tsibble_tbl(x, index = index, ...)
+  tsibble_tbl(x, index = index, ..., validate = validate)
 }
 
 #' @rdname as-tsibble
@@ -47,10 +48,10 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.grouped_df <- function(x, index, ...) {
+as_tsibble.grouped_df <- function(x, index, ..., validate = TRUE) {
   x <- dplyr::ungroup(x)
   index <- enquo(index)
-  tsibble_tbl(x, index = index, ...)
+  tsibble_tbl(x, index = index, ..., validate = validate)
 }
 
 #' @rdname as-tsibble
@@ -97,6 +98,9 @@ tsibble_tbl <- function(x, index, ..., validate = TRUE) {
   if (validate) {
     eval_lst_idx <- validate_tbl_ts(data = tbl, index = index, key = key_vars)
     tbl_interval <- extract_interval(eval_lst_idx)
+  } else {
+    eval_idx <- eval_tidy(index, data = tbl)
+    tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")

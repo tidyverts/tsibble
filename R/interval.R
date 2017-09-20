@@ -1,71 +1,71 @@
 # Number of time units
-gen_interval <- function(date) {
+gen_interval <- function(x, exclude_zero = TRUE) {
   UseMethod("gen_interval")
 }
 
-gen_interval.default <- function(date) {
-  min_interval(date) # num of years
+gen_interval.numeric <- function(x, exclude_zero = TRUE) {
+  min_interval(x, exclude_zero = TRUE) # num of years
 }
 
-gen_interval.POSIXt <- function(date) {
-  dttm <- as.numeric(date)
-  min_interval(dttm) # num of seconds
+gen_interval.integer <- gen_interval.numeric
+
+gen_interval.POSIXt <- function(x, exclude_zero = TRUE) {
+  dttm <- as.numeric(x)
+  min_interval(dttm, exclude_zero = TRUE) # num of seconds
 }
 
-gen_interval.Date <- function(date) {
-  date <- as.numeric(date)
-  min_interval(date) # num of days
-}
+gen_interval.Date <- gen_interval.POSIXt
 
-gen_interval.yearmon <- function(date) {
+gen_interval.yearmon <- function(x, exclude_zero = TRUE) {
   # num of months
-  mon <- as.numeric(date)
-  ceiling(min_interval(mon) * 12)
+  mon <- as.numeric(x)
+  ceiling(min_interval(mon, exclude_zero = TRUE) * 12)
 }
 
-gen_interval.yearqtr <- function(date) {
+gen_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   # num of quarters
-  qtr <- as.numeric(date)
-  ceiling(min_interval(qtr) * 4)
+  qtr <- as.numeric(x)
+  ceiling(min_interval(qtr, exclude_zero = TRUE) * 4)
 }
 
 # Assume date is regularly spaced
-# R6Class to manage tsibble interval, although the printing info is character.
-pull_interval <- function(date) {
+pull_interval <- function(x, exclude_zero = TRUE) {
   UseMethod("pull_interval")
 }
 
-pull_interval.POSIXt <- function(date) {
-  nhms <- gen_interval.POSIXt(date)
-  period <- period2list(nhms)
+pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
+  nhms <- gen_interval(x, exclude_zero = exclude_zero)
+  period <- split_period(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
     class = c("hms", "interval")
   )
 }
 
-pull_interval.Date <- function(date) {
-  ndays <- gen_interval.Date(date)
+pull_interval.Date <- function(x, exclude_zero = TRUE) {
+  ndays <- gen_interval(x, exclude_zero = exclude_zero)
   structure(list(day = ndays), class = c("day", "interval"))
 }
 
-pull_interval.yearmon <- function(date) {
-  nmonths <- gen_interval.yearmon(date)
+pull_interval.yearmon <- function(x, exclude_zero = TRUE) {
+  nmonths <- gen_interval(x, exclude_zero = exclude_zero)
   structure(list(month = nmonths), class = c("month", "interval"))
 }
 
-pull_interval.yearqtr <- function(date) {
-  nqtrs <- gen_interval.yearqtr(date)
+pull_interval.yearqtr <- function(x, exclude_zero = TRUE) {
+  nqtrs <- gen_interval(x, exclude_zero = exclude_zero)
   structure(list(quarter = nqtrs), class = c("quarter", "interval"))
 }
 
-pull_interval.default <- function(date) {
-  nyrs <- gen_interval.default(date)
+pull_interval.numeric <- function(x, exclude_zero = TRUE) {
+  nyrs <- gen_interval(x, exclude_zero = exclude_zero)
   structure(list(year = nyrs), class = c("year", "interval"))
 }
 
-## helper function
-period2list <- function(x) {
+pull_interval.integer <- pull_interval.numeric
+
+## helper functions
+split_period <- function(x) {
   output <- lubridate::seconds_to_period(x)
   list(
     year = output$year, month = output$month, day = output$day,
@@ -73,11 +73,19 @@ period2list <- function(x) {
   )
 } 
 
-min_interval <- function(date) {
-  if (has_length(date, 1)) { # only one time index
+# regular time interval is obtained from the minimal time distance.
+# duplicated time entries result in 0L.
+# if validate = FALSE in as_tsibble, skip to check duplicated entries
+min_interval <- function(x, exclude_zero = TRUE) {
+  if (has_length(x, 1)) { # only one time index
     return(NA_integer_)
   }
-  min(abs(diff(as.numeric(date), na.rm = TRUE)))
+  abs_diff <- abs(diff(as.numeric(x), na.rm = TRUE))
+  if (exclude_zero) {
+    return(min(abs_diff))
+  } else {
+    max(0L, abs_diff)
+  }
 }
 
 # from ts time to dates
