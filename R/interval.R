@@ -4,14 +4,14 @@ gen_interval <- function(x, exclude_zero = TRUE) {
 }
 
 gen_interval.numeric <- function(x, exclude_zero = TRUE) {
-  min_interval(x, exclude_zero = TRUE) # num of years
+  min_interval(x, exclude_zero = exclude_zero) # num of years
 }
 
 gen_interval.integer <- gen_interval.numeric
 
 gen_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   dttm <- as.numeric(x)
-  min_interval(dttm, exclude_zero = TRUE) # num of seconds
+  min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
 }
 
 gen_interval.Date <- gen_interval.POSIXt
@@ -19,13 +19,13 @@ gen_interval.Date <- gen_interval.POSIXt
 gen_interval.yearmon <- function(x, exclude_zero = TRUE) {
   # num of months
   mon <- as.numeric(x)
-  ceiling(min_interval(mon, exclude_zero = TRUE) * 12)
+  ceiling(min_interval(mon, exclude_zero = exclude_zero) * 12)
 }
 
 gen_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   # num of quarters
   qtr <- as.numeric(x)
-  ceiling(min_interval(qtr, exclude_zero = TRUE) * 4)
+  ceiling(min_interval(qtr, exclude_zero = exclude_zero) * 4)
 }
 
 # Assume date is regularly spaced
