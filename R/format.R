@@ -49,6 +49,17 @@ format.interval <- function(x, ...) {
   paste0(rlang::flatten_dbl(output), toupper(names(output)))
 }
 
+#' @export
+print.index <- function(x, ...) {
+  cat_line(format(x, ...))
+  invisible(x)
+}
+
+#' @export
+format.index <- function(x, ...) {
+  f_text(x, width = 500L)
+}
+
 ## helpers
 # ref: tibble:::big_mark
 big_mark <- function(x, ...) {
