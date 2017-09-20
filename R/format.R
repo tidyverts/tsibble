@@ -21,6 +21,7 @@ dim_tbl_ts <- function(x) {
   paste(format_dim, collapse = " x ")
 }
 
+#' @export
 format.key <- function(x, ...) {
   if (is_empty(x)) {
     return(NULL)
@@ -41,6 +42,7 @@ print.interval <- function(x, ...) {
   invisible(x)
 }
 
+#' @export
 format.interval <- function(x, ...) {
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   output <- x[not_zero]
