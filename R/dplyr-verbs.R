@@ -1,5 +1,4 @@
 #' @seealso [dplyr::filter]
-#' @export
 # ToDo: filter(pkgs_ts, ~ year() == 2016)? => tbl_ts
 # ToDo: filter(pkgs_ts, ~ month() == 1)? => tbl_df
 filter.tbl_ts <- function(.data, ...) {
@@ -14,7 +13,6 @@ filter.tbl_ts <- function(.data, ...) {
 }
 
 #' @seealso [dplyr::select]
-#' @export
 # ToDo: select should work with everything(), ends_with() and etc. too
 select.tbl_ts <- function(.data, ...) {
   cls <- class(.data)
@@ -23,9 +21,9 @@ select.tbl_ts <- function(.data, ...) {
   interval <- interval(.data)
   .data <- NextMethod()
   dots_cap <- quos(...)
-  idx_there <- any(map_lgl(dots_cap, function(x) x == index))
-  key_there <- any(rlang::flatten_lgl(map(key, function(x)
-    map_lgl(dots_cap, function(y) y == x)
+  idx_there <- any(purrr::map_lgl(dots_cap, function(x) x == index))
+  key_there <- any(rlang::flatten_lgl(purrr::map(key, function(x)
+    purrr::map_lgl(dots_cap, function(y) y == x)
   )))
   if (idx_there && key_there) {
     return(structure(
@@ -37,7 +35,6 @@ select.tbl_ts <- function(.data, ...) {
 }
 
 #' @seealso [dplyr::mutate]
-#' @export
 mutate.tbl_ts <- function(.data, ...) {
   key <- key(.data)
   index <- index(.data)

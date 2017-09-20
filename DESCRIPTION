@@ -12,7 +12,6 @@ Imports:
     tidyr,
     purrr,
     tibble,
-    magrittr,
     lubridate,
     dplyr (>= 0.7.0)
 Suggests:

@@ -87,7 +87,7 @@ time2date <- function(x, ...) {
 
 time2date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
-  time_x <- time(x)
+  time_x <- stats::time(x)
   if (freq == 12) { # monthly
     return(as.yearmon(time_x))
   } else if (freq == 4) { # quarterly

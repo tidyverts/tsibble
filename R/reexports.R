@@ -1,33 +1,36 @@
-#' @export
-dplyr::summarise
-
-#' @export
-dplyr::summarize
-
+#' @importFrom dplyr filter
 #' @export
 dplyr::filter
 
+#' @importFrom dplyr mutate
 #' @export
 dplyr::mutate
 
+#' @importFrom dplyr select
 #' @export
 dplyr::select
 
+#' @importFrom dplyr group_by
 #' @export
 dplyr::group_by
 
+#' @importFrom dplyr %>%
 #' @export
-magrittr::`%>%`
+dplyr::`%>%`
 
+#' @importFrom zoo as.yearmon
 #' @export
 zoo::as.yearmon
 
+#' @importFrom zoo as.yearqtr
 #' @export
 zoo::as.yearqtr
 
+#' @importFrom lubridate year
 #' @export
 lubridate::year
 
+#' @importFrom lubridate as_date
 #' @export
 lubridate::as_date
 

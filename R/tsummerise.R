@@ -28,8 +28,8 @@
 #
 tsummarise.tbl_ts <- function(.data, ...) {
   cls <- class(.data)
-  grped <- is.grouped_df(.data)
-  if (grped) grps <- groups(.data)
+  grped <- dplyr::is.grouped_df(.data)
+  if (grped) grps <- dplyr::groups(.data)
   index <- index(.data)
   dots_cap <- quos(..., .named = TRUE)
   # Find the special formula from a set of quos
@@ -49,7 +49,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
     }
     # using group_by, sometimes it drops class attributes, e.g. as.yearmon
     .data <- .data %>%
-      ungroup() %>%
+      dplyr::ungroup() %>%
       dplyr::mutate(!!str_time := UQ(sym(fun))(!!index))
     sum_args <- dots_cap[-idx] # used for summarise
     if (grped) {
@@ -64,7 +64,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
         dplyr::summarise(!!!sum_args)
     attr(.data, "key") <- if (grped) {
       # ToDo: check if grouping vars should be key variables
-        map(grps, as_quosure)
+      purrr::map(grps, as_quosure)
       } else {
         as_quosure()
       }
