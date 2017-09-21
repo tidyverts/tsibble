@@ -2,20 +2,33 @@ globalVariables(c("time"))
 
 #' @rdname as-tsibble
 #' @param tz Time zone.
+#' 
+#' @examples
+#' # coerce ts to tsibble
+#' as_tsibble(AirPassengers)
+#' as_tsibble(sunspot.year)
+#' as_tsibble(sunspot.month)
+#' as_tsibble(austres)
+#'
+#' @export
 as_tsibble.ts <- function(x, tz = "UTC", ...) {
-  idx <- time2date(x, tz = tz)
+  idx <- time_to_date(x, tz = tz)
   value <- unclass(x) # rm its ts class
-
-  output <- as_tsibble(tibble::tibble(time = idx, value = value), index = time)
-  colnames(output)[2] <- deparse(substitute(x))
-  output
+  tbl <- tibble::tibble(index = idx, value = value)
+  as_tsibble(tbl, index = index, validate = FALSE)
 }
 
 #' @rdname as-tsibble
+#'
+#' @examples
+#' # coerce mts to tsibble
+#' z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
+#' as_tsibble(z)
+#'
+#' @export
 as_tsibble.mts <- function(x, tz = "UTC", ...) {
-  long_tbl <- mts2tbl(x, tz = tz)
-  colnames(long_tbl)[3] <- deparse(substitute(x))
-  as_tsibble(long_tbl, index = time, key)
+  long_tbl <- gather_ts(x, tz = tz)
+  as_tsibble(long_tbl, index = index, key, validate = FALSE)
 }
 
 #' @rdname as-tsibble
@@ -31,7 +44,7 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   full_labs <- purrr::map(rev.default(chr_labs), ~ rep(., each = nr))
   names(full_labs) <- names(labels)
 
-  tbl <- mts2tbl(bts, tz = tz) %>% 
+  tbl <- gather_ts(bts, tz = tz) %>% 
     dplyr::select(time, value, key)
   colnames(tbl)[3] <- deparse(substitute(x))
   out_hts <- dplyr::bind_cols(tbl, full_labs)
@@ -61,7 +74,7 @@ as_tsibble.gts <- function(x, tz = "UTC", ...) {
   full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
   names(full_labs) <- names(labels)
 
-  tbl <- mts2tbl(bts, tz = tz) %>% 
+  tbl <- gather_ts(bts, tz = tz) %>% 
     dplyr::select(time, value)
   colnames(tbl)[2] <- deparse(substitute(x))
   out_hts <- dplyr::bind_cols(tbl, full_labs)
@@ -70,11 +83,11 @@ as_tsibble.gts <- function(x, tz = "UTC", ...) {
   as_tsibble(out_hts, index = time, sym_key)
 }
 
-mts2tbl <- function(x, tz = "UTC") {
+gather_ts <- function(x, tz = "UTC") {
   tbl <- dplyr::bind_cols(
-    time = time2date(x, tz = tz), tibble::as_tibble(x)
+    index = time_to_date(x, tz = tz), tibble::as_tibble(x)
   )
-  tidyr::gather(tbl, key = key, value = value, -time)
+  tidyr::gather(tbl, key = "key", value = "value", -index)
 }
 
 # recursive function to repeat nodes for hts

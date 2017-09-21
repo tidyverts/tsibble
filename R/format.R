@@ -46,7 +46,7 @@ print.interval <- function(x, ...) {
 format.interval <- function(x, ...) {
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   output <- x[not_zero]
-  paste0(rlang::flatten_dbl(output), toupper(names(output)))
+  paste0(rlang::flatten_dbl(output), toupper(names(output)), collapse = " ")
 }
 
 #' @export

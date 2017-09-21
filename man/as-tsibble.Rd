@@ -66,11 +66,15 @@ Coerce to a tsibble object
    # coerce data.frame to tsibble
    # as_tsibble(tidypkgs, index = date, package) 
 
-   # coerce ts to tsibble
-   # as_tsibble(AirPassengers)
-   # as_tsibble(sunspot.year)
-   # as_tsibble(sunspot.month)
-   # as_tsibble(austres)
+# coerce ts to tsibble
+as_tsibble(AirPassengers)
+as_tsibble(sunspot.year)
+as_tsibble(sunspot.month)
+as_tsibble(austres)
+
+# coerce mts to tsibble
+z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
+as_tsibble(z)
 
 }
 \seealso{

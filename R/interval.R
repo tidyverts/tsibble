@@ -84,16 +84,16 @@ min_interval <- function(x, exclude_zero = TRUE) {
   if (exclude_zero) {
     return(min(abs_diff))
   } else {
-    max(0L, abs_diff)
+    min(pmax(0L, abs_diff)) # max(0L, abs_diff) --> precision issue?
   }
 }
 
 # from ts time to dates
-time2date <- function(x, ...) {
-  UseMethod("time2date")
+time_to_date <- function(x, ...) {
+  UseMethod("time_to_date")
 }
 
-time2date.ts <- function(x, tz = "UTC", ...) {
+time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- stats::time(x)
   if (freq == 12) { # monthly

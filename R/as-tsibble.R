@@ -16,12 +16,6 @@ globalVariables(c("key", "value"))
 #'    # coerce data.frame to tsibble
 #'    # as_tsibble(tidypkgs, index = date, package) 
 #'
-#'    # coerce ts to tsibble
-#'    # as_tsibble(AirPassengers)
-#'    # as_tsibble(sunspot.year)
-#'    # as_tsibble(sunspot.month)
-#'    # as_tsibble(austres)
-#'
 #' @export
 as_tsibble <- function(x, ...) {
   UseMethod("as_tsibble")
