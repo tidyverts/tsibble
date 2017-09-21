@@ -77,9 +77,3 @@ z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)
 
 }
-\seealso{
-\link[tibble:as_tibble]{tibble::as_tibble}
-}
-\author{
-Earo Wang
-}

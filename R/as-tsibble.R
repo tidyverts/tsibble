@@ -8,8 +8,6 @@ globalVariables(c("key", "value"))
 #' @param validate Logical.
 #'
 #' @return A tsibble object.
-#' @author Earo Wang
-#' @seealso [tibble::as_tibble]
 #' @rdname as-tsibble
 #'
 #' @examples
@@ -57,7 +55,7 @@ as_tsibble.default <- function(x, index, ...) {
 #' @rdname as-tsibble
 #' @export
 key <- function(x) {
-  if (is_false("tbl_ts" %in% class(x))) {
+  if (is_false(is_tsibble(x))) {
     abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "key")
@@ -66,7 +64,7 @@ key <- function(x) {
 #' @rdname as-tsibble
 #' @export
 interval <- function(x) {
-  if (is_false("tbl_ts" %in% class(x))) {
+  if (is_false(is_tsibble(x))) {
     abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "interval")
@@ -75,11 +73,26 @@ interval <- function(x) {
 #' @rdname as-tsibble
 #' @export
 index <- function(x) {
-  if (is_false("tbl_ts" %in% class(x))) {
+  if (is_false(is_tsibble(x))) {
     abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "index")
 }
+
+#' Test if the object is a tsibble
+#'
+#' @param x An object.
+#'
+#' @return TRUE if the object inherits from the tbl_ts class.
+#' @rdname is-tsibble
+#' @export
+is_tsibble <- function(x) {
+  inherits(x, "tbl_ts")
+}
+
+#' @rdname is-tsibble
+#' @export
+is.tsibble <- is_tsibble
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
