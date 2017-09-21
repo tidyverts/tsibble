@@ -57,18 +57,27 @@ as_tsibble.default <- function(x, index, ...) {
 #' @rdname as-tsibble
 #' @export
 key <- function(x) {
+  if (is_false("tbl_ts" %in% class(x))) {
+    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+  }
   attr(x, "key")
 }
 
 #' @rdname as-tsibble
 #' @export
 interval <- function(x) {
+  if (is_false("tbl_ts" %in% class(x))) {
+    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+  }
   attr(x, "interval")
 }
 
 #' @rdname as-tsibble
 #' @export
 index <- function(x) {
+  if (is_false("tbl_ts" %in% class(x))) {
+    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+  }
   attr(x, "index")
 }
 
