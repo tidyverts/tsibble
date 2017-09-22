@@ -27,7 +27,7 @@ validate_key <- function(data, ...) {
 }
 
 is_nest <- function(lst_syms) {
-  purrr::map_lgl(lst_syms, is_list) # expected to be a list not call
+  unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
 
 parse_key <- function(...) {

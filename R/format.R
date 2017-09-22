@@ -31,7 +31,11 @@ format.key <- function(x, ...) {
   if (any(nest_lgl)) {
     nest_keys <- as.character(purrr::flatten(x[nest_lgl]))
     cond_keys <- paste(nest_keys, collapse = " | ")
-    comb_keys <- paste(cond_keys, comb_keys, sep = ", ")
+    comb_keys <- ifelse(
+      is_true(nest_lgl),
+      cond_keys,
+      paste(cond_keys, comb_keys, sep = ", ")
+    )
   }
   comb_keys
 }
