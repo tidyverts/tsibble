@@ -84,7 +84,7 @@ min_interval <- function(x, exclude_zero = TRUE) {
   if (exclude_zero) {
     return(min(abs_diff))
   } else {
-    min(pmax(0L, abs_diff)) # max(0L, abs_diff) --> precision issue?
+    min(abs_diff[abs_diff > 0]) # faster than abs_diff != 0
   }
 }
 
