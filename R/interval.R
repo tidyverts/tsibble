@@ -107,6 +107,10 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   }
 }
 
+time_to_date.gts <- function(x, tz = "UTC", ...) {
+  time_to_date(x$bts, tz = tz, ...)
+}
+
 #' @export
 # rep S3 methods for yearmon & yearqtr
 rep.yearmon <- function(x, ...) {

@@ -32,25 +32,16 @@ as_tsibble.mts <- function(x, tz = "UTC", ...) {
 }
 
 #' @rdname as-tsibble
+#' @export
 as_tsibble.hts <- function(x, tz = "UTC", ...) {
-  bts <- x$bts
-  nodes <- x$nodes[-1]
-  labels <- x$labels[-1]
-  labels <- labels[-length(labels)]
-  nr <- nrow(bts)
-  chr_labs <- purrr::map2(
-    labels, seq_along(labels), ~ .x[rep_nodes(nodes, level = .y)]
-  )
-  full_labs <- purrr::map(rev.default(chr_labs), ~ rep(., each = nr))
-  names(full_labs) <- names(labels)
-
-  tbl <- gather_ts(bts, tz = tz) %>% 
-    dplyr::select(time, value, key)
-  colnames(tbl)[3] <- deparse(substitute(x))
-  out_hts <- dplyr::bind_cols(tbl, full_labs)
+  full_labs <- extract_labels(x)
+  tbl <- gather_ts(x, tz = tz) %>% 
+    dplyr::select(index, value)
+  tbl_hts <- dplyr::bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
-  sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
-  as_tsibble(out_hts, index = time, sym_key)
+  sym_key <- syms(colnames(tbl_hts)[3:ncol(tbl_hts)])
+  expr_key <- parse_expr(paste(sym_key, collapse = " | "))
+  as_tsibble(tbl_hts, index = index, !! expr_key, validate = FALSE)
 }
 
 #' @rdname as-tsibble
@@ -83,19 +74,49 @@ as_tsibble.gts <- function(x, tz = "UTC", ...) {
   as_tsibble(out_hts, index = time, sym_key)
 }
 
-gather_ts <- function(x, tz = "UTC") {
-  tbl <- dplyr::bind_cols(
+as_tibble.gts <- function(x, ...) {
+  tibble::as_tibble(x$bts)
+}
+
+bind_time <- function(x, tz = "UTC") {
+  dplyr::bind_cols(
     index = time_to_date(x, tz = tz), tibble::as_tibble(x)
   )
+}
+
+gather_ts <- function(x, tz = "UTC") {
+  tbl <- bind_time(x, tz = tz)
   tidyr::gather(tbl, key = "key", value = "value", -index)
 }
 
 # recursive function to repeat nodes for hts
-rep_nodes <- function(nodes, index = seq_along(nodes[[level]]), level = 1L) {
-  index <- rep.int(index, nodes[[level]])
-  if (level == length(nodes)) {
+rep_nodes <- function(x, level = 1L, index = seq_along(x[[level]])) {
+  if (has_length(x[[1]], 1)) {
+    x <- x[-1]
+  }
+  index <- rep.int(index, x[[level]])
+  if (has_length(x, level)) {
     return(index)
   } else {
-    rep_nodes(nodes, index, level + 1L)
+    rep_nodes(x, level + 1L, index)
   }
+}
+
+extract_labels <- function(x) {
+  UseMethod("extract_labels")
+}
+
+extract_labels.hts <- function(x) {
+  nodes <- x$nodes
+  old_labels <- x$labels
+  btm_labels <- old_labels[[length(old_labels)]]
+  new_labels <- old_labels[-c(1, length(old_labels))]
+  chr_labs <- purrr::map2(
+    new_labels, seq_along(new_labels), ~ .x[rep_nodes(nodes, level = .y)]
+  )
+  nr <- nrow(x$bts)
+  full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
+  full_labs <- c(full_labs, list(rep(btm_labels, each = nr)))
+  names(full_labs) <- names(old_labels[-1])
+  rev.default(full_labs)
 }
