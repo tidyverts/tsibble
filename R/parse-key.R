@@ -11,6 +11,10 @@ reduce_key <- function(lst_keys) {
   quos_auto_name(comb_keys)
 }
 
+flatten_key <- function(lst_keys) {
+  names(flatten(lst_keys))
+}
+
 validate_key <- function(data, ...) {
   col_names <- colnames(data)
   keys <- parse_key(...)

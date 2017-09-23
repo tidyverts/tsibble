@@ -37,6 +37,7 @@ as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE) {
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
 #' @rdname as-tsibble
+#' @usage NULL
 #' @export
 as_tsibble.tbl <- as_tsibble.tbl_df
 
@@ -45,6 +46,7 @@ as_tsibble.tbl <- as_tsibble.tbl_df
 as_tsibble.list <- as_tsibble.tbl_df
 
 #' @rdname as-tsibble
+#' @usage NULL
 #' @export
 as_tsibble.grouped_df <- function(x, ..., index, validate = TRUE) {
   x <- dplyr::ungroup(x)
@@ -162,14 +164,14 @@ extract_index_var <- function(data, index) {
     chr_index <- colnames(data)[val_idx]
     inform(paste("The 'index' variable:", chr_index))
     sym_index <- sym(chr_index)
-    index <- as_quosure(sym_index)
+    return(sym_index)
   } else {
     idx_type <- cols_type[quo_text(index, width = 500L)]
     if (is_false(any(idx_type %in% support_type()))) {
       abort(paste(idx_type, "is invalid for tbl_ts."))
     }
   }
-  index
+  f_rhs(index)
 }
 
 # check if a comb of key vars result in a unique data entry 

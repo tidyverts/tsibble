@@ -21,11 +21,7 @@ as_tsibble(x, ...)
 
 \method{as_tsibble}{data.frame}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{tbl}(x, ..., index, validate = TRUE)
-
 \method{as_tsibble}{list}(x, ..., index, validate = TRUE)
-
-\method{as_tsibble}{grouped_df}(x, ..., index, validate = TRUE)
 
 \method{as_tsibble}{default}(x, ...)
 

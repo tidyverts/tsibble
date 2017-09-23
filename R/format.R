@@ -60,23 +60,6 @@ print.index <- function(x, ...) {
 
 #' @export
 format.index <- function(x, ...) {
-  f_text(x, width = 500L)
+  expr_text(x, width = 500L)
 }
 
-## helpers
-# ref: tibble:::big_mark
-big_mark <- function(x, ...) {
-  mark <- if (identical(getOption("OutDec"), ",")) "." else ","
-  formatC(x, big.mark = mark, ...)
-}
-
-# ref: tibble:::cat_line
-cat_line <- function(...) {
-  cat(paste0(..., "\n"), sep = "")
-}
-
-dim_tbl_ts <- function(x) {
-  dim_x <- dim(x)
-  format_dim <- purrr::map_chr(dim_x, big_mark)
-  paste(format_dim, collapse = " x ")
-}
