@@ -1,4 +1,4 @@
-globalVariables(c("key", "value"))
+globalVariables(c("key", "value", "zzz"))
 
 #' Coerce to a tsibble object
 #'
@@ -131,12 +131,10 @@ tsibble_tbl <- function(x, ..., index, validate = TRUE) {
   }
   # validate tbl_ts
   if (validate) {
-    eval_lst_idx <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
-    tbl_interval <- extract_interval(eval_lst_idx)
-  } else {
-    eval_idx <- eval_tidy(index, data = tbl)
-    tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
+    tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
   }
+  eval_idx <- eval_tidy(index, data = tbl)
+  tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
   attr(tbl, "index") <- structure(index, class = "index")
@@ -178,25 +176,11 @@ extract_index_var <- function(data, index) {
 # if TRUE return evaluated time index, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
   comb_key <- reduce_key(key)
-  tbl_nest <- nest_data(data, !!! comb_key)
-  eval_lst_idx <- purrr::map(tbl_nest$data, ~ eval_tidy(index, data = .)) 
-  unique_idx <- purrr::map_int(eval_lst_idx, anyDuplicated)
-  if (any(unique_idx != 0)) {
+  tbl_dup <- data %>% 
+    dplyr::group_by(!!! comb_key) %>% 
+    dplyr::summarise(zzz = anyDuplicated(!! index))
+  if (any(tbl_dup$zzz != 0)) {
       abort("The 'index' variable must contain unique time stamp for each combination of key variables.")
   }
-  eval_lst_idx
-}
-
-# pull_interval takes a vector of evaluated time index,
-# extract_interval deals with a list of time index instead.
-extract_interval <- function(lst_idx) {
-  vec_interval <- vapply(lst_idx, function(x) gen_interval(x), numeric(1))
-  idx_interval <- which.min(vec_interval)
-  pull_interval(lst_idx[[idx_interval]])
-}
-
-nest_data <- function(data, ...) {
-  data %>% 
-    dplyr::group_by(!!! quos(...)) %>% 
-    tidyr::nest()
+  data
 }
