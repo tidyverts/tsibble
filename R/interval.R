@@ -71,7 +71,7 @@ split_period <- function(x) {
     year = output$year, month = output$month, day = output$day,
     hour = output$hour, minute = output$minute, second = output$second
   )
-} 
+}
 
 # regular time interval is obtained from the minimal time distance.
 # duplicated time entries result in 0L.
@@ -84,7 +84,7 @@ min_interval <- function(x, exclude_zero = TRUE) {
   if (exclude_zero) {
     return(min(abs_diff))
   } else {
-    min(abs_diff[abs_diff > 0]) # faster than abs_diff != 0
+    minp(abs_diff) # faster than min(abs_diff[abs_diff > 0])
   }
 }
 
