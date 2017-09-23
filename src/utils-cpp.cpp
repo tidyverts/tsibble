@@ -20,7 +20,7 @@ double minp(NumericVector x) {
 // Equivalent to any(x != c)
 
 // [[Rcpp::export]]
-bool any_c(NumericVector x, double c) {
+bool any_not_equal_to_c(NumericVector x, double c) {
   int n = x.size();
 
   for(int i = 0; i < n; ++i) {

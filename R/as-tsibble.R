@@ -180,7 +180,7 @@ validate_tbl_ts <- function(data, key, index) {
   tbl_dup <- data %>%
     dplyr::group_by(!!! comb_key) %>%
     dplyr::summarise(zzz = anyDuplicated(!! index))
-  if (any_c(tbl_dup$zzz, 0)) {
+  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
       abort("The 'index' variable must contain unique time stamp for each combination of key variables.")
   }
   data

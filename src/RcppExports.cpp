@@ -16,22 +16,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// any_c
-bool any_c(NumericVector x, double c);
-RcppExport SEXP _tsibble_any_c(SEXP xSEXP, SEXP cSEXP) {
+// any_not_equal_to_c
+bool any_not_equal_to_c(NumericVector x, double c);
+RcppExport SEXP _tsibble_any_not_equal_to_c(SEXP xSEXP, SEXP cSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type c(cSEXP);
-    rcpp_result_gen = Rcpp::wrap(any_c(x, c));
+    rcpp_result_gen = Rcpp::wrap(any_not_equal_to_c(x, c));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tsibble_minp", (DL_FUNC) &_tsibble_minp, 1},
-    {"_tsibble_any_c", (DL_FUNC) &_tsibble_any_c, 2},
+    {"_tsibble_any_not_equal_to_c", (DL_FUNC) &_tsibble_any_not_equal_to_c, 2},
     {NULL, NULL, 0}
 };
 

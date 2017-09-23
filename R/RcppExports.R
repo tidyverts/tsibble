@@ -5,7 +5,7 @@ minp <- function(x) {
     .Call(`_tsibble_minp`, x)
 }
 
-any_c <- function(x, c) {
-    .Call(`_tsibble_any_c`, x, c)
+any_not_equal_to_c <- function(x, c) {
+    .Call(`_tsibble_any_not_equal_to_c`, x, c)
 }
 
