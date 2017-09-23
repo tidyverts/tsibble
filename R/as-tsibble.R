@@ -164,14 +164,14 @@ extract_index_var <- function(data, index) {
     chr_index <- colnames(data)[val_idx]
     inform(paste("The 'index' variable:", chr_index))
     sym_index <- sym(chr_index)
-    return(sym_index)
+    index <- as_quosure(sym_index)
   } else {
     idx_type <- cols_type[quo_text(index, width = 500L)]
     if (is_false(any(idx_type %in% support_type()))) {
       abort(paste(idx_type, "is invalid for tbl_ts."))
     }
   }
-  f_rhs(index)
+  index
 }
 
 # check if a comb of key vars result in a unique data entry 

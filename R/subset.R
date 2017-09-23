@@ -19,7 +19,8 @@
     result <- purrr::map(result, `[`, i)
   }
 
-  as_tsibble.tbl_df(result, !!! key(x), index = !! index(x), validate = FALSE)
+  index <- f_rhs(index(x))
+  as_tsibble.tbl_df(result, !!! key(x), index = !! index, validate = FALSE)
 }
 
 check_index_and_key <- function(j, x) {
@@ -34,7 +35,7 @@ check_index_var <- function(j, x) {
   if (is_false(result)) {
     return(FALSE)
   }
-  index <- expr_text(index(x))
+  index <- f_text(index(x))
   if (index %in% result) {
     return(j)
   } else {

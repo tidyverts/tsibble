@@ -48,8 +48,14 @@ print.interval <- function(x, ...) {
 #' @export
 format.interval <- function(x, ...) {
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
+  # if output is empty, it means that duplicated time entries
+  # if output is NA, it means that only one time entry
   output <- x[not_zero]
-  paste0(rlang::flatten_dbl(output), toupper(names(output)), collapse = " ")
+  vec_x <- rlang::flatten_dbl(output)
+  if (is_empty(output) || is_empty(vec_x)) {
+    return("[?]")
+  }
+  paste0(vec_x, toupper(names(output)), collapse = " ")
 }
 
 #' @export
@@ -60,6 +66,6 @@ print.index <- function(x, ...) {
 
 #' @export
 format.index <- function(x, ...) {
-  expr_text(x, width = 500L)
+  f_text(x, width = 500L)
 }
 
