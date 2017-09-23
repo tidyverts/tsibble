@@ -151,7 +151,7 @@ detect_type <- function() {
 }
 
 ## Although the "index" arg is possible to automate the detection of time
-## objects, it would fail when tsibble contain multiple time objects. 
+## objects, it would fail when tsibble contain multiple time objects.
 extract_index_var <- function(data, index) {
   cols_type <- purrr::map_chr(data, tibble::type_sum)
   if (quo_is_missing(index)) {
@@ -172,14 +172,14 @@ extract_index_var <- function(data, index) {
   index
 }
 
-# check if a comb of key vars result in a unique data entry 
+# check if a comb of key vars result in a unique data entry
 # if TRUE return evaluated time index, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
   comb_key <- reduce_key(key)
-  tbl_dup <- data %>% 
-    dplyr::group_by(!!! comb_key) %>% 
+  tbl_dup <- data %>%
+    dplyr::group_by(!!! comb_key) %>%
     dplyr::summarise(zzz = anyDuplicated(!! index))
-  if (any(tbl_dup$zzz != 0)) {
+  if (any_c(tbl_dup$zzz, 0)) {
       abort("The 'index' variable must contain unique time stamp for each combination of key variables.")
   }
   data

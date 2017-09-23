@@ -17,3 +17,16 @@ double minp(NumericVector x) {
   return z;
 }
 
+// Equivalent to any(x != c)
+
+// [[Rcpp::export]]
+bool any_c(NumericVector x, double c) {
+  int n = x.size();
+
+  for(int i = 0; i < n; ++i) {
+    if (x[i] != c) {
+      return true;
+    }
+  };
+  return false;
+}
