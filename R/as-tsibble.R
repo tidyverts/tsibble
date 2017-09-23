@@ -3,16 +3,22 @@ globalVariables(c("key", "value"))
 #' Coerce to a tsibble object
 #'
 #' @param x Other objects to be coerced to tsibble.
-#' @param index A bare (or unquoted) variable indicating time index
 #' @param ... Key variables.
+#' @param index A bare (or unquoted) variable indicating time index.
 #' @param validate Logical.
 #'
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #'
 #' @examples
-#'    # coerce data.frame to tsibble
-#'    # as_tsibble(tidypkgs, index = date, package) 
+#' # coerce data.frame to tsibble
+#' df <- data.frame(
+#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+#'   group = rep(c("x", "y", "z"), each = 10),
+#'   value = rnorm(30)
+#' )
+#' as_tsibble(df, group) # "date" is automatically considered as the index var
+#' as_tsibble(df, group, index = date) # specify the index var
 #'
 #' @export
 as_tsibble <- function(x, ...) {
@@ -21,9 +27,9 @@ as_tsibble <- function(x, ...) {
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_df <- function(x, index, ..., validate = TRUE) {
+as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE) {
   index <- enquo(index)
-  tsibble_tbl(x, index = index, ..., validate = validate)
+  tsibble_tbl(x, ..., index = index, validate = validate)
 }
 
 #' @rdname as-tsibble
@@ -40,19 +46,23 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.grouped_df <- function(x, index, ..., validate = TRUE) {
+as_tsibble.grouped_df <- function(x, ..., index, validate = TRUE) {
   x <- dplyr::ungroup(x)
   index <- enquo(index)
-  tsibble_tbl(x, index = index, ..., validate = validate)
+  tsibble_tbl(x, ..., index = index, validate = validate)
 }
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.default <- function(x, index, ...) {
+as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
 }
 
-#' @rdname as-tsibble
+#' Helper functions
+#'
+#' @param x A tsibble object.
+#'
+#' @rdname helper
 #' @export
 key <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -61,7 +71,7 @@ key <- function(x) {
   attr(x, "key")
 }
 
-#' @rdname as-tsibble
+#' @rdname helper
 #' @export
 interval <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -70,7 +80,7 @@ interval <- function(x) {
   attr(x, "interval")
 }
 
-#' @rdname as-tsibble
+#' @rdname helper
 #' @export
 index <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -94,14 +104,21 @@ is_tsibble <- function(x) {
 #' @export
 is.tsibble <- is_tsibble
 
+#' @rdname as-tsibble
+#' @export
+#' @usage NULL
+as.tsibble <- function(x, ...) {
+  UseMethod("as_tsibble")
+}
+
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, index, ..., validate = TRUE) {
+tsibble_tbl <- function(x, ..., index, validate = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
 
   # extract or pass the index var
-  index_var <- extract_index_var(tbl, index = index)
+  index <- extract_index_var(tbl, index = index)
   # validate key vars
   key_vars <- validate_key(data = tbl, ...)
   key_lens <- length(key_vars)
@@ -112,7 +129,7 @@ tsibble_tbl <- function(x, index, ..., validate = TRUE) {
   }
   # validate tbl_ts
   if (validate) {
-    eval_lst_idx <- validate_tbl_ts(data = tbl, index = index, key = key_vars)
+    eval_lst_idx <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
     tbl_interval <- extract_interval(eval_lst_idx)
   } else {
     eval_idx <- eval_tidy(index, data = tbl)
@@ -143,7 +160,7 @@ extract_index_var <- function(data, index) {
       abort("Please specify the 'index' varible.")
     }
     chr_index <- colnames(data)[val_idx]
-    inform(paste("The 'index' variable is", chr_index))
+    inform(paste("The 'index' variable:", chr_index))
     sym_index <- sym(chr_index)
     index <- as_quosure(sym_index)
   } else {
@@ -157,7 +174,7 @@ extract_index_var <- function(data, index) {
 
 # check if a comb of key vars result in a unique data entry 
 # if TRUE return evaluated time index, otherwise raise an error
-validate_tbl_ts <- function(data, index, key) {
+validate_tbl_ts <- function(data, key, index) {
   comb_key <- reduce_key(key)
   tbl_nest <- nest_data(data, !!! comb_key)
   eval_lst_idx <- purrr::map(tbl_nest$data, ~ eval_tidy(index, data = .)) 

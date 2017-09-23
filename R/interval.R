@@ -34,7 +34,7 @@ pull_interval <- function(x, exclude_zero = TRUE) {
 }
 
 pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
-  nhms <- gen_interval(x, exclude_zero = exclude_zero)
+  nhms <- gen_interval.POSIXt(x, exclude_zero = exclude_zero)
   period <- split_period(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
@@ -43,22 +43,22 @@ pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
 }
 
 pull_interval.Date <- function(x, exclude_zero = TRUE) {
-  ndays <- gen_interval(x, exclude_zero = exclude_zero)
+  ndays <- gen_interval.Date(x, exclude_zero = exclude_zero)
   structure(list(day = ndays), class = c("day", "interval"))
 }
 
 pull_interval.yearmon <- function(x, exclude_zero = TRUE) {
-  nmonths <- gen_interval(x, exclude_zero = exclude_zero)
+  nmonths <- gen_interval.yearmon(x, exclude_zero = exclude_zero)
   structure(list(month = nmonths), class = c("month", "interval"))
 }
 
 pull_interval.yearqtr <- function(x, exclude_zero = TRUE) {
-  nqtrs <- gen_interval(x, exclude_zero = exclude_zero)
+  nqtrs <- gen_interval.yearqtr(x, exclude_zero = exclude_zero)
   structure(list(quarter = nqtrs), class = c("quarter", "interval"))
 }
 
 pull_interval.numeric <- function(x, exclude_zero = TRUE) {
-  nyrs <- gen_interval(x, exclude_zero = exclude_zero)
+  nyrs <- gen_interval.numeric(x, exclude_zero = exclude_zero)
   structure(list(year = nyrs), class = c("year", "interval"))
 }
 

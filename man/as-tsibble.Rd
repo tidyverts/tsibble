@@ -8,9 +8,7 @@
 \alias{as_tsibble.list}
 \alias{as_tsibble.grouped_df}
 \alias{as_tsibble.default}
-\alias{key}
-\alias{interval}
-\alias{index}
+\alias{as.tsibble}
 \alias{as_tsibble.ts}
 \alias{as_tsibble.mts}
 \alias{as_tsibble.hts}
@@ -19,23 +17,17 @@
 \usage{
 as_tsibble(x, ...)
 
-\method{as_tsibble}{tbl_df}(x, index, ..., validate = TRUE)
+\method{as_tsibble}{tbl_df}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{data.frame}(x, index, ..., validate = TRUE)
+\method{as_tsibble}{data.frame}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{tbl}(x, index, ..., validate = TRUE)
+\method{as_tsibble}{tbl}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{list}(x, index, ..., validate = TRUE)
+\method{as_tsibble}{list}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{grouped_df}(x, index, ..., validate = TRUE)
+\method{as_tsibble}{grouped_df}(x, ..., index, validate = TRUE)
 
-\method{as_tsibble}{default}(x, index, ...)
-
-key(x)
-
-interval(x)
-
-index(x)
+\method{as_tsibble}{default}(x, ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
@@ -50,7 +42,7 @@ index(x)
 
 \item{...}{Key variables.}
 
-\item{index}{A bare (or unquoted) variable indicating time index}
+\item{index}{A bare (or unquoted) variable indicating time index.}
 
 \item{validate}{Logical.}
 
@@ -63,8 +55,14 @@ A tsibble object.
 Coerce to a tsibble object
 }
 \examples{
-   # coerce data.frame to tsibble
-   # as_tsibble(tidypkgs, index = date, package) 
+# coerce data.frame to tsibble
+df <- data.frame(
+  date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+  group = rep(c("x", "y", "z"), each = 10),
+  value = rnorm(30)
+)
+as_tsibble(df, group) # "date" is automatically considered as the index var
+as_tsibble(df, group, index = date) # specify the index var
 
 # coerce ts to tsibble
 as_tsibble(AirPassengers)
