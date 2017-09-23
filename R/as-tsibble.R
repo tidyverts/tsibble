@@ -15,7 +15,8 @@ globalVariables(c("key", "value", "zzz"))
 #' df <- data.frame(
 #'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
-#'   value = rnorm(30)
+#'   value = rnorm(30),
+#'   stringsAsFactors = FALSE
 #' )
 #' as_tsibble(df, group) # "date" is automatically considered as the index var
 #' as_tsibble(df, group, index = date) # specify the index var
