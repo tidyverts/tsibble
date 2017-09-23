@@ -34,6 +34,10 @@ lubridate::year
 #' @export
 lubridate::as_date
 
+#' @importFrom tibble glimpse
+#' @export
+tibble::glimpse
+
 #' @importFrom tibble tbl_sum
 #' @export
 tibble::tbl_sum

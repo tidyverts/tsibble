@@ -10,15 +10,14 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 }
 
 #' @export
+glimpse.tbl_ts <- function(x, width = NULL, ...) {
+  NextMethod()
+}
+
+#' @export
 print.key <- function(x, ...) {
   cat_line(format(x, ...))
   invisible(x)
-}
-
-dim_tbl_ts <- function(x) {
-  dim_x <- dim(x)
-  format_dim <- purrr::map_chr(dim_x, big_mark)
-  paste(format_dim, collapse = " x ")
 }
 
 #' @export
@@ -74,4 +73,10 @@ big_mark <- function(x, ...) {
 # ref: tibble:::cat_line
 cat_line <- function(...) {
   cat(paste0(..., "\n"), sep = "")
+}
+
+dim_tbl_ts <- function(x) {
+  dim_x <- dim(x)
+  format_dim <- purrr::map_chr(dim_x, big_mark)
+  paste(format_dim, collapse = " x ")
 }
