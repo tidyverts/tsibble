@@ -3,6 +3,8 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
+\alias{groups.tbl_ts}
+\alias{group_vars.tbl_ts}
 \alias{interval}
 \alias{index}
 \alias{is_regular}
@@ -12,6 +14,10 @@
 key(x)
 
 key_vars(x)
+
+\method{groups}{tbl_ts}(x)
+
+\method{group_vars}{tbl_ts}(x)
 
 interval(x)
 

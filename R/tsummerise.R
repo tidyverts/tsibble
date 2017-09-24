@@ -9,8 +9,7 @@
 #'    passing to `...`. Please see details.
 #'
 #' @author Earo Wang
-#' @rdname summarise
-#' @seealso [dplyr::summarise]
+#' @rdname tsummarise
 #' @details It's S3 method implemented for tsibble() (`tbl_ts`) obtained from
 #'    [dplyr::summarise()]. A formula with `~` followed by one of calendar component
 #'    functions from base, [lubridate] and [zoo] specifies the period when summary
@@ -92,9 +91,7 @@ tilde_detect <- function(...) { # x be a list of quosures
 }
 
 builtin_dict <- function() {
-  return(c(
-    "year", "as.yearmon", "as.yearqtr", "as_date", "as.Date"
-  ))
+  c("year", "as.yearmon", "as.yearqtr", "as_date", "as.Date")
 }
 
 

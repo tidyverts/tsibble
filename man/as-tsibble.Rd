@@ -6,6 +6,7 @@
 \alias{as_tsibble.data.frame}
 \alias{as_tsibble.tbl}
 \alias{as_tsibble.list}
+\alias{as_tsibble.grouped_ts}
 \alias{as_tsibble.grouped_df}
 \alias{as_tsibble.default}
 \alias{as.tsibble}

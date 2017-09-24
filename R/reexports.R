@@ -1,14 +1,10 @@
-#' @importFrom dplyr filter
+#' @importFrom dplyr group_vars
 #' @export
-dplyr::filter
+dplyr::group_vars
 
-#' @importFrom dplyr mutate
+#' @importFrom dplyr groups
 #' @export
-dplyr::mutate
-
-#' @importFrom dplyr select
-#' @export
-dplyr::select
+dplyr::groups
 
 #' @importFrom dplyr group_by
 #' @export

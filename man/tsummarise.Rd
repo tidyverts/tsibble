@@ -35,9 +35,6 @@ monthly aggregates. \code{~ as_date()} or \code{as.Date()} indicates daily aggre
    # summarise(avg_count = mean(count), month = ~ as.yearmon())
 
 }
-\seealso{
-\link[dplyr:summarise]{dplyr::summarise}
-}
 \author{
 Earo Wang
 }

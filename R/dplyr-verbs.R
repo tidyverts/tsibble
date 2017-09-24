@@ -51,10 +51,19 @@ mutate.tbl_ts <- function(.data, ...) {
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   key <- key(.data)
   index <- index(.data)
-  interval <- interval(.data)
-  .data <- NextMethod(.Generic, object = .data, add = add)
-  cls <- c("tbl_ts", class(.data))
-  return(structure(
-    .data, key = key, index = index, interval = interval, class = cls
-  ))
+  regular <- is_regular(.data)
+  idx_var <- format(index)
+  grped_chr <- key_chr(.data, ...)
+  if (idx_var %in% grped_chr) {
+    abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
+  }
+
+  grped_sym <- syms(grped_chr)
+  class(.data) <- c("tbl_df", "tbl", "data.frame")
+  .data <- .data %>% 
+    group_by(!!! grped_sym, add = add)
+
+  as_tsibble(
+    .data, !!! key, index = !! f_rhs(index), validate = FALSE, regular = regular
+  )
 }

@@ -3,6 +3,8 @@
 \name{is_tsibble}
 \alias{is_tsibble}
 \alias{is.tsibble}
+\alias{is_grouped_ts}
+\alias{is.grouped_ts}
 \title{Test if the object is a tsibble}
 \usage{
 is_tsibble(x)

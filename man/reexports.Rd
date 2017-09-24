@@ -3,11 +3,9 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{filter}
+\alias{group_vars}
 \alias{reexports}
-\alias{mutate}
-\alias{reexports}
-\alias{select}
+\alias{groups}
 \alias{reexports}
 \alias{group_by}
 \alias{reexports}
@@ -33,7 +31,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{filter}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{\%>\%}}}
 
   \item{lubridate}{\code{\link[lubridate]{year}}, \code{\link[lubridate]{as_date}}}
 

@@ -50,13 +50,25 @@ as_tsibble.list <- as_tsibble.tbl_df
 #' @rdname as-tsibble
 #' @usage NULL
 #' @export
-as_tsibble.grouped_df <- function(
+as_tsibble.grouped_ts <- function(
   x, ..., index, validate = TRUE, regular = TRUE
 ) {
-  x <- dplyr::ungroup(x)
+  grps <- dplyr::groups(x)
   index <- enquo(index)
-  tsibble_tbl(x, ..., index = index, validate = validate, regular = regular)
+  x <- dplyr::ungroup(x)
+  tbl <- tsibble_tbl(
+    x, ..., index = index, validate = validate, regular = regular
+  )
+  old_class <- class(tbl)
+  class(tbl) <- c("grouped_ts", old_class)
+  attr(tbl, "group") <- structure(grps, class = "group")
+  tbl
 }
+
+#' @rdname as-tsibble
+#' @usage NULL
+#' @export
+as_tsibble.grouped_df <- as_tsibble.grouped_ts
 
 #' @rdname as-tsibble
 #' @export
@@ -81,6 +93,18 @@ key <- function(x) {
 #' @export
 key_vars <- function(x) {
   format(key(x))
+}
+
+#' @rdname helper
+#' @export
+groups.tbl_ts <- function(x) {
+  attr(x, "group")
+}
+
+#' @rdname helper
+#' @export
+group_vars.tbl_ts <- function(x) {
+  format(groups(x))
 }
 
 #' @rdname helper
@@ -129,6 +153,18 @@ is_tsibble <- function(x) {
 #' @export
 is.tsibble <- is_tsibble
 
+#' @rdname is-tsibble
+#' @usage NULL
+#' @export
+is_grouped_ts <- function(x) {
+  inherits(x, "grouped_ts")
+}
+
+#' @rdname is-tsibble
+#' @usage NULL
+#' @export
+is.grouped_ts <- is_grouped_ts 
+
 #' @rdname as-tsibble
 #' @export
 #' @usage NULL
@@ -159,11 +195,13 @@ tsibble_tbl <- function(x, ..., index, validate = TRUE, regular = TRUE) {
   if (regular) {
     eval_idx <- eval_tidy(index, data = tbl)
     tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
-    attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
+  } else {
+    tbl_interval <- NULL
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
   attr(tbl, "index") <- structure(index, class = "index")
+  attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular
   structure(tbl, class = cls_tbl)
 }

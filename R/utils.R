@@ -46,3 +46,13 @@ validate_vars <- function(..., x) {
   }
   result
 }
+
+surround <- function(x, bracket = "(") {
+  if (bracket == "(") {
+    return(paste0("(", x, ")"))
+  } else if (bracket == "[") {
+    return(paste0("[", x, "]"))
+  } else {
+    paste0("<", x, ">")
+  }
+}

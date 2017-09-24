@@ -40,6 +40,12 @@ format.key <- function(x, ...) {
 }
 
 #' @export
+print.group <- print.key
+
+#' @export
+format.group <- format.key
+
+#' @export
 print.interval <- function(x, ...) {
   cat_line(format(x, ...))
   invisible(x)

@@ -30,6 +30,10 @@ validate_key <- function(data, ...) {
   valid_keys
 }
 
+key_chr <- function(data, ...) {
+  flatten_key(validate_key(data, ...))
+}
+
 is_nest <- function(lst_syms) {
   unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
