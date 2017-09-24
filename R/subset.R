@@ -20,7 +20,10 @@
   }
 
   index <- f_rhs(index(x))
-  as_tsibble.tbl_df(result, !!! key(x), index = !! index, validate = FALSE)
+  as_tsibble.tbl_df(
+    result, !!! key(x), index = !! index, 
+    validate = FALSE, regular = is_regular(x)
+  )
 }
 
 check_index_and_key <- function(j, x) {

@@ -17,11 +17,12 @@
 \usage{
 as_tsibble(x, ...)
 
-\method{as_tsibble}{tbl_df}(x, ..., index, validate = TRUE)
+\method{as_tsibble}{tbl_df}(x, ..., index, validate = TRUE, regular = TRUE)
 
-\method{as_tsibble}{data.frame}(x, ..., index, validate = TRUE)
+\method{as_tsibble}{data.frame}(x, ..., index, validate = TRUE,
+  regular = TRUE)
 
-\method{as_tsibble}{list}(x, ..., index, validate = TRUE)
+\method{as_tsibble}{list}(x, ..., index, validate = TRUE, regular = TRUE)
 
 \method{as_tsibble}{default}(x, ...)
 
@@ -41,6 +42,8 @@ as_tsibble(x, ...)
 \item{index}{A bare (or unquoted) variable indicating time index.}
 
 \item{validate}{Logical.}
+
+\item{regular}{Logical.}
 
 \item{tz}{Time zone.}
 }

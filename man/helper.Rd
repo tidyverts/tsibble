@@ -2,15 +2,24 @@
 % Please edit documentation in R/as-tsibble.R
 \name{key}
 \alias{key}
+\alias{key_vars}
 \alias{interval}
 \alias{index}
+\alias{is_regular}
+\alias{is.regular}
 \title{Helper functions}
 \usage{
 key(x)
 
+key_vars(x)
+
 interval(x)
 
 index(x)
+
+is_regular(x)
+
+is.regular(x)
 }
 \arguments{
 \item{x}{A tsibble object.}

@@ -6,6 +6,7 @@ globalVariables(c("key", "value", "zzz"))
 #' @param ... Key variables.
 #' @param index A bare (or unquoted) variable indicating time index.
 #' @param validate Logical.
+#' @param regular Logical.
 #'
 #' @return A tsibble object.
 #' @rdname as-tsibble
@@ -28,9 +29,9 @@ as_tsibble <- function(x, ...) {
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE) {
+as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE, regular = TRUE) {
   index <- enquo(index)
-  tsibble_tbl(x, ..., index = index, validate = validate)
+  tsibble_tbl(x, ..., index = index, validate = validate, regular = regular)
 }
 
 #' @rdname as-tsibble
@@ -49,10 +50,12 @@ as_tsibble.list <- as_tsibble.tbl_df
 #' @rdname as-tsibble
 #' @usage NULL
 #' @export
-as_tsibble.grouped_df <- function(x, ..., index, validate = TRUE) {
+as_tsibble.grouped_df <- function(
+  x, ..., index, validate = TRUE, regular = TRUE
+) {
   x <- dplyr::ungroup(x)
   index <- enquo(index)
-  tsibble_tbl(x, ..., index = index, validate = validate)
+  tsibble_tbl(x, ..., index = index, validate = validate, regular = regular)
 }
 
 #' @rdname as-tsibble
@@ -76,9 +79,15 @@ key <- function(x) {
 
 #' @rdname helper
 #' @export
+key_vars <- function(x) {
+  format(key(x))
+}
+
+#' @rdname helper
+#' @export
 interval <- function(x) {
-  if (is_false(is_tsibble(x))) {
-    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+  if (is_false(is_regular(x))) {
+    abort("Irregular tsibble doesn't have an interval.")
   }
   attr(x, "interval")
 }
@@ -91,6 +100,19 @@ index <- function(x) {
   }
   attr(x, "index")
 }
+
+#' @rdname helper
+#' @export
+is_regular <- function(x) {
+  if (is_false(is_tsibble(x))) {
+    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+  }
+  attr(x, "regular")
+}
+
+#' @rdname helper
+#' @export
+is.regular <- is_regular
 
 #' Test if the object is a tsibble
 #'
@@ -116,7 +138,7 @@ as.tsibble <- function(x, ...) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, ..., index, validate = TRUE) {
+tsibble_tbl <- function(x, ..., index, validate = TRUE, regular = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
 
@@ -134,12 +156,15 @@ tsibble_tbl <- function(x, ..., index, validate = TRUE) {
   if (validate) {
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
   }
-  eval_idx <- eval_tidy(index, data = tbl)
-  tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
+  if (regular) {
+    eval_idx <- eval_tidy(index, data = tbl)
+    tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
+    attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
+  }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
   attr(tbl, "index") <- structure(index, class = "index")
-  attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
+  attr(tbl, "regular") <- regular
   structure(tbl, class = cls_tbl)
 }
 
@@ -174,7 +199,7 @@ extract_index_var <- function(data, index) {
 }
 
 # check if a comb of key vars result in a unique data entry
-# if TRUE return evaluated time index, otherwise raise an error
+# if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
   comb_key <- reduce_key(key)
   tbl_dup <- data %>%
