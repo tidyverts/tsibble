@@ -74,10 +74,9 @@ ungroup.grouped_ts <- function(x, ...) {
 
 prepare_groups <- function(data, ..., add = FALSE) {
   if (add) {
-    old_grps <- groups(data)
-    new_grps <- quos(...)
-    grps <- flatten_key(validate_key(data, !!! new_grps, !!! old_grps))
-    return(grps)
+    old_grps <- flatten_key(groups(data))
+    grps <- flatten_key(validate_key(data, ...))
+    return(c(old_grps, grps))
   } else {
     flatten_key(validate_key(data, ...))
   }
@@ -94,12 +93,11 @@ grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
   old_class <- class(data)
   grped_df <- dplyr::grouped_df(data, vars)
   class(grped_df) <- unique(c("grouped_ts", old_class))
+  val_grps <- validate_key(data, ...)
   if (add) {
-    old_grps <- groups(data)
-    new_grps <- quos(...)
-    groups(grped_df) <- validate_key(data, !!! new_grps, !!! old_grps)
+    groups(grped_df) <- c(groups(data), val_grps)
   } else {
-    groups(grped_df) <- validate_key(data, ...)
+    groups(grped_df) <- val_grps
   }
   grped_df
 }

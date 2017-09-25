@@ -12,7 +12,7 @@ reduce_key <- function(lst_keys) {
 }
 
 flatten_key <- function(lst_keys) {
-  names(flatten(lst_keys))
+  as.character(flatten(lst_keys))
 }
 
 # The function takes a nested key/group str, i.e. `|` sym

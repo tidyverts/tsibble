@@ -42,10 +42,11 @@ tsummarise.tbl_ts <- function(.data, ...) {
   idx_sym <- sym(names(lst_quos)[[idx_pos]])
 
   # aggregate over time
+  tmp_grps <- c(grps, idx_sym)
   tmp_data <- .data %>% 
     ungroup() %>% 
     mutate(!! idx_sym := !! lst_quos[[idx_pos]]) %>% 
-    group_by(!!! grps, !! idx_sym)
+    group_by(!!! tmp_grps)
   tmp_data <- replace_class(tmp_data, "grouped_ts", "grouped_df")
   .data <- tmp_data %>% 
     dplyr::summarise(!!! lst_quos[-idx_pos])
