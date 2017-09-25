@@ -8,7 +8,6 @@
 #' a certain calendar period, for example yearly aggregates, use [lubridate::year]
 #' on the index variable.
 #'
-#' @author Earo Wang
 #' @rdname tsummarise
 #'
 #' @return A tsibble class.
@@ -47,9 +46,13 @@ tsummarise.tbl_ts <- function(.data, ...) {
     ungroup() %>% 
     mutate(!! idx_sym := !! lst_quos[[idx_pos]]) %>% 
     group_by(!!! tmp_grps)
+
+  ####### ------------!! inelegant !!------------------- #########
   tmp_data <- replace_class(tmp_data, "grouped_ts", "grouped_df")
+  groups(tmp_data) <- flatten(tmp_grps)
   .data <- tmp_data %>% 
     dplyr::summarise(!!! lst_quos[-idx_pos])
+  ####### ------------- hack END ------------------- #########
 
   tbl <- as_tsibble(.data, !!! grps, index = !! idx_sym, validate = FALSE)
   attr(tbl, "vars") <- grps

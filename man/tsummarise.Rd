@@ -31,6 +31,3 @@ periods, usually used in combination of \link{group_by}.
 
 
 }
-\author{
-Earo Wang
-}

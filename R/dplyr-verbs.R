@@ -73,6 +73,9 @@ ungroup.grouped_ts <- function(x, ...) {
   )
 }
 
+# this function prepares group variables in a vector of characters for
+# dplyr::grouped_df()
+# the arg of group can take a nested str but be flattened in the end.
 prepare_groups <- function(data, group, add = FALSE) {
   if (add) {
     old_grps <- flatten_key(groups(data))
@@ -90,6 +93,8 @@ prepare_groups <- function(data, group, add = FALSE) {
 
 # work around with dplyr::grouped_df (not an elegant solution)
 # better to use dplyr internal cpp code when its API is stable
+# the arg `vars` passed to dplyr::grouped_df
+# the arg `group` takes new defined groups
 grouped_ts <- function(data, vars, group, add = FALSE) { # vars are characters
   old_class <- class(data)
   grped_df <- dplyr::grouped_df(data, vars)
