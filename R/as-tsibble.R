@@ -55,7 +55,7 @@ as_tsibble.grouped_ts <- function(
 ) {
   grps <- groups(x)
   index <- enquo(index)
-  x <- dplyr::ungroup(x)
+  x <- ungroup(x)
   tbl <- tsibble_tbl(
     x, ..., index = index, validate = validate, regular = regular
   )

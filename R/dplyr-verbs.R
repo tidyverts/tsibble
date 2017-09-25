@@ -63,6 +63,17 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   )
 }
 
+#' @seealso [dplyr::ungroup]
+#' @export
+ungroup.grouped_ts <- function(x, ...) {
+  class(x) <- class(x)[-match("grouped_ts", class(x))]
+  groups(x) <- NULL
+  as_tsibble(
+    x, !!! key(x), index = !! f_rhs(index(x)), 
+    validate = FALSE, regular = is_regular(x)
+  )
+}
+
 prepare_groups <- function(data, ..., add = FALSE) {
   if (add) {
     old_grps <- groups(data)
@@ -74,7 +85,7 @@ prepare_groups <- function(data, ..., add = FALSE) {
   }
 }
 
-"group<-" <- function(x, value) {
+"groups<-" <- function(x, value) {
   attr(x, "vars") <- value
   x
 }
@@ -87,11 +98,11 @@ grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
   if (add) {
     old_grps <- groups(data)
     new_grps <- quos(...)
-    group(grped_df) <- validate_key(data, !!! new_grps, !!! old_grps)
+    groups(grped_df) <- validate_key(data, !!! new_grps, !!! old_grps)
   } else {
-    group(grped_df) <- validate_key(data, ...)
+    groups(grped_df) <- validate_key(data, ...)
   }
   grped_df
 }
 
-# methods::setGeneric("group<-")
+# methods::setGeneric("groups<-")

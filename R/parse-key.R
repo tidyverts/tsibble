@@ -21,6 +21,9 @@ flatten_key <- function(lst_keys) {
 validate_key <- function(data, ...) {
   col_names <- colnames(data)
   keys <- parse_key(...)
+  if (is_empty(keys)) {
+    return(keys)
+  }
   nest_lgl <- is_nest(keys)
   valid_keys <- syms(dplyr::select_vars(col_names, !!! keys[!nest_lgl]))
   if (any(nest_lgl)) {
@@ -39,6 +42,9 @@ is_nest <- function(lst_syms) {
 
 parse_key <- function(...) {
   key_quos <- quos(...) # quosures
+  if (is_empty(key_quos)) {
+    return(list())
+  }
   purrr::map(key_quos, ~ flatten_nest(.[[-1]]))
 }
 

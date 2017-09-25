@@ -23,7 +23,7 @@ print.key <- function(x, ...) {
 #' @export
 format.key <- function(x, ...) {
   if (is_empty(x)) {
-    return(NULL)
+    return("NULL")
   }
   nest_lgl <- is_nest(x)
   comb_keys <- paste(as.character(x[!nest_lgl]), collapse = ", ")

@@ -7,6 +7,8 @@
 \alias{reexports}
 \alias{groups}
 \alias{reexports}
+\alias{ungroup}
+\alias{reexports}
 \alias{group_by}
 \alias{reexports}
 \alias{\%>\%}
@@ -31,7 +33,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{\%>\%}}}
 
   \item{lubridate}{\code{\link[lubridate]{year}}, \code{\link[lubridate]{as_date}}}
 
