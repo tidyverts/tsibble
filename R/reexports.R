@@ -14,6 +14,10 @@ dplyr::ungroup
 #' @export
 dplyr::group_by
 
+#' @importFrom dplyr mutate
+#' @export
+dplyr::mutate
+
 #' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`

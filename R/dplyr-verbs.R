@@ -35,15 +35,13 @@ select.tbl_ts <- function(.data, ...) {
 }
 
 #' @seealso [dplyr::mutate]
+#' @export
 mutate.tbl_ts <- function(.data, ...) {
-  key <- key(.data)
-  index <- index(.data)
-  interval <- interval(.data)
-  cls <- class(.data)
-  .data <- NextMethod()
-  return(structure(
-    .data, key = key, index = index, interval = interval, class = cls
-  ))
+  mut_data <- NextMethod()
+  as_tsibble(
+    mut_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
 }
 
 #' @seealso [dplyr::group_by]
@@ -66,7 +64,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
-  class(x) <- class(x)[-match("grouped_ts", class(x))]
+  x <- rm_class(x, "grouped_ts")
   groups(x) <- NULL
   as_tsibble(
     x, !!! key(x), index = !! f_rhs(index(x)), 
@@ -91,6 +89,7 @@ prepare_groups <- function(data, ..., add = FALSE) {
 }
 
 # work around with dplyr::grouped_df (not an elegant solution)
+# better to use dplyr internal cpp code when its API is stable
 grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
   old_class <- class(data)
   grped_df <- dplyr::grouped_df(data, vars)
@@ -106,3 +105,13 @@ grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
 }
 
 # methods::setGeneric("groups<-")
+
+rm_class <- function(x, value) {
+  class(x) <- class(x)[-match(value, class(x))]
+  x
+}
+
+replace_class <- function(x, old, new) {
+  class(x)[match(old, class(x))] <- new
+  x
+}
