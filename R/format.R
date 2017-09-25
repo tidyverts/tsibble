@@ -40,10 +40,10 @@ format.key <- function(x, ...) {
 }
 
 #' @export
-print.group <- print.key
+print.vars <- print.key
 
 #' @export
-format.group <- format.key
+format.vars <- format.key
 
 #' @export
 print.interval <- function(x, ...) {

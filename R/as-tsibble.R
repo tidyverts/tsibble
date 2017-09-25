@@ -61,7 +61,7 @@ as_tsibble.grouped_ts <- function(
   )
   old_class <- class(tbl)
   class(tbl) <- c("grouped_ts", old_class)
-  attr(tbl, "group") <- structure(grps, class = "group")
+  attr(tbl, "vars") <- structure(grps, class = "vars")
   tbl
 }
 
@@ -98,7 +98,7 @@ key_vars <- function(x) {
 #' @rdname helper
 #' @export
 groups.tbl_ts <- function(x) {
-  attr(x, "group")
+  attr(x, "vars")
 }
 
 #' @rdname helper
