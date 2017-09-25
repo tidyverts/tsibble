@@ -51,7 +51,7 @@ mutate.tbl_ts <- function(.data, ...) {
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- format(index)
-  grped_chr <- group_chr(.data, ...)
+  grped_chr <- prepare_groups(.data, ...)
   if (idx_var %in% grped_chr) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
@@ -63,7 +63,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   )
 }
 
-group_chr <- function(data, ...) {
+prepare_groups <- function(data, ...) {
   flatten_key(validate_key(data, ...))
 }
 

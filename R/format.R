@@ -53,6 +53,9 @@ print.interval <- function(x, ...) {
 
 #' @export
 format.interval <- function(x, ...) {
+  if (is_empty(x)) {
+    return(surround("!", "["))
+  }
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   # if output is empty, it means that duplicated time entries
   # if output is NA, it means that only one time entry

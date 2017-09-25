@@ -53,7 +53,7 @@ as_tsibble.list <- as_tsibble.tbl_df
 as_tsibble.grouped_ts <- function(
   x, ..., index, validate = TRUE, regular = TRUE
 ) {
-  grps <- dplyr::groups(x)
+  grps <- groups(x)
   index <- enquo(index)
   x <- dplyr::ungroup(x)
   tbl <- tsibble_tbl(
@@ -110,8 +110,8 @@ group_vars.tbl_ts <- function(x) {
 #' @rdname helper
 #' @export
 interval <- function(x) {
-  if (is_false(is_regular(x))) {
-    abort("Irregular tsibble doesn't have an interval.")
+  if (is_false(is_tsibble(x))) {
+    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "interval")
 }
@@ -196,7 +196,7 @@ tsibble_tbl <- function(x, ..., index, validate = TRUE, regular = TRUE) {
     eval_idx <- eval_tidy(index, data = tbl)
     tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
   } else {
-    tbl_interval <- NULL
+    tbl_interval <- list()
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
