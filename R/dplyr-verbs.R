@@ -49,21 +49,20 @@ mutate.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::group_by]
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
-  key <- key(.data)
   index <- index(.data)
-  regular <- is_regular(.data)
   idx_var <- format(index)
-  grped_chr <- key_chr(.data, ...)
+  grped_chr <- group_chr(.data, ...)
   if (idx_var %in% grped_chr) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
 
-  grped_sym <- syms(grped_chr)
-  class(.data) <- c("tbl_df", "tbl", "data.frame")
-  .data <- .data %>% 
-    group_by(!!! grped_sym, add = add)
-
+  grped_df <- dplyr::grouped_df(.data, grped_chr)
   as_tsibble(
-    .data, !!! key, index = !! f_rhs(index), validate = FALSE, regular = regular
+    grped_df, !!! key(.data), index = !! f_rhs(index), 
+    validate = FALSE, regular = is_regular(.data)
   )
+}
+
+group_chr <- function(data, ...) {
+  flatten_key(validate_key(data, ...))
 }

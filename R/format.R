@@ -59,7 +59,7 @@ format.interval <- function(x, ...) {
   output <- x[not_zero]
   vec_x <- rlang::flatten_dbl(output)
   if (is_empty(output) || is_empty(vec_x)) {
-    return("[?]")
+    return(surround("?", "["))
   }
   paste0(vec_x, toupper(names(output)), collapse = " ")
 }

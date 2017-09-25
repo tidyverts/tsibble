@@ -221,12 +221,12 @@ extract_index_var <- function(data, index) {
   if (quo_is_missing(index)) {
     val_idx <- cols_type %in% detect_type()
     if (sum(val_idx) != 1) {
-      abort("Please specify the 'index' varible.")
+      abort("Please specify the 'index' argument.")
     }
     chr_index <- colnames(data)[val_idx]
     inform(paste("The 'index' variable:", chr_index))
-    sym_index <- sym(chr_index)
-    index <- as_quosure(sym_index)
+    idx_sym <- sym(chr_index)
+    index <- as_quosure(idx_sym)
   } else {
     idx_type <- cols_type[quo_text(index, width = 500L)]
     if (is_false(any(idx_type %in% support_type()))) {

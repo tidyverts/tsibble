@@ -15,6 +15,9 @@ flatten_key <- function(lst_keys) {
   names(flatten(lst_keys))
 }
 
+# The function takes a nested key/group str, i.e. `|` sym
+# it also handles `-` and `:` and `c`
+# return: a list of symbols (if (is_nest) a list of list)
 validate_key <- function(data, ...) {
   col_names <- colnames(data)
   keys <- parse_key(...)
@@ -30,10 +33,6 @@ validate_key <- function(data, ...) {
   valid_keys
 }
 
-key_chr <- function(data, ...) {
-  flatten_key(validate_key(data, ...))
-}
-
 is_nest <- function(lst_syms) {
   unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
@@ -43,7 +42,7 @@ parse_key <- function(...) {
   purrr::map(key_quos, ~ flatten_nest(.[[-1]]))
 }
 
-# A | B | C nested calls
+# interpret a nested calls A | B | C
 flatten_nest <- function(key) { # call
   if (length(key) == 2 && key[[1]] != sym("-")) {
     return(flatten_nest(key[[2]]))
