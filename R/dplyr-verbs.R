@@ -51,20 +51,27 @@ mutate.tbl_ts <- function(.data, ...) {
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- format(index)
-  grped_chr <- prepare_groups(.data, ...)
+  grped_chr <- prepare_groups(.data, ..., add = add)
   if (idx_var %in% grped_chr) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
 
-  grped_ts <- grouped_ts(.data, grped_chr, ...)
+  grped_ts <- grouped_ts(.data, grped_chr, ..., add = add)
   as_tsibble(
     grped_ts, !!! key(.data), index = !! f_rhs(index), 
     validate = FALSE, regular = is_regular(.data)
   )
 }
 
-prepare_groups <- function(data, ...) {
-  flatten_key(validate_key(data, ...))
+prepare_groups <- function(data, ..., add = FALSE) {
+  if (add) {
+    old_grps <- groups(data)
+    new_grps <- quos(...)
+    grps <- flatten_key(validate_key(data, !!! new_grps, !!! old_grps))
+    return(grps)
+  } else {
+    flatten_key(validate_key(data, ...))
+  }
 }
 
 "group<-" <- function(x, value) {
@@ -73,11 +80,17 @@ prepare_groups <- function(data, ...) {
 }
 
 # work around with dplyr::grouped_df (not an elegant solution)
-grouped_ts <- function(data, vars, ...) { # vars are characters
+grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
   old_class <- class(data)
   grped_df <- dplyr::grouped_df(data, vars)
   class(grped_df) <- unique(c("grouped_ts", old_class))
-  group(grped_df) <- validate_key(data, ...)
+  if (add) {
+    old_grps <- groups(data)
+    new_grps <- quos(...)
+    group(grped_df) <- validate_key(data, !!! new_grps, !!! old_grps)
+  } else {
+    group(grped_df) <- validate_key(data, ...)
+  }
   grped_df
 }
 

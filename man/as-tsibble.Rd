@@ -25,8 +25,6 @@ as_tsibble(x, ...)
 
 \method{as_tsibble}{list}(x, ..., index, validate = TRUE, regular = TRUE)
 
-\method{as_tsibble}{default}(x, ...)
-
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
 \method{as_tsibble}{mts}(x, tz = "UTC", ...)

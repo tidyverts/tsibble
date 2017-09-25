@@ -71,6 +71,7 @@ as_tsibble.grouped_ts <- function(
 as_tsibble.grouped_df <- as_tsibble.grouped_ts
 
 #' @rdname as-tsibble
+#' @usage NULL
 #' @export
 as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
