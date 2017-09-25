@@ -31,7 +31,10 @@ as_tsibble <- function(x, ...) {
 #' @export
 as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE, regular = TRUE) {
   index <- enquo(index)
-  tsibble_tbl(x, ..., index = index, validate = validate, regular = regular)
+  tsibble_tbl(
+    x, key = quos(...), index = index, 
+    validate = validate, regular = regular
+  )
 }
 
 #' @rdname as-tsibble
@@ -57,7 +60,8 @@ as_tsibble.grouped_ts <- function(
   index <- enquo(index)
   x <- ungroup(x)
   tbl <- tsibble_tbl(
-    x, ..., index = index, validate = validate, regular = regular
+    x, key = quos(...), index = index, 
+    validate = validate, regular = regular
   )
   old_class <- class(tbl)
   class(tbl) <- c("grouped_ts", old_class)
@@ -175,14 +179,14 @@ as.tsibble <- function(x, ...) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, ..., index, validate = TRUE, regular = TRUE) {
+tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
 
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
   # validate key vars
-  key_vars <- validate_key(data = tbl, ...)
+  key_vars <- validate_key(data = tbl, key)
   key_lens <- length(key_vars)
   cls_tbl <- if (key_lens > 1) {
     c("tbl_gts", "tbl_ts", cls_tbl)

@@ -49,12 +49,13 @@ mutate.tbl_ts <- function(.data, ...) {
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- format(index)
-  grped_chr <- prepare_groups(.data, ..., add = add)
+  grped_quo <- quos(...)
+  grped_chr <- prepare_groups(.data, grped_quo, add = add)
   if (idx_var %in% grped_chr) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
 
-  grped_ts <- grouped_ts(.data, grped_chr, ..., add = add)
+  grped_ts <- grouped_ts(.data, grped_chr, grped_quo, add = add)
   as_tsibble(
     grped_ts, !!! key(.data), index = !! f_rhs(index), 
     validate = FALSE, regular = is_regular(.data)
@@ -72,13 +73,13 @@ ungroup.grouped_ts <- function(x, ...) {
   )
 }
 
-prepare_groups <- function(data, ..., add = FALSE) {
+prepare_groups <- function(data, group, add = FALSE) {
   if (add) {
     old_grps <- flatten_key(groups(data))
-    grps <- flatten_key(validate_key(data, ...))
+    grps <- flatten_key(validate_key(data, group))
     return(c(old_grps, grps))
   } else {
-    flatten_key(validate_key(data, ...))
+    flatten_key(validate_key(data, group))
   }
 }
 
@@ -89,11 +90,11 @@ prepare_groups <- function(data, ..., add = FALSE) {
 
 # work around with dplyr::grouped_df (not an elegant solution)
 # better to use dplyr internal cpp code when its API is stable
-grouped_ts <- function(data, vars, ..., add = FALSE) { # vars are characters
+grouped_ts <- function(data, vars, group, add = FALSE) { # vars are characters
   old_class <- class(data)
   grped_df <- dplyr::grouped_df(data, vars)
   class(grped_df) <- unique(c("grouped_ts", old_class))
-  val_grps <- validate_key(data, ...)
+  val_grps <- validate_key(data, group)
   if (add) {
     groups(grped_df) <- c(groups(data), val_grps)
   } else {
