@@ -29,7 +29,6 @@ tsummarise.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   index <- index(.data)
   grps <- groups(.data)
-  old_class <- class(.data)
 
   # check if the index variable is present in the function call
   vec_vars <- as.character(purrr::map(lst_quos, ~ lang_args(.)[[1]]))
@@ -50,13 +49,12 @@ tsummarise.tbl_ts <- function(.data, ...) {
   ####### ------------!! inelegant !!------------------- #########
   tmp_data <- replace_class(tmp_data, "grouped_ts", "grouped_df")
   groups(tmp_data) <- flatten(tmp_grps)
-  .data <- tmp_data %>% 
+  tmp_data <- tmp_data %>% 
     dplyr::summarise(!!! lst_quos[-idx_pos])
   ####### ------------- hack END ------------------- #########
 
-  tbl <- as_tsibble(.data, !!! grps, index = !! idx_sym, validate = FALSE)
-  attr(tbl, "vars") <- grps
-  class(tbl) <- old_class
+  tbl <- as_tsibble(tmp_data, !!! grps, index = !! idx_sym, validate = FALSE)
+  groups(tbl) <- grps
   tbl
 }
 
