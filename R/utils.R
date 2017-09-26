@@ -40,7 +40,7 @@ min_interval <- function(x, exclude_zero = TRUE) {
 }
 
 validate_vars <- function(..., x) {
-  result <- try(dplyr::select_vars(names(x), ...), silent = TRUE)
+  result <- try(dplyr::select_vars(vars = x, ...), silent = TRUE)
   if (inherits(result, "try-error")) {
     return(FALSE)
   }

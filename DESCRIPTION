@@ -20,8 +20,6 @@ Suggests:
     rmarkdown
 LinkingTo: 
     Rcpp (>= 0.12.0)
-Remotes:
-    tidyverse/dplyr
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL (>= 3)
@@ -30,4 +28,4 @@ BugReports: https://github.com/earowang/tsibble/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))

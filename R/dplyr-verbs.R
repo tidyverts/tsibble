@@ -36,11 +36,23 @@ select.tbl_ts <- function(.data, ...) {
 
 #' @seealso [dplyr::mutate]
 #' @export
-mutate.tbl_ts <- function(.data, ...) {
+utate.tbl_ts <- function(.data, ...) {
+  lst_quos <- quos(..., .named = TRUE)
+  vec_vars <- names(lst_quos)
+  vec_names <- union(vec_vars, colnames(.data))
+  key <- key(.data)
+  index <- f_rhs(index(.data))
+  regular <- is_regular(.data)
   mut_data <- NextMethod()
+  # either key or index is present in ...
+  # suggests that the operations are done on these variables
+  # validate = TRUE to check if tsibble still holds
+  val_idx <- check_index_var(vec_vars, vec_names, .data)
+  val_key <- check_any_key(vec_vars, vec_names, .data)
+  validate <- val_idx || val_key
   as_tsibble(
-    mut_data, !!! key(.data), index = !! f_rhs(index(.data)),
-    validate = FALSE, regular = is_regular(.data)
+    mut_data, !!! key, index = !! index,
+    validate = validate, regular = regular
   )
 }
 
@@ -57,7 +69,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 
   grped_ts <- grouped_ts(.data, grped_chr, grped_quo, add = add)
   as_tsibble(
-    grped_ts, !!! key(.data), index = !! f_rhs(index), 
+    grped_ts, !!! key(.data), index = !! f_rhs(index),
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -68,7 +80,7 @@ ungroup.grouped_ts <- function(x, ...) {
   x <- rm_class(x, "grouped_ts")
   groups(x) <- NULL
   as_tsibble(
-    x, !!! key(x), index = !! f_rhs(index(x)), 
+    x, !!! key(x), index = !! f_rhs(index(x)),
     validate = FALSE, regular = is_regular(x)
   )
 }
