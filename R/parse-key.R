@@ -22,7 +22,11 @@ update_key <- function(x, y) { # x = a list of keys # y = characters
   old_lgl <- rep(is_nest(x), purrr::map(x, length))
   new_lgl <- old_lgl[new_idx]
 
-  c(list(syms(new_chr[new_lgl])), syms(new_chr[!new_lgl]))
+  if (any(old_lgl)) {
+    return(c(list(syms(new_chr[new_lgl])), syms(new_chr[!new_lgl])))
+  } else {
+    syms(new_chr[!new_lgl])
+  }
 }
 
 # The function takes a nested key/group str, i.e. `|` sym
@@ -38,7 +42,7 @@ validate_key <- function(data, key) {
   valid_keys <- syms(dplyr::select_vars(col_names, !!! keys[!nest_lgl]))
   if (any(nest_lgl)) {
     nest_keys <- purrr::map(
-      keys[nest_lgl], 
+      keys[nest_lgl],
       ~ syms(dplyr::select_vars(col_names, !!! flatten(.)))
     )
     valid_keys <- c(nest_keys, valid_keys)
@@ -62,7 +66,7 @@ flatten_nest <- function(key) { # call
   if (!is.list(key) && has_length(key, 2) && key[[1]] != sym("-")) {
     return(flatten_nest(key[[2]]))
   }
-  if ((is.list(key) && has_length(key, 2)) || length(key) < 3) 
+  if ((is.list(key) && has_length(key, 2)) || length(key) < 3)
     return(key)
   op <- key[[1]]
   x <- key[[2]]
