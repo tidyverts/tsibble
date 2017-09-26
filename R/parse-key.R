@@ -15,6 +15,16 @@ flatten_key <- function(lst_keys) {
   as.character(flatten(lst_keys))
 }
 
+update_key <- function(x, y) { # x = a list of keys # y = characters
+  old_chr <- flatten_key(x)
+  new_idx <- sort(match(y, old_chr))
+  new_chr <- old_chr[new_idx]
+  old_lgl <- rep(is_nest(x), purrr::map(x, length))
+  new_lgl <- old_lgl[new_idx]
+
+  c(list(syms(new_chr[new_lgl])), syms(new_chr[!new_lgl]))
+}
+
 # The function takes a nested key/group str, i.e. `|` sym
 # it also handles `-` and `:` and `c`
 # return: a list of symbols (if (is_nest) a list of list)

@@ -1,36 +1,47 @@
+#' @seealso [dplyr::arrange]
+#' @export
+arrange.tbl_ts <- function(.data, ...) {
+  arr_data <- NextMethod()
+  as_tsibble(
+    arr_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
+}
+
 #' @seealso [dplyr::filter]
-# ToDo: filter(pkgs_ts, ~ year() == 2016)? => tbl_ts
-# ToDo: filter(pkgs_ts, ~ month() == 1)? => tbl_df
+#' @export
 filter.tbl_ts <- function(.data, ...) {
-  key <- key(.data)
-  index <- index(.data)
-  interval <- interval(.data)
-  cls <- class(.data)
-  .data <- NextMethod()
-  return(structure(
-    .data, key = key, index = index, interval = interval, class = cls
-  ))
+  fil_data <- NextMethod()
+  as_tsibble(
+    fil_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
 }
 
 #' @seealso [dplyr::select]
-# ToDo: select should work with everything(), ends_with() and etc. too
+#' @export
 select.tbl_ts <- function(.data, ...) {
-  cls <- class(.data)
-  key <- key(.data)
+  lst_quos <- quos(..., .named = TRUE)
+  val_idx <- check_index_var(j = lst_quos, x = colnames(.data), .data)
+  if (is_false(val_idx)) {
+    abort("The index variable cannot be dropped.")
+  }
+  # a list due to `else` part
+  sel_data <- unclass(NextMethod()) # a list
   index <- index(.data)
-  interval <- interval(.data)
-  .data <- NextMethod()
-  dots_cap <- quos(...)
-  idx_there <- any(purrr::map_lgl(dots_cap, function(x) x == index))
-  key_there <- any(rlang::flatten_lgl(purrr::map(key, function(x)
-    purrr::map_lgl(dots_cap, function(y) y == x)
-  )))
-  if (idx_there && key_there) {
-    return(structure(
-      .data, key = key, index = index, interval = interval, class = cls
+  val_key <- check_all_key(j = lst_quos, x = colnames(.data), .data)
+  if (is_true(val_key)) { # no chang in key vars
+    return(as_tsibble(
+      sel_data, !!! key(.data), index = !! f_rhs(index),
+      validate = FALSE, regular = is_regular(.data)
     ))
   } else {
-    return(structure(.data, class = c("tbl_df", "tbl", "data.frame")))
+    chr_key <- validate_vars(j = lst_quos, x = colnames(.data))
+    new_key <- update_key(key(.data), chr_key)
+    as_tsibble(
+      sel_data, !!! new_key, index = !! f_rhs(index),
+      validate = TRUE, regular = is_regular(.data)
+    )
   }
 }
 

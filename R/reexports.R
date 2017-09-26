@@ -18,6 +18,18 @@ dplyr::group_by
 #' @export
 dplyr::mutate
 
+#' @importFrom dplyr filter
+#' @export
+dplyr::filter
+
+#' @importFrom dplyr select
+#' @export
+dplyr::select
+
+#' @importFrom dplyr arrange
+#' @export
+dplyr::arrange
+
 #' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`

@@ -39,8 +39,8 @@ min_interval <- function(x, exclude_zero = TRUE) {
   }
 }
 
-validate_vars <- function(..., x) {
-  result <- try(dplyr::select_vars(vars = x, ...), silent = TRUE)
+validate_vars <- function(j, x) { # j = quos/chr/dbl
+  result <- try(dplyr::select_vars(vars = x, !!! j), silent = TRUE)
   if (inherits(result, "try-error")) {
     return(FALSE)
   }
