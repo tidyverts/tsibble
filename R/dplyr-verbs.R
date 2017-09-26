@@ -36,7 +36,7 @@ select.tbl_ts <- function(.data, ...) {
 
 #' @seealso [dplyr::mutate]
 #' @export
-utate.tbl_ts <- function(.data, ...) {
+mutate.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   vec_vars <- names(lst_quos)
   vec_names <- union(vec_vars, colnames(.data))
