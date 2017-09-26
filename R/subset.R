@@ -26,8 +26,18 @@
   )
 }
 
+# check if both index and key are present by selecting
+# FALSE: not present otherwise return positions or names
 check_index_and_key <- function(j, x) {
   if (is_false(check_index_var(j, x) && check_key_var(j, x))) {
+    return(FALSE)
+  }
+  j
+}
+
+# check if either index or key is present by selecting
+check_index_or_key <- function(j, x) {
+  if (is_false(check_index_var(j, x) || check_key_var(j, x))) {
     return(FALSE)
   }
   j
@@ -40,7 +50,7 @@ check_index_var <- function(j, x) {
   }
   index <- f_text(index(x))
   if (index %in% result) {
-    return(j)
+    return(TRUE)
   } else {
     FALSE
   }
@@ -53,7 +63,7 @@ check_key_var <- function(j, x) {
   }
   key_vars <- flatten_key(key(x))
   if (all(key_vars %in% result)) {
-    return(j)
+    return(TRUE)
   } else {
     FALSE
   }

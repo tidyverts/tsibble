@@ -73,6 +73,10 @@ ungroup.grouped_ts <- function(x, ...) {
   )
 }
 
+#' @seealso [dplyr::ungroup]
+#' @export
+ungroup.tbl_ts <- ungroup.grouped_ts
+
 # this function prepares group variables in a vector of characters for
 # dplyr::grouped_df()
 # the arg of group can take a nested str but be flattened in the end.
