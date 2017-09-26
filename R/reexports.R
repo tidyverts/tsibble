@@ -61,3 +61,11 @@ tibble::tbl_sum
 #' @importFrom tibble type_sum
 #' @export
 tibble::type_sum
+
+#' @importFrom tibble as_tibble
+#' @export
+tibble::as_tibble
+
+#' @importFrom tibble as.tibble
+#' @export
+tibble::as.tibble
