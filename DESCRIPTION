@@ -17,8 +17,10 @@ Imports:
     Rcpp (>= 0.12.3)
 Suggests:
     knitr,
-    rmarkdown
-LinkingTo: 
+    rmarkdown,
+    testthat,
+    covr
+LinkingTo:
     Rcpp (>= 0.12.0)
 ByteCompile: true
 VignetteBuilder: knitr
