@@ -33,13 +33,13 @@ as_tsibble(x, ...)
 \item{...}{Unquoted key variable(s) that define unique time indices. Only used
 for data of class \code{tbl_df}, \code{data.frame} and \code{list} (i.e. long data form), if
 a univariate time series (without an explicit key), simply leave it blank.
-Otherwise ignored.}
+Ignored for other types of classes.}
 
-\item{index}{A bare (or unquoted) variable to specify time index.}
+\item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). \code{FALSE}
-to skip the checks.}
+of key variables lead to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
 finds the minimal time span as the interval.}

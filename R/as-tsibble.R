@@ -6,11 +6,11 @@ globalVariables(c("key", "value", "zzz"))
 #' @param ... Unquoted key variable(s) that define unique time indices. Only used
 #' for data of class `tbl_df`, `data.frame` and `list` (i.e. long data form), if
 #' a univariate time series (without an explicit key), simply leave it blank. 
-#' Otherwise ignored.
-#' @param index A bare (or unquoted) variable to specify time index.
+#' Ignored for other types of classes.
+#' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param validate `TRUE` suggests to verify that each key or each combination
-#' of key variables lead to unique time indices (i.e. a valid tsibble). `FALSE`
-#' to skip the checks.
+#' of key variables lead to unique time indices (i.e. a valid tsibble). If you
+#' are sure that it's a valid input, specify `FALSE` to skip the checks.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
 #'
