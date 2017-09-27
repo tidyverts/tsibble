@@ -72,9 +72,6 @@ rename.tbl_ts <- function(.data, ...) {
 mutate.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
-  key <- key(.data)
-  index <- f_rhs(index(.data))
-  regular <- is_regular(.data)
   mut_data <- NextMethod()
   # either key or index is present in ...
   # suggests that the operations are done on these variables
@@ -83,8 +80,8 @@ mutate.tbl_ts <- function(.data, ...) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   as_tsibble(
-    mut_data, !!! key, index = !! index,
-    validate = validate, regular = regular
+    mut_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = validate, regular = is_regular(.data)
   )
 }
 
