@@ -76,4 +76,9 @@ as_tsibble(austres)
 z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)
 
+# coerce hts from the "hts" package to tsibble
+if (requireNamespace("hts", quiet = TRUE)) {
+  as_tsibble(htseg1)
+  as_tsibble(htseg2)
+}
 }

@@ -33,6 +33,13 @@ as_tsibble.mts <- function(x, tz = "UTC", ...) {
 }
 
 #' @rdname as-tsibble
+#'
+#' @examples
+#' # coerce hts from the "hts" package to tsibble
+#' if (requireNamespace("hts", quiet = TRUE)) {
+#'   as_tsibble(htseg1)
+#'   as_tsibble(htseg2)
+#' }
 #' @export
 as_tsibble.hts <- function(x, tz = "UTC", ...) {
   full_labs <- extract_labels(x)
