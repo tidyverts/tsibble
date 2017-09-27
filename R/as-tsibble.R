@@ -32,7 +32,7 @@ as_tsibble <- function(x, ...) {
 as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE, regular = TRUE) {
   index <- enquo(index)
   tsibble_tbl(
-    x, key = quos(...), index = index, 
+    x, key = quos(...), index = index,
     validate = validate, regular = regular
   )
 }
@@ -60,7 +60,7 @@ as_tsibble.grouped_ts <- function(
   index <- enquo(index)
   x <- ungroup(x)
   tbl <- tsibble_tbl(
-    x, key = quos(...), index = index, 
+    x, key = quos(...), index = index,
     validate = validate, regular = regular
   )
   old_class <- class(tbl)
@@ -92,6 +92,11 @@ key <- function(x) {
     abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "key")
+}
+
+`key<-` <- function(x, value) {
+  attr(x, "key") <- value
+  x
 }
 
 #' @rdname helper
@@ -128,6 +133,11 @@ index <- function(x) {
     abort(paste(expr_label(substitute(x)), "is not a tsibble."))
   }
   attr(x, "index")
+}
+
+`index<-` <- function(x, value) {
+  attr(x, "index") <- value
+  x
 }
 
 #' @rdname helper
@@ -168,7 +178,7 @@ is_grouped_ts <- function(x) {
 #' @rdname is-tsibble
 #' @usage NULL
 #' @export
-is.grouped_ts <- is_grouped_ts 
+is.grouped_ts <- is_grouped_ts
 
 #' @rdname as-tsibble
 #' @export
@@ -249,7 +259,7 @@ validate_tbl_ts <- function(data, key, index) {
     dplyr::group_by(!!! comb_key) %>%
     dplyr::summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-      abort("Duplicated time index for each combination of key variables.")
+      abort("Duplicated time indices for each combination of key variables.")
   }
   data
 }

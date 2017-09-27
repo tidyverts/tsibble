@@ -22,24 +22,27 @@ filter.tbl_ts <- function(.data, ...) {
 #' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
-  val_idx <- has_index_var(j = lst_quos, x = .data)
+  val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
+  val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort("The index variable cannot be dropped.")
   }
+  rhs <- purrr::map_chr(lst_quos, quo_name)
+  lhs <- names(lst_quos)
+  index(.data) <- update_index(index(.data), rhs, lhs)
   # switch to a list due to error msg from the `else` part
   sel_data <- unclass(NextMethod()) # a list
-  index <- index(.data)
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no chang in key vars
     return(as_tsibble(
-      sel_data, !!! key(.data), index = !! f_rhs(index),
+      sel_data, !!! key(.data), index = !! f_rhs(index(.data)),
       validate = FALSE, regular = is_regular(.data)
     ))
   } else {
-    chr_key <- validate_vars(j = lst_quos, x = colnames(.data))
-    new_key <- update_key(key(.data), chr_key)
+    key(.data) <- update_key(key(.data), val_vars)
+    key(.data) <- update_key2(key(.data), rhs, lhs)
     as_tsibble(
-      sel_data, !!! new_key, index = !! f_rhs(index),
+      sel_data, !!! key(.data), index = !! f_rhs(index(.data)),
       validate = TRUE, regular = is_regular(.data)
     )
   }
@@ -47,6 +50,7 @@ select.tbl_ts <- function(.data, ...) {
 
 #' @seealso [dplyr::mutate]
 #' @export
+# [!] important to check if index and key vars have be overwritten in the LHS
 mutate.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))

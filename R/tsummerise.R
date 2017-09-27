@@ -46,7 +46,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
     mutate(!! idx_sym := !! lst_quos[[idx_pos]]) %>% 
     group_by(!!! tmp_grps)
 
-  ####### ------------!! inelegant !!------------------- #########
+  ####### ------------!! works but not elegant !!------------ #########
   tmp_data <- replace_class(tmp_data, "grouped_ts", "grouped_df")
   groups(tmp_data) <- flatten(tmp_grps)
   tmp_data <- tmp_data %>% 

@@ -22,7 +22,7 @@
 
   index <- f_rhs(index(x))
   as_tsibble.tbl_df(
-    result, !!! key(x), index = !! index, 
+    result, !!! key(x), index = !! index,
     validate = FALSE, regular = is_regular(x)
   )
 }
@@ -41,4 +41,19 @@ has_all_key <- function(j, x) {
 has_any_key <- function(j, x) {
   key_vars <- flatten_key(key(x))
   any(key_vars %in% j)
+}
+
+update_index <- function(x, rhs, lhs) {
+  as_quosure(sym(update_index_name(x, rhs, lhs)))
+}
+
+update_index_name <- function(x, rhs, lhs) {
+  idx_name <- format(x)
+  idx_idx <- match(idx_name, rhs)
+  new_idx_name <- if (is.na(idx_idx)) {
+    idx_name
+  } else {
+    lhs[idx_idx]
+  }
+  new_idx_name # character
 }

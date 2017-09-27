@@ -15,9 +15,10 @@ flatten_key <- function(lst_keys) {
   as.character(flatten(lst_keys))
 }
 
-update_key <- function(x, y) { # x = a list of keys # y = characters
+# update by character names
+update_key <- function(x, y) { # y = a vector of flat characters
   old_chr <- flatten_key(x)
-  new_idx <- sort(match(y, old_chr))
+  new_idx <- sort(match(y, old_chr)) # nesting goes first
   new_chr <- old_chr[new_idx]
   old_lgl <- rep(is_nest(x), purrr::map(x, length))
   new_lgl <- old_lgl[new_idx]
@@ -26,6 +27,24 @@ update_key <- function(x, y) { # x = a list of keys # y = characters
     return(c(list(syms(new_chr[new_lgl])), syms(new_chr[!new_lgl])))
   } else {
     syms(new_chr[!new_lgl])
+  }
+}
+
+# update by matching positions
+update_key2 <- function(x, rhs, lhs) { # rhs is quos
+  old_chr <- flatten_key(x)
+  new_idx <- match(key_name, rhs)
+  new_chr <- if (is.na(new_idx)) {
+    old_chr
+  } else {
+    lhs[new_idx]
+  }
+  lgl <- rep(is_nest(x), purrr::map(x, length))
+
+  if (any(old_lgl)) {
+    return(c(list(syms(new_chr[lgl])), syms(new_chr[!lgl])))
+  } else {
+    syms(new_chr[!lgl])
   }
 }
 
@@ -39,11 +58,11 @@ validate_key <- function(data, key) {
     return(keys)
   }
   nest_lgl <- is_nest(keys)
-  valid_keys <- syms(dplyr::select_vars(col_names, !!! keys[!nest_lgl]))
+  valid_keys <- syms(validate_vars(keys[!nest_lgl], col_names))
   if (any(nest_lgl)) {
     nest_keys <- purrr::map(
       keys[nest_lgl],
-      ~ syms(dplyr::select_vars(col_names, !!! flatten(.)))
+      ~ syms(validate_vars(flatten(.), col_names))
     )
     valid_keys <- c(nest_keys, valid_keys)
   }
