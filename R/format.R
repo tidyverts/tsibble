@@ -11,7 +11,11 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 
 #' @export
 glimpse.tbl_ts <- function(x, width = NULL, ...) {
-  NextMethod()
+  as_tsibble(
+    NextMethod(), !!! key(x), index = !! f_rhs(index(x)),
+    validate = FALSE, regular = is_regular(x)
+  )
+  invisible(x)
 }
 
 #' @export
