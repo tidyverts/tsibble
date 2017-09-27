@@ -6,7 +6,8 @@
 
   # subset by columns
   if (!missing(j)) {
-    lgl_j <- check_index_and_key(j, x = colnames(x), data = x)
+    chr_j <- validate_vars(j, colnames(x))
+    lgl_j <- has_index_var(chr_j, x) && has_all_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
@@ -26,58 +27,18 @@
   )
 }
 
-# check if both index and key are present by selecting
-# FALSE: not present otherwise return positions or names
-check_index_and_key <- function(j, x, data) {
-  if (is_false(check_index_var(j, x, data) && check_all_key(j, x, data))) {
-    return(FALSE)
-  }
-  j
+# this function usually follows validate_vars()
+has_index_var <- function(j, x) {
+  index <- f_text(index(x))
+  index %in% j
 }
 
-# check if either index or key is present by selecting
-check_index_or_key <- function(j, x, data) {
-  if (is_false(check_index_var(j, x, data) || check_all_key(j, x, data))) {
-    return(FALSE)
-  }
-  j
+has_all_key <- function(j, x) {
+  key_vars <- flatten_key(key(x))
+  all(key_vars %in% j)
 }
 
-check_index_var <- function(j, x, data) {
-  result <- validate_vars(j, x = x)
-  if (is_false(result)) {
-    return(FALSE)
-  }
-  index <- f_text(index(data))
-  if (index %in% result) {
-    return(TRUE)
-  } else {
-    FALSE
-  }
-}
-
-check_all_key <- function(j, x, data) {
-  result <- validate_vars(j, x = x)
-  if (is_false(result)) {
-    return(FALSE)
-  }
-  key_vars <- flatten_key(key(data))
-  if (all(key_vars %in% result)) {
-    return(TRUE)
-  } else {
-    FALSE
-  }
-}
-
-check_any_key <- function(j, x, data) {
-  result <- validate_vars(j, x = x)
-  if (is_false(result)) {
-    return(FALSE)
-  }
-  key_vars <- flatten_key(key(data))
-  if (any(key_vars %in% result)) {
-    return(TRUE)
-  } else {
-    FALSE
-  }
+has_any_key <- function(j, x) {
+  key_vars <- flatten_key(key(x))
+  any(key_vars %in% j)
 }

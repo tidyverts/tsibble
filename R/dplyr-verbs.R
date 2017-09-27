@@ -22,14 +22,14 @@ filter.tbl_ts <- function(.data, ...) {
 #' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
-  val_idx <- check_index_var(j = lst_quos, x = colnames(.data), .data)
+  val_idx <- has_index_var(j = lst_quos, x = .data)
   if (is_false(val_idx)) {
     abort("The index variable cannot be dropped.")
   }
-  # a list due to `else` part
+  # switch to a list due to error msg from the `else` part
   sel_data <- unclass(NextMethod()) # a list
   index <- index(.data)
-  val_key <- check_all_key(j = lst_quos, x = colnames(.data), .data)
+  val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no chang in key vars
     return(as_tsibble(
       sel_data, !!! key(.data), index = !! f_rhs(index),
@@ -49,8 +49,7 @@ select.tbl_ts <- function(.data, ...) {
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
-  vec_vars <- names(lst_quos)
-  vec_names <- union(vec_vars, colnames(.data))
+  vec_names <- union(names(lst_quos), colnames(.data))
   key <- key(.data)
   index <- f_rhs(index(.data))
   regular <- is_regular(.data)
@@ -58,8 +57,8 @@ mutate.tbl_ts <- function(.data, ...) {
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
-  val_idx <- check_index_var(vec_vars, vec_names, .data)
-  val_key <- check_any_key(vec_vars, vec_names, .data)
+  val_idx <- has_index_var(vec_names, .data)
+  val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   as_tsibble(
     mut_data, !!! key, index = !! index,
