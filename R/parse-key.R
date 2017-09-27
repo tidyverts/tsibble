@@ -34,7 +34,7 @@ update_key <- function(x, y) { # y = a vector of flat characters
 update_key2 <- function(x, rhs, lhs) { # rhs is quos
   old_chr <- flatten_key(x)
   new_idx <- match(old_chr, rhs)
-  new_chr <- if (is.na(new_idx)) {
+  new_chr <- if (any(is.na(new_idx))) {
     old_chr
   } else {
     lhs[new_idx]
