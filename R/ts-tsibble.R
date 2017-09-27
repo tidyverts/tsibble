@@ -1,7 +1,8 @@
 globalVariables(c("time"))
 
 #' @rdname as-tsibble
-#' @param tz Time zone.
+#' @param tz Time zone. May be useful when a `ts` object is more frequent than
+#' daily.
 #' 
 #' @examples
 #' # coerce ts to tsibble
@@ -43,7 +44,6 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   as_tsibble.tbl_df(tbl_hts, !!! lst_key, index = index, validate = FALSE)
 }
 
-#' @rdname as-tsibble
 as_tsibble.gts <- function(x, tz = "UTC", ...) {
   bts <- x$bts
   group <- x$group[-1, , drop = FALSE]

@@ -2,18 +2,14 @@
 % Please edit documentation in R/as-tsibble.R, R/ts-tsibble.R
 \name{as_tsibble}
 \alias{as_tsibble}
+\alias{as.tsibble}
 \alias{as_tsibble.tbl_df}
 \alias{as_tsibble.data.frame}
-\alias{as_tsibble.tbl}
 \alias{as_tsibble.list}
-\alias{as_tsibble.grouped_ts}
-\alias{as_tsibble.grouped_df}
-\alias{as_tsibble.default}
 \alias{as.tsibble}
 \alias{as_tsibble.ts}
 \alias{as_tsibble.mts}
 \alias{as_tsibble.hts}
-\alias{as_tsibble.gts}
 \title{Coerce to a tsibble object}
 \usage{
 as_tsibble(x, ...)
@@ -30,21 +26,26 @@ as_tsibble(x, ...)
 \method{as_tsibble}{mts}(x, tz = "UTC", ...)
 
 \method{as_tsibble}{hts}(x, tz = "UTC", ...)
-
-\method{as_tsibble}{gts}(x, tz = "UTC", ...)
 }
 \arguments{
-\item{x}{Other objects to be coerced to tsibble.}
+\item{x}{Other objects to be coerced to a tsibble.}
 
-\item{...}{Key variables.}
+\item{...}{Unquoted key variable(s) that define unique time indices. Only used
+for data of class \code{tbl_df}, \code{data.frame} and \code{list} (i.e. long data form), if
+a univariate time series (without an explicit key), simply leave it blank.
+Otherwise ignored.}
 
-\item{index}{A bare (or unquoted) variable indicating time index.}
+\item{index}{A bare (or unquoted) variable to specify time index.}
 
-\item{validate}{Logical.}
+\item{validate}{\code{TRUE} suggests to verify that each key or each combination
+of key variables lead to unique time indices (i.e. a valid tsibble). \code{FALSE}
+to skip the checks.}
 
-\item{regular}{Logical.}
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
+finds the minimal time span as the interval.}
 
-\item{tz}{Time zone.}
+\item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
+daily.}
 }
 \value{
 A tsibble object.
@@ -60,8 +61,10 @@ df <- data.frame(
   value = rnorm(30),
   stringsAsFactors = FALSE
 )
-as_tsibble(df, group) # "date" is automatically considered as the index var
-as_tsibble(df, group, index = date) # specify the index var
+# "date" is automatically considered as the index var, and "group" is the key
+as_tsibble(df, group) 
+# specify the index var
+as_tsibble(df, group, index = date)
 
 # coerce ts to tsibble
 as_tsibble(AirPassengers)

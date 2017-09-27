@@ -2,14 +2,21 @@ globalVariables(c("key", "value", "zzz"))
 
 #' Coerce to a tsibble object
 #'
-#' @param x Other objects to be coerced to tsibble.
-#' @param ... Key variables.
-#' @param index A bare (or unquoted) variable indicating time index.
-#' @param validate Logical.
-#' @param regular Logical.
+#' @param x Other objects to be coerced to a tsibble.
+#' @param ... Unquoted key variable(s) that define unique time indices. Only used
+#' for data of class `tbl_df`, `data.frame` and `list` (i.e. long data form), if
+#' a univariate time series (without an explicit key), simply leave it blank. 
+#' Otherwise ignored.
+#' @param index A bare (or unquoted) variable to specify time index.
+#' @param validate `TRUE` suggests to verify that each key or each combination
+#' of key variables lead to unique time indices (i.e. a valid tsibble). `FALSE`
+#' to skip the checks.
+#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
+#' finds the minimal time span as the interval.
 #'
 #' @return A tsibble object.
 #' @rdname as-tsibble
+#' @aliases as.tsibble
 #'
 #' @examples
 #' # coerce data.frame to tsibble
@@ -19,8 +26,10 @@ globalVariables(c("key", "value", "zzz"))
 #'   value = rnorm(30),
 #'   stringsAsFactors = FALSE
 #' )
-#' as_tsibble(df, group) # "date" is automatically considered as the index var
-#' as_tsibble(df, group, index = date) # specify the index var
+#' # "date" is automatically considered as the index var, and "group" is the key
+#' as_tsibble(df, group) 
+#' # specify the index var
+#' as_tsibble(df, group, index = date)
 #'
 #' @export
 as_tsibble <- function(x, ...) {
@@ -41,8 +50,7 @@ as_tsibble.tbl_df <- function(x, ..., index, validate = TRUE, regular = TRUE) {
 #' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
-#' @rdname as-tsibble
-#' @usage NULL
+#' @keywords internal
 #' @export
 as_tsibble.tbl <- as_tsibble.tbl_df
 
@@ -50,8 +58,7 @@ as_tsibble.tbl <- as_tsibble.tbl_df
 #' @export
 as_tsibble.list <- as_tsibble.tbl_df
 
-#' @rdname as-tsibble
-#' @usage NULL
+#' @keywords internal
 #' @export
 as_tsibble.grouped_ts <- function(
   x, ..., index, validate = TRUE, regular = TRUE
@@ -69,13 +76,11 @@ as_tsibble.grouped_ts <- function(
   tbl
 }
 
-#' @rdname as-tsibble
-#' @usage NULL
+#' @keywords internal
 #' @export
 as_tsibble.grouped_df <- as_tsibble.grouped_ts
 
-#' @rdname as-tsibble
-#' @usage NULL
+#' @keywords internal
 #' @export
 as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
