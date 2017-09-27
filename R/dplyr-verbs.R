@@ -33,7 +33,7 @@ select.tbl_ts <- function(.data, ...) {
   # switch to a list due to error msg from the `else` part
   sel_data <- unclass(NextMethod()) # a list
   val_key <- has_all_key(j = lst_quos, x = .data)
-  if (is_true(val_key)) { # no chang in key vars
+  if (is_true(val_key)) { # no changes in key vars
     return(as_tsibble(
       sel_data, !!! key(.data), index = !! f_rhs(index(.data)),
       validate = FALSE, regular = is_regular(.data)
@@ -46,6 +46,24 @@ select.tbl_ts <- function(.data, ...) {
       validate = TRUE, regular = is_regular(.data)
     )
   }
+}
+
+#' @seealso [dplyr::rename]
+#' @export
+rename.tbl_ts <- function(.data, ...) {
+  lst_quos <- quos(..., .named = TRUE)
+  val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
+  if (has_index_var(val_vars, .data) || has_any_key(val_vars, .data)) {
+    rhs <- purrr::map_chr(lst_quos, quo_name)
+    lhs <- names(lst_quos)
+    index(.data) <- update_index(index(.data), rhs, lhs)
+    key(.data) <- update_key2(key(.data), rhs, lhs)
+  }
+  ren_data <- NextMethod()
+  as_tsibble(
+    ren_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
 }
 
 #' @seealso [dplyr::mutate]

@@ -34,11 +34,9 @@ update_key <- function(x, y) { # y = a vector of flat characters
 update_key2 <- function(x, rhs, lhs) { # rhs is quos
   old_chr <- flatten_key(x)
   new_idx <- match(old_chr, rhs)
-  new_chr <- if (any(is.na(new_idx))) {
-    old_chr
-  } else {
-    lhs[new_idx]
-  }
+  new_chr <- lhs[new_idx]
+  na_idx <- which(is.na(new_idx), useNames = FALSE)
+  new_chr[na_idx] <- old_chr[na_idx]
   lgl <- rep(is_nest(x), purrr::map(x, length))
 
   if (any(lgl)) {

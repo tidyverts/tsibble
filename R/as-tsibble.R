@@ -266,7 +266,8 @@ validate_tbl_ts <- function(data, key, index) {
 
 #' @export
 as_tibble.tbl_ts <- function(x, ...) {
-  NextMethod()
+  class(x) <- c("tbl_df", "tbl", "data.frame")
+  x
 }
 
 #' @export

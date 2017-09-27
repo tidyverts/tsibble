@@ -26,6 +26,10 @@ dplyr::filter
 #' @export
 dplyr::select
 
+#' @importFrom dplyr rename
+#' @export
+dplyr::rename
+
 #' @importFrom dplyr arrange
 #' @export
 dplyr::arrange
