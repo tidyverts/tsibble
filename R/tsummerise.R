@@ -1,22 +1,25 @@
-#' @title Aggregate over calendar periods
+#' Aggregate over calendar periods
 #'
-#' @description It computes summary statistics for a tsibble over calendar
-#' periods, usually used in combination of [group_by].
+#' It computes summary statistics for a tsibble over calendar periods, usually 
+#' used in combination of [group_by].
 #'
 #' @param .data A tsibble (of `tbl_ts` class).
-#' @param ... Name-value pairs of summary functions. To aggregate tsibble over
-#' a certain calendar period, for example yearly aggregates, use [lubridate::year]
+#' @param ... Name-value pairs of summary functions. To aggregate the data over
+#' a certain calendar period, for example monthly aggregates, use [as.yearmon] 
 #' on the index variable.
 #'
 #' @rdname tsummarise
 #'
-#' @return A tsibble class.
-#'
 #' @examples
-#'    # pkgs_ts <- as_tsibble(tidypkgs, index = date, package)
-#'    # pkgs_ts %>% 
-#'    #   group_by(package) %>% 
-#'    # summarise(avg_count = mean(count), month = ~ as.yearmon())
+#' monthly_ped <- pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   tsummarise(
+#'     Year_Month = as.yearmon(Date_Time), # Year_Month will be the new index
+#'     Max_Count = max(Count),
+#'     Min_Count = min(Count)
+#'   )
+#' monthly_ped
+#' index(monthly_ped)
 #'
 #'
 #' @export
