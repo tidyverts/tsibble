@@ -8,6 +8,19 @@ arrange.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @seealso [dplyr::arrange]
+#' @export
+arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
+  grps <- groups(.data)
+  grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
+  arr_data <- arrange(grped_data, ..., .by_group = .by_group)
+  tbl <- as_tsibble(
+    arr_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
+  groups(tbl) <- grps
+}
+
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
@@ -72,17 +85,25 @@ rename.tbl_ts <- function(.data, ...) {
 mutate.tbl_ts <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
-  mut_data <- NextMethod()
+  grps <- groups(.data)
+  mut_data <- if (is.grouped_ts(.data)) {
+    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
+    mutate(grped_data, ...)
+  } else {
+    NextMethod()
+  }
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
   val_idx <- has_index_var(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
-  as_tsibble(
+  tbl <- as_tsibble(
     mut_data, !!! key(.data), index = !! f_rhs(index(.data)),
     validate = validate, regular = is_regular(.data)
   )
+  groups(tbl) <- grps
+  tbl
 }
 
 #' @seealso [dplyr::group_by]

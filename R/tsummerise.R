@@ -37,10 +37,11 @@ tsummarise.tbl_ts <- function(.data, ...) {
   if (is.na(idx_pos)) {
     abort(paste("Missing index variable:", idx_var))
   }
-  idx_sym <- sym(names(lst_quos)[[idx_pos]])
+  idx_name <- names(lst_quos)[[idx_pos]]
+  idx_sym <- sym(idx_name)
 
   # aggregate over time
-  chr_grps <- as.character(c(grps, idx_sym))
+  chr_grps <- c(flatten_key(grps), idx_name)
   pre_data <- .data %>% 
     ungroup() %>% 
     mutate(!! idx_sym := !! lst_quos[[idx_pos]])
