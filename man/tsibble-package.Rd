@@ -2,9 +2,9 @@
 % Please edit documentation in R/tsibble-pkg.R
 \docType{package}
 \name{tsibble-package}
-\title{tsibble: Temporal Data Frames}
+\title{tsibble: Temporal Data Frames and Tools}
 \description{
-The 'tsibble' provides and works with tidy temporal data.
+The 'tsibble' provides tools to work with tidy temporal data.
 }
 \seealso{
 Useful links:
@@ -16,5 +16,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Earo Wang \email{earo.wang@gmail.com}
+
+Authors:
+\itemize{
+  \item Di Cook [thesis advisor]
+  \item Rob Hyndman [thesis advisor]
+}
 
 }

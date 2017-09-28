@@ -20,7 +20,7 @@ glimpse.tbl_ts <- function(x, width = NULL, ...) {
 
 #' @export
 print.key <- function(x, ...) {
-  cat_line(format(x, ...))
+  cat_line(paste(format(x, ...), collapse = ", "))
   invisible(x)
 }
 
@@ -30,15 +30,15 @@ format.key <- function(x, ...) {
     return("NULL")
   }
   nest_lgl <- is_nest(x)
-  comb_keys <- paste(as.character(x[!nest_lgl]), collapse = ", ")
+  comb_keys <- purrr::map(x[!nest_lgl], as.character)
   if (any(nest_lgl)) {
-    nest_keys <- as.character(purrr::flatten(x[nest_lgl]))
+    nest_keys <- as.character(flatten(x[nest_lgl]))
     cond_keys <- paste(nest_keys, collapse = " | ")
-    comb_keys <- ifelse(
-      is_true(nest_lgl),
-      cond_keys,
-      paste(cond_keys, comb_keys, sep = ", ")
-    )
+    comb_keys <- if (is_true(nest_lgl)) {
+      cond_keys
+    } else {
+      c(cond_keys, comb_keys)
+    }
   }
   comb_keys
 }

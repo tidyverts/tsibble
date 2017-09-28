@@ -19,5 +19,5 @@ tbl_sum.tbl_ts <- function(x) {
   } else {
     first <- c("A tsibble" = paste(dim_tbl_ts(x), format(int_x)))
   }
-  c(first, "Keys" = format(key_var))
+  c(first, "Keys" = paste(format(key_var), collapse = ", "))
 }

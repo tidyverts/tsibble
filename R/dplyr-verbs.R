@@ -159,8 +159,3 @@ rm_class <- function(x, value) {
   class(x) <- class(x)[-match(value, class(x))]
   x
 }
-
-replace_class <- function(x, old, new) {
-  class(x)[match(old, class(x))] <- new
-  x
-}

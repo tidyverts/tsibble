@@ -2,7 +2,7 @@ globalVariables(c("key", "value", "zzz"))
 
 #' Coerce to a tsibble object
 #'
-#' @param x Other objects to be coerced to a tsibble.
+#' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @param ... Unquoted key variable(s) that define unique time indices. Only used
 #' for data of class `tbl_df`, `data.frame` and `list` (i.e. long data form), if
 #' a univariate time series (without an explicit key), simply leave it blank. 

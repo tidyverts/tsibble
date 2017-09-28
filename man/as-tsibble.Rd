@@ -28,7 +28,7 @@ as_tsibble(x, ...)
 \method{as_tsibble}{hts}(x, tz = "UTC", ...)
 }
 \arguments{
-\item{x}{Other objects to be coerced to a tsibble.}
+\item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
 
 \item{...}{Unquoted key variable(s) that define unique time indices. Only used
 for data of class \code{tbl_df}, \code{data.frame} and \code{list} (i.e. long data form), if
