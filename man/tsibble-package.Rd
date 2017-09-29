@@ -2,10 +2,30 @@
 % Please edit documentation in R/tsibble-pkg.R
 \docType{package}
 \name{tsibble-package}
-\title{tsibble: Temporal Data Frames and Tools}
+\alias{tsibble}
+\alias{tsibble-package}
+\title{tsibble: temporal data frames and tools}
 \description{
-The 'tsibble' provides tools to work with tidy temporal data.
+The \strong{tsibble} package provides a data class of \code{tbl_ts} to manage temporal
+data frames in a tidy and modern way. A tsibble consists of a time index,
+keys and other measured variables in a long data format, built on top of the
+\link{tibble}.
 }
+\section{Index}{
+
+The time indices are no longer an attribute (for example, the \code{tsp} attribute
+in a \code{ts} object), but the essential component of the tsibble. A few index
+class, such as \code{Date}/\code{POSIXt}/\code{difftime}, are undoubtedly supported by the
+tsibble, with two new additions \code{yearmth} and \code{yearqtr} representing
+year-month and year-quarter index.
+}
+
+\section{Key(s)}{
+
+A sequence of time indices have to be unique for each key or each combination
+of key variables.
+}
+
 \seealso{
 Useful links:
 \itemize{
