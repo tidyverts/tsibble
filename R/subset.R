@@ -1,4 +1,14 @@
 #' @export
+`$.tbl_ts` <- function(x, i) {
+  NextMethod()
+}
+
+#' @export
+`[[.tbl_ts` <- function(x, i, j, ..., exact = TRUE) {
+  NextMethod()
+}
+
+#' @export
 `[.tbl_ts` <- function(x, i, j, drop = FALSE) {
   if (drop) {
     warn("The argument 'drop' is ignored.")
