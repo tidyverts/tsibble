@@ -38,14 +38,6 @@ dplyr::arrange
 #' @export
 dplyr::`%>%`
 
-#' @importFrom zoo as.yearmon
-#' @export
-zoo::as.yearmon
-
-#' @importFrom zoo as.yearqtr
-#' @export
-zoo::as.yearqtr
-
 #' @importFrom lubridate year
 #' @export
 lubridate::year

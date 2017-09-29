@@ -1,6 +1,6 @@
 #' @export
-type_sum.yearmon <- function(x, ...) {
-  "yrmon"
+type_sum.yearmth <- function(x, ...) {
+  "yrmth"
 }
 
 #' @export

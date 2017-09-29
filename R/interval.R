@@ -7,8 +7,6 @@ gen_interval.numeric <- function(x, exclude_zero = TRUE) {
   min_interval(x, exclude_zero = exclude_zero) # num of years
 }
 
-gen_interval.integer <- gen_interval.numeric
-
 gen_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   dttm <- as.numeric(x)
   min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
@@ -16,15 +14,15 @@ gen_interval.POSIXt <- function(x, exclude_zero = TRUE) {
 
 gen_interval.Date <- gen_interval.POSIXt
 
-gen_interval.yearmon <- function(x, exclude_zero = TRUE) {
+gen_interval.yearmth <- function(x, exclude_zero = TRUE) {
   # num of months
-  mon <- as.numeric(x)
+  mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
   ceiling(min_interval(mon, exclude_zero = exclude_zero) * 12)
 }
 
 gen_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   # num of quarters
-  qtr <- as.numeric(x)
+  qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
   ceiling(min_interval(qtr, exclude_zero = exclude_zero) * 4)
 }
 
@@ -47,8 +45,8 @@ pull_interval.Date <- function(x, exclude_zero = TRUE) {
   structure(list(day = ndays), class = c("day", "interval"))
 }
 
-pull_interval.yearmon <- function(x, exclude_zero = TRUE) {
-  nmonths <- gen_interval.yearmon(x, exclude_zero = exclude_zero)
+pull_interval.yearmth <- function(x, exclude_zero = TRUE) {
+  nmonths <- gen_interval.yearmth(x, exclude_zero = exclude_zero)
   structure(list(month = nmonths), class = c("month", "interval"))
 }
 
@@ -62,8 +60,6 @@ pull_interval.numeric <- function(x, exclude_zero = TRUE) {
   structure(list(year = nyrs), class = c("year", "interval"))
 }
 
-pull_interval.integer <- pull_interval.numeric
-
 # from ts time to dates
 time_to_date <- function(x, ...) {
   UseMethod("time_to_date")
@@ -71,11 +67,11 @@ time_to_date <- function(x, ...) {
 
 time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
-  time_x <- stats::time(x)
+  time_x <- as.numeric(stats::time(x))
   if (freq == 12) { # monthly
-    return(as.yearmon(time_x))
+    return(yearmth(time_x))
   } else if (freq == 4) { # quarterly
-    return(as.yearqtr(time_x))
+    return(yearqtr(time_x))
   } else if (freq == 1) { # yearly
     return(as.numeric(time_x))
   } else {
@@ -85,17 +81,4 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
 
 time_to_date.gts <- function(x, tz = "UTC", ...) {
   time_to_date(x$bts, tz = tz, ...)
-}
-
-#' @export
-# rep S3 methods for yearmon & yearqtr
-rep.yearmon <- function(x, ...) {
-  x <- NextMethod()
-  structure(x, class = "yearmon")
-}
-
-#' @export
-rep.yearqtr <- function(x, ...) {
-  x <- NextMethod()
-  structure(x, class = "yearqtr")
 }

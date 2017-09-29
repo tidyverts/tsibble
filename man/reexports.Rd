@@ -23,10 +23,6 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
-\alias{as.yearmon}
-\alias{reexports}
-\alias{as.yearqtr}
-\alias{reexports}
 \alias{year}
 \alias{reexports}
 \alias{as_date}
@@ -52,7 +48,5 @@ below to see their documentation.
   \item{lubridate}{\code{\link[lubridate]{year}}, \code{\link[lubridate]{as_date}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
-
-  \item{zoo}{\code{\link[zoo]{as.yearmon}}, \code{\link[zoo]{as.yearqtr}}}
 }}
 

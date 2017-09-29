@@ -5,7 +5,7 @@
 #'
 #' @param .data A tsibble (of `tbl_ts` class).
 #' @param ... Name-value pairs of summary functions. To aggregate the data over
-#' a certain calendar period, for example monthly aggregates, use [as.yearmon] 
+#' a certain calendar period, for example monthly aggregates, use [yearmth] 
 #' on the index variable.
 #'
 #' @rdname tsummarise
@@ -14,7 +14,7 @@
 #' monthly_ped <- pedestrian %>% 
 #'   group_by(Sensor) %>% 
 #'   tsummarise(
-#'     Year_Month = as.yearmon(Date_Time), # Year_Month will be the new index
+#'     Year_Month = yearmth(Date_Time), # Year_Month will be the new index
 #'     Max_Count = max(Count),
 #'     Min_Count = min(Count)
 #'   )

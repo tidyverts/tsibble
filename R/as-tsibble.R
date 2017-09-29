@@ -227,11 +227,11 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
 }
 
 support_type <- function() {
-  c("time", "dttm", "date", "yrmon", "yrqtr", "int", "dbl")
+  c("time", "dttm", "date", "yrmth", "yrqtr", "int", "dbl")
 }
 
 detect_type <- function() {
-  c("time", "dttm", "date", "yrmon", "yrqtr")
+  c("time", "dttm", "date", "yrmth", "yrqtr")
 }
 
 ## Although the "index" arg is possible to automate the detection of time
