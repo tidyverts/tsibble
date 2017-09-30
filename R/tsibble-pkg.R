@@ -8,8 +8,8 @@
 #' @section Index:
 #' The time indices are no longer an attribute (for example, the `tsp` attribute 
 #' in a `ts` object), but the essential component of the tsibble. A few index 
-#' class, such as `Date`/`POSIXt`/`difftime`, are undoubtedly supported by the
-#' tsibble, with two new additions `yearmth` and `yearqtr` representing 
+#' class, such as `Date`, `POSIXt`, and `difftime`, are undoubtedly supported by 
+#' the tsibble, with two new additions `yearmth` and `yearqtr` representing 
 #' year-month and year-quarter index.
 #'
 #' @section Key(s):

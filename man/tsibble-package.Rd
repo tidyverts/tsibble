@@ -15,8 +15,8 @@ keys and other measured variables in a long data format, built on top of the
 
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but the essential component of the tsibble. A few index
-class, such as \code{Date}/\code{POSIXt}/\code{difftime}, are undoubtedly supported by the
-tsibble, with two new additions \code{yearmth} and \code{yearqtr} representing
+class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, are undoubtedly supported by
+the tsibble, with two new additions \code{yearmth} and \code{yearqtr} representing
 year-month and year-quarter index.
 }
 

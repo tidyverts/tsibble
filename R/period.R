@@ -41,9 +41,7 @@ yearmth.numeric <- function(x) {
 }
 
 #' @export
-format.yearmth <- function(x, format = "%Y %b", ...) {
-  format.Date(x, format = format, ...)
-}
+format.yearmth <- format.Date
 
 #' @export
 print.yearmth <- function(x, format = "%Y %b", ...) {

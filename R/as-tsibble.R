@@ -226,10 +226,6 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   structure(tbl, class = cls_tbl)
 }
 
-support_type <- function() {
-  c("time", "dttm", "date", "yrmth", "yrqtr", "int", "dbl")
-}
-
 detect_type <- function() {
   c("time", "dttm", "date", "yrmth", "yrqtr")
 }
@@ -237,9 +233,9 @@ detect_type <- function() {
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
 extract_index_var <- function(data, index) {
-  cols_type <- purrr::map_chr(data, tibble::type_sum)
+  idx_type <- purrr::map_chr(data, idx_sum)
   if (quo_is_missing(index)) {
-    val_idx <- cols_type %in% detect_type()
+    val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
       abort("Please specify the 'index' argument.")
     }
@@ -248,9 +244,13 @@ extract_index_var <- function(data, index) {
     idx_sym <- sym(chr_index)
     index <- as_quosure(idx_sym)
   } else {
-    idx_type <- cols_type[quo_text(index, width = 500L)]
-    if (is_false(any(idx_type %in% support_type()))) {
-      abort(paste(idx_type, "is invalid for tbl_ts."))
+    idx_na <- idx_type[quo_text(index, width = 500L)]
+    if (is.na(idx_na)) {
+      cls_idx <- purrr::map_chr(data, ~ class(.)[1])
+      abort(paste(
+        "Unsupported index type:", 
+        cls_idx[colnames(data) %in% names(idx_na)])
+      )
     }
   }
   index
