@@ -2,8 +2,8 @@
 #'
 #' The **tsibble** package provides a data class of `tbl_ts` to manage temporal
 #' data frames in a tidy and modern way. A tsibble consists of a time index, 
-#' keys and other measured variables in a long data format, built on top of the 
-#' [tibble]. 
+#' keys and other measured variables in a long data format, which is built on 
+#' top of the [tibble]. 
 #'
 #' @section Index:
 #' The time indices are no longer an attribute (for example, the `tsp` attribute 

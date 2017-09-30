@@ -7,6 +7,8 @@ find_interval.numeric <- function(x, exclude_zero = TRUE) {
   min_interval(x, exclude_zero = exclude_zero) # num of years
 }
 
+find_interval.integer <- find_interval.numeric
+
 find_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   dttm <- as.numeric(x)
   min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
@@ -59,6 +61,8 @@ pull_interval.numeric <- function(x, exclude_zero = TRUE) {
   nyrs <- find_interval.numeric(x, exclude_zero = exclude_zero)
   structure(list(year = nyrs), class = "interval")
 }
+
+pull_interval.integer <- pull_interval.numeric
 
 # from ts time to dates
 time_to_date <- function(x, ...) {
