@@ -51,9 +51,9 @@ weather_ts
 
 The **key** is not constrained to a single variable, but expressive for grouping and nesting data structures. See `vignette()` for details.
 
-### Summarise over calendar periods
+### Summarise over calendar periods with `tsummarise()`
 
-The common *dplyr* verbs, such as `mutate()`, `select()`, `filter()`, and `arrange()`, also work with the tsibble, except for `summerise()`. Because we have `tsummerise()` instead to aggregate interested variables over calendar periods.
+The common *dplyr* verbs, such as `mutate()`, `select()`, `filter()`, and `arrange()`, also work with the tsibble, except for `summarise()`. Because we have `tsummarise()` instead to aggregate interested variables over calendar periods.
 
 ``` r
 weather_ts %>%
@@ -81,7 +81,7 @@ weather_ts %>%
 #> # ... with 26 more rows
 ```
 
-The `tsummerise` goes hand in hand with the index functions including `as.Date()`/`as_date()`, `yearmth()`, `yearqtr()`, and `year()`.
+The `tsummerise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, and `year()`.
 
 Related work
 ------------
