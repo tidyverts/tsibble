@@ -1,52 +1,46 @@
 # Unlike zoo::yearmon and zoo::yearqtr based on numerics,
 # tsibble::yearmth and tsibble::yearqtr are based on the "Date" class.
 
-#' Represent year-month or year-quarter objects
+#' Represent year-month, year-quarter and year objects
 #'
 #' @param x A vector of date-time, date.
-#' @param tz Time zone associated with the `POSIXt` object x is the default.
-#' @param ... Other arguments applied to an individual class.
 #'
-#' @return A year-month (`yearmth`) or year-quarter (`yearqtr`) object.
-#' @rdname period
+#' @return Year-month (`yearmth`), year-quarter (`yearqtr`) and year (`year`)
+#' objects.
+#' @details It's a known issue that these attributes will be dropped when using
+#' [group_by] and [mutate] together.
+#'
 #' @export
+#' @rdname period
 #'
 #' @examples
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
 #' yearmth(x)
 #' yearqtr(x)
 #' year(x)
-yearmth <- function(x, ...) {
+yearmth <- function(x) {
   UseMethod("yearmth")
 }
 
-#' @rdname period
 #' @export
-yearmth.Date <- function(x, ...) {
-  # convert all to the first day of the month
-  result <- lubridate::floor_date(x, unit = "months")
+yearmth.POSIXt <- function(x) {
+  posix <- split_POSIXt(x)
+  result <- as.Date(paste(posix$year, posix$mon, "01", sep = "-"))
   structure(result, class = c("yearmth", "Date"))
 }
 
-#' @rdname period
 #' @export
-yearmth.POSIXt <- function(x, tz = NULL, ...) {
-  date <- lubridate::as_date(x, tz = tz)
-  result <- lubridate::floor_date(date, unit = "months")
-  structure(result, class = c("yearmth", "Date"))
-}
+yearmth.Date <- yearmth.POSIXt
 
-#' @rdname period
 #' @export
-yearmth.yearmth <- function(x, ...) {
+yearmth.yearmth <- function(x) {
   structure(x, class = c("yearmth", "Date"))
 }
 
-#' @rdname period
 #' @export
-yearmth.numeric <- function(x, ...) {
+yearmth.numeric <- function(x) {
   year <- trunc(x)
-  month <- formatC(trunc((x %% 1) * 12 + 1), flag = 0, width = 2)
+  month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
   result <- as.Date(paste(year, month, "01", sep = "-"))
   structure(result, class = c("yearmth", "Date"))
 }
@@ -64,36 +58,32 @@ print.yearmth <- function(x, format = "%Y %b", ...) {
 
 #' @rdname period
 #' @export
-yearqtr <- function(x, ...) {
+yearqtr <- function(x) {
   UseMethod("yearqtr")
 }
 
-#' @rdname period
 #' @export
-yearqtr.POSIXt <- function(x, tz = NULL, ...) {
-  date <- lubridate::as_date(x, tz = tz)
-  result <- lubridate::floor_date(date, unit = "quarters")
+yearqtr.POSIXt <- function(x) {
+  posix <- split_POSIXt(x)
+  qtrs <- posix$mon - (posix$mon - 1) %% 3
+  result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
   structure(result, class = c("yearqtr", "Date"))
 }
 
-#' @rdname period
 #' @export
-yearqtr.Date <- function(x, ...) {
-  result <- lubridate::floor_date(x, unit = "quarters")
-  structure(result, class = c("yearmth", "Date"))
-}
+yearqtr.Date <- yearqtr.POSIXt
 
-#' @rdname period
 #' @export
-yearqtr.yearqtr <- function(x, ...) {
+yearqtr.yearqtr <- function(x) {
   structure(x, class = c("yearqtr", "Date"))
 }
 
-#' @rdname period
 #' @export
-yearqtr.numeric <- function(x, ...) {
+yearqtr.numeric <- function(x) {
   year <- trunc(x)
-  quarter <- formatC(trunc((x %% 1) * 4 + 1), flag = 0, width = 2)
+  last_month <- trunc((x %% 1) * 4 + 1) * 3
+  first_month <- last_month - 2
+  quarter <- formatC(first_month, flag = 0, width = 2)
   result <- as.Date(paste(year, quarter, "01", sep = "-"))
   structure(result, class = c("yearqtr", "Date"))
 }
@@ -117,7 +107,7 @@ format.yearqtr <- function(x, format = "%Y Q%q", ...) {
 
 #' @export
 print.yearqtr <- function(x, format = "%Y Q%q", ...) {
-  print(format.yearqtr(x, format = format, ...))
+  print(format.yearqtr(x, format = format))
   invisible(x)
 }
 
@@ -131,32 +121,27 @@ year <- function(x) {
 # But it's a known issue that dplyr::mutate coupled with dplyr::group_by drops
 # extra attributes.
 
-#' @rdname period
 #' @export
 year.POSIXt <- function(x) {
-  yr <- as.POSIXlt(x, tz = lubridate::tz(x))$year + 1900
-  result <- as.Date(paste(yr, "01", "01", sep = "-"))
+  posix <- split_POSIXt(x)
+  result <- as.Date(paste(posix$year, "01", "01", sep = "-"))
   structure(result, class = c("year", "Date"))
 }
 
-#' @rdname period
 #' @export
 year.Date <- year.POSIXt
 
-#' @rdname period
 #' @export
 year.year <- function(x) {
   structure(x, class = c("year", "Date"))
 }
 
-#' @rdname period
 #' @export
 year.numeric <- function(x) {
   result <- as.Date(paste(x, "01", "01", sep = "-"))
   structure(result, class = c("year", "Date"))
 }
 
-#' @rdname period
 #' @export
 year.integer <- year.numeric
 
@@ -167,6 +152,13 @@ format.year <- function(x, format = "%Y", ...) {
 
 #' @export
 print.year <- function(x, format = "%Y", ...) {
-  print(format(x, format = format, ...))
+  print(as.integer(format(x, format = format, ...)))
   invisible(x)
+}
+
+split_POSIXt <- function(x) {
+  posix <- as.POSIXlt(x, tz = lubridate::tz(x))
+  posix$mon <- posix$mon + 1
+  posix$year <- posix$year + 1900
+  posix
 }

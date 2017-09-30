@@ -2,67 +2,29 @@
 % Please edit documentation in R/period.R
 \name{yearmth}
 \alias{yearmth}
-\alias{yearmth.Date}
-\alias{yearmth.POSIXt}
-\alias{yearmth.yearmth}
-\alias{yearmth.numeric}
 \alias{yearqtr}
-\alias{yearqtr.POSIXt}
-\alias{yearqtr.Date}
-\alias{yearqtr.yearqtr}
-\alias{yearqtr.numeric}
 \alias{year}
-\alias{year.POSIXt}
-\alias{year.Date}
-\alias{year.year}
-\alias{year.numeric}
-\alias{year.integer}
-\title{Represent year-month or year-quarter objects}
+\title{Represent year-month, year-quarter and year objects}
 \usage{
-yearmth(x, ...)
+yearmth(x)
 
-\method{yearmth}{Date}(x, ...)
-
-\method{yearmth}{POSIXt}(x, tz = NULL, ...)
-
-\method{yearmth}{yearmth}(x, ...)
-
-\method{yearmth}{numeric}(x, ...)
-
-yearqtr(x, ...)
-
-\method{yearqtr}{POSIXt}(x, tz = NULL, ...)
-
-\method{yearqtr}{Date}(x, ...)
-
-\method{yearqtr}{yearqtr}(x, ...)
-
-\method{yearqtr}{numeric}(x, ...)
+yearqtr(x)
 
 year(x)
-
-\method{year}{POSIXt}(x)
-
-\method{year}{Date}(x)
-
-\method{year}{year}(x)
-
-\method{year}{numeric}(x)
-
-\method{year}{integer}(x)
 }
 \arguments{
 \item{x}{A vector of date-time, date.}
-
-\item{...}{Other arguments applied to an individual class.}
-
-\item{tz}{Time zone associated with the \code{POSIXt} object x is the default.}
 }
 \value{
-A year-month (\code{yearmth}) or year-quarter (\code{yearqtr}) object.
+Year-month (\code{yearmth}), year-quarter (\code{yearqtr}) and year (\code{year})
+objects.
 }
 \description{
-Represent year-month or year-quarter objects
+Represent year-month, year-quarter and year objects
+}
+\details{
+It's a known issue that these attributes will be dropped when using
+\link{group_by} and \link{mutate} together.
 }
 \examples{
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
