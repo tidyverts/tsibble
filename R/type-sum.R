@@ -1,11 +1,11 @@
 #' @export
 type_sum.yearmth <- function(x) {
-  "yrmth"
+  "mth"
 }
 
 #' @export
 type_sum.yearqtr <- function(x) {
-  "yrqtr"
+  "qtr"
 }
 
 #' @export

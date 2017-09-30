@@ -67,7 +67,7 @@ weather_ts %>%
 #> # Keys:      origin
 #> # Groups:    origin
 #>    origin year_month avg_temp ttl_precip
-#>  *  <chr>    <yrmth>    <dbl>      <dbl>
+#>  *  <chr>      <mth>    <dbl>      <dbl>
 #>  1    EWR   2013 Jan 35.45787       2.70
 #>  2    EWR   2013 Feb 34.09193       2.76
 #>  3    EWR   2013 Mar 39.98992       1.92
