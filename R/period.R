@@ -5,6 +5,7 @@
 #'
 #' @param x A vector of date-time, date.
 #' @param tz Time zone associated with the `POSIXt` object x is the default.
+#' @param ... Other arguments applied to an individual class.
 #'
 #' @return A year-month (`yearmth`) or year-quarter (`yearqtr`) object.
 #' @rdname period
@@ -18,6 +19,7 @@ yearmth <- function(x, ...) {
   UseMethod("yearmth")
 }
 
+#' @rdname period
 #' @export
 yearmth.Date <- function(x, ...) {
   # convert all to the first day of the month
@@ -25,6 +27,7 @@ yearmth.Date <- function(x, ...) {
   structure(result, class = c("yearmth", "Date"))
 }
 
+#' @rdname period
 #' @export
 yearmth.POSIXt <- function(x, tz = NULL, ...) {
   date <- lubridate::as_date(x, tz = tz)
@@ -32,11 +35,13 @@ yearmth.POSIXt <- function(x, tz = NULL, ...) {
   structure(result, class = c("yearmth", "Date"))
 }
 
+#' @rdname period
 #' @export
 yearmth.yearmth <- function(x, ...) {
   x
 }
 
+#' @rdname period
 #' @export
 yearmth.numeric <- function(x, ...) {
   year <- trunc(x)
@@ -62,6 +67,7 @@ yearqtr <- function(x, ...) {
   UseMethod("yearqtr")
 }
 
+#' @rdname period
 #' @export
 yearqtr.POSIXt <- function(x, tz = NULL, ...) {
   date <- lubridate::as_date(x, tz = tz)
@@ -69,17 +75,20 @@ yearqtr.POSIXt <- function(x, tz = NULL, ...) {
   structure(result, class = c("yearqtr", "Date"))
 }
 
+#' @rdname period
 #' @export
-yearmth.Date <- function(x, ...) {
+yearqtr.Date <- function(x, ...) {
   result <- lubridate::floor_date(x, unit = "quarters")
   structure(result, class = c("yearmth", "Date"))
 }
 
+#' @rdname period
 #' @export
 yearqtr.yearqtr <- function(x, ...) {
   x
 }
 
+#' @rdname period
 #' @export
 yearqtr.numeric <- function(x, ...) {
   year <- trunc(x)

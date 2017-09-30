@@ -2,15 +2,41 @@
 % Please edit documentation in R/period.R
 \name{yearmth}
 \alias{yearmth}
+\alias{yearmth.Date}
+\alias{yearmth.POSIXt}
+\alias{yearmth.yearmth}
+\alias{yearmth.numeric}
 \alias{yearqtr}
+\alias{yearqtr.POSIXt}
+\alias{yearqtr.Date}
+\alias{yearqtr.yearqtr}
+\alias{yearqtr.numeric}
 \title{Represent year-month or year-quarter objects}
 \usage{
 yearmth(x, ...)
 
+\method{yearmth}{Date}(x, ...)
+
+\method{yearmth}{POSIXt}(x, tz = NULL, ...)
+
+\method{yearmth}{yearmth}(x, ...)
+
+\method{yearmth}{numeric}(x, ...)
+
 yearqtr(x, ...)
+
+\method{yearqtr}{POSIXt}(x, tz = NULL, ...)
+
+\method{yearqtr}{Date}(x, ...)
+
+\method{yearqtr}{yearqtr}(x, ...)
+
+\method{yearqtr}{numeric}(x, ...)
 }
 \arguments{
 \item{x}{A vector of date-time, date.}
+
+\item{...}{Other arguments applied to an individual class.}
 
 \item{tz}{Time zone associated with the \code{POSIXt} object x is the default.}
 }
