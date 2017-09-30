@@ -58,7 +58,7 @@ print.interval <- function(x, ...) {
 #' @export
 format.interval <- function(x, ...) {
   if (is_empty(x)) {
-    return(surround("!", "["))
+    return("!")
   }
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   # if output is empty, it means that duplicated time entries
@@ -66,9 +66,9 @@ format.interval <- function(x, ...) {
   output <- x[not_zero]
   vec_x <- rlang::flatten_dbl(output)
   if (is_empty(output) || is_empty(vec_x)) {
-    return(surround("?", "["))
+    return("?")
   }
-  surround(paste0(vec_x, toupper(names(output)), collapse = " "), "[")
+  paste0(vec_x, toupper(names(output)), collapse = " ")
 }
 
 #' @export
