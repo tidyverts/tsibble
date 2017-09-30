@@ -16,7 +16,7 @@ Imports:
     purrr,
     tibble,
     lubridate,
-    dplyr (>= 0.7.0),
+    dplyr (>= 0.7.3),
     Rcpp (>= 0.12.3)
 Suggests:
     knitr,

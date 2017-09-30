@@ -127,6 +127,10 @@ year <- function(x) {
   UseMethod("year")
 }
 
+# I'd like to implement the underlying "year" is an integer instead of Date.
+# But it's a known issue that dplyr::mutate coupled with dplyr::group_by drops
+# extra attributes.
+
 #' @rdname period
 #' @export
 year.POSIXt <- function(x, tz = NULL, ...) {
