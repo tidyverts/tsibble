@@ -38,14 +38,6 @@ dplyr::arrange
 #' @export
 dplyr::`%>%`
 
-#' @importFrom lubridate year
-#' @export
-lubridate::year
-
-#' @importFrom lubridate as_date
-#' @export
-lubridate::as_date
-
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

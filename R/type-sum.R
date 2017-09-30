@@ -9,6 +9,11 @@ type_sum.yearqtr <- function(x) {
 }
 
 #' @export
+type_sum.year <- function(x) {
+  "year"
+}
+
+#' @export
 tbl_sum.tbl_ts <- function(x) {
   int_x <- interval(x)
   c(
@@ -59,6 +64,11 @@ idx_sum.yearmth <- function(x) {
 #' @export
 idx_sum.yearqtr <- function(x) {
   "yrqtr"
+}
+
+#' @export
+idx_sum.year <- function(x) {
+  "year"
 }
 
 #' @export

@@ -23,10 +23,6 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
-\alias{year}
-\alias{reexports}
-\alias{as_date}
-\alias{reexports}
 \alias{glimpse}
 \alias{reexports}
 \alias{tbl_sum}
@@ -44,8 +40,6 @@ below to see their documentation.
 
 \describe{
   \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{\%>\%}}}
-
-  \item{lubridate}{\code{\link[lubridate]{year}}, \code{\link[lubridate]{as_date}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
 }}

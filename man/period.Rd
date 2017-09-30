@@ -11,6 +11,12 @@
 \alias{yearqtr.Date}
 \alias{yearqtr.yearqtr}
 \alias{yearqtr.numeric}
+\alias{year}
+\alias{year.POSIXt}
+\alias{year.Date}
+\alias{year.year}
+\alias{year.numeric}
+\alias{year.integer}
 \title{Represent year-month or year-quarter objects}
 \usage{
 yearmth(x, ...)
@@ -32,6 +38,18 @@ yearqtr(x, ...)
 \method{yearqtr}{yearqtr}(x, ...)
 
 \method{yearqtr}{numeric}(x, ...)
+
+year(x)
+
+\method{year}{POSIXt}(x, tz = NULL, ...)
+
+\method{year}{Date}(x)
+
+\method{year}{year}(x)
+
+\method{year}{numeric}(x)
+
+\method{year}{integer}(x)
 }
 \arguments{
 \item{x}{A vector of date-time, date.}
@@ -50,4 +68,5 @@ Represent year-month or year-quarter objects
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
 yearmth(x)
 yearqtr(x)
+year(x)
 }

@@ -15,6 +15,7 @@
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
 #' yearmth(x)
 #' yearqtr(x)
+#' year(x)
 yearmth <- function(x, ...) {
   UseMethod("yearmth")
 }
@@ -38,7 +39,7 @@ yearmth.POSIXt <- function(x, tz = NULL, ...) {
 #' @rdname period
 #' @export
 yearmth.yearmth <- function(x, ...) {
-  x
+  structure(x, class = c("yearmth", "Date"))
 }
 
 #' @rdname period
@@ -85,7 +86,7 @@ yearqtr.Date <- function(x, ...) {
 #' @rdname period
 #' @export
 yearqtr.yearqtr <- function(x, ...) {
-  x
+  structure(x, class = c("yearqtr", "Date"))
 }
 
 #' @rdname period
@@ -117,5 +118,54 @@ format.yearqtr <- function(x, format = "%Y Q%q", ...) {
 #' @export
 print.yearqtr <- function(x, format = "%Y Q%q", ...) {
   print(format.yearqtr(x, format = format, ...))
+  invisible(x)
+}
+
+#' @rdname period
+#' @export
+year <- function(x) {
+  UseMethod("year")
+}
+
+#' @rdname period
+#' @export
+year.POSIXt <- function(x, tz = NULL, ...) {
+  date <- lubridate::as_date(x, tz = tz)
+  result <- lubridate::floor_date(date, unit = "years")
+  structure(result, class = c("year", "Date"))
+}
+
+#' @rdname period
+#' @export
+year.Date <- function(x) {
+  result <- lubridate::floor_date(x, unit = "years")
+  structure(result, class = c("year", "Date"))
+}
+
+#' @rdname period
+#' @export
+year.year <- function(x) {
+  structure(x, class = c("year", "Date"))
+}
+
+#' @rdname period
+#' @export
+year.numeric <- function(x) {
+  result <- as.Date(paste(x, "01", "01", sep = "-"))
+  structure(result, class = c("year", "Date"))
+}
+
+#' @rdname period
+#' @export
+year.integer <- year.numeric
+
+#' @export
+format.year <- function(x, format = "%Y", ...) {
+  format.Date(x, format = format, ...)
+}
+
+#' @export
+print.year <- function(x, format = "%Y", ...) {
+  print(format(x, format = format, ...))
   invisible(x)
 }

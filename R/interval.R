@@ -4,10 +4,15 @@ find_interval <- function(x, exclude_zero = TRUE) {
 }
 
 find_interval.numeric <- function(x, exclude_zero = TRUE) {
-  min_interval(x, exclude_zero = exclude_zero) # num of years
+  min_interval(x, exclude_zero = exclude_zero)
 }
 
 find_interval.integer <- find_interval.numeric
+
+find_interval.year <- function(x, exclude_zero = TRUE) {
+  yr <- as.POSIXlt(x, tz = lubridate::tz(x))$year + 1900
+  min_interval(yr, exclude_zero = exclude_zero)
+}
 
 find_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   dttm <- as.numeric(x)
@@ -57,9 +62,14 @@ pull_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   structure(list(quarter = nqtrs), class = "interval")
 }
 
-pull_interval.numeric <- function(x, exclude_zero = TRUE) {
-  nyrs <- find_interval.numeric(x, exclude_zero = exclude_zero)
+pull_interval.year <- function(x, exclude_zero = TRUE) {
+  nyrs <- find_interval.year(x, exclude_zero = exclude_zero)
   structure(list(year = nyrs), class = "interval")
+}
+
+pull_interval.numeric <- function(x, exclude_zero = TRUE) {
+  nunits <- find_interval.numeric(x, exclude_zero = exclude_zero)
+  structure(list(unit = nunits), class = "interval")
 }
 
 pull_interval.integer <- pull_interval.numeric
