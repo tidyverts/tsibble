@@ -41,7 +41,7 @@ yearqtr(x, ...)
 
 year(x)
 
-\method{year}{POSIXt}(x, tz = NULL, ...)
+\method{year}{POSIXt}(x)
 
 \method{year}{Date}(x)
 

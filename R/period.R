@@ -133,18 +133,15 @@ year <- function(x) {
 
 #' @rdname period
 #' @export
-year.POSIXt <- function(x, tz = NULL, ...) {
-  date <- lubridate::as_date(x, tz = tz)
-  result <- lubridate::floor_date(date, unit = "years")
+year.POSIXt <- function(x) {
+  yr <- as.POSIXlt(x, tz = lubridate::tz(x))$year + 1900
+  result <- as.Date(paste(yr, "01", "01", sep = "-"))
   structure(result, class = c("year", "Date"))
 }
 
 #' @rdname period
 #' @export
-year.Date <- function(x) {
-  result <- lubridate::floor_date(x, unit = "years")
-  structure(result, class = c("year", "Date"))
-}
+year.Date <- year.POSIXt
 
 #' @rdname period
 #' @export
