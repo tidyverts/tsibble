@@ -1,26 +1,26 @@
 # Number of time units
-gen_interval <- function(x, exclude_zero = TRUE) {
-  UseMethod("gen_interval")
+find_interval <- function(x, exclude_zero = TRUE) {
+  UseMethod("find__interval")
 }
 
-gen_interval.numeric <- function(x, exclude_zero = TRUE) {
+find_interval.numeric <- function(x, exclude_zero = TRUE) {
   min_interval(x, exclude_zero = exclude_zero) # num of years
 }
 
-gen_interval.POSIXt <- function(x, exclude_zero = TRUE) {
+find_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   dttm <- as.numeric(x)
   min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
 }
 
-gen_interval.Date <- gen_interval.POSIXt
+find_interval.Date <- find_interval.POSIXt
 
-gen_interval.yearmth <- function(x, exclude_zero = TRUE) {
+find_interval.yearmth <- function(x, exclude_zero = TRUE) {
   # num of months
   mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
   ceiling(min_interval(mon, exclude_zero = exclude_zero) * 12)
 }
 
-gen_interval.yearqtr <- function(x, exclude_zero = TRUE) {
+find_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   # num of quarters
   qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
   ceiling(min_interval(qtr, exclude_zero = exclude_zero) * 4)
@@ -32,32 +32,32 @@ pull_interval <- function(x, exclude_zero = TRUE) {
 }
 
 pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
-  nhms <- gen_interval.POSIXt(x, exclude_zero = exclude_zero)
+  nhms <- find_interval.POSIXt(x, exclude_zero = exclude_zero)
   period <- split_period(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
-    class = c("hms", "interval")
+    class = "interval"
   )
 }
 
 pull_interval.Date <- function(x, exclude_zero = TRUE) {
-  ndays <- gen_interval.Date(x, exclude_zero = exclude_zero)
-  structure(list(day = ndays), class = c("day", "interval"))
+  ndays <- find_interval.Date(x, exclude_zero = exclude_zero)
+  structure(list(day = ndays), class = "interval")
 }
 
 pull_interval.yearmth <- function(x, exclude_zero = TRUE) {
-  nmonths <- gen_interval.yearmth(x, exclude_zero = exclude_zero)
-  structure(list(month = nmonths), class = c("month", "interval"))
+  nmonths <- find_interval.yearmth(x, exclude_zero = exclude_zero)
+  structure(list(month = nmonths), class = "interval")
 }
 
 pull_interval.yearqtr <- function(x, exclude_zero = TRUE) {
-  nqtrs <- gen_interval.yearqtr(x, exclude_zero = exclude_zero)
-  structure(list(quarter = nqtrs), class = c("quarter", "interval"))
+  nqtrs <- find_interval.yearqtr(x, exclude_zero = exclude_zero)
+  structure(list(quarter = nqtrs), class = "interval")
 }
 
 pull_interval.numeric <- function(x, exclude_zero = TRUE) {
-  nyrs <- gen_interval.numeric(x, exclude_zero = exclude_zero)
-  structure(list(year = nyrs), class = c("year", "interval"))
+  nyrs <- find_interval.numeric(x, exclude_zero = exclude_zero)
+  structure(list(year = nyrs), class = "interval")
 }
 
 # from ts time to dates
