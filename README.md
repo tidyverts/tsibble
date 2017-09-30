@@ -31,7 +31,7 @@ The `weather` data included in the package `nycflights13` is used as an example 
 library(tsibble)
 weather_ts <- as_tsibble(nycflights13::weather, origin, index = time_hour)
 weather_ts
-#> # A tsibble: 26,130 x 15 with 1HOUR interval
+#> # A tsibble: 26,130 x 15 [1HOUR]
 #> # Keys:      origin
 #>    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
 #>  *  <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
@@ -63,7 +63,7 @@ weather_ts %>%
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
-#> # A tsibble: 36 x 4 with 1MONTH interval
+#> # A tsibble: 36 x 4 [1MONTH]
 #> # Keys:      origin
 #> # Groups:    origin
 #>    origin year_month avg_temp ttl_precip

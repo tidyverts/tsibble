@@ -68,7 +68,7 @@ format.interval <- function(x, ...) {
   if (is_empty(output) || is_empty(vec_x)) {
     return(surround("?", "["))
   }
-  paste0(vec_x, toupper(names(output)), collapse = " ")
+  surround(paste0(vec_x, toupper(names(output)), collapse = " "), "[")
 }
 
 #' @export

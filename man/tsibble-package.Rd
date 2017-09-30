@@ -8,8 +8,8 @@
 \description{
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to manage temporal
 data frames in a tidy and modern way. A tsibble consists of a time index,
-keys and other measured variables in a long data format, built on top of the
-\link{tibble}.
+keys and other measured variables in a long data format, which is built on
+top of the \link{tibble}.
 }
 \section{Index}{
 

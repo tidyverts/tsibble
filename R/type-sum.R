@@ -11,14 +11,10 @@ type_sum.yearqtr <- function(x) {
 #' @export
 tbl_sum.tbl_ts <- function(x) {
   int_x <- interval(x)
-  if (is_regular(x)) {
-    first <- c(
-      "A tsibble" = paste(dim_tbl_ts(x), "with", format(int_x), "interval")
-    )
-  } else {
-    first <- c("A tsibble" = paste(dim_tbl_ts(x), format(int_x)))
-  }
-  c(first, "Keys" = paste(key_vars(x), collapse = ", "))
+  c(
+    "A tsibble" = paste(dim_tbl_ts(x), format(int_x)),
+    "Keys" = paste(key_vars(x), collapse = ", ")
+  )
 }
 
 #' @export
