@@ -12,6 +12,9 @@ reduce_key <- function(lst_keys) {
 }
 
 flatten_key <- function(lst_keys) {
+  if (is.null(lst_keys)) {
+    lst_keys <- list()
+  }
   as.character(flatten(lst_keys))
 }
 

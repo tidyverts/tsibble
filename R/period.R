@@ -124,8 +124,7 @@ year <- function(x) {
 #' @export
 year.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
-  result <- as.Date(paste(posix$year, "01", "01", sep = "-"))
-  structure(result, class = c("year", "Date"))
+  structure(posix$year, class = "year")
 }
 
 #' @export
@@ -133,26 +132,18 @@ year.Date <- year.POSIXt
 
 #' @export
 year.year <- function(x) {
-  structure(x, class = c("year", "Date"))
+  structure(x, class = "year")
 }
 
 #' @export
-year.numeric <- function(x) {
-  result <- as.Date(paste(x, "01", "01", sep = "-"))
-  structure(result, class = c("year", "Date"))
-}
+year.numeric <- year.year
 
 #' @export
 year.integer <- year.numeric
 
 #' @export
-format.year <- function(x, format = "%Y", ...) {
-  format.Date(x, format = format, ...)
-}
-
-#' @export
-print.year <- function(x, format = "%Y", ...) {
-  print(as.integer(format(x, format = format, ...)))
+print.year <- function(x, ...) {
+  print(as.integer(x))
   invisible(x)
 }
 

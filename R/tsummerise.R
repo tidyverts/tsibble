@@ -44,7 +44,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
   idx_sym <- sym(idx_name)
 
   # aggregate over time
-  chr_grps <- c(flatten_key(grps), idx_name)
+  chr_grps <- c(flatten_key(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
     mutate(!! idx_sym := !! lst_quos[[idx_pos]])

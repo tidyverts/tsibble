@@ -128,7 +128,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   x <- rm_class(x, "grouped_ts")
-  groups(x) <- NULL
+  groups(x) <- list()
   as_tsibble(
     x, !!! key(x), index = !! f_rhs(index(x)),
     validate = FALSE, regular = is_regular(x)
@@ -137,7 +137,13 @@ ungroup.grouped_ts <- function(x, ...) {
 
 #' @seealso [dplyr::ungroup]
 #' @export
-ungroup.tbl_ts <- ungroup.grouped_ts
+ungroup.tbl_ts <- function(x, ...) {
+  groups(x) <- list()
+  as_tsibble(
+    x, !!! key(x), index = !! f_rhs(index(x)),
+    validate = FALSE, regular = is_regular(x)
+  )
+}
 
 # this function prepares group variables in a vector of characters for
 # dplyr::grouped_df()
