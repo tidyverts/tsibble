@@ -5,12 +5,14 @@
 \alias{yearqtr}
 \title{Represent year-month or year-quarter objects}
 \usage{
-yearmth(x)
+yearmth(x, ...)
 
-yearqtr(x)
+yearqtr(x, ...)
 }
 \arguments{
 \item{x}{A vector of date-time, date.}
+
+\item{tz}{Time zone associated with the \code{POSIXt} object x is the default.}
 }
 \value{
 A year-month (\code{yearmth}) or year-quarter (\code{yearqtr}) object.

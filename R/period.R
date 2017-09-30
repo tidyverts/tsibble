@@ -4,6 +4,7 @@
 #' Represent year-month or year-quarter objects
 #'
 #' @param x A vector of date-time, date.
+#' @param tz Time zone associated with the `POSIXt` object x is the default.
 #'
 #' @return A year-month (`yearmth`) or year-quarter (`yearqtr`) object.
 #' @rdname period
@@ -13,27 +14,31 @@
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
 #' yearmth(x)
 #' yearqtr(x)
-yearmth <- function(x) {
+yearmth <- function(x, ...) {
   UseMethod("yearmth")
 }
 
 #' @export
-yearmth.POSIXt <- function(x) {
+yearmth.Date <- function(x, ...) {
   # convert all to the first day of the month
   result <- lubridate::floor_date(x, unit = "months")
   structure(result, class = c("yearmth", "Date"))
 }
 
 #' @export
-yearmth.Date <- yearmth.POSIXt
+yearmth.POSIXt <- function(x, tz = NULL, ...) {
+  date <- lubridate::as_date(x, tz = tz)
+  result <- lubridate::floor_date(date, unit = "months")
+  structure(result, class = c("yearmth", "Date"))
+}
 
 #' @export
-yearmth.yearmth <- function(x) {
+yearmth.yearmth <- function(x, ...) {
   x
 }
 
 #' @export
-yearmth.numeric <- function(x) {
+yearmth.numeric <- function(x, ...) {
   year <- trunc(x)
   month <- formatC(trunc((x %% 1) * 12 + 1), flag = 0, width = 2)
   result <- as.Date(paste(year, month, "01", sep = "-"))
@@ -41,7 +46,9 @@ yearmth.numeric <- function(x) {
 }
 
 #' @export
-format.yearmth <- format.Date
+format.yearmth <- function(x, format = "%Y %b", ...) {
+  format.Date(x, format = format, ...)
+}
 
 #' @export
 print.yearmth <- function(x, format = "%Y %b", ...) {
@@ -51,26 +58,30 @@ print.yearmth <- function(x, format = "%Y %b", ...) {
 
 #' @rdname period
 #' @export
-yearqtr <- function(x) {
+yearqtr <- function(x, ...) {
   UseMethod("yearqtr")
 }
 
 #' @export
-yearqtr.POSIXt <- function(x) {
-  result <- lubridate::floor_date(x, unit = "quarters")
+yearqtr.POSIXt <- function(x, tz = NULL, ...) {
+  date <- lubridate::as_date(x, tz = tz)
+  result <- lubridate::floor_date(date, unit = "quarters")
   structure(result, class = c("yearqtr", "Date"))
 }
 
 #' @export
-yearqtr.Date <- yearqtr.POSIXt
+yearmth.Date <- function(x, ...) {
+  result <- lubridate::floor_date(x, unit = "quarters")
+  structure(result, class = c("yearmth", "Date"))
+}
 
 #' @export
-yearqtr.yearqtr <- function(x) {
+yearqtr.yearqtr <- function(x, ...) {
   x
 }
 
 #' @export
-yearqtr.numeric <- function(x) {
+yearqtr.numeric <- function(x, ...) {
   year <- trunc(x)
   quarter <- formatC(trunc((x %% 1) * 4 + 1), flag = 0, width = 2)
   result <- as.Date(paste(year, quarter, "01", sep = "-"))
