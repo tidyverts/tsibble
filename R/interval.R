@@ -10,7 +10,7 @@ find_interval.numeric <- function(x, exclude_zero = TRUE) {
 find_interval.integer <- find_interval.numeric
 
 find_interval.year <- function(x, exclude_zero = TRUE) {
-  yr <- as.POSIXlt(x, tz = lubridate::tz(x))$year + 1900
+  yr <- split_POSIX(x, tz = lubridate::tz(x))$year
   min_interval(yr, exclude_zero = exclude_zero)
 }
 
