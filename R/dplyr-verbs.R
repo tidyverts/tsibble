@@ -24,7 +24,13 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
-  fil_data <- NextMethod()
+  grps <- groups(.data)
+  fil_data <- if (is.grouped_ts(.data)) {
+    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
+    filter(grped_data, ...)
+  } else {
+    NextMethod()
+  }
   as_tsibble(
     fil_data, !!! key(.data), index = !! f_rhs(index(.data)),
     validate = FALSE, regular = is_regular(.data)
