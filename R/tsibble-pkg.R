@@ -12,7 +12,7 @@
 #' the tsibble, with new additions [yearmth], [yearqtr] and [year] representing 
 #' year-month, year-quarter and year objects respectively.
 #'
-#' @inheritSection as_tsibble Key(s)
+#' @inheritSection as_tsibble Key
 #'
 #' @name tsibble-package
 #' @docType package
