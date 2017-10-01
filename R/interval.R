@@ -84,7 +84,7 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 4) { # quarterly
     return(yearqtr(time_x))
   } else if (freq == 1) { # yearly
-    return(as.numeric(time_x))
+    return(year(time_x))
   } else {
     return(lubridate::date_decimal(as.numeric(time_x), tz = tz))
   }
