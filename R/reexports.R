@@ -22,6 +22,10 @@ dplyr::mutate
 #' @export
 dplyr::filter
 
+#' @importFrom dplyr slice
+#' @export
+dplyr::slice
+
 #' @importFrom dplyr select
 #' @export
 dplyr::select

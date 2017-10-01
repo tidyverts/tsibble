@@ -15,6 +15,8 @@
 \alias{reexports}
 \alias{filter}
 \alias{reexports}
+\alias{slice}
+\alias{reexports}
 \alias{select}
 \alias{reexports}
 \alias{rename}
@@ -39,7 +41,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{\%>\%}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
 }}
