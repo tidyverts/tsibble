@@ -37,6 +37,22 @@ filter.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @seealso [dplyr::slice]
+#' @export
+slice.tbl_ts <- function(.data, ...) {
+  grps <- groups(.data)
+  slc_data <- if (is.grouped_ts(.data)) {
+    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
+    slice(grped_data, ...)
+  } else {
+    NextMethod()
+  }
+  as_tsibble(
+    slc_data, !!! key(.data), index = !! f_rhs(index(.data)),
+    validate = FALSE, regular = is_regular(.data)
+  )
+}
+
 #' @seealso [dplyr::select]
 #' @export
 select.tbl_ts <- function(.data, ...) {
