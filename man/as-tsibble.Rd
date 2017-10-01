@@ -53,13 +53,23 @@ A tsibble object.
 \description{
 Coerce to a tsibble object
 }
+\section{Index}{
+
+The time indices are no longer an attribute (for example, the \code{tsp} attribute
+in a \code{ts} object), but preserved as the essential component of the tsibble. A
+few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
+the tsibble, with new additions \link{yearmth}, \link{yearqtr} and \link{year} representing
+year-month, year-quarter and year objects respectively.
+}
+
 \section{Key}{
 
-\strong{Key} informs a tsibble of the structure:
+Key variable(s) together with the index uniquely identifies each record. And
+key(s) also imposes the structure on a tsibble:
 \itemize{
 \item Univariate time series: none.
 \item Multivariate time series: a single variable. For example, \code{data(pedestrian)}
-uses \code{Sensor} as the key that uniquely identify a sequence of time records.
+uses the \code{Sensor} column as the key.
 \item Grouped time series: multiple variables separated by commas (\code{,}). For example,
 sales data over time can be split by product types (\code{product}) and geographical
 locations (\code{geo}), and thus \code{product}, \code{geo} suggests the structure.
@@ -70,8 +80,7 @@ The general principle is that lower levels are nested in higher levels
 (\code{lower} | \code{middle} | \code{higher}).
 }
 
-A combination of nested and grouped variables are also supported. Each key or
-each combination of keys determine a sequence of unique time indices.
+A combination of nested and grouped variables are also supported.
 }
 
 \section{Print options}{

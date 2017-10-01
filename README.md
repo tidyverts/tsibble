@@ -25,7 +25,7 @@ Get started
 
 ### Coerce to a tsibble with `as_tsibble()`
 
-The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "time\_hour" recording the date-times is to be the "index" variable. The "key" variable is the "origin" as weather stations, which uniquely identifies a sequence of time indices. Others can be considered as measured variables.
+The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "index" variable refers to the `time_hour` containing the date-times, and the "key" is the `origin` as weather stations. **The key together with the index uniquely identifies each observation**, which defines a valid *tsibble*. Others can be considered as measured variables.
 
 ``` r
 library(tsibble)

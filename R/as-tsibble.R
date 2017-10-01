@@ -14,11 +14,19 @@ globalVariables(c("key", "value", "zzz"))
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
 #'
+#' @section Index:
+#' The time indices are no longer an attribute (for example, the `tsp` attribute 
+#' in a `ts` object), but preserved as the essential component of the tsibble. A 
+#' few index class, such as `Date`, `POSIXt`, and `difftime`, forms the basis of 
+#' the tsibble, with new additions [yearmth], [yearqtr] and [year] representing 
+#' year-month, year-quarter and year objects respectively.
+#'
 #' @section Key:
-#' **Key** informs a tsibble of the structure:
+#' Key variable(s) together with the index uniquely identifies each record. And
+#' key(s) also imposes the structure on a tsibble:
 #' * Univariate time series: none.
 #' * Multivariate time series: a single variable. For example, `data(pedestrian)`
-#' uses `Sensor` as the key that uniquely identify a sequence of time records.
+#' uses the `Sensor` column as the key.
 #' * Grouped time series: multiple variables separated by commas (`,`). For example,
 #' sales data over time can be split by product types (`product`) and geographical 
 #' locations (`geo`), and thus `product`, `geo` suggests the structure.
@@ -28,8 +36,7 @@ globalVariables(c("key", "value", "zzz"))
 #' The general principle is that lower levels are nested in higher levels
 #' (`lower` | `middle` | `higher`).
 #'
-#' A combination of nested and grouped variables are also supported. Each key or
-#' each combination of keys determine a sequence of unique time indices.
+#' A combination of nested and grouped variables are also supported.
 #'
 #' @section Print options:
 #' The tsibble package fully utilises the `print` method from the tibble. Please
