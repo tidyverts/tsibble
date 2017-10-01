@@ -14,6 +14,26 @@ globalVariables(c("key", "value", "zzz"))
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
 #'
+#' @section Key(s):
+#' **Key** informs a tsibble of the structure:
+#' * Univariate time series: none
+#' * Multivariate time series: a single key
+#' * Grouped time series: multiple keys separated by commas (`,`). For example,
+#' sales data over time can be split by product types (`product`) and market 
+#' segmentations (`market`), and thus `product`, `market` suggests the structure.
+#' * Hierarchical time series: nested keys using vertical bars (`|`). For example,
+#' a natural hierarchy is defined on geographical regions: cities (`city`) are 
+#' nested in states (`state`). The expression of `city` | `state` is expected.
+#' The general principle is that lower levels are nested in higher levels
+#' (`lower` | `middle` | `higher`).
+#'
+#' A combination of nested and grouped variables are also supported. Each key or
+#' each combination of keys help determine a sequence of unique time indices.
+#'
+#' @section Print options:
+#' The tsibble package fully utilises the `print` method from the tibble. Please
+#' refer to [tibble::tibble-package] to change display options.
+#'
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #' @aliases as.tsibble

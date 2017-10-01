@@ -53,6 +53,32 @@ A tsibble object.
 \description{
 Coerce to a tsibble object
 }
+\section{Key(s)}{
+
+\strong{Key} informs a tsibble of the structure:
+\itemize{
+\item Univariate time series: none
+\item Multivariate time series: a single key
+\item Grouped time series: multiple keys separated by commas (\code{,}). For example,
+sales data over time can be split by product types (\code{product}) and market
+segmentations (\code{market}), and thus \code{product}, \code{market} suggests the structure.
+\item Hierarchical time series: nested keys using vertical bars (\code{|}). For example,
+a natural hierarchy is defined on geographical regions: cities (\code{city}) are
+nested in states (\code{state}). The expression of \code{city} | \code{state} is expected.
+The general principle is that lower levels are nested in higher levels
+(\code{lower} | \code{middle} | \code{higher}).
+}
+
+A combination of nested and grouped variables are also supported. Each key or
+each combination of keys help determine a sequence of unique time indices.
+}
+
+\section{Print options}{
+
+The tsibble package fully utilises the \code{print} method from the tibble. Please
+refer to \link[tibble:tibble-package]{tibble::tibble-package} to change display options.
+}
+
 \examples{
 # coerce data.frame to tsibble
 df <- data.frame(

@@ -8,22 +8,36 @@
 \description{
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to manage temporal
 data frames in a tidy and modern way. A tsibble consists of a time index,
-keys and other measured variables in a long data format, which is built on
-top of the \link{tibble}.
+keys and other measured variables in a data-centric format, which is built on
+top of the tibble.
 }
 \section{Index}{
 
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
-in a \code{ts} object), but the essential component of the tsibble. A few index
-class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, are undoubtedly supported by
-the tsibble, with two new additions \code{yearmth} and \code{yearqtr} representing
-year-month and year-quarter index.
+in a \code{ts} object), but preserved as the essential component of the tsibble. A
+few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
+the tsibble, with new additions \link{yearmth}, \link{yearqtr} and \link{year} representing
+year-month, year-quarter and year objects respectively.
 }
 
 \section{Key(s)}{
 
-A sequence of time indices have to be unique for each key or each combination
-of key variables.
+\strong{Key} informs a tsibble of the structure:
+\itemize{
+\item Univariate time series: none
+\item Multivariate time series: a single key
+\item Grouped time series: multiple keys separated by commas (\code{,}). For example,
+sales data over time can be split by product types (\code{product}) and market
+segmentations (\code{market}), and thus \code{product}, \code{market} suggests the structure.
+\item Hierarchical time series: nested keys using vertical bars (\code{|}). For example,
+a natural hierarchy is defined on geographical regions: cities (\code{city}) are
+nested in states (\code{state}). The expression of \code{city} | \code{state} is expected.
+The general principle is that lower levels are nested in higher levels
+(\code{lower} | \code{middle} | \code{higher}).
+}
+
+A combination of nested and grouped variables are also supported. Each key or
+each combination of keys help determine a sequence of unique time indices.
 }
 
 \seealso{
