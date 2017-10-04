@@ -74,6 +74,9 @@ yearqtr.POSIXt <- function(x) {
 yearqtr.Date <- yearqtr.POSIXt
 
 #' @export
+yearqtr.yearmth <- yearqtr.POSIXt
+
+#' @export
 yearqtr.yearqtr <- function(x) {
   structure(x, class = c("yearqtr", "Date"))
 }
@@ -129,6 +132,12 @@ year.POSIXt <- function(x) {
 
 #' @export
 year.Date <- year.POSIXt
+
+#' @export
+year.yearmth <- year.POSIXt
+
+#' @export
+year.yearqtr <- year.POSIXt
 
 #' @export
 year.year <- function(x) {
