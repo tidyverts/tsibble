@@ -231,11 +231,6 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   # validate key vars
   key_vars <- validate_key(data = tbl, key)
   key_lens <- length(key_vars)
-  cls_tbl <- if (key_lens > 1) {
-    c("tbl_gts", "tbl_ts", cls_tbl)
-  } else {
-    c("tbl_ts", cls_tbl)
-  }
   # validate tbl_ts
   if (validate) {
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
@@ -251,7 +246,7 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   attr(tbl, "index") <- structure(index, class = "index")
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular
-  structure(tbl, class = cls_tbl)
+  structure(tbl, class = c("tbl_ts", cls_tbl))
 }
 
 detect_type <- function() {

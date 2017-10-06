@@ -49,7 +49,7 @@ weather_ts
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
 
-The **key** is not constrained to a single variable, but expressive for grouping and nesting data structures. See `vignette()` for details.
+The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `vignette()` for details.
 
 ### Summarise over calendar periods with `tsummarise()`
 
