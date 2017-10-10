@@ -141,7 +141,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 
   grped_ts <- grouped_ts(.data, grped_chr, grped_quo, add = add)
   as_tsibble(
-    grped_ts, !!! key(.data), index = index,
+    grped_ts, !!! key(.data), index = !! index,
     validate = FALSE, regular = is_regular(.data)
   )
 }

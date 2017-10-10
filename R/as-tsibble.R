@@ -88,14 +88,7 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_ts <- function(
-  x, ..., index, validate = TRUE, regular = TRUE
-) {
-  tsibble_tbl(
-    x, key = quos(...), index = index,
-    validate = validate, regular = regular
-  )
-}
+as_tsibble.grouped_ts <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
@@ -239,7 +232,7 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   attr(tbl, "index") <- index
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular
-  if (is_grouped_ts(x)) {
+  if (is_grouped_ts(x) || dplyr::is_grouped_df(x)) {
     grps <- groups(x)
     cls_tbl <- c("grouped_ts", "tbl_ts", cls_tbl)
     attr(tbl, "vars") <- structure(grps, class = "vars")
