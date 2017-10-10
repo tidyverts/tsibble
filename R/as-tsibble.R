@@ -234,8 +234,8 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   attr(tbl, "regular") <- regular
   if (is_grouped_ts(x) || dplyr::is_grouped_df(x)) {
     grps <- groups(x)
-    cls_tbl <- c("grouped_ts", "tbl_ts", cls_tbl)
     attr(tbl, "vars") <- structure(grps, class = "vars")
+    cls_tbl <- c("grouped_ts", "tbl_ts", cls_tbl)
   } else {
     cls_tbl <- c("tbl_ts", cls_tbl)
   }
@@ -261,7 +261,7 @@ extract_index_var <- function(data, index) {
     index <- as_quosure(idx_sym)
     return(index)
   } else {
-    idx_na <- idx_type[quo_text(index, width = 500L)]
+    idx_na <- idx_type[quo_text2(index)]
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       abort(paste(

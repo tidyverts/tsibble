@@ -132,7 +132,7 @@ mutate.tbl_ts <- function(.data, ...) {
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
-  idx_var <- quo_text(index, width = 500L)
+  idx_var <- quo_text2(index)
   grped_quo <- quos(...)
   grped_chr <- prepare_groups(.data, grped_quo, add = add)
   if (idx_var %in% grped_chr) {

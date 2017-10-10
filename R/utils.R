@@ -52,3 +52,7 @@ surround <- function(x, bracket = "(") {
     paste0("<", x, ">")
   }
 }
+
+quo_text2 <- function(x) {
+  quo_text(x, width = 500L)
+}

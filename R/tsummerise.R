@@ -35,7 +35,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
 
   # check if the index variable is present in the function call
   vec_vars <- as.character(purrr::map(lst_quos, ~ lang_args(.)[[1]]))
-  idx_var <- quo_text(index, width = 500L)
+  idx_var <- quo_text2(index)
   idx_pos <- match(idx_var, vec_vars)
   if (is.na(idx_pos)) {
     abort(paste("Missing index variable:", idx_var))

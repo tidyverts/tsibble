@@ -57,7 +57,7 @@ update_index <- function(x, rhs, lhs) {
 }
 
 update_index_name <- function(x, rhs, lhs) {
-  idx_name <- quo_text(x, width = 500L)
+  idx_name <- quo_text2(x)
   idx_idx <- match(idx_name, rhs)
   new_idx_name <- if (is.na(idx_idx)) {
     idx_name
