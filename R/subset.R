@@ -30,7 +30,7 @@
     result <- purrr::map(result, `[`, i)
   }
 
-  as_tsibble.tbl_df(
+  as_tsibble(
     result, !!! key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
