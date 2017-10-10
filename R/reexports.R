@@ -61,3 +61,11 @@ tibble::as_tibble
 #' @importFrom tibble as.tibble
 #' @export
 tibble::as.tibble
+
+#' @importFrom rlang !!
+#' @export
+rlang::`!!`
+
+#' @importFrom rlang !!!
+#' @export
+rlang::`!!!`

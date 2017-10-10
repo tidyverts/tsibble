@@ -34,6 +34,10 @@
 \alias{as_tibble}
 \alias{reexports}
 \alias{as.tibble}
+\alias{reexports}
+\alias{!!}
+\alias{reexports}
+\alias{!!!}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -42,6 +46,8 @@ below to see their documentation.
 
 \describe{
   \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{\%>\%}}}
+
+  \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
 }}
