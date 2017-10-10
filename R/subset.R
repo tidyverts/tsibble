@@ -30,9 +30,8 @@
     result <- purrr::map(result, `[`, i)
   }
 
-  index <- f_rhs(index(x))
   as_tsibble.tbl_df(
-    result, !!! key(x), index = !! index,
+    result, !!! key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
 }
@@ -58,7 +57,7 @@ update_index <- function(x, rhs, lhs) {
 }
 
 update_index_name <- function(x, rhs, lhs) {
-  idx_name <- format(x)
+  idx_name <- quo_text(x, width = 500L)
   idx_idx <- match(idx_name, rhs)
   new_idx_name <- if (is.na(idx_idx)) {
     idx_name

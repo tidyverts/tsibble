@@ -12,7 +12,7 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #' @export
 glimpse.tbl_ts <- function(x, width = NULL, ...) {
   as_tsibble(
-    NextMethod(), !!! key(x), index = !! f_rhs(index(x)),
+    NextMethod(), !!! key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
   invisible(x)
@@ -70,15 +70,3 @@ format.interval <- function(x, ...) {
   }
   paste0(vec_x, toupper(names(output)), collapse = " ")
 }
-
-#' @export
-print.index <- function(x, ...) {
-  cat_line(format(x, ...))
-  invisible(x)
-}
-
-#' @export
-format.index <- function(x, ...) {
-  f_text(x, width = 500L)
-}
-

@@ -91,17 +91,10 @@ as_tsibble.list <- as_tsibble.tbl_df
 as_tsibble.grouped_ts <- function(
   x, ..., index, validate = TRUE, regular = TRUE
 ) {
-  grps <- groups(x)
-  index <- enquo(index)
-  x <- ungroup(x)
-  tbl <- tsibble_tbl(
+  tsibble_tbl(
     x, key = quos(...), index = index,
     validate = validate, regular = regular
   )
-  old_class <- class(tbl)
-  class(tbl) <- c("grouped_ts", old_class)
-  attr(tbl, "vars") <- structure(grps, class = "vars")
-  tbl
 }
 
 #' @keywords internal
@@ -243,10 +236,17 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
-  attr(tbl, "index") <- structure(index, class = "index")
+  attr(tbl, "index") <- index
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular
-  structure(tbl, class = c("tbl_ts", cls_tbl))
+  if (is_grouped_ts(x)) {
+    grps <- groups(x)
+    cls_tbl <- c("grouped_ts", "tbl_ts", cls_tbl)
+    attr(tbl, "vars") <- structure(grps, class = "vars")
+  } else {
+    cls_tbl <- c("tbl_ts", cls_tbl)
+  }
+  structure(tbl, class = cls_tbl)
 }
 
 detect_type <- function() {
@@ -266,6 +266,7 @@ extract_index_var <- function(data, index) {
     inform(paste("The 'index' variable:", chr_index))
     idx_sym <- sym(chr_index)
     index <- as_quosure(idx_sym)
+    return(index)
   } else {
     idx_na <- idx_type[quo_text(index, width = 500L)]
     if (is.na(idx_na)) {

@@ -19,7 +19,4 @@ pedestrian
 A dataset containing the hourly pedestrian counts from 2015-01-01 to
 2016-12-31 at 4 sensors in the city of Melbourne. The variables are as follows:
 }
-\examples{
-   pedestrian
-}
 \keyword{datasets}

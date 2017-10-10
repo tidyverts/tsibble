@@ -14,6 +14,4 @@
 #' @docType data
 #' @name pedestrian
 #' @usage pedestrian
-#' @examples
-#'    pedestrian
 "pedestrian"

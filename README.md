@@ -65,7 +65,6 @@ weather_ts %>%
   )
 #> # A tsibble: 36 x 4 [1MONTH]
 #> # Keys:      origin
-#> # Groups:    origin
 #>    origin year_month avg_temp ttl_precip
 #>  *  <chr>      <mth>    <dbl>      <dbl>
 #>  1    EWR   2013 Jan 35.45787       2.70
