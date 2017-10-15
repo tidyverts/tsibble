@@ -296,6 +296,17 @@ as_tibble.tbl_ts <- function(x, ...) {
 as.tibble.tbl_ts <- as_tibble.tbl_ts
 
 #' @export
+as_tibble.grouped_ts <- function(x, ...) {
+  grps <- groups(x)
+  class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
+  attr(x, "vars") <- grps
+  x
+}
+
+#' @export
+as.tibble.grouped_ts <- as_tibble.grouped_ts
+
+#' @export
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
   class(x) <- "data.frame"
   x
