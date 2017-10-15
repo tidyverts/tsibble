@@ -45,9 +45,9 @@ tsummarise.tbl_ts <- function(.data, ...) {
 
   # aggregate over time
   chr_grps <- c(flatten_key(grps), idx_name) 
-  pre_data <- as_tibble(.data) %>% 
+  pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!! idx_sym := !! lst_quos[[idx_pos]])
+    mutate(!! idx_sym := !! lst_quos[[idx_pos]], drop = TRUE)
   result <- pre_data %>% 
     dplyr::grouped_df(vars = chr_grps) %>% 
     dplyr::summarise(!!! lst_quos[-idx_pos])
