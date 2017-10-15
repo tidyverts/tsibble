@@ -55,7 +55,10 @@ slice.tbl_ts <- function(.data, ...) {
 
 #' @seealso [dplyr::select]
 #' @export
-select.tbl_ts <- function(.data, ...) {
+select.tbl_ts <- function(.data, ..., drop = FALSE) {
+  if (drop) {
+    return(select(as_tibble(.data), ...))
+  }
   lst_quos <- quos(..., .named = TRUE)
   val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
   val_idx <- has_index_var(j = val_vars, x = .data)
@@ -104,7 +107,10 @@ rename.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::mutate]
 #' @export
 # [!] important to check if index and key vars have be overwritten in the LHS
-mutate.tbl_ts <- function(.data, ...) {
+mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
+  if (drop) {
+    return(mutate(as_tibble(.data), ...))
+  }
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
   grps <- groups(.data)

@@ -16,10 +16,15 @@ type_sum.year <- function(x) {
 #' @export
 tbl_sum.tbl_ts <- function(x) {
   int_x <- interval(x)
-  c(
-    "A tsibble" = paste(dim_tbl_ts(x), surround(format(int_x), "[")),
-    "Keys" = paste(key_vars(x), collapse = ", ")
-  )
+  first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(format(int_x), "[")))
+  if (is_empty(key(x))) {
+    return(first)
+  } else {
+    c(
+      first,
+      "Keys" = paste(key_vars(x), collapse = ", ")
+    )
+  }
 }
 
 #' @export
