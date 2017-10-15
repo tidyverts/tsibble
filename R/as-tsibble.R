@@ -281,7 +281,7 @@ validate_tbl_ts <- function(data, key, index) {
     dplyr::group_by(!!! comb_key) %>%
     dplyr::summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-      abort("Duplicated time indices for each combination of key variables.")
+    abort("Invalid tsibble: duplicated time indices")
   }
   data
 }
