@@ -25,7 +25,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @export
 filter.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  fil_data <- if (is.grouped_ts(.data)) {
+  fil_data <- if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
     filter(grped_data, ...)
   } else {
@@ -41,7 +41,7 @@ filter.tbl_ts <- function(.data, ...) {
 #' @export
 slice.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  slc_data <- if (is.grouped_ts(.data)) {
+  slc_data <- if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
     slice(grped_data, ...)
   } else {
@@ -114,7 +114,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
   grps <- groups(.data)
-  mut_data <- if (is.grouped_ts(.data)) {
+  mut_data <- if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
     mutate(grped_data, ...)
   } else {
@@ -133,6 +133,36 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   groups(tbl) <- grps
   tbl
 }
+
+#' @seealso [dplyr::summarise]
+#' @export
+summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
+  if (drop) {
+    return(summarise(as_tibble(.data), ...))
+  }
+  lst_quos <- quos(..., .named = TRUE)
+  vec_vars <- as.character(purrr::map(lst_quos, ~ lang_args(.)[[1]]))
+  if (has_index_var(j = vec_vars, x = .data)) {
+    abort("The index variable cannot be summarised.")
+  }
+  
+  idx <- index(.data)
+  grps <- groups(.data)
+  chr_grps <- c(quo_text2(idx), flatten_key(grps))
+  sum_data <- .data %>% 
+    dplyr::grouped_df(vars = chr_grps) %>% 
+    dplyr::summarise(!!! lst_quos)
+
+  tbl <- as_tsibble(
+    sum_data, !!! grps, index = !! idx,
+    validate = FALSE, regular = is_regular(.data)
+  )
+  groups(tbl) <- grps
+  tbl
+}
+
+#' @seealso [dplyr::summarize]
+summarize.tbl_ts <- summarise.tbl_ts
 
 #' @seealso [dplyr::group_by]
 #' @export

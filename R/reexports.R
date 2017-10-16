@@ -38,6 +38,14 @@ dplyr::rename
 #' @export
 dplyr::arrange
 
+#' @importFrom dplyr summarise
+#' @export
+dplyr::summarise
+
+#' @importFrom dplyr summarize
+#' @export
+dplyr::summarize
+
 #' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`

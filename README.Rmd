@@ -47,7 +47,7 @@ The **key** is not constrained to a single variable, but expressive for nested a
 
 ### Summarise over calendar periods with `tsummarise()`
 
-The common *dplyr* verbs, such as `mutate()`, `select()`, `filter()`, and `arrange()`, also work with the tsibble, except for `summarise()`. Because we have `tsummarise()` instead to aggregate interested variables over calendar periods.
+The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble. We also have a new verb `tsummarise()` to aggregate interested variables over calendar periods.
 
 ```{r tsummarise}
 weather_ts %>%
