@@ -162,6 +162,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
 }
 
 #' @seealso [dplyr::summarize]
+#' @export
 summarize.tbl_ts <- summarise.tbl_ts
 
 #' @seealso [dplyr::group_by]
