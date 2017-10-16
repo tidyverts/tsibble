@@ -11,6 +11,7 @@ reduce_key <- function(lst_keys) {
   quos_auto_name(comb_keys)
 }
 
+# this returns a vector of groups/key characters
 flatten_key <- function(lst_keys) {
   if (is.null(lst_keys)) {
     lst_keys <- list()

@@ -299,7 +299,7 @@ as.tibble.tbl_ts <- as_tibble.tbl_ts
 as_tibble.grouped_ts <- function(x, ...) {
   grps <- groups(x)
   class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
-  attr(x, "vars") <- grps
+  attr(x, "vars") <- flatten(grps)
   x
 }
 
