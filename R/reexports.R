@@ -77,3 +77,7 @@ rlang::`!!`
 #' @importFrom rlang !!!
 #' @export
 rlang::`!!!`
+
+#' @importFrom tidyr full_seq
+#' @export
+tidyr::full_seq

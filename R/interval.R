@@ -71,6 +71,16 @@ pull_interval.numeric <- function(x, exclude_zero = TRUE) {
 
 pull_interval.integer <- pull_interval.numeric
 
+# needed for full_seq(period)
+as_period <- function(x) {
+  UseMethod("as_period")
+}
+
+as_period.POSIXt <- function(x) {
+  int <- pull_interval.POSIXt(x, exclude_zero = FALSE)
+  return(int$second + int$minute * 60 + int$hour * 60 * 60)
+}
+
 # from ts time to dates
 time_to_date <- function(x, ...) {
   UseMethod("time_to_date")
