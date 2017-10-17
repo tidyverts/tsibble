@@ -84,8 +84,8 @@ as_period.numeric <- function(x) {
   return(int$unit)
 }
 
-as_period.year <- function(x) {
-  int <- pull_interval.year(x, exclude_zero = FALSE)
+as_period.integer <- function(x) {
+  int <- pull_interval.integer(x, exclude_zero = FALSE)
   return(int$year)
 }
 

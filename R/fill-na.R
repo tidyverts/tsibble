@@ -8,8 +8,22 @@
 #' @export
 #'
 #' @examples
-#' # not replace NA
-#' fill_na(pedestrian)
+#' tsbl <- as_tsibble(tibble::tibble(
+#'   year = year(c(2010, 2011, 2013, 2011, 2012, 2014)),
+#'   group = rep(letters[1:2], each = 3),
+#'   value = sample(1:10, size = 6),
+#' ), group, index = year)
+#'
+#' # leave NA as is
+#' fill_na(tsbl)
+#'
+#' # replace NA with a specific number
+#' tsbl %>%
+#'   fill_na(value = 0L)
+#'
+#' # replace NA using some functions
+#' tsbl %>% 
+#'   fill_na(value = sum(value, na.rm = TRUE))
 #' 
 #' # replace NA
 #' pedestrian %>% 
