@@ -1,6 +1,6 @@
 # Number of time units
 find_interval <- function(x, exclude_zero = TRUE) {
-  UseMethod("find__interval")
+  UseMethod("find_interval")
 }
 
 find_interval.numeric <- function(x, exclude_zero = TRUE) {
@@ -79,6 +79,16 @@ as_period <- function(x) {
 as_period.POSIXt <- function(x) {
   int <- pull_interval.POSIXt(x, exclude_zero = FALSE)
   return(int$second + int$minute * 60 + int$hour * 60 * 60)
+}
+
+as_period.numeric <- function(x) {
+  int <- pull_interval.numeric(x, exclude_zero = FALSE)
+  return(int$unit)
+}
+
+as_period.year <- function(x) {
+  int <- pull_interval.year(x, exclude_zero = FALSE)
+  return(int$year)
 }
 
 # from ts time to dates

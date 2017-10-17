@@ -71,3 +71,9 @@ case_na <- function(formula) {
   rhs <- eval_bare(f_rhs(formula), env = env_f)
   dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
 }
+
+#' @export
+full_seq.year <- function(x, period, tol = 1e-06) {
+  x <- as.numeric(x)
+  year(full_seq(x, period = period, tol = tol))
+}
