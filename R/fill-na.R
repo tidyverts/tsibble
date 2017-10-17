@@ -49,6 +49,7 @@ fill_na.tbl_ts <- function(.data, ...) {
       !!! key(.data)
     )
 
+  # ToDo: I'd like to use group_by() in conjunction
   full_data <- full_data %>%
     mutate_na(!!! quos(...))
   full_data <- full_data[, colnames(.data)] # keep the original order
@@ -83,6 +84,19 @@ case_na <- function(formula) {
   rhs <- eval_bare(f_rhs(formula), env = env_f)
   dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
 }
+
+# complete.tbl_ts <- function(data, ..., fill = list()) {
+#   grps <- groups(data)
+#   comp_data <- NextMethod()
+#   if (is_grouped_ts(data)) {
+#     comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
+#     groups(comp_data) <- grps
+#   }
+#   as_tsibble(
+#     comp_data, !!! key(data), index = !! index(data),
+#     validate = FALSE, regular = is_regular(data)
+#   )
+# }
 
 #' @export
 full_seq.integer <- function(x, period, tol = 1e-06) {

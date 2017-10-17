@@ -277,8 +277,7 @@ extract_index_var <- function(data, index) {
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
   comb_key <- reduce_key(key)
-  tbl_dup <- data %>%
-    dplyr::group_by(!!! comb_key) %>%
+  tbl_dup <- dplyr::grouped_df(data, vars = flatten_key(comb_key)) %>%
     dplyr::summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     abort("Invalid tsibble: duplicated time indices")
