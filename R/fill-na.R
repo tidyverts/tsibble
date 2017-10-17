@@ -49,13 +49,15 @@ fill_na.tbl_ts <- function(.data, ...) {
       !!! key(.data)
     )
 
-  # ToDo: I'd like to use group_by() in conjunction
   full_data <- full_data %>%
     mutate_na(!!! quos(...))
   full_data <- full_data[, colnames(.data)] # keep the original order
   as_tsibble(full_data, !!! key(.data), index = !! idx, validate = FALSE)
 }
 
+# ToDo: I'd like to use group_by() in conjunction
+# I think that the issue arises when creating new formula which is not evaluated
+# in the grouped df
 mutate_na <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   if (is_empty(lst_quos)) {
