@@ -127,7 +127,7 @@ year <- function(x) {
 #' @export
 year.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
-  structure(posix$year, class = "year")
+  as.integer(posix$year)
 }
 
 #' @export
@@ -140,21 +140,12 @@ year.yearmth <- year.POSIXt
 year.yearqtr <- year.POSIXt
 
 #' @export
-year.year <- function(x) {
-  structure(x, class = "year")
+year.integer <- function(x) {
+  as.integer(x)
 }
 
 #' @export
-year.numeric <- year.year
-
-#' @export
-year.integer <- year.numeric
-
-#' @export
-print.year <- function(x, ...) {
-  print(as.integer(x))
-  invisible(x)
-}
+year.numeric <- year.integer
 
 split_POSIXt <- function(x) {
   posix <- as.POSIXlt(x, tz = lubridate::tz(x))

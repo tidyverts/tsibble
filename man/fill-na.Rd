@@ -23,9 +23,7 @@ Turn implicit missing values into explicit missing values
 fill_na(pedestrian)
 
 # replace NA
-# impute count with median count for each sensor
 pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
   fill_na(
     Date = lubridate::as_date(Date_Time),
     Time = lubridate::hour(Date_Time),

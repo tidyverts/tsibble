@@ -12,9 +12,7 @@
 #' fill_na(pedestrian)
 #' 
 #' # replace NA
-#' # impute count with median count for each sensor
 #' pedestrian %>% 
-#'   group_by(Sensor) %>% 
 #'   fill_na(
 #'     Date = lubridate::as_date(Date_Time),
 #'     Time = lubridate::hour(Date_Time),
@@ -73,7 +71,7 @@ case_na <- function(formula) {
 }
 
 #' @export
-full_seq.year <- function(x, period, tol = 1e-06) {
+full_seq.integer <- function(x, period, tol = 1e-06) {
   x <- as.numeric(x)
   year(full_seq(x, period = period, tol = tol))
 }
