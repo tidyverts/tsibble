@@ -101,12 +101,12 @@ complete.tbl_ts <- function(data, ..., fill = list()) {
     comp_data, !!! key(data), index = !! index(data),
     validate = FALSE, regular = is_regular(data)
   )
-  restore_index_class(tsbl, data)
+  restore_index_class(data, tsbl)
 }
 
 restore_index_class <- function(data, newdata) {
   old_idx <- quo_text2(index(data))
   new_idx <- quo_text2(index(newdata))
-  class(newdata[, new_idx]) <- class(data[, old_idx])
+  class(newdata[[new_idx]]) <- class(data[[old_idx]])
   newdata
 }

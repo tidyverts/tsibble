@@ -203,7 +203,6 @@ seq.yearqtr <- function(
   ))
 }
 
-#' @export
 seq.integer <- seq.int
 
 #' @export
