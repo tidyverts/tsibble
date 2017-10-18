@@ -105,3 +105,15 @@ full_seq.integer <- function(x, period, tol = 1e-06) {
   x <- as.numeric(x)
   year(full_seq(x, period = period, tol = tol))
 }
+
+#' @export
+full_seq.yearmth <- function(x, period, tol = 1e-06) {
+  rng <- range(x, na.rm = TRUE)
+  if (any((x - rng[1]) %% period > tol)) {
+      abort("`x` is not a regular sequence.")
+  }
+  seq(rng[1], rng[2], by = period)
+}
+
+#' @export
+full_seq.yearqtr <- full_seq.yearmth

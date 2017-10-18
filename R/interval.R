@@ -89,6 +89,21 @@ as_period.integer <- function(x) {
   return(int$year)
 }
 
+as_period.Date <- function(x) {
+  int <- pull_interval.Date(x, exclude_zero = FALSE)
+  return(int$day)
+}
+
+as_period.yearmth <- function(x) {
+  int <- pull_interval.yearmth(x, exclude_zero = FALSE)
+  return(int$month)
+}
+
+as_period.yearqtr <- function(x) {
+  int <- pull_interval.yearqtr(x, exclude_zero = FALSE)
+  return(int$quarter)
+}
+
 # from ts time to dates
 time_to_date <- function(x, ...) {
   UseMethod("time_to_date")
