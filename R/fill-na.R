@@ -45,8 +45,10 @@ fill_na.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
   full_data <- .data %>%
     tidyr::complete(
-      !! quo_text2(idx) := seq(from = min0(!! idx), to = max0(!! idx), 
-        by = as_period(!! idx)),
+      !! quo_text2(idx) := seq(
+        from = min0(!! idx), to = max0(!! idx), 
+        by = as_period(!! idx)
+      ),
       !!! key(.data)
     )
 
@@ -88,16 +90,23 @@ case_na <- function(formula) {
   dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
 }
 
-# complete.tbl_ts <- function(data, ..., fill = list()) {
-#   grps <- groups(data)
-#   comp_data <- NextMethod()
-#   if (is_grouped_ts(data)) {
-#     comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
-#     groups(comp_data) <- grps
-#   }
-#   as_tsibble(
-#     comp_data, !!! key(data), index = !! index(data),
-#     validate = FALSE, regular = is_regular(data)
-#   )
-# }
+complete.tbl_ts <- function(data, ..., fill = list()) {
+  grps <- groups(data)
+  comp_data <- NextMethod()
+  if (is_grouped_ts(data)) {
+    comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
+    groups(comp_data) <- grps
+  }
+  tsbl <- as_tsibble(
+    comp_data, !!! key(data), index = !! index(data),
+    validate = FALSE, regular = is_regular(data)
+  )
+  restore_index_class(tsbl, data)
+}
 
+restore_index_class <- function(data, newdata) {
+  old_idx <- quo_text2(index(data))
+  new_idx <- quo_text2(index(newdata))
+  class(newdata[, new_idx]) <- class(data[, old_idx])
+  newdata
+}
