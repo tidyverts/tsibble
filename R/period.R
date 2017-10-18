@@ -204,6 +204,9 @@ seq.yearqtr <- function(
 }
 
 #' @export
+seq.integer <- seq.int
+
+#' @export
 `[.yearmth` <- function(x, i) {
   yearmth(as_date(x)[i])
 }

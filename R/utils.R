@@ -56,3 +56,11 @@ surround <- function(x, bracket = "(") {
 quo_text2 <- function(x) {
   quo_text(x, width = 500L)
 }
+
+min0 <- function(x) {
+  min(x, na.rm = TRUE)
+}
+
+max0 <- function(x) {
+  max(x, na.rm = TRUE)
+}

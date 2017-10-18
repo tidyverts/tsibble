@@ -45,7 +45,8 @@ fill_na.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
   full_data <- .data %>%
     tidyr::complete(
-      !! quo_text2(idx) := full_seq(!! idx, period = as_period(!! idx)),
+      !! quo_text2(idx) := seq(from = min0(!! idx), to = max0(!! idx), 
+        by = as_period(!! idx)),
       !!! key(.data)
     )
 
@@ -100,26 +101,3 @@ case_na <- function(formula) {
 #   )
 # }
 
-#' @export
-full_seq.integer <- function(x, period, tol = 1e-06) {
-  x <- as.numeric(x)
-  year(full_seq(x, period = period, tol = tol))
-}
-
-#' @export
-full_seq.yearmth <- function(x, period, tol = 1e-06) {
-  rng <- range(x, na.rm = TRUE)
-  # if (any((x - rng[1]) %% period > tol)) {
-  #   abort("`x` is not a regular sequence.")
-  # }
-  yearmth(seq(rng[1], rng[2], by = period))
-}
-
-#' @export
-full_seq.yearqtr <- function(x, period, tol = 1e-06) {
-  rng <- range(x, na.rm = TRUE)
-  # if (any((x - rng[1]) %% period > tol)) {
-  #   abort("`x` is not a regular sequence.")
-  # }
-  yearqtr(seq(rng[1], rng[2], by = period))
-}
