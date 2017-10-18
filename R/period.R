@@ -8,7 +8,8 @@
 #' @return Year-month (`yearmth`), year-quarter (`yearqtr`) and year (`year`)
 #' objects.
 #' @details It's a known issue that these attributes will be dropped when using
-#' [group_by] and [mutate] together.
+#' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
+#' then use [mutate].
 #'
 #' @export
 #' @rdname period
@@ -242,7 +243,7 @@ seq_date <- function(
   status <- c(!missing(to), !missing(by), !is.null(length.out))
   if (sum(status) != 2L) 
     stop("exactly two of 'to', 'by' and 'length.out' / 'along.with' must be specified")
-if (missing(by)) {
+  if (missing(by)) {
     from <- unclass(as.Date(from))
     to <- unclass(as.Date(to))
     res <- seq.int(from, to, length.out = length.out)

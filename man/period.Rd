@@ -24,7 +24,8 @@ Represent year-month, year-quarter and year objects
 }
 \details{
 It's a known issue that these attributes will be dropped when using
-\link{group_by} and \link{mutate} together.
+\link{group_by} and \link{mutate} together. It is recommended to \link{ungroup} first, and
+then use \link{mutate}.
 }
 \examples{
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
