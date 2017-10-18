@@ -249,7 +249,7 @@ detect_type <- function() {
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
 extract_index_var <- function(data, index) {
-  idx_type <- purrr::map_chr(data, idx_sum)
+  idx_type <- purrr::map_chr(data, index_sum)
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {

@@ -37,46 +37,46 @@ tbl_sum.grouped_ts <- function(x) {
 #'
 #' @export
 #'
-idx_sum <- function(x) {
-  UseMethod("idx_sum")
+index_sum <- function(x) {
+  UseMethod("index_sum")
 }
 
 #' @export
-idx_sum.POSIXct <- function(x) {
+index_sum.POSIXct <- function(x) {
   "dttm"
 }
 
 #' @export
-idx_sum.difftime <- function(x) {
+index_sum.difftime <- function(x) {
   "time"
 }
 
 #' @export
-idx_sum.Date <- function(x) {
+index_sum.Date <- function(x) {
   "date"
 }
 
 #' @export
-idx_sum.yearmth <- function(x) {
+index_sum.yearmth <- function(x) {
   "yrmth"
 }
 
 #' @export
-idx_sum.yearqtr <- function(x) {
+index_sum.yearqtr <- function(x) {
   "yrqtr"
 }
 
 #' @export
-idx_sum.numeric <- function(x) {
+index_sum.numeric <- function(x) {
   "dbl"
 }
 
 #' @export
-idx_sum.integer <- function(x) {
+index_sum.integer <- function(x) {
   "int"
 }
 
 #' @export
-idx_sum.default <- function(x) {
+index_sum.default <- function(x) {
   NA_character_
 }
