@@ -112,7 +112,7 @@ full_seq.yearmth <- function(x, period, tol = 1e-06) {
   # if (any((x - rng[1]) %% period > tol)) {
   #   abort("`x` is not a regular sequence.")
   # }
-  yearmth(seq.yearqtr(rng[1], rng[2], by = period))
+  yearmth(seq(rng[1], rng[2], by = period))
 }
 
 #' @export
@@ -121,5 +121,5 @@ full_seq.yearqtr <- function(x, period, tol = 1e-06) {
   # if (any((x - rng[1]) %% period > tol)) {
   #   abort("`x` is not a regular sequence.")
   # }
-  yearqtr(seq.yearqtr(rng[1], rng[2], by = period))
+  yearqtr(seq(rng[1], rng[2], by = period))
 }
