@@ -16,9 +16,6 @@
 #' slide(x, ~ mean(.), size = 2)
 slide <- function(x, .f, ..., size = 1, fill = NA_real_) {
   .f <- purrr::as_mapper(.f, ...)
-  results <- squash_dbl(slide_cpp(x, f = .f, size = size))
-  if (!is.na(fill)) {
-    results <- case_na(results ~ fill)
-  }
+  results <- slide_cpp(x, f = .f, size = size, fill = fill)
   return(results)
 }

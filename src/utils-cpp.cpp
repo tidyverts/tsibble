@@ -5,12 +5,12 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 double minp(NumericVector x) {
-  int n = x.size();
+  NumericVector::iterator it;
   double z = 0;
 
-  for(int i = 0; i < n; ++i) {
-    if (x[i] > 0 && (x[i] < z || z == 0)) {
-      z = x[i];
+  for(it = x.begin(); it != x.end(); ++it) {
+    if (*it > 0 && (*it < z || z == 0)) {
+      z = *it;
     }
   }
 
@@ -21,10 +21,10 @@ double minp(NumericVector x) {
 
 // [[Rcpp::export]]
 bool any_not_equal_to_c(NumericVector x, double c) {
-  int n = x.size();
+  NumericVector::iterator it;
 
-  for(int i = 0; i < n; ++i) {
-    if (x[i] != c) {
+  for(it = x.begin(); it != x.end(); ++it) {
+    if (*it != c) {
       return true;
     }
   };
@@ -34,26 +34,24 @@ bool any_not_equal_to_c(NumericVector x, double c) {
 // Sliding window function
 
 // [[Rcpp::export]]
-List slide_cpp(NumericVector x, Function f, int size) {
+std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill) {
   int n = x.size();
   NumericVector y(size);
   List z(n);
 
   int na_obs = size - 1;
+  int z_n = n - na_obs;
   for (int i = 0; i < n; ++i) {
-    if (na_obs == 0) {
-      z[i] = x[i];
+    if (i >= z_n) {
+      z[i] = fill;
     } else {
-      if (i < na_obs) {
-        z[i] = NA_REAL;
-      } else {
-        for (int j = 0; j < size; ++j) {
-          y[j] = x[i + j - 1];
-        }
-        z[i] = f(y);
+      for (int j = 0; j < size; ++j) {
+        y[j] = x[i + j];
       }
+      z[i] = f(y);
     }
   }
 
-  return(z);
+  std::vector<double> output(z.begin(), z.end());
+  return(output);
 }

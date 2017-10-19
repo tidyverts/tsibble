@@ -29,15 +29,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // slide_cpp
-List slide_cpp(NumericVector x, Function f, int size);
-RcppExport SEXP _tsibble_slide_cpp(SEXP xSEXP, SEXP fSEXP, SEXP sizeSEXP) {
+std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill);
+RcppExport SEXP _tsibble_slide_cpp(SEXP xSEXP, SEXP fSEXP, SEXP sizeSEXP, SEXP fillSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< Function >::type f(fSEXP);
     Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(slide_cpp(x, f, size));
+    Rcpp::traits::input_parameter< double >::type fill(fillSEXP);
+    rcpp_result_gen = Rcpp::wrap(slide_cpp(x, f, size, fill));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -45,7 +46,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_tsibble_minp", (DL_FUNC) &_tsibble_minp, 1},
     {"_tsibble_any_not_equal_to_c", (DL_FUNC) &_tsibble_any_not_equal_to_c, 2},
-    {"_tsibble_slide_cpp", (DL_FUNC) &_tsibble_slide_cpp, 3},
+    {"_tsibble_slide_cpp", (DL_FUNC) &_tsibble_slide_cpp, 4},
     {NULL, NULL, 0}
 };
 

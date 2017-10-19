@@ -9,7 +9,7 @@ any_not_equal_to_c <- function(x, c) {
     .Call(`_tsibble_any_not_equal_to_c`, x, c)
 }
 
-slide_cpp <- function(x, f, size) {
-    .Call(`_tsibble_slide_cpp`, x, f, size)
+slide_cpp <- function(x, f, size, fill) {
+    .Call(`_tsibble_slide_cpp`, x, f, size, fill)
 }
 
