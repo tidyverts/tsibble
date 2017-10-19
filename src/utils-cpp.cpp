@@ -30,3 +30,30 @@ bool any_not_equal_to_c(NumericVector x, double c) {
   };
   return false;
 }
+
+// Sliding window function
+
+// [[Rcpp::export]]
+List slide_cpp(NumericVector x, Function f, int size) {
+  int n = x.size();
+  NumericVector y(size);
+  List z(n);
+
+  int na_obs = size - 1;
+  for (int i = 0; i < n; ++i) {
+    if (na_obs == 0) {
+      z[i] = x[i];
+    } else {
+      if (i < na_obs) {
+        z[i] = NA_REAL;
+      } else {
+        for (int j = 0; j < size; ++j) {
+          y[j] = x[i + j - 1];
+        }
+        z[i] = f(y);
+      }
+    }
+  }
+
+  return(z);
+}
