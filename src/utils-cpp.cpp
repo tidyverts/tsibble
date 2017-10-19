@@ -35,8 +35,7 @@ bool any_not_equal_to_c(NumericVector x, double c) {
 // Sliding window function
 
 // [[Rcpp::export]]
-std::vector<double> slide_cpp(NumericVector x, Function f, int size, 
-  double fill) {
+List slide_cpp(NumericVector x, Function f, int size, List fill) {
   int n = x.size();
   NumericVector y(size);
   List z(n);
@@ -53,6 +52,5 @@ std::vector<double> slide_cpp(NumericVector x, Function f, int size,
     }
   }
 
-  std::vector<double> output(z.begin(), z.end());
-  return(output);
+  return(z);
 }

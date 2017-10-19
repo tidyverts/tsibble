@@ -29,7 +29,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // slide_cpp
-std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill);
+List slide_cpp(NumericVector x, Function f, int size, List fill);
 RcppExport SEXP _tsibble_slide_cpp(SEXP xSEXP, SEXP fSEXP, SEXP sizeSEXP, SEXP fillSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -37,7 +37,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< Function >::type f(fSEXP);
     Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< double >::type fill(fillSEXP);
+    Rcpp::traits::input_parameter< List >::type fill(fillSEXP);
     rcpp_result_gen = Rcpp::wrap(slide_cpp(x, f, size, fill));
     return rcpp_result_gen;
 END_RCPP

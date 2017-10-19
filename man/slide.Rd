@@ -2,9 +2,15 @@
 % Please edit documentation in R/slide.R
 \name{slide}
 \alias{slide}
+\alias{slide.default}
+\alias{slide.list}
 \title{Sliding window function}
 \usage{
-slide(x, .f, ..., size = 1, fill = NA_real_)
+slide(x, .f, ..., size = 1, fill)
+
+\method{slide}{default}(x, .f, ..., size = 1, fill = NA_real_)
+
+\method{slide}{list}(x, .f, ..., size = 1, fill = list())
 }
 \arguments{
 \item{x}{A vector of numerics}
