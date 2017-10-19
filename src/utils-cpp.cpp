@@ -1,5 +1,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
+using namespace std;
 
 // Find the lowest positive value
 
@@ -34,19 +35,19 @@ bool any_not_equal_to_c(NumericVector x, double c) {
 // Sliding window function
 
 // [[Rcpp::export]]
-std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill) {
+std::vector<double> slide_cpp(NumericVector x, Function f, int size, 
+  double fill) {
   int n = x.size();
   NumericVector y(size);
   List z(n);
 
   int na_obs = size - 1;
-  int z_n = n - na_obs;
   for (int i = 0; i < n; ++i) {
-    if (i >= z_n) {
+    if (i < na_obs) {
       z[i] = fill;
     } else {
       for (int j = 0; j < size; ++j) {
-        y[j] = x[i + j];
+        y[j] = x[i + j - na_obs];
       }
       z[i] = f(y);
     }
