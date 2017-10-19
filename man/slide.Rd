@@ -4,7 +4,7 @@
 \alias{slide}
 \title{Sliding window function}
 \usage{
-slide(x, .f, ..., size = 1, fill = numeric(0))
+slide(x, .f, ..., size = 1, fill = NA_real_)
 }
 \arguments{
 \item{x}{A vector of numerics}

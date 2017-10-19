@@ -14,10 +14,10 @@
 #' slide(x, sum, size = 3)
 #' slide(x, sum, size = 3, fill = 0)
 #' slide(x, ~ mean(.), size = 2)
-slide <- function(x, .f, ..., size = 1, fill = numeric(0)) {
+slide <- function(x, .f, ..., size = 1, fill = NA_real_) {
   .f <- purrr::as_mapper(.f, ...)
   results <- squash_dbl(slide_cpp(x, f = .f, size = size))
-  if (has_length(fill)) {
+  if (!is.na(fill)) {
     results <- case_na(results ~ fill)
   }
   return(results)
