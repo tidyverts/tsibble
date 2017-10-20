@@ -36,14 +36,21 @@ slide.list <- function(x, .f, ..., size = 1, fill = list()) {
   lst_idx <- seq_len(length(x) - size + 1)
   lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
   result <- purrr::map(lst_x, .f, ..., .default = fill)
-  c(replicate(n = size - 1, fill), result)
+  c(replicate(n = size - 1, fill, simplify = FALSE), result)
 }
 
 #' @rdname slide
+#' @param unlist FALSE a list is returned. TRUE returns a `data.frame`.
 #' @export
-slide.data.frame <- function(x, .f, ..., size = 1, fill = data.frame()) {
+slide.data.frame <- function(
+  x, .f, ..., size = 1, fill = data.frame(), unlist = FALSE
+) {
   lst_idx <- seq_len(nrow(x) - size + 1)
   lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
-  result <- purrr::map(lst_x, .f, ..., .default = fill)
-  c(replicate(n = size - 1, fill), result)
+  result <- purrr::map(lst_x, .f, ...)
+  output <- c(replicate(n = size - 1, fill, simplify = FALSE), result)
+  if (unlist) {
+    return(dplyr::bind_rows(output))
+  }
+  output
 }
