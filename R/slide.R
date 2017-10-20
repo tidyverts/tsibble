@@ -21,16 +21,26 @@ slide <- function(x, .f, ..., size = 1, fill) {
 
 #' @rdname slide
 #' @export
-slide.default <- function(x, .f, ..., size = 1, fill = NA_real_) {
+slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
   rep_x <- rep_len(list(x), length(x) - (size - 1))
   lst_x <- purrr::imap(rep_x, ~ .x[.y:(.y + size - 1)])
-  c(rep.int(fill, size - 1), purrr::map_dbl(lst_x, .f, ...))
+  c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ...))
 }
 
 #' @rdname slide
 #' @export
 slide.list <- function(x, .f, ..., size = 1, fill = list()) {
-  .f <- purrr::as_mapper(.f, ...)
-  results <- slide_cpp(x, f = .f, size = size, fill = fill)
-  return(results)
+  lst_idx <- seq_len(length(x) - size + 1)
+  lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
+  result <- purrr::map(lst_x, .f, ..., .default = fill)
+  c(rep_len(fill, size - 1), result)
+}
+
+#' @rdname slide
+#' @export
+slide.data.frame <- function(x, .f, ..., size = 1, fill = data.frame()) {
+  lst_idx <- seq_len(nrow(x) - size + 1)
+  lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
+  result <- purrr::map(lst_x, .f, ..., .default = fill)
+  c(rep_len(fill, size - 1), result)
 }
