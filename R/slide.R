@@ -33,9 +33,8 @@ slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
 #' @rdname slide
 #' @export
 slide.list <- function(x, .f, ..., size = 1, fill = list()) {
-  lst_idx <- seq_len(length(x) - size + 1)
-  lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
-  result <- purrr::map(lst_x, .f, ..., .default = fill)
+  lst_x <- roll_window(x, size = size)
+  result <- purrr::map(lst_x, .f, ...)
   c(replicate(n = size - 1, fill, simplify = FALSE), result)
 }
 
@@ -45,8 +44,7 @@ slide.list <- function(x, .f, ..., size = 1, fill = list()) {
 slide.data.frame <- function(
   x, .f, ..., size = 1, fill = data.frame(), deframe = TRUE
 ) {
-  lst_idx <- seq_len(nrow(x) - size + 1)
-  lst_x <- purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
+  lst_x <- roll_window(x, size = size)
   result <- purrr::map(lst_x, .f, ...)
   output <- c(replicate(n = size - 1, fill, simplify = FALSE), result)
   if (deframe) {
@@ -55,4 +53,70 @@ slide.data.frame <- function(
   df <- dplyr::bind_rows(output)
   class(df) <- class(x)
   df
+}
+
+roll_window <- function(x, size) {
+  if (is.data.frame(x)) {
+    len_x <- nrow(x)
+  } else {
+    len_x <- length(x)
+  }
+  lst_idx <- seq_len(len_x - size + 1)
+  purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
+}
+
+#' Tiling window function
+#'
+#' @param x A vector of numerics
+#' @param .f A function, formula, or atomic vector.
+#' @param ... Additional arguments passed on to `.f`.
+#' @param size Window size.
+#'
+#' @return A vector of numerics of the same length as `x`.
+#' @rdname tile
+#' @export
+#'
+#' @examples
+#' tile(1:10, mean, size = 3)
+tile <- function(x, .f, ..., size = 1) {
+  UseMethod("tile")
+}
+
+#' @rdname tile
+#' @export
+tile.numeric <- function(x, .f, ..., size = 1) {
+  lst_x <- block(x, size = size)
+  purrr::map_dbl(lst_x, .f, ..., .default = NA_real_)
+}
+
+#' @rdname tile
+#' @export
+tile.list <- function(x, .f, ..., size = 1) {
+  lst_x <- block(x, size = size)
+  purrr::map(lst_x, .f, ...)
+}
+
+#' @rdname tile
+#' @param deframe TRUE a list is returned. FALSE returns a `tbl_ts`/`tbl_df`/`data.frame`.
+#' @export
+tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
+  lst_x <- block(x, size = size)
+  if (deframe) {
+    return(purrr::map(lst_x, .f, ...))
+  }
+  df <- purrr::map_df(lst_x, .f, ...)
+  class(df) <- class(x)
+  df
+}
+
+block <- function(x, size) {
+  if (is.data.frame(x)) {
+    seq_x <- nrow(x)
+    denom <- nrow(x) + 1
+  } else {
+    seq_x <- seq_along(x)
+    denom <- length(x) + 1
+  }
+  frac <- ceiling((seq_x %% denom) / size)
+  unname(split(x, frac))
 }
