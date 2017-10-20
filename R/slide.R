@@ -40,7 +40,7 @@ slide.list <- function(x, .f, ..., size = 1, fill = list()) {
 }
 
 #' @rdname slide
-#' @param deframe TRUE a list is returned. FALSE returns a `data.frame`.
+#' @param deframe TRUE a list is returned. FALSE returns a `tbl_ts`/`tbl_df`/`data.frame`.
 #' @export
 slide.data.frame <- function(
   x, .f, ..., size = 1, fill = data.frame(), deframe = TRUE
@@ -52,5 +52,7 @@ slide.data.frame <- function(
   if (deframe) {
     return(output)
   }
-  dplyr::bind_rows(output)
+  df <- dplyr::bind_rows(output)
+  class(df) <- class(x)
+  df
 }

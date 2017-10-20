@@ -27,7 +27,7 @@ slide(x, .f, ..., size = 1, fill)
 
 \item{fill}{A single value to fill \code{NA}.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a \code{data.frame}.}
+\item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
 }
 \value{
 A vector of numerics of the same length as \code{x}.
