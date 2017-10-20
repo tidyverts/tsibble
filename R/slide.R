@@ -1,12 +1,11 @@
 #' Sliding window function
 #'
-#' @param x A vector of numerics
+#' @param x A vector of numerics, a list, or a data frame.
 #' @param .f A function, formula, or atomic vector.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size Window size.
 #' @param fill A single value to fill `NA`.
 #'
-#' @return A vector of numerics of the same length as `x`.
 #' @rdname slide
 #' @export
 #'
@@ -16,9 +15,6 @@
 #' slide(x, sum, size = 3, fill = 0)
 #' slide(x, ~ mean(.), size = 2)
 slide <- function(x, .f, ..., size = 1, fill) {
-  if (size < 1) {
-    abort("The window size must be a positive integer.")
-  }
   UseMethod("slide")
 }
 
@@ -33,7 +29,7 @@ slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
 #' @rdname slide
 #' @export
 slide.list <- function(x, .f, ..., size = 1, fill = list()) {
-  lst_x <- roll_window(x, size = size)
+  lst_x <- slider(x, size = size)
   result <- purrr::map(lst_x, .f, ...)
   c(replicate(n = size - 1, fill, simplify = FALSE), result)
 }
@@ -44,7 +40,7 @@ slide.list <- function(x, .f, ..., size = 1, fill = list()) {
 slide.data.frame <- function(
   x, .f, ..., size = 1, fill = data.frame(), deframe = TRUE
 ) {
-  lst_x <- roll_window(x, size = size)
+  lst_x <- slider(x, size = size)
   result <- purrr::map(lst_x, .f, ...)
   output <- c(replicate(n = size - 1, fill, simplify = FALSE), result)
   if (deframe) {
@@ -55,7 +51,12 @@ slide.data.frame <- function(
   df
 }
 
-roll_window <- function(x, size) {
+#' @rdname slide
+#' @export
+slider <- function(x, size = 1) {
+  if (size < 1) {
+    abort("The window size must be a positive integer.")
+  }
   if (is.data.frame(x)) {
     len_x <- nrow(x)
   } else {
@@ -67,12 +68,11 @@ roll_window <- function(x, size) {
 
 #' Tiling window function
 #'
-#' @param x A vector of numerics
+#' @param x A vector of numerics, a list, or a data frame.
 #' @param .f A function, formula, or atomic vector.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size Window size.
 #'
-#' @return A vector of numerics of the same length as `x`.
 #' @rdname tile
 #' @export
 #'
@@ -85,14 +85,14 @@ tile <- function(x, .f, ..., size = 1) {
 #' @rdname tile
 #' @export
 tile.numeric <- function(x, .f, ..., size = 1) {
-  lst_x <- block(x, size = size)
+  lst_x <- tiler(x, size = size)
   purrr::map_dbl(lst_x, .f, ..., .default = NA_real_)
 }
 
 #' @rdname tile
 #' @export
 tile.list <- function(x, .f, ..., size = 1) {
-  lst_x <- block(x, size = size)
+  lst_x <- tiler(x, size = size)
   purrr::map(lst_x, .f, ...)
 }
 
@@ -100,7 +100,7 @@ tile.list <- function(x, .f, ..., size = 1) {
 #' @param deframe TRUE a list is returned. FALSE returns a `tbl_ts`/`tbl_df`/`data.frame`.
 #' @export
 tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
-  lst_x <- block(x, size = size)
+  lst_x <- tiler(x, size = size)
   if (deframe) {
     return(purrr::map(lst_x, .f, ...))
   }
@@ -109,7 +109,12 @@ tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
   df
 }
 
-block <- function(x, size) {
+#' @rdname tile
+#' @export
+tiler <- function(x, size = 1) {
+  if (size < 1) {
+    abort("The window size must be a positive integer.")
+  }
   if (is.data.frame(x)) {
     seq_x <- nrow(x)
     denom <- nrow(x) + 1

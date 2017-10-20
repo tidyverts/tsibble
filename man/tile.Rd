@@ -5,6 +5,7 @@
 \alias{tile.numeric}
 \alias{tile.list}
 \alias{tile.data.frame}
+\alias{tiler}
 \title{Tiling window function}
 \usage{
 tile(x, .f, ..., size = 1)
@@ -14,9 +15,11 @@ tile(x, .f, ..., size = 1)
 \method{tile}{list}(x, .f, ..., size = 1)
 
 \method{tile}{data.frame}(x, .f, ..., size = 1, deframe = TRUE)
+
+tiler(x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics}
+\item{x}{A vector of numerics, a list, or a data frame.}
 
 \item{.f}{A function, formula, or atomic vector.}
 
@@ -25,9 +28,6 @@ tile(x, .f, ..., size = 1)
 \item{size}{Window size.}
 
 \item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
-}
-\value{
-A vector of numerics of the same length as \code{x}.
 }
 \description{
 Tiling window function

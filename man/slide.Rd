@@ -5,6 +5,7 @@
 \alias{slide.numeric}
 \alias{slide.list}
 \alias{slide.data.frame}
+\alias{slider}
 \title{Sliding window function}
 \usage{
 slide(x, .f, ..., size = 1, fill)
@@ -15,9 +16,11 @@ slide(x, .f, ..., size = 1, fill)
 
 \method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
   deframe = TRUE)
+
+slider(x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics}
+\item{x}{A vector of numerics, a list, or a data frame.}
 
 \item{.f}{A function, formula, or atomic vector.}
 
@@ -28,9 +31,6 @@ slide(x, .f, ..., size = 1, fill)
 \item{fill}{A single value to fill \code{NA}.}
 
 \item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
-}
-\value{
-A vector of numerics of the same length as \code{x}.
 }
 \description{
 Sliding window function
