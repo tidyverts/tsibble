@@ -14,7 +14,7 @@ slide(x, .f, ..., size = 1, fill)
 \method{slide}{list}(x, .f, ..., size = 1, fill = list())
 
 \method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
-  unlist = FALSE)
+  deframe = TRUE)
 }
 \arguments{
 \item{x}{A vector of numerics}
@@ -27,7 +27,7 @@ slide(x, .f, ..., size = 1, fill)
 
 \item{fill}{A single value to fill \code{NA}.}
 
-\item{unlist}{FALSE a list is returned. TRUE returns a \code{data.frame}.}
+\item{deframe}{TRUE a list is returned. FALSE returns a \code{data.frame}.}
 }
 \value{
 A vector of numerics of the same length as \code{x}.
