@@ -84,10 +84,10 @@ parse_key <- function(lst_keys) {
 
 # interpret a nested calls A | B | C
 flatten_nest <- function(key) { # call
-  if (!is.list(key) && has_length(key, 2) && key[[1]] != sym("-")) {
+  if (!is_bare_list(key) && has_length(key, 2) && key[[1]] != sym("-")) {
     return(flatten_nest(key[[2]]))
   }
-  if ((is.list(key) && has_length(key, 2)) || length(key) < 3)
+  if (is_bare_list(key, 2) || length(key) < 3)
     return(key)
   op <- key[[1]]
   x <- key[[2]]

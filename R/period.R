@@ -179,7 +179,7 @@ split_POSIXt <- function(x) {
 seq.yearmth <- function(
   from, to, by, length.out = NULL, along.with = NULL, 
   ...) {
-  if (!is.numeric(by)) {
+  if (!is_bare_numeric(by, n = 1)) {
     abort("The arg of (by) only takes a numeric.")
   }
   by_mth <- paste(by, "month")
