@@ -3,20 +3,23 @@
 \docType{data}
 \name{pedestrian}
 \alias{pedestrian}
-\title{Pedestrian counts in Melbourne city}
-\format{A tsibble with 66071 rows and 5 variables:
-\describe{
-\item{Sensor}{Sensor names (key variable)}
-\item{Date_Time}{Date time when the pedestrian counts are recorded (index)}
-\item{Date}{Date when the pedestrian counts are recorded}
-\item{Time}{Hour associated with Date_Time}
-\item{Counts}{Hourly pedestrian counts}
+\title{Pedestrian counts in the city of Melbourne}
+\format{A tsibble with 66,071 rows and 5 variables:
+\itemize{
+\item \strong{Sensor}: Sensor names (key)
+\item \strong{Date_Time}: Date time when the pedestrian counts are recorded (index)
+\item \strong{Date}: Date when the pedestrian counts are recorded
+\item \strong{Time}: Hour associated with Date_Time
+\item \strong{Counts}: Hourly pedestrian counts
 }}
 \usage{
 pedestrian
 }
 \description{
 A dataset containing the hourly pedestrian counts from 2015-01-01 to
-2016-12-31 at 4 sensors in the city of Melbourne. The variables are as follows:
+2016-12-31 at 4 sensors in the city of Melbourne.
+}
+\references{
+\href{https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp}{Melbourne Open Data Portal}
 }
 \keyword{datasets}

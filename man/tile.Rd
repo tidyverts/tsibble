@@ -16,7 +16,7 @@ tile(x, .f, ..., size = 1)
 tiler(x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics, a list, or a data frame.}
+\item{x}{A vector of numerics, or a data frame.}
 
 \item{.f}{A function, formula, or atomic vector.}
 

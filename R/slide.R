@@ -60,7 +60,7 @@ slider <- function(x, size = 1) {
 
 #' Tiling window function
 #'
-#' @param x A vector of numerics, a list, or a data frame.
+#' @param x A vector of numerics, or a data frame.
 #' @param .f A function, formula, or atomic vector.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size Window size.
