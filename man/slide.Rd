@@ -3,7 +3,6 @@
 \name{slide}
 \alias{slide}
 \alias{slide.numeric}
-\alias{slide.list}
 \alias{slide.data.frame}
 \alias{slider}
 \title{Sliding window function}
@@ -12,15 +11,13 @@ slide(x, .f, ..., size = 1, fill)
 
 \method{slide}{numeric}(x, .f, ..., size = 1, fill = NA_real_)
 
-\method{slide}{list}(x, .f, ..., size = 1, fill = list())
-
 \method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
   deframe = TRUE)
 
 slider(x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics, a list, or a data frame.}
+\item{x}{A vector of numerics, or a data frame.}
 
 \item{.f}{A function, formula, or atomic vector.}
 

@@ -3,7 +3,6 @@
 \name{tile}
 \alias{tile}
 \alias{tile.numeric}
-\alias{tile.list}
 \alias{tile.data.frame}
 \alias{tiler}
 \title{Tiling window function}
@@ -11,8 +10,6 @@
 tile(x, .f, ..., size = 1)
 
 \method{tile}{numeric}(x, .f, ..., size = 1)
-
-\method{tile}{list}(x, .f, ..., size = 1)
 
 \method{tile}{data.frame}(x, .f, ..., size = 1, deframe = TRUE)
 

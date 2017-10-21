@@ -1,6 +1,6 @@
 #' Sliding window function
 #'
-#' @param x A vector of numerics, a list, or a data frame.
+#' @param x A vector of numerics, or a data frame.
 #' @param .f A function, formula, or atomic vector.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size Window size.
@@ -24,14 +24,6 @@ slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
   rep_x <- rep_len(list(x), length(x) - (size - 1))
   lst_x <- purrr::imap(rep_x, ~ .x[.y:(.y + size - 1)])
   c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ..., .default = fill))
-}
-
-#' @rdname slide
-#' @export
-slide.list <- function(x, .f, ..., size = 1, fill = list()) {
-  lst_x <- slider(x, size = size)
-  result <- purrr::map(lst_x, .f, ...)
-  c(replicate(n = size - 1, fill, simplify = FALSE), result)
 }
 
 #' @rdname slide
@@ -87,13 +79,6 @@ tile <- function(x, .f, ..., size = 1) {
 tile.numeric <- function(x, .f, ..., size = 1) {
   lst_x <- tiler(x, size = size)
   purrr::map_dbl(lst_x, .f, ..., .default = NA_real_)
-}
-
-#' @rdname tile
-#' @export
-tile.list <- function(x, .f, ..., size = 1) {
-  lst_x <- tiler(x, size = size)
-  purrr::map(lst_x, .f, ...)
 }
 
 #' @rdname tile
