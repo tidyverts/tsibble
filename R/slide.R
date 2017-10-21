@@ -46,6 +46,9 @@ slide.data.frame <- function(
 #' @rdname slide
 #' @export
 slider <- function(x, size = 1) {
+  if (is.list(x) && !is.data.frame(x)) {
+    abort("Unsupported input class: list")
+  }
   if (size < 1) {
     abort("The window size must be a positive integer.")
   }
@@ -97,6 +100,9 @@ tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
 #' @rdname tile
 #' @export
 tiler <- function(x, size = 1) {
+  if (is.list(x) && !is.data.frame(x)) {
+    abort("Unsupported input class: list")
+  }
   if (size < 1) {
     abort("The window size must be a positive integer.")
   }
