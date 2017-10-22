@@ -113,6 +113,7 @@ as_tsibble(austres)
 # coerce mts to tsibble
 z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)
+as_tsibble(z, gather = FALSE)
 
 # coerce hts from the "hts" package to tsibble
 if (!requireNamespace("hts", quietly = TRUE)) {

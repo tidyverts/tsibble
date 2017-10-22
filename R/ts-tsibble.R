@@ -26,15 +26,17 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
 #' # coerce mts to tsibble
 #' z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 #' as_tsibble(z)
+#' as_tsibble(z, gather = FALSE)
 #'
 #' @export
 as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
   if (gather) {
-    tbl <- gather_ts(x, tz = tz)
+    long_tbl <- gather_ts(x, tz = tz)
+    return(as_tsibble(long_tbl, key, index = index, validate = FALSE))
   } else {
-    tbl <- as_tibble(x)
+    wide_tbl <- bind_time(x, tz = tz)
+    as_tsibble(wide_tbl, index = index, validate = FALSE)
   }
-  as_tsibble(tbl, key, index = index, validate = FALSE)
 }
 
 #' @rdname as-tsibble
