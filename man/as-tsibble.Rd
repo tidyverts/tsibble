@@ -23,7 +23,7 @@ as_tsibble(x, ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
-\method{as_tsibble}{mts}(x, tz = "UTC", ...)
+\method{as_tsibble}{mts}(x, tz = "UTC", gather = TRUE, ...)
 
 \method{as_tsibble}{hts}(x, tz = "UTC", ...)
 }
@@ -46,6 +46,8 @@ finds the minimal time span as the interval.}
 
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
 daily.}
+
+\item{gather}{TRUE gives a "long" data form, otherwise as "wide" as \code{x}.}
 }
 \value{
 A tsibble object.
