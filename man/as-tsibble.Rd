@@ -67,28 +67,25 @@ year-month, year-quarter and year objects respectively.
 \section{Key}{
 
 Key variable(s) together with the index uniquely identifies each record. And
-key(s) also imposes the structure on a tsibble:
+key(s) also imposes the structure on a tsibble to describe other measured
+variables:
 \itemize{
-\item Univariate time series: none.
-\item Multivariate time series: a single variable. For example, \code{data(pedestrian)}
+\item None: an implicit variable
+\item A single variable: an explicit variable. For example, \code{data(pedestrian)}
 uses the \code{Sensor} column as the key.
-\item Grouped time series: multiple variables separated by commas (\code{,}). For example,
-sales data over time can be split by product types (\code{product}) and geographical
-locations (\code{geo}), and thus \code{product}, \code{geo} suggests the structure.
-\item Hierarchical time series: nested keys using vertical bars (\code{|}). For example,
-a natural hierarchy is defined on geographical regions: cities (\code{city}) are
-nested in states (\code{state}). The expression of \code{city} | \code{state} is expected.
-The general principle is that lower levels are nested in higher levels
-(\code{lower} | \code{middle} | \code{higher}).
+\item Nested variables: a nesting of one variable under another. For example,
+\code{data(tourism)} contains two geographical locations: \code{Region} and \code{State}.
+\code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
+is nested into \code{State}, which naturally forms a hierarchy. A vertical bars (|)
+is used to describe this nesting relationship, and thus \code{Region} | \code{State}.
+In theory, nesting can involve infinite levels, so is \code{tsibble}.
+\item Crossed variables: a crossing of one variable with another. For example,
+the geographical locations are crossed with the purpose of visiting (\code{Purpose})
+in the \code{data(tourism)}. A comma (,) is used to indicate this crossing
+relationship. Nested and crossed variables can be combined, such as \code{data(tourism)}.
 }
 
-A combination of nested and grouped variables are also supported.
-}
-
-\section{Print options}{
-
-The tsibble package fully utilises the \code{print} method from the tibble. Please
-refer to \link[tibble:tibble-package]{tibble::tibble-package} to change display options.
+These key variables are descriptors, not values.
 }
 
 \examples{
