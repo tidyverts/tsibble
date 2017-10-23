@@ -49,7 +49,7 @@ weather_ts
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
 
-The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `vignette()` for details.
+The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `?tsibble` and `vignette()` for details.
 
 ### Summarise over calendar periods with `tsummarise()`
 
@@ -81,7 +81,7 @@ weather_ts %>%
 #> # ... with 26 more rows
 ```
 
-The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, and `year()`.
+The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, `year()`, and other *lubridate* friends like `ceiling_date()`.
 
 Related work
 ------------
