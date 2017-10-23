@@ -21,9 +21,8 @@ slide <- function(x, .f, ..., size = 1, fill) {
 #' @rdname slide
 #' @export
 slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
-  rep_x <- rep_len(list(x), length(x) - (size - 1))
-  lst_x <- purrr::imap(rep_x, ~ .x[.y:(.y + size - 1)])
-  c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ..., .default = fill))
+  lst_x <- slider(x, size = size)
+  c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ...))
 }
 
 #' @rdname slide
@@ -58,6 +57,9 @@ slider <- function(x, size = 1) {
     len_x <- length(x)
   }
   lst_idx <- seq_len(len_x - size + 1)
+  if (is_atomic(x)) {
+    return(purrr::map(lst_idx, ~ x[(.):(. + size - 1)]))
+  }
   purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
 }
 
