@@ -117,5 +117,5 @@ tiler <- function(.x, size = 1) {
     denom <- length(.x) + 1
   }
   frac <- ceiling((seq_x %% denom) / size)
-  unname(split(x, frac))
+  unname(split(.x, frac))
 }
