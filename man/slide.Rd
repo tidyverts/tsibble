@@ -7,25 +7,25 @@
 \alias{slider}
 \title{Sliding window function}
 \usage{
-slide(x, .f, ..., size = 1, fill)
+slide(.x, .f, ..., size = 1, fill)
 
-\method{slide}{numeric}(x, .f, ..., size = 1, fill = NA_real_)
+\method{slide}{numeric}(.x, .f, ..., size = 1, fill = NA_real_)
 
-\method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
+\method{slide}{data.frame}(.x, .f, ..., size = 1, fill = data.frame(),
   deframe = TRUE)
 
-slider(x, size = 1)
+slider(.x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics, or a data frame.}
+\item{.x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function, formula, or atomic vector.}
+\item{.f}{A function, or formula.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{size}{Window size.}
 
-\item{fill}{A single value to fill \code{NA}.}
+\item{fill}{A single value or data frame to fill \code{NA}.}
 
 \item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
 }
@@ -33,8 +33,8 @@ slider(x, size = 1)
 Sliding window function
 }
 \examples{
-x <- 1:10
-slide(x, sum, size = 3)
-slide(x, sum, size = 3, fill = 0)
-slide(x, ~ mean(.), size = 2)
+x <- sample(1:10, size = 100, replace = TRUE)
+slide(x, sum, size = 10)
+slide(x, sum, size = 10, fill = 0)
+slide(x, ~ mean(.), size = 10)
 }

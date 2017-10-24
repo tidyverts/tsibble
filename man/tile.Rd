@@ -7,18 +7,18 @@
 \alias{tiler}
 \title{Tiling window function}
 \usage{
-tile(x, .f, ..., size = 1)
+tile(.x, .f, ..., size = 1)
 
-\method{tile}{numeric}(x, .f, ..., size = 1)
+\method{tile}{numeric}(.x, .f, ..., size = 1)
 
-\method{tile}{data.frame}(x, .f, ..., size = 1, deframe = TRUE)
+\method{tile}{data.frame}(.x, .f, ..., size = 1, deframe = TRUE)
 
-tiler(x, size = 1)
+tiler(.x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics, or a data frame.}
+\item{.x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function, formula, or atomic vector.}
+\item{.f}{A function, or formula.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
