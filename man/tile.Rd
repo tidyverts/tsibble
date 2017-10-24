@@ -24,7 +24,7 @@ tiler(x, size = 1)
 
 \item{size}{Window size.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
+\item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
 }
 \description{
 Tiling window function

@@ -27,7 +27,7 @@ slider(x, size = 1)
 
 \item{fill}{A single value or data frame to fill \code{NA}.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a \code{tbl_ts}/\code{tbl_df}/\code{data.frame}.}
+\item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
 }
 \description{
 Sliding window function

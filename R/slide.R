@@ -26,7 +26,7 @@ slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
 }
 
 #' @rdname slide
-#' @param deframe TRUE a list is returned. FALSE returns a `tbl_ts`/`tbl_df`/`data.frame`.
+#' @param deframe TRUE a list is returned. FALSE returns a data frame.
 #' @export
 slide.data.frame <- function(
   x, .f, ..., size = 1, fill = data.frame(), deframe = TRUE
@@ -38,9 +38,7 @@ slide.data.frame <- function(
     return(output)
   }
   # currently not support grouped_df/ts
-  df <- dplyr::bind_rows(output)
-  class(df) <- class(x)
-  df
+  dplyr::bind_rows(output)
 }
 
 #' @rdname slide
@@ -88,16 +86,14 @@ tile.numeric <- function(x, .f, ..., size = 1) {
 }
 
 #' @rdname tile
-#' @param deframe TRUE a list is returned. FALSE returns a `tbl_ts`/`tbl_df`/`data.frame`.
+#' @param deframe TRUE a list is returned. FALSE returns a data frame.
 #' @export
 tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
   lst_x <- tiler(x, size = size)
   if (deframe) {
     return(purrr::map(lst_x, .f, ...))
   }
-  df <- purrr::map_df(lst_x, .f, ...)
-  class(df) <- class(x)
-  df
+  purrr::map_df(lst_x, .f, ...)
 }
 
 #' @rdname tile
