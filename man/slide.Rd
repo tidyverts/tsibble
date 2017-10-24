@@ -7,17 +7,17 @@
 \alias{slider}
 \title{Sliding window function}
 \usage{
-slide(.x, .f, ..., size = 1, fill)
+slide(x, .f, ..., size = 1, fill)
 
-\method{slide}{numeric}(.x, .f, ..., size = 1, fill = NA_real_)
+\method{slide}{numeric}(x, .f, ..., size = 1, fill = NA_real_)
 
-\method{slide}{data.frame}(.x, .f, ..., size = 1, fill = data.frame(),
+\method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
   deframe = TRUE)
 
-slider(.x, size = 1)
+slider(x, size = 1)
 }
 \arguments{
-\item{.x}{A vector of numerics, or data frame.}
+\item{x}{A vector of numerics, or data frame.}
 
 \item{.f}{A function, or formula.}
 
