@@ -56,8 +56,9 @@ slice.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::select]
 #' @export
 select.tbl_ts <- function(.data, ..., drop = FALSE) {
+  sel_data <- select(as_tibble(.data), ...)
   if (drop) {
-    return(select(as_tibble(.data), ...))
+    return(sel_data)
   }
   lst_quos <- quos(..., .named = TRUE)
   val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
@@ -68,8 +69,6 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   rhs <- purrr::map_chr(lst_quos, quo_name)
   lhs <- names(lst_quos)
   index(.data) <- update_index(index(.data), rhs, lhs)
-  # switch to a list due to error msg from the `else` part
-  sel_data <- unclass(NextMethod()) # a list
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no changes in key vars
     return(as_tsibble(
@@ -108,17 +107,16 @@ rename.tbl_ts <- function(.data, ...) {
 #' @export
 # [!] important to check if index and key vars have be overwritten in the LHS
 mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
+  mut_data <- mutate(as_tibble(.data), ...)
   if (drop) {
-    return(mutate(as_tibble(.data), ...))
+    return(mut_data)
   }
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
   grps <- groups(.data)
-  mut_data <- if (is_grouped_ts(.data)) {
+  if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    mutate(grped_data, ...)
-  } else {
-    NextMethod()
+    mut_data <- mutate(grped_data, ...)
   }
   # either key or index is present in ...
   # suggests that the operations are done on these variables
