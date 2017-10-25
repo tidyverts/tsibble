@@ -202,6 +202,11 @@ ungroup.tbl_ts <- function(x, ...) {
   )
 }
 
+#' @importFrom dplyr group_indices
+group_indices.grouped_ts <- function(.data, ...) {
+  group_indices(as_tibble(.data))
+}
+
 # this function prepares group variables in a vector of characters for
 # dplyr::grouped_df()
 # the arg of group can take a nested str but be flattened in the end.
