@@ -2,9 +2,10 @@
 #'
 #' @param .data A data frame.
 #' @param ... A set of name-value pairs. The values will replace existing explicit
-#' missing values by variable, otherwise `NA`. The values replacing `NA` must
-#' be of the same type as the original one.
+#' missing values by variable, otherwise `NA`. The replacement values must be of 
+#' the same type as the original one.
 #'
+#' @seealso [case_na], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
 #' @export
 #'
@@ -24,17 +25,17 @@
 #'
 #' # replace NA using a function by varible
 #' # enable `na.rm = TRUE` when necessary
-#' harvest %>% 
+#' harvest %>%
 #'   fill_na(kilo = sum(kilo, na.rm = TRUE))
 #'
 #' # replace NA using a function for each group
-#' harvest %>% 
-#'   group_by(fruit) %>% 
+#' harvest %>%
+#'   group_by(fruit) %>%
 #'   fill_na(kilo = sum(kilo, na.rm = TRUE))
-#' 
+#'
 #' # replace NA
-#' pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#' pedestrian %>%
+#'   group_by(Sensor) %>%
 #'   fill_na(
 #'     Date = lubridate::as_date(Date_Time),
 #'     Time = lubridate::hour(Date_Time),
@@ -54,7 +55,7 @@ fill_na.tbl_ts <- function(.data, ...) {
   full_data <- .data %>%
     tidyr::complete(
       !! quo_text2(idx) := seq(
-        from = min0(!! idx), to = max0(!! idx), 
+        from = min0(!! idx), to = max0(!! idx),
         by = as_period(!! idx)
       ),
       !!! key(.data)
@@ -84,7 +85,7 @@ modify_na <- function(.data, ...) {
     lst_lang <- purrr::map(lst_data, function(dat) purrr::map2(
       syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! dat))
     ))
-    mod_quos <- purrr::map(seq_along(lst_lang), 
+    mod_quos <- purrr::map(seq_along(lst_lang),
       ~ purrr::map(lst_lang[[.]], ~ lang("case_na", .))
     )
     mod_quos <- purrr::map(mod_quos, ~ `names<-`(., lhs))
@@ -102,6 +103,18 @@ modify_na <- function(.data, ...) {
   }
 }
 
+#' A thin wrapper of `dplyr::case_when()` if there are `NA`s
+#'
+#' @param formula A two-sided formula. The LHS expects a vector containing `NA`, 
+#' and the RHS gives the replacement value.
+#'
+#' @export
+#'
+#' @examples
+#' x <- rnorm(10)
+#' x[c(3, 7)] <- NA_real_
+#' case_na(x ~ 10)
+#' case_na(x ~ mean(x, na.rm = TRUE))
 case_na <- function(formula) {
   env_f <- f_env(formula)
   lhs <- eval_bare(f_lhs(formula), env = env_f)

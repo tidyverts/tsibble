@@ -13,8 +13,8 @@ fill_na(.data, ...)
 \item{.data}{A data frame.}
 
 \item{...}{A set of name-value pairs. The values will replace existing explicit
-missing values by variable, otherwise \code{NA}. The values replacing \code{NA} must
-be of the same type as the original one.}
+missing values by variable, otherwise \code{NA}. The replacement values must be of
+the same type as the original one.}
 }
 \description{
 Turn implicit missing values into explicit missing values
@@ -35,20 +35,23 @@ harvest \%>\%
 
 # replace NA using a function by varible
 # enable `na.rm = TRUE` when necessary
-harvest \%>\% 
+harvest \%>\%
   fill_na(kilo = sum(kilo, na.rm = TRUE))
 
 # replace NA using a function for each group
-harvest \%>\% 
-  group_by(fruit) \%>\% 
+harvest \%>\%
+  group_by(fruit) \%>\%
   fill_na(kilo = sum(kilo, na.rm = TRUE))
 
 # replace NA
-pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
+pedestrian \%>\%
+  group_by(Sensor) \%>\%
   fill_na(
     Date = lubridate::as_date(Date_Time),
     Time = lubridate::hour(Date_Time),
     Count = as.integer(median(Count, na.rm = TRUE))
   )
+}
+\seealso{
+\link{case_na}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}
 }
