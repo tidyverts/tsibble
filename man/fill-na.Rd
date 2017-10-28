@@ -10,37 +10,45 @@ fill_na(.data, ...)
 \method{fill_na}{tbl_ts}(.data, ...)
 }
 \arguments{
-\item{.data}{A \code{tbl_ts}.}
+\item{.data}{A data frame.}
 
 \item{...}{A set of name-value pairs. The values will replace existing explicit
-missing values by variable, otherwise \code{NA}.}
+missing values by variable, otherwise \code{NA}. The values replacing \code{NA} must
+be of the same type as the original one.}
 }
 \description{
 Turn implicit missing values into explicit missing values
 }
 \examples{
-tsbl <- as_tsibble(tibble::tibble(
+harvest <- as_tsibble(tibble::tibble(
   year = year(c(2010, 2011, 2013, 2011, 2012, 2014)),
-  group = rep(letters[1:2], each = 3),
-  value = sample(1:10, size = 6),
-), group, index = year)
+  fruit = rep(c("kiwi", "cherry"), each = 3),
+  kilo = sample(1:10, size = 6),
+), fruit, index = year)
 
 # leave NA as is
-fill_na(tsbl)
+fill_na(harvest)
 
-# replace NA with a specific number
-tsbl \%>\%
-  fill_na(value = 0L)
+# replace NA with a specific value
+harvest \%>\%
+  fill_na(kilo = 0L)
 
-# replace NA using some functions
-tsbl \%>\% 
-  fill_na(value = sum(value, na.rm = TRUE))
+# replace NA using a function by varible
+# enable `na.rm = TRUE` when necessary
+harvest \%>\% 
+  fill_na(kilo = sum(kilo, na.rm = TRUE))
+
+# replace NA using a function for each group
+harvest \%>\% 
+  group_by(fruit) \%>\% 
+  fill_na(kilo = sum(kilo, na.rm = TRUE))
 
 # replace NA
 pedestrian \%>\% 
+  group_by(Sensor) \%>\% 
   fill_na(
     Date = lubridate::as_date(Date_Time),
     Time = lubridate::hour(Date_Time),
-    Count = median(Count, na.rm = TRUE)
+    Count = as.integer(median(Count, na.rm = TRUE))
   )
 }

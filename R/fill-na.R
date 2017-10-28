@@ -1,36 +1,44 @@
 #' Turn implicit missing values into explicit missing values
 #'
-#' @param .data A `tbl_ts`.
+#' @param .data A data frame.
 #' @param ... A set of name-value pairs. The values will replace existing explicit
-#' missing values by variable, otherwise `NA`.
+#' missing values by variable, otherwise `NA`. The values replacing `NA` must
+#' be of the same type as the original one.
 #'
 #' @rdname fill-na
 #' @export
 #'
 #' @examples
-#' tsbl <- as_tsibble(tibble::tibble(
+#' harvest <- as_tsibble(tibble::tibble(
 #'   year = year(c(2010, 2011, 2013, 2011, 2012, 2014)),
-#'   group = rep(letters[1:2], each = 3),
-#'   value = sample(1:10, size = 6),
-#' ), group, index = year)
+#'   fruit = rep(c("kiwi", "cherry"), each = 3),
+#'   kilo = sample(1:10, size = 6),
+#' ), fruit, index = year)
 #'
 #' # leave NA as is
-#' fill_na(tsbl)
+#' fill_na(harvest)
 #'
-#' # replace NA with a specific number
-#' tsbl %>%
-#'   fill_na(value = 0L)
+#' # replace NA with a specific value
+#' harvest %>%
+#'   fill_na(kilo = 0L)
 #'
-#' # replace NA using some functions
-#' tsbl %>% 
-#'   fill_na(value = sum(value, na.rm = TRUE))
+#' # replace NA using a function by varible
+#' # enable `na.rm = TRUE` when necessary
+#' harvest %>% 
+#'   fill_na(kilo = sum(kilo, na.rm = TRUE))
+#'
+#' # replace NA using a function for each group
+#' harvest %>% 
+#'   group_by(fruit) %>% 
+#'   fill_na(kilo = sum(kilo, na.rm = TRUE))
 #' 
 #' # replace NA
 #' pedestrian %>% 
+#'   group_by(Sensor) %>% 
 #'   fill_na(
 #'     Date = lubridate::as_date(Date_Time),
 #'     Time = lubridate::hour(Date_Time),
-#'     Count = median(Count, na.rm = TRUE)
+#'     Count = as.integer(median(Count, na.rm = TRUE))
 #'   )
 fill_na <- function(.data, ...) {
   UseMethod("fill_na")
@@ -53,15 +61,12 @@ fill_na.tbl_ts <- function(.data, ...) {
     )
 
   full_data <- full_data %>%
-    mutate_na(!!! quos(...))
+    modify_na(!!! quos(...))
   full_data <- full_data[, colnames(.data)] # keep the original order
   as_tsibble(full_data, !!! key(.data), index = !! idx, validate = FALSE)
 }
 
-# ToDo: I'd like to use group_by() in conjunction
-# I think that the issue arises when creating new formula which is not evaluated
-# in the grouped df
-mutate_na <- function(.data, ...) {
+modify_na <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   if (is_empty(lst_quos)) {
     return(.data)
@@ -74,13 +79,27 @@ mutate_na <- function(.data, ...) {
   }
 
   rhs <- purrr::map(lst_quos, f_rhs)
-  lst_lang <- purrr::map2(
-    syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
-  )
-  mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
-  names(mod_quos) <- lhs
-  .data %>%
-    mutate(!!! mod_quos)
+  if (is_grouped_ts(.data)) {
+    lst_data <- split(.data, group_indices(.data))
+    lst_lang <- purrr::map(lst_data, function(dat) purrr::map2(
+      syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! dat))
+    ))
+    mod_quos <- purrr::map(seq_along(lst_lang), 
+      ~ purrr::map(lst_lang[[.]], ~ lang("case_na", .))
+    )
+    mod_quos <- purrr::map(mod_quos, ~ `names<-`(., lhs))
+    mut_data <- purrr::map2(lst_data, mod_quos, ~ mutate(.x, !!! .y))
+    bind_data <- dplyr::bind_rows(mut_data)
+    return(restore_tsibble_class(.data, bind_data))
+  } else {
+    lst_lang <- purrr::map2(
+      syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
+    )
+    mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
+    names(mod_quos) <- lhs
+    .data %>%
+      mutate(!!! mod_quos)
+  }
 }
 
 case_na <- function(formula) {
@@ -109,4 +128,13 @@ restore_index_class <- function(data, newdata) {
   new_idx <- quo_text2(index(newdata))
   class(newdata[[new_idx]]) <- class(data[[old_idx]])
   newdata
+}
+
+restore_tsibble_class <- function(data, newdata) {
+  class(newdata) <- class(data)
+  index(newdata) <- index(data)
+  key(newdata) <- key(data)
+  groups(newdata) <- groups(data)
+  attr(newdata, "regular") <- is_regular(data)
+  restore_index_class(data, newdata)
 }
