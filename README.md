@@ -46,11 +46,7 @@ weather_ts
 
 The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `?tsibble` and `vignette()` for details.
 
-### tsibble verbs
-
-The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
-
--   `tsummarise()` to summarise over calendar periods
+### `tsummarise()` to summarise over calendar periods
 
 We have a new verb `tsummarise()` to aggregate interested variables over calendar periods.
 
@@ -77,7 +73,7 @@ weather_ts %>%
 
 The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, `year()`, and other friends from *lubridate*, like `ceiling_date()`.
 
--   `fill_na()` to turn implicit missing values into explicit missing values
+### `fill_na()` to turn implicit missing values into explicit missing values
 
 Often, there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only makes the `NA`s present, but also provides a consistent interface to replace these `NA`s.
 
@@ -100,8 +96,8 @@ weather_na %>%
 #> *  <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
 #> 1    EWR  2013     1     1     0 37.04 21.92 53.97      230   10.35702
 #> 2    EWR  2013     1     1     1 37.04 21.92 53.97      230   13.80936
-#> 3    EWR  2013     1     1     2 37.94 21.92 52.09      230   12.65858
-#> 4    EWR  2013    NA    NA    NA 37.94    NA    NA       NA         NA
+#> 3    EWR  2013    NA    NA    NA 37.04    NA    NA       NA         NA
+#> 4    EWR  2013     1     1     3 37.94 23.00 54.51      230   13.80936
 #> 5    EWR  2013     1     1     4 37.94 24.08 57.04      240   14.96014
 #> # ... with 2.62e+04 more rows, and 5 more variables: wind_gust <dbl>,
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
@@ -109,8 +105,11 @@ weather_na %>%
 
 If there's no replacement value for some variables, leave `NA` as is.
 
+**NOTE**: The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
+
 Related work
 ------------
 
 -   [tibbletime](https://github.com/business-science/tibbletime)
+-   [padr](https://github.com/EdwinTh/padr)
 -   [tsbox](https://github.com/christophsax/tsbox)
