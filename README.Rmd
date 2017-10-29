@@ -80,7 +80,7 @@ weather_na %>%
   group_by(origin) %>%
   fill_na(
     year = as.numeric(year(time_hour)),
-    temp = mean(temp, na.rm = TRUE),
+    temp = dplyr::lag(temp, na.rm = TRUE),
     precip = 0
   )
 ```

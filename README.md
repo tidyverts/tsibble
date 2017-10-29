@@ -91,18 +91,18 @@ weather_na %>%
   group_by(origin) %>%
   fill_na(
     year = as.numeric(year(time_hour)),
-    temp = mean(temp, na.rm = TRUE),
+    temp = dplyr::lag(temp, na.rm = TRUE),
     precip = 0
   )
 #> # A tsibble: 26,208 x 15 [1HOUR]
 #> # Keys:      origin
-#>   origin  year month   day  hour     temp  dewp humid wind_dir wind_speed
-#> *  <chr> <dbl> <dbl> <int> <int>    <dbl> <dbl> <dbl>    <dbl>      <dbl>
-#> 1    EWR  2013     1     1     0 37.04000 21.92 53.97      230   10.35702
-#> 2    EWR  2013     1     1     1 37.04000 21.92 53.97      230   13.80936
-#> 3    EWR  2013    NA    NA    NA 55.40617    NA    NA       NA         NA
-#> 4    EWR  2013     1     1     3 37.94000 23.00 54.51      230   13.80936
-#> 5    EWR  2013     1     1     4 37.94000 24.08 57.04      240   14.96014
+#>   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+#> *  <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
+#> 1    EWR  2013     1     1     0 37.04 21.92 53.97      230   10.35702
+#> 2    EWR  2013     1     1     1 37.04 21.92 53.97      230   13.80936
+#> 3    EWR  2013     1     1     2 37.94 21.92 52.09      230   12.65858
+#> 4    EWR  2013    NA    NA    NA 37.94    NA    NA       NA         NA
+#> 5    EWR  2013     1     1     4 37.94 24.08 57.04      240   14.96014
 #> # ... with 2.62e+04 more rows, and 5 more variables: wind_gust <dbl>,
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
