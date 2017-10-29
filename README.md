@@ -8,7 +8,7 @@ tsibble
 Overview
 --------
 
-The **tsibble** package provides a data class of `tbl_ts` to manage temporal data frames in a tidy and modern way. A *tsibble* consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the *tibble*.
+The **tsibble** package provides a data class of `tbl_ts` to manage temporal-context data frames in a tidy and modern way. A *tsibble* consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the *tibble*.
 
 Installation
 ------------
@@ -51,9 +51,13 @@ weather_ts
 
 The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `?tsibble` and `vignette()` for details.
 
-### Summarise over calendar periods with `tsummarise()`
+### tsibble verbs
 
-The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble. We also have a new verb `tsummarise()` to aggregate interested variables over calendar periods.
+The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
+
+-   `tsummarise()` to summarise over calendar periods
+
+We have a new verb `tsummarise()` to aggregate interested variables over calendar periods.
 
 ``` r
 weather_ts %>%
@@ -81,7 +85,44 @@ weather_ts %>%
 #> # ... with 26 more rows
 ```
 
-The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, `year()`, and other *lubridate* friends like `ceiling_date()`.
+The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, `year()`, and other friends from *lubridate*, like `ceiling_date()`.
+
+-   `fill_na()` to turn implicit missing values into explicit missing values
+
+Often, there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only makes the `NA`s present, but also provides a consistent interface to replace these `NA`s.
+
+``` r
+nr <- nrow(weather_ts)
+# randomly remove 20% of the observations
+weather_na <- weather_ts %>%
+  slice(sample(nr, size = nr * 0.8))
+# replace NA with either functions or values for each group
+weather_na %>%
+  group_by(origin) %>%
+  fill_na(
+    year = as.numeric(year(time_hour)),
+    temp = mean(temp, na.rm = TRUE),
+    precip = 0
+  )
+#> # A tsibble: 26,208 x 15 [1HOUR]
+#> # Keys:      origin
+#>    origin  year month   day  hour     temp  dewp humid wind_dir wind_speed
+#>  *  <chr> <dbl> <dbl> <int> <int>    <dbl> <dbl> <dbl>    <dbl>      <dbl>
+#>  1    EWR  2013     1     1     0 37.04000 21.92 53.97      230   10.35702
+#>  2    EWR  2013     1     1     1 37.04000 21.92 53.97      230   13.80936
+#>  3    EWR  2013     1     1     2 37.94000 21.92 52.09      230   12.65858
+#>  4    EWR  2013    NA    NA    NA 55.62842    NA    NA       NA         NA
+#>  5    EWR  2013     1     1     4 37.94000 24.08 57.04      240   14.96014
+#>  6    EWR  2013    NA    NA    NA 55.62842    NA    NA       NA         NA
+#>  7    EWR  2013     1     1     6 39.02000 26.06 59.37      270   10.35702
+#>  8    EWR  2013    NA    NA    NA 55.62842    NA    NA       NA         NA
+#>  9    EWR  2013    NA    NA    NA 55.62842    NA    NA       NA         NA
+#> 10    EWR  2013    NA    NA    NA 55.62842    NA    NA       NA         NA
+#> # ... with 26,198 more rows, and 5 more variables: wind_gust <dbl>,
+#> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+```
+
+If there's no replacement value for some variables, leave `NA` as is.
 
 Related work
 ------------
