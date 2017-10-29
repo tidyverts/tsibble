@@ -1,4 +1,9 @@
 #' @export
+type_sum.tbl_ts <- function(x) {
+  "tsibble"
+}
+
+#' @export
 type_sum.yearmth <- function(x) {
   "mth"
 }
