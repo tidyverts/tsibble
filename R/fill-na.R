@@ -91,7 +91,10 @@ modify_na <- function(.data, ...) {
     mod_quos <- purrr::map(mod_quos, ~ `names<-`(., lhs))
     mut_data <- purrr::map2(lst_data, mod_quos, ~ mutate(.x, !!! .y))
     bind_data <- dplyr::bind_rows(mut_data)
-    return(restore_tsibble_class(.data, bind_data))
+    return(as_tsibble(
+      bind_data, !!! key(.data), index = !! index(.data), 
+      validate = FALSE, regular = is_regular(.data)
+    ))
   } else {
     lst_lang <- purrr::map2(
       syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
@@ -141,13 +144,4 @@ restore_index_class <- function(data, newdata) {
   new_idx <- quo_text2(index(newdata))
   class(newdata[[new_idx]]) <- class(data[[old_idx]])
   newdata
-}
-
-restore_tsibble_class <- function(data, newdata) {
-  class(newdata) <- class(data)
-  index(newdata) <- index(data)
-  key(newdata) <- key(data)
-  groups(newdata) <- groups(data)
-  attr(newdata, "regular") <- is_regular(data)
-  restore_index_class(data, newdata)
 }
