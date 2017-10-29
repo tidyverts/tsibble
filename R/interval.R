@@ -20,13 +20,13 @@ find_interval.Date <- find_interval.POSIXt
 
 find_interval.yearmth <- function(x, exclude_zero = TRUE) {
   # num of months
-  mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
+  mon <- year(x) + (lubridate::month(x) - 1) / 12
   ceiling(min_interval(mon, exclude_zero = exclude_zero) * 12)
 }
 
 find_interval.yearqtr <- function(x, exclude_zero = TRUE) {
   # num of quarters
-  qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
+  qtr <- year(x) + (lubridate::quarter(x) - 1) / 4
   ceiling(min_interval(qtr, exclude_zero = exclude_zero) * 4)
 }
 
@@ -43,6 +43,10 @@ pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
     class = "interval"
   )
 }
+
+pull_interval.difftime <- pull_interval.POSIXt
+
+pull_interval.hms <- pull_interval.difftime # for hms package
 
 pull_interval.Date <- function(x, exclude_zero = TRUE) {
   ndays <- find_interval.Date(x, exclude_zero = exclude_zero)

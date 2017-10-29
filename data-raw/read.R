@@ -2,7 +2,7 @@ library(tsibble)
 library(tidyverse)
 library(lubridate)
 
-# Melbourne pedestrian sensor data
+# Melbourne pedestrian sensor data ----
 pedestrian <- rwalkr::run_melb(
   year = 2015:2016,
   sensor = c(
@@ -16,7 +16,7 @@ pedestrian <- rwalkr::run_melb(
 pedestrian <- as_tsibble(pedestrian, Sensor, index = Date_Time)
 devtools::use_data(pedestrian, overwrite = TRUE)
 
-# Australia: Domestic Overnight Trips ('000)
+# Australia: Domestic Overnight Trips ('000) ----
 domestic_trips <- readxl::read_excel(
   "data-raw/domestic-trips.xlsx", skip = 12,
   col_names = c("Quarter", "Region", "Holiday", "Visiting", "Business", "Other"),
@@ -24,7 +24,7 @@ domestic_trips <- readxl::read_excel(
 )
 
 # fill NA in "Quarter" using the last obs
-fill_na <- domestic_trips %>% 
+fill_na <- domestic_trips %>%
   fill(Quarter, .direction = "down")
 
 # separate State from "Region"
@@ -32,21 +32,36 @@ state <- c(
   "New South Wales", "Victoria", "Queensland", "South Australia",
   "Western Australia", "Northern Territory", "ACT"
 )
-state_na <- fill_na %>% 
-  mutate(State = if_else(Region %in% state, Region, NA_character_)) %>% 
-  fill(State, .direction = "up") %>% 
+state_na <- fill_na %>%
+  mutate(State = if_else(Region %in% state, Region, NA_character_)) %>%
+  fill(State, .direction = "up") %>%
   filter(!(Region %in% state))
 
 # gather Stopover purpose of visit
-long_data <- state_na %>% 
+long_data <- state_na %>%
   gather("Purpose", "Trips", Holiday:Other)
 
 # maniputate Quarter
-qtr_data <- long_data %>% 
-  mutate(Quarter = paste(gsub(" quarter", "", Quarter), "01")) %>% 
+qtr_data <- long_data %>%
+  mutate(Quarter = paste(gsub(" quarter", "", Quarter), "01")) %>%
   mutate(Quarter = yearqtr(myd(Quarter)))
 
 # convert to tsibble
-tourism <- qtr_data %>% 
+tourism <- qtr_data %>%
   as_tsibble(Region | State, Purpose, index = Quarter)
 devtools::use_data(tourism, overwrite = TRUE)
+
+# hms data ----
+x <- seq(0, 8.99, by = 1/20)
+y <- seq(0, 5.99, by = 1/30)
+sin_x <- sinpi(x) + rnorm(180, sd = 0.1)
+cos_x <- cospi(y) + rnorm(180, sd = 0.1)
+secs <- rep(rep.int(0:59, 3), 2)
+mins <- rep(rep(0:2, each = 60), 2)
+sincos <- tibble(
+  length = hms::hms(seconds = secs, minutes = mins),
+  trig = rep(c("sine", "cosine"), each = 180),
+  value = c(sin_x, cos_x)
+)
+sincos <- as_tsibble(sincos, trig, index = length)
+devtools::use_data(sincos, overwrite = TRUE)
