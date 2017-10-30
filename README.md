@@ -5,9 +5,6 @@ tsibble
 
 [![Travis-CI Build Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble) [![Coverage Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
-Overview
---------
-
 The **tsibble** package provides a data class of `tbl_ts` to manage temporal-context data frames in a tidy and modern way. A *tsibble* consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the *tibble*.
 
 Installation
@@ -48,7 +45,7 @@ The **key** is not constrained to a single variable, but expressive for nested a
 
 ### `tsummarise()` to summarise over calendar periods
 
-We have a new verb `tsummarise()` to aggregate interested variables over calendar periods.
+A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, and `year()`, as well as other friends from *lubridate*, like `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmth()` to the hourly time index.
 
 ``` r
 weather_ts %>%
@@ -71,17 +68,16 @@ weather_ts %>%
 #> # ... with 31 more rows
 ```
 
-The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, `year()`, and other friends from *lubridate*, like `ceiling_date()`.
+The `tsummarise()` can be a useful function for regularising an irregular tsibble.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
 
-Often, there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only makes the `NA`s present, but also provides a consistent interface to replace these `NA`s.
+Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only extends the index and key to make the `NA`s present, but also provides a consistent interface to replace these `NA`s using a set of name-value pairs.
 
 ``` r
 nr <- nrow(weather_ts)
 # randomly remove 20% of the observations
-weather_na <- weather_ts %>%
-  slice(sample(nr, size = nr * 0.8))
+weather_na <- slice(weather_ts, sample(nr, size = nr * 0.8))
 # replace NA with either functions or values for each group
 weather_na %>%
   group_by(origin) %>%
@@ -103,13 +99,40 @@ weather_na %>%
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
 
-If there's no replacement value for some variables, leave `NA` as is.
+The missing values of the *year*, *temp* and *precip*, are supplied by the year extracted from the *time\_hour*, the previous hour's temperature, and a single number of 0 respectively. The rest of untouched variables simply leave `NA` as is.
 
-**NOTE**: The common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
+### Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`
+
+Time series data commonly get involved in moving window calculations. A set of verbs provided in the *tsibble* allow for different variations of moving windows:
+
+-   `slide()`: sliding window with overlapping observations.
+-   `tile()`: tiling window without overlapping observations.
+-   `stretch()`: fixing an initial window and expanding more observations.
+
+For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
+
+``` r
+weather_ts %>% 
+  select(origin, time_hour, temp) %>% 
+  group_by(origin) %>% 
+  mutate(temp_mv = slide(temp, mean, size = 3))
+#> # A tsibble: 26,130 x 4 [1HOUR]
+#> # Keys:      origin
+#> # Groups:    origin
+#>   origin           time_hour  temp temp_mv
+#> *  <chr>              <dttm> <dbl>   <dbl>
+#> 1    EWR 2013-01-01 11:00:00 37.04      NA
+#> 2    EWR 2013-01-01 12:00:00 37.04      NA
+#> 3    EWR 2013-01-01 13:00:00 37.94   37.34
+#> 4    EWR 2013-01-01 14:00:00 37.94   37.64
+#> 5    EWR 2013-01-01 15:00:00 37.94   37.94
+#> # ... with 2.612e+04 more rows
+```
+
+It can be noticed that the common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
 
 Related work
 ------------
 
--   [tibbletime](https://github.com/business-science/tibbletime)
--   [padr](https://github.com/EdwinTh/padr)
--   [tsbox](https://github.com/christophsax/tsbox)
+-   [tibbletime](https://github.com/business-science/tibbletime): time-aware tibbles. We have different APIs and thinking about temporal data.
+-   [padr](https://github.com/EdwinTh/padr): padding of missing records in time series. We do more.
