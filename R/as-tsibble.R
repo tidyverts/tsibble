@@ -6,7 +6,7 @@ globalVariables(c("key", "value", "zzz"))
 #' @param ... Unquoted key variable(s) that define unique time indices. Only used
 #' for data of class `tbl_df`, `data.frame` and `list` (i.e. long data form), if
 #' a univariate time series (without an explicit key), simply leave it blank. 
-#' Ignored for other types of classes.
+#' Ignored for other types of classes. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param validate `TRUE` suggests to verify that each key or each combination
 #' of key variables lead to unique time indices (i.e. a valid tsibble). If you
@@ -18,22 +18,32 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Key
 #'
+#' @details A valid tsibble does not impose the chronological order. Please use
+#' [arrange] to get the order by time.
+#'
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #' @aliases as.tsibble
 #'
 #' @examples
-#' # coerce data.frame to tsibble
-#' df <- data.frame(
-#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
-#'   group = rep(c("x", "y", "z"), each = 10),
-#'   value = rnorm(30),
-#'   stringsAsFactors = FALSE
+#' # coerce tibble to tsibble w/o a key ----
+#' tbl1 <- tibble::tibble(
+#'   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
+#'   value = rnorm(10)
 #' )
 #' # "date" is automatically considered as the index var, and "group" is the key
-#' as_tsibble(df, group) 
+#' as_tsibble(tbl1)
 #' # specify the index var
-#' as_tsibble(df, group, index = date)
+#' as_tsibble(tbl1, index = date)
+#'
+#' # coerce tibble to tsibble with one key ----
+#' tbl2 <- tibble::tibble(
+#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+#'   group = rep(c("x", "y", "z"), each = 10),
+#'   value = rnorm(30)
+#' )
+#' as_tsibble(tbl2, group) 
+#' as_tsibble(tbl2, group, index = date)
 #'
 #' @export
 as_tsibble <- function(x, ...) {
@@ -76,11 +86,24 @@ as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
 }
 
-#' Helper functions
+#' Return key variables from a tsibble
+#'
+#' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
 #' @param x A tsibble object.
 #'
-#' @rdname helper
+#' @rdname key
+#'
+#' @examples
+#' # A single key for pedestrian data ----
+#' data(pedestrian)
+#' key(pedestrian)
+#' key_vars(pedestrian)
+#'
+#' # Nested and crossed keys for tourism data ----
+#' data(tourism)
+#' key(tourism)
+#' key_vars(tourism)
 #' @export
 key <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -94,25 +117,30 @@ key <- function(x) {
   x
 }
 
-#' @rdname helper
+#' @rdname key
 #' @export
 key_vars <- function(x) {
   format(key(x))
 }
 
-#' @rdname helper
 #' @export
 groups.tbl_ts <- function(x) {
   attr(x, "vars")
 }
 
-#' @rdname helper
 #' @export
 group_vars.tbl_ts <- function(x) {
   format(groups(x))
 }
 
-#' @rdname helper
+#' Return index and interval from a tsibble
+#'
+#' @param x A tsibble object.
+#' @rdname index
+#' @examples
+#' data(pedestrian)
+#' index(pedestrian)
+#' interval(pedestrian)
 #' @export
 interval <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -121,7 +149,7 @@ interval <- function(x) {
   attr(x, "interval")
 }
 
-#' @rdname helper
+#' @rdname index
 #' @export
 index <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -135,7 +163,14 @@ index <- function(x) {
   x
 }
 
-#' @rdname helper
+#' If a tsibble is spaced at regular time or not
+#'
+#' @param x A tsibble object.
+#' @rdname regular
+#' @aliases is.regular
+#' @examples
+#' data(pedestrian)
+#' is_regular(pedestrian)
 #' @export
 is_regular <- function(x) {
   if (is_false(is_tsibble(x))) {
@@ -144,7 +179,7 @@ is_regular <- function(x) {
   attr(x, "regular")
 }
 
-#' @rdname helper
+#' @rdname regular
 #' @export
 is.regular <- is_regular
 
@@ -154,6 +189,18 @@ is.regular <- is_regular
 #'
 #' @return TRUE if the object inherits from the tbl_ts class.
 #' @rdname is-tsibble
+#' @aliases is.tsibble
+#' @examples
+#' # A tibble is not a tsibble ----
+#' tbl <- tibble::tibble(
+#'   date = seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 1),
+#'   value = rnorm(31)
+#' )
+#' is_tsibble(tbl)
+#'
+#' # A tsibble ----
+#' tsbl <- as_tsibble(tbl, index = date)
+#' is_tsibble(tsbl)
 #' @export
 is_tsibble <- function(x) {
   inherits(x, "tbl_ts")

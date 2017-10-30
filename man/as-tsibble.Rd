@@ -33,7 +33,7 @@ as_tsibble(x, ...)
 \item{...}{Unquoted key variable(s) that define unique time indices. Only used
 for data of class \code{tbl_df}, \code{data.frame} and \code{list} (i.e. long data form), if
 a univariate time series (without an explicit key), simply leave it blank.
-Ignored for other types of classes.}
+Ignored for other types of classes. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -54,6 +54,10 @@ A tsibble object.
 }
 \description{
 Coerce to a tsibble object
+}
+\details{
+A valid tsibble does not impose the chronological order. Please use
+\link{arrange} to get the order by time.
 }
 \section{Index}{
 
@@ -89,17 +93,24 @@ These key variables are descriptors, not values.
 }
 
 \examples{
-# coerce data.frame to tsibble
-df <- data.frame(
-  date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
-  group = rep(c("x", "y", "z"), each = 10),
-  value = rnorm(30),
-  stringsAsFactors = FALSE
+# coerce tibble to tsibble w/o a key ----
+tbl1 <- tibble::tibble(
+  date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
+  value = rnorm(10)
 )
 # "date" is automatically considered as the index var, and "group" is the key
-as_tsibble(df, group) 
+as_tsibble(tbl1)
 # specify the index var
-as_tsibble(df, group, index = date)
+as_tsibble(tbl1, index = date)
+
+# coerce tibble to tsibble with one key ----
+tbl2 <- tibble::tibble(
+  date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+  group = rep(c("x", "y", "z"), each = 10),
+  value = rnorm(30)
+)
+as_tsibble(tbl2, group) 
+as_tsibble(tbl2, group, index = date)
 
 # coerce ts to tsibble
 as_tsibble(AirPassengers)
