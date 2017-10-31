@@ -1,12 +1,21 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-tsibble
-=======
+# tsibble
 
-[![Travis-CI Build Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble) [![Coverage Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+[![Travis-CI Build Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble)
+[![Coverage Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data class of `tbl_ts` to manage temporal-context data frames in a tidy and modern way. A *tsibble* consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the *tibble*.
 
+-   [Installation](#installation)
+-   [Get started](#get-started)
+    -   [Coerce to a tsibble with `as_tsibble()`](#coerce-to-a-tsibble-with-as_tsibble)
+    -   [`tsummarise()` to summarise over calendar periods](#tsummarise-to-summarise-over-calendar-periods)
+    -   [`fill_na()` to turn implicit missing values into explicit missing values](#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values)
+    -   [Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`](#window-functions-applied-to-a-tsibble-slide-tile-stretch)
+-   [Related work](#related-work)
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 Installation
 ------------
 
