@@ -53,6 +53,23 @@ slice.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' Column-wise verbs
+#'
+#' `select()` selects columns by variables; `mutate()` adds new variables;
+#' `summarise()` collapses the rows by variables.
+#'
+#' @param .data A tsibble.
+#' @param ... A set of name-value pairs of expressions.
+#' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a 
+#' tsibble and returns a tibble.
+#'
+#' @details
+#' * These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
+#' for tsibble. The index variable cannot be dropped for a tsibble. If any key 
+#' variable is changed, it will validate whether it's a tsibble internally.
+#' Turning `drop = TRUE` converts to a tibble first and then do the operations.
+#' * `summarise()` will not collapse on the index variable.
+#' @rdname col-verb
 #' @seealso [dplyr::select]
 #' @export
 select.tbl_ts <- function(.data, ..., drop = FALSE) {
@@ -103,6 +120,7 @@ rename.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @rdname col-verb
 #' @seealso [dplyr::mutate]
 #' @export
 # [!] important to check if index and key vars have be overwritten in the LHS
@@ -132,6 +150,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   tbl
 }
 
+#' @rdname col-verb
 #' @seealso [dplyr::summarise]
 #' @export
 summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
