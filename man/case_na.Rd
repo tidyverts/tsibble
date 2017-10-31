@@ -19,3 +19,6 @@ x[c(3, 7)] <- NA_real_
 case_na(x ~ 10)
 case_na(x ~ mean(x, na.rm = TRUE))
 }
+\seealso{
+\link[dplyr:case_when]{dplyr::case_when}
+}

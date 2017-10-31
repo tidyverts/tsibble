@@ -14,7 +14,8 @@ fill_na(.data, ...)
 
 \item{...}{A set of name-value pairs. The values will replace existing explicit
 missing values by variable, otherwise \code{NA}. The replacement values must be of
-the same type as the original one.}
+the same type as the original one. If using a function to fill the \code{NA},
+please make sure that \code{na.rm = TRUE} is switched on.}
 }
 \description{
 Turn implicit missing values into explicit missing values

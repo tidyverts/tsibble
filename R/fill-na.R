@@ -3,7 +3,8 @@
 #' @param .data A data frame.
 #' @param ... A set of name-value pairs. The values will replace existing explicit
 #' missing values by variable, otherwise `NA`. The replacement values must be of 
-#' the same type as the original one.
+#' the same type as the original one. If using a function to fill the `NA`, 
+#' please make sure that `na.rm = TRUE` is switched on.
 #'
 #' @seealso [case_na], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
@@ -112,7 +113,7 @@ modify_na <- function(.data, ...) {
 #' and the RHS gives the replacement value.
 #'
 #' @export
-#'
+#' @seealso [dplyr::case_when]
 #' @examples
 #' x <- rnorm(10)
 #' x[c(3, 7)] <- NA_real_
