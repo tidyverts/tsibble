@@ -77,7 +77,7 @@ tile <- function(x, .f, ..., size = 1) {
 #' @export
 tile.numeric <- function(x, .f, ..., size = 1) {
   lst_x <- tiler(x, size = size)
-  purrr::map_dbl(lst_x, .f, ..., .default = NA_real_)
+  purrr::map_dbl(lst_x, .f, ...)
 }
 
 #' @rdname tile
@@ -127,7 +127,7 @@ stretch <- function(x, .f, ..., size = 1, init = 1) {
 #' @export
 stretch.numeric <- function(x, .f, ..., size = 1, init = 1) {
   lst_x <- stretcher(x, size = size, init = init)
-  purrr::map_dbl(lst_x, .f, ..., .default = NA_real_)
+  purrr::map_dbl(lst_x, .f, ...)
 }
 
 #' @rdname stretch
