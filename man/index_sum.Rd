@@ -10,7 +10,7 @@ index_sum(x)
 \item{x}{An object of index type that the tsibble supports.}
 }
 \description{
-S3 method to provide a summary of an index type for a tsibble.
+S3 method to add an index type support for a tsibble.
 }
 \details{
 This method is primarily used for adding an index type support in

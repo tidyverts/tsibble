@@ -38,7 +38,7 @@ tbl_sum.grouped_ts <- function(x) {
 
 #' Extensible index type to tsibble
 #'
-#' S3 method to provide a summary of an index type for a tsibble.
+#' S3 method to add an index type support for a tsibble.
 #'
 #' @param x An object of index type that the tsibble supports.
 #'

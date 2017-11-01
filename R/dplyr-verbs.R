@@ -25,11 +25,10 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @export
 filter.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  fil_data <- if (is_grouped_ts(.data)) {
+  fil_data <- NextMethod()
+  if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    filter(grped_data, ...)
-  } else {
-    NextMethod()
+    fil_data <- filter(grped_data, ...)
   }
   as_tsibble(
     fil_data, !!! key(.data), index = !! index(.data),
@@ -41,11 +40,10 @@ filter.tbl_ts <- function(.data, ...) {
 #' @export
 slice.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  slc_data <- if (is_grouped_ts(.data)) {
+  slc_data <- NextMethod()
+  if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    slice(grped_data, ...)
-  } else {
-    NextMethod()
+    slc_data <- slice(grped_data, ...)
   }
   as_tsibble(
     slc_data, !!! key(.data), index = !! index(.data),

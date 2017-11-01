@@ -3,14 +3,20 @@
 #' It computes summary statistics for a tsibble over calendar periods, usually 
 #' used in combination of [group_by].
 #'
-#' @param .data A tsibble (of `tbl_ts` class).
-#' @param ... Name-value pairs of summary functions. To aggregate the data over
-#' a certain calendar period, for example monthly aggregates, use [yearmth] 
-#' on the index variable.
+#' @param .data A data frame (of `tbl_ts` class).
+#' @param ... Name-value pairs of expressions. The index variable must be present
+#' in the calls, coupled with an index function, to carry out the calculation.
+#' The index functions that can be used:
+#' * [year]: yearly aggregation
+#' * [yearqtr]: quarterly aggregation
+#' * [yearmth]: monthly aggregation
+#' * [as.Date] and [lubridate::as_date]: daily aggregation
+#' * other index functions from other packages
 #'
 #' @rdname tsummarise
-#'
+#' @export
 #' @examples
+#' data(pedestrian)
 #' monthly_ped <- pedestrian %>% 
 #'   group_by(Sensor) %>% 
 #'   tsummarise(
@@ -20,9 +26,6 @@
 #'   )
 #' monthly_ped
 #' index(monthly_ped)
-#'
-#'
-#' @export
 tsummarise <- function(.data, ...) {
   UseMethod("tsummarise")
 }

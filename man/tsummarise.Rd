@@ -10,17 +10,25 @@ tsummarise(.data, ...)
 tsummarize(.data, ...)
 }
 \arguments{
-\item{.data}{A tsibble (of \code{tbl_ts} class).}
+\item{.data}{A data frame (of \code{tbl_ts} class).}
 
-\item{...}{Name-value pairs of summary functions. To aggregate the data over
-a certain calendar period, for example monthly aggregates, use \link{yearmth}
-on the index variable.}
+\item{...}{Name-value pairs of expressions. The index variable must be present
+in the calls, coupled with an index function, to carry out the calculation.
+The index functions that can be used:
+\itemize{
+\item \link{year}: yearly aggregation
+\item \link{yearqtr}: quarterly aggregation
+\item \link{yearmth}: monthly aggregation
+\item \link{as.Date} and \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
+\item other index functions from other packages
+}}
 }
 \description{
 It computes summary statistics for a tsibble over calendar periods, usually
 used in combination of \link{group_by}.
 }
 \examples{
+data(pedestrian)
 monthly_ped <- pedestrian \%>\% 
   group_by(Sensor) \%>\% 
   tsummarise(
@@ -30,6 +38,4 @@ monthly_ped <- pedestrian \%>\%
   )
 monthly_ped
 index(monthly_ped)
-
-
 }
