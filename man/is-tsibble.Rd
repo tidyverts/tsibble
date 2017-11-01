@@ -10,7 +10,7 @@
 \usage{
 is_tsibble(x)
 
-is.tsibble(x)
+is_grouped_ts(x)
 }
 \arguments{
 \item{x}{An object.}

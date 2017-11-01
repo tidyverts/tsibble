@@ -27,15 +27,15 @@ split_period <- function(x) {
 # regular time interval is obtained from the minimal time distance.
 # duplicated time entries result in 0L.
 # if validate = FALSE in as_tsibble, skip to check duplicated entries
-min_interval <- function(x, exclude_zero = TRUE) {
+min_interval <- function(x, duplicated = TRUE) {
   if (has_length(x, 1)) { # only one time index
     return(NA_integer_)
   }
   abs_diff <- abs(diff(as.numeric(x), na.rm = TRUE))
-  if (exclude_zero) {
-    return(min(abs_diff))
+  if (duplicated) {
+    return(minp(abs_diff)) # faster than min(abs_diff[abs_diff > 0])
   } else {
-    minp(abs_diff) # faster than min(abs_diff[abs_diff > 0])
+    min(abs_diff)
   }
 }
 

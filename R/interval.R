@@ -1,11 +1,34 @@
-# Assume date is regularly spaced
-pull_interval <- function(x, exclude_zero = TRUE) {
+#' Pull time interval from a vector and return a class of "interval"
+#'
+#' S3 method to pull time interval from various classes, assuming of regularly
+#' spaced time. It finds a minimal time span from `x`.
+#'
+#' @param x A vector of `POSIXt`, `Date`, `yearmth`, `yearqtr`, `difftime`,
+#' `hms`, `integer`, `numeric`.
+#' @param duplicated `TRUE` removes the duplicated elements of `x` and compute
+#' the minimal time span.
+#'
+#' @details As an S3 method, the `pull_interval()` makes a tsibble extensible to
+#' support custom time index.
+#' @return An "interval" class (a list) includes "year", "quarter", "month",
+#' "week", "day", "hour", "minute", "second", "unit", and other self-defined 
+#' interval.
+#' 
+#' @rdname pull-interval
+#' @export
+#'
+#' @examples
+#' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
+#' pull_interval(x, duplicated = FALSE)
+pull_interval <- function(x, duplicated = TRUE) {
   UseMethod("pull_interval")
 }
 
-pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
+#' @export
+# Assume date is regularly spaced
+pull_interval.POSIXt <- function(x, duplicated = TRUE) {
   dttm <- as.numeric(x)
-  nhms <- min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
+  nhms <- min_interval(dttm, duplicated = duplicated) # num of seconds
   period <- split_period(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
@@ -13,70 +36,76 @@ pull_interval.POSIXt <- function(x, exclude_zero = TRUE) {
   )
 }
 
+#' @export
 pull_interval.difftime <- pull_interval.POSIXt
 
+#' @export
 pull_interval.hms <- pull_interval.difftime # for hms package
 
-pull_interval.Date <- function(x, exclude_zero = TRUE) {
+#' @export
+pull_interval.Date <- function(x, duplicated = TRUE) {
   dttm <- as.numeric(x)
-  ndays <- min_interval(dttm, exclude_zero = exclude_zero) # num of seconds
+  ndays <- min_interval(dttm, duplicated = duplicated) # num of seconds
   structure(list(day = ndays), class = "interval")
 }
 
-pull_interval.yearmth <- function(x, exclude_zero = TRUE) {
+#' @export
+pull_interval.yearmth <- function(x, duplicated = TRUE) {
   mon <- year(x) + (lubridate::month(x) - 1) / 12
-  nmonths <- ceiling(min_interval(mon, exclude_zero = exclude_zero) * 12)
+  nmonths <- ceiling(min_interval(mon, duplicated = duplicated) * 12)
   structure(list(month = nmonths), class = "interval")
 }
 
-pull_interval.yearqtr <- function(x, exclude_zero = TRUE) {
+#' @export
+pull_interval.yearqtr <- function(x, duplicated = TRUE) {
   qtr <- year(x) + (lubridate::quarter(x) - 1) / 4
-  nqtrs <- ceiling(min_interval(qtr, exclude_zero = exclude_zero) * 4)
+  nqtrs <- ceiling(min_interval(qtr, duplicated = duplicated) * 4)
   structure(list(quarter = nqtrs), class = "interval")
 }
 
-pull_interval.integer <- function(x, exclude_zero = TRUE) {
-  nyrs <- as.integer(min_interval(x, exclude_zero = exclude_zero))
+#' @export
+pull_interval.integer <- function(x, duplicated = TRUE) {
+  nyrs <- as.integer(min_interval(x, duplicated = duplicated))
   structure(list(year = nyrs), class = "interval")
 }
 
-pull_interval.numeric <- function(x, exclude_zero = TRUE) {
-  nunits <- min_interval(x, exclude_zero = exclude_zero)
+#' @export
+pull_interval.numeric <- function(x, duplicated = TRUE) {
+  nunits <- min_interval(x, duplicated = duplicated)
   structure(list(unit = nunits), class = "interval")
 }
 
-# needed for full_seq(period)
 as_period <- function(x) {
   UseMethod("as_period")
 }
 
 as_period.POSIXt <- function(x) {
-  int <- pull_interval.POSIXt(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$second + int$minute * 60 + int$hour * 60 * 60)
 }
 
 as_period.numeric <- function(x) {
-  int <- pull_interval.numeric(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$unit)
 }
 
 as_period.integer <- function(x) {
-  int <- pull_interval.integer(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$year)
 }
 
 as_period.Date <- function(x) {
-  int <- pull_interval.Date(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$day)
 }
 
 as_period.yearmth <- function(x) {
-  int <- pull_interval.yearmth(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$month)
 }
 
 as_period.yearqtr <- function(x) {
-  int <- pull_interval.yearqtr(x, exclude_zero = FALSE)
+  int <- pull_interval(x)
   return(int$quarter)
 }
 

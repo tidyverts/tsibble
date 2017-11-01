@@ -207,11 +207,11 @@ is_tsibble <- function(x) {
 }
 
 #' @rdname is-tsibble
+#' @usage NULL
 #' @export
 is.tsibble <- is_tsibble
 
 #' @rdname is-tsibble
-#' @usage NULL
 #' @export
 is_grouped_ts <- function(x) {
   inherits(x, "grouped_ts")
@@ -246,7 +246,7 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   }
   if (regular) {
     eval_idx <- eval_tidy(index, data = tbl)
-    tbl_interval <- pull_interval(eval_idx, exclude_zero = FALSE)
+    tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
   } else {
     tbl_interval <- list()
   }
