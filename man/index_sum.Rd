@@ -7,8 +7,18 @@
 index_sum(x)
 }
 \arguments{
-\item{x}{An object to be added to index types that tsibble supports.}
+\item{x}{An object of index type that the tsibble supports.}
 }
 \description{
-Extensible index type to tsibble
+S3 method to provide a summary of an index type for a tsibble.
+}
+\details{
+This method is primarily used for adding an index type support in
+\link{as_tsibble}.
+}
+\examples{
+index_sum(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1))
+}
+\seealso{
+\link{pull_interval} for obtaining interval for regularly spaced time.
 }
