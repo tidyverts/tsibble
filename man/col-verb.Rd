@@ -5,6 +5,7 @@
 \alias{rename.tbl_ts}
 \alias{mutate.tbl_ts}
 \alias{summarise.tbl_ts}
+\alias{summarize.tbl_ts}
 \title{Column-wise verbs}
 \usage{
 \method{select}{tbl_ts}(.data, ..., drop = FALSE)
@@ -14,6 +15,8 @@
 \method{mutate}{tbl_ts}(.data, ..., drop = FALSE)
 
 \method{summarise}{tbl_ts}(.data, ..., drop = FALSE)
+
+\method{summarize}{tbl_ts}(.data, ..., drop = FALSE)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -44,4 +47,6 @@ Turning \code{drop = TRUE} converts to a tibble first and then do the operations
 \link[dplyr:mutate]{dplyr::mutate}
 
 \link[dplyr:summarise]{dplyr::summarise}
+
+\link[dplyr:summarize]{dplyr::summarize}
 }

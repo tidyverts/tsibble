@@ -8,6 +8,7 @@
 #' * A set of unquoted variables for `arrange()`.
 #' * Logical predicates defined in terms of the variables for `filter()`.
 #' * Integer row numbers for `slice()`.
+#' @param .by_group `TRUE` will sort first by grouping variable.
 #'
 #' @rdname row-verb
 #' @seealso [dplyr::arrange]
@@ -20,6 +21,7 @@ arrange.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @rdname row-verb
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
@@ -136,7 +138,6 @@ rename.tbl_ts <- function(.data, ...) {
 #' @rdname col-verb
 #' @seealso [dplyr::mutate]
 #' @export
-# [!] important to check if index and key vars have be overwritten in the LHS
 mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   mut_data <- mutate(as_tibble(.data), ...)
   if (drop) {
@@ -191,12 +192,29 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   tbl
 }
 
+#' @rdname col-verb
 #' @seealso [dplyr::summarize]
 #' @export
 summarize.tbl_ts <- summarise.tbl_ts
 
+#' Group by one or more variables
+#'
+#' @param .data A tsibble.
+#' @param ... Variables to group by. It follows a consistent rule as the "key" 
+#' expression in [as_tsibble], which means `|` for nested variables and `,` for
+#' crossed variables. The following operations will affect the tsibble structure
+#' based on the way how the variables are grouped. 
+#' @param add `TRUE` adds to the existing groups, otherwise overwrites.
+#' @param x A (grouped) tsibble.
+#'
+#' @rdname group-by
 #' @seealso [dplyr::group_by]
 #' @export
+#' @examples
+#' data(tourism)
+#' tourism %>% 
+#'   group_by(Region | State) %>% 
+#'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- quo_text2(index)
@@ -213,6 +231,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   )
 }
 
+#' @rdname group-by
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.grouped_ts <- function(x, ...) {

@@ -2,11 +2,14 @@
 % Please edit documentation in R/dplyr-verbs.R
 \name{arrange.tbl_ts}
 \alias{arrange.tbl_ts}
+\alias{arrange.grouped_ts}
 \alias{filter.tbl_ts}
 \alias{slice.tbl_ts}
 \title{Row-wise verbs}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
+
+\method{arrange}{grouped_ts}(.data, ..., .by_group = FALSE)
 
 \method{filter}{tbl_ts}(.data, ...)
 
@@ -20,12 +23,16 @@
 \item Logical predicates defined in terms of the variables for \code{filter()}.
 \item Integer row numbers for \code{slice()}.
 }}
+
+\item{.by_group}{\code{TRUE} will sort first by grouping variable.}
 }
 \description{
 \code{arrange()} arranges rows by variable; \code{filter()} returns rows with matching
 conditions; \code{slice()} selects rows by position.
 }
 \seealso{
+\link[dplyr:arrange]{dplyr::arrange}
+
 \link[dplyr:arrange]{dplyr::arrange}
 
 \link[dplyr:filter]{dplyr::filter}
