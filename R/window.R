@@ -1,19 +1,27 @@
-#' Sliding window function
+#' Sliding window calculation
+#'
+#' `slide()` is an S3 method to carry out rolling window calculation; `slider()`
+#' splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @param .f A function, or formula.
+#' @inheritParams purrr::quietly
 #' @param ... Additional arguments passed on to `.f`.
-#' @param size Window size.
-#' @param fill A single value or data frame to fill `NA`.
+#' @param size An integer for window size.
+#' @param fill A single value or data frame to replace `NA`.
 #'
 #' @rdname slide
 #' @export
+#' @seealso [tile] for tiling window without overlapping observations;
+#' [stretch] for expanding more observations
 #'
 #' @examples
-#' x <- sample(1:10, size = 100, replace = TRUE)
-#' slide(x, sum, size = 10)
-#' slide(x, sum, size = 10, fill = 0)
-#' slide(x, ~ mean(.), size = 10)
+#' x <- 1:10
+#' slide(x, mean, size = 3)
+#' slide(x, ~ mean(.), size = 3)
+#' slide(x, mean, size = 3, fill = 0)
+#'
+#' # slider ----
+#' slider(x, size = 3)
 slide <- function(x, .f, ..., size = 1, fill) {
   UseMethod("slide")
 }
@@ -57,18 +65,24 @@ slider <- function(x, size = 1) {
   purrr::map(lst_idx, ~ x[(.):(. + size - 1), , drop = FALSE])
 }
 
-#' Tiling window function
+#' Tiling window calculation
+#'
+#' `tile()` is an S3 method to carry out tiling window calculation; `tiler()`
+#' splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @param .f A function, or formula.
+#' @inheritParams purrr::quietly
 #' @param ... Additional arguments passed on to `.f`.
-#' @param size Window size.
+#' @param size An integer for window size.
 #'
 #' @rdname tile
 #' @export
+#' @seealso [slide] for sliding window with overlapping observations;
+#' [stretch] for expanding more observations
 #'
 #' @examples
 #' tile(1:10, mean, size = 3)
+#' tiler(1:10, size = 3)
 tile <- function(x, .f, ..., size = 1) {
   UseMethod("tile")
 }
@@ -106,19 +120,24 @@ tiler <- function(x, size = 1) {
   unname(split(x, frac))
 }
 
-#' Stretching window function
+#' Stretching window calculation
+#'
+#' `stretch()` is an S3 method to carry out expanding window calculation; 
+#' `stretcher()` splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @param .f A function, or formula.
+#' @inheritParams purrr::quietly
 #' @param ... Additional arguments passed on to `.f`.
-#' @param size Window size.
-#' @param init Initial window size.
+#' @param size,init An integer for moving and initial window size.
 #'
 #' @rdname stretch
 #' @export
+#' @seealso [slide] for sliding window with overlapping observations;
+#' [tile] for tiling window without overlapping observations.
 #'
 #' @examples
 #' stretch(1:10, mean, init = 3)
+#' stretcher(1:10, init = 3)
 stretch <- function(x, .f, ..., size = 1, init = 1) {
   UseMethod("stretch")
 }

@@ -5,7 +5,7 @@
 \alias{slide.numeric}
 \alias{slide.data.frame}
 \alias{slider}
-\title{Sliding window function}
+\title{Sliding window calculation}
 \usage{
 slide(x, .f, ..., size = 1, fill)
 
@@ -19,22 +19,49 @@ slider(x, size = 1)
 \arguments{
 \item{x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function, or formula.}
+\item{.f}{A function, formula, or atomic vector.
+
+If a \strong{function}, it is used as is.
+
+If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
+are three ways to refer to the arguments:
+\itemize{
+\item For a single argument function, use \code{.}
+\item For a two argument function, use \code{.x} and \code{.y}
+\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
+}
+
+This syntax allows you to create very compact anonymous functions.
+
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
+is converted to an extractor function. Character vectors index by name
+and numeric vectors index by position; use a list to index by position
+and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
+to extract named attributes. If a component is not present, the value of
+\code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size}{Window size.}
+\item{size}{An integer for window size.}
 
-\item{fill}{A single value or data frame to fill \code{NA}.}
+\item{fill}{A single value or data frame to replace \code{NA}.}
 
 \item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
 }
 \description{
-Sliding window function
+\code{slide()} is an S3 method to carry out rolling window calculation; \code{slider()}
+splits the input \code{x} to a list according to the window size.
 }
 \examples{
-x <- sample(1:10, size = 100, replace = TRUE)
-slide(x, sum, size = 10)
-slide(x, sum, size = 10, fill = 0)
-slide(x, ~ mean(.), size = 10)
+x <- 1:10
+slide(x, mean, size = 3)
+slide(x, ~ mean(.), size = 3)
+slide(x, mean, size = 3, fill = 0)
+
+# slider ----
+slider(x, size = 3)
+}
+\seealso{
+\link{tile} for tiling window without overlapping observations;
+\link{stretch} for expanding more observations
 }
