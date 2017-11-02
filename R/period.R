@@ -3,22 +3,39 @@
 
 #' Represent year-month, year-quarter and year objects
 #'
-#' @param x A vector of date-time, date.
+#' Create or coerce using `yearmth()`, `yearqtr()`, and `year()`
 #'
-#' @return Year-month (`yearmth`), year-quarter (`yearqtr`) and year (`year`)
+#' @param x Other object.
+#'
+#' @return Year-month (`yearmth`), year-quarter (`yearqtr`), or year (`year`)
 #' objects.
 #' @details It's a known issue that these attributes will be dropped when using
 #' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
 #' then use [mutate].
 #'
+#' @section Index functions:
+#' * The underlying class of `yearmth()` and `yearqtr()` is `Date`. It differs
+#' from their counterparts in the *zoo* package, which behind the scene are
+#' numerics. Unlike `zoo::yearmon()` and `zoo::yearqtr()`, the `yearmth()` and 
+#' `yearqtr()` preserve the time zone of the input `x`.
+#' * The `year()` function returns bare integers rather than doubles. In the
+#' tsibble, integers generate the "YEAR" interval, whereas doubles produce the
+#' unrecognisable "UNIT" interval.
+#'
 #' @export
 #' @rdname period
+#' @seealso [pull_interval]
 #'
 #' @examples
-#' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
+#' # coerce date to yearmth, yearqtr, year ----
+#' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 #' yearmth(x)
 #' yearqtr(x)
 #' year(x)
+#' 
+#' # coerce yearmth to yearqtr ----
+#' y <- yearmth(x)
+#' yearqtr(y)
 yearmth <- function(x) {
   UseMethod("yearmth")
 }

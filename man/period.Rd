@@ -13,23 +13,44 @@ yearqtr(x)
 year(x)
 }
 \arguments{
-\item{x}{A vector of date-time, date.}
+\item{x}{Other object.}
 }
 \value{
-Year-month (\code{yearmth}), year-quarter (\code{yearqtr}) and year (\code{year})
+Year-month (\code{yearmth}), year-quarter (\code{yearqtr}), or year (\code{year})
 objects.
 }
 \description{
-Represent year-month, year-quarter and year objects
+Create or coerce using \code{yearmth()}, \code{yearqtr()}, and \code{year()}
 }
 \details{
 It's a known issue that these attributes will be dropped when using
 \link{group_by} and \link{mutate} together. It is recommended to \link{ungroup} first, and
 then use \link{mutate}.
 }
+\section{Index functions}{
+
+\itemize{
+\item The underlying class of \code{yearmth()} and \code{yearqtr()} is \code{Date}. It differs
+from their counterparts in the \emph{zoo} package, which behind the scene are
+numerics. Unlike \code{zoo::yearmon()} and \code{zoo::yearqtr()}, the \code{yearmth()} and
+\code{yearqtr()} preserve the time zone of the input \code{x}.
+\item The \code{year()} function returns bare integers rather than doubles. In the
+tsibble, integers generate the "YEAR" interval, whereas doubles produce the
+unrecognisable "UNIT" interval.
+}
+}
+
 \examples{
-x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = 30)
+# coerce date to yearmth, yearqtr, year ----
+x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearmth(x)
 yearqtr(x)
 year(x)
+
+# coerce yearmth to yearqtr ----
+y <- yearmth(x)
+yearqtr(y)
+}
+\seealso{
+\link{pull_interval}
 }
