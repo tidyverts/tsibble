@@ -25,10 +25,12 @@ based on the way how the variables are grouped.}
 Group by one or more variables
 }
 \examples{
+\dontrun{
 data(tourism)
 tourism \%>\% 
   group_by(Region | State) \%>\% 
   summarise(geo_trips = sum(Trips))
+}
 }
 \seealso{
 \link[dplyr:group_by]{dplyr::group_by}
