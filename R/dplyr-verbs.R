@@ -1,3 +1,15 @@
+#' Row-wise verbs
+#'
+#' `arrange()` arranges rows by variable; `filter()` returns rows with matching 
+#' conditions; `slice()` selects rows by position.
+#'
+#' @param .data A tsibble.
+#' @param ... 
+#' * A set of unquoted variables for `arrange()`.
+#' * Logical predicates defined in terms of the variables for `filter()`.
+#' * Integer row numbers for `slice()`.
+#'
+#' @rdname row-verb
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
@@ -21,6 +33,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   groups(tbl) <- grps
 }
 
+#' @rdname row-verb
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
@@ -36,6 +49,7 @@ filter.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @rdname row-verb
 #' @seealso [dplyr::slice]
 #' @export
 slice.tbl_ts <- function(.data, ...) {
@@ -100,6 +114,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
 }
 
+#' @rdname col-verb
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {

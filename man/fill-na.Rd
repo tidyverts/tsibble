@@ -2,12 +2,9 @@
 % Please edit documentation in R/fill-na.R
 \name{fill_na}
 \alias{fill_na}
-\alias{fill_na.tbl_ts}
 \title{Turn implicit missing values into explicit missing values}
 \usage{
 fill_na(.data, ...)
-
-\method{fill_na}{tbl_ts}(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame.}

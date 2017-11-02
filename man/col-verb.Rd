@@ -2,11 +2,14 @@
 % Please edit documentation in R/dplyr-verbs.R
 \name{select.tbl_ts}
 \alias{select.tbl_ts}
+\alias{rename.tbl_ts}
 \alias{mutate.tbl_ts}
 \alias{summarise.tbl_ts}
 \title{Column-wise verbs}
 \usage{
 \method{select}{tbl_ts}(.data, ..., drop = FALSE)
+
+\method{rename}{tbl_ts}(.data, ...)
 
 \method{mutate}{tbl_ts}(.data, ..., drop = FALSE)
 
@@ -35,6 +38,8 @@ Turning \code{drop = TRUE} converts to a tibble first and then do the operations
 }
 \seealso{
 \link[dplyr:select]{dplyr::select}
+
+\link[dplyr:rename]{dplyr::rename}
 
 \link[dplyr:mutate]{dplyr::mutate}
 

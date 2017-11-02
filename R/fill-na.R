@@ -46,7 +46,6 @@ fill_na <- function(.data, ...) {
   UseMethod("fill_na")
 }
 
-#' @rdname fill-na
 #' @export
 fill_na.tbl_ts <- function(.data, ...) {
   if (!is_regular(.data)) {
