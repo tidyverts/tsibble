@@ -16,7 +16,7 @@ flatten_key <- function(lst_keys) {
   if (is.null(lst_keys)) {
     lst_keys <- list()
   }
-  as.character(flatten(lst_keys))
+  purrr::map_chr(flatten(lst_keys), quo_text2)
 }
 
 # update by character names

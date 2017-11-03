@@ -327,7 +327,7 @@ validate_tbl_ts <- function(data, key, index) {
     )
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- paste(msg, "and", format(key))
+      msg <- paste(msg, "and", paste(format(key), collapse = ", "))
     }
     abort(msg)
   }
