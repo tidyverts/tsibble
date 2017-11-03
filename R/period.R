@@ -43,7 +43,8 @@ yearmth <- function(x) {
 #' @export
 yearmth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
-  result <- as.Date(paste(posix$year, posix$mon, "01", sep = "-"))
+  month <- formatC(posix$mon, flag = 0, width = 2)
+  result <- as.Date(paste(posix$year, month, "01", sep = "-"))
   structure(result, class = c("yearmth", "Date"))
 }
 
