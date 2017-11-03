@@ -240,15 +240,15 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   # validate key vars
   key_vars <- validate_key(data = tbl, key)
   key_lens <- length(key_vars)
+  tbl <- validate_nested(data = tbl, key = key_vars)
   # validate tbl_ts
   if (validate) {
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
   }
+  tbl_interval <- list()
   if (regular) {
     eval_idx <- eval_tidy(index, data = tbl)
     tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
-  } else {
-    tbl_interval <- list()
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
@@ -296,14 +296,40 @@ extract_index_var <- function(data, index) {
   index
 }
 
+# check if the number of unique values is in descending order for a set of
+# nested variables
+validate_nested <- function(data, key) {
+  nest_lgl <- is_nest(key)
+  if (any(nest_lgl)) {
+    nest_keys <- purrr::map(
+      key[nest_lgl], ~ purrr::map_chr(., quo_text2)
+    )
+    n_dist <- purrr::map(
+      nest_keys, ~ purrr::map_int(., ~ dplyr::n_distinct(data[[.]]))
+    )
+    n_lgl <- purrr::map_lgl(n_dist, is_descending)
+    if (is_false(all(n_lgl))) {
+      abort("Incorrect ordering of nested variables.")
+    }
+  }
+  data
+}
+
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
-  comb_key <- reduce_key(key)
-  tbl_dup <- dplyr::grouped_df(data, vars = flatten_key(comb_key)) %>%
-    dplyr::summarise(zzz = anyDuplicated(!! index))
+  tbl_dup <- dplyr::grouped_df(data, vars = flatten_key(key)) %>%
+    summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    abort("Invalid tsibble: duplicated time indices")
+    msg <- paste(
+      "Invalid tsibble with duplicated identifier:",
+      quo_text2(index)
+    )
+    if (!is_empty(key)) {
+      class(key) <- "key"
+      msg <- paste(msg, "and", format(key))
+    }
+    abort(msg)
   }
   data
 }

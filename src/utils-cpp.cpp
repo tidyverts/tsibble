@@ -9,7 +9,7 @@ double minp(NumericVector x) {
   NumericVector::iterator it;
   double z = 0;
 
-  for(it = x.begin(); it != x.end(); ++it) {
+  for (it = x.begin(); it != x.end(); ++it) {
     if (*it > 0 && (*it < z || z == 0)) {
       z = *it;
     }
@@ -24,12 +24,29 @@ double minp(NumericVector x) {
 bool any_not_equal_to_c(NumericVector x, double c) {
   NumericVector::iterator it;
 
-  for(it = x.begin(); it != x.end(); ++it) {
+  for (it = x.begin(); it != x.end(); ++it) {
     if (*it != c) {
       return true;
     }
   };
   return false;
+}
+
+// If the input x is in descending order
+
+// [[Rcpp::export]]
+bool is_descending(IntegerVector x) {
+  int prev = x[0];
+
+  IntegerVector::iterator it;
+  for (it = x.begin() + 1; it != x.end(); ++it) {
+    if (prev >= *it) {
+      prev = *it;
+    } else {
+      return false;
+    }
+  };
+  return true;
 }
 
 // Sliding window function
