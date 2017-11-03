@@ -1,0 +1,19 @@
+---
+title: "Introduction to tsibble"
+author: "Earo Wang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to tsibble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+* what is a tsibble
+* background
+* motivation
+
+## Index
+
+## Impose structure by using key
+
+## Interval

@@ -4,3 +4,4 @@
 .Ruserdata
 .DS_Store
 data-raw/domestic-trips.xlsx
+inst/doc
