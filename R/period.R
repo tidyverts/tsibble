@@ -43,8 +43,7 @@ yearmth <- function(x) {
 #' @export
 yearmth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
-  month <- formatC(posix$mon, flag = 0, width = 2)
-  result <- as.Date(paste(posix$year, month, "01", sep = "-"))
+  result <- as.Date(paste(posix$year, posix$mon, "01", sep = "-"))
   structure(result, class = c("yearmonth", "Date"))
 }
 
@@ -59,7 +58,7 @@ yearmth.yearmonth <- function(x) {
 #' @export
 yearmth.numeric <- function(x) {
   year <- trunc(x)
-  month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
+  month <- (x %% 1) * 12 + 1
   result <- as.Date(paste(year, month, "01", sep = "-"))
   structure(result, class = c("yearmonth", "Date"))
 }
@@ -84,7 +83,7 @@ yearqtr <- function(x) {
 #' @export
 yearqtr.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
-  qtrs <- formatC(posix$mon - (posix$mon - 1) %% 3, flag = 0, width = 2)
+  qtrs <- posix$mon - (posix$mon - 1) %% 3
   result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
   structure(result, class = c("yearquarter", "Date"))
 }
@@ -105,8 +104,7 @@ yearqtr.numeric <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- last_month - 2
-  quarter <- formatC(first_month, flag = 0, width = 2)
-  result <- as.Date(paste(year, quarter, "01", sep = "-"))
+  result <- as.Date(paste(year, first_month, "01", sep = "-"))
   structure(result, class = c("yearquarter", "Date"))
 }
 

@@ -23,7 +23,8 @@ Suggests:
     rmarkdown,
     testthat,
     covr,
-    hts
+    hts,
+    hms
 LinkingTo:
     Rcpp (>= 0.12.0)
 ByteCompile: true

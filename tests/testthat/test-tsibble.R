@@ -25,8 +25,16 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1SECOND")
   expect_true(is_regular(tsbl))
-  tsbl1 <- rename(tsbl, `Date Time` = date_time)
-  expect_identical(quo_text(index(tsbl1)), "Date Time")
+})
+
+test_that("Space in index variable", {
+  tbl <- rename(dat_x, `Date Time` = date_time)
+  tsbl <- as_tsibble(tbl)
+  expect_identical(quo_text(index(tsbl)), "Date Time")
+  
+})
+
+test_that("Duplicated time index", {
   dat_y <- dat_x[c(1, 1, 3:5), ]
   expect_error(as_tsibble(dat_y, index = date_time))
 })
@@ -138,3 +146,12 @@ test_that("Difftime with 1 minute interval", {
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1MINUTE")
 })
+
+context("Test as_tsibble() with a single key for data of long form")
+
+idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
+dat_x <- tibble(
+  date = rep(idx_day, 2),
+  group = rep(letters[1:2], each = 5),
+  value = rnorm(10)
+)
