@@ -15,6 +15,14 @@ dat_x <- tibble(
   value = rnorm(5)
 )
 
+test_that("A tibble is not tsibble", {
+  expect_false(is_tsibble(dat_x))
+  expect_error(key(dat_x))
+  expect_error(index(dat_x))
+  expect_error(interval(dat_x))
+  expect_error(is_regular(dat_x))
+})
+
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_sum(dat_x$date_time), "dttm")
   expect_message(tsbl <- as_tsibble(dat_x))
@@ -155,3 +163,42 @@ dat_x <- tibble(
   group = rep(letters[1:2], each = 5),
   value = rnorm(10)
 )
+
+test_that("A single key", {
+  expect_error(as_tsibble(dat_x, index = date))
+  tsbl <- as_tsibble(dat_x, group, index = date)
+  expect_is(key(tsbl), "key")
+  expect_identical(format(key(tsbl))[[1]], "group")
+  expect_identical(format(groups(tsbl)), "NULL")
+})
+
+test_that("Duplicated identifier: index", {
+  dat_y <- dat_x[c(1, 2, 1, 4:10), ]
+  expect_error(as_tsibble(dat_y, group, index = date))
+})
+
+test_that("Duplicated identifier: key", {
+  dat_x$group <- rep(letters[1:2], c(6, 4))
+  expect_error(as_tsibble(dat_x, group, index = date))
+})
+
+test_that("validate = FALSE", {
+  dat_x$group <- rep(letters[1:2], c(6, 4))
+  tsbl <- as_tsibble(dat_x, group, index = date, validate = FALSE)
+  expect_is(tsbl, "tbl_ts")
+})
+
+dat_x <- tibble(
+  date = rep(idx_day, 2),
+  group = rep(letters[1:2], each = 5),
+  level = rep("z", 10),
+  value = rnorm(10)
+)
+
+test_that("2 nested variable", {
+  expect_error(as_tsibble(dat_x, level | group, index = date))
+  tsbl <- as_tsibble(dat_x, group | level, index = date)
+  expect_identical(length(key(tsbl)), 1L)
+  expect_identical(length(key(tsbl)[[1]]), 2L)
+  expect_identical(format(key(tsbl)), "group | level")
+})
