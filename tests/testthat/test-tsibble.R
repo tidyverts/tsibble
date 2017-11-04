@@ -77,7 +77,7 @@ dat_x <- tibble(
 )
 
 test_that("Year month with 1 month interval", {
-  expect_identical(index_sum(dat_x$yrmth), "yrmth")
+  expect_identical(index_sum(dat_x$yrmth), "mth")
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1MONTH")
@@ -90,7 +90,7 @@ dat_x <- tibble(
 )
 
 test_that("Year quarter with 1 quarter interval", {
-  expect_identical(index_sum(dat_x$yrqtr), "yrqtr")
+  expect_identical(index_sum(dat_x$yrqtr), "qtr")
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1QUARTER")

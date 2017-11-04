@@ -211,12 +211,10 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' @seealso [dplyr::group_by]
 #' @export
 #' @examples
-#' \dontrun{
 #' data(tourism)
 #' tourism %>% 
 #'   group_by(Region | State) %>% 
 #'   summarise(geo_trips = sum(Trips))
-#' }
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- quo_text2(index)

@@ -266,7 +266,7 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
 }
 
 detect_type <- function() {
-  c("time", "dttm", "date", "yrmth", "yrqtr")
+  c("time", "dttm", "date", "mth", "qtr")
 }
 
 ## Although the "index" arg is possible to automate the detection of time

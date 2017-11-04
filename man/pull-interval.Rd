@@ -7,7 +7,7 @@
 pull_interval(x, duplicated = TRUE)
 }
 \arguments{
-\item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmth}, \code{yearqtr}, \code{difftime},
+\item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
 \code{hms}, \code{integer}, \code{numeric}.}
 
 \item{duplicated}{\code{TRUE} removes the duplicated elements of \code{x} and compute

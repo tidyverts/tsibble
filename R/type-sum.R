@@ -4,12 +4,12 @@ type_sum.tbl_ts <- function(x) {
 }
 
 #' @export
-type_sum.yearmth <- function(x) {
+type_sum.yearmonth <- function(x) {
   "mth"
 }
 
 #' @export
-type_sum.yearqtr <- function(x) {
+type_sum.yearquarter <- function(x) {
   "qtr"
 }
 
@@ -68,13 +68,13 @@ index_sum.Date <- function(x) {
 }
 
 #' @export
-index_sum.yearmth <- function(x) {
-  "yrmth"
+index_sum.yearmonth <- function(x) {
+  "mth"
 }
 
 #' @export
-index_sum.yearqtr <- function(x) {
-  "yrqtr"
+index_sum.yearquarter <- function(x) {
+  "qtr"
 }
 
 #' @export

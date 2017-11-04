@@ -45,15 +45,15 @@ yearmth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   month <- formatC(posix$mon, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, month, "01", sep = "-"))
-  structure(result, class = c("yearmth", "Date"))
+  structure(result, class = c("yearmonth", "Date"))
 }
 
 #' @export
 yearmth.Date <- yearmth.POSIXt
 
 #' @export
-yearmth.yearmth <- function(x) {
-  structure(x, class = c("yearmth", "Date"))
+yearmth.yearmonth <- function(x) {
+  structure(x, class = c("yearmonth", "Date"))
 }
 
 #' @export
@@ -61,16 +61,16 @@ yearmth.numeric <- function(x) {
   year <- trunc(x)
   month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
   result <- as.Date(paste(year, month, "01", sep = "-"))
-  structure(result, class = c("yearmth", "Date"))
+  structure(result, class = c("yearmonth", "Date"))
 }
 
 #' @export
-format.yearmth <- function(x, format = "%Y %b", ...) {
+format.yearmonth <- function(x, format = "%Y %b", ...) {
   format.Date(x, format = format, ...)
 }
 
 #' @export
-print.yearmth <- function(x, format = "%Y %b", ...) {
+print.yearmonth <- function(x, format = "%Y %b", ...) {
   print(format(x, format = format, ...))
   invisible(x)
 }
@@ -86,18 +86,18 @@ yearqtr.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   qtrs <- formatC(posix$mon - (posix$mon - 1) %% 3, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
-  structure(result, class = c("yearqtr", "Date"))
+  structure(result, class = c("yearquarter", "Date"))
 }
 
 #' @export
 yearqtr.Date <- yearqtr.POSIXt
 
 #' @export
-yearqtr.yearmth <- yearqtr.POSIXt
+yearqtr.yearmonth <- yearqtr.POSIXt
 
 #' @export
-yearqtr.yearqtr <- function(x) {
-  structure(x, class = c("yearqtr", "Date"))
+yearqtr.yearquarter <- function(x) {
+  structure(x, class = c("yearquarter", "Date"))
 }
 
 #' @export
@@ -107,20 +107,20 @@ yearqtr.numeric <- function(x) {
   first_month <- last_month - 2
   quarter <- formatC(first_month, flag = 0, width = 2)
   result <- as.Date(paste(year, quarter, "01", sep = "-"))
-  structure(result, class = c("yearqtr", "Date"))
+  structure(result, class = c("yearquarter", "Date"))
 }
 
 #' @importFrom lubridate as_date
 #' @importFrom lubridate tz
 #' @importFrom lubridate tz<-
-as_date.yearqtr <- function(x, ...) {
+as_date.yearquarter <- function(x, ...) {
   tz_x <- tz(x)
   class(x) <- "Date"
   tz(x) <- tz_x
   x
 }
 
-as_date.yearmth <- function(x, ...) {
+as_date.yearmonth <- function(x, ...) {
   tz_x <- tz(x)
   class(x) <- "Date"
   tz(x) <- tz_x
@@ -128,15 +128,16 @@ as_date.yearmth <- function(x, ...) {
 }
 
 #' @export
-as.Date.yearqtr <- as_date.yearqtr
+as.Date.yearquarter <- as_date.yearquarter
 
 #' @export
-as.Date.yearmth <- as_date.yearmth
+as.Date.yearmonth <- as_date.yearmonth
 
 #' @export
-format.yearqtr <- function(x, format = "%Y Q%q", ...) {
-  x <- as_date(x)
-  year <- lubridate::year(x)
+format.yearquarter <- function(x, format = "%Y Q%q", ...) {
+  # x <- as_date(x)
+  # year <- lubridate::year(x)
+  year <- year(x)
   year_sym <- "%Y"
   if (grepl("%y", format)) {
     year <- sprintf("%02d", year %% 100)
@@ -152,8 +153,8 @@ format.yearqtr <- function(x, format = "%Y Q%q", ...) {
 }
 
 #' @export
-print.yearqtr <- function(x, format = "%Y Q%q", ...) {
-  print(format.yearqtr(x, format = format))
+print.yearquarter <- function(x, format = "%Y Q%q", ...) {
+  print(format(x, format = format))
   invisible(x)
 }
 
@@ -173,10 +174,10 @@ year.POSIXt <- function(x) {
 year.Date <- year.POSIXt
 
 #' @export
-year.yearmth <- year.POSIXt
+year.yearmonth <- year.POSIXt
 
 #' @export
-year.yearqtr <- year.POSIXt
+year.yearquarter <- year.POSIXt
 
 #' @export
 year.integer <- function(x) {
@@ -194,7 +195,7 @@ split_POSIXt <- function(x) {
 }
 
 #' @export
-seq.yearmth <- function(
+seq.yearmonth <- function(
   from, to, by, length.out = NULL, along.with = NULL, 
   ...) {
   if (!is_bare_numeric(by, n = 1)) {
@@ -208,7 +209,7 @@ seq.yearmth <- function(
 }
 
 #' @export
-seq.yearqtr <- function(
+seq.yearquarter <- function(
   from, to, by, length.out = NULL, along.with = NULL, 
   ...) {
   if (!is.numeric(by)) {
@@ -224,17 +225,17 @@ seq.yearqtr <- function(
 seq.integer <- seq.int
 
 #' @export
-`[.yearmth` <- function(x, i) {
+`[.yearmonth` <- function(x, i) {
   yearmth(as_date(x)[i])
 }
 
 #' @export
-`[.yearqtr` <- function(x, i) {
+`[.yearquarter` <- function(x, i) {
   yearqtr(as_date(x)[i])
 }
 
 #' @export
-as.POSIXlt.yearqtr <- function(x, tz = "", ...) {
+as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
   as.POSIXlt(as_date(x), tz = tz, ...)
 }
 

@@ -3,7 +3,7 @@
 #' S3 method to pull time interval from various classes, assuming of regularly
 #' spaced time. It finds a minimal time span from `x`.
 #'
-#' @param x A vector of `POSIXt`, `Date`, `yearmth`, `yearqtr`, `difftime`,
+#' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
 #' `hms`, `integer`, `numeric`.
 #' @param duplicated `TRUE` removes the duplicated elements of `x` and compute
 #' the minimal time span.
@@ -50,14 +50,14 @@ pull_interval.Date <- function(x, duplicated = TRUE) {
 }
 
 #' @export
-pull_interval.yearmth <- function(x, duplicated = TRUE) {
+pull_interval.yearmonth <- function(x, duplicated = TRUE) {
   mon <- year(x) + (lubridate::month(x) - 1) / 12
   nmonths <- ceiling(min_interval(mon, duplicated = duplicated) * 12)
   structure(list(month = nmonths), class = "interval")
 }
 
 #' @export
-pull_interval.yearqtr <- function(x, duplicated = TRUE) {
+pull_interval.yearquarter <- function(x, duplicated = TRUE) {
   qtr <- year(x) + (lubridate::quarter(x) - 1) / 4
   nqtrs <- ceiling(min_interval(qtr, duplicated = duplicated) * 4)
   structure(list(quarter = nqtrs), class = "interval")
@@ -99,12 +99,12 @@ as_period.Date <- function(x) {
   return(int$day)
 }
 
-as_period.yearmth <- function(x) {
+as_period.yearmonth <- function(x) {
   int <- pull_interval(x)
   return(int$month)
 }
 
-as_period.yearqtr <- function(x) {
+as_period.yearquarter <- function(x) {
   int <- pull_interval(x)
   return(int$quarter)
 }
