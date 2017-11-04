@@ -1,7 +1,9 @@
+library(rlang)
 library(tibble)
 library(lubridate)
 library(tsibble)
-context("Test as_tsibble() for data of long form")
+
+context("Test as_tsibble() w/o key for data of long form")
 
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:00"), 
@@ -17,13 +19,29 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(index_sum(dat_x$date_time), "dttm")
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
+  expect_is(index(tsbl), "quosure")
+  expect_identical(quo_text(index(tsbl)), "date_time")
+  expect_identical(format(key(tsbl)), "NULL")
+  expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1SECOND")
+  expect_true(is_regular(tsbl))
+  tsbl1 <- rename(tsbl, `Date Time` = date_time)
+  expect_identical(quo_text(index(tsbl1)), "Date Time")
+  dat_y <- dat_x[c(1, 1, 3:5), ]
+  expect_error(as_tsibble(dat_y, index = date_time))
 })
 
 test_that("POSIXt with an unrecognisable interval", {
   dat_y <- dat_x[1, ]
   tsbl <- as_tsibble(dat_y, index = date_time)
   expect_identical(format(interval(tsbl)), "?")
+})
+
+test_that("POSIXt with irregular interval", {
+  dat_y <- dat_x[1, ]
+  tsbl <- as_tsibble(dat_y, index = date_time, regular = FALSE)
+  expect_identical(format(interval(tsbl)), "!")
+  expect_false(is_regular(tsbl))
 })
 
 idx_minute <- seq.POSIXt(
@@ -108,4 +126,15 @@ test_that("Year with 10 years interval", {
   tsbl <- as_tsibble(dat_x, index = year)
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "10YEAR")
+})
+
+library(hms)
+idx_time <- hms(hour = rep(0, 5), minutes = 1:5, second = rep(0, 5))
+dat_x <- tibble(time = idx_time, value = rnorm(5))
+
+test_that("Difftime with 1 minute interval", {
+  expect_identical(index_sum(dat_x$time), "time")
+  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "1MINUTE")
 })
