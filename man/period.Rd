@@ -3,24 +3,21 @@
 \name{yearmth}
 \alias{yearmth}
 \alias{yearqtr}
-\alias{year}
-\title{Represent year-month, year-quarter and year objects}
+\title{Represent year-month or year-quarter objects}
 \usage{
 yearmth(x)
 
 yearqtr(x)
-
-year(x)
 }
 \arguments{
 \item{x}{Other object.}
 }
 \value{
-Year-month (\code{yearmth}), year-quarter (\code{yearqtr}), or year (\code{year})
+Year-month (\code{yearmth}) or year-quarter (\code{yearqtr})
 objects.
 }
 \description{
-Create or coerce using \code{yearmth()}, \code{yearqtr()}, and \code{year()}
+Create or coerce using \code{yearmth()}, or \code{yearqtr()}
 }
 \details{
 It's a known issue that these attributes will be dropped when using
@@ -29,15 +26,10 @@ then use \link{mutate}.
 }
 \section{Index functions}{
 
-\itemize{
-\item The underlying class of \code{yearmth()} and \code{yearqtr()} is \code{Date}. It differs
+The underlying class of \code{yearmth()} and \code{yearqtr()} is \code{Date}. It differs
 from their counterparts in the \emph{zoo} package, which behind the scene are
 numerics. Unlike \code{zoo::yearmon()} and \code{zoo::yearqtr()}, the \code{yearmth()} and
 \code{yearqtr()} preserve the time zone of the input \code{x}.
-\item The \code{year()} function returns bare integers rather than doubles. In the
-tsibble, integers generate the "YEAR" interval, whereas doubles produce the
-unrecognisable "UNIT" interval.
-}
 }
 
 \examples{
@@ -45,7 +37,6 @@ unrecognisable "UNIT" interval.
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearmth(x)
 yearqtr(x)
-year(x)
 
 # coerce yearmth to yearqtr ----
 y <- yearmth(x)

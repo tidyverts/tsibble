@@ -14,9 +14,9 @@ tsummarize(.data, ...)
 
 \item{...}{Name-value pairs of expressions. The index variable must be present
 in the calls, coupled with an index function, to carry out the calculation.
-The index functions that can be used:
+The index functions that can be used, but not limited:
 \itemize{
-\item \link{year}: yearly aggregation
+\item \link[lubridate:year]{lubridate::year}: yearly aggregation
 \item \link{yearqtr}: quarterly aggregation
 \item \link{yearmth}: monthly aggregation
 \item \link{as.Date} and \link[lubridate:as_date]{lubridate::as_date}: daily aggregation

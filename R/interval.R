@@ -51,27 +51,24 @@ pull_interval.Date <- function(x, duplicated = TRUE) {
 
 #' @export
 pull_interval.yearmonth <- function(x, duplicated = TRUE) {
-  mon <- year(x) + (lubridate::month(x) - 1) / 12
+  mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
   nmonths <- ceiling(min_interval(mon, duplicated = duplicated) * 12)
   structure(list(month = nmonths), class = "interval")
 }
 
 #' @export
 pull_interval.yearquarter <- function(x, duplicated = TRUE) {
-  qtr <- year(x) + (lubridate::quarter(x) - 1) / 4
+  qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
   nqtrs <- ceiling(min_interval(qtr, duplicated = duplicated) * 4)
   structure(list(quarter = nqtrs), class = "interval")
 }
 
 #' @export
-pull_interval.integer <- function(x, duplicated = TRUE) {
-  nyrs <- as.integer(min_interval(x, duplicated = duplicated))
-  structure(list(year = nyrs), class = "interval")
-}
-
-#' @export
 pull_interval.numeric <- function(x, duplicated = TRUE) {
   nunits <- min_interval(x, duplicated = duplicated)
+  if (min0(x) > 999) {
+    return(structure(list(year = nunits), class = "interval"))
+  }
   structure(list(unit = nunits), class = "interval")
 }
 
@@ -81,32 +78,27 @@ as_period <- function(x) {
 
 as_period.POSIXt <- function(x) {
   int <- pull_interval(x)
-  return(int$second + int$minute * 60 + int$hour * 60 * 60)
+  int$second + int$minute * 60 + int$hour * 60 * 60
 }
 
 as_period.numeric <- function(x) {
   int <- pull_interval(x)
-  return(int$unit)
-}
-
-as_period.integer <- function(x) {
-  int <- pull_interval(x)
-  return(int$year)
+  if (min0(x) > 999) {
+    return(int$year)
+  }
+  int$unit
 }
 
 as_period.Date <- function(x) {
-  int <- pull_interval(x)
-  return(int$day)
+  pull_interval(x)$day
 }
 
 as_period.yearmonth <- function(x) {
-  int <- pull_interval(x)
-  return(int$month)
+  pull_interval(x)$month
 }
 
 as_period.yearquarter <- function(x) {
-  int <- pull_interval(x)
-  return(int$quarter)
+  pull_interval(x)$quarter
 }
 
 # from ts time to dates
@@ -122,7 +114,7 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 4) { # quarterly
     return(yearqtr(time_x))
   } else if (freq == 1) { # yearly
-    return(year(time_x))
+    return(time_x)
   } else {
     date_x <- lubridate::date_decimal(time_x, tz = tz)
     return(lubridate::round_date(date_x, unit = "seconds"))

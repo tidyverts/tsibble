@@ -1,26 +1,23 @@
 # Unlike zoo::yearmon and zoo::yearqtr based on numerics,
 # tsibble::yearmth and tsibble::yearqtr are based on the "Date" class.
 
-#' Represent year-month, year-quarter and year objects
+#' Represent year-month or year-quarter objects
 #'
-#' Create or coerce using `yearmth()`, `yearqtr()`, and `year()`
+#' Create or coerce using `yearmth()`, or `yearqtr()`
 #'
 #' @param x Other object.
 #'
-#' @return Year-month (`yearmth`), year-quarter (`yearqtr`), or year (`year`)
+#' @return Year-month (`yearmth`) or year-quarter (`yearqtr`)
 #' objects.
 #' @details It's a known issue that these attributes will be dropped when using
 #' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
 #' then use [mutate].
 #'
 #' @section Index functions:
-#' * The underlying class of `yearmth()` and `yearqtr()` is `Date`. It differs
+#' The underlying class of `yearmth()` and `yearqtr()` is `Date`. It differs
 #' from their counterparts in the *zoo* package, which behind the scene are
 #' numerics. Unlike `zoo::yearmon()` and `zoo::yearqtr()`, the `yearmth()` and 
 #' `yearqtr()` preserve the time zone of the input `x`.
-#' * The `year()` function returns bare integers rather than doubles. In the
-#' tsibble, integers generate the "YEAR" interval, whereas doubles produce the
-#' unrecognisable "UNIT" interval.
 #'
 #' @export
 #' @rdname period
@@ -31,7 +28,6 @@
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 #' yearmth(x)
 #' yearqtr(x)
-#' year(x)
 #' 
 #' # coerce yearmth to yearqtr ----
 #' y <- yearmth(x)
@@ -133,9 +129,8 @@ as.Date.yearmonth <- as_date.yearmonth
 
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
-  # x <- as_date(x)
-  # year <- lubridate::year(x)
-  year <- year(x)
+  x <- as_date(x)
+  year <- lubridate::year(x)
   year_sym <- "%Y"
   if (grepl("%y", format)) {
     year <- sprintf("%02d", year %% 100)
@@ -155,35 +150,6 @@ print.yearquarter <- function(x, format = "%Y Q%q", ...) {
   print(format(x, format = format))
   invisible(x)
 }
-
-#' @rdname period
-#' @export
-year <- function(x) {
-  UseMethod("year")
-}
-
-#' @export
-year.POSIXt <- function(x) {
-  posix <- split_POSIXt(x)
-  as.integer(posix$year)
-}
-
-#' @export
-year.Date <- year.POSIXt
-
-#' @export
-year.yearmonth <- year.POSIXt
-
-#' @export
-year.yearquarter <- year.POSIXt
-
-#' @export
-year.integer <- function(x) {
-  as.integer(x)
-}
-
-#' @export
-year.numeric <- year.integer
 
 split_POSIXt <- function(x) {
   posix <- as.POSIXlt(x, tz = lubridate::tz(x))
@@ -219,8 +185,6 @@ seq.yearquarter <- function(
     along.with = along.with, ...
   ))
 }
-
-seq.integer <- seq.int
 
 #' @export
 `[.yearmonth` <- function(x, i) {

@@ -6,8 +6,8 @@
 #' @param .data A data frame (of `tbl_ts` class).
 #' @param ... Name-value pairs of expressions. The index variable must be present
 #' in the calls, coupled with an index function, to carry out the calculation.
-#' The index functions that can be used:
-#' * [year]: yearly aggregation
+#' The index functions that can be used, but not limited:
+#' * [lubridate::year]: yearly aggregation
 #' * [yearqtr]: quarterly aggregation
 #' * [yearmth]: monthly aggregation
 #' * [as.Date] and [lubridate::as_date]: daily aggregation

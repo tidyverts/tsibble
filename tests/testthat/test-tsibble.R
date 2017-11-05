@@ -130,14 +130,14 @@ test_that("Year quarter with 1 quarter interval", {
   expect_identical(format(interval(tsbl)), "1QUARTER")
 })
 
-idx_year <- year(seq.int(1970, 2010, by = 10))
+idx_year <- seq.int(1970, 2010, by = 10)
 dat_x <- tibble(
  year = idx_year,
  value = rnorm(5)
 )
 
 test_that("Year with 10 years interval", {
-  expect_identical(index_sum(dat_x$year), "int")
+  expect_identical(index_sum(dat_x$year), "dbl")
   expect_error(as_tsibble(dat_x))
   tsbl <- as_tsibble(dat_x, index = year)
   expect_is(tsbl, "tbl_ts")

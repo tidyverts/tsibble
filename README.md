@@ -50,11 +50,11 @@ weather_ts
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
 
-The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `?tsibble` and `vignette()` for details.
+The **key** is not constrained to a single variable, but expressive for nested and crossed data structures. See `?tsibble` and `vignette("intro-tsibble")` for details.
 
 ### `tsummarise()` to summarise over calendar periods
 
-A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, `yearqtr()`, and `year()`, as well as other friends from *lubridate*, like `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmth()` to the hourly time index.
+A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, and `yearqtr()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmth()` to the hourly time index.
 
 ``` r
 weather_ts %>%
@@ -91,7 +91,7 @@ weather_na <- slice(weather_ts, sample(nr, size = nr * 0.8))
 weather_na %>%
   group_by(origin) %>%
   fill_na(
-    year = as.numeric(year(time_hour)),
+    year = lubridate::year(time_hour),
     temp = dplyr::lag(temp, na.rm = TRUE),
     precip = 0
   )
