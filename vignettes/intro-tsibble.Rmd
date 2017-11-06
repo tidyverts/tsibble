@@ -8,12 +8,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-* what is a tsibble
-* background
-* motivation
+The **tsibble** package expands [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, where time indices are preserved as the essential component and heterogeneous data structures are made possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as "key" variables. Multiple keys separated by a vertical bar (`|`) or a comma (`,`) are expressive of nested or crossed variables. This binds [hierarchical and grouped time series](http://pkg.earo.me/hts/) together into the tsibble framework.
 
-## Index
-
-## Impose structure by using key
+## Index and key(s)
 
 ## Interval

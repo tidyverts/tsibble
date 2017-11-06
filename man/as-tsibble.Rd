@@ -64,8 +64,8 @@ A valid tsibble does not impose the chronological order. Please use
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but preserved as the essential component of the tsibble. A
 few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearmth}, \link{yearqtr} and \link{year} representing
-year-month, year-quarter and year objects respectively.
+the tsibble, with new additions \link{yearmth} and \link{yearqtr} representing year-month
+and year-quarter respectively.
 }
 
 \section{Key}{
