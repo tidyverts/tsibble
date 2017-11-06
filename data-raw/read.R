@@ -52,16 +52,16 @@ tourism <- qtr_data %>%
 devtools::use_data(tourism, overwrite = TRUE)
 
 # hms data ----
-x <- seq(0, 8.99, by = 1/20)
-y <- seq(0, 5.99, by = 1/30)
-sin_x <- round(sinpi(x) + rnorm(180, sd = 0.1), 2)
-cos_x <- round(cospi(y) + rnorm(180, sd = 0.3), 2)
-secs <- rep(rep.int(0:59, 3), 2)
-mins <- rep(rep(0:2, each = 60), 2)
-sincos <- tibble(
-  length = hms::hms(seconds = secs, minutes = mins),
-  trig = rep(c("sine", "cosine"), each = 180),
-  value = c(sin_x, cos_x)
-)
-sincos <- as_tsibble(sincos, trig, index = length)
-devtools::use_data(sincos, overwrite = TRUE)
+# x <- seq(0, 8.99, by = 1/20)
+# y <- seq(0, 5.99, by = 1/30)
+# sin_x <- round(sinpi(x) + rnorm(180, sd = 0.1), 2)
+# cos_x <- round(cospi(y) + rnorm(180, sd = 0.3), 2)
+# secs <- rep(rep.int(0:59, 3), 2)
+# mins <- rep(rep(0:2, each = 60), 2)
+# sincos <- tibble(
+#   length = hms::hms(seconds = secs, minutes = mins),
+#   trig = rep(c("sine", "cosine"), each = 180),
+#   value = c(sin_x, cos_x)
+# )
+# sincos <- as_tsibble(sincos, trig, index = length)
+# devtools::use_data(sincos, overwrite = TRUE)

@@ -43,15 +43,3 @@
 #' @name tourism
 #' @usage tourism
 "tourism"
-
-#' Sythetic data as an example of hms/difftime
-#'
-#' A dataset containing the values recorded per second from `00:00:00` to `00:02:59`.
-#' @format A tsibble with 360 rows and 3 variables:
-#' * **length**: Time length as `hms` and `difftime` class (index)
-#' * **trig**: Trigonometry as *sine* and *cosine* (key)
-#' * **value**: Value
-#' @docType data
-#' @name sincos
-#' @usage sincos
-"sincos"

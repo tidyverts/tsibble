@@ -38,8 +38,10 @@ Ignored for other types of classes. See below for details.}
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). If you
-are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
+of key variables lead to unique time indices (i.e. a valid tsibble). It will
+also make sure that the nested variables are arranged from lower level to
+higher, if nested variables are passed to key (\code{...}). If you are sure that
+it's a valid input, specify \code{FALSE} to skip the checks.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
 finds the minimal time span as the interval.}

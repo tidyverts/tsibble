@@ -9,8 +9,10 @@ globalVariables(c("key", "value", "zzz"))
 #' Ignored for other types of classes. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param validate `TRUE` suggests to verify that each key or each combination
-#' of key variables lead to unique time indices (i.e. a valid tsibble). If you
-#' are sure that it's a valid input, specify `FALSE` to skip the checks.
+#' of key variables lead to unique time indices (i.e. a valid tsibble). It will
+#' also make sure that the nested variables are arranged from lower level to 
+#' higher, if nested variables are passed to key (`...`). If you are sure that 
+#' it's a valid input, specify `FALSE` to skip the checks.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
 #'
@@ -240,10 +242,10 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   # validate key vars
   key_vars <- validate_key(data = tbl, key)
   key_lens <- length(key_vars)
-  tbl <- validate_nested(data = tbl, key = key_vars)
   # validate tbl_ts
   if (validate) {
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
+    tbl <- validate_nested(data = tbl, key = key_vars)
   }
   tbl_interval <- list()
   if (regular) {
