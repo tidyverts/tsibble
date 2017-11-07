@@ -2,8 +2,6 @@
 output:
   github_document:
     html_preview: false
-    toc: true
-    toc_depth: 3
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->

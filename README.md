@@ -1,13 +1,4 @@
 
--   [tsibble](#tsibble)
-    -   [Installation](#installation)
-    -   [Get started](#get-started)
-        -   [Coerce to a tsibble with `as_tsibble()`](#coerce-to-a-tsibble-with-as_tsibble)
-        -   [`tsummarise()` to summarise over calendar periods](#tsummarise-to-summarise-over-calendar-periods)
-        -   [`fill_na()` to turn implicit missing values into explicit missing values](#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values)
-        -   [Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`](#window-functions-applied-to-a-tsibble-slide-tile-stretch)
-    -   [Related work](#related-work)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 tsibble
 =======
