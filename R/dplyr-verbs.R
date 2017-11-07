@@ -33,6 +33,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
     validate = FALSE, regular = is_regular(.data)
   )
   groups(tbl) <- grps
+  tbl
 }
 
 #' @rdname row-verb

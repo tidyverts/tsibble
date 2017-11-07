@@ -241,7 +241,10 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   index <- extract_index_var(tbl, index = index)
   # validate key vars
   key_vars <- validate_key(data = tbl, key)
-  key_lens <- length(key_vars)
+  is_index_in_keys <- intersect(quo_text2(index), flatten_key(key_vars))
+  if (is_false(is_empty(is_index_in_keys))) {
+    abort("The index variable cannot be one of the keys.")
+  }
   # validate tbl_ts
   if (validate) {
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)

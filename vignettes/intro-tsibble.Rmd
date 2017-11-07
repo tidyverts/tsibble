@@ -18,12 +18,15 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
+The `as_tsibble()` is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as `ts`, `mts`, or `hts`, can be automated to a tsibble using `as_tsibble()` without any specification. If it is a tibble or data frame, the `as_tsibble()` requires a little more setup in order to identify the index and key variables.
+
 ## Index and key(s)
 
 ```{r weather}
 library(tsibble)
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
+weather
 ```
 
 ```{r weather-ts}
@@ -31,15 +34,21 @@ weather_tsbl <- as_tsibble(weather, origin, index = time_hour)
 weather_tsbl
 ```
 
-```{r air-time}
+```{r flights}
 library(hms)
-air_time <- nycflights13::flights %>%
-  filter(year == 2013, month == 1, day == 1) %>%
-  select(origin, dest, flight, air_time, distance) %>%
-  mutate(air_time = hms(minutes = air_time))
-air_time_tsbl <- air_time %>%
-  as_tsibble(air_time, origin, dest, flight, index = air_time, regular = FALSE)
-air_time_tsbl
+library(lubridate)
+flights <- nycflights13::flights %>%
+  mutate(sched_date_time = time_hour + minutes(minute)) %>%
+  select(
+    flight, origin, dest, sched_date_time, 
+    dep_delay, arr_delay, air_time, distance
+  )
+```
+
+```{r flights-ts}
+flights_tsbl <- flights %>%
+  as_tsibble(flight, origin, dest, index = sched_date_time, regular = FALSE)
+flights_tsbl
 ```
 
 ```{r tourism}
