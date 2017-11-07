@@ -303,15 +303,22 @@ extract_index_var <- function(data, index) {
 validate_nested <- function(data, key) {
   nest_lgl <- is_nest(key)
   if (any(nest_lgl)) {
+    key_nest <- key[nest_lgl]
     nest_keys <- purrr::map(
-      key[nest_lgl], ~ purrr::map_chr(., quo_text2)
+      key_nest, ~ purrr::map_chr(., quo_text2)
     )
     n_dist <- purrr::map(
       nest_keys, ~ purrr::map_int(., ~ dplyr::n_distinct(data[[.]]))
     )
     n_lgl <- purrr::map_lgl(n_dist, is_descending)
     if (is_false(all(n_lgl))) {
-      abort("Incorrect ordering of nested variables.")
+      which_bad <- key_nest[!n_lgl]
+      msg <- purrr::map(which_bad, ~ paste(., collapse = " | "))
+      msg <- paste(msg, collapse = ", ")
+      abort(paste0(
+        "Incorrect ordering of nested variables: ",
+        msg
+      ))
     }
   }
   data
