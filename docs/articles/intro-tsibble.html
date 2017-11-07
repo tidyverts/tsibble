@@ -78,6 +78,40 @@
 <div id="index-and-keys" class="section level2">
 <h2 class="hasAnchor">
 <a href="#index-and-keys" class="anchor"></a>Index and key(s)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsibble)
+weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, origin, <span class="dt">index =</span> time_hour)
+weather_tsbl</code></pre></div>
+<pre><code>## # A tsibble: 26,130 x 5 [1HOUR]
+## # Keys:      origin
+##   origin           time_hour  temp humid precip
+## *  &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
+## 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
+## 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
+## 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
+## 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
+## # ... with 2.612e+04 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hms)
+air_time &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, dest, flight, air_time, distance) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">air_time =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/hms/topics/hms">hms</a></span>(<span class="dt">minutes =</span> air_time))
+air_time_tsbl &lt;-<span class="st"> </span>air_time <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(air_time, origin, dest, flight, <span class="dt">index =</span> air_time, <span class="dt">regular =</span> <span class="ot">FALSE</span>)
+air_time_tsbl</code></pre></div>
+<pre><code>## # A tsibble: 842 x 5 [!]
+## # Keys:      air_time, origin, dest, flight
+##   origin  dest flight air_time distance
+## *  &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;   &lt;time&gt;    &lt;dbl&gt;
+## 1    EWR   IAH   1545 03:47:00     1400
+## 2    LGA   IAH   1714 03:47:00     1416
+## 3    JFK   MIA   1141 02:40:00     1089
+## 4    JFK   BQN    725 03:03:00     1576
+## 5    LGA   ATL    461 01:56:00      762
+## # ... with 837 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tourism &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(tourism, Region <span class="op">|</span><span class="st"> </span>State, Purpose, <span class="dt">index =</span> Quarter)</code></pre></div>
 </div>
 <div id="interval" class="section level2">
 <h2 class="hasAnchor">

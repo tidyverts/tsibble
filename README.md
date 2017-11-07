@@ -26,19 +26,20 @@ The `weather` data included in the package `nycflights13` is used as an example 
 
 ``` r
 library(tsibble)
-weather_ts <- as_tsibble(nycflights13::weather, origin, index = time_hour)
-weather_ts
-#> # A tsibble: 26,130 x 15 [1HOUR]
+weather <- nycflights13::weather %>% 
+  select(origin, time_hour, temp, humid, precip)
+weather_tsbl <- as_tsibble(weather, origin, index = time_hour)
+weather_tsbl
+#> # A tsibble: 26,130 x 5 [1HOUR]
 #> # Keys:      origin
-#>   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
-#> *  <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
-#> 1    EWR  2013     1     1     0 37.04 21.92 53.97      230   10.35702
-#> 2    EWR  2013     1     1     1 37.04 21.92 53.97      230   13.80936
-#> 3    EWR  2013     1     1     2 37.94 21.92 52.09      230   12.65858
-#> 4    EWR  2013     1     1     3 37.94 23.00 54.51      230   13.80936
-#> 5    EWR  2013     1     1     4 37.94 24.08 57.04      240   14.96014
-#> # ... with 2.612e+04 more rows, and 5 more variables: wind_gust <dbl>,
-#> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+#>   origin           time_hour  temp humid precip
+#> *  <chr>              <dttm> <dbl> <dbl>  <dbl>
+#> 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
+#> 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
+#> 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
+#> 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
+#> 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
+#> # ... with 2.612e+04 more rows
 ```
 
 The **key** is not constrained to a single variable, but expressive of nested and crossed data structures. See `?tsibble` and `vignette("intro-tsibble")` for details.
@@ -48,7 +49,7 @@ The **key** is not constrained to a single variable, but expressive of nested an
 A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, and `yearqtr()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmth()` to the hourly time index.
 
 ``` r
-weather_ts %>%
+weather_tsbl %>%
   group_by(origin) %>%
   tsummarise(
     year_month = yearmth(time_hour), # monthly aggregates
@@ -75,31 +76,29 @@ The `tsummarise()` can be a useful function for regularising an irregular tsibbl
 Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only extends the index and key to make the `NA`s present, but also provides a consistent interface to replace these `NA`s using a set of name-value pairs.
 
 ``` r
-nr <- nrow(weather_ts)
+nr <- nrow(weather_tsbl)
 # randomly remove 20% of the observations
-weather_na <- slice(weather_ts, sample(nr, size = nr * 0.8))
+weather_na <- slice(weather_tsbl, sample(nr, size = nr * 0.8))
 # replace NA with either functions or values for each group
 weather_na %>%
   group_by(origin) %>%
   fill_na(
-    year = lubridate::year(time_hour),
     temp = dplyr::lag(temp, na.rm = TRUE),
     precip = 0
   )
-#> # A tsibble: 26,208 x 15 [1HOUR]
+#> # A tsibble: 26,208 x 5 [1HOUR]
 #> # Keys:      origin
-#>   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
-#> *  <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
-#> 1    EWR  2013     1     1     0 37.04 21.92 53.97      230   10.35702
-#> 2    EWR  2013     1     1     1 37.04 21.92 53.97      230   13.80936
-#> 3    EWR  2013    NA    NA    NA 37.04    NA    NA       NA         NA
-#> 4    EWR  2013     1     1     3 37.94 23.00 54.51      230   13.80936
-#> 5    EWR  2013     1     1     4 37.94 24.08 57.04      240   14.96014
-#> # ... with 2.62e+04 more rows, and 5 more variables: wind_gust <dbl>,
-#> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+#>   origin           time_hour  temp humid precip
+#> *  <chr>              <dttm> <dbl> <dbl>  <dbl>
+#> 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
+#> 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
+#> 3    EWR 2013-01-01 13:00:00 37.04    NA      0
+#> 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
+#> 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
+#> # ... with 2.62e+04 more rows
 ```
 
-The missing values of the *year*, *temp* and *precip*, are supplied by the year extracted from the *time\_hour*, the previous hour's temperature, and a single number of 0 respectively. The rest of untouched variables simply leave `NA` as is.
+The missing values of the *temp* and *precip*, are supplied by the previous hour's temperature, and a single number of 0 respectively. The rest of untouched variables simply leave NA as is.
 
 ### Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`
 
@@ -112,7 +111,7 @@ Time series data commonly get involved in moving window calculations. A set of v
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 
 ``` r
-weather_ts %>% 
+weather_tsbl %>% 
   select(origin, time_hour, temp) %>% 
   group_by(origin) %>% 
   mutate(temp_mv = slide(temp, mean, size = 3))

@@ -24,7 +24,8 @@ Suggests:
     testthat,
     covr,
     hts,
-    hms
+    hms,
+    nycflights13
 LinkingTo:
     Rcpp (>= 0.12.0)
 ByteCompile: true

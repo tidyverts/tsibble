@@ -10,6 +10,40 @@ vignette: >
 
 The **tsibble** package expands [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, where time indices are preserved as the essential component and heterogeneous data structures are made possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as "key" variables. Multiple keys separated by a vertical bar (`|`) or a comma (`,`) are expressive of nested or crossed variables. This binds [hierarchical and grouped time series](http://pkg.earo.me/hts/) together into the tsibble framework.
 
+```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE, echo = TRUE,
+  fig.width = 7, fig.height = 6, fig.align = 'centre'
+)
+options(tibble.print_min = 5)
+```
+
 ## Index and key(s)
+
+```{r weather}
+library(tsibble)
+weather <- nycflights13::weather %>% 
+  select(origin, time_hour, temp, humid, precip)
+```
+
+```{r weather-ts}
+weather_tsbl <- as_tsibble(weather, origin, index = time_hour)
+weather_tsbl
+```
+
+```{r air-time}
+library(hms)
+air_time <- nycflights13::flights %>%
+  filter(year == 2013, month == 1, day == 1) %>%
+  select(origin, dest, flight, air_time, distance) %>%
+  mutate(air_time = hms(minutes = air_time))
+air_time_tsbl <- air_time %>%
+  as_tsibble(air_time, origin, dest, flight, index = air_time, regular = FALSE)
+air_time_tsbl
+```
+
+```{r tourism}
+tourism <- as_tsibble(tourism, Region | State, Purpose, index = Quarter)
+```
 
 ## Interval
