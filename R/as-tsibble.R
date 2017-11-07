@@ -138,7 +138,7 @@ group_vars.tbl_ts <- function(x) {
 #' Return index and interval from a tsibble
 #'
 #' @param x A tsibble object.
-#' @rdname index
+#' @rdname index-rd
 #' @examples
 #' data(pedestrian)
 #' index(pedestrian)
@@ -151,7 +151,7 @@ interval <- function(x) {
   attr(x, "interval")
 }
 
-#' @rdname index
+#' @rdname index-rd
 #' @export
 index <- function(x) {
   if (is_false(is_tsibble(x))) {

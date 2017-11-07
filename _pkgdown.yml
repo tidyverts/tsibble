@@ -1,0 +1,75 @@
+template:
+  params:
+    bootswatch: united
+
+authors:
+  Earo Wang:
+    href: http://earo.me
+  Di Cook:
+    href: http://dicook.org
+  Rob Hyndman:
+    href: http://robjhyndman.com
+
+reference:
+- title: Tsibble
+  contents:
+    - as_tsibble
+    - is_tsibble
+
+- title: Temporal-context verbs
+  contents:
+    - tsummarise
+    - fill_na
+
+- title: Window functions
+  contents:
+    - slide
+    - tile
+    - stretch
+
+- title: Index functions
+  contents:
+    - starts_with("year")
+
+- title: Helpers
+  contents:
+    - key
+    - index
+    - interval
+    - is_regular
+    - case_na
+
+- title: Extend tsibble
+  contents:
+    - index_sum
+    - pull_interval
+
+- title: Dplyr verbs
+  contents:
+    - arrange.tbl_ts
+    - filter.tbl_ts
+    - slice.tbl_ts
+    - select.tbl_ts
+    - mutate.tbl_ts
+    - summarise.tbl_ts
+    - group_by.tbl_ts
+
+- title: Data
+  contents:
+    - pedestrian
+    - tourism
+
+navbar:
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Vignettes
+    menu:
+    - text: Introduction to tsibble
+      href: articles/intro-tsibble.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/earowang/tsibble
