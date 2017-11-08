@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return key variables from a tsibble — key • tsibble</title>
+<title>Return key variables — key • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,7 +89,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return key variables from a tsibble</h1>
+    <h1>Return key variables</h1>
     </div>
 
     
@@ -105,7 +105,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A tsibble object.</p></td>
+      <td><p>A data frame.</p></td>
     </tr>
     </table>
     
@@ -118,7 +118,7 @@
 #&gt; </div><div class='input'>
 <span class='co'># Nested and crossed keys for tourism data ----</span>
 <span class='fu'>data</span>(<span class='no'>tourism</span>)
-<span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; $`Region | State`
 #&gt; [1] "Region | State"
 #&gt; 
 #&gt; $Purpose

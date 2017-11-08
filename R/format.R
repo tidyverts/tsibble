@@ -40,6 +40,7 @@ format.key <- function(x, ...) {
       c(cond_keys, comb_keys)
     }
   }
+  names(comb_keys) <- comb_keys
   comb_keys
 }
 

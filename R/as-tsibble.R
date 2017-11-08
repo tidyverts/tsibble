@@ -88,11 +88,11 @@ as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
 }
 
-#' Return key variables from a tsibble
+#' Return key variables
 #'
 #' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
-#' @param x A tsibble object.
+#' @param x A data frame.
 #'
 #' @rdname key
 #'
@@ -108,9 +108,11 @@ as_tsibble.default <- function(x, ...) {
 #' key_vars(tourism)
 #' @export
 key <- function(x) {
-  if (is_false(is_tsibble(x))) {
-    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
-  }
+  UseMethod("key")
+}
+
+#' @export
+key.tbl_ts <- function(x) {
   attr(x, "key")
 }
 
@@ -120,6 +122,11 @@ key <- function(x) {
 }
 
 #' @rdname key
+#' @export
+key_vars <- function(x) {
+  UseMethod("key_vars")
+}
+
 #' @export
 key_vars <- function(x) {
   format(key(x))

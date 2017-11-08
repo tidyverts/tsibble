@@ -255,6 +255,7 @@ ungroup.tbl_ts <- function(x, ...) {
 }
 
 #' @importFrom dplyr group_indices
+#' @export
 group_indices.grouped_ts <- function(.data, ...) {
   group_indices(as_tibble(.data))
 }

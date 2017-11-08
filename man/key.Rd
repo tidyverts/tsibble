@@ -3,14 +3,14 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
-\title{Return key variables from a tsibble}
+\title{Return key variables}
 \usage{
 key(x)
 
 key_vars(x)
 }
 \arguments{
-\item{x}{A tsibble object.}
+\item{x}{A data frame.}
 }
 \description{
 \code{key()} returns a list of symbols; \code{key_vars()} gives a character vector.

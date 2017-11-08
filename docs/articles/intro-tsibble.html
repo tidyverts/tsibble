@@ -74,39 +74,39 @@
     
     
 <div class="contents">
-<p>The <strong>tsibble</strong> package expands <a href="https://www.tidyverse.org">tidyverse</a> to temporal-context data. Built on top of the <a href="http://tibble.tidyverse.org">tibble</a>, a tsibble (or <code>tbl_ts</code>) is a data-centric format, where time indices are preserved as the essential component and heterogeneous data structures are made possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as “key” variables. Multiple keys separated by a vertical bar (<code>|</code>) or a comma (<code>,</code>) are expressive of nested or crossed variables. This binds <a href="http://pkg.earo.me/hts/">hierarchical and grouped time series</a> together into the tsibble framework.</p>
+<p>The <strong>tsibble</strong> package expands <a href="https://www.tidyverse.org">tidyverse</a> to temporal-context data. Built on top of the <a href="http://tibble.tidyverse.org">tibble</a>, a tsibble (or <code>tbl_ts</code>) is a data-centric format, where time indices are preserved as the essential component and heterogeneous data structures are made possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as “key” variables. Multiple keys separated by a vertical bar (<code>|</code>) or a comma (<code>,</code>) are expressive of nested or crossed variables. This binds <a href="http://pkg.earo.me/hts/">hierarchical and grouped time series</a> together into the tsibble framework. The tsibble aims at managing temporal data and getting analysis done in a tidy and modern manner.</p>
 <p>The <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as <code>ts</code>, <code>mts</code>, or <code>hts</code>, can be automated to a tsibble using <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> without any specification. If it is a tibble or data frame, the <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> requires a little more setup in order to identify the index and key variables.</p>
 <div id="index-and-keys" class="section level2">
 <h2 class="hasAnchor">
 <a href="#index-and-keys" class="anchor"></a>Index and key(s)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsibble)
+<span class="kw">library</span>(lubridate)
 weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)
 weather</code></pre></div>
-<pre><code>## # A tibble: 26,130 x 5
-##   origin           time_hour  temp humid precip
-##    &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
-## 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
-## 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
-## 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
-## 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
-## # ... with 2.612e+04 more rows</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, origin, <span class="dt">index =</span> time_hour)
+<pre><code>#&gt; # A tibble: 26,130 x 5
+#&gt;   origin           time_hour  temp humid precip
+#&gt;    &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
+#&gt; 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
+#&gt; 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
+#&gt; 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
+#&gt; 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
+#&gt; # ... with 2.612e+04 more rows</code></pre>
+<p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only one column consisting of the timestamps, the <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> detects it as the index variable; alternatively, it is more verbose to specify the argument <code>index = time_hour</code>. A tsibble is comprised of an index and key variables. In this case, the <code>origin</code> variable forms the key, and the key should be passed to <code>...</code> in the <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Therefore, <strong>the key together with the index uniquely identifies each observation</strong>, which gives a valid tsibble.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, origin)
 weather_tsbl</code></pre></div>
-<pre><code>## # A tsibble: 26,130 x 5 [1HOUR]
-## # Keys:      origin
-##   origin           time_hour  temp humid precip
-## *  &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
-## 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
-## 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
-## 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
-## 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
-## # ... with 2.612e+04 more rows</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hms)
-<span class="kw">library</span>(lubridate)
-flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span>
+<pre><code>#&gt; # A tsibble: 26,130 x 5 [1HOUR]
+#&gt; # Keys:      origin
+#&gt;   origin           time_hour  temp humid precip
+#&gt; *  &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
+#&gt; 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
+#&gt; 3    EWR 2013-01-01 13:00:00 37.94 52.09      0
+#&gt; 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
+#&gt; 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
+#&gt; # ... with 2.612e+04 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">sched_date_time =</span> time_hour <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/period">minutes</a></span>(minute)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(
     flight, origin, dest, sched_date_time, 
@@ -115,16 +115,16 @@ flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flig
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_tsbl &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(flight, origin, dest, <span class="dt">index =</span> sched_date_time, <span class="dt">regular =</span> <span class="ot">FALSE</span>)
 flights_tsbl</code></pre></div>
-<pre><code>## # A tsibble: 336,776 x 8 [!]
-## # Keys:      flight, origin, dest
-##   flight origin  dest     sched_date_time dep_delay arr_delay air_time
-## *  &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;              &lt;dttm&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1   1545    EWR   IAH 2013-01-01 05:15:00         2        11      227
-## 2   1714    LGA   IAH 2013-01-01 05:29:00         4        20      227
-## 3   1141    JFK   MIA 2013-01-01 05:40:00         2        33      160
-## 4    725    JFK   BQN 2013-01-01 05:45:00        -1       -18      183
-## 5    461    LGA   ATL 2013-01-01 06:00:00        -6       -25      116
-## # ... with 3.368e+05 more rows, and 1 more variables: distance &lt;dbl&gt;</code></pre>
+<pre><code>#&gt; # A tsibble: 336,776 x 8 [!]
+#&gt; # Keys:      flight, origin, dest
+#&gt;   flight origin  dest     sched_date_time dep_delay arr_delay air_time
+#&gt; *  &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;              &lt;dttm&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1   1545    EWR   IAH 2013-01-01 05:15:00         2        11      227
+#&gt; 2   1714    LGA   IAH 2013-01-01 05:29:00         4        20      227
+#&gt; 3   1141    JFK   MIA 2013-01-01 05:40:00         2        33      160
+#&gt; 4    725    JFK   BQN 2013-01-01 05:45:00        -1       -18      183
+#&gt; 5    461    LGA   ATL 2013-01-01 06:00:00        -6       -25      116
+#&gt; # ... with 3.368e+05 more rows, and 1 more variables: distance &lt;dbl&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tourism &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(tourism, Region <span class="op">|</span><span class="st"> </span>State, Purpose, <span class="dt">index =</span> Quarter)</code></pre></div>
 </div>
 <div id="interval" class="section level2">
