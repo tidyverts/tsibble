@@ -1,10 +1,10 @@
 #' Row-wise verbs
 #'
-#' `arrange()` arranges rows by variable; `filter()` returns rows with matching 
+#' `arrange()` arranges rows by variable; `filter()` returns rows with matching
 #' conditions; `slice()` selects rows by position.
 #'
 #' @param .data A tsibble.
-#' @param ... 
+#' @param ...
 #' * A set of unquoted variables for `arrange()`.
 #' * Logical predicates defined in terms of the variables for `filter()`.
 #' * Integer row numbers for `slice()`.
@@ -41,15 +41,18 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @export
 filter.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  fil_data <- NextMethod()
   if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
     fil_data <- filter(grped_data, ...)
+  } else {
+    fil_data <- NextMethod()
   }
-  as_tsibble(
+  tbl <- as_tsibble(
     fil_data, !!! key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
+  groups(tbl) <- grps
+  tbl
 }
 
 #' @rdname row-verb
@@ -57,15 +60,18 @@ filter.tbl_ts <- function(.data, ...) {
 #' @export
 slice.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
-  slc_data <- NextMethod()
   if (is_grouped_ts(.data)) {
     grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
     slc_data <- slice(grped_data, ...)
+  } else {
+    slc_data <- NextMethod()
   }
-  as_tsibble(
+  tbl <- as_tsibble(
     slc_data, !!! key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
+  groups(tbl) <- grps
+  tbl
 }
 
 #' Column-wise verbs
@@ -75,12 +81,12 @@ slice.tbl_ts <- function(.data, ...) {
 #'
 #' @param .data A tsibble.
 #' @param ... A set of name-value pairs of expressions.
-#' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a 
+#' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
 #' tsibble and returns a tibble.
 #'
 #' @details
 #' * These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
-#' for tsibble. The index variable cannot be dropped for a tsibble. If any key 
+#' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
 #' Turning `drop = TRUE` converts to a tibble first and then do the operations.
 #' * `summarise()` will not collapse on the index variable.
@@ -177,12 +183,12 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (has_index_var(j = vec_vars, x = .data)) {
     abort("The index variable cannot be summarised.")
   }
-  
+
   idx <- index(.data)
   grps <- groups(.data)
   chr_grps <- c(quo_text2(idx), flatten_key(grps))
-  sum_data <- .data %>% 
-    dplyr::grouped_df(vars = chr_grps) %>% 
+  sum_data <- .data %>%
+    dplyr::grouped_df(vars = chr_grps) %>%
     dplyr::summarise(!!! lst_quos)
 
   tbl <- as_tsibble(
@@ -201,10 +207,10 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' Group by one or more variables
 #'
 #' @param .data A tsibble.
-#' @param ... Variables to group by. It follows a consistent rule as the "key" 
+#' @param ... Variables to group by. It follows a consistent rule as the "key"
 #' expression in [as_tsibble], which means `|` for nested variables and `,` for
 #' crossed variables. The following operations will affect the tsibble structure
-#' based on the way how the variables are grouped. 
+#' based on the way how the variables are grouped.
 #' @param add `TRUE` adds to the existing groups, otherwise overwrites.
 #' @param x A (grouped) tsibble.
 #'
@@ -213,8 +219,8 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' @export
 #' @examples
 #' data(tourism)
-#' tourism %>% 
-#'   group_by(Region | State) %>% 
+#' tourism %>%
+#'   group_by(Region | State) %>%
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
@@ -287,6 +293,7 @@ grouped_ts <- function(data, vars, group, add = FALSE) { # vars are characters
   grped_df <- dplyr::grouped_df(data, vars)
   class(grped_df) <- unique(c("grouped_ts", old_class))
   val_grps <- validate_key(data, group)
+  data <- validate_nested(data = data, key = val_grps)
   if (add) {
     groups(grped_df) <- c(groups(data), val_grps)
   } else {

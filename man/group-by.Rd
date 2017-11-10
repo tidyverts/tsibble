@@ -26,8 +26,8 @@ Group by one or more variables
 }
 \examples{
 data(tourism)
-tourism \%>\% 
-  group_by(Region | State) \%>\% 
+tourism \%>\%
+  group_by(Region | State) \%>\%
   summarise(geo_trips = sum(Trips))
 }
 \seealso{

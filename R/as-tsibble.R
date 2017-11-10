@@ -5,13 +5,13 @@ globalVariables(c("key", "value", "zzz"))
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @param ... Unquoted key variable(s) that define unique time indices. Only used
 #' for data of class `tbl_df`, `data.frame` and `list` (i.e. long data form), if
-#' a univariate time series (without an explicit key), simply leave it blank. 
+#' a univariate time series (without an explicit key), simply leave it blank.
 #' Ignored for other types of classes. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param validate `TRUE` suggests to verify that each key or each combination
 #' of key variables lead to unique time indices (i.e. a valid tsibble). It will
-#' also make sure that the nested variables are arranged from lower level to 
-#' higher, if nested variables are passed to key (`...`). If you are sure that 
+#' also make sure that the nested variables are arranged from lower level to
+#' higher, if nested variables are passed to key (`...`). If you are sure that
 #' it's a valid input, specify `FALSE` to skip the checks.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
@@ -44,7 +44,7 @@ globalVariables(c("key", "value", "zzz"))
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30)
 #' )
-#' as_tsibble(tbl2, group) 
+#' as_tsibble(tbl2, group)
 #' as_tsibble(tbl2, group, index = date)
 #'
 #' @export
@@ -300,7 +300,7 @@ extract_index_var <- function(data, index) {
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       abort(paste(
-        "Unsupported index type:", 
+        "Unsupported index type:",
         cls_idx[colnames(data) %in% names(idx_na)])
       )
     }

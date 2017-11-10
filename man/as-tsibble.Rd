@@ -111,7 +111,7 @@ tbl2 <- tibble::tibble(
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 )
-as_tsibble(tbl2, group) 
+as_tsibble(tbl2, group)
 as_tsibble(tbl2, group, index = date)
 
 # coerce ts to tsibble

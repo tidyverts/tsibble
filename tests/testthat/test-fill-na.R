@@ -1,3 +1,4 @@
+library(tibble)
 context("Test fill_na() for a tsibble")
 
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
