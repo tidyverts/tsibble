@@ -1,4 +1,4 @@
-jontext("Test as_tsibble() w/o data of wide form")
+context("Test as_tsibble() w/o data of wide form")
 
 test_that("Test a ts with different frequnecy", {
   x1 <- ts(1:10)
