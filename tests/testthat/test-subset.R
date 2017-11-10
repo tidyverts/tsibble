@@ -1,8 +1,3 @@
-library(rlang)
-library(tibble)
-library(lubridate)
-library(tsibble)
-
 context("Test a tsibble for base subset")
 
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)

@@ -1,7 +1,3 @@
-library(rlang)
-library(tibble)
-library(lubridate)
-
 context("Test as_tsibble() w/o key for data of long form")
 
 idx_second <- seq(

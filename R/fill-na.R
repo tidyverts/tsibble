@@ -2,8 +2,8 @@
 #'
 #' @param .data A data frame.
 #' @param ... A set of name-value pairs. The values will replace existing explicit
-#' missing values by variable, otherwise `NA`. The replacement values must be of 
-#' the same type as the original one. If using a function to fill the `NA`, 
+#' missing values by variable, otherwise `NA`. The replacement values must be of
+#' the same type as the original one. If using a function to fill the `NA`,
 #' please make sure that `na.rm = TRUE` is switched on.
 #'
 #' @seealso [case_na], [tidyr::fill], [tidyr::replace_na]
@@ -47,6 +47,11 @@ fill_na <- function(.data, ...) {
 }
 
 #' @export
+fill_na.data.frame <- function(.data, ...) {
+  abort("Please use tidyr::complete() for a tbl_df/data.frame.")
+}
+
+#' @export
 fill_na.tbl_ts <- function(.data, ...) {
   if (!is_regular(.data)) {
     abort("Don't know how to handle irregular time series data.")
@@ -75,7 +80,7 @@ modify_na <- function(.data, ...) {
   lhs <- names(lst_quos)
   check_names <- lhs %in% colnames(.data)
   if (is_false(all(check_names))) {
-    bad_names <- paste(lhs[-which(check_names)], collapse = ", ")
+    bad_names <- paste(lhs[which(!check_names)], collapse = ", ")
     abort(paste("Unexpected LHS names:", bad_names))
   }
 
@@ -92,7 +97,7 @@ modify_na <- function(.data, ...) {
     mut_data <- purrr::map2(lst_data, mod_quos, ~ mutate(.x, !!! .y))
     bind_data <- dplyr::bind_rows(mut_data)
     return(as_tsibble(
-      bind_data, !!! key(.data), index = !! index(.data), 
+      bind_data, !!! key(.data), index = !! index(.data),
       validate = FALSE, regular = is_regular(.data)
     ))
   } else {
@@ -108,7 +113,7 @@ modify_na <- function(.data, ...) {
 
 #' A thin wrapper of `dplyr::case_when()` if there are `NA`s
 #'
-#' @param formula A two-sided formula. The LHS expects a vector containing `NA`, 
+#' @param formula A two-sided formula. The LHS expects a vector containing `NA`,
 #' and the RHS gives the replacement value.
 #'
 #' @export
