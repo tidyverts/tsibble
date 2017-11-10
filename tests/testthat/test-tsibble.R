@@ -1,7 +1,6 @@
 library(rlang)
 library(tibble)
 library(lubridate)
-library(tsibble)
 
 context("Test as_tsibble() w/o key for data of long form")
 

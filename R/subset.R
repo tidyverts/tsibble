@@ -14,16 +14,16 @@
     warn("The argument 'drop' is ignored.")
   }
 
+  result <- x
   # subset by columns
   if (!missing(j)) {
     chr_j <- validate_vars(j, colnames(x))
-    lgl_j <- has_index_var(chr_j, x) && has_all_key(chr_j, x)
+    lgl_j <- has_index_var(chr_j, x) && has_reduce_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
     result <- .subset(x, j)
-  } else {
-    result <- x
+    key(x) <- update_key(key(x), chr_j)
   }
 
   if (!missing(i)) {
@@ -40,6 +40,11 @@
 has_index_var <- function(j, x) {
   index <- f_text(index(x))
   index %in% j
+}
+
+has_reduce_key <- function(j, x) {
+  key_vars <- flatten_key(reduce_key(key(x)))
+  all(key_vars %in% j)
 }
 
 has_all_key <- function(j, x) {
