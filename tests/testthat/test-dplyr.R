@@ -44,6 +44,10 @@ test_that("select() and rename()", {
     "Index"
   )
   expect_equal(
+    quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
+    "Index"
+  )
+  expect_equal(
     key_vars(select(tourism, Bottom = Region, Quarter, State:Purpose))[[1]],
     "Bottom | State"
   )

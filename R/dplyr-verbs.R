@@ -98,15 +98,14 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(sel_data)
   }
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- quos(...)
   val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort("The index variable cannot be dropped.")
   }
-  rhs <- purrr::map_chr(lst_quos, quo_name)
-  lhs <- names(lst_quos)
-  index(.data) <- update_index(index(.data), rhs, lhs)
+  lhs <- names(val_vars)
+  index(.data) <- update_index(index(.data), val_vars, lhs)
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no changes in key vars
     return(as_tsibble(
@@ -115,7 +114,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
     ))
   } else {
     key(.data) <- update_key(key(.data), val_vars)
-    key(.data) <- update_key2(key(.data), rhs, lhs)
+    key(.data) <- update_key2(key(.data), val_vars, lhs)
     as_tsibble(
       sel_data, !!! key(.data), index = !! index(.data),
       validate = TRUE, regular = is_regular(.data)
@@ -127,13 +126,12 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
-  lst_quos <- quos(..., .named = TRUE)
-  val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
+  lst_quos <- quos(...)
+  val_vars <- tidyselect::vars_rename(colnames(.data), !!! lst_quos)
   if (has_index_var(val_vars, .data) || has_any_key(val_vars, .data)) {
-    rhs <- purrr::map_chr(lst_quos, quo_name)
-    lhs <- names(lst_quos)
-    index(.data) <- update_index(index(.data), rhs, lhs)
-    key(.data) <- update_key2(key(.data), rhs, lhs)
+    lhs <- names(val_vars)
+    index(.data) <- update_index(index(.data), val_vars, lhs)
+    key(.data) <- update_key2(key(.data), val_vars, lhs)
   }
   ren_data <- NextMethod()
   as_tsibble(
