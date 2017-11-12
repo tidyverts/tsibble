@@ -40,7 +40,7 @@ min_interval <- function(x, duplicated = TRUE) {
 }
 
 validate_vars <- function(j, x) { # j = quos/chr/dbl
-  dplyr::select_vars(vars = x, !!! j)
+  tidyselect::vars_select(.vars = x, !!! j)
 }
 
 surround <- function(x, bracket = "(") {
