@@ -19,7 +19,8 @@ The index functions that can be used, but not limited:
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
 \item \link{yearqtr}: quarterly aggregation
 \item \link{yearmth}: monthly aggregation
-\item \link{as.Date} and \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
+\item \link{as.Date} or \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
+\item \link[lubridate:ceiling_date]{lubridate::ceiling_date} or \link[lubridate:round_date]{lubridate::round_date}: sub-daily aggregation
 \item other index functions from other packages
 }}
 }

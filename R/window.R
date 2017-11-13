@@ -27,6 +27,8 @@ slide <- function(x, .f, ..., size = 1, fill) {
 }
 
 #' @rdname slide
+#' @details For much faster performance, please use the specialist functions 
+#' provided by RcppRoll
 #' @export
 slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
   lst_x <- slider(x, size = size)

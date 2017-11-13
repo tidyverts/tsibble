@@ -52,6 +52,10 @@ to extract named attributes. If a component is not present, the value of
 \code{slide()} is an S3 method to carry out rolling window calculation; \code{slider()}
 splits the input \code{x} to a list according to the window size.
 }
+\details{
+For much faster performance, please use the specialist functions
+provided by RcppRoll
+}
 \examples{
 x <- 1:10
 slide(x, mean, size = 3)

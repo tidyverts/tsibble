@@ -10,7 +10,8 @@
 #' * [lubridate::year]: yearly aggregation
 #' * [yearqtr]: quarterly aggregation
 #' * [yearmth]: monthly aggregation
-#' * [as.Date] and [lubridate::as_date]: daily aggregation
+#' * [as.Date] or [lubridate::as_date]: daily aggregation
+#' * [lubridate::ceiling_date] or [lubridate::round_date]: sub-daily aggregation
 #' * other index functions from other packages
 #'
 #' @rdname tsummarise

@@ -32,12 +32,12 @@ uses the \code{Sensor} column as the key.
 \item Nested variables: a nesting of one variable under another. For example,
 \code{data(tourism)} contains two geographical locations: \code{Region} and \code{State}.
 \code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
-is nested into \code{State}, which naturally forms a hierarchy. A vertical bars (|)
+is nested into \code{State}, which naturally forms a hierarchy. A vertical bars (\code{|})
 is used to describe this nesting relationship, and thus \code{Region} | \code{State}.
 In theory, nesting can involve infinite levels, so is \code{tsibble}.
 \item Crossed variables: a crossing of one variable with another. For example,
 the geographical locations are crossed with the purpose of visiting (\code{Purpose})
-in the \code{data(tourism)}. A comma (,) is used to indicate this crossing
+in the \code{data(tourism)}. A comma (\code{,}) is used to indicate this crossing
 relationship. Nested and crossed variables can be combined, such as \code{data(tourism)}.
 }
 

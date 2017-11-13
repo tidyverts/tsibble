@@ -1,6 +1,9 @@
 ---
 title: "Introduction to tsibble"
 author: "Earo Wang"
+bibliography: references.bib
+biblio-style: authoryear-comp
+link-citations: yes
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to tsibble}
@@ -8,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The **tsibble** package expands [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, where time indices are preserved as the essential component and heterogeneous data structures are made possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as "key" variables. Multiple keys separated by a vertical bar (`|`) or a comma (`,`) are expressive of nested or crossed variables. This binds [hierarchical and grouped time series](http://pkg.earo.me/hts/) together into the tsibble framework. The tsibble aims at managing temporal data and getting analysis done in a tidy and modern manner.
+The **tsibble** package expands [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principle [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts` or `mts`, the tsibble preserves time indices as the essential component and makes heterogeneous data structures possible. Beyond the tibble-like representation, a grammar is introduced to impose additional and informative structures on the tsibble, which is referred to as "key" variables. Multiple keys separated by a vertical bar (`|`) or a comma (`,`) are expressive of nested or crossed variables. This binds [hierarchical and grouped time series](http://pkg.earo.me/hts/) together into the `tbl_ts` class. The tsibble package aims at managing temporal data and getting analysis done in a tidy and modern manner.
 
 ```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
 knitr::opts_chunk$set(
@@ -31,12 +34,26 @@ weather <- nycflights13::weather %>%
 weather
 ```
 
-The `weather` data included in the package `nycflights13` contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the `time_hour` is the only one column consisting of the timestamps, the `as_tsibble()` detects it as the index variable; alternatively, it is more verbose to specify the argument `index = time_hour`. A tsibble is comprised of an index and key variables. In this case, the `origin` variable forms the key, and the key should be passed to `...` in the `as_tsibble()`. Therefore, **the key together with the index uniquely identifies each observation**, which gives a valid tsibble. Other variables---`temp`, `humid` and `precip`---are considered as measures.
+The `weather` data included in the package `nycflights13` contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the `time_hour` is the only one column consisting of the timestamps, the `as_tsibble()` detects it as the index variable; alternatively, it is more verbose to specify the argument `index = time_hour`. A tsibble is comprised of an index and key variables. In this case, the `origin` variable forms the key passed to `...` in the `as_tsibble()`. Therefore, **the key together with the index uniquely identifies each observation**, which gives a valid tsibble. In other words, each unit of observation is measured at a time point for a key or each combination of keys. Others---`temp`, `humid` and `precip`---are considered as measured variables.
 
 ```{r weather-ts, message = TRUE}
 weather_tsbl <- as_tsibble(weather, origin)
 weather_tsbl
 ```
+
+The tsibble fully utilises the `print` method of tibble: a tsibble object (along with its dimension and time interval) and which keys in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as keys. It should be noted that the tsibble does not attempt to arrange the data in chronological order. Given this format, it is much easier to perform common data tasks on time index and measured variables, using a set of consistent tools (or tidyverse-like interface). For example the `tsummarise()` (summarise over time) is used to examine daily highs and lows at each station. As a result, the index is replaced by the `date` with one-day interval; two new variables are created and computed for daily maximum and minimum temperatures.
+
+```{r weather-tsum}
+weather_tsbl %>%
+  group_by(origin) %>%
+  tsummarise(
+    date = as_date(time_hour),
+    temp_high = max(temp, na.rm = TRUE),
+    temp_low = min(temp, na.rm = TRUE)
+  )
+```
+
+The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` contains the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia.
 
 ```{r tourism}
 as_tsibble(tourism, Region | State, Purpose, index = Quarter)
@@ -58,3 +75,5 @@ flights_tsbl <- flights %>%
   as_tsibble(flight, origin, dest, index = sched_date_time, regular = FALSE)
 flights_tsbl
 ```
+
+## Reference
