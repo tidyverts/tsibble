@@ -41,7 +41,7 @@ weather_tsbl <- as_tsibble(weather, origin)
 weather_tsbl
 ```
 
-The tsibble fully utilises the `print` method of tibble: a tsibble object (along with its dimension and time interval) and which keys in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as keys. It should be noted that the tsibble does not attempt to arrange the data in chronological order. Given this format, it is much easier to perform common data tasks on time index and measured variables, using a set of consistent tools (or tidyverse-like interface). For example the `tsummarise()` (summarise over time) is used to examine daily highs and lows at each station. As a result, the index is replaced by the `date` with one-day interval; two new variables are created and computed for daily maximum and minimum temperatures.
+The tsibble fully utilises the `print` method of tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as keys. It should be noted that the tsibble does not attempt to arrange the data in chronological order. Given this format, it is much easier to perform common data tasks on time index and measured variables, using a set of consistent tools (or tidyverse-like interface). For example the `tsummarise()` (summarise over time) is used to examine daily highs and lows at each station. As a result, the index is replaced by the `date` with one-day interval; two new variables are created and computed for daily maximum and minimum temperatures.
 
 ```{r weather-tsum}
 weather_tsbl %>%
@@ -53,11 +53,23 @@ weather_tsbl %>%
   )
 ```
 
-The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` contains the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia.
+## Nested and crossed keys
+
+The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` contains the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from [Tourism Research Australia](https://www.tra.gov.au). The key structure is imposed by `Region | State, Purpose`. The `Region` and `State` naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (`|`). The crossing of `Purpose` (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (`,`) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.
 
 ```{r tourism}
 as_tsibble(tourism, Region | State, Purpose, index = Quarter)
 ```
+
+The common dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the `summarise()` is performed in conjunction with the `Region | State` in the `group_by()`. This ensures the hierarchical structure to be carried over. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
+
+```{r tourism-sum}
+tourism %>%
+  group_by(Region | State) %>%
+  summarise(Geo_Trips = sum(Trips))
+```
+
+It is more advantageous in using this structure when coming to time series forecast.
 
 ## Interval
 
