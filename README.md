@@ -71,35 +71,6 @@ weather_tsbl %>%
 
 The `tsummarise()` can be a useful function for regularising an irregular tsibble.
 
-### `fill_na()` to turn implicit missing values into explicit missing values
-
-Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only extends the index and key to make the `NA`s present, but also provides a consistent interface to replace these `NA`s using a set of name-value pairs.
-
-``` r
-nr <- nrow(weather_tsbl)
-# randomly remove 20% of the observations
-weather_na <- slice(weather_tsbl, sample(nr, size = nr * 0.8))
-# replace NA with either functions or values for each group
-weather_na %>%
-  group_by(origin) %>%
-  fill_na(
-    temp = dplyr::lag(temp, na.rm = TRUE),
-    precip = 0
-  )
-#> # A tsibble: 26,208 x 5 [1HOUR]
-#> # Keys:      origin
-#>   origin           time_hour  temp humid precip
-#> *  <chr>              <dttm> <dbl> <dbl>  <dbl>
-#> 1    EWR 2013-01-01 11:00:00 37.04 53.97      0
-#> 2    EWR 2013-01-01 12:00:00 37.04 53.97      0
-#> 3    EWR 2013-01-01 13:00:00 37.04    NA      0
-#> 4    EWR 2013-01-01 14:00:00 37.94 54.51      0
-#> 5    EWR 2013-01-01 15:00:00 37.94 57.04      0
-#> # ... with 2.62e+04 more rows
-```
-
-The missing values of the *temp* and *precip*, are supplied by the previous hour's temperature, and a single number of 0 respectively. The rest of untouched variables simply leave NA as is.
-
 ### Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`
 
 Time series data commonly get involved in moving window calculations. A set of verbs provided in the *tsibble* allow for different variations of moving windows:
@@ -129,6 +100,33 @@ weather_tsbl %>%
 ```
 
 It can be noticed that the common *dplyr* verbs, such as `summarise()`, `mutate()`, `select()`, `filter()`, and `arrange()`, work with the tsibble.
+
+### `fill_na()` to turn implicit missing values into explicit missing values
+
+Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we'd like to turn these implicit missings to be explicit. The `fill_na()` function not only extends the index and key to make the `NA`s present, but also provides a consistent interface to replace these `NA`s using a set of name-value pairs.
+
+``` r
+full_pedestrian <- pedestrian %>%
+  fill_na(
+    Date = lubridate::as_date(Date_Time),
+    Time = lubridate::hour(Date_Time)
+  )
+c(nrow(pedestrian), nrow(full_pedestrian))
+#> [1] 66071 70176
+full_pedestrian
+#> # A tsibble: 70,176 x 5 [1HOUR]
+#> # Keys:      Sensor
+#>                          Sensor           Date_Time       Date  Time Count
+#> *                         <chr>              <dttm>     <date> <int> <int>
+#> 1                Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
+#> 2    Bourke Street Mall (North) 2015-01-01 00:00:00 2015-01-01     0    NA
+#> 3 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490
+#> 4        Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746
+#> 5                Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
+#> # ... with 7.017e+04 more rows
+```
+
+In the example of `pedestrian`, the missing values of the *Date* and *Time*, are supplied by the corresponding component of the `Date_Time`. The rest of untouched variables (i.e. `Count`) simply leave NA as is.
 
 Related work
 ------------

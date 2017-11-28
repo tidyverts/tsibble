@@ -132,32 +132,6 @@ weather_tsbl
 <span class="co">#&gt; # ... with 31 more rows</span></code></pre></div>
 <p>The <code><a href="reference/tsummarise.html">tsummarise()</a></code> can be a useful function for regularising an irregular tsibble.</p>
 </div>
-<div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-na.html">fill_na()</a></code> to turn implicit missing values into explicit missing values</h3>
-<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we’d like to turn these implicit missings to be explicit. The <code><a href="reference/fill-na.html">fill_na()</a></code> function not only extends the index and key to make the <code>NA</code>s present, but also provides a consistent interface to replace these <code>NA</code>s using a set of name-value pairs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(weather_tsbl)
-<span class="co"># randomly remove 20% of the observations</span>
-weather_na &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(weather_tsbl, <span class="kw">sample</span>(nr, <span class="dt">size =</span> nr <span class="op">*</span><span class="st"> </span><span class="fl">0.8</span>))
-<span class="co"># replace NA with either functions or values for each group</span>
-weather_na <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/fill-na.html">fill_na</a></span>(
-    <span class="dt">temp =</span> dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-    <span class="dt">precip =</span> <span class="dv">0</span>
-  )
-<span class="co">#&gt; # A tsibble: 26,208 x 5 [1HOUR]</span>
-<span class="co">#&gt; # Keys:      origin</span>
-<span class="co">#&gt;   origin           time_hour  temp humid precip</span>
-<span class="co">#&gt; *  &lt;chr&gt;              &lt;dttm&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1    EWR 2013-01-01 11:00:00 37.04 53.97      0</span>
-<span class="co">#&gt; 2    EWR 2013-01-01 12:00:00 37.04 53.97      0</span>
-<span class="co">#&gt; 3    EWR 2013-01-01 13:00:00 37.04    NA      0</span>
-<span class="co">#&gt; 4    EWR 2013-01-01 14:00:00 37.94 54.51      0</span>
-<span class="co">#&gt; 5    EWR 2013-01-01 15:00:00 37.94 57.04      0</span>
-<span class="co">#&gt; # ... with 2.62e+04 more rows</span></code></pre></div>
-<p>The missing values of the <em>temp</em> and <em>precip</em>, are supplied by the previous hour’s temperature, and a single number of 0 respectively. The rest of untouched variables simply leave NA as is.</p>
-</div>
 <div id="window-functions-applied-to-a-tsibble-slide-tile-stretch" class="section level3">
 <h3 class="hasAnchor">
 <a href="#window-functions-applied-to-a-tsibble-slide-tile-stretch" class="anchor"></a>Window functions applied to a tsibble: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
@@ -188,6 +162,30 @@ weather_na <span class="op">%&gt;%</span>
 <span class="co">#&gt; 5    EWR 2013-01-01 15:00:00 37.94   37.94</span>
 <span class="co">#&gt; # ... with 2.612e+04 more rows</span></code></pre></div>
 <p>It can be noticed that the common <em>dplyr</em> verbs, such as <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, and <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, work with the tsibble.</p>
+</div>
+<div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-na.html">fill_na()</a></code> to turn implicit missing values into explicit missing values</h3>
+<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we’d like to turn these implicit missings to be explicit. The <code><a href="reference/fill-na.html">fill_na()</a></code> function not only extends the index and key to make the <code>NA</code>s present, but also provides a consistent interface to replace these <code>NA</code>s using a set of name-value pairs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_pedestrian &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/fill-na.html">fill_na</a></span>(
+    <span class="dt">Date =</span> lubridate<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/as_date">as_date</a></span>(Date_Time),
+    <span class="dt">Time =</span> lubridate<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/hour">hour</a></span>(Date_Time)
+  )
+<span class="kw">c</span>(<span class="kw">nrow</span>(pedestrian), <span class="kw">nrow</span>(full_pedestrian))
+<span class="co">#&gt; [1] 66071 70176</span>
+full_pedestrian
+<span class="co">#&gt; # A tsibble: 70,176 x 5 [1HOUR]</span>
+<span class="co">#&gt; # Keys:      Sensor</span>
+<span class="co">#&gt;                          Sensor           Date_Time       Date  Time Count</span>
+<span class="co">#&gt; *                         &lt;chr&gt;              &lt;dttm&gt;     &lt;date&gt; &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1                Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span>
+<span class="co">#&gt; 2    Bourke Street Mall (North) 2015-01-01 00:00:00 2015-01-01     0    NA</span>
+<span class="co">#&gt; 3 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490</span>
+<span class="co">#&gt; 4        Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746</span>
+<span class="co">#&gt; 5                Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span>
+<span class="co">#&gt; # ... with 7.017e+04 more rows</span></code></pre></div>
+<p>In the example of <code>pedestrian</code>, the missing values of the <em>Date</em> and <em>Time</em>, are supplied by the corresponding component of the <code>Date_Time</code>. The rest of untouched variables (i.e. <code>Count</code>) simply leave NA as is.</p>
 </div>
 </div>
 <div id="related-work" class="section level2">
