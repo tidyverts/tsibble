@@ -32,6 +32,16 @@
 #'
 #' These key variables are descriptors, not values.
 #'
+#' @section Interval:
+#' The [interval] function returns the interval associated with the tsibble.
+#' * Regular: the value and its time unit including "second", "minute", "hour", 
+#' "day", "week", "month", "quarter", "year". An unrecognisable time interval is
+#' labelled as "unit".
+#' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
+#' marked with "!".
+#' * Unknown: if there is only one entry for each key variable, the interval
+#' cannot be determined ("?").
+#'
 #' @section Print options:
 #' The tsibble package fully utilises the `print` method from the tibble. Please
 #' refer to [tibble::tibble-package] to change display options.

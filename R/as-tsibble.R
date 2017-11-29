@@ -20,6 +20,8 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Key
 #'
+#' @inheritSection tsibble-package Interval
+#'
 #' @details A valid tsibble does not impose the chronological order. Please use
 #' [arrange] to get the order by time.
 #'

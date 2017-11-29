@@ -44,6 +44,20 @@ relationship. Nested and crossed variables can be combined, such as \code{data(t
 These key variables are descriptors, not values.
 }
 
+\section{Interval}{
+
+The \link{interval} function returns the interval associated with the tsibble.
+\itemize{
+\item Regular: the value and its time unit including "second", "minute", "hour",
+"day", "week", "month", "quarter", "year". An unrecognisable time interval is
+labelled as "unit".
+\item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
+marked with "!".
+\item Unknown: if there is only one entry for each key variable, the interval
+cannot be determined ("?").
+}
+}
+
 \section{Print options}{
 
 The tsibble package fully utilises the \code{print} method from the tibble. Please
