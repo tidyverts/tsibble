@@ -142,7 +142,7 @@ weather</code></pre></div>
 #&gt; 4 1998 Q1   Central Coast New South Wales Holiday 279.48859
 #&gt; 5 1998 Q1     Central NSW New South Wales Holiday 169.57175
 #&gt; # ... with 2.34e+04 more rows</code></pre>
-<p>The common dplyr verbs, such as <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is performed in conjunction with the <code>Region | State</code> in the <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>. This ensures the hierarchical structure to be carried over. The tsibble <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> never collapses the rows over the time index, which is slightly different from the dplyr <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>.</p>
+<p>The most-used dplyr verbs, such as <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is performed in conjunction with the <code>Region | State</code> in the <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>. This ensures the hierarchical structure to be carried over. The tsibble <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> never collapses the rows over the time index, which is slightly different from the dplyr <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tourism <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Region <span class="op">|</span><span class="st"> </span>State) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">Geo_Trips =</span> <span class="kw">sum</span>(Trips))</code></pre></div>
@@ -157,17 +157,19 @@ weather</code></pre></div>
 #&gt; 4 1998 Q1    Australia's Coral Coast  Western Australia 132.51641
 #&gt; 5 1998 Q1 Australia's Golden Outback  Western Australia 161.72695
 #&gt; # ... with 5,847 more rows</code></pre>
-<p>It is more advantageous in using this structure when coming to time series forecast.</p>
+<p>It appears more advantageous to specify the structural variables using this syntax when coming to hierarchical and grouped time series forecast.</p>
 </div>
 <div id="interval" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interval" class="anchor"></a>Interval</h2>
+<p>It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years. The option <code>regular</code>, by default, is set to <code>TRUE</code> in the <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Turn <code>regular</code> to <code>FALSE</code> to create a tsibble for the data collected at irregular time interval. Here shows the scheduled date time of the flights in New York City.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">sched_date_time =</span> time_hour <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/period">minutes</a></span>(minute)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(
     flight, origin, dest, sched_date_time, 
     dep_delay, arr_delay, air_time, distance
   )</code></pre></div>
+<p>The keys are comprised of the <code>flight</code>, <code>origin</code>, and <code>dest</code> variables. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_tsbl &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(flight, origin, dest, <span class="dt">index =</span> sched_date_time, <span class="dt">regular =</span> <span class="ot">FALSE</span>)
 flights_tsbl</code></pre></div>
@@ -181,6 +183,7 @@ flights_tsbl</code></pre></div>
 #&gt; 4    725    JFK   BQN 2013-01-01 05:45:00        -1       -18      183
 #&gt; 5    461    LGA   ATL 2013-01-01 06:00:00        -6       -25      116
 #&gt; # ... with 3.368e+05 more rows, and 1 more variables: distance &lt;dbl&gt;</code></pre>
+<p>More functions on their way to deal with irregular temporal data in the future release.</p>
 </div>
 <div id="reference" class="section level2 unnumbered">
 <h2 class="hasAnchor">

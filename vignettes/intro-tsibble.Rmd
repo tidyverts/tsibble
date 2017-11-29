@@ -61,7 +61,7 @@ The key is not constrained to a single variable, but expressive of nested and cr
 as_tsibble(tourism, Region | State, Purpose, index = Quarter)
 ```
 
-The common dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the `summarise()` is performed in conjunction with the `Region | State` in the `group_by()`. This ensures the hierarchical structure to be carried over. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
+The most-used dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the `summarise()` is performed in conjunction with the `Region | State` in the `group_by()`. This ensures the hierarchical structure to be carried over. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
 
 ```{r tourism-sum}
 tourism %>%
@@ -69,9 +69,11 @@ tourism %>%
   summarise(Geo_Trips = sum(Trips))
 ```
 
-It is more advantageous in using this structure when coming to time series forecast.
+It appears more advantageous to specify the structural variables using this syntax when coming to hierarchical and grouped time series forecast.
 
 ## Interval
+
+It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years. The option `regular`, by default, is set to `TRUE` in the `as_tsibble()`. Turn `regular` to `FALSE` to create a tsibble for the data collected at irregular time interval. Here shows the scheduled date time of the flights in New York City.
 
 ```{r flights}
 flights <- nycflights13::flights %>%
@@ -82,10 +84,13 @@ flights <- nycflights13::flights %>%
   )
 ```
 
+The keys are comprised of the `flight`, `origin`, and `dest` variables. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.
+
 ```{r flights-ts}
 flights_tsbl <- flights %>%
   as_tsibble(flight, origin, dest, index = sched_date_time, regular = FALSE)
 flights_tsbl
 ```
+More functions on their way to deal with irregular temporal data in the future release.
 
 ## Reference
