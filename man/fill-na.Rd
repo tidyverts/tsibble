@@ -31,7 +31,7 @@ fill_na(harvest)
 harvest \%>\%
   fill_na(kilo = 0L)
 
-# replace NA using a function by varible
+# replace NA using a function by variable
 # enable `na.rm = TRUE` when necessary
 harvest \%>\%
   fill_na(kilo = sum(kilo, na.rm = TRUE))

@@ -4,7 +4,8 @@
 #' splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @inheritParams purrr::quietly
+#' @param .f A function or one-sided formula. If a formula, it is converted to
+#' a function.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size An integer for window size.
 #' @param fill A single value or data frame to replace `NA`.
@@ -27,8 +28,10 @@ slide <- function(x, .f, ..., size = 1, fill) {
 }
 
 #' @rdname slide
-#' @details For much faster performance, please use the specialist functions 
-#' provided by RcppRoll
+#' @details The `slide()` function attempts to tackle more general problems using
+#' the purrr-like syntax. For some specialist functions like `mean` and `sum`, 
+#' you may like to check out for 
+#' [RcppRoll](https://CRAN.R-project.org/package=RcppRoll) for faster performance.
 #' @export
 slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
   lst_x <- slider(x, size = size)
@@ -73,7 +76,7 @@ slider <- function(x, size = 1) {
 #' splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @inheritParams purrr::quietly
+#' @inheritParams slide
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size An integer for window size.
 #'
@@ -128,7 +131,7 @@ tiler <- function(x, size = 1) {
 #' `stretcher()` splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @inheritParams purrr::quietly
+#' @inheritParams slide
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size,init An integer for moving and initial window size.
 #'
