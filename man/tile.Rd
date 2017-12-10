@@ -2,14 +2,14 @@
 % Please edit documentation in R/window.R
 \name{tile}
 \alias{tile}
-\alias{tile.numeric}
+\alias{tile.default}
 \alias{tile.data.frame}
 \alias{tiler}
 \title{Tiling window calculation}
 \usage{
 tile(x, .f, ..., size = 1)
 
-\method{tile}{numeric}(x, .f, ..., size = 1)
+\method{tile}{default}(x, .f, ..., size = 1)
 
 \method{tile}{data.frame}(x, .f, ..., size = 1, deframe = TRUE)
 

@@ -33,7 +33,7 @@ slide <- function(x, .f, ..., size = 1, fill) {
 #' you may like to check out for 
 #' [RcppRoll](https://CRAN.R-project.org/package=RcppRoll) for faster performance.
 #' @export
-slide.numeric <- function(x, .f, ..., size = 1, fill = NA_real_) {
+slide.default <- function(x, .f, ..., size = 1, fill = NA_real_) {
   lst_x <- slider(x, size = size)
   c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ...))
 }
@@ -94,7 +94,7 @@ tile <- function(x, .f, ..., size = 1) {
 
 #' @rdname tile
 #' @export
-tile.numeric <- function(x, .f, ..., size = 1) {
+tile.default <- function(x, .f, ..., size = 1) {
   lst_x <- tiler(x, size = size)
   purrr::map_dbl(lst_x, .f, ...)
 }
@@ -149,7 +149,7 @@ stretch <- function(x, .f, ..., size = 1, init = 1) {
 
 #' @rdname stretch
 #' @export
-stretch.numeric <- function(x, .f, ..., size = 1, init = 1) {
+stretch.default <- function(x, .f, ..., size = 1, init = 1) {
   lst_x <- stretcher(x, size = size, init = init)
   purrr::map_dbl(lst_x, .f, ...)
 }

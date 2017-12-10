@@ -99,7 +99,7 @@ splits the input <code>x</code> to a list according to the window size.</p>
 
     <pre class="usage"><span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>fill</span>)
 
-<span class='co'># S3 method for numeric</span>
+<span class='co'># S3 method for default</span>
 <span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>)
 
 <span class='co'># S3 method for data.frame</span>
@@ -117,22 +117,8 @@ splits the input <code>x</code> to a list according to the window size.</p>
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>A function, formula, or atomic vector.</p>
-<p>If a <strong>function</strong>, it is used as is.</p>
-<p>If a <strong>formula</strong>, e.g. <code>~ .x + 2</code>, it is converted to a function. There
-are three ways to refer to the arguments:</p><ul>
-<li><p>For a single argument function, use <code>.</code></p></li>
-<li><p>For a two argument function, use <code>.x</code> and <code>.y</code></p></li>
-<li><p>For more arguments, use <code>..1</code>, <code>..2</code>, <code>..3</code> etc</p></li>
-</ul>
-
-<p>This syntax allows you to create very compact anonymous functions.</p>
-<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in <code>get-attr()</code>
-to extract named attributes. If a component is not present, the value of
-<code>.default</code> will be returned.</p></td>
+      <td><p>A function or one-sided formula. If a formula, it is converted to
+a function.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -154,8 +140,10 @@ to extract named attributes. If a component is not present, the value of
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For much faster performance, please use the specialist functions
-provided by RcppRoll</p>
+    <p>The <code>slide()</code> function attempts to tackle more general problems using
+the purrr-like syntax. For some specialist functions like <code>mean</code> and <code>sum</code>,
+you may like to check out for
+<a href='https://CRAN.R-project.org/package=RcppRoll'>RcppRoll</a> for faster performance.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

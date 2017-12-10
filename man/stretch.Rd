@@ -2,14 +2,14 @@
 % Please edit documentation in R/window.R
 \name{stretch}
 \alias{stretch}
-\alias{stretch.numeric}
+\alias{stretch.default}
 \alias{stretch.data.frame}
 \alias{stretcher}
 \title{Stretching window calculation}
 \usage{
 stretch(x, .f, ..., size = 1, init = 1)
 
-\method{stretch}{numeric}(x, .f, ..., size = 1, init = 1)
+\method{stretch}{default}(x, .f, ..., size = 1, init = 1)
 
 \method{stretch}{data.frame}(x, .f, ..., size = 1, init = 1,
   deframe = TRUE)

@@ -131,6 +131,19 @@ relationship. Nested and crossed variables can be combined, such as <code>data(t
 </ul>
     <p>These key variables are descriptors, not values.</p>
     
+    <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
+
+    
+    <p>The <a href='index-rd.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
+<li><p>Regular: the value and its time unit including "second", "minute", "hour",
+"day", "week", "month", "quarter", "year". An unrecognisable time interval is
+labelled as "unit".</p></li>
+<li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
+marked with "!".</p></li>
+<li><p>Unknown: if there is only one entry for each key variable, the interval
+cannot be determined ("?").</p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="print-options"><a class="anchor" href="#print-options"></a>Print options</h2>
 
     
@@ -153,6 +166,8 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
       <li><a href="#index">Index</a></li>
 
       <li><a href="#key">Key</a></li>
+
+      <li><a href="#interval">Interval</a></li>
 
       <li><a href="#print-options">Print options</a></li>
 

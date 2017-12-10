@@ -2,14 +2,14 @@
 % Please edit documentation in R/window.R
 \name{slide}
 \alias{slide}
-\alias{slide.numeric}
+\alias{slide.default}
 \alias{slide.data.frame}
 \alias{slider}
 \title{Sliding window calculation}
 \usage{
 slide(x, .f, ..., size = 1, fill)
 
-\method{slide}{numeric}(x, .f, ..., size = 1, fill = NA_real_)
+\method{slide}{default}(x, .f, ..., size = 1, fill = NA_real_)
 
 \method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
   deframe = TRUE)

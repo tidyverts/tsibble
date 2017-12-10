@@ -157,7 +157,7 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
 #&gt;  8  2013   kiwi     4
 #&gt;  9  2014 cherry     1
 #&gt; 10  2014   kiwi     0</div><div class='input'>
-<span class='co'># replace NA using a function by varible</span>
+<span class='co'># replace NA using a function by variable</span>
 <span class='co'># enable `na.rm = TRUE` when necessary</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
