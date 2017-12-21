@@ -35,12 +35,12 @@ globalVariables(c("key", "value", "zzz"))
 #'   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
 #'   value = rnorm(10)
 #' )
-#' # "date" is automatically considered as the index var, and "group" is the key
 #' as_tsibble(tbl1)
 #' # specify the index var
 #' as_tsibble(tbl1, index = date)
 #'
 #' # coerce tibble to tsibble with one key ----
+#' # "date" is automatically considered as the index var, and "group" is the key
 #' tbl2 <- tibble::tibble(
 #'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
 #'   group = rep(c("x", "y", "z"), each = 10),

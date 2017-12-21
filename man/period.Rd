@@ -33,12 +33,16 @@ numerics. Unlike \code{zoo::yearmon()} and \code{zoo::yearqtr()}, the \code{year
 }
 
 \examples{
-# coerce date to yearmth, yearqtr, year ----
+# coerce dates to yearmth, yearqtr ----
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearmth(x)
 yearqtr(x)
 
-# coerce yearmth to yearqtr ----
+# coerce numerics to yearmth, yearqtr ----
+yearmth(seq(2010, 2017, by = 1/12))
+yearqtr(seq(2010, 2017, by = 1/4))
+
+# coerce yearmonths to yearqtr ----
 y <- yearmth(x)
 yearqtr(y)
 }

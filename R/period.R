@@ -24,12 +24,16 @@
 #' @seealso [pull_interval]
 #'
 #' @examples
-#' # coerce date to yearmth, yearqtr, year ----
+#' # coerce dates to yearmth, yearqtr ----
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 #' yearmth(x)
 #' yearqtr(x)
+#'
+#' # coerce numerics to yearmth, yearqtr ----
+#' yearmth(seq(2010, 2017, by = 1/12))
+#' yearqtr(seq(2010, 2017, by = 1/4))
 #' 
-#' # coerce yearmth to yearqtr ----
+#' # coerce yearmonths to yearqtr ----
 #' y <- yearmth(x)
 #' yearqtr(y)
 yearmth <- function(x) {
@@ -200,6 +204,20 @@ seq.yearquarter <- function(
 #' @export
 as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
   as.POSIXlt(as_date(x), tz = tz, ...)
+}
+
+# !!! why not working with a vector of yearmonths in console
+#' @importFrom stats tsp<- time
+time.yearmonth <- function(x, ...) {
+  y <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
+  tsp(y) <- c(min0(y), max0(y), 12)
+  y
+}
+
+time.yearquarter <- function(x, ...) {
+  y <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
+  tsp(y) <- c(min0(y), max0(y), 4)
+  y
 }
 
 seq_date <- function(
