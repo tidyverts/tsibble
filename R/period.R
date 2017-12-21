@@ -220,6 +220,15 @@ time.yearquarter <- function(x, ...) {
   y
 }
 
+time.numeric <- function(x, ...) {
+  tsp(x) <- c(min0(x), max0(x), 1)
+  x
+}
+
+time.POSIXt <- function(x, ...) {
+  abort("Don't know how to convert POSIXt to ts.")
+}
+
 seq_date <- function(
   from, to, by, length.out = NULL, along.with = NULL, 
   ...) {
