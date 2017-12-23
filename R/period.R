@@ -210,14 +210,14 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 #' @importFrom stats tsp<- time
 #' @export
 time.yearmonth <- function(x, ...) {
-  freq <- 12 / pull_interval(x)$month
+  freq <- guess_frequency(x)
   y <- lubridate::year(x) + (lubridate::month(x) - 1) / freq
   stats::ts(y, start = min0(y), frequency = freq)
 }
 
 #' @export
 time.yearquarter <- function(x, ...) {
-  freq <- 4 / pull_interval(x)$quarter
+  freq <- guess_frequency(x)
   y <- lubridate::year(x) + (lubridate::quarter(x) - 1) / freq
   stats::ts(y, start = min0(y), frequency = freq)
 }
@@ -228,24 +228,65 @@ time.numeric <- function(x, ...) {
 }
 
 #' @export
-time.POSIXt <- function(x, ...) {
-  abort("Unable to convert POSIXt to ts.")
+time.Date <- function(x, frequency = NULL, ...) {
+  if (is.null(frequency)) {
+    frequency <- guess_frequency(x)
+  }
+  y <- lubridate::decimal_date(x)
+  stats::ts(x, start = min0(y), frequency = frequency)
+}
+
+#' @export
+time.POSIXt <- function(x, frequency = NULL, ...) {
+  if (is.null(frequency)) {
+    frequency <- guess_frequency(x)
+  }
+  y <- lubridate::decimal_date(x)
+  stats::ts(x, start = min0(y), frequency = frequency)
+}
+
+guess_frequency <- function(x) {
+  UseMethod("guess_frequency")
+}
+
+guess_frequency.yearmonth <- function(x) {
+  12 / pull_interval(x)$month
+}
+
+guess_frequency.yearquarter <- function(x) {
+  4 / pull_interval(x)$quarter
+}
+
+guess_frequency.Date <- function(x) {
+  7 / pull_interval(x)$day
+}
+
+guess_frequency.POSIXt <- function(x) {
+  int <- pull_interval(x)
+  number <- int$hour + int$minute / 60 + int$second / 3600
+  if (number > 1 / 60) {
+    return(24 / number)
+  } else if (number > 1 / 3600 && number <= 1 / 60) {
+    return(3600 * number)
+  } else {
+    return(3600 * 60 * number)
+  }
 }
 
 seq_date <- function(
   from, to, by, length.out = NULL, along.with = NULL, 
   ...) {
   if (missing(from)) 
-      stop("'from' must be specified")
+    stop("'from' must be specified")
   if (!inherits(from, "Date")) 
-      stop("'from' must be a \"Date\" object")
+    stop("'from' must be a \"Date\" object")
   if (length(as.Date(from)) != 1L) 
-      stop("'from' must be of length 1")
+    stop("'from' must be of length 1")
   if (!missing(to)) {
     if (!inherits(to, "Date")) 
-        stop("'to' must be a \"Date\" object")
+      stop("'to' must be a \"Date\" object")
     if (length(as.Date(to)) != 1L) 
-        stop("'to' must be of length 1")
+      stop("'to' must be of length 1")
   }
   if (!is.null(along.with)) { # !missing(along.with) in seq.Date
     length.out <- length(along.with)
