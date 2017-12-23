@@ -109,9 +109,9 @@ time_to_date <- function(x, ...) {
 time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- as.numeric(stats::time(x))
-  if (freq == 12) { # monthly
+  if (freq > 4 && freq <= 12) { # monthly
     return(yearmth(time_x))
-  } else if (freq == 4) { # quarterly
+  } else if (freq > 1 && freq <= 4) { # quarterly
     return(yearqtr(time_x))
   } else if (freq == 1) { # yearly
     return(time_x)

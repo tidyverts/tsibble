@@ -206,27 +206,30 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
   as.POSIXlt(as_date(x), tz = tz, ...)
 }
 
-# !!! why not working with a vector of yearmonths in console
+#' @importFrom stats time
 #' @importFrom stats tsp<- time
+#' @export
 time.yearmonth <- function(x, ...) {
-  y <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
-  tsp(y) <- c(min0(y), max0(y), 12)
-  y
+  freq <- 12 / pull_interval(x)$month
+  y <- lubridate::year(x) + (lubridate::month(x) - 1) / freq
+  stats::ts(y, start = min0(y), frequency = freq)
 }
 
+#' @export
 time.yearquarter <- function(x, ...) {
-  y <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
-  tsp(y) <- c(min0(y), max0(y), 4)
-  y
+  freq <- 4 / pull_interval(x)$quarter
+  y <- lubridate::year(x) + (lubridate::quarter(x) - 1) / freq
+  stats::ts(y, start = min0(y), frequency = freq)
 }
 
+#' @export
 time.numeric <- function(x, ...) {
-  tsp(x) <- c(min0(x), max0(x), 1)
-  x
+  stats::ts(x, start = min0(x), frequency = 1)
 }
 
+#' @export
 time.POSIXt <- function(x, ...) {
-  abort("Don't know how to convert POSIXt to ts.")
+  abort("Unable to convert POSIXt to ts.")
 }
 
 seq_date <- function(
