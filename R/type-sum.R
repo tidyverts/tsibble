@@ -73,9 +73,15 @@ index_sum.yearmonth <- function(x) {
 }
 
 #' @export
+index_sum.yearmth <- index_sum.yearmonth
+
+#' @export
 index_sum.yearquarter <- function(x) {
   "qtr"
 }
+
+#' @export
+index_sum.yearqrt <- index_sum.yearquarter
 
 #' @export
 index_sum.numeric <- function(x) {

@@ -65,6 +65,9 @@ yearmth.numeric <- function(x) {
 }
 
 #' @export
+yearmth.yearmth <- yearmth.numeric
+
+#' @export
 format.yearmonth <- function(x, format = "%Y %b", ...) {
   format.Date(x, format = format, ...)
 }
@@ -108,6 +111,9 @@ yearqtr.numeric <- function(x) {
   result <- as.Date(paste(year, first_month, "01", sep = "-"))
   structure(result, class = c("yearquarter", "Date"))
 }
+
+#' @export
+yearqtr.yearqtr <- yearqtr.numeric 
 
 #' @importFrom lubridate as_date
 #' @importFrom lubridate tz

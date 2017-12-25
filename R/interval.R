@@ -57,10 +57,20 @@ pull_interval.yearmonth <- function(x, duplicated = TRUE) {
 }
 
 #' @export
+pull_interval.yearmth <- function(x, duplicated = TRUE) {
+  pull_interval(yearmth(x))
+}
+
+#' @export
 pull_interval.yearquarter <- function(x, duplicated = TRUE) {
   qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
   nqtrs <- ceiling(min_interval(qtr, duplicated = duplicated) * 4)
   structure(list(quarter = nqtrs), class = "interval")
+}
+
+#' @export
+pull_interval.yearqtr <- function(x, duplicated = TRUE) {
+  pull_interval(yearqtr(x))
 }
 
 #' @export
