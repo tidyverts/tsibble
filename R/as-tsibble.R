@@ -144,6 +144,17 @@ group_vars.tbl_ts <- function(x) {
   format(groups(x))
 }
 
+measured_vars <- function(x) {
+  UseMethod("measured_vars")
+}
+
+measured_vars.tbl_ts <- function(x) {
+  all_vars <- dplyr::tbl_vars(x)
+  key_vars <- flatten_key(key(x))
+  idx_var <- quo_text(index(x))
+  all_vars[!(all_vars %in% c(key_vars, idx_var))]
+}
+
 #' Return index and interval from a tsibble
 #'
 #' @param x A tsibble object.
