@@ -94,7 +94,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsibble)
 weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)
-weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, origin, <span class="dt">index =</span> time_hour)
+weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="reference/id.html">id</a></span>(origin), <span class="dt">index =</span> time_hour)
 weather_tsbl
 <span class="co">#&gt; # A tsibble: 26,130 x 5 [1HOUR]</span>
 <span class="co">#&gt; # Keys:      origin</span>

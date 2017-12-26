@@ -99,14 +99,16 @@
     <pre class="usage"><span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_df</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S3 method for ts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='no'>...</span>)
@@ -126,10 +128,13 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Unquoted key variable(s) that define unique time indices. Only used
-for data of class <code>tbl_df</code>, <code>data.frame</code> and <code>list</code> (i.e. long data form), if
-a univariate time series (without an explicit key), simply leave it blank.
-Ignored for other types of classes. See below for details.</p></td>
+      <td><p>Other arguments passed on to individual methods.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Structural variable(s) that define unique time indices, used with
+the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.See below for details.</p></td>
     </tr>
     <tr>
       <th>index</th>
@@ -140,8 +145,8 @@ Ignored for other types of classes. See below for details.</p></td>
       <td><p><code>TRUE</code> suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will
 also make sure that the nested variables are arranged from lower level to
-higher, if nested variables are passed to key (<code>...</code>). If you are sure that
-it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
+higher, if nested variables are passed to <code>key</code>. If you are sure that it's a
+valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     </tr>
     <tr>
       <th>regular</th>
@@ -165,8 +170,8 @@ daily.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A valid tsibble does not impose the chronological order. Please use
-<a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a> to get the order by time.</p>
+    <p>A valid tsibble does not arrange time in the chronological order.
+Please use <a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a> to get the order by time.</p>
     
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
@@ -219,7 +224,6 @@ cannot be determined ("?").</p></li>
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 )
-<span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: date</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
 #&gt;          date        value
 #&gt;  *     &lt;date&gt;        &lt;dbl&gt;
@@ -247,12 +251,13 @@ cannot be determined ("?").</p></li>
 #&gt;  9 2017-01-09 -0.244199607
 #&gt; 10 2017-01-10 -0.282705449</div><div class='input'>
 <span class='co'># coerce tibble to tsibble with one key ----</span>
+<span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='no'>group</span>)</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: date</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: date</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
 #&gt; # Keys:      group
 #&gt;          date group       value
 #&gt;  *     &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
@@ -266,7 +271,7 @@ cannot be determined ("?").</p></li>
 #&gt;  8 2017-01-08     x -0.05260191
 #&gt;  9 2017-01-09     x  0.54299634
 #&gt; 10 2017-01-10     x -0.91407483
-#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='no'>group</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
+#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
 #&gt; # Keys:      group
 #&gt;          date group       value
 #&gt;  *     &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
