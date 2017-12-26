@@ -69,7 +69,8 @@ fill_na.tbl_ts <- function(.data, ...) {
 
   full_data <- full_data %>%
     modify_na(!!! quos(...))
-  full_data <- full_data[, colnames(.data)] # keep the original order
+  full_data <- full_data %>% 
+    select(full_data, !!! syms(colnames(.data))) # keep the original order
   as_tsibble(full_data, key = key(.data), index = !! idx, validate = FALSE)
 }
 
@@ -97,10 +98,13 @@ modify_na <- function(.data, ...) {
     mod_quos <- purrr::map(mod_quos, ~ `names<-`(., lhs))
     mut_data <- purrr::map2(lst_data, mod_quos, ~ mutate(.x, !!! .y))
     bind_data <- dplyr::bind_rows(mut_data)
-    return(as_tsibble(
+    tsbl <- as_tsibble(
       bind_data, key = key(.data), index = !! index(.data),
       validate = FALSE, regular = is_regular(.data)
-    ))
+    )
+    grped_tsbl <- tsbl %>% 
+      group_by(!!! groups(.data))
+    return(grped_tsbl)
   } else {
     lst_lang <- purrr::map2(
       syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
