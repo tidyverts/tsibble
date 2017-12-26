@@ -49,6 +49,7 @@
 #' @rdname tsibble-package
 #' @name tsibble-package
 #' @docType package
+#' @aliases NULL
 #' @useDynLib tsibble, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @import rlang

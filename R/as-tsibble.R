@@ -1,5 +1,49 @@
 globalVariables(c("key", "value", "zzz"))
 
+#' Create a tsibble object
+#'
+#' @param ... A set of name-value pairs.
+#' @param key Structural variable(s) that define unique time indices, used with
+#' the helper `id()`. If a univariate time series (without an explicit key), 
+#' simply call `id()`.See below for details.
+#' @param index A bare (or unquoted) variable to specify the time index variable.
+#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
+#' finds the minimal time span as the interval.
+#'
+#' @inheritSection tsibble-package Index
+#'
+#' @inheritSection tsibble-package Key
+#'
+#' @inheritSection tsibble-package Interval
+#'
+#' @details A valid tsibble does not arrange time in the chronological order. 
+#' Please use [arrange] to get the order by time.
+#'
+#' @return A tsibble object.
+#'
+#' @examples
+#' # create a tsibble w/o a key ----
+#' tbl1 <- tsibble(
+#'   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
+#'   value = rnorm(10),
+#'   key = id(), index = date
+#' )
+#'
+#' # create a tsibble with one key ----
+#' tbl2 <- tsibble(
+#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+#'   group = rep(c("x", "y", "z"), each = 10),
+#'   value = rnorm(30),
+#'   key = id(group), index = date
+#' )
+#'
+#' @export
+tsibble <- function(..., key = id(), index, regular = TRUE) {
+  tbl <- tibble::tibble(...)
+  index <- enquo(index)
+  tsibble_tbl(tbl, key = key, index = index, regular = regular)
+}
+
 #' Coerce to a tsibble object
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
@@ -16,18 +60,10 @@ globalVariables(c("key", "value", "zzz"))
 #' finds the minimal time span as the interval.
 #' @param ... Other arguments passed on to individual methods.
 #'
-#' @inheritSection tsibble-package Index
-#'
-#' @inheritSection tsibble-package Key
-#'
-#' @inheritSection tsibble-package Interval
-#'
-#' @details A valid tsibble does not arrange time in the chronological order. 
-#' Please use [arrange] to get the order by time.
-#'
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #' @aliases as.tsibble
+#' @seealso tsibble
 #'
 #' @examples
 #' # coerce tibble to tsibble w/o a key ----
@@ -57,7 +93,7 @@ as_tsibble <- function(x, ...) {
 #' @rdname as-tsibble
 #' @export
 as_tsibble.tbl_df <- function(
-  x, key = id(), index, validate = TRUE, regular = TRUE
+  x, key = id(), index, validate = TRUE, regular = TRUE, ...
 ) {
   index <- enquo(index)
   tsibble_tbl(

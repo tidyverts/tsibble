@@ -15,13 +15,13 @@
 as_tsibble(x, ...)
 
 \method{as_tsibble}{tbl_df}(x, key = id(), index, validate = TRUE,
-  regular = TRUE)
+  regular = TRUE, ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, validate = TRUE,
-  regular = TRUE)
+  regular = TRUE, ...)
 
 \method{as_tsibble}{list}(x, key = id(), index, validate = TRUE,
-  regular = TRUE)
+  regular = TRUE, ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
@@ -60,57 +60,6 @@ A tsibble object.
 \description{
 Coerce to a tsibble object
 }
-\details{
-A valid tsibble does not arrange time in the chronological order.
-Please use \link{arrange} to get the order by time.
-}
-\section{Index}{
-
-The time indices are no longer an attribute (for example, the \code{tsp} attribute
-in a \code{ts} object), but preserved as the essential component of the tsibble. A
-few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearmth} and \link{yearqtr} representing year-month
-and year-quarter respectively.
-}
-
-\section{Key}{
-
-Key variable(s) together with the index uniquely identifies each record. And
-key(s) also imposes the structure on a tsibble to describe other measured
-variables:
-\itemize{
-\item None: an implicit variable
-\item A single variable: an explicit variable. For example, \code{data(pedestrian)}
-uses the \code{Sensor} column as the key.
-\item Nested variables: a nesting of one variable under another. For example,
-\code{data(tourism)} contains two geographical locations: \code{Region} and \code{State}.
-\code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
-is nested into \code{State}, which naturally forms a hierarchy. A vertical bars (\code{|})
-is used to describe this nesting relationship, and thus \code{Region} | \code{State}.
-In theory, nesting can involve infinite levels, so is \code{tsibble}.
-\item Crossed variables: a crossing of one variable with another. For example,
-the geographical locations are crossed with the purpose of visiting (\code{Purpose})
-in the \code{data(tourism)}. A comma (\code{,}) is used to indicate this crossing
-relationship. Nested and crossed variables can be combined, such as \code{data(tourism)}.
-}
-
-These key variables are descriptors, not values.
-}
-
-\section{Interval}{
-
-The \link{interval} function returns the interval associated with the tsibble.
-\itemize{
-\item Regular: the value and its time unit including "second", "minute", "hour",
-"day", "week", "month", "quarter", "year". An unrecognisable time interval is
-labelled as "unit".
-\item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
-marked with "!".
-\item Unknown: if there is only one entry for each key variable, the interval
-cannot be determined ("?").
-}
-}
-
 \examples{
 # coerce tibble to tsibble w/o a key ----
 tbl1 <- tibble::tibble(
@@ -148,4 +97,7 @@ if (!requireNamespace("hts", quietly = TRUE)) {
 }
 as_tsibble(hts::htseg1)
 as_tsibble(hts::htseg2)
+}
+\seealso{
+tsibble
 }

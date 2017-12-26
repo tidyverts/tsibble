@@ -11,11 +11,12 @@
 #' @export
 #'
 #' @examples
-#' harvest <- as_tsibble(tibble::tibble(
+#' harvest <- tsibble(
 #'   year = c(2010, 2011, 2013, 2011, 2012, 2014),
 #'   fruit = rep(c("kiwi", "cherry"), each = 3),
 #'   kilo = sample(1:10, size = 6),
-#' ), fruit, index = year)
+#'   key = id(fruit), index = year
+#' )
 #'
 #' # leave NA as is
 #' fill_na(harvest)

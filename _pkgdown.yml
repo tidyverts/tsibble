@@ -13,6 +13,7 @@ authors:
 reference:
 - title: Tsibble
   contents:
+    - tsibble
     - as_tsibble
     - is_tsibble
 
@@ -33,6 +34,7 @@ reference:
 
 - title: Helpers
   contents:
+    - id
     - key
     - index
     - interval
