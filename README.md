@@ -28,7 +28,7 @@ The `weather` data included in the package `nycflights13` is used as an example 
 library(tsibble)
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
-weather_tsbl <- as_tsibble(weather, origin, index = time_hour)
+weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 #> # A tsibble: 26,130 x 5 [1HOUR]
 #> # Keys:      origin

@@ -13,7 +13,9 @@ pedestrian <- rwalkr::run_melb(
   ),
   na.rm = TRUE)
 
-pedestrian <- as_tsibble(pedestrian, Sensor, index = Date_Time)
+pedestrian <- as_tsibble(
+  pedestrian, key = tsibble::id(Sensor), index = Date_Time
+)
 devtools::use_data(pedestrian, overwrite = TRUE)
 
 # Australia: Domestic Overnight Trips ('000) ----
@@ -48,7 +50,7 @@ qtr_data <- long_data %>%
 
 # convert to tsibble
 tourism <- qtr_data %>%
-  as_tsibble(Region | State, Purpose, index = Quarter)
+  as_tsibble(key = tsibble::id(Region | State, Purpose), index = Quarter)
 devtools::use_data(tourism, overwrite = TRUE)
 
 # hms data ----

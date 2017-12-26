@@ -23,7 +23,7 @@ test_that("Test a tbl_ts of 4 day interval with no replacement", {
   full_tsbl <- fill_na(tsbl)
   expect_identical(dim(full_tsbl), c(5L, 2L))
   expect_equal(
-    as_tibble(full_tsbl[4, ]), 
+    as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = NA_real_)
   )
 })
@@ -32,7 +32,7 @@ test_that("Test a tbl_ts of 4 day interval with value replacement", {
   expect_error(fill_na(tsbl, value = 0L))
   full_tsbl <- fill_na(tsbl, value = 0)
   expect_equal(
-    as_tibble(full_tsbl[4, ]), 
+    as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = 0)
   )
 })
@@ -44,7 +44,7 @@ test_that("Test a tbl_ts of 4 day interval with bad names", {
 test_that("Test a tbl_ts of 4 day interval with function replacement", {
   full_tsbl <- fill_na(tsbl, value = sum(value, na.rm = TRUE))
   expect_equal(
-    as_tibble(full_tsbl[4, ]), 
+    as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = sum(tsbl$value))
   )
 })
@@ -55,17 +55,17 @@ dat_x <- tibble(
   value = rep(1:2, each = 5)
 )
 dat_y <- dat_x[c(2:8, 10), ]
-tsbl <- as_tsibble(dat_y, group, index = date)
+tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 
 test_that("Test grouped_ts", {
-  full_tsbl <- tsbl %>% 
-    group_by(group) %>% 
+  full_tsbl <- tsbl %>%
+    group_by(group) %>%
     fill_na(value = sum(value, na.rm = TRUE))
   expect_identical(dim(full_tsbl), c(10L, 3L))
   expect_equal(
-    as_tibble(full_tsbl[c(1, 9), ]), 
+    as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
-      date = c(ymd("2017-01-01"), ymd("2017-01-13")), 
+      date = c(ymd("2017-01-01"), ymd("2017-01-13")),
       group = c("a", "b"),
       value = c(4L, 8L)
     )

@@ -16,7 +16,7 @@
 arrange.tbl_ts <- function(.data, ...) {
   arr_data <- NextMethod()
   as_tsibble(
-    arr_data, !!! key(.data), index = !! index(.data),
+    arr_data, key = key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -29,7 +29,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
   arr_data <- arrange(grped_data, ..., .by_group = .by_group)
   tbl <- as_tsibble(
-    arr_data, !!! key(.data), index = !! index(.data),
+    arr_data, key = key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
   groups(tbl) <- grps
@@ -48,7 +48,7 @@ filter.tbl_ts <- function(.data, ...) {
     fil_data <- NextMethod()
   }
   tbl <- as_tsibble(
-    fil_data, !!! key(.data), index = !! index(.data),
+    fil_data, key = key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
   groups(tbl) <- grps
@@ -67,7 +67,7 @@ slice.tbl_ts <- function(.data, ...) {
     slc_data <- NextMethod()
   }
   tbl <- as_tsibble(
-    slc_data, !!! key(.data), index = !! index(.data),
+    slc_data, key = key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
   groups(tbl) <- grps
@@ -109,14 +109,14 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no changes in key vars
     return(as_tsibble(
-      sel_data, !!! key(.data), index = !! index(.data),
+      sel_data, key = key(.data), index = !! index(.data),
       validate = FALSE, regular = is_regular(.data)
     ))
   } else {
     key(.data) <- update_key(key(.data), val_vars)
     key(.data) <- update_key2(key(.data), val_vars, lhs)
     as_tsibble(
-      sel_data, !!! key(.data), index = !! index(.data),
+      sel_data, key = key(.data), index = !! index(.data),
       validate = TRUE, regular = is_regular(.data)
     )
   }
@@ -135,7 +135,7 @@ rename.tbl_ts <- function(.data, ...) {
   }
   ren_data <- NextMethod()
   as_tsibble(
-    ren_data, !!! key(.data), index = !! index(.data),
+    ren_data, key = key(.data), index = !! index(.data),
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -162,7 +162,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   tbl <- as_tsibble(
-    mut_data, !!! key(.data), index = !! index(.data),
+    mut_data, key = key(.data), index = !! index(.data),
     validate = validate, regular = is_regular(.data)
   )
   groups(tbl) <- grps
@@ -190,7 +190,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     dplyr::summarise(!!! lst_quos)
 
   tbl <- as_tsibble(
-    sum_data, !!! grps, index = !! idx,
+    sum_data, key = grps, index = !! idx,
     validate = FALSE, regular = is_regular(.data)
   )
   groups(tbl) <- grps
@@ -231,7 +231,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 
   grped_ts <- grouped_ts(.data, grped_chr, grped_quo, add = add)
   as_tsibble(
-    grped_ts, !!! key(.data), index = !! index,
+    grped_ts, key = key(.data), index = !! index,
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -243,7 +243,7 @@ ungroup.grouped_ts <- function(x, ...) {
   x <- rm_class(x, "grouped_ts")
   groups(x) <- list()
   as_tsibble(
-    x, !!! key(x), index = !! index(x),
+    x, key = key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
 }
@@ -253,7 +253,7 @@ ungroup.grouped_ts <- function(x, ...) {
 ungroup.tbl_ts <- function(x, ...) {
   groups(x) <- list()
   as_tsibble(
-    x, !!! key(x), index = !! index(x),
+    x, key = key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
 }

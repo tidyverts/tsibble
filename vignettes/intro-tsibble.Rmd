@@ -34,10 +34,10 @@ weather <- nycflights13::weather %>%
 weather
 ```
 
-The `weather` data included in the package `nycflights13` contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the `time_hour` is the only one column consisting of the timestamps, the `as_tsibble()` detects it as the index variable; alternatively, it is more verbose to specify the argument `index = time_hour`. A tsibble is comprised of an index and key variables. In this case, the `origin` variable forms the key passed to `...` in the `as_tsibble()`. Therefore, **the key together with the index uniquely identifies each observation**, which gives a valid tsibble. In other words, each unit of observation is measured at a time point for a key or each combination of keys. Others---`temp`, `humid` and `precip`---are considered as measured variables.
+The `weather` data included in the package `nycflights13` contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the `time_hour` is the only one column consisting of the timestamps, the `as_tsibble()` detects it as the index variable; alternatively, it is more verbose to specify the argument `index = time_hour`. A tsibble is comprised of an index and key variables. In this case, the `origin` variable forms the identifier (`id()`) passed to the `key` argument in the `as_tsibble()`. Therefore, **the key together with the index uniquely identifies each observation**, which gives a valid tsibble. In other words, each unit of observation is measured at a time point for a key or each combination of keys. Others---`temp`, `humid` and `precip`---are considered as measured variables.
 
 ```{r weather-ts, message = TRUE}
-weather_tsbl <- as_tsibble(weather, origin)
+weather_tsbl <- as_tsibble(weather, key = id(origin))
 weather_tsbl
 ```
 
@@ -58,7 +58,7 @@ weather_tsbl %>%
 The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` contains the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from [Tourism Research Australia](https://www.tra.gov.au). The key structure is imposed by `Region | State, Purpose`. The `Region` and `State` naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (`|`). The crossing of `Purpose` (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (`,`) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.
 
 ```{r tourism}
-as_tsibble(tourism, Region | State, Purpose, index = Quarter)
+as_tsibble(tourism, key = id(Region | State, Purpose), index = Quarter)
 ```
 
 The most-used dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, the `summarise()` is performed in conjunction with the `Region | State` in the `group_by()`. This ensures the hierarchical structure to be carried over. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
@@ -88,7 +88,11 @@ The keys are comprised of the `flight`, `origin`, and `dest` variables. With `re
 
 ```{r flights-ts}
 flights_tsbl <- flights %>%
-  as_tsibble(flight, origin, dest, index = sched_date_time, regular = FALSE)
+  as_tsibble(
+    key = id(flight, origin, dest), 
+    index = sched_date_time, 
+    regular = FALSE
+  )
 flights_tsbl
 ```
 More functions on their way to deal with irregular temporal data in the future release.

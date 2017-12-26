@@ -79,7 +79,8 @@ parse_key <- function(lst_keys) {
   if (is_empty(lst_keys)) {
     return(lst_keys)
   }
-  purrr::map(lst_keys, ~ flatten_nest(.[[-1]]))
+  # purrr::map(lst_keys, ~ flatten_nest(.[[-1]]))
+  purrr::map(lst_keys, flatten_nest)
 }
 
 # interpret a nested calls A | B | C

@@ -7,7 +7,7 @@ dat_x <- tibble(
   value = rnorm(10)
 )
 
-tsbl <- as_tsibble(dat_x, group, index = date)
+tsbl <- as_tsibble(dat_x, key = id(group), index = date)
 
 test_that("Test if it's an atomic vector", {
   expect_is(tsbl$date, "Date")
@@ -43,7 +43,7 @@ dat_x <- tibble(
 )
 
 test_that("Subset 2 nested variable in a tsibble", {
-  tsbl <- as_tsibble(dat_x, group | level, index = date)
+  tsbl <- as_tsibble(dat_x, key = id(group | level), index = date)
   tsbl2 <- tsbl[, c(1, 2, 4)]
   expect_is(tsbl2, "tbl_ts")
   expect_identical(key_vars(tsbl2)[[1]], "group")
@@ -61,7 +61,7 @@ dat_x <- tribble(
 )
 
 test_that("Subset 2 crossed variable in a tsibble", {
-  tsbl <- as_tsibble(dat_x, group1, group2, index = date)
+  tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
   expect_is(tsbl[, c(1, 2, 4)], "tbl_df")
   expect_is(tsbl[, c(1, 3, 4)], "tbl_df")
   expect_is(tsbl[, 2:4], "tbl_df")

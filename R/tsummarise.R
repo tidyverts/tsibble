@@ -56,7 +56,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
     dplyr::grouped_df(vars = chr_grps) %>% 
     dplyr::summarise(!!! lst_quos[-idx_pos])
 
-  tbl <- as_tsibble(result, !!! grps, index = !! idx_sym, validate = FALSE)
+  tbl <- as_tsibble(result, key = grps, index = !! idx_sym, validate = FALSE)
   groups(tbl) <- grps
   tbl
 }

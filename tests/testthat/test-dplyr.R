@@ -6,8 +6,8 @@ test_that("arrange()", {
  expect_equal(tsbl1, tourism)
  expect_identical(key(tsbl1), key(tourism))
  expect_identical(groups(tsbl1), groups(tourism))
- tsbl2 <- tourism %>% 
-   group_by(Region | State) %>% 
+ tsbl2 <- tourism %>%
+   group_by(Region | State) %>%
    arrange(Quarter)
  expect_equal(tsbl2, tourism)
  expect_identical(key(tsbl2), key(tourism))
@@ -20,16 +20,16 @@ test_that("filter() and slice()", {
   expect_identical(groups(tsbl1), groups(tourism))
   expect_identical(index(tsbl1), index(tourism))
   expect_identical(tsbl1$Quarter, unique(tourism$Quarter))
-  tsbl2 <- tourism %>% 
-    group_by(!!! key(.)) %>% 
+  tsbl2 <- tourism %>%
+    group_by(!!! key(.)) %>%
     filter(Quarter < yearqtr(ymd("1999-01-01")))
   expect_identical(key(tsbl2), key(tourism))
   expect_identical(group_vars(tsbl2), key_vars(tourism))
   expect_identical(index(tsbl2), index(tourism))
   tsbl3 <- slice(tourism, 1:3)
   expect_identical(dim(tsbl3), c(3L, ncol(tourism)))
-  tsbl4 <- tourism %>% 
-    group_by(Purpose) %>% 
+  tsbl4 <- tourism %>%
+    group_by(Purpose) %>%
     slice(1:3)
   expect_identical(dim(tsbl4), c(12L, ncol(tourism)))
 })
@@ -66,8 +66,8 @@ test_that("mutate()", {
   expect_is(mutate(tourism, Quarter = 1, drop = TRUE), "tbl_df")
   expect_error(mutate(tourism, Region = State))
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
-  tsbl <- tourism %>% 
-    group_by(!!! key(.)) %>% 
+  tsbl <- tourism %>%
+    group_by(!!! key(.)) %>%
     mutate(New = 1:n())
   tsbl1 <- filter(tsbl, New == 1)
   tsbl2 <- slice(tsbl, 1)
@@ -78,11 +78,11 @@ test_that("mutate()", {
 })
 
 test_that("summarise()", {
-  tsbl1 <- tourism %>% 
+  tsbl1 <- tourism %>%
     summarise(AllTrips = sum(Trips))
   expect_identical(ncol(tsbl1), 2L)
-  tsbl2 <- tourism %>% 
-    group_by(!!! key(.)) %>% 
+  tsbl2 <- tourism %>%
+    group_by(!!! key(.)) %>%
     summarise(Trips = sum(Trips))
   expect_equal(tourism, tsbl2)
   expect_identical(key(tourism), key(tsbl2))

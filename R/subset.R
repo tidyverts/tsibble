@@ -31,7 +31,7 @@
   }
 
   as_tsibble(
-    result, !!! key(x), index = !! index(x),
+    result, key = key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
 }
