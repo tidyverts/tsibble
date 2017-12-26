@@ -70,7 +70,7 @@ fill_na.tbl_ts <- function(.data, ...) {
   full_data <- full_data %>%
     modify_na(!!! quos(...))
   full_data <- full_data %>% 
-    select(full_data, !!! syms(colnames(.data))) # keep the original order
+    select(!!! syms(colnames(.data))) # keep the original order
   as_tsibble(full_data, key = key(.data), index = !! idx, validate = FALSE)
 }
 
