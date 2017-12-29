@@ -72,6 +72,9 @@ validate_key <- function(data, key) {
 }
 
 is_nest <- function(lst_syms) {
+  if (is_empty(lst_syms)) {
+    return(FALSE)
+  }
   unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
 

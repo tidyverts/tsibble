@@ -11,9 +11,9 @@
 #' @details As an S3 method, the `pull_interval()` makes a tsibble extensible to
 #' support custom time index.
 #' @return An "interval" class (a list) includes "year", "quarter", "month",
-#' "week", "day", "hour", "minute", "second", "unit", and other self-defined 
+#' "week", "day", "hour", "minute", "second", "unit", and other self-defined
 #' interval.
-#' 
+#'
 #' @rdname pull-interval
 #' @export
 #'
@@ -82,15 +82,27 @@ pull_interval.numeric <- function(x, duplicated = TRUE) {
   structure(list(unit = nunits), class = "interval")
 }
 
+#' Number of units between a sequence of index objects
+#'
+#' @param x An index object including "yearmonth", "yearquarter", "Date" and others.
+#'
+#' @export
+#'
+#' @examples
+#' # at two months interval ----
+#' x <- yearmth(seq(2016, 2018, by = 0.5))
+#' as_period(x)
 as_period <- function(x) {
   UseMethod("as_period")
 }
 
+#' @export
 as_period.POSIXt <- function(x) {
   int <- pull_interval(x)
   int$second + int$minute * 60 + int$hour * 60 * 60
 }
 
+#' @export
 as_period.numeric <- function(x) {
   int <- pull_interval(x)
   if (min0(x) > 999) {
@@ -99,14 +111,17 @@ as_period.numeric <- function(x) {
   int$unit
 }
 
+#' @export
 as_period.Date <- function(x) {
   pull_interval(x)$day
 }
 
+#' @export
 as_period.yearmonth <- function(x) {
   pull_interval(x)$month
 }
 
+#' @export
 as_period.yearquarter <- function(x) {
   pull_interval(x)$quarter
 }
