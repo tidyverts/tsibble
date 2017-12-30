@@ -62,7 +62,7 @@ fill_na.tbl_ts <- function(.data, ...) {
     tidyr::complete(
       !! quo_text2(idx) := seq(
         from = min0(!! idx), to = max0(!! idx),
-        by = as_period(!! idx)
+        by = time_unit(!! idx)
       ),
       !!! key(.data)
     )

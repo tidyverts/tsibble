@@ -2,9 +2,12 @@
 % Please edit documentation in R/interval.R
 \name{pull_interval}
 \alias{pull_interval}
-\title{Pull time interval from a vector and return a class of "interval"}
+\alias{time_unit}
+\title{Extract time interval from a vector}
 \usage{
 pull_interval(x, duplicated = TRUE)
+
+time_unit(x)
 }
 \arguments{
 \item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
@@ -14,19 +17,23 @@ pull_interval(x, duplicated = TRUE)
 the minimal time span.}
 }
 \value{
-An "interval" class (a list) includes "year", "quarter", "month",
-"week", "day", "hour", "minute", "second", "unit", and other self-defined
-interval.
+\code{pull_interval()}: an "interval" class (a list) includes "year",
+"quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
+other self-defined interval.
 }
 \description{
-S3 method to pull time interval from various classes, assuming of regularly
-spaced time. It finds a minimal time span from \code{x}.
+Assuming regularly spaced time, the \code{pull_interval()} returns a list of time
+components as the "interval" class; the \code{time_unit()} returns the number of
+time units.
 }
 \details{
-As an S3 method, the \code{pull_interval()} makes a tsibble extensible to
+The \code{pull_interval()} and \code{time_unit()} make a tsibble extensible to
 support custom time index.
 }
 \examples{
 x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
-pull_interval(x, duplicated = FALSE)
+pull_interval(x)
+# at two months interval ----
+x <- yearmth(seq(2016, 2018, by = 0.5))
+time_unit(x)
 }
