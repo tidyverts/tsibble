@@ -128,7 +128,7 @@ as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
 }
 
-#' Return key and measured variables
+#' Return key variables
 #'
 #' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
@@ -141,7 +141,6 @@ as_tsibble.default <- function(x, ...) {
 #' data(pedestrian)
 #' key(pedestrian)
 #' key_vars(pedestrian)
-#' measured_vars(pedestrian)
 #'
 #' # Nested and crossed keys for tourism data ----
 #' data(tourism)
@@ -183,13 +182,10 @@ group_vars.tbl_ts <- function(x) {
   format(groups(x))
 }
 
-#' @rdname key
-#' @export
 measured_vars <- function(x) {
   UseMethod("measured_vars")
 }
 
-#' @export
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
   key_vars <- flatten_key(key(x))
