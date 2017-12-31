@@ -1,26 +1,25 @@
-#' Extract time interval from a vector
+#' Pull time interval from a vector and return a class of "interval"
 #'
-#' Assuming regularly spaced time, the `pull_interval()` returns a list of time
-#' components as the "interval" class; the `time_unit()` returns the number of
-#' time units.
+#' S3 method to pull time interval from various classes, assuming of regularly
+#' spaced time. It finds a minimal time span from `x`.
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
 #' `hms`, `integer`, `numeric`.
 #' @param duplicated `TRUE` removes the duplicated elements of `x` and compute
 #' the minimal time span.
 #'
-#' @details The `pull_interval()` and `time_unit()` make a tsibble extensible to
+#' @details As an S3 method, the `pull_interval()` makes a tsibble extensible to
 #' support custom time index.
-#' @return `pull_interval()`: an "interval" class (a list) includes "year", 
-#' "quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-#' other self-defined interval.
+#' @return An "interval" class (a list) includes "year", "quarter", "month",
+#' "week", "day", "hour", "minute", "second", "unit", and other self-defined
+#' interval.
 #'
 #' @rdname pull-interval
 #' @export
 #'
 #' @examples
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
-#' pull_interval(x)
+#' pull_interval(x, duplicated = FALSE)
 pull_interval <- function(x, duplicated = TRUE) {
   UseMethod("pull_interval")
 }
@@ -83,24 +82,28 @@ pull_interval.numeric <- function(x, duplicated = TRUE) {
   structure(list(unit = nunits), class = "interval")
 }
 
-#' @rdname pull-interval
+#' Number of units between a sequence of index objects
+#'
+#' @param x An index object including "yearmonth", "yearquarter", "Date" and others.
+#'
 #' @export
+#'
 #' @examples
 #' # at two months interval ----
 #' x <- yearmth(seq(2016, 2018, by = 0.5))
-#' time_unit(x)
-time_unit <- function(x) {
-  UseMethod("time_unit")
+#' as_period(x)
+as_period <- function(x) {
+  UseMethod("as_period")
 }
 
 #' @export
-time_unit.POSIXt <- function(x) {
+as_period.POSIXt <- function(x) {
   int <- pull_interval(x)
   int$second + int$minute * 60 + int$hour * 60 * 60
 }
 
 #' @export
-time_unit.numeric <- function(x) {
+as_period.numeric <- function(x) {
   int <- pull_interval(x)
   if (min0(x) > 999) {
     return(int$year)
@@ -109,17 +112,17 @@ time_unit.numeric <- function(x) {
 }
 
 #' @export
-time_unit.Date <- function(x) {
+as_period.Date <- function(x) {
   pull_interval(x)$day
 }
 
 #' @export
-time_unit.yearmonth <- function(x) {
+as_period.yearmonth <- function(x) {
   pull_interval(x)$month
 }
 
 #' @export
-time_unit.yearquarter <- function(x) {
+as_period.yearquarter <- function(x) {
   pull_interval(x)$quarter
 }
 
