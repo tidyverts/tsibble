@@ -33,8 +33,6 @@
 \alias{reexports}
 \alias{tbl_sum}
 \alias{reexports}
-\alias{type_sum}
-\alias{reexports}
 \alias{as_tibble}
 \alias{reexports}
 \alias{as.tibble}
@@ -42,6 +40,14 @@
 \alias{!!}
 \alias{reexports}
 \alias{!!!}
+\alias{reexports}
+\alias{type_sum}
+\alias{reexports}
+\alias{obj_sum}
+\alias{reexports}
+\alias{is_vector_s3}
+\alias{reexports}
+\alias{pillar_shaft}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -51,7 +57,7 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{\%>\%}}}
 
-  \item{pillar}{\code{\link[pillar]{type_sum}}}
+  \item{pillar}{\code{\link[pillar]{type_sum}}, \code{\link[pillar]{obj_sum}}, \code{\link[pillar]{is_vector_s3}}, \code{\link[pillar]{pillar_shaft}}}
 
   \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 

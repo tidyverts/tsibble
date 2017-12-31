@@ -58,10 +58,6 @@ tibble::glimpse
 #' @export
 tibble::tbl_sum
 
-#' @importFrom pillar type_sum
-#' @export
-pillar::type_sum
-
 #' @importFrom tibble as_tibble
 #' @export
 tibble::as_tibble
@@ -77,3 +73,19 @@ rlang::`!!`
 #' @importFrom rlang !!!
 #' @export
 rlang::`!!!`
+
+#' @importFrom pillar type_sum
+#' @export
+pillar::type_sum
+
+#' @importFrom pillar obj_sum
+#' @export
+pillar::obj_sum
+
+#' @importFrom pillar is_vector_s3
+#' @export
+pillar::is_vector_s3
+
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar::pillar_shaft

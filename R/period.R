@@ -14,10 +14,8 @@
 #' then use [mutate].
 #'
 #' @section Index functions:
-#' The underlying class of `yearmth()` and `yearqtr()` is `Date`. It differs
-#' from their counterparts in the *zoo* package, which behind the scene are
-#' numerics. Unlike `zoo::yearmon()` and `zoo::yearqtr()`, the `yearmth()` and 
-#' `yearqtr()` preserve the time zone of the input `x`.
+#' The tsibble `yearmth()` and `yearqtr()` functiosn preserve the time zone of 
+#' the input `x`, contrasting to their zoo counterparts.
 #'
 #' @export
 #' @rdname period
@@ -32,7 +30,7 @@
 #' # coerce numerics to yearmth, yearqtr ----
 #' yearmth(seq(2010, 2017, by = 1/12))
 #' yearqtr(seq(2010, 2017, by = 1/4))
-#' 
+#'
 #' # coerce yearmonths to yearqtr ----
 #' y <- yearmth(x)
 #' yearqtr(y)
@@ -40,12 +38,16 @@ yearmth <- function(x) {
   UseMethod("yearmth")
 }
 
+as_yearmonth <- function(x) {
+  structure(x, class = c("yearmonth", "Date"))
+}
+
 #' @export
 yearmth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   month <- formatC(posix$mon, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, month, "01", sep = "-"))
-  structure(result, class = c("yearmonth", "Date"))
+  as_yearmonth(result)
 }
 
 #' @export
@@ -53,7 +55,7 @@ yearmth.Date <- yearmth.POSIXt
 
 #' @export
 yearmth.yearmonth <- function(x) {
-  structure(x, class = c("yearmonth", "Date"))
+  as_yearmonth(x)
 }
 
 #' @export
@@ -61,7 +63,7 @@ yearmth.numeric <- function(x) {
   year <- trunc(x)
   month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
   result <- as.Date(paste(year, month, "01", sep = "-"))
-  structure(result, class = c("yearmonth", "Date"))
+  as_yearmonth(result)
 }
 
 #' @export
@@ -78,10 +80,30 @@ print.yearmonth <- function(x, format = "%Y %b", ...) {
   invisible(x)
 }
 
+#' @export
+obj_sum.yearmonth <- function(x) {
+  rep("mth", length(x))
+}
+
+#' @export
+is_vector_s3.yearmonth <- function(x) {
+  TRUE
+}
+
+#' @export
+pillar_shaft.yearmonth <- function(x, ...) {
+  out <- format(x)
+  pillar::new_pillar_shaft_simple(out, align = "right", min_width = 10)
+}
+
 #' @rdname period
 #' @export
 yearqtr <- function(x) {
   UseMethod("yearqtr")
+}
+
+as_yearquarter <- function(x) {
+  structure(x, class = c("yearquarter", "Date"))
 }
 
 #' @export
@@ -89,7 +111,7 @@ yearqtr.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   qtrs <- formatC(posix$mon - (posix$mon - 1) %% 3, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
-  structure(result, class = c("yearquarter", "Date"))
+  as_yearquarter(result)
 }
 
 #' @export
@@ -100,7 +122,7 @@ yearqtr.yearmonth <- yearqtr.POSIXt
 
 #' @export
 yearqtr.yearquarter <- function(x) {
-  structure(x, class = c("yearquarter", "Date"))
+  as_yearquarter(x)
 }
 
 #' @export
@@ -109,11 +131,11 @@ yearqtr.numeric <- function(x) {
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- formatC(last_month - 2, flag = 0, width = 2)
   result <- as.Date(paste(year, first_month, "01", sep = "-"))
-  structure(result, class = c("yearquarter", "Date"))
+  as_yearquarter(result)
 }
 
 #' @export
-yearqtr.yearqtr <- yearqtr.numeric 
+yearqtr.yearqtr <- yearqtr.numeric
 
 #' @importFrom lubridate as_date
 #' @importFrom lubridate tz
@@ -162,6 +184,17 @@ print.yearquarter <- function(x, format = "%Y Q%q", ...) {
   invisible(x)
 }
 
+#' @export
+obj_sum.yearquarter <- function(x) {
+  rep("qtr", length(x))
+}
+
+#' @export
+is_vector_s3.yearquarter <- is_vector_s3.yearmonth
+
+#' @export
+pillar_shaft.yearquarter <- pillar_shaft.yearmonth
+
 split_POSIXt <- function(x) {
   posix <- as.POSIXlt(x, tz = lubridate::tz(x))
   posix$mon <- posix$mon + 1
@@ -171,7 +204,7 @@ split_POSIXt <- function(x) {
 
 #' @export
 seq.yearmonth <- function(
-  from, to, by, length.out = NULL, along.with = NULL, 
+  from, to, by, length.out = NULL, along.with = NULL,
   ...) {
   if (!is_bare_numeric(by, n = 1)) {
     abort("The arg of (by) only takes a numeric.")
@@ -185,7 +218,7 @@ seq.yearmonth <- function(
 
 #' @export
 seq.yearquarter <- function(
-  from, to, by, length.out = NULL, along.with = NULL, 
+  from, to, by, length.out = NULL, along.with = NULL,
   ...) {
   if (!is.numeric(by)) {
     abort("The arg of (by) only takes a numeric.")
@@ -213,29 +246,29 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 }
 
 seq_date <- function(
-  from, to, by, length.out = NULL, along.with = NULL, 
+  from, to, by, length.out = NULL, along.with = NULL,
   ...) {
-  if (missing(from)) 
+  if (missing(from))
     stop("'from' must be specified")
-  if (!inherits(from, "Date")) 
+  if (!inherits(from, "Date"))
     stop("'from' must be a \"Date\" object")
-  if (length(as.Date(from)) != 1L) 
+  if (length(as.Date(from)) != 1L)
     stop("'from' must be of length 1")
   if (!missing(to)) {
-    if (!inherits(to, "Date")) 
+    if (!inherits(to, "Date"))
       stop("'to' must be a \"Date\" object")
-    if (length(as.Date(to)) != 1L) 
+    if (length(as.Date(to)) != 1L)
       stop("'to' must be of length 1")
   }
   if (!is.null(along.with)) { # !missing(along.with) in seq.Date
     length.out <- length(along.with)
   } else if (!is.null(length.out)) {
-    if (length(length.out) != 1L) 
+    if (length(length.out) != 1L)
       stop("'length.out' must be of length 1")
     length.out <- ceiling(length.out)
   }
   status <- c(!missing(to), !missing(by), !is.null(length.out))
-  if (sum(status) != 2L) 
+  if (sum(status) != 2L)
     stop("exactly two of 'to', 'by' and 'length.out' / 'along.with' must be specified")
   if (missing(by)) {
     from <- unclass(as.Date(from))
@@ -243,34 +276,34 @@ seq_date <- function(
     res <- seq.int(from, to, length.out = length.out)
     return(structure(res, class = "Date"))
   }
-  if (length(by) != 1L) 
+  if (length(by) != 1L)
     stop("'by' must be of length 1")
   valid <- 0L
   if (inherits(by, "difftime")) {
-    by <- switch(attr(by, "units"), secs = 1/86400, mins = 1/1440, 
+    by <- switch(attr(by, "units"), secs = 1/86400, mins = 1/1440,
         hours = 1/24, days = 1, weeks = 7) * unclass(by)
   } else if (is.character(by)) {
     by2 <- strsplit(by, " ", fixed = TRUE)[[1L]]
-    if (length(by2) > 2L || length(by2) < 1L) 
+    if (length(by2) > 2L || length(by2) < 1L)
       stop("invalid 'by' string")
-    valid <- pmatch(by2[length(by2)], c("days", "weeks", 
+    valid <- pmatch(by2[length(by2)], c("days", "weeks",
       "months", "quarters", "years"))
-    if (is.na(valid)) 
+    if (is.na(valid))
       stop("invalid string for 'by'")
     if (valid <= 2L) {
       by <- c(1, 7)[valid]
-      if (length(by2) == 2L) 
+      if (length(by2) == 2L)
         by <- by * as.integer(by2[1L])
-    } else by <- if (length(by2) == 2L) 
+    } else by <- if (length(by2) == 2L)
       as.integer(by2[1L])
     else 1
-  } else if (!is.numeric(by)) 
+  } else if (!is.numeric(by))
     stop("invalid mode for 'by'")
-  if (is.na(by)) 
+  if (is.na(by))
     stop("'by' is NA")
   if (valid <= 2L) {
     from <- unclass(as.Date(from))
-    if (!is.null(length.out)) 
+    if (!is.null(length.out))
       res <- seq.int(from, by = by, length.out = length.out)
     else {
       to0 <- unclass(as.Date(to))
@@ -289,14 +322,14 @@ seq_date <- function(
       r1$year <- yr
       res <- as.Date(r1)
     } else {
-      if (valid == 4L) 
+      if (valid == 4L)
         by <- by * 3
       if (missing(to)) {
         mon <- seq.int(r1$mon, by = by, length.out = length.out)
       }
       else {
         to0 <- as.POSIXlt(to)
-        mon <- seq.int(r1$mon, 12 * (to0$year - r1$year) + 
+        mon <- seq.int(r1$mon, 12 * (to0$year - r1$year) +
           to0$mon, by)
       }
       r1$mon <- mon
@@ -305,7 +338,7 @@ seq_date <- function(
   }
   if (!missing(to)) {
     to <- as.Date(to)
-    res <- if (by > 0) 
+    res <- if (by > 0)
       res[res <= to]
     else res[res >= to]
   }

@@ -26,10 +26,8 @@ then use \link{mutate}.
 }
 \section{Index functions}{
 
-The underlying class of \code{yearmth()} and \code{yearqtr()} is \code{Date}. It differs
-from their counterparts in the \emph{zoo} package, which behind the scene are
-numerics. Unlike \code{zoo::yearmon()} and \code{zoo::yearqtr()}, the \code{yearmth()} and
-\code{yearqtr()} preserve the time zone of the input \code{x}.
+The tsibble \code{yearmth()} and \code{yearqtr()} functiosn preserve the time zone of
+the input \code{x}, contrasting to their zoo counterparts.
 }
 
 \examples{
