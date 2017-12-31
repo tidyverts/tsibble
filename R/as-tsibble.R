@@ -293,7 +293,6 @@ as.tsibble <- function(x, ...) {
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
-  cls_tbl <- c("tbl_df", "tbl", "data.frame") # basic classes
 
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
@@ -318,14 +317,13 @@ tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
   attr(tbl, "index") <- index
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular
+  sub_cls <- "tbl_ts"
   if (is_grouped_ts(x) || dplyr::is_grouped_df(x)) {
     grps <- groups(x)
     attr(tbl, "vars") <- structure(grps, class = "vars")
-    cls_tbl <- c("grouped_ts", "tbl_ts", cls_tbl)
-  } else {
-    cls_tbl <- c("tbl_ts", cls_tbl)
+    sub_cls <- c("grouped_ts", sub_cls)
   }
-  structure(tbl, class = cls_tbl)
+  tibble::new_tibble(tbl, subclass = sub_cls)
 }
 
 detect_type <- function() {
@@ -418,8 +416,7 @@ validate_tbl_ts <- function(data, key, index) {
 
 #' @export
 as_tibble.tbl_ts <- function(x, ...) {
-  class(x) <- c("tbl_df", "tbl", "data.frame")
-  x
+  tibble::new_tibble(x)
 }
 
 #' @export
@@ -428,9 +425,7 @@ as.tibble.tbl_ts <- as_tibble.tbl_ts
 #' @export
 as_tibble.grouped_ts <- function(x, ...) {
   grps <- groups(x)
-  class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
-  attr(x, "vars") <- flatten(grps)
-  x
+  tibble::new_tibble(x, "vars" = flatten(grps), subclass = "grouped_df")
 }
 
 #' @export
