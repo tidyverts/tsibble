@@ -64,12 +64,12 @@ fill_na.tbl_ts <- function(.data, ...) {
         from = min0(!! idx), to = max0(!! idx),
         by = time_unit(!! idx)
       ),
-      !!! key(.data)
+      tidyr::nesting(!!! flatten(key(.data)))
     )
 
   full_data <- full_data %>%
     modify_na(!!! quos(...))
-  full_data <- full_data %>% 
+  full_data <- full_data %>%
     select(!!! syms(colnames(.data))) # keep the original order
   as_tsibble(full_data, key = key(.data), index = !! idx, validate = FALSE)
 }
@@ -102,7 +102,7 @@ modify_na <- function(.data, ...) {
       bind_data, key = key(.data), index = !! index(.data),
       validate = FALSE, regular = is_regular(.data)
     )
-    grped_tsbl <- tsbl %>% 
+    grped_tsbl <- tsbl %>%
       group_by(!!! groups(.data))
     return(grped_tsbl)
   } else {

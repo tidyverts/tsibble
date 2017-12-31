@@ -18,7 +18,7 @@
 #' 
 #' # equally spaced over trading days, not smart enough to guess frequency ----
 #' x2 <- as_tsibble(EuStockMarkets)
-#' as.ts(x2, frequency = 260)
+#' head(as.ts(x2, frequency = 260))
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   key_vars <- key(x)
   if (is_nest(key_vars)) {
