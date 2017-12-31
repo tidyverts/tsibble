@@ -58,9 +58,9 @@ tibble::glimpse
 #' @export
 tibble::tbl_sum
 
-#' @importFrom tibble type_sum
+#' @importFrom pillar type_sum
 #' @export
-tibble::type_sum
+pillar::type_sum
 
 #' @importFrom tibble as_tibble
 #' @export
