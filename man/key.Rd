@@ -3,11 +3,14 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
-\title{Return key variables}
+\alias{measured_vars}
+\title{Return key and measured variables}
 \usage{
 key(x)
 
 key_vars(x)
+
+measured_vars(x)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -20,6 +23,7 @@ key_vars(x)
 data(pedestrian)
 key(pedestrian)
 key_vars(pedestrian)
+measured_vars(pedestrian)
 
 # Nested and crossed keys for tourism data ----
 data(tourism)
