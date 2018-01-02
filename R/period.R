@@ -43,6 +43,16 @@ as_yearmonth <- function(x) {
 }
 
 #' @export
+c.yearmonth <- function(..., recursive = FALSE) {
+  as_yearmonth(NextMethod())
+}
+
+#' @export
+rep.yearmonth <- function(x, ...) {
+  as_yearmonth(NextMethod())
+}
+
+#' @export
 yearmth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   month <- formatC(posix$mon, flag = 0, width = 2)
@@ -104,6 +114,16 @@ yearqtr <- function(x) {
 
 as_yearquarter <- function(x) {
   structure(x, class = c("yearquarter", "Date"))
+}
+
+#' @export
+c.yearquarter <- function(..., recursive = FALSE) {
+  as_yearquarter(NextMethod())
+}
+
+#' @export
+rep.yearquarter <- function(x, ...) {
+  as_yearquarter(NextMethod())
 }
 
 #' @export
