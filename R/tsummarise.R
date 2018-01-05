@@ -8,8 +8,8 @@
 #' in the calls, coupled with an index function, to carry out the calculation.
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
-#' * [yearqtr]: quarterly aggregation
-#' * [yearmth]: monthly aggregation
+#' * [yearquarter]: quarterly aggregation
+#' * [yearmonth]: monthly aggregation
 #' * [as.Date] or [lubridate::as_date]: daily aggregation
 #' * [lubridate::ceiling_date] or [lubridate::round_date]: sub-daily aggregation
 #' * other index functions from other packages
@@ -21,7 +21,7 @@
 #' monthly_ped <- pedestrian %>% 
 #'   group_by(Sensor) %>% 
 #'   tsummarise(
-#'     Year_Month = yearmth(Date_Time), # Year_Month will be the new index
+#'     Year_Month = yearmonth(Date_Time), # Year_Month will be the new index
 #'     Max_Count = max(Count),
 #'     Min_Count = min(Count)
 #'   )

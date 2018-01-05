@@ -59,7 +59,7 @@ pull_interval.yearmonth <- function(x, duplicated = TRUE) {
 
 #' @export
 pull_interval.yearmth <- function(x, duplicated = TRUE) {
-  pull_interval(yearmth(x))
+  pull_interval(yearmonth(x))
 }
 
 #' @export
@@ -71,7 +71,7 @@ pull_interval.yearquarter <- function(x, duplicated = TRUE) {
 
 #' @export
 pull_interval.yearqtr <- function(x, duplicated = TRUE) {
-  pull_interval(yearqtr(x))
+  pull_interval(yearquarter(x))
 }
 
 #' @export
@@ -87,7 +87,7 @@ pull_interval.numeric <- function(x, duplicated = TRUE) {
 #' @export
 #' @examples
 #' # at two months interval ----
-#' x <- yearmth(seq(2016, 2018, by = 0.5))
+#' x <- yearmonth(seq(2016, 2018, by = 0.5))
 #' time_unit(x)
 time_unit <- function(x) {
   UseMethod("time_unit")
@@ -132,9 +132,9 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- as.numeric(stats::time(x))
   if (freq > 4 && freq <= 12) { # monthly
-    return(yearmth(time_x))
+    return(yearmonth(time_x))
   } else if (freq > 1 && freq <= 4) { # quarterly
-    return(yearqtr(time_x))
+    return(yearquarter(time_x))
   } else if (freq == 1) { # yearly
     return(time_x)
   } else {

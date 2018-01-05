@@ -17,8 +17,8 @@ in the calls, coupled with an index function, to carry out the calculation.
 The index functions that can be used, but not limited:
 \itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
-\item \link{yearqtr}: quarterly aggregation
-\item \link{yearmth}: monthly aggregation
+\item \link{yearquarter}: quarterly aggregation
+\item \link{yearmonth}: monthly aggregation
 \item \link{as.Date} or \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
 \item \link[lubridate:ceiling_date]{lubridate::ceiling_date} or \link[lubridate:round_date]{lubridate::round_date}: sub-daily aggregation
 \item other index functions from other packages
@@ -33,7 +33,7 @@ data(pedestrian)
 monthly_ped <- pedestrian \%>\% 
   group_by(Sensor) \%>\% 
   tsummarise(
-    Year_Month = yearmth(Date_Time), # Year_Month will be the new index
+    Year_Month = yearmonth(Date_Time), # Year_Month will be the new index
     Max_Count = max(Count),
     Min_Count = min(Count)
   )

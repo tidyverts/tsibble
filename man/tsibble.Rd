@@ -33,8 +33,8 @@ Please use \link{arrange} to get the order by time.
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but preserved as the essential component of the tsibble. A
 few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearmth} and \link{yearqtr} representing year-month
-and year-quarter respectively.
+the tsibble, with new additions \link{yearmonth} and \link{yearquarter} representing
+year-month and year-quarter respectively.
 }
 
 \section{Key}{

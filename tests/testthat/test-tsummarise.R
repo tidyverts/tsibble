@@ -46,22 +46,22 @@ dat_x <- tibble(
 tsbl2 <- as_tsibble(dat_x, index = date)
 
 test_that("From Date to year-month, year-quarter and year", {
-  res1 <- tsummarise(tsbl2, yrmth = yearmth(date), value = sum(value))
+  res1 <- tsummarise(tsbl2, yrmth = yearmonth(date), value = sum(value))
   expect_equal(
     as_tibble(res1),
-    tibble(yrmth = yearmth(ymd("2017-01-01")), value = 5)
+    tibble(yrmth = yearmonth(ymd("2017-01-01")), value = 5)
   )
-  res2 <- tsummarise(tsbl2, yrqtr = yearqtr(date), value = sum(value))
+  res2 <- tsummarise(tsbl2, yrqtr = yearquarter(date), value = sum(value))
   expect_equal(
     as_tibble(res2),
-    tibble(yrqtr = yearqtr(ymd("2017-01-01")), value = 5)
+    tibble(yrqtr = yearquarter(ymd("2017-01-01")), value = 5)
   )
   res3 <- tsummarise(tsbl2, yr = year(date), value = sum(value))
   expect_equal(
     as_tibble(res3),
     tibble(yr = year(ymd("2017-01-01")), value = 5)
   )
-  res4 <- tsummarise(res1, yrqtr = yearqtr(yrmth), value = sum(value))
+  res4 <- tsummarise(res1, yrqtr = yearquarter(yrmth), value = sum(value))
   expect_equal(res2, res4)
   res5 <- tsummarise(res2, yr = year(yrqtr), value = sum(value))
   expect_equal(res3, res5)
@@ -77,13 +77,13 @@ tsbl3 <- as_tsibble(dat_x, key = id(group), index = date)
 test_that("tsummarise for grouped_ts", {
   res1 <- tsbl3 %>%
     group_by(group) %>%
-    tsummarise(value = sum(value), yrmth = yearmth(date))
+    tsummarise(value = sum(value), yrmth = yearmonth(date))
   expect_is(res1, "grouped_ts")
   expect_equal(
     as_tibble(res1),
     tibble(
       group = c("a", "b"),
-      yrmth = yearmth(ymd("2017-01-01")),
+      yrmth = yearmonth(ymd("2017-01-01")),
       value = c(5L, 10L)
     )
   )

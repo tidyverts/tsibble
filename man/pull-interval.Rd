@@ -34,6 +34,6 @@ support custom time index.
 x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 pull_interval(x)
 # at two months interval ----
-x <- yearmth(seq(2016, 2018, by = 0.5))
+x <- yearmonth(seq(2016, 2018, by = 0.5))
 time_unit(x)
 }

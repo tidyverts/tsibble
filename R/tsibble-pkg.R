@@ -9,8 +9,8 @@
 #' The time indices are no longer an attribute (for example, the `tsp` attribute 
 #' in a `ts` object), but preserved as the essential component of the tsibble. A 
 #' few index class, such as `Date`, `POSIXt`, and `difftime`, forms the basis of 
-#' the tsibble, with new additions [yearmth] and [yearqtr] representing year-month 
-#' and year-quarter respectively.
+#' the tsibble, with new additions [yearmonth] and [yearquarter] representing 
+#' year-month and year-quarter respectively.
 #'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record. And

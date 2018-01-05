@@ -22,7 +22,7 @@ test_that("filter() and slice()", {
   expect_identical(tsbl1$Quarter, unique(tourism$Quarter))
   tsbl2 <- tourism %>%
     group_by(!!! key(.)) %>%
-    filter(Quarter < yearqtr(ymd("1999-01-01")))
+    filter(Quarter < yearquarter(ymd("1999-01-01")))
   # expect_identical(key(tsbl2), key(tourism))
   # expect_identical(group_vars(tsbl2), key_vars(tourism))
   expect_identical(index(tsbl2), index(tourism))

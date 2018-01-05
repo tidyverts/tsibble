@@ -20,7 +20,7 @@ hourly data would have daily, weekly and annual frequencies of 24, 168 and 8766
 respectively, and hence it gives 24.
 }
 \examples{
-x <- yearmth(seq(2016, 2018, by = 0.25))
+x <- yearmonth(seq(2016, 2018, by = 0.25))
 guess_frequency(x)
 }
 \references{

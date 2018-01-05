@@ -99,7 +99,9 @@ test_that("Date with 4 days interval", {
   expect_identical(format(interval(tsbl)), "4DAY")
 })
 
-idx_month <- seq(yearmth(ymd("2017-01-01")), yearmth(ymd("2017-05-01")), by = 1)
+idx_month <- seq(
+  yearmonth(ymd("2017-01-01")), yearmonth(ymd("2017-05-01")), by = 1
+)
 dat_x <- tibble(
   yrmth = idx_month,
   value = rnorm(5)
@@ -112,7 +114,9 @@ test_that("Year month with 1 month interval", {
   expect_identical(format(interval(tsbl)), "1MONTH")
 })
 
-idx_qtr <- seq(yearqtr(ymd("2016-01-01")), yearqtr(ymd("2017-01-01")), by = 1)
+idx_qtr <- seq(
+  yearquarter(ymd("2016-01-01")), yearquarter(ymd("2017-01-01")), by = 1
+)
 dat_x <- tibble(
  yrqtr = idx_qtr,
  value = rnorm(5)

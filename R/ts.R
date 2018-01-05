@@ -119,7 +119,7 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' @export
 #'
 #' @examples
-#' x <- yearmth(seq(2016, 2018, by = 0.25))
+#' x <- yearmonth(seq(2016, 2018, by = 0.25))
 #' guess_frequency(x)
 guess_frequency <- function(x) {
   UseMethod("guess_frequency")
