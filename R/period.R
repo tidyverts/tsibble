@@ -3,18 +3,18 @@
 
 #' Represent year-month or year-quarter objects
 #'
-#' Create or coerce using `yearmth()`, or `yearqtr()`
+#' Create or coerce using `yearmonth()`, or `yearquarter()`
 #'
 #' @param x Other object.
 #'
-#' @return Year-month (`yearmth`) or year-quarter (`yearqtr`)
+#' @return Year-month (`yearmonth`) or year-quarter (`yearquarter`)
 #' objects.
 #' @details It's a known issue that these attributes will be dropped when using
 #' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
 #' then use [mutate].
 #'
 #' @section Index functions:
-#' The tsibble `yearmth()` and `yearqtr()` functiosn preserve the time zone of 
+#' The tsibble `yearmonth()` and `yearquarter()` functiosn preserve the time zone of 
 #' the input `x`, contrasting to their zoo counterparts.
 #'
 #' @export
@@ -22,20 +22,20 @@
 #' @seealso [pull_interval]
 #'
 #' @examples
-#' # coerce dates to yearmth, yearqtr ----
+#' # coerce dates to yearmonth, yearquarter ----
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
-#' yearmth(x)
-#' yearqtr(x)
+#' yearmonth(x)
+#' yearquarter(x)
 #'
-#' # coerce numerics to yearmth, yearqtr ----
-#' yearmth(seq(2010, 2017, by = 1/12))
-#' yearqtr(seq(2010, 2017, by = 1/4))
+#' # coerce numerics to yearmonth, yearquarter ----
+#' yearmonth(seq(2010, 2017, by = 1/12))
+#' yearquarter(seq(2010, 2017, by = 1/4))
 #'
-#' # coerce yearmonths to yearqtr ----
-#' y <- yearmth(x)
-#' yearqtr(y)
-yearmth <- function(x) {
-  UseMethod("yearmth")
+#' # coerce yearmonths to yearquarter ----
+#' y <- yearmonth(x)
+#' yearquarter(y)
+yearmonth <- function(x) {
+  UseMethod("yearmonth")
 }
 
 as_yearmonth <- function(x) {
@@ -53,7 +53,12 @@ rep.yearmonth <- function(x, ...) {
 }
 
 #' @export
-yearmth.POSIXt <- function(x) {
+unique.yearmonth <- function(x, incomparables = FALSE, ...) {
+  as_yearmonth(NextMethod())
+}
+
+#' @export
+yearmonth.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   month <- formatC(posix$mon, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, month, "01", sep = "-"))
@@ -61,15 +66,15 @@ yearmth.POSIXt <- function(x) {
 }
 
 #' @export
-yearmth.Date <- yearmth.POSIXt
+yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
-yearmth.yearmonth <- function(x) {
+yearmonth.yearmonth <- function(x) {
   as_yearmonth(x)
 }
 
 #' @export
-yearmth.numeric <- function(x) {
+yearmonth.numeric <- function(x) {
   year <- trunc(x)
   month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
   result <- as.Date(paste(year, month, "01", sep = "-"))
@@ -77,7 +82,7 @@ yearmth.numeric <- function(x) {
 }
 
 #' @export
-yearmth.yearmth <- yearmth.numeric
+yearmonth.yearmth <- yearmonth.numeric
 
 #' @export
 format.yearmonth <- function(x, format = "%Y %b", ...) {
@@ -108,8 +113,8 @@ pillar_shaft.yearmonth <- function(x, ...) {
 
 #' @rdname period
 #' @export
-yearqtr <- function(x) {
-  UseMethod("yearqtr")
+yearquarter <- function(x) {
+  UseMethod("yearquarter")
 }
 
 as_yearquarter <- function(x) {
@@ -127,7 +132,12 @@ rep.yearquarter <- function(x, ...) {
 }
 
 #' @export
-yearqtr.POSIXt <- function(x) {
+unique.yearquarter <- function(x, incomparables = FALSE, ...) {
+  as_yearquarter(NextMethod())
+}
+
+#' @export
+yearquarter.POSIXt <- function(x) {
   posix <- split_POSIXt(x)
   qtrs <- formatC(posix$mon - (posix$mon - 1) %% 3, flag = 0, width = 2)
   result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
@@ -135,18 +145,18 @@ yearqtr.POSIXt <- function(x) {
 }
 
 #' @export
-yearqtr.Date <- yearqtr.POSIXt
+yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
-yearqtr.yearmonth <- yearqtr.POSIXt
+yearquarter.yearmonth <- yearquarter.POSIXt
 
 #' @export
-yearqtr.yearquarter <- function(x) {
+yearquarter.yearquarter <- function(x) {
   as_yearquarter(x)
 }
 
 #' @export
-yearqtr.numeric <- function(x) {
+yearquarter.numeric <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- formatC(last_month - 2, flag = 0, width = 2)
@@ -155,7 +165,7 @@ yearqtr.numeric <- function(x) {
 }
 
 #' @export
-yearqtr.yearqtr <- yearqtr.numeric
+yearquarter.yearqtr <- yearquarter.numeric
 
 #' @importFrom lubridate as_date
 #' @importFrom lubridate tz
@@ -230,7 +240,7 @@ seq.yearmonth <- function(
     abort("The arg of (by) only takes a numeric.")
   }
   by_mth <- paste(by, "month")
-  yearmth(seq_date(
+  yearmonth(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
   ))
@@ -244,7 +254,7 @@ seq.yearquarter <- function(
     abort("The arg of (by) only takes a numeric.")
   }
   by_qtr <- paste(by, "quarter")
-  yearqtr(seq_date(
+  yearquarter(seq_date(
     from = from, to = to, by = by_qtr, length.out = length.out,
     along.with = along.with, ...
   ))
@@ -252,12 +262,12 @@ seq.yearquarter <- function(
 
 #' @export
 `[.yearmonth` <- function(x, i) {
-  yearmth(as_date(x)[i])
+  yearmonth(as_date(x)[i])
 }
 
 #' @export
 `[.yearquarter` <- function(x, i) {
-  yearqtr(as_date(x)[i])
+  yearquarter(as_date(x)[i])
 }
 
 #' @export

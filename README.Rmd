@@ -48,13 +48,13 @@ The **key** is not constrained to a single variable, but expressive of nested an
 
 ### `tsummarise()` to summarise over calendar periods
 
-A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmth()`, and `yearqtr()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmth()` to the hourly time index.
+A new verb `tsummarise()` is here to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmonth()` to the hourly time index.
 
 ```{r tsummarise}
 weather_tsbl %>%
   group_by(origin) %>%
   tsummarise(
-    year_month = yearmth(time_hour), # monthly aggregates
+    year_month = yearmonth(time_hour), # monthly aggregates
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
