@@ -20,12 +20,15 @@
 #' x2 <- as_tsibble(EuStockMarkets)
 #' head(as.ts(x2, frequency = 260))
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
+  value <- enquo(value)
   key_vars <- key(x)
   if (is_nest(key_vars)) {
-    abort("Please use as.hts() instead.")
+    # abort("Please use as.hts() instead.")
+    abort("Don't know how to deal with nested keys.")
   }
   if (length(key_vars) > 1) {
-    abort("Please use as.gts() instead.")
+    # abort("Please use as.gts() instead.")
+    abort("Don't know how to deal with crossed keys.")
   }
   mat_ts <- spread_tsbl(x, value = value, fill = fill)
   finalise_ts(mat_ts, index = index(x), frequency = frequency)
@@ -33,10 +36,18 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
 
 spread_tsbl <- function(data, value, fill = NA, sep = "") {
   spread_val <- measured_vars(data)
-  if (is_false(has_length(spread_val, 1))) {
-    str_val <- paste(spread_val, collapse = ",")
-    msg <- paste0("Please specify one of the variables for 'value': ", str_val)
-    abort(msg)
+  str_val <- paste(spread_val, collapse = ",")
+  msg <- paste0("Please specify one of the variables for 'value': ", str_val)
+  if (quo_is_missing(value)) {
+    if (is_false(has_length(spread_val, 1))) {
+      abort(msg)
+    }
+  } else {
+    val <- quo_text(value)
+    if (is_false(val %in% spread_val)) {
+      abort(msg)
+    }
+    spread_val <- val
   }
   # ToDo: only works with a single key rather than the nested and grouped keys
   spread_key <- key(data)
@@ -46,8 +57,8 @@ spread_tsbl <- function(data, value, fill = NA, sep = "") {
   idx_var <- index(data)
   compact_tsbl <- data %>%
     mutate(key = paste(!!! spread_key, sep = sep)) %>%
-    select(!! idx_var, key, spread_val)
-  as_tibble(compact_tsbl) %>%
+    select(!! idx_var, key, spread_val, drop = TRUE)
+  compact_tsbl %>%
     tidyr::spread(key = key, value = spread_val, fill = fill) %>%
     arrange(!! idx_var)
 }
@@ -56,6 +67,9 @@ finalise_ts <- function(data, index, frequency = NULL) {
   idx_time <- time(dplyr::pull(data, !! index))
   out <- data %>%
     select(- !! index)
+  if (NCOL(out) == 1) {
+    out <- out[[1]]
+  }
   if (is.null(frequency)) {
     frequency <- stats::frequency(idx_time)
   }

@@ -1,0 +1,50 @@
+context("Test as.ts.tbl_ts()")
+
+test_that("Test a tsibble with different frequnecy", {
+  x1 <- ts(1:10)
+  tsbl1 <- as_tsibble(x1)
+  y1 <- as.ts(tsbl1)
+  expect_identical(x1, y1)
+  expect_equal(frequency(y1), 1)
+  expect_equal(start(y1), c(1, 1))
+  x2 <- ts(1:10, start = 2000)
+  tsbl2 <- as_tsibble(x2)
+  y2 <- as.ts(tsbl2)
+  expect_identical(x2, y2)
+  expect_equal(start(y2), c(2000, 1))
+  x3 <- ts(1:10, start = c(2000, 1), frequency = 4)
+  tsbl3 <- as_tsibble(x3)
+  y3 <- as.ts(tsbl3)
+  expect_identical(x3, y3)
+  expect_equal(frequency(y3), 4)
+  expect_equal(start(y3), c(2000, 1))
+  x4 <- ts(1:10, start = c(2000, 1), frequency = 12)
+  tsbl4 <- as_tsibble(x4)
+  y4 <- as.ts(tsbl4)
+  expect_identical(x4, y4)
+  expect_equal(frequency(y4), 12)
+  expect_equal(start(y4), c(2000, 1))
+})
+
+test_that("Test a tsibble with a single key", {
+  x <- ts(matrix(1:10, ncol = 2))
+  tsbl1 <- as_tsibble(x)
+  y1 <- as.ts(x)
+  expect_identical(x, y1)
+})
+
+test_that("Test a tsibble with more than one measured vars", {
+  expect_error(as.ts(pedestrian))
+  expect_error(as.ts(pedestrian, value = Date_Time))
+  y <- as.ts(pedestrian, value = Count)
+  expect_is(y, "mts")
+  expect_equal(frequency(y), 24)
+  expect_equal(ncol(y), 4)
+})
+
+test_that("Test a tsibble with composite keys", {
+  eg1 <- hts::htseg1
+  tsbl1 <- as_tsibble(hts::htseg1)
+  expect_error(as.ts(tsbl1))
+  expect_error(as.ts(tourism))
+})
