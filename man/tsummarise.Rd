@@ -29,6 +29,7 @@ It computes summary statistics for a tsibble over calendar periods, usually
 used in combination of \link{group_by}.
 }
 \examples{
+# Monthly counts across Sensors
 data(pedestrian)
 monthly_ped <- pedestrian \%>\% 
   group_by(Sensor) \%>\% 
@@ -39,4 +40,10 @@ monthly_ped <- pedestrian \%>\%
   )
 monthly_ped
 index(monthly_ped)
+
+# Annual trips by Region and State ----
+data(tourism)
+tourism \%>\% 
+  group_by(Region | State) \%>\% 
+  tsummarise(Year = lubridate::year(Quarter), Total = sum(Trips))
 }

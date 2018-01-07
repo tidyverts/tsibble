@@ -98,8 +98,8 @@ as_tsibble.tbl_df <- function(
 ) {
   index <- enquo(index)
   tsibble_tbl(
-    x, key = key, index = index,
-    validate = validate, regular = regular
+    x, key = key, index = index, regular = regular,
+    validate = validate
   )
 }
 
