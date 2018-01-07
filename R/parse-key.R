@@ -85,7 +85,7 @@ is_nest <- function(lst_syms) {
 
 parse_key <- function(lst_keys) {
   if (is_empty(lst_keys)) {
-    return(lst_keys)
+    return(list())
   }
   # purrr::map(lst_keys, ~ flatten_nest(.[[-1]]))
   purrr::map(lst_keys, flatten_nest)
