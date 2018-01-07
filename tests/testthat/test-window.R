@@ -28,7 +28,7 @@ test_that("Test stretch.numeric() and stretcher() output", {
 })
 
 sx <- pedestrian %>%
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-06"))
 
 test_that("Test slide.data.frame()", {
   qtl_df <- sx %>%
