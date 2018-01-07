@@ -351,8 +351,9 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
     tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
   }
 
+  grped_key <- dplyr::grouped_df(tbl, flat_keys)
   attr(tbl, "key") <- structure(key_vars, class = "key")
-  attr(tbl, "key_indices") <- group_size(dplyr::grouped_df(tbl, flat_keys))
+  attr(tbl, "key_indices") <- dplyr::group_size(grped_key)
   attr(tbl, "index") <- index
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular

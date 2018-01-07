@@ -29,9 +29,10 @@ tbl_sum.tbl_ts <- function(x) {
 
 #' @export
 tbl_sum.grouped_ts <- function(x) {
-  info_tbl_ts <- tbl_sum.tbl_ts(x)
-  c(info_tbl_ts,
-    "Groups" = paste(group_vars(x), collapse = ", ")
+  tbl <- as_tibble(x)
+  n_grps <- dplyr::n_groups(tbl)
+  c(NextMethod(),
+    "Groups" = paste(paste_comma(group_vars(x)), surround(n_grps, "["))
   )
 }
 
