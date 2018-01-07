@@ -40,7 +40,7 @@ tiler(x, size = 3)
 
 # tiling over a 2-day window for hourly data ----
 sx <- pedestrian \%>\%
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 sx \%>\% 
   tile(~ quantile(.$Count), size = 48, deframe = FALSE)
 }

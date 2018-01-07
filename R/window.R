@@ -119,7 +119,7 @@ slider <- function(x, size = 1) {
 #'
 #' # tiling over a 2-day window for hourly data ----
 #' sx <- pedestrian %>%
-#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 #' sx %>% 
 #'   tile(~ quantile(.$Count), size = 48, deframe = FALSE)
 tile <- function(x, .f, ..., size = 1) {
@@ -182,7 +182,7 @@ tiler <- function(x, size = 1) {
 #'
 #' # stretching a 2-day window for a data frame ----
 #' sx <- pedestrian %>% 
-#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 #' sx %>%
 #'   stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
 stretch <- function(x, .f, ..., size = 1, init = 1) {

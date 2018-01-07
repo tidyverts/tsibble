@@ -40,7 +40,7 @@ stretcher(x, init = 3)
 
 # stretching a 2-day window for a data frame ----
 sx <- pedestrian \%>\% 
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 sx \%>\%
   stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
 }
