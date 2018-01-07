@@ -3,6 +3,8 @@ context("Test rolling window function and its variants")
 x <- 1:3
 
 test_that("Test slide.numeric() and slider() output", {
+  expect_error(slider(x, size = 0))
+  expect_error(slider(list(x)))
   expect_equal(slider(x), list(1, 2, 3))
   expect_equal(slider(x, size = 2), list(1:2, 2:3))
   expect_equal(slide(x, sum), 1:3)
@@ -18,8 +20,45 @@ test_that("Test tile.numeric() and tiler() output", {
 })
 
 test_that("Test stretch.numeric() and stretcher() output", {
+  expect_error(stretcher(x, init = c(3, 5)))
   expect_equal(stretcher(x), list(1, 1:2, 1:3))
   expect_equal(stretcher(x, init = 2), list(1:2, 1:3))
   expect_equal(stretch(x, sum), c(1, 3, 6))
   expect_equal(stretch(x, sum, init = 2), c(3, 6))
+})
+
+sx <- pedestrian %>%
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
+
+test_that("Test slide.data.frame()", {
+  qtl_df <- sx %>%
+    slide(~ quantile(.$Count), size = 24, deframe = FALSE)
+  expect_equal(dim(qtl_df), c(NROW(sx), 5))
+  expect_is(qtl_df, "tbl_df")
+  qtl_lst <- sx %>%
+    slide(~ quantile(.$Count), size = 24)
+  expect_equal(NROW(qtl_df), NROW(sx))
+  expect_is(qtl_lst, "list")
+})
+
+test_that("Test tile.data.frame()", {
+  qtl_df <- sx %>%
+    tile(~ quantile(.$Count), size = 24, deframe = FALSE)
+  expect_equal(dim(qtl_df), c(NROW(sx) / 24, 5))
+  expect_is(qtl_df, "tbl_df")
+  qtl_lst <- sx %>%
+    tile(~ quantile(.$Count), size = 24)
+  expect_equal(NROW(qtl_df), NROW(sx) / 24)
+  expect_is(qtl_lst, "list")
+})
+
+test_that("Test stretch.data.frame()", {
+  qtl_df <- sx %>%
+    stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
+  expect_equal(dim(qtl_df), c(NROW(sx) - 47, 5))
+  expect_is(qtl_df, "tbl_df")
+  qtl_lst <- sx %>%
+    stretch(~ quantile(.$Count), init = 48)
+  expect_equal(NROW(qtl_df), NROW(sx) - 47)
+  expect_is(qtl_lst, "list")
 })

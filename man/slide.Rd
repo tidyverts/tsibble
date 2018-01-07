@@ -11,7 +11,7 @@ slide(x, .f, ..., size = 1, fill)
 
 \method{slide}{default}(x, .f, ..., size = 1, fill = NA_real_)
 
-\method{slide}{data.frame}(x, .f, ..., size = 1, fill = data.frame(),
+\method{slide}{data.frame}(x, .f, ..., size = 1, fill = NA,
   deframe = TRUE)
 
 slider(x, size = 1)

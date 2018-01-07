@@ -61,16 +61,22 @@ slide.default <- function(x, .f, ..., size = 1, fill = NA_real_) {
 #' @param deframe TRUE a list is returned. FALSE returns a data frame.
 #' @export
 slide.data.frame <- function(
-  x, .f, ..., size = 1, fill = data.frame(), deframe = TRUE
+  x, .f, ..., size = 1, fill = NA, deframe = TRUE
 ) {
+  # currently not support grouped_df/ts
   lst_x <- slider(x, size = size)
   result <- purrr::map(lst_x, .f, ...)
-  output <- c(replicate(n = size - 1, fill, simplify = FALSE), result)
-  if (deframe) {
-    return(output)
+  if (is.na(fill)) {
+    fill <- rep_len(fill, length(result[[1]]))
   }
-  # currently not support grouped_df/ts
-  dplyr::bind_rows(output)
+  out <- c(replicate(n = size - 1, fill, simplify = FALSE), result)
+  if (deframe) {
+    return(out)
+  } else if (is.null(names(out))) {
+    return(as_tibble(do.call(rbind, out)))
+  } else {
+    dplyr::bind_rows(out)
+  }
 }
 
 #' @rdname slide
@@ -135,11 +141,11 @@ tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
   out <- purrr::map(lst_x, .f, ...)
   if (deframe) {
     return(out)
-  }
-  if (is.null(names(out))) {
+  } else if (is.null(names(out))) {
     return(as_tibble(do.call(rbind, out)))
+  } else {
+    dplyr::bind_rows(out)
   }
-  dplyr::bind_rows(out)
 }
 
 #' @rdname tile
@@ -198,11 +204,11 @@ stretch.data.frame <- function(x, .f, ..., size = 1, init = 1, deframe = TRUE) {
   out <- purrr::map(lst_x, .f, ...)
   if (deframe) {
     return(out)
-  }
-  if (is.null(names(out))) {
+  } else if (is.null(names(out))) {
     return(as_tibble(do.call(rbind, out)))
+  } else {
+    dplyr::bind_rows(out)
   }
-  dplyr::bind_rows(out)
 }
 
 #' @rdname stretch
