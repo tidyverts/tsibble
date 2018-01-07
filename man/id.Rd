@@ -10,5 +10,8 @@ id(...)
 \item{...}{Variables passed to tsibble()/as_tsibble().}
 }
 \description{
-Impose a nested or crossed structure to a tsibble
+Impose a structure to a tsibble
+}
+\seealso{
+\link{tsibble}, \link{as_tsibble}
 }

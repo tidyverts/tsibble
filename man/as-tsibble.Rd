@@ -14,14 +14,14 @@
 \usage{
 as_tsibble(x, ...)
 
-\method{as_tsibble}{tbl_df}(x, key = id(), index, validate = TRUE,
-  regular = TRUE, ...)
+\method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
+  validate = TRUE, ...)
 
-\method{as_tsibble}{data.frame}(x, key = id(), index, validate = TRUE,
-  regular = TRUE, ...)
+\method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
+  validate = TRUE, ...)
 
-\method{as_tsibble}{list}(x, key = id(), index, validate = TRUE,
-  regular = TRUE, ...)
+\method{as_tsibble}{list}(x, key = id(), index, regular = TRUE,
+  validate = TRUE, ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
@@ -35,19 +35,19 @@ as_tsibble(x, ...)
 \item{...}{Other arguments passed on to individual methods.}
 
 \item{key}{Structural variable(s) that define unique time indices, used with
-the helper \code{id()}. If a univariate time series (without an explicit key),
+the helper \link{id}. If a univariate time series (without an explicit key),
 simply call \code{id()}.See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
+
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
+finds the minimal time span as the interval.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will
 also make sure that the nested variables are arranged from lower level to
 higher, if nested variables are passed to \code{key}. If you are sure that it's a
 valid input, specify \code{FALSE} to skip the checks.}
-
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the minimal time span as the interval.}
 
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
 daily.}
@@ -73,12 +73,12 @@ as_tsibble(tbl1, index = date)
 # coerce tibble to tsibble with one key ----
 # "date" is automatically considered as the index var, and "group" is the key
 tbl2 <- tibble::tibble(
-  date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+  mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 )
 as_tsibble(tbl2, key = id(group))
-as_tsibble(tbl2, key = id(group), index = date)
+as_tsibble(tbl2, key = id(group), index = mth)
 
 # coerce ts to tsibble
 as_tsibble(AirPassengers)

@@ -2,10 +2,11 @@ globalVariables(c("key", "value", "zzz"))
 
 #' Create a tsibble object
 #'
-#' @param ... A set of name-value pairs.
+#' @param ... A set of name-value pairs. The names of "key" and "index" should
+#' be avoided as they are used as the arguments.
 #' @param key Structural variable(s) that define unique time indices, used with
-#' the helper `id()`. If a univariate time series (without an explicit key), 
-#' simply call `id()`.See below for details.
+#' the helper [id]. If a univariate time series (without an explicit key), 
+#' simply call `id()`. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
 #' finds the minimal time span as the interval.
@@ -16,7 +17,7 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A valid tsibble does not arrange time in the chronological order. 
+#' @details A valid tsibble does not arrange the index in the time order. 
 #' Please use [arrange] to get the order by time.
 #'
 #' @return A tsibble object.
@@ -31,10 +32,10 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' # create a tsibble with one key ----
 #' tbl2 <- tsibble(
-#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+#'   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1/ 4)), 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30),
-#'   key = id(group), index = date
+#'   key = id(group), index = qtr
 #' )
 #'
 #' @export
@@ -48,16 +49,16 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @param key Structural variable(s) that define unique time indices, used with
-#' the helper `id()`. If a univariate time series (without an explicit key), 
+#' the helper [id]. If a univariate time series (without an explicit key), 
 #' simply call `id()`.See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
+#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
+#' finds the minimal time span as the interval.
 #' @param validate `TRUE` suggests to verify that each key or each combination
 #' of key variables lead to unique time indices (i.e. a valid tsibble). It will
 #' also make sure that the nested variables are arranged from lower level to
 #' higher, if nested variables are passed to `key`. If you are sure that it's a 
 #' valid input, specify `FALSE` to skip the checks.
-#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
-#' finds the minimal time span as the interval.
 #' @param ... Other arguments passed on to individual methods.
 #'
 #' @return A tsibble object.
@@ -78,12 +79,12 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' # coerce tibble to tsibble with one key ----
 #' # "date" is automatically considered as the index var, and "group" is the key
 #' tbl2 <- tibble::tibble(
-#'   date = rep(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1), 3),
+#'   mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30)
 #' )
 #' as_tsibble(tbl2, key = id(group))
-#' as_tsibble(tbl2, key = id(group), index = date)
+#' as_tsibble(tbl2, key = id(group), index = mth)
 #'
 #' @export
 as_tsibble <- function(x, ...) {
@@ -93,7 +94,7 @@ as_tsibble <- function(x, ...) {
 #' @rdname as-tsibble
 #' @export
 as_tsibble.tbl_df <- function(
-  x, key = id(), index, validate = TRUE, regular = TRUE, ...
+  x, key = id(), index, regular = TRUE, validate = TRUE, ...
 ) {
   index <- enquo(index)
   tsibble_tbl(
@@ -128,7 +129,7 @@ as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
 }
 
-#' Return key variables
+#' Return key and measured variables
 #'
 #' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
@@ -141,11 +142,13 @@ as_tsibble.default <- function(x, ...) {
 #' data(pedestrian)
 #' key(pedestrian)
 #' key_vars(pedestrian)
+#' measured_vars(pedestrian)
 #'
 #' # Nested and crossed keys for tourism data ----
 #' data(tourism)
 #' key(tourism)
 #' key_vars(tourism)
+#' measured_vars(tourism)
 #' @export
 key <- function(x) {
   UseMethod("key")
@@ -182,15 +185,19 @@ group_vars.tbl_ts <- function(x) {
   format(groups(x))
 }
 
+#' @rdname key
+#' @export
 measured_vars <- function(x) {
   UseMethod("measured_vars")
 }
 
+#' @rdname key
+#' @export
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
   key_vars <- flatten_key(key(x))
   idx_var <- quo_text(index(x))
-  all_vars[!(all_vars %in% c(key_vars, idx_var))]
+  setdiff(all_vars, c(key_vars, idx_var))
 }
 
 #' Return index and interval from a tsibble
@@ -291,7 +298,7 @@ as.tsibble <- function(x, ...) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, key, index, validate = TRUE, regular = TRUE) {
+tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
 
   # extract or pass the index var
@@ -333,10 +340,11 @@ detect_type <- function() {
 
 #' Identifier to construct structural variables
 #'
-#' Impose a nested or crossed structure to a tsibble
+#' Impose a structure to a tsibble
 #'
 #' @param ... Variables passed to tsibble()/as_tsibble().
 #'
+#' @seealso [tsibble], [as_tsibble]
 #' @export
 id <- function(...) {
   quos(...)

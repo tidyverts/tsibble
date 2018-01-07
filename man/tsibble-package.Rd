@@ -2,10 +2,10 @@
 % Please edit documentation in R/tsibble-pkg.R
 \docType{package}
 \name{tsibble-package}
-\title{tsibble: temporal-context data frames and tools}
+\title{tsibble: tidy temporal data frames and tools}
 \description{
-The \strong{tsibble} package provides a data class of \code{tbl_ts} to manage temporal
-data frames in a tidy and modern way. A tsibble consists of a time index,
+The \strong{tsibble} package provides a data class of \code{tbl_ts} to store and manage
+temporal data frames in a tidy manner. A tsibble consists of a time index,
 key(s) and other measured variables in a data-centric format, which is built on
 top of the tibble.
 }
@@ -13,20 +13,22 @@ top of the tibble.
 
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but preserved as the essential component of the tsibble. A
-few index class, such as \code{Date}, \code{POSIXt}, and \code{difftime}, forms the basis of
+few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
 the tsibble, with new additions \link{yearmonth} and \link{yearquarter} representing
-year-month and year-quarter respectively.
+year-month and year-quarter respectively. \code{zoo::yearmth} and \code{zoo::yearqtr}
+are also supported. It is extensible to work with custom index, for example
+trading days and weekly data.
 }
 
 \section{Key}{
 
 Key variable(s) together with the index uniquely identifies each record. And
-key(s) also imposes the structure on a tsibble to describe other measured
-variables:
+key(s) also imposes the structure on a tsibble, which can be created via the
+\link{id} function as identifiers:
 \itemize{
-\item None: an implicit variable
+\item None: an implicit variable \code{id()} resulting a univariate time series.
 \item A single variable: an explicit variable. For example, \code{data(pedestrian)}
-uses the \code{Sensor} column as the key.
+uses the \code{id(Sensor)} column as the key.
 \item Nested variables: a nesting of one variable under another. For example,
 \code{data(tourism)} contains two geographical locations: \code{Region} and \code{State}.
 \code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
@@ -36,7 +38,8 @@ In theory, nesting can involve infinite levels, so is \code{tsibble}.
 \item Crossed variables: a crossing of one variable with another. For example,
 the geographical locations are crossed with the purpose of visiting (\code{Purpose})
 in the \code{data(tourism)}. A comma (\code{,}) is used to indicate this crossing
-relationship. Nested and crossed variables can be combined, such as \code{data(tourism)}.
+relationship. Nested and crossed variables can be combined, such as
+\code{data(tourism)} using \code{id(Region | State, Purpose)}.
 }
 
 These key variables are descriptors, not values.
@@ -50,9 +53,9 @@ The \link{interval} function returns the interval associated with the tsibble.
 "day", "week", "month", "quarter", "year". An unrecognisable time interval is
 labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
-marked with "!".
+marked with \code{!}.
 \item Unknown: if there is only one entry for each key variable, the interval
-cannot be determined ("?").
+cannot be determined (\code{?}).
 }
 }
 
