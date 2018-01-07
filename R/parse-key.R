@@ -41,9 +41,14 @@ update_key2 <- function(x, rhs, lhs) { # rhs is quos
   new_chr <- lhs[new_idx]
   na_idx <- which(is.na(new_idx), useNames = FALSE)
   new_chr[na_idx] <- old_chr[na_idx]
-  lgl <- rep(is_nest(x), purrr::map(x, length))
+  lgl <- FALSE
+  if (!is_empty(x)) {
+    lgl <- rep(is_nest(x), purrr::map(x, length))
+  }
 
-  if (any(lgl)) {
+  if (is_empty(new_chr)) {
+    return(id())
+  } else if (any(lgl)) {
     return(c(list(syms(new_chr[lgl])), syms(new_chr[!lgl])))
   } else {
     syms(new_chr[!lgl])
