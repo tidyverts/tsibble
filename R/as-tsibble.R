@@ -171,8 +171,38 @@ key_vars <- function(x) {
 }
 
 #' @export
-key_vars <- function(x) {
+key_vars.tbl_ts <- function(x) {
   format(key(x))
+}
+
+#' Compute sizes of key variables
+#'
+#' @param x A data frame.
+#'
+#' @examples
+#' key_size(pedestrian)
+#' n_keys(pedestrian)
+#'
+#' @rdname key-size
+#' @export
+key_size <- function(x) {
+  UseMethod("key_size")
+}
+
+#' @export
+key_size.tbl_ts <- function(x) {
+  attr(x, "key_indices")
+}
+
+#' @rdname key-size
+#' @export
+n_keys <- function(x) {
+  UseMethod("n_keys")
+}
+
+#' @export
+n_keys.tbl_ts <- function(x) {
+  length(key_size(x))
 }
 
 #' @export
@@ -305,7 +335,8 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   index <- extract_index_var(tbl, index = index)
   # validate key vars
   key_vars <- validate_key(data = tbl, key)
-  is_index_in_keys <- intersect(quo_text2(index), flatten_key(key_vars))
+  flat_keys <- flatten_key(key_vars)
+  is_index_in_keys <- intersect(quo_text2(index), flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     abort("The index variable cannot be one of the keys.")
   }
@@ -321,6 +352,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   }
 
   attr(tbl, "key") <- structure(key_vars, class = "key")
+  attr(tbl, "key_indices") <- group_size(dplyr::grouped_df(tbl, flat_keys))
   attr(tbl, "index") <- index
   attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
   attr(tbl, "regular") <- regular

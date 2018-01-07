@@ -46,7 +46,7 @@ long_data <- state_na %>%
 # maniputate Quarter
 qtr_data <- long_data %>%
   mutate(Quarter = paste(gsub(" quarter", "", Quarter), "01")) %>%
-  mutate(Quarter = yearqtr(myd(Quarter)))
+  mutate(Quarter = yearquarter(myd(Quarter)))
 
 # convert to tsibble
 tourism <- qtr_data %>%

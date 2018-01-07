@@ -24,6 +24,10 @@ split_period <- function(x) {
   )
 }
 
+paste_comma <- function(...) {
+  paste(..., collapse = ", ")
+}
+
 # regular time interval is obtained from the minimal time distance.
 # duplicated time entries result in 0L.
 # if validate = FALSE in as_tsibble, skip to check duplicated entries

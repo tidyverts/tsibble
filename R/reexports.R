@@ -1,3 +1,7 @@
+#' @importFrom dplyr group_size
+#' @export
+dplyr::group_size
+
 #' @importFrom dplyr group_vars
 #' @export
 dplyr::group_vars

@@ -22,7 +22,7 @@ tbl_sum.tbl_ts <- function(x) {
   } else {
     c(
       first,
-      "Keys" = paste(key_vars(x), collapse = ", ")
+      "Keys" = paste(paste_comma(key_vars(x)), surround(n_keys(x), "["))
     )
   }
 }
