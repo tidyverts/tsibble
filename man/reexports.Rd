@@ -3,6 +3,12 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{group_size}
+\alias{reexports}
+\alias{n_groups}
+\alias{reexports}
+\alias{group_indices}
+\alias{reexports}
 \alias{group_vars}
 \alias{reexports}
 \alias{groups}
@@ -55,7 +61,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr]{group_size}}, \code{\link[dplyr]{n_groups}}, \code{\link[dplyr]{group_indices}}, \code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{\%>\%}}}
 
   \item{pillar}{\code{\link[pillar]{type_sum}}, \code{\link[pillar]{obj_sum}}, \code{\link[pillar]{is_vector_s3}}, \code{\link[pillar]{pillar_shaft}}}
 

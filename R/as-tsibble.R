@@ -117,7 +117,26 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_ts <- as_tsibble.tbl_df
+as_tsibble.grouped_ts <- function(
+  x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
+) {
+  index <- enquo(index)
+  tbl <- tsibble_tbl(
+    x, key = key, index = index, regular = regular,
+    validate = validate
+  )
+  if (is_empty(groups)) {
+    groups <- groups(x)
+  }
+  flat_grps <- flatten_key(groups)
+  grped_df <- dplyr::grouped_df(tbl, flat_grps)
+  tibble::new_tibble(
+    tbl, 
+    "vars" = structure(groups, class = "vars"),
+    "indices" = group_size(grped_df),
+    subclass = c("grouped_ts", "tbl_ts")
+  )
+}
 
 #' @keywords internal
 #' @export
@@ -213,6 +232,21 @@ groups.tbl_ts <- function(x) {
 #' @export
 group_vars.tbl_ts <- function(x) {
   format(groups(x))
+}
+
+#' @export
+group_size.tbl_ts <- function(x) {
+  attr(x, "indices")
+}
+
+#' @export
+n_groups.tbl_ts <- function(x) {
+  length(group_size(x))
+}
+
+#' @export
+group_indices.grouped_ts <- function(x) {
+  group_indices(as_tibble(x))
 }
 
 #' @rdname key
@@ -352,18 +386,15 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   }
 
   grped_key <- dplyr::grouped_df(tbl, flat_keys)
-  attr(tbl, "key") <- structure(key_vars, class = "key")
-  attr(tbl, "key_indices") <- dplyr::group_size(grped_key)
-  attr(tbl, "index") <- index
-  attr(tbl, "interval") <- structure(tbl_interval, class = "interval")
-  attr(tbl, "regular") <- regular
-  sub_cls <- "tbl_ts"
-  if (is_grouped_ts(x) || dplyr::is_grouped_df(x)) {
-    grps <- groups(x)
-    attr(tbl, "vars") <- structure(grps, class = "vars")
-    sub_cls <- c("grouped_ts", sub_cls)
-  }
-  tibble::new_tibble(tbl, subclass = sub_cls)
+  tibble::new_tibble(
+    tbl, 
+    "key" = structure(key_vars, class = "key"),
+    "key_indices" = group_size(grped_key),
+    "index" = index,
+    "interval" = structure(tbl_interval, class = "interval"),
+    "regular" = regular,
+    subclass = "tbl_ts"
+  )
 }
 
 detect_type <- function() {
@@ -465,8 +496,8 @@ as.tibble.tbl_ts <- as_tibble.tbl_ts
 
 #' @export
 as_tibble.grouped_ts <- function(x, ...) {
-  grps <- groups(x)
-  tibble::new_tibble(x, "vars" = flatten(grps), subclass = "grouped_df")
+  flat_grps <- flatten_key(groups(x))
+  dplyr::grouped_df(x, flat_grps)
 }
 
 #' @export

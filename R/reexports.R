@@ -1,3 +1,15 @@
+#' @importFrom dplyr group_size
+#' @export
+dplyr::group_size
+
+#' @importFrom dplyr n_groups
+#' @export
+dplyr::n_groups
+
+#' @importFrom dplyr group_indices
+#' @export
+dplyr::group_indices
+
 #' @importFrom dplyr group_vars
 #' @export
 dplyr::group_vars

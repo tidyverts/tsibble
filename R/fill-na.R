@@ -140,10 +140,9 @@ complete.tbl_ts <- function(data, ..., fill = list()) {
   comp_data <- NextMethod()
   if (is_grouped_ts(data)) {
     comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
-    groups(comp_data) <- grps
   }
   tsbl <- as_tsibble(
-    comp_data, key = key(data), index = !! index(data),
+    comp_data, key = key(data), index = !! index(data), groups = grps,
     validate = FALSE, regular = is_regular(data)
   )
   restore_index_class(data, tsbl)
