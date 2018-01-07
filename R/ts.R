@@ -22,7 +22,7 @@
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   value <- enquo(value)
   key_vars <- key(x)
-  if (is_nest(key_vars)) {
+  if (any(is_nest(key_vars))) {
     # abort("Please use as.hts() instead.")
     abort("Don't know how to deal with nested keys.")
   }
@@ -133,8 +133,13 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' @export
 #'
 #' @examples
-#' x <- yearmonth(seq(2016, 2018, by = 0.25))
-#' guess_frequency(x)
+#' guess_frequency(yearquarter(seq(2016, 2018, by = 1 / 4)))
+#' guess_frequency(yearmonth(seq(2016, 2018, by = 1 / 12)))
+#' guess_frequency(seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1))
+#' guess_frequency(seq(
+#'   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+#'   by = "1 hour"
+#' ))
 guess_frequency <- function(x) {
   UseMethod("guess_frequency")
 }

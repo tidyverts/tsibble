@@ -48,3 +48,21 @@ test_that("Test a tsibble with composite keys", {
   expect_error(as.ts(tsbl1))
   expect_error(as.ts(tourism))
 })
+
+test_that("Test time.* and guess_frequency.*", {
+ dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
+ y <- time(dat)
+ expect_is(y, "ts")
+ expect_equal(frequency(y), 7)
+ expect_equal(guess_frequency(dat), 7)
+ dat_min <- seq(
+   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+   by = "1 min"
+ )
+ expect_equal(guess_frequency(dat_min), 60)
+ dat_sec <- seq(
+   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+   by = 1
+ )
+ expect_equal(guess_frequency(dat_sec), 60)
+})

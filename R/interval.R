@@ -1,7 +1,7 @@
 #' Extract time interval from a vector
 #'
 #' Assuming regularly spaced time, the `pull_interval()` returns a list of time
-#' components as the "interval" class; the `time_unit()` returns the number of
+#' components as the "interval" class; the `time_unit()` returns the value of
 #' time units.
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,

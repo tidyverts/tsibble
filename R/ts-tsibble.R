@@ -59,34 +59,34 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   as_tsibble(tbl_hts, key = lst_key, index = index, validate = FALSE)
 }
 
-as_tsibble.gts <- function(x, tz = "UTC", ...) {
-  bts <- x$bts
-  group <- x$group[-1, , drop = FALSE]
-  group <- group[-nrow(group), , drop = FALSE]
-  labels <- x$labels
-  if (is_empty(labels)) {
-    abort("I don't know how to handle a grouped time series with no group.")
-  }
-  seq_labs <- seq_along(labels)
-  grp_label <- purrr::map(seq_labs, ~ labels[[.]][group[., ]])
-  chr_labs <- vector(mode = "list", length = length(labels))
-  for (i in seq_labs) {
-    chr_labs[[i]] <- purrr::map_chr(
-      strsplit(grp_label[[i]], split = "/", fixed = TRUE), ~ .[2]
-    )
-  }
-  nr <- nrow(bts)
-  full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
-  names(full_labs) <- names(labels)
-
-  tbl <- gather_ts(bts, tz = tz) %>% 
-    dplyr::select(time, value)
-  colnames(tbl)[2] <- deparse(substitute(x))
-  out_hts <- dplyr::bind_cols(tbl, full_labs)
-  # this would work around the special character issue in headers for parse()
-  sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
-  as_tsibble(out_hts, index = time, sym_key)
-}
+# as_tsibble.gts <- function(x, tz = "UTC", ...) {
+#   bts <- x$bts
+#   group <- x$group[-1, , drop = FALSE]
+#   group <- group[-nrow(group), , drop = FALSE]
+#   labels <- x$labels
+#   if (is_empty(labels)) {
+#     abort("I don't know how to handle a grouped time series with no group.")
+#   }
+#   seq_labs <- seq_along(labels)
+#   grp_label <- purrr::map(seq_labs, ~ labels[[.]][group[., ]])
+#   chr_labs <- vector(mode = "list", length = length(labels))
+#   for (i in seq_labs) {
+#     chr_labs[[i]] <- purrr::map_chr(
+#       strsplit(grp_label[[i]], split = "/", fixed = TRUE), ~ .[2]
+#     )
+#   }
+#   nr <- nrow(bts)
+#   full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
+#   names(full_labs) <- names(labels)
+#
+#   tbl <- gather_ts(bts, tz = tz) %>% 
+#     dplyr::select(time, value)
+#   colnames(tbl)[2] <- deparse(substitute(x))
+#   out_hts <- dplyr::bind_cols(tbl, full_labs)
+#   # this would work around the special character issue in headers for parse()
+#   sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
+#   as_tsibble(out_hts, index = time, sym_key)
+# }
 
 as_tibble.gts <- function(x, ...) {
   tibble::as_tibble(x$bts)

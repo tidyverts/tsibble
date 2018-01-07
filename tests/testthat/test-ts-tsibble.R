@@ -15,6 +15,9 @@ test_that("Test a ts with different frequnecy", {
   x4 <- ts(1:10, start = c(2000, 1), frequency = 12)
   tsbl4 <- as_tsibble(x4)
   expect_identical(format(interval(tsbl4)), "1MONTH")
+  x5 <- ts(1:10, start = c(2000, 1), frequency = 7)
+  tsbl5 <- as_tsibble(x5)
+  expect_identical(format(interval(tsbl4)), "1MONTH")
 })
 
 test_that("Test a mts", {

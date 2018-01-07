@@ -23,7 +23,7 @@ other self-defined interval.
 }
 \description{
 Assuming regularly spaced time, the \code{pull_interval()} returns a list of time
-components as the "interval" class; the \code{time_unit()} returns the number of
+components as the "interval" class; the \code{time_unit()} returns the value of
 time units.
 }
 \details{

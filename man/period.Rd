@@ -37,8 +37,8 @@ yearmonth(x)
 yearquarter(x)
 
 # coerce numerics to yearmonth, yearquarter ----
-yearmonth(seq(2010, 2017, by = 1/12))
-yearquarter(seq(2010, 2017, by = 1/4))
+yearmonth(seq(2010, 2017, by = 1 / 12))
+yearquarter(seq(2010, 2017, by = 1 / 4))
 
 # coerce yearmonths to yearquarter ----
 y <- yearmonth(x)
