@@ -19,8 +19,8 @@ slider(x, size = 1)
 \arguments{
 \item{x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function or one-sided formula. If a formula, it is converted to
-a function.}
+\item{.f}{A function or one-sided formula using purrr-like syntax. If a
+formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
@@ -41,6 +41,7 @@ you may like to check out for
 \href{https://CRAN.R-project.org/package=RcppRoll}{RcppRoll} for faster performance.
 }
 \examples{
+# sliding through a vector ----
 x <- 1:10
 slide(x, mean, size = 3)
 slide(x, ~ mean(.), size = 3)
@@ -48,6 +49,24 @@ slide(x, mean, size = 3, fill = 0)
 
 # slider ----
 slider(x, size = 3)
+
+\dontrun{
+# takes a little longer for cran check
+# sliding a 2-day window for a data frame ----
+sx <- pedestrian \%>\% 
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+# directly return a data frame of fitted values and residuals
+diag_sx <- sx \%>\%
+  slide(function(x) {
+    fit <- lm(Count ~ Time, data = x)
+    data.frame(fitted = fitted(fit), resid = residuals(fit))
+  }, size = 48, deframe = FALSE)
+head(diag_sx)
+# save lm models as additional columns
+lm_sx <- sx \%>\% 
+  mutate(lm = slide(., ~ lm(Count ~ Time, data = .), size = 48))
+head(lm_sx)
+}
 }
 \seealso{
 \link{tile} for tiling window without overlapping observations;

@@ -4,8 +4,8 @@
 #' splits the input `x` to a list according to the window size.
 #'
 #' @param x A vector of numerics, or data frame.
-#' @param .f A function or one-sided formula. If a formula, it is converted to
-#' a function.
+#' @param .f A function or one-sided formula using purrr-like syntax. If a 
+#' formula, it is converted to a function.
 #' @param ... Additional arguments passed on to `.f`.
 #' @param size An integer for window size.
 #' @param fill A single value or data frame to replace `NA`.
@@ -16,6 +16,7 @@
 #' [stretch] for expanding more observations
 #'
 #' @examples
+#' # sliding through a vector ----
 #' x <- 1:10
 #' slide(x, mean, size = 3)
 #' slide(x, ~ mean(.), size = 3)
@@ -23,6 +24,24 @@
 #'
 #' # slider ----
 #' slider(x, size = 3)
+#'
+#' \dontrun{
+#' # takes a little longer for cran check
+#' # sliding a 2-day window for a data frame ----
+#' sx <- pedestrian %>% 
+#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+#' # directly return a data frame of fitted values and residuals
+#' diag_sx <- sx %>%
+#'   slide(function(x) {
+#'     fit <- lm(Count ~ Time, data = x)
+#'     data.frame(fitted = fitted(fit), resid = residuals(fit))
+#'   }, size = 48, deframe = FALSE)
+#' head(diag_sx)
+#' # save lm models as additional columns
+#' lm_sx <- sx %>% 
+#'   mutate(lm = slide(., ~ lm(Count ~ Time, data = .), size = 48))
+#' head(lm_sx)
+#' }
 slide <- function(x, .f, ..., size = 1, fill) {
   UseMethod("slide")
 }
@@ -86,8 +105,17 @@ slider <- function(x, size = 1) {
 #' [stretch] for expanding more observations
 #'
 #' @examples
-#' tile(1:10, mean, size = 3)
-#' tiler(1:10, size = 3)
+#' # tiling over a vector ----
+#' x <- 1:10
+#' tile(x, sum, size = 3)
+#' tile(x, ~ sum(.), size = 3)
+#' tiler(x, size = 3)
+#'
+#' # tiling over a 2-day window for hourly data ----
+#' sx <- pedestrian %>%
+#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+#' sx %>% 
+#'   tile(~ quantile(.$Count), size = 48, deframe = FALSE)
 tile <- function(x, .f, ..., size = 1) {
   UseMethod("tile")
 }
@@ -104,23 +132,23 @@ tile.default <- function(x, .f, ..., size = 1) {
 #' @export
 tile.data.frame <- function(x, .f, ..., size = 1, deframe = TRUE) {
   lst_x <- tiler(x, size = size)
+  out <- purrr::map(lst_x, .f, ...)
   if (deframe) {
-    return(purrr::map(lst_x, .f, ...))
+    return(out)
   }
-  purrr::map_df(lst_x, .f, ...)
+  if (is.null(names(out))) {
+    return(as_tibble(do.call(rbind, out)))
+  }
+  dplyr::bind_rows(out)
 }
 
 #' @rdname tile
 #' @export
 tiler <- function(x, size = 1) {
   bad_window_function(x, size)
-  if (is.data.frame(x)) {
-    seq_x <- nrow(x)
-    denom <- seq_x + 1
-  } else {
-    seq_x <- seq_along(x)
-    denom <- length(x) + 1
-  }
+  len_x <- NROW(x)
+  seq_x <- seq_len(len_x)
+  denom <- len_x + 1
   frac <- ceiling((seq_x %% denom) / size)
   unname(split(x, frac))
 }
@@ -141,8 +169,16 @@ tiler <- function(x, size = 1) {
 #' [tile] for tiling window without overlapping observations.
 #'
 #' @examples
-#' stretch(1:10, mean, init = 3)
-#' stretcher(1:10, init = 3)
+#' x <- 1:10
+#' stretch(x, mean, init = 3)
+#' stretch(x, ~ mean(.), init = 3)
+#' stretcher(x, init = 3)
+#'
+#' # stretching a 2-day window for a data frame ----
+#' sx <- pedestrian %>% 
+#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+#' sx %>%
+#'   stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
 stretch <- function(x, .f, ..., size = 1, init = 1) {
   UseMethod("stretch")
 }
@@ -159,10 +195,14 @@ stretch.default <- function(x, .f, ..., size = 1, init = 1) {
 #' @export
 stretch.data.frame <- function(x, .f, ..., size = 1, init = 1, deframe = TRUE) {
   lst_x <- stretcher(x, size = size, init = init)
+  out <- purrr::map(lst_x, .f, ...)
   if (deframe) {
-    return(purrr::map(lst_x, .f, ...))
+    return(out)
   }
-  purrr::map_df(lst_x, .f, ...)
+  if (is.null(names(out))) {
+    return(as_tibble(do.call(rbind, out)))
+  }
+  dplyr::bind_rows(out)
 }
 
 #' @rdname stretch
@@ -181,7 +221,7 @@ stretcher <- function(x, size = 1, init = 1) {
   }
   counter <- incr(init = init, size = size) 
 
-  ncall <- seq_len(ceiling((length(x) - init) / size) - 1)
+  ncall <- seq_len(ceiling((NROW(x) - init) / size) - 1)
   incr_lst <- c(
     list(seq_len(init)), 
     purrr::map(ncall, ~ seq_len(counter())),

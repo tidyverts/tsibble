@@ -19,8 +19,8 @@ stretcher(x, size = 1, init = 1)
 \arguments{
 \item{x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function or one-sided formula. If a formula, it is converted to
-a function.}
+\item{.f}{A function or one-sided formula using purrr-like syntax. If a
+formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
@@ -33,8 +33,16 @@ a function.}
 \code{stretcher()} splits the input \code{x} to a list according to the window size.
 }
 \examples{
-stretch(1:10, mean, init = 3)
-stretcher(1:10, init = 3)
+x <- 1:10
+stretch(x, mean, init = 3)
+stretch(x, ~ mean(.), init = 3)
+stretcher(x, init = 3)
+
+# stretching a 2-day window for a data frame ----
+sx <- pedestrian \%>\% 
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+sx \%>\%
+  stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
 }
 \seealso{
 \link{slide} for sliding window with overlapping observations;

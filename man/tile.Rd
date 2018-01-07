@@ -18,8 +18,8 @@ tiler(x, size = 1)
 \arguments{
 \item{x}{A vector of numerics, or data frame.}
 
-\item{.f}{A function or one-sided formula. If a formula, it is converted to
-a function.}
+\item{.f}{A function or one-sided formula using purrr-like syntax. If a
+formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
@@ -32,8 +32,17 @@ a function.}
 splits the input \code{x} to a list according to the window size.
 }
 \examples{
-tile(1:10, mean, size = 3)
-tiler(1:10, size = 3)
+# tiling over a vector ----
+x <- 1:10
+tile(x, sum, size = 3)
+tile(x, ~ sum(.), size = 3)
+tiler(x, size = 3)
+
+# tiling over a 2-day window for hourly data ----
+sx <- pedestrian \%>\%
+  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+sx \%>\% 
+  tile(~ quantile(.$Count), size = 48, deframe = FALSE)
 }
 \seealso{
 \link{slide} for sliding window with overlapping observations;
