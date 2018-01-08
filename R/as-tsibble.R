@@ -363,8 +363,9 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
-  tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
+  use_id(key)
 
+  tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
   # validate key vars
@@ -507,4 +508,11 @@ as.tibble.grouped_ts <- as_tibble.grouped_ts
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
   class(x) <- "data.frame"
   x
+}
+
+use_id <- function(x) {
+  tryCatch(
+    is_quosures(x),
+    error = function(e) stop("Please use `tsibble::id()` to create the 'key'.")
+  )
 }
