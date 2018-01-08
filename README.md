@@ -117,11 +117,11 @@ temperatures for each group (*origin*).
 ``` r
 weather_tsbl %>% 
   group_by(origin) %>% 
-  mutate(temp_mv = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
+  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
 #> # A tsibble: 26,130 x 6 [1HOUR]
 #> # Keys: origin [3]
 #> # Groups: origin [3]
-#>   origin time_hour            temp humid precip temp_mv
+#>   origin time_hour            temp humid precip temp_ma
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
 #> 1 EWR    2013-01-01 11:00:00  37.0  54.0      0    NA  
 #> 2 EWR    2013-01-01 12:00:00  37.0  54.0      0    NA  
