@@ -99,16 +99,16 @@
     <pre class="usage"><span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_df</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='no'>...</span>)
@@ -133,12 +133,17 @@
     <tr>
       <th>key</th>
       <td><p>Structural variable(s) that define unique time indices, used with
-the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
+the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.See below for details.</p></td>
     </tr>
     <tr>
       <th>index</th>
       <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>regular</th>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
+finds the minimal time span as the interval.</p></td>
     </tr>
     <tr>
       <th>validate</th>
@@ -147,11 +152,6 @@ of key variables lead to unique time indices (i.e. a valid tsibble). It will
 also make sure that the nested variables are arranged from lower level to
 higher, if nested variables are passed to <code>key</code>. If you are sure that it's a
 valid input, specify <code>FALSE</code> to skip the checks.</p></td>
-    </tr>
-    <tr>
-      <th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
-finds the minimal time span as the interval.</p></td>
     </tr>
     <tr>
       <th>tz</th>
@@ -180,71 +180,71 @@ daily.</p></td>
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 )
 <span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: date</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
-#&gt;          date        value
-#&gt;  *     &lt;date&gt;        &lt;dbl&gt;
-#&gt;  1 2017-01-01 -1.400043517
-#&gt;  2 2017-01-02  0.255317055
-#&gt;  3 2017-01-03 -2.437263611
-#&gt;  4 2017-01-04 -0.005571287
-#&gt;  5 2017-01-05  0.621552721
-#&gt;  6 2017-01-06  1.148411606
-#&gt;  7 2017-01-07 -1.821817661
-#&gt;  8 2017-01-08 -0.247325302
-#&gt;  9 2017-01-09 -0.244199607
-#&gt; 10 2017-01-10 -0.282705449</div><div class='input'><span class='co'># specify the index var</span>
+#&gt;    date          value
+#&gt;    &lt;date&gt;        &lt;dbl&gt;
+#&gt;  1 2017-01-01 -1.40   
+#&gt;  2 2017-01-02  0.255  
+#&gt;  3 2017-01-03 -2.44   
+#&gt;  4 2017-01-04 -0.00557
+#&gt;  5 2017-01-05  0.622  
+#&gt;  6 2017-01-06  1.15   
+#&gt;  7 2017-01-07 -1.82   
+#&gt;  8 2017-01-08 -0.247  
+#&gt;  9 2017-01-09 -0.244  
+#&gt; 10 2017-01-10 -0.283  </div><div class='input'><span class='co'># specify the index var</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
-#&gt;          date        value
-#&gt;  *     &lt;date&gt;        &lt;dbl&gt;
-#&gt;  1 2017-01-01 -1.400043517
-#&gt;  2 2017-01-02  0.255317055
-#&gt;  3 2017-01-03 -2.437263611
-#&gt;  4 2017-01-04 -0.005571287
-#&gt;  5 2017-01-05  0.621552721
-#&gt;  6 2017-01-06  1.148411606
-#&gt;  7 2017-01-07 -1.821817661
-#&gt;  8 2017-01-08 -0.247325302
-#&gt;  9 2017-01-09 -0.244199607
-#&gt; 10 2017-01-10 -0.282705449</div><div class='input'>
+#&gt;    date          value
+#&gt;    &lt;date&gt;        &lt;dbl&gt;
+#&gt;  1 2017-01-01 -1.40   
+#&gt;  2 2017-01-02  0.255  
+#&gt;  3 2017-01-03 -2.44   
+#&gt;  4 2017-01-04 -0.00557
+#&gt;  5 2017-01-05  0.622  
+#&gt;  6 2017-01-06  1.15   
+#&gt;  7 2017-01-07 -1.82   
+#&gt;  8 2017-01-08 -0.247  
+#&gt;  9 2017-01-09 -0.244  
+#&gt; 10 2017-01-10 -0.283  </div><div class='input'>
 <span class='co'># coerce tibble to tsibble with one key ----</span>
 <span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='fl'>3</span>),
+  <span class='kw'>mth</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='fu'>seq</span>(<span class='fl'>2017</span>, <span class='fl'>2017</span> + <span class='fl'>9</span> / <span class='fl'>12</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>12</span>)), <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: date</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
-#&gt; # Keys:      group
-#&gt;          date group       value
-#&gt;  *     &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt;  1 2017-01-01     x -0.55369938
-#&gt;  2 2017-01-02     x  0.62898204
-#&gt;  3 2017-01-03     x  2.06502490
-#&gt;  4 2017-01-04     x -1.63098940
-#&gt;  5 2017-01-05     x  0.51242695
-#&gt;  6 2017-01-06     x -1.86301149
-#&gt;  7 2017-01-07     x -0.52201251
-#&gt;  8 2017-01-08     x -0.05260191
-#&gt;  9 2017-01-09     x  0.54299634
-#&gt; 10 2017-01-10     x -0.91407483
-#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1DAY]
-#&gt; # Keys:      group
-#&gt;          date group       value
-#&gt;  *     &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt;  1 2017-01-01     x -0.55369938
-#&gt;  2 2017-01-02     x  0.62898204
-#&gt;  3 2017-01-03     x  2.06502490
-#&gt;  4 2017-01-04     x -1.63098940
-#&gt;  5 2017-01-05     x  0.51242695
-#&gt;  6 2017-01-06     x -1.86301149
-#&gt;  7 2017-01-07     x -0.52201251
-#&gt;  8 2017-01-08     x -0.05260191
-#&gt;  9 2017-01-09     x  0.54299634
-#&gt; 10 2017-01-10     x -0.91407483
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The 'index' variable: mth</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
+#&gt; # Keys: group [3]
+#&gt;         mth group   value
+#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 2017 Jan x     -0.554 
+#&gt;  2 2017 Feb x      0.629 
+#&gt;  3 2017 Mar x      2.07  
+#&gt;  4 2017 Apr x     -1.63  
+#&gt;  5 2017 May x      0.512 
+#&gt;  6 2017 Jun x     -1.86  
+#&gt;  7 2017 Jul x     -0.522 
+#&gt;  8 2017 Aug x     -0.0526
+#&gt;  9 2017 Sep x      0.543 
+#&gt; 10 2017 Oct x     -0.914 
+#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
+#&gt; # Keys: group [3]
+#&gt;         mth group   value
+#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 2017 Jan x     -0.554 
+#&gt;  2 2017 Feb x      0.629 
+#&gt;  3 2017 Mar x      2.07  
+#&gt;  4 2017 Apr x     -1.63  
+#&gt;  5 2017 May x      0.512 
+#&gt;  6 2017 Jun x     -1.86  
+#&gt;  7 2017 Jul x     -0.522 
+#&gt;  8 2017 Aug x     -0.0526
+#&gt;  9 2017 Sep x      0.543 
+#&gt; 10 2017 Oct x     -0.914 
 #&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># coerce ts to tsibble</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1MONTH]
 #&gt;       index value
-#&gt;  *    &lt;mth&gt; &lt;dbl&gt;
+#&gt;       &lt;mth&gt; &lt;dbl&gt;
 #&gt;  1 1949 Jan   112
 #&gt;  2 1949 Feb   118
 #&gt;  3 1949 Mar   132
@@ -257,20 +257,20 @@ daily.</p></td>
 #&gt; 10 1949 Oct   119
 #&gt; # ... with 134 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; # A tsibble: 289 x 2 [1YEAR]
 #&gt;    index value
-#&gt;  * &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1  1700     5
-#&gt;  2  1701    11
-#&gt;  3  1702    16
-#&gt;  4  1703    23
-#&gt;  5  1704    36
-#&gt;  6  1705    58
-#&gt;  7  1706    29
-#&gt;  8  1707    20
-#&gt;  9  1708    10
-#&gt; 10  1709     8
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  1700  5.00
+#&gt;  2  1701 11.0 
+#&gt;  3  1702 16.0 
+#&gt;  4  1703 23.0 
+#&gt;  5  1704 36.0 
+#&gt;  6  1705 58.0 
+#&gt;  7  1706 29.0 
+#&gt;  8  1707 20.0 
+#&gt;  9  1708 10.0 
+#&gt; 10  1709  8.00
 #&gt; # ... with 279 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; # A tsibble: 3,177 x 2 [1MONTH]
 #&gt;       index value
-#&gt;  *    &lt;mth&gt; &lt;dbl&gt;
+#&gt;       &lt;mth&gt; &lt;dbl&gt;
 #&gt;  1 1749 Jan  58.0
 #&gt;  2 1749 Feb  62.6
 #&gt;  3 1749 Mar  70.0
@@ -282,81 +282,81 @@ daily.</p></td>
 #&gt;  9 1749 Sep  75.9
 #&gt; 10 1749 Oct  75.5
 #&gt; # ... with 3,167 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; # A tsibble: 89 x 2 [1QUARTER]
-#&gt;      index   value
-#&gt;  *   &lt;qtr&gt;   &lt;dbl&gt;
-#&gt;  1 1971 Q2 13067.3
-#&gt;  2 1971 Q3 13130.5
-#&gt;  3 1971 Q4 13198.4
-#&gt;  4 1972 Q1 13254.2
-#&gt;  5 1972 Q2 13303.7
-#&gt;  6 1972 Q3 13353.9
-#&gt;  7 1972 Q4 13409.3
-#&gt;  8 1973 Q1 13459.2
-#&gt;  9 1973 Q2 13504.5
-#&gt; 10 1973 Q3 13552.6
+#&gt;      index value
+#&gt;      &lt;qtr&gt; &lt;dbl&gt;
+#&gt;  1 1971 Q2 13067
+#&gt;  2 1971 Q3 13130
+#&gt;  3 1971 Q4 13198
+#&gt;  4 1972 Q1 13254
+#&gt;  5 1972 Q2 13304
+#&gt;  6 1972 Q3 13354
+#&gt;  7 1972 Q4 13409
+#&gt;  8 1973 Q1 13459
+#&gt;  9 1973 Q2 13504
+#&gt; 10 1973 Q3 13553
 #&gt; # ... with 79 more rows</div><div class='input'>
 <span class='co'># coerce mts to tsibble</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>ts</span>(<span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
 <span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; # A tsibble: 300 x 3 [1MONTH]
-#&gt; # Keys:      key
-#&gt;       index      key       value
-#&gt;  *    &lt;mth&gt;    &lt;chr&gt;       &lt;dbl&gt;
-#&gt;  1 1961 Jan Series 1  0.07003485
-#&gt;  2 1961 Feb Series 1 -0.63912332
-#&gt;  3 1961 Mar Series 1 -0.04996490
-#&gt;  4 1961 Apr Series 1 -0.25148344
-#&gt;  5 1961 May Series 1  0.44479712
-#&gt;  6 1961 Jun Series 1  2.75541758
-#&gt;  7 1961 Jul Series 1  0.04653138
-#&gt;  8 1961 Aug Series 1  0.57770907
-#&gt;  9 1961 Sep Series 1  0.11819487
-#&gt; 10 1961 Oct Series 1 -1.91172049
+#&gt; # Keys: key [3]
+#&gt;       index key        value
+#&gt;       &lt;mth&gt; &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 1961 Jan Series 1  0.0700
+#&gt;  2 1961 Feb Series 1 -0.639 
+#&gt;  3 1961 Mar Series 1 -0.0500
+#&gt;  4 1961 Apr Series 1 -0.251 
+#&gt;  5 1961 May Series 1  0.445 
+#&gt;  6 1961 Jun Series 1  2.76  
+#&gt;  7 1961 Jul Series 1  0.0465
+#&gt;  8 1961 Aug Series 1  0.578 
+#&gt;  9 1961 Sep Series 1  0.118 
+#&gt; 10 1961 Oct Series 1 -1.91  
 #&gt; # ... with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1MONTH]
-#&gt;       index  `Series 1` `Series 2`  `Series 3`
-#&gt;  *    &lt;mth&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 1961 Jan  0.07003485 -0.1626763 -0.90281495
-#&gt;  2 1961 Feb -0.63912332 -0.8273102  1.31763370
-#&gt;  3 1961 Mar -0.04996490  1.8765056  1.10018974
-#&gt;  4 1961 Apr -0.25148344  0.7664402  1.20376784
-#&gt;  5 1961 May  0.44479712  0.9799567 -1.43127078
-#&gt;  6 1961 Jun  2.75541758  1.3217810  1.38291086
-#&gt;  7 1961 Jul  0.04653138 -1.1197108  0.00312594
-#&gt;  8 1961 Aug  0.57770907  0.5145998 -0.07788682
-#&gt;  9 1961 Sep  0.11819487 -1.5090998  0.44142823
-#&gt; 10 1961 Oct -1.91172049  1.5327415  0.12892290
+#&gt;       index `Series 1` `Series 2` `Series 3`
+#&gt;       &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1 1961 Jan     0.0700     -0.163   -0.903  
+#&gt;  2 1961 Feb    -0.639      -0.827    1.32   
+#&gt;  3 1961 Mar    -0.0500      1.88     1.10   
+#&gt;  4 1961 Apr    -0.251       0.766    1.20   
+#&gt;  5 1961 May     0.445       0.980   -1.43   
+#&gt;  6 1961 Jun     2.76        1.32     1.38   
+#&gt;  7 1961 Jul     0.0465     -1.12     0.00313
+#&gt;  8 1961 Aug     0.578       0.515   -0.0779 
+#&gt;  9 1961 Sep     0.118      -1.51     0.441  
+#&gt; 10 1961 Oct    -1.91        1.53     0.129  
 #&gt; # ... with 90 more rows</div><div class='input'>
 <span class='co'># coerce hts from the "hts" package to tsibble</span>
 <span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"hts"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'>stop</span>(<span class='st'>"Please install the hts package to run these following examples."</span>)
 }
 <span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg1</a></span>)</div><div class='output co'>#&gt; # A tsibble: 50 x 4 [1YEAR]
-#&gt; # Keys:      `Level 2` | `Level 1`
-#&gt;    index    value `Level 2` `Level 1`
-#&gt;  * &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt;     &lt;chr&gt;
-#&gt;  1  1992 7.862669        AA         A
-#&gt;  2  1993 8.340355        AA         A
-#&gt;  3  1994 8.549132        AA         A
-#&gt;  4  1995 8.597699        AA         A
-#&gt;  5  1996 8.770196        AA         A
-#&gt;  6  1997 8.837793        AA         A
-#&gt;  7  1998 8.893267        AA         A
-#&gt;  8  1999 8.933993        AA         A
-#&gt;  9  2000 9.133653        AA         A
-#&gt; 10  2001 9.152636        AA         A
+#&gt; # Keys: `Level 2` | `Level 1` [5]
+#&gt;    index value `Level 2` `Level 1`
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+#&gt;  1  1992  7.86 AA        A        
+#&gt;  2  1993  8.34 AA        A        
+#&gt;  3  1994  8.55 AA        A        
+#&gt;  4  1995  8.60 AA        A        
+#&gt;  5  1996  8.77 AA        A        
+#&gt;  6  1997  8.84 AA        A        
+#&gt;  7  1998  8.89 AA        A        
+#&gt;  8  1999  8.93 AA        A        
+#&gt;  9  2000  9.13 AA        A        
+#&gt; 10  2001  9.15 AA        A        
 #&gt; # ... with 40 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; # A tsibble: 160 x 5 [1YEAR]
-#&gt; # Keys:      `Level 3` | `Level 2` | `Level 1`
-#&gt;    index     value `Level 3` `Level 2` `Level 1`
-#&gt;  * &lt;dbl&gt;     &lt;dbl&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;
-#&gt;  1  1992 -2.423474      A10A       A10         A
-#&gt;  2  1993 -2.196065      A10A       A10         A
-#&gt;  3  1994 -2.187683      A10A       A10         A
-#&gt;  4  1995 -1.932308      A10A       A10         A
-#&gt;  5  1996 -1.637783      A10A       A10         A
-#&gt;  6  1997 -1.627386      A10A       A10         A
-#&gt;  7  1998 -1.614443      A10A       A10         A
-#&gt;  8  1999 -1.590909      A10A       A10         A
-#&gt;  9  2000 -1.532260      A10A       A10         A
-#&gt; 10  2001 -1.390682      A10A       A10         A
+#&gt; # Keys: `Level 3` | `Level 2` | `Level 1` [10]
+#&gt;    index value `Level 3` `Level 2` `Level 1`
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
+#&gt;  1  1992 -2.42 A10A      A10       A        
+#&gt;  2  1993 -2.20 A10A      A10       A        
+#&gt;  3  1994 -2.19 A10A      A10       A        
+#&gt;  4  1995 -1.93 A10A      A10       A        
+#&gt;  5  1996 -1.64 A10A      A10       A        
+#&gt;  6  1997 -1.63 A10A      A10       A        
+#&gt;  7  1998 -1.61 A10A      A10       A        
+#&gt;  8  1999 -1.59 A10A      A10       A        
+#&gt;  9  2000 -1.53 A10A      A10       A        
+#&gt; 10  2001 -1.39 A10A      A10       A        
 #&gt; # ... with 150 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -103,7 +103,7 @@ splits the input <code>x</code> to a list according to the window size.</p>
 <span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(),
+<span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>slider</span>(<span class='no'>x</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
@@ -117,8 +117,8 @@ splits the input <code>x</code> to a list according to the window size.</p>
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>A function or one-sided formula. If a formula, it is converted to
-a function.</p></td>
+      <td><p>A function or one-sided formula using purrr-like syntax. If a
+formula, it is converted to a function.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -152,7 +152,8 @@ you may like to check out for
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
+    <pre class="examples"><div class='input'><span class='co'># sliding through a vector ----</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
 <span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] NA NA  2  3  4  5  6  7  8  9</div><div class='input'><span class='fu'>slide</span>(<span class='no'>x</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] NA NA  2  3  4  5  6  7  8  9</div><div class='input'><span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt;  [1] 0 0 2 3 4 5 6 7 8 9</div><div class='input'>
 <span class='co'># slider ----</span>
 <span class='fu'>slider</span>(<span class='no'>x</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [[1]]
@@ -178,7 +179,24 @@ you may like to check out for
 #&gt; 
 #&gt; [[8]]
 #&gt; [1]  8  9 10
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># takes a little longer for cran check</span>
+<span class='co'># sliding a 2-day window for a data frame ----</span>
+<span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>, <span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-31"</span>))
+<span class='co'># directly return a data frame of fitted values and residuals</span>
+<span class='no'>diag_sx</span> <span class='kw'>&lt;-</span> <span class='no'>sx</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>slide</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {
+    <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x</span>)
+    <span class='fu'>data.frame</span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'>fitted</span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>fit</span>))
+  }, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>diag_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]
+<span class='co'># save lm models as additional columns</span>
+<span class='no'>lm_sx</span> <span class='kw'>&lt;-</span> <span class='no'>sx</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>lm</span> <span class='kw'>=</span> <span class='fu'>slide</span>(<span class='no'>.</span>, ~ <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>.</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>))
+<span class='no'>lm_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

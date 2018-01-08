@@ -31,6 +31,7 @@ reference:
 - title: Index functions
   contents:
     - starts_with("year")
+    - guess_frequency
 
 - title: Helpers
   contents:
@@ -39,12 +40,14 @@ reference:
     - index
     - interval
     - is_regular
+    - key_size
     - case_na
 
 - title: Extend tsibble
   contents:
     - index_sum
     - pull_interval
+    - time_unit
 
 - title: Dplyr verbs
   contents:
@@ -55,6 +58,10 @@ reference:
     - mutate.tbl_ts
     - summarise.tbl_ts
     - group_by.tbl_ts
+
+- title: Coerce to other objects
+  contents:
+    - as.ts.tbl_ts
 
 - title: Data
   contents:

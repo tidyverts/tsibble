@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract time interval from a vector — pull_interval • tsibble</title>
+<title>Coerce a tsibble to a time series — as.ts.tbl_ts • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,51 +89,77 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract time interval from a vector</h1>
+    <h1>Coerce a tsibble to a time series</h1>
     </div>
 
     
-    <p>Assuming regularly spaced time, the <code>pull_interval()</code> returns a list of time
-components as the "interval" class; the <code>time_unit()</code> returns the value of
-time units.</p>
+    <p>Coerce a tsibble to a time series</p>
     
 
-    <pre class="usage"><span class='fu'>pull_interval</span>(<span class='no'>x</span>, <span class='kw'>duplicated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
+<span class='fu'>as.ts</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector of <code>POSIXt</code>, <code>Date</code>, <code>yearmonth</code>, <code>yearquarter</code>, <code>difftime</code>,
-<code>hms</code>, <code>integer</code>, <code>numeric</code>.</p></td>
+      <td><p>A <code>tbl_ts</code> object.</p></td>
     </tr>
     <tr>
-      <th>duplicated</th>
-      <td><p><code>TRUE</code> removes the duplicated elements of <code>x</code> and compute
-the minimal time span.</p></td>
+      <th>value</th>
+      <td><p>A measured variable of interest to be spread over columns, if
+multiple measures.</p></td>
+    </tr>
+    <tr>
+      <th>frequency</th>
+      <td><p>A smart frequency with the default <code>NULL</code>. If set, the
+preferred frequency is passed to <code>ts()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p>A value replaces missing values.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Ignored for the function.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>pull_interval()</code>: an "interval" class (a list) includes "year",
-"quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-other self-defined interval.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code>pull_interval()</code> and <code>time_unit()</code> make a tsibble extensible to
-support custom time index.</p>
+    <p>A <code>ts</code> object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-10-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-10-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>pull_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; 3DAY</div><div class='input'><span class='co'># at two months interval ----</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='fu'>seq</span>(<span class='fl'>2016</span>, <span class='fl'>2018</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 6</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># a monthly series ----</span>
+<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>AirPassengers</span>)
+<span class='fu'>as.ts</span>(<span class='no'>x1</span>)</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
+#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
+#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
+#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194
+#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201
+#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229
+#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278
+#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306
+#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336
+#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
+#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
+#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div><div class='input'>
+<span class='co'># equally spaced over trading days, not smart enough to guess frequency ----</span>
+<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>EuStockMarkets</span>)
+<span class='fu'>head</span>(<span class='fu'>as.ts</span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt; Time Series:
+#&gt; Start = c(1991, 130) 
+#&gt; End = c(1991, 135) 
+#&gt; Frequency = 260 
+#&gt;             CAC     DAX   FTSE    SMI
+#&gt; 1991.496 1772.8 1628.75 2443.6 1678.1
+#&gt; 1991.500 1750.5 1613.63 2460.2 1688.5
+#&gt; 1991.504 1718.0 1606.51 2448.2 1678.6
+#&gt; 1991.508 1708.1 1621.04 2470.4 1684.1
+#&gt; 1991.512 1723.1 1618.16 2484.7 1686.6
+#&gt; 1991.515 1714.3 1610.61 2466.8 1671.6</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -141,8 +167,6 @@ support custom time index.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

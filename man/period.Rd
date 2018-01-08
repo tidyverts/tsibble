@@ -26,7 +26,7 @@ then use \link{mutate}.
 }
 \section{Index functions}{
 
-The tsibble \code{yearmonth()} and \code{yearquarter()} functiosn preserve the time zone of
+The tsibble \code{yearmonth()} and \code{yearquarter()} function preserve the time zone of
 the input \code{x}, contrasting to their zoo counterparts.
 }
 

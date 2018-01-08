@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tsibble: temporal-context data frames and tools — tsibble-package • tsibble</title>
+<title>tsibble: tidy temporal data frames and tools — tsibble-package • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,12 +89,12 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tsibble: temporal-context data frames and tools</h1>
+    <h1>tsibble: tidy temporal data frames and tools</h1>
     </div>
 
     
-    <p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to manage temporal
-data frames in a tidy and modern way. A tsibble consists of a time index,
+    <p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage
+temporal data frames in a tidy manner. A tsibble consists of a time index,
 key(s) and other measured variables in a data-centric format, which is built on
 top of the tibble.</p>
     
@@ -105,19 +105,21 @@ top of the tibble.</p>
     
     <p>The time indices are no longer an attribute (for example, the <code>tsp</code> attribute
 in a <code>ts</code> object), but preserved as the essential component of the tsibble. A
-few index class, such as <code>Date</code>, <code>POSIXt</code>, and <code>difftime</code>, forms the basis of
-the tsibble, with new additions <a href='period.html'>yearmth</a> and <a href='period.html'>yearqtr</a> representing year-month
-and year-quarter respectively.</p>
+few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
+the tsibble, with new additions <a href='period.html'>yearmonth</a> and <a href='period.html'>yearquarter</a> representing
+year-month and year-quarter respectively. <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>
+are also supported. It is extensible to work with custom index, for example
+trading days and weekly data.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
     
     <p>Key variable(s) together with the index uniquely identifies each record. And
-key(s) also imposes the structure on a tsibble to describe other measured
-variables:</p><ul>
-<li><p>None: an implicit variable</p></li>
+key(s) also imposes the structure on a tsibble, which can be created via the
+<a href='id.html'>id</a> function as identifiers:</p><ul>
+<li><p>None: an implicit variable <code><a href='id.html'>id()</a></code> resulting a univariate time series.</p></li>
 <li><p>A single variable: an explicit variable. For example, <code>data(pedestrian)</code>
-uses the <code>Sensor</code> column as the key.</p></li>
+uses the <code><a href='id.html'>id(Sensor)</a></code> column as the key.</p></li>
 <li><p>Nested variables: a nesting of one variable under another. For example,
 <code>data(tourism)</code> contains two geographical locations: <code>Region</code> and <code>State</code>.
 <code>Region</code> is the lower level than <code>State</code> in Australia; in other words, <code>Region</code>
@@ -127,7 +129,8 @@ In theory, nesting can involve infinite levels, so is <code>tsibble</code>.</p><
 <li><p>Crossed variables: a crossing of one variable with another. For example,
 the geographical locations are crossed with the purpose of visiting (<code>Purpose</code>)
 in the <code>data(tourism)</code>. A comma (<code>,</code>) is used to indicate this crossing
-relationship. Nested and crossed variables can be combined, such as <code>data(tourism)</code>.</p></li>
+relationship. Nested and crossed variables can be combined, such as
+<code>data(tourism)</code> using <code><a href='id.html'>id(Region | State, Purpose)</a></code>.</p></li>
 </ul>
     <p>These key variables are descriptors, not values.</p>
     
@@ -139,9 +142,9 @@ relationship. Nested and crossed variables can be combined, such as <code>data(t
 "day", "week", "month", "quarter", "year". An unrecognisable time interval is
 labelled as "unit".</p></li>
 <li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
-marked with "!".</p></li>
+marked with <code>!</code>.</p></li>
 <li><p>Unknown: if there is only one entry for each key variable, the interval
-cannot be determined ("?").</p></li>
+cannot be determined (<code>?</code>).</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="print-options"><a class="anchor" href="#print-options"></a>Print options</h2>

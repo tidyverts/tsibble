@@ -117,8 +117,8 @@
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>A function or one-sided formula. If a formula, it is converted to
-a function.</p></td>
+      <td><p>A function or one-sided formula using purrr-like syntax. If a
+formula, it is converted to a function.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -141,7 +141,8 @@ a function.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>stretch</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='no'>mean</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5</div><div class='input'><span class='fu'>stretcher</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
+<span class='fu'>stretch</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5</div><div class='input'><span class='fu'>stretch</span>(<span class='no'>x</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5</div><div class='input'><span class='fu'>stretcher</span>(<span class='no'>x</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 1 2 3
 #&gt; 
 #&gt; [[2]]
@@ -164,7 +165,25 @@ a function.</p></td>
 #&gt; 
 #&gt; [[8]]
 #&gt;  [1]  1  2  3  4  5  6  7  8  9 10
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='co'># stretching a 2-day window for a data frame ----</span>
+<span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>, <span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-10"</span>))
+<span class='no'>sx</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>stretch</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>48</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 193 x 5
+#&gt;     `0%` `25%` `50%` `75%` `100%`
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1  6.00  38.8 102     229    746
+#&gt;  2  6.00  38.0  98.0   215    746
+#&gt;  3  6.00  36.5  98.0   206    746
+#&gt;  4  6.00  36.0  98.0   198    746
+#&gt;  5  6.00  33.5  96.5   189    746
+#&gt;  6  6.00  26.0  95.0   180    746
+#&gt;  7  6.00  24.5  94.0   176    746
+#&gt;  8  6.00  22.5  93.0   172    746
+#&gt;  9  6.00  23.2  90.0   168    746
+#&gt; 10  6.00  24.0  87.0   164    746
+#&gt; # ... with 183 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return key variables — key • tsibble</title>
+<title>Return key and measured variables — key • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,7 +89,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return key variables</h1>
+    <h1>Return key and measured variables</h1>
     </div>
 
     
@@ -98,7 +98,12 @@
 
     <pre class="usage"><span class='fu'>key</span>(<span class='no'>x</span>)
 
-<span class='fu'>key_vars</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>key_vars</span>(<span class='no'>x</span>)
+
+<span class='fu'>measured_vars</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'>measured_vars</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,7 +120,7 @@
 <span class='fu'>data</span>(<span class='no'>pedestrian</span>)
 <span class='fu'>key</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; Sensor</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; $Sensor
 #&gt; [1] "Sensor"
-#&gt; </div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] "Date"  "Time"  "Count"</div><div class='input'>
 <span class='co'># Nested and crossed keys for tourism data ----</span>
 <span class='fu'>data</span>(<span class='no'>tourism</span>)
 <span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; $`Region | State`
@@ -123,7 +128,7 @@
 #&gt; 
 #&gt; $Purpose
 #&gt; [1] "Purpose"
-#&gt; </div></pre>
+#&gt; </div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Trips"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

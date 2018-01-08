@@ -36,11 +36,11 @@
 #'     fit <- lm(Count ~ Time, data = x)
 #'     data.frame(fitted = fitted(fit), resid = residuals(fit))
 #'   }, size = 48, deframe = FALSE)
-#' head(diag_sx)
+#' diag_sx[48:57, ]
 #' # save lm models as additional columns
 #' lm_sx <- sx %>% 
 #'   mutate(lm = slide(., ~ lm(Count ~ Time, data = .), size = 48))
-#' head(lm_sx)
+#' lm_sx[48:57, ]
 #' }
 slide <- function(x, .f, ..., size = 1, fill) {
   UseMethod("slide")

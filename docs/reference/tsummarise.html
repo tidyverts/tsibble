@@ -114,8 +114,8 @@ used in combination of <a href='http://dplyr.tidyverse.org/reference/group_by.ht
 in the calls, coupled with an index function, to carry out the calculation.
 The index functions that can be used, but not limited:</p><ul>
 <li><p><a href='http://www.rdocumentation.org/packages/lubridate/topics/year'>lubridate::year</a>: yearly aggregation</p></li>
-<li><p><a href='period.html'>yearqtr</a>: quarterly aggregation</p></li>
-<li><p><a href='period.html'>yearmth</a>: monthly aggregation</p></li>
+<li><p><a href='period.html'>yearquarter</a>: quarterly aggregation</p></li>
+<li><p><a href='period.html'>yearmonth</a>: monthly aggregation</p></li>
 <li><p>as.Date or <a href='http://www.rdocumentation.org/packages/lubridate/topics/as_date'>lubridate::as_date</a>: daily aggregation</p></li>
 <li><p><a href='http://www.rdocumentation.org/packages/lubridate/topics/round_date'>lubridate::ceiling_date</a> or <a href='http://www.rdocumentation.org/packages/lubridate/topics/round_date'>lubridate::round_date</a>: sub-daily aggregation</p></li>
 <li><p>other index functions from other packages</p></li>
@@ -125,31 +125,53 @@ The index functions that can be used, but not limited:</p><ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
+    <pre class="examples"><div class='input'><span class='co'># Monthly counts across Sensors</span>
+<span class='fu'>data</span>(<span class='no'>pedestrian</span>)
 <span class='no'>monthly_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>tsummarise</span>(
-    <span class='kw'>Year_Month</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmth</a></span>(<span class='no'>Date_Time</span>), <span class='co'># Year_Month will be the new index</span>
+    <span class='kw'>Year_Month</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>), <span class='co'># Year_Month will be the new index</span>
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>Count</span>)
   )
 <span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1MONTH]
-#&gt; # Keys:      Sensor
-#&gt; # Groups:    Sensor
-#&gt;            Sensor Year_Month Max_Count Min_Count
-#&gt;  *          &lt;chr&gt;      &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-#&gt;  1 Birrarung Marr   2015 Jan      5524         1
-#&gt;  2 Birrarung Marr   2015 Feb     10121         1
-#&gt;  3 Birrarung Marr   2015 Mar      9858         1
-#&gt;  4 Birrarung Marr   2015 Apr      7293         1
-#&gt;  5 Birrarung Marr   2015 May      5129         1
-#&gt;  6 Birrarung Marr   2015 Jun      7556         0
-#&gt;  7 Birrarung Marr   2015 Jul     11224         1
-#&gt;  8 Birrarung Marr   2015 Aug      5684         0
-#&gt;  9 Birrarung Marr   2015 Sep      7757         0
-#&gt; 10 Birrarung Marr   2015 Oct      7085         1
-#&gt; # ... with 85 more rows</div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; &lt;quosure: local&gt;
-#&gt; ~Year_Month</div></pre>
+#&gt; # Keys: Sensor [4]
+#&gt; # Groups: Sensor [4]
+#&gt;    Sensor         Year_Month Max_Count Min_Count
+#&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1 Birrarung Marr   2015 Jan      5524      1.00
+#&gt;  2 Birrarung Marr   2015 Feb     10121      1.00
+#&gt;  3 Birrarung Marr   2015 Mar      9858      1.00
+#&gt;  4 Birrarung Marr   2015 Apr      7293      1.00
+#&gt;  5 Birrarung Marr   2015 May      5129      1.00
+#&gt;  6 Birrarung Marr   2015 Jun      7556      0   
+#&gt;  7 Birrarung Marr   2015 Jul     11224      1.00
+#&gt;  8 Birrarung Marr   2015 Aug      5684      0   
+#&gt;  9 Birrarung Marr   2015 Sep      7757      0   
+#&gt; 10 Birrarung Marr   2015 Oct      7085      1.00
+#&gt; # ... with 85 more rows</div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; &lt;quosure&gt;
+#&gt;   expr: ^Year_Month
+#&gt;   env:  0x11acbc910</div><div class='input'>
+<span class='co'># Annual trips by Region and State ----</span>
+<span class='fu'>data</span>(<span class='no'>tourism</span>)
+<span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span> <span class='kw'>|</span> <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>tsummarise</span>(<span class='kw'>Year</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/lubridate/topics/year'>year</a></span>(<span class='no'>Quarter</span>), <span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,463 x 4 [1YEAR]
+#&gt; # Keys: Region | State [77]
+#&gt; # Groups: Region | State [77]
+#&gt;    Region   State            Year Total
+#&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 Adelaide South Australia  1998  2226
+#&gt;  2 Adelaide South Australia  1999  2218
+#&gt;  3 Adelaide South Australia  2000  2418
+#&gt;  4 Adelaide South Australia  2001  2264
+#&gt;  5 Adelaide South Australia  2002  2275
+#&gt;  6 Adelaide South Australia  2003  2203
+#&gt;  7 Adelaide South Australia  2004  2437
+#&gt;  8 Adelaide South Australia  2005  2034
+#&gt;  9 Adelaide South Australia  2006  2225
+#&gt; 10 Adelaide South Australia  2007  2317
+#&gt; # ... with 1,453 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

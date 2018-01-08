@@ -100,11 +100,11 @@ weather_tsbl %>%
 The `tsummarise()` can also help with regularising a tsibble of
 irregular time space.
 
-### A family of windowed functions: `slide()`, `tile()`, `stretch()`
+### A family of window functions: `slide()`, `tile()`, `stretch()`
 
-Temporal data often involves moving window calculations. A set of
+Temporal data often involves moving window calculations. Several
 functions in the *tsibble* allow for different variations of moving
-windows:
+windows using purrr-like syntax:
 
   - `slide()`: sliding window with overlapping observations.
   - `tile()`: tiling window without overlapping observations.
