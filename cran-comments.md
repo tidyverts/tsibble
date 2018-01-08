@@ -1,3 +1,8 @@
+This is a re-submission of new release. I've fixed the DESCRIPTION file as follows:
+
+* Adding the 'data-centric' feature to the 'tbl_ts' class
+* Listing supporting functions that the 'tsibble' provides
+
 ## Test environments
 
 * local OS X install, R 3.4.3
