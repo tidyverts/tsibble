@@ -35,6 +35,15 @@ In other words, \emph{Region} is nested into \emph{State}. These two geographica
 variables are crossed with \emph{Purpose} of visit. The resulting structure is
 \code{Region} | \code{State}, \code{Purpose}.
 }
+\examples{
+data(tourism)
+# nesting and crossed structure
+key(tourism)
+# Total trips over geographical regions
+tourism \%>\% 
+  group_by(Region | State) \%>\% 
+  summarise(Total_Trips = sum(Trips))
+}
 \references{
 \href{https://www.tra.gov.au}{Tourism Research Australia}
 }

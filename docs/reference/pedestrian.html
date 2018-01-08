@@ -114,6 +114,45 @@
     <p><a href='https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp'>Melbourne Open Data Portal</a></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
+<span class='co'># make implicit missingness to be explicit</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='fill-na.html'>fill_na</a></span>()</div><div class='output co'>#&gt; # A tsibble: 70,176 x 5 [1HOUR]
+#&gt; # Keys: Sensor [4]
+#&gt;    Sensor                        Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Birrarung Marr                2015-01-01 00:00:00 2015-01-01     0  1630
+#&gt;  2 Bourke Street Mall (North)    2015-01-01 00:00:00 NA            NA    NA
+#&gt;  3 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490
+#&gt;  4 Southern Cross Station        2015-01-01 00:00:00 2015-01-01     0   746
+#&gt;  5 Birrarung Marr                2015-01-01 01:00:00 2015-01-01     1   826
+#&gt;  6 Bourke Street Mall (North)    2015-01-01 01:00:00 NA            NA    NA
+#&gt;  7 QV Market-Elizabeth St (West) 2015-01-01 01:00:00 2015-01-01     1   397
+#&gt;  8 Southern Cross Station        2015-01-01 01:00:00 2015-01-01     1   312
+#&gt;  9 Birrarung Marr                2015-01-01 02:00:00 2015-01-01     2   567
+#&gt; 10 Bourke Street Mall (North)    2015-01-01 02:00:00 NA            NA    NA
+#&gt; # ... with 70,166 more rows</div><div class='input'><span class='co'># compute daily maximum counts across sensors</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='tsummarise.html'>tsummarise</a></span>(
+    <span class='kw'>Date1</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/lubridate/topics/as_date'>as_date</a></span>(<span class='no'>Date_Time</span>),
+    <span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>)
+  )</div><div class='output co'>#&gt; # A tsibble: 2,755 x 3 [1DAY]
+#&gt; # Keys: Sensor [4]
+#&gt; # Groups: Sensor [4]
+#&gt;    Sensor         Date1       MaxC
+#&gt;    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt;
+#&gt;  1 Birrarung Marr 2015-01-01  1630
+#&gt;  2 Birrarung Marr 2015-01-02   352
+#&gt;  3 Birrarung Marr 2015-01-03   226
+#&gt;  4 Birrarung Marr 2015-01-04   852
+#&gt;  5 Birrarung Marr 2015-01-05  1427
+#&gt;  6 Birrarung Marr 2015-01-06   937
+#&gt;  7 Birrarung Marr 2015-01-07   708
+#&gt;  8 Birrarung Marr 2015-01-08   568
+#&gt;  9 Birrarung Marr 2015-01-09  1629
+#&gt; 10 Birrarung Marr 2015-01-10  2439
+#&gt; # ... with 2,745 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -122,7 +161,9 @@
       <li><a href="#format">Format</a></li>
 
       <li><a href="#references">References</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

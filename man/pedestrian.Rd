@@ -19,6 +19,18 @@ pedestrian
 A dataset containing the hourly pedestrian counts from 2015-01-01 to
 2016-12-31 at 4 sensors in the city of Melbourne.
 }
+\examples{
+data(pedestrian)
+# make implicit missingness to be explicit
+pedestrian \%>\% fill_na()
+# compute daily maximum counts across sensors
+pedestrian \%>\% 
+  group_by(Sensor) \%>\% 
+  tsummarise(
+    Date1 = lubridate::as_date(Date_Time),
+    MaxC = max(Count)
+  )
+}
 \references{
 \href{https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp}{Melbourne Open Data Portal}
 }

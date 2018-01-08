@@ -28,12 +28,10 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   grps <- groups(.data)
   grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
   arr_data <- arrange(grped_data, ..., .by_group = .by_group)
-  tbl <- as_tsibble(
-    arr_data, key = key(.data), index = !! index(.data),
+  as_tsibble(
+    arr_data, key = key(.data), index = !! index(.data), groups = grps,
     validate = FALSE, regular = is_regular(.data)
   )
-  groups(tbl) <- grps
-  tbl
 }
 
 #' @rdname row-verb
@@ -47,12 +45,10 @@ filter.tbl_ts <- function(.data, ...) {
   } else {
     fil_data <- NextMethod()
   }
-  tbl <- as_tsibble(
-    fil_data, key = key(.data), index = !! index(.data),
+  as_tsibble(
+    fil_data, key = key(.data), index = !! index(.data), groups = grps,
     validate = FALSE, regular = is_regular(.data)
   )
-  groups(tbl) <- grps
-  tbl
 }
 
 #' @rdname row-verb
@@ -66,12 +62,10 @@ slice.tbl_ts <- function(.data, ...) {
   } else {
     slc_data <- NextMethod()
   }
-  tbl <- as_tsibble(
-    slc_data, key = key(.data), index = !! index(.data),
+  as_tsibble(
+    slc_data, key = key(.data), index = !! index(.data), groups = grps,
     validate = FALSE, regular = is_regular(.data)
   )
-  groups(tbl) <- grps
-  tbl
 }
 
 #' Column-wise verbs
@@ -161,12 +155,10 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
-  tbl <- as_tsibble(
-    mut_data, key = key(.data), index = !! index(.data),
+  as_tsibble(
+    mut_data, key = key(.data), index = !! index(.data), groups = grps,
     validate = validate, regular = is_regular(.data)
   )
-  groups(tbl) <- grps
-  tbl
 }
 
 #' @rdname col-verb
@@ -189,12 +181,10 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     dplyr::grouped_df(vars = chr_grps) %>%
     dplyr::summarise(!!! lst_quos)
 
-  tbl <- as_tsibble(
-    sum_data, key = grps, index = !! idx,
+  as_tsibble(
+    sum_data, key = grps, index = !! idx, groups = grps,
     validate = FALSE, regular = is_regular(.data)
   )
-  groups(tbl) <- grps
-  tbl
 }
 
 #' @rdname col-verb

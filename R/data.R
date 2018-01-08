@@ -13,6 +13,17 @@
 #' @docType data
 #' @name pedestrian
 #' @usage pedestrian
+#' @examples
+#' data(pedestrian)
+#' # make implicit missingness to be explicit
+#' pedestrian %>% fill_na()
+#' # compute daily maximum counts across sensors
+#' pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   tsummarise(
+#'     Date1 = lubridate::as_date(Date_Time),
+#'     MaxC = max(Count)
+#'   )
 "pedestrian"
 
 #' Australian domestic overnight trips
@@ -42,4 +53,12 @@
 #' @docType data
 #' @name tourism
 #' @usage tourism
+#' @examples
+#' data(tourism)
+#' # nesting and crossed structure
+#' key(tourism)
+#' # Total trips over geographical regions
+#' tourism %>% 
+#'   group_by(Region | State) %>% 
+#'   summarise(Total_Trips = sum(Trips))
 "tourism"
