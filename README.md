@@ -8,13 +8,20 @@ Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travi
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+[![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
-The **tsibble** package provides a data class of `tbl_ts` to manage
-temporal-context data frames in a tidy and modern way. A *tsibble*
+The **tsibble** package provides a data class of `tbl_ts` to store and
+manage temporal-context data frames in a tidy manner. A *tsibble*
 consists of a time index, keys and other measured variables in a
 data-centric format, which is built on top of the *tibble*.
 
 ## Installation
+
+You could install the stable version on CRAN:
+
+``` r
+install.packages("tsibble")
+```
 
 You could install the development version from Github using
 
@@ -28,11 +35,11 @@ devtools::install_github("earowang/tsibble", build_vignettes = TRUE)
 ### Coerce to a tsibble with `as_tsibble()`
 
 The `weather` data included in the package `nycflights13` is used as an
-example to illustrate. The “index” variable refers to the `time_hour`
+example to illustrate. The “index” variable is the `time_hour`
 containing the date-times, and the “key” is the `origin` as weather
-stations. **The key together with the index uniquely identifies each
-observation**, which defines a valid *tsibble*. Others can be considered
-as measured variables.
+stations created via the `id()`. **The key(s) together with the index
+uniquely identifies each observation**, which gives a valid *tsibble*.
+Other columns can be considered as measured variables.
 
 ``` r
 library(tsibble)
@@ -41,7 +48,7 @@ weather <- nycflights13::weather %>%
 weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 #> # A tsibble: 26,130 x 5 [1HOUR]
-#> # Keys: origin
+#> # Keys: origin [3]
 #>   origin time_hour            temp humid precip
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 11:00:00  37.0  54.0      0
@@ -53,18 +60,21 @@ weather_tsbl
 ```
 
 The **key** is not constrained to a single variable, but expressive of
-nested and crossed data structures. See `?tsibble` and
-`vignette("intro-tsibble")` for details.
+nested and crossed data structures. This incorporates univariate,
+multivariate, hierarchical and grouped time series into the tsibble
+framework. See `?tsibble` and
+[`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
+for details.
 
 ### `tsummarise()` to summarise over calendar periods
 
-A new verb `tsummarise()` is here to aggregate interested variables over
-calendar periods. The `tsummarise` goes hand in hand with the index
-functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as
-well as other friends from *lubridate*, such as `year()` and
-`ceiling_date()`. For example, it would be of interest in computing
-average temperature and total precipitation per month, by applying the
-`yearmonth()` to the hourly time index.
+A new verb `tsummarise()` is introduced to aggregate interested
+variables over calendar periods. The `tsummarise` goes hand in hand with
+the index functions including `as.Date()`, `yearmonth()`, and
+`yearquarter()`, as well as other friends from *lubridate*, such as
+`year()` and `ceiling_date()`. For example, it would be of interest in
+computing average temperature and total precipitation per month, by
+applying the `yearmonth()` to the hourly time index.
 
 ``` r
 weather_tsbl %>%
@@ -75,8 +85,8 @@ weather_tsbl %>%
     ttl_precip = sum(precip, na.rm = TRUE)
   )
 #> # A tsibble: 36 x 4 [1MONTH]
-#> # Keys: origin
-#> # Groups: origin
+#> # Keys: origin [3]
+#> # Groups: origin [3]
 #>   origin year_month avg_temp ttl_precip
 #>   <chr>       <mth>    <dbl>      <dbl>
 #> 1 EWR      2013 Jan     35.5       2.70
@@ -87,15 +97,14 @@ weather_tsbl %>%
 #> # ... with 31 more rows
 ```
 
-The `tsummarise()` can be a useful function for regularising an
-irregular
-tsibble.
+The `tsummarise()` can also help with regularising a tsibble of
+irregular time space.
 
-### Window functions applied to a tsibble: `slide()`, `tile()`, `stretch()`
+### A family of windowed functions: `slide()`, `tile()`, `stretch()`
 
-Time series data commonly get involved in moving window calculations. A
-set of verbs provided in the *tsibble* allow for different variations of
-moving windows:
+Temporal data often involves moving window calculations. A set of
+functions in the *tsibble* allow for different variations of moving
+windows:
 
   - `slide()`: sliding window with overlapping observations.
   - `tile()`: tiling window without overlapping observations.
@@ -107,34 +116,34 @@ temperatures for each group (*origin*).
 
 ``` r
 weather_tsbl %>% 
-  select(origin, time_hour, temp) %>% 
   group_by(origin) %>% 
-  mutate(temp_mv = slide(temp, mean, size = 3))
-#> # A tsibble: 26,130 x 4 [1HOUR]
-#> # Keys: origin
-#> # Groups: origin
-#>   origin time_hour            temp temp_mv
-#>   <chr>  <dttm>              <dbl>   <dbl>
-#> 1 EWR    2013-01-01 11:00:00  37.0    NA  
-#> 2 EWR    2013-01-01 12:00:00  37.0    NA  
-#> 3 EWR    2013-01-01 13:00:00  37.9    37.3
-#> 4 EWR    2013-01-01 14:00:00  37.9    37.6
-#> 5 EWR    2013-01-01 15:00:00  37.9    37.9
+  mutate(temp_mv = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
+#> # A tsibble: 26,130 x 6 [1HOUR]
+#> # Keys: origin [3]
+#> # Groups: origin [3]
+#>   origin time_hour            temp humid precip temp_mv
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
+#> 1 EWR    2013-01-01 11:00:00  37.0  54.0      0    NA  
+#> 2 EWR    2013-01-01 12:00:00  37.0  54.0      0    NA  
+#> 3 EWR    2013-01-01 13:00:00  37.9  52.1      0    37.3
+#> 4 EWR    2013-01-01 14:00:00  37.9  54.5      0    37.6
+#> 5 EWR    2013-01-01 15:00:00  37.9  57.0      0    37.9
 #> # ... with 2.612e+04 more rows
 ```
 
 It can be noticed that the common *dplyr* verbs, such as `summarise()`,
-`mutate()`, `select()`, `filter()`, and `arrange()`, work with the
+`mutate()`, `select()`, `filter()`, and `arrange()`, seamlessly work
+with the
 tsibble.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
 
 Often there are implicit missing cases in temporal data. If the
-observations are made at regular time interval, we’d like to turn these
+observations are made at regular time interval, we could turn these
 implicit missings to be explicit. The `fill_na()` function not only
-extends the index and key to make the `NA`s present, but also provides a
-consistent interface to replace these `NA`s using a set of name-value
-pairs.
+completes the index and keys to make the `NA`s present, but also
+provides a consistent interface to replace these `NA`s using a set of
+name-value pairs.
 
 ``` r
 full_pedestrian <- pedestrian %>%
@@ -142,11 +151,12 @@ full_pedestrian <- pedestrian %>%
     Date = lubridate::as_date(Date_Time),
     Time = lubridate::hour(Date_Time)
   )
-c(nrow(pedestrian), nrow(full_pedestrian))
-#> [1] 66071 70176
+c("original" = nrow(pedestrian), "full" = nrow(full_pedestrian))
+#> original     full 
+#>    66071    70176
 full_pedestrian
 #> # A tsibble: 70,176 x 5 [1HOUR]
-#> # Keys: Sensor
+#> # Keys: Sensor [4]
 #>   Sensor                        Date_Time           Date        Time Count
 #>   <chr>                         <dttm>              <date>     <int> <int>
 #> 1 Birrarung Marr                2015-01-01 00:00:00 2015-01-01     0  1630
