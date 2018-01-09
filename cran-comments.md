@@ -1,7 +1,4 @@
-This is a re-submission of new release. I've fixed the DESCRIPTION file as follows:
-
-* Adding the 'data-centric' feature to the 'tbl_ts' class
-* Listing supporting functions that the 'tsibble' provides
+This is a re-submission of new release. Thanks for pointing out the Date field in the DESCRIPTION file, which is fixed now.
 
 ## Test environments
 
