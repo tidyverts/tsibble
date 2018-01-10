@@ -458,7 +458,7 @@ validate_nested <- function(data, key) {
     if (is_false(all(n_lgl))) {
       which_bad <- key_nest[!n_lgl]
       msg <- purrr::map(which_bad, ~ paste(., collapse = " | "))
-      msg <- paste(msg, collapse = ", ")
+      msg <- paste_comma(msg)
       abort(paste0(
         "Incorrect ordering of nested variables: ",
         msg
@@ -480,7 +480,7 @@ validate_tbl_ts <- function(data, key, index) {
     )
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- paste(msg, "and", paste(format(key), collapse = ", "))
+      msg <- paste(msg, "and", paste_comma(format(key)))
     }
     abort(msg)
   }

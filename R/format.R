@@ -20,7 +20,7 @@ glimpse.tbl_ts <- function(x, width = NULL, ...) {
 
 #' @export
 print.key <- function(x, ...) {
-  cat_line(paste(format(x, ...), collapse = ", "))
+  cat_line(paste_comma(format(x, ...)))
   invisible(x)
 }
 

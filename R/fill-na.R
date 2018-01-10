@@ -82,7 +82,7 @@ modify_na <- function(.data, ...) {
   lhs <- names(lst_quos)
   check_names <- lhs %in% colnames(.data)
   if (is_false(all(check_names))) {
-    bad_names <- paste(lhs[which(!check_names)], collapse = ", ")
+    bad_names <- paste_comma(lhs[which(!check_names)])
     abort(paste("Unexpected LHS names:", bad_names))
   }
 
