@@ -105,5 +105,7 @@ In the example of `pedestrian`, the missing values of the *Date* and *Time*, are
 
 ## Related work
 
-* [tibbletime](https://github.com/business-science/tibbletime): time-aware tibbles. We have different APIs and thinking about temporal data.
-* [padr](https://github.com/EdwinTh/padr): padding of missing records in time series. We do more.
+* [zoo](https://CRAN.R-project.org/package=zoo): regular and irregular time series with methods.
+* [xts](https://github.com/joshuaulrich/xts): extensible time series.
+* [tibbletime](https://github.com/business-science/tibbletime): time-aware tibbles.
+* [padr](https://github.com/EdwinTh/padr): padding of missing records in time series.

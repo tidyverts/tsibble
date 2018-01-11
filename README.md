@@ -173,8 +173,10 @@ The rest of untouched variables (i.e. `Count`) simply leave NA as is.
 
 ## Related work
 
+  - [zoo](https://CRAN.R-project.org/package=zoo): regular and irregular
+    time series with methods.
+  - [xts](https://github.com/joshuaulrich/xts): extensible time series.
   - [tibbletime](https://github.com/business-science/tibbletime):
-    time-aware tibbles. We have different APIs and thinking about
-    temporal data.
+    time-aware tibbles.
   - [padr](https://github.com/EdwinTh/padr): padding of missing records
-    in time series. We do more.
+    in time series.
