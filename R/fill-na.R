@@ -1,3 +1,5 @@
+globalVariables(".")
+
 #' Turn implicit missing values into explicit missing values
 #'
 #' @param .data A data frame.
@@ -67,11 +69,25 @@ fill_na.tbl_ts <- function(.data, ...) {
       tidyr::nesting(!!! flatten(key(.data)))
     )
 
-  full_data <- full_data %>%
-    modify_na(!!! quos(...))
+  if (is_grouped_ts(.data)) {
+    full_data <- do(full_data, modify_na(., !!! quos(...)))
+  } else {
+    full_data <- full_data %>%
+      modify_na(!!! quos(...))
+  }
   full_data <- full_data %>%
     select(!!! syms(colnames(.data))) # keep the original order
   as_tsibble(full_data, key = key(.data), index = !! idx, validate = FALSE)
+}
+
+#' @export
+do.grouped_ts <- function(.data, ...) {
+  dplyr::do(as_tibble(.data), ...)
+}
+
+#' @export
+do.tbl_ts <- function(.data, ...) {
+  dplyr::do(as_tibble(.data), ...)
 }
 
 modify_na <- function(.data, ...) {
@@ -87,33 +103,13 @@ modify_na <- function(.data, ...) {
   }
 
   rhs <- purrr::map(lst_quos, f_rhs)
-  if (is_grouped_ts(.data)) {
-    lst_data <- split(.data, group_indices(.data))
-    lst_lang <- purrr::map(lst_data, function(dat) purrr::map2(
-      syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! dat))
-    ))
-    mod_quos <- purrr::map(seq_along(lst_lang),
-      ~ purrr::map(lst_lang[[.]], ~ lang("case_na", .))
-    )
-    mod_quos <- purrr::map(mod_quos, ~ `names<-`(., lhs))
-    mut_data <- purrr::map2(lst_data, mod_quos, ~ mutate(.x, !!! .y))
-    bind_data <- dplyr::bind_rows(mut_data)
-    tsbl <- as_tsibble(
-      bind_data, key = key(.data), index = !! index(.data),
-      validate = FALSE, regular = is_regular(.data)
-    )
-    grped_tsbl <- tsbl %>%
-      group_by(!!! groups(.data))
-    return(grped_tsbl)
-  } else {
-    lst_lang <- purrr::map2(
-      syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
-    )
-    mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
-    names(mod_quos) <- lhs
-    .data %>%
-      mutate(!!! mod_quos)
-  }
+  lst_lang <- purrr::map2(
+    syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
+  )
+  mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
+  names(mod_quos) <- lhs
+  .data %>%
+    mutate(!!! mod_quos)
 }
 
 #' A thin wrapper of `dplyr::case_when()` if there are `NA`s

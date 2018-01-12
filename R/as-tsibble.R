@@ -5,7 +5,7 @@ globalVariables(c("key", "value", "zzz"))
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
 #' @param key Structural variable(s) that define unique time indices, used with
-#' the helper [id]. If a univariate time series (without an explicit key), 
+#' the helper [id]. If a univariate time series (without an explicit key),
 #' simply call `id()`. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
@@ -17,7 +17,7 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A valid tsibble does not arrange the index in the time order. 
+#' @details A valid tsibble does not arrange the index in the time order.
 #' Please use [arrange] to get the order by time.
 #'
 #' @return A tsibble object.
@@ -49,7 +49,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @param key Structural variable(s) that define unique time indices, used with
-#' the helper [id]. If a univariate time series (without an explicit key), 
+#' the helper [id]. If a univariate time series (without an explicit key),
 #' simply call `id()`.See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
@@ -57,7 +57,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' @param validate `TRUE` suggests to verify that each key or each combination
 #' of key variables lead to unique time indices (i.e. a valid tsibble). It will
 #' also make sure that the nested variables are arranged from lower level to
-#' higher, if nested variables are passed to `key`. If you are sure that it's a 
+#' higher, if nested variables are passed to `key`. If you are sure that it's a
 #' valid input, specify `FALSE` to skip the checks.
 #' @param ... Other arguments passed on to individual methods.
 #'
@@ -131,7 +131,7 @@ as_tsibble.grouped_ts <- function(
   flat_grps <- flatten_key(groups)
   grped_df <- dplyr::grouped_df(tbl, flat_grps)
   tibble::new_tibble(
-    tbl, 
+    tbl,
     "vars" = structure(groups, class = "vars"),
     "indices" = group_size(grped_df),
     subclass = c("grouped_ts", "tbl_ts")
@@ -388,7 +388,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
 
   grped_key <- dplyr::grouped_df(tbl, flat_keys)
   tibble::new_tibble(
-    tbl, 
+    tbl,
     "key" = structure(key_vars, class = "key"),
     "key_indices" = group_size(grped_key),
     "index" = index,

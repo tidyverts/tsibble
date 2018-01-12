@@ -282,10 +282,9 @@ grouped_ts <- function(data, vars, group, add = FALSE) { # vars are characters
   class(grped_df) <- unique(c("grouped_ts", old_class))
   val_grps <- validate_key(data, group)
   data <- validate_nested(data = data, key = val_grps)
+  groups(grped_df) <- val_grps
   if (add) {
     groups(grped_df) <- c(groups(data), val_grps)
-  } else {
-    groups(grped_df) <- val_grps
   }
   grped_df
 }
