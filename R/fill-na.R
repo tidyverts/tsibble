@@ -60,13 +60,14 @@ fill_na.tbl_ts <- function(.data, ...) {
     abort("Don't know how to handle irregular time series data.")
   }
   idx <- index(.data)
+  key <- key(.data)
   full_data <- .data %>%
     tidyr::complete(
       !! quo_text2(idx) := seq(
         from = min0(!! idx), to = max0(!! idx),
         by = time_unit(!! idx)
       ),
-      tidyr::nesting(!!! flatten(key(.data)))
+      tidyr::nesting(!!! flatten(key))
     )
 
   if (is_grouped_ts(.data)) {
@@ -77,7 +78,8 @@ fill_na.tbl_ts <- function(.data, ...) {
   }
   full_data <- full_data %>%
     select(!!! syms(colnames(.data))) # keep the original order
-  as_tsibble(full_data, key = key(.data), index = !! idx, validate = FALSE)
+  tsbl <- as_tsibble(full_data, key = key, index = !! idx, validate = FALSE)
+  restore_index_class(.data, tsbl)
 }
 
 #' @export
@@ -137,11 +139,10 @@ complete.tbl_ts <- function(data, ..., fill = list()) {
   if (is_grouped_ts(data)) {
     comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
   }
-  tsbl <- as_tsibble(
+  as_tsibble(
     comp_data, key = key(data), index = !! index(data), groups = grps,
     validate = FALSE, regular = is_regular(data)
   )
-  restore_index_class(data, tsbl)
 }
 
 restore_index_class <- function(data, newdata) {
