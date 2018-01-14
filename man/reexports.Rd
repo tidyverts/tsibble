@@ -37,6 +37,8 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
+\alias{fill}
+\alias{reexports}
 \alias{glimpse}
 \alias{reexports}
 \alias{tbl_sum}
@@ -70,5 +72,7 @@ below to see their documentation.
   \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
+
+  \item{tidyr}{\code{\link[tidyr]{fill}}}
 }}
 

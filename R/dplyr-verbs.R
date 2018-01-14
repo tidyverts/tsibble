@@ -295,3 +295,12 @@ rm_class <- function(x, value) {
   class(x) <- class(x)[-match(value, class(x))]
   x
 }
+
+do.grouped_ts <- function(.data, ...) {
+  dplyr::do(as_tibble(.data), ...)
+}
+
+do.tbl_ts <- function(.data, ...) {
+  dplyr::do(as_tibble(.data), ...)
+}
+

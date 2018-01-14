@@ -1,3 +1,9 @@
+# tsibble 0.1.0.9999
+
+## New functions
+
+* Added the `tidyr::fill()` support for tsibble to fill `NA` backward or forward.
+
 # tsibble 0.1.0
 
 * Initial release on CRAN.

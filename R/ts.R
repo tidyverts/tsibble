@@ -34,35 +34,6 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   finalise_ts(mat_ts, index = index(x), frequency = frequency)
 }
 
-spread_tsbl <- function(data, value, fill = NA, sep = "") {
-  spread_val <- measured_vars(data)
-  str_val <- paste(spread_val, collapse = ",")
-  msg <- paste0("Please specify one of the variables for 'value': ", str_val)
-  if (quo_is_missing(value)) {
-    if (is_false(has_length(spread_val, 1))) {
-      abort(msg)
-    }
-  } else {
-    val <- quo_text(value)
-    if (is_false(val %in% spread_val)) {
-      abort(msg)
-    }
-    spread_val <- val
-  }
-  # ToDo: only works with a single key rather than the nested and grouped keys
-  spread_key <- key(data)
-  if (is_empty(spread_key)) {
-    return(as_tibble(data))
-  }
-  idx_var <- index(data)
-  compact_tsbl <- data %>%
-    mutate(key = paste(!!! spread_key, sep = sep)) %>%
-    select(!! idx_var, key, spread_val, drop = TRUE)
-  compact_tsbl %>%
-    tidyr::spread(key = key, value = spread_val, fill = fill) %>%
-    arrange(!! idx_var)
-}
-
 finalise_ts <- function(data, index, frequency = NULL) {
   idx_time <- time(dplyr::pull(data, !! index))
   out <- data %>%

@@ -66,6 +66,10 @@ dplyr::do
 #' @export
 dplyr::`%>%`
 
+#' @importFrom tidyr fill
+#' @export
+tidyr::fill
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

@@ -20,24 +20,30 @@ globalVariables(".")
 #'   key = id(fruit), index = year
 #' )
 #'
-#' # leave NA as is
-#' fill_na(harvest)
+#' # leave NA as is ----
+#' full_harvest <- fill_na(harvest)
+#' full_harvest
 #'
-#' # replace NA with a specific value
+#' # use fill() to fill `NA` by previous/next entry
+#' full_harvest %>% 
+#'   group_by(fruit) %>% 
+#'   fill(kilo, .direction = "down")
+#'
+#' # replace NA with a specific value ----
 #' harvest %>%
 #'   fill_na(kilo = 0L)
 #'
-#' # replace NA using a function by variable
-#' # enable `na.rm = TRUE` when necessary
+#' # replace NA using a function by variable ----
+#' # enable `na.rm = TRUE` when necessary ----
 #' harvest %>%
 #'   fill_na(kilo = sum(kilo, na.rm = TRUE))
 #'
-#' # replace NA using a function for each group
+#' # replace NA using a function for each group ----
 #' harvest %>%
 #'   group_by(fruit) %>%
 #'   fill_na(kilo = sum(kilo, na.rm = TRUE))
 #'
-#' # replace NA
+#' # replace NA ----
 #' pedestrian %>%
 #'   group_by(Sensor) %>%
 #'   fill_na(
@@ -82,16 +88,6 @@ fill_na.tbl_ts <- function(.data, ...) {
   restore_index_class(.data, tsbl)
 }
 
-#' @export
-do.grouped_ts <- function(.data, ...) {
-  dplyr::do(as_tibble(.data), ...)
-}
-
-#' @export
-do.tbl_ts <- function(.data, ...) {
-  dplyr::do(as_tibble(.data), ...)
-}
-
 modify_na <- function(.data, ...) {
   lst_quos <- quos(..., .named = TRUE)
   if (is_empty(lst_quos)) {
@@ -131,18 +127,6 @@ case_na <- function(formula) {
   lhs <- eval_bare(f_lhs(formula), env = env_f)
   rhs <- eval_bare(f_rhs(formula), env = env_f)
   dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
-}
-
-complete.tbl_ts <- function(data, ..., fill = list()) {
-  grps <- groups(data)
-  comp_data <- NextMethod()
-  if (is_grouped_ts(data)) {
-    comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
-  }
-  as_tsibble(
-    comp_data, key = key(data), index = !! index(data), groups = grps,
-    validate = FALSE, regular = is_regular(data)
-  )
 }
 
 restore_index_class <- function(data, newdata) {

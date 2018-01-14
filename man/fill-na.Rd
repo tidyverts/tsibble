@@ -25,24 +25,30 @@ harvest <- tsibble(
   key = id(fruit), index = year
 )
 
-# leave NA as is
-fill_na(harvest)
+# leave NA as is ----
+full_harvest <- fill_na(harvest)
+full_harvest
 
-# replace NA with a specific value
+# use fill() to fill `NA` by previous/next entry
+full_harvest \%>\% 
+  group_by(fruit) \%>\% 
+  fill(kilo, .direction = "down")
+
+# replace NA with a specific value ----
 harvest \%>\%
   fill_na(kilo = 0L)
 
-# replace NA using a function by variable
-# enable `na.rm = TRUE` when necessary
+# replace NA using a function by variable ----
+# enable `na.rm = TRUE` when necessary ----
 harvest \%>\%
   fill_na(kilo = sum(kilo, na.rm = TRUE))
 
-# replace NA using a function for each group
+# replace NA using a function for each group ----
 harvest \%>\%
   group_by(fruit) \%>\%
   fill_na(kilo = sum(kilo, na.rm = TRUE))
 
-# replace NA
+# replace NA ----
 pedestrian \%>\%
   group_by(Sensor) \%>\%
   fill_na(
