@@ -121,6 +121,8 @@ as_tsibble.grouped_ts <- function(
   x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
 ) {
   index <- enquo(index)
+  x <- validate_nested(data = x, key = key)
+
   tbl <- tsibble_tbl(
     x, key = key, index = index, regular = regular,
     validate = validate

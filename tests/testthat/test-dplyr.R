@@ -1,6 +1,11 @@
 library(lubridate)
 context("All dplyr verbs for tsibble")
 
+test_that("group_by()", {
+  expect_error(group_by(tourism, State | Region))
+  expect_error(group_by(tourism, State | Region, Purpose))
+})
+
 test_that("arrange()", {
  tsbl1 <- arrange(tourism, Quarter)
  expect_equal(tsbl1, tourism)
