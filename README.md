@@ -3,6 +3,8 @@
 
 # tsibble
 
+*/ˈt͡sɪbəl/*
+
 [![Travis-CI Build
 Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble)
 [![Coverage
