@@ -169,7 +169,8 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     return(summarise(as_tibble(.data), ...))
   }
   lst_quos <- quos(..., .named = TRUE)
-  vec_vars <- as.character(purrr::map(lst_quos, ~ lang_args(.)[[1]]))
+  lst_args <- purrr::compact(purrr::map(lst_quos, ~ dplyr::first(lang_args(.))))
+  vec_vars <- as.character(lst_args)
   if (has_index_var(j = vec_vars, x = .data)) {
     abort("The index variable cannot be summarised.")
   }

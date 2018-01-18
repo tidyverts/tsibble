@@ -94,4 +94,8 @@ test_that("summarise()", {
   expect_identical(index(tourism), index(tsbl2))
   expect_identical(is_regular(tourism), is_regular(tsbl2))
   # expect_identical(group_vars(tsbl2), key_vars(tourism))
+  tsbl3 <- tourism %>%
+    group_by(!!! key(.)) %>%
+    summarise(Obs = n())
+  expect_identical(nrow(tsbl3), nrow(tourism))
 })
