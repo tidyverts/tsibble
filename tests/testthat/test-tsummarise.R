@@ -78,7 +78,7 @@ test_that("tsummarise for grouped_ts", {
   res1 <- tsbl3 %>%
     group_by(group) %>%
     tsummarise(value = sum(value), yrmth = yearmonth(date))
-  expect_is(res1, "grouped_ts")
+  expect_is(res1, "tbl_ts")
   expect_equal(
     as_tibble(res1),
     tibble(
