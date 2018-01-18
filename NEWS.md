@@ -4,6 +4,10 @@
 
 * Added the `tidyr::fill()` support for tsibble to fill `NA` backward or forward.
 
+## Bug fixes
+
+* Fixed the bug of `summarise.tbl_ts()` and `tsummarise.tbl_ts()`, when calling functions with no parameters (like `dplyr::n()`. (@mitchelloharawild)
+
 # tsibble 0.1.0
 
 * Initial release on CRAN.
