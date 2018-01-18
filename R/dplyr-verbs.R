@@ -183,7 +183,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     dplyr::summarise(!!! lst_quos)
 
   as_tsibble(
-    sum_data, key = grps, index = !! idx, groups = grps,
+    sum_data, key = grps, index = !! idx, groups = drop_group(grps),
     validate = FALSE, regular = is_regular(.data)
   )
 }

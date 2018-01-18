@@ -28,6 +28,9 @@ The index functions that can be used, but not limited:
 It computes summary statistics for a tsibble over calendar periods, usually
 used in combination of \link{group_by}.
 }
+\details{
+One grouping level will be dropped.
+}
 \examples{
 # Monthly counts across Sensors
 data(pedestrian)

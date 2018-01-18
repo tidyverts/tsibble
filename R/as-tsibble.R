@@ -142,7 +142,28 @@ as_tsibble.grouped_ts <- function(
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_df <- as_tsibble.grouped_ts
+as_tsibble.grouped_df <- function(
+  x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
+) {
+  index <- enquo(index)
+  x <- validate_nested(data = x, key = key)
+
+  tbl <- tsibble_tbl(
+    x, key = key, index = index, regular = regular,
+    validate = validate
+  )
+  if (is_empty(groups)) {
+    return(tbl)
+  }
+  flat_grps <- flatten_key(groups)
+  grped_df <- dplyr::grouped_df(tbl, flat_grps)
+  tibble::new_tibble(
+    tbl,
+    "vars" = structure(groups, class = "vars"),
+    "indices" = group_size(grped_df),
+    subclass = c("grouped_ts", "tbl_ts")
+  )
+}
 
 #' @keywords internal
 #' @export

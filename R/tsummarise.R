@@ -14,6 +14,9 @@
 #' * [lubridate::ceiling_date] or [lubridate::round_date]: sub-daily aggregation
 #' * other index functions from other packages
 #'
+#' @details
+#' One grouping level will be dropped.
+#'
 #' @rdname tsummarise
 #' @export
 #' @examples
@@ -62,10 +65,10 @@ tsummarise.tbl_ts <- function(.data, ...) {
     mutate(!! idx_sym := !! lst_quos[[idx_pos]], drop = TRUE)
   result <- pre_data %>% 
     dplyr::grouped_df(vars = chr_grps) %>% 
-    dplyr::summarise(!!! lst_quos[-idx_pos])
+    summarise(!!! lst_quos[-idx_pos])
 
   as_tsibble(
-    result, key = grps, index = !! idx_sym, groups = grps, 
+    result, key = grps, index = !! idx_sym, groups = drop_group(grps), 
     validate = FALSE
   )
 }

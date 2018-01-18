@@ -11,6 +11,35 @@ reduce_key <- function(lst_keys) {
   quos_auto_name(comb_keys)
 }
 
+drop_group <- function(x) {
+  old_grps <- flatten_key(x)
+  len <- length(old_grps)
+  new_grps <- old_grps[-len] # drop one grouping level
+  lgl <- FALSE
+  if (!is_empty(x)) {
+    lgl <- rep(is_nest(x), purrr::map(x, length))
+    lgl <- lgl[-len]
+  }
+  if (is_empty(new_grps)) {
+    return(id())
+  } else if (any(lgl)) {
+    return(c(list(syms(new_grps[lgl])), syms(new_grps[!lgl])))
+  } else {
+    syms(new_grps[!lgl])
+  }
+}
+
+modify_key <- function(x, y) { # x = old, y = new
+  lgl <- rep(is_nest(x), purrr::map(x, length))
+  if (is_empty(y)) {
+    return(id())
+  } else if (any(lgl)) {
+    return(c(list(syms(y[lgl])), syms(y[!lgl])))
+  } else {
+    syms(y[!lgl])
+  }
+}
+
 # this returns a vector of groups/key characters
 flatten_key <- function(lst_keys) {
   if (is.null(lst_keys)) {
