@@ -1,12 +1,8 @@
 join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
-  FUN <- match.fun(FUN)
-  if (is_grouped_ts(x) || is_grouped_ts(y)) {
-    tbl_x <- as_tibble(x)
-    tbl_y <- as_tibble(y)
-    tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
-  } else {
-    tbl <- NextMethod()
-  }
+  FUN <- match.fun(FUN, descend = FALSE)
+  tbl_x <- as_tibble(x)
+  tbl_y <- as_tibble(y)
+  tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
   as_tsibble(
     tbl, key = key(x), index = !! index(x), groups = groups(x),
     validate = FALSE, regular = is_regular(x)

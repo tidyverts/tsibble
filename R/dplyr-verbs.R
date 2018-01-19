@@ -37,32 +37,14 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
-  grps <- groups(.data)
-  if (is_grouped_ts(.data)) {
-    fil_data <- filter(as_tibble(.data), ...)
-  } else {
-    fil_data <- NextMethod()
-  }
-  as_tsibble(
-    fil_data, key = key(.data), index = !! index(.data), groups = grps,
-    validate = FALSE, regular = is_regular(.data)
-  )
+  by_row(filter, .data, ...)
 }
 
 #' @rdname row-verb
 #' @seealso [dplyr::slice]
 #' @export
 slice.tbl_ts <- function(.data, ...) {
-  grps <- groups(.data)
-  if (is_grouped_ts(.data)) {
-    slc_data <- slice(as_tibble(.data), ...)
-  } else {
-    slc_data <- NextMethod()
-  }
-  as_tsibble(
-    slc_data, key = key(.data), index = !! index(.data), groups = grps,
-    validate = FALSE, regular = is_regular(.data)
-  )
+  by_row(slice, .data, ...)
 }
 
 #' Column-wise verbs
@@ -142,9 +124,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
   grps <- groups(.data)
-  if (is_grouped_ts(.data)) {
-    mut_data <- mutate(as_tibble(.data), ...)
-  }
+  mut_data <- mutate(as_tibble(.data), ...)
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
@@ -264,3 +244,12 @@ do.tbl_ts <- function(.data, ...) {
   dplyr::do(as_tibble(.data), ...)
 }
 
+by_row <- function(FUN, .data, ...) {
+  FUN <- match.fun(FUN, descend = FALSE)
+  grps <- groups(.data)
+  tbl <- FUN(as_tibble(.data), ...)
+  as_tsibble(
+    tbl, key = key(.data), index = !! index(.data), groups = grps,
+    validate = FALSE, regular = is_regular(.data)
+  )
+}
