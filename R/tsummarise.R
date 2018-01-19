@@ -48,8 +48,8 @@ tsummarise.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
 
   # check if the index variable is present in the function call
-  lst_args <- purrr::compact(purrr::map(lst_quos, ~ dplyr::first(lang_args(.))))
-  vec_vars <- as.character(lst_args)
+  first_arg <- first_arg(lst_quos)
+  vec_vars <- as.character(first_arg)
   idx_var <- quo_text2(index)
   if (is_false(has_index_var(j = vec_vars, x = .data))) {
     abort(paste("Missing index variable:", idx_var))
@@ -64,7 +64,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
     ungroup() %>% 
     mutate(!! idx_sym := !! lst_quos[[idx_pos]], drop = TRUE)
   result <- pre_data %>% 
-    dplyr::grouped_df(vars = chr_grps) %>% 
+    grouped_df(vars = chr_grps) %>% 
     summarise(!!! lst_quos[-idx_pos])
 
   as_tsibble(

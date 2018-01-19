@@ -86,6 +86,7 @@ tbl1 <- tsibble(
   value = rnorm(10),
   key = id(), index = date
 )
+tbl1
 
 # create a tsibble with one key ----
 tbl2 <- tsibble(
@@ -94,5 +95,6 @@ tbl2 <- tsibble(
   value = rnorm(30),
   key = id(group), index = qtr
 )
+tbl2
 
 }

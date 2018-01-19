@@ -29,6 +29,7 @@ globalVariables(c("key", "value", "zzz"))
 #'   value = rnorm(10),
 #'   key = id(), index = date
 #' )
+#' tbl1
 #'
 #' # create a tsibble with one key ----
 #' tbl2 <- tsibble(
@@ -37,6 +38,7 @@ globalVariables(c("key", "value", "zzz"))
 #'   value = rnorm(30),
 #'   key = id(group), index = qtr
 #' )
+#' tbl2
 #'
 #' @export
 tsibble <- function(..., key = id(), index, regular = TRUE) {
@@ -117,53 +119,37 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_ts <- function(
+as_tsibble.grouped_df <- function(
   x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
 ) {
+  # convert grouped_df to tsibble:
+  # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   index <- enquo(index)
-  x <- validate_nested(data = x, key = key)
 
   tbl <- tsibble_tbl(
     x, key = key, index = index, regular = regular,
     validate = validate
   )
+
   if (is_empty(groups)) {
-    groups <- groups(x)
+    return(tbl)
   }
+
+  groups <- validate_key(x, groups)
+  tbl <- validate_nested(data = tbl, key = groups)
+
   flat_grps <- flatten_key(groups)
-  grped_df <- dplyr::grouped_df(tbl, flat_grps)
+  grped_df <- grouped_df(tbl, flat_grps)
   tibble::new_tibble(
     tbl,
     "vars" = structure(groups, class = "vars"),
-    "indices" = group_size(grped_df),
     subclass = c("grouped_ts", "tbl_ts")
   )
 }
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_df <- function(
-  x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
-) {
-  index <- enquo(index)
-  x <- validate_nested(data = x, key = key)
-
-  tbl <- tsibble_tbl(
-    x, key = key, index = index, regular = regular,
-    validate = validate
-  )
-  if (is_empty(groups)) {
-    return(tbl)
-  }
-  flat_grps <- flatten_key(groups)
-  grped_df <- dplyr::grouped_df(tbl, flat_grps)
-  tibble::new_tibble(
-    tbl,
-    "vars" = structure(groups, class = "vars"),
-    "indices" = group_size(grped_df),
-    subclass = c("grouped_ts", "tbl_ts")
-  )
-}
+as_tsibble.grouped_ts <- as_tsibble.grouped_df
 
 #' @keywords internal
 #' @export
@@ -233,7 +219,7 @@ key_size <- function(x) {
 
 #' @export
 key_size.tbl_ts <- function(x) {
-  attr(x, "key_indices")
+  vapply(attr(x, "key_indices"), length, integer(1))
 }
 
 #' @rdname key-size
@@ -258,8 +244,8 @@ group_vars.tbl_ts <- function(x) {
 }
 
 #' @export
-group_size.tbl_ts <- function(x) {
-  attr(x, "indices")
+group_size.grouped_ts <- function(x) {
+  vapply(attr(x, "indices"), length, integer(1))
 }
 
 #' @export
@@ -268,8 +254,8 @@ n_groups.tbl_ts <- function(x) {
 }
 
 #' @export
-group_indices.grouped_ts <- function(x) {
-  group_indices(as_tibble(x))
+group_indices.grouped_ts <- function(.data, ...) {
+  attr(.data, "indices")
 }
 
 #' @rdname key
@@ -386,14 +372,17 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
+  # if key is quosures
   use_id(key)
 
   tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
-  # validate key vars
+  # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(data = tbl, key)
+  # (2) if there exists a list of lists, flatten it as characters
   flat_keys <- flatten_key(key_vars)
+  # (3) index cannot be part of the keys
   is_index_in_keys <- intersect(quo_text2(index), flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     abort("The index variable cannot be one of the keys.")
@@ -409,11 +398,11 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
     tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
   }
 
-  grped_key <- dplyr::grouped_df(tbl, flat_keys)
+  grped_key <- grouped_df(tbl, flat_keys)
   tibble::new_tibble(
     tbl,
     "key" = structure(key_vars, class = "key"),
-    "key_indices" = group_size(grped_key),
+    "key_indices" = attr(grped_key, "indices"),
     "index" = index,
     "interval" = structure(tbl_interval, class = "interval"),
     "regular" = regular,
@@ -494,7 +483,7 @@ validate_nested <- function(data, key) {
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
-  tbl_dup <- dplyr::grouped_df(data, vars = flatten_key(key)) %>%
+  tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
     summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     msg <- paste(
@@ -512,7 +501,7 @@ validate_tbl_ts <- function(data, key, index) {
 
 #' @export
 as_tibble.tbl_ts <- function(x, ...) {
-  tibble::new_tibble(x)
+  drop_tsibble(x)
 }
 
 #' @export
@@ -520,8 +509,12 @@ as.tibble.tbl_ts <- as_tibble.tbl_ts
 
 #' @export
 as_tibble.grouped_ts <- function(x, ...) {
-  flat_grps <- flatten_key(groups(x))
-  dplyr::grouped_df(x, flat_grps)
+  dx <- drop_tsibble(x)
+  tibble::new_tibble(
+    dx,
+    "vars" = structure(flatten(groups(x)), class = "vars"),
+    subclass = "grouped_df"
+  )
 }
 
 #' @export
@@ -538,4 +531,10 @@ use_id <- function(x) {
     is_quosures(x),
     error = function(e) stop("Please use `tsibble::id()` to create the 'key'.")
   )
+}
+
+drop_tsibble <- function(x) {
+  attr(x, "key") <- attr(x, "key_indices") <- attr(x, "index") <- NULL
+  attr(x, "interval") <- attr(x, "regular") <- NULL
+  tibble::new_tibble(x)
 }

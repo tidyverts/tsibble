@@ -29,17 +29,6 @@ drop_group <- function(x) {
   }
 }
 
-modify_key <- function(x, y) { # x = old, y = new
-  lgl <- rep(is_nest(x), purrr::map(x, length))
-  if (is_empty(y)) {
-    return(id())
-  } else if (any(lgl)) {
-    return(c(list(syms(y[lgl])), syms(y[!lgl])))
-  } else {
-    syms(y[!lgl])
-  }
-}
-
 # this returns a vector of groups/key characters
 flatten_key <- function(lst_keys) {
   if (is.null(lst_keys)) {

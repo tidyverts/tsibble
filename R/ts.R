@@ -47,9 +47,7 @@ finalise_ts <- function(data, index, frequency = NULL) {
   stats::ts(out, stats::start(idx_time), frequency = frequency)
 }
 
-#' @importFrom stats as.ts
-#' @importFrom stats time
-#' @importFrom stats tsp<- time
+#' @importFrom stats as.ts tsp<- time
 #' @export
 time.yearmonth <- function(x, ...) {
   freq <- guess_frequency(x)

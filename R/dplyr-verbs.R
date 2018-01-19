@@ -26,8 +26,7 @@ arrange.tbl_ts <- function(.data, ...) {
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   grps <- groups(.data)
-  grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-  arr_data <- arrange(grped_data, ..., .by_group = .by_group)
+  arr_data <- arrange(as_tibble(.data), ..., .by_group = .by_group)
   as_tsibble(
     arr_data, key = key(.data), index = !! index(.data), groups = grps,
     validate = FALSE, regular = is_regular(.data)
@@ -40,8 +39,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 filter.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
   if (is_grouped_ts(.data)) {
-    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    fil_data <- filter(grped_data, ...)
+    fil_data <- filter(as_tibble(.data), ...)
   } else {
     fil_data <- NextMethod()
   }
@@ -57,8 +55,7 @@ filter.tbl_ts <- function(.data, ...) {
 slice.tbl_ts <- function(.data, ...) {
   grps <- groups(.data)
   if (is_grouped_ts(.data)) {
-    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    slc_data <- slice(grped_data, ...)
+    slc_data <- slice(as_tibble(.data), ...)
   } else {
     slc_data <- NextMethod()
   }
@@ -146,8 +143,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   vec_names <- union(names(lst_quos), colnames(.data))
   grps <- groups(.data)
   if (is_grouped_ts(.data)) {
-    grped_data <- dplyr::grouped_df(.data, vars = flatten_key(grps))
-    mut_data <- mutate(grped_data, ...)
+    mut_data <- mutate(as_tibble(.data), ...)
   }
   # either key or index is present in ...
   # suggests that the operations are done on these variables
@@ -169,8 +165,8 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     return(summarise(as_tibble(.data), ...))
   }
   lst_quos <- quos(..., .named = TRUE)
-  lst_args <- purrr::compact(purrr::map(lst_quos, ~ dplyr::first(lang_args(.))))
-  vec_vars <- as.character(lst_args)
+  first_arg <- first_arg(lst_quos)
+  vec_vars <- as.character(first_arg)
   if (has_index_var(j = vec_vars, x = .data)) {
     abort("The index variable cannot be summarised.")
   }
@@ -179,8 +175,8 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   grps <- groups(.data)
   chr_grps <- c(quo_text2(idx), flatten_key(grps))
   sum_data <- .data %>%
-    dplyr::grouped_df(vars = chr_grps) %>%
-    dplyr::summarise(!!! lst_quos)
+    grouped_df(vars = chr_grps) %>%
+    summarise(!!! lst_quos)
 
   as_tsibble(
     sum_data, key = grps, index = !! idx, groups = drop_group(grps),
@@ -205,6 +201,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'
 #' @rdname group-by
 #' @seealso [dplyr::group_by]
+#' @importFrom dplyr grouped_df
 #' @export
 #' @examples
 #' data(tourism)
@@ -220,9 +217,9 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
 
-  grped_ts <- grouped_ts(.data, grped_chr, grped_quo, add = add)
+  grped_ts <- grouped_df(.data, grped_chr)
   as_tsibble(
-    grped_ts, key = key(.data), index = !! index,
+    grped_ts, key = key(.data), index = !! index, groups = grped_quo,
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -231,10 +228,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
-  x <- rm_class(x, "grouped_ts")
-  groups(x) <- list()
   as_tsibble(
-    x, key = key(x), index = !! index(x),
+    x, key = key(x), index = !! index(x), groups = id(),
     validate = FALSE, regular = is_regular(x)
   )
 }
@@ -242,17 +237,10 @@ ungroup.grouped_ts <- function(x, ...) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.tbl_ts <- function(x, ...) {
-  groups(x) <- list()
   as_tsibble(
     x, key = key(x), index = !! index(x),
     validate = FALSE, regular = is_regular(x)
   )
-}
-
-#' @importFrom dplyr group_indices
-#' @export
-group_indices.grouped_ts <- function(.data, ...) {
-  group_indices(as_tibble(.data))
 }
 
 # this function prepares group variables in a vector of characters for
@@ -266,35 +254,6 @@ prepare_groups <- function(data, group, add = FALSE) {
   } else {
     flatten_key(validate_key(data, group))
   }
-}
-
-"groups<-" <- function(x, value) {
-  attr(x, "vars") <- value
-  x
-}
-
-# work around with dplyr::grouped_df (not an elegant solution)
-# better to use dplyr internal cpp code when its API is stable
-# the arg `vars` passed to dplyr::grouped_df
-# the arg `group` takes new defined groups
-grouped_ts <- function(data, vars, group, add = FALSE) { # vars are characters
-  old_class <- class(data)
-  grped_df <- dplyr::grouped_df(data, vars)
-  class(grped_df) <- unique(c("grouped_ts", old_class))
-  val_grps <- validate_key(data, group)
-  data <- validate_nested(data = data, key = val_grps)
-  groups(grped_df) <- val_grps
-  if (add) {
-    groups(grped_df) <- c(groups(data), val_grps)
-  }
-  grped_df
-}
-
-# methods::setGeneric("groups<-")
-
-rm_class <- function(x, value) {
-  class(x) <- class(x)[-match(value, class(x))]
-  x
 }
 
 do.grouped_ts <- function(.data, ...) {

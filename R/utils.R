@@ -28,6 +28,10 @@ paste_comma <- function(...) {
   paste(..., collapse = ", ")
 }
 
+first_arg <- function(x) {
+  purrr::compact(purrr::map(x, ~ dplyr::first(lang_args(.))))
+}
+
 # regular time interval is obtained from the minimal time distance.
 # duplicated time entries result in 0L.
 # if validate = FALSE in as_tsibble, skip to check duplicated entries
