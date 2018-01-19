@@ -7,6 +7,8 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/earowang/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/earowang/tsibble)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
