@@ -3,6 +3,7 @@
 ## New functions
 
 * Added the `tidyr::fill()` support for tsibble to fill `NA` backward or forward.
+* Added the `dplyr::*_join()` join family support for tsibble.
 
 ## Bug fixes
 

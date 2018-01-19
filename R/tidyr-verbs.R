@@ -12,7 +12,7 @@ complete.tbl_ts <- function(data, ..., fill = list()) {
   grps <- groups(data)
   comp_data <- NextMethod()
   if (is_grouped_ts(data)) {
-    comp_data <- dplyr::grouped_df(comp_data, vars = flatten_key(grps))
+    comp_data <- grouped_df(comp_data, vars = flatten_key(grps))
   }
   as_tsibble(
     comp_data, key = key(data), index = !! index(data), groups = grps,
