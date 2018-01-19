@@ -44,7 +44,7 @@ globalVariables(c("key", "value", "zzz"))
 tsibble <- function(..., key = id(), index, regular = TRUE) {
   tbl <- tibble::tibble(...)
   index <- enquo(index)
-  tsibble_tbl(tbl, key = key, index = index, regular = regular)
+  as_tsibble(tbl, key = key, index = !! index, regular = regular)
 }
 
 #' Coerce to a tsibble object
@@ -155,6 +155,12 @@ as_tsibble.grouped_ts <- as_tsibble.grouped_df
 #' @export
 as_tsibble.default <- function(x, ...) {
   abort("as_tsibble doesn't know how to deal with this type of class yet.")
+}
+
+#' @keywords internal
+#' @export
+as_tsibble.NULL <- function(x, ...) {
+  abort("A tsibble cannot be empty or NULL.")
 }
 
 #' Return key and measured variables
@@ -372,6 +378,9 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
+  if (NROW(x) == 0) {
+    abort("A tsibble cannot be empty or NULL.")
+  }
   # if key is quosures
   use_id(key)
 
