@@ -508,7 +508,19 @@ validate_tbl_ts <- function(data, key, index) {
   data
 }
 
+#' Coerce to a tibble or data frame
+#'
+#' @param x A `tbl_ts`.
+#' @param ... Ignored.
+#'
+#' @rdname as-tibble
 #' @export
+#' @examples
+#' as_tibble(pedestrian)
+#'
+#' # a grouped tbl_ts -----
+#' grped_ped <- pedestrian %>% group_by(Sensor)
+#' as_tibble(grped_ped)
 as_tibble.tbl_ts <- function(x, ...) {
   drop_tsibble(x)
 }
@@ -529,8 +541,9 @@ as_tibble.grouped_ts <- function(x, ...) {
 #' @export
 as.tibble.grouped_ts <- as_tibble.grouped_ts
 
+#' @rdname as-tibble
 #' @export
-as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
+as.data.frame.tbl_ts <- function(x, ...) {
   class(x) <- "data.frame"
   x
 }

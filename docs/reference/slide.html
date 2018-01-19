@@ -180,8 +180,7 @@ you may like to check out for
 #&gt; [[8]]
 #&gt; [1]  8  9 10
 #&gt; </div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='co'># takes a little longer for cran check</span>
+</div><div class='input'><span class='co'># takes a little longer for cran check</span>
 <span class='co'># sliding a 2-day window for a data frame ----</span>
 <span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>, <span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-31"</span>))
@@ -191,12 +190,35 @@ you may like to check out for
     <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x</span>)
     <span class='fu'>data.frame</span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'>fitted</span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>fit</span>))
   }, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>diag_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]
-<span class='co'># save lm models as additional columns</span>
+<span class='no'>diag_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]</div><div class='output co'>#&gt; # A tibble: 10 x 2
+#&gt;    fitted   resid
+#&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1    177  569   
+#&gt;  2    175  137   
+#&gt;  3    173    6.85
+#&gt;  4    171 - 38.3 
+#&gt;  5    169 -125   
+#&gt;  6    168 -152   
+#&gt;  7    166 -153   
+#&gt;  8    164 -143   
+#&gt;  9    162 -123   
+#&gt; 10    160 -124   </div><div class='input'><span class='co'># save lm models as additional columns</span>
 <span class='no'>lm_sx</span> <span class='kw'>&lt;-</span> <span class='no'>sx</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>lm</span> <span class='kw'>=</span> <span class='fu'>slide</span>(<span class='no'>.</span>, ~ <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>.</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>))
-<span class='no'>lm_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]
-<span class='co'># }</span></pre>
+<span class='no'>lm_sx</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]</div><div class='output co'>#&gt; # A tsibble: 10 x 6 [1HOUR]
+#&gt; # Keys: Sensor [1]
+#&gt;    Sensor                 Date_Time           Date        Time Count lm      
+#&gt;    &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;list&gt;  
+#&gt;  1 Southern Cross Station 2015-01-02 23:00:00 2015-01-02    23    55 &lt;S3: lm&gt;
+#&gt;  2 Southern Cross Station 2015-01-03 00:00:00 2015-01-03     0    20 &lt;S3: lm&gt;
+#&gt;  3 Southern Cross Station 2015-01-03 01:00:00 2015-01-03     1     9 &lt;S3: lm&gt;
+#&gt;  4 Southern Cross Station 2015-01-03 02:00:00 2015-01-03     2    26 &lt;S3: lm&gt;
+#&gt;  5 Southern Cross Station 2015-01-03 03:00:00 2015-01-03     3    10 &lt;S3: lm&gt;
+#&gt;  6 Southern Cross Station 2015-01-03 04:00:00 2015-01-03     4    11 &lt;S3: lm&gt;
+#&gt;  7 Southern Cross Station 2015-01-03 05:00:00 2015-01-03     5    13 &lt;S3: lm&gt;
+#&gt;  8 Southern Cross Station 2015-01-03 06:00:00 2015-01-03     6    20 &lt;S3: lm&gt;
+#&gt;  9 Southern Cross Station 2015-01-03 07:00:00 2015-01-03     7    39 &lt;S3: lm&gt;
+#&gt; 10 Southern Cross Station 2015-01-03 08:00:00 2015-01-03     8    43 &lt;S3: lm&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

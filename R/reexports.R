@@ -58,6 +58,10 @@ dplyr::summarise
 #' @export
 dplyr::summarize
 
+#' @importFrom dplyr do
+#' @export
+dplyr::do
+
 #' @importFrom dplyr transmute
 #' @export
 dplyr::transmute

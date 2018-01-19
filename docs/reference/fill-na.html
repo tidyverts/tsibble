@@ -127,8 +127,9 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
 )
 
-<span class='co'># leave NA as is</span>
-<span class='fu'>fill_na</span>(<span class='no'>harvest</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
+<span class='co'># leave NA as is ----</span>
+<span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_na</span>(<span class='no'>harvest</span>)
+<span class='no'>full_harvest</span></div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
 #&gt; # Keys: fruit [2]
 #&gt;     year fruit   kilo
 #&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
@@ -142,7 +143,25 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
 #&gt;  8  2013 kiwi       4
 #&gt;  9  2014 cherry     1
 #&gt; 10  2014 kiwi      NA</div><div class='input'>
-<span class='co'># replace NA with a specific value</span>
+<span class='co'># use fill() to fill `NA` by previous/next entry</span>
+<span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/fill'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
+#&gt; # Keys: fruit [2]
+#&gt; # Groups: fruit [2]
+#&gt;     year fruit   kilo
+#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+#&gt;  1  2010 cherry    NA
+#&gt;  2  2011 cherry     5
+#&gt;  3  2012 cherry     9
+#&gt;  4  2013 cherry     9
+#&gt;  5  2014 cherry     1
+#&gt;  6  2010 kiwi       3
+#&gt;  7  2011 kiwi       7
+#&gt;  8  2012 kiwi       7
+#&gt;  9  2013 kiwi       4
+#&gt; 10  2014 kiwi       4</div><div class='input'>
+<span class='co'># replace NA with a specific value ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
 #&gt; # Keys: fruit [2]
@@ -158,8 +177,8 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
 #&gt;  8  2013 kiwi       4
 #&gt;  9  2014 cherry     1
 #&gt; 10  2014 kiwi       0</div><div class='input'>
-<span class='co'># replace NA using a function by variable</span>
-<span class='co'># enable `na.rm = TRUE` when necessary</span>
+<span class='co'># replace NA using a function by variable ----</span>
+<span class='co'># enable `na.rm = TRUE` when necessary ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
 #&gt; # Keys: fruit [2]
@@ -175,12 +194,11 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
 #&gt;  8  2013 kiwi       4
 #&gt;  9  2014 cherry     1
 #&gt; 10  2014 kiwi      29</div><div class='input'>
-<span class='co'># replace NA using a function for each group</span>
+<span class='co'># replace NA using a function for each group ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1YEAR]
 #&gt; # Keys: fruit [2]
-#&gt; # Groups: fruit [2]
 #&gt;     year fruit   kilo
 #&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt;  1  2010 cherry    15
@@ -193,7 +211,7 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
 #&gt;  8  2012 kiwi      14
 #&gt;  9  2013 kiwi       4
 #&gt; 10  2014 kiwi      14</div><div class='input'>
-<span class='co'># replace NA</span>
+<span class='co'># replace NA ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(
@@ -202,7 +220,6 @@ please make sure that <code>na.rm = TRUE</code> is switched on.</p></td>
     <span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'>as.integer</span>(<span class='fu'>median</span>(<span class='no'>Count</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
   )</div><div class='output co'>#&gt; # A tsibble: 70,176 x 5 [1HOUR]
 #&gt; # Keys: Sensor [4]
-#&gt; # Groups: Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630

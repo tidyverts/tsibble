@@ -62,6 +62,7 @@ reference:
 - title: Coerce to other objects
   contents:
     - as.ts.tbl_ts
+    - as_tibble.tbl_ts
 
 - title: Data
   contents:

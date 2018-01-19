@@ -138,7 +138,7 @@ variables are crossed with <em>Purpose</em> of visit. The resulting structure is
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span> <span class='kw'>|</span> <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1QUARTER]
 #&gt; # Keys: Region | State [77]
-#&gt; # Groups: Region | State [77]
+#&gt; # Groups: Region [77]
 #&gt;    Quarter Region                     State              Total_Trips
 #&gt;      &lt;qtr&gt; &lt;chr&gt;                      &lt;chr&gt;                    &lt;dbl&gt;
 #&gt;  1 1998 Q1 Adelaide                   South Australia         659   
