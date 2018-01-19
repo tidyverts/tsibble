@@ -1,11 +1,11 @@
-reduce_key <- function(lst_keys) {
-  if (is_empty(lst_keys)) {
-    return(lst_keys)
+reduce_key <- function(x) { # x = a list of keys (symbols)
+  if (is_empty(x)) {
+    return(x)
   }
-  nest_lgl <- is_nest(lst_keys)
-  comb_keys <- lst_keys[!nest_lgl]
+  nest_lgl <- is_nest(x)
+  comb_keys <- x[!nest_lgl]
   if (any(nest_lgl)) {
-    nest_keys <- purrr::map(lst_keys[nest_lgl], ~ .[[1]])
+    nest_keys <- purrr::map(x[nest_lgl], ~ .[[1]])
     comb_keys <- c(nest_keys, comb_keys)
   }
   quos_auto_name(comb_keys)
@@ -30,11 +30,11 @@ drop_group <- function(x) {
 }
 
 # this returns a vector of groups/key characters
-flatten_key <- function(lst_keys) {
-  if (is.null(lst_keys)) {
-    lst_keys <- list()
+flatten_key <- function(x) {
+  if (is.null(x)) {
+    x <- list()
   }
-  purrr::map_chr(flatten(lst_keys), quo_text2)
+  purrr::map_chr(flatten(x), quo_text2)
 }
 
 # update by character names
@@ -101,12 +101,12 @@ is_nest <- function(lst_syms) {
   unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
 
-parse_key <- function(lst_keys) {
-  if (is_empty(lst_keys)) {
+parse_key <- function(x) {
+  if (is_empty(x)) {
     return(list())
   }
-  # purrr::map(lst_keys, ~ flatten_nest(.[[-1]]))
-  purrr::map(lst_keys, flatten_nest)
+  # purrr::map(x, ~ flatten_nest(.[[-1]]))
+  purrr::map(x, flatten_nest)
 }
 
 # interpret a nested calls A | B | C

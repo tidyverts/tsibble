@@ -141,7 +141,7 @@ as_tsibble.grouped_df <- function(
   flat_grps <- flatten_key(groups)
   grped_df <- grouped_df(tbl, flat_grps)
   tibble::new_tibble(
-    tbl,
+    grped_df,
     "vars" = structure(groups, class = "vars"),
     subclass = c("grouped_ts", "tbl_ts")
   )
@@ -375,7 +375,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   # if key is quosures
   use_id(key)
 
-  tbl <- tibble::as_tibble(x) # x is lst, data.frame, tbl_df
+  tbl <- ungroup(as_tibble(x)) # x is lst, data.frame, tbl_df
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
   # (1) validate and process key vars (from expr to a list of syms)
