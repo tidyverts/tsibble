@@ -227,21 +227,25 @@ ungroup.tbl_ts <- function(x, ...) {
 # dplyr::grouped_df()
 # the arg of group can take a nested str but be flattened in the end.
 prepare_groups <- function(data, group, add = FALSE) {
-  if (add) {
-    old_grps <- flatten_key(groups(data))
-    grps <- flatten_key(validate_key(data, group))
-    return(c(old_grps, grps))
-  } else {
-    flatten_key(validate_key(data, group))
+  grps <- flatten_key(validate_key(data, group))
+  if (is_true(add)) {
+    return(grps)
   }
-}
-
-do.grouped_ts <- function(.data, ...) {
-  dplyr::do(as_tibble(.data), ...)
+  c(flatten_key(groups(data)), grps)
 }
 
 do.tbl_ts <- function(.data, ...) {
   dplyr::do(as_tibble(.data), ...)
+}
+
+#' @export
+transmute.tbl_ts <- function(.data, ...) {
+  abort("The 'tbl_ts' has no support for transmute(). Please coerce to 'data.frame' first and then transmute().")
+}
+
+#' @export
+distinct.tbl_ts <- function(.data, ...) {
+  abort("The 'tbl_ts' has no support for distinct(). Please coerce to 'data.frame' first and then distinct().")
 }
 
 by_row <- function(FUN, .data, ...) {

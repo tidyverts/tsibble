@@ -135,8 +135,7 @@ weather_tsbl %>%
 ```
 
 It can be noticed that the common *dplyr* verbs, such as `summarise()`,
-`mutate()`, `select()`, `filter()`, and `arrange()`, seamlessly work
-with the
+`mutate()`, `filter()`, and `*_join()`, seamlessly work with the
 tsibble.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values

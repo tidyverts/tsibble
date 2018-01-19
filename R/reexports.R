@@ -58,9 +58,13 @@ dplyr::summarise
 #' @export
 dplyr::summarize
 
-#' @importFrom dplyr do
+#' @importFrom dplyr transmute
 #' @export
-dplyr::do
+dplyr::transmute
+
+#' @importFrom dplyr distinct
+#' @export
+dplyr::distinct
 
 #' @importFrom dplyr full_join
 #' @export
