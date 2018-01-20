@@ -25,11 +25,11 @@ arrange.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
-  grps <- groups(.data)
   arr_data <- arrange(as_tibble(.data), ..., .by_group = .by_group)
   as_tsibble(
-    arr_data, key = key(.data), index = !! index(.data), groups = grps,
-    validate = FALSE, regular = is_regular(.data)
+    arr_data, key = key(.data), index = !! index(.data), 
+    groups = groups(.data), regular = is_regular(.data),
+    validate = FALSE 
   )
 }
 
@@ -82,15 +82,17 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no changes in key vars
     return(as_tsibble(
-      sel_data, key = key(.data), index = !! index(.data),
-      validate = FALSE, regular = is_regular(.data)
+      sel_data, key = key(.data), index = !! index(.data), 
+      groups = groups(.data), regular = is_regular(.data),
+      validate = FALSE
     ))
   } else {
     key(.data) <- update_key(key(.data), val_vars)
     key(.data) <- update_key2(key(.data), val_vars, lhs)
     as_tsibble(
-      sel_data, key = key(.data), index = !! index(.data),
-      validate = TRUE, regular = is_regular(.data)
+      sel_data, key = key(.data), index = !! index(.data), 
+      groups = groups(.data), regular = is_regular(.data),
+      validate = TRUE,
     )
   }
 }
@@ -109,7 +111,8 @@ rename.tbl_ts <- function(.data, ...) {
   ren_data <- NextMethod()
   as_tsibble(
     ren_data, key = key(.data), index = !! index(.data),
-    validate = FALSE, regular = is_regular(.data)
+    groups = groups(.data), regular = is_regular(.data),
+    validate = FALSE
   )
 }
 
@@ -228,7 +231,7 @@ ungroup.tbl_ts <- function(x, ...) {
 # the arg of group can take a nested str but be flattened in the end.
 prepare_groups <- function(data, group, add = FALSE) {
   grps <- flatten_key(validate_key(data, group))
-  if (is_true(add)) {
+  if (is_false(add)) {
     return(grps)
   }
   c(flatten_key(groups(data)), grps)
@@ -250,10 +253,10 @@ distinct.tbl_ts <- function(.data, ...) {
 
 by_row <- function(FUN, .data, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
-  grps <- groups(.data)
   tbl <- FUN(as_tibble(.data), ...)
   as_tsibble(
-    tbl, key = key(.data), index = !! index(.data), groups = grps,
-    validate = FALSE, regular = is_regular(.data)
+    tbl, key = key(.data), index = !! index(.data), 
+    groups = groups(.data), regular = is_regular(.data),
+    validate = FALSE
   )
 }

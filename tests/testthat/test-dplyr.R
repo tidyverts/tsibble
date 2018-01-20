@@ -1,9 +1,21 @@
 library(lubridate)
-context("All dplyr verbs for tsibble")
+context("dplyr verbs for tsibble")
 
 test_that("group_by()", {
   expect_error(group_by(tourism, State | Region))
   expect_error(group_by(tourism, State | Region, Purpose))
+  expect_error(group_by(tourism, Quarter))
+  expect_error(group_by(pedestrian, Date_Time, Sensor))
+  # grped_df <- pedestrian %>% 
+  #   group_by(Date) %>% 
+  #   group_by(Sensor, add = TRUE)
+  # expect_length(group_vars(grped_df), 2)
+  #
+  # grped_t <- tourism %>% 
+  #   group_by(Purpose) %>% 
+  #   group_by(Region | State, add = TRUE)
+  # expect_length(group_vars(grped_t), 3)
+
 })
 
 test_that("arrange()", {
@@ -93,9 +105,19 @@ test_that("summarise()", {
   expect_identical(key(tourism), key(tsbl2))
   expect_identical(index(tourism), index(tsbl2))
   expect_identical(is_regular(tourism), is_regular(tsbl2))
-  # expect_identical(group_vars(tsbl2), key_vars(tourism))
   tsbl3 <- tourism %>%
     group_by(!!! key(.)) %>%
     summarise(Obs = n())
   expect_identical(nrow(tsbl3), nrow(tourism))
+
+  expect_error(pedestrian %>% summarise(month = yearmonth(Date_Time)))
+  tbl_ped <- pedestrian %>% 
+    group_by(Date) %>% 
+    summarise(DailyCount = mean(Count), drop = TRUE)
+  expect_is(tbl_ped, "tbl_df")
+})
+
+test_that("transmute() and distinct()", {
+  expect_error(tourism %>% transmute(Region = paste(Region, State)))
+  expect_error(tourism %>% distinct(Region, State, Purpose))
 })
