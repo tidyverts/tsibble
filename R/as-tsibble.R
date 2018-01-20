@@ -492,17 +492,22 @@ validate_nested <- function(data, key) {
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
+  idx <- quo_text2(index)
+  # NOTE: bug in anyDuplicated.data.frame()
+  # identifiers <- c(flatten_key(key), idx)
+  # below calls anyDuplicated.data.frame():
+  # time zone associated with the index will be dropped, 
+  # e.g. nycflights13::weather, thus result in duplicates. 
+  # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
     summarise(zzz = anyDuplicated(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    msg <- paste(
-      "Invalid tsibble with duplicated identifier:",
-      quo_text2(index)
-    )
+    msg <- paste("Invalid tsibble: identical data entries from", idx)
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- paste(msg, "and", paste_comma(format(key)))
+      msg <- paste0(paste(msg, "and", paste_comma(format(key))), ".")
     }
+    msg <- paste(msg, "Use `inform_duplidates()` to check the duplicated rows.")
     abort(msg)
   }
   data
@@ -559,4 +564,26 @@ drop_tsibble <- function(x) {
   attr(x, "key") <- attr(x, "key_indices") <- attr(x, "index") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- NULL
   tibble::new_tibble(x)
+}
+
+#' Inform duplication of key and index variables
+#'
+#' Inform which row has duplicated key and index elements
+#'
+#' @param data A `tbl_ts` object.
+#' @param key Structural variable(s) that define unique time indices, used with
+#' the helper [id]. If a univariate time series (without an explicit key),
+#' simply call `id()`.
+#' @param index A bare (or unquoted) variable to specify the time index variable.
+#' @param fromLast `TRUE` does the duplication check from the last of identical
+#' elements.
+#'
+#' @return A logical vector of the same length as the row number of `data`
+#' @export
+inform_duplidates <- function(data, key = id(), index, fromLast = FALSE) {
+  use_id(key)
+  index <- extract_index_var(data, enquo(index))
+
+  identifiers <- c(flatten_key(key), quo_text2(index))
+  duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
 }

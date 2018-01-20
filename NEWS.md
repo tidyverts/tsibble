@@ -4,6 +4,7 @@
 
 * Added the `tidyr::fill()` support for tsibble to fill `NA` backward or forward.
 * Added the `dplyr::*_join()` join family support for tsibble.
+* `inform_duplicates()` informs which row has duplicated elements of key and index variables.
 
 ## Bug fixes
 
