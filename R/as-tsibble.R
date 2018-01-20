@@ -154,13 +154,13 @@ as_tsibble.grouped_ts <- as_tsibble.grouped_df
 #' @keywords internal
 #' @export
 as_tsibble.default <- function(x, ...) {
-  abort("as_tsibble doesn't know how to deal with this type of class yet.")
+  abort("`as_tsibble()` doesn't know how to deal with this type of class yet.")
 }
 
 #' @keywords internal
 #' @export
 as_tsibble.NULL <- function(x, ...) {
-  abort("A tsibble cannot be empty or NULL.")
+  abort("A tsibble must not be empty or NULL.")
 }
 
 #' Return key and measured variables
@@ -294,7 +294,7 @@ measured_vars.tbl_ts <- function(x) {
 #' @export
 interval <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
   }
   attr(x, "interval")
 }
@@ -303,7 +303,7 @@ interval <- function(x) {
 #' @export
 index <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
   }
   attr(x, "index")
 }
@@ -324,7 +324,7 @@ index <- function(x) {
 #' @export
 is_regular <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(paste(expr_label(substitute(x)), "is not a tsibble."))
+    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
   }
   attr(x, "regular")
 }
@@ -383,7 +383,7 @@ as.tsibble <- function(x, ...) {
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   if (NROW(x) == 0) {
-    abort("A tsibble cannot be empty or NULL.")
+    abort("A tsibble must not be empty or NULL.")
   }
   # if key is quosures
   use_id(key)
@@ -396,9 +396,14 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   # (2) if there exists a list of lists, flatten it as characters
   flat_keys <- flatten_key(key_vars)
   # (3) index cannot be part of the keys
-  is_index_in_keys <- intersect(quo_text2(index), flat_keys)
+  idx_chr <- quo_text2(index)
+  is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
-    abort("The index variable cannot be one of the keys.")
+    msg <- sprintf(
+      "If %s is the index, it doesn't need to be included in the key.", 
+      surround(idx_chr, "`")
+    )
+    abort(msg)
   }
   # validate tbl_ts
   if (validate) {
@@ -447,10 +452,10 @@ extract_index_var <- function(data, index) {
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
-      abort("Please specify the 'index' argument.")
+      abort("Too many possible `index`. Please specify `index = <var>`")
     }
     chr_index <- colnames(data)[val_idx]
-    inform(paste("The 'index' variable:", chr_index))
+    inform(sprintf("Is %s the index?", surround(chr_index, "`")))
     idx_sym <- sym(chr_index)
     index <- as_quosure(idx_sym)
     return(index)
@@ -458,8 +463,8 @@ extract_index_var <- function(data, index) {
     idx_na <- idx_type[quo_text2(index)]
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
-      abort(paste(
-        "Unsupported index type:",
+      abort(sprintf(
+        "Unsupported index type: %s",
         cls_idx[colnames(data) %in% names(idx_na)])
       )
     }
@@ -482,11 +487,12 @@ validate_nested <- function(data, key) {
     n_lgl <- purrr::map_lgl(n_dist, is_descending)
     if (is_false(all(n_lgl))) {
       which_bad <- key_nest[!n_lgl]
-      msg <- purrr::map(which_bad, ~ paste(., collapse = " | "))
-      msg <- paste_comma(msg)
-      abort(paste0(
-        "Incorrect ordering of nested variables: ",
-        msg
+      wrong_nested <- purrr::map(which_bad, ~ paste(., collapse = " | "))
+      wrong_nested <- paste_comma(wrong_nested)
+      wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
+      abort(sprintf(
+        "Incorrect ordering of nested variables: %s %s. Please see `?tsibble`.",
+        wrong_nested, surround(wrong_dim, "(")
       ))
     }
   }
@@ -506,12 +512,12 @@ validate_tbl_ts <- function(data, key, index) {
   tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
     summarise(zzz = anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    msg <- paste("Invalid tsibble: identical data entries from", idx)
+    idx_msg <- sprintf("Invalid tsibble: identical data entries from %s", idx)
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- paste0(paste(msg, "and", paste_comma(format(key))), ".")
+      msg <- sprintf("%s and %s.", idx_msg, paste_comma(format(key)))
     }
-    msg <- paste(msg, "Use `inform_duplidates()` to check the duplicated rows.")
+    msg <- paste(msg, "Use `inform_duplicates()` to check the duplicated rows.")
     abort(msg)
   }
   data

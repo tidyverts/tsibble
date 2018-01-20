@@ -97,7 +97,7 @@ modify_na <- function(.data, ...) {
   check_names <- lhs %in% colnames(.data)
   if (is_false(all(check_names))) {
     bad_names <- paste_comma(lhs[which(!check_names)])
-    abort(paste("Unexpected LHS names:", bad_names))
+    abort(sprintf("Unexpected LHS names: %s", bad_names))
   }
 
   rhs <- purrr::map(lst_quos, f_rhs)

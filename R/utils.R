@@ -56,8 +56,10 @@ surround <- function(x, bracket = "(") {
     return(paste0("(", x, ")"))
   } else if (bracket == "[") {
     return(paste0("[", x, "]"))
-  } else {
+  } else if (bracket == "<") {
     paste0("<", x, ">")
+  } else {
+    paste0("`", x, "`")
   }
 }
 

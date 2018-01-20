@@ -237,7 +237,7 @@ seq.yearmonth <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
   if (!is_bare_numeric(by, n = 1)) {
-    abort("The arg of (by) only takes a numeric.")
+    abort("`by` only takes a numeric.")
   }
   by_mth <- paste(by, "month")
   yearmonth(seq_date(
@@ -251,7 +251,7 @@ seq.yearquarter <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
   if (!is.numeric(by)) {
-    abort("The arg of (by) only takes a numeric.")
+    abort("`by` only takes a numeric.")
   }
   by_qtr <- paste(by, "quarter")
   yearquarter(seq_date(

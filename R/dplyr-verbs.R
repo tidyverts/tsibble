@@ -75,7 +75,10 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
-    abort("The index variable cannot be dropped.")
+    abort(sprintf(
+      "The index %s must not be dropped. Do you need `drop = TRUE`?", 
+      surround(quo_text2(index(.data)), "`")
+    ))
   }
   lhs <- names(val_vars)
   index(.data) <- update_index(index(.data), val_vars, lhs)
@@ -150,11 +153,14 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   lst_quos <- quos(..., .named = TRUE)
   first_arg <- first_arg(lst_quos)
   vec_vars <- as.character(first_arg)
+  idx <- index(.data)
   if (has_index_var(j = vec_vars, x = .data)) {
-    abort("The index variable cannot be summarised.")
+    abort(sprintf(
+      "The index %s must not be dropped. Do you need `drop = TRUE`?", 
+      surround(quo_text2(idx), "`")
+    ))
   }
 
-  idx <- index(.data)
   grps <- groups(.data)
   chr_grps <- c(quo_text2(idx), flatten_key(grps))
   sum_data <- .data %>%
@@ -198,7 +204,10 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- flatten_key(final_grps)
   if (idx_var %in% grped_chr) {
-    abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
+    abort(sprintf(
+      "The index %s must not be grouped. Do you need `as_tibble()`?", 
+      surround(idx_var, "`")
+    ))
   }
 
   grped_ts <- grouped_df(.data, grped_chr)

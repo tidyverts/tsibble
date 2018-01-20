@@ -23,7 +23,7 @@ complete.tbl_ts <- function(data, ..., fill = list()) {
 spread_tsbl <- function(data, value, fill = NA, sep = "") {
   spread_val <- measured_vars(data)
   str_val <- paste_comma(spread_val)
-  msg <- paste0("Please specify one of the variables for 'value': ", str_val)
+  msg <- sprintf("Which one is the 'value' variable: %s?", str_val)
   if (quo_is_missing(value)) {
     if (is_false(has_length(spread_val, 1))) {
       abort(msg)
