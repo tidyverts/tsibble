@@ -106,8 +106,17 @@ modify_na <- function(.data, ...) {
   )
   mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
   names(mod_quos) <- lhs
-  .data %>%
-    mutate(!!! mod_quos)
+  modify_na_handler(.data, mod_quos)
+}
+
+modify_na_handler <- function(.data, quos) {
+  tryCatch(
+    mutate(.data, !!! quos),
+    error = function(e) {
+      e$call <- "fill_na(.data, ...)"
+      stop(e)
+    }
+  )
 }
 
 #' A thin wrapper of `dplyr::case_when()` if there are `NA`s

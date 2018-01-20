@@ -452,7 +452,7 @@ extract_index_var <- function(data, index) {
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
-      abort("Too many possible `index`. Please specify `index = <var>`")
+      abort("Fail to determine the `index`. Please specify `index = <var>`.")
     }
     chr_index <- colnames(data)[val_idx]
     inform(sprintf("Is %s the index?", surround(chr_index, "`")))
@@ -566,7 +566,11 @@ as.data.frame.tbl_ts <- function(x, ...) {
 use_id <- function(x) {
   tryCatch(
     is_quosures(x),
-    error = function(e) stop("Please use `tsibble::id()` to create the 'key'.")
+    error = function(e) {
+      e$call <- NULL
+      e$message <- "Please use `tsibble::id()` to create the 'key'."
+      stop(e)
+    }
   )
 }
 
