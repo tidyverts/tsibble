@@ -15,10 +15,7 @@
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
   arr_data <- NextMethod()
-  as_tsibble(
-    arr_data, key = key(.data), index = !! index(.data),
-    validate = FALSE, regular = is_regular(.data)
-  )
+  update_tsibble(arr_data, .data)
 }
 
 #' @rdname row-verb
@@ -26,11 +23,7 @@ arrange.tbl_ts <- function(.data, ...) {
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   arr_data <- arrange(as_tibble(.data), ..., .by_group = .by_group)
-  as_tsibble(
-    arr_data, key = key(.data), index = !! index(.data), 
-    groups = groups(.data), regular = is_regular(.data),
-    validate = FALSE 
-  )
+  update_tsibble(arr_data, .data)
 }
 
 #' @rdname row-verb
@@ -84,20 +77,15 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   index(.data) <- update_index(index(.data), val_vars, lhs)
   val_key <- has_all_key(j = lst_quos, x = .data)
   if (is_true(val_key)) { # no changes in key vars
-    return(as_tsibble(
-      sel_data, key = key(.data), index = !! index(.data), 
-      groups = groups(.data), regular = is_regular(.data),
-      validate = FALSE
-    ))
-  } else {
-    key(.data) <- update_key(key(.data), val_vars)
-    key(.data) <- update_key2(key(.data), val_vars, lhs)
-    as_tsibble(
-      sel_data, key = key(.data), index = !! index(.data), 
-      groups = groups(.data), regular = is_regular(.data),
-      validate = TRUE,
-    )
+    return(update_tsibble(sel_data, .data))
   }
+  key(.data) <- update_key(key(.data), val_vars)
+  key(.data) <- update_key2(key(.data), val_vars, lhs)
+  as_tsibble(
+    sel_data, key = key(.data), index = !! index(.data), 
+    groups = groups(.data), regular = is_regular(.data),
+    validate = TRUE,
+  )
 }
 
 #' @rdname col-verb
@@ -112,11 +100,7 @@ rename.tbl_ts <- function(.data, ...) {
     key(.data) <- update_key2(key(.data), val_vars, lhs)
   }
   ren_data <- NextMethod()
-  as_tsibble(
-    ren_data, key = key(.data), index = !! index(.data),
-    groups = groups(.data), regular = is_regular(.data),
-    validate = FALSE
-  )
+  update_tsibble(ren_data, .data)
 }
 
 #' @rdname col-verb
@@ -129,7 +113,6 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   lst_quos <- quos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
-  grps <- groups(.data)
   mut_data <- mutate(as_tibble(.data), ...)
   # either key or index is present in ...
   # suggests that the operations are done on these variables
@@ -138,8 +121,9 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   as_tsibble(
-    mut_data, key = key(.data), index = !! index(.data), groups = grps,
-    validate = validate, regular = is_regular(.data)
+    mut_data, key = key(.data), index = !! index(.data), 
+    groups = groups(.data), regular = is_regular(.data),
+    validate = validate 
   )
 }
 
@@ -260,9 +244,13 @@ distinct.tbl_ts <- function(.data, ...) {
 by_row <- function(FUN, .data, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ...)
+  update_tsibble(tbl, .data)
+}
+
+# put new data with existing attributes
+update_tsibble <- function(new, old) {
   as_tsibble(
-    tbl, key = key(.data), index = !! index(.data), 
-    groups = groups(.data), regular = is_regular(.data),
-    validate = FALSE
+    new, key = key(old), index = !! index(old), groups = groups(old), 
+    regular = is_regular(old), validate = FALSE
   )
 }

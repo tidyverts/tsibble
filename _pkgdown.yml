@@ -21,6 +21,7 @@ reference:
   contents:
     - tsummarise
     - fill_na
+    - inform_duplicates
 
 - title: Window functions
   contents:
@@ -49,16 +50,6 @@ reference:
     - pull_interval
     - time_unit
 
-- title: Dplyr verbs
-  contents:
-    - arrange.tbl_ts
-    - filter.tbl_ts
-    - slice.tbl_ts
-    - select.tbl_ts
-    - mutate.tbl_ts
-    - summarise.tbl_ts
-    - group_by.tbl_ts
-
 - title: Coerce to other objects
   contents:
     - as.ts.tbl_ts
@@ -68,6 +59,10 @@ reference:
   contents:
     - pedestrian
     - tourism
+
+- title: Misc
+  contents:
+    - tsibble-package
 
 navbar:
   type: default

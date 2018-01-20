@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract time interval from a vector — pull_interval • tsibble</title>
+<title>Inform duplication of key and index variables — inform_duplicates • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,51 +89,44 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract time interval from a vector</h1>
+    <h1>Inform duplication of key and index variables</h1>
     </div>
 
     
-    <p>Assuming regularly spaced time, the <code>pull_interval()</code> returns a list of time
-components as the "interval" class; the <code>time_unit()</code> returns the value of
-time units.</p>
+    <p>Inform which row has duplicated key and index elements</p>
     
 
-    <pre class="usage"><span class='fu'>pull_interval</span>(<span class='no'>x</span>, <span class='kw'>duplicated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>inform_duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>fromLast</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A vector of <code>POSIXt</code>, <code>Date</code>, <code>yearmonth</code>, <code>yearquarter</code>, <code>difftime</code>,
-<code>hms</code>, <code>integer</code>, <code>numeric</code>.</p></td>
+      <th>data</th>
+      <td><p>A <code>tbl_ts</code> object.</p></td>
     </tr>
     <tr>
-      <th>duplicated</th>
-      <td><p><code>TRUE</code> removes the duplicated elements of <code>x</code> and compute
-the minimal time span.</p></td>
+      <th>key</th>
+      <td><p>Structural variable(s) that define unique time indices, used with
+the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>index</th>
+      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>fromLast</th>
+      <td><p><code>TRUE</code> does the duplication check from the last of identical
+elements.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>pull_interval()</code>: an "interval" class (a list) includes "year",
-"quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-other self-defined interval.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code>pull_interval()</code> and <code>time_unit()</code> make a tsibble extensible to
-support custom time index.</p>
+    <p>A logical vector of the same length as the row number of <code>data</code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-10-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-10-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>pull_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; 3DAY</div><div class='input'><span class='co'># at two months interval ----</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='fu'>seq</span>(<span class='fl'>2016</span>, <span class='fl'>2018</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 6</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -141,11 +134,7 @@ support custom time index.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

@@ -107,6 +107,24 @@ as_tsibble.tbl_df <- function(
 
 #' @rdname as-tsibble
 #' @export
+as_tsibble.tbl_ts <- function(
+  x, key = id(), index, regular = TRUE, validate = FALSE, ...
+) {
+  if (is_empty(key)) {
+    key <- key(x)
+  }
+  index <- enquo(index)
+  if (quo_is_missing(index)) {
+    index <- index(x)
+  }
+  tsibble_tbl(
+    x, key = key, index = index, regular = regular,
+    validate = validate
+  )
+}
+
+#' @rdname as-tsibble
+#' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
 #' @keywords internal
@@ -598,6 +616,11 @@ inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   use_id(key)
   index <- extract_index_var(data, enquo(index))
 
-  identifiers <- c(flatten_key(key), quo_text2(index))
-  duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
+  grouped_df(data, vars = flatten_key(key)) %>%
+    mutate(zzz = duplicated.default(!! index)) %>% 
+    dplyr::pull(zzz)
+
+  # identifiers <- c(flatten_key(key), quo_text2(index))
+  # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
+  # not handling time zone correctly for duplicated.data.frame
 }

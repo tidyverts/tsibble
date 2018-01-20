@@ -1,23 +1,16 @@
 #' @export
 fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
   dat <- do(data, fill(., ..., .direction = .direction))
-  tsbl <- as_tsibble(
-    dat, key = key(data), index = !! index(data), groups = groups(data),
-    validate = FALSE
-  )
+  tsbl <- update_tsibble(dat, data)
   restore_index_class(data, tsbl)
 }
 
 complete.tbl_ts <- function(data, ..., fill = list()) {
-  grps <- groups(data)
   comp_data <- NextMethod()
   if (is_grouped_ts(data)) {
-    comp_data <- grouped_df(comp_data, vars = flatten_key(grps))
+    comp_data <- grouped_df(comp_data, vars = flatten_key(groups(data)))
   }
-  as_tsibble(
-    comp_data, key = key(data), index = !! index(data), groups = grps,
-    validate = FALSE, regular = is_regular(data)
-  )
+  update_tsibble(comp_data, data)
 }
 
 spread_tsbl <- function(data, value, fill = NA, sep = "") {

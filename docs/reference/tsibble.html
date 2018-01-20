@@ -202,7 +202,7 @@ cannot be determined (<code>?</code>).</p></li>
 #&gt; 10 2017-01-10 -0.705  </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'>tsibble</span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2010</span>, <span class='fl'>2012.25</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>/ <span class='fl'>4</span>)), <span class='fl'>3</span>),
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2010</span>, <span class='fl'>2012.25</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>4</span>)), <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>
@@ -251,7 +251,7 @@ cannot be determined (<code>?</code>).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
