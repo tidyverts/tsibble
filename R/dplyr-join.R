@@ -3,10 +3,7 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
   tbl_x <- as_tibble(x)
   tbl_y <- as_tibble(y)
   tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
-  as_tsibble(
-    tbl, key = key(x), index = !! index(x), groups = groups(x),
-    validate = FALSE, regular = is_regular(x)
-  )
+  restore_index_class(x, update_tsibble(tbl, x))
 }
 
 #' @export
