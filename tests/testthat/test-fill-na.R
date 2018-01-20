@@ -71,3 +71,18 @@ test_that("Test grouped_ts", {
     )
   )
 })
+
+test_that("Test fill.grouped_ts", {
+  full_tsbl <- tsbl %>%
+    fill_na() %>% 
+    group_by(group) %>%
+    fill(value, .direction = "up")
+  expect_equal(
+    as_tibble(full_tsbl[c(1, 9), ]),
+    tibble(
+      date = c(ymd("2017-01-01"), ymd("2017-01-13")),
+      group = c("a", "b"),
+      value = c(1L, 2L)
+    )
+  )
+})

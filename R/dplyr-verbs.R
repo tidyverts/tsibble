@@ -194,15 +194,16 @@ summarize.tbl_ts <- summarise.tbl_ts
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- quo_text2(index)
-  grped_quo <- quos(...)
-  grped_chr <- prepare_groups(.data, grped_quo, add = add)
+  current_grps <- quos(...)
+  final_grps <- prepare_groups(.data, current_grps, add = add)
+  grped_chr <- flatten_key(final_grps)
   if (idx_var %in% grped_chr) {
     abort(paste("The index variable", surround(idx_var), "cannot be grouped."))
   }
 
   grped_ts <- grouped_df(.data, grped_chr)
   as_tsibble(
-    grped_ts, key = key(.data), index = !! index, groups = grped_quo,
+    grped_ts, key = key(.data), index = !! index, groups = final_grps,
     validate = FALSE, regular = is_regular(.data)
   )
 }
@@ -220,21 +221,17 @@ ungroup.grouped_ts <- function(x, ...) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.tbl_ts <- function(x, ...) {
-  as_tsibble(
-    x, key = key(x), index = !! index(x),
-    validate = FALSE, regular = is_regular(x)
-  )
+  x
 }
 
 # this function prepares group variables in a vector of characters for
 # dplyr::grouped_df()
-# the arg of group can take a nested str but be flattened in the end.
 prepare_groups <- function(data, group, add = FALSE) {
-  grps <- flatten_key(validate_key(data, group))
+  grps <- validate_key(data, group)
   if (is_false(add)) {
     return(grps)
   }
-  c(flatten_key(groups(data)), grps)
+  c(groups(data), grps)
 }
 
 do.tbl_ts <- function(.data, ...) {

@@ -225,7 +225,11 @@ key_size <- function(x) {
 
 #' @export
 key_size.tbl_ts <- function(x) {
-  vapply(attr(x, "key_indices"), length, integer(1))
+  key_indices <- attr(x, "key_indices")
+  if (is_empty(key_indices)) {
+    return(NROW(x))
+  }
+  vapply(key_indices, length, integer(1))
 }
 
 #' @rdname key-size
@@ -500,7 +504,7 @@ validate_tbl_ts <- function(data, key, index) {
   # e.g. nycflights13::weather, thus result in duplicates. 
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
-    summarise(zzz = anyDuplicated(!! index))
+    summarise(zzz = anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     msg <- paste("Invalid tsibble: identical data entries from", idx)
     if (!is_empty(key)) {
@@ -549,8 +553,8 @@ as.tibble.grouped_ts <- as_tibble.grouped_ts
 #' @rdname as-tibble
 #' @export
 as.data.frame.tbl_ts <- function(x, ...) {
-  class(x) <- "data.frame"
-  x
+  x <- drop_tsibble(x)
+  NextMethod()
 }
 
 use_id <- function(x) {
@@ -580,7 +584,7 @@ drop_tsibble <- function(x) {
 #'
 #' @return A logical vector of the same length as the row number of `data`
 #' @export
-inform_duplidates <- function(data, key = id(), index, fromLast = FALSE) {
+inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   use_id(key)
   index <- extract_index_var(data, enquo(index))
 

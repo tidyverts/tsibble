@@ -6,16 +6,19 @@ test_that("group_by()", {
   expect_error(group_by(tourism, State | Region, Purpose))
   expect_error(group_by(tourism, Quarter))
   expect_error(group_by(pedestrian, Date_Time, Sensor))
-  # grped_df <- pedestrian %>% 
-  #   group_by(Date) %>% 
-  #   group_by(Sensor, add = TRUE)
-  # expect_length(group_vars(grped_df), 2)
-  #
-  # grped_t <- tourism %>% 
-  #   group_by(Purpose) %>% 
-  #   group_by(Region | State, add = TRUE)
-  # expect_length(group_vars(grped_t), 3)
+  grped_df <- pedestrian %>% 
+    group_by(Date) %>% 
+    group_by(Sensor, add = TRUE)
+  expect_length(group_vars(grped_df), 2)
+  grped_df <- pedestrian %>% 
+    group_by(Sensor)
+  expect_equal(n_groups(grped_df), 4)
+  expect_length(group_size(grped_df), 4)
 
+  grped_t <- tourism %>% 
+    group_by(Purpose) %>% 
+    group_by(Region | State, add = TRUE)
+  expect_length(group_vars(grped_t), 2)
 })
 
 test_that("arrange()", {

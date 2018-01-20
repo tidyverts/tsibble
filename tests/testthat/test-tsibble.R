@@ -10,6 +10,11 @@ dat_x <- tibble(
   value = rnorm(5)
 )
 
+test_that("A tsibble cannot be empty", {
+  expect_error(tsibble())
+  expect_error(as_tsibble())
+})
+
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
   expect_error(key(dat_x))
@@ -18,9 +23,16 @@ test_that("A tibble is not tsibble", {
   expect_error(is_regular(dat_x))
 })
 
+test_that("Coerce to tbl_df and data.frame", {
+  tsbl <- as_tsibble(dat_x, index = date_time)
+  expect_identical(as_tibble(tsbl), dat_x)
+  expect_identical(as.data.frame(tsbl), as.data.frame(dat_x))
+})
+
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_sum(dat_x$date_time), "dttm")
   expect_message(tsbl <- as_tsibble(dat_x))
+  expect_error(as_tsibble(dat_x, key = id(date_time)))
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "quosure")
   expect_identical(quo_text(index(tsbl)), "date_time")
@@ -28,6 +40,9 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1SECOND")
   expect_true(is_regular(tsbl))
+  expect_equal(key_size(tsbl), 5)
+  expect_equal(n_keys(tsbl), 1)
+  expect_equal(group_size(tsbl), 5)
 })
 
 test_that("Space in index variable", {
@@ -40,6 +55,9 @@ test_that("Space in index variable", {
 test_that("Duplicated time index", {
   dat_y <- dat_x[c(1, 1, 3:5), ]
   expect_error(as_tsibble(dat_y, index = date_time))
+
+  y <- c(FALSE, TRUE, rep(FALSE, 3))
+  expect_identical(inform_duplicates(dat_y, index = date_time), y)
 })
 
 test_that("POSIXt with an unrecognisable interval", {
@@ -169,6 +187,8 @@ test_that("A single key", {
   expect_is(key(tsbl), "key")
   expect_identical(format(key(tsbl))[[1]], "group")
   expect_identical(format(groups(tsbl)), "NULL")
+  expect_equal(key_size(tsbl), c(5, 5))
+  expect_equal(n_keys(tsbl), 2)
 })
 
 test_that("Duplicated identifier: index", {
