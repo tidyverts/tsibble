@@ -56,12 +56,26 @@ weather_tsbl
 
 The **key** is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See `?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
 
+### `fill_na()` to turn implicit missing values into explicit missing values
+
+Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using `fill_na()`. Meanwhile, fill `NA`s in by 0 for precipitation (`precip`). It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
+
+```{r fill-na}
+full_weather <- weather_tsbl %>%
+  fill_na(precip = 0) %>% 
+  group_by(origin) %>% 
+  fill(temp, humid, .direction = "down")
+full_weather
+```
+
+`fill_na()` also handles filling `NA` by values or functions, and preserves time zones for date-times.
+
 ### `tsummarise()` to summarise over calendar periods
 
 A new verb `tsummarise()` is introduced to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmonth()` to the hourly time index.
 
 ```{r tsummarise}
-weather_tsbl %>%
+full_weather %>%
   group_by(origin) %>%
   tsummarise(
     year_month = yearmonth(time_hour), # monthly aggregates
@@ -83,28 +97,12 @@ Temporal data often involves moving window calculations. Several functions in th
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 
 ```{r slide}
-weather_tsbl %>% 
+full_weather %>% 
   group_by(origin) %>% 
   mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
 ```
 
 It can be noticed that the common *dplyr* verbs, such as `summarise()`, `mutate()`, `filter()`, and `*_join()`, seamlessly work with the tsibble. 
-
-### `fill_na()` to turn implicit missing values into explicit missing values
-
-Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit. The `fill_na()` function not only completes the index and keys to make the `NA`s present, but also provides a consistent interface to replace these `NA`s using a set of name-value pairs.
-
-```{r fill-na}
-full_pedestrian <- pedestrian %>%
-  fill_na(
-    Date = lubridate::as_date(Date_Time),
-    Time = lubridate::hour(Date_Time)
-  )
-c("original" = nrow(pedestrian), "full" = nrow(full_pedestrian))
-full_pedestrian
-```
-
-In the example of `pedestrian`, the missing values of the *Date* and *Time*, are supplied by the corresponding component of the `Date_Time`. The rest of untouched variables (i.e. `Count`) simply leave NA as is.
 
 ## Related work
 

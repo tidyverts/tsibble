@@ -68,7 +68,39 @@ nested and crossed data structures. This incorporates univariate,
 multivariate, hierarchical and grouped time series into the tsibble
 framework. See `?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
-for details.
+for
+details.
+
+### `fill_na()` to turn implicit missing values into explicit missing values
+
+Often there are implicit missing cases in temporal data. If the
+observations are made at regular time interval, we could turn these
+implicit missings to be explicit simply using `fill_na()`. Meanwhile,
+fill `NA`s in by 0 for precipitation (`precip`). It is quite common to
+replaces `NA`s with its previous observation for each origin in time
+series analysis, which is easily done using `fill()` from *tidyr*.
+
+``` r
+full_weather <- weather_tsbl %>%
+  fill_na(precip = 0) %>% 
+  group_by(origin) %>% 
+  fill(temp, humid, .direction = "down")
+full_weather
+#> # A tsibble: 26,208 x 5 [1HOUR]
+#> # Keys: origin [3]
+#> # Groups: origin [3]
+#>   origin time_hour            temp humid precip
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> 1 EWR    2013-01-01 11:00:00  37.0  54.0      0
+#> 2 EWR    2013-01-01 12:00:00  37.0  54.0      0
+#> 3 EWR    2013-01-01 13:00:00  37.9  52.1      0
+#> 4 EWR    2013-01-01 14:00:00  37.9  54.5      0
+#> 5 EWR    2013-01-01 15:00:00  37.9  57.0      0
+#> # ... with 2.62e+04 more rows
+```
+
+`fill_na()` also handles filling `NA` by values or functions, and
+preserves time zones for date-times.
 
 ### `tsummarise()` to summarise over calendar periods
 
@@ -81,7 +113,7 @@ computing average temperature and total precipitation per month, by
 applying the `yearmonth()` to the hourly time index.
 
 ``` r
-weather_tsbl %>%
+full_weather %>%
   group_by(origin) %>%
   tsummarise(
     year_month = yearmonth(time_hour), # monthly aggregates
@@ -118,10 +150,10 @@ For example, a moving average of window size 3 is carried out on hourly
 temperatures for each group (*origin*).
 
 ``` r
-weather_tsbl %>% 
+full_weather %>% 
   group_by(origin) %>% 
   mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
-#> # A tsibble: 26,130 x 6 [1HOUR]
+#> # A tsibble: 26,208 x 6 [1HOUR]
 #> # Keys: origin [3]
 #> # Groups: origin [3]
 #>   origin time_hour            temp humid precip temp_ma
@@ -131,47 +163,12 @@ weather_tsbl %>%
 #> 3 EWR    2013-01-01 13:00:00  37.9  52.1      0    37.3
 #> 4 EWR    2013-01-01 14:00:00  37.9  54.5      0    37.6
 #> 5 EWR    2013-01-01 15:00:00  37.9  57.0      0    37.9
-#> # ... with 2.612e+04 more rows
+#> # ... with 2.62e+04 more rows
 ```
 
 It can be noticed that the common *dplyr* verbs, such as `summarise()`,
 `mutate()`, `filter()`, and `*_join()`, seamlessly work with the
 tsibble.
-
-### `fill_na()` to turn implicit missing values into explicit missing values
-
-Often there are implicit missing cases in temporal data. If the
-observations are made at regular time interval, we could turn these
-implicit missings to be explicit. The `fill_na()` function not only
-completes the index and keys to make the `NA`s present, but also
-provides a consistent interface to replace these `NA`s using a set of
-name-value pairs.
-
-``` r
-full_pedestrian <- pedestrian %>%
-  fill_na(
-    Date = lubridate::as_date(Date_Time),
-    Time = lubridate::hour(Date_Time)
-  )
-c("original" = nrow(pedestrian), "full" = nrow(full_pedestrian))
-#> original     full 
-#>    66071    70176
-full_pedestrian
-#> # A tsibble: 70,176 x 5 [1HOUR]
-#> # Keys: Sensor [4]
-#>   Sensor                        Date_Time           Date        Time Count
-#>   <chr>                         <dttm>              <date>     <int> <int>
-#> 1 Birrarung Marr                2015-01-01 00:00:00 2015-01-01     0  1630
-#> 2 Bourke Street Mall (North)    2015-01-01 00:00:00 2015-01-01     0    NA
-#> 3 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490
-#> 4 Southern Cross Station        2015-01-01 00:00:00 2015-01-01     0   746
-#> 5 Birrarung Marr                2015-01-01 01:00:00 2015-01-01     1   826
-#> # ... with 7.017e+04 more rows
-```
-
-In the example of `pedestrian`, the missing values of the *Date* and
-*Time*, are supplied by the corresponding component of the `Date_Time`.
-The rest of untouched variables (i.e. `Count`) simply leave NA as is.
 
 ## Related work
 
