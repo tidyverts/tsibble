@@ -65,7 +65,7 @@ format.interval <- function(x, ...) {
   # if output is empty, it means that duplicated time entries
   # if output is NA, it means that only one time entry
   output <- x[not_zero]
-  vec_x <- rlang::flatten_dbl(output)
+  vec_x <- round(rlang::flatten_dbl(output), digits = 3)
   if (is_empty(output) || is_empty(vec_x)) {
     return("?")
   }
