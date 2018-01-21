@@ -138,8 +138,11 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 1) { # yearly
     return(time_x)
   } else {
-    date_x <- lubridate::date_decimal(time_x, tz = tz)
-    return(lubridate::round_date(date_x, unit = "seconds"))
+    if (stats::end(x)[1] > 999) {
+      date_x <- lubridate::date_decimal(time_x, tz = tz)
+      return(lubridate::round_date(date_x, unit = "seconds"))
+    }
+    time_x
   }
 }
 
