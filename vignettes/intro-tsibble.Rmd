@@ -89,7 +89,7 @@ The keys are comprised of the `flight`, `origin`, and `dest` variables. With `re
 ```{r flights-ts}
 flights_tsbl <- flights %>%
   as_tsibble(
-    key = id(flight, origin, dest), 
+    key = id(flight:dest), 
     index = sched_date_time, 
     regular = FALSE
   )

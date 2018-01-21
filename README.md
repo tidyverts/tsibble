@@ -104,13 +104,13 @@ preserves time zones for date-times.
 
 ### `tsummarise()` to summarise over calendar periods
 
-A new verb `tsummarise()` is introduced to aggregate interested
-variables over calendar periods. The `tsummarise` goes hand in hand with
-the index functions including `as.Date()`, `yearmonth()`, and
-`yearquarter()`, as well as other friends from *lubridate*, such as
-`year()` and `ceiling_date()`. For example, it would be of interest in
-computing average temperature and total precipitation per month, by
-applying the `yearmonth()` to the hourly time index.
+`tsummarise()` is introduced to aggregate interested variables over
+calendar periods. The `tsummarise` goes hand in hand with the index
+functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as
+well as other friends from *lubridate*, such as `year()` and
+`ceiling_date()`. For example, it would be of interest in computing
+average temperature and total precipitation per month, by applying the
+`yearmonth()` to the hourly time index.
 
 ``` r
 full_weather %>%

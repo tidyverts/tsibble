@@ -163,7 +163,7 @@
 <p>The keys are comprised of the <code>flight</code>, <code>origin</code>, and <code>dest</code> variables. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">flights_tsbl &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(flight, origin, dest), </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(flight<span class="op">:</span>dest), </a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">    <span class="dt">index =</span> sched_date_time, </a>
 <a class="sourceLine" id="cb14-5" data-line-number="5">    <span class="dt">regular =</span> <span class="ot">FALSE</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6">  )</a>
