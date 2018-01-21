@@ -216,7 +216,7 @@ stretch.data.frame <- function(x, .f, ..., size = 1, init = 1, deframe = TRUE) {
 stretcher <- function(x, size = 1, init = 1) {
   bad_window_function(x, size)
   if (!is_bare_numeric(init, n = 1) || init < 1) {
-    abort("The initial window must be a positive integer.")
+    abort("`init` must be a positive integer.")
   }
   incr <- function(init, size) {
     init
@@ -238,9 +238,9 @@ stretcher <- function(x, size = 1, init = 1) {
 
 bad_window_function <- function(x, size) {
   if (is_bare_list(x)) {
-    abort("Unsupported input class: list")
+    abort("`x` must not be a list.")
   }
   if (!is_bare_numeric(size, n = 1) || size < 1) {
-    abort("The window size must be a positive integer.")
+    abort("`size` must be a positive integer.")
   }
 }

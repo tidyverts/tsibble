@@ -172,13 +172,17 @@ as_tsibble.grouped_ts <- as_tsibble.grouped_df
 #' @keywords internal
 #' @export
 as_tsibble.default <- function(x, ...) {
-  abort("`as_tsibble()` doesn't know how to deal with this type of class yet.")
+  cls <- class(x)[1]
+  msg <- sprintf(
+    "`as_tsibble()` doesn't know how to coerce the `%s` class yet.", cls
+  )
+  abort(msg)
 }
 
 #' @keywords internal
 #' @export
 as_tsibble.NULL <- function(x, ...) {
-  abort("A tsibble must not be empty or NULL.")
+  abort("A tsibble must not be NULL.")
 }
 
 #' Return key and measured variables
@@ -401,7 +405,7 @@ as.tsibble <- function(x, ...) {
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   if (NROW(x) == 0) {
-    abort("A tsibble must not be empty or NULL.")
+    abort("A tsibble must not be empty.")
   }
   # if key is quosures
   use_id(key)
@@ -418,8 +422,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     msg <- sprintf(
-      "If %s is the index, it doesn't need to be included in the key.", 
-      surround(idx_chr, "`")
+      "%s can't be both `key` and `index`.", surround(idx_chr, "`")
     )
     abort(msg)
   }
@@ -470,10 +473,10 @@ extract_index_var <- function(data, index) {
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
-      abort("Fail to determine the `index`. Please specify `index = <var>`.")
+      abort("Can't determine the `index`. Please specify the `index` arg.")
     }
     chr_index <- colnames(data)[val_idx]
-    inform(sprintf("Is %s the index?", surround(chr_index, "`")))
+    inform(sprintf("The `index` is %s.", surround(chr_index, "`")))
     idx_sym <- sym(chr_index)
     index <- as_quosure(idx_sym)
     return(index)
@@ -509,7 +512,7 @@ validate_nested <- function(data, key) {
       wrong_nested <- paste_comma(wrong_nested)
       wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
       abort(sprintf(
-        "Incorrect ordering of nested variables: %s %s. Please see `?tsibble`.",
+        "Incorrect nesting: %s %s. Please see `?tsibble`.",
         wrong_nested, surround(wrong_dim, "(")
       ))
     }
@@ -586,7 +589,7 @@ use_id <- function(x) {
     is_quosures(x),
     error = function(e) {
       e$call <- NULL
-      e$message <- "Please use `tsibble::id()` to create the 'key'."
+      e$message <- "Have you forgotten `tsibble::id()` to create the `key`?"
       stop(e)
     }
   )

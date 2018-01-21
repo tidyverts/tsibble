@@ -69,7 +69,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
-      "The index %s must not be dropped. Do you need `drop = TRUE`?", 
+      "The `index` (%s) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
       surround(quo_text2(index(.data)), "`")
     ))
   }
@@ -140,7 +140,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   idx <- index(.data)
   if (has_index_var(j = vec_vars, x = .data)) {
     abort(sprintf(
-      "The index %s must not be dropped. Do you need `drop = TRUE`?", 
+      "The `index` (%s) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
       surround(quo_text2(idx), "`")
     ))
   }
@@ -189,7 +189,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_chr <- flatten_key(final_grps)
   if (idx_var %in% grped_chr) {
     abort(sprintf(
-      "The index %s must not be grouped. Do you need `as_tibble()`?", 
+      "The `index` (%s) must not be grouped. Do you need `as_tibble()` to coerce to `tbl_df`?", 
       surround(idx_var, "`")
     ))
   }
@@ -233,12 +233,12 @@ do.tbl_ts <- function(.data, ...) {
 
 #' @export
 transmute.tbl_ts <- function(.data, ...) {
-  abort("The 'tbl_ts' has no support for transmute(). Please coerce to 'data.frame' first and then transmute().")
+  abort("'tbl_ts' has no support for transmute(). Please coerce to 'tbl_df' first and then transmute().")
 }
 
 #' @export
 distinct.tbl_ts <- function(.data, ...) {
-  abort("The 'tbl_ts' has no support for distinct(). Please coerce to 'data.frame' first and then distinct().")
+  abort("'tbl_ts' has no support for distinct(). Please coerce to 'tbl_df' first and then distinct().")
 }
 
 by_row <- function(FUN, .data, ...) {

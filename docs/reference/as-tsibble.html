@@ -183,7 +183,7 @@ daily.</p></td>
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Is `date` the index?</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>The `index` is `date`.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
 #&gt;    date          value
 #&gt;    &lt;date&gt;        &lt;dbl&gt;
 #&gt;  1 2017-01-01 -1.40   
@@ -216,7 +216,7 @@ daily.</p></td>
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Is `mth` the index?</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The `index` is `mth`.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
 #&gt; # Keys: group [3]
 #&gt;         mth group   value
 #&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;

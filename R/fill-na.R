@@ -57,13 +57,13 @@ fill_na <- function(.data, ...) {
 
 #' @export
 fill_na.data.frame <- function(.data, ...) {
-  abort("Please use tidyr::complete() for a tbl_df/data.frame.")
+  abort("Do you need `tidyr::complete()` for a `tbl_df`/`data.frame`?")
 }
 
 #' @export
 fill_na.tbl_ts <- function(.data, ...) {
   if (!is_regular(.data)) {
-    abort("Don't know how to handle irregular time series data.")
+    abort("`fill_na()` can't handle `tbl_ts` of irregular interval.")
   }
   idx <- index(.data)
   key <- key(.data)
@@ -97,7 +97,7 @@ modify_na <- function(.data, ...) {
   check_names <- lhs %in% colnames(.data)
   if (is_false(all(check_names))) {
     bad_names <- paste_comma(lhs[which(!check_names)])
-    abort(sprintf("Unexpected LHS names: %s", bad_names))
+    abort(sprintf("Can't find column %s in `.data`.", surround(bad_names, "`")))
   }
 
   rhs <- purrr::map(lst_quos, f_rhs)

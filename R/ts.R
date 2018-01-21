@@ -22,13 +22,8 @@
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   value <- enquo(value)
   key_vars <- key(x)
-  if (any(is_nest(key_vars))) {
-    # abort("Please use as.hts() instead.")
-    abort("Don't know how to deal with nested keys.")
-  }
-  if (length(key_vars) > 1) {
-    # abort("Please use as.gts() instead.")
-    abort("Don't know how to deal with crossed keys.")
+  if (any(is_nest(key_vars)) || length(key_vars) > 1) {
+    abort("`as.ts()` can't deal with nested or crossed keys.")
   }
   mat_ts <- spread_tsbl(x, value = value, fill = fill)
   finalise_ts(mat_ts, index = index(x), frequency = frequency)
@@ -137,6 +132,6 @@ guess_frequency.POSIXt <- function(x) {
   } else if (number > 1 / 3600 && number <= 1 / 60) {
     return(3600 * number)
   } else {
-    return(3600 * 60 * number)
+    3600 * 60 * number
   }
 }
