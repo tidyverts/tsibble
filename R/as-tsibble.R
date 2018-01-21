@@ -533,10 +533,10 @@ validate_tbl_ts <- function(data, key, index) {
   tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
     summarise(zzz = anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    idx_msg <- sprintf("Invalid tsibble: identical data entries from %s", idx)
+    msg <- sprintf("Invalid tsibble: identical data entries from %s", idx)
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- sprintf("%s and %s.", idx_msg, paste_comma(format(key)))
+      msg <- sprintf("%s and %s.", msg, paste_comma(format(key)))
     }
     msg <- paste(msg, "Use `inform_duplicates()` to check the duplicated rows.")
     abort(msg)
