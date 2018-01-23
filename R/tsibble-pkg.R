@@ -24,7 +24,7 @@
 #' * Nested variables: a nesting of one variable under another. For example, 
 #' `data(tourism)` contains two geographical locations: `Region` and `State`.
 #' `Region` is the lower level than `State` in Australia; in other words, `Region`
-#' is nested into `State`, which naturally forms a hierarchy. A vertical bars (`|`)
+#' is nested into `State`, which naturally forms a hierarchy. A vertical bar (`|`)
 #' is used to describe this nesting relationship, and thus `Region` | `State`. 
 #' In theory, nesting can involve infinite levels, so is `tsibble`.
 #' * Crossed variables: a crossing of one variable with another. For example,
