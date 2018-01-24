@@ -94,7 +94,7 @@ as_tibble.gts <- function(x, ...) {
 
 bind_time <- function(x, tz = "UTC") {
   dplyr::bind_cols(
-    index = time_to_date(x, tz = tz), tibble::as_tibble(x)
+    index = time_to_date(x, tz = tz), tibble::as_tibble(x, validate = FALSE)
   )
 }
 

@@ -410,7 +410,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   # if key is quosures
   use_id(key)
 
-  tbl <- ungroup(as_tibble(x)) # x is lst, data.frame, tbl_df
+  tbl <- ungroup(as_tibble(x, validate = validate)) # x is lst, data.frame, tbl_df
   # extract or pass the index var
   index <- extract_index_var(tbl, index = index)
   # (1) validate and process key vars (from expr to a list of syms)
