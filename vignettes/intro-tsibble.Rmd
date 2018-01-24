@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(tibble.print_min = 5)
+Sys.setenv(TZ = "")
 ```
 
 The `tsibble()` creates a tsibble object, and `as_tsibble()` is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as `ts`, `mts`, or `hts`, can be automated to a tsibble using `as_tsibble()` without any specification. If it is a tibble or data frame, the `as_tsibble()` requires a little more setup in order to identify the index and key variables.

@@ -10,8 +10,7 @@ pedestrian <- rwalkr::run_melb(
     "Southern Cross Station",
     "Bourke Street Mall (North)",
     "QV Market-Elizabeth St (West)"
-  ),
-  na.rm = TRUE)
+  ), na.rm = TRUE, tz = "Australia/Melbourne")
 
 pedestrian <- as_tsibble(
   pedestrian, key = tsibble::id(Sensor), index = Date_Time
