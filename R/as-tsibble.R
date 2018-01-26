@@ -108,7 +108,7 @@ as_tsibble.tbl_df <- function(
 #' @rdname as-tsibble
 #' @export
 as_tsibble.tbl_ts <- function(
-  x, key = id(), index, regular = TRUE, validate = FALSE, ...
+  x, key = id(), index, regular = TRUE, validate = TRUE, ...
 ) {
   if (is_empty(key)) {
     key <- key(x)

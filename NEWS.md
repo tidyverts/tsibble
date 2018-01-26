@@ -1,4 +1,6 @@
-# tsibble 0.1.0.9999
+# tsibble 0.1.2
+
+This release marks the complete support of dplyr key verbs.
 
 ## Reexported functions
 

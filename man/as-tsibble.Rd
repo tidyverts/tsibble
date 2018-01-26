@@ -19,7 +19,7 @@ as_tsibble(x, ...)
   validate = TRUE, ...)
 
 \method{as_tsibble}{tbl_ts}(x, key = id(), index, regular = TRUE,
-  validate = FALSE, ...)
+  validate = TRUE, ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
   validate = TRUE, ...)

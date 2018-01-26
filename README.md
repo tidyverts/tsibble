@@ -52,7 +52,7 @@ weather <- nycflights13::weather %>%
 weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 #> # A tsibble: 26,130 x 5 [1HOUR]
-#> # Keys: origin [3]
+#> # Keys:      origin [3]
 #>   origin time_hour            temp humid precip
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0
@@ -87,8 +87,8 @@ full_weather <- weather_tsbl %>%
   fill(temp, humid, .direction = "down")
 full_weather
 #> # A tsibble: 26,208 x 5 [1HOUR]
-#> # Keys: origin [3]
-#> # Groups: origin [3]
+#> # Keys:      origin [3]
+#> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0
@@ -121,7 +121,7 @@ full_weather %>%
     ttl_precip = sum(precip, na.rm = TRUE)
   )
 #> # A tsibble: 36 x 4 [1MONTH]
-#> # Keys: origin [3]
+#> # Keys:      origin [3]
 #>   origin year_month avg_temp ttl_precip
 #>   <chr>       <mth>    <dbl>      <dbl>
 #> 1 EWR      2013 Jan     35.6       2.70
@@ -154,8 +154,8 @@ full_weather %>%
   group_by(origin) %>% 
   mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
 #> # A tsibble: 26,208 x 6 [1HOUR]
-#> # Keys: origin [3]
-#> # Groups: origin [3]
+#> # Keys:      origin [3]
+#> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip temp_ma
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
 #> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0    NA  

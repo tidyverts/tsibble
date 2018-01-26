@@ -155,7 +155,7 @@ uses the <code><a href='id.html'>id(Sensor)</a></code> column as the key.</p></l
 <li><p>Nested variables: a nesting of one variable under another. For example,
 <code>data(tourism)</code> contains two geographical locations: <code>Region</code> and <code>State</code>.
 <code>Region</code> is the lower level than <code>State</code> in Australia; in other words, <code>Region</code>
-is nested into <code>State</code>, which naturally forms a hierarchy. A vertical bars (<code>|</code>)
+is nested into <code>State</code>, which naturally forms a hierarchy. A vertical bar (<code>|</code>)
 is used to describe this nesting relationship, and thus <code>Region</code> | <code>State</code>.
 In theory, nesting can involve infinite levels, so is <code>tsibble</code>.</p></li>
 <li><p>Crossed variables: a crossing of one variable with another. For example,
@@ -208,7 +208,7 @@ cannot be determined (<code>?</code>).</p></li>
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>
 )
 <span class='no'>tbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1QUARTER]
-#&gt; # Keys: group [3]
+#&gt; # Keys:      group [3]
 #&gt;        qtr group    value
 #&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
 #&gt;  1 2010 Q1 x      0.00851

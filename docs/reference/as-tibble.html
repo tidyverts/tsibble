@@ -134,7 +134,7 @@
 <span class='co'># a grouped tbl_ts -----</span>
 <span class='no'>grped_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>)
 <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='no'>grped_ped</span>)</div><div class='output co'>#&gt; # A tibble: 66,071 x 5
-#&gt; # Groups: Sensor [4]
+#&gt; # Groups:   Sensor [4]
 #&gt;    Sensor                        Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr                2015-01-01 00:00:00 2015-01-01     0  1630

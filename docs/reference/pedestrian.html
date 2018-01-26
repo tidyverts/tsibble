@@ -118,7 +118,7 @@
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
 <span class='co'># make implicit missingness to be explicit</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='fill-na.html'>fill_na</a></span>()</div><div class='output co'>#&gt; # A tsibble: 70,176 x 5 [1HOUR]
-#&gt; # Keys: Sensor [4]
+#&gt; # Keys:      Sensor [4]
 #&gt;    Sensor                        Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr                2015-01-01 00:00:00 2015-01-01     0  1630
@@ -135,10 +135,10 @@
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='tsummarise.html'>tsummarise</a></span>(
-    <span class='kw'>Date1</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/lubridate/topics/as_date'>as_date</a></span>(<span class='no'>Date_Time</span>),
+    <span class='kw'>Date1</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='no'>Date_Time</span>),
     <span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 2,755 x 3 [1DAY]
-#&gt; # Keys: Sensor [4]
+#&gt; # Keys:      Sensor [4]
 #&gt;    Sensor         Date1       MaxC
 #&gt;    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt;
 #&gt;  1 Birrarung Marr 2015-01-01  1630

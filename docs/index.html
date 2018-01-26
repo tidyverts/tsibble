@@ -91,14 +91,14 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="reference/id.html">id</a></span>(origin), <span class="dt">index =</span> time_hour)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">weather_tsbl</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,130 x 5 [1HOUR]</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Keys: origin [3]</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 11:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 12:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 13:00:00  37.9  52.1      0</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 14:00:00  37.9  54.5      0</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 15:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.612e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code><a href="reference/tsibble.html">?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
 </section><section id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="level3"><h3>
@@ -110,15 +110,15 @@
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,208 x 5 [1HOUR]</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Keys: origin [3]</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups: origin [3]</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 11:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 12:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 13:00:00  37.9  52.1      0</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 14:00:00  37.9  54.5      0</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 15:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
 <p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times.</p>
 </section><section id="tsummarise-to-summarise-over-calendar-periods" class="level3"><h3>
@@ -132,14 +132,14 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw">sum</span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Keys: origin [3]</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.5       2.70</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.6       2.70</span></a>
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR      2013 Feb     34.1       2.76</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.0       1.92</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     52.8       1.07</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     62.8       2.76</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.0       1.94</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     52.9       1.05</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.1       2.76</span></a>
 <a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
 <p>The <code><a href="reference/tsummarise.html">tsummarise()</a></code> can also help with regularising a tsibble of irregular time space.</p>
 </section><section id="a-family-of-window-functions-slide-tile-stretch" class="level3"><h3>A family of window functions: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
@@ -158,15 +158,15 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">size =</span> <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,208 x 6 [1HOUR]</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Keys: origin [3]</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups: origin [3]</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   origin time_hour            temp humid precip temp_ma</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 11:00:00  37.0  54.0      0    NA  </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 12:00:00  37.0  54.0      0    NA  </span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 13:00:00  37.9  52.1      0    37.3</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 14:00:00  37.9  54.5      0    37.6</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 15:00:00  37.9  57.0      0    37.9</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0    NA  </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0    NA  </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0    37.3</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0    37.6</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
 <p>It can be noticed that the common <em>dplyr</em> verbs, such as <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, and <code>*_join()</code>, seamlessly work with the tsibble.</p>
 </section></section><section id="related-work" class="level2"><h2>Related work</h2>

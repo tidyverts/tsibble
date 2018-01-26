@@ -1,8 +1,8 @@
 Package: tsibble
 Type: Package
 Title: Tidy Temporal Data Frames and Tools
-Version: 0.1.0.9999
-Date: 2018-01-09
+Version: 0.1.2
+Date: 2018-01-26
 Authors@R: c(
     person("Earo", "Wang", email = "earo.wang@gmail.com", role = c("aut", "cre")),
     person("Di", "Cook", role = c("aut", "ths")),
