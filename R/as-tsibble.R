@@ -404,7 +404,7 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
-  if (NROW(x) == 0) {
+  if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
   }
   # if key is quosures

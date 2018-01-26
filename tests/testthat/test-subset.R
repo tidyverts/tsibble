@@ -29,6 +29,8 @@ test_that("Test if it's a tibble", {
 test_that("Test if it's a tsibble", {
   expect_is(tsbl[, c(1, 2)], "tbl_ts")
   expect_warning(tsbl[, c(1, 2), drop = TRUE])
+  expect_error(tsbl[FALSE, ])
+  expect_identical(tsbl[TRUE, ], tsbl)
   tsbl2 <- tsbl[1, ]
   expect_is(tsbl2, "tbl_ts")
   expect_true(is_regular(tsbl2))
