@@ -103,7 +103,7 @@ full_weather %>%
   mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
 ```
 
-### Reexported functions from the tidyverse
+## Reexported functions from the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *dplyr* verbs. 
 
