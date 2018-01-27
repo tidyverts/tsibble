@@ -178,7 +178,7 @@ It can be noticed that the tsibble seamlessly works with *dplyr* verbs.
       - `rename()`
       - `*_join()`
       - `group_by()`, `ungroup()`
-      - 🚫 `transmute()`, `disintct()`
+      - 🚫 `transmute()`, `distinct()`
   - **tidyr:** `fill()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
   - **rlang:** `!!`, `!!!`

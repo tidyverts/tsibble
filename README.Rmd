@@ -113,7 +113,7 @@ It can be noticed that the tsibble seamlessly works with *dplyr* verbs.
   - `rename()`
   - `*_join()`
   - `group_by()`, `ungroup()`
-  - `r emo::ji("no_entry_sign")` `transmute()`, `disintct()`
+  - `r emo::ji("no_entry_sign")` `transmute()`, `distinct()`
 * **tidyr:** `fill()`
 * **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
 * **rlang:** `!!`, `!!!`
