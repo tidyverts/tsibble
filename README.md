@@ -166,7 +166,7 @@ full_weather %>%
 #> # ... with 2.62e+04 more rows
 ```
 
-### Reexported functions from the tidyverse
+## Reexported functions from the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *dplyr* verbs.
 
