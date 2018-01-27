@@ -107,7 +107,13 @@ full_weather %>%
 
 It can be noticed that the tsibble seamlessly works with *dplyr* verbs. 
 
-* **dplyr:** `arrange()`, `filter()`, `slice()`, `mutate()`, `transmute()` `r emo::ji("no_entry_sign")`, `select()`, `rename()`, `summarise()`/`summarize()`, `disintct()` `r emo::ji("no_entry_sign")`, `*_join()`, `group_by()`, `ungroup()`, `do()`
+* **dplyr:** 
+  - `arrange()`, `filter()`, `slice()`
+  - `mutate()`, `select()`, `summarise()`/`summarize()` with an additional argument `drop = FALSE` to drop `tbl_ts` and coerce to `tbl_df`
+  - `rename()`
+  - `*_join()`
+  - `group_by()`, `ungroup()`
+  - `r emo::ji("no_entry_sign")` `transmute()`, `disintct()`
 * **tidyr:** `fill()`
 * **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
 * **rlang:** `!!`, `!!!`
