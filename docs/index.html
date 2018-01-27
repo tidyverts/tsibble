@@ -168,8 +168,22 @@
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0    37.6</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
-<p>It can be noticed that the common <em>dplyr</em> verbs, such as <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, and <code>*_join()</code>, seamlessly work with the tsibble.</p>
-</section></section><section id="related-work" class="level2"><h2>Related work</h2>
+</section><section id="reexported-functions-from-the-tidyverse" class="level3"><h3>Reexported functions from the tidyverse</h3>
+<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs.</p>
+<ul>
+<li>
+<strong>dplyr:</strong> <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">transmute()</a></code> 🚫, <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">rename()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>/<code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, <code>disintct()</code> 🚫, <code>*_join()</code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/do.html">do()</a></code>
+</li>
+<li>
+<strong>tidyr:</strong> <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill()</a></code>
+</li>
+<li>
+<strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as.tibble()</a></code>
+</li>
+<li>
+<strong>rlang:</strong> <code>!!</code>, <code>!!!</code>
+</li>
+</ul></section></section><section id="related-work" class="level2"><h2>Related work</h2>
 <ul>
 <li>
 <a href="https://CRAN.R-project.org/package=zoo">zoo</a>: regular and irregular time series with methods.</li>

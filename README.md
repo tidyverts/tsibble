@@ -166,9 +166,17 @@ full_weather %>%
 #> # ... with 2.62e+04 more rows
 ```
 
-It can be noticed that the common *dplyr* verbs, such as `summarise()`,
-`mutate()`, `filter()`, and `*_join()`, seamlessly work with the
-tsibble.
+### Reexported functions from the tidyverse
+
+It can be noticed that the tsibble seamlessly works with *dplyr* verbs.
+
+  - **dplyr:** `arrange()`, `filter()`, `slice()`, `mutate()`,
+    `transmute()` 🚫, `select()`, `rename()`,
+    `summarise()`/`summarize()`, `disintct()` 🚫, `*_join()`,
+    `group_by()`, `ungroup()`, `do()`
+  - **tidyr:** `fill()`
+  - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
+  - **rlang:** `!!`, `!!!`
 
 ## Related work
 
