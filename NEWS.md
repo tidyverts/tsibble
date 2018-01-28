@@ -1,3 +1,7 @@
+# tsibble 0.1.2.9999
+
+* Requires *rlang* (>= 0.1.6)
+
 # tsibble 0.1.2
 
 This release marks the complete support of dplyr key verbs.
