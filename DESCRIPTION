@@ -17,7 +17,7 @@ Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
 Depends:
     R (>= 3.1.3)
 Imports:
-    rlang (>= 0.1.6),
+    rlang,
     tidyr,
     purrr,
     tibble (>= 1.4.1),

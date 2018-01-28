@@ -104,7 +104,7 @@ modify_na <- function(.data, ...) {
   lst_lang <- purrr::map2(
     syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
   )
-  mod_quos <- purrr::map(lst_lang, ~ call2("case_na", .))
+  mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
   names(mod_quos) <- lhs
   modify_na_handler(.data, mod_quos)
 }

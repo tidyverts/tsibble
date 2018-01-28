@@ -29,7 +29,7 @@ paste_comma <- function(...) {
 }
 
 first_arg <- function(x) {
-  purrr::compact(purrr::map(x, ~ dplyr::first(call_args(.))))
+  purrr::compact(purrr::map(x, ~ dplyr::first(lang_args(.))))
 }
 
 # regular time interval is obtained from the minimal time distance.
