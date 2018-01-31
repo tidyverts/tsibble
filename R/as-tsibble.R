@@ -422,7 +422,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     msg <- sprintf(
-      "%s can't be both `key` and `index`.", surround(idx_chr, "`")
+      "`%s` can't be both `key` and `index`.", idx_chr
     )
     abort(msg)
   }
@@ -485,7 +485,7 @@ extract_index_var <- function(data, index) {
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       abort(sprintf(
-        "Unsupported index type: %s",
+        "Unsupported index type: `%s`",
         cls_idx[colnames(data) %in% names(idx_na)])
       )
     }
@@ -508,7 +508,9 @@ validate_nested <- function(data, key) {
     n_lgl <- purrr::map_lgl(n_dist, is_descending)
     if (is_false(all(n_lgl))) {
       which_bad <- key_nest[!n_lgl]
-      wrong_nested <- purrr::map(which_bad, ~ paste(., collapse = " | "))
+      wrong_nested <- purrr::map(which_bad, 
+        ~ paste(surround(., "`"), collapse = " | ")
+      )
       wrong_nested <- paste_comma(wrong_nested)
       wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
       abort(sprintf(
@@ -533,7 +535,7 @@ validate_tbl_ts <- function(data, key, index) {
   tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
     summarise(zzz = anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    msg <- sprintf("Invalid tsibble: identical data entries from %s", idx)
+    msg <- sprintf("Invalid tsibble: identical data entries from `%s`", idx)
     if (!is_empty(key)) {
       class(key) <- "key"
       msg <- sprintf("%s and %s.", msg, paste_comma(format(key)))

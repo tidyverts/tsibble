@@ -69,8 +69,8 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
-      "The `index` (%s) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
-      surround(quo_text2(index(.data)), "`")
+      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
+      quo_text2(index(.data))
     ))
   }
   lhs <- names(val_vars)
@@ -140,8 +140,8 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   idx <- index(.data)
   if (has_index_var(j = vec_vars, x = .data)) {
     abort(sprintf(
-      "The `index` (%s) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
-      surround(quo_text2(idx), "`")
+      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
+      quo_text2(index(.data))
     ))
   }
 
@@ -189,8 +189,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_chr <- flatten_key(final_grps)
   if (idx_var %in% grped_chr) {
     abort(sprintf(
-      "The `index` (%s) must not be grouped. Do you need `as_tibble()` to coerce to `tbl_df`?", 
-      surround(idx_var, "`")
+      "The `index` (`%s`) must not be grouped. Do you need `as_tibble()` to coerce to `tbl_df`?", 
+      idx_var
     ))
   }
 

@@ -52,7 +52,7 @@ tsummarise.tbl_ts <- function(.data, ...) {
   vec_vars <- as.character(first_arg)
   idx_var <- quo_text2(index)
   if (is_false(has_index_var(j = vec_vars, x = .data))) {
-    abort(sprintf("Can't find the `index` (%s) in the function call.", surround(idx_var, "`")))
+    abort(sprintf("Can't find the `index` (`%s`) in the function call.", idx_var))
   }
   idx_pos <- match(idx_var, vec_vars)
   idx_name <- names(lst_quos)[[idx_pos]]
