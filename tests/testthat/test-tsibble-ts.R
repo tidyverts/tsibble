@@ -34,8 +34,8 @@ test_that("Test a tsibble with a single key", {
 })
 
 test_that("Test a tsibble with more than one measured vars", {
-  expect_error(as.ts(pedestrian))
-  expect_error(as.ts(pedestrian, value = Date_Time))
+  expect_error(as.ts(pedestrian), "Can't determine the `value`:")
+  expect_error(as.ts(pedestrian, value = Date_Time), "Can't determine the `value`:")
   y <- as.ts(pedestrian, value = Count)
   expect_is(y, "mts")
   expect_equal(frequency(y), 24)

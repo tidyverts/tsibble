@@ -11,16 +11,16 @@ dat_x <- tibble(
 )
 
 test_that("A tsibble cannot be empty", {
-  expect_error(tsibble())
-  expect_error(as_tsibble())
+  expect_error(tsibble(), "empty")
+  expect_error(as_tsibble(), "NULL")
 })
 
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
-  expect_error(key(dat_x))
-  expect_error(index(dat_x))
-  expect_error(interval(dat_x))
-  expect_error(is_regular(dat_x))
+  expect_error(key(dat_x), "Can't find the `key`")
+  expect_error(index(dat_x), "tsibble")
+  expect_error(interval(dat_x), "tsibble")
+  expect_error(is_regular(dat_x), "tsibble")
 })
 
 test_that("Coerce to tbl_df and data.frame", {
@@ -55,7 +55,7 @@ test_that("Space in index variable", {
 
 test_that("Duplicated time index", {
   dat_y <- dat_x[c(1, 1, 3:5), ]
-  expect_error(as_tsibble(dat_y, index = date_time))
+  expect_error(as_tsibble(dat_y, index = date_time), "Invalid tsibble")
 
   y <- c(FALSE, TRUE, rep(FALSE, 3))
   expect_identical(inform_duplicates(dat_y, index = date_time), y)

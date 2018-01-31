@@ -8,7 +8,7 @@ dat_x <- tibble(
 )
 
 test_that("Test a tbl_ts/data.frame", {
-  expect_error(fill_na(dat_x))
+  expect_error(fill_na(dat_x), "data.frame")
 })
 
 test_that("Test a tbl_ts without implicit missing values", {
@@ -29,7 +29,7 @@ test_that("Test a tbl_ts of 4 day interval with no replacement", {
 })
 
 test_that("Test a tbl_ts of 4 day interval with value replacement", {
-  expect_error(fill_na(tsbl, value = 0L))
+  expect_error(fill_na(tsbl, value = 0L), "must be type integer")
   full_tsbl <- fill_na(tsbl, value = 0)
   expect_equal(
     as_tibble(full_tsbl[4, ]),
@@ -38,7 +38,7 @@ test_that("Test a tbl_ts of 4 day interval with value replacement", {
 })
 
 test_that("Test a tbl_ts of 4 day interval with bad names", {
-  expect_error(fill_na(tsbl, value1 = value))
+  expect_error(fill_na(tsbl, value1 = value), "Can't find column")
 })
 
 test_that("Test a tbl_ts of 4 day interval with function replacement", {

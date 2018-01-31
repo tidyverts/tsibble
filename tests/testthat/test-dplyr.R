@@ -2,10 +2,10 @@ library(lubridate)
 context("dplyr verbs for tsibble")
 
 test_that("group_by()", {
-  expect_error(group_by(tourism, State | Region))
-  expect_error(group_by(tourism, State | Region, Purpose))
-  expect_error(group_by(tourism, Quarter))
-  expect_error(group_by(pedestrian, Date_Time, Sensor))
+  expect_error(group_by(tourism, State | Region), "Incorrect nesting")
+  expect_error(group_by(tourism, State | Region, Purpose, "Invalid tsibble"))
+  expect_error(group_by(tourism, Quarter), "must not be grouped")
+  expect_error(group_by(pedestrian, Date_Time, Sensor), "must not be grouped")
   grped_df <- pedestrian %>% 
     group_by(Date) %>% 
     group_by(Sensor, add = TRUE)
@@ -55,8 +55,8 @@ test_that("filter() and slice()", {
 })
 
 test_that("select() and rename()", {
-  expect_error(select(tourism, Quarter))
-  expect_error(select(tourism, Region))
+  expect_error(select(tourism, Quarter), "Invalid tsibble")
+  expect_error(select(tourism, Region), "must not be dropped")
   expect_is(select(tourism, Region, drop = TRUE), "tbl_df")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
@@ -82,9 +82,9 @@ test_that("select() and rename()", {
 })
 
 test_that("mutate()", {
-  expect_error(mutate(tourism, Quarter = 1))
+  expect_error(mutate(tourism, Quarter = 1), "Invalid tsibble")
   expect_is(mutate(tourism, Quarter = 1, drop = TRUE), "tbl_df")
-  expect_error(mutate(tourism, Region = State))
+  expect_error(mutate(tourism, Region = State), "Invalid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   tsbl <- tourism %>%
     group_by(!!! key(.)) %>%
@@ -121,6 +121,6 @@ test_that("summarise()", {
 })
 
 test_that("transmute() and distinct()", {
-  expect_error(tourism %>% transmute(Region = paste(Region, State)))
-  expect_error(tourism %>% distinct(Region, State, Purpose))
+  expect_error(tourism %>% transmute(Region = paste(Region, State)), "no support")
+  expect_error(tourism %>% distinct(Region, State, Purpose), "no support")
 })

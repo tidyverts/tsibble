@@ -211,6 +211,11 @@ key <- function(x) {
 }
 
 #' @export
+key.default <- function(x) {
+  abort(sprintf("Can't find the `key` in `%s`", class(x)[1]))
+}
+
+#' @export
 key.tbl_ts <- function(x) {
   attr(x, "key")
 }
