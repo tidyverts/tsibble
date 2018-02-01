@@ -1,3 +1,7 @@
+# tsibble 0.1.2.9999
+
+* The windowed functions, including `slide()`, `tile()`, `stretch()`, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like `slide_lst()` (a list), `slide_dfr()` (a row-binding data frame), `slide_dfc()` (a column-binding data frame).
+
 # tsibble 0.1.2
 
 This release marks the complete support of dplyr key verbs.

@@ -1,5 +1,8 @@
 #' @export
 print.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
+  if (is.null(index(x))) {
+    abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
+  }
   cat_line(format(x, ..., n = n, width = width, n_extra = n_extra))
   invisible(x)
 }

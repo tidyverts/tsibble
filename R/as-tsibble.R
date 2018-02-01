@@ -490,9 +490,6 @@ extract_index_var <- function(data, index) {
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       name_idx <- names(idx_na)
-      if (is.na(name_idx)) {
-        abort("Can't find `index` anymore.")
-      }
       abort(sprintf(
         "Unsupported index type: `%s`", cls_idx[colnames(data) %in% name_idx])
       )

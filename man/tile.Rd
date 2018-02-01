@@ -19,7 +19,8 @@ tile_dfc(x, .f, ..., size = 1)
 tiler(x, size = 1)
 }
 \arguments{
-\item{x}{A vector of numerics, or data frame.}
+\item{x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
+window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
 formula, it is converted to a function.}

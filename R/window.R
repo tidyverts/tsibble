@@ -7,7 +7,8 @@
 #' column-binding
 #' * `slider()` splits the input `x` to a list according to the window size.
 #'
-#' @param x A vector of numerics, or data frame.
+#' @param x A vector of numerics, or data frame. If a data frame, row-wise rolling
+#' window is performed.
 #' @param .f A function or one-sided formula using purrr-like syntax. If a 
 #' formula, it is converted to a function.
 #' @param ... Additional arguments passed on to `.f`.
