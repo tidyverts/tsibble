@@ -2,17 +2,19 @@
 % Please edit documentation in R/window.R
 \name{stretch}
 \alias{stretch}
-\alias{stretch.default}
-\alias{stretch.data.frame}
+\alias{stretch_lst}
+\alias{stretch_dfr}
+\alias{stretch_dfc}
 \alias{stretcher}
 \title{Stretching window calculation}
 \usage{
 stretch(x, .f, ..., size = 1, init = 1)
 
-\method{stretch}{default}(x, .f, ..., size = 1, init = 1)
+stretch_lst(x, .f, ..., size = 1, init = 1)
 
-\method{stretch}{data.frame}(x, .f, ..., size = 1, init = 1,
-  deframe = TRUE)
+stretch_dfr(x, .f, ..., size = 1, init = 1, .id = NULL)
+
+stretch_dfc(x, .f, ..., size = 1, init = 1)
 
 stretcher(x, size = 1, init = 1)
 }
@@ -26,11 +28,19 @@ formula, it is converted to a function.}
 
 \item{size, init}{An integer for moving and initial window size.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
+\item{.id}{If not \code{NULL} a variable with this name will be created giving
+either the name or the index of the data frame, which is passed to
+\link[dplyr:bind_rows]{dplyr::bind_rows}.}
 }
 \description{
-\code{stretch()} is an S3 method to carry out expanding window calculation;
-\code{stretcher()} splits the input \code{x} to a list according to the window size.
+Fixing an initial window and expanding more observations:
+\itemize{
+\item \code{stretch()} always returns a vector of numerics
+\item \code{stretch_lst()} returns a list
+\item \code{stretch_dfr()} and \code{stretch_dfc()} return data frame using row-binding and
+column-binding
+\item \code{stretcher()} splits the input \code{x} to a list according to the window size.
+}
 }
 \examples{
 x <- 1:10
@@ -42,7 +52,7 @@ stretcher(x, init = 3)
 sx <- pedestrian \%>\% 
   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 sx \%>\%
-  stretch(~ quantile(.$Count), init = 48, deframe = FALSE)
+  stretch_dfr(~ quantile(.$Count), init = 48)
 }
 \seealso{
 \link{slide} for sliding window with overlapping observations;

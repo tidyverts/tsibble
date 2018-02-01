@@ -2,17 +2,19 @@
 % Please edit documentation in R/window.R
 \name{slide}
 \alias{slide}
-\alias{slide.default}
-\alias{slide.data.frame}
+\alias{slide_lst}
+\alias{slide_dfr}
+\alias{slide_dfc}
 \alias{slider}
 \title{Sliding window calculation}
 \usage{
-slide(x, .f, ..., size = 1, fill)
+slide(x, .f, ..., size = 1, fill = NA_real_)
 
-\method{slide}{default}(x, .f, ..., size = 1, fill = NA_real_)
+slide_lst(x, .f, ..., size = 1, fill = NA)
 
-\method{slide}{data.frame}(x, .f, ..., size = 1, fill = NA,
-  deframe = TRUE)
+slide_dfr(x, .f, ..., size = 1, fill = NA, .id = NULL)
+
+slide_dfc(x, .f, ..., size = 1, fill = NA)
 
 slider(x, size = 1)
 }
@@ -28,11 +30,19 @@ formula, it is converted to a function.}
 
 \item{fill}{A single value or data frame to replace \code{NA}.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
+\item{.id}{If not \code{NULL} a variable with this name will be created giving
+either the name or the index of the data frame, which is passed to
+\link[dplyr:bind_rows]{dplyr::bind_rows}.}
 }
 \description{
-\code{slide()} is an S3 method to carry out rolling window calculation; \code{slider()}
-splits the input \code{x} to a list according to the window size.
+Rolling window with overlapping observations:
+\itemize{
+\item \code{slide()} always returns a vector of numerics
+\item \code{slide_lst()} returns a list
+\item \code{slide_dfr()} and \code{slide_dfc()} return data frame using row-binding and
+column-binding
+\item \code{slider()} splits the input \code{x} to a list according to the window size.
+}
 }
 \details{
 The \code{slide()} function attempts to tackle more general problems using
@@ -53,19 +63,22 @@ slider(x, size = 3)
 \dontrun{
 # takes a little longer for cran check
 # sliding a 2-day window for a data frame ----
-sx <- pedestrian \%>\% 
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-31"))
+jan <- pedestrian \%>\% 
+  filter(Date <= as.Date("2015-01-31")) \%>\% 
+  split(.$Sensor)
 # directly return a data frame of fitted values and residuals
-diag_sx <- sx \%>\%
-  slide(function(x) {
+diag_jan <- jan \%>\%
+  purrr::map_dfr(~ slide_dfr(., function(x) {
     fit <- lm(Count ~ Time, data = x)
     data.frame(fitted = fitted(fit), resid = residuals(fit))
-  }, size = 48, deframe = FALSE)
-diag_sx[48:57, ]
+  }, size = 48))
+diag_jan[48:57, ]
 # save lm models as additional columns
-lm_sx <- sx \%>\% 
-  mutate(lm = slide(., ~ lm(Count ~ Time, data = .), size = 48))
-lm_sx[48:57, ]
+lm_jan <- jan \%>\% 
+  purrr::map(~ mutate(., 
+    lm = slide_lst(., ~ lm(Count ~ Time, data = .), size = 48)
+))
+lm_jan[[1]][48:57, ]
 }
 }
 \seealso{

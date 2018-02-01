@@ -2,16 +2,19 @@
 % Please edit documentation in R/window.R
 \name{tile}
 \alias{tile}
-\alias{tile.default}
-\alias{tile.data.frame}
+\alias{tile_lst}
+\alias{tile_dfr}
+\alias{tile_dfc}
 \alias{tiler}
 \title{Tiling window calculation}
 \usage{
 tile(x, .f, ..., size = 1)
 
-\method{tile}{default}(x, .f, ..., size = 1)
+tile_lst(x, .f, ..., size = 1)
 
-\method{tile}{data.frame}(x, .f, ..., size = 1, deframe = TRUE)
+tile_dfr(x, .f, ..., size = 1, .id = NULL)
+
+tile_dfc(x, .f, ..., size = 1)
 
 tiler(x, size = 1)
 }
@@ -25,11 +28,19 @@ formula, it is converted to a function.}
 
 \item{size}{An integer for window size.}
 
-\item{deframe}{TRUE a list is returned. FALSE returns a data frame.}
+\item{.id}{If not \code{NULL} a variable with this name will be created giving
+either the name or the index of the data frame, which is passed to
+\link[dplyr:bind_rows]{dplyr::bind_rows}.}
 }
 \description{
-\code{tile()} is an S3 method to carry out tiling window calculation; \code{tiler()}
-splits the input \code{x} to a list according to the window size.
+Tiling window without overlapping observations:
+\itemize{
+\item \code{tile()} always returns a vector of numerics
+\item \code{tile_lst()} returns a list
+\item \code{tile_dfr()} and \code{tile_dfc()} return data frame using row-binding and
+column-binding
+\item \code{tiler()} splits the input \code{x} to a list according to the window size.
+}
 }
 \examples{
 # tiling over a vector ----
@@ -39,10 +50,11 @@ tile(x, ~ sum(.), size = 3)
 tiler(x, size = 3)
 
 # tiling over a 2-day window for hourly data ----
-sx <- pedestrian \%>\%
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
-sx \%>\% 
-  tile(~ quantile(.$Count), size = 48, deframe = FALSE)
+\dontrun{
+pedestrian \%>\% 
+  split(.$Sensor) \%>\% 
+  purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), size = 48))
+}
 }
 \seealso{
 \link{slide} for sliding window with overlapping observations;
