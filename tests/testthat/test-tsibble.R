@@ -32,14 +32,17 @@ test_that("Coerce to tbl_df and data.frame", {
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_sum(dat_x$date_time), "dttm")
   expect_message(tsbl <- as_tsibble(dat_x))
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1SECOND\\]")
   expect_error(as_tsibble(dat_x, key = id(date_time)))
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "quosure")
   expect_identical(quo_text(index(tsbl)), "date_time")
   expect_identical(time_unit(tsbl$date_time), 1)
   expect_identical(format(key(tsbl)), "NULL")
+  expect_output(print(key(tsbl)), "NULL")
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1SECOND")
+  expect_output(print(interval(tsbl)), "1SECOND")
   expect_true(is_regular(tsbl))
   expect_equal(key_size(tsbl), 5)
   expect_equal(n_keys(tsbl), 1)
@@ -132,6 +135,7 @@ dat_x <- tibble(
 test_that("Year month with 1 month interval", {
   expect_identical(index_sum(dat_x$yrmth), "mth")
   expect_message(tsbl <- as_tsibble(dat_x))
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1MONTH\\]")
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1MONTH")
   expect_identical(time_unit(tsbl$yrmth), 1)
@@ -191,6 +195,7 @@ dat_x <- tibble(
 test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date))
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
+  expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1DAY\\]")
   expect_is(key(tsbl), "key")
   expect_identical(format(key(tsbl))[[1]], "group")
   expect_identical(format(groups(tsbl)), "NULL")
@@ -227,6 +232,7 @@ test_that("2 nested variable", {
   expect_identical(length(key(tsbl)), 1L)
   expect_identical(length(key(tsbl)[[1]]), 2L)
   expect_identical(key_vars(tsbl)[[1]], "group | level")
+  expect_output(print(key(tsbl)), "group | level")
 })
 
 dat_x <- tribble(
