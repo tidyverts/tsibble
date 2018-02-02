@@ -36,8 +36,15 @@
   )
 }
 
+has_index <- function(x) {
+  if (is.null(index(x))) {
+    abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
+  }
+}
+
 # this function usually follows validate_vars()
 has_index_var <- function(j, x) {
+  has_index(x)
   index <- f_text(index(x))
   index %in% j
 }
