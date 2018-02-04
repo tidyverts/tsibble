@@ -544,6 +544,8 @@ validate_tbl_ts <- function(data, key, index) {
     if (!is_empty(key)) {
       class(key) <- "key"
       msg <- sprintf("%s and %s.", msg, paste_comma(format(key)))
+    } else {
+      msg <- paste0(msg, ".")
     }
     msg <- paste(msg, "Use `inform_duplicates()` to check the duplicated rows.")
     abort(msg)
