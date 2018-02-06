@@ -5,7 +5,8 @@
 #'
 #' @param .data A data frame (of `tbl_ts` class).
 #' @param ... Name-value pairs of expressions. The index variable must be present
-#' in the calls, coupled with an index function, to carry out the calculation.
+#' in the first name-value pair, with an index function. The remaining components
+#' work like `summarise()`.
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
@@ -15,7 +16,7 @@
 #' * other index functions from other packages
 #'
 #' @details
-#' One grouping level will be dropped.
+#' The rightmost grouping level will be dropped.
 #'
 #' @rdname tsummarise
 #' @export
@@ -47,25 +48,24 @@ tsummarise.tbl_ts <- function(.data, ...) {
   index <- index(.data)
   grps <- groups(.data)
 
-  # check if the index variable is present in the function call
-  first_arg <- first_arg(lst_quos)
-  vec_vars <- as.character(first_arg)
+  # check if the index variable is present in the first call
+  first_quo <- lst_quos[1]
+  first_var <- as.character(first_arg(first_quo))
   idx_var <- quo_text2(index)
-  if (is_false(has_index_var(j = vec_vars, x = .data))) {
-    abort(sprintf("Can't find the `index` (`%s`) in the function call.", idx_var))
+  if (is_false(has_index_var(j = first_var, x = .data))) {
+    abort(sprintf("Can't find `index` (`%s`) in the first name-value pair.", idx_var))
   }
-  idx_pos <- match(idx_var, vec_vars)
-  idx_name <- names(lst_quos)[[idx_pos]]
+  idx_name <- names(first_quo)
   idx_sym <- sym(idx_name)
 
   # aggregate over time
   chr_grps <- c(flatten_key(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!! idx_sym := !! lst_quos[[idx_pos]], drop = TRUE)
+    mutate(!!! first_quo, drop = TRUE)
   result <- pre_data %>% 
     grouped_df(vars = chr_grps) %>% 
-    summarise(!!! lst_quos[-idx_pos])
+    summarise(!!! lst_quos[-1])
 
   as_tsibble(
     result, key = grps, index = !! idx_sym, groups = drop_group(grps), 

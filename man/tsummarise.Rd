@@ -13,7 +13,8 @@ tsummarize(.data, ...)
 \item{.data}{A data frame (of \code{tbl_ts} class).}
 
 \item{...}{Name-value pairs of expressions. The index variable must be present
-in the calls, coupled with an index function, to carry out the calculation.
+in the first name-value pair, with an index function. The remaining components
+work like \code{summarise()}.
 The index functions that can be used, but not limited:
 \itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
@@ -29,7 +30,7 @@ It computes summary statistics for a tsibble over calendar periods, usually
 used in combination of \link{group_by}.
 }
 \details{
-One grouping level will be dropped.
+The rightmost grouping level will be dropped.
 }
 \examples{
 # Monthly counts across Sensors

@@ -16,6 +16,10 @@ test_that("From seconds to higher date", {
     date_min = ceiling_date(date_time, unit = "min"),
     value = sum(value)
   )
+  expect_error(tsummarise(tsbl1,
+    value = sum(value),
+    date_min = ceiling_date(date_time, unit = "min")
+  ), "Can't find `index`")
   expect_equal(
     as_tibble(res1),
     tibble(date_min = ymd_hm("2017-01-01 00:01"), value = 5)
@@ -77,13 +81,13 @@ tsbl3 <- as_tsibble(dat_x, key = id(group), index = date)
 test_that("tsummarise for grouped_ts", {
   res1 <- tsbl3 %>%
     group_by(group) %>%
-    tsummarise(value = sum(value), yrmth = yearmonth(date))
+    tsummarise(yrmth = yearmonth(date), value = sum(value))
   expect_is(res1, "tbl_ts")
   expect_equal(
     as_tibble(res1),
     tibble(
-      group = c("a", "b"),
       yrmth = yearmonth(ymd("2017-01-01")),
+      group = c("a", "b"),
       value = c(5L, 10L)
     )
   )
