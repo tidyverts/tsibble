@@ -12,7 +12,8 @@
 #' * [yearquarter]: quarterly aggregation
 #' * [yearmonth]: monthly aggregation
 #' * [as.Date] or [lubridate::as_date]: daily aggregation
-#' * [lubridate::ceiling_date] or [lubridate::round_date]: sub-daily aggregation
+#' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]: 
+#' sub-daily aggregation
 #' * other index functions from other packages
 #'
 #' @details
@@ -44,28 +45,65 @@ tsummarise <- function(.data, ...) {
 
 #' @export
 tsummarise.tbl_ts <- function(.data, ...) {
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- separate_quos(warn = FALSE, ...)
+  tsum(.data, lst_quos$first, lst_quos$remainder, FUN = summarise)
+}
+
+tsummarise_all <- function(.data, ..., .funs) {
+  lst_quos <- separate_quos(warn = TRUE, ...)
+  tsum(
+    .data, lst_quos$first, remainder = NULL, 
+    FUN = function(x) dplyr::summarise_all(x, .funs = .funs)
+  )
+}
+
+tsummarise_if <- function(.data, ..., .predicate, .funs) {
+  lst_quos <- separate_quos(warn = TRUE, ...)
+  tsum(
+    .data, lst_quos$first, remainder = NULL, 
+    FUN = function(x) 
+      dplyr::summarise_if(x, .predicate = .predicate, .funs = .funs)
+  )
+}
+
+tsummarise_at <- function(.data, ..., .vars, .funs) {
+  lst_quos <- separate_quos(warn = TRUE, ...)
+  tsum(
+    .data, lst_quos$first, remainder = NULL, 
+    FUN = function(x) 
+      dplyr::summarise_at(x, .vars = .vars, .funs = .funs)
+  )
+}
+
+#' @rdname tsummarise
+#' @export
+tsummarize <- tsummarise
+
+tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   index <- index(.data)
   grps <- groups(.data)
 
   # check if the index variable is present in the first call
-  first_quo <- lst_quos[1]
-  first_var <- as.character(first_arg(first_quo))
+  first_var <- as.character(first_arg(first))
   idx_var <- quo_text2(index)
   if (is_false(has_index_var(j = first_var, x = .data))) {
     abort(sprintf("Can't find `index` (`%s`) in the first name-value pair.", idx_var))
   }
-  idx_name <- names(first_quo)
+  idx_name <- names(first)
   idx_sym <- sym(idx_name)
 
   # aggregate over time
   chr_grps <- c(flatten_key(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!!! first_quo, drop = TRUE)
-  result <- pre_data %>% 
-    grouped_df(vars = chr_grps) %>% 
-    summarise(!!! lst_quos[-1])
+    mutate(!!! first, drop = TRUE)
+  grped_df <- pre_data %>% 
+    grouped_df(vars = chr_grps)
+  if (is.null(remainder)) {
+    result <- FUN(grped_df)
+  } else {
+    result <- FUN(grped_df, !!! remainder)
+  }
 
   as_tsibble(
     result, key = grps, index = !! idx_sym, groups = drop_group(grps), 
@@ -73,6 +111,15 @@ tsummarise.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @rdname tsummarise
-#' @export
-tsummarize <- tsummarise
+separate_quos <- function(warn = FALSE, ...) {
+  lst_quos <- quos(..., .named = TRUE)
+  first <- lst_quos[1]
+  remainder <- lst_quos[-1]
+  if (warn) {
+    if (has_length(remainder)) {
+      args <- paste_comma(surround(names(remainder), "`"))
+      warn(sprintf("The arguments are ignored: %s", args))
+    }
+  }
+  list(first = first, remainder = remainder)
+}

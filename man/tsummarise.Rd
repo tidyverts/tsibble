@@ -21,7 +21,8 @@ The index functions that can be used, but not limited:
 \item \link{yearquarter}: quarterly aggregation
 \item \link{yearmonth}: monthly aggregation
 \item \link{as.Date} or \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
-\item \link[lubridate:ceiling_date]{lubridate::ceiling_date} or \link[lubridate:round_date]{lubridate::round_date}: sub-daily aggregation
+\item \link[lubridate:ceiling_date]{lubridate::ceiling_date}, \link[lubridate:floor_date]{lubridate::floor_date}, or \link[lubridate:round_date]{lubridate::round_date}:
+sub-daily aggregation
 \item other index functions from other packages
 }}
 }
