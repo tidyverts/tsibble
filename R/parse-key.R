@@ -12,20 +12,15 @@ reduce_key <- function(x) { # x = a list of keys (symbols)
 }
 
 drop_group <- function(x) {
-  old_grps <- flatten_key(x)
-  len <- length(old_grps)
-  new_grps <- old_grps[-len] # drop one grouping level
-  lgl <- FALSE
-  if (!is_empty(x)) {
-    lgl <- rep(is_nest(x), purrr::map(x, length))
-    lgl <- lgl[-len]
-  }
+  len <- length(x)
+  new_grps <- x[-len] # drop one grouping level
+  last_x <- dplyr::last(x)
   if (is_empty(new_grps)) {
     return(id())
-  } else if (any(lgl)) {
-    return(c(list(syms(new_grps[lgl])), syms(new_grps[!lgl])))
+  } else if (length(last_x) > 1) {
+    return(c(new_grps, list(last_x[-length(last_x)])))
   } else {
-    syms(new_grps[!lgl])
+    new_grps
   }
 }
 
