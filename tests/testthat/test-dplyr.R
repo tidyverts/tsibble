@@ -120,7 +120,22 @@ test_that("summarise()", {
   expect_is(tbl_ped, "tbl_df")
 })
 
-test_that("transmute() and distinct()", {
-  expect_error(tourism %>% transmute(Region = paste(Region, State)), "no support")
+tsbl <- tsibble(
+  qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+  group = rep(c("x", "y", "z"), each = 10),
+  a = rnorm(30),
+  b = rnorm(30),
+  c = rnorm(30),
+  key = id(group), index = qtr
+)
+
+test_that("transmute()", {
+  out <- tourism %>% transmute(Region = paste(Region, State))
+  expect_equal(ncol(out), 4)
+  trans_tsbl <- tsbl %>% transmute(z = a / b)
+  expect_equal(colnames(trans_tsbl), c("qtr", "group", "z"))
+})
+
+test_that("distinct()", {
   expect_error(tourism %>% distinct(Region, State, Purpose), "no support")
 })

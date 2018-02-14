@@ -2,7 +2,7 @@ document:
 	Rscript -e "devtools::document()"
 
 readme:
-	Rscript -e "rmarkdown::render('README.Rmd')"
+	Rscript -e "rmarkdown::render('README.Rmd'); pkgdown::build_home()"
 
 build:
 	Rscript -e "devtools::build()"
@@ -20,4 +20,4 @@ winbuild:
 	Rscript -e "devtools::build_win(version = 'R-devel', quiet = TRUE)"
 
 pkgdown:
-	Rscript -e "pkgdown::clean_site(); pkgdown::build_site(run_dont_run = TRUE)"
+	Rscript -e "pkgdown::build_site(run_dont_run = TRUE)"

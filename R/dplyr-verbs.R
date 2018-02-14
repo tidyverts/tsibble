@@ -43,6 +43,7 @@ slice.tbl_ts <- function(.data, ...) {
 #' Column-wise verbs
 #'
 #' `select()` selects columns by variables; `mutate()` adds new variables;
+#' `transmute()` keeps the newly created variables along with index and keys;
 #' `summarise()` collapses the rows by variables.
 #'
 #' @param .data A tsibble.
@@ -125,6 +126,20 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
     groups = groups(.data), regular = is_regular(.data),
     validate = validate 
   )
+}
+
+#' @rdname col-verb
+#' @seealso [dplyr::transmute]
+#' @export
+transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
+  if (drop) {
+    return(transmute(as_tibble(.data), ...))
+  }
+  lst_quos <- quos(..., .named = TRUE)
+  mut_data <- mutate(.data, !!! lst_quos)
+  idx_key <- c(quo_text2(index(.data)), flatten_key(key(.data)))
+  vec_names <- union(idx_key, names(lst_quos))
+  select(mut_data, tidyselect::one_of(vec_names))
 }
 
 #' @rdname col-verb
@@ -229,11 +244,6 @@ prepare_groups <- function(data, group, add = FALSE) {
 
 do.tbl_ts <- function(.data, ...) {
   dplyr::do(as_tibble(.data), ...)
-}
-
-#' @export
-transmute.tbl_ts <- function(.data, ...) {
-  abort("'tbl_ts' has no support for transmute(). Please coerce to 'tbl_df' first and then transmute().")
 }
 
 #' @export

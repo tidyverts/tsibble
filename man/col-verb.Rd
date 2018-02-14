@@ -4,6 +4,7 @@
 \alias{select.tbl_ts}
 \alias{rename.tbl_ts}
 \alias{mutate.tbl_ts}
+\alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
 \alias{summarize.tbl_ts}
 \title{Column-wise verbs}
@@ -13,6 +14,8 @@
 \method{rename}{tbl_ts}(.data, ...)
 
 \method{mutate}{tbl_ts}(.data, ..., drop = FALSE)
+
+\method{transmute}{tbl_ts}(.data, ..., drop = FALSE)
 
 \method{summarise}{tbl_ts}(.data, ..., drop = FALSE)
 
@@ -28,6 +31,7 @@ tsibble and returns a tibble.}
 }
 \description{
 \code{select()} selects columns by variables; \code{mutate()} adds new variables;
+\code{transmute()} keeps the newly created variables along with index and keys;
 \code{summarise()} collapses the rows by variables.
 }
 \details{
@@ -45,6 +49,8 @@ Turning \code{drop = TRUE} converts to a tibble first and then do the operations
 \link[dplyr:rename]{dplyr::rename}
 
 \link[dplyr:mutate]{dplyr::mutate}
+
+\link[dplyr:transmute]{dplyr::transmute}
 
 \link[dplyr:summarise]{dplyr::summarise}
 

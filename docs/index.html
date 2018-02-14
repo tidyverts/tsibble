@@ -123,7 +123,7 @@
 <p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times.</p>
 </section><section id="tsummarise-to-summarise-over-calendar-periods" class="level3"><h3>
 <code><a href="reference/tsummarise.html">tsummarise()</a></code> to summarise over calendar periods</h3>
-<p><code><a href="reference/tsummarise.html">tsummarise()</a></code> and its scoped variants including <code>_all()</code>, <code>_at()</code>, <code>_if()</code>, are introduced to aggregate interested variables over calendar periods. <code><a href="reference/tsummarise.html">tsummarise()</a></code> goes hand in hand with the index functions including <code>as.Date()</code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <em>lubridate</em>, such as <code>year()</code> and <code>ceiling_date()</code>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the hourly time index.</p>
+<p><code><a href="reference/tsummarise.html">tsummarise()</a></code> and its scoped variants (including <code>_all()</code>, <code>_at()</code>, <code>_if()</code>) are introduced to aggregate interested variables over calendar periods. <code><a href="reference/tsummarise.html">tsummarise()</a></code> goes hand in hand with the index functions including <code>as.Date()</code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <em>lubridate</em>, such as <code>year()</code> and <code>ceiling_date()</code>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the hourly time index.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">full_weather <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/tsummarise.html">tsummarise</a></span>(</a>
@@ -169,7 +169,7 @@
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
 </section></section><section id="reexported-functions-from-the-tidyverse" class="level2"><h2>Reexported functions from the tidyverse</h2>
-<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs.</p>
+<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs. Use <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">?tsibble::reexports</a></code> for a full list of re-exported functions.</p>
 <ul>
 <li>
 <strong>dplyr:</strong>
@@ -178,14 +178,14 @@
 <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>
 </li>
 <li>
-<code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>/<code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> with an additional argument <code>drop = FALSE</code> to drop <code>tbl_ts</code> and coerce to <code>tbl_df</code>
+<code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>/<code><a href="http://dplyr.tidyverse.org/reference/mutate.html">transmute()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>/<code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> with an additional argument <code>drop = FALSE</code> to drop <code>tbl_ts</code> and coerce to <code>tbl_df</code>
 </li>
 <li><code><a href="http://dplyr.tidyverse.org/reference/select.html">rename()</a></code></li>
 <li><code>*_join()</code></li>
 <li>
 <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>
 </li>
-<li>🚫 <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">transmute()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>
+<li>🚫 <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>
 </li>
 </ul>
 </li>

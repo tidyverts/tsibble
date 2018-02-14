@@ -73,7 +73,7 @@ full_weather
 
 ### `tsummarise()` to summarise over calendar periods
 
-`tsummarise()` and its scoped variants including `_all()`, `_at()`, `_if()`, are introduced to aggregate interested variables over calendar periods. `tsummarise()` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying `yearmonth()` to the hourly time index.
+`tsummarise()` and its scoped variants (including `_all()`, `_at()`, `_if()`) are introduced to aggregate interested variables over calendar periods. `tsummarise()` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying `yearmonth()` to the hourly time index.
 
 ```{r tsummarise}
 full_weather %>%
@@ -105,15 +105,15 @@ full_weather %>%
 
 ## Reexported functions from the tidyverse
 
-It can be noticed that the tsibble seamlessly works with *dplyr* verbs. 
+It can be noticed that the tsibble seamlessly works with *dplyr* verbs. Use `?tsibble::reexports` for a full list of re-exported functions.
 
 * **dplyr:** 
   - `arrange()`, `filter()`, `slice()`
-  - `mutate()`, `select()`, `summarise()`/`summarize()` with an additional argument `drop = FALSE` to drop `tbl_ts` and coerce to `tbl_df`
+  - `mutate()`/`transmute()`, `select()`, `summarise()`/`summarize()` with an additional argument `drop = FALSE` to drop `tbl_ts` and coerce to `tbl_df`
   - `rename()`
   - `*_join()`
   - `group_by()`, `ungroup()`
-  - `r emo::ji("no_entry_sign")` `transmute()`, `distinct()`
+  - `r emo::ji("no_entry_sign")` `distinct()`
 * **tidyr:** `fill()`
 * **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
 * **rlang:** `!!`, `!!!`

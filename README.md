@@ -104,8 +104,8 @@ preserves time zones for date-times.
 
 ### `tsummarise()` to summarise over calendar periods
 
-`tsummarise()` and its scoped variants including `_all()`, `_at()`,
-`_if()`, are introduced to aggregate interested variables over calendar
+`tsummarise()` and its scoped variants (including `_all()`, `_at()`,
+`_if()`) are introduced to aggregate interested variables over calendar
 periods. `tsummarise()` goes hand in hand with the index functions
 including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as
 other friends from *lubridate*, such as `year()` and `ceiling_date()`.
@@ -170,16 +170,17 @@ full_weather %>%
 ## Reexported functions from the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *dplyr* verbs.
+Use `?tsibble::reexports` for a full list of re-exported functions.
 
   - **dplyr:**
       - `arrange()`, `filter()`, `slice()`
-      - `mutate()`, `select()`, `summarise()`/`summarize()` with an
-        additional argument `drop = FALSE` to drop `tbl_ts` and coerce
-        to `tbl_df`
+      - `mutate()`/`transmute()`, `select()`,
+        `summarise()`/`summarize()` with an additional argument `drop =
+        FALSE` to drop `tbl_ts` and coerce to `tbl_df`
       - `rename()`
       - `*_join()`
       - `group_by()`, `ungroup()`
-      - 🚫 `transmute()`, `distinct()`
+      - 🚫 `distinct()`
   - **tidyr:** `fill()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
   - **rlang:** `!!`, `!!!`
