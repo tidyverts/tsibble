@@ -94,6 +94,81 @@
     </div>
 
     <div class="contents">
+    <div class="section level1">
+<h1>tsibble 0.1.2.9999</h1>
+<div class="section level2">
+<h2>New functions</h2>
+<ul>
+<li>Added the scoped variants for <code><a href="../reference/tsummarise.html">tsummarise()</a></code> including <code><a href="../reference/tsummarise.html">tsummarise_all()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_if()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_at()</a></code>.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>API changes</h2>
+<ul>
+<li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code><a href="../reference/slide.html">slide_lst()</a></code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
+<li>The <code>index</code> variable must sit in the first name-value pair in <code><a href="../reference/tsummarise.html">tsummarise()</a></code> instead of any position in the call.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>Bug fixes</h2>
+<ul>
+<li>Fixed the error message in <code>glimpse.tbl_ts()</code>
+</li>
+</ul>
+</div>
+</div>
+    <div class="section level1">
+<h1>tsibble 0.1.2</h1>
+<p>This release marks the complete support of dplyr key verbs.</p>
+<div class="section level2">
+<h2>Reexported functions</h2>
+<ul>
+<li>
+<code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">tidyr::fill()</a></code> fills <code>NA</code> backward or forward in tsibble.</li>
+<li>Implement <code>tbl_ts</code> support for <code>dplyr::*_join()</code>.</li>
+<li>No <code>tbl_ts</code> support for <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">dplyr::transmute()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">dplyr::distinct()</a></code> and return an error.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>New functions</h2>
+<ul>
+<li>
+<code><a href="../reference/inform_duplicates.html">inform_duplicates()</a></code> informs which row has duplicated elements of key and index variables.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>Bug fixes</h2>
+<ul>
+<li>Fix bug in <code><a href="../reference/col-verb.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
+<li>In <code><a href="../reference/col-verb.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
+<li>Fix incorrect group and key indices.</li>
+<li>
+<code>NULL</code> and <code>tbl_ts</code> are supported in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. An empty tsibble is not allowed.</li>
+<li>
+<code><a href="../reference/group-by.html">group_by.tbl_ts(.data, ..., add = TRUE)</a></code> works as expected now.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>Internal changes</h2>
+<ul>
+<li>Better handling <code>grouped_ts</code> and <code>grouped_df</code>.</li>
+<li>More informative error messages.</li>
+</ul>
+</div>
+</div>
+    <div class="section level1">
+<h1>tsibble 0.1.0</h1>
+<ul>
+<li>Initial release on CRAN.</li>
+</ul>
+</div>
+    <div class="section level1">
+<h1>tsibble 0.0.1</h1>
+<ul>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>Pre-release on Github</li>
+</ul>
+</div>
     </div>
   </div>
 
@@ -101,6 +176,10 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#NA">0.1.2.9999</a></li>
+        <li><a href="#NA">0.1.2</a></li>
+        <li><a href="#NA">0.1.0</a></li>
+        <li><a href="#NA">0.0.1</a></li>
       </ul>
     </div>
   </div>

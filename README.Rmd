@@ -45,7 +45,7 @@ devtools::install_github("earowang/tsibble", build_vignettes = TRUE)
 
 ### Coerce to a tsibble with `as_tsibble()`
 
-The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "index" variable is the `time_hour` containing the date-times, and the "key" is the `origin` as weather stations created via the `id()`. **The key(s) together with the index uniquely identifies each observation**, which gives a valid *tsibble*. Other columns can be considered as measured variables.
+The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "index" variable is the `time_hour` containing the date-times, and the "key" is the `origin` as weather stations created via `id()`. **The key(s) together with the index uniquely identifies each observation**, which gives a valid *tsibble*. Other columns can be considered as measured variables.
 
 ```{r nycflights13, message = FALSE}
 library(tsibble)
@@ -73,7 +73,7 @@ full_weather
 
 ### `tsummarise()` to summarise over calendar periods
 
-`tsummarise()` is introduced to aggregate interested variables over calendar periods. The `tsummarise` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying the `yearmonth()` to the hourly time index.
+`tsummarise()` and its scoped variants including `_all()`, `_at()`, `_if()`, are introduced to aggregate interested variables over calendar periods. `tsummarise()` goes hand in hand with the index functions including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()` and `ceiling_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying `yearmonth()` to the hourly time index.
 
 ```{r tsummarise}
 full_weather %>%
@@ -85,7 +85,7 @@ full_weather %>%
   )
 ```
 
-The `tsummarise()` can also help with regularising a tsibble of irregular time space.
+`tsummarise()` can also help with regularising a tsibble of irregular time space.
 
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 

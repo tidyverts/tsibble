@@ -93,17 +93,22 @@
     </div>
 
     
-    <p><code>tile()</code> is an S3 method to carry out tiling window calculation; <code>tiler()</code>
-splits the input <code>x</code> to a list according to the window size.</p>
+    <p>Tiling window without overlapping observations:</p><ul>
+<li><p><code>tile()</code> always returns a vector of numerics</p></li>
+<li><p><code>tile_lst()</code> returns a list</p></li>
+<li><p><code>tile_dfr()</code> and <code>tile_dfc()</code> return data frame using row-binding and
+column-binding</p></li>
+<li><p><code>tiler()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
+</ul>
     
 
     <pre class="usage"><span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>tile_lst</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>tile_dfr</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>tile_dfc</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>tiler</span>(<span class='no'>x</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
@@ -112,7 +117,8 @@ splits the input <code>x</code> to a list according to the window size.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector of numerics, or data frame.</p></td>
+      <td><p>A vector of numerics, or data frame. If a data frame, row-wise rolling
+window is performed.</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -128,8 +134,10 @@ formula, it is converted to a function.</p></td>
       <td><p>An integer for window size.</p></td>
     </tr>
     <tr>
-      <th>deframe</th>
-      <td><p>TRUE a list is returned. FALSE returns a data frame.</p></td>
+      <th>.id</th>
+      <td><p>If not <code>NULL</code> a variable with this name will be created giving
+either the name or the index of the data frame, which is passed to
+<a href='http://dplyr.tidyverse.org/reference/bind.html'>dplyr::bind_rows</a>.</p></td>
     </tr>
     </table>
     
@@ -154,18 +162,23 @@ formula, it is converted to a function.</p></td>
 #&gt; [[4]]
 #&gt; [1] 10
 #&gt; </div><div class='input'>
-<span class='co'># tiling over a 2-day window for hourly data ----</span>
-<span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>, <span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-10"</span>))
-<span class='no'>sx</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>tile</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
-#&gt;    `0%` `25%` `50%` `75%` `100%`
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1  6.00  38.8 102   229      746
-#&gt; 2  1.00  20.0  58.5  83.0    189
-#&gt; 3  0     35.0 284   725     2100
-#&gt; 4  1.00  33.0 274   728     2209
-#&gt; 5  1.00  27.8  97.0 242     2101</div></pre>
+# tiling over a 2-day window for hourly data ----
+</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>split</span>(<span class='no'>.</span>$<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map_dfr</a></span>(~ <span class='fu'>tile_dfr</span>(<span class='no'>.</span>, ~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>))</div><div class='output co'>#&gt; # A tibble: 1,378 x 5
+#&gt;     `0%` `25%` `50%` `75%` `100%`
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1  1.00  97.2   213   364   1630
+#&gt;  2  3.00  47.2   115   185    852
+#&gt;  3  3.00  39.8   310   540   1427
+#&gt;  4  4.00  60.0   209   315    708
+#&gt;  5  5.00  55.5   252   632   2439
+#&gt;  6  6.00  64.2   298   571    948
+#&gt;  7  4.00  41.8   230   509   1377
+#&gt;  8  6.00  70.2   506   802   2358
+#&gt;  9  8.00 131     772  1666   2886
+#&gt; 10  7.00 202     986  1439   3688
+#&gt; # ... with 1,368 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -93,18 +93,22 @@
     </div>
 
     
-    <p><code>stretch()</code> is an S3 method to carry out expanding window calculation;
-<code>stretcher()</code> splits the input <code>x</code> to a list according to the window size.</p>
+    <p>Fixing an initial window and expanding more observations:</p><ul>
+<li><p><code>stretch()</code> always returns a vector of numerics</p></li>
+<li><p><code>stretch_lst()</code> returns a list</p></li>
+<li><p><code>stretch_dfr()</code> and <code>stretch_dfc()</code> return data frame using row-binding and
+column-binding</p></li>
+<li><p><code>stretcher()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
+</ul>
     
 
     <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>stretch</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>stretch_lst</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>stretch</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>stretch_dfr</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>stretch_dfc</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>stretcher</span>(<span class='no'>x</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
@@ -113,7 +117,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector of numerics, or data frame.</p></td>
+      <td><p>A vector of numerics, or data frame. If a data frame, row-wise rolling
+window is performed.</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -129,8 +134,10 @@ formula, it is converted to a function.</p></td>
       <td><p>An integer for moving and initial window size.</p></td>
     </tr>
     <tr>
-      <th>deframe</th>
-      <td><p>TRUE a list is returned. FALSE returns a data frame.</p></td>
+      <th>.id</th>
+      <td><p>If not <code>NULL</code> a variable with this name will be created giving
+either the name or the index of the data frame, which is passed to
+<a href='http://dplyr.tidyverse.org/reference/bind.html'>dplyr::bind_rows</a>.</p></td>
     </tr>
     </table>
     
@@ -170,7 +177,7 @@ formula, it is converted to a function.</p></td>
 <span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>, <span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-10"</span>))
 <span class='no'>sx</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>stretch</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>48</span>, <span class='kw'>deframe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 193 x 5
+  <span class='fu'>stretch_dfr</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>48</span>)</div><div class='output co'>#&gt; # A tibble: 193 x 5
 #&gt;     `0%` `25%` `50%` `75%` `100%`
 #&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt;  1  6.00  38.8 102     229    746
