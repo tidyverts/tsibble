@@ -1,12 +1,13 @@
 #' Aggregate over calendar periods
 #'
 #' It computes summary statistics for a tsibble over calendar periods, usually 
-#' used in combination of [group_by].
+#' used in combination of `group_by`.
 #'
 #' @param .data A data frame (of `tbl_ts` class).
 #' @param ... Name-value pairs of expressions. The index variable must be present
 #' in the first name-value pair, with an index function. The remaining components
-#' work like `summarise()`.
+#' work like `summarise()`. For the scoped variants like `_all()`, `_at()`, `_if()`,
+#' additional arguments for the function call in `.funs` will be ignored in `...`.
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
@@ -15,10 +16,12 @@
 #' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]: 
 #' sub-daily aggregation
 #' * other index functions from other packages
+#' @inheritParams dplyr::summarise_all
 #'
 #' @details
 #' The rightmost grouping level will be dropped.
 #'
+#' @seealso [dplyr::summarise_all]
 #' @rdname tsummarise
 #' @export
 #' @examples
@@ -49,6 +52,34 @@ tsummarise.tbl_ts <- function(.data, ...) {
   tsum(.data, lst_quos$first, lst_quos$remainder, FUN = summarise)
 }
 
+#' @rdname tsummarise
+#' @export
+#' @examples
+#' # scoped variants ----
+#' tsbl <- tsibble(
+#'   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+#'   group = rep(c("x", "y", "z"), each = 10),
+#'   a = rnorm(30),
+#'   b = rnorm(30),
+#'   c = rnorm(30),
+#'   key = id(group), index = qtr
+#' )
+#' tsbl %>% 
+#'   group_by(group) %>% 
+#'   tsummarise_all(year = lubridate::year(qtr), .funs = mean)
+#' tsbl %>% 
+#'   group_by(group) %>% 
+#'   tsummarise_if(
+#'      year = lubridate::year(qtr), 
+#'      .predicate = is.numeric, .funs = sum
+#'   )
+#' # additional arguments need putting into the `.funs`
+#' tsbl %>% 
+#'   group_by(group) %>% 
+#'   tsummarise_at(
+#'      year = lubridate::year(qtr), 
+#'      .vars = c("a", "c"), .funs = function(x) median(x, na.rm = TRUE)
+#'   )
 tsummarise_all <- function(.data, ..., .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
   tsum(
@@ -57,6 +88,8 @@ tsummarise_all <- function(.data, ..., .funs) {
   )
 }
 
+#' @rdname tsummarise
+#' @export
 tsummarise_if <- function(.data, ..., .predicate, .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
   tsum(
@@ -66,6 +99,8 @@ tsummarise_if <- function(.data, ..., .predicate, .funs) {
   )
 }
 
+#' @rdname tsummarise
+#' @export
 tsummarise_at <- function(.data, ..., .vars, .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
   tsum(
@@ -78,6 +113,18 @@ tsummarise_at <- function(.data, ..., .vars, .funs) {
 #' @rdname tsummarise
 #' @export
 tsummarize <- tsummarise
+
+#' @rdname tsummarise
+#' @export
+tsummarize_all <- tsummarise_all
+
+#' @rdname tsummarise
+#' @export
+tsummarize_if <- tsummarise_if
+
+#' @rdname tsummarise
+#' @export
+tsummarize_at <- tsummarise_at
 
 tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   index <- index(.data)
@@ -96,13 +143,13 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   chr_grps <- c(flatten_key(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!!! first, drop = TRUE)
-  grped_df <- pre_data %>% 
+    mutate(!!! first, drop = TRUE) %>% 
+    select(- !! index) %>% 
     grouped_df(vars = chr_grps)
   if (is.null(remainder)) {
-    result <- FUN(grped_df)
+    result <- FUN(pre_data)
   } else {
-    result <- FUN(grped_df, !!! remainder)
+    result <- FUN(pre_data, !!! remainder)
   }
 
   as_tsibble(
