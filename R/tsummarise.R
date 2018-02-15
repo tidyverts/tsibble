@@ -136,7 +136,11 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   if (is_false(has_index_var(j = first_var, x = .data))) {
     abort(sprintf("Can't find `index` (`%s`) in the first name-value pair.", idx_var))
   }
+  idx <- quo_text2(index)
   idx_name <- names(first)
+  if (idx_name == "") {
+    idx_name <- idx
+  }
   idx_sym <- sym(idx_name)
 
   # aggregate over time
@@ -144,7 +148,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   pre_data <- .data %>% 
     ungroup() %>% 
     mutate(!!! first, drop = TRUE)
-  if (idx_name == quo_text2(index)) {
+  if (idx_name == idx) {
     grped_data <- pre_data %>% 
       grouped_df(vars = chr_grps)
   } else {
@@ -165,7 +169,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
 }
 
 separate_quos <- function(warn = FALSE, ...) {
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- quos(...)
   first <- lst_quos[1]
   remainder <- lst_quos[-1]
   if (warn) {
