@@ -143,13 +143,19 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   chr_grps <- c(flatten_key(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!!! first, drop = TRUE) %>% 
-    select(- !! index) %>% 
-    grouped_df(vars = chr_grps)
-  if (is.null(remainder)) {
-    result <- FUN(pre_data)
+    mutate(!!! first, drop = TRUE)
+  if (idx_name == quo_text2(index)) {
+    grped_data <- pre_data %>% 
+      grouped_df(vars = chr_grps)
   } else {
-    result <- FUN(pre_data, !!! remainder)
+    grped_data <- pre_data %>% 
+      select(- !! index) %>% 
+      grouped_df(vars = chr_grps)
+  }
+  if (is.null(remainder)) {
+    result <- FUN(grped_data)
+  } else {
+    result <- FUN(grped_data, !!! remainder)
   }
 
   as_tsibble(
