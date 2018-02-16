@@ -78,15 +78,18 @@ It has been seen that the tsibble handles regularly-spaced temporal data well, f
 
 ```{r flights}
 flights <- nycflights13::flights %>%
-  mutate(sched_dep_datetime = make_datetime(year, month, day, hour, minute, 0))
+  mutate(
+    sched_dep_datetime = make_datetime(year, month, day, hour, minute, 0),
+    flight_num = paste0(carrier, flight)
+  )
 ```
 
-The keys are comprised of the `carrier`, `flight` variables. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.
+The key variable is the `flight_num`. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.
 
 ```{r flights-ts}
 flights_tsbl <- flights %>%
   as_tsibble(
-    key = id(carrier, flight), 
+    key = id(flight_num), 
     index = sched_dep_datetime, 
     regular = FALSE
   )

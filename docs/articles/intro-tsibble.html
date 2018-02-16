@@ -154,17 +154,20 @@
 </section><section id="intervals" class="level2"><h2>Intervals</h2>
 <p>It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years. The option <code>regular</code>, by default, is set to <code>TRUE</code> in the <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Specify <code>regular</code> to <code>FALSE</code> to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York City:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">sched_dep_datetime =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(year, month, day, hour, minute, <span class="dv">0</span>))</a></code></pre></div>
-<p>The keys are comprised of the <code>carrier</code>, <code>flight</code> variables. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">sched_dep_datetime =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(year, month, day, hour, minute, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="dt">flight_num =</span> <span class="kw">paste0</span>(carrier, flight)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">  )</a></code></pre></div>
+<p>The key variable is the <code>flight_num</code>. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">flights_tsbl &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(carrier, flight), </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(flight_num), </a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">    <span class="dt">index =</span> sched_dep_datetime, </a>
 <a class="sourceLine" id="cb14-5" data-line-number="5">    <span class="dt">regular =</span> <span class="ot">FALSE</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb14-7" data-line-number="7">flights_tsbl</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 336,776 x 20 [!]
-#&gt; # Keys:      carrier, flight [5,725]
+<pre><code>#&gt; # A tsibble: 336,776 x 21 [!]
+#&gt; # Keys:      flight_num [5,725]
 #&gt;    year month   day dep_time sched_dep_time dep_delay arr_time
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
 #&gt; 1  2013     1     1      517            515      2.00      830
@@ -172,11 +175,11 @@
 #&gt; 3  2013     1     1      542            540      2.00      923
 #&gt; 4  2013     1     1      544            545     -1.00     1004
 #&gt; 5  2013     1     1      554            600     -6.00      812
-#&gt; # ... with 3.368e+05 more rows, and 13 more variables:
+#&gt; # ... with 3.368e+05 more rows, and 14 more variables:
 #&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
 #&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
 #&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,
-#&gt; #   sched_dep_datetime &lt;dttm&gt;</code></pre>
+#&gt; #   sched_dep_datetime &lt;dttm&gt;, flight_num &lt;chr&gt;</code></pre>
 <p>More functions on their way to deal with irregular temporal data in the future release.</p>
 </section><section id="reference" class="level2 unnumbered"><h2>Reference</h2>
 <div id="refs" class="references">

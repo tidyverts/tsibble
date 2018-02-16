@@ -107,6 +107,9 @@
 <ul>
 <li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code><a href="../reference/slide.html">slide_lst()</a></code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code><a href="../reference/tsummarise.html">tsummarise()</a></code> instead of any position in the call.</li>
+<li>
+<code><a href="../reference/col-verb.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
+<li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
 <div class="section level2">
@@ -114,6 +117,7 @@
 <ul>
 <li>Fixed the error message in <code>glimpse.tbl_ts()</code>
 </li>
+<li>Fixed <code>format.key()</code> for nesting crossed with another nesting.</li>
 </ul>
 </div>
 </div>

@@ -9,7 +9,7 @@
 * The windowed functions, including `slide()`, `tile()`, `stretch()`, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like `slide_lst()` (a list), `slide_dfr()` (a row-binding data frame), `slide_dfc()` (a column-binding data frame).
 * The `index` variable must sit in the first name-value pair in `tsummarise()` instead of any position in the call.
 * `transmute.tbl_ts()` keeps the newly created variables along with index and keys, instead of throwing an error before.
-* Depends on purrr (> 0.2.3)
+* Depends on purrr (>= 0.2.3)
 
 ## Bug fixes
 

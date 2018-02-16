@@ -94,6 +94,7 @@
 
     
     <p><code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code> selects columns by variables; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> adds new variables;
+<code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code> keeps the newly created variables along with index and keys;
 <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> collapses the rows by variables.</p>
     
 
@@ -105,6 +106,9 @@
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -145,6 +149,7 @@ Turning <code>drop = TRUE</code> converts to a tibble first and then do the oper
     <p><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a>
     <a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::rename</a>
     <a href='http://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate</a>
+    <a href='http://dplyr.tidyverse.org/reference/mutate.html'>dplyr::transmute</a>
     <a href='http://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarise</a>
     <a href='http://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarize</a></p>
     
