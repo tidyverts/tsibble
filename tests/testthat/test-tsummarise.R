@@ -92,3 +92,55 @@ test_that("tsummarise for grouped_ts", {
     )
   )
 })
+
+library(tsibble)
+
+tsbl4 <- tsibble(
+  date = rep(idx_day, 2),
+  group = rep(letters[1:2], each = 5),
+  value1 = rep(1:2, each = 5),
+  value2 = rnorm(10),
+  value3 = rnorm(10),
+  key = id(group), index = date
+)
+
+test_that("scoped variants", {
+  ts_all <- tsbl4 %>% 
+    tsummarise_all(yearmonth(date), .funs = "mean")
+  expect_named(ts_all, c("date", "value1", "value2", "value3"))
+  expect_equal(nrow(ts_all), 1)
+  ts_all <- tsbl4 %>% 
+    tsummarise_all(yrmth = yearmonth(date), .funs = "mean")
+  expect_named(ts_all, c("yrmth", "value1", "value2", "value3"))
+  expect_warning(
+    tsbl4 %>% 
+      tsummarise_all(yrmth = yearmonth(date), na.rm = TRUE, .funs = "mean"),
+    "The arguments are ignored"
+  )
+  ts_if <- tsbl4 %>% 
+    tsummarise_if(yearmonth(date), .predicate = is.numeric, .funs = mean)
+  expect_named(ts_if, c("date", "value1", "value2", "value3"))
+  expect_equal(nrow(ts_if), 1)
+  ts_at <- tsbl4 %>% 
+    tsummarise_at(yearmonth(date), .vars = c("value1", "value3"), .funs = mean)
+  expect_named(ts_at, c("date", "value1", "value3"))
+  expect_equal(nrow(ts_at), 1)
+})
+
+test_that("scoped variants with group_by()", {
+  ts_all <- tsbl4 %>% 
+    group_by(group) %>% 
+    tsummarise_all(yearmonth(date), .funs = "mean")
+  expect_named(ts_all, c("group", "date", "value1", "value2", "value3"))
+  expect_equal(nrow(ts_all), 2)
+  ts_if <- tsbl4 %>% 
+    group_by(group) %>% 
+    tsummarise_if(yearmonth(date), .predicate = is.numeric, .funs = mean)
+  expect_named(ts_if, c("group", "date", "value1", "value2", "value3"))
+  expect_equal(nrow(ts_if), 2)
+  ts_at <- tsbl4 %>% 
+    group_by(group) %>% 
+    tsummarise_at(yearmonth(date), .vars = c("value1", "value3"), .funs = mean)
+  expect_named(ts_at, c("group", "date", "value1", "value3"))
+  expect_equal(nrow(ts_at), 2)
+})

@@ -139,7 +139,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   idx <- quo_text2(index)
   idx_name <- names(first)
   if (idx_name == "") {
-    idx_name <- idx
+    names(first) <- idx_name <- idx
   }
   idx_sym <- sym(idx_name)
 
@@ -157,6 +157,10 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
       grouped_df(vars = chr_grps)
   }
   if (is.null(remainder)) {
+    if (is.null(grps)) {
+      key_chr <- names(key(.data))
+      grped_data <- select(grped_data, - !! key_chr)
+    }
     result <- FUN(grped_data)
   } else {
     result <- FUN(grped_data, !!! remainder)
