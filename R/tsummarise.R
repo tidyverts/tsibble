@@ -158,7 +158,8 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   }
   if (is.null(remainder)) { # summarise_*()
     nonkey <- setdiff(flatten_key(key(.data)), flat_grps)
-    grped_data <- select(grped_data, - !! nonkey)
+    sel_cols <- setdiff(names(grped_data), nonkey)
+    grped_data <- select(grped_data, !! sel_cols)
     result <- FUN(grped_data)
   } else { # summarise()
     result <- FUN(grped_data, !!! remainder)

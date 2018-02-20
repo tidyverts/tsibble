@@ -1,4 +1,4 @@
-# tsibble 0.1.2.9999
+# tsibble 0.1.3
 
 ## New functions
 

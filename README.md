@@ -108,10 +108,10 @@ preserves time zones for date-times.
 `_if()`) are introduced to aggregate interested variables over calendar
 periods. `tsummarise()` goes hand in hand with the index functions
 including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as
-other friends from *lubridate*, such as `year()` and `ceiling_date()`.
-For example, it would be of interest in computing average temperature
-and total precipitation per month, by applying `yearmonth()` to the
-hourly time index.
+other friends from *lubridate*, such as `year()`, `ceiling_date()`,
+`floor_date()` and `round_date()`. For example, it would be of interest
+in computing average temperature and total precipitation per month, by
+applying `yearmonth()` to the hourly time index.
 
 ``` r
 full_weather %>%
@@ -144,7 +144,7 @@ windows using purrr-like syntax:
 
   - `slide()`: sliding window with overlapping observations.
   - `tile()`: tiling window without overlapping observations.
-  - `stretch()`: fixing an initial window and expanding more
+  - `stretch()`: fixing an initial window and expanding to include more
     observations.
 
 For example, a moving average of window size 3 is carried out on hourly
