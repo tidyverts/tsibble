@@ -93,8 +93,6 @@ test_that("tsummarise for grouped_ts", {
   )
 })
 
-library(tsibble)
-
 tsbl4 <- tsibble(
   date = rep(idx_day, 2),
   group = rep(letters[1:2], each = 5),
@@ -143,4 +141,10 @@ test_that("scoped variants with group_by()", {
     tsummarise_at(yearmonth(date), .vars = c("value1", "value3"), .funs = mean)
   expect_named(ts_at, c("group", "date", "value1", "value3"))
   expect_equal(nrow(ts_at), 2)
+  tbl <- tourism %>% 
+    group_by(Region | State) %>% 
+    tsummarise_if(
+      Year = year(Quarter), .predicate = is.numeric, .funs = mean
+    )
+  expect_named(tbl, c("Region", "State", "Year", "Trips"))
 })
