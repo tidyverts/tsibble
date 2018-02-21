@@ -6,11 +6,11 @@
 */ˈt͡sɪbəl/*
 
 [![Travis-CI Build
-Status](https://travis-ci.org/earowang/tsibble.svg?branch=master)](https://travis-ci.org/earowang/tsibble)
+Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
 [![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/earowang/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/earowang/tsibble)
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/tsibble)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/earowang/tsibble/master.svg)](https://codecov.io/github/earowang/tsibble?branch=master)
+Status](https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
