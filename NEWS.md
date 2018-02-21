@@ -1,3 +1,9 @@
+# tsibble 0.1.3.9000
+
+## Bug fixes
+
+* Fixed `as_tsibble.ts()` for daily time series (when frequency = 7).
+
 # tsibble 0.1.3
 
 ## New functions

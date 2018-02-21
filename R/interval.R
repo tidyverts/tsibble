@@ -131,7 +131,13 @@ time_to_date <- function(x, ...) {
 time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- as.numeric(stats::time(x))
-  if (freq > 4 && freq <= 12) { # monthly
+  if (freq == 7) { # daily
+    start_year <- trunc(time_x[1])
+    return(as.Date(lubridate::round_date(
+      lubridate::date_decimal(start_year + (time_x - start_year) * 7 / 365),
+      unit = "day"
+    )))
+  } else if (freq > 4 && freq <= 12) { # monthly
     return(yearmonth(time_x))
   } else if (freq > 1 && freq <= 4) { # quarterly
     return(yearquarter(time_x))
