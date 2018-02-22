@@ -30,10 +30,10 @@ spread_tsbl <- function(data, value, fill = NA, sep = "") {
   }
   # ToDo: only works with a single key rather than the nested and grouped keys
   spread_key <- key(data)
-  if (is_empty(spread_key)) {
-    return(as_tibble(data))
-  }
   idx_var <- index(data)
+  if (is_empty(spread_key)) {
+    return(as_tibble(data %>% arrange(!! idx_var)))
+  }
   compact_tsbl <- data %>%
     mutate(key = paste(!!! spread_key, sep = sep)) %>%
     select(!! idx_var, key, spread_val, drop = TRUE)
