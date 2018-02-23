@@ -27,7 +27,7 @@ drop_group <- function(x) {
 # this returns a vector of groups/key characters
 flatten_key <- function(x) {
   if (is.null(x)) {
-    x <- list()
+    x <- id()
   }
   purrr::map_chr(flatten(x), quo_text2)
 }
@@ -98,7 +98,7 @@ is_nest <- function(lst_syms) {
 
 parse_key <- function(x) {
   if (is_empty(x)) {
-    return(list())
+    return(id())
   }
   # purrr::map(x, ~ flatten_nest(.[[-1]]))
   purrr::map(x, flatten_nest)

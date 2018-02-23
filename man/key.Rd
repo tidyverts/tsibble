@@ -2,12 +2,18 @@
 % Please edit documentation in R/as-tsibble.R
 \name{key}
 \alias{key}
+\alias{unkey}
+\alias{unkey.tbl_ts}
 \alias{key_vars}
 \alias{measured_vars}
 \alias{measured_vars.tbl_ts}
 \title{Return key and measured variables}
 \usage{
 key(x)
+
+unkey(x)
+
+\method{unkey}{tbl_ts}(x)
 
 key_vars(x)
 

@@ -31,7 +31,7 @@ You could install the development version from Github using
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("earowang/tsibble", build_vignettes = TRUE)
+devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
 ```
 
 ## Get started

@@ -1,5 +1,9 @@
 # tsibble 0.1.3.9000
 
+## New functions
+
+* Added `unkey()` as an S3 method for key size < 2.
+
 ## Bug fixes
 
 * Fixed `as_tsibble.ts()` for daily time series (when frequency = 7).
