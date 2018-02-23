@@ -77,10 +77,10 @@ fill_na.tbl_ts <- function(.data, ...) {
     )
 
   if (is_grouped_ts(.data)) {
-    full_data <- do(full_data, modify_na(., !!! quos(...)))
+    full_data <- do(full_data, modify_na(., !!! enquos(...)))
   } else {
     full_data <- full_data %>%
-      modify_na(!!! quos(...))
+      modify_na(!!! enquos(...))
   }
   full_data <- full_data %>%
     select(!!! syms(colnames(.data))) # keep the original order
@@ -89,7 +89,7 @@ fill_na.tbl_ts <- function(.data, ...) {
 }
 
 modify_na <- function(.data, ...) {
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- enquos(..., .named = TRUE)
   if (is_empty(lst_quos)) {
     return(.data)
   }
@@ -104,7 +104,7 @@ modify_na <- function(.data, ...) {
   lst_lang <- purrr::map2(
     syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
   )
-  mod_quos <- purrr::map(lst_lang, ~ lang("case_na", .))
+  mod_quos <- purrr::map(lst_lang, ~ call2("case_na", .))
   names(mod_quos) <- lhs
   modify_na_handler(.data, mod_quos)
 }

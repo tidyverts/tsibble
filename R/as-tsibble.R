@@ -340,7 +340,7 @@ measured_vars.tbl_ts <- function(x) {
 #' @export
 interval <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
+    abort(sprintf("%s is not a tsibble.", expr_label(enexpr(x))))
   }
   attr(x, "interval")
 }
@@ -349,7 +349,7 @@ interval <- function(x) {
 #' @export
 index <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
+    abort(sprintf("%s is not a tsibble.", expr_label(enexpr(x))))
   }
   attr(x, "index")
 }
@@ -370,7 +370,7 @@ index <- function(x) {
 #' @export
 is_regular <- function(x) {
   if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", expr_label(substitute(x))))
+    abort(sprintf("%s is not a tsibble.", expr_label(enexpr(x))))
   }
   attr(x, "regular")
 }
@@ -487,7 +487,7 @@ detect_type <- function() {
 #' @seealso [tsibble], [as_tsibble]
 #' @export
 id <- function(...) {
-  quos(...)
+  enquos(...)
 }
 
 ## Although the "index" arg is possible to automate the detection of time

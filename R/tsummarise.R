@@ -172,7 +172,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
 }
 
 separate_quos <- function(warn = FALSE, ...) {
-  lst_quos <- quos(...)
+  lst_quos <- enquos(...)
   first <- lst_quos[1]
   remainder <- lst_quos[-1]
   if (warn) {

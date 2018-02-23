@@ -65,7 +65,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(sel_data)
   }
-  lst_quos <- quos(...)
+  lst_quos <- enquos(...)
   val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
@@ -93,7 +93,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
-  lst_quos <- quos(...)
+  lst_quos <- enquos(...)
   val_vars <- tidyselect::vars_rename(colnames(.data), !!! lst_quos)
   if (has_index_var(val_vars, .data) || has_any_key(val_vars, .data)) {
     lhs <- names(val_vars)
@@ -112,7 +112,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(mut_data)
   }
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- enquos(..., .named = TRUE)
   vec_names <- union(names(lst_quos), colnames(.data))
   mut_data <- mutate(as_tibble(.data), ...)
   # either key or index is present in ...
@@ -135,7 +135,7 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(transmute(as_tibble(.data), ...))
   }
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
   idx_key <- c(quo_text2(index(.data)), flatten_key(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
@@ -149,7 +149,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(summarise(as_tibble(.data), ...))
   }
-  lst_quos <- quos(..., .named = TRUE)
+  lst_quos <- enquos(..., .named = TRUE)
   first_arg <- first_arg(lst_quos)
   vec_vars <- as.character(first_arg)
   idx <- index(.data)
@@ -199,7 +199,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   idx_var <- quo_text2(index)
-  current_grps <- quos(...)
+  current_grps <- enquos(...)
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- flatten_key(final_grps)
   if (idx_var %in% grped_chr) {
