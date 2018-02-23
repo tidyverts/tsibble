@@ -1,3 +1,25 @@
+#' Split data into a list by its key
+#'
+#' @param x A `tbl_ts`.
+#' @rdname split-key
+#' @export
+split_key <- function(x) {
+  UseMethod("split_key")
+}
+
+#' @rdname split-key
+#' @export
+#' @examples
+#' split_key(pedestrian)
+split_key.tbl_ts <- function(x) {
+  key_idx <- key_indices(x)
+  if (is.null(key_idx)) {
+    return(list(x))
+  } else {
+    lapply(key_idx, function(idx) x[idx + 1, ])
+  }
+}
+
 reduce_key <- function(x) { # x = a list of keys (symbols)
   if (is_empty(x)) {
     return(x)
