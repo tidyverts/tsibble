@@ -40,7 +40,7 @@ ByteCompile: true
 VignetteBuilder: knitr
 License: GPL (>= 3)
 URL: http://pkg.earo.me/tsibble
-BugReports: https://github.com/earowang/tsibble/issues
+BugReports: https://github.com/tidyverts/tsibble/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
