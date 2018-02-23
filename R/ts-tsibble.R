@@ -40,6 +40,16 @@ as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
 }
 
 #' @rdname as-tsibble
+#' @export
+as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
+  if (NCOL(x) == 1) {
+    return(as_tsibble.ts(x, tz = tz))
+  } else {
+    as_tsibble.mts(x, tz = tz, gather = gather)
+  }
+}
+
+#' @rdname as-tsibble
 #'
 #' @examples
 #' # coerce hts from the "hts" package to tsibble

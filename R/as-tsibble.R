@@ -229,12 +229,14 @@ unkey <- function(x) {
 #' @rdname key
 #' @export
 unkey.tbl_ts <- function(x) {
-  if (n_keys(x) > 1) {
+  nkey <- n_keys(x)
+  if (nkey < 2 || nkey == nrow(x)) {
+    attr(x, "key") <- structure(id(), class = "key")
+    attr(x, "key_indices") <- NULL
+    return(x)
+  } else {
     abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
   }
-  attr(x, "key") <- structure(id(), class = "key")
-  attr(x, "key_indices") <- NULL
-  x
 }
 
 `key<-` <- function(x, value) {

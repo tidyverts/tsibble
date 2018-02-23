@@ -10,6 +10,7 @@
 \alias{as.tsibble}
 \alias{as_tsibble.ts}
 \alias{as_tsibble.mts}
+\alias{as_tsibble.msts}
 \alias{as_tsibble.hts}
 \title{Coerce to a tsibble object}
 \usage{
@@ -30,6 +31,8 @@ as_tsibble(x, ...)
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
 \method{as_tsibble}{mts}(x, tz = "UTC", gather = TRUE, ...)
+
+\method{as_tsibble}{msts}(x, tz = "UTC", gather = TRUE, ...)
 
 \method{as_tsibble}{hts}(x, tz = "UTC", ...)
 }
