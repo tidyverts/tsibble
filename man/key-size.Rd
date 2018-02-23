@@ -3,11 +3,14 @@
 \name{key_size}
 \alias{key_size}
 \alias{n_keys}
+\alias{key_indices}
 \title{Compute sizes of key variables}
 \usage{
 key_size(x)
 
 n_keys(x)
+
+key_indices(x)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -18,5 +21,6 @@ Compute sizes of key variables
 \examples{
 key_size(pedestrian)
 n_keys(pedestrian)
+key_indices(pedestrian)
 
 }

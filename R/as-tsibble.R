@@ -262,6 +262,7 @@ key_vars.tbl_ts <- function(x) {
 #' @examples
 #' key_size(pedestrian)
 #' n_keys(pedestrian)
+#' key_indices(pedestrian)
 #'
 #' @rdname key-size
 #' @export
@@ -287,6 +288,17 @@ n_keys <- function(x) {
 #' @export
 n_keys.tbl_ts <- function(x) {
   length(key_size(x))
+}
+
+#' @rdname key-size
+#' @export
+key_indices <- function(x) {
+  UseMethod("key_indices")
+}
+
+#' @export
+key_indices.tbl_ts <- function(x) {
+  attr(x, "key_indices")
 }
 
 #' @export

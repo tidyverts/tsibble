@@ -2,8 +2,9 @@
 
 ## New functions
 
-* Added `unkey()` as an S3 method for key size < 2.
+* Added `unkey()` as an S3 method for a tsibble of key size < 2.
 * Added `as_tsibble.msts()` for multiple seasonality time series defined in the forecast package.
+* Added `key_indices()` as an S3 method to extract key indices.
 
 ## Bug fixes
 
