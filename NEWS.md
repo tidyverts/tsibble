@@ -11,6 +11,10 @@
 
 * Fixed `as_tsibble.ts()` for daily time series (when frequency = 7).
 
+## Internal changes
+
+* Dropped the attribute "key_indices" from a `tbl_ts` class to reduce the object size.
+
 # tsibble 0.1.3
 
 ## New functions

@@ -232,7 +232,6 @@ unkey.tbl_ts <- function(x) {
   nkey <- n_keys(x)
   if (nkey < 2 || nkey == nrow(x)) {
     attr(x, "key") <- structure(id(), class = "key")
-    attr(x, "key_indices") <- NULL
     return(x)
   } else {
     abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
@@ -272,7 +271,7 @@ key_size <- function(x) {
 
 #' @export
 key_size.tbl_ts <- function(x) {
-  key_indices <- attr(x, "key_indices")
+  key_indices <- key_indices(x)
   if (is_empty(key_indices)) {
     return(NROW(x))
   }
@@ -298,7 +297,9 @@ key_indices <- function(x) {
 
 #' @export
 key_indices.tbl_ts <- function(x) {
-  attr(x, "key_indices")
+  flat_keys <- flatten_key(key(x))
+  grped_key <- grouped_df(x, flat_keys)
+  attr(grped_key, "indices")
 }
 
 #' @export
@@ -473,11 +474,11 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
     tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
   }
 
-  grped_key <- grouped_df(tbl, flat_keys)
+  # grped_key <- grouped_df(tbl, flat_keys)
   tibble::new_tibble(
     tbl,
     "key" = structure(key_vars, class = "key"),
-    "key_indices" = attr(grped_key, "indices"),
+    # "key_indices" = attr(grped_key, "indices"),
     "index" = index,
     "interval" = structure(tbl_interval, class = "interval"),
     "regular" = regular,
@@ -636,7 +637,7 @@ use_id <- function(x) {
 }
 
 drop_tsibble <- function(x) {
-  attr(x, "key") <- attr(x, "key_indices") <- attr(x, "index") <- NULL
+  attr(x, "key") <- attr(x, "index") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- NULL
   tibble::new_tibble(x)
 }
