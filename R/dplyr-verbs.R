@@ -198,16 +198,9 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
-  idx_var <- quo_text2(index)
   current_grps <- enquos(...)
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- flatten_key(final_grps)
-  if (idx_var %in% grped_chr) {
-    abort(sprintf(
-      "The `index` (`%s`) must not be grouped. Do you need `as_tibble()` to coerce to `tbl_df`?", 
-      idx_var
-    ))
-  }
 
   grped_ts <- grouped_df(.data, grped_chr)
   as_tsibble(

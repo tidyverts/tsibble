@@ -14,6 +14,7 @@
 ## Internal changes
 
 * Dropped the attribute "key_indices" from a `tbl_ts` class to reduce the object size.
+* No longer throw an error when grouping the index.
 
 # tsibble 0.1.3
 

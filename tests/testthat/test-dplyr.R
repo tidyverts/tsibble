@@ -4,8 +4,6 @@ context("dplyr verbs for tsibble")
 test_that("group_by()", {
   expect_error(group_by(tourism, State | Region), "Incorrect nesting")
   expect_error(group_by(tourism, State | Region, Purpose, "Invalid tsibble"))
-  expect_error(group_by(tourism, Quarter), "must not be grouped")
-  expect_error(group_by(pedestrian, Date_Time, Sensor), "must not be grouped")
   grped_df <- pedestrian %>% 
     group_by(Date) %>% 
     group_by(Sensor, add = TRUE)
