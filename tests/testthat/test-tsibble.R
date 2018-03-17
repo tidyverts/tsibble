@@ -35,7 +35,7 @@ test_that("POSIXt with 1 second interval", {
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1SECOND\\]")
   expect_error(as_tsibble(dat_x, key = id(date_time)))
   expect_is(tsbl, "tbl_ts")
-  expect_is(index(tsbl), "quosure")
+  expect_is(index(tsbl), "name")
   expect_identical(quo_text(index(tsbl)), "date_time")
   expect_identical(time_unit(tsbl$date_time), 1)
   expect_identical(format(key(tsbl)), "NULL")

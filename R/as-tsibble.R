@@ -515,11 +515,10 @@ extract_index_var <- function(data, index) {
     }
     chr_index <- colnames(data)[val_idx]
     inform(sprintf("The `index` is %s.", surround(chr_index, "`")))
-    idx_sym <- sym(chr_index)
-    index <- as_quosure(idx_sym)
-    return(index)
+    return(sym(chr_index))
   } else {
-    idx_na <- idx_type[quo_text2(index)]
+    chr_index <- quo_text2(index)
+    idx_na <- idx_type[chr_index]
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       name_idx <- names(idx_na)
@@ -527,8 +526,8 @@ extract_index_var <- function(data, index) {
         "Unsupported index type: `%s`", cls_idx[colnames(data) %in% name_idx])
       )
     }
+    sym(chr_index)
   }
-  index
 }
 
 # check if the number of unique values is in descending order for a set of

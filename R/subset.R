@@ -45,7 +45,7 @@ has_index <- function(x) {
 # this function usually follows validate_vars()
 has_index_var <- function(j, x) {
   has_index(x)
-  index <- f_text(index(x))
+  index <- as.character(index(x))
   index %in% j
 }
 
@@ -65,7 +65,7 @@ has_any_key <- function(j, x) {
 }
 
 update_index <- function(x, rhs, lhs) {
-  as_quosure(sym(update_index_name(x, rhs, lhs)))
+  sym(update_index_name(x, rhs, lhs))
 }
 
 update_index_name <- function(x, rhs, lhs) {
