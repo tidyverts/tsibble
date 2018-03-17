@@ -99,7 +99,7 @@ as_tsibble.tbl_df <- function(
   x, key = id(), index, regular = TRUE, validate = TRUE, ...
 ) {
   index <- enquo(index)
-  tsibble_tbl(
+  build_tsibble(
     x, key = key, index = index, regular = regular,
     validate = validate
   )
@@ -117,7 +117,7 @@ as_tsibble.tbl_ts <- function(
   if (quo_is_missing(index)) {
     index <- index(x)
   }
-  tsibble_tbl(
+  build_tsibble(
     x, key = key, index = index, regular = regular,
     validate = validate
   )
@@ -140,28 +140,10 @@ as_tsibble.list <- as_tsibble.tbl_df
 as_tsibble.grouped_df <- function(
   x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
 ) {
-  # convert grouped_df to tsibble:
-  # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   index <- enquo(index)
-
-  tbl <- tsibble_tbl(
-    x, key = key, index = index, regular = regular,
+  build_tsibble(
+    x, key = key, index = index, groups = groups, regular = regular,
     validate = validate
-  )
-
-  if (is_empty(groups)) {
-    return(tbl)
-  }
-
-  groups <- validate_key(x, groups)
-  tbl <- validate_nested(data = tbl, key = groups)
-
-  flat_grps <- flatten_key(groups)
-  grped_df <- grouped_df(tbl, flat_grps)
-  tibble::new_tibble(
-    grped_df,
-    "vars" = structure(groups, class = "vars"),
-    subclass = c("grouped_ts", "tbl_ts")
   )
 }
 
@@ -440,7 +422,9 @@ as.tsibble <- function(x, ...) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
-tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
+build_tsibble <- function(
+  x, key, index, groups = id(), regular = TRUE, validate = TRUE
+) {
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
   }
@@ -475,7 +459,7 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
   }
 
   # grped_key <- grouped_df(tbl, flat_keys)
-  tibble::new_tibble(
+  tbl <- tibble::new_tibble(
     tbl,
     "key" = structure(key_vars, class = "key"),
     # "key_indices" = attr(grped_key, "indices"),
@@ -483,6 +467,23 @@ tsibble_tbl <- function(x, key, index, regular = TRUE, validate = TRUE) {
     "interval" = structure(tbl_interval, class = "interval"),
     "regular" = regular,
     subclass = "tbl_ts"
+  )
+
+  if (is_empty(groups)) {
+    return(tbl)
+  }
+
+  # convert grouped_df to tsibble:
+  # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
+  groups <- validate_key(x, groups)
+  tbl <- validate_nested(data = tbl, key = groups)
+
+  flat_grps <- flatten_key(groups)
+  grped_df <- grouped_df(tbl, flat_grps)
+  tibble::new_tibble(
+    grped_df,
+    "vars" = structure(groups, class = "vars"),
+    subclass = c("grouped_ts", "tbl_ts")
   )
 }
 
