@@ -139,8 +139,9 @@ as_tsibble.list <- as_tsibble.tbl_df
 as_tsibble.grouped_df <- function(
   x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
 ) {
+  index <- enquo(index)
   build_tsibble(
-    x, key = key, index = index, groups = groups, regular = regular,
+    x, key = key, index = !! index, groups = groups, regular = regular,
     validate = validate
   )
 }
