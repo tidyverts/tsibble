@@ -26,8 +26,7 @@ A tsibble object.
 Create a tsibble object
 }
 \details{
-A valid tsibble does not arrange the index in the time order.
-Please use \link{arrange} to get the order by time.
+A tsibble is arranged by the key and index in the time order.
 }
 \section{Index}{
 

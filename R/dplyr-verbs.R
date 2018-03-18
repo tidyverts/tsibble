@@ -30,14 +30,14 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
-  by_row(filter, .data, ...)
+  by_row(filter, .data, ordered = is_ordered(.data), ...)
 }
 
 #' @rdname row-verb
 #' @seealso [dplyr::slice]
 #' @export
 slice.tbl_ts <- function(.data, ...) {
-  by_row(slice, .data, ...)
+  by_row(slice, .data, ordered = is_ordered(.data), ...)
 }
 
 #' Column-wise verbs
@@ -82,10 +82,10 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   key(.data) <- update_key(key(.data), val_vars)
   key(.data) <- update_key2(key(.data), val_vars, lhs)
-  as_tsibble(
+  build_tsibble(
     sel_data, key = key(.data), index = !! index(.data), 
     groups = groups(.data), regular = is_regular(.data),
-    validate = TRUE,
+    validate = TRUE, ordered = is_ordered(.data)
   )
 }
 
@@ -121,10 +121,10 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
-  as_tsibble(
+  build_tsibble(
     mut_data, key = key(.data), index = !! index(.data), 
     groups = groups(.data), regular = is_regular(.data),
-    validate = validate 
+    validate = validate, ordered = is_ordered(.data)
   )
 }
 
@@ -166,9 +166,9 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     grouped_df(vars = chr_grps) %>%
     summarise(!!! lst_quos)
 
-  as_tsibble(
+  build_tsibble(
     sum_data, key = grps, index = !! idx, groups = drop_group(grps),
-    validate = FALSE, regular = is_regular(.data)
+    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data)
   )
 }
 
@@ -203,9 +203,9 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_chr <- flatten_key(final_grps)
 
   grped_ts <- grouped_df(.data, grped_chr)
-  as_tsibble(
+  build_tsibble(
     grped_ts, key = key(.data), index = !! index, groups = final_grps,
-    validate = FALSE, regular = is_regular(.data)
+    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data)
   )
 }
 
@@ -213,9 +213,9 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
-  as_tsibble(
+  build_tsibble(
     x, key = key(x), index = !! index(x), groups = id(),
-    validate = FALSE, regular = is_regular(x)
+    validate = FALSE, regular = is_regular(x), ordered = is_ordered(x)
   )
 }
 
@@ -244,16 +244,16 @@ distinct.tbl_ts <- function(.data, ...) {
   abort("'tbl_ts' has no support for distinct(). Please coerce to 'tbl_df' first and then distinct().")
 }
 
-by_row <- function(FUN, .data, ...) {
+by_row <- function(FUN, .data, ordered = TRUE, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ...)
-  update_tsibble(tbl, .data)
+  update_tsibble(tbl, .data, ordered = ordered)
 }
 
 # put new data with existing attributes
-update_tsibble <- function(new, old) {
-  as_tsibble(
+update_tsibble <- function(new, old, ordered = TRUE) {
+  build_tsibble(
     new, key = key(old), index = !! index(old), groups = groups(old), 
-    regular = is_regular(old), validate = FALSE
+    regular = is_regular(old), validate = FALSE, ordered = ordered
   )
 }

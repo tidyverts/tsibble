@@ -30,9 +30,9 @@
     result <- purrr::map(result, `[`, i)
   }
 
-  as_tsibble(
+  build_tsibble(
     result, key = key(x), index = !! index(x),
-    validate = FALSE, regular = is_regular(x)
+    validate = FALSE, regular = is_regular(x), ordered = is_ordered(x)
   )
 }
 

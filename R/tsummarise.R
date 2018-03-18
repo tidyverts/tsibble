@@ -165,9 +165,9 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
     result <- FUN(grped_data, !!! remainder)
   }
 
-  as_tsibble(
+  build_tsibble(
     result, key = grps, index = !! idx_sym, groups = drop_group(grps), 
-    validate = FALSE
+    validate = FALSE, ordered = is_ordered(.data)
   )
 }
 
