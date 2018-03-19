@@ -466,13 +466,12 @@ build_tsibble <- function(
   } else if (is_false(ordered)) { # false returns a warning
     if (is_empty(key_vars)) {
       msg <- sprintf(
-        "`%s` is not ordered by `%s` as expected.", 
-        deparse(substitute(x)), idx_chr
+        "The `tbl_ts` is not arranged by `%s` in ascending order.", idx_chr
       )
     } else {
       msg <- sprintf(
-        "`%s` is not ordered by `%s`, and `%s` as expected.", 
-        deparse(substitute(x)), paste_comma(format(key)), idx_chr
+        "The `tbl_ts` is not arranged by `%s`, and `%s` in ascending order.", 
+        paste_comma(format(key)), idx_chr
       )
     }
     warn(msg)
@@ -572,8 +571,8 @@ validate_nested <- function(data, key) {
       wrong_nested <- paste_comma(wrong_nested)
       wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
       abort(sprintf(
-        "Incorrect nesting: %s %s. Please see `?tsibble`.",
-        wrong_nested, surround(wrong_dim, "(")
+        "Incorrect nesting: %s (%s). Please see `?tsibble`.",
+        wrong_nested, wrong_dim
       ))
     }
   }

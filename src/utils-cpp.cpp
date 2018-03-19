@@ -49,6 +49,23 @@ bool is_descending(IntegerVector x) {
   return true;
 }
 
+// If the input x is in ascending order
+
+// [[Rcpp::export]]
+bool is_ascending(IntegerVector x) {
+  int prev = x[0];
+
+  IntegerVector::iterator it;
+  for (it = x.begin() + 1; it != x.end(); ++it) {
+    if (prev < *it) {
+      prev = *it;
+    } else {
+      return false;
+    }
+  };
+  return true;
+}
+
 // Sliding window function
 
 // std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill) {

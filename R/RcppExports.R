@@ -13,3 +13,7 @@ is_descending <- function(x) {
     .Call(`_tsibble_is_descending`, x)
 }
 
+is_ascending <- function(x) {
+    .Call(`_tsibble_is_ascending`, x)
+}
+

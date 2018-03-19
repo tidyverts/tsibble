@@ -37,7 +37,17 @@ filter.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::slice]
 #' @export
 slice.tbl_ts <- function(.data, ...) {
-  by_row(slice, .data, ordered = is_ordered(.data), ...)
+  pos <- enquos(...)
+  if (length(pos) > 1) {
+    abort("`slice()` only accepts one expression.")
+  }
+  pos_eval <- eval_tidy(quo(!! dplyr::first(pos)))
+  pos_dup <- anyDuplicated.default(pos_eval)
+  if (any_not_equal_to_c(pos_dup, 0)) {
+    abort(sprintf("Duplicated integers occurs to the position of %i.", pos_dup))
+  }
+  ascending <- is_ascending(pos_eval)
+  by_row(slice, .data, ordered = ascending, ...)
 }
 
 #' Column-wise verbs
