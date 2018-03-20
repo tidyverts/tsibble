@@ -50,6 +50,9 @@ test_that("filter() and slice()", {
     group_by(Purpose) %>%
     slice(1:3)
   expect_identical(dim(tsbl4), c(12L, ncol(tourism)))
+  expect_warning(slice(pedestrian, 3:1), "not arranged by `Sensor`, and `Date_Time`")
+  expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
+  expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
 })
 
 test_that("select() and rename()", {
