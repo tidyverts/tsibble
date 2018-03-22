@@ -4,23 +4,23 @@ context("dplyr verbs for tsibble")
 test_that("group_by()", {
   expect_error(group_by(tourism, State | Region), "Incorrect nesting")
   expect_error(group_by(tourism, State | Region, Purpose, "Invalid tsibble"))
-  grped_df <- pedestrian %>% 
-    group_by(Date) %>% 
+  grped_df <- pedestrian %>%
+    group_by(Date) %>%
     group_by(Sensor, add = TRUE)
   expect_length(group_vars(grped_df), 2)
-  grped_df <- pedestrian %>% 
+  grped_df <- pedestrian %>%
     group_by(Sensor)
   expect_equal(n_groups(grped_df), 4)
   expect_length(group_size(grped_df), 4)
 
-  grped_t <- tourism %>% 
-    group_by(Purpose) %>% 
+  grped_t <- tourism %>%
+    group_by(Purpose) %>%
     group_by(Region | State, add = TRUE)
   expect_length(group_vars(grped_t), 2)
 })
 
 test_that("arrange()", {
- tsbl1 <- arrange(tourism, Quarter)
+ expect_warning(tsbl1 <- arrange(tourism, Quarter), "not arranged by")
  expect_equal(tsbl1, tourism)
  expect_identical(key(tsbl1), key(tourism))
  expect_identical(groups(tsbl1), groups(tourism))
@@ -115,8 +115,8 @@ test_that("summarise()", {
   expect_identical(nrow(tsbl3), nrow(tourism))
 
   expect_error(pedestrian %>% summarise(month = yearmonth(Date_Time)))
-  tbl_ped <- pedestrian %>% 
-    group_by(Date) %>% 
+  tbl_ped <- pedestrian %>%
+    group_by(Date) %>%
     summarise(DailyCount = mean(Count), drop = TRUE)
   expect_is(tbl_ped, "tbl_df")
 })

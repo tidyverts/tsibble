@@ -7,15 +7,45 @@
 #' @param ...
 #' * A set of unquoted variables for `arrange()`.
 #' * Logical predicates defined in terms of the variables for `filter()`.
-#' * Integer row numbers for `slice()`.
+#' * Unique integer row numbers for `slice()`.
 #' @param .by_group `TRUE` will sort first by grouping variable.
 #'
 #' @rdname row-verb
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
+  vars <- quos <- enquos(...)
+  if (is_empty(quos)) {
+    return(.data)
+  }
+  call_pos <- purrr::map_lgl(quos, quo_is_call)
+  vars[call_pos] <- first_arg(vars[call_pos])
+  val_vars <- validate_vars(vars, names(.data))
+  idx <- quo_text2(index(.data))
+  idx_pos <- val_vars %in% idx
+  idx_is_call <- dplyr::first(quos[idx_pos])
+  key <- reduce_key(key(.data))
+  if (is_false(any(idx_pos))) { # no index presented in the ...
+    mvars <- measured_vars(.data)
+    # if there's any measured variable in the ..., the time order will change.
+    ordered <- ifelse(any(mvars %in% val_vars), FALSE, TRUE)
+  } else if (quo_is_call(idx_is_call)) { # desc(index)
+    fn <- call_name(idx_is_call)
+    ordered <- ifelse(fn == "desc", FALSE, TRUE)
+  } else {
+    exp_vars <- c(key, idx)
+    exp_idx <- which(val_vars %in% exp_vars)
+    if (n_keys(.data) < 2) {
+      ordered <- TRUE
+    } else if (all(exp_idx == seq_along(exp_idx)) && is_false(idx_pos[1])) {
+      ordered <- NULL
+    } else {
+      ordered <- FALSE
+    }
+  }
+
   arr_data <- NextMethod()
-  update_tsibble(arr_data, .data)
+  update_tsibble(arr_data, .data, ordered = ordered)
 }
 
 #' @rdname row-verb

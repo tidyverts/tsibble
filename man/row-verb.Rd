@@ -21,7 +21,7 @@
 \item{...}{\itemize{
 \item A set of unquoted variables for \code{arrange()}.
 \item Logical predicates defined in terms of the variables for \code{filter()}.
-\item Integer row numbers for \code{slice()}.
+\item Unique integer row numbers for \code{slice()}.
 }}
 
 \item{.by_group}{\code{TRUE} will sort first by grouping variable.}

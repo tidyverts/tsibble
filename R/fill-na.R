@@ -100,7 +100,7 @@ modify_na <- function(.data, ...) {
   check_names <- lhs %in% colnames(.data)
   if (is_false(all(check_names))) {
     bad_names <- paste_comma(lhs[which(!check_names)])
-    abort(sprintf("Can't find column %s in `.data`.", surround(bad_names, "`")))
+    abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
   }
 
   rhs <- purrr::map(lst_quos, f_rhs)
