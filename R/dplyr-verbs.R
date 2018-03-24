@@ -21,7 +21,7 @@ arrange.tbl_ts <- function(.data, ...) {
   ordered <- ordered_by_arrange(.data, !!! quos)
 
   arr_data <- NextMethod()
-  update_tsibble(arr_data, .data, ordered = ordered)
+  update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 #' @rdname row-verb
@@ -35,7 +35,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   ordered <- ordered_by_arrange(.data, !!! quos, .by_group = .by_group)
 
   arr_data <- arrange(as_tibble(.data), !!! quos, .by_group = .by_group)
-  update_tsibble(arr_data, .data, ordered = ordered)
+  update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
@@ -85,7 +85,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
-  by_row(filter, .data, ordered = is_ordered(.data), ...)
+  by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...)
 }
 
 #' @rdname row-verb
@@ -102,7 +102,7 @@ slice.tbl_ts <- function(.data, ...) {
     abort(sprintf("Duplicated integers occurs to the position of %i.", pos_dup))
   }
   ascending <- is_ascending(pos_eval)
-  by_row(slice, .data, ordered = ascending, ...)
+  by_row(slice, .data, ordered = ascending, interval = NULL, ...)
 }
 
 #' Column-wise verbs
@@ -141,16 +141,19 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   lhs <- names(val_vars)
   index(.data) <- update_index(index(.data), val_vars, lhs)
-  val_key <- has_all_key(j = lst_quos, x = .data)
+  val_key <- has_all_key(j = lhs, x = .data)
   if (is_true(val_key)) { # no changes in key vars
-    return(update_tsibble(sel_data, .data))
+    return(update_tsibble(
+      sel_data, .data, ordered = is_ordered(.data),
+      interval = interval(.data)
+    ))
   }
   key(.data) <- update_key(key(.data), val_vars)
   key(.data) <- update_key2(key(.data), val_vars, lhs)
   build_tsibble(
     sel_data, key = key(.data), index = !! index(.data), 
     groups = groups(.data), regular = is_regular(.data),
-    validate = TRUE, ordered = is_ordered(.data)
+    validate = TRUE, ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
@@ -166,7 +169,9 @@ rename.tbl_ts <- function(.data, ...) {
     key(.data) <- update_key2(key(.data), val_vars, lhs)
   }
   ren_data <- NextMethod()
-  update_tsibble(ren_data, .data)
+  update_tsibble(
+    ren_data, .data, ordered = is_ordered(.data), interval = interval(.data)
+  )
 }
 
 #' @rdname col-verb
@@ -189,7 +194,8 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data), 
     groups = groups(.data), regular = is_regular(.data),
-    validate = validate, ordered = is_ordered(.data)
+    validate = validate, ordered = is_ordered(.data),
+    interval = interval(.data)
   )
 }
 
@@ -233,7 +239,8 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
 
   build_tsibble(
     sum_data, key = grps, index = !! idx, groups = drop_group(grps),
-    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data)
+    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data),
+    interval = interval(.data)
   )
 }
 
@@ -270,7 +277,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_ts <- grouped_df(.data, grped_chr)
   build_tsibble(
     grped_ts, key = key(.data), index = !! index, groups = final_grps,
-    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data)
+    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data),
+    interval = interval(.data)
   )
 }
 
@@ -280,7 +288,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 ungroup.grouped_ts <- function(x, ...) {
   build_tsibble(
     x, key = key(x), index = !! index(x), groups = id(),
-    validate = FALSE, regular = is_regular(x), ordered = is_ordered(x)
+    validate = FALSE, regular = is_regular(x), ordered = is_ordered(x),
+    interval = interval(x)
   )
 }
 
@@ -309,16 +318,17 @@ distinct.tbl_ts <- function(.data, ...) {
   abort("'tbl_ts' has no support for distinct(). Please coerce to 'tbl_df' first and then distinct().")
 }
 
-by_row <- function(FUN, .data, ordered = TRUE, ...) {
+by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ...)
-  update_tsibble(tbl, .data, ordered = ordered)
+  update_tsibble(tbl, .data, ordered = ordered, interval = interval)
 }
 
 # put new data with existing attributes
-update_tsibble <- function(new, old, ordered = TRUE) {
+update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
   build_tsibble(
     new, key = key(old), index = !! index(old), groups = groups(old), 
-    regular = is_regular(old), validate = FALSE, ordered = ordered
+    regular = is_regular(old), validate = FALSE, ordered = ordered,
+    interval = interval
   )
 }

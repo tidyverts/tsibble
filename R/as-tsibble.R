@@ -431,7 +431,8 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 build_tsibble <- function(
-  x, key, index, groups = id(), regular = TRUE, validate = TRUE, ordered = NULL
+  x, key, index, groups = id(), regular = TRUE, 
+  validate = TRUE, ordered = NULL, interval = NULL
 ) {
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
@@ -457,10 +458,11 @@ build_tsibble <- function(
     tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
     tbl <- validate_nested(data = tbl, key = key_vars)
   }
-  tbl_interval <- list()
-  if (regular) {
+  if (is_false(regular)) {
+    interval <- list()
+  } else if (regular && is.null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
-    tbl_interval <- pull_interval(eval_idx, duplicated = TRUE)
+    interval <- pull_interval(eval_idx, duplicated = TRUE)
   }
 
   # arrange in time order (by key and index)
@@ -488,7 +490,7 @@ build_tsibble <- function(
     "key" = structure(key_vars, class = "key"),
     # "key_indices" = attr(grped_key, "indices"),
     "index" = index,
-    "interval" = structure(tbl_interval, class = "interval"),
+    "interval" = structure(interval, class = "interval"),
     "regular" = regular,
     "ordered" = ordered,
     subclass = "tbl_ts"
