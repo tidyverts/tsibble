@@ -8,8 +8,16 @@
 <title>Tidy Temporal Data Frames and Tools • tsibble</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Tidy Temporal Data Frames and Tools">
+<meta property="og:description" content="Provides a 'tbl_ts' class (the 'tsibble') to store and manage
+    temporal-context data in a data-centric format, which is built on top of
+    the 'tibble'. The 'tsibble' aims at manipulating and analysing temporal data
+    in a tidy and modern manner, including easily interpolate missing values, 
+    aggregate over calendar periods, performing rolling window calculations,
+    and etc.">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -71,18 +79,27 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<section id="tsibble" class="level1"><div class="page-header"><h1>tsibble</h1></div>
+<div id="tsibble" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#tsibble" class="anchor"></a>tsibble</h1></div>
 <p><em>/ˈt͡sɪbəl/</em></p>
 <p><a href="https://travis-ci.org/tidyverts/tsibble"><img src="https://travis-ci.org/tidyverts/tsibble.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/tidyverts/tsibble"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/tidyverts/tsibble?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg" alt="Coverage Status"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://www.r-pkg.org/badges/version/tsibble" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen" alt="Downloads"></a></p>
 <p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage temporal-context data frames in a tidy manner. A <em>tsibble</em> consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
-<section id="installation" class="level2"><h2>Installation</h2>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>You could install the stable version on CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"tsibble"</span>)</a></code></pre></div>
 <p>You could install the development version from Github using</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverts/tsibble"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-</section><section id="get-started" class="level2"><h2>Get started</h2>
-<section id="coerce-to-a-tsibble-with-as_tsibble" class="level3"><h3>Coerce to a tsibble with <code><a href="reference/as-tsibble.html">as_tsibble()</a></code>
+</div>
+<div id="get-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#get-started" class="anchor"></a>Get started</h2>
+<div id="coerce-to-a-tsibble-with-as_tsibble" class="section level3">
+<h3 class="hasAnchor">
+<a href="#coerce-to-a-tsibble-with-as_tsibble" class="anchor"></a>Coerce to a tsibble with <code><a href="reference/as-tsibble.html">as_tsibble()</a></code>
 </h3>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> is used as an example to illustrate. The “index” variable is the <code>time_hour</code> containing the date-times, and the “key” is the <code>origin</code> as weather stations created via <code><a href="reference/id.html">id()</a></code>. <strong>The key(s) together with the index uniquely identifies each observation</strong>, which gives a valid <em>tsibble</em>. Other columns can be considered as measured variables.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tsibble)</a>
@@ -94,15 +111,17 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.612e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code><a href="reference/tsibble.html">?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
-</section><section id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="level3"><h3>
-<code><a href="reference/fill-na.html">fill_na()</a></code> to turn implicit missing values into explicit missing values</h3>
+</div>
+<div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-na.html">fill_na()</a></code> to turn implicit missing values into explicit missing values</h3>
 <p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using <code><a href="reference/fill-na.html">fill_na()</a></code>. Meanwhile, fill <code>NA</code>s in by 0 for precipitation (<code>precip</code>). It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill()</a></code> from <em>tidyr</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill-na.html">fill_na</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -114,15 +133,17 @@
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
 <p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times.</p>
-</section><section id="tsummarise-to-summarise-over-calendar-periods" class="level3"><h3>
-<code><a href="reference/tsummarise.html">tsummarise()</a></code> to summarise over calendar periods</h3>
+</div>
+<div id="tsummarise-to-summarise-over-calendar-periods" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tsummarise-to-summarise-over-calendar-periods" class="anchor"></a><code><a href="reference/tsummarise.html">tsummarise()</a></code> to summarise over calendar periods</h3>
 <p><code><a href="reference/tsummarise.html">tsummarise()</a></code> and its scoped variants (including <code>_all()</code>, <code>_at()</code>, <code>_if()</code>) are introduced to aggregate interested variables over calendar periods. <code><a href="reference/tsummarise.html">tsummarise()</a></code> goes hand in hand with the index functions including <code>as.Date()</code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <em>lubridate</em>, such as <code>year()</code>, <code>ceiling_date()</code>, <code>floor_date()</code> and <code>round_date()</code>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the hourly time index.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">full_weather <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
@@ -142,7 +163,10 @@
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.1       2.76</span></a>
 <a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
 <p><code><a href="reference/tsummarise.html">tsummarise()</a></code> can also help with regularising a tsibble of irregular time space.</p>
-</section><section id="a-family-of-window-functions-slide-tile-stretch" class="level3"><h3>A family of window functions: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
+</div>
+<div id="a-family-of-window-functions-slide-tile-stretch" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
 </h3>
 <p>Temporal data often involves moving window calculations. Several functions in the <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
@@ -162,13 +186,17 @@
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   origin time_hour            temp humid precip temp_ma</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0    NA  </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0    NA  </span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0    37.3</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0    37.6</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.    NA  </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.    NA  </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.    37.3</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.    37.6</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.    37.9</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
-</section></section><section id="reexported-functions-from-the-tidyverse" class="level2"><h2>Reexported functions from the tidyverse</h2>
+</div>
+</div>
+<div id="reexported-functions-from-the-tidyverse" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reexported-functions-from-the-tidyverse" class="anchor"></a>Reexported functions from the tidyverse</h2>
 <p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs. Use <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">?tsibble::reexports</a></code> for a full list of re-exported functions.</p>
 <ul>
 <li>
@@ -198,7 +226,11 @@
 <li>
 <strong>rlang:</strong> <code>!!</code>, <code>!!!</code>
 </li>
-</ul></section><section id="related-work" class="level2"><h2>Related work</h2>
+</ul>
+</div>
+<div id="related-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#related-work" class="anchor"></a>Related work</h2>
 <ul>
 <li>
 <a href="https://CRAN.R-project.org/package=zoo">zoo</a>: regular and irregular time series with methods.</li>
@@ -208,31 +240,41 @@
 <a href="https://github.com/business-science/tibbletime">tibbletime</a>: time-aware tibbles.</li>
 <li>
 <a href="https://github.com/EdwinTh/padr">padr</a>: padding of missing records in time series.</li>
-</ul></section></section>
+</ul>
+</div>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2 class="hasAnchor">
-<a href="#sidebar" class="anchor"></a>Links</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=tsibble">https://​cran.r-project.org/​package=tsibble</a>
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=tsibble">https://​cloud.r-project.org/​package=tsibble</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidyverts/tsibble/issues">https://​github.com/​tidyverts/​tsibble/​issues</a>
 </li>
 </ul>
+</div>
+<div class="license">
 <h2>License</h2>
-<p>GPL (&gt;= 3)</p>
+<ul class="list-unstyled">
+<li>GPL (&gt;= 3)</li>
+</ul>
+</div>
+<div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small> </li>
+<a href="http://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small>  </li>
 <li>
-<a href="http://dicook.org">Di Cook</a> <br><small class="roles"> Author, thesis advisor </small> </li>
+<a href="http://dicook.org">Di Cook</a> <br><small class="roles"> Author, thesis advisor </small>  </li>
 <li>
-<a href="http://robjhyndman.com">Rob Hyndman</a> <br><small class="roles"> Author, thesis advisor </small> </li>
+<a href="http://robjhyndman.com">Rob Hyndman</a> <br><small class="roles"> Author, thesis advisor </small>  </li>
 </ul>
 </div>
+
+      </div>
 
 </div>
 

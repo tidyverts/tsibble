@@ -15,7 +15,8 @@
 
 * Dropped the attribute "key_indices" from a `tbl_ts` class to reduce the object size.
 * No longer throw an error when grouping the index.
-* tsibble gains a new attribute "ordered" to identify if it is arranged by key and index in ascending order. If not, broadcast a warning.
+* tsibble gains a new attribute "ordered" to identify if it is arranged by key and index in ascending order. If not, broadcast a warning. The warning likely occurs to `arrange()` and `slice()` functions.
+* An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like `filter()` and `slice()`). This avoids unnecessary re-computation for many function calls.
 
 # tsibble 0.1.3
 
