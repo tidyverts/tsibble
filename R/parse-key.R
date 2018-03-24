@@ -72,25 +72,35 @@ update_key <- function(x, y) { # y = a vector of flat characters
   }
 }
 
-# update by matching positions
-update_key2 <- function(x, rhs, lhs) { # rhs is quos
-  old_chr <- flatten_key(x)
+# rename key
+key_rename <- function(.data, ...) {
+  quos <- enquos(...)
+  old_key <- key(.data)
+  old_chr <- flatten_key(old_key)
+  rhs <- purrr::map_chr(quos, quo_get_expr)
+  lhs <- names(rhs)
   new_idx <- match(old_chr, rhs)
   new_chr <- lhs[new_idx]
   na_idx <- which(is.na(new_idx), useNames = FALSE)
   new_chr[na_idx] <- old_chr[na_idx]
   lgl <- FALSE
-  if (!is_empty(x)) {
-    lgl <- rep(is_nest(x), purrr::map(x, length))
+  if (!is_empty(old_key)) {
+    lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
   }
 
+  new_key <- syms(new_chr[!lgl])
   if (is_empty(new_chr)) {
-    return(id())
+    new_key <- id()
   } else if (any(lgl)) {
-    return(c(list(syms(new_chr[lgl])), syms(new_chr[!lgl])))
-  } else {
-    syms(new_chr[!lgl])
+    new_key <- c(list(syms(new_chr[lgl])), syms(new_chr[!lgl]))
   }
+  dat_key_pos <- match(old_chr, names(.data))
+  names(.data)[dat_key_pos] <- new_chr
+  build_tsibble(
+    .data, key = new_key, index = !! index(.data),
+    regular = is_regular(.data), validate = FALSE, 
+    ordered = is_ordered(.data), interval = interval(.data)
+  )
 }
 
 # The function takes a nested key/group str, i.e. `|` sym

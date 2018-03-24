@@ -64,16 +64,22 @@ has_any_key <- function(j, x) {
   any(key_vars %in% j)
 }
 
-update_index <- function(x, rhs, lhs) {
-  sym(update_index_name(x, rhs, lhs))
-}
-
-update_index_name <- function(x, rhs, lhs) {
-  idx_name <- quo_text2(x)
-  idx_idx <- match(idx_name, rhs)
-  new_idx_name <- lhs[idx_idx]
-  if (is.na(idx_idx)) {
-    new_idx_name <- idx_name
+index_rename <- function(.data, ...) {
+  quos <- enquos(...)
+  idx <- index(.data)
+  rhs <- purrr::map_chr(quos, quo_get_expr)
+  lhs <- names(rhs)
+  idx_chr <- quo_text2(idx)
+  idx_pos <- match(idx_chr, rhs)
+  new_idx_chr <- lhs[idx_pos]
+  if (is.na(idx_pos)) {
+    new_idx_chr <- idx_chr
   }
-  new_idx_name # character
+  dat_idx_pos <- match(idx_chr, names(.data))
+  names(.data)[dat_idx_pos] <- new_idx_chr
+  build_tsibble(
+    .data, key = key(.data), index = !! sym(new_idx_chr), 
+    regular = is_regular(.data), validate = FALSE, 
+    ordered = is_ordered(.data), interval = interval(.data)
+  )
 }

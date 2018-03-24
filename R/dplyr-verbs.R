@@ -139,17 +139,15 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
       quo_text2(index(.data))
     ))
   }
-  lhs <- names(val_vars)
-  index(.data) <- update_index(index(.data), val_vars, lhs)
-  val_key <- has_all_key(j = lhs, x = .data)
+  .data <- index_rename(.data, !!! val_vars)
+  val_key <- has_all_key(j = names(val_vars), x = .data)
   if (is_true(val_key)) { # no changes in key vars
     return(update_tsibble(
-      sel_data, .data, ordered = is_ordered(.data),
-      interval = interval(.data)
+      sel_data, .data, ordered = is_ordered(.data), interval = interval(.data)
     ))
   }
   key(.data) <- update_key(key(.data), val_vars)
-  key(.data) <- update_key2(key(.data), val_vars, lhs)
+  .data <- key_rename(.data, !!! val_vars)
   build_tsibble(
     sel_data, key = key(.data), index = !! index(.data), 
     groups = groups(.data), regular = is_regular(.data),
@@ -161,16 +159,17 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
+  renamed_data <- NextMethod()
   lst_quos <- enquos(...)
   val_vars <- tidyselect::vars_rename(colnames(.data), !!! lst_quos)
-  if (has_index_var(val_vars, .data) || has_any_key(val_vars, .data)) {
-    lhs <- names(val_vars)
-    index(.data) <- update_index(index(.data), val_vars, lhs)
-    key(.data) <- update_key2(key(.data), val_vars, lhs)
+  if (has_index_var(val_vars, .data)) {
+    .data <- index_rename(.data, !!! val_vars)
   }
-  ren_data <- NextMethod()
+  if (has_any_key(val_vars, .data)) {
+    .data <- key_rename(.data, !!! val_vars)
+  }
   update_tsibble(
-    ren_data, .data, ordered = is_ordered(.data), interval = interval(.data)
+    renamed_data, .data, ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
