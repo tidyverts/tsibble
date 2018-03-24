@@ -57,6 +57,16 @@ flatten_key <- function(x) {
   purrr::map_chr(flatten(x), quo_text2)
 }
 
+key_update <- function(.data, ...) {
+  quos <- enquos(...)
+  key <- validate_key(.data, quos)
+  build_tsibble(
+    .data, key = key, index = !! index(.data), groups = groups(.data),
+    regular = is_regular(.data), validate = TRUE, ordered = is_ordered(.data),
+    interval = interval(.data)
+  )
+}
+
 # drop some keys
 key_reduce <- function(.data, .vars) {
   old_key <- key(.data)
