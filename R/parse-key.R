@@ -18,7 +18,7 @@ split_by.tbl_ts <- function(x, ...) {
   if (is_empty(quos)) {
     return(list(x))
   }
-  vars_split <- as.character(validate_key(x, quos))
+  vars_split <- as.character(validate_vars(x, quos))
   idx <- attr(grouped_df(x, vars = vars_split), "indices")
   lapply(idx, function(idx) x[idx + 1, ])
 }
@@ -33,7 +33,7 @@ key_distinct <- function(x) { # x = a list of keys (symbols)
     nest_keys <- purrr::map(x[nest_lgl], ~ .[[1]])
     comb_keys <- c(nest_keys, comb_keys)
   }
-  quos_auto_name(comb_keys)
+  unname(comb_keys)
 }
 
 drop_group <- function(x) {
@@ -136,7 +136,7 @@ validate_key <- function(data, key) {
     )
     valid_keys <- c(nest_keys, valid_keys)
   }
-  valid_keys
+  unname(valid_keys)
 }
 
 is_nest <- function(lst_syms) {

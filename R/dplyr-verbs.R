@@ -263,14 +263,16 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'   group_by(Region | State) %>%
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
-  index <- index(.data)
   current_grps <- enquos(...)
+  if (is_named(current_grps)) {
+    abort("Expressions must not be named in `group_by.tbl_ts`.")
+  }
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- key_flatten(final_grps)
 
   grped_ts <- grouped_df(.data, grped_chr)
   build_tsibble(
-    grped_ts, key = key(.data), index = !! index, groups = final_grps,
+    grped_ts, key = key(.data), index = !! index(.data), groups = final_grps,
     validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data),
     interval = interval(.data)
   )

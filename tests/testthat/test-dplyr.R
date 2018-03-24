@@ -12,6 +12,7 @@ test_that("group_by()", {
     group_by(Sensor)
   expect_equal(n_groups(grped_df), 4)
   expect_length(group_size(grped_df), 4)
+  expect_error(pedestrian %>% group_by(sensor = Sensor), "must not be named")
 
   grped_t <- tourism %>%
     group_by(Purpose) %>%

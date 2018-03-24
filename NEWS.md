@@ -10,6 +10,7 @@
 ## Bug fixes
 
 * Fixed `as_tsibble.ts()` for daily time series (when frequency = 7).
+* `group_by.tbl_ts()` does not accept named expressions.
 
 ## Internal changes
 
@@ -17,6 +18,8 @@
 * No longer throw an error when grouping the index.
 * tsibble gains a new attribute "ordered" to identify if it is arranged by key and index in ascending order. If not, broadcast a warning. The warning likely occurs to `arrange()` and `slice()` functions.
 * An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like `filter()` and `slice()`). This avoids unnecessary re-computation for many function calls.
+* The "index" attribute in a `tbl_ts` object is a symbol instead of a quosure.
+* The "key" attribute int a `tbl_ts` object is an unnamed list of symbols.
 
 # tsibble 0.1.3
 
