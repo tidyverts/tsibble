@@ -16,7 +16,9 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
   idx <- time_to_date(x, tz = tz)
   value <- unclass(x) # rm its ts class
   tbl <- tibble::tibble(index = idx, value = value)
-  as_tsibble(tbl, index = index, validate = FALSE)
+  build_tsibble(
+    tbl, key = id(), index = index, validate = FALSE, ordered = TRUE
+  )
 }
 
 #' @rdname as-tsibble
@@ -32,10 +34,15 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
 as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
   if (gather) {
     long_tbl <- gather_ts(x, tz = tz)
-    return(as_tsibble(long_tbl, key = id(key), index = index, validate = FALSE))
+    return(build_tsibble(
+      long_tbl, key = id(key), index = index, validate = FALSE,
+      ordered = TRUE
+    ))
   } else {
     wide_tbl <- bind_time(x, tz = tz)
-    as_tsibble(wide_tbl, index = index, validate = FALSE)
+    build_tsibble(
+      wide_tbl, key = id(), index = index, validate = FALSE, ordered = TRUE
+    )
   }
 }
 
@@ -66,7 +73,10 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
   tbl_hts <- dplyr::bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
   lst_key <- list(syms(colnames(tbl_hts)[3:ncol(tbl_hts)]))
-  as_tsibble(tbl_hts, key = lst_key, index = index, validate = FALSE)
+  build_tsibble(
+    tbl_hts, key = lst_key, index = index, 
+    validate = FALSE, ordered = TRUE
+  )
 }
 
 # as_tsibble.gts <- function(x, tz = "UTC", ...) {
