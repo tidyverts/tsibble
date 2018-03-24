@@ -66,7 +66,7 @@ slider(x, size = 3)
 # sliding a 2-day window for a data frame ----
 jan <- pedestrian \%>\% 
   filter(Date <= as.Date("2015-01-31")) \%>\% 
-  split(.$Sensor)
+  split_by(Sensor)
 # directly return a data frame of fitted values and residuals
 diag_jan <- jan \%>\%
   purrr::map_dfr(~ slide_dfr(., function(x) {

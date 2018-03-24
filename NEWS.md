@@ -5,7 +5,7 @@
 * `unkey()` as an S3 method for a tsibble of key size < 2.
 * Added `as_tsibble.msts()` for multiple seasonality time series defined in the forecast package.
 * `key_indices()` as an S3 method to extract key indices.
-* `split_key()` to split a tsibble into a list of data by its key variables.
+* `split_by()` to split a tsibble into a list of data by variables.
 
 ## Bug fixes
 

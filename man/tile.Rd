@@ -53,7 +53,7 @@ tiler(x, size = 3)
 # tiling over a 2-day window for hourly data ----
 \dontrun{
 pedestrian \%>\% 
-  split(.$Sensor) \%>\% 
+  split_by(Sensor) \%>\% 
   purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), size = 48))
 }
 }

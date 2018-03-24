@@ -1,23 +1,26 @@
-#' Split data into a list by its key
+#' Split data into a list by variables
 #'
 #' @param x A `tbl_ts`.
-#' @rdname split-key
+#' @param ... Unquoted variables to split by.
+#' @rdname split-by
 #' @export
-split_key <- function(x) {
-  UseMethod("split_key")
+split_by <- function(x, ...) {
+  UseMethod("split_by")
 }
 
-#' @rdname split-key
+#' @rdname split-by
 #' @export
 #' @examples
-#' split_key(pedestrian)
-split_key.tbl_ts <- function(x) {
-  key_idx <- key_indices(x)
-  if (is.null(key_idx)) {
+#' pedestrian %>% 
+#'   split_by(Sensor)
+split_by.tbl_ts <- function(x, ...) {
+  quos <- enquos(...)
+  if (is_empty(quos)) {
     return(list(x))
-  } else {
-    lapply(key_idx, function(idx) x[idx + 1, ])
   }
+  vars_split <- as.character(validate_key(x, quos))
+  idx <- attr(grouped_df(x, vars = vars_split), "indices")
+  lapply(idx, function(idx) x[idx + 1, ])
 }
 
 reduce_key <- function(x) { # x = a list of keys (symbols)

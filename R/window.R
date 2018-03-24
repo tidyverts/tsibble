@@ -42,7 +42,7 @@
 #' # sliding a 2-day window for a data frame ----
 #' jan <- pedestrian %>% 
 #'   filter(Date <= as.Date("2015-01-31")) %>% 
-#'   split(.$Sensor)
+#'   split_by(Sensor)
 #' # directly return a data frame of fitted values and residuals
 #' diag_jan <- jan %>%
 #'   purrr::map_dfr(~ slide_dfr(., function(x) {
@@ -132,7 +132,7 @@ slider <- function(x, size = 1) {
 #' # tiling over a 2-day window for hourly data ----
 #' \dontrun{
 #' pedestrian %>% 
-#'   split(.$Sensor) %>% 
+#'   split_by(Sensor) %>% 
 #'   purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), size = 48))
 #' }
 tile <- function(x, .f, ..., size = 1) {
@@ -175,7 +175,7 @@ tiler <- function(x, size = 1) {
   seq_x <- seq_len(len_x)
   denom <- len_x + 1
   frac <- ceiling((seq_x %% denom) / size)
-  unname(split(x, frac))
+  unname(split(x, frac, drop = TRUE))
 }
 
 #' Stretching window calculation
