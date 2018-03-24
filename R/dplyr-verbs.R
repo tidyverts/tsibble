@@ -14,9 +14,35 @@
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  vars <- quos <- enquos(...)
+  quos <- enquos(...)
   if (is_empty(quos)) {
     return(.data)
+  }
+  ordered <- ordered_by_arrange(.data, !!! quos)
+
+  arr_data <- NextMethod()
+  update_tsibble(arr_data, .data, ordered = ordered)
+}
+
+#' @rdname row-verb
+#' @seealso [dplyr::arrange]
+#' @export
+arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
+  quos <- enquos(...)
+  if (is_empty(quos)) {
+    return(.data)
+  }
+  ordered <- ordered_by_arrange(.data, !!! quos, .by_group = .by_group)
+
+  arr_data <- arrange(as_tibble(.data), !!! quos, .by_group = .by_group)
+  update_tsibble(arr_data, .data, ordered = ordered)
+}
+
+ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
+  vars <- quos <- enquos(...)
+  if (.by_group) {
+    grps <- quos(!!! syms(flatten_key(groups(.data))))
+    vars <- quos <- c(grps, vars)
   }
   call_pos <- purrr::map_lgl(quos, quo_is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
@@ -37,9 +63,9 @@ arrange.tbl_ts <- function(.data, ...) {
     exp_vars <- c(red_key, idx)
     exp_idx <- which(val_vars %in% exp_vars)
     nested <- any(is_nest(key))
-    if (n_keys(.data) < 2) {
+    if (n_keys(.data) < 2) { # univariate, index present
       ordered <- TRUE
-    } else if (is_false(nested) && 
+    } else if (is_false(nested) &&
       all(exp_idx == seq_along(exp_idx)) && 
       is_false(idx_pos[1])
     ) {
@@ -52,17 +78,7 @@ arrange.tbl_ts <- function(.data, ...) {
       ordered <- FALSE
     }
   }
-
-  arr_data <- NextMethod()
-  update_tsibble(arr_data, .data, ordered = ordered)
-}
-
-#' @rdname row-verb
-#' @seealso [dplyr::arrange]
-#' @export
-arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
-  arr_data <- arrange(as_tibble(.data), ..., .by_group = .by_group)
-  update_tsibble(arr_data, .data)
+  ordered
 }
 
 #' @rdname row-verb
