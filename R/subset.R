@@ -18,7 +18,7 @@
   # subset by columns
   if (!missing(j)) {
     chr_j <- validate_vars(j, colnames(x))
-    lgl_j <- has_index_var(chr_j, x) && has_reduce_key(chr_j, x)
+    lgl_j <- has_index_var(chr_j, x) && has_distinct_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
@@ -49,18 +49,18 @@ has_index_var <- function(j, x) {
   index %in% j
 }
 
-has_reduce_key <- function(j, x) {
-  key_vars <- flatten_key(reduce_key(key(x)))
+has_distinct_key <- function(j, x) {
+  key_vars <- key_flatten(key_distinct(key(x)))
   all(key_vars %in% j)
 }
 
 has_all_key <- function(j, x) {
-  key_vars <- flatten_key(key(x))
+  key_vars <- key_flatten(key(x))
   all(key_vars %in% j)
 }
 
 has_any_key <- function(j, x) {
-  key_vars <- flatten_key(key(x))
+  key_vars <- key_flatten(key(x))
   any(key_vars %in% j)
 }
 

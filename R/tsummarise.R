@@ -144,7 +144,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   idx_sym <- sym(idx_name)
 
   # aggregate over time
-  chr_grps <- c(flat_grps <- flatten_key(grps), idx_name) 
+  chr_grps <- c(flat_grps <- key_flatten(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
     mutate(!!! first, drop = TRUE)
@@ -157,7 +157,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
       grouped_df(vars = chr_grps)
   }
   if (is.null(remainder)) { # summarise_*()
-    nonkey <- setdiff(flatten_key(key(.data)), flat_grps)
+    nonkey <- setdiff(key_flatten(key(.data)), flat_grps)
     sel_cols <- setdiff(names(grped_data), nonkey)
     grped_data <- select(grped_data, !! sel_cols)
     result <- FUN(grped_data)

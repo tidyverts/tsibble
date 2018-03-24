@@ -23,7 +23,7 @@ split_by.tbl_ts <- function(x, ...) {
   lapply(idx, function(idx) x[idx + 1, ])
 }
 
-reduce_key <- function(x) { # x = a list of keys (symbols)
+key_distinct <- function(x) { # x = a list of keys (symbols)
   if (is_empty(x)) {
     return(x)
   }
@@ -50,7 +50,7 @@ drop_group <- function(x) {
 }
 
 # this returns a vector of groups/key characters
-flatten_key <- function(x) {
+key_flatten <- function(x) {
   if (is.null(x)) {
     x <- id()
   }
@@ -70,7 +70,7 @@ key_update <- function(.data, ...) {
 # drop some keys
 key_reduce <- function(.data, .vars) {
   old_key <- key(.data)
-  old_chr <- flatten_key(old_key)
+  old_chr <- key_flatten(old_key)
   new_idx <- sort(match(.vars, old_chr)) # nesting goes first
   new_chr <- old_chr[new_idx]
   old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
@@ -91,7 +91,7 @@ key_reduce <- function(.data, .vars) {
 key_rename <- function(.data, ...) {
   quos <- enquos(...)
   old_key <- key(.data)
-  old_chr <- flatten_key(old_key)
+  old_chr <- key_flatten(old_key)
   rhs <- purrr::map_chr(quos, quo_get_expr)
   lhs <- names(rhs)
   new_idx <- match(old_chr, rhs)

@@ -41,7 +41,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   vars <- quos <- enquos(...)
   if (.by_group) {
-    grps <- quos(!!! syms(flatten_key(groups(.data))))
+    grps <- quos(!!! syms(key_flatten(groups(.data))))
     vars <- quos <- c(grps, vars)
   }
   call_pos <- purrr::map_lgl(quos, quo_is_call)
@@ -51,7 +51,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(quos[idx_pos])
   key <- key(.data)
-  red_key <- reduce_key(key)
+  red_key <- key_distinct(key)
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
@@ -202,7 +202,7 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(quo_text2(index(.data)), flatten_key(key(.data)))
+  idx_key <- c(quo_text2(index(.data)), key_flatten(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, tidyselect::one_of(vec_names))
 }
@@ -226,7 +226,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
 
   grps <- groups(.data)
-  chr_grps <- c(quo_text2(idx), flatten_key(grps))
+  chr_grps <- c(quo_text2(idx), key_flatten(grps))
   sum_data <- .data %>%
     grouped_df(vars = chr_grps) %>%
     summarise(!!! lst_quos)
@@ -266,7 +266,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   index <- index(.data)
   current_grps <- enquos(...)
   final_grps <- prepare_groups(.data, current_grps, add = add)
-  grped_chr <- flatten_key(final_grps)
+  grped_chr <- key_flatten(final_grps)
 
   grped_ts <- grouped_df(.data, grped_chr)
   build_tsibble(

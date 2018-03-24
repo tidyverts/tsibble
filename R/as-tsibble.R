@@ -278,7 +278,7 @@ key_indices <- function(x) {
 
 #' @export
 key_indices.tbl_ts <- function(x) {
-  flat_keys <- flatten_key(key(x))
+  flat_keys <- key_flatten(key(x))
   grped_key <- grouped_df(x, flat_keys)
   attr(grped_key, "indices")
 }
@@ -318,7 +318,7 @@ measured_vars <- function(x) {
 #' @export
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
-  key_vars <- flatten_key(key(x))
+  key_vars <- key_flatten(key(x))
   idx_var <- quo_text(index(x))
   setdiff(all_vars, c(key_vars, idx_var))
 }
@@ -446,7 +446,7 @@ build_tsibble <- function(
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(data = tbl, key)
   # (2) if there exists a list of lists, flatten it as characters
-  flat_keys <- flatten_key(key_vars)
+  flat_keys <- key_flatten(key_vars)
   # (3) index cannot be part of the keys
   idx_chr <- quo_text2(index)
   is_index_in_keys <- intersect(idx_chr, flat_keys)
@@ -505,7 +505,7 @@ build_tsibble <- function(
   groups <- validate_key(x, groups)
   tbl <- validate_nested(data = tbl, key = groups)
 
-  flat_grps <- flatten_key(groups)
+  flat_grps <- key_flatten(groups)
   grped_df <- grouped_df(tbl, flat_grps)
   tibble::new_tibble(
     grped_df,
@@ -591,12 +591,12 @@ validate_nested <- function(data, key) {
 validate_tbl_ts <- function(data, key, index) {
   idx <- quo_text2(index)
   # NOTE: bug in anyDuplicated.data.frame()
-  # identifiers <- c(flatten_key(key), idx)
+  # identifiers <- c(key_flatten(key), idx)
   # below calls anyDuplicated.data.frame():
   # time zone associated with the index will be dropped, 
   # e.g. nycflights13::weather, thus result in duplicates. 
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  tbl_dup <- grouped_df(data, vars = flatten_key(key)) %>%
+  tbl_dup <- grouped_df(data, vars = key_flatten(key)) %>%
     summarise(zzz = anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     msg <- sprintf("Invalid tsibble: identical data entries from `%s`", idx)
@@ -687,11 +687,11 @@ inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   use_id(key)
   index <- extract_index_var(data, enquo(index))
 
-  grouped_df(data, vars = flatten_key(key)) %>%
+  grouped_df(data, vars = key_flatten(key)) %>%
     mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>% 
     dplyr::pull(zzz)
 
-  # identifiers <- c(flatten_key(key), quo_text2(index))
+  # identifiers <- c(key_flatten(key), quo_text2(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
 }
