@@ -24,7 +24,8 @@ arrange.tbl_ts <- function(.data, ...) {
   idx <- quo_text2(index(.data))
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(quos[idx_pos])
-  key <- reduce_key(key(.data))
+  key <- key(.data)
+  red_key <- reduce_key(key)
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
@@ -33,11 +34,19 @@ arrange.tbl_ts <- function(.data, ...) {
     fn <- call_name(idx_is_call)
     ordered <- ifelse(fn == "desc", FALSE, TRUE)
   } else {
-    exp_vars <- c(key, idx)
+    exp_vars <- c(red_key, idx)
     exp_idx <- which(val_vars %in% exp_vars)
+    nested <- any(is_nest(key))
     if (n_keys(.data) < 2) {
       ordered <- TRUE
-    } else if (all(exp_idx == seq_along(exp_idx)) && is_false(idx_pos[1])) {
+    } else if (is_false(nested) && 
+      all(exp_idx == seq_along(exp_idx)) && 
+      is_false(idx_pos[1])
+    ) {
+      ordered <- NULL
+    } else if (is_true(nested) && 
+      has_length(exp_idx, length(exp_vars)) &&
+      is_false(idx_pos[1])) {
       ordered <- NULL
     } else {
       ordered <- FALSE

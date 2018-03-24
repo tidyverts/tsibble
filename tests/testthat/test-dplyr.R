@@ -19,11 +19,30 @@ test_that("group_by()", {
   expect_length(group_vars(grped_t), 2)
 })
 
-test_that("arrange()", {
+test_that("arrange.tbl_ts()", {
  expect_warning(tsbl1 <- arrange(tourism, Quarter), "not arranged by")
  expect_equal(tsbl1, tourism)
+ expect_false(is_ordered(tsbl1))
  expect_identical(key(tsbl1), key(tourism))
  expect_identical(groups(tsbl1), groups(tourism))
+ tsbl2 <- arrange(tsbl1, Region, State, Purpose, Quarter)
+ expect_identical(tsbl2, tourism)
+})
+
+test_that("expect warnings from arrange.tbl_ts()", {
+ expect_warning(pedestrian %>% arrange(Time), "not arranged by")
+ expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "not arranged by")
+ expect_warning(pedestrian %>% arrange(desc(Date_Time)), "not arranged by")
+ expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "not arranged by")
+ expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "not arranged by")
+ expect_warning(tbl <- pedestrian %>% arrange(Date_Time, Sensor), "not arranged by")
+ expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
+ bm <- pedestrian %>% 
+  filter(Sensor == "Birrarung Marr")
+ expect_warning(bm %>% arrange(desc(Date_Time)), "not arranged by")
+})
+
+test_that("arrange.grouped_ts()", {
  tsbl2 <- tourism %>%
    group_by(Region | State) %>%
    arrange(Quarter)

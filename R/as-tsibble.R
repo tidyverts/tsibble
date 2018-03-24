@@ -333,18 +333,14 @@ measured_vars.tbl_ts <- function(x) {
 #' interval(pedestrian)
 #' @export
 interval <- function(x) {
-  if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
-  }
+  not_tsibble(x)
   attr(x, "interval")
 }
 
 #' @rdname index-rd
 #' @export
 index <- function(x) {
-  if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
-  }
+  not_tsibble(x)
   attr(x, "index")
 }
 
@@ -353,7 +349,8 @@ index <- function(x) {
   x
 }
 
-#' If a tsibble is spaced at regular time or not
+#' `is_regular` checkes if a tsibble is spaced at regular time or not; `is_ordered`
+#' checks if a tsibble is ordered by key and index.
 #'
 #' @param x A tsibble object.
 #' @rdname regular
@@ -361,11 +358,10 @@ index <- function(x) {
 #' @examples
 #' data(pedestrian)
 #' is_regular(pedestrian)
+#' is_ordered(pedestrian)
 #' @export
 is_regular <- function(x) {
-  if (is_false(is_tsibble(x))) {
-    abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
-  }
+  not_tsibble(x)
   attr(x, "regular")
 }
 
@@ -373,8 +369,17 @@ is_regular <- function(x) {
 #' @export
 is.regular <- is_regular
 
+#' @rdname regular
+#' @export
 is_ordered <- function(x) {
+  not_tsibble(x)
   attr(x, "ordered")
+}
+
+not_tsibble <- function(x) {
+  if (is_false(is_tsibble(x))) {
+    abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
+  }
 }
 
 #' Test if the object is a tsibble

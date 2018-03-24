@@ -4,19 +4,25 @@
 \alias{is_regular}
 \alias{is.regular}
 \alias{is.regular}
-\title{If a tsibble is spaced at regular time or not}
+\alias{is_ordered}
+\title{\code{is_regular} checkes if a tsibble is spaced at regular time or not; \code{is_ordered}
+checks if a tsibble is ordered by key and index.}
 \usage{
 is_regular(x)
 
 is.regular(x)
+
+is_ordered(x)
 }
 \arguments{
 \item{x}{A tsibble object.}
 }
 \description{
-If a tsibble is spaced at regular time or not
+\code{is_regular} checkes if a tsibble is spaced at regular time or not; \code{is_ordered}
+checks if a tsibble is ordered by key and index.
 }
 \examples{
 data(pedestrian)
 is_regular(pedestrian)
+is_ordered(pedestrian)
 }
