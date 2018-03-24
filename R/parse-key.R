@@ -57,19 +57,24 @@ flatten_key <- function(x) {
   purrr::map_chr(flatten(x), quo_text2)
 }
 
-# update by character names
-update_key <- function(x, y) { # y = a vector of flat characters
-  old_chr <- flatten_key(x)
-  new_idx <- sort(match(y, old_chr)) # nesting goes first
+# drop some keys
+key_reduce <- function(.data, .vars) {
+  old_key <- key(.data)
+  old_chr <- flatten_key(old_key)
+  new_idx <- sort(match(.vars, old_chr)) # nesting goes first
   new_chr <- old_chr[new_idx]
-  old_lgl <- rep(is_nest(x), purrr::map(x, length))
+  old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
   new_lgl <- old_lgl[new_idx]
 
+  new_key <- syms(new_chr[!new_lgl])
   if (any(old_lgl)) {
-    return(c(list(syms(new_chr[new_lgl])), syms(new_chr[!new_lgl])))
-  } else {
-    syms(new_chr[!new_lgl])
+    new_key <- c(list(syms(new_chr[new_lgl])), new_key)
   }
+  build_tsibble(
+    .data, key = new_key, index = !! index(.data), groups = groups(.data),
+    regular = is_regular(.data), validate = TRUE, ordered = is_ordered(.data),
+    interval = interval(.data)
+  )
 }
 
 # rename key

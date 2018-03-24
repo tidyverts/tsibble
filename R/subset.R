@@ -23,7 +23,7 @@
       return(NextMethod())
     }
     result <- .subset(x, j)
-    key(x) <- update_key(key(x), chr_j)
+    x <- key_reduce(x, chr_j)
   }
 
   if (!missing(i)) {

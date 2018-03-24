@@ -141,17 +141,12 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   .data <- index_rename(.data, !!! val_vars)
   val_key <- has_all_key(j = names(val_vars), x = .data)
-  if (is_true(val_key)) { # no changes in key vars
-    return(update_tsibble(
-      sel_data, .data, ordered = is_ordered(.data), interval = interval(.data)
-    ))
+  if (is_false(val_key)) { # changes in key vars
+    .data <- key_reduce(.data, val_vars)
+    .data <- key_rename(.data, !!! val_vars)
   }
-  key(.data) <- update_key(key(.data), val_vars)
-  .data <- key_rename(.data, !!! val_vars)
-  build_tsibble(
-    sel_data, key = key(.data), index = !! index(.data), 
-    groups = groups(.data), regular = is_regular(.data),
-    validate = TRUE, ordered = is_ordered(.data), interval = interval(.data)
+  update_tsibble(
+    sel_data, .data, ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
