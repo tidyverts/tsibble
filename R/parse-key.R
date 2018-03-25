@@ -18,7 +18,7 @@ split_by.tbl_ts <- function(x, ...) {
   if (is_empty(quos)) {
     return(list(x))
   }
-  vars_split <- as.character(validate_vars(x, quos))
+  vars_split <- validate_vars(quos, names(x))
   idx <- attr(grouped_df(x, vars = vars_split), "indices")
   lapply(idx, function(idx) x[idx + 1, ])
 }
