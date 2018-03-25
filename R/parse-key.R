@@ -54,7 +54,7 @@ key_flatten <- function(x) {
   if (is.null(x)) {
     x <- id()
   }
-  purrr::map_chr(flatten(x), quo_text2)
+  unname(purrr::map_chr(flatten(x), quo_text2))
 }
 
 key_update <- function(.data, ...) {
@@ -71,43 +71,37 @@ key_update <- function(.data, ...) {
 key_reduce <- function(.data, .vars) {
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
-  new_idx <- sort(match(.vars, old_chr)) # nesting goes first
-  new_chr <- old_chr[new_idx]
+  key_idx <- which(.vars %in% old_chr)
+  key_vars <- .vars[key_idx]
   old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
-  new_lgl <- old_lgl[new_idx]
+  new_lgl <- old_lgl[match(key_vars, old_chr)]
 
-  new_key <- syms(new_chr[!new_lgl])
-  if (any(old_lgl)) {
-    new_key <- c(list(syms(new_chr[new_lgl])), new_key)
+  new_key <- syms(key_vars[!new_lgl])
+  if (any(new_lgl)) {
+    new_key <- c(list(syms(key_vars[new_lgl])), new_key)
   }
-  build_tsibble(
-    .data, key = new_key, index = !! index(.data), groups = groups(.data),
-    regular = is_regular(.data), validate = TRUE, ordered = is_ordered(.data),
-    interval = interval(.data)
-  )
+  key_update(.data, !!! new_key)
 }
 
 # rename key
 key_rename <- function(.data, ...) {
   quos <- enquos(...)
   old_key <- key(.data)
-  old_chr <- key_flatten(old_key)
+  new_chr <- old_chr <- key_flatten(old_key)
   rhs <- purrr::map_chr(quos, quo_get_expr)
-  lhs <- names(rhs)
-  new_idx <- match(old_chr, rhs)
-  new_chr <- lhs[new_idx]
-  na_idx <- which(is.na(new_idx), useNames = FALSE)
-  new_chr[na_idx] <- old_chr[na_idx]
+  key_idx <- which(rhs %in% old_chr)
+  key_rhs <- rhs[key_idx]
+  key_lhs <- names(key_rhs)
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
   }
-
+  new_chr[match(key_rhs, old_chr)] <- key_lhs
   new_key <- syms(new_chr[!lgl])
   if (is_empty(new_chr)) {
     new_key <- id()
   } else if (any(lgl)) {
-    new_key <- c(list(syms(new_chr[lgl])), syms(new_chr[!lgl]))
+    new_key <- c(list(syms(new_chr[lgl])), new_key)
   }
   dat_key_pos <- match(old_chr, names(.data))
   names(.data)[dat_key_pos] <- new_chr

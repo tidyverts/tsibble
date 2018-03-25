@@ -219,11 +219,6 @@ unkey.tbl_ts <- function(x) {
   }
 }
 
-`key<-` <- function(x, value) {
-  attr(x, "key") <- value
-  x
-}
-
 #' @rdname key
 #' @export
 key_vars <- function(x) {
@@ -342,11 +337,6 @@ interval <- function(x) {
 index <- function(x) {
   not_tsibble(x)
   attr(x, "index")
-}
-
-`index<-` <- function(x, value) {
-  attr(x, "index") <- value
-  x
 }
 
 #' `is_regular` checkes if a tsibble is spaced at regular time or not; `is_ordered`
@@ -528,7 +518,7 @@ detect_type <- function() {
 #' @seealso [tsibble], [as_tsibble]
 #' @export
 id <- function(...) {
-  enquos(...)
+  unname(enquos(...))
 }
 
 ## Although the "index" arg is possible to automate the detection of time
@@ -602,7 +592,7 @@ validate_tbl_ts <- function(data, key, index) {
     msg <- sprintf("Invalid tsibble: identical data entries from `%s`", idx)
     if (!is_empty(key)) {
       class(key) <- "key"
-      msg <- sprintf("%s and %s.", msg, paste_comma(format(key)))
+      msg <- sprintf("%s and `%s`.", msg, paste_comma(format(key)))
     } else {
       msg <- paste0(msg, ".")
     }
