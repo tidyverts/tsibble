@@ -1,4 +1,5 @@
 library(lubridate)
+library(dplyr)
 context("dplyr verbs for tsibble")
 
 test_that("group_by()", {
@@ -38,7 +39,7 @@ test_that("expect warnings from arrange.tbl_ts()", {
   expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "not arranged by")
   expect_warning(tbl <- pedestrian %>% arrange(Date_Time, Sensor), "not arranged by")
   expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
-  bm <- pedestrian %>% 
+  bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr")
   expect_warning(bm %>% arrange(desc(Date_Time)), "not arranged by")
 })
@@ -52,16 +53,16 @@ test_that("arrange.grouped_ts()", {
   expect_identical(key(tsbl2), key(tourism))
   expect_identical(unname(group_vars(tsbl2)), "Region | State")
   expect_warning(
-    tsbl3 <- tourism %>% 
-      group_by(Region | State) %>% 
+    tsbl3 <- tourism %>%
+      group_by(Region | State) %>%
       arrange(Quarter, .by_group = TRUE),
     "not arranged by"
   )
   expect_equal(tsbl3, tourism)
   expect_identical(key(tsbl3), key(tourism))
   expect_identical(unname(group_vars(tsbl3)), "Region | State")
-  tsbl4 <- tourism %>% 
-    group_by(Region | State) %>% 
+  tsbl4 <- tourism %>%
+    group_by(Region | State) %>%
     arrange(Purpose, Quarter, .by_group = TRUE)
   expect_identical(tsbl4, group_by(tourism, Region | State))
 })

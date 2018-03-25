@@ -1,26 +1,113 @@
-#' Split data into a list by variables
+#' Return key and measured variables
 #'
-#' @param x A `tbl_ts`.
-#' @param ... Unquoted variables to split by.
-#' @rdname split-by
+#' `key()` returns a list of symbols; `key_vars()` gives a character vector.
+#'
+#' @param x A data frame.
+#'
+#' @rdname key
+#'
+#' @examples
+#' # A single key for pedestrian data ----
+#' data(pedestrian)
+#' key(pedestrian)
+#' key_vars(pedestrian)
+#' measured_vars(pedestrian)
+#'
+#' # Nested and crossed keys for tourism data ----
+#' data(tourism)
+#' key(tourism)
+#' key_vars(tourism)
+#' measured_vars(tourism)
 #' @export
-split_by <- function(x, ...) {
-  UseMethod("split_by")
+key <- function(x) {
+  UseMethod("key")
 }
 
-#' @rdname split-by
 #' @export
-#' @examples
-#' pedestrian %>% 
-#'   split_by(Sensor)
-split_by.tbl_ts <- function(x, ...) {
-  quos <- enquos(...)
-  if (is_empty(quos)) {
-    return(list(x))
+key.default <- function(x) {
+  abort(sprintf("Can't find the `key` in `%s`", class(x)[1]))
+}
+
+#' @export
+key.tbl_ts <- function(x) {
+  attr(x, "key")
+}
+
+#' @rdname key
+#' @export
+unkey <- function(x) {
+  UseMethod("unkey")
+}
+
+#' @rdname key
+#' @export
+unkey.tbl_ts <- function(x) {
+  nkey <- n_keys(x)
+  if (nkey < 2 || nkey == nrow(x)) {
+    attr(x, "key") <- structure(id(), class = "key")
+    return(x)
+  } else {
+    abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
   }
-  vars_split <- validate_vars(quos, names(x))
-  idx <- attr(grouped_df(x, vars = vars_split), "indices")
-  lapply(idx, function(idx) x[idx + 1, ])
+}
+
+#' @rdname key
+#' @export
+key_vars <- function(x) {
+  UseMethod("key_vars")
+}
+
+#' @export
+key_vars.tbl_ts <- function(x) {
+  format(key(x))
+}
+
+#' Compute sizes of key variables
+#'
+#' @param x A data frame.
+#'
+#' @examples
+#' key_size(pedestrian)
+#' n_keys(pedestrian)
+#' key_indices(pedestrian)
+#'
+#' @rdname key-size
+#' @export
+key_size <- function(x) {
+  UseMethod("key_size")
+}
+
+#' @export
+key_size.tbl_ts <- function(x) {
+  key_indices <- key_indices(x)
+  if (is_empty(key_indices)) {
+    return(NROW(x))
+  }
+  vapply(key_indices, length, integer(1))
+}
+
+#' @rdname key-size
+#' @export
+n_keys <- function(x) {
+  UseMethod("n_keys")
+}
+
+#' @export
+n_keys.tbl_ts <- function(x) {
+  length(key_size(x))
+}
+
+#' @rdname key-size
+#' @export
+key_indices <- function(x) {
+  UseMethod("key_indices")
+}
+
+#' @export
+key_indices.tbl_ts <- function(x) {
+  flat_keys <- key_flatten(key(x))
+  grped_key <- grouped_df(x, flat_keys)
+  attr(grped_key, "indices")
 }
 
 key_distinct <- function(x) { # x = a list of keys (symbols)
