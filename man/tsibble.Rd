@@ -26,7 +26,8 @@ A tsibble object.
 Create a tsibble object
 }
 \details{
-A tsibble is arranged by the key and index in the time order.
+A tsibble is arranged by the key first and index in the ascending
+time order.
 }
 \section{Index}{
 

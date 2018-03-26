@@ -17,7 +17,8 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A tsibble is arranged by the key and index in the time order.
+#' @details A tsibble is arranged by the key first and index in the ascending 
+#' time order.
 #'
 #' @return A tsibble object.
 #'
@@ -308,6 +309,26 @@ as.tsibble <- function(x, ...) {
 
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
+
+#' Construct a tsibble object
+#'
+#' A relatively more flexible function to create a `tbl_ts` object. It is useful
+#' for creating a `tbl_ts` internally inside a function, and it allows users to
+#' determine if the time needs ordering and the interval needs calculating.
+#'
+#' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
+#' @param key Structural variable(s) that define unique time indices, used with
+#' the helper [id]. If a univariate time series (without an explicit key),
+#' simply call `id()`.
+#' @inheritParams as_tsibble
+#' @param groups Grouping variable(s).
+#' @param ordered The default of `NULL` arranges the key variable(s) first and
+#' then index in ascending order. `TRUE` suggests to skip the ordering as `x` in
+#' the correct order. `FALSE` also skips the ordering but gives a warning instead.
+#' @param interval `NULL` computes the interval. Use the specified interval as
+#' is, if an class of `interval` is supplied.
+#'
+#' @export
 build_tsibble <- function(
   x, key, index, groups = id(), regular = TRUE, 
   validate = TRUE, ordered = NULL, interval = NULL
@@ -341,6 +362,9 @@ build_tsibble <- function(
   } else if (regular && is.null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
     interval <- pull_interval(eval_idx, duplicated = TRUE)
+  } else if (is_false(inherits(interval, "interval"))) {
+    int_cls <- class(interval)[1]
+    abort(sprintf("`interval` must be the `interval` class not %s.", int_cls))
   }
 
   # arrange in time order (by key and index)
