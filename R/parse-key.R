@@ -155,6 +155,7 @@ key_flatten <- function(x) {
 #' # tourism could be identified by Region and Purpose ----
 #' tourism %>% 
 #'   key_update(Region, Purpose)
+#' @export
 key_update <- function(.data, ..., validate = TRUE) {
   not_tsibble(.data)
   quos <- enquos(...)
