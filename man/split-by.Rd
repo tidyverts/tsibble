@@ -2,18 +2,9 @@
 % Please edit documentation in R/split-by.R
 \name{split_by}
 \alias{split_by}
-\alias{split_by.tbl_ts}
-\alias{split_by.data.frame}
-\alias{split_by.tbl_df}
 \title{Split a data frame into a list of subsets by variables}
 \usage{
 split_by(x, ...)
-
-\method{split_by}{tbl_ts}(x, ...)
-
-\method{split_by}{data.frame}(x, ...)
-
-\method{split_by}{tbl_df}(x, ...)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -26,7 +17,4 @@ Split a data frame into a list of subsets by variables
 \examples{
 pedestrian \%>\% 
   split_by(Sensor)
-}
-\seealso{
-\link[dplyr:group_by]{dplyr::group_by}
 }

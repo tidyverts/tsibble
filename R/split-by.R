@@ -3,17 +3,15 @@
 #' @param x A data frame.
 #' @param ... Unquoted variables used to split a dataset.
 #' @rdname split-by
-#' @seealso [dplyr::group_by]
-#' @export
-split_by <- function(x, ...) {
-  UseMethod("split_by")
-}
-
-#' @rdname split-by
 #' @export
 #' @examples
 #' pedestrian %>% 
 #'   split_by(Sensor)
+split_by <- function(x, ...) {
+  UseMethod("split_by")
+}
+
+#' @export
 split_by.tbl_ts <- function(x, ...) {
   quos <- enquos(...)
   if (is_empty(quos)) {
@@ -24,10 +22,8 @@ split_by.tbl_ts <- function(x, ...) {
   lapply(idx, function(idx) x[idx + 1, ])
 }
 
-#' @rdname split-by
 #' @export
 split_by.data.frame <- split_by.tbl_ts
 
-#' @rdname split-by
 #' @export
 split_by.tbl_df <- split_by.tbl_ts

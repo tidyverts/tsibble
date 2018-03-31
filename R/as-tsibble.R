@@ -17,7 +17,7 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A tsibble is arranged by the key first and index in the ascending 
+#' @details A tsibble is arranged by its key(s) first and index in the ascending 
 #' time order.
 #'
 #' @return A tsibble object.
@@ -192,13 +192,19 @@ group_indices.grouped_ts <- function(.data, ...) {
   attr(.data, "indices")
 }
 
-#' @rdname key
+#' Return measured variables
+#'
+#' @param x A `tbl_ts`.
+#'
+#' @rdname measured-vars
+#' @examples
+#' measured_vars(pedestrian)
+#' measured_vars(tourism)
 #' @export
 measured_vars <- function(x) {
   UseMethod("measured_vars")
 }
 
-#' @rdname key
 #' @export
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)

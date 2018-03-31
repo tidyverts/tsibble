@@ -1,23 +1,18 @@
-#' Return key and measured variables
+#' Return key variables
 #'
 #' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
 #' @param x A data frame.
 #'
 #' @rdname key
-#'
 #' @examples
 #' # A single key for pedestrian data ----
-#' data(pedestrian)
 #' key(pedestrian)
 #' key_vars(pedestrian)
-#' measured_vars(pedestrian)
 #'
 #' # Nested and crossed keys for tourism data ----
-#' data(tourism)
 #' key(tourism)
 #' key_vars(tourism)
-#' measured_vars(tourism)
 #' @export
 key <- function(x) {
   UseMethod("key")
@@ -35,11 +30,26 @@ key.tbl_ts <- function(x) {
 
 #' @rdname key
 #' @export
+key_vars <- function(x) {
+  UseMethod("key_vars")
+}
+
+#' @export
+key_vars.tbl_ts <- function(x) {
+  format(key(x))
+}
+
+#' @rdname key
+#' @export
+#' @examples
+#' # unkey() only works for a tsibble with 1 key size ----
+#' sx <- pedestrian %>% 
+#'   filter(Sensor == "Southern Cross Station")
+#' unkey(sx)
 unkey <- function(x) {
   UseMethod("unkey")
 }
 
-#' @rdname key
 #' @export
 unkey.tbl_ts <- function(x) {
   nkey <- n_keys(x)
@@ -49,17 +59,6 @@ unkey.tbl_ts <- function(x) {
   } else {
     abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
   }
-}
-
-#' @rdname key
-#' @export
-key_vars <- function(x) {
-  UseMethod("key_vars")
-}
-
-#' @export
-key_vars.tbl_ts <- function(x) {
-  format(key(x))
 }
 
 #' Compute sizes of key variables
@@ -144,13 +143,26 @@ key_flatten <- function(x) {
   unname(purrr::map_chr(flatten(x), quo_text2))
 }
 
-key_update <- function(.data, ...) {
+#' Change/update key variables for a given `tbl_ts`
+#'
+#' @param .data A `tbl_ts`.
+#' @param ... Expressions used to construct the key:
+#' * unspecified: drop every single variable from the old key.
+#' * `|` and `,` for nesting and crossing factors.
+#' @inheritParams as_tsibble
+#'
+#' @examples
+#' # tourism could be identified by Region and Purpose ----
+#' tourism %>% 
+#'   key_update(Region, Purpose)
+key_update <- function(.data, ..., validate = TRUE) {
+  not_tsibble(.data)
   quos <- enquos(...)
   key <- validate_key(.data, quos)
   build_tsibble(
     .data, key = key, index = !! index(.data), groups = groups(.data),
-    regular = is_regular(.data), validate = TRUE, ordered = is_ordered(.data),
-    interval = interval(.data)
+    regular = is_regular(.data), validate = validate, 
+    ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
