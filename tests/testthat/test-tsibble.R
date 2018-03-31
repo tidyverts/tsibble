@@ -316,5 +316,11 @@ test_that("build_tsibble() aborts when interval is not an 'interval' class", {
   expect_error(build_tsibble(
     pedestrian, key = id(Sensor), index = Date_Time,
     interval = list(hour = 1)
-  ))
+  ), "`interval` must be the `interval` class")
+})
+
+test_that("use_id() error message", {
+  expect_error(
+    build_tsibble(pedestrian, key = Sensor, index = Date_Time),
+    "Have you forgotten")
 })
