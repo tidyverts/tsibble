@@ -4,7 +4,6 @@
 \alias{stretch}
 \alias{stretch_lst}
 \alias{stretch_dfr}
-\alias{stretch_dfc}
 \alias{stretcher}
 \title{Stretching window calculation}
 \usage{
@@ -13,8 +12,6 @@ stretch(x, .f, ..., size = 1, init = 1)
 stretch_lst(x, .f, ..., size = 1, init = 1)
 
 stretch_dfr(x, .f, ..., size = 1, init = 1, .id = NULL)
-
-stretch_dfc(x, .f, ..., size = 1, init = 1)
 
 stretcher(x, size = 1, init = 1)
 }
@@ -38,8 +35,7 @@ Fixing an initial window and expanding more observations:
 \itemize{
 \item \code{stretch()} always returns a vector of numerics
 \item \code{stretch_lst()} returns a list
-\item \code{stretch_dfr()} and \code{stretch_dfc()} return data frame using row-binding and
-column-binding
+\item \code{stretch_dfr()} return data frame using row-binding
 \item \code{stretcher()} splits the input \code{x} to a list according to the window size.
 }
 }

@@ -298,3 +298,23 @@ test_that("Spectial characters in column names", {
   expect_identical(key_vars(tsbl)[[1]], "`Bottom 1` | `Group 1`")
   expect_identical(key_vars(tsbl)[[2]], "Group 2")
 })
+
+test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
+  ped <- as_tsibble(pedestrian)
+  expect_identical(ped, pedestrian)
+  grped_ped <- pedestrian %>% group_by(Date)
+  expect_identical(
+    as_tsibble(grped_ped, key = id(Sensor), index = Date_Time),
+    pedestrian
+  )
+  expect_identical(as_tsibble(
+    grped_ped, key = id(Sensor), index = Date_Time, groups = id(Date)
+  ), grped_ped)
+})
+
+test_that("build_tsibble() aborts when interval is not an 'interval' class", {
+  expect_error(build_tsibble(
+    pedestrian, key = id(Sensor), index = Date_Time,
+    interval = list(hour = 1)
+  ))
+})

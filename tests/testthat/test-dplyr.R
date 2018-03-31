@@ -13,6 +13,11 @@ test_that("group_by()", {
     group_by(Sensor)
   expect_equal(n_groups(grped_df), 4)
   expect_length(group_size(grped_df), 4)
+  expect_length(group_indices(grped_df), 4)
+  expect_equal(
+    vapply(group_indices(grped_df), length, integer(1)),
+    key_size(grped_df)
+  )
   expect_error(pedestrian %>% group_by(sensor = Sensor), "must not be named")
 
   grped_t <- tourism %>%
@@ -29,6 +34,13 @@ test_that("arrange.tbl_ts()", {
  expect_identical(groups(tsbl1), groups(tourism))
  tsbl2 <- arrange(tsbl1, Region, State, Purpose, Quarter)
  expect_identical(tsbl2, tourism)
+})
+
+idx_year <- seq.int(1970, 2010, by = 10)
+dat_x <- tsibble(year = idx_year, value = rnorm(5), index = year)
+
+test_that("warnings for arrange a univariate time series", {
+  expect_warning(arrange(dat_x, value), "not arranged by `year`")
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {

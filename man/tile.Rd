@@ -4,7 +4,6 @@
 \alias{tile}
 \alias{tile_lst}
 \alias{tile_dfr}
-\alias{tile_dfc}
 \alias{tiler}
 \title{Tiling window calculation}
 \usage{
@@ -13,8 +12,6 @@ tile(x, .f, ..., size = 1)
 tile_lst(x, .f, ..., size = 1)
 
 tile_dfr(x, .f, ..., size = 1, .id = NULL)
-
-tile_dfc(x, .f, ..., size = 1)
 
 tiler(x, size = 1)
 }
@@ -38,8 +35,7 @@ Tiling window without overlapping observations:
 \itemize{
 \item \code{tile()} always returns a vector of numerics
 \item \code{tile_lst()} returns a list
-\item \code{tile_dfr()} and \code{tile_dfc()} return data frame using row-binding and
-column-binding
+\item \code{tile_dfr()} return data frame using row-binding
 \item \code{tiler()} splits the input \code{x} to a list according to the window size.
 }
 }

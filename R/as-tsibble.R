@@ -17,7 +17,7 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A tsibble is arranged by its key(s) first and index in the ascending 
+#' @details A tsibble is arranged by its key(s) first and index in the ascending
 #' time order.
 #'
 #' @return A tsibble object.
@@ -336,7 +336,7 @@ as.tsibble <- function(x, ...) {
 #'
 #' @export
 build_tsibble <- function(
-  x, key, index, groups = id(), regular = TRUE, 
+  x, key, index, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL
 ) {
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
@@ -385,7 +385,7 @@ build_tsibble <- function(
       )
     } else {
       msg <- sprintf(
-        "The `tbl_ts` is not arranged by `%s`, and `%s` in ascending order.", 
+        "The `tbl_ts` is not arranged by `%s`, and `%s` in ascending order.",
         paste_comma(format(key)), idx_chr
       )
     }
@@ -480,7 +480,7 @@ validate_nested <- function(data, key) {
     n_lgl <- purrr::map_lgl(n_dist, is_descending)
     if (is_false(all(n_lgl))) {
       which_bad <- key_nest[!n_lgl]
-      wrong_nested <- purrr::map(which_bad, 
+      wrong_nested <- purrr::map(which_bad,
         ~ paste(surround(., "`"), collapse = " | ")
       )
       wrong_nested <- paste_comma(wrong_nested)
@@ -501,8 +501,8 @@ validate_tbl_ts <- function(data, key, index) {
   # NOTE: bug in anyDuplicated.data.frame()
   # identifiers <- c(key_flatten(key), idx)
   # below calls anyDuplicated.data.frame():
-  # time zone associated with the index will be dropped, 
-  # e.g. nycflights13::weather, thus result in duplicates. 
+  # time zone associated with the index will be dropped,
+  # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   tbl_dup <- grouped_df(data, vars = key_flatten(key)) %>%
     summarise(zzz = anyDuplicated.default(!! index))
@@ -596,7 +596,7 @@ inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   index <- extract_index_var(data, enquo(index))
 
   grouped_df(data, vars = key_flatten(key)) %>%
-    mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>% 
+    mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>%
     dplyr::pull(zzz)
 
   # identifiers <- c(key_flatten(key), quo_text2(index))

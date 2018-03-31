@@ -62,3 +62,4 @@ test_that("Test stretch_*()", {
   expect_equal(NROW(qtl_df), NROW(sx) - 47)
   expect_is(qtl_lst, "list")
 })
+
