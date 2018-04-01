@@ -5,7 +5,7 @@
 \alias{is.regular}
 \alias{is.regular}
 \alias{is_ordered}
-\title{\code{is_regular} checkes if a tsibble is spaced at regular time or not; \code{is_ordered}
+\title{\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
 checks if a tsibble is ordered by key and index.}
 \usage{
 is_regular(x)
@@ -18,7 +18,7 @@ is_ordered(x)
 \item{x}{A tsibble object.}
 }
 \description{
-\code{is_regular} checkes if a tsibble is spaced at regular time or not; \code{is_ordered}
+\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
 checks if a tsibble is ordered by key and index.
 }
 \examples{

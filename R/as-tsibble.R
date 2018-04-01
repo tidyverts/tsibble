@@ -234,7 +234,7 @@ index <- function(x) {
   attr(x, "index")
 }
 
-#' `is_regular` checkes if a tsibble is spaced at regular time or not; `is_ordered`
+#' `is_regular` checks if a tsibble is spaced at regular time or not; `is_ordered`
 #' checks if a tsibble is ordered by key and index.
 #'
 #' @param x A tsibble object.
