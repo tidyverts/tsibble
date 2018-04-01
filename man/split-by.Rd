@@ -9,7 +9,7 @@ split_by(x, ...)
 \arguments{
 \item{x}{A data frame.}
 
-\item{...}{Unquoted variables used to split a dataset.}
+\item{...}{A list of unquoted variables, separated by commas, to split a dataset.}
 }
 \description{
 Split a data frame into a list of subsets by variables

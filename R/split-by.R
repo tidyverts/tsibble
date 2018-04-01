@@ -1,7 +1,7 @@
 #' Split a data frame into a list of subsets by variables
 #'
 #' @param x A data frame.
-#' @param ... Unquoted variables used to split a dataset.
+#' @param ... A list of unquoted variables, separated by commas, to split a dataset.
 #' @rdname split-by
 #' @export
 #' @examples
@@ -19,7 +19,7 @@ split_by.tbl_ts <- function(x, ...) {
   }
   vars_split <- validate_vars(quos, names(x))
   idx <- attr(grouped_df(x, vars = vars_split), "indices")
-  lapply(idx, function(idx) x[idx + 1, ])
+  lapply(idx, function(idx) x[idx + 1, , drop = FALSE])
 }
 
 #' @export
