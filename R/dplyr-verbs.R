@@ -1,16 +1,12 @@
-#' Row-wise verbs
+#' Arrange rows by variables
 #'
-#' `arrange()` arranges rows by variable; `filter()` returns rows with matching
-#' conditions; `slice()` selects rows by position.
+#' @param .data A `tbl_ts`.
+#' @param ...  A set of unquoted variables, separated by commas.
+#' @param .by_group `TRUE` will sort first by grouping variables.
 #'
-#' @param .data A tsibble.
-#' @param ...
-#' * A set of unquoted variables for `arrange()`.
-#' * Logical predicates defined in terms of the variables for `filter()`.
-#' * Unique integer row numbers for `slice()`.
-#' @param .by_group `TRUE` will sort first by grouping variable.
-#'
-#' @rdname row-verb
+#' @details If not arranging key and index in ascending order, a warning is
+#' likely to be issued.
+#' @rdname arrange
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
@@ -24,7 +20,7 @@ arrange.tbl_ts <- function(.data, ...) {
   update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
-#' @rdname row-verb
+#' @rdname arrange
 #' @seealso [dplyr::arrange]
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
@@ -81,14 +77,22 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   ordered
 }
 
-#' @rdname row-verb
+#' Return rows with matching conditions
+#'
+#' @param .data A `tbl_ts`.
+#' @param ...  Logical predicates defined in terms of the variables.
 #' @seealso [dplyr::filter]
 #' @export
 filter.tbl_ts <- function(.data, ...) {
   by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...)
 }
 
-#' @rdname row-verb
+#' Selects rows by position
+#'
+#' @param .data A `tbl_ts`.
+#' @param ...  Unique integers of row numbers to be selected.
+#' @details If row numbers are not in ascending order, a warning is likely to 
+#' be issued.
 #' @seealso [dplyr::slice]
 #' @export
 slice.tbl_ts <- function(.data, ...) {
@@ -105,24 +109,20 @@ slice.tbl_ts <- function(.data, ...) {
   by_row(slice, .data, ordered = ascending, interval = NULL, ...)
 }
 
-#' Column-wise verbs
-#'
-#' `select()` selects columns by variables; `mutate()` adds new variables;
-#' `transmute()` keeps the newly created variables along with index and keys;
-#' `summarise()` collapses the rows by variables.
+#' Select/rename variables by name
 #'
 #' @param .data A tsibble.
-#' @param ... A set of name-value pairs of expressions.
+#' @param ... Unquoted variable names separated by commas. `rename()` requires
+#' named arguments.
 #' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
 #' tsibble and returns a tibble.
 #'
-#' @details
-#' * These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
+#' @details 
+#' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
 #' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
 #' Turning `drop = TRUE` converts to a tibble first and then do the operations.
-#' * `summarise()` will not collapse on the index variable.
-#' @rdname col-verb
+#' @rdname select
 #' @seealso [dplyr::select]
 #' @export
 select.tbl_ts <- function(.data, ..., drop = FALSE) {
@@ -150,7 +150,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   )
 }
 
-#' @rdname col-verb
+#' @rdname select
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
@@ -168,7 +168,21 @@ rename.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @rdname col-verb
+#' Add new variables
+#'
+#' `mutate()` adds new variables; `transmute()` keeps the newly created variables 
+#' along with index and keys;
+#'
+#' @inheritParams select.tbl_ts
+#' @param ... Name-value pairs of experssions.
+#'
+#' @details 
+#' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
+#' for tsibble. The index variable cannot be dropped for a tsibble. If any key
+#' variable is changed, it will validate whether it's a tsibble internally.
+#' Turning `drop = TRUE` converts to a tibble first and then do the operations.
+#' * `summarise()` will not collapse on the index variable.
+#' @rdname mutate
 #' @seealso [dplyr::mutate]
 #' @export
 mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
@@ -193,7 +207,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   )
 }
 
-#' @rdname col-verb
+#' @rdname mutate
 #' @seealso [dplyr::transmute]
 #' @export
 transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
@@ -207,8 +221,19 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
   select(mut_data, tidyselect::one_of(vec_names))
 }
 
-#' @rdname col-verb
+#' Collapse multiple rows to a single value
+#'
+#' @inheritParams mutate.tbl_ts
+#'
+#' @details Time index will not be collapsed by `summarise.tbl_ts`.
+#' @rdname summarise
 #' @seealso [dplyr::summarise]
+#' @examples
+#' pedestrian %>% 
+#'   summarise(Total = sum(Count))
+#' ## drop = TRUE ----
+#' pedestrian %>% 
+#'   summarise(Total = sum(Count), drop = TRUE)
 #' @export
 summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
@@ -238,7 +263,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   )
 }
 
-#' @rdname col-verb
+#' @rdname summarise
 #' @seealso [dplyr::summarize]
 #' @export
 summarize.tbl_ts <- summarise.tbl_ts

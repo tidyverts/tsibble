@@ -63,18 +63,21 @@ slider(x, size = 3)
 jan <- pedestrian \%>\% 
   filter(Date <= as.Date("2015-01-31")) \%>\% 
   split_by(Sensor)
-# directly return a data frame of fitted values and residuals
+# returns a data frame of fitted values and residuals for each sensor,
+# and then combines
 diag_jan <- jan \%>\%
-  purrr::map_dfr(~ slide_dfr(., function(x) {
-    fit <- lm(Count ~ Time, data = x)
-    data.frame(fitted = fitted(fit), resid = residuals(fit))
-  }, size = 48))
+  purrr::map_dfr(
+    ~ slide_dfr(., function(x) {
+      fit <- lm(Count ~ Time, data = x)
+      data.frame(fitted = fitted(fit), resid = residuals(fit))
+    }, size = 48)
+  )
 diag_jan[48:57, ]
 # save lm models as additional columns
 lm_jan <- jan \%>\% 
-  purrr::map(~ mutate(., 
-    lm = slide_lst(., ~ lm(Count ~ Time, data = .), size = 48)
-))
+  purrr::map(
+    ~ mutate(., lm = slide_lst(., ~ lm(Count ~ Time, data = .), size = 48)
+  ))
 lm_jan[[1]][48:57, ]
 }
 }

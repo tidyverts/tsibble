@@ -443,6 +443,10 @@ id <- function(...) {
 ## objects, it would fail when tsibble contain multiple time objects.
 extract_index_var <- function(data, index) {
   idx_type <- purrr::map_chr(data, index_sum)
+  is_quo <- is_quosure(index)
+  if (quo_is_null(index)) {
+    abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
+  }
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
