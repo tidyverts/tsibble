@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • tsibble</title>
+<title>Changelog • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Changelog" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +35,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +52,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +88,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,49 +96,88 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="contents">
-    <div class="section level1">
-<h1>tsibble 0.1.3.9000</h1>
-<div class="section level2">
-<h2>New functions</h2>
+    <div id="tsibble-0-1-5" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-1-5" class="anchor"></a>tsibble 0.1.5<small> Unreleased </small>
+</h1>
+<p>This release introduces major changes into the underlying <code>tbl_ts</code> object:</p>
 <ul>
-<li>Added <code><a href="../reference/key.html">unkey()</a></code> as an S3 method for key size &lt; 2.</li>
+<li>Dropped the attribute “key_indices” from a <code>tbl_ts</code> class to reduce the object size, and computed on the fly when printing.</li>
+<li>Gained a new attribute “ordered” to identify if it is arranged by key and index in ascending order. If not, broadcast a warning. The warning likely occurs to <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code> functions.</li>
+<li>The “index” attribute in a <code>tbl_ts</code> object is a symbol now instead of a quosure.</li>
+<li>The “key” attribute in a <code>tbl_ts</code> object is an unnamed list of symbols.</li>
+</ul>
+<div id="new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions</h2>
+<ul>
+<li>“key” helpers:
+<ul>
+<li>
+<code><a href="../reference/key_update.html">key_update()</a></code> to change/update the keys for a given tsibble.</li>
+<li>
+<code><a href="../reference/key.html">unkey()</a></code> as an S3 method for a tsibble of key size &lt; 2.</li>
+<li>
+<code><a href="../reference/key-size.html">key_indices()</a></code> as an S3 method to extract key indices.</li>
+</ul>
+</li>
+<li>
+<code><a href="../reference/split-by.html">split_by()</a></code> to split a tsibble into a list of data by unquoted variables.</li>
+<li>
+<code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> allows users to gain more control over a tsibble construction.</li>
+<li>Added <code><a href="../reference/as-tsibble.html">as_tsibble.msts()</a></code> for multiple seasonality time series defined in the forecast package.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>Bug fixes</h2>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> for daily time series (when frequency = 7).</li>
+<li>
+<code><a href="../reference/group-by.html">group_by.tbl_ts()</a></code> does not accept named expressions.</li>
+</ul>
+</div>
+<div id="internal-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#internal-changes" class="anchor"></a>Internal changes</h2>
+<ul>
+<li>No longer throw an error when grouping the index.</li>
+<li>An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>). This avoids unnecessary re-computation for many function calls.</li>
 </ul>
 </div>
 </div>
-    <div class="section level1">
-<h1>tsibble 0.1.3</h1>
-<div class="section level2">
-<h2>New functions</h2>
+    <div id="tsibble-0-1-3" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-1-3" class="anchor"></a>tsibble 0.1.3<small> 2018-02-20 </small>
+</h1>
+<div id="new-functions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions-1" class="anchor"></a>New functions</h2>
 <ul>
 <li>Added the scoped variants for <code><a href="../reference/tsummarise.html">tsummarise()</a></code> including <code><a href="../reference/tsummarise.html">tsummarise_all()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_if()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_at()</a></code>.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>API changes</h2>
+<div id="api-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#api-changes" class="anchor"></a>API changes</h2>
 <ul>
-<li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code><a href="../reference/slide.html">slide_lst()</a></code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
+<li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code><a href="../reference/slide.html">slide_lst()</a></code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code>slide_dfc()</code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code><a href="../reference/tsummarise.html">tsummarise()</a></code> instead of any position in the call.</li>
 <li>
-<code><a href="../reference/col-verb.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
+<code><a href="../reference/mutate.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>Bug fixes</h2>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed the error message in <code>glimpse.tbl_ts()</code>
 </li>
@@ -136,11 +185,14 @@
 </ul>
 </div>
 </div>
-    <div class="section level1">
-<h1>tsibble 0.1.2</h1>
+    <div id="tsibble-0-1-2" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-1-2" class="anchor"></a>tsibble 0.1.2<small> 2018-01-27 </small>
+</h1>
 <p>This release marks the complete support of dplyr key verbs.</p>
-<div class="section level2">
-<h2>Reexported functions</h2>
+<div id="reexported-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reexported-functions" class="anchor"></a>Reexported functions</h2>
 <ul>
 <li>
 <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">tidyr::fill()</a></code> fills <code>NA</code> backward or forward in tsibble.</li>
@@ -148,18 +200,20 @@
 <li>No <code>tbl_ts</code> support for <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">dplyr::transmute()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">dplyr::distinct()</a></code> and return an error.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>New functions</h2>
+<div id="new-functions-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions-2" class="anchor"></a>New functions</h2>
 <ul>
 <li>
 <code><a href="../reference/inform_duplicates.html">inform_duplicates()</a></code> informs which row has duplicated elements of key and index variables.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>Bug fixes</h2>
+<div id="bug-fixes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fix bug in <code><a href="../reference/col-verb.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
-<li>In <code><a href="../reference/col-verb.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
+<li>Fix bug in <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
+<li>In <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
 <li>Fix incorrect group and key indices.</li>
 <li>
 <code>NULL</code> and <code>tbl_ts</code> are supported in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. An empty tsibble is not allowed.</li>
@@ -167,39 +221,43 @@
 <code><a href="../reference/group-by.html">group_by.tbl_ts(.data, ..., add = TRUE)</a></code> works as expected now.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2>Internal changes</h2>
+<div id="internal-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#internal-changes-1" class="anchor"></a>Internal changes</h2>
 <ul>
 <li>Better handling <code>grouped_ts</code> and <code>grouped_df</code>.</li>
 <li>More informative error messages.</li>
 </ul>
 </div>
 </div>
-    <div class="section level1">
-<h1>tsibble 0.1.0</h1>
+    <div id="tsibble-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-1-0" class="anchor"></a>tsibble 0.1.0<small> 2018-01-09 </small>
+</h1>
 <ul>
 <li>Initial release on CRAN.</li>
 </ul>
 </div>
-    <div class="section level1">
-<h1>tsibble 0.0.1</h1>
+    <div id="tsibble-0-0-1" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-0-1" class="anchor"></a>tsibble 0.0.1<small> Unreleased </small>
+</h1>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>Pre-release on Github</li>
 </ul>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#NA">0.1.3.9000</a></li>
-        <li><a href="#NA">0.1.3</a></li>
-        <li><a href="#NA">0.1.2</a></li>
-        <li><a href="#NA">0.1.0</a></li>
-        <li><a href="#NA">0.0.1</a></li>
+        <li><a href="#tsibble-0-1-5">0.1.5</a></li>
+        <li><a href="#tsibble-0-1-3">0.1.3</a></li>
+        <li><a href="#tsibble-0-1-2">0.1.2</a></li>
+        <li><a href="#tsibble-0-1-0">0.1.0</a></li>
+        <li><a href="#tsibble-0-0-1">0.0.1</a></li>
       </ul>
     </div>
   </div>
@@ -218,5 +276,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

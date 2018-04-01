@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="tsibble: tidy temporal data frames and tools — tsibble-package" />
+
+<meta property="og:description" content="The tsibble package provides a data class of tbl_ts to store and manage
+temporal data frames in a tidy manner. A tsibble consists of a time index,
+key(s) and other measured variables in a data-centric format, which is built on
+top of the tibble." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +41,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +58,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +94,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,10 +102,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tsibble: tidy temporal data frames and tools</h1>
+    
     </div>
 
     
@@ -155,10 +172,10 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Useful links:</p><ul>
+    <div class='dont-index'><p>Useful links:</p><ul>
 <li><p><a href='http://pkg.earo.me/tsibble'>http://pkg.earo.me/tsibble</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/earowang/tsibble/issues'>https://github.com/earowang/tsibble/issues</a></p></li>
-</ul>
+<li><p>Report bugs at <a href='https://github.com/tidyverts/tsibble/issues'>https://github.com/tidyverts/tsibble/issues</a></p></li>
+</ul></div>
     
 
   </div>
@@ -203,5 +220,8 @@ Authors:
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

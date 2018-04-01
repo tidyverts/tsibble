@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular • tsibble</title>
+<title>Construct a tsibble object — build_tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -26,11 +25,11 @@ checks if a tsibble is ordered by key and index. — is_regular • tsibble</tit
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="<code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular" />
+<meta property="og:title" content="Construct a tsibble object — build_tsibble" />
 
-<meta property="og:description" content="is_regular checkes if a tsibble is spaced at regular time or not; is_ordered
-checks if a tsibble is ordered by key and index." />
+<meta property="og:description" content="A relatively more flexible function to create a tbl_ts object. It is useful
+for creating a tbl_ts internally inside a function, and it allows users to
+determine if the time needs ordering and the interval needs calculating." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,43 +104,73 @@ checks if a tsibble is ordered by key and index." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index.</h1>
+    <h1>Construct a tsibble object</h1>
     
     </div>
 
     
-    <p><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index.</p>
+    <p>A relatively more flexible function to create a <code>tbl_ts</code> object. It is useful
+for creating a <code>tbl_ts</code> internally inside a function, and it allows users to
+determine if the time needs ordering and the interval needs calculating.</p>
     
 
-    <pre class="usage"><span class='fu'>is_regular</span>(<span class='no'>x</span>)
-
-<span class='fu'>is.regular</span>(<span class='no'>x</span>)
-
-<span class='fu'>is_ordered</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A tsibble object.</p></td>
+      <td><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Structural variable(s) that define unique time indices, used with
+the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>index</th>
+      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>groups</th>
+      <td><p>Grouping variable(s).</p></td>
+    </tr>
+    <tr>
+      <th>regular</th>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
+finds the minimal time span as the interval.</p></td>
+    </tr>
+    <tr>
+      <th>validate</th>
+      <td><p><code>TRUE</code> suggests to verify that each key or each combination
+of key variables lead to unique time indices (i.e. a valid tsibble). It will
+also make sure that the nested variables are arranged from lower level to
+higher, if nested variables are passed to <code>key</code>. If you are sure that it's a
+valid input, specify <code>FALSE</code> to skip the checks.</p></td>
+    </tr>
+    <tr>
+      <th>ordered</th>
+      <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
+then index in ascending order. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
+the correct order. <code>FALSE</code> also skips the ordering but gives a warning instead.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p><code>NULL</code> computes the interval. Use the specified interval as
+is, if an class of <code>interval</code> is supplied.</p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
-<span class='fu'>is_regular</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

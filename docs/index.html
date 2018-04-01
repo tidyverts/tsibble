@@ -23,7 +23,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -32,8 +32,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -72,12 +76,11 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="tsibble" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -197,7 +200,7 @@
 <div id="reexported-functions-from-the-tidyverse" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reexported-functions-from-the-tidyverse" class="anchor"></a>Reexported functions from the tidyverse</h2>
-<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs. Use <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">?tsibble::reexports</a></code> for a full list of re-exported functions.</p>
+<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs. Use <code>?tsibble::reexports</code> for a full list of re-exported functions.</p>
 <ul>
 <li>
 <strong>dplyr:</strong>
@@ -241,7 +244,6 @@
 <li>
 <a href="https://github.com/EdwinTh/padr">padr</a>: padding of missing records in time series.</li>
 </ul>
-</div>
 </div>
 </div>
   </div>
@@ -289,6 +291,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

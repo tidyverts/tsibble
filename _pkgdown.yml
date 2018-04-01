@@ -11,19 +11,21 @@ authors:
     href: http://robjhyndman.com
 
 reference:
-- title: Tsibble
+- title: Create/coerce to a tsibble
   contents:
     - tsibble
     - as_tsibble
     - is_tsibble
+    - build_tsibble
 
-- title: Temporal-context verbs
+- title: Tsibble verbs
   contents:
     - tsummarise
     - fill_na
     - inform_duplicates
+    - split_by
 
-- title: Window functions
+- title: Windowed functions
   contents:
     - slide
     - tile
@@ -34,14 +36,17 @@ reference:
     - starts_with("year")
     - guess_frequency
 
-- title: Helpers
+- title: Key helpers
   contents:
-    - id
     - key
+    - key_size
+    - key_update
+
+- title: Tsibble helpers
+    - id
     - index
     - interval
     - is_regular
-    - key_size
     - case_na
 
 - title: Extend tsibble
@@ -63,6 +68,16 @@ reference:
 - title: Misc
   contents:
     - tsibble-package
+
+- title: Reexported
+  contents:
+    - arrange
+    - filter
+    - slice
+    - select
+    - mutate
+    - summarise
+    - group_by
 
 navbar:
   type: default

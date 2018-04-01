@@ -18,13 +18,24 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Stretching window calculation — stretch" />
+
+<meta property="og:description" content="Fixing an initial window and expanding more observations:
+stretch() always returns a vector of numerics
+stretch_lst() returns a list
+stretch_dfr() return data frame using row-binding
+stretcher() splits the input x to a list according to the window size.
+" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +43,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +60,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +96,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,18 +104,18 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Stretching window calculation</h1>
+    
     </div>
 
     
     <p>Fixing an initial window and expanding more observations:</p><ul>
 <li><p><code>stretch()</code> always returns a vector of numerics</p></li>
 <li><p><code>stretch_lst()</code> returns a list</p></li>
-<li><p><code>stretch_dfr()</code> and <code>stretch_dfc()</code> return data frame using row-binding and
-column-binding</p></li>
+<li><p><code>stretch_dfr()</code> return data frame using row-binding</p></li>
 <li><p><code>stretcher()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
 </ul>
     
@@ -108,11 +126,9 @@ column-binding</p></li>
 
 <span class='fu'>stretch_dfr</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>stretch_dfc</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
 <span class='fu'>stretcher</span>(<span class='no'>x</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -143,8 +159,8 @@ either the name or the index of the data frame, which is passed to
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='slide.html'>slide</a> for sliding window with overlapping observations;
-<a href='tile.html'>tile</a> for tiling window without overlapping observations.</p>
+    <div class='dont-index'><p><a href='slide.html'>slide</a> for sliding window with overlapping observations;
+<a href='tile.html'>tile</a> for tiling window without overlapping observations.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -180,16 +196,16 @@ either the name or the index of the data frame, which is passed to
   <span class='fu'>stretch_dfr</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>48</span>)</div><div class='output co'>#&gt; # A tibble: 193 x 5
 #&gt;     `0%` `25%` `50%` `75%` `100%`
 #&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1  6.00  38.8 102     229    746
-#&gt;  2  6.00  38.0  98.0   215    746
-#&gt;  3  6.00  36.5  98.0   206    746
-#&gt;  4  6.00  36.0  98.0   198    746
-#&gt;  5  6.00  33.5  96.5   189    746
-#&gt;  6  6.00  26.0  95.0   180    746
-#&gt;  7  6.00  24.5  94.0   176    746
-#&gt;  8  6.00  22.5  93.0   172    746
-#&gt;  9  6.00  23.2  90.0   168    746
-#&gt; 10  6.00  24.0  87.0   164    746
+#&gt;  1    6.  38.8 102.   229.   746.
+#&gt;  2    6.  38.0  98.0  215.   746.
+#&gt;  3    6.  36.5  98.0  206.   746.
+#&gt;  4    6.  36.0  98.0  198.   746.
+#&gt;  5    6.  33.5  96.5  189.   746.
+#&gt;  6    6.  26.0  95.0  180.   746.
+#&gt;  7    6.  24.5  94.0  176.   746.
+#&gt;  8    6.  22.5  93.0  172.   746.
+#&gt;  9    6.  23.2  90.0  168.   746.
+#&gt; 10    6.  24.0  87.0  164.   746.
 #&gt; # ... with 183 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -217,5 +233,8 @@ either the name or the index of the data frame, which is passed to
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

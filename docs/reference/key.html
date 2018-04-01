@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return key and measured variables — key • tsibble</title>
+<title>Return key variables — key • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Return key variables — key" />
+
+<meta property="og:description" content="key() returns a list of symbols; key_vars() gives a character vector." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +38,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +55,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +91,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,10 +99,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return key and measured variables</h1>
+    <h1>Return key variables</h1>
+    
     </div>
 
     
@@ -98,19 +112,11 @@
 
     <pre class="usage"><span class='fu'>key</span>(<span class='no'>x</span>)
 
-<span class='fu'>unkey</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>unkey</span>(<span class='no'>x</span>)
-
 <span class='fu'>key_vars</span>(<span class='no'>x</span>)
 
-<span class='fu'>measured_vars</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>measured_vars</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>unkey</span>(<span class='no'>x</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -122,18 +128,32 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># A single key for pedestrian data ----</span>
-<span class='fu'>data</span>(<span class='no'>pedestrian</span>)
 <span class='fu'>key</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; Sensor</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; $Sensor
 #&gt; [1] "Sensor"
-#&gt; </div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] "Date"  "Time"  "Count"</div><div class='input'>
+#&gt; </div><div class='input'>
 <span class='co'># Nested and crossed keys for tourism data ----</span>
-<span class='fu'>data</span>(<span class='no'>tourism</span>)
 <span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; $`Region | State`
 #&gt; [1] "Region | State"
 #&gt; 
 #&gt; $Purpose
 #&gt; [1] "Purpose"
-#&gt; </div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Trips"</div></pre>
+#&gt; </div><div class='input'><span class='co'># unkey() only works for a tsibble with 1 key size ----</span>
+<span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>)
+<span class='fu'>unkey</span>(<span class='no'>sx</span>)</div><div class='output co'>#&gt; # A tsibble: 17,539 x 5 [1HOUR]
+#&gt;    Sensor                 Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746
+#&gt;  2 Southern Cross Station 2015-01-01 01:00:00 2015-01-01     1   312
+#&gt;  3 Southern Cross Station 2015-01-01 02:00:00 2015-01-01     2   180
+#&gt;  4 Southern Cross Station 2015-01-01 03:00:00 2015-01-01     3   133
+#&gt;  5 Southern Cross Station 2015-01-01 04:00:00 2015-01-01     4    44
+#&gt;  6 Southern Cross Station 2015-01-01 05:00:00 2015-01-01     5    16
+#&gt;  7 Southern Cross Station 2015-01-01 06:00:00 2015-01-01     6    13
+#&gt;  8 Southern Cross Station 2015-01-01 07:00:00 2015-01-01     7    21
+#&gt;  9 Southern Cross Station 2015-01-01 08:00:00 2015-01-01     8    39
+#&gt; 10 Southern Cross Station 2015-01-01 09:00:00 2015-01-01     9    36
+#&gt; # ... with 17,529 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -158,5 +178,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Group by one or more variables — group_by.tbl_ts" />
+
+<meta property="og:description" content="Group by one or more variables" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +38,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +55,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +91,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,10 +99,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Group by one or more variables</h1>
+    
     </div>
 
     
@@ -102,7 +116,7 @@
 <span class='co'># S3 method for grouped_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -128,8 +142,8 @@ based on the way how the variables are grouped.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by</a>
-    <a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::ungroup</a></p>
+    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by</a></p>
+<p><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::ungroup</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -140,14 +154,14 @@ based on the way how the variables are grouped.</p></td>
 #&gt; # Keys:      Region | State [77]
 #&gt;    Quarter Region                     State              geo_trips
 #&gt;      &lt;qtr&gt; &lt;chr&gt;                      &lt;chr&gt;                  &lt;dbl&gt;
-#&gt;  1 1998 Q1 Adelaide                   South Australia       659   
+#&gt;  1 1998 Q1 Adelaide                   South Australia       659.  
 #&gt;  2 1998 Q1 Adelaide Hills             South Australia         9.80
 #&gt;  3 1998 Q1 Alice Springs              Northern Territory     20.2 
-#&gt;  4 1998 Q1 Australia's Coral Coast    Western Australia     133   
-#&gt;  5 1998 Q1 Australia's Golden Outback Western Australia     162   
-#&gt;  6 1998 Q1 Australia's North West     Western Australia     121   
-#&gt;  7 1998 Q1 Australia's South West     Western Australia     475   
-#&gt;  8 1998 Q1 Ballarat                   Victoria              182   
+#&gt;  4 1998 Q1 Australia's Coral Coast    Western Australia     133.  
+#&gt;  5 1998 Q1 Australia's Golden Outback Western Australia     162.  
+#&gt;  6 1998 Q1 Australia's North West     Western Australia     121.  
+#&gt;  7 1998 Q1 Australia's South West     Western Australia     475.  
+#&gt;  8 1998 Q1 Ballarat                   Victoria              182.  
 #&gt;  9 1998 Q1 Barkly                     Northern Territory     18.5 
 #&gt; 10 1998 Q1 Barossa                    South Australia        46.8 
 #&gt; # ... with 5,842 more rows</div></pre>
@@ -177,5 +191,8 @@ based on the way how the variables are grouped.</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

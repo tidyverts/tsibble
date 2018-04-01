@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Coerce to a tsibble object — as_tsibble" />
+
+<meta property="og:description" content="Coerce to a tsibble object" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +38,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +55,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsibble</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsibble</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,6 +91,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -86,10 +99,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Coerce to a tsibble object</h1>
+    
     </div>
 
     
@@ -120,10 +134,13 @@
 <span class='co'># S3 method for mts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for msts</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for hts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -174,7 +191,7 @@ daily.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>tsibble</p>
+    <div class='dont-index'><p>tsibble</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -249,29 +266,29 @@ daily.</p></td>
 <span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1MONTH]
 #&gt;       index value
 #&gt;       &lt;mth&gt; &lt;dbl&gt;
-#&gt;  1 1949 Jan   112
-#&gt;  2 1949 Feb   118
-#&gt;  3 1949 Mar   132
-#&gt;  4 1949 Apr   129
-#&gt;  5 1949 May   121
-#&gt;  6 1949 Jun   135
-#&gt;  7 1949 Jul   148
-#&gt;  8 1949 Aug   148
-#&gt;  9 1949 Sep   136
-#&gt; 10 1949 Oct   119
+#&gt;  1 1949 Jan  112.
+#&gt;  2 1949 Feb  118.
+#&gt;  3 1949 Mar  132.
+#&gt;  4 1949 Apr  129.
+#&gt;  5 1949 May  121.
+#&gt;  6 1949 Jun  135.
+#&gt;  7 1949 Jul  148.
+#&gt;  8 1949 Aug  148.
+#&gt;  9 1949 Sep  136.
+#&gt; 10 1949 Oct  119.
 #&gt; # ... with 134 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; # A tsibble: 289 x 2 [1YEAR]
 #&gt;    index value
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1  1700  5.00
-#&gt;  2  1701 11.0 
-#&gt;  3  1702 16.0 
-#&gt;  4  1703 23.0 
-#&gt;  5  1704 36.0 
-#&gt;  6  1705 58.0 
-#&gt;  7  1706 29.0 
-#&gt;  8  1707 20.0 
-#&gt;  9  1708 10.0 
-#&gt; 10  1709  8.00
+#&gt;  1 1700.    5.
+#&gt;  2 1701.   11.
+#&gt;  3 1702.   16.
+#&gt;  4 1703.   23.
+#&gt;  5 1704.   36.
+#&gt;  6 1705.   58.
+#&gt;  7 1706.   29.
+#&gt;  8 1707.   20.
+#&gt;  9 1708.   10.
+#&gt; 10 1709.    8.
 #&gt; # ... with 279 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; # A tsibble: 3,177 x 2 [1MONTH]
 #&gt;       index value
 #&gt;       &lt;mth&gt; &lt;dbl&gt;
@@ -286,18 +303,18 @@ daily.</p></td>
 #&gt;  9 1749 Sep  75.9
 #&gt; 10 1749 Oct  75.5
 #&gt; # ... with 3,167 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; # A tsibble: 89 x 2 [1QUARTER]
-#&gt;      index value
-#&gt;      &lt;qtr&gt; &lt;dbl&gt;
-#&gt;  1 1971 Q2 13067
-#&gt;  2 1971 Q3 13130
-#&gt;  3 1971 Q4 13198
-#&gt;  4 1972 Q1 13254
-#&gt;  5 1972 Q2 13304
-#&gt;  6 1972 Q3 13354
-#&gt;  7 1972 Q4 13409
-#&gt;  8 1973 Q1 13459
-#&gt;  9 1973 Q2 13504
-#&gt; 10 1973 Q3 13553
+#&gt;      index  value
+#&gt;      &lt;qtr&gt;  &lt;dbl&gt;
+#&gt;  1 1971 Q2 13067.
+#&gt;  2 1971 Q3 13130.
+#&gt;  3 1971 Q4 13198.
+#&gt;  4 1972 Q1 13254.
+#&gt;  5 1972 Q2 13304.
+#&gt;  6 1972 Q3 13354.
+#&gt;  7 1972 Q4 13409.
+#&gt;  8 1973 Q1 13459.
+#&gt;  9 1973 Q2 13504.
+#&gt; 10 1973 Q3 13553.
 #&gt; # ... with 79 more rows</div><div class='input'>
 <span class='co'># coerce mts to tsibble</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>ts</span>(<span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
@@ -337,30 +354,30 @@ daily.</p></td>
 #&gt; # Keys:      `Level 2` | `Level 1` [5]
 #&gt;    index value `Level 2` `Level 1`
 #&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
-#&gt;  1  1992  7.86 AA        A        
-#&gt;  2  1993  8.34 AA        A        
-#&gt;  3  1994  8.55 AA        A        
-#&gt;  4  1995  8.60 AA        A        
-#&gt;  5  1996  8.77 AA        A        
-#&gt;  6  1997  8.84 AA        A        
-#&gt;  7  1998  8.89 AA        A        
-#&gt;  8  1999  8.93 AA        A        
-#&gt;  9  2000  9.13 AA        A        
-#&gt; 10  2001  9.15 AA        A        
+#&gt;  1 1992.  7.86 AA        A        
+#&gt;  2 1993.  8.34 AA        A        
+#&gt;  3 1994.  8.55 AA        A        
+#&gt;  4 1995.  8.60 AA        A        
+#&gt;  5 1996.  8.77 AA        A        
+#&gt;  6 1997.  8.84 AA        A        
+#&gt;  7 1998.  8.89 AA        A        
+#&gt;  8 1999.  8.93 AA        A        
+#&gt;  9 2000.  9.13 AA        A        
+#&gt; 10 2001.  9.15 AA        A        
 #&gt; # ... with 40 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; # A tsibble: 160 x 5 [1YEAR]
 #&gt; # Keys:      `Level 3` | `Level 2` | `Level 1` [10]
 #&gt;    index value `Level 3` `Level 2` `Level 1`
 #&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
-#&gt;  1  1992 -2.42 A10A      A10       A        
-#&gt;  2  1993 -2.20 A10A      A10       A        
-#&gt;  3  1994 -2.19 A10A      A10       A        
-#&gt;  4  1995 -1.93 A10A      A10       A        
-#&gt;  5  1996 -1.64 A10A      A10       A        
-#&gt;  6  1997 -1.63 A10A      A10       A        
-#&gt;  7  1998 -1.61 A10A      A10       A        
-#&gt;  8  1999 -1.59 A10A      A10       A        
-#&gt;  9  2000 -1.53 A10A      A10       A        
-#&gt; 10  2001 -1.39 A10A      A10       A        
+#&gt;  1 1992. -2.42 A10A      A10       A        
+#&gt;  2 1993. -2.20 A10A      A10       A        
+#&gt;  3 1994. -2.19 A10A      A10       A        
+#&gt;  4 1995. -1.93 A10A      A10       A        
+#&gt;  5 1996. -1.64 A10A      A10       A        
+#&gt;  6 1997. -1.63 A10A      A10       A        
+#&gt;  7 1998. -1.61 A10A      A10       A        
+#&gt;  8 1999. -1.59 A10A      A10       A        
+#&gt;  9 2000. -1.53 A10A      A10       A        
+#&gt; 10 2001. -1.39 A10A      A10       A        
 #&gt; # ... with 150 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -390,5 +407,8 @@ daily.</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

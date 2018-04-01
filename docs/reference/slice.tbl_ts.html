@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular • tsibble</title>
+<title>Selects rows by position — slice.tbl_ts • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -26,11 +25,9 @@ checks if a tsibble is ordered by key and index. — is_regular • tsibble</tit
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="<code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular" />
+<meta property="og:title" content="Selects rows by position — slice.tbl_ts" />
 
-<meta property="og:description" content="is_regular checkes if a tsibble is spaced at regular time or not; is_ordered
-checks if a tsibble is ordered by key and index." />
+<meta property="og:description" content="Selects rows by position" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,43 +102,50 @@ checks if a tsibble is ordered by key and index." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index.</h1>
+    <h1>Selects rows by position</h1>
     
     </div>
 
     
-    <p><code>is_regular</code> checkes if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index.</p>
+    <p>Selects rows by position</p>
     
 
-    <pre class="usage"><span class='fu'>is_regular</span>(<span class='no'>x</span>)
-
-<span class='fu'>is.regular</span>(<span class='no'>x</span>)
-
-<span class='fu'>is_ordered</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A tsibble object.</p></td>
+      <th>.data</th>
+      <td><p>A <code>tbl_ts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Unique integers of row numbers to be selected.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
-<span class='fu'>is_regular</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <p>If row numbers are not in ascending order, a warning is likely to
+be issued.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/slice.html'>dplyr::slice</a></p></div>
+    
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>
