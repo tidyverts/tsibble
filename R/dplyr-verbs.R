@@ -174,7 +174,7 @@ rename.tbl_ts <- function(.data, ...) {
 #' along with index and keys;
 #'
 #' @inheritParams select.tbl_ts
-#' @param ... Name-value pairs of experssions.
+#' @param ... Name-value pairs of expressions.
 #'
 #' @details 
 #' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`

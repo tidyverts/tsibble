@@ -12,7 +12,7 @@
 \arguments{
 \item{.data}{A tsibble.}
 
-\item{...}{Name-value pairs of experssions.}
+\item{...}{Name-value pairs of expressions.}
 
 \item{drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
 tsibble and returns a tibble.}
