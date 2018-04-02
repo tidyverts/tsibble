@@ -218,7 +218,7 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
   mut_data <- mutate(.data, !!! lst_quos)
   idx_key <- c(quo_text2(index(.data)), key_flatten(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
-  select(mut_data, tidyselect::one_of(vec_names))
+  select(mut_data, vec_names)
 }
 
 #' Collapse multiple rows to a single value
