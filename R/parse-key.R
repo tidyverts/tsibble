@@ -206,7 +206,7 @@ key_rename <- function(.data, ...) {
   dat_key_pos <- match(old_chr, names(.data))
   names(.data)[dat_key_pos] <- new_chr
   build_tsibble(
-    .data, key = new_key, index = !! index(.data),
+    .data, key = new_key, index = !! index(.data), groups = groups(.data),
     regular = is_regular(.data), validate = FALSE, 
     ordered = is_ordered(.data), interval = interval(.data)
   )

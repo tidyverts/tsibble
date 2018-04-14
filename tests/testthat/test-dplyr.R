@@ -129,6 +129,12 @@ test_that("select() and rename()", {
   )
 })
 
+test_that("select() with group_by()", {
+  grped_ped <- pedestrian %>% group_by(Sensor)
+  expect_equal(groups(grped_ped), groups(grped_ped %>% select(Sensor, Date_Time)))
+  # expect_equal(groups(grped_ped), groups(grped_ped %>% select(Key = Sensor, Date_Time)))
+})
+
 test_that("mutate()", {
   expect_error(mutate(tourism, Quarter = 1), "Invalid tsibble")
   expect_is(mutate(tourism, Quarter = 1, drop = TRUE), "tbl_df")

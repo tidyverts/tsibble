@@ -79,7 +79,7 @@ index_rename <- function(.data, ...) {
   names(.data)[dat_idx_pos] <- new_idx_chr
   build_tsibble(
     .data, key = key(.data), index = !! sym(new_idx_chr), 
-    regular = is_regular(.data), validate = FALSE, 
+    groups = groups(.data), regular = is_regular(.data), validate = FALSE, 
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
