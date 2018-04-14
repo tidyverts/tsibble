@@ -183,9 +183,11 @@ key_reduce <- function(.data, .vars) {
   key_update(.data, !!! new_key)
 }
 
-# rename key
+# rename key and group
 key_rename <- function(.data, ...) {
   quos <- enquos(...)
+  names_dat <- names(.data)
+  # key
   old_key <- key(.data)
   new_chr <- old_chr <- key_flatten(old_key)
   rhs <- purrr::map_chr(quos, quo_get_expr)
@@ -203,10 +205,32 @@ key_rename <- function(.data, ...) {
   } else if (any(lgl)) {
     new_key <- c(list(syms(new_chr[lgl])), new_key)
   }
-  dat_key_pos <- match(old_chr, names(.data))
+  dat_key_pos <- match(old_chr, names_dat)
+
+  # groups
+  old_grp <- groups(.data)
+  new_grp_chr <- old_grp_chr <- key_flatten(old_grp)
+  rhs <- purrr::map_chr(quos, quo_get_expr)
+  grp_idx <- which(rhs %in% old_grp_chr)
+  grp_rhs <- rhs[grp_idx]
+  grp_lhs <- names(grp_rhs)
+  lgl <- FALSE
+  if (!is_empty(old_grp)) {
+    lgl <- rep(is_nest(old_grp), purrr::map(old_grp, length))
+  }
+  new_grp_chr[match(grp_rhs, old_grp_chr)] <- grp_lhs
+  new_grp <- syms(new_grp_chr[!lgl])
+  if (is_empty(new_grp_chr)) {
+    new_grp <- id()
+  } else if (any(lgl)) {
+    new_grp <- c(list(syms(new_grp_chr[lgl])), new_grp)
+  }
+  dat_grp_pos <- match(old_grp_chr, names_dat)
+
   names(.data)[dat_key_pos] <- new_chr
+  names(.data)[dat_grp_pos] <- new_grp_chr
   build_tsibble(
-    .data, key = new_key, index = !! index(.data), groups = groups(.data),
+    .data, key = new_key, index = !! index(.data), groups = new_grp,
     regular = is_regular(.data), validate = FALSE, 
     ordered = is_ordered(.data), interval = interval(.data)
   )

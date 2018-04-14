@@ -64,6 +64,11 @@ has_any_key <- function(j, x) {
   any(key_vars %in% j)
 }
 
+has_any_grp <- function(j, x) {
+  grp_vars <- key_flatten(groups(x))
+  any(grp_vars %in% j)
+}
+
 index_rename <- function(.data, ...) {
   quos <- enquos(...)
   idx <- index(.data)

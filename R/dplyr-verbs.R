@@ -141,7 +141,8 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   .data <- index_rename(.data, !!! val_vars)
   val_key <- has_all_key(j = names(val_vars), x = .data)
-  if (is_false(val_key)) { # changes in key vars
+  val_grp <- has_any_grp(j = val_vars, x = .data)
+  if (is_false(val_key) || val_grp) { # changes in key or group vars
     .data <- key_reduce(.data, val_vars)
     .data <- key_rename(.data, !!! val_vars)
   }

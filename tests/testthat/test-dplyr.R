@@ -130,9 +130,26 @@ test_that("select() and rename()", {
 })
 
 test_that("select() with group_by()", {
+  # grouped by "key"
   grped_ped <- pedestrian %>% group_by(Sensor)
   expect_equal(groups(grped_ped), groups(grped_ped %>% select(Sensor, Date_Time)))
-  # expect_equal(groups(grped_ped), groups(grped_ped %>% select(Key = Sensor, Date_Time)))
+  sel_ped <- grped_ped %>% 
+    select(Key = Sensor, Date_Time)
+  expect_equal(list("Key" = "Key"), group_vars(sel_ped))
+  rned_ped <- grped_ped %>% 
+    rename(Key = Sensor)
+  expect_equal(list("Key" = "Key"), group_vars(rned_ped))
+
+  grped_ped2 <- pedestrian %>% group_by(Date)
+  sel2 <- grped_ped2 %>% 
+    select(Date2 = Date, Key = Sensor, Date_Time)
+  expect_equal(list("Date2" = "Date2"), group_vars(sel2))
+  expect_equal(list("Key" = "Key"), key_vars(sel2))
+  sel3 <- grped_ped2 %>% 
+    select(Date2 = Date, Sensor, Date_Time)
+  expect_equal(list("Date2" = "Date2"), group_vars(sel3))
+  ren2 <- grped_ped2 %>% rename(Date2 = Date)
+  expect_equal(list("Date2" = "Date2"), group_vars(ren2))
 })
 
 test_that("mutate()", {
