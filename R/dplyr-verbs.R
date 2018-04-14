@@ -62,11 +62,11 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
     if (n_keys(.data) < 2) { # univariate, index present
       ordered <- TRUE
     } else if (is_false(nested) &&
-      all(exp_idx == seq_along(exp_idx)) && 
+      all(exp_idx == seq_along(exp_idx)) &&
       is_false(idx_pos[1])
     ) {
       ordered <- NULL
-    } else if (is_true(nested) && 
+    } else if (is_true(nested) &&
       has_length(exp_idx, length(exp_vars)) &&
       is_false(idx_pos[1])) {
       ordered <- NULL
@@ -91,7 +91,7 @@ filter.tbl_ts <- function(.data, ...) {
 #'
 #' @param .data A `tbl_ts`.
 #' @param ...  Unique integers of row numbers to be selected.
-#' @details If row numbers are not in ascending order, a warning is likely to 
+#' @details If row numbers are not in ascending order, a warning is likely to
 #' be issued.
 #' @seealso [dplyr::slice]
 #' @export
@@ -117,7 +117,7 @@ slice.tbl_ts <- function(.data, ...) {
 #' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
 #' tsibble and returns a tibble.
 #'
-#' @details 
+#' @details
 #' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
 #' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
@@ -135,7 +135,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
+      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
       quo_text2(index(.data))
     ))
   }
@@ -171,13 +171,13 @@ rename.tbl_ts <- function(.data, ...) {
 
 #' Add new variables
 #'
-#' `mutate()` adds new variables; `transmute()` keeps the newly created variables 
+#' `mutate()` adds new variables; `transmute()` keeps the newly created variables
 #' along with index and keys;
 #'
 #' @inheritParams select.tbl_ts
 #' @param ... Name-value pairs of expressions.
 #'
-#' @details 
+#' @details
 #' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
 #' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
@@ -201,7 +201,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data), 
+    mut_data, key = key(.data), index = !! index(.data),
     groups = groups(.data), regular = is_regular(.data),
     validate = validate, ordered = is_ordered(.data),
     interval = interval(.data)
@@ -230,10 +230,10 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @rdname summarise
 #' @seealso [dplyr::summarise]
 #' @examples
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   summarise(Total = sum(Count))
 #' ## drop = TRUE ----
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   summarise(Total = sum(Count), drop = TRUE)
 #' @export
 summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
@@ -246,7 +246,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   idx <- index(.data)
   if (has_index_var(j = vec_vars, x = .data)) {
     abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?", 
+      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
       quo_text2(index(.data))
     ))
   }
@@ -349,7 +349,7 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
   build_tsibble(
-    new, key = key(old), index = !! index(old), groups = groups(old), 
+    new, key = key(old), index = !! index(old), groups = groups(old),
     regular = is_regular(old), validate = FALSE, ordered = ordered,
     interval = interval
   )

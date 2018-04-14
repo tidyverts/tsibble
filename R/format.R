@@ -12,9 +12,12 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 
 #' @export
 glimpse.tbl_ts <- function(x, width = NULL, ...) {
-  as_tsibble(
-    NextMethod(), id = key(x), index = !! index(x),
-    validate = FALSE, regular = is_regular(x)
+  idx <- index(x)
+  t_span <- paste(range(dplyr::pull(x, !! idx), na.rm = TRUE), collapse = " ~ ")
+  cat_line(t_span)
+  build_tsibble(
+    NextMethod(), key = key(x), index = !! idx, groups = groups(x),
+    validate = FALSE, ordered = is_ordered(x), regular = is_regular(x)
   )
   invisible(x)
 }

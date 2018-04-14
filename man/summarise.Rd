@@ -24,10 +24,10 @@ Collapse multiple rows to a single value
 Time index will not be collapsed by \code{summarise.tbl_ts}.
 }
 \examples{
-pedestrian \%>\% 
+pedestrian \%>\%
   summarise(Total = sum(Count))
 ## drop = TRUE ----
-pedestrian \%>\% 
+pedestrian \%>\%
   summarise(Total = sum(Count), drop = TRUE)
 }
 \seealso{
