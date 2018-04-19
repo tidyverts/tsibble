@@ -2,9 +2,12 @@
 % Please edit documentation in R/fill-na.R
 \name{fill_na}
 \alias{fill_na}
+\alias{fill_na.tbl_ts}
 \title{Turn implicit missing values into explicit missing values}
 \usage{
 fill_na(.data, ...)
+
+\method{fill_na}{tbl_ts}(.data, ..., .full = FALSE)
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -13,6 +16,9 @@ fill_na(.data, ...)
 missing values by variable, otherwise \code{NA}. The replacement values must be of
 the same type as the original one. If using a function to fill the \code{NA},
 please make sure that \code{na.rm = TRUE} is switched on.}
+
+\item{.full}{\code{FALSE} to insert \code{NA} for each key within its own period. \code{TRUE}
+to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
 }
 \description{
 Turn implicit missing values into explicit missing values
@@ -26,7 +32,8 @@ harvest <- tsibble(
 )
 
 # leave NA as is ----
-full_harvest <- fill_na(harvest)
+fill_na(harvest, .full = TRUE)
+full_harvest <- fill_na(harvest, .full = FALSE)
 full_harvest
 
 # use fill() to fill `NA` by previous/next entry

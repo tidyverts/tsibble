@@ -11,6 +11,18 @@ globalVariables(".")
 #' @seealso [case_na], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
 #' @export
+fill_na <- function(.data, ...) {
+  UseMethod("fill_na")
+}
+
+#' @export
+fill_na.data.frame <- function(.data, ...) {
+  abort("Do you need `tidyr::complete()` for a `tbl_df`/`data.frame`?")
+}
+
+#' @rdname fill-na
+#' @param .full `FALSE` to insert `NA` for each key within its own period. `TRUE`
+#' to fill `NA` over the entire time span of the data (a.k.a. fully balanced panel).
 #'
 #' @examples
 #' harvest <- tsibble(
@@ -21,7 +33,8 @@ globalVariables(".")
 #' )
 #'
 #' # leave NA as is ----
-#' full_harvest <- fill_na(harvest)
+#' fill_na(harvest, .full = TRUE)
+#' full_harvest <- fill_na(harvest, .full = FALSE)
 #' full_harvest
 #'
 #' # use fill() to fill `NA` by previous/next entry
@@ -51,30 +64,33 @@ globalVariables(".")
 #'     Time = lubridate::hour(Date_Time),
 #'     Count = as.integer(median(Count, na.rm = TRUE))
 #'   )
-fill_na <- function(.data, ...) {
-  UseMethod("fill_na")
-}
-
 #' @export
-fill_na.data.frame <- function(.data, ...) {
-  abort("Do you need `tidyr::complete()` for a `tbl_df`/`data.frame`?")
-}
-
-#' @export
-fill_na.tbl_ts <- function(.data, ...) {
+fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!is_regular(.data)) {
     abort("`fill_na()` can't handle `tbl_ts` of irregular interval.")
   }
   idx <- index(.data)
+  idx_chr <- quo_text2(idx)
   key <- key(.data)
-  full_data <- .data %>%
-    tidyr::complete(
-      !! quo_text2(idx) := seq(
-        from = min0(!! idx), to = max0(!! idx),
-        by = time_unit(!! idx)
-      ),
-      tidyr::nesting(!!! flatten(key))
-    )
+  flat_key <- flatten(key)
+  if (.full) {
+    full_data <- .data %>%
+      tidyr::complete(
+        !! idx_chr := seq(
+          from = min0(!! idx), to = max0(!! idx), by = time_unit(!! idx)
+        ),
+        tidyr::nesting(!!! flat_key)
+      )
+  } else {
+    full_data <- as_tibble(.data) %>% 
+      split_by(!!! flat_key) %>% 
+      purrr::map_dfr(~ tidyr::complete(.,
+        !! idx_chr := seq(
+          from = min0(!! idx), to = max0(!! idx), by = time_unit(!! idx)
+        ),
+        tidyr::nesting(!!! flat_key)
+      ))
+  }
 
   if (is_grouped_ts(.data)) {
     full_data <- do(full_data, modify_na(., !!! enquos(...)))

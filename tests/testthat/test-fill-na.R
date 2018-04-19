@@ -7,8 +7,13 @@ dat_x <- tibble(
   value = rnorm(5)
 )
 
-test_that("Test a tbl_ts/data.frame", {
+test_that("Test a tbl_df/data.frame", {
   expect_error(fill_na(dat_x), "data.frame")
+})
+
+test_that("Test an irregular tbl_ts", {
+  tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
+  expect_error(fill_na(tsbl), "irregular")
 })
 
 test_that("Test a tbl_ts without implicit missing values", {
@@ -60,7 +65,7 @@ tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 test_that("Test grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%
-    fill_na(value = sum(value, na.rm = TRUE))
+    fill_na(value = sum(value, na.rm = TRUE), .full = TRUE)
   expect_identical(dim(full_tsbl), c(10L, 3L))
   expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),
@@ -72,9 +77,9 @@ test_that("Test grouped_ts", {
   )
 })
 
-test_that("Test fill.grouped_ts", {
+test_that("Test fill.grouped_ts(.full = TRUE)", {
   full_tsbl <- tsbl %>%
-    fill_na() %>% 
+    fill_na(.full = TRUE) %>%
     group_by(group) %>%
     fill(value, .direction = "up")
   expect_equal(
@@ -83,6 +88,21 @@ test_that("Test fill.grouped_ts", {
       date = c(ymd("2017-01-01"), ymd("2017-01-13")),
       group = c("a", "b"),
       value = c(1L, 2L)
+    )
+  )
+})
+
+test_that("Test fill.grouped_ts(.full = FALSE)", {
+  full_tsbl <- tsbl %>%
+    fill_na() %>%
+    group_by(group) %>%
+    fill(value, .direction = "up")
+  expect_equal(
+    as_tibble(full_tsbl[8, ]),
+    tibble(
+      date = ymd("2017-01-13"),
+      group = "b",
+      value = 2L
     )
   )
 })
