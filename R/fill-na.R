@@ -104,23 +104,20 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   restore_index_class(.data, tsbl)
 }
 
-count_gaps <- function(x, ..., .full = FALSE) {
+count_gaps <- function(x, .full = FALSE) {
   idx <- index(x)
-  lst_quos <- validate_vars(enquos(...), x = names(.data))
-  if (is_empty(quos)) {
-    lst_quos <- flatten(key(x))
-  }
+  flat_key <- flatten(key(x))
   tbl <- as_tibble(x)
 
   if (.full) {
     idx_vec <- dplyr::pull(x, !! idx)
     idx_full <- seq_by(idx_vec)
     out <- tbl %>% 
-      group_by(!!! lst_quos) %>% 
+      group_by(!!! flat_key) %>% 
       summarise(n = length(setdiff(idx_full, !! idx)))
   } else {
     out <- tbl %>% 
-      group_by(!!! lst_quos) %>% 
+      group_by(!!! flat_key) %>% 
       summarise(n = length(setdiff(seq_by(!! idx), !! idx)))
   }
   ungroup(out)
