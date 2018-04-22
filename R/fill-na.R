@@ -116,13 +116,9 @@ count_gaps <- function(x, .full = FALSE) {
       group_by(!!! flat_key) %>% 
       summarise(n = length(setdiff(idx_full, !! idx)))
   } else {
-    x_lst <- tbl %>% 
-      split_by(!!! flat_key) 
-    idx_vec <- purrr::map(x_lst, ~ dplyr::pull(., !! idx))
-    n <- vapply(idx_vec, function(y) length(setdiff(seq_by(y), y)), integer(1))
     out <- tbl %>% 
-      distinct(!!! flat_key) %>% 
-      dplyr::bind_cols(n = n)
+      group_by(!!! flat_key) %>% 
+      summarise(n = length(setdiff(seq_by(!! idx), !! idx)))
   }
   out
 }
