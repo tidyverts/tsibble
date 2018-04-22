@@ -76,18 +76,14 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (.full) {
     full_data <- .data %>%
       tidyr::complete(
-        !! idx_chr := seq(
-          from = min0(!! idx), to = max0(!! idx), by = time_unit(!! idx)
-        ),
+        !! idx_chr := seq_by(!! idx),
         tidyr::nesting(!!! flat_key)
       )
   } else {
     full_data <- as_tibble(.data) %>% 
       split_by(!!! flat_key) %>% 
       purrr::map_dfr(~ tidyr::complete(.,
-        !! idx_chr := seq(
-          from = min0(!! idx), to = max0(!! idx), by = time_unit(!! idx)
-        ),
+        !! idx_chr := seq_by(!! idx),
         tidyr::nesting(!!! flat_key)
       ))
   }
@@ -106,6 +102,33 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     validate = FALSE, ordered = NULL
   )
   restore_index_class(.data, tsbl)
+}
+
+count_gaps <- function(x, .full = FALSE) {
+  idx <- index(x)
+  flat_key <- flatten(key(x))
+  tbl <- as_tibble(x)
+
+  if (.full) {
+    idx_vec <- dplyr::pull(x, !! idx)
+    idx_full <- seq_by(idx_vec)
+    out <- tbl %>% 
+      group_by(!!! flat_key) %>% 
+      summarise(n = length(setdiff(idx_full, !! idx)))
+  } else {
+    x_lst <- tbl %>% 
+      split_by(!!! flat_key) 
+    idx_vec <- purrr::map(x_lst, ~ dplyr::pull(., !! idx))
+    n <- vapply(idx_vec, function(y) length(setdiff(seq_by(y), y)), integer(1))
+    out <- tbl %>% 
+      distinct(!!! flat_key) %>% 
+      dplyr::bind_cols(n = n)
+  }
+  out
+}
+
+seq_by <- function(x) {
+  seq(from = min0(x), to = max0(x), by = time_unit(x))
 }
 
 modify_na <- function(.data, ...) {
