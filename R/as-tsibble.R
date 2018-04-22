@@ -17,8 +17,7 @@ globalVariables(c("key", "value", "zzz"))
 #'
 #' @inheritSection tsibble-package Interval
 #'
-#' @details A tsibble is arranged by its key(s) first and index in the ascending
-#' time order.
+#' @details A tsibble is sorted by its key(s) first and index.
 #'
 #' @return A tsibble object.
 #'
@@ -380,12 +379,10 @@ build_tsibble <- function(
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
     if (is_empty(key_vars)) {
-      msg <- sprintf(
-        "The `tbl_ts` is not arranged by `%s` in ascending order.", idx_chr
-      )
+      msg <- sprintf("The `tbl_ts` is not sorted by `%s`.", idx_chr)
     } else {
       msg <- sprintf(
-        "The `tbl_ts` is not arranged by `%s`, and `%s` in ascending order.",
+        "The `tbl_ts` is not sorted by `%s`, and `%s`.",
         paste_comma(format(key)), idx_chr
       )
     }
