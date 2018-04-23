@@ -68,8 +68,14 @@ nested and crossed data structures. This incorporates univariate,
 multivariate, hierarchical and grouped time series into the tsibble
 framework. See `?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
-for
-details.
+for details.
+
+The **tsibble** internally computes the interval for a given time index,
+based on its representation. The `POSIXct` corresponds to sub-daily
+series, `Date` to daily, `yearmonth` (from `yearmonth()` or
+`zoo::yearmth()`) to monthly, `yearquarter` (from `yearquarter()` or
+`zoo::yearqtr()`) to quarterly, and
+etc.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
 

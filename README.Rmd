@@ -57,6 +57,8 @@ weather_tsbl
 
 The **key** is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See `?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
 
+The **tsibble** internally computes the interval for a given time index, based on its representation. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearmonth` (from `yearmonth()` or `zoo::yearmth()`) to monthly, `yearquarter` (from `yearquarter()` or `zoo::yearqtr()`) to quarterly, and etc.
+
 ### `fill_na()` to turn implicit missing values into explicit missing values
 
 Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using `fill_na()`. Meanwhile, fill `NA`s in by 0 for precipitation (`precip`). It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
