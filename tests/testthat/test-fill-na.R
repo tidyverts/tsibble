@@ -1,5 +1,5 @@
 library(tibble)
-context("Test fill_na() for a tsibble")
+context("Test fill_na() & count_gaps() for a tsibble")
 
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
 dat_x <- tibble(
@@ -14,11 +14,14 @@ test_that("Test a tbl_df/data.frame", {
 test_that("Test an irregular tbl_ts", {
   tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
   expect_error(fill_na(tsbl), "irregular")
+  expect_error(count_gaps(tsbl), "irregular")
 })
 
 test_that("Test a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
   expect_identical(fill_na(tsbl), tsbl)
+  ref_tbl <- tibble(n = 0L)
+  expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
 dat_y <- dat_x[c(1:3, 5), ]
@@ -77,7 +80,7 @@ test_that("Test grouped_ts", {
   )
 })
 
-test_that("Test fill.grouped_ts(.full = TRUE)", {
+test_that("Test fill.tbl_ts(.full = TRUE)", {
   full_tsbl <- tsbl %>%
     fill_na(.full = TRUE) %>%
     group_by(group) %>%
@@ -92,7 +95,7 @@ test_that("Test fill.grouped_ts(.full = TRUE)", {
   )
 })
 
-test_that("Test fill.grouped_ts(.full = FALSE)", {
+test_that("Test fill.tbl_ts(.full = FALSE)", {
   full_tsbl <- tsbl %>%
     fill_na() %>%
     group_by(group) %>%
@@ -104,5 +107,21 @@ test_that("Test fill.grouped_ts(.full = FALSE)", {
       group = "b",
       value = 2L
     )
+  )
+})
+
+test_that("Test count_gaps(.full = TRUE)", {
+  full_tbl <- tsbl %>% count_gaps(.full = TRUE)
+  expect_equal(
+    full_tbl,
+    tibble(group = c("a", "b"), n = c(1L, 1L))
+  )
+})
+
+test_that("Test count_gaps(.full = FALSE)", {
+  full_tbl <- tsbl %>% count_gaps()
+  expect_equal(
+    full_tbl,
+    tibble(group = c("a", "b"), n = c(0L, 1L))
   )
 })

@@ -67,7 +67,7 @@ fill_na.data.frame <- function(.data, ...) {
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!is_regular(.data)) {
-    abort("`fill_na()` can't handle `tbl_ts` of irregular interval.")
+    abort("Can't handle `tbl_ts` of irregular interval.")
   }
   idx <- index(.data)
   idx_chr <- quo_text2(idx)
@@ -118,6 +118,9 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' count_gaps(pedestrian, .full = TRUE)
 #' count_gaps(tourism)
 count_gaps <- function(x, .full = FALSE) {
+  if (!is_regular(x)) {
+    abort("Can't handle `tbl_ts` of irregular interval.")
+  }
   idx <- index(x)
   flat_key <- flatten(key(x))
   tbl <- as_tibble(x)
