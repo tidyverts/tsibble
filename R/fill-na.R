@@ -104,6 +104,19 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   restore_index_class(.data, tsbl)
 }
 
+#' Count the number of implicit missing observations
+#'
+#' Count the number of implicit missing observations for each key
+#' 
+#' @param x A `tbl_ts`.
+#' @inheritParams fill_na
+#'
+#' @export
+#' @seealso fill_na
+#' @examples
+#' count_gaps(pedestrian)
+#' count_gaps(pedestrian, .full = TRUE)
+#' count_gaps(tourism)
 count_gaps <- function(x, .full = FALSE) {
   idx <- index(x)
   flat_key <- flatten(key(x))
