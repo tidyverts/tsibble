@@ -515,7 +515,7 @@ validate_tbl_ts <- function(data, key, index) {
     } else {
       msg <- paste0(msg, ".")
     }
-    msg <- paste(msg, "Use `inform_duplicates()` to check the duplicated rows.")
+    msg <- paste(msg, "Use `find_duplicates()` to check the duplicated rows.")
     abort(msg)
   }
   data
@@ -578,9 +578,9 @@ drop_tsibble <- function(x) {
   tibble::new_tibble(x)
 }
 
-#' Inform duplication of key and index variables
+#' Find duplication of key and index variables
 #'
-#' Inform which row has duplicated key and index elements
+#' Find which row has duplicated key and index elements
 #'
 #' @param data A `tbl_ts` object.
 #' @param key Structural variable(s) that define unique time indices, used with
@@ -592,7 +592,7 @@ drop_tsibble <- function(x) {
 #'
 #' @return A logical vector of the same length as the row number of `data`
 #' @export
-inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
+find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   use_id(key)
   index <- extract_index_var(data, enquo(index))
 
