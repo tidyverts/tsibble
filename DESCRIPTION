@@ -4,9 +4,9 @@ Title: Tidy Temporal Data Frames and Tools
 Version: 0.1.5.9000
 Date: 2018-04-01
 Authors@R: c(
-    person("Earo", "Wang", email = "earo.wang@gmail.com", role = c("aut", "cre")),
-    person("Di", "Cook", role = c("aut", "ths")),
-    person("Rob", "Hyndman", role = c("aut", "ths"))
+    person("Earo", "Wang", email = "earo.wang@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6448-5260")),
+    person("Di", "Cook", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-3813-7155")),
+    person("Rob", "Hyndman", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2140-5352"))
     )
 Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
     temporal-context data in a data-centric format, which is built on top of
