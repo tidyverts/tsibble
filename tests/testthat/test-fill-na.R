@@ -20,7 +20,7 @@ test_that("Test an irregular tbl_ts", {
 test_that("Test a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
   expect_identical(fill_na(tsbl), tsbl)
-  ref_tbl <- tibble(n = 0L)
+  ref_tbl <- tibble(from = NA, to = NA, n = 0L)
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
@@ -114,14 +114,26 @@ test_that("Test count_gaps(.full = TRUE)", {
   full_tbl <- tsbl %>% count_gaps(.full = TRUE)
   expect_equal(
     full_tbl,
-    tibble(group = c("a", "b"), n = c(1L, 1L))
+    tibble(
+      group = c("a", "b"), 
+      from = c(ymd("2017-01-01"), ymd("2017-01-13")), 
+      to = c(ymd("2017-01-01"), ymd("2017-01-13")), 
+      n = c(1L, 1L)
+    )
   )
 })
 
 test_that("Test count_gaps(.full = FALSE)", {
   full_tbl <- tsbl %>% count_gaps()
+  a <- tibble(group = "a", from = NA, to = NA, n = 0L)
+  b <- tibble(
+    group = "b", 
+    from = ymd("2017-01-13"), 
+    to = ymd("2017-01-13"), 
+    n = 1L
+  )
   expect_equal(
     full_tbl,
-    tibble(group = c("a", "b"), n = c(0L, 1L))
+    dplyr::bind_rows(a, b)
   )
 })

@@ -104,39 +104,81 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   restore_index_class(.data, tsbl)
 }
 
-#' Count the number of implicit missing observations
+#' Count missing gaps
 #'
-#' Count the number of implicit missing observations for each key
+#' `count_gaps()` counts missing gaps for a tsibble; `gaps()` find where the
+#' gaps in `x` with respect to `y`.
 #' 
-#' @param x A `tbl_ts`.
+#' @param .data A `tbl_ts`.
 #' @inheritParams fill_na
 #'
+#' @rdname gaps
 #' @export
 #' @seealso fill_na
 #' @examples
 #' count_gaps(pedestrian)
 #' count_gaps(pedestrian, .full = TRUE)
-#' count_gaps(tourism)
-count_gaps <- function(x, .full = FALSE) {
-  if (!is_regular(x)) {
+#' @return
+#' A tibble contains:
+#' * the "key" of the `tbl_ts`
+#' * "from": the starting time point of the gap
+#' * "end": the ending time point of the gap
+#' * "n": the implicit missing observations during the time period
+count_gaps <- function(.data, .full = FALSE) {
+  if (!is_regular(.data)) {
     abort("Can't handle `tbl_ts` of irregular interval.")
   }
-  idx <- index(x)
-  flat_key <- flatten(key(x))
-  tbl <- as_tibble(x)
+  idx <- index(.data)
+  flat_key <- flatten(key(.data))
+  tbl <- as_tibble(.data)
 
+  grped_tbl <- tbl %>% 
+    group_by(!!! flat_key)
   if (.full) {
-    idx_vec <- dplyr::pull(x, !! idx)
-    idx_full <- seq_by(idx_vec)
-    out <- tbl %>% 
-      group_by(!!! flat_key) %>% 
-      summarise(n = length(setdiff(idx_full, !! idx)))
+    idx_full <- seq_by(eval_tidy(idx, data = tbl))
+    out <- grped_tbl %>% 
+      summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
+      tidyr::unnest(gaps)
   } else {
-    out <- tbl %>% 
-      group_by(!!! flat_key) %>% 
-      summarise(n = length(setdiff(seq_by(!! idx), !! idx)))
+    out <- grped_tbl %>% 
+      summarise(gaps = list(gaps(!! idx, seq_by(!! idx)))) %>% 
+      tidyr::unnest(gaps)
   }
   ungroup(out)
+}
+
+#' @rdname gaps
+#' @param x,y A vector of numbers, dates, or date-times. The length of `y` must
+#' be greater than the length of `x`.
+#' @export
+#' @examples
+#' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
+gaps <- function(x, y) {
+  len_x <- length(x)
+  len_y <- length(y)
+  if (len_y < len_x) {
+    msg <- sprintf(
+      "The length of `x` (%d) must not be greater than the length of `y` (%d).",
+      len_x, len_y
+    )
+    abort(msg)
+  }
+  gap_vec <- logical(length = len_y)
+  gap_vec[-match(x, y)] <- TRUE
+  gap_rle <- rle(gap_vec)
+  lgl_rle <- gap_rle$values
+  gap_idx <- gap_rle$lengths
+  to <- cumsum(gap_idx)
+  from <- c(1, to[-length(to)] + 1)
+  nobs <- gap_idx[lgl_rle]
+  if (is_empty(nobs)) {
+    return(tibble::tibble(from = NA, to = NA, n = 0L))
+  }
+  tibble::tibble(
+    from = y[from][lgl_rle],
+    to = y[to][lgl_rle],
+    n = nobs
+  )
 }
 
 seq_by <- function(x) {

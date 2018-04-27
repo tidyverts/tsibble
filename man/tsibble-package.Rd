@@ -74,12 +74,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Earo Wang \email{earo.wang@gmail.com}
+\strong{Maintainer}: Earo Wang \email{earo.wang@gmail.com} (0000-0001-6448-5260)
 
 Authors:
 \itemize{
-  \item Di Cook [thesis advisor]
-  \item Rob Hyndman [thesis advisor]
+  \item Di Cook (0000-0002-3813-7155) [thesis advisor]
+  \item Rob Hyndman (0000-0002-2140-5352) [thesis advisor]
 }
 
 }
