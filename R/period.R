@@ -154,7 +154,7 @@ yearmonth.yearmonth <- function(x) {
 #' @export
 yearmonth.numeric <- function(x) {
   year <- trunc(x)
-  month <- (x %% 1) * 12 + 1
+  month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
   result <- lubridate::make_date(year, month, 1)
   as_yearmonth(result)
 }
@@ -232,7 +232,7 @@ yearquarter.yearquarter <- function(x) {
 yearquarter.numeric <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
-  first_month <- last_month - 2
+  first_month <- formatC(last_month - 2, flag = 0, width = 2)
   result <- lubridate::make_date(year, first_month, 1)
   as_yearquarter(result)
 }
