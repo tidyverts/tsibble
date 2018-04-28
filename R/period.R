@@ -1,14 +1,14 @@
 # Unlike zoo::yearmon and zoo::yearqtr based on numerics,
 # tsibble::yearmth and tsibble::yearqtr are based on the "Date" class.
 
-#' Represent year-month or year-quarter objects
+#' Represent year-week, year-month or year-quarter objects
 #'
-#' Create or coerce using `yearmonth()`, or `yearquarter()`
+#' Create or coerce using `yearweek()`, `yearmonth()`, or `yearquarter()`
 #'
 #' @param x Other object.
 #'
-#' @return Year-month (`yearmonth`) or year-quarter (`yearquarter`)
-#' objects.
+#' @return Year-week (`yearweek`), year-month (`yearmonth`) or year-quarter 
+#' (`yearquarter`) objects.
 #' @details It's a known issue that these attributes will be dropped when using
 #' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
 #' then use [mutate].
@@ -34,6 +34,84 @@
 #' # coerce yearmonths to yearquarter ----
 #' y <- yearmonth(x)
 #' yearquarter(y)
+yearweek <- function(x) {
+  UseMethod("yearweek")
+}
+
+as_yearweek <- function(x) {
+  structure(x, class = c("yearweek", "Date"))
+}
+
+#' @export
+c.yearweek <- function(..., recursive = FALSE) {
+  as_yearweek(NextMethod())
+}
+
+#' @export
+rep.yearweek <- function(x, ...) {
+  as_yearweek(NextMethod())
+}
+
+#' @export
+unique.yearweek <- function(x, incomparables = FALSE, ...) {
+  as_yearweek(NextMethod())
+}
+
+#' @export
+yearweek.POSIXt <- function(x) {
+  as_yearweek(lubridate::floor_date(x, unit = "weeks", week_start = 1))
+}
+
+#' @export
+yearweek.Date <- yearweek.POSIXt
+
+#' @export
+yearweek.yearweek <- function(x) {
+  as_yearweek(x)
+}
+
+#' @export
+format.yearweek <- function(x, format = "%Y W%w", ...) {
+  x <- as_date(x)
+  year <- lubridate::year(x)
+  year_sym <- "%Y"
+  if (grepl("%y", format)) {
+    year <- sprintf("%02d", year %% 100)
+    year_sym <- "%y"
+  } else if (grepl("%C", format)) {
+    year <- year %/% 100
+    year_sym <- "%C"
+  }
+  wk <- strftime(x, format = "%V")
+  wk_sub <- purrr::map_chr(wk, ~ gsub("%w", ., x = format))
+  year_sub <- purrr::map2_chr(year, wk_sub, ~ gsub(year_sym, .x, x = .y))
+  year_sub
+}
+
+#' @export
+print.yearweek <- function(x, format = "%Y W%w", ...) {
+  print(format(x, format = format))
+  invisible(x)
+}
+
+#' @export
+obj_sum.yearweek <- function(x) {
+  rep("week", length(x))
+}
+
+#' @export
+is_vector_s3.yearweek <- function(x) {
+  TRUE
+}
+
+#' @export
+pillar_shaft.yearweek <- function(x, ...) {
+  out <- format(x)
+  pillar::new_pillar_shaft_simple(out, align = "right", min_width = 10)
+}
+
+#' @rdname period
+#' @export
 yearmonth <- function(x) {
   UseMethod("yearmonth")
 }
@@ -59,14 +137,14 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 yearmonth.POSIXt <- function(x) {
-  posix <- split_POSIXt(x)
-  month <- formatC(posix$mon, flag = 0, width = 2)
-  result <- as.Date(paste(posix$year, month, "01", sep = "-"))
-  as_yearmonth(result)
+  as_yearmonth(lubridate::floor_date(x, unit = "months"))
 }
 
 #' @export
 yearmonth.Date <- yearmonth.POSIXt
+
+#' @export
+yearmonth.yearweek <- yearmonth.POSIXt
 
 #' @export
 yearmonth.yearmonth <- function(x) {
@@ -76,8 +154,8 @@ yearmonth.yearmonth <- function(x) {
 #' @export
 yearmonth.numeric <- function(x) {
   year <- trunc(x)
-  month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
-  result <- as.Date(paste(year, month, "01", sep = "-"))
+  month <- (x %% 1) * 12 + 1
+  result <- lubridate::make_date(year, month, 1)
   as_yearmonth(result)
 }
 
@@ -101,15 +179,10 @@ obj_sum.yearmonth <- function(x) {
 }
 
 #' @export
-is_vector_s3.yearmonth <- function(x) {
-  TRUE
-}
+is_vector_s3.yearmonth <- is_vector_s3.yearweek
 
 #' @export
-pillar_shaft.yearmonth <- function(x, ...) {
-  out <- format(x)
-  pillar::new_pillar_shaft_simple(out, align = "right", min_width = 10)
-}
+pillar_shaft.yearmonth <- pillar_shaft.yearweek
 
 #' @rdname period
 #' @export
@@ -138,14 +211,14 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 yearquarter.POSIXt <- function(x) {
-  posix <- split_POSIXt(x)
-  qtrs <- formatC(posix$mon - (posix$mon - 1) %% 3, flag = 0, width = 2)
-  result <- as.Date(paste(posix$year, qtrs, "01", sep = "-"))
-  as_yearquarter(result)
+  as_yearquarter(lubridate::floor_date(x, unit = "quarters"))
 }
 
 #' @export
 yearquarter.Date <- yearquarter.POSIXt
+
+#' @export
+yearquarter.yearweek <- yearquarter.POSIXt
 
 #' @export
 yearquarter.yearmonth <- yearquarter.POSIXt
@@ -159,8 +232,8 @@ yearquarter.yearquarter <- function(x) {
 yearquarter.numeric <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
-  first_month <- formatC(last_month - 2, flag = 0, width = 2)
-  result <- as.Date(paste(year, first_month, "01", sep = "-"))
+  first_month <- last_month - 2
+  result <- lubridate::make_date(year, first_month, 1)
   as_yearquarter(result)
 }
 
@@ -184,11 +257,21 @@ as_date.yearmonth <- function(x, ...) {
   x
 }
 
+as_date.yearweek <- function(x, ...) {
+  tz_x <- tz(x)
+  class(x) <- "Date"
+  tz(x) <- tz_x
+  x
+}
+
 #' @export
 as.Date.yearquarter <- as_date.yearquarter
 
 #' @export
 as.Date.yearmonth <- as_date.yearmonth
+
+#' @export
+as.Date.yearweek <- as_date.yearweek
 
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
@@ -220,16 +303,23 @@ obj_sum.yearquarter <- function(x) {
 }
 
 #' @export
-is_vector_s3.yearquarter <- is_vector_s3.yearmonth
+is_vector_s3.yearquarter <- is_vector_s3.yearweek
 
 #' @export
-pillar_shaft.yearquarter <- pillar_shaft.yearmonth
+pillar_shaft.yearquarter <- pillar_shaft.yearweek
 
-split_POSIXt <- function(x) {
-  posix <- as.POSIXlt(x, tz = lubridate::tz(x))
-  posix$mon <- posix$mon + 1
-  posix$year <- posix$year + 1900
-  posix
+#' @export
+seq.yearweek <- function(
+  from, to, by, length.out = NULL, along.with = NULL,
+  ...) {
+  if (!is_bare_numeric(by, n = 1)) {
+    abort("`by` only takes a numeric.")
+  }
+  by_mth <- paste(by, "week")
+  yearmonth(seq_date(
+    from = from, to = to, by = by_mth, length.out = length.out,
+    along.with = along.with, ...
+  ))
 }
 
 #' @export
@@ -258,6 +348,11 @@ seq.yearquarter <- function(
     from = from, to = to, by = by_qtr, length.out = length.out,
     along.with = along.with, ...
   ))
+}
+
+#' @export
+`[.yearweek` <- function(x, i) {
+  yearweek(as_date(x)[i])
 }
 
 #' @export

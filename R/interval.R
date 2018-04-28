@@ -51,6 +51,13 @@ pull_interval.Date <- function(x, duplicated = TRUE) {
 }
 
 #' @export
+pull_interval.yearweek <- function(x, duplicated = TRUE) {
+  wk <- lubridate::year(x) + (lubridate::isoweek(x) - 1) / 52.5
+  nweeks <- ceiling(min_interval(wk, duplicated = TRUE) * 52.5)
+  structure(list(week = nweeks), class = "interval")
+}
+
+#' @export
 pull_interval.yearmonth <- function(x, duplicated = TRUE) {
   mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
   nmonths <- ceiling(min_interval(mon, duplicated = duplicated) * 12)
