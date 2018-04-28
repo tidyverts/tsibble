@@ -1,6 +1,6 @@
-context("Test as_tsibble() w/o data of wide form")
+context("as_tsibble() w/o data of wide form")
 
-test_that("Test a ts with different frequnecy", {
+test_that("a ts with different frequnecy", {
   x1 <- ts(1:10)
   tsbl1 <- as_tsibble(x1)
   expect_identical(dim(tsbl1), c(length(x1), 2L))
@@ -20,7 +20,7 @@ test_that("Test a ts with different frequnecy", {
   expect_identical(format(interval(tsbl4)), "1MONTH")
 })
 
-test_that("Test a mts", {
+test_that("a mts", {
   x <- ts(matrix(1:10, ncol = 2))
   tsbl1 <- as_tsibble(x)
   expect_identical(dim(tsbl1), c(length(x), 3L))
@@ -31,7 +31,7 @@ test_that("Test a mts", {
   expect_identical(colnames(tsbl2), c("index", "Series 1", "Series 2"))
 })
 
-test_that("Test a hts", {
+test_that("a hts", {
   eg1 <- hts::htseg1
   tsbl1 <- as_tsibble(hts::htseg1)
   expect_identical(dim(tsbl1), c(nrow(eg1$bts) * ncol(eg1$bts), 4L))

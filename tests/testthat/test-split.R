@@ -1,4 +1,4 @@
-context("Test split_by()")
+context("split_by()")
 
 test_that("Empty quosure", {
  x_lst <- pedestrian %>% split_by()

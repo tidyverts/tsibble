@@ -1,4 +1,4 @@
-context("Test pillar methods")
+context("pillar methods")
 library(pillar)
 
 x <- yearmonth(seq(2010, 2012, by = 1 / 12))
@@ -6,7 +6,7 @@ x2 <- rep(x, 2)
 y <- yearquarter(seq(2010, 2012, by = 1 / 4))
 y2 <- rep(y, 2)
 
-test_that("Test some S3 methods for yearmonth & yearquarter", {
+test_that("some S3 methods for yearmonth & yearquarter", {
   expect_is(rep(x, 2), "yearmonth")
   expect_equal(length(rep(x, 2)), length(x) * 2)
   expect_is(c(x, x), "yearmonth")
@@ -20,7 +20,7 @@ test_that("Test some S3 methods for yearmonth & yearquarter", {
   expect_is(y[1:2], "yearquarter")
 })
 
-test_that("Test pillar methods", {
+test_that("pillar S3 methods", {
   expect_equal(type_sum(x), "mth")
   expect_equal(is_vector_s3(x), TRUE)
   expect_equal(type_sum(y), "qtr")
@@ -43,7 +43,7 @@ tbl2 <- tsibble(
   key = id(group), index = qtr
 )
 
-test_that("Test tbl_sum()", {
+test_that("tbl_sum()", {
   expect_identical(tbl_sum(tbl1), c("A tsibble" = "10 x 2 [1DAY]"))
   expect_identical(
     tbl_sum(tbl2), 

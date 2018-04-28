@@ -3,7 +3,7 @@
 \name{count_gaps}
 \alias{count_gaps}
 \alias{gaps}
-\title{Count missing gaps}
+\title{Count implicit gaps}
 \usage{
 count_gaps(.data, .full = FALSE)
 
@@ -28,8 +28,8 @@ A tibble contains:
 }
 }
 \description{
-\code{count_gaps()} counts missing gaps for a tsibble; \code{gaps()} find where the
-gaps in \code{x} with respect to \code{y}.
+\code{count_gaps()} counts gaps for a tsibble; \code{gaps()} find where the gaps in \code{x}
+with respect to \code{y}.
 }
 \examples{
 count_gaps(pedestrian)

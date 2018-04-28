@@ -1,4 +1,4 @@
-context("Test tsummarise()")
+context("tsummarise()")
 
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:01"),

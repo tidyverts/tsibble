@@ -1,4 +1,4 @@
-context("Test a tsibble for base subset")
+context("a tsibble for base subset")
 
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
 dat_x <- tibble(
@@ -9,7 +9,7 @@ dat_x <- tibble(
 
 tsbl <- as_tsibble(dat_x, key = id(group), index = date)
 
-test_that("Test if it's an atomic vector", {
+test_that("if it's an atomic vector", {
   expect_is(tsbl$date, "Date")
   expect_is(tsbl[["date"]], "Date")
   expect_is(tsbl$group, "character")
@@ -18,7 +18,7 @@ test_that("Test if it's an atomic vector", {
   expect_is(tsbl[["value"]], "numeric")
 })
 
-test_that("Test if it's a tibble", {
+test_that("if it's a tibble", {
   expect_is(tsbl[, 1], "tbl_df")
   expect_is(tsbl[, 2], "tbl_df")
   expect_is(tsbl[, 3], "tbl_df")
@@ -26,7 +26,7 @@ test_that("Test if it's a tibble", {
   expect_is(tsbl[, c(1, 3)], "tbl_df")
 })
 
-test_that("Test if it's a tsibble", {
+test_that("if it's a tsibble", {
   expect_is(tsbl[, c(1, 2)], "tbl_ts")
   expect_warning(tsbl[, c(1, 2), drop = TRUE])
   expect_error(tsbl[FALSE, ], "empty")

@@ -1,4 +1,4 @@
-context("Test as_tsibble() w/o key for data of long form")
+context("as_tsibble() w/o key for data of long form")
 
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:00"),

@@ -104,10 +104,10 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   restore_index_class(.data, tsbl)
 }
 
-#' Count missing gaps
+#' Count implicit gaps
 #'
-#' `count_gaps()` counts missing gaps for a tsibble; `gaps()` find where the
-#' gaps in `x` with respect to `y`.
+#' `count_gaps()` counts gaps for a tsibble; `gaps()` find where the gaps in `x` 
+#' with respect to `y`.
 #' 
 #' @param .data A `tbl_ts`.
 #' @inheritParams fill_na
