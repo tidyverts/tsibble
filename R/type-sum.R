@@ -23,7 +23,7 @@ tbl_sum.tbl_ts <- function(x) {
   n_keys <- big_mark(n_keys(x))
   c(
     first,
-    "Keys" = paste(paste_comma(key_vars(x)), surround(n_keys, "["))
+    "Keys" = paste(paste_comma(format(key(x))), surround(n_keys, "["))
   )
 }
 
