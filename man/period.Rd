@@ -34,9 +34,10 @@ the input \code{x}, contrasting to their zoo counterparts.
 }
 
 \examples{
-# coerce dates to yearmonth, yearquarter ----
+# coerce POSIXct/Dates to yearweek, yearmonth, yearquarter ----
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
-yearmonth(x)
+yearweek(x)
+yearmonth(yearweek(x)); yearmonth(x)
 yearquarter(x)
 
 # coerce numerics to yearmonth, yearquarter ----
@@ -46,6 +47,14 @@ yearquarter(seq(2010, 2017, by = 1 / 4))
 # coerce yearmonths to yearquarter ----
 y <- yearmonth(x)
 yearquarter(y)
+
+# S3 method seq() ----
+wk1 <- yearweek(as.Date("2017-11-01"))
+wk2 <- yearweek(as.Date("2018-04-29"))
+seq(from = wk1, to = wk2, by = 2) # by two weeks
+mth <- yearmonth(as.Date("2017-11-01"))
+seq(mth, length.out = 5, by = 1) # by 1 month
+seq(yearquarter(mth), length.out = 5, by = 1) # by 1 quarter
 }
 \seealso{
 \link{pull_interval}

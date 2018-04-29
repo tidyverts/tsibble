@@ -9,10 +9,10 @@
 #' The time indices are no longer an attribute (for example, the `tsp` attribute 
 #' in a `ts` object), but preserved as the essential component of the tsibble. A 
 #' few index classes, such as `Date`, `POSIXct`, and `difftime`, forms the basis of 
-#' the tsibble, with new additions [yearmonth] and [yearquarter] representing 
-#' year-month and year-quarter respectively. `zoo::yearmth` and `zoo::yearqtr`
-#' are also supported. It is extensible to work with custom index, for example
-#' trading days and weekly data.
+#' the tsibble, with new additions [yearquarter], [yearmonth], and [yearquarter] 
+#' representing year-week, year-month, and year-quarter respectively. `zoo::yearmth` 
+#' and `zoo::yearqtr` are also supported. It is extensible to work with custom 
+#' index, for example trading days and weekly data.
 #'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record. And

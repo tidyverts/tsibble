@@ -11,6 +11,10 @@ authors:
     href: http://robjhyndman.com
 
 reference:
+- title: Overview
+  contents:
+    - tsibble-package
+
 - title: Create/coerce to a tsibble
   contents:
     - tsibble
@@ -64,10 +68,6 @@ reference:
   contents:
     - pedestrian
     - tourism
-
-- title: Misc
-  contents:
-    - tsibble-package
 
 - title: Reexported
   contents:

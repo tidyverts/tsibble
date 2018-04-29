@@ -22,9 +22,10 @@
 #' @seealso [pull_interval]
 #'
 #' @examples
-#' # coerce dates to yearmonth, yearquarter ----
+#' # coerce POSIXct/Dates to yearweek, yearmonth, yearquarter ----
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
-#' yearmonth(x)
+#' yearweek(x)
+#' yearmonth(yearweek(x)); yearmonth(x)
 #' yearquarter(x)
 #'
 #' # coerce numerics to yearmonth, yearquarter ----
@@ -34,6 +35,14 @@
 #' # coerce yearmonths to yearquarter ----
 #' y <- yearmonth(x)
 #' yearquarter(y)
+#'
+#' # S3 method seq() ----
+#' wk1 <- yearweek(as.Date("2017-11-01"))
+#' wk2 <- yearweek(as.Date("2018-04-29"))
+#' seq(from = wk1, to = wk2, by = 2) # by two weeks
+#' mth <- yearmonth(as.Date("2017-11-01"))
+#' seq(mth, length.out = 5, by = 1) # by 1 month
+#' seq(yearquarter(mth), length.out = 5, by = 1) # by 1 quarter
 yearweek <- function(x) {
   UseMethod("yearweek")
 }
@@ -315,9 +324,9 @@ seq.yearweek <- function(
   if (!is_bare_numeric(by, n = 1)) {
     abort("`by` only takes a numeric.")
   }
-  by_mth <- paste(by, "week")
-  yearmonth(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
+  by_wk <- paste(by, "week")
+  yearweek(seq_date(
+    from = from, to = to, by = by_wk, length.out = length.out,
     along.with = along.with, ...
   ))
 }

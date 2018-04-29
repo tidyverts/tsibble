@@ -33,10 +33,10 @@ A tsibble is sorted by its key(s) first and index.
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but preserved as the essential component of the tsibble. A
 few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearmonth} and \link{yearquarter} representing
-year-month and year-quarter respectively. \code{zoo::yearmth} and \code{zoo::yearqtr}
-are also supported. It is extensible to work with custom index, for example
-trading days and weekly data.
+the tsibble, with new additions \link{yearquarter}, \link{yearmonth}, and \link{yearquarter}
+representing year-week, year-month, and year-quarter respectively. \code{zoo::yearmth}
+and \code{zoo::yearqtr} are also supported. It is extensible to work with custom
+index, for example trading days and weekly data.
 }
 
 \section{Key}{
