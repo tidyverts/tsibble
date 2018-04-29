@@ -36,7 +36,7 @@ key_vars <- function(x) {
 
 #' @export
 key_vars.tbl_ts <- function(x) {
-  format(key(x))
+  key_flatten(key(x))
 }
 
 #' @rdname key

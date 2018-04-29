@@ -34,7 +34,7 @@ tbl_sum.grouped_ts <- function(x) {
     n_grps <- "?"
   }
   c(NextMethod(),
-    "Groups" = paste(paste_comma(group_vars(x)), surround(n_grps, "["))
+    "Groups" = paste(paste_comma(format(groups(x))), surround(n_grps, "["))
   )
 }
 

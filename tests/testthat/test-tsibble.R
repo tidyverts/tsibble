@@ -231,7 +231,7 @@ test_that("2 nested variable", {
   tsbl <- as_tsibble(dat_x, key = id(group | level), index = date)
   expect_identical(length(key(tsbl)), 1L)
   expect_identical(length(key(tsbl)[[1]]), 2L)
-  expect_identical(key_vars(tsbl)[[1]], "group | level")
+  expect_identical(format(key(tsbl))[[1]], "group | level")
   expect_output(print(key(tsbl)), "group | level")
 })
 
@@ -285,8 +285,8 @@ test_that("2 nested variables crossed with 1 variable", {
   tsbl <- as_tsibble(dat_x, key = id(bottom | group1, group2), index = date)
   expect_identical(length(key(tsbl)), 2L)
   expect_identical(length(key(tsbl))[[1]], 2L)
-  expect_identical(key_vars(tsbl)[[1]], "bottom | group1")
-  expect_identical(key_vars(tsbl)[[2]], "group2")
+  expect_identical(format(key(tsbl))[[1]], "bottom | group1")
+  expect_identical(key_vars(tsbl)[[3]], "group2")
 })
 
 colnames(dat_x) <- c("1", "Bottom 1", "Group 1", "Group 2", "Value X")
@@ -295,8 +295,8 @@ test_that("Spectial characters in column names", {
   tsbl <- as_tsibble(
     dat_x, key = id(`Bottom 1` | `Group 1`, `Group 2`), index = `1`
   )
-  expect_identical(key_vars(tsbl)[[1]], "`Bottom 1` | `Group 1`")
-  expect_identical(key_vars(tsbl)[[2]], "Group 2")
+  expect_identical(format(key(tsbl))[[1]], "`Bottom 1` | `Group 1`")
+  expect_identical(key_vars(tsbl)[[3]], "Group 2")
 })
 
 test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {

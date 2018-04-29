@@ -173,7 +173,12 @@ groups.tbl_ts <- function(x) {
 
 #' @export
 group_vars.tbl_ts <- function(x) {
-  format(groups(x))
+  character(0L)
+}
+
+#' @export
+group_vars.grouped_ts <- function(x) {
+  key_flatten(groups(x))
 }
 
 #' @export
@@ -207,7 +212,7 @@ measured_vars <- function(x) {
 #' @export
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
-  key_vars <- key_flatten(key(x))
+  key_vars <- key_vars(x)
   idx_var <- quo_text(index(x))
   setdiff(all_vars, c(key_vars, idx_var))
 }

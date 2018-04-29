@@ -23,7 +23,8 @@ test_that("group_by()", {
   grped_t <- tourism %>%
     group_by(Purpose) %>%
     group_by(Region | State, add = TRUE)
-  expect_length(group_vars(grped_t), 2)
+  expect_length(format(groups(grped_t)), 2)
+  expect_length(group_vars(grped_t), 3)
 })
 
 test_that("arrange.tbl_ts()", {
@@ -63,7 +64,7 @@ test_that("arrange.grouped_ts()", {
   )
   expect_equal(tsbl2, tourism)
   expect_identical(key(tsbl2), key(tourism))
-  expect_identical(unname(group_vars(tsbl2)), "Region | State")
+  expect_identical(unname(format(groups(tsbl2))), "Region | State")
   expect_warning(
     tsbl3 <- tourism %>%
       group_by(Region | State) %>%
@@ -72,7 +73,7 @@ test_that("arrange.grouped_ts()", {
   )
   expect_equal(tsbl3, tourism)
   expect_identical(key(tsbl3), key(tourism))
-  expect_identical(unname(group_vars(tsbl3)), "Region | State")
+  expect_identical(unname(format(groups(tsbl3))), "Region | State")
   tsbl4 <- tourism %>%
     group_by(Region | State) %>%
     arrange(Purpose, Quarter, .by_group = TRUE)
@@ -116,7 +117,7 @@ test_that("select() and rename()", {
     "Index"
   )
   expect_equal(
-    key_vars(select(tourism, Bottom = Region, Quarter, State:Purpose))[[1]],
+    format(key(select(tourism, Bottom = Region, Quarter, State:Purpose)))[[1]],
     "Bottom | State"
   )
   expect_equal(
@@ -124,7 +125,7 @@ test_that("select() and rename()", {
     "Index"
   )
   expect_equal(
-    key_vars(rename(tourism, Bottom = Region))[[1]],
+    format(key(rename(tourism, Bottom = Region)))[[1]],
     "Bottom | State"
   )
 })
@@ -133,23 +134,23 @@ test_that("select() with group_by()", {
   # grouped by "key"
   grped_ped <- pedestrian %>% group_by(Sensor)
   expect_equal(groups(grped_ped), groups(grped_ped %>% select(Sensor, Date_Time)))
-  sel_ped <- grped_ped %>% 
+  sel_ped <- grped_ped %>%
     select(Key = Sensor, Date_Time)
-  expect_equal(list("Key" = "Key"), group_vars(sel_ped))
-  rned_ped <- grped_ped %>% 
+  expect_equal("Key", group_vars(sel_ped))
+  rned_ped <- grped_ped %>%
     rename(Key = Sensor)
-  expect_equal(list("Key" = "Key"), group_vars(rned_ped))
+  expect_equal("Key", group_vars(rned_ped))
 
   grped_ped2 <- pedestrian %>% group_by(Date)
-  sel2 <- grped_ped2 %>% 
+  sel2 <- grped_ped2 %>%
     select(Date2 = Date, Key = Sensor, Date_Time)
-  expect_equal(list("Date2" = "Date2"), group_vars(sel2))
-  expect_equal(list("Key" = "Key"), key_vars(sel2))
-  sel3 <- grped_ped2 %>% 
+  expect_equal("Date2", group_vars(sel2))
+  expect_equal("Key", key_vars(sel2))
+  sel3 <- grped_ped2 %>%
     select(Date2 = Date, Sensor, Date_Time)
-  expect_equal(list("Date2" = "Date2"), group_vars(sel3))
+  expect_equal("Date2", group_vars(sel3))
   ren2 <- grped_ped2 %>% rename(Date2 = Date)
-  expect_equal(list("Date2" = "Date2"), group_vars(ren2))
+  expect_equal("Date2", group_vars(ren2))
 })
 
 test_that("mutate()", {
