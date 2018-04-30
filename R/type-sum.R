@@ -4,6 +4,11 @@ type_sum.tbl_ts <- function(x) {
 }
 
 #' @export
+type_sum.yearweek <- function(x) {
+  "week"
+}
+
+#' @export
 type_sum.yearmonth <- function(x) {
   "mth"
 }
@@ -68,6 +73,11 @@ index_sum.difftime <- function(x) {
 #' @export
 index_sum.Date <- function(x) {
   "date"
+}
+
+#' @export
+index_sum.yearweek <- function(x) {
+  "week"
 }
 
 #' @export

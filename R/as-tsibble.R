@@ -425,7 +425,7 @@ build_tsibble <- function(
 }
 
 detect_type <- function() {
-  c("time", "dttm", "date", "mth", "qtr")
+  c("time", "dttm", "date", "week", "mth", "qtr")
 }
 
 

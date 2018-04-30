@@ -1,12 +1,19 @@
 context("pillar methods")
 library(pillar)
 
+a <- yearweek(seq(ymd("2017-02-01"), length.out = 12, by = "1 week"))
+a2 <- rep(a, 2)
 x <- yearmonth(seq(2010, 2012, by = 1 / 12))
 x2 <- rep(x, 2)
 y <- yearquarter(seq(2010, 2012, by = 1 / 4))
 y2 <- rep(y, 2)
 
-test_that("some S3 methods for yearmonth & yearquarter", {
+test_that("some S3 methods for yearweek, yearmonth & yearquarter", {
+  expect_is(rep(a, 2), "yearweek")
+  expect_equal(length(rep(a, 2)), length(a) * 2)
+  expect_is(c(a, a), "yearweek")
+  expect_is(unique(a2), "yearweek")
+  expect_identical(yearweek(a), a)
   expect_is(rep(x, 2), "yearmonth")
   expect_equal(length(rep(x, 2)), length(x) * 2)
   expect_is(c(x, x), "yearmonth")
@@ -21,10 +28,13 @@ test_that("some S3 methods for yearmonth & yearquarter", {
 })
 
 test_that("pillar S3 methods", {
+  expect_equal(type_sum(a), "week")
+  expect_equal(is_vector_s3(x), TRUE)
   expect_equal(type_sum(x), "mth")
   expect_equal(is_vector_s3(x), TRUE)
   expect_equal(type_sum(y), "qtr")
   expect_equal(is_vector_s3(y), TRUE)
+  expect_equal(obj_sum(a), rep("week", length(a)))
   expect_equal(obj_sum(x), rep("mth", length(x)))
   expect_equal(obj_sum(y), rep("qtr", length(y)))
 

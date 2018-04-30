@@ -72,9 +72,8 @@ for details.
 
 The **tsibble** internally computes the interval for a given time index,
 based on its representation. The `POSIXct` corresponds to sub-daily
-series, `Date` to daily, `yearmonth` (from `yearmonth()` or
-`zoo::yearmth()`) to monthly, `yearquarter` (from `yearquarter()` or
-`zoo::yearqtr()`) to quarterly, and
+series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmth` to
+monthly, `yearquarter`/`yearqtr` to quarterly, and
 etc.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
@@ -127,15 +126,15 @@ full_weather %>%
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
-#> # A tsibble: 36 x 4 [1MONTH]
+#> # A tsibble: 36 x 4 [79483MONTH]
 #> # Keys:      origin [3]
-#>   origin year_month avg_temp ttl_precip
-#>   <chr>       <mth>    <dbl>      <dbl>
-#> 1 EWR      2013 Jan     35.6       2.70
-#> 2 EWR      2013 Feb     34.1       2.76
-#> 3 EWR      2013 Mar     40.0       1.94
-#> 4 EWR      2013 Apr     52.9       1.05
-#> 5 EWR      2013 May     63.1       2.76
+#>   origin  year_month avg_temp ttl_precip
+#>   <chr>        <mth>    <dbl>      <dbl>
+#> 1 EWR    3714855 Jul     35.6       2.70
+#> 2 EWR    3722188 Sep     34.1       2.76
+#> 3 EWR    3728812 Apr     40.0       1.94
+#> 4 EWR    3736145 Jun     52.9       1.05
+#> 5 EWR    3743242 Mar     63.1       2.76
 #> # ... with 31 more rows
 ```
 

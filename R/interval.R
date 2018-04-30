@@ -121,6 +121,11 @@ time_unit.Date <- function(x) {
 }
 
 #' @export
+time_unit.yearweek <- function(x) {
+  pull_interval(x)$week
+}
+
+#' @export
 time_unit.yearmonth <- function(x) {
   pull_interval(x)$month
 }

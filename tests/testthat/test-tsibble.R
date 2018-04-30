@@ -124,6 +124,18 @@ test_that("Date with 4 days interval", {
   expect_identical(time_unit(tsbl$date), 4)
 })
 
+idx_week <- seq(yearweek(ymd("2017-02-01")), length.out = 5, by = 1)
+dat_x <- tibble(yrwk = idx_week, value = rnorm(5))
+
+test_that("Year week with 1 week interval", {
+  expect_identical(index_sum(dat_x$yrwk), "week")
+  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1WEEK\\]")
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "1WEEK")
+  expect_identical(time_unit(tsbl$yrwk), 1)
+})
+
 idx_month <- seq(
   yearmonth(ymd("2017-01-01")), yearmonth(ymd("2017-05-01")), by = 1
 )

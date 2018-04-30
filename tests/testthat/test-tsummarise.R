@@ -49,7 +49,12 @@ dat_x <- tibble(
 )
 tsbl2 <- as_tsibble(dat_x, index = date)
 
-test_that("From Date to year-month, year-quarter and year", {
+test_that("From Date to year-week, year-month, year-quarter and year", {
+  res0 <- tsummarise(tsbl2, yrwk = yearweek(date), value = sum(value))
+  expect_equal(
+    as_tibble(res0),
+    tibble(yrwk = yearweek(ymd(idx_day[-4])), value = c(1, 1, 2, 1))
+  )
   res1 <- tsummarise(tsbl2, yrmth = yearmonth(date), value = sum(value))
   expect_equal(
     as_tibble(res1),
