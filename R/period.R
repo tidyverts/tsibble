@@ -7,14 +7,14 @@
 #'
 #' @param x Other object.
 #'
-#' @return Year-week (`yearweek`), year-month (`yearmonth`) or year-quarter 
+#' @return Year-week (`yearweek`), year-month (`yearmonth`) or year-quarter
 #' (`yearquarter`) objects.
 #' @details It's a known issue that these attributes will be dropped when using
 #' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
 #' then use [mutate].
 #'
 #' @section Index functions:
-#' The tsibble `yearmonth()` and `yearquarter()` function preserve the time zone of 
+#' The tsibble `yearmonth()` and `yearquarter()` function preserve the time zone of
 #' the input `x`, contrasting to their zoo counterparts.
 #'
 #' @export
@@ -68,7 +68,7 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 yearweek.POSIXt <- function(x) {
-  as_yearweek(lubridate::floor_date(x, unit = "weeks", week_start = 1))
+  as_yearweek(as_date(lubridate::floor_date(x, unit = "weeks", week_start = 1)))
 }
 
 #' @export
@@ -146,7 +146,7 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 yearmonth.POSIXt <- function(x) {
-  as_yearmonth(lubridate::floor_date(x, unit = "months"))
+  as_yearmonth(as_date(lubridate::floor_date(x, unit = "months")))
 }
 
 #' @export
@@ -220,7 +220,7 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 yearquarter.POSIXt <- function(x) {
-  as_yearquarter(lubridate::floor_date(x, unit = "quarters"))
+  as_yearquarter(as_date(lubridate::floor_date(x, unit = "quarters")))
 }
 
 #' @export
