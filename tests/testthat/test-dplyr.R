@@ -211,3 +211,60 @@ test_that("transmute()", {
 test_that("distinct()", {
   expect_error(tourism %>% distinct(Region, State, Purpose), "no support")
 })
+
+test_that("rename() scoped variants", {
+  all_names <- toupper(names(tsbl))
+  expect_equal(names(rename_all(tsbl, toupper)), all_names)
+  at_names <- c("qtr", "group", "A", "b", "C")
+  expect_equal(names(rename_at(tsbl, vars(a, c), toupper)), at_names)
+  if_names <- c("qtr", "group", LETTERS[1:3])
+  expect_equal(names(rename_if(tsbl, is.numeric, toupper)), if_names)
+})
+
+date_character <- function(x) {
+  is.Date(x) || is.character(x)
+}
+
+test_that("select() scoped variants", {
+  all_names <- names(tsbl)
+  expect_equal(names(select_all(tsbl)), all_names)
+  at_names <- c("qtr", "group", "b")
+  expect_equal(names(select_at(tsbl, at_names)), at_names)
+  if_names <- c("qtr", "group")
+  expect_equal(names(select_if(tsbl, date_character)), if_names)
+})
+
+ref_tsbl <- tsbl %>% 
+  mutate_if(is.numeric, function(x) x + 1)
+
+test_that("mutate() scoped variants", {
+  expect_equal(
+    tsbl %>% 
+      mutate_if(is.numeric, function(x) x + 1),
+    ref_tsbl
+  )
+  expect_equal(
+    tsbl %>% 
+      mutate_at(vars(a:c), function(x) x + 1),
+    ref_tsbl
+  )
+})
+
+ref_tsbl <- tsbl %>% 
+  group_by(group) %>% 
+  summarise_if(is.numeric, sum)
+
+test_that("summarise() scoped variants", {
+  expect_equal(
+    tsbl %>% 
+      group_by(group) %>% 
+      summarise_if(is.numeric, sum),
+    ref_tsbl
+  )
+  expect_equal(
+    tsbl %>% 
+      group_by(group) %>% 
+      summarise_at(vars(a:c), sum),
+    ref_tsbl
+  )
+})
