@@ -39,6 +39,7 @@ The index functions that can be used, but not limited:
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
 \item \link{yearquarter}: quarterly aggregation
 \item \link{yearmonth}: monthly aggregation
+\item \link{yearweek}: weekly aggregation
 \item \link{as.Date} or \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
 \item \link[lubridate:ceiling_date]{lubridate::ceiling_date}, \link[lubridate:floor_date]{lubridate::floor_date}, or \link[lubridate:round_date]{lubridate::round_date}:
 sub-daily aggregation
@@ -69,7 +70,11 @@ It computes summary statistics for a tsibble over calendar periods, usually
 used in combination of \code{group_by}.
 }
 \details{
-The rightmost grouping level will be dropped.
+\itemize{
+\item For a grouped tsibble, the rightmost grouping variable will be dropped
+after the operation.
+\item The scoped variants only operate on the non-key and non-index variables.
+}
 }
 \examples{
 # Monthly counts across Sensors

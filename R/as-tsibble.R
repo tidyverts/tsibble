@@ -20,6 +20,7 @@ globalVariables(c("key", "value", "zzz"))
 #' @details A tsibble is sorted by its key(s) first and index.
 #'
 #' @return A tsibble object.
+#' @seealso [build_tsibble]
 #'
 #' @examples
 #' # create a tsibble w/o a key ----

@@ -101,10 +101,9 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   }
   full_data <- full_data %>%
     select(!!! syms(names(.data))) # keep the original order
-  # ensure the time ordering
   tsbl <- build_tsibble(
-    full_data, key = key, index = !! idx, 
-    validate = FALSE, ordered = TRUE
+    full_data, key = key, index = !! idx, groups = groups(.data),
+    validate = FALSE, ordered = TRUE, interval = interval(.data)
   )
   restore_index_class(.data, tsbl)
 }

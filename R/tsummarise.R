@@ -12,6 +12,7 @@
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
 #' * [yearmonth]: monthly aggregation
+#' * [yearweek]: weekly aggregation
 #' * [as.Date] or [lubridate::as_date]: daily aggregation
 #' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]: 
 #' sub-daily aggregation
@@ -19,7 +20,9 @@
 #' @inheritParams dplyr::summarise_all
 #'
 #' @details
-#' The rightmost grouping level will be dropped.
+#' * For a grouped tsibble, the rightmost grouping variable will be dropped 
+#' after the operation.
+#' * The scoped variants only operate on the non-key and non-index variables.
 #'
 #' @seealso [dplyr::summarise_all]
 #' @rdname tsummarise

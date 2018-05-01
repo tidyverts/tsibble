@@ -97,3 +97,6 @@ tsbl2 <- tsibble(
 tsbl2
 
 }
+\seealso{
+\link{build_tsibble}
+}
