@@ -5,13 +5,13 @@ fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
   restore_index_class(data, tsbl)
 }
 
-complete.tbl_ts <- function(data, ..., fill = list()) {
-  comp_data <- NextMethod()
-  if (is_grouped_ts(data)) {
-    comp_data <- grouped_df(comp_data, vars = key_flatten(groups(data)))
-  }
-  update_tsibble(comp_data, data)
-}
+# complete.tbl_ts <- function(data, ..., fill = list()) {
+#   comp_data <- NextMethod()
+#   if (is_grouped_ts(data)) {
+#     comp_data <- grouped_df(comp_data, vars = key_flatten(groups(data)))
+#   }
+#   update_tsibble(comp_data, data)
+# }
 
 spread_tsbl <- function(data, value, fill = NA, sep = "") {
   spread_val <- measured_vars(data)

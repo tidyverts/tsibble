@@ -66,40 +66,45 @@ fill_na.data.frame <- function(.data, ...) {
 #'   )
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
-  if (!is_regular(.data)) {
-    abort("Can't handle `tbl_ts` of irregular interval.")
-  }
+  not_regular(.data)
   idx <- index(.data)
   idx_chr <- quo_text2(idx)
   key <- key(.data)
-  flat_key <- flatten(key)
+  flat_key <- key_flatten(key)
+  tbl <- as_tibble(.data)
+  grped_tbl <- tbl %>% 
+    grouped_df(vars = flat_key)
   if (.full) {
-    full_data <- .data %>%
-      tidyr::complete(
-        !! idx_chr := seq_by(!! idx),
-        tidyr::nesting(!!! flat_key)
-      )
+    idx_full <- seq_by(eval_tidy(idx, data = tbl))
+    ref_data <- grped_tbl %>% 
+      summarise(
+        !! idx_chr := list(tibble::tibble(!! idx_chr := idx_full))
+      ) %>% 
+      tidyr::unnest(!! idx)
   } else {
-    full_data <- as_tibble(.data) %>% 
-      split_by(!!! flat_key) %>% 
-      purrr::map_dfr(~ tidyr::complete(.,
-        !! idx_chr := seq_by(!! idx),
-        tidyr::nesting(!!! flat_key)
-      ))
+    ref_data <- grped_tbl %>% 
+      summarise(
+        !! idx_chr := list(tibble::tibble(!! idx_chr := seq_by(!! idx)))
+      ) %>% 
+      tidyr::unnest(!! idx)
   }
+  full_data <- ungroup(ref_data) %>% 
+    left_join(.data, by = c(flat_key, idx_chr))
 
   if (is_grouped_ts(.data)) {
-    full_data <- do(full_data, modify_na(., !!! enquos(...)))
+    full_data <- full_data %>% 
+      grouped_df(vars = group_vars(.data)) %>% 
+      do(modify_na(., !!! enquos(...)))
   } else {
     full_data <- full_data %>%
       modify_na(!!! enquos(...))
   }
   full_data <- full_data %>%
-    select(!!! syms(colnames(.data))) # keep the original order
+    select(!!! syms(names(.data))) # keep the original order
   # ensure the time ordering
   tsbl <- build_tsibble(
     full_data, key = key, index = !! idx, 
-    validate = FALSE, ordered = NULL
+    validate = FALSE, ordered = TRUE
   )
   restore_index_class(.data, tsbl)
 }
@@ -125,15 +130,13 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' * "end": the ending time point of the gap
 #' * "n": the implicit missing observations during the time period
 count_gaps <- function(.data, .full = FALSE) {
-  if (!is_regular(.data)) {
-    abort("Can't handle `tbl_ts` of irregular interval.")
-  }
+  not_regular(.data)
   idx <- index(.data)
-  flat_key <- flatten(key(.data))
+  flat_key <- key_vars(.data)
   tbl <- as_tibble(.data)
 
   grped_tbl <- tbl %>% 
-    group_by(!!! flat_key)
+    grouped_df(vars = flat_key)
   if (.full) {
     idx_full <- seq_by(eval_tidy(idx, data = tbl))
     out <- grped_tbl %>% 
@@ -240,4 +243,10 @@ restore_index_class <- function(data, newdata) {
   new_idx <- quo_text2(index(newdata))
   class(newdata[[new_idx]]) <- class(data[[old_idx]])
   newdata
+}
+
+not_regular <- function(x) {
+  if (!is_regular(x)) {
+    abort("Can't handle `tbl_ts` of irregular interval.")
+  }
 }
