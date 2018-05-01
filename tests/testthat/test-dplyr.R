@@ -45,6 +45,7 @@ test_that("warnings for arrange a univariate time series", {
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {
+  expect_is(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
   expect_warning(pedestrian %>% arrange(Time), "not sorted by")
   expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "not sorted by")
   expect_warning(pedestrian %>% arrange(desc(Date_Time)), "not sorted by")

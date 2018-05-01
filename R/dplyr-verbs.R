@@ -47,7 +47,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(quos[idx_pos])
   key <- key(.data)
-  red_key <- key_distinct(key)
+  red_key <- as.character(key_distinct(key))
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
@@ -65,11 +65,11 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
       all(exp_idx == seq_along(exp_idx)) &&
       is_false(idx_pos[1])
     ) {
-      ordered <- NULL
+      ordered <- TRUE
     } else if (is_true(nested) &&
       has_length(exp_idx, length(exp_vars)) &&
       is_false(idx_pos[1])) {
-      ordered <- NULL
+      ordered <- TRUE
     } else {
       ordered <- FALSE
     }
