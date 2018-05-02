@@ -13,8 +13,8 @@ time_unit(x)
 \item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
 \code{hms}, \code{integer}, \code{numeric}.}
 
-\item{duplicated}{\code{TRUE} removes the duplicated elements of \code{x} and compute
-the minimal time span.}
+\item{duplicated}{\code{TRUE} removes the duplicated elements of \code{x} first and compute
+the greatest common divisor of positive time distances.}
 }
 \value{
 \code{pull_interval()}: an "interval" class (a list) includes "year",

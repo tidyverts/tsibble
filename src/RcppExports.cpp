@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// gcd_interval
+double gcd_interval(NumericVector x);
+RcppExport SEXP _tsibble_gcd_interval(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(gcd_interval(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // minp
 double minp(NumericVector x);
 RcppExport SEXP _tsibble_minp(SEXP xSEXP) {
@@ -52,6 +63,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_tsibble_gcd_interval", (DL_FUNC) &_tsibble_gcd_interval, 1},
     {"_tsibble_minp", (DL_FUNC) &_tsibble_minp, 1},
     {"_tsibble_any_not_equal_to_c", (DL_FUNC) &_tsibble_any_not_equal_to_c, 2},
     {"_tsibble_is_descending", (DL_FUNC) &_tsibble_is_descending, 1},

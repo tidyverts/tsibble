@@ -6,8 +6,8 @@
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
 #' `hms`, `integer`, `numeric`.
-#' @param duplicated `TRUE` removes the duplicated elements of `x` and compute
-#' the minimal time span.
+#' @param duplicated `TRUE` removes the duplicated elements of `x` first and compute
+#' the greatest common divisor of positive time distances.
 #'
 #' @details The `pull_interval()` and `time_unit()` make a tsibble extensible to
 #' support custom time index.

@@ -43,12 +43,12 @@ as_tsibble(x, ...)
 
 \item{key}{Structural variable(s) that define unique time indices, used with
 the helper \link{id}. If a univariate time series (without an explicit key),
-simply call \code{id()}.See below for details.}
+simply call \code{id()}. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the minimal time span as the interval.}
+finds the greatest common divisor of positive time distances as the interval.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will

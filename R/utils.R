@@ -32,19 +32,17 @@ first_arg <- function(x) {
   purrr::compact(purrr::map(x, ~ dplyr::first(call_args(.))))
 }
 
-# regular time interval is obtained from the minimal time distance.
-# duplicated time entries result in 0L.
+# regular time interval is obtained from the greatest common divisor of positive
+# time distances. Duplicated time entries result in 0L.
 # if validate = FALSE in as_tsibble, skip to check duplicated entries
 min_interval <- function(x, duplicated = TRUE) {
   if (has_length(x, 1)) { # only one time index
-    return(NA_integer_)
+    return(NA_real_)
   }
-  abs_diff <- abs(diff(as.numeric(x), na.rm = TRUE))
   if (duplicated) {
-    return(minp(abs_diff)) # faster than min(abs_diff[abs_diff > 0])
-  } else {
-    min(abs_diff)
+    return(gcd_interval(x))
   }
+  0
 }
 
 validate_vars <- function(j, x) { # j = quos/chr/dbl

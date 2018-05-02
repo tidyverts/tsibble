@@ -9,7 +9,7 @@ globalVariables(c("key", "value", "zzz"))
 #' simply call `id()`. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
-#' finds the minimal time span as the interval.
+#' finds the greatest common divisor of positive time distances as the interval.
 #'
 #' @inheritSection tsibble-package Index
 #'
@@ -50,12 +50,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' Coerce to a tsibble object
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
-#' @param key Structural variable(s) that define unique time indices, used with
-#' the helper [id]. If a univariate time series (without an explicit key),
-#' simply call `id()`.See below for details.
-#' @param index A bare (or unquoted) variable to specify the time index variable.
-#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
-#' finds the minimal time span as the interval.
+#' @inheritParams tsibble
 #' @param validate `TRUE` suggests to verify that each key or each combination
 #' of key variables lead to unique time indices (i.e. a valid tsibble). It will
 #' also make sure that the nested variables are arranged from lower level to

@@ -19,7 +19,7 @@ simply call \code{id()}.}
 \item{groups}{Grouping variable(s).}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the minimal time span as the interval.}
+finds the greatest common divisor of positive time distances as the interval.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will
