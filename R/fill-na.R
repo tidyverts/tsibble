@@ -167,7 +167,7 @@ gaps <- function(x, y) {
   }
   gap_vec <- logical(length = len_y)
   gap_vec[-match(x, y)] <- TRUE
-  gap_rle <- rle(gap_vec)
+  gap_rle <- rle_lgl(gap_vec)
   lgl_rle <- gap_rle$values
   gap_idx <- gap_rle$lengths
   to <- cumsum(gap_idx)
