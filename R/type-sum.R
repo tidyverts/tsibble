@@ -21,7 +21,11 @@ type_sum.yearquarter <- function(x) {
 #' @export
 tbl_sum.tbl_ts <- function(x) {
   int_x <- interval(x)
-  first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(format(int_x), "[")))
+  fnt_int <- format(int_x)
+  if (is_false(is_empty(attr(x, "idx")))) {
+    fnt_int <- paste0(fnt_int, "*")
+  }
+  first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(fnt_int, "[")))
   if (is_empty(key(x))) {
     return(first)
   }

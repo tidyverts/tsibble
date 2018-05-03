@@ -5,7 +5,10 @@
 #' index, in conjunction with `index_by()`.
 #'
 #' @param .data A `tbl_ts`.
-#' @param ... A name-value pair of expression or a bare variable.
+#' @param ... 
+#' * A single name-value pair of expression: a new index on LHS and the current 
+#' index on RHS 
+#' * An existing variable to be used as index
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
@@ -63,11 +66,24 @@ index_by <- function(.data, ...) {
     idx <- expr
   } else {
     abort(sprintf(
-      "`index_by()` accepts either a call or a name, not %s.",
-      class(expr)[[1]]
+      "`index_by()` accepts either a call or a name, not %s.", class(expr)[[1]]
     ))
   }
-  validate_vars(idx, names(.data))
+  cn <- names(.data)
+  val_vars <- validate_vars(idx, cn)
+  is_index_in_keys <- intersect(val_vars, key_vars(.data))
+  if (is_false(is_empty(is_index_in_keys))) {
+    abort(sprintf("`%s` can't be `index`, as it's used as `key`.", val_vars))
+  }
+  idx_type <- purrr::map_chr(.data, index_sum)
+  idx_na <- idx_type[val_vars]
+  if (is.na(idx_na)) {
+    cls_idx <- purrr::map_chr(.data, ~ class(.)[1])
+    name_idx <- names(idx_na)
+    abort(sprintf(
+      "Unsupported index type: `%s`", cls_idx[cn %in% name_idx])
+    )
+  }
 
   attr(.data, "idx") <- exprs
   .data

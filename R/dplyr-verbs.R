@@ -301,9 +301,17 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'   group_by(Region | State) %>%
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
-  current_grps <- enquos(...)
+  current_grps <- enexprs(...)
   if (is_named(current_grps)) {
-    abort("Expressions must not be named in `group_by.tbl_ts`.")
+    abort("`group_by.tbl_ts()` cannot accept named expressions.")
+  }
+  calls <- purrr::map(current_grps, is_call)
+  calls <- purrr::map2_lgl(
+    current_grps, calls, ~ ifelse(.y, !identical(call_fn(.x), `|`), FALSE)
+  )
+  if (any(calls)) {
+    bad <- expr_label(current_grps[calls][[1]])
+    abort(sprintf("`group_by.tbl_ts()` cannot accept calls, like %s.", bad))
   }
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- key_flatten(final_grps)

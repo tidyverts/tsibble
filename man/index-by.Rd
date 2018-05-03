@@ -9,9 +9,11 @@ index_by(.data, ...)
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{A name-value pair of expression or a bare variable.
+\item{...}{\itemize{
+\item A single name-value pair of expression: a new index on LHS and the current
+index on RHS
+\item An existing variable to be used as index
 The index functions that can be used, but not limited:
-\itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
 \item \link{yearquarter}: quarterly aggregation
 \item \link{yearmonth}: monthly aggregation

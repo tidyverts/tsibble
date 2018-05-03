@@ -18,7 +18,8 @@ test_that("group_by()", {
     vapply(group_indices(grped_df), length, integer(1)),
     key_size(grped_df)
   )
-  expect_error(pedestrian %>% group_by(sensor = Sensor), "must not be named")
+  expect_error(pedestrian %>% group_by(sensor = Sensor), "named expressions.")
+  expect_error(pedestrian %>% group_by(yearmonth(Date)), "accept calls")
 
   grped_t <- tourism %>%
     group_by(Purpose) %>%
