@@ -68,7 +68,7 @@ refer to \link[tibble:tibble-package]{tibble::tibble-package} to change display 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://pkg.earo.me/tsibble}
+  \item \url{https://pkg.earo.me/tsibble}
   \item Report bugs at \url{https://github.com/tidyverts/tsibble/issues}
 }
 

@@ -149,6 +149,8 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
       lubridate::date_decimal(start_year + (time_x - start_year) * 7 / 365),
       unit = "day"
     )))
+  } else if (freq == 52) { # weekly
+    return(yearweek(lubridate::date_decimal(time_x)))
   } else if (freq > 4 && freq <= 12) { # monthly
     return(yearmonth(time_x))
   } else if (freq > 1 && freq <= 4) { # quarterly

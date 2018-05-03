@@ -121,7 +121,17 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' @seealso fill_na
 #' @examples
 #' count_gaps(pedestrian)
-#' count_gaps(pedestrian, .full = TRUE)
+#' ped_gaps <- count_gaps(pedestrian, .full = TRUE)
+#' if (!requireNamespace("ggplot2", quietly = TRUE)) {
+#'   stop("Please install the ggplot2 package to run these following examples.")
+#' }
+#' library(ggplot2)
+#' ggplot(ped_gaps, aes(colour = Sensor)) +
+#'   geom_linerange(aes(x = Sensor, ymin = from, ymax = to)) +
+#'   geom_point(aes(x = Sensor, y = from)) +
+#'   geom_point(aes(x = Sensor, y = to)) +
+#'   coord_flip() +
+#'   theme(legend.position = "bottom")
 #' @return
 #' A tibble contains:
 #' * the "key" of the `tbl_ts`

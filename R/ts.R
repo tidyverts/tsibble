@@ -44,6 +44,13 @@ finalise_ts <- function(data, index, frequency = NULL) {
 
 #' @importFrom stats as.ts tsp<- time
 #' @export
+time.yearweek <- function(x, ...) {
+  freq <- guess_frequency(x)
+  y <- lubridate::decimal_date(x)
+  stats::ts(y, start = min0(y), frequency = freq)
+}
+
+#' @export
 time.yearmonth <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- lubridate::year(x) + (lubridate::month(x) - 1) / freq
@@ -106,6 +113,11 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' ))
 guess_frequency <- function(x) {
   UseMethod("guess_frequency")
+}
+
+#' @export
+guess_frequency.yearweek <- function(x) {
+  52 / pull_interval(x)$month
 }
 
 #' @export

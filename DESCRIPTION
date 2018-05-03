@@ -10,10 +10,9 @@ Authors@R: c(
     )
 Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
     temporal-context data in a data-centric format, which is built on top of
-    the 'tibble'. The 'tsibble' aims at manipulating and analysing temporal data
-    in a tidy and modern manner, including easily interpolate missing values, 
-    aggregate over calendar periods, performing rolling window calculations,
-    and etc.
+    the 'tibble'. The 'tsibble' aims at easily manipulating and analysing temporal 
+    data, including counting and filling time gaps, aggregate over calendar periods, 
+    performing rolling window calculations, and etc.
 Depends:
     R (>= 3.1.3)
 Imports:
@@ -33,13 +32,14 @@ Suggests:
     covr,
     hts,
     hms,
-    nycflights13
+    nycflights13,
+    ggplot2 (>= 2.2.0)
 LinkingTo:
     Rcpp (>= 0.12.0)
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL (>= 3)
-URL: http://pkg.earo.me/tsibble
+URL: https://pkg.earo.me/tsibble
 BugReports: https://github.com/tidyverts/tsibble/issues
 Encoding: UTF-8
 LazyData: true
