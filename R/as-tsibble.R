@@ -547,7 +547,7 @@ as_tibble.grouped_ts <- function(x, ...) {
   dx <- drop_tsibble(x)
   tibble::new_tibble(
     dx,
-    "vars" = structure(flatten(groups(x)), class = "vars"),
+    "vars" = structure(group_vars(x), class = "vars"),
     subclass = "grouped_df"
   )
 }

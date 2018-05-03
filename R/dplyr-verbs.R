@@ -247,20 +247,32 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (has_index_var(j = vec_vars, x = .data)) {
     abort(sprintf(
       "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
-      quo_text2(index(.data))
+      quo_text2(idx)
     ))
   }
 
   grps <- groups(.data)
-  chr_grps <- c(quo_text2(idx), key_flatten(grps))
-  sum_data <- .data %>%
-    grouped_df(vars = chr_grps) %>%
-    summarise(!!! lst_quos)
+  idx_by <- attr(.data, "idx")
+  if (is_empty(idx_by)) {
+    sum_data <- .data %>%
+      grouped_df(vars = c(key_flatten(grps), quo_text2(idx))) %>%
+      summarise(!!! lst_quos)
+    int <- interval(.data)
+    reg <- is_regular(.data)
+  } else {
+    new_idx <- names(idx_by)
+    sum_data <- ungroup(.data) %>% 
+      mutate(!!! idx_by) %>% 
+      grouped_df(vars = c(key_flatten(grps), new_idx)) %>% 
+      summarise(!!! lst_quos)
+    idx <- sym(new_idx)
+    int <- NULL
+    reg <- TRUE
+  }
 
   build_tsibble(
     sum_data, key = grps, index = !! idx, groups = drop_group(grps),
-    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data),
-    interval = interval(.data)
+    validate = FALSE, regular = reg, ordered = TRUE, interval = int
   )
 }
 
@@ -321,14 +333,13 @@ ungroup.tbl_ts <- function(x, ...) {
   x
 }
 
-# this function prepares group variables in a vector of characters for
-# dplyr::grouped_df()
-prepare_groups <- function(data, group, add = FALSE) {
-  grps <- validate_key(data, group)
+# this function prepares group variables in a list of symbos before dplyr::grouped_df()
+prepare_groups <- function(.data, group, add = FALSE) {
+  grps <- validate_key(.data, group)
   if (is_false(add)) {
     return(grps)
   }
-  c(groups(data), grps)
+  c(groups(.data), grps)
 }
 
 do.tbl_ts <- function(.data, ...) {
