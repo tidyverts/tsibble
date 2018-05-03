@@ -605,3 +605,15 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
 }
+
+#' Defunct functions
+#'
+#' @inheritParams find_duplicates
+#' @rdname defunct
+#' @export
+inform_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
+  .Defunct(
+    new = "find_duplicates",
+    msg = "This function is defunct. Please use `find_duplicates()` instead."
+  )
+}
