@@ -201,7 +201,7 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data),
+    mut_data, key = key(.data), index = !! index(.data), index2 = index2(.data),
     groups = groups(.data), regular = is_regular(.data),
     validate = validate, ordered = is_ordered(.data),
     interval = interval(.data)
@@ -241,38 +241,25 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
     return(summarise(as_tibble(.data), ...))
   }
   lst_quos <- enquos(..., .named = TRUE)
-  first_arg <- first_arg(lst_quos)
-  vec_vars <- as.character(first_arg)
-  idx <- index(.data)
-  if (has_index_var(j = vec_vars, x = .data)) {
-    abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
-      quo_text2(idx)
-    ))
-  }
-
   grps <- groups(.data)
-  idx_by <- attr(.data, "idx")
-  if (is_empty(idx_by)) {
-    sum_data <- .data %>%
-      grouped_df(vars = c(key_flatten(grps), quo_text2(idx))) %>%
-      summarise(!!! lst_quos)
+  idx <- index(.data)
+  idx2 <- index2(.data)
+
+  sum_data <- collapse_tsibble(.data) %>% 
+    summarise(!!! lst_quos)
+  if (is_empty(idx2)) {
     int <- interval(.data)
     reg <- is_regular(.data)
   } else {
-    new_idx <- names(idx_by)
-    sum_data <- ungroup(.data) %>% 
-      mutate(!!! idx_by) %>% 
-      grouped_df(vars = c(key_flatten(grps), new_idx)) %>% 
-      summarise(!!! lst_quos)
-    idx <- sym(new_idx)
+    idx <- sym(names(idx2))
     int <- NULL
     reg <- TRUE
   }
 
   build_tsibble(
-    sum_data, key = grps, index = !! idx, groups = drop_group(grps),
-    validate = FALSE, regular = reg, ordered = TRUE, interval = int
+    sum_data, key = grps, index = !! idx, index2 = NULL,
+    groups = drop_group(grps), validate = FALSE, regular = reg, 
+    ordered = TRUE, interval = int
   )
 }
 
@@ -303,7 +290,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   current_grps <- enexprs(...)
   if (is_named(current_grps)) {
-    abort("`group_by.tbl_ts()` cannot accept named expressions.")
+    abort("`group_by.tbl_ts()` must not accept named expressions.")
   }
   calls <- purrr::map(current_grps, is_call)
   calls <- purrr::map2_lgl(
@@ -311,16 +298,16 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   )
   if (any(calls)) {
     bad <- expr_label(current_grps[calls][[1]])
-    abort(sprintf("`group_by.tbl_ts()` cannot accept calls, like %s.", bad))
+    abort(sprintf("`group_by.tbl_ts()` must not accept calls, like %s.", bad))
   }
   final_grps <- prepare_groups(.data, current_grps, add = add)
   grped_chr <- key_flatten(final_grps)
 
   grped_ts <- grouped_df(.data, grped_chr)
   build_tsibble(
-    grped_ts, key = key(.data), index = !! index(.data), groups = final_grps,
-    validate = FALSE, regular = is_regular(.data), ordered = is_ordered(.data),
-    interval = interval(.data)
+    grped_ts, key = key(.data), index = !! index(.data), index2 = index2(.data),
+    groups = final_grps, validate = FALSE, regular = is_regular(.data), 
+    ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
@@ -329,7 +316,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   build_tsibble(
-    x, key = key(x), index = !! index(x), groups = id(),
+    x, key = key(x), index = !! index(x), index2 = index2(x), groups = id(),
     validate = FALSE, regular = is_regular(x), ordered = is_ordered(x),
     interval = interval(x)
   )
@@ -368,8 +355,8 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
   build_tsibble(
-    new, key = key(old), index = !! index(old), groups = groups(old),
-    regular = is_regular(old), validate = FALSE, ordered = ordered,
-    interval = interval
+    new, key = key(old), index = !! index(old), index2 = index2(old),
+    groups = groups(old), regular = is_regular(old), validate = FALSE, 
+    ordered = ordered, interval = interval
   )
 }

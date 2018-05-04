@@ -319,7 +319,7 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
     as_tsibble(grped_ped, key = id(Sensor), index = Date_Time),
     pedestrian
   )
-  expect_identical(as_tsibble(
+  expect_equal(as_tsibble(
     grped_ped, key = id(Sensor), index = Date_Time, groups = id(Date)
   ), grped_ped)
 })

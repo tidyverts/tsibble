@@ -79,7 +79,7 @@ test_that("arrange.grouped_ts()", {
   tsbl4 <- tourism %>%
     group_by(Region | State) %>%
     arrange(Purpose, Quarter, .by_group = TRUE)
-  expect_identical(tsbl4, group_by(tourism, Region | State))
+  expect_equal(tsbl4, group_by(tourism, Region | State))
 })
 
 test_that("filter() and slice()", {
@@ -236,36 +236,36 @@ test_that("select() scoped variants", {
   expect_equal(names(select_if(tsbl, date_character)), if_names)
 })
 
-ref_tsbl <- tsbl %>% 
+ref_tsbl <- tsbl %>%
   mutate_if(is.numeric, function(x) x + 1)
 
 test_that("mutate() scoped variants", {
   expect_equal(
-    tsbl %>% 
+    tsbl %>%
       mutate_if(is.numeric, function(x) x + 1),
     ref_tsbl
   )
   expect_equal(
-    tsbl %>% 
+    tsbl %>%
       mutate_at(vars(a:c), function(x) x + 1),
     ref_tsbl
   )
 })
 
-ref_tsbl <- tsbl %>% 
-  group_by(group) %>% 
+ref_tsbl <- tsbl %>%
+  group_by(group) %>%
   summarise_if(is.numeric, sum)
 
 test_that("summarise() scoped variants", {
   expect_equal(
-    tsbl %>% 
-      group_by(group) %>% 
+    tsbl %>%
+      group_by(group) %>%
       summarise_if(is.numeric, sum),
     ref_tsbl
   )
   expect_equal(
-    tsbl %>% 
-      group_by(group) %>% 
+    tsbl %>%
+      group_by(group) %>%
       summarise_at(vars(a:c), sum),
     ref_tsbl
   )

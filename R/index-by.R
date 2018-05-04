@@ -20,13 +20,12 @@
 #' * other index functions from other packages
 #'
 #' @details
-#' * A `index_by()`-ed tsibble is indicated by `*` in the printing output.
-#' * `index_by()` only works with `summarise()`, not other verbs.
+#' * A `index_by()`-ed tsibble is indicated by `@` followed by a promise in the 
+#' "Groups" when printing on the screen.
 #' * Time index will not be collapsed by `summarise.tbl_ts`.
 #' * The scoped variants of `summarise()` only operate on the non-key and 
 #' non-index variables.
 #'
-#' @rdname index-by
 #' @export
 #' @examples
 #' # Monthly counts across sensors ----
@@ -55,36 +54,18 @@
 #'   group_by(Region | State) %>% 
 #'   summarise(Total = sum(Trips))
 index_by <- function(.data, ...) {
+  UseMethod("index_by")
+}
+
+#' @export
+index_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(..., .named = TRUE)
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression")
   }
-  expr <- exprs[[1]]
-  if (is_call(expr)) {
-    idx <- first_arg(exprs)[[1]]
-  } else if (is_symbol(expr)) {
-    idx <- expr
-  } else {
-    abort(sprintf(
-      "`index_by()` accepts either a call or a name, not %s.", class(expr)[[1]]
-    ))
-  }
-  cn <- names(.data)
-  val_vars <- validate_vars(idx, cn)
-  is_index_in_keys <- intersect(val_vars, key_vars(.data))
-  if (is_false(is_empty(is_index_in_keys))) {
-    abort(sprintf("`%s` can't be `index`, as it's used as `key`.", val_vars))
-  }
-  idx_type <- purrr::map_chr(.data, index_sum)
-  idx_na <- idx_type[val_vars]
-  if (is.na(idx_na)) {
-    cls_idx <- purrr::map_chr(.data, ~ class(.)[1])
-    name_idx <- names(idx_na)
-    abort(sprintf(
-      "Unsupported index type: `%s`", cls_idx[cn %in% name_idx])
-    )
-  }
-
-  attr(.data, "idx") <- exprs
-  .data
+  build_tsibble(
+    .data, key = key(.data), index = !! index(.data), index2 = exprs,
+    groups = groups(.data), regular = is_regular(.data), validate = FALSE,
+    ordered = is_ordered(.data), interval = interval(.data)
+  )
 }

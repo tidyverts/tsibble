@@ -4,7 +4,7 @@
 \alias{build_tsibble}
 \title{Construct a tsibble object}
 \usage{
-build_tsibble(x, key, index, groups = id(), regular = TRUE,
+build_tsibble(x, key, index, index2 = NULL, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
 }
 \arguments{
@@ -12,11 +12,14 @@ build_tsibble(x, key, index, groups = id(), regular = TRUE,
 
 \item{key}{Structural variable(s) that define unique time indices, used with
 the helper \link{id}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+simply call \code{id()}. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
-\item{groups}{Grouping variable(s).}
+\item{index2}{A list of expressions to update the index to a new one when
+\link{index_by}.}
+
+\item{groups}{Grouping variable(s) when \link{group_by.tbl_ts}.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
 finds the greatest common divisor of positive time distances as the interval.}

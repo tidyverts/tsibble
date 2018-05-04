@@ -18,13 +18,9 @@ type_sum.yearquarter <- function(x) {
   "qtr"
 }
 
-#' @export
-tbl_sum.tbl_ts <- function(x) {
+key_header <- function(x) {
   int_x <- interval(x)
   fnt_int <- format(int_x)
-  if (is_false(is_empty(attr(x, "idx")))) {
-    fnt_int <- paste0(fnt_int, "*")
-  }
   first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(fnt_int, "[")))
   if (is_empty(key(x))) {
     return(first)
@@ -37,14 +33,30 @@ tbl_sum.tbl_ts <- function(x) {
 }
 
 #' @export
+tbl_sum.tbl_ts <- function(x) {
+  result <- key_header(x)
+  idx2 <- index2(x)
+  if (!is_empty(idx2)) {
+    idx_suffix <- paste("@", names(idx2))
+    result <- c(result, "Groups" = idx_suffix)
+  }
+  result
+}
+
+#' @export
 tbl_sum.grouped_ts <- function(x) {
+  result <- key_header(x)
   n_grps <- big_mark(n_groups(x))
   if (has_length(n_grps, 0)) {
     n_grps <- "?"
   }
-  c(NextMethod(),
-    "Groups" = paste(paste_comma(format(groups(x))), surround(n_grps, "["))
-  )
+  grps <- paste(paste_comma(format(groups(x))), surround(n_grps, "["))
+  idx2 <- index2(x)
+  if (is_empty(idx2)) {
+    return(c(result, "Groups" = grps))
+  }
+  idx_suffix <- paste("@", names(idx2))
+  c(result, "Groups" = paste(grps, idx_suffix))
 }
 
 

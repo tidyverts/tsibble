@@ -3,11 +3,14 @@
 \name{interval}
 \alias{interval}
 \alias{index}
+\alias{index2}
 \title{Return index and interval from a tsibble}
 \usage{
 interval(x)
 
 index(x)
+
+index2(x)
 }
 \arguments{
 \item{x}{A tsibble object.}

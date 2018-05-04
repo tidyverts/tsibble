@@ -5,12 +5,14 @@
 \alias{as.data.frame.tbl_ts}
 \title{Coerce to a tibble or data frame}
 \usage{
-\method{as_tibble}{tbl_ts}(x, ...)
+\method{as_tibble}{tbl_ts}(x, ungroup = FALSE, ...)
 
 \method{as.data.frame}{tbl_ts}(x, ...)
 }
 \arguments{
 \item{x}{A \code{tbl_ts}.}
+
+\item{ungroup}{\code{TRUE} to remove the grouping variables.}
 
 \item{...}{Ignored.}
 }

@@ -31,8 +31,8 @@ index, in conjunction with \code{index_by()}.
 }
 \details{
 \itemize{
-\item A \code{index_by()}-ed tsibble is indicated by \code{*} in the printing output.
-\item \code{index_by()} only works with \code{summarise()}, not other verbs.
+\item A \code{index_by()}-ed tsibble is indicated by \code{@} followed by a promise in the
+"Groups" when printing on the screen.
 \item Time index will not be collapsed by \code{summarise.tbl_ts}.
 \item The scoped variants of \code{summarise()} only operate on the non-key and
 non-index variables.
