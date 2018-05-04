@@ -26,8 +26,9 @@ sub-daily aggregation
 }
 \description{
 In spirit of \code{group_by()}, \code{index_by()} prepares for a new index with a less
-granular period of time. \code{summarise()} will be operated on each group of the
-index, in conjunction with \code{index_by()}.
+granular period of time. All the verbs will be operated on each group of the
+index, in conjunction with \code{index_by()}. Use \code{ungroup()} to remove the
+\code{index_by()}.
 }
 \details{
 \itemize{

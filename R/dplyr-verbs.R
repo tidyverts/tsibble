@@ -316,7 +316,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   build_tsibble(
-    x, key = key(x), index = !! index(x), index2 = index2(x), groups = id(),
+    x, key = key(x), index = !! index(x), index2 = NULL, groups = id(),
     validate = FALSE, regular = is_regular(x), ordered = is_ordered(x),
     interval = interval(x)
   )
@@ -325,6 +325,7 @@ ungroup.grouped_ts <- function(x, ...) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.tbl_ts <- function(x, ...) {
+  attr(x, "index2") <- list()
   x
 }
 

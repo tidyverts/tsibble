@@ -606,8 +606,7 @@ drop_tsibble <- function(x, ungroup = FALSE) {
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
   if (ungroup) {
     return(x)
-  }
-  if (is_empty(idx2)) {
+  } else if (is_empty(idx2)) {
     return(grouped_df(x, grps_vars))
   } else {
     group_by(x, !!! flatten(c(grps, idx2)))

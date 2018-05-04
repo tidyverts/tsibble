@@ -31,7 +31,7 @@
   }
 
   build_tsibble(
-    result, key = key(x), index = !! index(x),
+    result, key = key(x), index = !! index(x), index2 = index2(x),
     validate = FALSE, regular = is_regular(x), ordered = is_ordered(x)
   )
 }
@@ -84,7 +84,7 @@ index_rename <- function(.data, ...) {
   names(.data)[dat_idx_pos] <- new_idx_chr
   build_tsibble(
     .data, key = key(.data), index = !! sym(new_idx_chr), 
-    groups = groups(.data), regular = is_regular(.data), validate = FALSE, 
-    ordered = is_ordered(.data), interval = interval(.data)
+    index2 = index2(.data), groups = groups(.data), regular = is_regular(.data), 
+    validate = FALSE, ordered = is_ordered(.data), interval = interval(.data)
   )
 }

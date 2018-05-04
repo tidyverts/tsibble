@@ -1,8 +1,9 @@
 #' Prepare to aggregate over time and update index
 #'
 #' In spirit of `group_by()`, `index_by()` prepares for a new index with a less 
-#' granular period of time. `summarise()` will be operated on each group of the
-#' index, in conjunction with `index_by()`.
+#' granular period of time. All the verbs will be operated on each group of the
+#' index, in conjunction with `index_by()`. Use `ungroup()` to remove the
+#' `index_by()`.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... 
@@ -26,6 +27,7 @@
 #' * The scoped variants of `summarise()` only operate on the non-key and 
 #' non-index variables.
 #'
+#' @rdname index-by
 #' @export
 #' @examples
 #' # Monthly counts across sensors ----

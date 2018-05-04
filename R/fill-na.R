@@ -101,11 +101,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   }
   full_data <- full_data %>%
     select(!!! syms(names(.data))) # keep the original order
-  tsbl <- build_tsibble(
-    full_data, key = key, index = !! idx, groups = groups(.data),
-    validate = FALSE, ordered = TRUE, interval = interval(.data)
-  )
-  restore_index_class(.data, tsbl)
+  update_tsibble(full_data, .data, interval = interval(.data))
 }
 
 #' Count implicit gaps
@@ -142,7 +138,7 @@ count_gaps <- function(.data, .full = FALSE) {
   not_regular(.data)
   idx <- index(.data)
   flat_key <- key_vars(.data)
-  tbl <- as_tibble(.data)
+  tbl <- as_tibble(.data, ungroup = TRUE)
 
   grped_tbl <- tbl %>% 
     grouped_df(vars = flat_key)

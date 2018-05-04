@@ -1,7 +1,7 @@
 #' @export
 fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
   dat <- do(data, fill(., ..., .direction = .direction))
-  tsbl <- update_tsibble(dat, data)
+  tsbl <- update_tsibble(dat, data, interval = interval(data))
   restore_index_class(data, tsbl)
 }
 
