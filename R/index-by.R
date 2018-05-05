@@ -78,7 +78,7 @@ index_rename <- function(.data, ...) {
   idx <- index(.data)
   rhs <- purrr::map_chr(quos, quo_get_expr)
   lhs <- names(rhs)
-  idx_chr <- quo_text2(idx)
+  idx_chr <- quo_text(idx)
   idx_pos <- match(idx_chr, rhs)
   new_idx_chr <- lhs[idx_pos]
   idx2 <- index2(.data)

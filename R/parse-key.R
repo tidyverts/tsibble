@@ -140,7 +140,7 @@ key_flatten <- function(x) {
   if (is.null(x)) {
     x <- id()
   }
-  unname(purrr::map_chr(flatten(x), quo_text2))
+  unname(purrr::map_chr(flatten(x), quo_text))
 }
 
 #' Change/update key variables for a given `tbl_ts`

@@ -46,19 +46,18 @@ double gcd_interval(NumericVector x) {
 
 // Find the lowest positive value
 
-// [[Rcpp::export]]
-double minp(NumericVector x) {
-  NumericVector::iterator it;
-  double z = 0;
-
-  for (it = x.begin(); it != x.end(); ++it) {
-    if (*it > 0 && (*it < z || z == 0)) {
-      z = *it;
-    }
-  }
-
-  return z;
-}
+// double minp(NumericVector x) {
+//   NumericVector::iterator it;
+//   double z = 0;
+//
+//   for (it = x.begin(); it != x.end(); ++it) {
+//     if (*it > 0 && (*it < z || z == 0)) {
+//       z = *it;
+//     }
+//   }
+//
+//   return z;
+// }
 
 // Equivalent to any(x != c)
 
@@ -107,26 +106,3 @@ bool is_ascending(IntegerVector x) {
   };
   return true;
 }
-
-// Sliding window function
-
-// std::vector<double> slide_cpp(NumericVector x, Function f, int size, double fill) {
-//   int n = x.size();
-//   List y(size);
-//   List z(n);
-//
-//   int na_obs = size - 1;
-//   for (int i = 0; i < n; ++i) {
-//     if (i < na_obs) {
-//       z[i] = fill;
-//     } else {
-//       for (int j = 0; j < size; ++j) {
-//         y[j] = x[i + j - na_obs];
-//       }
-//       z[i] = f(y);
-//     }
-//   }
-//
-//   std::vector<double> output(z.begin(), z.end());
-//   return(output);
-// }

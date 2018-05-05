@@ -6,8 +6,6 @@
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
 #' `hms`, `integer`, `numeric`.
-#' @param duplicated `TRUE` removes the duplicated elements of `x` first and compute
-#' the greatest common divisor of positive time distances.
 #'
 #' @details The `pull_interval()` and `time_unit()` make a tsibble extensible to
 #' support custom time index.
@@ -21,15 +19,15 @@
 #' @examples
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 #' pull_interval(x)
-pull_interval <- function(x, duplicated = TRUE) {
+pull_interval <- function(x) {
   UseMethod("pull_interval")
 }
 
 #' @export
 # Assume date is regularly spaced
-pull_interval.POSIXt <- function(x, duplicated = TRUE) {
+pull_interval.POSIXt <- function(x) {
   dttm <- as.numeric(x)
-  nhms <- min_interval(dttm, duplicated = duplicated) # num of seconds
+  nhms <- min_interval(dttm) # num of seconds
   period <- split_period(nhms)
   structure(
     list(hour = period$hour, minute = period$minute, second = period$second),
@@ -44,46 +42,46 @@ pull_interval.difftime <- pull_interval.POSIXt
 pull_interval.hms <- pull_interval.difftime # for hms package
 
 #' @export
-pull_interval.Date <- function(x, duplicated = TRUE) {
+pull_interval.Date <- function(x) {
   dttm <- as.numeric(x)
-  ndays <- min_interval(dttm, duplicated = duplicated) # num of seconds
+  ndays <- min_interval(dttm) # num of seconds
   structure(list(day = ndays), class = "interval")
 }
 
 #' @export
-pull_interval.yearweek <- function(x, duplicated = TRUE) {
+pull_interval.yearweek <- function(x) {
   wk <- lubridate::year(x) + (lubridate::isoweek(x) - 1) / 52.5
-  nweeks <- ceiling(min_interval(wk, duplicated = TRUE) * 52.5)
+  nweeks <- ceiling(min_interval(wk) * 52.5)
   structure(list(week = nweeks), class = "interval")
 }
 
 #' @export
-pull_interval.yearmonth <- function(x, duplicated = TRUE) {
+pull_interval.yearmonth <- function(x) {
   mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
-  nmonths <- ceiling(min_interval(mon, duplicated = duplicated) * 12)
+  nmonths <- ceiling(min_interval(mon) * 12)
   structure(list(month = nmonths), class = "interval")
 }
 
 #' @export
-pull_interval.yearmth <- function(x, duplicated = TRUE) {
+pull_interval.yearmth <- function(x) {
   pull_interval(yearmonth(x))
 }
 
 #' @export
-pull_interval.yearquarter <- function(x, duplicated = TRUE) {
+pull_interval.yearquarter <- function(x) {
   qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
-  nqtrs <- ceiling(min_interval(qtr, duplicated = duplicated) * 4)
+  nqtrs <- ceiling(min_interval(qtr) * 4)
   structure(list(quarter = nqtrs), class = "interval")
 }
 
 #' @export
-pull_interval.yearqtr <- function(x, duplicated = TRUE) {
+pull_interval.yearqtr <- function(x) {
   pull_interval(yearquarter(x))
 }
 
 #' @export
-pull_interval.numeric <- function(x, duplicated = TRUE) {
-  nunits <- min_interval(x, duplicated = duplicated)
+pull_interval.numeric <- function(x) {
+  nunits <- min_interval(x)
   if (min0(x) > 999) {
     return(structure(list(year = nunits), class = "interval"))
   }

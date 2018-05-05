@@ -381,7 +381,7 @@ build_tsibble <- function(
         "Only accepts either a call or a name, not %s.", class(expr)[[1]]
       ))
     }
-    idx2_chr <- validate_vars(as.character(idx2), names(x))
+    idx2_chr <- validate_vars(quo_text(idx2), names(x))
     idx2_sym <- sym(idx2_chr)
     extract_index_var(tbl, enquo(idx2_sym))
   }
@@ -390,7 +390,7 @@ build_tsibble <- function(
   # (2) if there exists a list of lists, flatten it as characters
   flat_keys <- key_flatten(key_vars)
   # (3) index cannot be part of the keys
-  idx_chr <- c(quo_text2(index), idx2_chr)
+  idx_chr <- c(quo_text(index), idx2_chr)
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("`%s` can't be `index`, as it's used as `key`.", idx_chr))
@@ -404,7 +404,7 @@ build_tsibble <- function(
     interval <- list()
   } else if (regular && is.null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
-    interval <- pull_interval(eval_idx, duplicated = TRUE)
+    interval <- pull_interval(eval_idx)
   } else if (is_false(inherits(interval, "interval"))) {
     int_cls <- class(interval)[1]
     abort(sprintf("`interval` must be the `interval` class not %s.", int_cls))
@@ -492,7 +492,7 @@ extract_index_var <- function(data, index) {
     inform(sprintf("The `index` is `%s`.", chr_index))
     return(sym(chr_index))
   } else {
-    chr_index <- quo_text2(index)
+    chr_index <- quo_text(index)
     idx_na <- idx_type[chr_index]
     if (is.na(idx_na)) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
@@ -512,7 +512,7 @@ validate_nested <- function(data, key) {
   if (any(nest_lgl)) {
     key_nest <- key[nest_lgl]
     nest_keys <- purrr::map(
-      key_nest, ~ purrr::map_chr(., quo_text2)
+      key_nest, ~ purrr::map_chr(., quo_text)
     )
     n_dist <- purrr::map(
       nest_keys, ~ purrr::map_int(., ~ dplyr::n_distinct(data[[.]]))
@@ -537,7 +537,7 @@ validate_nested <- function(data, key) {
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
-  idx <- quo_text2(index)
+  idx <- quo_text(index)
   # NOTE: bug in anyDuplicated.data.frame()
   # identifiers <- c(key_flatten(key), idx)
   # below calls anyDuplicated.data.frame():
@@ -645,7 +645,7 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
     mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>%
     dplyr::pull(zzz)
 
-  # identifiers <- c(key_flatten(key), quo_text2(index))
+  # identifiers <- c(key_flatten(key), quo_text(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
 }

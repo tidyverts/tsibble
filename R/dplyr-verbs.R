@@ -43,7 +43,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   call_pos <- purrr::map_lgl(quos, quo_is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- validate_vars(vars, names(.data))
-  idx <- quo_text2(index(.data))
+  idx <- quo_text(index(.data))
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(quos[idx_pos])
   key <- key(.data)
@@ -136,7 +136,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (is_false(val_idx)) {
     abort(sprintf(
       "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
-      quo_text2(index(.data))
+      quo_text(index(.data))
     ))
   }
   .data <- index_rename(.data, !!! val_vars)
@@ -219,7 +219,7 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(quo_text2(index(.data)), key_flatten(key(.data)))
+  idx_key <- c(quo_text(index(.data)), key_flatten(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, vec_names)
 }
@@ -247,7 +247,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   idx2 <- index2(.data)
 
   lst_quos <- enquos(..., .named = TRUE)
-  nonkey <- setdiff(names(lst_quos), c(flatten(key(.data)), quo_text2(idx)))
+  nonkey <- setdiff(names(lst_quos), c(flatten(key(.data)), quo_text(idx)))
   nonkey_quos <- lst_quos[nonkey]
 
   sum_data <- collapse_tsibble(.data) %>% 
@@ -377,7 +377,7 @@ collapse_tsibble <- function(x) {
   idx2 <- index2(x)
   x <- tibble::new_tibble(x)
   if (is_empty(idx2)) {
-    return(grouped_df(x, vars = c(grps_vars, quo_text2(idx))))
+    return(grouped_df(x, vars = c(grps_vars, quo_text(idx))))
   }
   group_by(x, !!! flatten(c(grps, idx2)))
 }

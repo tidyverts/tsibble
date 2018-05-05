@@ -75,7 +75,7 @@ full_weather
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
-`index_by()` is the counterpart of `group_by()` in temporal context, but it groups the index only. In conjunction with `index_by()`, `summarise()` and its scoped variants (including `_all()`, `_at()`, `_if()`) aggregate interested variables over calendar periods. `index_by()` goes hand in hand with the index functions including `as.Date()`, `yearweek()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()`, `ceiling_date()`, `floor_date()` and `round_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying `yearmonth()` to the hourly time index.
+`index_by()` is the counterpart of `group_by()` in temporal context, but it groups the index only. In conjunction with `index_by()`, `summarise()` and its scoped variants aggregate interested variables over calendar periods. `index_by()` goes hand in hand with the index functions including `as.Date()`, `yearweek()`, `yearmonth()`, and `yearquarter()`, as well as other friends from *lubridate*, such as `year()`, `ceiling_date()`, `floor_date()` and `round_date()`. For example, it would be of interest in computing average temperature and total precipitation per month, by applying `yearmonth()` to the hourly time index.
 
 ```{r tsummarise}
 full_weather %>%

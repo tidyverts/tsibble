@@ -33,16 +33,12 @@ first_arg <- function(x) {
 }
 
 # regular time interval is obtained from the greatest common divisor of positive
-# time distances. Duplicated time entries result in 0L.
-# if validate = FALSE in as_tsibble, skip to check duplicated entries
-min_interval <- function(x, duplicated = TRUE) {
+# time distances.
+min_interval <- function(x) {
   if (has_length(x, 1)) { # only one time index
     return(NA_real_)
   }
-  if (duplicated) {
-    return(gcd_interval(x))
-  }
-  0
+  gcd_interval(x)
 }
 
 validate_vars <- function(j, x) { # j = quos/chr/dbl
@@ -59,10 +55,6 @@ surround <- function(x, bracket = "(") {
   } else {
     paste0("`", x, "`")
   }
-}
-
-quo_text2 <- function(x) {
-  quo_text(x, width = 500L)
 }
 
 min0 <- function(x) {

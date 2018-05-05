@@ -5,16 +5,13 @@
 \alias{time_unit}
 \title{Extract time interval from a vector}
 \usage{
-pull_interval(x, duplicated = TRUE)
+pull_interval(x)
 
 time_unit(x)
 }
 \arguments{
 \item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
 \code{hms}, \code{integer}, \code{numeric}.}
-
-\item{duplicated}{\code{TRUE} removes the duplicated elements of \code{x} first and compute
-the greatest common divisor of positive time distances.}
 }
 \value{
 \code{pull_interval()}: an "interval" class (a list) includes "year",

@@ -68,10 +68,10 @@ fill_na.data.frame <- function(.data, ...) {
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
   idx <- index(.data)
-  idx_chr <- quo_text2(idx)
+  idx_chr <- quo_text(idx)
   key <- key(.data)
   flat_key <- key_flatten(key)
-  tbl <- as_tibble(.data)
+  tbl <- as_tibble(.data, ungroup = TRUE)
   grped_tbl <- tbl %>% 
     grouped_df(vars = flat_key)
   if (.full) {
@@ -244,8 +244,8 @@ case_na <- function(formula) {
 }
 
 restore_index_class <- function(data, newdata) {
-  old_idx <- quo_text2(index(data))
-  new_idx <- quo_text2(index(newdata))
+  old_idx <- quo_text(index(data))
+  new_idx <- quo_text(index(newdata))
   class(newdata[[new_idx]]) <- class(data[[old_idx]])
   newdata
 }

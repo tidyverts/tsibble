@@ -27,17 +27,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// minp
-double minp(NumericVector x);
-RcppExport SEXP _tsibble_minp(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(minp(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // any_not_equal_to_c
 bool any_not_equal_to_c(NumericVector x, double c);
 RcppExport SEXP _tsibble_any_not_equal_to_c(SEXP xSEXP, SEXP cSEXP) {
@@ -76,7 +65,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_tsibble_rle_lgl", (DL_FUNC) &_tsibble_rle_lgl, 1},
     {"_tsibble_gcd_interval", (DL_FUNC) &_tsibble_gcd_interval, 1},
-    {"_tsibble_minp", (DL_FUNC) &_tsibble_minp, 1},
     {"_tsibble_any_not_equal_to_c", (DL_FUNC) &_tsibble_any_not_equal_to_c, 2},
     {"_tsibble_is_descending", (DL_FUNC) &_tsibble_is_descending, 1},
     {"_tsibble_is_ascending", (DL_FUNC) &_tsibble_is_ascending, 1},

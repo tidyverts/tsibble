@@ -45,7 +45,7 @@ has_index <- function(x) {
 # this function usually follows validate_vars()
 has_index_var <- function(j, x) {
   has_index(x)
-  index <- c(quo_text2(index(x)), names(index2(x)))
+  index <- c(quo_text(index(x)), names(index2(x)))
   any(index %in% j)
 }
 
