@@ -2,7 +2,7 @@
 % Please edit documentation in R/index-by.R
 \name{index_by}
 \alias{index_by}
-\title{Prepare to aggregate over time and update index}
+\title{Group by time index}
 \usage{
 index_by(.data, ...)
 }
@@ -25,11 +25,11 @@ sub-daily aggregation
 }}
 }
 \description{
-In spirit of \code{group_by()}, \code{index_by()} prepares for a new index of the same
-size but with a less granular period of time. It captures the expression only,
-and will be evaluated within the next function call. The following operation
-is applied to each group of the index, created via \code{index_by()}. Use
-\code{ungroup()} to remove the \code{index_by()}.
+\code{index_by()} is the counterpart of \code{group_by()} in temporal context, but it
+only groups the time index. It captures the expression, and will be
+evaluated within the next function call. The following operation is applied
+to each group of the index, similar to \code{group_by()} but dealing with index only.
+Use \code{ungroup()} to remove the \code{index_by()}.
 }
 \details{
 \itemize{

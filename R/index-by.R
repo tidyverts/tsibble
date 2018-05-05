@@ -1,10 +1,10 @@
-#' Prepare to aggregate over time and update index
+#' Group by time index
 #'
-#' In spirit of `group_by()`, `index_by()` prepares for a new index of the same
-#' size but with a less granular period of time. It captures the expression only,
-#' and will be evaluated within the next function call. The following operation
-#' is applied to each group of the index, created via `index_by()`. Use 
-#' `ungroup()` to remove the `index_by()`.
+#' `index_by()` is the counterpart of `group_by()` in temporal context, but it
+#' only groups the time index. It captures the expression, and will be 
+#' evaluated within the next function call. The following operation is applied 
+#' to each group of the index, similar to `group_by()` but dealing with index only. 
+#' Use `ungroup()` to remove the `index_by()`.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... 

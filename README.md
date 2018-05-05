@@ -15,8 +15,8 @@ Status](https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg)](h
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data class of `tbl_ts` to store and
-manage temporal-context data frames in a tidy manner. A *tsibble*
-consists of a time index, keys and other measured variables in a
+manage temporal-context data frames in a “tidy” form. A *tsibble*
+consists of a time index, key and other measured variables in a
 data-centric format, which is built on top of the *tibble*.
 
 ## Installation
@@ -55,11 +55,11 @@ weather_tsbl
 #> # Keys:      origin [3]
 #>   origin time_hour            temp humid precip
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
-#> 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.
-#> 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.
-#> 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.
-#> 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.
-#> 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.
+#> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0
+#> 2 EWR    2013-01-01 01:00:00  37.0  54.0      0
+#> 3 EWR    2013-01-01 02:00:00  37.9  52.1      0
+#> 4 EWR    2013-01-01 03:00:00  37.9  54.5      0
+#> 5 EWR    2013-01-01 04:00:00  37.9  57.0      0
 #> # ... with 2.612e+04 more rows
 ```
 
@@ -96,24 +96,27 @@ full_weather
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
-#> 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.
-#> 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.
-#> 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.
-#> 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.
-#> 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.
+#> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0
+#> 2 EWR    2013-01-01 01:00:00  37.0  54.0      0
+#> 3 EWR    2013-01-01 02:00:00  37.9  52.1      0
+#> 4 EWR    2013-01-01 03:00:00  37.9  54.5      0
+#> 5 EWR    2013-01-01 04:00:00  37.9  57.0      0
 #> # ... with 2.62e+04 more rows
 ```
 
 `fill_na()` also handles filling `NA` by values or functions, and
-preserves time zones for date-times.
+preserves time zones for date-times. Wanna a quick overview of implicit
+time gaps? Check out `count_gaps()`.
 
-### `tsummarise()` to summarise over calendar periods
+### `index_by()` + `summarise()` to aggregate over calendar periods
 
-`tsummarise()` and its scoped variants (including `_all()`, `_at()`,
-`_if()`) are introduced to aggregate interested variables over calendar
-periods. `tsummarise()` goes hand in hand with the index functions
-including `as.Date()`, `yearmonth()`, and `yearquarter()`, as well as
-other friends from *lubridate*, such as `year()`, `ceiling_date()`,
+`index_by()` is the counterpart of `group_by()` in temporal context, but
+it groups the index only. In conjunction with `index_by()`,
+`summarise()` and its scoped variants (including `_all()`, `_at()`,
+`_if()`) aggregate interested variables over calendar periods.
+`index_by()` goes hand in hand with the index functions including
+`as.Date()`, `yearweek()`, `yearmonth()`, and `yearquarter()`, as well
+as other friends from *lubridate*, such as `year()`, `ceiling_date()`,
 `floor_date()` and `round_date()`. For example, it would be of interest
 in computing average temperature and total precipitation per month, by
 applying `yearmonth()` to the hourly time index.
@@ -121,8 +124,8 @@ applying `yearmonth()` to the hourly time index.
 ``` r
 full_weather %>%
   group_by(origin) %>%
-  tsummarise(
-    year_month = yearmonth(time_hour), # monthly aggregates
+  index_by(year_month = yearmonth(time_hour)) %>% # monthly aggregates
+  summarise(
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
@@ -130,7 +133,7 @@ full_weather %>%
 #> # Keys:      origin [3]
 #>   origin year_month avg_temp ttl_precip
 #>   <chr>       <mth>    <dbl>      <dbl>
-#> 1 EWR      2013 Jan     35.6       2.70
+#> 1 EWR      2013 Jan     35.6       2.7 
 #> 2 EWR      2013 Feb     34.1       2.76
 #> 3 EWR      2013 Mar     40.0       1.94
 #> 4 EWR      2013 Apr     52.9       1.05
@@ -138,8 +141,8 @@ full_weather %>%
 #> # ... with 31 more rows
 ```
 
-`tsummarise()` can also help with regularising a tsibble of irregular
-time space.
+This combo can also help with regularising a tsibble of irregular time
+space.
 
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 
@@ -164,11 +167,11 @@ full_weather %>%
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip temp_ma
 #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
-#> 1 EWR    2013-01-01 00:00:00  37.0  54.0     0.    NA  
-#> 2 EWR    2013-01-01 01:00:00  37.0  54.0     0.    NA  
-#> 3 EWR    2013-01-01 02:00:00  37.9  52.1     0.    37.3
-#> 4 EWR    2013-01-01 03:00:00  37.9  54.5     0.    37.6
-#> 5 EWR    2013-01-01 04:00:00  37.9  57.0     0.    37.9
+#> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0    NA  
+#> 2 EWR    2013-01-01 01:00:00  37.0  54.0      0    NA  
+#> 3 EWR    2013-01-01 02:00:00  37.9  52.1      0    37.3
+#> 4 EWR    2013-01-01 03:00:00  37.9  54.5      0    37.6
+#> 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9
 #> # ... with 2.62e+04 more rows
 ```
 
