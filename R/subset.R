@@ -45,8 +45,8 @@ has_index <- function(x) {
 # this function usually follows validate_vars()
 has_index_var <- function(j, x) {
   has_index(x)
-  index <- as.character(index(x))
-  index %in% j
+  index <- c(quo_text2(index(x)), names(index2(x)))
+  any(index %in% j)
 }
 
 has_distinct_key <- function(j, x) {
@@ -67,24 +67,4 @@ has_any_key <- function(j, x) {
 has_any_grp <- function(j, x) {
   grp_vars <- key_flatten(groups(x))
   any(grp_vars %in% j)
-}
-
-index_rename <- function(.data, ...) {
-  quos <- enquos(...)
-  idx <- index(.data)
-  rhs <- purrr::map_chr(quos, quo_get_expr)
-  lhs <- names(rhs)
-  idx_chr <- quo_text2(idx)
-  idx_pos <- match(idx_chr, rhs)
-  new_idx_chr <- lhs[idx_pos]
-  if (is.na(idx_pos)) {
-    new_idx_chr <- idx_chr
-  }
-  dat_idx_pos <- match(idx_chr, names(.data))
-  names(.data)[dat_idx_pos] <- new_idx_chr
-  build_tsibble(
-    .data, key = key(.data), index = !! sym(new_idx_chr), 
-    index2 = index2(.data), groups = groups(.data), regular = is_regular(.data), 
-    validate = FALSE, ordered = is_ordered(.data), interval = interval(.data)
-  )
 }

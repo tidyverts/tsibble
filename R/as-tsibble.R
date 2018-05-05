@@ -351,7 +351,9 @@ build_tsibble <- function(
   # if key is quosures
   use_id(key)
 
-  tbl <- as_tibble(x, ungroup = TRUE, validate = validate) # x is lst, data.frame, tbl_df
+  # x is lst, data.frame, tbl_df, use ungroup()
+  # x is tbl_ts, use as_tibble(ungroup = TRUE)
+  tbl <- ungroup(as_tibble(x, ungroup = TRUE, validate = validate))
   # extract or pass the index var
   index <- extract_index_var(tbl, enquo(index))
   # if index2 not specified, empty list
@@ -600,29 +602,18 @@ drop_tsibble <- function(x, ungroup = FALSE) {
   grps <- groups(x)
   idx2 <- index2(x)
   grps_vars <- group_vars(x)
-  x <- tibble::new_tibble(x)
   attr(x, "key") <- attr(x, "index") <- NULL
-  attr(x, "index2") <- attr(x, "vars") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
+  x <- tibble::new_tibble(x)
   if (ungroup) {
+    attr(x, "index2") <- attr(x, "vars") <- NULL
     return(x)
   } else if (is_empty(idx2)) {
+    attr(x, "index2") <- NULL
     return(grouped_df(x, grps_vars))
   } else {
     group_by(x, !!! flatten(c(grps, idx2)))
   }
-}
-
-collapse_tsibble <- function(x) {
-  grps <- groups(x)
-  grps_vars <- group_vars(x)
-  idx <- index(x)
-  idx2 <- index2(x)
-  x <- tibble::new_tibble(x)
-  if (is_empty(idx2)) {
-    return(grouped_df(x, vars = c(grps_vars, quo_text2(idx))))
-  }
-  group_by(x, !!! flatten(c(grps, idx2)))
 }
 
 #' Find duplication of key and index variables

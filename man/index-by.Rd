@@ -25,15 +25,16 @@ sub-daily aggregation
 }}
 }
 \description{
-In spirit of \code{group_by()}, \code{index_by()} prepares for a new index with a less
-granular period of time. All the verbs will be operated on each group of the
-index, in conjunction with \code{index_by()}. Use \code{ungroup()} to remove the
-\code{index_by()}.
+In spirit of \code{group_by()}, \code{index_by()} prepares for a new index of the same
+size but with a less granular period of time. It captures the expression only,
+and will be evaluated within the next function call. The following operation
+is applied to each group of the index, created via \code{index_by()}. Use
+\code{ungroup()} to remove the \code{index_by()}.
 }
 \details{
 \itemize{
 \item A \code{index_by()}-ed tsibble is indicated by \code{@} followed by a promise in the
-"Groups" when printing on the screen.
+"Groups" when displaying on the screen.
 \item Time index will not be collapsed by \code{summarise.tbl_ts}.
 \item The scoped variants of \code{summarise()} only operate on the non-key and
 non-index variables.
