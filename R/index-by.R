@@ -64,7 +64,7 @@ index_by <- function(.data, ...) {
 index_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(..., .named = TRUE)
   if (is_false(has_length(exprs, 1))) {
-    abort("`index_by()` only accepts one expression")
+    abort("`index_by()` only accepts one expression.")
   }
   build_tsibble(
     .data, key = key(.data), index = !! index(.data), index2 = exprs,

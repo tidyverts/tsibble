@@ -381,7 +381,7 @@ build_tsibble <- function(
         "Only accepts either a call or a name, not %s.", class(expr)[[1]]
       ))
     }
-    idx2_chr <- validate_vars(idx2, names(x))
+    idx2_chr <- validate_vars(as.character(idx2), names(x))
     idx2_sym <- sym(idx2_chr)
     extract_index_var(tbl, enquo(idx2_sym))
   }

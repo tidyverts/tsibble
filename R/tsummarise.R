@@ -127,7 +127,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
 
   build_tsibble(
     result, key = grps, index = !! idx_sym, groups = drop_group(grps), 
-    validate = FALSE, ordered = is_ordered(.data)
+    validate = FALSE, ordered = TRUE
   )
 }
 

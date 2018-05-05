@@ -242,13 +242,16 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   if (drop) {
     return(summarise(as_tibble(.data), ...))
   }
-  lst_quos <- enquos(..., .named = TRUE)
   grps <- groups(.data)
   idx <- index(.data)
   idx2 <- index2(.data)
 
+  lst_quos <- enquos(..., .named = TRUE)
+  nonkey <- setdiff(names(lst_quos), c(flatten(key(.data)), quo_text2(idx)))
+  nonkey_quos <- lst_quos[nonkey]
+
   sum_data <- collapse_tsibble(.data) %>% 
-    summarise(!!! lst_quos)
+    summarise(!!! nonkey_quos)
   if (is_empty(idx2)) {
     int <- interval(.data)
     reg <- is_regular(.data)
