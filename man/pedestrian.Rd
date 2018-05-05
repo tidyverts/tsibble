@@ -21,15 +21,13 @@ A dataset containing the hourly pedestrian counts from 2015-01-01 to
 }
 \examples{
 data(pedestrian)
-# make implicit missingness to be explicit
+# make implicit missingness to be explicit ----
 pedestrian \%>\% fill_na()
-# compute daily maximum counts across sensors
+# compute daily maximum counts across sensors ----
 pedestrian \%>\% 
   group_by(Sensor) \%>\% 
-  tsummarise(
-    Date1 = lubridate::as_date(Date_Time),
-    MaxC = max(Count)
-  )
+  index_by(Date) \%>\% # group by Date and use it as new index
+  summarise(MaxC = max(Count))
 }
 \references{
 \href{https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp}{Melbourne Open Data Portal}

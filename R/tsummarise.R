@@ -25,27 +25,10 @@
 #' * The scoped variants only operate on the non-key and non-index variables.
 #'
 #' @seealso [dplyr::summarise_all]
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
-#' @examples
-#' # Monthly counts across Sensors
-#' data(pedestrian)
-#' monthly_ped <- pedestrian %>% 
-#'   group_by(Sensor) %>% 
-#'   tsummarise(
-#'     Year_Month = yearmonth(Date_Time), # Year_Month will be the new index
-#'     Max_Count = max(Count),
-#'     Min_Count = min(Count)
-#'   )
-#' monthly_ped
-#' index(monthly_ped)
-#'
-#' # Annual trips by Region and State ----
-#' data(tourism)
-#' tourism %>% 
-#'   group_by(Region | State) %>% 
-#'   tsummarise(Year = lubridate::year(Quarter), Total = sum(Trips))
 tsummarise <- function(.data, ...) {
+  .Deprecated("index_by() + summarise()", package = "tsibble")
   UseMethod("tsummarise")
 }
 
@@ -55,34 +38,8 @@ tsummarise.tbl_ts <- function(.data, ...) {
   tsum(.data, lst_quos$first, lst_quos$remainder, FUN = summarise)
 }
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
-#' @examples
-#' # scoped variants ----
-#' tsbl <- tsibble(
-#'   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
-#'   group = rep(c("x", "y", "z"), each = 10),
-#'   a = rnorm(30),
-#'   b = rnorm(30),
-#'   c = rnorm(30),
-#'   key = id(group), index = qtr
-#' )
-#' tsbl %>% 
-#'   group_by(group) %>% 
-#'   tsummarise_all(year = lubridate::year(qtr), .funs = mean)
-#' tsbl %>% 
-#'   group_by(group) %>% 
-#'   tsummarise_if(
-#'      year = lubridate::year(qtr), 
-#'      .predicate = is.numeric, .funs = sum
-#'   )
-#' # additional arguments need putting into the `.funs`
-#' tsbl %>% 
-#'   group_by(group) %>% 
-#'   tsummarise_at(
-#'      year = lubridate::year(qtr), 
-#'      .vars = c("a", "c"), .funs = function(x) median(x, na.rm = TRUE)
-#'   )
 tsummarise_all <- function(.data, ..., .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
   tsum(
@@ -91,7 +48,7 @@ tsummarise_all <- function(.data, ..., .funs) {
   )
 }
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarise_if <- function(.data, ..., .predicate, .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
@@ -102,7 +59,7 @@ tsummarise_if <- function(.data, ..., .predicate, .funs) {
   )
 }
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarise_at <- function(.data, ..., .vars, .funs) {
   lst_quos <- separate_quos(warn = TRUE, ...)
@@ -113,19 +70,19 @@ tsummarise_at <- function(.data, ..., .vars, .funs) {
   )
 }
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarize <- tsummarise
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarize_all <- tsummarise_all
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarize_if <- tsummarise_if
 
-#' @rdname tsummarise
+#' @rdname tsibble-deprecated
 #' @export
 tsummarize_at <- tsummarise_at
 

@@ -76,50 +76,6 @@ after the operation.
 \item The scoped variants only operate on the non-key and non-index variables.
 }
 }
-\examples{
-# Monthly counts across Sensors
-data(pedestrian)
-monthly_ped <- pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
-  tsummarise(
-    Year_Month = yearmonth(Date_Time), # Year_Month will be the new index
-    Max_Count = max(Count),
-    Min_Count = min(Count)
-  )
-monthly_ped
-index(monthly_ped)
-
-# Annual trips by Region and State ----
-data(tourism)
-tourism \%>\% 
-  group_by(Region | State) \%>\% 
-  tsummarise(Year = lubridate::year(Quarter), Total = sum(Trips))
-# scoped variants ----
-tsbl <- tsibble(
-  qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
-  group = rep(c("x", "y", "z"), each = 10),
-  a = rnorm(30),
-  b = rnorm(30),
-  c = rnorm(30),
-  key = id(group), index = qtr
-)
-tsbl \%>\% 
-  group_by(group) \%>\% 
-  tsummarise_all(year = lubridate::year(qtr), .funs = mean)
-tsbl \%>\% 
-  group_by(group) \%>\% 
-  tsummarise_if(
-     year = lubridate::year(qtr), 
-     .predicate = is.numeric, .funs = sum
-  )
-# additional arguments need putting into the `.funs`
-tsbl \%>\% 
-  group_by(group) \%>\% 
-  tsummarise_at(
-     year = lubridate::year(qtr), 
-     .vars = c("a", "c"), .funs = function(x) median(x, na.rm = TRUE)
-  )
-}
 \seealso{
 \link[dplyr:summarise_all]{dplyr::summarise_all}
 }

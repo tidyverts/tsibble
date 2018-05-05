@@ -4,7 +4,7 @@
 \alias{yearweek}
 \alias{yearmonth}
 \alias{yearquarter}
-\title{Represent year-week, year-month or year-quarter objects}
+\title{Represent year-week (ISO), year-month or year-quarter objects}
 \usage{
 yearweek(x)
 

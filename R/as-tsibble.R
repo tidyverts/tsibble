@@ -325,7 +325,7 @@ as.tsibble <- function(x, ...) {
 
 #' Construct a tsibble object
 #'
-#' A relatively more flexible function to create a `tbl_ts` object. It is useful
+#' A relatively more controllable function to create a `tbl_ts` object. It is useful
 #' for creating a `tbl_ts` internally inside a function, and it allows users to
 #' determine if the time needs ordering and the interval needs calculating.
 #'
@@ -341,6 +341,13 @@ as.tsibble <- function(x, ...) {
 #' is, if an class of `interval` is supplied.
 #'
 #' @export
+#' @examples
+#' # Prepare `pedestrian` to use a new index `Date` ----
+#' pedestrian %>% 
+#'   build_tsibble(
+#'     key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date), 
+#'     interval = interval(.)
+#'   )
 build_tsibble <- function(
   x, key, index, index2 = NULL, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL

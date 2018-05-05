@@ -38,7 +38,15 @@ the correct order. \code{FALSE} also skips the ordering but gives a warning inst
 is, if an class of \code{interval} is supplied.}
 }
 \description{
-A relatively more flexible function to create a \code{tbl_ts} object. It is useful
+A relatively more controllable function to create a \code{tbl_ts} object. It is useful
 for creating a \code{tbl_ts} internally inside a function, and it allows users to
 determine if the time needs ordering and the interval needs calculating.
+}
+\examples{
+# Prepare `pedestrian` to use a new index `Date` ----
+pedestrian \%>\% 
+  build_tsibble(
+    key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date), 
+    interval = interval(.)
+  )
 }

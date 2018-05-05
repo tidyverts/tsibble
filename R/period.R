@@ -1,7 +1,7 @@
 # Unlike zoo::yearmon and zoo::yearqtr based on numerics,
 # tsibble::yearmth and tsibble::yearqtr are based on the "Date" class.
 
-#' Represent year-week, year-month or year-quarter objects
+#' Represent year-week (ISO), year-month or year-quarter objects
 #'
 #' Create or coerce using `yearweek()`, `yearmonth()`, or `yearquarter()`
 #'

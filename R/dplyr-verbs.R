@@ -244,6 +244,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   grps <- groups(.data)
+  idx <- index(.data)
   idx2 <- index2(.data)
 
   sum_data <- collapse_tsibble(.data) %>% 
@@ -258,7 +259,7 @@ summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
   }
 
   build_tsibble(
-    sum_data, key = grps, index = !! index(.data), index2 = NULL,
+    sum_data, key = grps, index = !! idx, index2 = NULL,
     groups = drop_group(grps), validate = FALSE, regular = reg, 
     ordered = TRUE, interval = int
   )
