@@ -130,6 +130,7 @@ count_gaps <- function(.data, ...) {
 #' @export
 #' @examples
 #' # Implicit missing time without group_by ----
+#' # All the sensors have 2 common missing time points in the data
 #' count_gaps(pedestrian)
 count_gaps.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
@@ -176,7 +177,7 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
       summarise(gaps = list(gaps(!! idx, seq_by(!! idx)))) %>% 
       tidyr::unnest(gaps)
   }
-  grouped_df(out, vars = group_vars(tbl)) # return the same groups
+  ungroup(out)
 }
 
 #' @rdname gaps

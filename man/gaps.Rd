@@ -41,6 +41,7 @@ with respect to \code{y}.
 }
 \examples{
 # Implicit missing time without group_by ----
+# All the sensors have 2 common missing time points in the data
 count_gaps(pedestrian)
 # Time gaps for each sensor per month ----
 pedestrian \%>\% 
