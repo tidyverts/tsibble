@@ -1,3 +1,39 @@
+# tsibble 0.1.5.9000
+
+## Breaking changes
+
+* Deprecated `tsummarise()` and its scoped variants. It can be replaced by the combo `index_by()` + `summarise()`.
+* Renamed `inform_duplicates()` (defunct) to `find_duplicates()`.
+* `key_vars()` and `group_vars()` return a vector of characters instead of a list.
+
+## New functions
+
+* `index_by()` groups time index, as the counterpart of `group_by()` in temporal context.
+* `count_gaps()` and `gaps()` counts time gaps (implicit missing observations in time).
+* `yearweek()` creates and coerces to a year-week object.
+
+## API changes
+
+* `fill_na.tbl_ts()` gained a new argument of `.full = FALSE`. `.full = FALSE` (the default) inserts `NA` for each key within its time period, `TRUE` for the entire time span. This affects the results of `fill_na.tbl_ts()` as it only took `TRUE` into account.
+* Renamed the `drop` argument to `.drop` in column-wise dplyr verbs.
+* Dropped the `duplicated` argument in `pull_interval()`.
+
+## Improvements
+
+* Added overall time span to the `glimpse.tbl_ts()`.
+* Slightly improved the speed of `fill_na()`.
+
+## Bug fixes
+
+* Fixed `transmute.tbl_ts()` for a univariate time series due to unregistered tidyselect helpers. (#9).
+* Fixed bug in `select.tbl_ts()` and `rename.tbl_ts()` for not preserving grouped variables (#12).
+* Fixed bug in `select.tbl_ts()` and `rename.tbl_ts()` for renaming grouped variables.
+* `group_by.tbl_ts()` doesn't accept named expression and function calls.
+
+## Internal changes
+
+* A `tbl_ts` gains a new attribute `index2`, which is a list of an expression used by `index_by()`.
+
 # tsibble 0.1.5
 
 This release introduces major changes into the underlying `tbl_ts` object:
