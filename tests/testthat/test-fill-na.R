@@ -65,7 +65,7 @@ dat_x <- tibble(
 dat_y <- dat_x[c(2:8, 10), ]
 tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 
-test_that("a grouped_ts", {
+test_that("fill_na() for a grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%
     fill_na(value = sum(value, na.rm = TRUE), .full = TRUE)
@@ -110,8 +110,15 @@ test_that("fill.tbl_ts(.full = FALSE)", {
   )
 })
 
-test_that("count_gaps(.full = TRUE)", {
-  full_tbl <- tsbl %>% count_gaps(.full = TRUE)
+test_that("count_gaps.tbl_ts()", {
+  expect_equal(
+    count_gaps(tsbl),
+    tibble(from = NA, to = NA, n = 0L)
+  )
+})
+
+test_that("count_gaps.grouped_ts(.full = TRUE)", {
+  full_tbl <- tsbl  %>% group_by(group) %>% count_gaps(.full = TRUE)
   expect_equal(
     full_tbl,
     tibble(
@@ -123,8 +130,8 @@ test_that("count_gaps(.full = TRUE)", {
   )
 })
 
-test_that("count_gaps(.full = FALSE)", {
-  full_tbl <- tsbl %>% count_gaps()
+test_that("count_gaps.grouped_ts(.full = FALSE)", {
+  full_tbl <- tsbl %>% group_by(group) %>% count_gaps()
   a <- tibble(group = "a", from = NA, to = NA, n = 0L)
   b <- tibble(
     group = "b", 

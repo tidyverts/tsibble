@@ -110,14 +110,49 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' with respect to `y`.
 #' 
 #' @param .data A `tbl_ts`.
-#' @inheritParams fill_na
+#' @param ... Other arguments passed on to individual methods.
 #'
 #' @rdname gaps
 #' @export
 #' @seealso fill_na
+#' @return
+#' A tibble contains:
+#' * the "key" of the `tbl_ts`
+#' * "from": the starting time point of the gap
+#' * "end": the ending time point of the gap
+#' * "n": the implicit missing observations during the time period
+count_gaps <- function(.data, ...) {
+  not_regular(.data)
+  UseMethod("count_gaps")
+}
+
+#' @rdname gaps
+#' @export
 #' @examples
+#' # Implicit missing time without group_by ----
 #' count_gaps(pedestrian)
-#' ped_gaps <- count_gaps(pedestrian, .full = TRUE)
+count_gaps.tbl_ts <- function(.data, ...) {
+  idx <- index(.data)
+  idx_full <- seq_by(eval_tidy(idx, data = .data))
+  as_tibble(.data, ungroup = TRUE) %>% 
+    summarise(gaps = list(gaps(unique.default(!! idx), idx_full))) %>% 
+    tidyr::unnest(gaps)
+}
+
+#' @rdname gaps
+#' @param .full `FALSE` to find gaps for each group within its own period. `TRUE`
+#' to find gaps over the entire time span of the data.
+#' @export
+#' @examples
+#' # Time gaps for each sensor per month ----
+#' pedestrian %>% 
+#'   index_by(yrmth = yearmonth(Date)) %>% 
+#'   group_by(Sensor) %>% 
+#'   count_gaps()
+#' # Time gaps for each sensor ----
+#' ped_gaps <- pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   count_gaps(.full = TRUE)
 #' if (!requireNamespace("ggplot2", quietly = TRUE)) {
 #'   stop("Please install the ggplot2 package to run these following examples.")
 #' }
@@ -128,31 +163,20 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #'   geom_point(aes(x = Sensor, y = to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
-#' @return
-#' A tibble contains:
-#' * the "key" of the `tbl_ts`
-#' * "from": the starting time point of the gap
-#' * "end": the ending time point of the gap
-#' * "n": the implicit missing observations during the time period
-count_gaps <- function(.data, .full = FALSE) {
-  not_regular(.data)
+count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
   idx <- index(.data)
-  flat_key <- key_vars(.data)
-  tbl <- as_tibble(.data, ungroup = TRUE)
-
-  grped_tbl <- tbl %>% 
-    grouped_df(vars = flat_key)
+  tbl <- as_tibble(.data)
   if (.full) {
     idx_full <- seq_by(eval_tidy(idx, data = tbl))
-    out <- grped_tbl %>% 
+    out <- tbl %>% 
       summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
       tidyr::unnest(gaps)
   } else {
-    out <- grped_tbl %>% 
+    out <- tbl %>% 
       summarise(gaps = list(gaps(!! idx, seq_by(!! idx)))) %>% 
       tidyr::unnest(gaps)
   }
-  ungroup(out)
+  grouped_df(out, vars = group_vars(tbl)) # return the same groups
 }
 
 #' @rdname gaps
@@ -160,6 +184,7 @@ count_gaps <- function(.data, .full = FALSE) {
 #' be greater than the length of `x`.
 #' @export
 #' @examples
+#' # Vectors ----
 #' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 gaps <- function(x, y) {
   len_x <- length(x)

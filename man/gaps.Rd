@@ -2,18 +2,26 @@
 % Please edit documentation in R/fill-na.R
 \name{count_gaps}
 \alias{count_gaps}
+\alias{count_gaps.tbl_ts}
+\alias{count_gaps.grouped_ts}
 \alias{gaps}
 \title{Count implicit gaps}
 \usage{
-count_gaps(.data, .full = FALSE)
+count_gaps(.data, ...)
+
+\method{count_gaps}{tbl_ts}(.data, ...)
+
+\method{count_gaps}{grouped_ts}(.data, .full = FALSE, ...)
 
 gaps(x, y)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{.full}{\code{FALSE} to insert \code{NA} for each key within its own period. \code{TRUE}
-to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
+\item{...}{Other arguments passed on to individual methods.}
+
+\item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
+to find gaps over the entire time span of the data.}
 
 \item{x, y}{A vector of numbers, dates, or date-times. The length of \code{y} must
 be greater than the length of \code{x}.}
@@ -32,8 +40,17 @@ A tibble contains:
 with respect to \code{y}.
 }
 \examples{
+# Implicit missing time without group_by ----
 count_gaps(pedestrian)
-ped_gaps <- count_gaps(pedestrian, .full = TRUE)
+# Time gaps for each sensor per month ----
+pedestrian \%>\% 
+  index_by(yrmth = yearmonth(Date)) \%>\% 
+  group_by(Sensor) \%>\% 
+  count_gaps()
+# Time gaps for each sensor ----
+ped_gaps <- pedestrian \%>\% 
+  group_by(Sensor) \%>\% 
+  count_gaps(.full = TRUE)
 if (!requireNamespace("ggplot2", quietly = TRUE)) {
   stop("Please install the ggplot2 package to run these following examples.")
 }
@@ -44,6 +61,7 @@ ggplot(ped_gaps, aes(colour = Sensor)) +
   geom_point(aes(x = Sensor, y = to)) +
   coord_flip() +
   theme(legend.position = "bottom")
+# Vectors ----
 gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 }
 \seealso{
