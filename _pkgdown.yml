@@ -4,7 +4,7 @@ template:
 
 authors:
   Earo Wang:
-    href: http://earo.me
+    href: https://earo.me
   Di Cook:
     href: http://dicook.org
   Rob Hyndman:
@@ -24,9 +24,10 @@ reference:
 
 - title: Tsibble verbs
   contents:
-    - tsummarise
+    - index_by
     - fill_na
-    - inform_duplicates
+    - count_gaps
+    - find_duplicates
     - split_by
 
 - title: Windowed functions

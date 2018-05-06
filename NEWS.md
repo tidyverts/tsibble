@@ -1,8 +1,8 @@
-# tsibble 0.1.5.9000
+# tsibble 0.1.7
 
 ## Breaking changes
 
-* Deprecated `tsummarise()` and its scoped variants. It can be replaced by the combo `index_by()` + `summarise()`.
+* Deprecated `tsummarise()` and its scoped variants. It can be replaced by the combo `index_by()` + `summarise()`. (#20)
 * Renamed `inform_duplicates()` (defunct) to `find_duplicates()`.
 * `key_vars()` and `group_vars()` return a vector of characters instead of a list.
 
@@ -10,11 +10,11 @@
 
 * `index_by()` groups time index, as the counterpart of `group_by()` in temporal context.
 * `count_gaps()` and `gaps()` counts time gaps (implicit missing observations in time).
-* `yearweek()` creates and coerces to a year-week object.
+* `yearweek()` creates and coerces to a year-week object. (#17)
 
 ## API changes
 
-* `fill_na.tbl_ts()` gained a new argument of `.full = FALSE`. `.full = FALSE` (the default) inserts `NA` for each key within its time period, `TRUE` for the entire time span. This affects the results of `fill_na.tbl_ts()` as it only took `TRUE` into account.
+* `fill_na.tbl_ts()` gained a new argument of `.full = FALSE`. `.full = FALSE` (the default) inserts `NA` for each key within its time period, `TRUE` for the entire time span. This affects the results of `fill_na.tbl_ts()` as it only took `TRUE` into account. (#15)
 * Renamed the `drop` argument to `.drop` in column-wise dplyr verbs.
 * Dropped the `duplicated` argument in `pull_interval()`.
 
@@ -33,6 +33,7 @@
 ## Internal changes
 
 * A `tbl_ts` gains a new attribute `index2`, which is a list of an expression used by `index_by()`.
+* The time interval is obtained through the greatest common factor of positive time differences. This covers broader cases than the minimal value
 
 # tsibble 0.1.5
 

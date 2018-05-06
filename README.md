@@ -115,11 +115,10 @@ it groups the index only. In conjunction with `index_by()`,
 `summarise()` and its scoped variants aggregate interested variables
 over calendar periods. `index_by()` goes hand in hand with the index
 functions including `as.Date()`, `yearweek()`, `yearmonth()`, and
-`yearquarter()`, as well as other friends from *lubridate*, such as
-`year()`, `ceiling_date()`, `floor_date()` and `round_date()`. For
-example, it would be of interest in computing average temperature and
-total precipitation per month, by applying `yearmonth()` to the hourly
-time index.
+`yearquarter()`, as well as other friends from *lubridate*. For example,
+it would be of interest in computing average temperature and total
+precipitation per month, by applying `yearmonth()` to the hourly time
+index.
 
 ``` r
 full_weather %>%
