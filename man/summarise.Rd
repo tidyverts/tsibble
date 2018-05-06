@@ -5,16 +5,16 @@
 \alias{summarize.tbl_ts}
 \title{Collapse multiple rows to a single value}
 \usage{
-\method{summarise}{tbl_ts}(.data, ..., drop = FALSE)
+\method{summarise}{tbl_ts}(.data, ..., .drop = FALSE)
 
-\method{summarize}{tbl_ts}(.data, ..., drop = FALSE)
+\method{summarize}{tbl_ts}(.data, ..., .drop = FALSE)
 }
 \arguments{
 \item{.data}{A tsibble.}
 
 \item{...}{Name-value pairs of expressions.}
 
-\item{drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
+\item{.drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
 tsibble and returns a tibble.}
 }
 \description{
@@ -24,11 +24,16 @@ Collapse multiple rows to a single value
 Time index will not be collapsed by \code{summarise.tbl_ts}.
 }
 \examples{
+# Sum over sensors ----
 pedestrian \%>\%
   summarise(Total = sum(Count))
-## drop = TRUE ----
+# Sum over sensors by days ----
 pedestrian \%>\%
-  summarise(Total = sum(Count), drop = TRUE)
+  index_by(Date) \%>\% 
+  summarise(Total = sum(Count))
+## .drop = TRUE ----
+pedestrian \%>\%
+  summarise(Total = sum(Count), .drop = TRUE)
 }
 \seealso{
 \link[dplyr:summarise]{dplyr::summarise}

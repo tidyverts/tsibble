@@ -108,7 +108,7 @@ test_that("filter() and slice()", {
 test_that("select() and rename()", {
   expect_error(select(tourism, Quarter), "Invalid tsibble")
   expect_error(select(tourism, Region), "must not be dropped")
-  expect_is(select(tourism, Region, drop = TRUE), "tbl_df")
+  expect_is(select(tourism, Region, .drop = TRUE), "tbl_df")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
@@ -157,7 +157,7 @@ test_that("select() with group_by()", {
 
 test_that("mutate()", {
   expect_error(mutate(tourism, Quarter = 1), "Invalid tsibble")
-  expect_is(mutate(tourism, Quarter = 1, drop = TRUE), "tbl_df")
+  expect_is(mutate(tourism, Quarter = 1, .drop = TRUE), "tbl_df")
   expect_error(mutate(tourism, Region = State), "Invalid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   tsbl <- tourism %>%

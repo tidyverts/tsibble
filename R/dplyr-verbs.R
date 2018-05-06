@@ -114,20 +114,20 @@ slice.tbl_ts <- function(.data, ...) {
 #' @param .data A tsibble.
 #' @param ... Unquoted variable names separated by commas. `rename()` requires
 #' named arguments.
-#' @param drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
+#' @param .drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
 #' tsibble and returns a tibble.
 #'
 #' @details
-#' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
+#' These column-wise verbs from dplyr have an additional argument of `.drop = FALSE`
 #' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
-#' Turning `drop = TRUE` converts to a tibble first and then do the operations.
+#' Turning `.drop = TRUE` converts to a tibble first and then do the operations.
 #' @rdname select
 #' @seealso [dplyr::select]
 #' @export
-select.tbl_ts <- function(.data, ..., drop = FALSE) {
+select.tbl_ts <- function(.data, ..., .drop = FALSE) {
   sel_data <- select(as_tibble(.data), ...)
-  if (drop) {
+  if (.drop) {
     return(sel_data)
   }
   lst_quos <- enquos(...)
@@ -135,7 +135,7 @@ select.tbl_ts <- function(.data, ..., drop = FALSE) {
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `drop = TRUE` to drop `tbl_ts`?",
+      "The `index` (`%s`) must not be dropped. Do you need `.drop = TRUE` to drop `tbl_ts`?",
       quo_text(index(.data))
     ))
   }
@@ -179,17 +179,17 @@ rename.tbl_ts <- function(.data, ...) {
 #' @param ... Name-value pairs of expressions.
 #'
 #' @details
-#' These column-wise verbs from dplyr have an additional argument of `drop = FALSE`
+#' These column-wise verbs from dplyr have an additional argument of `.drop = FALSE`
 #' for tsibble. The index variable cannot be dropped for a tsibble. If any key
 #' variable is changed, it will validate whether it's a tsibble internally.
-#' Turning `drop = TRUE` converts to a tibble first and then do the operations.
+#' Turning `.drop = TRUE` converts to a tibble first and then do the operations.
 #' * `summarise()` will not collapse on the index variable.
 #' @rdname mutate
 #' @seealso [dplyr::mutate]
 #' @export
-mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
+mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   mut_data <- mutate(as_tibble(.data), ...)
-  if (drop) {
+  if (.drop) {
     return(mut_data)
   }
   lst_quos <- enquos(..., .named = TRUE)
@@ -213,8 +213,8 @@ mutate.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @rdname mutate
 #' @seealso [dplyr::transmute]
 #' @export
-transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
-  if (drop) {
+transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
+  if (.drop) {
     return(transmute(as_tibble(.data), ...))
   }
   lst_quos <- enquos(..., .named = TRUE)
@@ -232,14 +232,19 @@ transmute.tbl_ts <- function(.data, ..., drop = FALSE) {
 #' @rdname summarise
 #' @seealso [dplyr::summarise]
 #' @examples
+#' # Sum over sensors ----
 #' pedestrian %>%
 #'   summarise(Total = sum(Count))
-#' ## drop = TRUE ----
+#' # Sum over sensors by days ----
 #' pedestrian %>%
-#'   summarise(Total = sum(Count), drop = TRUE)
+#'   index_by(Date) %>% 
+#'   summarise(Total = sum(Count))
+#' ## .drop = TRUE ----
+#' pedestrian %>%
+#'   summarise(Total = sum(Count), .drop = TRUE)
 #' @export
-summarise.tbl_ts <- function(.data, ..., drop = FALSE) {
-  if (drop) {
+summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
+  if (.drop) {
     return(summarise(as_tibble(.data), ...))
   }
   grps <- groups(.data)

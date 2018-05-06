@@ -5,16 +5,16 @@
 \alias{transmute.tbl_ts}
 \title{Add new variables}
 \usage{
-\method{mutate}{tbl_ts}(.data, ..., drop = FALSE)
+\method{mutate}{tbl_ts}(.data, ..., .drop = FALSE)
 
-\method{transmute}{tbl_ts}(.data, ..., drop = FALSE)
+\method{transmute}{tbl_ts}(.data, ..., .drop = FALSE)
 }
 \arguments{
 \item{.data}{A tsibble.}
 
 \item{...}{Name-value pairs of expressions.}
 
-\item{drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
+\item{.drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
 tsibble and returns a tibble.}
 }
 \description{
@@ -22,10 +22,10 @@ tsibble and returns a tibble.}
 along with index and keys;
 }
 \details{
-These column-wise verbs from dplyr have an additional argument of \code{drop = FALSE}
+These column-wise verbs from dplyr have an additional argument of \code{.drop = FALSE}
 for tsibble. The index variable cannot be dropped for a tsibble. If any key
 variable is changed, it will validate whether it's a tsibble internally.
-Turning \code{drop = TRUE} converts to a tibble first and then do the operations.
+Turning \code{.drop = TRUE} converts to a tibble first and then do the operations.
 \itemize{
 \item \code{summarise()} will not collapse on the index variable.
 }

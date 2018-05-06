@@ -183,7 +183,7 @@ Use `?tsibble::reexports` for a full list of re-exported functions.
   - **dplyr:**
       - `arrange()`, `filter()`, `slice()`
       - `mutate()`/`transmute()`, `select()`,
-        `summarise()`/`summarize()` with an additional argument `drop =
+        `summarise()`/`summarize()` with an additional argument `.drop =
         FALSE` to drop `tbl_ts` and coerce to `tbl_df`
       - `rename()`
       - `*_join()`

@@ -5,7 +5,7 @@
 \alias{rename.tbl_ts}
 \title{Select/rename variables by name}
 \usage{
-\method{select}{tbl_ts}(.data, ..., drop = FALSE)
+\method{select}{tbl_ts}(.data, ..., .drop = FALSE)
 
 \method{rename}{tbl_ts}(.data, ...)
 }
@@ -15,17 +15,17 @@
 \item{...}{Unquoted variable names separated by commas. \code{rename()} requires
 named arguments.}
 
-\item{drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
+\item{.drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
 tsibble and returns a tibble.}
 }
 \description{
 Select/rename variables by name
 }
 \details{
-These column-wise verbs from dplyr have an additional argument of \code{drop = FALSE}
+These column-wise verbs from dplyr have an additional argument of \code{.drop = FALSE}
 for tsibble. The index variable cannot be dropped for a tsibble. If any key
 variable is changed, it will validate whether it's a tsibble internally.
-Turning \code{drop = TRUE} converts to a tibble first and then do the operations.
+Turning \code{.drop = TRUE} converts to a tibble first and then do the operations.
 }
 \seealso{
 \link[dplyr:select]{dplyr::select}

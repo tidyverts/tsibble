@@ -107,7 +107,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   chr_grps <- c(flat_grps <- key_flatten(grps), idx_name) 
   pre_data <- .data %>% 
     ungroup() %>% 
-    mutate(!!! first, drop = TRUE)
+    mutate(!!! first, .drop = TRUE)
   if (idx_name == idx) {
     grped_data <- pre_data %>% 
       grouped_df(vars = chr_grps)

@@ -36,7 +36,7 @@ spread_tsbl <- function(data, value, fill = NA, sep = "") {
   }
   compact_tsbl <- data %>%
     mutate(key = paste(!!! spread_key, sep = sep)) %>%
-    select(!! idx_var, key, spread_val, drop = TRUE)
+    select(!! idx_var, key, spread_val, .drop = TRUE)
   compact_tsbl %>%
     tidyr::spread(key = key, value = spread_val, fill = fill) %>%
     arrange(!! idx_var)
