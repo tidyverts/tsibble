@@ -481,12 +481,12 @@ extract_index_var <- function(data, index) {
   idx_type <- purrr::map_chr(data, index_sum)
   is_quo <- is_quosure(index)
   if (quo_is_null(index)) {
-    abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
+    abort("`index` must not be NULL.")
   }
   if (quo_is_missing(index)) {
     val_idx <- idx_type %in% detect_type()
     if (sum(val_idx) != 1) {
-      abort("Can't determine the `index`. Please specify the `index` arg.")
+      abort("Can't determine the `index` and please specify.")
     }
     chr_index <- colnames(data)[val_idx]
     inform(sprintf("The `index` is `%s`.", chr_index))
@@ -538,7 +538,7 @@ validate_nested <- function(data, key) {
 # if TRUE return the data, otherwise raise an error
 validate_tbl_ts <- function(data, key, index) {
   idx <- quo_text(index)
-  # NOTE: bug in anyDuplicated.data.frame()
+  # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
   # identifiers <- c(key_flatten(key), idx)
   # below calls anyDuplicated.data.frame():
   # time zone associated with the index will be dropped,

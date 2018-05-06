@@ -324,15 +324,32 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
   ), grped_ped)
 })
 
-test_that("build_tsibble() aborts when interval is not an 'interval' class", {
+test_that("build_tsibble()", {
   expect_error(build_tsibble(
     pedestrian, key = id(Sensor), index = Date_Time,
     interval = list(hour = 1)
   ), "`interval` must be the `interval` class")
-})
-
-test_that("use_id() error message", {
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = Date_Time),
-    "Have you forgotten")
+    "Have you forgotten"
+  )
+
+  tsbl <- build_tsibble(
+    pedestrian, key = id(Sensor), index = Date_Time,
+    index2 = rlang::quos(Date = Date)
+  )
+  idx2 <- index2(tsbl)
+  expect_is(idx2, "list")
+
+  idx_drop <- dplyr::bind_rows(tsbl, tsbl)
+  expect_error(print(idx_drop), "dropped somehow")
+
+  expect_error(
+    build_tsibble(pedestrian, key = id(Sensor), index = NULL), "NULL."
+  )
+
+  expect_error(pedestrian %>% 
+    mutate(Date_Time = as.character(Date_Time)), 
+    "Unsupported index"
+  )
 })
