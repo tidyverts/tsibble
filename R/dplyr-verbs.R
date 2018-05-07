@@ -354,7 +354,7 @@ do.tbl_ts <- function(.data, ...) {
 
 #' @export
 distinct.tbl_ts <- function(.data, ...) {
-  abort("'tbl_ts' has no support for distinct(). Please coerce to 'tbl_df' first and then distinct().")
+  distinct(as_tibble(.data), ...)
 }
 
 by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {

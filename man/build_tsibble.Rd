@@ -44,9 +44,9 @@ determine if the time needs ordering and the interval needs calculating.
 }
 \examples{
 # Prepare `pedestrian` to use a new index `Date` ----
-pedestrian \%>\% 
+pedestrian \%>\%
   build_tsibble(
-    key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date), 
+    key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date),
     interval = interval(.)
   )
 }

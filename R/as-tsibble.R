@@ -343,9 +343,9 @@ as.tsibble <- function(x, ...) {
 #' @export
 #' @examples
 #' # Prepare `pedestrian` to use a new index `Date` ----
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   build_tsibble(
-#'     key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date), 
+#'     key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date),
 #'     interval = interval(.)
 #'   )
 build_tsibble <- function(
@@ -428,16 +428,18 @@ build_tsibble <- function(
   } # true do nothing
 
   # grped_key <- grouped_df(tbl, flat_keys)
-  tbl <- tibble::new_tibble(
+  tbl <- structure(
     tbl,
     "key" = structure(key_vars, class = "key"),
     # "key_indices" = attr(grped_key, "indices"),
     "index" = index,
     "index2" = index2,
+    "vars" = NULL,
+    "indices" = NULL,
     "interval" = structure(interval, class = "interval"),
     "regular" = regular,
     "ordered" = ordered,
-    subclass = "tbl_ts"
+    class = c("tbl_ts", "tbl_df", "tbl", "data.frame")
   )
 
   if (is_empty(groups)) {
@@ -613,7 +615,7 @@ drop_tsibble <- function(x, ungroup = FALSE) {
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
   x <- tibble::new_tibble(x)
   if (ungroup) {
-    attr(x, "index2") <- attr(x, "vars") <- NULL
+    attr(x, "index2") <- attr(x, "vars") <- attr(x, "indices") <- NULL
     return(x)
   } else if (is_empty(idx2)) {
     attr(x, "index2") <- NULL

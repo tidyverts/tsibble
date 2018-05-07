@@ -196,4 +196,11 @@ test_that("index_by() with pedestrian", {
   expect_equal(index(ped_sum2), rlang::sym("yrmth2"))
   expect_equal(index2(ped_sum2), list())
   expect_equal(groups(ped_sum2), NULL)
+  ped_mut <- pedestrian %>% 
+    index_by(Date) %>%
+    mutate(ttl = sum(Count), prop = Count / ttl)
+  expect_equal(groups(ped_mut), NULL)
+  ped_sum3 <- ped_mut %>% 
+    summarise(ttl_prop = sum(prop))
+  expect_equal(format(interval(ped_sum3)), "1DAY")
 })

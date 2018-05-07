@@ -93,7 +93,11 @@ n_keys <- function(x) {
 
 #' @export
 n_keys.tbl_ts <- function(x) {
-  length(key_size(x))
+  key <- key_vars(x)
+  if (is_empty(key)) {
+    return(1L)
+  }
+  NROW(distinct(x, !!! syms(key)))
 }
 
 #' @rdname key-size

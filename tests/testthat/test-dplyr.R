@@ -211,7 +211,10 @@ test_that("transmute()", {
 })
 
 test_that("distinct()", {
-  expect_error(tourism %>% distinct(Region, State, Purpose), "no support")
+  expect_equal(
+    tourism %>% distinct(Region, State, Purpose), 
+    as_tibble(tourism) %>% distinct(Region, State, Purpose)
+  )
 })
 
 test_that("rename() scoped variants", {
