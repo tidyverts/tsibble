@@ -13,8 +13,6 @@
 \item{x}{A \code{tbl_ts}.}
 
 \item{...}{Ignored.}
-
-\item{ungroup}{\code{TRUE} to remove the grouping variables.}
 }
 \description{
 Coerce to a tibble or data frame

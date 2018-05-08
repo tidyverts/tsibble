@@ -569,7 +569,6 @@ validate_tbl_ts <- function(data, key, index) {
 #' Coerce to a tibble or data frame
 #'
 #' @param x A `tbl_ts`.
-#' @param ungroup `TRUE` to remove the grouping variables.
 #' @param ... Ignored.
 #'
 #' @rdname as-tibble

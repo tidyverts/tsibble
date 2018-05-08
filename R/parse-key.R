@@ -97,7 +97,7 @@ n_keys.tbl_ts <- function(x) {
   if (is_empty(key)) {
     return(1L)
   }
-  NROW(distinct(as_tibble(x, ungroup = TRUE), !!! syms(key)))
+  NROW(distinct(ungroup(as_tibble(x)), !!! syms(key)))
 }
 
 #' @rdname key-size

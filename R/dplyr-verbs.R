@@ -340,8 +340,8 @@ ungroup.tbl_ts <- function(x, ...) {
 }
 
 #' @export
-distinct.tbl_ts <- function(x, ...) {
-  distinct(as_tibble(x), ...)
+distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
+  distinct(as_tibble(.data), ...)
 }
 
 # this function prepares group variables in a list of symbos before dplyr::grouped_df()
