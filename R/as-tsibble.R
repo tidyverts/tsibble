@@ -580,38 +580,15 @@ validate_tbl_ts <- function(data, key, index) {
 #' grped_ped <- pedestrian %>% group_by(Sensor)
 #' as_tibble(grped_ped)
 as_tibble.tbl_ts <- function(x, ...) {
+  grps <- groups(x)
   idx2 <- index2(x)
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  x <- tibble::new_tibble(x)
-  if (is_empty(idx2)) {
-    return(x)
-  } else {
-    group_by(x, !!! idx2)
-  }
+  group_by(tibble::new_tibble(x), !!! squash(c(grps, idx2)))
 }
 
 #' @export
 as.tibble.tbl_ts <- as_tibble.tbl_ts
-
-#' @export
-as_tibble.grouped_ts <- function(x, ...) {
-  # both groups(x) and index2(x) are grouped vars
-  grps <- groups(x)
-  idx2 <- index2(x)
-  grps_vars <- group_vars(x)
-  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  x <- tibble::new_tibble(x)
-  if (is_empty(idx2)) {
-    return(grouped_df(x, grps_vars))
-  } else {
-    group_by(x, !!! flatten(c(grps, idx2)))
-  }
-}
-
-#' @export
-as.tibble.grouped_ts <- as_tibble.grouped_ts
 
 #' @rdname as-tibble
 #' @export
