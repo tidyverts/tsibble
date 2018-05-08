@@ -155,7 +155,7 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
-  renamed_data <- NextMethod()
+  renamed_data <- rename(as_tibble(.data), ...)
   lst_quos <- enquos(...)
   val_vars <- tidyselect::vars_rename(names(.data), !!! lst_quos)
   changed_vars <- val_vars[setdiff(names(val_vars), val_vars)]
@@ -339,6 +339,11 @@ ungroup.tbl_ts <- function(x, ...) {
   x
 }
 
+#' @export
+distinct.tbl_ts <- function(x, ...) {
+  distinct(as_tibble(x), ...)
+}
+
 # this function prepares group variables in a list of symbos before dplyr::grouped_df()
 prepare_groups <- function(.data, group, add = FALSE) {
   grps <- validate_key(.data, group)
@@ -350,11 +355,6 @@ prepare_groups <- function(.data, group, add = FALSE) {
 
 do.tbl_ts <- function(.data, ...) {
   dplyr::do(as_tibble(.data), ...)
-}
-
-#' @export
-distinct.tbl_ts <- function(.data, ...) {
-  distinct(as_tibble(.data), ...)
 }
 
 by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {

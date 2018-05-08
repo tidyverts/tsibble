@@ -97,7 +97,7 @@ n_keys.tbl_ts <- function(x) {
   if (is_empty(key)) {
     return(1L)
   }
-  NROW(distinct(x, !!! syms(key)))
+  NROW(distinct(as_tibble(x, ungroup = TRUE), !!! syms(key)))
 }
 
 #' @rdname key-size
@@ -233,6 +233,7 @@ key_rename <- function(.data, ...) {
 
   names(.data)[dat_key_pos] <- new_chr
   names(.data)[dat_grp_pos] <- new_grp_chr
+  attr(.data, "vars") <- new_grp
   build_tsibble(
     .data, key = new_key, index = !! index(.data), index2 = index2(.data),
     groups = new_grp, regular = is_regular(.data), validate = FALSE, 

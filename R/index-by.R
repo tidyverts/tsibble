@@ -99,6 +99,7 @@ index_rename <- function(.data, ...) {
     idx2 <- exprs(!! new_idx2_chr := !! first_expr)
     dat_idx2_pos <- match(idx2_chr, cn)
     names(.data)[dat_idx2_pos] <- new_idx2_chr
+    attr(.data, "index2") <- idx2
   }
   build_tsibble(
     .data, key = key(.data), index = !! sym(new_idx_chr), index2 = idx2, 

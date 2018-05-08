@@ -360,7 +360,7 @@ build_tsibble <- function(
 
   # x is lst, data.frame, tbl_df, use ungroup()
   # x is tbl_ts, use as_tibble(ungroup = TRUE)
-  tbl <- ungroup(as_tibble(x, ungroup = TRUE, validate = validate))
+  tbl <- ungroup(as_tibble(x, validate = validate))
   # extract or pass the index var
   index <- extract_index_var(tbl, enquo(index))
   # if index2 not specified, empty list
@@ -435,7 +435,11 @@ build_tsibble <- function(
     "index" = index,
     "index2" = index2,
     "vars" = NULL,
+    "drop" = NULL,
     "indices" = NULL,
+    "group_sizes" = NULL,
+    "biggest_group_size" = NULL,
+    "labels" = NULL,
     "interval" = structure(interval, class = "interval"),
     "regular" = regular,
     "ordered" = ordered,
@@ -576,15 +580,36 @@ validate_tbl_ts <- function(data, key, index) {
 #' # a grouped tbl_ts -----
 #' grped_ped <- pedestrian %>% group_by(Sensor)
 #' as_tibble(grped_ped)
-as_tibble.tbl_ts <- function(x, ungroup = FALSE, ...) {
-  drop_tsibble(x, ungroup = ungroup)
+as_tibble.tbl_ts <- function(x, ...) {
+  idx2 <- index2(x)
+  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
+  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
+  x <- tibble::new_tibble(x)
+  if (is_empty(idx2)) {
+    return(x)
+  } else {
+    group_by(x, !!! idx2)
+  }
 }
 
 #' @export
 as.tibble.tbl_ts <- as_tibble.tbl_ts
 
 #' @export
-as_tibble.grouped_ts <- as_tibble.tbl_ts
+as_tibble.grouped_ts <- function(x, ...) {
+  # both groups(x) and index2(x) are grouped vars
+  grps <- groups(x)
+  idx2 <- index2(x)
+  grps_vars <- group_vars(x)
+  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
+  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
+  x <- tibble::new_tibble(x)
+  if (is_empty(idx2)) {
+    return(grouped_df(x, grps_vars))
+  } else {
+    group_by(x, !!! flatten(c(grps, idx2)))
+  }
+}
 
 #' @export
 as.tibble.grouped_ts <- as_tibble.grouped_ts
@@ -592,7 +617,7 @@ as.tibble.grouped_ts <- as_tibble.grouped_ts
 #' @rdname as-tibble
 #' @export
 as.data.frame.tbl_ts <- function(x, ...) {
-  x <- drop_tsibble(x, ungroup = TRUE)
+  x <- as_tibble(x)
   NextMethod()
 }
 
@@ -605,24 +630,6 @@ use_id <- function(x) {
       stop(e)
     }
   )
-}
-
-drop_tsibble <- function(x, ungroup = FALSE) {
-  grps <- groups(x)
-  idx2 <- index2(x)
-  grps_vars <- group_vars(x)
-  attr(x, "key") <- attr(x, "index") <- NULL
-  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  x <- tibble::new_tibble(x)
-  if (ungroup) {
-    attr(x, "index2") <- attr(x, "vars") <- attr(x, "indices") <- NULL
-    return(x)
-  } else if (is_empty(idx2)) {
-    attr(x, "index2") <- NULL
-    return(grouped_df(x, grps_vars))
-  } else {
-    group_by(x, !!! flatten(c(grps, idx2)))
-  }
 }
 
 #' Find duplication of key and index variables
