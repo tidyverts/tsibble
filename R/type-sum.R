@@ -50,7 +50,7 @@ tbl_sum.grouped_ts <- function(x) {
   if (has_length(n_grps, 0)) {
     n_grps <- "?"
   }
-  grps <- paste(paste_comma(format(groups(x))), surround(n_grps, "["))
+  grps <- paste(paste_comma(group_vars(x)), surround(n_grps, "["))
   idx2 <- index2(x)
   if (is_empty(idx2)) {
     return(c(result, "Groups" = grps))

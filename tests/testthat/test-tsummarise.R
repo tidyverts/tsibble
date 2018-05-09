@@ -108,46 +108,46 @@ tsbl4 <- tsibble(
 )
 
 test_that("scoped variants", {
-  ts_all <- tsbl4 %>% 
+  ts_all <- tsbl4 %>%
     tsummarise_all(yearmonth(date), .funs = "mean")
   expect_named(ts_all, c("date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 1)
-  ts_all <- tsbl4 %>% 
+  ts_all <- tsbl4 %>%
     tsummarise_all(yrmth = yearmonth(date), .funs = "mean")
   expect_named(ts_all, c("yrmth", "value1", "value2", "value3"))
   expect_warning(
-    tsbl4 %>% 
+    tsbl4 %>%
       tsummarise_all(yrmth = yearmonth(date), na.rm = TRUE, .funs = "mean"),
     "The arguments are ignored"
   )
-  ts_if <- tsbl4 %>% 
+  ts_if <- tsbl4 %>%
     tsummarise_if(yearmonth(date), .predicate = is.numeric, .funs = mean)
   expect_named(ts_if, c("date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 1)
-  ts_at <- tsbl4 %>% 
+  ts_at <- tsbl4 %>%
     tsummarise_at(yearmonth(date), .vars = c("value1", "value3"), .funs = mean)
   expect_named(ts_at, c("date", "value1", "value3"))
   expect_equal(nrow(ts_at), 1)
 })
 
 test_that("scoped variants with group_by()", {
-  ts_all <- tsbl4 %>% 
-    group_by(group) %>% 
+  ts_all <- tsbl4 %>%
+    group_by(group) %>%
     tsummarise_all(yearmonth(date), .funs = "mean")
   expect_named(ts_all, c("group", "date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 2)
-  ts_if <- tsbl4 %>% 
-    group_by(group) %>% 
+  ts_if <- tsbl4 %>%
+    group_by(group) %>%
     tsummarise_if(yearmonth(date), .predicate = is.numeric, .funs = mean)
   expect_named(ts_if, c("group", "date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 2)
-  ts_at <- tsbl4 %>% 
-    group_by(group) %>% 
+  ts_at <- tsbl4 %>%
+    group_by(group) %>%
     tsummarise_at(yearmonth(date), .vars = c("value1", "value3"), .funs = mean)
   expect_named(ts_at, c("group", "date", "value1", "value3"))
   expect_equal(nrow(ts_at), 2)
-  tbl <- tourism %>% 
-    group_by(Region | State) %>% 
+  tbl <- tourism %>%
+    group_by(Region, State) %>%
     tsummarise_if(
       Year = year(Quarter), .predicate = is.numeric, .funs = mean
     )

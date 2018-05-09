@@ -3,8 +3,6 @@ library(dplyr)
 context("dplyr verbs for tsibble")
 
 test_that("group_by()", {
-  expect_error(group_by(tourism, State | Region), "Incorrect nesting")
-  expect_error(group_by(tourism, State | Region, Purpose, "Invalid tsibble"))
   grped_df <- pedestrian %>%
     group_by(Date) %>%
     group_by(Sensor, add = TRUE)
@@ -18,13 +16,19 @@ test_that("group_by()", {
     vapply(group_indices(grped_df), length, integer(1)),
     key_size(grped_df)
   )
-  expect_error(pedestrian %>% group_by(sensor = Sensor), "named expressions.")
-  expect_error(pedestrian %>% group_by(yearmonth(Date)), "accept calls")
+  expect_named(
+    pedestrian %>% group_by(sensor = Sensor),
+    c(names(pedestrian), "sensor")
+  )
+  expect_equal(group_vars(pedestrian %>% group_by(sensor = Sensor)), "sensor")
+  expect_equal(
+    group_vars(pedestrian %>% group_by(yearmonth(Date))),
+    "yearmonth(Date)"
+  )
 
   grped_t <- tourism %>%
     group_by(Purpose) %>%
-    group_by(Region | State, add = TRUE)
-  expect_length(format(groups(grped_t)), 2)
+    group_by(Region, State, add = TRUE)
   expect_length(group_vars(grped_t), 3)
 })
 
@@ -61,25 +65,25 @@ test_that("expect warnings from arrange.tbl_ts()", {
 
 test_that("arrange.grouped_ts()", {
   expect_warning(
-    tsbl2 <- tourism %>% group_by(Region | State) %>% arrange(Quarter),
+    tsbl2 <- tourism %>% group_by(Region, State) %>% arrange(Quarter),
     "not sorted by"
   )
   expect_equal(tsbl2, tourism)
   expect_identical(key(tsbl2), key(tourism))
-  expect_identical(unname(format(groups(tsbl2))), "Region | State")
+  expect_identical(group_vars(tsbl2), c("Region",  "State"))
   expect_warning(
     tsbl3 <- tourism %>%
-      group_by(Region | State) %>%
+      group_by(Region, State) %>%
       arrange(Quarter, .by_group = TRUE),
     "not sorted by"
   )
   expect_equal(tsbl3, tourism)
   expect_identical(key(tsbl3), key(tourism))
-  expect_identical(unname(format(groups(tsbl3))), "Region | State")
+  expect_identical(group_vars(tsbl3), c("Region",  "State"))
   tsbl4 <- tourism %>%
-    group_by(Region | State) %>%
+    group_by(Region, State) %>%
     arrange(Purpose, Quarter, .by_group = TRUE)
-  expect_equal(tsbl4, group_by(tourism, Region | State))
+  expect_equal(tsbl4, group_by(tourism, Region, State))
 })
 
 test_that("filter() and slice()", {
@@ -89,7 +93,7 @@ test_that("filter() and slice()", {
   expect_identical(index(tsbl1), index(tourism))
   expect_identical(tsbl1$Quarter, unique(tourism$Quarter))
   tsbl2 <- tourism %>%
-    group_by(!!! key(.)) %>%
+    group_by(Region, State, Purpose) %>%
     filter(Quarter < yearquarter(ymd("1999-01-01")))
   expect_identical(key(tsbl2), key(tourism))
   expect_identical(group_vars(tsbl2), key_vars(tourism))
@@ -161,7 +165,7 @@ test_that("mutate()", {
   expect_error(mutate(tourism, Region = State), "Invalid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   tsbl <- tourism %>%
-    group_by(!!! key(.)) %>%
+    group_by(Region, State, Purpose) %>%
     mutate(New = 1:n())
   tsbl1 <- filter(tsbl, New == 1)
   tsbl2 <- slice(tsbl, 1)
@@ -176,14 +180,14 @@ test_that("summarise()", {
     summarise(AllTrips = sum(Trips))
   expect_identical(ncol(tsbl1), 2L)
   tsbl2 <- tourism %>%
-    group_by(!!! key(.)) %>%
+    group_by(Region, State, Purpose) %>%
     summarise(Trips = sum(Trips))
   expect_equal(tourism, tsbl2)
   expect_identical(key(tourism), key(tsbl2))
   expect_identical(index(tourism), index(tsbl2))
   expect_identical(is_regular(tourism), is_regular(tsbl2))
   tsbl3 <- tourism %>%
-    group_by(!!! key(.)) %>%
+    group_by(Region, State, Purpose) %>%
     summarise(Obs = n())
   expect_identical(nrow(tsbl3), nrow(tourism))
 
@@ -212,7 +216,7 @@ test_that("transmute()", {
 
 test_that("distinct()", {
   expect_equal(
-    tourism %>% distinct(Region, State, Purpose), 
+    tourism %>% distinct(Region, State, Purpose),
     as_tibble(tourism) %>% distinct(Region, State, Purpose)
   )
 })

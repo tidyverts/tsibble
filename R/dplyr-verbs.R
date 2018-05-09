@@ -201,7 +201,6 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   val_idx <- has_index_var(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
-  .data <- index2_update(.data)
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data), index2 = index2(.data),
     groups = groups(.data), regular = is_regular(.data),
@@ -247,12 +246,11 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   if (.drop) {
     return(summarise(as_tibble(.data), ...))
   }
-  grps <- groups(.data)
   idx <- index(.data)
   idx2 <- index2(.data)
 
   lst_quos <- enquos(..., .named = TRUE)
-  nonkey <- setdiff(names(lst_quos), c(flatten(key(.data)), quo_text(idx)))
+  nonkey <- setdiff(names(lst_quos), squash(c(key(.data), quo_text(idx))))
   nonkey_quos <- lst_quos[nonkey]
 
   sum_data <- collapse_tsibble(.data) %>% 
@@ -265,10 +263,11 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
     int <- NULL
     reg <- TRUE
   }
+  new_key <- key(key_reduce(.data, group_vars(.data), validate = FALSE))
 
   build_tsibble(
-    sum_data, key = grps, index = !! idx, index2 = NULL,
-    groups = drop_group(grps), validate = FALSE, regular = reg, 
+    sum_data, key = new_key, index = !! idx, index2 = NULL,
+    groups = drop_group(groups(.data)), validate = FALSE, regular = reg, 
     ordered = TRUE, interval = int
   )
 }
@@ -281,11 +280,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' Group by one or more variables
 #'
 #' @param .data A tsibble.
-#' @param ... Variables to group by. It follows a consistent rule as the "key"
-#' expression in [as_tsibble], which means `|` for nested variables and `,` for
-#' crossed variables. The following operations will affect the tsibble structure
-#' based on the way how the variables are grouped.
-#' @param add `TRUE` adds to the existing groups, otherwise overwrites.
+#' @inheritParams dplyr::group_by
 #' @param x A (grouped) tsibble.
 #'
 #' @rdname group-by
@@ -295,29 +290,16 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' @examples
 #' data(tourism)
 #' tourism %>%
-#'   group_by(Region | State) %>%
+#'   group_by(Region, State) %>%
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
-  current_grps <- enexprs(...)
-  if (is_named(current_grps)) {
-    abort("`group_by.tbl_ts()` must not accept named expressions.")
-  }
-  calls <- purrr::map(current_grps, is_call)
-  calls <- purrr::map2_lgl(
-    current_grps, calls, ~ ifelse(.y, !identical(call_fn(.x), `|`), FALSE)
-  )
-  if (any(calls)) {
-    bad <- expr_label(current_grps[calls][[1]])
-    abort(sprintf("`group_by.tbl_ts()` must not accept calls, like %s.", bad))
-  }
-  final_grps <- prepare_groups(.data, current_grps, add = add)
-  grped_chr <- key_flatten(final_grps)
+  grped_tbl <- group_by(as_tibble(.data), ..., add = add)
 
-  grped_ts <- grouped_df(.data, grped_chr)
   build_tsibble(
-    grped_ts, key = key(.data), index = !! index(.data), index2 = index2(.data),
-    groups = final_grps, validate = FALSE, regular = is_regular(.data), 
-    ordered = is_ordered(.data), interval = interval(.data)
+    grped_tbl, key = key(.data), index = !! index(.data), 
+    index2 = index2(.data), groups = groups(grped_tbl), validate = FALSE, 
+    regular = is_regular(.data), ordered = is_ordered(.data), 
+    interval = interval(.data)
   )
 }
 
@@ -344,15 +326,6 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
 }
 
-# this function prepares group variables in a list of symbos before dplyr::grouped_df()
-prepare_groups <- function(.data, group, add = FALSE) {
-  grps <- validate_key(.data, group)
-  if (is_false(add)) {
-    return(grps)
-  }
-  c(groups(.data), grps)
-}
-
 do.tbl_ts <- function(.data, ...) {
   dplyr::do(as_tibble(.data), ...)
 }
@@ -365,8 +338,6 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  # already evaluated in some dplyr verbs
-  old <- index2_update(old)
   build_tsibble(
     new, key = key(old), index = !! index(old), index2 = index2(old),
     groups = groups(old), regular = is_regular(old), validate = FALSE, 

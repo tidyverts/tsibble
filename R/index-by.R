@@ -54,7 +54,7 @@
 #' # Annual trips by Region and State ----
 #' tourism %>% 
 #'   index_by(Year = lubridate::year(Quarter)) %>% 
-#'   group_by(Region | State) %>% 
+#'   group_by(Region, State) %>% 
 #'   summarise(Total = sum(Trips))
 index_by <- function(.data, ...) {
   UseMethod("index_by")

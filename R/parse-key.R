@@ -165,26 +165,29 @@ key_update <- function(.data, ..., validate = TRUE) {
   quos <- enquos(...)
   key <- validate_key(.data, quos)
   build_tsibble(
-    .data, key = key, index = !! index(.data), groups = groups(.data),
-    regular = is_regular(.data), validate = validate, 
+    .data, key = key, index = !! index(.data), index2 = index2(.data),
+    groups = groups(.data), regular = is_regular(.data), validate = validate, 
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
 # drop some keys
-key_reduce <- function(.data, .vars) {
+key_reduce <- function(.data, .vars, validate = TRUE) {
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
   key_idx <- which(.vars %in% old_chr)
   key_vars <- .vars[key_idx]
-  old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
+  old_lgl <- FALSE
+  if (!is_empty(old_key)) {
+    old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
+  }
   new_lgl <- old_lgl[match(key_vars, old_chr)]
 
   new_key <- syms(key_vars[!new_lgl])
   if (any(new_lgl)) {
     new_key <- c(list(syms(key_vars[new_lgl])), new_key)
   }
-  key_update(.data, !!! new_key)
+  key_update(.data, !!! new_key, validate = validate)
 }
 
 # rename key and group

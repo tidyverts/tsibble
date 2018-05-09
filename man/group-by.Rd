@@ -12,12 +12,13 @@
 \arguments{
 \item{.data}{A tsibble.}
 
-\item{...}{Variables to group by. It follows a consistent rule as the "key"
-expression in \link{as_tsibble}, which means \code{|} for nested variables and \code{,} for
-crossed variables. The following operations will affect the tsibble structure
-based on the way how the variables are grouped.}
+\item{...}{Variables to group by. All tbls accept variable names.
+Some tbls will accept functions of variables. Duplicated groups
+will be silently dropped.}
 
-\item{add}{\code{TRUE} adds to the existing groups, otherwise overwrites.}
+\item{add}{When \code{add = FALSE}, the default, \code{group_by()} will
+override existing groups. To add to the existing groups, use
+\code{add = TRUE}.}
 
 \item{x}{A (grouped) tsibble.}
 }
@@ -27,7 +28,7 @@ Group by one or more variables
 \examples{
 data(tourism)
 tourism \%>\%
-  group_by(Region | State) \%>\%
+  group_by(Region, State) \%>\%
   summarise(geo_trips = sum(Trips))
 }
 \seealso{

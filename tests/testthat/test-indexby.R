@@ -15,29 +15,29 @@ tsbl1 <- as_tsibble(dat_x, index = date_time)
 test_that("illegal input in index_by()", {
   expect_error(tsbl1 %>% index_by(), "only accepts one expression.")
   expect_error(
-    tsbl1 %>% 
+    tsbl1 %>%
       index_by(date_min = ceiling_date(date, unit = "min"))
   , "Unknown column `date`")
   expect_error(tsbl1 %>% index_by("date_time"), "either a call or a name.")
 })
 
 test_that("From seconds to higher date", {
-  res1 <- tsbl1 %>% 
-    index_by(date_min = ceiling_date(date_time, unit = "min")) %>% 
+  res1 <- tsbl1 %>%
+    index_by(date_min = ceiling_date(date_time, unit = "min")) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res1),
     tibble(date_min = ymd_hm("2017-01-01 00:01"), value = 5)
   )
-  res2 <- tsbl1 %>% 
-    index_by(date_min = ceiling_date(date_time, unit = "hour")) %>% 
+  res2 <- tsbl1 %>%
+    index_by(date_min = ceiling_date(date_time, unit = "hour")) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res2),
     tibble(date_min = ymd_h("2017-01-01 01"), value = 5)
   )
-  res3 <- tsbl1 %>% 
-    index_by(date_min = floor_date(date_time, unit = "day")) %>% 
+  res3 <- tsbl1 %>%
+    index_by(date_min = floor_date(date_time, unit = "day")) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res3),
@@ -53,40 +53,40 @@ dat_x <- tibble(
 tsbl2 <- as_tsibble(dat_x, index = date)
 
 test_that("From Date to year-week, year-month, year-quarter and year", {
-  res0 <- tsbl2 %>% 
-    index_by(yrwk = yearweek(date)) %>% 
+  res0 <- tsbl2 %>%
+    index_by(yrwk = yearweek(date)) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res0),
     tibble(yrwk = yearweek(ymd(idx_day[-4])), value = c(1, 1, 2, 1))
   )
-  res1 <- tsbl2 %>% 
-    index_by(yrmth = yearmonth(date)) %>% 
+  res1 <- tsbl2 %>%
+    index_by(yrmth = yearmonth(date)) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res1),
     tibble(yrmth = yearmonth(ymd("2017-01-01")), value = 5)
   )
-  res2 <- tsbl2 %>% 
-    index_by(yrqtr = yearquarter(date)) %>% 
+  res2 <- tsbl2 %>%
+    index_by(yrqtr = yearquarter(date)) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res2),
     tibble(yrqtr = yearquarter(ymd("2017-01-01")), value = 5)
   )
-  res3 <- tsbl2 %>% 
-    index_by(yr = year(date)) %>% 
+  res3 <- tsbl2 %>%
+    index_by(yr = year(date)) %>%
     summarise(value = sum(value))
   expect_equal(
     as_tibble(res3),
     tibble(yr = year(ymd("2017-01-01")), value = 5)
   )
-  res4 <- res1 %>% 
-    index_by(yrqtr = yearquarter(yrmth)) %>% 
+  res4 <- res1 %>%
+    index_by(yrqtr = yearquarter(yrmth)) %>%
     summarise(value = sum(value))
   expect_equal(res2, res4)
-  res5 <- res2 %>% 
-    index_by(yr= year(yrqtr)) %>% 
+  res5 <- res2 %>%
+    index_by(yr= year(yrqtr)) %>%
     summarise(value = sum(value))
   expect_equal(res3, res5)
 })
@@ -101,7 +101,7 @@ tsbl3 <- as_tsibble(dat_x, key = id(group), index = date)
 test_that("index_by() with group_by()", {
   res1 <- tsbl3 %>%
     group_by(group) %>%
-    index_by(yrmth = yearmonth(date)) %>% 
+    index_by(yrmth = yearmonth(date)) %>%
     summarise(value = sum(value))
   expect_is(res1, "tbl_ts")
   expect_equal(
@@ -124,83 +124,83 @@ tsbl4 <- tsibble(
 )
 
 test_that("summarise scoped variants", {
-  ts_all <- tsbl4 %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_all <- tsbl4 %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
   expect_named(ts_all, c("date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 1)
-  ts_all <- tsbl4 %>% 
-    index_by(yrmth = yearmonth(date)) %>% 
+  ts_all <- tsbl4 %>%
+    index_by(yrmth = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
   expect_named(ts_all, c("yrmth", "value1", "value2", "value3"))
-  ts_if <- tsbl4 %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_if <- tsbl4 %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_if(.predicate = is.numeric, .funs = mean)
   expect_named(ts_if, c("date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 1)
-  ts_at <- tsbl4 %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_at <- tsbl4 %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_at(.vars = c("value1", "value3"), .funs = mean)
   expect_named(ts_at, c("date", "value1", "value3"))
   expect_equal(nrow(ts_at), 1)
 })
 
 test_that("scoped variants with group_by()", {
-  ts_all <- tsbl4 %>% 
-    group_by(group) %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_all <- tsbl4 %>%
+    group_by(group) %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
   expect_named(ts_all, c("group", "date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 2)
-  ts_if <- tsbl4 %>% 
-    group_by(group) %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_if <- tsbl4 %>%
+    group_by(group) %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_if(.predicate = is.numeric, .funs = mean)
   expect_named(ts_if, c("group", "date", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 2)
-  ts_at <- tsbl4 %>% 
-    group_by(group) %>% 
-    index_by(date = yearmonth(date)) %>% 
+  ts_at <- tsbl4 %>%
+    group_by(group) %>%
+    index_by(date = yearmonth(date)) %>%
     summarise_at(.vars = c("value1", "value3"), .funs = mean)
   expect_named(ts_at, c("group", "date", "value1", "value3"))
   expect_equal(nrow(ts_at), 2)
-  tbl <- tourism %>% 
-    group_by(Region | State) %>% 
-    index_by(Year = year(Quarter)) %>% 
+  tbl <- tourism %>%
+    group_by(Region, State) %>%
+    index_by(Year = year(Quarter)) %>%
     summarise_if(.predicate = is.numeric, .funs = mean)
   expect_named(tbl, c("Region", "State", "Year", "Trips"))
 })
 
 test_that("index_by() with pedestrian", {
-  ped_idx <- pedestrian %>% 
+  ped_idx <- pedestrian %>%
     index_by(yrmth = yearmonth(Date))
   expect_equal(index2(ped_idx), rlang::exprs(yrmth = yearmonth(Date)))
-  ped_fil <- ped_idx %>% 
+  ped_fil <- ped_idx %>%
     filter(Date_Time == min(Date_Time))
-  ped_ref <- as_tibble(pedestrian) %>% 
-    group_by(yrmth = yearmonth(Date)) %>% 
+  ped_ref <- as_tibble(pedestrian) %>%
+    group_by(yrmth = yearmonth(Date)) %>%
     filter(Date_Time == min(Date_Time))
   expect_equal(ped_fil, ped_ref)
-  ped_ren <- ped_fil %>% 
+  ped_ren <- ped_fil %>%
     rename(yrmth2 = yrmth)
-  expect_equal(index2(ped_ren), rlang::exprs(yrmth2 = yrmth2))
-  ped_sum <- ped_ren %>% 
+  expect_equal(index2(ped_ren), rlang::exprs(yrmth2 = yearmonth(Date)))
+  ped_sum <- ped_ren %>%
     summarise(Total = sum(Count))
   expect_named(ped_sum, c("yrmth2", "Total"))
   expect_equal(index(ped_sum), rlang::sym("yrmth2"))
   expect_equal(index2(ped_sum), list())
-  ped_sum2 <- ped_ren %>% 
-    group_by(Sensor) %>% 
+  ped_sum2 <- ped_ren %>%
+    group_by(Sensor) %>%
     summarise(Total = sum(Count))
   expect_named(ped_sum2, c("Sensor", "yrmth2", "Total"))
   expect_equal(index(ped_sum2), rlang::sym("yrmth2"))
   expect_equal(index2(ped_sum2), list())
   expect_equal(groups(ped_sum2), NULL)
-  ped_mut <- pedestrian %>% 
+  ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)
   expect_equal(groups(ped_mut), NULL)
-  ped_sum3 <- ped_mut %>% 
+  ped_sum3 <- ped_mut %>%
     summarise(ttl_prop = sum(prop))
   expect_equal(format(interval(ped_sum3)), "1DAY")
 })

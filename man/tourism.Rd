@@ -41,7 +41,7 @@ data(tourism)
 key(tourism)
 # Total trips over geographical regions
 tourism \%>\% 
-  group_by(Region | State) \%>\% 
+  group_by(Region, State) \%>\% 
   summarise(Total_Trips = sum(Trips))
 }
 \references{

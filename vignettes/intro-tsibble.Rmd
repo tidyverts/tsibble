@@ -62,11 +62,11 @@ The key is not constrained to a single variable, but expressive of nested and cr
 as_tsibble(tourism, key = id(Region | State, Purpose), index = Quarter)
 ```
 
-The commonly used dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the nesting of geography, `summarise()` is performed in conjunction with the `Region | State` in the `group_by()`. This specification retains the hierarchical structure. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
+The commonly used dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the geographical variables, `summarise()` is performed in conjunction with the `Region, State` in the `group_by()`. The `Purpose` variable has been dropped from the key, but `Region | State` keeps the hierarchical structure. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
 
 ```{r tourism-sum}
 tourism %>%
-  group_by(Region | State) %>%
+  group_by(Region, State) %>%
   summarise(Geo_Trips = sum(Trips))
 ```
 

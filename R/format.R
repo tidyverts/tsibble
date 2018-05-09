@@ -49,12 +49,6 @@ format.key <- function(x, ...) {
 }
 
 #' @export
-print.vars <- print.key
-
-#' @export
-format.vars <- format.key
-
-#' @export
 print.interval <- function(x, digits = NULL, ...) {
   cat_line(format(x, digits = digits, ...))
   invisible(x)
