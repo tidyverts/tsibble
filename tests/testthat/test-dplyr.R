@@ -237,6 +237,7 @@ date_character <- function(x) {
 test_that("select() scoped variants", {
   all_names <- names(tsbl)
   expect_equal(names(select_all(tsbl)), all_names)
+  expect_equal(names(select_all(tsbl, toupper)), toupper(all_names))
   at_names <- c("qtr", "group", "b")
   expect_equal(names(select_at(tsbl, at_names)), at_names)
   if_names <- c("qtr", "group")

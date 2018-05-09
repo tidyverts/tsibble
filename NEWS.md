@@ -28,7 +28,7 @@
 * Fixed `transmute.tbl_ts()` for a univariate time series due to unregistered tidyselect helpers. (#9).
 * Fixed bug in `select.tbl_ts()` and `rename.tbl_ts()` for not preserving grouped variables (#12).
 * Fixed bug in `select.tbl_ts()` and `rename.tbl_ts()` for renaming grouped variables.
-* `group_by.tbl_ts()` doesn't accept named expression and function calls.
+* `group_by.tbl_ts()` behaves exactly the same as `group_by.tbl_df` now.
 
 ## Internal changes
 

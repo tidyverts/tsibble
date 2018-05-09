@@ -131,7 +131,7 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
     return(sel_data)
   }
   lst_quos <- enquos(...)
-  val_vars <- validate_vars(j = lst_quos, x = colnames(.data))
+  val_vars <- validate_vars(j = lst_quos, x = names(.data))
   val_idx <- has_index_var(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
@@ -139,7 +139,9 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
       quo_text(index(.data))
     ))
   }
+  idx <- quo_text(index(.data))
   .data <- index_rename(.data, !!! val_vars)
+  val_vars <- val_vars[val_vars != idx]
   val_key <- has_all_key(j = names(val_vars), x = .data)
   val_grp <- has_any_grp(j = val_vars, x = .data)
   if (is_false(val_key) || val_grp) { # changes in key or group vars
@@ -160,7 +162,9 @@ rename.tbl_ts <- function(.data, ...) {
   val_vars <- tidyselect::vars_rename(names(.data), !!! lst_quos)
   changed_vars <- val_vars[setdiff(names(val_vars), val_vars)]
   if (has_index_var(changed_vars, .data)) {
+    idx <- quo_text(index(.data))
     .data <- index_rename(.data, !!! changed_vars)
+    changed_vars <- changed_vars[changed_vars != idx]
   }
   if (has_any_key(changed_vars, .data) || has_any_grp(changed_vars, .data)) {
     .data <- key_rename(.data, !!! changed_vars)

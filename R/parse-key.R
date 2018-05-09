@@ -192,47 +192,31 @@ key_reduce <- function(.data, .vars, validate = TRUE) {
 
 # rename key and group
 key_rename <- function(.data, ...) {
-  quos <- enquos(...)
   names_dat <- names(.data)
+
   # key
   old_key <- key(.data)
-  new_chr <- old_chr <- key_flatten(old_key)
-  rhs <- purrr::map_chr(quos, quo_get_expr)
-  key_idx <- which(rhs %in% old_chr)
-  key_rhs <- rhs[key_idx]
-  key_lhs <- names(key_rhs)
+  old_chr <- key_flatten(old_key)
+  val_vars <- tidyselect::vars_rename(names_dat, ...)
+  new_chr <- names(val_vars)[val_vars %in% old_chr]
+  dat_key_pos <- match(old_chr, names_dat)
+
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
   }
-  new_chr[match(key_rhs, old_chr)] <- key_lhs
   new_key <- syms(new_chr[!lgl])
   if (is_empty(new_chr)) {
     new_key <- id()
   } else if (any(lgl)) {
     new_key <- c(list(syms(new_chr[lgl])), new_key)
   }
-  dat_key_pos <- match(old_chr, names_dat)
 
   # groups
-  old_grp <- groups(.data)
-  new_grp_chr <- old_grp_chr <- key_flatten(old_grp)
-  rhs <- purrr::map_chr(quos, quo_get_expr)
-  grp_idx <- which(rhs %in% old_grp_chr)
-  grp_rhs <- rhs[grp_idx]
-  grp_lhs <- names(grp_rhs)
-  lgl <- FALSE
-  if (!is_empty(old_grp)) {
-    lgl <- rep(is_nest(old_grp), purrr::map(old_grp, length))
-  }
-  new_grp_chr[match(grp_rhs, old_grp_chr)] <- grp_lhs
-  new_grp <- syms(new_grp_chr[!lgl])
-  if (is_empty(new_grp_chr)) {
-    new_grp <- id()
-  } else if (any(lgl)) {
-    new_grp <- c(list(syms(new_grp_chr[lgl])), new_grp)
-  }
+  old_grp_chr <- group_vars(.data)
   dat_grp_pos <- match(old_grp_chr, names_dat)
+  new_grp_chr <- names(val_vars)[val_vars %in% old_grp_chr]
+  new_grp <- syms(new_grp_chr)
 
   names(.data)[dat_key_pos] <- new_chr
   names(.data)[dat_grp_pos] <- new_grp_chr

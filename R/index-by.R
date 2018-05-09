@@ -74,24 +74,17 @@ index_by.tbl_ts <- function(.data, ...) {
 }
 
 index_rename <- function(.data, ...) {
-  quos <- enquos(...)
-  idx <- index(.data)
-  rhs <- purrr::map_chr(quos, quo_get_expr)
-  lhs <- names(rhs)
-  idx_chr <- quo_text(idx)
-  idx_pos <- match(idx_chr, rhs)
-  new_idx_chr <- lhs[idx_pos]
-  idx2 <- index2(.data)
-  if (is.na(idx_pos)) {
-    new_idx_chr <- idx_chr
-  }
   cn <- names(.data)
+  idx_chr <- quo_text(index(.data))
+  val_vars <- tidyselect::vars_rename(cn, ...)
+  new_idx_chr <- names(val_vars)[idx_chr == val_vars]
   dat_idx_pos <- match(idx_chr, cn)
   names(.data)[dat_idx_pos] <- new_idx_chr
+
+  idx2 <- index2(.data)
   if (!is_empty(idx2)) {
     idx2_chr <- names(idx2)
-    idx2_pos <- match(idx2_chr, rhs)
-    new_idx2_chr <- lhs[idx2_pos]
+    new_idx2_chr <- names(val_vars)[idx2_chr == val_vars]
     first_expr <- idx2[[1]]
     if (is_symbol(first_expr)) {
       first_expr <- sym(new_idx2_chr)

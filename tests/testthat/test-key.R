@@ -16,7 +16,7 @@ test_that("key_rename()", {
   expect_equal(key_vars(key_bm), character(0))
   expect_true("Sensor" %in% names(key_bm))
   key_t <- tourism %>%
-    key_rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trip")
+    key_rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
   expect_equal(key_flatten(key(key_t)), c("region", "State", "purpose"))
 })
 
