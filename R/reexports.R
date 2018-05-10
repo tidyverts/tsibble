@@ -58,10 +58,6 @@ dplyr::summarise
 #' @export
 dplyr::summarize
 
-#' @importFrom dplyr do
-#' @export
-dplyr::do
-
 #' @importFrom dplyr transmute
 #' @export
 dplyr::transmute
@@ -97,10 +93,6 @@ dplyr::anti_join
 #' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`
-
-#' @importFrom tidyr fill
-#' @export
-tidyr::fill
 
 #' @importFrom tibble glimpse
 #' @export

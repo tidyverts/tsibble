@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.6.9000</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,130 x 5 [1HOUR]</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
@@ -125,11 +125,11 @@
 <div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-na.html">fill_na()</a></code> to turn implicit missing values into explicit missing values</h3>
-<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using <code><a href="reference/fill-na.html">fill_na()</a></code>. Meanwhile, fill <code>NA</code>s in by 0 for precipitation (<code>precip</code>). It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill()</a></code> from <em>tidyr</em>.</p>
+<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using <code><a href="reference/fill-na.html">fill_na()</a></code>. Meanwhile, fill <code>NA</code>s in by 0 for precipitation (<code>precip</code>). It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code>fill()</code> from <em>tidyr</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill-na.html">fill_na</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,208 x 5 [1HOUR]</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
@@ -155,15 +155,15 @@
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw">sum</span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1DAY]</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.6       2.7 </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR      2013 Feb     34.1       2.76</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.0       1.94</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     52.9       1.05</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.1       2.76</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; * &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR    2013-01-01     35.6       2.7 </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR    2013-02-01     34.1       2.76</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR    2013-03-01     40.0       1.94</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR    2013-04-01     52.9       1.05</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR    2013-05-01     63.1       2.76</span></a>
 <a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
 <p>This combo can also help with regularising a tsibble of irregular time space.</p>
 </div>
@@ -216,12 +216,7 @@
 <li>
 <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>
 </li>
-<li>🚫 <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>
-</li>
 </ul>
-</li>
-<li>
-<strong>tidyr:</strong> <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill()</a></code>
 </li>
 <li>
 <strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as.tibble()</a></code>
@@ -268,7 +263,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6448-5260" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
+<a href="https://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6448-5260" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
 <a href="http://dicook.org">Di Cook</a> <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-3813-7155" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
@@ -282,7 +277,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://earo.me">Earo Wang</a>, <a href="http://dicook.org">Di Cook</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>.</p>
+  <p>Developed by <a href="https://earo.me">Earo Wang</a>, <a href="http://dicook.org">Di Cook</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

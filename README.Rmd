@@ -67,7 +67,7 @@ Often there are implicit missing cases in temporal data. If the observations are
 full_weather <- weather_tsbl %>%
   fill_na(precip = 0) %>% 
   group_by(origin) %>% 
-  fill(temp, humid, .direction = "down")
+  tidyr::fill(temp, humid, .direction = "down")
 full_weather
 ```
 
@@ -115,7 +115,6 @@ It can be noticed that the tsibble seamlessly works with *dplyr* verbs. Use `?ts
   - `rename()`
   - `*_join()`
   - `group_by()`, `ungroup()`
-* **tidyr:** `fill()`
 * **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
 * **rlang:** `!!`, `!!!`
 

@@ -200,7 +200,7 @@ test_that("index_by() with pedestrian", {
   ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)
-  expect_equal(groups(ped_mut), NULL)
+  expect_identical(groups(ped_mut), NULL)
   ped_sum3 <- ped_mut %>%
     summarise(ttl_prop = sum(prop))
   expect_equal(format(interval(ped_sum3)), "1DAY")

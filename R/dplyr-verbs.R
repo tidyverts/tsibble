@@ -296,10 +296,6 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
 }
 
-do.tbl_ts <- function(.data, ...) {
-  dplyr::do(as_tibble(.data), ...)
-}
-
 by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ...)

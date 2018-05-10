@@ -84,7 +84,7 @@ test_that("fill.tbl_ts(.full = TRUE)", {
   full_tsbl <- tsbl %>%
     fill_na(.full = TRUE) %>%
     group_by(group) %>%
-    fill(value, .direction = "up")
+    tidyr::fill(value, .direction = "up")
   expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
@@ -99,7 +99,7 @@ test_that("fill.tbl_ts(.full = FALSE)", {
   full_tsbl <- tsbl %>%
     fill_na() %>%
     group_by(group) %>%
-    fill(value, .direction = "up")
+    tidyr::fill(value, .direction = "up")
   expect_equal(
     as_tibble(full_tsbl[8, ]),
     tibble(
@@ -122,9 +122,9 @@ test_that("count_gaps.grouped_ts(.full = TRUE)", {
   expect_equal(
     full_tbl,
     tibble(
-      group = c("a", "b"), 
-      from = c(ymd("2017-01-01"), ymd("2017-01-13")), 
-      to = c(ymd("2017-01-01"), ymd("2017-01-13")), 
+      group = c("a", "b"),
+      from = c(ymd("2017-01-01"), ymd("2017-01-13")),
+      to = c(ymd("2017-01-01"), ymd("2017-01-13")),
       n = c(1L, 1L)
     )
   )
@@ -134,9 +134,9 @@ test_that("count_gaps.grouped_ts(.full = FALSE)", {
   full_tbl <- tsbl %>% group_by(group) %>% count_gaps()
   a <- tibble(group = "a", from = NA, to = NA, n = 0L)
   b <- tibble(
-    group = "b", 
-    from = ymd("2017-01-13"), 
-    to = ymd("2017-01-13"), 
+    group = "b",
+    from = ymd("2017-01-13"),
+    to = ymd("2017-01-13"),
     n = 1L
   )
   expect_equal(full_tbl, dplyr::bind_rows(a, b))

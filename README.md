@@ -54,7 +54,7 @@ weather_tsbl
 #> # A tsibble: 26,130 x 5 [1HOUR]
 #> # Keys:      origin [3]
 #>   origin time_hour            temp humid precip
-#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 00:00:00  37.0  54.0      0
 #> 2 EWR    2013-01-01 01:00:00  37.0  54.0      0
 #> 3 EWR    2013-01-01 02:00:00  37.9  52.1      0
@@ -89,7 +89,7 @@ series analysis, which is easily done using `fill()` from *tidyr*.
 full_weather <- weather_tsbl %>%
   fill_na(precip = 0) %>% 
   group_by(origin) %>% 
-  fill(temp, humid, .direction = "down")
+  tidyr::fill(temp, humid, .direction = "down")
 full_weather
 #> # A tsibble: 26,208 x 5 [1HOUR]
 #> # Keys:      origin [3]
@@ -128,15 +128,15 @@ full_weather %>%
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
-#> # A tsibble: 36 x 4 [1MONTH]
+#> # A tsibble: 36 x 4 [1DAY]
 #> # Keys:      origin [3]
 #>   origin year_month avg_temp ttl_precip
-#>   <chr>       <mth>    <dbl>      <dbl>
-#> 1 EWR      2013 Jan     35.6       2.7 
-#> 2 EWR      2013 Feb     34.1       2.76
-#> 3 EWR      2013 Mar     40.0       1.94
-#> 4 EWR      2013 Apr     52.9       1.05
-#> 5 EWR      2013 May     63.1       2.76
+#> * <chr>  <date>        <dbl>      <dbl>
+#> 1 EWR    2013-01-01     35.6       2.7 
+#> 2 EWR    2013-02-01     34.1       2.76
+#> 3 EWR    2013-03-01     40.0       1.94
+#> 4 EWR    2013-04-01     52.9       1.05
+#> 5 EWR    2013-05-01     63.1       2.76
 #> # ... with 31 more rows
 ```
 
@@ -187,8 +187,6 @@ Use `?tsibble::reexports` for a full list of re-exported functions.
       - `rename()`
       - `*_join()`
       - `group_by()`, `ungroup()`
-      - 🚫 `distinct()`
-  - **tidyr:** `fill()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
   - **rlang:** `!!`, `!!!`
 

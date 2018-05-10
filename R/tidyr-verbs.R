@@ -1,18 +1,3 @@
-#' @export
-fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
-  dat <- do(data, fill(., ..., .direction = .direction))
-  tsbl <- update_tsibble(dat, data, interval = interval(data))
-  restore_index_class(data, tsbl)
-}
-
-# complete.tbl_ts <- function(data, ..., fill = list()) {
-#   comp_data <- NextMethod()
-#   if (is_grouped_ts(data)) {
-#     comp_data <- grouped_df(comp_data, vars = key_flatten(groups(data)))
-#   }
-#   update_tsibble(comp_data, data)
-# }
-
 spread_tsbl <- function(data, value, fill = NA, sep = "") {
   spread_val <- measured_vars(data)
   str_val <- paste_comma(surround(spread_val, "`"))

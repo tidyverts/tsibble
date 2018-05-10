@@ -40,7 +40,7 @@ fill_na.data.frame <- function(.data, ...) {
 #' # use fill() to fill `NA` by previous/next entry
 #' full_harvest %>% 
 #'   group_by(fruit) %>% 
-#'   fill(kilo, .direction = "down")
+#'   tidyr::fill(kilo, .direction = "down")
 #'
 #' # replace NA with a specific value ----
 #' harvest %>%
@@ -94,7 +94,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (is_grouped_ts(.data)) {
     full_data <- full_data %>% 
       grouped_df(vars = group_vars(.data)) %>% 
-      do(modify_na(., !!! enquos(...)))
+      dplyr::do(modify_na(., !!! enquos(...)))
   } else {
     full_data <- full_data %>%
       modify_na(!!! enquos(...))

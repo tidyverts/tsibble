@@ -164,7 +164,12 @@ as_tsibble.NULL <- function(x, ...) {
 
 #' @export
 groups.tbl_ts <- function(x) {
-  attr(x, "vars")
+  NULL
+}
+
+#' @export
+groups.grouped_ts <- function(x) {
+  syms(group_vars(x))
 }
 
 #' @export
@@ -174,7 +179,7 @@ group_vars.tbl_ts <- function(x) {
 
 #' @export
 group_vars.grouped_ts <- function(x) {
-  key_flatten(groups(x))
+  attr(x, "vars")
 }
 
 #' @export
@@ -410,39 +415,32 @@ build_tsibble <- function(
     warn(msg)
   } # true do nothing
 
-  # grped_key <- grouped_df(tbl, flat_keys)
-  tbl <- structure(
-    tbl,
-    "key" = structure(key_vars, class = "key"),
-    # "key_indices" = attr(grped_key, "indices"),
-    "index" = index,
-    "index2" = index2,
-    "vars" = NULL,
-    "drop" = NULL,
-    "indices" = NULL,
-    "group_sizes" = NULL,
-    "biggest_group_size" = NULL,
-    "labels" = NULL,
-    "interval" = structure(interval, class = "interval"),
-    "regular" = regular,
-    "ordered" = ordered,
-    class = c("tbl_ts", "tbl_df", "tbl", "data.frame")
-  )
-
   if (is_empty(groups)) {
-    return(tbl)
+    return(tibble::new_tibble(
+      tbl,
+      "key" = structure(key_vars, class = "key"),
+      # "key_indices" = attr(grped_key, "indices"),
+      "index" = index,
+      "index2" = index2,
+      "interval" = structure(interval, class = "interval"),
+      "regular" = regular,
+      "ordered" = ordered,
+      subclass= c("tbl_ts")
+    ))
   }
 
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
-  groups <- validate_key(x, groups)
-  tbl <- validate_nested(data = tbl, key = groups)
-
-  flat_grps <- key_flatten(groups)
-  grped_df <- grouped_df(tbl, flat_grps)
+  grped_df <- tbl %>% group_by(!!! groups)
   tibble::new_tibble(
     grped_df,
-    "vars" = structure(groups, class = "vars"),
+    "key" = structure(key_vars, class = "key"),
+    # "key_indices" = attr(grped_key, "indices"),
+    "index" = index,
+    "index2" = index2,
+    "interval" = structure(interval, class = "interval"),
+    "regular" = regular,
+    "ordered" = ordered,
     subclass = c("grouped_ts", "tbl_ts")
   )
 }
