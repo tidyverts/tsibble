@@ -190,17 +190,12 @@ key_reduce <- function(.data, .vars, validate = TRUE) {
   key_update(.data, !!! new_key, validate = validate)
 }
 
-# rename key and group
-key_rename <- function(.data, ...) {
-  names_dat <- names(.data)
-
-  # key
+key_rename <- function(.data, .vars) {
+  # key (key of the same size (bf & af))
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
-  val_vars <- tidyselect::vars_rename(names_dat, ...)
-  new_chr <- names(val_vars)[val_vars %in% old_chr]
-  dat_key_pos <- match(old_chr, names_dat)
-
+  new_chr <- names(.vars)[.vars %in% old_chr]
+  dat_key_pos <- match(old_chr, names(.data))
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
@@ -211,21 +206,14 @@ key_rename <- function(.data, ...) {
   } else if (any(lgl)) {
     new_key <- c(list(syms(new_chr[lgl])), new_key)
   }
+  new_key
+}
 
-  # groups
+grp_rename <- function(.data, .vars) {
   old_grp_chr <- group_vars(.data)
-  dat_grp_pos <- match(old_grp_chr, names_dat)
-  new_grp_chr <- names(val_vars)[val_vars %in% old_grp_chr]
-  new_grp <- syms(new_grp_chr)
-
-  names(.data)[dat_key_pos] <- new_chr
-  names(.data)[dat_grp_pos] <- new_grp_chr
-  attr(.data, "vars") <- new_grp
-  build_tsibble(
-    .data, key = new_key, index = !! index(.data), index2 = index2(.data),
-    groups = new_grp, regular = is_regular(.data), validate = FALSE, 
-    ordered = is_ordered(.data), interval = interval(.data)
-  )
+  dat_grp_pos <- match(old_grp_chr, names(.data))
+  new_grp_chr <- names(.vars)[.vars %in% old_grp_chr]
+  syms(new_grp_chr)
 }
 
 # The function takes a nested key/group str, i.e. `|` sym
@@ -282,4 +270,4 @@ flatten_nest <- function(key) { # call
     key
   }
 }
-
+ 

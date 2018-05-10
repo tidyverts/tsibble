@@ -126,52 +126,17 @@ slice.tbl_ts <- function(.data, ...) {
 #' @seealso [dplyr::select]
 #' @export
 select.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  sel_data <- select(as_tibble(.data), ...)
   if (.drop) {
-    return(sel_data)
+    return(select(as_tibble(.data), ...))
   }
-  lst_quos <- enquos(...)
-  val_vars <- validate_vars(j = lst_quos, x = names(.data))
-  val_idx <- has_index(j = val_vars, x = .data)
-  if (is_false(val_idx)) {
-    abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `.drop = TRUE` to drop `tbl_ts`?",
-      quo_text(index(.data))
-    ))
-  }
-  idx <- quo_text(index(.data))
-  .data <- index_rename(.data, !!! val_vars)
-  val_vars <- val_vars[val_vars != idx]
-  val_key <- has_all_key(j = names(val_vars), x = .data)
-  val_grp <- has_any_grp(j = val_vars, x = .data)
-  if (is_false(val_key) || val_grp) { # changes in key or group vars
-    .data <- key_reduce(.data, val_vars)
-    .data <- key_rename(.data, !!! val_vars)
-  }
-  update_tsibble(
-    sel_data, .data, ordered = is_ordered(.data), interval = interval(.data)
-  )
+  tsibble_select(.data, ...)
 }
 
 #' @rdname select
 #' @seealso [dplyr::rename]
 #' @export
 rename.tbl_ts <- function(.data, ...) {
-  renamed_data <- rename(as_tibble(.data), ...)
-  lst_quos <- enquos(...)
-  val_vars <- tidyselect::vars_rename(names(.data), !!! lst_quos)
-  changed_vars <- val_vars[setdiff(names(val_vars), val_vars)]
-  if (has_index(changed_vars, .data)) {
-    idx <- quo_text(index(.data))
-    .data <- index_rename(.data, !!! changed_vars)
-    changed_vars <- changed_vars[changed_vars != idx]
-  }
-  if (has_any_key(changed_vars, .data) || has_any_grp(changed_vars, .data)) {
-    .data <- key_rename(.data, !!! changed_vars)
-  }
-  update_tsibble(
-    renamed_data, .data, ordered = is_ordered(.data), interval = interval(.data)
-  )
+  tsibble_rename(.data, ...)
 }
 
 #' Add new variables

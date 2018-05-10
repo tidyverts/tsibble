@@ -8,15 +8,15 @@ test_that("unkey()", {
   expect_equal(key_vars(unkey_sx), character(0))
 })
 
-test_that("key_rename()", {
+test_that("tsibble_rename()", {
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr") %>%
     unkey()
-  key_bm <- key_rename(bm, "sensor" = "Sensor")
+  key_bm <- tsibble_rename(bm, "sensor" = "Sensor")
   expect_equal(key_vars(key_bm), character(0))
-  expect_true("Sensor" %in% names(key_bm))
+  expect_true("sensor" %in% names(key_bm))
   key_t <- tourism %>%
-    key_rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
+    tsibble_rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
   expect_equal(key_flatten(key(key_t)), c("region", "State", "purpose"))
 })
 
