@@ -1,4 +1,4 @@
-context("as.ts.tbl_ts()")
+context("tsibble to ts")
 
 test_that("a tsibble with different frequnecy", {
   x1 <- ts(1:10)
@@ -56,12 +56,12 @@ test_that("time.* and guess_frequency.*", {
  expect_equal(frequency(y), 7)
  expect_equal(guess_frequency(dat), 7)
  dat_min <- seq(
-   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
    by = "1 min"
  )
  expect_equal(guess_frequency(dat_min), 60)
  dat_sec <- seq(
-   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
    by = 1
  )
  expect_equal(guess_frequency(dat_sec), 60)

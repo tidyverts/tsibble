@@ -171,10 +171,10 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data), index2 = index2(.data),
-    groups = groups(.data), regular = is_regular(.data),
-    validate = validate, ordered = is_ordered(.data),
-    interval = interval(.data)
+    mut_data, key = key(.data), index = !! index(.data), 
+    index2 = !! index2(.data), groups = groups(.data), 
+    regular = is_regular(.data), validate = validate, 
+    ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
@@ -219,23 +219,24 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx2 <- index2(.data)
 
   lst_quos <- enquos(..., .named = TRUE)
-  nonkey <- setdiff(names(lst_quos), squash(c(key(.data), quo_text(idx))))
+  nonkey <- setdiff(names(lst_quos), 
+    squash(c(key(.data), quo_text(idx), quo_text(idx2)))
+  )
   nonkey_quos <- lst_quos[nonkey]
 
   sum_data <- collapse_tsibble(.data) %>% 
     summarise(!!! nonkey_quos)
-  if (is_empty(idx2)) {
+  if (identical(idx, idx2)) {
     int <- interval(.data)
     reg <- is_regular(.data)
   } else {
-    idx <- sym(names(idx2))
     int <- NULL
     reg <- TRUE
   }
   new_key <- key(key_reduce(.data, group_vars(.data), validate = FALSE))
 
   build_tsibble(
-    sum_data, key = new_key, index = !! idx, index2 = NULL,
+    sum_data, key = new_key, index = !! idx2,
     groups = drop_group(groups(.data)), validate = FALSE, regular = reg, 
     ordered = TRUE, interval = int
   )
@@ -266,7 +267,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 
   build_tsibble(
     grped_tbl, key = key(.data), index = !! index(.data), 
-    index2 = index2(.data), groups = groups(grped_tbl), validate = FALSE, 
+    index2 = !! index2(.data), groups = groups(grped_tbl), validate = FALSE, 
     regular = is_regular(.data), ordered = is_ordered(.data), 
     interval = interval(.data)
   )
@@ -277,7 +278,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   build_tsibble(
-    x, key = key(x), index = !! index(x), index2 = NULL, groups = id(),
+    x, key = key(x), index = !! index(x), groups = id(),
     validate = FALSE, regular = is_regular(x), ordered = is_ordered(x),
     interval = interval(x)
   )
@@ -308,7 +309,7 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
   build_tsibble(
-    new, key = key(old), index = !! index(old), index2 = index2(old),
+    new, key = key(old), index = !! index(old), index2 = !! index2(old),
     groups = groups(old), regular = is_regular(old), validate = FALSE, 
     ordered = ordered, interval = interval
   )
@@ -317,12 +318,7 @@ update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
 # used when collasping rows and columns (e.g. summarise)
 collapse_tsibble <- function(x) {
   grps <- groups(x)
-  grps_vars <- group_vars(x)
-  idx <- index(x)
   idx2 <- index2(x)
   x <- tibble::new_tibble(x)
-  if (is_empty(idx2)) {
-    return(grouped_df(x, vars = c(grps_vars, quo_text(idx))))
-  }
   group_by(x, !!! flatten(c(grps, idx2)))
 }

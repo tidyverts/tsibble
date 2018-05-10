@@ -36,8 +36,8 @@ key_header <- function(x) {
 tbl_sum.tbl_ts <- function(x) {
   result <- key_header(x)
   idx2 <- index2(x)
-  if (!is_empty(idx2)) {
-    idx_suffix <- paste("@", names(idx2))
+  if (!identical(index(x), idx2)) {
+    idx_suffix <- paste("@", quo_text(idx2))
     result <- c(result, "Groups" = idx_suffix)
   }
   result
@@ -52,10 +52,10 @@ tbl_sum.grouped_ts <- function(x) {
   }
   grps <- paste(paste_comma(group_vars(x)), surround(n_grps, "["))
   idx2 <- index2(x)
-  if (is_empty(idx2)) {
+  if (identical(index(x), idx2)) {
     return(c(result, "Groups" = grps))
   }
-  idx_suffix <- paste("@", names(idx2))
+  idx_suffix <- paste("@", quo_text(idx2))
   c(result, "Groups" = paste(grps, idx_suffix))
 }
 

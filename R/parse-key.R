@@ -165,7 +165,7 @@ key_update <- function(.data, ..., validate = TRUE) {
   quos <- enquos(...)
   key <- validate_key(.data, quos)
   build_tsibble(
-    .data, key = key, index = !! index(.data), index2 = index2(.data),
+    .data, key = key, index = !! index(.data), index2 = !! index2(.data),
     groups = groups(.data), regular = is_regular(.data), validate = validate, 
     ordered = is_ordered(.data), interval = interval(.data)
   )

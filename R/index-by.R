@@ -1,10 +1,11 @@
 #' Group by time index
 #'
 #' `index_by()` is the counterpart of `group_by()` in temporal context, but it
-#' only groups the time index. It captures the expression, and will be 
-#' evaluated within the next function call. The following operation is applied 
-#' to each group of the index, similar to `group_by()` but dealing with index only. 
-#' Use `ungroup()` to remove the `index_by()`.
+#' only groups the time index. It adds a new column and then group it. The 
+#' following operation is applied to each group of the index, similar to 
+#' `group_by()` but dealing with index only. `index_by()` + `summarise()` will
+#' make the grouping index variable to be the new index.  Use `ungroup()` or 
+#' `index_by()` with no arguments to remove the index grouping vars.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... 
@@ -63,11 +64,17 @@ index_by <- function(.data, ...) {
 #' @export
 index_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(..., .named = TRUE)
+  if (is_empty(exprs)) {
+    attr(.data, "index2") <- index(.data)
+    return(.data)
+  }
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
+  tbl <- group_by(as_tibble(.data), !!! exprs)
+  idx2 <- sym(names(exprs)[1])
   build_tsibble(
-    .data, key = key(.data), index = !! index(.data), index2 = exprs,
+    tbl, key = key(.data), index = !! index(.data), index2 = !! idx2,
     groups = groups(.data), regular = is_regular(.data), validate = FALSE,
     ordered = is_ordered(.data), interval = interval(.data)
   )
@@ -81,6 +88,14 @@ index_rename <- function(.data, .vars) {
   sym(new_idx_chr)
 }
 
+index2_rename <- function(.data, .vars) {
+  names_dat <- names(.data)
+  names_vars <- names(.vars)
+  idx_chr <- quo_text(index2(.data))
+  new_idx_chr <- names_vars[idx_chr == .vars]
+  sym(new_idx_chr)
+}
+
 tsibble_rename <- function(.data, ...) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_rename(names_dat, ...)
@@ -88,20 +103,9 @@ tsibble_rename <- function(.data, ...) {
 
   # index
   idx <- index_rename(.data, val_vars)
-
   # index2
-  idx2 <- index2(.data)
-  if (!is_empty(idx2)) {
-    idx2_chr <- names(idx2)
-    new_idx2_chr <- names_vars[idx2_chr == val_vars]
-    first_expr <- idx2[[1]]
-    if (is_symbol(first_expr)) {
-      first_expr <- sym(new_idx2_chr)
-    }
-    idx2 <- exprs(!! new_idx2_chr := !! first_expr)
-    attr(.data, "index2") <- idx2
-  }
-
+  idx2 <- index2_rename(.data, val_vars)
+  attr(.data, "index2") <- idx2
   # key (key of the same size (bf & af))
   new_key <- key_rename(.data, val_vars)
   # groups
@@ -109,15 +113,8 @@ tsibble_rename <- function(.data, ...) {
   attr(.data, "vars") <- new_grp
 
   names(.data) <- names_vars
-  vec_names <- union(names_vars, names(.data))
-  # either key or index is present in ...
-  # suggests that the operations are done on these variables
-  # validate = TRUE to check if tsibble still holds
-  val_idx <- has_index(vec_names, .data)
-  val_key <- has_any_key(vec_names, .data)
-  validate <- val_idx || val_key
   build_tsibble(
-    .data, key = new_key, index = !! idx, index2 = idx2,
+    .data, key = new_key, index = !! idx, index2 = !! idx2,
     groups = new_grp, regular = is_regular(.data), validate = FALSE, 
     ordered = is_ordered(.data), interval = interval(.data)
   )
@@ -140,19 +137,8 @@ tsibble_select <- function(.data, ...) {
   
   # index
   idx <- index_rename(.data, val_vars)
-  
   # index2
-  idx2 <- index2(.data)
-  if (!is_empty(idx2)) {
-    idx2_chr <- names(idx2)
-    new_idx2_chr <- names_vars[idx2_chr == val_vars]
-    first_expr <- idx2[[1]]
-    if (is_symbol(first_expr)) {
-      first_expr <- sym(new_idx2_chr)
-    }
-    idx2 <- exprs(!! new_idx2_chr := !! first_expr)
-  }
-  
+  idx2 <- index2_rename(.data, val_vars)
   # key (key of the reduced size (bf & af) but also different names)
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
@@ -167,7 +153,6 @@ tsibble_select <- function(.data, ...) {
   if (any(new_lgl)) {
     new_key <- c(list(syms(names(key_vars)[new_lgl])), new_key)
   }
-
   # groups
   new_grp <- grp_rename(.data, val_vars)
   
@@ -180,7 +165,7 @@ tsibble_select <- function(.data, ...) {
   validate <- val_idx || val_key
   
   build_tsibble(
-    sel_data, key = new_key, index = !! idx, index2 = idx2,
+    sel_data, key = new_key, index = !! idx, index2 = !! idx2,
     groups = new_grp, regular = is_regular(.data), validate = validate, 
     ordered = is_ordered(.data), interval = interval(.data)
   )

@@ -31,7 +31,7 @@
   }
 
   build_tsibble(
-    result, key = key(x), index = !! index(x), index2 = index2(x),
+    result, key = key(x), index = !! index(x), index2 = !! index2(x),
     validate = FALSE, regular = is_regular(x), ordered = is_ordered(x)
   )
 }
@@ -54,17 +54,7 @@ has_distinct_key <- function(j, x) {
   all(key_vars %in% j)
 }
 
-has_all_key <- function(j, x) {
-  key_vars <- key_flatten(key(x))
-  all(key_vars %in% j)
-}
-
 has_any_key <- function(j, x) {
   key_vars <- key_flatten(key(x))
   any(key_vars %in% j)
-}
-
-has_any_grp <- function(j, x) {
-  grp_vars <- key_flatten(groups(x))
-  any(grp_vars %in% j)
 }

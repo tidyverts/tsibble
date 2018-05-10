@@ -1,4 +1,4 @@
-context("as_tsibble() w/o data of wide form")
+context("as_tsibble() for ts objects")
 
 test_that("a ts with different frequnecy", {
   x1 <- ts(1:10)

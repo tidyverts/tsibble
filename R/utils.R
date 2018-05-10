@@ -64,8 +64,3 @@ min0 <- function(x) {
 max0 <- function(x) {
   max(x, na.rm = TRUE)
 }
-
-is_named <- function(quos) {
-  named_quos <- names(quos)
-  is_false(all(named_quos == ""))
-}

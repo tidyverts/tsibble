@@ -26,10 +26,11 @@ sub-daily aggregation
 }
 \description{
 \code{index_by()} is the counterpart of \code{group_by()} in temporal context, but it
-only groups the time index. It captures the expression, and will be
-evaluated within the next function call. The following operation is applied
-to each group of the index, similar to \code{group_by()} but dealing with index only.
-Use \code{ungroup()} to remove the \code{index_by()}.
+only groups the time index. It adds a new column and then group it. The
+following operation is applied to each group of the index, similar to
+\code{group_by()} but dealing with index only. \code{index_by()} + \code{summarise()} will
+make the grouping index variable to be the new index.  Use \code{ungroup()} or
+\code{index_by()} with no arguments to remove the index grouping vars.
 }
 \details{
 \itemize{

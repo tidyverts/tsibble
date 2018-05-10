@@ -4,7 +4,7 @@
 \alias{build_tsibble}
 \title{Construct a tsibble object}
 \usage{
-build_tsibble(x, key, index, index2 = NULL, groups = id(), regular = TRUE,
+build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
 }
 \arguments{
@@ -16,8 +16,8 @@ simply call \code{id()}. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
-\item{index2}{A list of expressions to update the index to a new one when
-\link{index_by}.}
+\item{index2}{A candidate of \code{index} to update the index to a new one when
+\link{index_by}. By default, it's the same variable as \code{index}.}
 
 \item{groups}{Grouping variable(s) when \link{group_by.tbl_ts}.}
 
@@ -46,7 +46,6 @@ determine if the time needs ordering and the interval needs calculating.
 # Prepare `pedestrian` to use a new index `Date` ----
 pedestrian \%>\%
   build_tsibble(
-    key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date),
-    interval = interval(.)
+    key = key(.), index = !! index(.), index2 = Date, interval = interval(.)
   )
 }

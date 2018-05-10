@@ -331,8 +331,8 @@ as.tsibble <- function(x, ...) {
 #'
 #' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
 #' @inheritParams as_tsibble
-#' @param index2 A list of expressions to update the index to a new one when
-#' [index_by].
+#' @param index2 A candidate of `index` to update the index to a new one when
+#' [index_by]. By default, it's the same variable as `index`.
 #' @param groups Grouping variable(s) when [group_by.tbl_ts].
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
 #' then index in ascending order. `TRUE` suggests to skip the ordering as `x` in
@@ -345,11 +345,10 @@ as.tsibble <- function(x, ...) {
 #' # Prepare `pedestrian` to use a new index `Date` ----
 #' pedestrian %>%
 #'   build_tsibble(
-#'     key = key(.), index = !! index(.), index2 = rlang::exprs(Date = Date),
-#'     interval = interval(.)
+#'     key = key(.), index = !! index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, index, index2 = NULL, groups = id(), regular = TRUE,
+  x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL
 ) {
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
@@ -363,34 +362,18 @@ build_tsibble <- function(
   tbl <- ungroup(as_tibble(x, validate = validate))
   # extract or pass the index var
   index <- validate_index(tbl, enquo(index))
-  # if index2 not specified, empty list
-  if (is_empty(index2)) {
-    index2 <- list()
-    idx2_chr <- character(0)
+  # if index2 not specified
+  if (quo_is_missing(enquo(index2))) {
+    index2 <- index
   } else {
-    if (is_quosures(index2)) {
-      index2 <- purrr::map(index2, quo_get_expr)
-    }
-    expr <- index2[[1]]
-    if (is_call(expr)) {
-      idx2 <- first_arg(index2)[[1]]
-    } else if (is_symbol(expr)) {
-      idx2 <- expr
-    } else {
-      abort(sprintf(
-        "Only accepts either a call or a name, not %s.", class(expr)[[1]]
-      ))
-    }
-    idx2_chr <- validate_vars(quo_text(idx2), names(x))
-    idx2_sym <- sym(idx2_chr)
-    validate_index(tbl, enquo(idx2_sym))
+    index2 <- validate_index(tbl, enquo(index2))
   }
   # (1) validate and process key vars (from expr to a list of syms)
-  key_vars <- validate_key(data = tbl, key)
+  key_vars <- validate_key(tbl, key)
   # (2) if there exists a list of lists, flatten it as characters
   flat_keys <- key_flatten(key_vars)
   # (3) index cannot be part of the keys
-  idx_chr <- c(quo_text(index), idx2_chr)
+  idx_chr <- c(quo_text(index), quo_text(index2))
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("`%s` can't be `index`, as it's used as `key`.", idx_chr))
@@ -494,7 +477,7 @@ validate_index <- function(data, index) {
     if (sum(val_idx) != 1) {
       abort("Can't determine the `index` and please specify.")
     }
-    chr_index <- colnames(data)[val_idx]
+    chr_index <- names(data)[val_idx]
     inform(sprintf("The `index` is `%s`.", chr_index))
     return(sym(chr_index))
   } else {
@@ -504,7 +487,7 @@ validate_index <- function(data, index) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       name_idx <- names(idx_na)
       abort(sprintf(
-        "Unsupported index type: `%s`", cls_idx[colnames(data) %in% name_idx])
+        "Unsupported index type: `%s`", cls_idx[names(data) %in% name_idx])
       )
     }
     sym(chr_index)
@@ -581,10 +564,18 @@ validate_tsibble <- function(data, key, index) {
 #' as_tibble(grped_ped)
 as_tibble.tbl_ts <- function(x, ...) {
   grps <- groups(x)
+  idx <- index(x)
   idx2 <- index2(x)
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  group_by(tibble::new_tibble(x), !!! squash(c(grps, idx2)))
+  if (identical(idx, idx2)) {
+    if (is_empty(grps)) {
+      return(tibble::new_tibble(x))
+    }
+    return(group_by(tibble::new_tibble(x), !!! flatten(grps)))
+  } else {
+    group_by(tibble::new_tibble(x), !!! flatten(c(grps, idx2)))
+  }
 }
 
 #' @export

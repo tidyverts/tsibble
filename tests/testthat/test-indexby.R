@@ -13,12 +13,12 @@ dat_x <- tibble(
 tsbl1 <- as_tsibble(dat_x, index = date_time)
 
 test_that("illegal input in index_by()", {
-  expect_error(tsbl1 %>% index_by(), "only accepts one expression.")
+  expect_identical(tsbl1 %>% index_by(), tsbl1)
+  expect_error(tsbl1 %>% index_by("date_time"), "Unsupported index type:")
   expect_error(
-    tsbl1 %>%
-      index_by(date_min = ceiling_date(date, unit = "min"))
-  , "Unknown column `date`")
-  expect_error(tsbl1 %>% index_by("date_time"), "either a call or a name.")
+    tsbl1 %>% index_by(as.Date(date_time), yearmonth(date_time)),
+    "only accepts one expression."
+  )
 })
 
 test_that("From seconds to higher date", {
@@ -174,7 +174,8 @@ test_that("scoped variants with group_by()", {
 test_that("index_by() with pedestrian", {
   ped_idx <- pedestrian %>%
     index_by(yrmth = yearmonth(Date))
-  expect_equal(index2(ped_idx), rlang::exprs(yrmth = yearmonth(Date)))
+  expect_identical(index2(ped_idx), rlang::sym("yrmth"))
+  expect_named(ped_idx, c(names(pedestrian), "yrmth"))
   ped_fil <- ped_idx %>%
     filter(Date_Time == min(Date_Time))
   ped_ref <- as_tibble(pedestrian) %>%
@@ -183,19 +184,19 @@ test_that("index_by() with pedestrian", {
   expect_equal(ped_fil, ped_ref)
   ped_ren <- ped_fil %>%
     rename(yrmth2 = yrmth)
-  expect_equal(index2(ped_ren), rlang::exprs(yrmth2 = yearmonth(Date)))
+  expect_identical(index2(ped_ren), rlang::sym("yrmth2"))
   ped_sum <- ped_ren %>%
     summarise(Total = sum(Count))
   expect_named(ped_sum, c("yrmth2", "Total"))
-  expect_equal(index(ped_sum), rlang::sym("yrmth2"))
-  expect_equal(index2(ped_sum), list())
+  expect_identical(index(ped_sum), rlang::sym("yrmth2"))
+  expect_identical(index2(ped_sum), index(ped_sum))
   ped_sum2 <- ped_ren %>%
     group_by(Sensor) %>%
     summarise(Total = sum(Count))
   expect_named(ped_sum2, c("Sensor", "yrmth2", "Total"))
-  expect_equal(index(ped_sum2), rlang::sym("yrmth2"))
-  expect_equal(index2(ped_sum2), list())
-  expect_equal(groups(ped_sum2), NULL)
+  expect_identical(index(ped_sum2), rlang::sym("yrmth2"))
+  expect_identical(index2(ped_sum2), index(ped_sum2))
+  expect_identical(groups(ped_sum2), NULL)
   ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)

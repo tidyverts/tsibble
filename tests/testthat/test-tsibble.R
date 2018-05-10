@@ -336,10 +336,10 @@ test_that("build_tsibble()", {
 
   tsbl <- build_tsibble(
     pedestrian, key = id(Sensor), index = Date_Time,
-    index2 = rlang::quos(Date = Date)
+    index2 = Date
   )
   idx2 <- index2(tsbl)
-  expect_is(idx2, "list")
+  expect_is(idx2, "name")
 
   idx_drop <- dplyr::bind_rows(tsbl, tsbl)
   expect_error(print(idx_drop), "dropped somehow")
@@ -348,8 +348,8 @@ test_that("build_tsibble()", {
     build_tsibble(pedestrian, key = id(Sensor), index = NULL), "NULL."
   )
 
-  expect_error(pedestrian %>% 
-    mutate(Date_Time = as.character(Date_Time)), 
+  expect_error(pedestrian %>%
+    mutate(Date_Time = as.character(Date_Time)),
     "Unsupported index"
   )
 })
