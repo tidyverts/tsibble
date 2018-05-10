@@ -368,10 +368,11 @@ build_tsibble <- function(
   # extract or pass the index var
   index <- validate_index(tbl, enquo(index))
   # if index2 not specified
-  if (quo_is_missing(enquo(index2))) {
+  index2 <- enquo(index2)
+  if (quo_is_missing(index2)) {
     index2 <- index
   } else {
-    index2 <- validate_index(tbl, enquo(index2))
+    index2 <- validate_index(tbl, index2)
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(tbl, key)

@@ -126,7 +126,7 @@ key_distinct <- function(x) { # x = a list of keys (symbols)
   unname(comb_keys)
 }
 
-drop_group <- function(x) {
+grp_drop <- function(x) {
   len <- length(x)
   new_grps <- x[-len] # drop one grouping level
   last_x <- dplyr::last(x)
@@ -190,12 +190,14 @@ key_reduce <- function(.data, .vars, validate = TRUE) {
   key_update(.data, !!! new_key, validate = validate)
 }
 
-key_rename <- function(.data, .vars) {
+key_rename <- function(
+  .data, .vars, names1 = names(.data), names2 = names(.vars)
+) {
   # key (key of the same size (bf & af))
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
-  new_chr <- names(.vars)[.vars %in% old_chr]
-  dat_key_pos <- match(old_chr, names(.data))
+  new_chr <- names2[.vars %in% old_chr]
+  dat_key_pos <- match(old_chr, names1)
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
@@ -209,10 +211,12 @@ key_rename <- function(.data, .vars) {
   new_key
 }
 
-grp_rename <- function(.data, .vars) {
+grp_rename <- function(
+  .data, .vars, names1 = names(.data), names2 = names(.vars)
+) {
   old_grp_chr <- group_vars(.data)
-  dat_grp_pos <- match(old_grp_chr, names(.data))
-  new_grp_chr <- names(.vars)[.vars %in% old_grp_chr]
+  dat_grp_pos <- match(old_grp_chr, names1)
+  new_grp_chr <- names2[.vars %in% old_grp_chr]
   syms(new_grp_chr)
 }
 

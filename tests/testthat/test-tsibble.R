@@ -195,7 +195,7 @@ test_that("Difftime with 1 minute interval", {
   expect_identical(format(interval(tsbl)), "1MINUTE")
 })
 
-context("Test as_tsibble() with a single key for data of long form")
+context("as_tsibble() with a single key for data of long form")
 
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
 dat_x <- tibble(

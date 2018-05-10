@@ -224,7 +224,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   )
   nonkey_quos <- lst_quos[nonkey]
 
-  sum_data <- collapse_tsibble(.data) %>% 
+  sum_data <- as_tibble2(.data) %>% 
     summarise(!!! nonkey_quos)
   if (identical(idx, idx2)) {
     int <- interval(.data)
@@ -237,7 +237,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
 
   build_tsibble(
     sum_data, key = new_key, index = !! idx2,
-    groups = drop_group(groups(.data)), validate = FALSE, regular = reg, 
+    groups = grp_drop(groups(.data)), validate = FALSE, regular = reg, 
     ordered = TRUE, interval = int
   )
 }
@@ -311,8 +311,8 @@ update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
   )
 }
 
-# used when collasping rows and columns (e.g. summarise)
-collapse_tsibble <- function(x) {
+# needed when grouping by index2 (e.g. summarise)
+as_tibble2 <- function(x) {
   grps <- groups(x)
   idx2 <- index2(x)
   x <- tibble::new_tibble(x)

@@ -80,19 +80,15 @@ index_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-index_rename <- function(.data, .vars) {
-  names_dat <- names(.data)
-  names_vars <- names(.vars)
+index_rename <- function(.data, .vars, names = names(.vars)) {
   idx_chr <- quo_text(index(.data))
-  new_idx_chr <- names_vars[idx_chr == .vars]
+  new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
 
-index2_rename <- function(.data, .vars) {
-  names_dat <- names(.data)
-  names_vars <- names(.vars)
+index2_rename <- function(.data, .vars, names = names(.vars)) {
   idx_chr <- quo_text(index2(.data))
-  new_idx_chr <- names_vars[idx_chr == .vars]
+  new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
 
@@ -102,14 +98,14 @@ tsibble_rename <- function(.data, ...) {
   names_vars <- names(val_vars)
 
   # index
-  idx <- index_rename(.data, val_vars)
+  idx <- index_rename(.data, val_vars, names = names_vars)
   # index2
-  idx2 <- index2_rename(.data, val_vars)
+  idx2 <- index2_rename(.data, val_vars, names = names_vars)
   attr(.data, "index2") <- idx2
   # key (key of the same size (bf & af))
-  new_key <- key_rename(.data, val_vars)
+  new_key <- key_rename(.data, val_vars, names_dat, names_vars)
   # groups
-  new_grp <- grp_rename(.data, val_vars)
+  new_grp <- grp_rename(.data, val_vars, names_dat, names_vars)
   attr(.data, "vars") <- new_grp
 
   names(.data) <- names_vars
@@ -136,9 +132,9 @@ tsibble_select <- function(.data, ...) {
   }
   
   # index
-  idx <- index_rename(.data, val_vars)
+  idx <- index_rename(.data, val_vars, names = names_vars)
   # index2
-  idx2 <- index2_rename(.data, val_vars)
+  idx2 <- index2_rename(.data, val_vars, names = names_vars)
   # key (key of the reduced size (bf & af) but also different names)
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
