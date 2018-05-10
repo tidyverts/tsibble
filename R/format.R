@@ -1,6 +1,6 @@
 #' @export
 print.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
-  has_index(x)
+  is_index_null(x)
   cat_line(format(x, ..., n = n, width = width, n_extra = n_extra))
   invisible(x)
 }

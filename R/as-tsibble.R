@@ -362,7 +362,7 @@ build_tsibble <- function(
   # x is tbl_ts, use as_tibble(ungroup = TRUE)
   tbl <- ungroup(as_tibble(x, validate = validate))
   # extract or pass the index var
-  index <- extract_index_var(tbl, enquo(index))
+  index <- validate_index(tbl, enquo(index))
   # if index2 not specified, empty list
   if (is_empty(index2)) {
     index2 <- list()
@@ -383,7 +383,7 @@ build_tsibble <- function(
     }
     idx2_chr <- validate_vars(quo_text(idx2), names(x))
     idx2_sym <- sym(idx2_chr)
-    extract_index_var(tbl, enquo(idx2_sym))
+    validate_index(tbl, enquo(idx2_sym))
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(data = tbl, key)
@@ -397,7 +397,7 @@ build_tsibble <- function(
   }
   # validate tbl_ts
   if (validate) {
-    tbl <- validate_tbl_ts(data = tbl, key = key_vars, index = index)
+    tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
     tbl <- validate_nested(data = tbl, key = key_vars)
   }
   if (is_false(regular)) {
@@ -483,7 +483,7 @@ id <- function(...) {
 
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
-extract_index_var <- function(data, index) {
+validate_index <- function(data, index) {
   idx_type <- purrr::map_chr(data, index_sum)
   is_quo <- is_quosure(index)
   if (quo_is_null(index)) {
@@ -542,7 +542,7 @@ validate_nested <- function(data, key) {
 
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
-validate_tbl_ts <- function(data, key, index) {
+validate_tsibble <- function(data, key, index) {
   idx <- quo_text(index)
   # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
   # identifiers <- c(key_flatten(key), idx)
@@ -624,7 +624,7 @@ use_id <- function(x) {
 #' @export
 find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   use_id(key)
-  index <- extract_index_var(data, enquo(index))
+  index <- validate_index(data, enquo(index))
 
   grouped_df(data, vars = key_flatten(key)) %>%
     mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>%

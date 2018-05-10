@@ -132,7 +132,7 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   lst_quos <- enquos(...)
   val_vars <- validate_vars(j = lst_quos, x = names(.data))
-  val_idx <- has_index_var(j = val_vars, x = .data)
+  val_idx <- has_index(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
       "The `index` (`%s`) must not be dropped. Do you need `.drop = TRUE` to drop `tbl_ts`?",
@@ -161,7 +161,7 @@ rename.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
   val_vars <- tidyselect::vars_rename(names(.data), !!! lst_quos)
   changed_vars <- val_vars[setdiff(names(val_vars), val_vars)]
-  if (has_index_var(changed_vars, .data)) {
+  if (has_index(changed_vars, .data)) {
     idx <- quo_text(index(.data))
     .data <- index_rename(.data, !!! changed_vars)
     changed_vars <- changed_vars[changed_vars != idx]
@@ -202,7 +202,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
-  val_idx <- has_index_var(vec_names, .data)
+  val_idx <- has_index(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   build_tsibble(

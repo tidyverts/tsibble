@@ -71,7 +71,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   idx_chr <- quo_text(idx)
   key <- key(.data)
   flat_key <- key_flatten(key)
-  tbl <- as_tibble(.data, ungroup = TRUE)
+  tbl <- ungroup(as_tibble(.data))
   grped_tbl <- tbl %>% 
     grouped_df(vars = flat_key)
   if (.full) {
@@ -135,7 +135,7 @@ count_gaps <- function(.data, ...) {
 count_gaps.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
   idx_full <- seq_by(eval_tidy(idx, data = .data))
-  as_tibble(.data, ungroup = TRUE) %>% 
+  ungroup(as_tibble(.data)) %>% 
     summarise(gaps = list(gaps(unique.default(!! idx), idx_full))) %>% 
     tidyr::unnest(gaps)
 }

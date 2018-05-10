@@ -93,7 +93,7 @@ tsum <- function(.data, first, remainder = NULL, FUN = summarise) {
   # check if the index variable is present in the first call
   first_var <- as.character(first_arg(first))
   idx_var <- quo_text(index)
-  if (is_false(has_index_var(j = first_var, x = .data))) {
+  if (is_false(has_index(j = first_var, x = .data))) {
     abort(sprintf("Can't find `index` (`%s`) in the first name-value pair.", idx_var))
   }
   idx <- quo_text(index)

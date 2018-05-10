@@ -18,7 +18,7 @@
   # subset by columns
   if (!missing(j)) {
     chr_j <- validate_vars(j, colnames(x))
-    lgl_j <- has_index_var(chr_j, x) && has_distinct_key(chr_j, x)
+    lgl_j <- has_index(chr_j, x) && has_distinct_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
@@ -36,15 +36,15 @@
   )
 }
 
-has_index <- function(x) {
+is_index_null <- function(x) {
   if (is.null(index(x))) {
     abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
   }
 }
 
 # this function usually follows validate_vars()
-has_index_var <- function(j, x) {
-  has_index(x)
+has_index <- function(j, x) {
+  is_index_null(x)
   index <- c(quo_text(index(x)), names(index2(x)))
   any(index %in% j)
 }

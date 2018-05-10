@@ -100,16 +100,3 @@ index_rename <- function(.data, ...) {
     validate = FALSE, ordered = is_ordered(.data), interval = interval(.data)
   )
 }
-
-# update from call to symbol in RHS
-index2_update <- function(.data) {
-  idx2 <- index2(.data)
-  if (is_empty(idx2)) {
-    return(.data)
-  } else {
-    idx2_chr <- names(idx2)
-    idx2_sym <- sym(idx2_chr)
-    attr(.data, "index2") <- exprs(!! idx2_chr := !! idx2_sym)
-    .data
-  }
-}
