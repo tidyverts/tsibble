@@ -1,4 +1,4 @@
-# tsibble 0.1.6.9000
+# tsibble 0.2.0
 
 This release (hopefully) marks the stability of a tsibble data object (`tbl_ts`). A `tbl_ts` contains the following components:
 
