@@ -8,7 +8,7 @@ globalVariables(".")
 #' the same type as the original one. If using a function to fill the `NA`,
 #' please make sure that `na.rm = TRUE` is switched on.
 #'
-#' @seealso [case_na], [tidyr::fill], [tidyr::replace_na]
+#' @seealso [count_gaps], [case_na], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
 #' @export
 fill_na <- function(.data, ...) {
@@ -99,8 +99,11 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     full_data <- full_data %>%
       modify_na(!!! enquos(...))
   }
-  full_data <- full_data %>%
-    select(!!! syms(names(.data))) # keep the original order
+  cn <- names(.data)
+  if (!identical(cn, names(full_data))) {
+    full_data <- full_data %>%
+      select(!!! syms(cn)) # keep the original order
+  }
   update_tsibble(full_data, .data, interval = interval(.data))
 }
 
@@ -114,7 +117,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #'
 #' @rdname gaps
 #' @export
-#' @seealso fill_na
+#' @seealso [fill_na]
 #' @return
 #' A tibble contains:
 #' * the "key" of the `tbl_ts`

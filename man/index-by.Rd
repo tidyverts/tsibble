@@ -29,13 +29,13 @@ sub-daily aggregation
 only groups the time index. It adds a new column and then group it. The
 following operation is applied to each group of the index, similar to
 \code{group_by()} but dealing with index only. \code{index_by()} + \code{summarise()} will
-make the grouping index variable to be the new index.  Use \code{ungroup()} or
+update the grouping index variable to be the new index. Use \code{ungroup()} or
 \code{index_by()} with no arguments to remove the index grouping vars.
 }
 \details{
 \itemize{
-\item A \code{index_by()}-ed tsibble is indicated by \code{@} followed by a promise in the
-"Groups" when displaying on the screen.
+\item A \code{index_by()}-ed tsibble is indicated by \code{@} in the "Groups" when
+displaying on the screen.
 \item Time index will not be collapsed by \code{summarise.tbl_ts}.
 \item The scoped variants of \code{summarise()} only operate on the non-key and
 non-index variables.

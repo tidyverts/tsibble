@@ -1,7 +1,7 @@
 #' tsibble: tidy temporal data frames and tools
 #'
 #' The **tsibble** package provides a data class of `tbl_ts` to store and manage
-#' temporal data frames in a tidy manner. A tsibble consists of a time index, 
+#' temporal data frames in a "tidy" form. A tsibble consists of a time index, 
 #' key(s) and other measured variables in a data-centric format, which is built on 
 #' top of the tibble. 
 #'
@@ -9,7 +9,7 @@
 #' The time indices are no longer an attribute (for example, the `tsp` attribute 
 #' in a `ts` object), but preserved as the essential component of the tsibble. A 
 #' few index classes, such as `Date`, `POSIXct`, and `difftime`, forms the basis of 
-#' the tsibble, with new additions [yearquarter], [yearmonth], and [yearquarter] 
+#' the tsibble, with new additions [yearweek], [yearmonth], and [yearquarter] 
 #' representing year-week, year-month, and year-quarter respectively. `zoo::yearmth` 
 #' and `zoo::yearqtr` are also supported. It is extensible to work with custom 
 #' index, for example trading days and weekly data.
@@ -33,7 +33,7 @@
 #' relationship. Nested and crossed variables can be combined, such as 
 #' `data(tourism)` using `id(Region | State, Purpose)`.
 #'
-#' These key variables are descriptors, not values.
+#' These key variables describe the data structure.
 #'
 #' @section Interval:
 #' The [interval] function returns the interval associated with the tsibble.

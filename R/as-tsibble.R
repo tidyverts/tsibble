@@ -337,7 +337,7 @@ as.tsibble <- function(x, ...) {
 #' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
 #' @inheritParams as_tsibble
 #' @param index2 A candidate of `index` to update the index to a new one when
-#' [index_by]. By default, it's the same variable as `index`.
+#' [index_by]. By default, it's identical to `index`.
 #' @param groups Grouping variable(s) when [group_by.tbl_ts].
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
 #' then index in ascending order. `TRUE` suggests to skip the ordering as `x` in

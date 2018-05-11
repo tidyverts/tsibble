@@ -17,7 +17,7 @@ simply call \code{id()}. See below for details.}
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
 \item{index2}{A candidate of \code{index} to update the index to a new one when
-\link{index_by}. By default, it's the same variable as \code{index}.}
+\link{index_by}. By default, it's identical to \code{index}.}
 
 \item{groups}{Grouping variable(s) when \link{group_by.tbl_ts}.}
 

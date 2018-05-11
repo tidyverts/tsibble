@@ -66,5 +66,5 @@ ggplot(ped_gaps, aes(colour = Sensor)) +
 gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 }
 \seealso{
-fill_na
+\link{fill_na}
 }

@@ -5,7 +5,7 @@
 \title{tsibble: tidy temporal data frames and tools}
 \description{
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to store and manage
-temporal data frames in a tidy manner. A tsibble consists of a time index,
+temporal data frames in a "tidy" form. A tsibble consists of a time index,
 key(s) and other measured variables in a data-centric format, which is built on
 top of the tibble.
 }
@@ -14,7 +14,7 @@ top of the tibble.
 The time indices are no longer an attribute (for example, the \code{tsp} attribute
 in a \code{ts} object), but preserved as the essential component of the tsibble. A
 few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearquarter}, \link{yearmonth}, and \link{yearquarter}
+the tsibble, with new additions \link{yearweek}, \link{yearmonth}, and \link{yearquarter}
 representing year-week, year-month, and year-quarter respectively. \code{zoo::yearmth}
 and \code{zoo::yearqtr} are also supported. It is extensible to work with custom
 index, for example trading days and weekly data.
@@ -42,7 +42,7 @@ relationship. Nested and crossed variables can be combined, such as
 \code{data(tourism)} using \code{id(Region | State, Purpose)}.
 }
 
-These key variables are descriptors, not values.
+These key variables describe the data structure.
 }
 
 \section{Interval}{
@@ -80,6 +80,11 @@ Authors:
 \itemize{
   \item Di Cook (0000-0002-3813-7155) [thesis advisor]
   \item Rob Hyndman (0000-0002-2140-5352) [thesis advisor]
+}
+
+Other contributors:
+\itemize{
+  \item Mitchell O'Hara-Wild [contributor]
 }
 
 }

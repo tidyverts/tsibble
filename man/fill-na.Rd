@@ -65,5 +65,5 @@ pedestrian \%>\%
   )
 }
 \seealso{
-\link{case_na}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}
+\link{count_gaps}, \link{case_na}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}
 }

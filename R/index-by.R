@@ -4,7 +4,7 @@
 #' only groups the time index. It adds a new column and then group it. The 
 #' following operation is applied to each group of the index, similar to 
 #' `group_by()` but dealing with index only. `index_by()` + `summarise()` will
-#' make the grouping index variable to be the new index.  Use `ungroup()` or 
+#' update the grouping index variable to be the new index. Use `ungroup()` or 
 #' `index_by()` with no arguments to remove the index grouping vars.
 #'
 #' @param .data A `tbl_ts`.
@@ -23,8 +23,8 @@
 #' * other index functions from other packages
 #'
 #' @details
-#' * A `index_by()`-ed tsibble is indicated by `@` followed by a promise in the 
-#' "Groups" when displaying on the screen.
+#' * A `index_by()`-ed tsibble is indicated by `@` in the "Groups" when 
+#' displaying on the screen.
 #' * Time index will not be collapsed by `summarise.tbl_ts`.
 #' * The scoped variants of `summarise()` only operate on the non-key and 
 #' non-index variables.
