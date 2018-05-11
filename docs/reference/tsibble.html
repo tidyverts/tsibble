@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create a tsibble object — tsibble" />
 
 <meta property="og:description" content="Create a tsibble object" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -104,11 +105,14 @@
     <div class="page-header">
     <h1>Create a tsibble object</h1>
     
+    <div class="hidden name"><code>tsibble.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a tsibble object</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>tsibble</span>(<span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -133,7 +137,7 @@ simply call <code><a href='id.html'>id()</a></code>. See below for details.</p><
     <tr>
       <th>regular</th>
       <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
-finds the minimal time span as the interval.</p></td>
+finds the greatest common divisor of positive time distances as the interval.</p></td>
     </tr>
     </table>
     
@@ -143,8 +147,7 @@ finds the minimal time span as the interval.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A tsibble is arranged by its key(s) first and index in the ascending
-time order.</p>
+    <p>A tsibble is sorted by its key(s) first and index.</p>
     
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
@@ -152,10 +155,10 @@ time order.</p>
     <p>The time indices are no longer an attribute (for example, the <code>tsp</code> attribute
 in a <code>ts</code> object), but preserved as the essential component of the tsibble. A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
-the tsibble, with new additions <a href='period.html'>yearmonth</a> and <a href='period.html'>yearquarter</a> representing
-year-month and year-quarter respectively. <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>
-are also supported. It is extensible to work with custom index, for example
-trading days and weekly data.</p>
+the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
+representing year-week, year-month, and year-quarter respectively. <code>zoo::yearmth</code>
+and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code> are also supported. It is extensible to work with custom
+index, for example trading days and weekly data.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
@@ -178,7 +181,7 @@ in the <code>data(tourism)</code>. A comma (<code>,</code>) is used to indicate 
 relationship. Nested and crossed variables can be combined, such as
 <code>data(tourism)</code> using <code><a href='id.html'>id(Region | State, Purpose)</a></code>.</p></li>
 </ul>
-    <p>These key variables are descriptors, not values.</p>
+    <p>These key variables describe the data structure.</p>
     
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
 
@@ -192,6 +195,10 @@ marked with <code>!</code>.</p></li>
 <li><p>Unknown: if there is only one entry for each key variable, the interval
 cannot be determined (<code>?</code>).</p></li>
 </ul>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='build_tsibble.html'>build_tsibble</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -252,6 +259,8 @@ cannot be determined (<code>?</code>).</p></li>
       <li><a href="#key">Key</a></li>
 
       <li><a href="#interval">Interval</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -261,7 +270,7 @@ cannot be determined (<code>?</code>).</p></li>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Changelog" />
 
 
@@ -35,8 +38,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -54,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -103,6 +104,90 @@
       
     </div>
 
+    <div id="tsibble-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-2-0" class="anchor"></a>tsibble 0.2.0<small> 2018-05-11 </small>
+</h1>
+<p>This release (hopefully) marks the stability of a tsibble data object (<code>tbl_ts</code>). A <code>tbl_ts</code> contains the following components:</p>
+<ul>
+<li>
+<code>key</code>: single or multiple columns uniquely identify observational units over time. A key consisting of nested and crossed variables reflects the structure underlying the data. The programme itself takes care of the updates in the “key” when manipulating the data. The “key” differs from the grouping variables with respect to variables manipulated by users.</li>
+<li>
+<code>index</code>: a variable represent time. This together the “key” uniquely identifies each observation in the data table.</li>
+<li>
+<code>index2</code>: why do we need the second index? It means re-indexing <strong>to</strong> a variable, not the second index. It is identical to the <code>index</code> most time, but start deviating when using <code><a href="../reference/index-by.html">index_by()</a></code>. <code><a href="../reference/index-by.html">index_by()</a></code> works similarly to <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, but groups the index only. The dplyr verbs, like <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, operates on each time group of the data defined by <code><a href="../reference/index-by.html">index_by()</a></code>. You may wonder why introducing a new function rather than using <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> that users are most familiar with. It’s because time is indispensable to a tsibble, <code><a href="../reference/index-by.html">index_by()</a></code> provides a trace to understanding how the index changes. For this purpose, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> is just too general. For example, <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> aggregates data to less granular time period, leading to the update in index, which is nicely and intuitively handled now.</li>
+<li>
+<code>interval</code>: an <code>interval</code> class to save a list of time intervals. It computes the greatest common factor from the time difference of the <code>index</code> column, which should give a sensible interval for the almost all the cases, compared to minimal time distance. It also depends on the time representation. For example, if the data is monthly, the index is suggested to use a <code><a href="../reference/period.html">yearmonth()</a></code> format instead of <code>Date</code>, as <code>Date</code> only gives the number of days not the number of months.</li>
+<li>
+<code>regular</code>: since a tsibble factors in the implicit missing cases, whether the data is regular or not cannot be determined. This relies on the user’s specification.</li>
+<li>
+<code>ordered</code>: time-wise and rolling window functions assume data of temporal ordering. A tsibble will be sorted by its time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order. If it’s not in time order, it broadcasts a warning.</li>
+</ul>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>Deprecated <code><a href="../reference/tsibble-deprecated.html">tsummarise()</a></code> and its scoped variants. It can be replaced by the combo <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> (#20). <code><a href="../reference/tsibble-deprecated.html">tsummarise()</a></code> provides an unintuitive interface where the first argument keeps the same size of the index, but the remaining arguments reduces rows to a single one. Analogously, it does <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and then <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. The proposed <code><a href="../reference/index-by.html">index_by()</a></code> solves the issue of index update.</li>
+<li>Renamed <code><a href="../reference/defunct.html">inform_duplicates()</a></code> (defunct) to <code><a href="../reference/find_duplicates.html">find_duplicates()</a></code> to better reflect its functionality.</li>
+<li>
+<code><a href="../reference/key.html">key_vars()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/groups.html">group_vars()</a></code> return a vector of characters instead of a list.</li>
+<li>
+<code>distinct.tbl_ts()</code> now returns a tibble instead of an error.</li>
+<li>No longer reexported <code><a href="http://dplyr.tidyverse.org/reference/do.html">dplyr::do()</a></code> and <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">tidyr::fill()</a></code>, as they respect the input structure.</li>
+<li>Defunct <code>index_sum()</code>, and replaced by <code><a href="../reference/index_valid.html">index_valid()</a></code> to extend index type support.</li>
+</ul>
+</div>
+<div id="new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions</h2>
+<ul>
+<li>
+<code><a href="../reference/index-by.html">index_by()</a></code> groups time index, as the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context.</li>
+<li>A new S3 generic <code><a href="../reference/gaps.html">count_gaps()</a></code> and <code><a href="../reference/gaps.html">gaps()</a></code> counts time gaps (implicit missing observations in time).</li>
+<li>
+<code><a href="../reference/period.html">yearweek()</a></code> creates and coerces to a year-week object. (#17)</li>
+</ul>
+</div>
+<div id="api-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#api-changes" class="anchor"></a>API changes</h2>
+<ul>
+<li>
+<code><a href="../reference/fill-na.html">fill_na.tbl_ts()</a></code> gained a new argument of <code>.full = FALSE</code>. <code>.full = FALSE</code> (the default) inserts <code>NA</code> for each key within its time period, <code>TRUE</code> for the entire time span. This affects the results of <code><a href="../reference/fill-na.html">fill_na.tbl_ts()</a></code> as it only took <code>TRUE</code> into account previously. (#15)</li>
+<li>Renamed the <code>drop</code> argument to <code>.drop</code> in column-wise dplyr verbs.</li>
+<li>Dropped the <code>duplicated</code> argument in <code><a href="../reference/pull-interval.html">pull_interval()</a></code>.</li>
+<li>
+<code><a href="../reference/group-by.html">group_by.tbl_ts()</a></code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> thinks.</li>
+</ul>
+</div>
+<div id="improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements</h2>
+<ul>
+<li>Added overall time span to the <code>glimpse.tbl_ts()</code>.</li>
+<li>Slightly improved the speed of <code><a href="../reference/fill-na.html">fill_na()</a></code>.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixed <code><a href="../reference/mutate.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
+<li>Fixed bug in <code><a href="../reference/select.html">select.tbl_ts()</a></code> and <code><a href="../reference/select.html">rename.tbl_ts()</a></code> for not preserving grouped variables (#12).</li>
+<li>Fixed bug in <code><a href="../reference/select.html">select.tbl_ts()</a></code> and <code><a href="../reference/select.html">rename.tbl_ts()</a></code> for renaming grouped variables.</li>
+</ul>
+</div>
+<div id="internal-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#internal-changes" class="anchor"></a>Internal changes</h2>
+<ul>
+<li>A <code>tbl_ts</code> gains a new attribute <code>index2</code>, which is a candidate of new index (symbol) used by <code><a href="../reference/index-by.html">index_by()</a></code>.</li>
+<li>The time interval is obtained through the greatest common factor of positive time differences. This covers broader cases than the minimal value.</li>
+<li>
+<code>attr(grouped_ts, "vars")</code> stores characters instead of names, same as <code>attr(grouped_df, "vars")</code>.</li>
+</ul>
+</div>
+</div>
     <div id="tsibble-0-1-5" class="section level1">
 <h1 class="page-header">
 <a href="#tsibble-0-1-5" class="anchor"></a>tsibble 0.1.5<small> 2018-04-01 </small>
@@ -114,9 +199,9 @@
 <li>The “index” attribute in a <code>tbl_ts</code> object is a symbol now instead of a quosure.</li>
 <li>The “key” attribute in a <code>tbl_ts</code> object is an unnamed list of symbols.</li>
 </ul>
-<div id="new-functions" class="section level2">
+<div id="new-functions-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions" class="anchor"></a>New functions</h2>
+<a href="#new-functions-1" class="anchor"></a>New functions</h2>
 <ul>
 <li>“key” helpers:
 <ul>
@@ -135,18 +220,18 @@
 <li>Added <code><a href="../reference/as-tsibble.html">as_tsibble.msts()</a></code> for multiple seasonality time series defined in the forecast package.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> for daily time series (when frequency = 7).</li>
 <li>
 <code><a href="../reference/group-by.html">group_by.tbl_ts()</a></code> does not accept named expressions.</li>
 </ul>
 </div>
-<div id="internal-changes" class="section level2">
+<div id="internal-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#internal-changes" class="anchor"></a>Internal changes</h2>
+<a href="#internal-changes-1" class="anchor"></a>Internal changes</h2>
 <ul>
 <li>No longer throw an error when grouping the index.</li>
 <li>An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>). This avoids unnecessary re-computation for many function calls.</li>
@@ -157,27 +242,27 @@
 <h1 class="page-header">
 <a href="#tsibble-0-1-3" class="anchor"></a>tsibble 0.1.3<small> 2018-02-20 </small>
 </h1>
-<div id="new-functions-1" class="section level2">
+<div id="new-functions-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-1" class="anchor"></a>New functions</h2>
+<a href="#new-functions-2" class="anchor"></a>New functions</h2>
 <ul>
-<li>Added the scoped variants for <code><a href="../reference/tsummarise.html">tsummarise()</a></code> including <code><a href="../reference/tsummarise.html">tsummarise_all()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_if()</a></code>, <code><a href="../reference/tsummarise.html">tsummarise_at()</a></code>.</li>
+<li>Added the scoped variants for <code><a href="../reference/tsibble-deprecated.html">tsummarise()</a></code> including <code><a href="../reference/tsibble-deprecated.html">tsummarise_all()</a></code>, <code><a href="../reference/tsibble-deprecated.html">tsummarise_if()</a></code>, <code><a href="../reference/tsibble-deprecated.html">tsummarise_at()</a></code>.</li>
 </ul>
 </div>
-<div id="api-changes" class="section level2">
+<div id="api-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#api-changes" class="anchor"></a>API changes</h2>
+<a href="#api-changes-1" class="anchor"></a>API changes</h2>
 <ul>
 <li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code><a href="../reference/slide.html">slide_lst()</a></code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code>slide_dfc()</code> (a column-binding data frame).</li>
-<li>The <code>index</code> variable must sit in the first name-value pair in <code><a href="../reference/tsummarise.html">tsummarise()</a></code> instead of any position in the call.</li>
+<li>The <code>index</code> variable must sit in the first name-value pair in <code><a href="../reference/tsibble-deprecated.html">tsummarise()</a></code> instead of any position in the call.</li>
 <li>
 <code><a href="../reference/mutate.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed the error message in <code>glimpse.tbl_ts()</code>
 </li>
@@ -200,17 +285,17 @@
 <li>No <code>tbl_ts</code> support for <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">dplyr::transmute()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/distinct.html">dplyr::distinct()</a></code> and return an error.</li>
 </ul>
 </div>
-<div id="new-functions-2" class="section level2">
+<div id="new-functions-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-2" class="anchor"></a>New functions</h2>
+<a href="#new-functions-3" class="anchor"></a>New functions</h2>
 <ul>
 <li>
-<code><a href="../reference/inform_duplicates.html">inform_duplicates()</a></code> informs which row has duplicated elements of key and index variables.</li>
+<code><a href="../reference/defunct.html">inform_duplicates()</a></code> informs which row has duplicated elements of key and index variables.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix bug in <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
 <li>In <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
@@ -221,9 +306,9 @@
 <code><a href="../reference/group-by.html">group_by.tbl_ts(.data, ..., add = TRUE)</a></code> works as expected now.</li>
 </ul>
 </div>
-<div id="internal-changes-1" class="section level2">
+<div id="internal-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#internal-changes-1" class="anchor"></a>Internal changes</h2>
+<a href="#internal-changes-2" class="anchor"></a>Internal changes</h2>
 <ul>
 <li>Better handling <code>grouped_ts</code> and <code>grouped_df</code>.</li>
 <li>More informative error messages.</li>
@@ -253,6 +338,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tsibble-0-2-0">0.2.0</a></li>
         <li><a href="#tsibble-0-1-5">0.1.5</a></li>
         <li><a href="#tsibble-0-1-3">0.1.3</a></li>
         <li><a href="#tsibble-0-1-2">0.1.2</a></li>
@@ -266,7 +352,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Select/rename variables by name — select.tbl_ts" />
 
 <meta property="og:description" content="Select/rename variables by name" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -104,14 +105,17 @@
     <div class="page-header">
     <h1>Select/rename variables by name</h1>
     
+    <div class="hidden name"><code>select.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Select/rename variables by name</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>rename</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
@@ -129,7 +133,7 @@
 named arguments.</p></td>
     </tr>
     <tr>
-      <th>drop</th>
+      <th>.drop</th>
       <td><p><code>FALSE</code> returns a tsibble object as the input. <code>TRUE</code> drops a
 tsibble and returns a tibble.</p></td>
     </tr>
@@ -137,10 +141,10 @@ tsibble and returns a tibble.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These column-wise verbs from dplyr have an additional argument of <code>drop = FALSE</code>
+    <p>These column-wise verbs from dplyr have an additional argument of <code>.drop = FALSE</code>
 for tsibble. The index variable cannot be dropped for a tsibble. If any key
 variable is changed, it will validate whether it's a tsibble internally.
-Turning <code>drop = TRUE</code> converts to a tibble first and then do the operations.</p>
+Turning <code>.drop = TRUE</code> converts to a tibble first and then do the operations.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -164,7 +168,7 @@ Turning <code>drop = TRUE</code> converts to a tibble first and then do the oper
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

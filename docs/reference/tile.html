@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Tiling window calculation — tile" />
 
 <meta property="og:description" content="Tiling window without overlapping observations:
@@ -45,8 +48,6 @@ tiler() splits the input x to a list according to the window size.
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -62,7 +63,7 @@ tiler() splits the input x to a list according to the window size.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -109,8 +110,10 @@ tiler() splits the input x to a list according to the window size.
     <div class="page-header">
     <h1>Tiling window calculation</h1>
     
+    <div class="hidden name"><code>tile.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Tiling window without overlapping observations:</p><ul>
 <li><p><code>tile()</code> always returns a vector of numerics</p></li>
@@ -119,6 +122,7 @@ tiler() splits the input x to a list according to the window size.
 <li><p><code>tiler()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
 </ul>
     
+    </div>
 
     <pre class="usage"><span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
@@ -179,11 +183,22 @@ either the name or the index of the data frame, which is passed to
 #&gt; [1] 10
 #&gt; </div><div class='input'>
 # tiling over a 2-day window for hourly data ----
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='split-by.html'>split_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map_dfr</a></span>(~ <span class='fu'>tile_dfr</span>(<span class='no'>.</span>, ~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>))
-<span class='co'># }</span></pre>
+  <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map_dfr</a></span>(~ <span class='fu'>tile_dfr</span>(<span class='no'>.</span>, ~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>))</div><div class='output co'>#&gt; # A tibble: 1,378 x 5
+#&gt;     `0%` `25%` `50%` `75%` `100%`
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1     1  97.2  213   364.   1630
+#&gt;  2     3  47.2  115   185     852
+#&gt;  3     3  39.8  310.  540.   1427
+#&gt;  4     4  60    209   315.    708
+#&gt;  5     5  55.5  252.  632.   2439
+#&gt;  6     6  64.2  298   571.    948
+#&gt;  7     4  41.8  230.  509    1377
+#&gt;  8     6  70.2  506.  802.   2358
+#&gt;  9     8 131.   772  1666    2886
+#&gt; 10     7 202.   986. 1439    3688
+#&gt; # ... with 1,368 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -200,7 +215,7 @@ either the name or the index of the data frame, which is passed to
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

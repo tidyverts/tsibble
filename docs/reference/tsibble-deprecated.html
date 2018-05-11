@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add new variables — mutate.tbl_ts • tsibble</title>
+<title>Aggregate over calendar periods — tsummarise • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,10 +28,10 @@
 
 
 
-<meta property="og:title" content="Add new variables — mutate.tbl_ts" />
+<meta property="og:title" content="Aggregate over calendar periods — tsummarise" />
 
-<meta property="og:description" content="mutate() adds new variables; transmute() keeps the newly created variables
-along with index and keys;" />
+<meta property="og:description" content="It computes summary statistics for a tsibble over calendar periods, usually
+used in combination of group_by." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -104,55 +104,95 @@ along with index and keys;" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add new variables</h1>
+    <h1>Aggregate over calendar periods</h1>
     
-    <div class="hidden name"><code>mutate.Rd</code></div>
+    <div class="hidden name"><code>tsibble-deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> adds new variables; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code> keeps the newly created variables
-along with index and keys;</p>
+    <p>It computes summary statistics for a tsibble over calendar periods, usually
+used in combination of <code>group_by</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>tsummarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>tsummarise_all</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.funs</span>)
+
+<span class='fu'>tsummarise_if</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.predicate</span>, <span class='no'>.funs</span>)
+
+<span class='fu'>tsummarise_at</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.vars</span>, <span class='no'>.funs</span>)
+
+<span class='fu'>tsummarize</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>tsummarize_all</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.funs</span>)
+
+<span class='fu'>tsummarize_if</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.predicate</span>, <span class='no'>.funs</span>)
+
+<span class='fu'>tsummarize_at</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='no'>.vars</span>, <span class='no'>.funs</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A tsibble.</p></td>
+      <td><p>A data frame (of <code>tbl_ts</code> class).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Name-value pairs of expressions.</p></td>
+      <td><p>Name-value pairs of expressions. The index variable must be present
+in the first name-value pair, with an index function. The remaining components
+work like <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>. For the scoped variants like <code>_all()</code>, <code>_at()</code>, <code>_if()</code>,
+additional arguments for the function call in <code>.funs</code> will be ignored in <code>...</code>.
+The index functions that can be used, but not limited:</p><ul>
+<li><p><a href='http://lubridate.tidyverse.org/reference/year.html'>lubridate::year</a>: yearly aggregation</p></li>
+<li><p><a href='period.html'>yearquarter</a>: quarterly aggregation</p></li>
+<li><p><a href='period.html'>yearmonth</a>: monthly aggregation</p></li>
+<li><p><a href='period.html'>yearweek</a>: weekly aggregation</p></li>
+<li><p>as.Date or <a href='http://lubridate.tidyverse.org/reference/as_date.html'>lubridate::as_date</a>: daily aggregation</p></li>
+<li><p><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date</a>, <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date</a>, or <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a>:
+sub-daily aggregation</p></li>
+<li><p>other index functions from other packages</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>.drop</th>
-      <td><p><code>FALSE</code> returns a tsibble object as the input. <code>TRUE</code> drops a
-tsibble and returns a tibble.</p></td>
+      <th>.funs</th>
+      <td><p>List of function calls generated by <code>funs()</code>, or a
+character vector of function names, or simply a function.</p>
+<p>Bare formulas are passed to <code><a href='http://www.rdocumentation.org/packages/rlang/topics/as_function'>rlang::as_function()</a></code> to create
+purrr-style lambda functions. Note that these lambda prevent
+hybrid evaluation from happening and it is thus more efficient to
+supply functions like <code>mean()</code> directly rather than in a
+lambda-formula.</p></td>
+    </tr>
+    <tr>
+      <th>.predicate</th>
+      <td><p>A predicate function to be applied to the columns
+or a logical vector. The variables for which <code>.predicate</code> is or
+returns <code>TRUE</code> are selected. This argument is passed to
+<code><a href='http://www.rdocumentation.org/packages/rlang/topics/as_function'>rlang::as_function()</a></code> and thus supports quosure-style lambda
+functions and strings representing function names.</p></td>
+    </tr>
+    <tr>
+      <th>.vars</th>
+      <td><p>A list of columns generated by <code>vars()</code>,
+a character vector of column names, a numeric vector of column
+positions, or <code>NULL</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These column-wise verbs from dplyr have an additional argument of <code>.drop = FALSE</code>
-for tsibble. The index variable cannot be dropped for a tsibble. If any key
-variable is changed, it will validate whether it's a tsibble internally.
-Turning <code>.drop = TRUE</code> converts to a tibble first and then do the operations.</p><ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will not collapse on the index variable.</p></li>
+    <ul>
+<li><p>For a grouped tsibble, the rightmost grouping variable will be dropped
+after the operation.</p></li>
+<li><p>The scoped variants only operate on the non-key and non-index variables.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate</a></p>
-<p><a href='http://dplyr.tidyverse.org/reference/mutate.html'>dplyr::transmute</a></p></div>
+    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/summarise_all.html'>dplyr::summarise_all</a></p></div>
     
 
   </div>

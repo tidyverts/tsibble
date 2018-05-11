@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Stretching window calculation — stretch" />
 
 <meta property="og:description" content="Fixing an initial window and expanding more observations:
@@ -45,8 +48,6 @@ stretcher() splits the input x to a list according to the window size.
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -62,7 +63,7 @@ stretcher() splits the input x to a list according to the window size.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -109,8 +110,10 @@ stretcher() splits the input x to a list according to the window size.
     <div class="page-header">
     <h1>Stretching window calculation</h1>
     
+    <div class="hidden name"><code>stretch.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Fixing an initial window and expanding more observations:</p><ul>
 <li><p><code>stretch()</code> always returns a vector of numerics</p></li>
@@ -119,6 +122,7 @@ stretcher() splits the input x to a list according to the window size.
 <li><p><code>stretcher()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
 </ul>
     
+    </div>
 
     <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
@@ -196,16 +200,16 @@ either the name or the index of the data frame, which is passed to
   <span class='fu'>stretch_dfr</span>(~ <span class='fu'>quantile</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>init</span> <span class='kw'>=</span> <span class='fl'>48</span>)</div><div class='output co'>#&gt; # A tibble: 193 x 5
 #&gt;     `0%` `25%` `50%` `75%` `100%`
 #&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1    6.  38.8 102.   229.   746.
-#&gt;  2    6.  38.0  98.0  215.   746.
-#&gt;  3    6.  36.5  98.0  206.   746.
-#&gt;  4    6.  36.0  98.0  198.   746.
-#&gt;  5    6.  33.5  96.5  189.   746.
-#&gt;  6    6.  26.0  95.0  180.   746.
-#&gt;  7    6.  24.5  94.0  176.   746.
-#&gt;  8    6.  22.5  93.0  172.   746.
-#&gt;  9    6.  23.2  90.0  168.   746.
-#&gt; 10    6.  24.0  87.0  164.   746.
+#&gt;  1     6  38.8 102.   229.    746
+#&gt;  2     6  38    98    215     746
+#&gt;  3     6  36.5  98    206.    746
+#&gt;  4     6  36    98    198.    746
+#&gt;  5     6  33.5  96.5  189.    746
+#&gt;  6     6  26    95    180     746
+#&gt;  7     6  24.5  94    176     746
+#&gt;  8     6  22.5  93    172     746
+#&gt;  9     6  23.2  90    168     746
+#&gt; 10     6  24    87    164     746
 #&gt; # ... with 183 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -223,7 +227,7 @@ either the name or the index of the data frame, which is passed to
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

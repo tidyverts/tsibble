@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Collapse multiple rows to a single value — summarise.tbl_ts" />
 
 <meta property="og:description" content="Collapse multiple rows to a single value" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -104,17 +105,20 @@
     <div class="page-header">
     <h1>Collapse multiple rows to a single value</h1>
     
+    <div class="hidden name"><code>summarise.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Collapse multiple rows to a single value</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,7 +132,7 @@
       <td><p>Name-value pairs of expressions.</p></td>
     </tr>
     <tr>
-      <th>drop</th>
+      <th>.drop</th>
       <td><p><code>FALSE</code> returns a tsibble object as the input. <code>TRUE</code> drops a
 tsibble and returns a tibble.</p></td>
     </tr>
@@ -145,7 +149,8 @@ tsibble and returns a tibble.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='co'># Sum over sensors ----</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1HOUR]
 #&gt;    Date_Time           Total
 #&gt;    &lt;dttm&gt;              &lt;int&gt;
@@ -159,9 +164,25 @@ tsibble and returns a tibble.</p></td>
 #&gt;  8 2015-01-01 07:00:00   146
 #&gt;  9 2015-01-01 08:00:00   258
 #&gt; 10 2015-01-01 09:00:00   419
-#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'>## drop = TRUE ----</span>
+#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Sum over sensors by days ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
+  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1DAY]
+#&gt;    Date       Total
+#&gt;    &lt;date&gt;     &lt;int&gt;
+#&gt;  1 2015-01-01 18079
+#&gt;  2 2015-01-02 19306
+#&gt;  3 2015-01-03 12708
+#&gt;  4 2015-01-04 20665
+#&gt;  5 2015-01-05 29724
+#&gt;  6 2015-01-06 31024
+#&gt;  7 2015-01-07 28842
+#&gt;  8 2015-01-08 28664
+#&gt;  9 2015-01-09 31269
+#&gt; 10 2015-01-10 30904
+#&gt; # ... with 721 more rows</div><div class='input'><span class='co'>## .drop = TRUE ----</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
 #&gt;      &lt;int&gt;
 #&gt; 1 45494418</div></pre>
@@ -183,7 +204,7 @@ tsibble and returns a tibble.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

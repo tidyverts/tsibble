@@ -25,10 +25,13 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="tsibble: tidy temporal data frames and tools — tsibble-package" />
 
 <meta property="og:description" content="The tsibble package provides a data class of tbl_ts to store and manage
-temporal data frames in a tidy manner. A tsibble consists of a time index,
+temporal data frames in a "tidy" form. A tsibble consists of a time index,
 key(s) and other measured variables in a data-centric format, which is built on
 top of the tibble." />
 <meta name="twitter:card" content="summary" />
@@ -41,8 +44,6 @@ top of the tibble." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -60,7 +61,7 @@ top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -107,14 +108,17 @@ top of the tibble." />
     <div class="page-header">
     <h1>tsibble: tidy temporal data frames and tools</h1>
     
+    <div class="hidden name"><code>tsibble-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage
-temporal data frames in a tidy manner. A tsibble consists of a time index,
+temporal data frames in a "tidy" form. A tsibble consists of a time index,
 key(s) and other measured variables in a data-centric format, which is built on
 top of the tibble.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
@@ -123,10 +127,10 @@ top of the tibble.</p>
     <p>The time indices are no longer an attribute (for example, the <code>tsp</code> attribute
 in a <code>ts</code> object), but preserved as the essential component of the tsibble. A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
-the tsibble, with new additions <a href='period.html'>yearmonth</a> and <a href='period.html'>yearquarter</a> representing
-year-month and year-quarter respectively. <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>
-are also supported. It is extensible to work with custom index, for example
-trading days and weekly data.</p>
+the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
+representing year-week, year-month, and year-quarter respectively. <code>zoo::yearmth</code>
+and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code> are also supported. It is extensible to work with custom
+index, for example trading days and weekly data.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
@@ -149,7 +153,7 @@ in the <code>data(tourism)</code>. A comma (<code>,</code>) is used to indicate 
 relationship. Nested and crossed variables can be combined, such as
 <code>data(tourism)</code> using <code><a href='id.html'>id(Region | State, Purpose)</a></code>.</p></li>
 </ul>
-    <p>These key variables are descriptors, not values.</p>
+    <p>These key variables describe the data structure.</p>
     
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
 
@@ -173,7 +177,7 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='http://pkg.earo.me/tsibble'>http://pkg.earo.me/tsibble</a></p></li>
+<li><p><a href='https://pkg.earo.me/tsibble'>https://pkg.earo.me/tsibble</a></p></li>
 <li><p>Report bugs at <a href='https://github.com/tidyverts/tsibble/issues'>https://github.com/tidyverts/tsibble/issues</a></p></li>
 </ul></div>
     
@@ -196,12 +200,17 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
 
     <h2>Author</h2>
     
-<strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a>
+<strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a> (0000-0001-6448-5260)
 
 Authors:
 <ul>
-<li><p>Di Cook [thesis advisor]</p></li>
-<li><p>Rob Hyndman [thesis advisor]</p></li>
+<li><p>Di Cook (0000-0002-3813-7155) [thesis advisor]</p></li>
+<li><p>Rob Hyndman (0000-0002-2140-5352) [thesis advisor]</p></li>
+</ul>
+
+Other contributors:
+<ul>
+<li><p>Mitchell O'Hara-Wild [contributor]</p></li>
 </ul>
 
 
@@ -210,7 +219,7 @@ Authors:
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

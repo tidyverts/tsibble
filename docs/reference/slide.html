@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Sliding window calculation — slide" />
 
 <meta property="og:description" content="Rolling window with overlapping observations:
@@ -45,8 +48,6 @@ slider() splits the input x to a list according to the window size.
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -62,7 +63,7 @@ slider() splits the input x to a list according to the window size.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -109,8 +110,10 @@ slider() splits the input x to a list according to the window size.
     <div class="page-header">
     <h1>Sliding window calculation</h1>
     
+    <div class="hidden name"><code>slide.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide()</code> always returns a vector of numerics</p></li>
@@ -119,6 +122,7 @@ slider() splits the input x to a list according to the window size.
 <li><p><code>slider()</code> splits the input <code>x</code> to a list according to the window size.</p></li>
 </ul>
     
+    </div>
 
     <pre class="usage"><span class='fu'>slide</span>(<span class='no'>x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>)
 
@@ -203,8 +207,7 @@ you may like to check out for
 #&gt; [[8]]
 #&gt; [1]  8  9 10
 #&gt; </div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='co'># takes a little longer for cran check</span>
+</div><div class='input'><span class='co'># takes a little longer for cran check</span>
 <span class='co'># sliding a 2-day window for a data frame ----</span>
 <span class='no'>jan</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-31"</span>)) <span class='kw'>%&gt;%</span>
@@ -218,14 +221,37 @@ you may like to check out for
       <span class='fu'>data.frame</span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'>fitted</span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>fit</span>))
     }, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>)
   )
-<span class='no'>diag_jan</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]
-<span class='co'># save lm models as additional columns</span>
+<span class='no'>diag_jan</span>[<span class='fl'>48</span>:<span class='fl'>57</span>, ]</div><div class='output co'>#&gt; # A tibble: 10 x 2
+#&gt;    fitted   resid
+#&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1   337.  1293. 
+#&gt;  2   331.   495. 
+#&gt;  3   325.   242. 
+#&gt;  4   319.   -55.3
+#&gt;  5   313.  -174. 
+#&gt;  6   308.  -231. 
+#&gt;  7   302.  -258. 
+#&gt;  8   296.  -240. 
+#&gt;  9   290.  -177. 
+#&gt; 10   284.  -118. </div><div class='input'><span class='co'># save lm models as additional columns</span>
 <span class='no'>lm_jan</span> <span class='kw'>&lt;-</span> <span class='no'>jan</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(
     ~ <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>.</span>, <span class='kw'>lm</span> <span class='kw'>=</span> <span class='fu'>slide_lst</span>(<span class='no'>.</span>, ~ <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>.</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>48</span>)
   ))
-<span class='no'>lm_jan</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='fl'>48</span>:<span class='fl'>57</span>, ]
-<span class='co'># }</span></pre>
+<span class='no'>lm_jan</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='fl'>48</span>:<span class='fl'>57</span>, ]</div><div class='output co'>#&gt; # A tsibble: 10 x 6 [1HOUR]
+#&gt; # Keys:      Sensor [1]
+#&gt;    Sensor         Date_Time           Date        Time Count lm      
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;list&gt;  
+#&gt;  1 Birrarung Marr 2015-01-02 23:00:00 2015-01-02    23    64 &lt;S3: lm&gt;
+#&gt;  2 Birrarung Marr 2015-01-03 00:00:00 2015-01-03     0    54 &lt;S3: lm&gt;
+#&gt;  3 Birrarung Marr 2015-01-03 01:00:00 2015-01-03     1    48 &lt;S3: lm&gt;
+#&gt;  4 Birrarung Marr 2015-01-03 02:00:00 2015-01-03     2    24 &lt;S3: lm&gt;
+#&gt;  5 Birrarung Marr 2015-01-03 03:00:00 2015-01-03     3    17 &lt;S3: lm&gt;
+#&gt;  6 Birrarung Marr 2015-01-03 04:00:00 2015-01-03     4     3 &lt;S3: lm&gt;
+#&gt;  7 Birrarung Marr 2015-01-03 05:00:00 2015-01-03     5    17 &lt;S3: lm&gt;
+#&gt;  8 Birrarung Marr 2015-01-03 06:00:00 2015-01-03     6    82 &lt;S3: lm&gt;
+#&gt;  9 Birrarung Marr 2015-01-03 07:00:00 2015-01-03     7   135 &lt;S3: lm&gt;
+#&gt; 10 Birrarung Marr 2015-01-03 08:00:00 2015-01-03     8   121 &lt;S3: lm&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -244,7 +270,7 @@ you may like to check out for
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
 </div>
 
 <div class="pkgdown">

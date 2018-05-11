@@ -48,6 +48,7 @@ reference:
     - key_update
 
 - title: Tsibble helpers
+  contents:
     - id
     - index
     - interval
@@ -70,15 +71,15 @@ reference:
     - pedestrian
     - tourism
 
-- title: Reexported
+- title: Dplyr verbs
   contents:
-    - arrange
-    - filter
-    - slice
-    - select
-    - mutate
-    - summarise
-    - group_by
+    - arrange.tbl_ts
+    - filter.tbl_ts
+    - slice.tbl_ts
+    - select.tbl_ts
+    - mutate.tbl_ts
+    - summarise.tbl_ts
+    - group_by.tbl_ts
 
 navbar:
   type: default
