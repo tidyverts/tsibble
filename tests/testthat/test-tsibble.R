@@ -30,7 +30,7 @@ test_that("Coerce to tbl_df and data.frame", {
 })
 
 test_that("POSIXt with 1 second interval", {
-  expect_identical(index_sum(dat_x$date_time), "dttm")
+  expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1SECOND\\]")
   expect_error(as_tsibble(dat_x, key = id(date_time)))
@@ -117,7 +117,7 @@ dat_x <- tibble(
 )
 
 test_that("Date with 4 days interval", {
-  expect_identical(index_sum(dat_x$date), "date")
+  expect_identical(index_valid(dat_x$date), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "4DAY")
@@ -128,7 +128,7 @@ idx_week <- seq(yearweek(ymd("2017-02-01")), length.out = 5, by = 1)
 dat_x <- tibble(yrwk = idx_week, value = rnorm(5))
 
 test_that("Year week with 1 week interval", {
-  expect_identical(index_sum(dat_x$yrwk), "week")
+  expect_identical(index_valid(dat_x$yrwk), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1WEEK\\]")
   expect_is(tsbl, "tbl_ts")
@@ -145,7 +145,7 @@ dat_x <- tibble(
 )
 
 test_that("Year month with 1 month interval", {
-  expect_identical(index_sum(dat_x$yrmth), "mth")
+  expect_identical(index_valid(dat_x$yrmth), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1MONTH\\]")
   expect_is(tsbl, "tbl_ts")
@@ -162,7 +162,7 @@ dat_x <- tibble(
 )
 
 test_that("Year quarter with 1 quarter interval", {
-  expect_identical(index_sum(dat_x$yrqtr), "qtr")
+  expect_identical(index_valid(dat_x$yrqtr), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1QUARTER")
@@ -176,7 +176,7 @@ dat_x <- tibble(
 )
 
 test_that("Year with 10 years interval", {
-  expect_identical(index_sum(dat_x$year), "dbl")
+  expect_identical(index_valid(dat_x$year), NA)
   expect_error(as_tsibble(dat_x))
   tsbl <- as_tsibble(dat_x, index = year)
   expect_is(tsbl, "tbl_ts")
@@ -189,7 +189,7 @@ idx_time <- hms(hour = rep(0, 5), minutes = 1:5, second = rep(0, 5))
 dat_x <- tibble(time = idx_time, value = rnorm(5))
 
 test_that("Difftime with 1 minute interval", {
-  expect_identical(index_sum(dat_x$time), "time")
+  expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1MINUTE")

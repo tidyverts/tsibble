@@ -446,10 +446,6 @@ build_tsibble <- function(
   )
 }
 
-detect_type <- function() {
-  c("time", "dttm", "date", "week", "mth", "qtr")
-}
-
 
 #' Identifier to construct structural variables
 #'
@@ -466,27 +462,29 @@ id <- function(...) {
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
 validate_index <- function(data, index) {
-  idx_type <- purrr::map_chr(data, index_sum)
+  val_idx <- purrr::map_lgl(data, index_valid)
   is_quo <- is_quosure(index)
   if (quo_is_null(index)) {
     abort("`index` must not be NULL.")
   }
   if (quo_is_missing(index)) {
-    val_idx <- idx_type %in% detect_type()
-    if (sum(val_idx) != 1) {
+    if (sum(val_idx, na.rm = TRUE) != 1) {
       abort("Can't determine the `index` and please specify.")
     }
     chr_index <- names(data)[val_idx]
+    chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("The `index` is `%s`.", chr_index))
     return(sym(chr_index))
   } else {
     chr_index <- quo_text(index)
-    idx_na <- idx_type[chr_index]
-    if (is.na(idx_na)) {
+    idx_pos <- names(data) %in% chr_index
+    val_lgl <- val_idx[idx_pos]
+    if (is.na(val_lgl)) {
+      return(sym(chr_index))
+    } else if (!val_idx[idx_pos]) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
-      name_idx <- names(idx_na)
       abort(sprintf(
-        "Unsupported index type: `%s`", cls_idx[names(data) %in% name_idx])
+        "Unsupported index type: `%s`", cls_idx[idx_pos])
       )
     }
     sym(chr_index)

@@ -56,7 +56,7 @@ reference:
 
 - title: Extend tsibble
   contents:
-    - index_sum
+    - index_valid
     - pull_interval
     - time_unit
 

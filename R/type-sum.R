@@ -69,60 +69,49 @@ tbl_sum.grouped_ts <- function(x) {
 #' @details This method is primarily used for adding an index type support in 
 #' [as_tsibble].
 #' @seealso [pull_interval] for obtaining interval for regularly spaced time.
+#' @return `TRUE`/`FALSE` or `NA` (unsure)
 #' @export
 #' @examples
-#' index_sum(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1))
-index_sum <- function(x) {
-  UseMethod("index_sum")
+#' index_valid(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1))
+index_valid <- function(x) {
+  UseMethod("index_valid")
 }
 
 #' @export
-index_sum.POSIXct <- function(x) {
-  "dttm"
+index_valid.POSIXct <- function(x) { 
+  TRUE 
 }
 
 #' @export
-index_sum.difftime <- function(x) {
-  "time"
+index_valid.difftime <- index_valid.POSIXct
+
+#' @export
+index_valid.Date <- index_valid.POSIXct
+
+#' @export
+index_valid.yearweek <- index_valid.POSIXct
+
+#' @export
+index_valid.yearmonth <- index_valid.POSIXct
+
+#' @export
+index_valid.yearmth <- index_valid.yearmonth
+
+#' @export
+index_valid.yearquarter <- index_valid.POSIXct
+
+#' @export
+index_valid.yearqrt <- index_valid.yearquarter
+
+#' @export
+index_valid.numeric <- function(x) {
+  NA
 }
 
 #' @export
-index_sum.Date <- function(x) {
-  "date"
-}
+index_valid.integer <- index_valid.numeric
 
 #' @export
-index_sum.yearweek <- function(x) {
-  "week"
-}
-
-#' @export
-index_sum.yearmonth <- function(x) {
-  "mth"
-}
-
-#' @export
-index_sum.yearmth <- index_sum.yearmonth
-
-#' @export
-index_sum.yearquarter <- function(x) {
-  "qtr"
-}
-
-#' @export
-index_sum.yearqrt <- index_sum.yearquarter
-
-#' @export
-index_sum.numeric <- function(x) {
-  "dbl"
-}
-
-#' @export
-index_sum.integer <- function(x) {
-  "int"
-}
-
-#' @export
-index_sum.default <- function(x) {
-  NA_character_
+index_valid.default <- function(x) {
+  FALSE
 }
