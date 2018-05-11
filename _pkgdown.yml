@@ -51,6 +51,7 @@ reference:
   contents:
     - id
     - index
+    - measured_vars
     - interval
     - is_regular
     - case_na
