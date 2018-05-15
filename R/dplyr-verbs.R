@@ -287,7 +287,7 @@ ungroup.grouped_ts <- function(x, ...) {
 #' @seealso [dplyr::ungroup]
 #' @export
 ungroup.tbl_ts <- function(x, ...) {
-  attr(x, "index2") <- list()
+  attr(x, "index2") <- attr(x, "index")
   x
 }
 
