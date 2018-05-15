@@ -116,7 +116,7 @@ tsibble_rename <- function(.data, ...) {
   )
 }
 
-tsibble_select <- function(.data, ...) {
+tsibble_select <- function(.data, ..., validate = TRUE) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, ...)
   names_vars <- names(val_vars)
@@ -152,13 +152,15 @@ tsibble_select <- function(.data, ...) {
   # groups
   new_grp <- grp_rename(.data, val_vars)
   
-  vec_names <- union(names_vars, names(.data))
-  # either key or index is present in ...
-  # suggests that the operations are done on these variables
-  # validate = TRUE to check if tsibble still holds
-  val_idx <- has_index(vec_names, .data)
-  val_key <- has_any_key(vec_names, .data)
-  validate <- val_idx || val_key
+  if (validate) {
+    vec_names <- union(names_vars, names(.data))
+    # either key or index is present in ...
+    # suggests that the operations are done on these variables
+    # validate = TRUE to check if tsibble still holds
+    val_idx <- has_index(vec_names, .data)
+    val_key <- has_any_key(vec_names, .data)
+    validate <- val_idx || val_key
+  }
   
   build_tsibble(
     sel_data, key = new_key, index = !! idx, index2 = !! idx2,

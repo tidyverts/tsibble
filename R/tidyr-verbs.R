@@ -26,3 +26,39 @@ spread_tsbl <- function(data, value, fill = NA, sep = "") {
     tidyr::spread(key = key, value = spread_val, fill = fill) %>%
     arrange(!! idx_var)
 }
+
+# library(rlang)
+# pedestrian %>% 
+#   # group_by(Sensor) %>% 
+#   tidyr::nest(-Sensor)
+
+#' @export
+nest.tbl_ts <- function(data, ..., .key = "data") {
+  nest_quos <- enquos(...)
+  key_var <- quo_name(enexpr(.key))
+  cn <- names(data)
+  if (is_empty(nest_quos)) {
+    nest_vars <- cn
+  }
+  nest_vars <- validate_vars(nest_quos, cn)
+  if (is_false(has_index(nest_vars, data))) {
+    abort("`nest.tbl_ts()` must have the `index` in the nested data.")
+  }
+  if (is_grouped_ts(data)) {
+    grp_vars <- group_vars(data)
+  } else {
+    grp_vars <- setdiff(cn, nest_vars)
+  }
+  data <- ungroup(data)
+  if (is_empty(grp_vars)) {
+    return(tibble(!! key_var := list(data)))
+  }
+  nest_vars <- setdiff(nest_vars, grp_vars)
+  grp <- syms(grp_vars)
+  nest_df <- split_by(data, !!! grp)
+  out <- purrr::map_dfr(nest_df, ~ distinct(., !!! grp))
+  out[[key_var]] <- purrr::map(
+    nest_df, ~ tsibble_select(., !!! nest_vars, validate = FALSE)
+  )
+  tibble::new_tibble(out, subclass = "lst_ts")
+}
