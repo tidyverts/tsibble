@@ -274,7 +274,7 @@ is_ordered <- function(x) {
 }
 
 not_tsibble <- function(x) {
-  if (is_false(is_tsibble(x))) {
+  if (is_false(is_tsibble(x) || inherits(x, "lst_ts"))) {
     abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
   }
 }

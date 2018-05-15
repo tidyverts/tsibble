@@ -28,6 +28,10 @@ key.tbl_ts <- function(x) {
   attr(x, "key")
 }
 
+key.lst_ts <- function(x) {
+  attr(x, "key")
+}
+
 #' @rdname key
 #' @export
 key_vars <- function(x) {

@@ -28,9 +28,27 @@ spread_tsbl <- function(data, value, fill = NA, sep = "") {
 }
 
 # library(rlang)
-# pedestrian %>% 
+# lst_ped <- pedestrian %>% 
 #   # group_by(Sensor) %>% 
 #   tidyr::nest(-Sensor)
+# lst_ped %>% 
+#   tidyr::unnest()
+# lst_ped2 <- pedestrian %>% 
+#   index_by(yrmth = yearmonth(Date)) %>% 
+#   group_by(Sensor) %>% 
+#   tidyr::nest()
+# lst_ped2 %>% 
+#   tidyr::unnest()
+# pedestrian %>% 
+#   group_by(Sensor) %>% 
+#   tidyr::nest()
+# tidyr::unnest(lst_ped)
+# lst_t <- tourism %>% 
+#   group_by(Purpose) %>% 
+#   tidyr::nest()
+#
+# lst_t %>% 
+#   tidyr::unnest()
 
 #' @export
 nest.tbl_ts <- function(data, ..., .key = "data") {
@@ -39,26 +57,52 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   cn <- names(data)
   if (is_empty(nest_quos)) {
     nest_vars <- cn
+  } else {
+    nest_vars <- tidyselect::vars_select(cn, !!! nest_quos)
   }
-  nest_vars <- validate_vars(nest_quos, cn)
   if (is_false(has_index(nest_vars, data))) {
-    abort("`nest.tbl_ts()` must have the `index` in the nested data.")
+    abort("`nest.tbl_ts()` must have the `index` in the list of data columns.")
   }
-  if (is_grouped_ts(data)) {
-    grp_vars <- group_vars(data)
+  tbl <- as_tibble(data)
+  if (dplyr::is_grouped_df(tbl)) {
+    grp_vars <- group_vars(tbl)
   } else {
     grp_vars <- setdiff(cn, nest_vars)
   }
   data <- ungroup(data)
   if (is_empty(grp_vars)) {
-    return(tibble(!! key_var := list(data)))
+    return(tibble::tibble(!! key_var := list(data)))
   }
   nest_vars <- setdiff(nest_vars, grp_vars)
   grp <- syms(grp_vars)
   nest_df <- split_by(data, !!! grp)
-  out <- purrr::map_dfr(nest_df, ~ distinct(., !!! grp))
+  out <- distinct(data, !!! grp)
   out[[key_var]] <- purrr::map(
     nest_df, ~ tsibble_select(., !!! nest_vars, validate = FALSE)
   )
-  tibble::new_tibble(out, subclass = "lst_ts")
+  idx <- index(data)
+  tibble::new_tibble(
+    out, 
+    key = key(data), 
+    index = idx, 
+    regular = is_regular(data),
+    # dark: work around for unnest(), since it drops the index class
+    index_class = class(eval_tidy(idx, data)), 
+    subclass = "lst_ts"
+  )
+}
+
+#' @export
+unnest.lst_ts <- function(data, ..., 
+  .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
+) {
+  out <- NextMethod()
+  idx <- index(data)
+  idx_chr <- quo_text(idx)
+  # restore the index class, as it's dropped by NextMethod()
+  class(out[[idx]]) <- attr(data, "index_class")
+  build_tsibble(
+    out, key = key(data), index = !! idx, validate = FALSE, 
+    regular = is_regular(data),
+  )
 }
