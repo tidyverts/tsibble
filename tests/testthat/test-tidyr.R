@@ -21,6 +21,7 @@ test_that("spread()", {
     spread(key = State, value = Trips)
   expect_equal(key_vars(out3), c("Region", "Purpose"))
   expect_equal(ncol(out3), 10)
+  expect_error(tsbl %>% spread(qtr, value = value), "`key` must not be `qtr`,")
 })
 
 tsbl2 <- tsbl %>% 
@@ -28,7 +29,7 @@ tsbl2 <- tsbl %>%
 
 test_that("gather()", {
   out <- tsbl2 %>% 
-    gather(key = "key", value = "value", x:z)
+    gather(key = key, value = value, x:z)
   expect_equal(dim(out), c(30, 3))
   expect_equal(key_vars(out), "key")
   expect_equal(key_size(out), rep(10, 3))

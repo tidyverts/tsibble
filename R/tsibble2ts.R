@@ -42,10 +42,11 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
   }
   idx <- index(x)
+  key <- key_vars(x)
   mat_ts <- x %>% 
     arrange(!!! key_vars, !! idx) %>% 
     select(!! idx, !!! key_vars, !! value_var) %>% 
-    spread(key = key_vars(x), value = value_var, fill = fill)
+    spread(key = !! key, value = !! value_var, fill = fill)
   finalise_ts(mat_ts, index = idx, frequency = frequency)
 }
 

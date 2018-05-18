@@ -1,22 +1,63 @@
+#' Gather columns into key-value pairs.
+#'
+#' @param data A `tbl_ts`.
+#' @inheritParams tidyr::gather
+#'
+#' @seealso [tidyr::gather]
+#' @rdname gather
 #' @export
+#' @examples
+#' # tidyr example
+#' stocks <- tsibble(
+#'   time = as.Date('2009-01-01') + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
+#' )
+#' stocks %>% gather(stock, price, -time)
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  key_var <- sym(quo_name(enexpr(key)))
-  key_var <- c(key(data), key_var)
-  tbl <- NextMethod()
+  key <- enexpr(key)
+  new_key <- c(key(data), key)
+  value <- enexpr(value)
+  tbl <- gather(
+    as_tibble(data), key = !! key, value = !! value, ...,
+    na.rm = na.rm, convert = convert, factor_key = factor_key
+  )
   build_tsibble(
-    tbl, key = key_var, index = !! index(data), index2 = !! index2(data),
+    tbl, key = new_key, index = !! index(data), index2 = !! index2(data),
     groups = groups(data), regular = is_regular(data), validate = FALSE,
     ordered = is_ordered(data), interval = interval(data)
   )
 }
 
+#' Spread a key-value pair across multiple columns.
+#'
+#' @param data A `tbl_ts`.
+#' @inheritParams tidyr::spread
+#'
+#' @seealso [tidyr::spread]
+#' @rdname spread
+#' @export
+#' @examples
+#' # tidyr example
+#' stocks <- tsibble(
+#'   time = as.Date('2009-01-01') + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
+#' )
+#' stocksm <- stocks %>% gather(stock, price, -time)
+#' stocksm %>% spread(stock, price)
 #' @export
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
-  key <- enquo(key)
-  value <- enquo(value)
+  key <- enexpr(key)
+  value <- enexpr(value)
   key_var <- tidyselect::vars_pull(names(data), !! key)
+  if (has_index(key_var, data)) {
+    abort(sprintf("`key` must not be `%s`, as it's the `index`.", key_var))
+  }
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key(key_reduce(data, .vars = key_left, validate = FALSE))
 
