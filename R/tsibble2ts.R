@@ -34,6 +34,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     if (is_false(has_length(mvars, 1))) {
       abort(sprintf("Can't determine the `value`: %s.", str_val))
     }
+    value_var <- mvars
   } else {
     value_var <- tidyselect::vars_pull(names(x), !! value)
     if (is_false(value_var %in% mvars)) {
@@ -41,7 +42,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
   }
   mat_ts <- x %>% 
-    select(!! index(x), !!! key_vars, !! value) %>% 
+    select(!! index(x), !!! key_vars, !! value_var) %>% 
     spread(key = key_vars(x), value = value_var, fill = fill)
   finalise_ts(mat_ts, index = index(x), frequency = frequency)
 }
