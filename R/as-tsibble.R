@@ -456,7 +456,7 @@ build_tsibble <- function(
 #' @seealso [tsibble], [as_tsibble]
 #' @export
 id <- function(...) {
-  unname(enquos(...))
+  enexprs(...)
 }
 
 ## Although the "index" arg is possible to automate the detection of time

@@ -41,10 +41,12 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
       abort(sprintf("`value` must be one of them: %s.", str_val))
     }
   }
+  idx <- index(x)
   mat_ts <- x %>% 
-    select(!! index(x), !!! key_vars, !! value_var) %>% 
+    arrange(!!! key_vars, !! idx) %>% 
+    select(!! idx, !!! key_vars, !! value_var) %>% 
     spread(key = key_vars(x), value = value_var, fill = fill)
-  finalise_ts(mat_ts, index = index(x), frequency = frequency)
+  finalise_ts(mat_ts, index = idx, frequency = frequency)
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {

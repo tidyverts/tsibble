@@ -14,14 +14,16 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 #' @export
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
-  key_var <- tidyselect::vars_pull(names(data), !! enquo(key))
+  key <- enquo(key)
+  value <- enquo(value)
+  key_var <- tidyselect::vars_pull(names(data), !! key)
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key(key_reduce(data, .vars = key_left, validate = FALSE))
 
   tbl <- spread(
-      as_tibble(data), key = key, value = value, fill = fill, 
-      convert = convert, drop = drop, sep = sep
-    )
+    as_tibble(data), key = !! key, value = !! value, fill = fill, 
+    convert = convert, drop = drop, sep = sep
+  )
   build_tsibble(
     tbl, key = new_key, index = !! index(data), index2 = !! index2(data),
     regular = is_regular(data), validate = FALSE, ordered = is_ordered(data),
