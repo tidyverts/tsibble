@@ -94,6 +94,22 @@ dplyr::anti_join
 #' @export
 dplyr::`%>%`
 
+#' @importFrom tidyr gather
+#' @export
+tidyr::gather
+
+#' @importFrom tidyr spread
+#' @export
+tidyr::spread
+
+# #' @importFrom tidyr nest
+# #' @export
+# tidyr::nest
+
+# #' @importFrom tidyr unnest
+# #' @export
+# tidyr::unnest
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

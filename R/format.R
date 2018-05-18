@@ -32,7 +32,7 @@ print.key <- function(x, ...) {
 #' @export
 format.key <- function(x, ...) {
   if (is_empty(x)) {
-    return("NULL")
+    return(list())
   }
   nest_lgl <- is_nest(x)
   comb_keys <- purrr::map(x[!nest_lgl], as.character)
