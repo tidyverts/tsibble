@@ -94,13 +94,21 @@ dplyr::anti_join
 #' @export
 dplyr::`%>%`
 
-#' @importFrom tidyr nest
+#' @importFrom tidyr gather
 #' @export
-tidyr::nest
+tidyr::gather
 
-#' @importFrom tidyr unnest
+#' @importFrom tidyr spread
 #' @export
-tidyr::unnest
+tidyr::spread
+
+# #' @importFrom tidyr nest
+# #' @export
+# tidyr::nest
+
+# #' @importFrom tidyr unnest
+# #' @export
+# tidyr::unnest
 
 #' @importFrom tibble glimpse
 #' @export

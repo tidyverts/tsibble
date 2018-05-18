@@ -22,17 +22,33 @@
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   value <- enquo(value)
   key_vars <- key(x)
+  if (is_empty(key_vars)) {
+    return(finalise_ts(x, index = index(x), frequency = frequency))
+  }
   if (any(is_nest(key_vars)) || length(key_vars) > 1) {
     abort("`as.ts()` can't deal with nested or crossed keys.")
   }
-  mat_ts <- spread_tsbl(x, value = value, fill = fill)
+  mvars <- measured_vars(x)
+  str_val <- paste_comma(surround(mvars, "`"))
+  if (quo_is_missing(value)) {
+    if (is_false(has_length(mvars, 1))) {
+      abort(sprintf("Can't determine the `value`: %s.", str_val))
+    }
+  } else {
+    value_var <- tidyselect::vars_pull(names(x), !! value)
+    if (is_false(value_var %in% mvars)) {
+      abort(sprintf("`value` must be one of them: %s.", str_val))
+    }
+  }
+  mat_ts <- x %>% 
+    select(!! index(x), !!! key_vars, !! value) %>% 
+    spread(key = key_vars(x), value = value_var, fill = fill)
   finalise_ts(mat_ts, index = index(x), frequency = frequency)
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {
   idx_time <- time(dplyr::pull(data, !! index))
-  out <- data %>%
-    select(- !! index)
+  out <- select(data, - !! index, .drop = TRUE)
   if (NCOL(out) == 1) {
     out <- out[[1]]
   }

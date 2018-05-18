@@ -51,9 +51,9 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
-\alias{nest}
+\alias{gather}
 \alias{reexports}
-\alias{unnest}
+\alias{spread}
 \alias{reexports}
 \alias{glimpse}
 \alias{reexports}
@@ -89,6 +89,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{as.tibble}}}
 
-  \item{tidyr}{\code{\link[tidyr]{nest}}, \code{\link[tidyr]{unnest}}}
+  \item{tidyr}{\code{\link[tidyr]{gather}}, \code{\link[tidyr]{spread}}}
 }}
 
