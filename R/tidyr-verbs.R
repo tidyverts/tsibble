@@ -147,11 +147,17 @@ unnest.lst_ts <- function(data, ..., .with,
 
 #' @export
 mutate.lst_ts <- function(.data, ...) {
-  reconstruct_tsibble(.data, NextMethod())
+  reconstruct_lst_ts(.data, NextMethod())
 }
 
 #' @export
 transmute.lst_ts <- mutate.lst_ts
+
+#' @export
+select.lst_ts <- mutate.lst_ts
+
+#' @export
+rename.lst_ts <- mutate.lst_ts
 
 #' @export
 arrange.lst_ts <- mutate.lst_ts
@@ -165,7 +171,7 @@ slice.lst_ts <- mutate.lst_ts
 #' @export
 group_by.lst_ts <- mutate.lst_ts
 
-reconstruct_tsibble <- function(x, y) { # x = tsibble, y = sth else
+reconstruct_lst_ts <- function(x, y) { # x = tsibble, y = sth else
   class(y) <- class(x)
   attr(y, "ts_col") <- attr(x, "ts_col")
   attr(y, "regular") <- attr(x, "regular")
