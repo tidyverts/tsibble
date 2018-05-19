@@ -102,13 +102,13 @@ tidyr::gather
 #' @export
 tidyr::spread
 
-# #' @importFrom tidyr nest
-# #' @export
-# tidyr::nest
+#' @importFrom tidyr nest
+#' @export
+tidyr::nest
 
-# #' @importFrom tidyr unnest
-# #' @export
-# tidyr::unnest
+#' @importFrom tidyr unnest
+#' @export
+tidyr::unnest
 
 #' @importFrom tibble glimpse
 #' @export

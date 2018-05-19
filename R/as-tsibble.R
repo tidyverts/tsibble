@@ -575,6 +575,12 @@ as_tibble.grouped_ts <- function(x, ...) {
   group_by(NextMethod(), !!! groups(x))
 }
 
+#' @keywords internal
+#' @export
+as_tibble.lst_ts <- function(x, ...) {
+  tibble::new_tibble(x)
+}
+
 #' @export
 as.tibble.tbl_ts <- as_tibble.tbl_ts
 
