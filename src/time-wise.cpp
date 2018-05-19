@@ -1,6 +1,5 @@
 #include <Rcpp.h>
 using namespace Rcpp;
-using namespace std;
 
 // Lagged Differences
 // [[Rcpp::export]]

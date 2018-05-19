@@ -4,15 +4,15 @@
 #' @param lag An integer indicating which lag to use.
 #' @param differences An integer indicating the order of the difference.
 #'
-#' @return A numeric vector of the same size of `x` with `NA` padding in.
+#' @return A numeric vector of the same size of `x` with padded `NA`.
 #' @export
 #' @examples
 #' # examples from base
-#' diff(1:10, 2)
-#' diff(1:10, 2, 2)
+#' difference(1:10, 2)
+#' difference(1:10, 2, 2)
 #' x <- cumsum(cumsum(1:10))
-#' diff(x, lag = 2)
-#' diff(x, differences = 2)
-diff <- function(x, lag = 1, differences = 1) {
+#' difference(x, lag = 2)
+#' difference(x, differences = 2)
+difference <- function(x, lag = 1, differences = 1) {
   diff_cpp(x, lag = lag, differences = differences)
 }
