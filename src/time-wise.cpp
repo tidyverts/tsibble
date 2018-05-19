@@ -1,11 +1,12 @@
 #include <Rcpp.h>
 using namespace Rcpp;
+using namespace std;
 
 // Lagged Differences
 // [[Rcpp::export]]
 NumericVector diff_cpp(NumericVector x, int lag, int differences) {
   if (lag < 1 || differences < 1) {
-    stop("`lag` or `differences` must be positive integers.");
+    stop("`lag` and `differences` must be positive integers.");
   }
 
   int n = x.size();
@@ -13,22 +14,19 @@ NumericVector diff_cpp(NumericVector x, int lag, int differences) {
     return(x[-1]);
   }
 
-  NumericVector lag_x(n);
   NumericVector y(n);
-
   for (int i = 0; i < n; i++) {
-    if (i < lag * differences) {
-      lag_x[i] = NA_REAL;
+    if (i < lag) {
+      y[i] = NA_REAL;
     } else {
-      lag_x[i] = x[i - lag];
+      y[i] = x[i] - x[i - lag];
     }
   }
 
-  // first difference
-  y = x - lag_x; 
-
-  for (int j = 1; j < differences; j++) {
-    y = diff(y);
+  int j = 1;
+  while (j < differences) {
+    y = diff_cpp(y, lag, 1);
+    j++;
   }
 
   return y;
