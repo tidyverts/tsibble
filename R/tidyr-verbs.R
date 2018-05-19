@@ -7,7 +7,7 @@
 #' @rdname gather
 #' @export
 #' @examples
-#' # tidyr example
+#' # example from tidyr
 #' stocks <- tsibble(
 #'   time = as.Date('2009-01-01') + 0:9,
 #'   X = rnorm(10, 0, 1),
@@ -20,14 +20,22 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   key <- enexpr(key)
   new_key <- c(key(data), key)
   value <- enexpr(value)
+  quos <- enquos(...)
+  if (is_empty(quos)) {
+    quos <- setdiff(names(data), 
+      c(quo_name(key), quo_name(value), quo_name(index(data)))
+    )
+  }
+  vars <- validate_vars(quos, names(data))
   tbl <- gather(
-    as_tibble(data), key = !! key, value = !! value, ...,
+    as_tibble(data), key = !! key, value = !! value, !!! quos,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble(
-    tbl, key = new_key, index = !! index(data), index2 = !! index2(data),
-    groups = groups(data), regular = is_regular(data), validate = FALSE,
-    ordered = is_ordered(data), interval = interval(data)
+    tbl, key = new_key, index = !! index(data), 
+    index2 = !! index2_update(data, vars),
+    groups = grp_update(data, vars), regular = is_regular(data), 
+    validate = FALSE, ordered = is_ordered(data), interval = interval(data)
   )
 }
 
@@ -40,7 +48,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 #' @rdname spread
 #' @export
 #' @examples
-#' # tidyr example
+#' # example from tidyr
 #' stocks <- tsibble(
 #'   time = as.Date('2009-01-01') + 0:9,
 #'   X = rnorm(10, 0, 1),
@@ -65,8 +73,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     as_tibble(data), key = !! key, value = !! value, fill = fill, 
     convert = convert, drop = drop, sep = sep
   )
+  vars <- names(tbl)
   build_tsibble(
-    tbl, key = new_key, index = !! index(data), index2 = !! index2(data),
+    tbl, key = new_key, index = !! index(data), 
+    index2 = !! index2_update(data, vars), groups = grp_update(data, vars),
     regular = is_regular(data), validate = FALSE, ordered = is_ordered(data),
     interval = interval(data)
   )

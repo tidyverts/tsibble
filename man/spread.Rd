@@ -47,7 +47,7 @@ by "<key_name><sep><key_value>".}
 Spread a key-value pair across multiple columns.
 }
 \examples{
-# tidyr example
+# example from tidyr
 stocks <- tsibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),

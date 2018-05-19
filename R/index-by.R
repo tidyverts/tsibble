@@ -92,6 +92,14 @@ index2_rename <- function(.data, .vars, names = names(.vars)) {
   sym(new_idx_chr)
 }
 
+index2_update <- function(x, .vars) {
+  chr <- intersect(quo_name(index2(x)), .vars)
+  if (is_empty(chr)) {
+    return(index(x))
+  }
+  sym(chr)
+}
+
 tsibble_rename <- function(.data, ...) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_rename(names_dat, ...)

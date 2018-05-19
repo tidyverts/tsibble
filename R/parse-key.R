@@ -141,6 +141,14 @@ grp_drop <- function(x, index2 = NULL) {
   }
 }
 
+grp_update <- function(x, .vars) {
+  chr <- intersect(group_vars(x), .vars)
+  if (is_empty(chr)) {
+    return(id())
+  }
+  syms(chr)
+}
+
 # this returns a vector of groups/key characters
 key_flatten <- function(x) {
   if (is.null(x)) {

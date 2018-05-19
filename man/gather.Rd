@@ -51,7 +51,7 @@ which preserves the original ordering of the columns.}
 Gather columns into key-value pairs.
 }
 \examples{
-# tidyr example
+# example from tidyr
 stocks <- tsibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
