@@ -219,8 +219,9 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx2 <- index2(.data)
 
   lst_quos <- enquos(..., .named = TRUE)
+  idx2_chr <- quo_name(idx2)
   nonkey <- setdiff(names(lst_quos), 
-    squash(c(key(.data), quo_text(idx), quo_text(idx2)))
+    squash(c(key(.data), quo_name(idx), idx2_chr))
   )
   nonkey_quos <- lst_quos[nonkey]
 
@@ -233,12 +234,13 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
     int <- NULL
     reg <- TRUE
   }
-  new_key <- key(key_reduce(.data, group_vars(.data), validate = FALSE))
+  grps <- group_vars(.data)
+  new_key <- key(key_reduce(.data, grps, validate = FALSE))
 
   build_tsibble(
     sum_data, key = new_key, index = !! idx2,
-    groups = grp_drop(groups(.data)), validate = FALSE, regular = reg, 
-    ordered = TRUE, interval = int
+    groups = grp_drop(grps, idx2_chr), validate = FALSE, 
+    regular = reg, ordered = TRUE, interval = int
   )
 }
 

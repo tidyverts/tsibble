@@ -45,7 +45,7 @@ is_index_null <- function(x) {
 # this function usually follows validate_vars()
 has_index <- function(j, x) {
   is_index_null(x)
-  index <- c(quo_text(index(x)), names(index2(x)))
+  index <- c(quo_name(index(x)), quo_name(index2(x)))
   any(index %in% j)
 }
 

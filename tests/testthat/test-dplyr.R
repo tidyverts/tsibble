@@ -22,7 +22,7 @@ test_that("group_by()", {
   )
   expect_equal(group_vars(pedestrian %>% group_by(sensor = Sensor)), "sensor")
   expect_equal(
-    group_vars(pedestrian %>% group_by(yearmonth(Date))),
+    group_vars(pedestrian %>% index_by(yearmonth(Date))),
     "yearmonth(Date)"
   )
 
@@ -30,6 +30,16 @@ test_that("group_by()", {
     group_by(Purpose) %>%
     group_by(Region, State, add = TRUE)
   expect_length(group_vars(grped_t), 3)
+})
+
+test_that("ungroup()", {
+  grped_df <- pedestrian %>% 
+    index_by(Date)
+  expect_identical(ungroup(grped_df), pedestrian)
+  grped_df2 <- pedestrian %>% 
+    index_by(Date) %>% 
+    group_by(Sensor)
+  expect_identical(ungroup(grped_df), pedestrian)
 })
 
 test_that("arrange.tbl_ts()", {

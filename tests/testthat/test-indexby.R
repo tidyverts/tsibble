@@ -174,6 +174,7 @@ test_that("scoped variants with group_by()", {
 test_that("index_by() with pedestrian", {
   ped_idx <- pedestrian %>%
     index_by(yrmth = yearmonth(Date))
+  expect_is(ped_idx, "grouped_ts")
   expect_identical(index2(ped_idx), rlang::sym("yrmth"))
   expect_named(ped_idx, c(names(pedestrian), "yrmth"))
   ped_fil <- ped_idx %>%
@@ -200,7 +201,7 @@ test_that("index_by() with pedestrian", {
   ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)
-  expect_identical(groups(ped_mut), NULL)
+  expect_identical(group_vars(ped_mut), "Date")
   ped_sum3 <- ped_mut %>%
     summarise(ttl_prop = sum(prop))
   expect_equal(format(interval(ped_sum3)), "1DAY")

@@ -130,16 +130,14 @@ key_distinct <- function(x) { # x = a list of keys (symbols)
   unname(comb_keys)
 }
 
-grp_drop <- function(x) {
+grp_drop <- function(x, index2 = NULL) {
+  x <- setdiff(x, index2)
   len <- length(x)
   new_grps <- x[-len] # drop one grouping level
-  last_x <- dplyr::last(x)
   if (is_empty(new_grps)) {
     return(id())
-  } else if (length(last_x) > 1) {
-    return(c(new_grps, list(last_x[-length(last_x)])))
   } else {
-    new_grps
+    syms(new_grps)
   }
 }
 

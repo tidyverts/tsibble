@@ -416,7 +416,8 @@ build_tsibble <- function(
     warn(msg)
   } # true do nothing
 
-  if (is_empty(groups)) {
+  idx_lgl <- identical(index, index2)
+  if (is_empty(groups) && idx_lgl) {
     return(tibble::new_tibble(
       tbl,
       "key" = structure(key_vars, class = "key"),
@@ -432,7 +433,11 @@ build_tsibble <- function(
 
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
-  grped_df <- tbl %>% group_by(!!! groups)
+  if (idx_lgl) {
+    grped_df <- tbl %>% group_by(!!! groups)
+  } else {
+    grped_df <- tbl %>% group_by(!!! groups, !! index2)
+  }
   tibble::new_tibble(
     grped_df,
     "key" = structure(key_vars, class = "key"),
@@ -560,23 +565,21 @@ validate_tsibble <- function(data, key, index) {
 #' grped_ped <- pedestrian %>% group_by(Sensor)
 #' as_tibble(grped_ped)
 as_tibble.tbl_ts <- function(x, ...) {
-  grps <- groups(x)
-  idx <- index(x)
-  idx2 <- index2(x)
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  if (identical(idx, idx2)) {
-    if (is_empty(grps)) {
-      return(tibble::new_tibble(x))
-    }
-    return(group_by(tibble::new_tibble(x), !!! flatten(grps)))
-  } else {
-    group_by(tibble::new_tibble(x), !!! flatten(c(grps, idx2)))
-  }
+  tibble::new_tibble(x)
+}
+
+#' @export
+as_tibble.grouped_ts <- function(x, ...) {
+  group_by(NextMethod(), !!! groups(x))
 }
 
 #' @export
 as.tibble.tbl_ts <- as_tibble.tbl_ts
+
+#' @export
+as.tibble.grouped_ts <- as_tibble.grouped_ts
 
 #' @rdname as-tibble
 #' @export
