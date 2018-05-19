@@ -23,11 +23,9 @@ NumericVector diff_cpp(NumericVector x, int lag, int differences) {
     }
   }
 
-  int j = 1;
-  while (j < differences) {
-    y = diff_cpp(y, lag, 1);
-    j++;
+  if (differences == 1) {
+    return y;
   }
 
-  return y;
+  return(diff_cpp(y, lag, differences - 1));
 }
