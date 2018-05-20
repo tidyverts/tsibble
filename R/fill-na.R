@@ -86,7 +86,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
       summarise(
         !! idx_chr := list(tibble::tibble(!! idx_chr := seq_by(!! idx)))
       ) %>% 
-      tidyr::unnest(!! idx)
+      unnest(!! idx)
   }
   full_data <- ungroup(ref_data) %>% 
     left_join(.data, by = c(flat_key, idx_chr))
@@ -140,7 +140,7 @@ count_gaps.tbl_ts <- function(.data, ...) {
   idx_full <- seq_by(eval_tidy(idx, data = .data))
   ungroup(as_tibble(.data)) %>% 
     summarise(gaps = list(gaps(unique.default(!! idx), idx_full))) %>% 
-    tidyr::unnest(gaps)
+    unnest(gaps)
 }
 
 #' @rdname gaps
@@ -174,11 +174,11 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
     idx_full <- seq_by(eval_tidy(idx, data = tbl))
     out <- tbl %>% 
       summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
-      tidyr::unnest(gaps)
+      unnest(gaps)
   } else {
     out <- tbl %>% 
       summarise(gaps = list(gaps(!! idx, seq_by(!! idx)))) %>% 
-      tidyr::unnest(gaps)
+      unnest(gaps)
   }
   ungroup(out)
 }

@@ -14,7 +14,7 @@ difference(x, lag = 1, differences = 1)
 \item{differences}{An integer indicating the order of the difference.}
 }
 \value{
-A numeric vector of the same size of \code{x} with padded \code{NA}.
+A numeric vector of the same length as \code{x} with padded \code{NA}.
 }
 \description{
 Lagged Differences in C++

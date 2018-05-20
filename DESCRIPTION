@@ -1,5 +1,5 @@
-Package: tsibble
 Type: Package
+Package: tsibble
 Title: Tidy Temporal Data Frames and Tools
 Version: 0.2.0.9000
 Date: 2018-05-11
@@ -14,35 +14,35 @@ Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
     the 'tibble'. The 'tsibble' aims at easily manipulating and analysing temporal 
     data, including counting and filling time gaps, aggregate over calendar periods, 
     performing rolling window calculations, and etc.
-Depends:
-    R (>= 3.1.3)
-Imports:
-    rlang (>= 0.2.0),
-    tidyr,
-    purrr (>= 0.2.3),
-    tibble (>= 1.4.1),
-    pillar (>= 1.0.1),
-    lubridate,
-    dplyr (>= 0.7.3),
-    Rcpp (>= 0.12.3),
-    tidyselect
-Suggests:
-    knitr,
-    rmarkdown,
-    testthat,
-    covr,
-    hts,
-    hms,
-    nycflights13,
-    ggplot2 (>= 2.2.0)
-LinkingTo:
-    Rcpp (>= 0.12.0)
-ByteCompile: true
-VignetteBuilder: knitr
 License: GPL (>= 3)
 URL: https://pkg.earo.me/tsibble
 BugReports: https://github.com/tidyverts/tsibble/issues
+Depends: 
+    R (>= 3.1.3)
+Imports: 
+    dplyr (>= 0.7.3),
+    lubridate,
+    pillar (>= 1.0.1),
+    purrr (>= 0.2.3),
+    Rcpp (>= 0.12.3),
+    rlang (>= 0.2.0),
+    tibble (>= 1.4.1),
+    tidyr,
+    tidyselect
+Suggests: 
+    covr,
+    ggplot2 (>= 2.2.0),
+    hms,
+    hts,
+    knitr,
+    nycflights13,
+    rmarkdown,
+    testthat
+LinkingTo: 
+    Rcpp (>= 0.12.0)
+VignetteBuilder: knitr
+ByteCompile: true
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
+RoxygenNote: 6.0.1

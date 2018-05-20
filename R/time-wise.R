@@ -4,7 +4,7 @@
 #' @param lag An integer indicating which lag to use.
 #' @param differences An integer indicating the order of the difference.
 #'
-#' @return A numeric vector of the same size of `x` with padded `NA`.
+#' @return A numeric vector of the same length as `x` with padded `NA`.
 #' @export
 #' @examples
 #' # examples from base
