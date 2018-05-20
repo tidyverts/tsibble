@@ -4,10 +4,6 @@ using namespace Rcpp;
 // Lagged Differences
 // [[Rcpp::export]]
 NumericVector diff_cpp(NumericVector x, int lag, int differences) {
-  if (lag < 1 || differences < 1) {
-    stop("`lag` and `differences` must be positive integers.");
-  }
-
   int n = x.size();
   if (lag * differences >= n) {
     return(x[-1]);

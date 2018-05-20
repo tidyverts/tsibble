@@ -14,5 +14,9 @@
 #' difference(x, lag = 2)
 #' difference(x, differences = 2)
 difference <- function(x, lag = 1, differences = 1) {
+  if (lag < 1 || differences < 1) {
+    abort("`lag` and `differences` must be positive integers.");
+  }
+
   diff_cpp(x, lag = lag, differences = differences)
 }
