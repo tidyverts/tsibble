@@ -34,7 +34,8 @@ test_that("if it's a tsibble", {
   tsbl2 <- tsbl[1, ]
   expect_is(tsbl2, "tbl_ts")
   expect_true(is_regular(tsbl2))
-  expect_is(tsbl[sample(1:10, size = 2), ], "tbl_ts")
+  expect_warning(w_tsbl <- tsbl[sample(nrow(tsbl)), ], "not sorted")
+  expect_is(w_tsbl, "tbl_ts")
 })
 
 dat_x <- tibble(
