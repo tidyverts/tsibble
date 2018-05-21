@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 // Lagged Differences
 // [[Rcpp::export]]
-NumericVector diff_cpp(NumericVector x, int lag, int differences) {
+NumericVector diff_cpp(NumericVector x, int lag, int differences, double fill) {
   int n = x.size();
   if (lag * differences >= n) {
     return(x[-1]);
@@ -12,7 +12,7 @@ NumericVector diff_cpp(NumericVector x, int lag, int differences) {
   NumericVector y(n);
   for (int i = 0; i < n; i++) {
     if (i < lag) {
-      y[i] = NA_REAL;
+      y[i] = fill;
     } else {
       y[i] = x[i] - x[i - lag];
     }
@@ -22,5 +22,5 @@ NumericVector diff_cpp(NumericVector x, int lag, int differences) {
     return y;
   }
 
-  return(diff_cpp(y, lag, differences - 1));
+  return(diff_cpp(y, lag, differences - 1, fill));
 }

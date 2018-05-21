@@ -6,15 +6,16 @@
 using namespace Rcpp;
 
 // diff_cpp
-NumericVector diff_cpp(NumericVector x, int lag, int differences);
-RcppExport SEXP _tsibble_diff_cpp(SEXP xSEXP, SEXP lagSEXP, SEXP differencesSEXP) {
+NumericVector diff_cpp(NumericVector x, int lag, int differences, double fill);
+RcppExport SEXP _tsibble_diff_cpp(SEXP xSEXP, SEXP lagSEXP, SEXP differencesSEXP, SEXP fillSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< int >::type lag(lagSEXP);
     Rcpp::traits::input_parameter< int >::type differences(differencesSEXP);
-    rcpp_result_gen = Rcpp::wrap(diff_cpp(x, lag, differences));
+    Rcpp::traits::input_parameter< double >::type fill(fillSEXP);
+    rcpp_result_gen = Rcpp::wrap(diff_cpp(x, lag, differences, fill));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -76,7 +77,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tsibble_diff_cpp", (DL_FUNC) &_tsibble_diff_cpp, 3},
+    {"_tsibble_diff_cpp", (DL_FUNC) &_tsibble_diff_cpp, 4},
     {"_tsibble_rle_lgl", (DL_FUNC) &_tsibble_rle_lgl, 1},
     {"_tsibble_gcd_interval", (DL_FUNC) &_tsibble_gcd_interval, 1},
     {"_tsibble_any_not_equal_to_c", (DL_FUNC) &_tsibble_any_not_equal_to_c, 2},

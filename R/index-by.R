@@ -71,6 +71,7 @@ index_by.tbl_ts <- function(.data, ...) {
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
+  # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs)
   idx2 <- sym(names(exprs)[1])
   build_tsibble(

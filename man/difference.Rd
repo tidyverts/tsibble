@@ -2,22 +2,24 @@
 % Please edit documentation in R/time-wise.R
 \name{difference}
 \alias{difference}
-\title{Lagged Differences in C++}
+\title{Lagged Differences}
 \usage{
-difference(x, lag = 1, differences = 1)
+difference(x, lag = 1, differences = 1, default = NA)
 }
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{lag}{An integer indicating which lag to use.}
+\item{lag}{An positive integer indicating which lag to use.}
 
-\item{differences}{An integer indicating the order of the difference.}
+\item{differences}{An positive integer indicating the order of the difference.}
+
+\item{default}{Value used for non-existent rows, defaults to \code{NA}.}
 }
 \value{
-A numeric vector of the same length as \code{x} with padded \code{NA}.
+A numeric vector of the same length as \code{x}.
 }
 \description{
-Lagged Differences in C++
+Lagged Differences
 }
 \examples{
 # examples from base
@@ -26,4 +28,7 @@ difference(1:10, 2, 2)
 x <- cumsum(cumsum(1:10))
 difference(x, lag = 2)
 difference(x, differences = 2)
+}
+\seealso{
+\link[dplyr:lead]{dplyr::lead} and \link[dplyr:lag]{dplyr::lag}
 }
