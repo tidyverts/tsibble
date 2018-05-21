@@ -82,8 +82,6 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   )
 }
 
-# nocov start - nest() & unnest()
-
 #' @export
 nest.tbl_ts <- function(data, ..., .key = "data") {
   nest_quos <- enquos(...)
@@ -95,7 +93,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
     nest_vars <- tidyselect::vars_select(cn, !!! nest_quos)
   }
   if (is_false(has_index(nest_vars, data))) {
-    abort("`nest.tbl_ts()` must have the `index` in the list of data columns.")
+    abort("`nest.tbl_ts()` must nest the `index` in the list columns.")
   }
   tbl <- as_tibble(data)
   if (dplyr::is_grouped_df(tbl)) {
@@ -114,15 +112,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   out[[key_var]] <- purrr::map(
     nest_df, ~ tsibble_select(., !!! nest_vars, validate = FALSE)
   )
-  idx <- index(data)
-  tibble::new_tibble(
-    out, 
-    ts_col = key_var,
-    regular = is_regular(data),
-    # work around for unnest(), since it drops the index class
-    idx_cls = class(eval_tidy(idx, data)), 
-    subclass = "lst_ts"
-  )
+  tibble::new_tibble(out, subclass = "lst_ts")
 }
 
 #' @export
@@ -130,24 +120,43 @@ unnest.lst_ts <- function(data, ..., .with,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   use_id(.with)
+  preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
+  quos <- enquos(...)
+  if (is_empty(quos)) {
+    list_cols <- names(data)[purrr::map_lgl(data, is_list)]
+    list_cols <- setdiff(list_cols, preserve)
+    quos <- syms(list_cols)
+  }
+  if (length(quos) == 0) {
+    return(data)
+  }
+  nested <- transmute(ungroup(data), !!! quos)
+  first_nested <- slice(nested, 1)
+  eval_df <- purrr::imap(first_nested, dplyr::first)
+  is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
+  if (is_false(any(is_tsbl))) {
+    abort("Must contain a list column of tsibble to be unnested.")
+  }
+  if (sum(is_tsbl) > 1) {
+    abort("Only accept only one list column of tsibble to be unnested.")
+  }
   out <- as_tibble(data) %>% 
-    unnest(..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-  ts_col <- attr(data, "ts_col")
-  tsbl <- data[[ts_col]][[1]]
+    unnest(!!! quos, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+  tsbl <- eval_df[[is_tsbl]]
   idx <- index(tsbl)
   key <- c(key(tsbl), .with)
   idx_chr <- quo_text(idx)
   # restore the index class, as it's dropped by NextMethod()
-  class(out[[idx_chr]]) <- attr(data, "idx_cls")
+  class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
     out, key = key, index = !! idx, validate = FALSE, 
-    regular = is_regular(data),
+    regular = is_regular(tsbl), interval = interval(tsbl)
   )
 }
 
 #' @export
 mutate.lst_ts <- function(.data, ...) {
-  reconstruct_lst_ts(.data, NextMethod())
+  tibble::new_tibble(NextMethod(), subclass = "lst_ts")
 }
 
 #' @export
@@ -170,13 +179,3 @@ slice.lst_ts <- mutate.lst_ts
 
 #' @export
 group_by.lst_ts <- mutate.lst_ts
-
-reconstruct_lst_ts <- function(x, y) { # x = tsibble, y = sth else
-  class(y) <- class(x)
-  attr(y, "ts_col") <- attr(x, "ts_col")
-  attr(y, "regular") <- attr(x, "regular")
-  attr(y, "idx_cls") <- attr(x, "idx_cls")
-  y
-}
-
-# nocov end
