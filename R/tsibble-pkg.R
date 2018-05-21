@@ -49,12 +49,26 @@
 #' The tsibble package fully utilises the `print` method from the tibble. Please
 #' refer to [tibble::tibble-package] to change display options.
 #'
-#' @rdname tsibble-package
-#' @name tsibble-package
-#' @docType package
-#' @aliases NULL
+#' @aliases NULL tsibble-package
 #' @useDynLib tsibble, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @import rlang
+#' @examples
+#' # create a tsibble w/o a key ----
+#' tsbl1 <- tsibble(
+#'   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
+#'   value = rnorm(10),
+#'   key = id(), index = date
+#' )
+#' tsbl1
+#'
+#' # create a tsibble with one key ----
+#' tsbl2 <- tsibble(
+#'   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+#'   group = rep(c("x", "y", "z"), each = 10),
+#'   value = rnorm(30),
+#'   key = id(group), index = qtr
+#' )
+#' tsbl2
 "_PACKAGE"
 

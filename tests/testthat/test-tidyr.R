@@ -51,3 +51,34 @@ test_that("gather()", {
     gather(key = key, value = value)
   expect_identical(out, out2)
 })
+
+test_that("nest()", {
+ expect_error(pedestrian %>% nest(-Date_Time), "must nest the `index`") 
+ expect_error(pedestrian %>% nest(Sensor), "must nest the `index`") 
+ expect_named(pedestrian %>% nest(), "data")
+ expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
+ expect_named(
+   pedestrian %>% group_by(Sensor) %>% nest(),
+   names(pedestrian %>% nest(-Sensor))
+  )
+ expect_named(pedestrian %>% nest(-Sensor, .key = "ts"), c("Sensor", "ts"))
+ nested_ped <- pedestrian %>% 
+   nest(-Sensor)
+ expect_is(nested_ped, "lst_ts")
+ expect_equal(key_vars(nested_ped$data[[1]]), character(0))
+})
+
+nest_t <- tourism %>% 
+  nest(-Region, -State)
+
+test_that("unnest()", {
+  expect_error(nest_t %>% unnest(Region), "Must contain a list-column")
+  expect_error(
+    nest_t %>% mutate(data2 = data) %>% unnest(),
+    "Only accept one list-column of `tbl_ts`"
+  )
+  expect_error(nest_t %>% unnest(key = Region), "Have you forgotten")
+  expect_error(nest_t %>% unnest(), "Invalid tsibble:")
+  expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
+  expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
+})

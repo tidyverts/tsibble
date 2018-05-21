@@ -82,7 +82,21 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   )
 }
 
+#' Nest repeated values in a list-variable.
+#'
+#' @param data A `tbl_ts`.
+#' @inheritParams tidyr::nest
+#'
+#' @return A tibble containing a list column of `tbl_ts`.
+#' @seealso [tidyr::nest], [unnest.lst_ts] for the inverse operation.
+#' @rdname nest
 #' @export
+#' @examples
+#' pedestrian %>% 
+#'   nest(-Sensor)
+#' pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   nest()
 nest.tbl_ts <- function(data, ..., .key = "data") {
   nest_quos <- enquos(...)
   key_var <- quo_name(enexpr(.key))
@@ -93,17 +107,19 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
     nest_vars <- tidyselect::vars_select(cn, !!! nest_quos)
   }
   if (is_false(has_index(nest_vars, data))) {
-    abort("`nest.tbl_ts()` must nest the `index` in the list columns.")
+    abort("`nest.tbl_ts()` must nest the `index` in the list-column.")
   }
   tbl <- as_tibble(data)
-  if (dplyr::is_grouped_df(tbl)) {
+  if (is_grouped_ts(data)) {
     grp_vars <- group_vars(tbl)
   } else {
     grp_vars <- setdiff(cn, nest_vars)
   }
   data <- ungroup(data)
   if (is_empty(grp_vars)) {
-    return(tibble::tibble(!! key_var := list(data)))
+    return(tibble::new_tibble(
+      tibble::tibble(!! key_var := list(data)), subclass = "lst_ts"
+    ))
   }
   nest_vars <- setdiff(nest_vars, grp_vars)
   grp <- syms(grp_vars)
@@ -115,11 +131,25 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   tibble::new_tibble(out, subclass = "lst_ts")
 }
 
+#' Unnest a list column.
+#'
+#' @param data A `lst_ts`.
+#' @param key Unquoted variables to create the key (via [id]) after unnesting.
+#' @inheritParams tidyr::unnest
+#'
+#' @return A `tbl_ts`.
+#' @seealso [tidyr::unnest], [nest.tbl_ts] for the inverse operation.
+#' @rdname unnest
 #' @export
-unnest.lst_ts <- function(data, ..., .with,
+#' @examples
+#' nested_ped <- pedestrian %>% 
+#'   nest(-Sensor)
+#' nested_ped %>% 
+#'   unnest(key = id(Sensor))
+unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
-  use_id(.with)
+  use_id(key)
   preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
   quos <- enquos(...)
   if (is_empty(quos)) {
@@ -135,21 +165,25 @@ unnest.lst_ts <- function(data, ..., .with,
   eval_df <- purrr::imap(first_nested, dplyr::first)
   is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
   if (is_false(any(is_tsbl))) {
-    abort("Must contain a list column of tsibble to be unnested.")
+    abort("Must contain a list-column of `tbl_ts` to be unnested.")
   }
   if (sum(is_tsbl) > 1) {
-    abort("Only accept only one list column of tsibble to be unnested.")
+    abort("Only accept one list-column of `tbl_ts` to be unnested.")
   }
   out <- as_tibble(data) %>% 
     unnest(!!! quos, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
   tsbl <- eval_df[[is_tsbl]]
   idx <- index(tsbl)
-  key <- c(key(tsbl), .with)
+  validate <- FALSE
+  if (is_empty(key)) {
+    validate <- TRUE
+  }
+  key <- c(key(tsbl), key)
   idx_chr <- quo_text(idx)
   # restore the index class, as it's dropped by NextMethod()
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
-    out, key = key, index = !! idx, validate = FALSE, 
+    out, key = key, index = !! idx, validate = validate, 
     regular = is_regular(tsbl), interval = interval(tsbl)
   )
 }
