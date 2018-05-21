@@ -71,7 +71,7 @@ index_by.tbl_ts <- function(.data, ...) {
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
-  tbl <- group_by(as_tibble(.data), !!! exprs)
+  tbl <- mutate(ungroup(.data), !!! exprs)
   idx2 <- sym(names(exprs)[1])
   build_tsibble(
     tbl, key = key(.data), index = !! index(.data), index2 = !! idx2,

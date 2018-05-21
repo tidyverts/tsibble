@@ -129,15 +129,15 @@ full_weather %>%
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
-#> # A tsibble: 36 x 4 [1DAY]
+#> # A tsibble: 36 x 4 [1MONTH]
 #> # Keys:      origin [3]
 #>   origin year_month avg_temp ttl_precip
-#>   <chr>  <date>        <dbl>      <dbl>
-#> 1 EWR    2013-01-01     35.6       2.7 
-#> 2 EWR    2013-02-01     34.1       2.76
-#> 3 EWR    2013-03-01     40.0       1.94
-#> 4 EWR    2013-04-01     52.9       1.05
-#> 5 EWR    2013-05-01     63.1       2.76
+#>   <chr>       <mth>    <dbl>      <dbl>
+#> 1 EWR      2013 Jan     35.6       2.7 
+#> 2 EWR      2013 Feb     34.1       2.76
+#> 3 EWR      2013 Mar     40.0       1.94
+#> 4 EWR      2013 Apr     52.9       1.05
+#> 5 EWR      2013 May     63.1       2.76
 #> # ... with 31 more rows
 ```
 

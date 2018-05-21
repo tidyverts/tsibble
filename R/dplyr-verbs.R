@@ -162,8 +162,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     return(mut_data)
   }
   lst_quos <- enquos(..., .named = TRUE)
-  vec_names <- union(names(lst_quos), colnames(.data))
-  mut_data <- mutate(as_tibble(.data), ...)
+  vec_names <- union(names(lst_quos), names(.data))
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds

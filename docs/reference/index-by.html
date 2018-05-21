@@ -172,20 +172,20 @@ non-index variables.</p></li>
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>Count</span>)
   )
-<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1DAY]
+<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1MONTH]
 #&gt; # Keys:      Sensor [4]
 #&gt;    Sensor         Year_Month Max_Count Min_Count
-#&gt;    &lt;chr&gt;          &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;
-#&gt;  1 Birrarung Marr 2015-01-01      5524         1
-#&gt;  2 Birrarung Marr 2015-02-01     10121         1
-#&gt;  3 Birrarung Marr 2015-03-01      9858         1
-#&gt;  4 Birrarung Marr 2015-04-01      7293         1
-#&gt;  5 Birrarung Marr 2015-05-01      5129         1
-#&gt;  6 Birrarung Marr 2015-06-01      7556         0
-#&gt;  7 Birrarung Marr 2015-07-01     11224         1
-#&gt;  8 Birrarung Marr 2015-08-01      5684         0
-#&gt;  9 Birrarung Marr 2015-09-01      7757         0
-#&gt; 10 Birrarung Marr 2015-10-01      7085         1
+#&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1 Birrarung Marr   2015 Jan      5524         1
+#&gt;  2 Birrarung Marr   2015 Feb     10121         1
+#&gt;  3 Birrarung Marr   2015 Mar      9858         1
+#&gt;  4 Birrarung Marr   2015 Apr      7293         1
+#&gt;  5 Birrarung Marr   2015 May      5129         1
+#&gt;  6 Birrarung Marr   2015 Jun      7556         0
+#&gt;  7 Birrarung Marr   2015 Jul     11224         1
+#&gt;  8 Birrarung Marr   2015 Aug      5684         0
+#&gt;  9 Birrarung Marr   2015 Sep      7757         0
+#&gt; 10 Birrarung Marr   2015 Oct      7085         1
 #&gt; # ... with 85 more rows</div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; Year_Month</div><div class='input'>
 <span class='co'># Using existing variable ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>

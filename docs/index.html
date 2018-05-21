@@ -155,15 +155,15 @@
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw">sum</span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1DAY]</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Keys:      origin [3]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR    2013-01-01     35.6       2.7 </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR    2013-02-01     34.1       2.76</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR    2013-03-01     40.0       1.94</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR    2013-04-01     52.9       1.05</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR    2013-05-01     63.1       2.76</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.6       2.7 </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR      2013 Feb     34.1       2.76</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.0       1.94</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     52.9       1.05</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.1       2.76</span></a>
 <a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
 <p>This combo can also help with regularising a tsibble of irregular time space.</p>
 </div>

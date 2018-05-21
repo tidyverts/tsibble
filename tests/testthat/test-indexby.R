@@ -125,44 +125,47 @@ tsbl4 <- tsibble(
 
 test_that("summarise scoped variants", {
   ts_all <- tsbl4 %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(date2 = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
-  expect_named(ts_all, c("date", "value1", "value2", "value3"))
+  expect_named(ts_all, c("date2", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 1)
   ts_all <- tsbl4 %>%
     index_by(yrmth = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
+  expect_is(ts_all[["yrmth"]], "yearmonth")
   expect_named(ts_all, c("yrmth", "value1", "value2", "value3"))
   ts_if <- tsbl4 %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(date2 = yearmonth(date)) %>%
     summarise_if(.predicate = is.numeric, .funs = mean)
-  expect_named(ts_if, c("date", "value1", "value2", "value3"))
+  expect_is(ts_if[["date2"]], "yearmonth")
+  expect_named(ts_if, c("date2", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 1)
   ts_at <- tsbl4 %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(date2 = yearmonth(date)) %>%
     summarise_at(.vars = c("value1", "value3"), .funs = mean)
-  expect_named(ts_at, c("date", "value1", "value3"))
+  expect_is(ts_at[["date2"]], "yearmonth")
+  expect_named(ts_at, c("date2", "value1", "value3"))
   expect_equal(nrow(ts_at), 1)
 })
 
 test_that("scoped variants with group_by()", {
   ts_all <- tsbl4 %>%
     group_by(group) %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(yrmth = yearmonth(date)) %>%
     summarise_all(.funs = "mean")
-  expect_named(ts_all, c("group", "date", "value1", "value2", "value3"))
+  expect_named(ts_all, c("group", "yrmth", "value1", "value2", "value3"))
   expect_equal(nrow(ts_all), 2)
   ts_if <- tsbl4 %>%
     group_by(group) %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(yrmth = yearmonth(date)) %>%
     summarise_if(.predicate = is.numeric, .funs = mean)
-  expect_named(ts_if, c("group", "date", "value1", "value2", "value3"))
+  expect_named(ts_if, c("group", "yrmth", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 2)
   ts_at <- tsbl4 %>%
     group_by(group) %>%
-    index_by(date = yearmonth(date)) %>%
+    index_by(yrmth = yearmonth(date)) %>%
     summarise_at(.vars = c("value1", "value3"), .funs = mean)
-  expect_named(ts_at, c("group", "date", "value1", "value3"))
+  expect_named(ts_at, c("group", "yrmth", "value1", "value3"))
   expect_equal(nrow(ts_at), 2)
   tbl <- tourism %>%
     group_by(Region, State) %>%
