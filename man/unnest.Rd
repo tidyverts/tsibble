@@ -43,6 +43,10 @@ nested_ped <- pedestrian \%>\%
   nest(-Sensor)
 nested_ped \%>\% 
   unnest(key = id(Sensor))
+nested_tourism <- tourism \%>\% 
+  nest(-Region, -State)
+nested_tourism \%>\% 
+  unnest(key = id(Region | State))
 }
 \seealso{
 \link[tidyr:unnest]{tidyr::unnest}, \link{nest.tbl_ts} for the inverse operation.

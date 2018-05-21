@@ -119,7 +119,7 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.612e+04 more rows</span></a></code></pre></div>
-<p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code><a href="reference/tsibble.html">?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
+<p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
 <p>The <strong>tsibble</strong> internally computes the interval for a given time index, based on its representation. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmth</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
 </div>
 <div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
@@ -217,6 +217,9 @@
 <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>
 </li>
 </ul>
+</li>
+<li>
+<strong>tidyr</strong>: <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/unnest">unnest()</a></code>
 </li>
 <li>
 <strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as.tibble()</a></code>

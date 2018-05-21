@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
       </span>
     </div>
 
@@ -193,6 +193,20 @@
           <p><code><a href="split-by.html">split_by()</a></code> </p>
         </td>
         <td><p>Split a data frame into a list of subsets by variables</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-vector-functions" class="hasAnchor"><a href="#section-vector-functions" class="anchor"></a>Vector functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="difference.html">difference()</a></code> </p>
+        </td>
+        <td><p>Lagged Differences in C++</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -415,6 +429,38 @@ checks if a tsibble is ordered by key and index.</p></td>
         </td>
         <td><p>Group by one or more variables</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tidyr-verbs" class="hasAnchor"><a href="#section-tidyr-verbs" class="anchor"></a>Tidyr verbs</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="gather.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Gather columns into key-value pairs.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="spread.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Spread a key-value pair across multiple columns.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="nest.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Nest repeated values in a list-variable.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="unnest.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Unnest a list column.</p></td>
+      </tr>
     </tbody>
     </table>
   </div>
@@ -425,6 +471,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
       <li><a href="#section-tsibble-verbs">Tsibble verbs</a></li>
+      <li><a href="#section-vector-functions">Vector functions</a></li>
       <li><a href="#section-windowed-functions">Windowed functions</a></li>
       <li><a href="#section-index-functions">Index functions</a></li>
       <li><a href="#section-key-helpers">Key helpers</a></li>
@@ -433,6 +480,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <li><a href="#section-coerce-to-other-objects">Coerce to other objects</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-dplyr-verbs">Dplyr verbs</a></li>
+      <li><a href="#section-tidyr-verbs">Tidyr verbs</a></li>
     </ul>
   </div>
 </div>

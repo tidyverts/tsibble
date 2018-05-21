@@ -11,8 +11,13 @@
 #' few index classes, such as `Date`, `POSIXct`, and `difftime`, forms the basis of 
 #' the tsibble, with new additions [yearweek], [yearmonth], and [yearquarter] 
 #' representing year-week, year-month, and year-quarter respectively. `zoo::yearmth` 
-#' and `zoo::yearqtr` are also supported. It is extensible to work with custom 
-#' index, for example trading days and weekly data.
+#' and `zoo::yearqtr` are also supported. For a `tbl_ts` of regular interval,
+#' a choice of index representation has to be made. For example, a monthly data 
+#' should correspond to time index created by [yearmonth] or `zoo::yearmth`, 
+#' instead of `Date` or `POSIXct`. Because months in a year ensures the regularity,
+#' 12 months every year. However, if using `Date`, a month contains days ranging
+#' from 28 to 31 days, which results in irregular time space. This is also applicable
+#' to year-week and year-quarter.
 #'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record. And

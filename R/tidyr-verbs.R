@@ -146,6 +146,10 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
 #'   nest(-Sensor)
 #' nested_ped %>% 
 #'   unnest(key = id(Sensor))
+#' nested_tourism <- tourism %>% 
+#'   nest(-Region, -State)
+#' nested_tourism %>% 
+#'   unnest(key = id(Region | State))
 unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {

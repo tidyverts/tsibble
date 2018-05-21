@@ -67,7 +67,7 @@ weather_tsbl
 The **key** is not constrained to a single variable, but expressive of
 nested and crossed data structures. This incorporates univariate,
 multivariate, hierarchical and grouped time series into the tsibble
-framework. See `?tsibble` and
+framework. See `package?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
 for details.
 
@@ -188,6 +188,7 @@ Use `?tsibble::reexports` for a full list of re-exported functions.
       - `rename()`
       - `*_join()`
       - `group_by()`, `ungroup()`
+  - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
   - **rlang:** `!!`, `!!!`
 

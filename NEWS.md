@@ -1,9 +1,24 @@
+# tsibble 0.2.0.9000
+
+## New functions
+
+* New `difference()` computes lagged differences of a numeric vector. It returns a vector of the same length as the input with `NA` padded. It works with `mutate()`.
+* Added the support of `gather()`/`spread()`, `nest()`/`unnest()` to `tbl_ts`.
+
+## Defunct
+
+* retired `tsummarise()`.
+
+## Internal changes
+
+* If `index2` deviates from `index` (using `index_by()`), the `index2` will be part of grouping variables.
+
 # tsibble 0.2.0
 
 This release (hopefully) marks the stability of a tsibble data object (`tbl_ts`). A `tbl_ts` contains the following components:
 
 * `key`: single or multiple columns uniquely identify observational units over time. A key consisting of nested and crossed variables reflects the structure underlying the data. The programme itself takes care of the updates in the "key" when manipulating the data. The "key" differs from the grouping variables with respect to variables manipulated by users.
-* `index`: a variable represent time. This together the "key" uniquely identifies each observation in the data table.
+* `index`: a variable represents time. This together the "key" uniquely identifies each observation in the data table.
 * `index2`: why do we need the second index? It means re-indexing **to** a variable, not the second index. It is identical to the `index` most time, but start deviating when using `index_by()`. `index_by()` works similarly to `group_by()`, but groups the index only. The dplyr verbs, like `filter()`, `mutate()`, operates on each time group of the data defined by `index_by()`. You may wonder why introducing a new function rather than using `group_by()` that users are most familiar with. It's because time is indispensable to a tsibble, `index_by()` provides a trace to understanding how the index changes. For this purpose, `group_by()` is just too general. For example, `index_by()` + `summarise()` aggregates data to less granular time period, leading to the update in index, which is nicely and intuitively handled now.
 * `interval`: an `interval` class to save a list of time intervals. It computes the greatest common factor from the time difference of the `index` column, which should give a sensible interval for the almost all the cases, compared to minimal time distance. It also depends on the time representation. For example, if the data is monthly, the index is suggested to use a `yearmonth()` format instead of `Date`, as `Date` only gives the number of days not the number of months.
 * `regular`: since a tsibble factors in the implicit missing cases, whether the data is regular or not cannot be determined. This relies on the user's specification.

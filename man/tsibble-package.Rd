@@ -17,8 +17,13 @@ in a \code{ts} object), but preserved as the essential component of the tsibble.
 few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
 the tsibble, with new additions \link{yearweek}, \link{yearmonth}, and \link{yearquarter}
 representing year-week, year-month, and year-quarter respectively. \code{zoo::yearmth}
-and \code{zoo::yearqtr} are also supported. It is extensible to work with custom
-index, for example trading days and weekly data.
+and \code{zoo::yearqtr} are also supported. For a \code{tbl_ts} of regular interval,
+a choice of index representation has to be made. For example, a monthly data
+should correspond to time index created by \link{yearmonth} or \code{zoo::yearmth},
+instead of \code{Date} or \code{POSIXct}. Because months in a year ensures the regularity,
+12 months every year. However, if using \code{Date}, a month contains days ranging
+from 28 to 31 days, which results in irregular time space. This is also applicable
+to year-week and year-quarter.
 }
 
 \section{Key}{

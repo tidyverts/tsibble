@@ -61,7 +61,7 @@ top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
       </span>
     </div>
 
@@ -129,8 +129,13 @@ in a <code>ts</code> object), but preserved as the essential component of the ts
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
 the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
 representing year-week, year-month, and year-quarter respectively. <code>zoo::yearmth</code>
-and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code> are also supported. It is extensible to work with custom
-index, for example trading days and weekly data.</p>
+and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code> are also supported. For a <code>tbl_ts</code> of regular interval,
+a choice of index representation has to be made. For example, a monthly data
+should correspond to time index created by <a href='period.html'>yearmonth</a> or <code>zoo::yearmth</code>,
+instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year ensures the regularity,
+12 months every year. However, if using <code>Date</code>, a month contains days ranging
+from 28 to 31 days, which results in irregular time space. This is also applicable
+to year-week and year-quarter.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
@@ -182,6 +187,48 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
 </ul></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># create a tsibble w/o a key ----</span>
+<span class='no'>tsbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>
+)
+<span class='no'>tsbl1</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
+#&gt;    date        value
+#&gt;    &lt;date&gt;      &lt;dbl&gt;
+#&gt;  1 2017-01-01  0.462
+#&gt;  2 2017-01-02 -0.323
+#&gt;  3 2017-01-03 -1.29 
+#&gt;  4 2017-01-04 -1.03 
+#&gt;  5 2017-01-05  1.51 
+#&gt;  6 2017-01-06  0.347
+#&gt;  7 2017-01-07  1.78 
+#&gt;  8 2017-01-08  0.387
+#&gt;  9 2017-01-09 -0.919
+#&gt; 10 2017-01-10 -1.58 </div><div class='input'>
+<span class='co'># create a tsibble with one key ----</span>
+<span class='no'>tsbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2010</span>, <span class='fl'>2012.25</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>4</span>)), <span class='fl'>3</span>),
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>
+)
+<span class='no'>tsbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1QUARTER]
+#&gt; # Keys:      group [3]
+#&gt;        qtr group    value
+#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 2010 Q1 x     -0.0841 
+#&gt;  2 2010 Q2 x     -2.09   
+#&gt;  3 2010 Q3 x      0.00357
+#&gt;  4 2010 Q4 x     -0.356  
+#&gt;  5 2011 Q1 x      1.15   
+#&gt;  6 2011 Q2 x     -0.221  
+#&gt;  7 2011 Q3 x      1.02   
+#&gt;  8 2011 Q4 x     -0.264  
+#&gt;  9 2012 Q1 x      1.66   
+#&gt; 10 2012 Q2 x     -0.774  
+#&gt; # ... with 20 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -196,7 +243,9 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
       <li><a href="#print-options">Print options</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Construct a tsibble object — build_tsibble • tsibble</title>
+<title>Unnest a list column. — unnest.lst_ts • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,11 +28,9 @@
 
 
 
-<meta property="og:title" content="Construct a tsibble object — build_tsibble" />
+<meta property="og:title" content="Unnest a list column. — unnest.lst_ts" />
 
-<meta property="og:description" content="A relatively more controllable function to create a tbl_ts object. It is useful
-for creating a tbl_ts internally inside a function, and it allows users to
-determine if the time needs ordering and the interval needs calculating." />
+<meta property="og:description" content="Unnest a list column." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,83 +103,79 @@ determine if the time needs ordering and the interval needs calculating." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Construct a tsibble object</h1>
+    <h1>Unnest a list column.</h1>
     
-    <div class="hidden name"><code>build_tsibble.Rd</code></div>
+    <div class="hidden name"><code>unnest.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A relatively more controllable function to create a <code>tbl_ts</code> object. It is useful
-for creating a <code>tbl_ts</code> internally inside a function, and it allows users to
-determine if the time needs ordering and the interval needs calculating.</p>
+    <p>Unnest a list column.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for lst_ts</span>
+<span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></td>
+      <th>data</th>
+      <td><p>A <code>lst_ts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to nest. Use bare variable names or
+functions of variables. If omitted, defaults to all list-cols.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Structural variable(s) that define unique time indices, used with
-the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
-simply call <code><a href='id.html'>id()</a></code>. See below for details.</p></td>
+      <td><p>Unquoted variables to create the key (via <a href='id.html'>id</a>) after unnesting.</p></td>
     </tr>
     <tr>
-      <th>index</th>
-      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+      <th>.drop</th>
+      <td><p>Should additional list columns be dropped? By default,
+<code>unnest</code> will drop them if unnesting the specified columns requires
+the rows to be duplicated.</p></td>
     </tr>
     <tr>
-      <th>index2</th>
-      <td><p>A candidate of <code>index</code> to update the index to a new one when
-<a href='index-by.html'>index_by</a>. By default, it's identical to <code>index</code>.</p></td>
+      <th>.id</th>
+      <td><p>Data frame identifier - if supplied, will create a new column
+with name <code>.id</code>, giving a unique identifier. This is most useful if
+the list column is named.</p></td>
     </tr>
     <tr>
-      <th>groups</th>
-      <td><p>Grouping variable(s) when <a href='group-by.html'>group_by.tbl_ts</a>.</p></td>
+      <th>.sep</th>
+      <td><p>If non-<code>NULL</code>, the names of unnested data frame columns
+will combine the name of the original list-col with the names from
+nested data frame, separated by <code>.sep</code>.</p></td>
     </tr>
     <tr>
-      <th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
-finds the greatest common divisor of positive time distances as the interval.</p></td>
-    </tr>
-    <tr>
-      <th>validate</th>
-      <td><p><code>TRUE</code> suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). It will
-also make sure that the nested variables are arranged from lower level to
-higher, if nested variables are passed to <code>key</code>. If you are sure that it's a
-valid input, specify <code>FALSE</code> to skip the checks.</p></td>
-    </tr>
-    <tr>
-      <th>ordered</th>
-      <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
-then index in ascending order. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
-the correct order. <code>FALSE</code> also skips the ordering but gives a warning instead.</p></td>
-    </tr>
-    <tr>
-      <th>interval</th>
-      <td><p><code>NULL</code> computes the interval. Use the specified interval as
-is, if an class of <code>interval</code> is supplied.</p></td>
+      <th>.preserve</th>
+      <td><p>Optionally, list-columns to preserve in the output. These
+will be duplicated in the same way as atomic vectors. This has
+<a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
+<code>.preserve = c(x, y)</code> or <code>.preserve = starts_with("list")</code>.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>tbl_ts</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>tidyr::unnest</a>, <a href='nest.html'>nest.tbl_ts</a> for the inverse operation.</p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='index-rd.html'>interval</a></span>(<span class='no'>.</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1HOUR]
+    <pre class="examples"><div class='input'><span class='no'>nested_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Sensor</span>)
+<span class='no'>nested_ped</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Sensor</span>))</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1HOUR]
 #&gt; # Keys:      Sensor [4]
-#&gt; # Groups:    @ Date [731]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
@@ -194,13 +188,34 @@ is, if an class of <code>interval</code> is supplied.</p></td>
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 66,061 more rows</div></pre>
+#&gt; # ... with 66,061 more rows</div><div class='input'><span class='no'>nested_tourism</span> <span class='kw'>&lt;-</span> <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Region</span>, -<span class='no'>State</span>)
+<span class='no'>nested_tourism</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Region</span> <span class='kw'>|</span> <span class='no'>State</span>))</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1QUARTER]
+#&gt; # Keys:      Region | State, Purpose [308]
+#&gt;    Region   State           Quarter Purpose  Trips
+#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 Adelaide South Australia 1998 Q1 Business  135.
+#&gt;  2 Adelaide South Australia 1998 Q2 Business  110.
+#&gt;  3 Adelaide South Australia 1998 Q3 Business  166.
+#&gt;  4 Adelaide South Australia 1998 Q4 Business  127.
+#&gt;  5 Adelaide South Australia 1999 Q1 Business  137.
+#&gt;  6 Adelaide South Australia 1999 Q2 Business  200.
+#&gt;  7 Adelaide South Australia 1999 Q3 Business  169.
+#&gt;  8 Adelaide South Australia 1999 Q4 Business  134.
+#&gt;  9 Adelaide South Australia 2000 Q1 Business  154.
+#&gt; 10 Adelaide South Australia 2000 Q2 Business  169.
+#&gt; # ... with 23,398 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
