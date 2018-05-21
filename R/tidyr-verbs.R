@@ -217,3 +217,21 @@ slice.lst_ts <- mutate.lst_ts
 
 #' @export
 group_by.lst_ts <- mutate.lst_ts
+
+#' @export
+left_join.lst_ts <- mutate.lst_ts
+
+#' @export
+right_join.lst_ts <- mutate.lst_ts
+
+#' @export
+full_join.lst_ts <- mutate.lst_ts
+
+#' @export
+inner_join.lst_ts <- mutate.lst_ts
+
+#' @export
+anti_join.lst_ts <- mutate.lst_ts
+
+#' @export
+semi_join.lst_ts <- mutate.lst_ts
