@@ -28,12 +28,7 @@
 
   ordered <- is_ordered(x)
   if (!missing(i)) {
-    i_dup <- anyDuplicated.default(i)
-    if (any_not_equal_to_c(i_dup, 0)) {
-      abort(sprintf("Duplicated integers occurs to the position of %i.", i_dup))
-    }
-    ascending <- is_ascending(i)
-    ordered <- ascending
+    ordered <- row_validate(i)
     result <- purrr::map(result, `[`, i)
   }
 
