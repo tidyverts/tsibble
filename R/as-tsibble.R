@@ -481,7 +481,7 @@ validate_index <- function(data, index) {
     inform(sprintf("The `index` is `%s`.", chr_index))
     return(sym(chr_index))
   } else {
-    chr_index <- quo_text(index)
+    chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {

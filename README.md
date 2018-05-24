@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tsibble
+# tsibble <img src="man/figures/logo.png" align="right" />
 
 */ˈt͡sɪbəl/*
 

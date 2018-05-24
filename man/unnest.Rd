@@ -10,7 +10,7 @@
 \arguments{
 \item{data}{A \code{lst_ts}.}
 
-\item{...}{Specification of columns to nest. Use bare variable names or
+\item{...}{Specification of columns to unnest. Use bare variable names or
 functions of variables. If omitted, defaults to all list-cols.}
 
 \item{key}{Unquoted variables to create the key (via \link{id}) after unnesting.}

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<h1 id="tsibble-">tsibble <img src="data:image/png;base64,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" align="right" /></h1>
+<p><em>/ˈt͡sɪbəl/</em></p>
+<p><a href="https://travis-ci.org/tidyverts/tsibble"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjUzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNGMxIi8+PHBhdGggZmlsbD0iIzRjMSIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjkwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBhc3Npbmc8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTQiPnBhc3Npbmc8L3RleHQ+PC9nPjwvc3ZnPg==" alt="Travis-CI Build Status" /></a> <a href="https://ci.appveyor.com/project/tidyverts/tsibble"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NyIgaGVpZ2h0PSIyMCIgc3R5bGU9InNoYXBlLXJlbmRlcmluZzpnZW9tZXRyaWNQcmVjaXNpb247IGltYWdlLXJlbmRlcmluZzpvcHRpbWl6ZVF1YWxpdHk7IGZpbGwtcnVsZTpldmVub2RkOyBjbGlwLXJ1bGU6ZXZlbm9kZCI+DQogIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4NCiAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz4NCiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4NCiAgPC9saW5lYXJHcmFkaWVudD4NCiAgPG1hc2sgaWQ9ImEiPg0KICAgIDxyZWN0IHdpZHRoPSI5NyIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4NCiAgPC9tYXNrPg0KICA8ZyBtYXNrPSJ1cmwoI2EpIj4NCiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDUzdjIwSDB6Ii8+DQogICAgPHBhdGggZmlsbD0iI2UwNWQ0NCIgZD0iTTUzIDBoNzV2MjBINTN6Ii8+DQogICAgPHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGg5N3YyMEgweiIvPg0KICA8L2c+DQogIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDQ1LDAsMCwwLjA0NSwwLDEuMDIyNzI3MikiPg0KICAgIDxwYXRoIGZpbGw9IiNjY2MiIGQ9Ik0yNDIgNDhjODYsMCAxNTUsNjkgMTU1LDE1NCAwLDg2IC02OSwxNTUgLTE1NSwxNTUgLTg1LDAgLTE1NCwtNjkgLTE1NCwtMTU1IDAsLTg1IDY5LC0xNTQgMTU0LC0xNTR6bTM4IDE4NGMtMTcsMjIgLTQ4LDI2IC02OSw5IC0yMSwtMTYgLTI0LC00NyAtNywtNjkgMTgsLTIxIDQ5LC0yNSA3MCwtOSAyMSwxNyAyNCw0OCA2LDY5em0tODIgMTAxbDU5IC01N2MtMjIsNSAtNDUsMSAtNjMsLTE0IC0yMSwtMTYgLTMwLC00MyAtMjcsLTY4bC01MyA1OGMwLDAgLTcsLTEzIC05LC0zN2w5MyAtNzNjMjgsLTIwIDY2LC0yMSA5MywwIDMwLDI0IDM2LDY4IDE0LDEwMWwtNjggOTdjLTEwLDAgLTMwLC0zIC0zOSwtN3oiLz4NCiAgPC9nPg0KICA8ZyBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+DQoNCiAgICA8dGV4dCB4PSIyMiIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmJ1aWxkPC90ZXh0Pg0KICAgIDx0ZXh0IHg9IjIyIiB5PSIxNCI+YnVpbGQ8L3RleHQ+DQoNCiAgICA8dGV4dCB4PSI1OCIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmZhaWxpbmc8L3RleHQ+DQogICAgPHRleHQgeD0iNTgiIHk9IjE0Ij5mYWlsaW5nPC90ZXh0Pg0KICA8L2c+DQo8L3N2Zz4=" alt="AppVeyor Build Status" /></a> <a href="https://codecov.io/github/tidyverts/tsibble?branch=master"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iOTQiIGhlaWdodD0iMjAiPjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz48L2xpbmVhckdyYWRpZW50PjxjbGlwUGF0aCBpZD0iYSI+PHJlY3Qgd2lkdGg9Ijk0IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI2EpIj48cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDU5djIwSDB6Ii8+PHBhdGggZmlsbD0iIzk3Q0EwMCIgZD0iTTU5IDBoMzV2MjBINTl6Ii8+PHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGg5NHYyMEgweiIvPjwvZz48ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMTAiPjx0ZXh0IHg9IjMwNSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDkwIj5jb3ZlcmFnZTwvdGV4dD48dGV4dCB4PSIzMDUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjQ5MCI+Y292ZXJhZ2U8L3RleHQ+PHRleHQgeD0iNzU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSIyNTAiPjkzJTwvdGV4dD48dGV4dCB4PSI3NTUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjI1MCI+OTMlPC90ZXh0PjwvZz4gPC9zdmc+" alt="Coverage Status" /></a> <a href="https://cran.r-project.org/package=tsibble"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NSIgaGVpZ2h0PSIyMCI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxtYXNrIGlkPSJhIj4KICAgIDxyZWN0IHdpZHRoPSI4NSIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4KICA8L21hc2s+CiAgPGcgbWFzaz0idXJsKCNhKSI+CiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDQzdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNDMgMGg2M3YyMEg0M3oiLz4KICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoODV2MjBIMHoiLz4KICA8L2c+CiAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIKICAgICBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+CiAgICA8dGV4dCB4PSIyMS41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIENSQU4KICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjIxLjUiIHk9IjE0Ij4KICAgICAgQ1JBTgogICAgPC90ZXh0PgogICAgPHRleHQgeD0iNjMiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgMC4yLjAKICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYzIiB5PSIxNCI+CiAgICAgIDAuMi4wCiAgICA8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=" alt="CRAN_Status_Badge" /></a> <a href="https://cran.r-project.org/package=tsibble"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDkiIGhlaWdodD0iMjAiPgogIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4KICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8bWFzayBpZD0iYSI+CiAgICA8cmVjdCB3aWR0aD0iMTQ5IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPgogIDwvbWFzaz4KICA8ZyBtYXNrPSJ1cmwoI2EpIj48cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDcwdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNzAgMGg3OXYyMEg3MHoiLz4KICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoMTQ5djIwSDB6Ii8+CiAgPC9nPgogIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICAgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgPHRleHQgeD0iMzYiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgZG93bmxvYWRzCiAgICA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNiIgeT0iMTQiPgogICAgICBkb3dubG9hZHMKICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjEwOC41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIDQ2Ny9tb250aAogICAgPC90ZXh0PgogICAgPHRleHQgeD0iMTA4LjUiIHk9IjE0Ij4KICAgICAgNDY3L21vbnRoCiAgICA8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=" alt="Downloads" /></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTE0IiBoZWlnaHQ9IjIwIj48bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PC9saW5lYXJHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImEiPjxyZWN0IHdpZHRoPSIxMTQiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIi8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjYSkiPjxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNTN2MjBIMHoiLz48cGF0aCBmaWxsPSIjMDA3ZWM2IiBkPSJNNTMgMGg2MXYyMEg1M3oiLz48cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDExNHYyMEgweiIvPjwvZz48ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMTAiPjx0ZXh0IHg9IjI3NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDMwIj5saWZlY3ljbGU8L3RleHQ+PHRleHQgeD0iMjc1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI0MzAiPmxpZmVjeWNsZTwvdGV4dD48dGV4dCB4PSI4MjUiIHk9IjE1MCIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjUxMCI+bWF0dXJpbmc8L3RleHQ+PHRleHQgeD0iODI1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI1MTAiPm1hdHVyaW5nPC90ZXh0PjwvZz4gPC9zdmc+" alt="lifecycle" /></a></p>
+<p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage temporal-context data frames in a “tidy” form. A <em>tsibble</em> consists of a time index, key and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
+<h2 id="installation">Installation</h2>
+<p>You could install the stable version on CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tsibble&quot;</span>)</a></code></pre></div>
+<p>You could install the development version from Github using</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages(&quot;devtools&quot;)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverts/tsibble&quot;</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<h2 id="get-started">Get started</h2>
+<h3 id="coerce-to-a-tsibble-with-as_tsibble">Coerce to a tsibble with <code>as_tsibble()</code></h3>
+<p>The <code>weather</code> data included in the package <code>nycflights13</code> is used as an example to illustrate. The “index” variable is the <code>time_hour</code> containing the date-times, and the “key” is the <code>origin</code> as weather stations created via <code>id()</code>. <strong>The key(s) together with the index uniquely identifies each observation</strong>, which gives a valid <em>tsibble</em>. Other columns can be considered as measured variables.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tsibble)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(origin, time_hour, temp, humid, precip)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">weather_tsbl &lt;-<span class="st"> </span><span class="kw">as_tsibble</span>(weather, <span class="dt">key =</span> <span class="kw">id</span>(origin), <span class="dt">index =</span> time_hour)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">weather_tsbl</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,130 x 5 [1HOUR]</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.612e+04 more rows</span></a></code></pre></div>
+<p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code>package?tsibble</code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code>vignette(&quot;intro-tsibble&quot;)</code></a> for details.</p>
+<p>The <strong>tsibble</strong> internally computes the interval for a given time index, based on its representation. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmth</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
+<h3 id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values"><code>fill_na()</code> to turn implicit missing values into explicit missing values</h3>
+<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using <code>fill_na()</code>. Meanwhile, fill <code>NA</code>s in by 0 for precipitation (<code>precip</code>). It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code>fill()</code> from <em>tidyr</em>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">fill_na</span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">fill</span>(temp, humid, <span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,208 x 5 [1HOUR]</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
+<p><code>fill_na()</code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out <code>count_gaps()</code>.</p>
+<h3 id="index_by--summarise-to-aggregate-over-calendar-periods"><code>index_by()</code> + <code>summarise()</code> to aggregate over calendar periods</h3>
+<p><code>index_by()</code> is the counterpart of <code>group_by()</code> in temporal context, but it groups the index only. In conjunction with <code>index_by()</code>, <code>summarise()</code> and its scoped variants aggregate interested variables over calendar periods. <code>index_by()</code> goes hand in hand with the index functions including <code>as.Date()</code>, <code>yearweek()</code>, <code>yearmonth()</code>, and <code>yearquarter()</code>, as well as other friends from <em>lubridate</em>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code>yearmonth()</code> to the hourly time index.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">full_weather <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(origin) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">index_by</span>(<span class="dt">year_month =</span> <span class="kw">yearmonth</span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># monthly aggregates</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw">sum</span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.6       2.7 </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR      2013 Feb     34.1       2.76</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.0       1.94</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     52.9       1.05</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.1       2.76</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
+<p>This combo can also help with regularising a tsibble of irregular time space.</p>
+<h3 id="a-family-of-window-functions-slide-tile-stretch">A family of window functions: <code>slide()</code>, <code>tile()</code>, <code>stretch()</code></h3>
+<p>Temporal data often involves moving window calculations. Several functions in the <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
+<ul>
+<li><code>slide()</code>: sliding window with overlapping observations.</li>
+<li><code>tile()</code>: tiling window without overlapping observations.</li>
+<li><code>stretch()</code>: fixing an initial window and expanding to include more observations.</li>
+</ul>
+<p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">temp_ma =</span> <span class="kw">slide</span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">size =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,208 x 6 [1HOUR]</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Keys:      origin [3]</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   origin time_hour            temp humid precip temp_ma</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 00:00:00  37.0  54.0      0    NA  </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 01:00:00  37.0  54.0      0    NA  </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 02:00:00  37.9  52.1      0    37.3</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 03:00:00  37.9  54.5      0    37.6</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 04:00:00  37.9  57.0      0    37.9</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.62e+04 more rows</span></a></code></pre></div>
+<h2 id="reexported-functions-from-the-tidyverse">Reexported functions from the tidyverse</h2>
+<p>It can be noticed that the tsibble seamlessly works with <em>dplyr</em> verbs. Use <code>?tsibble::reexports</code> for a full list of re-exported functions.</p>
+<ul>
+<li><strong>dplyr:</strong>
+<ul>
+<li><code>arrange()</code>, <code>filter()</code>, <code>slice()</code></li>
+<li><code>mutate()</code>/<code>transmute()</code>, <code>select()</code>, <code>summarise()</code>/<code>summarize()</code> with an additional argument <code>.drop = FALSE</code> to drop <code>tbl_ts</code> and coerce to <code>tbl_df</code></li>
+<li><code>rename()</code></li>
+<li><code>*_join()</code></li>
+<li><code>group_by()</code>, <code>ungroup()</code></li>
+</ul></li>
+<li><strong>tidyr</strong>: <code>gather()</code>, <code>spread()</code>, <code>nest()</code>, <code>unnest()</code></li>
+<li><strong>tibble:</strong> <code>glimpse()</code>, <code>as_tibble()</code>/<code>as.tibble()</code></li>
+<li><strong>rlang:</strong> <code>!!</code>, <code>!!!</code></li>
+</ul>
+<h2 id="related-work">Related work</h2>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=zoo">zoo</a>: regular and irregular time series with methods.</li>
+<li><a href="https://github.com/joshuaulrich/xts">xts</a>: extensible time series.</li>
+<li><a href="https://github.com/business-science/tibbletime">tibbletime</a>: time-aware tibbles.</li>
+<li><a href="https://github.com/EdwinTh/padr">padr</a>: padding of missing records in time series.</li>
+</ul>
+
+</body>
+</html>
