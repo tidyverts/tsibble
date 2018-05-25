@@ -1,5 +1,3 @@
-globalVariables(c("key", "value", "zzz"))
-
 #' Create a tsibble object
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
@@ -536,7 +534,7 @@ validate_tsibble <- function(data, key, index) {
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   tbl_dup <- grouped_df(data, vars = key_flatten(key)) %>%
-    summarise(zzz = anyDuplicated.default(!! index))
+    summarise(!! "zzz" := anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     msg <- sprintf("Invalid tsibble: identical data entries from `%s`", idx)
     if (!is_empty(key)) {
@@ -624,8 +622,8 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   index <- validate_index(data, enquo(index))
 
   grouped_df(data, vars = key_flatten(key)) %>%
-    mutate(zzz = duplicated.default(!! index, fromLast = fromLast)) %>%
-    dplyr::pull(zzz)
+    mutate(!! "zzz" := duplicated.default(!! index, fromLast = fromLast)) %>%
+    dplyr::pull(!! "zzz")
 
   # identifiers <- c(key_flatten(key), quo_text(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)

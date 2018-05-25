@@ -128,7 +128,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   out[[key_var]] <- purrr::map(
     nest_df, ~ tsibble_select(., !!! nest_vars, validate = FALSE)
   )
-  tibble::new_tibble(out, subclass = "lst_ts")
+  tibble::new_tibble(out, "lst_col" = key_var, subclass = "lst_ts")
 }
 
 #' Unnest a list column.
@@ -165,18 +165,13 @@ unnest.lst_ts <- function(data, ..., key = id(),
     return(data)
   }
   nested <- transmute(ungroup(data), !!! quos)
-  first_nested <- slice(nested, 1)
-  eval_df <- purrr::imap(first_nested, dplyr::first)
-  is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
-  if (is_false(any(is_tsbl))) {
+  lst_col <- lst_col(data)
+  if (is_false(lst_col %in% names(nested))) {
     abort("Must contain a list-column of `tbl_ts` to be unnested.")
-  }
-  if (sum(is_tsbl) > 1) {
-    abort("Only accept one list-column of `tbl_ts` to be unnested.")
   }
   out <- as_tibble(data) %>% 
     unnest(!!! quos, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-  tsbl <- eval_df[[is_tsbl]]
+  tsbl <- data[[lst_col]][[1]]
   idx <- index(tsbl)
   validate <- FALSE
   if (is_empty(key)) {
@@ -194,26 +189,53 @@ unnest.lst_ts <- function(data, ..., key = id(),
 
 #' @export
 mutate.lst_ts <- function(.data, ...) {
-  tibble::new_tibble(NextMethod(), subclass = "lst_ts")
+  lst_col <- lst_col(.data)
+  lst_quos <- enquos(..., .named = TRUE)
+  out <- NextMethod()
+  if (lst_col %in% names(lst_quos)) {
+    return(as_tibble(out))
+  } else {
+    tibble::new_tibble(out, "lst_col" = lst_col, subclass = "lst_ts")
+  }
 }
 
 #' @export
 transmute.lst_ts <- mutate.lst_ts
 
 #' @export
-select.lst_ts <- mutate.lst_ts
+select.lst_ts <- function(.data, ...) {
+  lst_col <- lst_col(.data)
+  cn <- names(.data)
+  lst_sel <- tidyselect::vars_select(cn, ...)
+  lst_ren <- tidyselect::vars_rename(cn, !!! lst_sel)
+  lst_col <- names(lst_ren)[lst_ren %in% lst_col]
+  out <- NextMethod()
+  if (is_false(lst_col %in% names(lst_sel))) {
+    return(as_tibble(out))
+  } else {
+    tibble::new_tibble(out, "lst_col" = lst_col, subclass = "lst_ts")
+  }
+}
 
 #' @export
-rename.lst_ts <- mutate.lst_ts
+rename.lst_ts <- function(.data, ...) {
+  lst_col <- lst_col(.data)
+  cn <- names(.data)
+  lst_ren <- tidyselect::vars_rename(cn, ...)
+  lst_col <- names(lst_ren)[lst_ren %in% lst_col]
+  tibble::new_tibble(NextMethod(), "lst_col" = lst_col, subclass = "lst_ts")
+}
 
 #' @export
-arrange.lst_ts <- mutate.lst_ts
+arrange.lst_ts <- function(.data, ...) {
+  as_lst_ts(NextMethod(), .data)
+}
 
 #' @export
-filter.lst_ts <- mutate.lst_ts
+filter.lst_ts <- arrange.lst_ts
 
 #' @export
-slice.lst_ts <- mutate.lst_ts
+slice.lst_ts <- arrange.lst_ts
 
 #' @export
 group_by.lst_ts <- mutate.lst_ts
@@ -222,7 +244,7 @@ group_by.lst_ts <- mutate.lst_ts
 left_join.lst_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  tibble::new_tibble(NextMethod(), subclass = "lst_ts")
+  as_lst_ts(NextMethod(), x)
 }
 
 #' @export
@@ -236,8 +258,21 @@ inner_join.lst_ts <- left_join.lst_ts
 
 #' @export
 anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  tibble::new_tibble(NextMethod(), subclass = "lst_ts")
+  as_lst_ts(NextMethod(), x)
 }
 
 #' @export
 semi_join.lst_ts <- anti_join.lst_ts
+
+lst_col <- function(x) {
+  attr(x, "lst_col")
+}
+
+as_lst_ts <- function(x, y) { # x is other data, y contains a list-ts
+  tibble::new_tibble(x, "lst_col" = lst_col(y), subclass = "lst_ts")
+}
+
+as_tibble.lst_ts <- function(x, ...) {
+  attr(x, "lst_col") <- NULL
+  tibble::new_tibble(x)
+}

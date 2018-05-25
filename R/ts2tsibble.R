@@ -1,5 +1,3 @@
-globalVariables(c("time"))
-
 #' @rdname as-tsibble
 #' @param tz Time zone. May be useful when a `ts` object is more frequent than
 #' daily.
@@ -69,7 +67,7 @@ as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
 as_tsibble.hts <- function(x, tz = "UTC", ...) {
   full_labs <- extract_labels(x)
   tbl <- gather_ts(x, tz = tz) %>% 
-    dplyr::select(index, value)
+    dplyr::select(index, "value")
   tbl_hts <- dplyr::bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
   lst_key <- list(syms(colnames(tbl_hts)[3:ncol(tbl_hts)]))
