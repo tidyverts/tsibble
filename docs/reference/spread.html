@@ -31,6 +31,8 @@
 <meta property="og:title" content="Spread a key-value pair across multiple columns. — spread.tbl_ts" />
 
 <meta property="og:description" content="Spread a key-value pair across multiple columns." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -58,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -186,16 +188,16 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
 <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1DAY]
 #&gt;    time            X      Y      Z
 #&gt;    &lt;date&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01  1.32  -5.88  -3.02 
-#&gt;  2 2009-01-02  0.637  1.44  -1.96 
-#&gt;  3 2009-01-03  0.514 -1.40  -4.66 
-#&gt;  4 2009-01-04 -1.75  -3.79  -1.92 
-#&gt;  5 2009-01-05  0.894  0.153  0.461
-#&gt;  6 2009-01-06  0.223  1.75  -7.07 
-#&gt;  7 2009-01-07  0.581  0.908 -5.63 
-#&gt;  8 2009-01-08 -0.178 -1.70   2.84 
-#&gt;  9 2009-01-09  0.741  1.13  -4.96 
-#&gt; 10 2009-01-10 -0.997  2.30  -1.47 </div></pre>
+#&gt;  1 2009-01-01 -1.75  -3.79  -1.92 
+#&gt;  2 2009-01-02  0.894  0.153  0.461
+#&gt;  3 2009-01-03  0.223  1.75  -7.07 
+#&gt;  4 2009-01-04  0.581  0.908 -5.63 
+#&gt;  5 2009-01-05 -0.178 -1.70   2.84 
+#&gt;  6 2009-01-06  0.741  1.13  -4.96 
+#&gt;  7 2009-01-07 -0.997  2.30  -1.47 
+#&gt;  8 2009-01-08 -2.94  -1.51   1.85 
+#&gt;  9 2009-01-09  0.719 -0.979 -1.29 
+#&gt; 10 2009-01-10 -0.698 -2.33  -5.15 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

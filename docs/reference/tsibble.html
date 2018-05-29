@@ -31,6 +31,8 @@
 <meta property="og:title" content="Create a tsibble object — tsibble" />
 
 <meta property="og:description" content="Create a tsibble object" />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -58,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -147,7 +149,7 @@ finds the greatest common divisor of positive time distances as the interval.</p
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A tsibble is sorted by its key(s) first and index.</p>
+    <p>A tsibble is sorted by its key first and index.</p>
     
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
@@ -164,6 +166,8 @@ instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year e
 12 months every year. However, if using <code>Date</code>, a month contains days ranging
 from 28 to 31 days, which results in irregular time space. This is also applicable
 to year-week and year-quarter.</p>
+<p>Since the <strong>tibble</strong> that underlies the <strong>tsibble</strong> only accepts a 1d atomic
+vector or a list, a <code>tbl_ts</code> doesn't accept <code>POSIXlt</code> and <code>timeDate</code> columns.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
@@ -216,16 +220,16 @@ cannot be determined (<code>?</code>).</p></li>
 <span class='no'>tsbl1</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
 #&gt;    date         value
 #&gt;    &lt;date&gt;       &lt;dbl&gt;
-#&gt;  1 2017-01-01  1.49  
-#&gt;  2 2017-01-02 -0.659 
-#&gt;  3 2017-01-03  0.537 
-#&gt;  4 2017-01-04  0.747 
-#&gt;  5 2017-01-05  1.90  
-#&gt;  6 2017-01-06 -2.06  
-#&gt;  7 2017-01-07  0.0645
-#&gt;  8 2017-01-08 -0.265 
-#&gt;  9 2017-01-09 -0.447 
-#&gt; 10 2017-01-10 -1.41  </div><div class='input'>
+#&gt;  1 2017-01-01  0.747 
+#&gt;  2 2017-01-02  1.90  
+#&gt;  3 2017-01-03 -2.06  
+#&gt;  4 2017-01-04  0.0645
+#&gt;  5 2017-01-05 -0.265 
+#&gt;  6 2017-01-06 -0.447 
+#&gt;  7 2017-01-07 -1.41  
+#&gt;  8 2017-01-08 -0.506 
+#&gt;  9 2017-01-09 -0.270 
+#&gt; 10 2017-01-10 -1.09  </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='no'>tsbl2</span> <span class='kw'>&lt;-</span> <span class='fu'>tsibble</span>(
   <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2010</span>, <span class='fl'>2012.25</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>4</span>)), <span class='fl'>3</span>),
@@ -235,18 +239,18 @@ cannot be determined (<code>?</code>).</p></li>
 )
 <span class='no'>tsbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1QUARTER]
 #&gt; # Keys:      group [3]
-#&gt;        qtr group  value
-#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
-#&gt;  1 2010 Q1 x     -0.506
-#&gt;  2 2010 Q2 x     -0.270
-#&gt;  3 2010 Q3 x     -1.09 
-#&gt;  4 2010 Q4 x      0.362
-#&gt;  5 2011 Q1 x     -0.336
-#&gt;  6 2011 Q2 x      1.36 
-#&gt;  7 2011 Q3 x     -0.712
-#&gt;  8 2011 Q4 x      0.662
-#&gt;  9 2012 Q1 x      0.291
-#&gt; 10 2012 Q2 x      0.198
+#&gt;        qtr group   value
+#&gt;      &lt;qtr&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 2010 Q1 x      0.362 
+#&gt;  2 2010 Q2 x     -0.336 
+#&gt;  3 2010 Q3 x      1.36  
+#&gt;  4 2010 Q4 x     -0.712 
+#&gt;  5 2011 Q1 x      0.662 
+#&gt;  6 2011 Q2 x      0.291 
+#&gt;  7 2011 Q3 x      0.198 
+#&gt;  8 2011 Q4 x     -1.20  
+#&gt;  9 2012 Q1 x     -0.0398
+#&gt; 10 2012 Q2 x      0.687 
 #&gt; # ... with 20 more rows</div><div class='input'>
 </div></pre>
   </div>
