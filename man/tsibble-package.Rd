@@ -24,6 +24,9 @@ instead of \code{Date} or \code{POSIXct}. Because months in a year ensures the r
 12 months every year. However, if using \code{Date}, a month contains days ranging
 from 28 to 31 days, which results in irregular time space. This is also applicable
 to year-week and year-quarter.
+
+Since the \strong{tibble} that underlies the \strong{tsibble} only accepts a 1d atomic
+vector or a list, a \code{tbl_ts} doesn't accept \code{POSIXlt} and \code{timeDate} columns.
 }
 
 \section{Key}{

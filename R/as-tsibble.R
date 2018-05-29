@@ -147,11 +147,7 @@ as_tsibble.grouped_ts <- as_tsibble.grouped_df
 #' @keywords internal
 #' @export
 as_tsibble.default <- function(x, ...) {
-  cls <- class(x)[1]
-  msg <- sprintf(
-    "`as_tsibble()` doesn't know how to coerce the `%s` class yet.", cls
-  )
-  abort(msg)
+  dont_know(x, "as_tsibble")
 }
 
 #' @keywords internal

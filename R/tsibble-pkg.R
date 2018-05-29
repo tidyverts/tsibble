@@ -19,6 +19,9 @@
 #' from 28 to 31 days, which results in irregular time space. This is also applicable
 #' to year-week and year-quarter.
 #'
+#' Since the **tibble** that underlies the **tsibble** only accepts a 1d atomic 
+#' vector or a list, a `tbl_ts` doesn't accept `POSIXlt` and `timeDate` columns.
+#'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record. And
 #' key(s) also imposes the structure on a tsibble, which can be created via the

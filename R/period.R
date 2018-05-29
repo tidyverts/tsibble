@@ -67,6 +67,11 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
+yearweek.default <- function(x) {
+  dont_know(x, "yearweek")
+}
+
+#' @export
 yearweek.POSIXt <- function(x) {
   as_yearweek(as_date(lubridate::floor_date(x, unit = "weeks", week_start = 1)))
 }
@@ -145,6 +150,11 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
+yearmonth.default <- function(x) {
+  dont_know(x, "yearmonth")
+}
+
+#' @export
 yearmonth.POSIXt <- function(x) {
   as_yearmonth(as_date(lubridate::floor_date(x, unit = "months")))
 }
@@ -216,6 +226,11 @@ rep.yearquarter <- function(x, ...) {
 #' @export
 unique.yearquarter <- function(x, incomparables = FALSE, ...) {
   as_yearquarter(NextMethod())
+}
+
+#' @export
+yearquarter.default <- function(x) {
+  dont_know(x, "yearquarter")
 }
 
 #' @export

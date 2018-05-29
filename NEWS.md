@@ -1,5 +1,7 @@
 # tsibble 0.2.0.9000
 
+The **tsibble** package has a hexagon logo now! Thanks Mitch (@mitchelloharawild).
+
 ## New functions
 
 * New `difference()` computes lagged differences of a numeric vector. It returns a vector of the same length as the input with `NA` padded. It works with `mutate()`.
