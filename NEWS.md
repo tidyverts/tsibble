@@ -1,4 +1,4 @@
-# tsibble 0.2.0.9000
+# tsibble 0.3.0
 
 The **tsibble** package has a hexagon logo now! Thanks Mitch (@mitchelloharawild).
 

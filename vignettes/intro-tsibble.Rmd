@@ -42,7 +42,7 @@ weather_tsbl <- as_tsibble(weather, key = id(origin))
 weather_tsbl
 ```
 
-The tsibble fully utilises the `print` method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order.  This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a "data pipeline" in time-based context. Users who are familiar with tidyverse would find easier to perform common time series analysis tasks. For example, `index_by()` is the counterpart of `group_by()` in temporal context, but it only groups the time index. `index_by()` + `summarise()` is used to summarise daily highs and lows at each station. As a result, the index is updated to the `date` with one-day interval from `time_hour`; two new variables are created and computed for daily maximum and minimum temperatures.
+The tsibble fully utilises the `print` method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order.  This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a "data pipeline" in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, `index_by()` is the counterpart of `group_by()` in temporal context, but it only groups the time index. `index_by()` + `summarise()` is used to summarise daily highs and lows at each station. As a result, the index is updated to the `date` with one-day interval from `time_hour`; two new variables are created and computed for daily maximum and minimum temperatures.
 
 ```{r weather-tsum}
 weather_tsbl %>%
@@ -54,7 +54,7 @@ weather_tsbl %>%
   )
 ```
 
-## Nested and crossed keys
+## Nested and crossed structures
 
 The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` includes the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from [Tourism Research Australia](https://www.tra.gov.au). The key structure is imposed by `Region | State, Purpose`. The `Region` and `State` naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (`|`). The crossing of `Purpose` (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (`,`) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.
 
@@ -74,7 +74,7 @@ This syntactical approach appears more advantageous for the structural variables
 
 ## Intervals
 
-It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation. The option `regular`, by default, is set to `TRUE` in `as_tsibble()`. Specify `regular` to `FALSE` to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York City:
+It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see `?tsibble`). The option `regular`, by default, is set to `TRUE` in `as_tsibble()`. Specify `regular` to `FALSE` to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York City:
 
 ```{r flights}
 flights <- nycflights13::flights %>%

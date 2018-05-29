@@ -10,4 +10,4 @@
 
 ## Reverse dependencies
 
-There are no reverse dependencies for this package.
+I have run R CMD check on the 1 downstream dependency. The package that I could install passed the checks.

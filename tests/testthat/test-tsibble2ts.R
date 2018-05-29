@@ -39,6 +39,7 @@ test_that("a tsibble with more than one measured vars", {
   y <- as.ts(pedestrian, value = Count)
   expect_is(y, "mts")
   expect_equal(frequency(y), 24)
+  expect_equal(frequency(pedestrian), 24)
   expect_equal(ncol(y), 4)
 })
 

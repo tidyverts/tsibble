@@ -62,7 +62,7 @@ finalise_ts <- function(data, index, frequency = NULL) {
   stats::ts(out, stats::start(idx_time), frequency = frequency)
 }
 
-#' @importFrom stats as.ts tsp<- time
+#' @importFrom stats as.ts tsp<- time frequency
 #' @export
 time.yearweek <- function(x, ...) {
   freq <- guess_frequency(x)
@@ -166,4 +166,10 @@ guess_frequency.POSIXt <- function(x) {
   } else {
     3600 * 60 * number
   }
+}
+
+#' @export
+frequency.tbl_ts <- function(x, ...) {
+  not_regular(x)
+  guess_frequency(eval_tidy(index(x), data = x))
 }
