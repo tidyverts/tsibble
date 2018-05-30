@@ -56,6 +56,7 @@ test_that("nest()", {
  expect_error(pedestrian %>% nest(-Date_Time), "must nest the `index`")
  expect_error(pedestrian %>% nest(Sensor), "must nest the `index`")
  expect_named(pedestrian %>% nest(), "data")
+ expect_equal(lst_col(pedestrian %>% nest()), "data")
  expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
  expect_named(
    pedestrian %>% group_by(Sensor) %>% nest(),

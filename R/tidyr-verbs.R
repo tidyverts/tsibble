@@ -118,7 +118,9 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   data <- ungroup(data)
   if (is_empty(grp_vars)) {
     return(tibble::new_tibble(
-      tibble::tibble(!! key_var := list(data)), subclass = "lst_ts"
+      tibble::tibble(!! key_var := list(data)), 
+      "lst_col" = key_var,
+      subclass = "lst_ts"
     ))
   }
   nest_vars <- setdiff(nest_vars, grp_vars)
