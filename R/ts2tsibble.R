@@ -12,7 +12,7 @@
 #' @export
 as_tsibble.ts <- function(x, tz = "UTC", ...) {
   idx <- time_to_date(x, tz = tz)
-  value <- unclass(x) # rm its ts class
+  value <- as.numeric(x) # rm its ts class
   tbl <- tibble::tibble(index = idx, value = value)
   build_tsibble(
     tbl, key = id(), index = index, validate = FALSE, ordered = TRUE

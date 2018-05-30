@@ -1,3 +1,9 @@
+# tsibble 0.3.0.9000
+
+## Bug fixes
+
+* `as_tsibble.ts()` cleaned the `tsp` attribute from the `ts` class.
+
 # tsibble 0.3.0
 
 The **tsibble** package has a hexagon logo now! Thanks Mitch (@mitchelloharawild).
