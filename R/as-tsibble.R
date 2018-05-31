@@ -44,10 +44,10 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
   if (is_empty(dots)) {
     abort("A tsibble must not be empty.")
   }
-  if (is.data.frame(dots[[1]])) {
+  if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
   }
-  tbl <- tibble::tibble(!!! dots)
+  tbl <- tibble::tibble(...)
   index <- enquo(index)
   build_tsibble(tbl, key = key, index = !! index, regular = regular)
 }

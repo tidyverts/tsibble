@@ -4,6 +4,7 @@
 
 * `as_tsibble.ts()` removed the `tsp` attribute from the `value` column.
 * `nest.tbl_ts()` added the missing `lst_col` when `...` is empty. (#25).
+* More informative error message when a data frame is passed to `tsibble()`.
 
 # tsibble 0.3.0
 
