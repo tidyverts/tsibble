@@ -135,7 +135,7 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   val_idx <- has_index(j = val_vars, x = .data)
   if (is_false(val_idx)) {
     abort(sprintf(
-      "The `index` (`%s`) must not be dropped. Do you need `.drop = TRUE` to drop `tbl_ts`?",
+      "The `index` (`%s`) must not be dropped, do you want `.drop = TRUE` to drop `tbl_ts`?",
       quo_text(index(.data))
     ))
   }

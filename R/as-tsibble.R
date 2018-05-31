@@ -40,7 +40,14 @@
 #'
 #' @export
 tsibble <- function(..., key = id(), index, regular = TRUE) {
-  tbl <- tibble::tibble(...)
+  dots <- rlang::dots_list(...)
+  if (is_empty(dots)) {
+    abort("A tsibble must not be empty.")
+  }
+  if (is.data.frame(dots[[1]])) {
+    abort("Must not be a data frame, do you want `as_tsibble()`?")
+  }
+  tbl <- tibble::tibble(!!! dots)
   index <- enquo(index)
   build_tsibble(tbl, key = key, index = !! index, regular = regular)
 }
