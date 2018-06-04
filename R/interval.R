@@ -82,7 +82,7 @@ pull_interval.yearqtr <- function(x) {
 #' @export
 pull_interval.numeric <- function(x) {
   nunits <- gcd_interval(x)
-  if (min0(x) > 999) {
+  if (min0(x) > 1599 && max0(x) < 2500) {
     return(structure(list(year = nunits), class = "interval"))
   }
   structure(list(unit = nunits), class = "interval")
@@ -107,7 +107,7 @@ time_unit.POSIXt <- function(x) {
 #' @export
 time_unit.numeric <- function(x) {
   int <- pull_interval(x)
-  if (min0(x) > 999) {
+  if (min0(x) > 1599 && max0(x) < 2500) {
     return(int$year)
   }
   int$unit

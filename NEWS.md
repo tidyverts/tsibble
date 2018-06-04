@@ -1,5 +1,9 @@
 # tsibble 0.3.0.9000
 
+## New features
+
+* Defined `as.double()` & `as.integer()` for year-week, year-month, and year-quarter.
+
 ## Bug fixes
 
 * `as_tsibble.ts()` removed the `tsp` attribute from the `value` column.

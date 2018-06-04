@@ -1,5 +1,18 @@
 context("year-week, year-month, year-quarter")
 
+yw <- seq(yearweek(as.Date("1970-01-01")), length.out = 3, by = 1)
+ym <- seq(yearmonth(1970 + 0 / 12), length.out = 3, by = 1)
+yq <- seq(yearquarter(1970 + 0 / 4), length.out = 3, by = 1)
+
+test_that("as.numeric() & as.integer()", {
+  expect_equal(as.numeric(yw), 0:2)
+  expect_equal(as.numeric(ym), 1:3)
+  expect_equal(as.numeric(yq), 1:3)
+  expect_equal(as.integer(yw), 0:2)
+  expect_equal(as.integer(ym), 1:3)
+  expect_equal(as.integer(yq), 1:3)
+})
+
 a <- yearweek(seq(ymd("2017-02-01"), length.out = 12, by = "1 week"))
 a2 <- rep(a, 2)
 x <- yearmonth(seq(2010, 2012, by = 1 / 12))

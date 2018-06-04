@@ -57,12 +57,12 @@ surround <- function(x, bracket = "(") {
   }
 }
 
-min0 <- function(x) {
-  min(x, na.rm = TRUE)
+min0 <- function(...) {
+  min(..., na.rm = TRUE)
 }
 
-max0 <- function(x) {
-  max(x, na.rm = TRUE)
+max0 <- function(...) {
+  max(..., na.rm = TRUE)
 }
 
 dont_know <- function(x, FUN) {

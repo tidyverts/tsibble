@@ -67,6 +67,16 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
+as.double.yearweek <- function(x, ...) {
+  as.double((x - as_date("1969-12-29")) / 7)
+}
+
+#' @export
+as.integer.yearweek <- function(x, ...) {
+  as.integer(as.double(x))
+}
+
+#' @export
 yearweek.default <- function(x) {
   dont_know(x, "yearweek")
 }
@@ -150,6 +160,16 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
+as.double.yearmonth <- function(x, ...) {
+  (lubridate::year(x) - 1970) * 12 + lubridate::month(x)
+}
+
+#' @export
+as.integer.yearmonth <- function(x, ...) {
+  as.integer(as.double(x))
+}
+
+#' @export
 yearmonth.default <- function(x) {
   dont_know(x, "yearmonth")
 }
@@ -229,6 +249,16 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
+as.double.yearquarter <- function(x, ...) {
+  (lubridate::year(x) - 1970) * 4 + lubridate::quarter(x)
+}
+
+#' @export
+as.integer.yearquarter <- function(x, ...) {
+  as.integer(as.double(x))
+}
+
+#' @export
 yearquarter.default <- function(x) {
   dont_know(x, "yearquarter")
 }
@@ -274,19 +304,9 @@ as_date.yearquarter <- function(x, ...) {
   x
 }
 
-as_date.yearmonth <- function(x, ...) {
-  tz_x <- tz(x)
-  class(x) <- "Date"
-  tz(x) <- tz_x
-  x
-}
+as_date.yearmonth <- as_date.yearquarter
 
-as_date.yearweek <- function(x, ...) {
-  tz_x <- tz(x)
-  class(x) <- "Date"
-  tz(x) <- tz_x
-  x
-}
+as_date.yearweek <- as_date.yearquarter
 
 #' @export
 as.Date.yearquarter <- as_date.yearquarter
