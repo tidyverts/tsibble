@@ -24,6 +24,12 @@ test_that("a tsibble with different frequnecy", {
   expect_equal(x4, y4)
   expect_equal(frequency(y4), 12)
   expect_equal(start(y4), c(2000, 1))
+  tsbl5 <- tsbl4 %>% 
+    mutate(value2 = rnorm(10))
+  expect_equal(ncol(as.ts(tsbl5)), 2)
+  expect_is(as.ts(tsbl5), "mts")
+  expect_equal(NCOL(as.ts(tsbl5, value = value2)), 1)
+  expect_is(as.ts(tsbl5, value = value2), "ts")
 })
 
 test_that("a tsibble with a single key", {
