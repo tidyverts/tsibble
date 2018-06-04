@@ -56,7 +56,6 @@ test_that("nest()", {
  expect_error(pedestrian %>% nest(-Date_Time), "must nest the `index`")
  expect_error(pedestrian %>% nest(Sensor), "must nest the `index`")
  expect_named(pedestrian %>% nest(), "data")
- expect_equal(lst_col(pedestrian %>% nest()), "data")
  expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
  expect_named(
    pedestrian %>% group_by(Sensor) %>% nest(),
@@ -73,7 +72,6 @@ nest_t <- tourism %>%
   nest(-Region, -State)
 
 test_that("unnest()", {
-  expect_error(nest_t %>% unnest(Region), "Must contain a list-column")
   expect_error(nest_t %>% unnest(key = Region), "Have you forgotten")
   expect_error(nest_t %>% unnest(), "Invalid tsibble:")
   expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
@@ -83,15 +81,12 @@ test_that("unnest()", {
 test_that("dplyr verbs for lst_ts", {
   expect_error(
     nest_t %>% mutate(data2 = data) %>% unnest(),
-    "Invalid tsibble"
+    "accepts a list-column of `tbl_ts` to be unnested."
   )
-  expect_equal(class(nest_t %>% mutate(data = 1))[[1]], "tbl_df")
-  expect_equal(lst_col(nest_t %>% select(data)), "data")
-  expect_equal(class(nest_t %>% select(-data))[[1]], "tbl_df")
+  expect_named(
+    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = id(Region | State)),
+    c("Region", "State", "Quarter", "Purpose", "Trips")
+  )
+  expect_is(unnest(nest_t %>% mutate(data = 1)), "tbl_df")
   expect_is(nest_t %>% select(data2 = data), "lst_ts")
-  expect_equal(lst_col(nest_t %>% select(data2 = data)), "data2")
-  expect_equal(lst_col(nest_t %>% rename(data2 = data)), "data2")
-  expect_equal(lst_col(nest_t %>% rename()), "data")
-  expect_equal(lst_col(nest_t %>% rename(region = Region)), "data")
-  expect_equal(lst_col(nest_t %>% arrange(State)), "data")
 })
