@@ -9,8 +9,8 @@ rle_lgl <- function(x) {
     .Call(`_tsibble_rle_lgl`, x)
 }
 
-gcd_interval <- function(x) {
-    .Call(`_tsibble_gcd_interval`, x)
+gcd_vector <- function(x) {
+    .Call(`_tsibble_gcd_vector`, x)
 }
 
 any_not_equal_to_c <- function(x, c) {

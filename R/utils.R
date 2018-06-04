@@ -34,11 +34,11 @@ first_arg <- function(x) {
 
 # regular time interval is obtained from the greatest common divisor of positive
 # time distances.
-min_interval <- function(x) {
+gcd_interval <- function(x) {
   if (has_length(x, 1)) { # only one time index
     return(NA_real_)
   }
-  gcd_interval(x)
+  gcd_vector(x)
 }
 
 validate_vars <- function(j, x) { # j = quos/chr/dbl
