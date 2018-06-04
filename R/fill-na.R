@@ -218,6 +218,14 @@ gaps <- function(x, y) {
   )
 }
 
+# has_gaps <- function(.data, .full = FALSE) {
+#   grouped_df(.data, key_vars(.data)) %>% 
+#     mutate(!! "diff" := difference(as.double(!! index(.data)))) %>% 
+#     summarise(!! "lgl" := any_not_equal_to_c(diff[-1], diff[2])) %>% 
+#     dplyr::pull("lgl") %>% 
+#     any()
+# }
+
 seq_by <- function(x) {
   seq(from = min0(x), to = max0(x), by = time_unit(x))
 }

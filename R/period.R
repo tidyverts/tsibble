@@ -77,6 +77,12 @@ as.integer.yearweek <- function(x, ...) {
 }
 
 #' @export
+diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
+  out <- diff(as.double(x), lag = lag, differences = differences)
+  structure(out, class = "difftime", units = "weeks")
+}
+
+#' @export
 yearweek.default <- function(x) {
   dont_know(x, "yearweek")
 }
@@ -95,25 +101,13 @@ yearweek.yearweek <- function(x) {
 }
 
 #' @export
-format.yearweek <- function(x, format = "%Y W%w", ...) {
+format.yearweek <- function(x, format = "%Y W%V", ...) {
   x <- as_date(x)
-  year <- lubridate::year(x)
-  year_sym <- "%Y"
-  if (grepl("%y", format)) {
-    year <- sprintf("%02d", year %% 100)
-    year_sym <- "%y"
-  } else if (grepl("%C", format)) {
-    year <- year %/% 100
-    year_sym <- "%C"
-  }
-  wk <- strftime(x, format = "%V")
-  wk_sub <- purrr::map_chr(wk, ~ gsub("%w", ., x = format))
-  year_sub <- purrr::map2_chr(year, wk_sub, ~ gsub(year_sym, .x, x = .y))
-  year_sub
+  strftime(x, format = format)
 }
 
 #' @export
-print.yearweek <- function(x, format = "%Y W%w", ...) {
+print.yearweek <- function(x, format = "%Y W%V", ...) {
   print(format(x, format = format))
   invisible(x)
 }
@@ -167,6 +161,12 @@ as.double.yearmonth <- function(x, ...) {
 #' @export
 as.integer.yearmonth <- function(x, ...) {
   as.integer(as.double(x))
+}
+
+#' @export
+diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
+  out <- diff(as.double(x), lag = lag, differences = differences)
+  structure(out, class = "difftime", units = "month")
 }
 
 #' @export
@@ -256,6 +256,12 @@ as.double.yearquarter <- function(x, ...) {
 #' @export
 as.integer.yearquarter <- function(x, ...) {
   as.integer(as.double(x))
+}
+
+#' @export
+diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
+  out <- diff(as.double(x), lag = lag, differences = differences)
+  structure(out, class = "difftime", units = "quarter")
 }
 
 #' @export

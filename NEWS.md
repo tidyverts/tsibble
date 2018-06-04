@@ -2,7 +2,7 @@
 
 ## New features
 
-* Defined `as.double()` & `as.integer()` for year-week, year-month, and year-quarter.
+* Defined `diff()`, `as.double()` & `as.integer()` for year-week, year-month, and year-quarter.
 
 ## Bug fixes
 
