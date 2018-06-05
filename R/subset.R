@@ -28,7 +28,7 @@
 
   ordered <- is_ordered(x)
   if (!missing(i)) {
-    ordered <- row_validate(i)
+    # ordered <- row_validate(i)
     result <- purrr::map(result, `[`, i)
   }
 
