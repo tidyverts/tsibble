@@ -28,7 +28,8 @@ Imports:
     rlang (>= 0.2.0),
     tibble (>= 1.4.1),
     tidyr,
-    tidyselect
+    tidyselect,
+    timeDate
 Suggests: 
     covr,
     ggplot2 (>= 2.2.0),

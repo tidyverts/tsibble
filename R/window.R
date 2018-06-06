@@ -229,13 +229,6 @@ stretcher <- function(x, size = 1, init = 1) {
   if (!is_bare_numeric(init, n = 1) || init < 1) {
     abort("`init` must be a positive integer.")
   }
-  incr <- function(init, size) {
-    init
-    function() {
-      init <<- init + size
-      init
-    }
-  }
   counter <- incr(init = init, size = size) 
 
   ncall <- seq_len(ceiling((NROW(x) - init) / size) - 1)
@@ -253,5 +246,13 @@ bad_window_function <- function(x, size) {
   }
   if (!is_bare_numeric(size, n = 1) || size < 1) {
     abort("`size` must be a positive integer.")
+  }
+}
+
+incr <- function(init, size) {
+  init
+  function() {
+    init <<- init + size
+    init
   }
 }
