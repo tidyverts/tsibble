@@ -96,6 +96,11 @@ yearweek.POSIXt <- function(x) {
 yearweek.Date <- yearweek.POSIXt
 
 #' @export
+yearweek.character <- function(x) {
+  as_yearweek(as_date(x))
+}
+
+#' @export
 yearweek.yearweek <- function(x) {
   as_yearweek(x)
 }
@@ -181,6 +186,11 @@ yearmonth.POSIXt <- function(x) {
 
 #' @export
 yearmonth.Date <- yearmonth.POSIXt
+
+#' @export
+yearmonth.character <- function(x) {
+  as_yearmonth(as_date(x))
+}
 
 #' @export
 yearmonth.yearweek <- yearmonth.POSIXt
@@ -276,6 +286,11 @@ yearquarter.POSIXt <- function(x) {
 
 #' @export
 yearquarter.Date <- yearquarter.POSIXt
+
+#' @export
+yearquarter.character <- function(x) {
+  as_yearquarter(as_date(x))
+}
 
 #' @export
 yearquarter.yearweek <- yearquarter.POSIXt

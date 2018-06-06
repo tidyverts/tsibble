@@ -54,3 +54,9 @@ test_that("POSIXct", {
   expect_equal(format(yearmonth(xx)), "2018 Jan")
   expect_equal(format(yearquarter(xx)), "2018 Q1")
 })
+
+test_that("character", {
+  expect_equal(format(yearweek(as.character(xx))), "2018 W01")
+  expect_equal(format(yearmonth(as.character(xx))), "2018 Jan")
+  expect_equal(format(yearquarter(as.character(xx))), "2018 Q1")
+})

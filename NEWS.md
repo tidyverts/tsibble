@@ -3,6 +3,7 @@
 ## New features
 
 * Defined `diff()`, `as.double()` & `as.integer()` for year-week, year-month, and year-quarter.
+* `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 
 ## Bug fixes
 
