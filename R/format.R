@@ -61,7 +61,15 @@ format.interval <- function(x, digits = NULL, ...) {
     return("!")
   }
   if (is.null(digits)) {
-    digits <- 3
+    digits <- 1
+    secs <- x$second
+    if (!(is.null(secs) || is.na(secs))) {
+      digits <- 3
+      decs <- secs - floor(secs)
+      if (decs < 0.001) {
+        digits  <- nchar(decs)
+      }
+    }
   }
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   # if output is empty, it means that duplicated time entries

@@ -30,6 +30,15 @@ test_that("Coerce to tbl_df and data.frame", {
   expect_identical(as.data.frame(tsbl), as.data.frame(dat_x))
 })
 
+start <- as.POSIXct("2010-01-15 13:55:23.975", tz = "UTC")
+x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 10))
+df <- data.frame(time = x, value = rnorm(10))
+tsbl <- as_tsibble(df, index = time)
+
+test_that("POSIXct with 10 milliseconds interval", {
+  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[0.01SECOND\\]")
+})
+
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))

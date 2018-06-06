@@ -33,14 +33,14 @@ List rle_lgl(NumericVector x) {
 }
 
 double gcd(double x, double y) {
-  return y == 0 ? x : gcd(y, std::fmod(x,y));
+  return y == 0 ? x : gcd(y, std::fmod(x, y));
 }
 
 // Find the greatest common divisor for a vector of numerics
 // [[Rcpp::export]]
 double gcd_vector(NumericVector x) {
   NumericVector abs_diff = abs(diff(x));
-  
+
   return std::accumulate(abs_diff.begin(), abs_diff.end(), abs_diff[0], gcd);
 }
 
