@@ -2,6 +2,7 @@
 
 ## New features
 
+* New `holiday_aus()` for Australian national and state-based public holiday.
 * Defined `diff()`, `as.double()` & `as.integer()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 
