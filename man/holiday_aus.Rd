@@ -2,29 +2,29 @@
 % Please edit documentation in R/holiday.R
 \name{holiday_aus}
 \alias{holiday_aus}
-\title{Australia public holidays}
+\title{Australian national and state-based public holiday}
 \usage{
-holiday_aus(year, state = "National")
+holiday_aus(year, state = "national")
 }
 \arguments{
 \item{year}{A vector of integer(s) indicating year(s).}
 
 \item{state}{A state in Australia including "ACT", "NSW", "NT", "QLD", "SA",
-"TAS", "VIC", "WA", as well as "National".}
+"TAS", "VIC", "WA", as well as "national".}
 }
 \value{
 A tibble consisting of \code{holiday} labels and their associated dates
 in the year(s).
 }
 \description{
-Australia public holidays
+Australian national and state-based public holiday
 }
 \details{
 Not documented public holidays:
 \itemize{
 \item AFL public holidays for Victoria
-\item Adelaide Cup for Southern Australia
 \item Queen's Birthday for Western Australia
+\item Royal Queensland Show for Queensland, which is for Brisbane only
 }
 }
 \examples{

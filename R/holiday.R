@@ -1,10 +1,10 @@
 globalVariables("holiday")
 
-#' Australia public holidays
+#' Australian national and state-based public holiday
 #'
 #' @param year A vector of integer(s) indicating year(s).
 #' @param state A state in Australia including "ACT", "NSW", "NT", "QLD", "SA", 
-#' "TAS", "VIC", "WA", as well as "National".
+#' "TAS", "VIC", "WA", as well as "national".
 #'
 #' @return A tibble consisting of `holiday` labels and their associated dates 
 #' in the year(s).
@@ -12,8 +12,8 @@ globalVariables("holiday")
 #' @details 
 #' Not documented public holidays:
 #' * AFL public holidays for Victoria
-#' * Adelaide Cup for Southern Australia
 #' * Queen's Birthday for Western Australia
+#' * Royal Queensland Show for Queensland, which is for Brisbane only
 #' @references 
 #' [Public holidays](https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays)
 #' @export
@@ -21,12 +21,12 @@ globalVariables("holiday")
 #' @examples
 #' holiday_aus(2016, state = "VIC")
 #' holiday_aus(2013:2016, state = "ACT")
-holiday_aus <- function(year, state = "National") {
+holiday_aus <- function(year, state = "national") {
   if (!is.numeric(year)) {
     abort("The argument year must be double/integer.")
   }
   state <- match.arg(state, 
-    c("National", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
+    c("national", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
   nat <- holiday_aus_national(year)
   if (state == "VIC") {
     nat <- dplyr::bind_rows(nat, holiday_aus_vic(year))
@@ -71,7 +71,7 @@ holiday_aus_act <- function(year) {
     date = c(canb, recon)
   ) 
   recon_rm <- out %>% 
-    filter(!! "holiday" == "Reconciliation Day", year(date) < 2018)
+    filter(holiday == "Reconciliation Day", lubridate::year(date) < 2018)
   out %>% 
     anti_join(recon_rm, by = c("holiday", "date")) %>% 
     dplyr::bind_rows(easter_break(year), queens_birthday(year))
@@ -104,20 +104,63 @@ holiday_aus_qld <- function(year) {
   # Find the first Monday in May
   may_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
+  # Find the first Monday in October
+  month(starting) <- 10
+  starting_wday <- lubridate::wday(starting)
+  diff_mon <- 2 - starting_wday
+  queens <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
+
   tibble::tibble(
-    holiday = rep("Labour Day", each = year_length),
-    date = may_day
+    holiday = rep(c("Labour Day", "Queen's Birthday"), each = year_length),
+    date = c(may_day, queens)
   )  %>% 
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+  dplyr::bind_rows(easter_break(year))
 }
 
 holiday_aus_sa <- function(year) {
   year_length <- length(year)
-  # tibble::tibble(
-  #   holiday = rep("Adelaide Cup Day", each = year_length),
-  #   date = may_day
-  # )  %>% 
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+  starting <- lubridate::make_date(year, 3) # March
+  starting_wday <- lubridate::wday(starting)
+  diff_mon <- 2 - starting_wday
+  # Find the first Monday in March
+  mar_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
+  mar_cup <- mar_day + lubridate::weeks(1)
+
+  month(starting) <- 5 # May
+  starting_wday <- lubridate::wday(starting)
+  diff_mon <- 2 - starting_wday
+  # Find the first Monday in March
+  may_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
+  may_cup <- may_day + lubridate::weeks(2)
+
+  month(starting) <- 10
+  starting_wday <- lubridate::wday(starting)
+  diff_mon <- 2 - starting_wday
+  # Find the first Monday in March
+  labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
+
+  out <- tibble::tibble(
+    holiday = rep(
+      c(rep("Adelaide Cup Day", 2), "Labour Day"), each = year_length
+    ),
+    date = c(mar_cup, may_cup, labour)
+  )
+  mar_cup_rm <- out %>% 
+    filter(
+      holiday == "Adelaide Cup Day",
+      lubridate::month(date) == 3,
+      lubridate::year(date) < 2006 | lubridate::year(date) > 2019
+    )
+  may_cup_rm <- out %>% 
+    filter(
+      holiday == "Adelaide Cup Day",
+      lubridate::month(date) == 5,
+      lubridate::year(date) > 2005, lubridate::year(date) < 2020
+    )
+  out %>% 
+    anti_join(mar_cup_rm, by = c("holiday", "date")) %>% 
+    anti_join(may_cup_rm, by = c("holiday", "date")) %>% 
+    dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_nsw <- function(year) {
