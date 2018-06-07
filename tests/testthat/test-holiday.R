@@ -8,6 +8,7 @@ nat_2018 <- tibble::tibble(
 )
 
 test_that("National holidays", {
+  expect_error(holiday_aus("2018"), "must be double/integer.")
   expect_equal(holiday_aus(2018), nat_2018)
 })
 
@@ -53,6 +54,11 @@ vic_2018 <- tibble::tibble(
 wa_2018 <- tibble::tibble(
   holiday = c("Labour Day", "Western Australia Day"),
   date = as.Date(c("2018-03-05", "2018-06-04"))
+)
+
+nsw_2018 <- tibble::tibble(
+  holiday = "Labour Day",
+  date = as.Date("2018-10-01")
 )
 
 test_that("State-based holidays", {
@@ -102,5 +108,12 @@ test_that("State-based holidays", {
       anti_join(nat_2018) %>% 
       anti_join(easter_2018),
     wa_2018
+  )
+  expect_equal(
+    holiday_aus(2018, "NSW") %>% 
+      anti_join(nat_2018) %>% 
+      anti_join(easter_2018) %>% 
+      anti_join(queens_2018),
+    nsw_2018
   )
 })

@@ -23,7 +23,7 @@ globalVariables("holiday")
 #' holiday_aus(2013:2016, state = "ACT")
 holiday_aus <- function(year, state = "national") {
   if (!is.numeric(year)) {
-    abort("The argument year must be double/integer.")
+    abort("`year` must be double/integer.")
   }
   state <- match.arg(state, 
     c("national", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
