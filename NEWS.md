@@ -6,11 +6,15 @@
 * Defined `diff()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 
-## Bug fixes
+## Improvements
 
 * `as_tsibble.ts()` removed the `tsp` attribute from the `value` column.
 * Dropped the "lst_col" attribute from `lst_ts` (#25).
 * More informative error message when a data frame is passed to `tsibble()`.
+* More informative error message for `fill_na()` and `count_gaps` when a tsibble of unknown interval.
+
+## Bug fixes
+
 * Fixed bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 * Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).

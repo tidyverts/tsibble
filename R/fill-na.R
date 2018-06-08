@@ -67,6 +67,7 @@ fill_na.data.frame <- function(.data, ...) {
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
+  unknown_interval(interval(.data))
   idx <- index(.data)
   idx_chr <- quo_text(idx)
   key <- key(.data)
@@ -126,6 +127,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' * "n": the implicit missing observations during the time period
 count_gaps <- function(.data, ...) {
   not_regular(.data)
+  unknown_interval(interval(.data))
   UseMethod("count_gaps")
 }
 

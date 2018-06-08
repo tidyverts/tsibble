@@ -11,6 +11,12 @@ test_that("a tbl_df/data.frame", {
   expect_error(fill_na(dat_x), "data.frame")
 })
 
+test_that("unknown interval", {
+  tsbl <- as_tsibble(dat_x[1, ], index = date)
+  expect_error(fill_na(tsbl), "data of unknown interval.")
+  expect_error(count_gaps(tsbl), "data of unknown interval.")
+})
+
 test_that("an irregular tbl_ts", {
   tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
   expect_error(fill_na(tsbl), "irregular")

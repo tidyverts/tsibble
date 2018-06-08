@@ -72,3 +72,12 @@ dont_know <- function(x, FUN) {
   )
   abort(msg)
 }
+
+unknown_interval <- function(x) {
+  not_zero <- !purrr::map_lgl(x, function(x) x == 0)
+  # if output is empty, it means that duplicated time entries
+  # if output is NA, it means that only one time entry
+  if (is.na(not_zero)) {
+    abort("Cannot deal with data of unknown interval.")
+  }
+}
