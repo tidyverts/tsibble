@@ -309,11 +309,11 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  build_tsibble(
+  restore_index_class(build_tsibble(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
     groups = groups(old), regular = is_regular(old), validate = FALSE, 
     ordered = ordered, interval = interval
-  )
+  ), old)
 }
 
 # needed when grouping by index2 (e.g. summarise)

@@ -13,6 +13,7 @@
 * More informative error message when a data frame is passed to `tsibble()`.
 * Fixed bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
+* Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).
 
 # tsibble 0.3.0
 

@@ -65,6 +65,12 @@ dat_x <- tibble(
 dat_y <- dat_x[c(2:8, 10), ]
 tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 
+test_that("fill_na for yearquarter", {
+  full_tsbl <- tourism %>%
+    fill_na()
+  expect_is(full_tsbl$Quarter, "yearquarter")
+})
+
 test_that("fill_na() for a grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%

@@ -280,11 +280,11 @@ case_na <- function(formula) {
   dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
 }
 
-restore_index_class <- function(data, newdata) {
-  old_idx <- quo_text(index(data))
-  new_idx <- quo_text(index(newdata))
-  class(newdata[[new_idx]]) <- class(data[[old_idx]])
-  newdata
+restore_index_class <- function(new, old) {
+  old_idx <- quo_text(index(old))
+  new_idx <- quo_text(index(new))
+  class(new[[new_idx]]) <- class(old[[old_idx]])
+  new
 }
 
 not_regular <- function(x) {
