@@ -10,11 +10,39 @@
 
 #' @export
 `[.tbl_ts` <- function(x, i, j, drop = FALSE) {
-  if (drop) {
-    warn("The argument 'drop' is ignored.")
+  nr <- NROW(x)
+
+  n_args <- nargs() - !missing(drop)
+
+  if (n_args <= 2) { # only column subsetting
+    if (!missing(drop)) {
+      warn("`drop` is ignored.")
+    }
+
+    if (!missing(i)) {
+      i <- validate_vars(i, names(x))
+      lgl_i <- has_index(i, x) && has_distinct_key(i, x)
+      result <- .subset(x, i)
+      attr(result, "row.names") <- .set_row_names(nr)
+      x <- key_reduce(x, i, validate = FALSE)
+      if (is_false(lgl_i)) {
+        return(as_tibble(result))
+      } else {
+        return(build_tsibble(
+          result, key = key(x), index = !! index(x), index2 = !! index2(x),
+          validate = FALSE, regular = is_regular(x), ordered = ordered
+        ))
+      }
+    } else {
+      result <- x
+      attr(result, "row.names") <- .set_row_names(nr)
+      return(build_tsibble(
+        result, key = key(x), index = !! index(x), index2 = !! index2(x),
+        validate = FALSE, regular = is_regular(x), ordered = ordered
+      ))
+    }
   }
 
-  result <- x
   # subset by columns
   if (!missing(j)) {
     chr_j <- validate_vars(j, colnames(x))
@@ -23,15 +51,27 @@
       return(NextMethod())
     }
     result <- .subset(x, j)
-    x <- key_reduce(x, chr_j)
+    x <- key_reduce(x, chr_j, validate = FALSE)
+  } else {
+    result <- x
   }
 
   ordered <- is_ordered(x)
   if (!missing(i)) {
     # ordered <- row_validate(i)
     result <- purrr::map(result, `[`, i)
+    nr <- length(result[[1]])
   }
 
+  if (drop) {
+    if (has_length(result, 1)) {
+      return(result[[1L]])
+    } else if (nr == 1L) {
+      return(result)
+    }
+  }
+
+  attr(result, "row.names") <- .set_row_names(nr)
   build_tsibble(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
     validate = FALSE, regular = is_regular(x), ordered = ordered

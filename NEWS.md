@@ -9,9 +9,10 @@
 ## Bug fixes
 
 * `as_tsibble.ts()` removed the `tsp` attribute from the `value` column.
-* Dropped the "lst_col" attribute from `lst_ts`. (#25).
+* Dropped the "lst_col" attribute from `lst_ts` (#25).
 * More informative error message when a data frame is passed to `tsibble()`.
-* Fixed a bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
+* Fixed bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
+* Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 
 # tsibble 0.3.0
 
