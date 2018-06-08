@@ -67,18 +67,9 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
-as.double.yearweek <- function(x, ...) {
-  as.double((x - as_date("1969-12-29")) / 7)
-}
-
-#' @export
-as.integer.yearweek <- function(x, ...) {
-  as.integer(as.double(x))
-}
-
-#' @export
 diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff(as.double(x), lag = lag, differences = differences)
+  out <- diff((x - as_date("1969-12-29")) / 7, 
+    lag = lag, differences = differences)
   structure(out, class = "difftime", units = "weeks")
 }
 
@@ -159,18 +150,9 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
-as.double.yearmonth <- function(x, ...) {
-  (lubridate::year(x) - 1970) * 12 + lubridate::month(x)
-}
-
-#' @export
-as.integer.yearmonth <- function(x, ...) {
-  as.integer(as.double(x))
-}
-
-#' @export
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff(as.double(x), lag = lag, differences = differences)
+  out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x), 
+    lag = lag, differences = differences)
   structure(out, class = "difftime", units = "month")
 }
 
@@ -259,18 +241,9 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 }
 
 #' @export
-as.double.yearquarter <- function(x, ...) {
-  (lubridate::year(x) - 1970) * 4 + lubridate::quarter(x)
-}
-
-#' @export
-as.integer.yearquarter <- function(x, ...) {
-  as.integer(as.double(x))
-}
-
-#' @export
 diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff(as.double(x), lag = lag, differences = differences)
+  out <- diff((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x),
+    lag = lag, differences = differences)
   structure(out, class = "difftime", units = "quarter")
 }
 
