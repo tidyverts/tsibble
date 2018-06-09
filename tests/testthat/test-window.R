@@ -4,7 +4,7 @@ x <- 1:3
 
 test_that("slide() and slider() output", {
   expect_error(slider(x, size = 0))
-  expect_error(slider(list(x)))
+  expect_error(slider(list(list(x))))
   expect_equal(slider(x), list(1, 2, 3))
   expect_equal(slider(x, size = 2), list(1:2, 2:3))
   expect_equal(slide(x, sum), 1:3)

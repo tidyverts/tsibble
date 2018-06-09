@@ -88,6 +88,74 @@ slide_dfr <- function(.x, .f, ..., size = 1, fill = NA, .id = NULL) {
 #   dplyr::bind_cols(!!! out_named)
 # }
 
+#' Sliding window calculation over multiple inputs simultaneously
+#'
+#' @param .x,.y A vector of numerics, or data frame. If a data frame, row-wise rolling
+#' window is performed.
+#' @inheritParams slide
+#'
+#' @rdname slide2
+#' @export
+#' @seealso [tile2] for tiling window without overlapping observations;
+#' [stretch2] for expanding more observations
+#'
+#' @examples
+#' x <- 1:10
+#' y <- 10:1
+#' slide2(x, y, cor, size = 3)
+#' slide2_lst(x, y, cor, size = 3)
+#' @export
+slide2 <- function(.x, .y, .f, ..., size = 1, fill = NA_real_) {
+  lst <- slider(.x, .y, size = size)
+  c(rep_len(fill, size - 1), purrr::map2_dbl(lst[[1]], lst[[2]], .f, ...))
+}
+
+#' @rdname slide2
+#' @export
+slide2_lst <- function(.x, .y, .f, ..., size = 1, fill = NA) {
+  lst <- slider(.x, .y, size = size)
+  result <- purrr::map2(lst[[1]], lst[[2]], .f, ...)
+  if (is.na(fill)) {
+    fill <- rep_len(fill, length(result[[1]]))
+  }
+  c(replicate(n = size - 1, fill, simplify = FALSE), result)
+}
+
+#' @rdname slide2
+#' @export
+slide2_dfr <- function(.x, .y, .f, ..., size = 1, fill = NA, .id = NULL) {
+  out <- slide_lst(.x, .y, .f = .f, ..., size = size, fill = fill)
+  out_named <- purrr::map(out, `names<-`, names(out[[size]]))
+  dplyr::bind_rows(!!! out_named, .id = .id)
+}
+
+#' @rdname slide2
+#' @inheritParams purrr::pmap
+#' @export
+pslide <- function(.l, .f, ..., size = 1, fill = NA_real_) {
+  lst <- slider(.l, size = size)
+  c(rep_len(fill, size - 1), purrr::pmap_dbl(lst, .f, ...))
+}
+
+#' @rdname slide2
+#' @export
+pslide_lst <- function(.l, .f, ..., size = 1, fill = NA) {
+  lst <- slider(.l, size = size)
+  result <- purrr::pmap(lst, .f, ...)
+  if (is.na(fill)) {
+    fill <- rep_len(fill, length(result[[1]]))
+  }
+  c(replicate(n = size - 1, fill, simplify = FALSE), result)
+}
+
+#' @rdname slide2
+#' @export
+pslide_dfr <- function(.l, .f, ..., size = 1, fill = NA, .id = NULL) {
+  out <- pslide_lst(.l, .f = .f, ..., size = size, fill = fill)
+  out_named <- purrr::pmap(out, `names<-`, names(out[[size]]))
+  dplyr::bind_rows(!!! out_named, .id = .id)
+}
+
 #' Splits the input to a list according to the rolling window size.
 #' 
 #' @param ... Objects to be splitted.
@@ -100,7 +168,7 @@ slide_dfr <- function(.x, .f, ..., size = 1, fill = NA, .id = NULL) {
 #' y <- 10:1
 #' slider(x, y, size = 3)
 slider <- function(..., size = 1) {
-  x <- list(...)
+  x <- flatten(list(...))
   if (has_length(x, 1)) {
     return(slider_base(x[[1]], size = size))
   } else {
@@ -163,6 +231,63 @@ tile_dfr <- function(.x, .f, ..., size = 1, .id = NULL) {
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
+#' Tiling window calculation over multiple inputs simultaneously
+#'
+#' @param .x,.y A vector of numerics, or data frame. If a data frame, row-wise rolling
+#' window is performed.
+#'
+#' @inheritParams slide2
+#'
+#' @rdname tile2
+#' @export
+#' @seealso [slide2] for sliding window with overlapping observations;
+#' [stretch2] for expanding more observations
+#'
+#' @examples
+#' x <- 1:10
+#' y <- 10:1
+#' tile2(x, y, cor, size = 5)
+#' tile2_lst(x, y, ~ cor(.x, .y), size = 5)
+tile2 <- function(.x, .y, .f, ..., size = 1) {
+  lst <- tiler(.x, .y, size = size)
+  purrr::map2_dbl(lst[[1]], lst[[2]], .f, ...)
+}
+
+#' @rdname tile2
+#' @export
+tile2_lst <- function(.x, .y, .f, ..., size = 1) {
+  lst <- tiler(.x, .y, size = size)
+  purrr::map2(lst[[1]], lst[[2]], .f, ...)
+}
+
+#' @rdname tile2
+#' @export
+tile2_dfr <- function(.x, .y, .f, ..., size = 1, .id = NULL) {
+  out <- tile2_lst(.x, .y, .f = .f, ..., size = size)
+  dplyr::bind_rows(!!! out, .id = .id)
+}
+
+#' @rdname tile2
+#' @export
+ptile <- function(.l, .f, ..., size = 1) {
+  lst <- tiler(.l, size = size)
+  purrr::pmap_dbl(lst, .f, ...)
+}
+
+#' @rdname tile2
+#' @export
+ptile_lst <- function(.l, .f, ..., size = 1) {
+  lst <- tiler(.l, size = size)
+  purrr::pmap(lst, .f, ...)
+}
+
+#' @rdname tile2
+#' @export
+ptile_dfr <- function(.l, .f, ..., size = 1, .id = NULL) {
+  out <- tile2_lst(.l, .f = .f, ..., size = size)
+  dplyr::bind_rows(!!! out, .id = .id)
+}
+
 # #' @rdname tile
 # #' @export
 # tile_dfc <- function(x, .f, ..., size = 1) {
@@ -178,7 +303,7 @@ tile_dfr <- function(.x, .f, ..., size = 1, .id = NULL) {
 #' y <- 10:1
 #' tiler(x, y, size = 3)
 tiler <- function(..., size = 1) {
-  x <- list(...)
+  x <- flatten(list(...))
   if (has_length(x, 1)) {
     return(tiler_base(x[[1]], size = size))
   } else {
@@ -246,6 +371,61 @@ stretch_dfr <- function(.x, .f, ..., size = 1, init = 1, .id = NULL) {
 #   dplyr::bind_cols(!!! out)
 # }
 
+#' Stretching window calculation over multiple simultaneously
+#'
+#' @inheritParams slide2
+#' @param size,init An integer for moving and initial window size.
+#'
+#' @rdname stretch2
+#' @export
+#' @seealso [slide2] for sliding window with overlapping observations;
+#' [tile2] for tiling window without overlapping observations.
+#'
+#' @examples
+#' x <- 1:10
+#' y <- 10:1
+#' stretch2(x, y, cor, init = 3)
+#' stretch2(x, y, ~ cor(.x, .y), init = 3)
+stretch2 <- function(.x, .y, .f, ..., size = 1, init = 1) {
+  lst <- stretcher(.x, .y, size = size, init = init)
+  purrr::map2_dbl(lst[[1]], lst[[2]], .f, ...)
+}
+
+#' @rdname stretch2
+#' @export
+stretch2_lst <- function(.x, .y, .f, ..., size = 1, init = 1) {
+  lst <- stretcher(.x, .y, size = size, init = init)
+  purrr::map2(lst[[1]], lst[[2]], .f, ...)
+}
+
+#' @rdname stretch2
+#' @export
+stretch2_dfr <- function(.x, .y, .f, ..., size = 1, init = 1, .id = NULL) {
+  out <- stretch_lst(.x, .y, .f = .f, ..., size = size, init = init)
+  dplyr::bind_rows(!!! out, .id = .id)
+}
+
+#' @rdname stretch2
+#' @export
+pstretch <- function(.l, .f, ..., size = 1, init = 1) {
+  lst <- stretcher(.l, size = size, init = init)
+  purrr::pmap_dbl(.l, .f, ...)
+}
+
+#' @rdname stretch2
+#' @export
+pstretch_lst <- function(.l, .f, ..., size = 1, init = 1) {
+  lst <- stretcher(.l, size = size, init = init)
+  purrr::pmap(.l, .f, ...)
+}
+
+#' @rdname stretch2
+#' @export
+pstretch_dfr <- function(.l, .f, ..., size = 1, init = 1, .id = NULL) {
+  out <- stretch_lst(.l, .f = .f, ..., size = size, init = init)
+  dplyr::bind_rows(!!! out, .id = .id)
+}
+
 #' @rdname slider
 #' @export
 #' @examples
@@ -254,7 +434,7 @@ stretch_dfr <- function(.x, .f, ..., size = 1, init = 1, .id = NULL) {
 #' y <- 10:1
 #' stretcher(x, y, init = 3)
 stretcher <- function(..., size = 1, init = 1) {
-  x <- list(...)
+  x <- flatten(list(...))
   if (has_length(x, 1)) {
     return(stretcher_base(x[[1]], size = size, init = init))
   } else {
@@ -283,7 +463,7 @@ stretcher_base <- function(x, size = 1, init = 1) {
 
 bad_window_function <- function(.x, size) {
   if (is_bare_list(.x)) {
-    abort("`.x` must not be a list.")
+    abort("`.x` must not be a list of lists.")
   }
   if (!is_bare_numeric(size, n = 1) || size < 1) {
     abort("`size` must be a positive integer.")
