@@ -4,19 +4,16 @@
 \alias{stretch}
 \alias{stretch_lst}
 \alias{stretch_dfr}
-\alias{stretcher}
 \title{Stretching window calculation}
 \usage{
-stretch(x, .f, ..., size = 1, init = 1)
+stretch(.x, .f, ..., size = 1, init = 1)
 
-stretch_lst(x, .f, ..., size = 1, init = 1)
+stretch_lst(.x, .f, ..., size = 1, init = 1)
 
-stretch_dfr(x, .f, ..., size = 1, init = 1, .id = NULL)
-
-stretcher(x, size = 1, init = 1)
+stretch_dfr(.x, .f, ..., size = 1, init = 1, .id = NULL)
 }
 \arguments{
-\item{x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
+\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
 window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
@@ -36,14 +33,12 @@ Fixing an initial window and expanding more observations:
 \item \code{stretch()} always returns a vector of numerics
 \item \code{stretch_lst()} returns a list
 \item \code{stretch_dfr()} return data frame using row-binding
-\item \code{stretcher()} splits the input \code{x} to a list according to the window size.
 }
 }
 \examples{
 x <- 1:10
 stretch(x, mean, init = 3)
 stretch(x, ~ mean(.), init = 3)
-stretcher(x, init = 3)
 
 # stretching a 2-day window for a data frame ----
 sx <- pedestrian \%>\% 

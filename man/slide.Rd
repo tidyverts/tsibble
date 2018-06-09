@@ -4,19 +4,16 @@
 \alias{slide}
 \alias{slide_lst}
 \alias{slide_dfr}
-\alias{slider}
 \title{Sliding window calculation}
 \usage{
-slide(x, .f, ..., size = 1, fill = NA_real_)
+slide(.x, .f, ..., size = 1, fill = NA_real_)
 
-slide_lst(x, .f, ..., size = 1, fill = NA)
+slide_lst(.x, .f, ..., size = 1, fill = NA)
 
-slide_dfr(x, .f, ..., size = 1, fill = NA, .id = NULL)
-
-slider(x, size = 1)
+slide_dfr(.x, .f, ..., size = 1, fill = NA, .id = NULL)
 }
 \arguments{
-\item{x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
+\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
 window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
@@ -38,7 +35,6 @@ Rolling window with overlapping observations:
 \item \code{slide()} always returns a vector of numerics
 \item \code{slide_lst()} returns a list
 \item \code{slide_dfr()} return data frame using row-binding
-\item \code{slider()} splits the input \code{x} to a list according to the window size.
 }
 }
 \details{
@@ -53,9 +49,6 @@ x <- 1:10
 slide(x, mean, size = 3)
 slide(x, ~ mean(.), size = 3)
 slide(x, mean, size = 3, fill = 0)
-
-# slider ----
-slider(x, size = 3)
 
 \dontrun{
 # takes a little longer for cran check

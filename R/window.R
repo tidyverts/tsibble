@@ -4,9 +4,8 @@
 #' * `slide()` always returns a vector of numerics
 #' * `slide_lst()` returns a list
 #' * `slide_dfr()` return data frame using row-binding
-#' * `slider()` splits the input `x` to a list according to the window size.
 #'
-#' @param x A vector of numerics, or data frame. If a data frame, row-wise rolling
+#' @param .x A vector of numerics, or data frame. If a data frame, row-wise rolling
 #' window is performed.
 #' @param .f A function or one-sided formula using purrr-like syntax. If a 
 #' formula, it is converted to a function.
@@ -33,9 +32,6 @@
 #' slide(x, ~ mean(.), size = 3)
 #' slide(x, mean, size = 3, fill = 0)
 #'
-#' # slider ----
-#' slider(x, size = 3)
-#'
 #' \dontrun{
 #' # takes a little longer for cran check
 #' # sliding a 2-day window for a data frame ----
@@ -60,15 +56,15 @@
 #' lm_jan[[1]][48:57, ]
 #' }
 #' @export
-slide <- function(x, .f, ..., size = 1, fill = NA_real_) {
-  lst_x <- slider(x, size = size)
+slide <- function(.x, .f, ..., size = 1, fill = NA_real_) {
+  lst_x <- slider(.x, size = size)
   c(rep_len(fill, size - 1), purrr::map_dbl(lst_x, .f, ...))
 }
 
 #' @rdname slide
 #' @export
-slide_lst <- function(x, .f, ..., size = 1, fill = NA) {
-  lst_x <- slider(x, size = size)
+slide_lst <- function(.x, .f, ..., size = 1, fill = NA) {
+  lst_x <- slider(.x, size = size)
   result <- purrr::map(lst_x, .f, ...)
   if (is.na(fill)) {
     fill <- rep_len(fill, length(result[[1]]))
@@ -78,8 +74,8 @@ slide_lst <- function(x, .f, ..., size = 1, fill = NA) {
 
 #' @rdname slide
 #' @export
-slide_dfr <- function(x, .f, ..., size = 1, fill = NA, .id = NULL) {
-  out <- slide_lst(x, .f = .f, ..., size = size, fill = fill)
+slide_dfr <- function(.x, .f, ..., size = 1, fill = NA, .id = NULL) {
+  out <- slide_lst(.x, .f = .f, ..., size = size, fill = fill)
   out_named <- purrr::map(out, `names<-`, names(out[[size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
 }
@@ -92,9 +88,27 @@ slide_dfr <- function(x, .f, ..., size = 1, fill = NA, .id = NULL) {
 #   dplyr::bind_cols(!!! out_named)
 # }
 
-#' @rdname slide
+#' Splits the input to a list according to the rolling window size.
+#' 
+#' @param ... Objects to be splitted.
+#' @inheritParams slide
+#' @rdname slider
 #' @export
-slider <- function(x, size = 1) {
+#' @examples
+#' x <- 1:10
+#' slider(x, size = 3)
+#' y <- 10:1
+#' slider(x, y, size = 3)
+slider <- function(..., size = 1) {
+  x <- list(...)
+  if (has_length(x, 1)) {
+    return(slider_base(x[[1]], size = size))
+  } else {
+    return(purrr::map(x, ~ slider_base(., size = size)))
+  }
+}
+
+slider_base <- function(x, size = 1) {
   bad_window_function(x, size)
   len_x <- NROW(x)
   lst_idx <- seq_len(len_x - size + 1)
@@ -110,7 +124,6 @@ slider <- function(x, size = 1) {
 #' * `tile()` always returns a vector of numerics
 #' * `tile_lst()` returns a list
 #' * `tile_dfr()` return data frame using row-binding
-#' * `tiler()` splits the input `x` to a list according to the window size.
 #'
 #' @inheritParams slide
 #'
@@ -124,7 +137,6 @@ slider <- function(x, size = 1) {
 #' x <- 1:10
 #' tile(x, sum, size = 3)
 #' tile(x, ~ sum(.), size = 3)
-#' tiler(x, size = 3)
 #'
 #' # tiling over a 2-day window for hourly data ----
 #' \dontrun{
@@ -132,22 +144,22 @@ slider <- function(x, size = 1) {
 #'   split_by(Sensor) %>% 
 #'   purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), size = 48))
 #' }
-tile <- function(x, .f, ..., size = 1) {
-  lst_x <- tiler(x, size = size)
+tile <- function(.x, .f, ..., size = 1) {
+  lst_x <- tiler(.x, size = size)
   purrr::map_dbl(lst_x, .f, ...)
 }
 
 #' @rdname tile
 #' @export
-tile_lst <- function(x, .f, ..., size = 1) {
-  lst_x <- tiler(x, size = size)
+tile_lst <- function(.x, .f, ..., size = 1) {
+  lst_x <- tiler(.x, size = size)
   purrr::map(lst_x, .f, ...)
 }
 
 #' @rdname tile
 #' @export
-tile_dfr <- function(x, .f, ..., size = 1, .id = NULL) {
-  out <- tile_lst(x = x, .f = .f, ..., size = size)
+tile_dfr <- function(.x, .f, ..., size = 1, .id = NULL) {
+  out <- tile_lst(.x = .x, .f = .f, ..., size = size)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
@@ -158,9 +170,23 @@ tile_dfr <- function(x, .f, ..., size = 1, .id = NULL) {
 #   dplyr::bind_cols(!!! out)
 # }
 
-#' @rdname tile
+#' @rdname slider
 #' @export
-tiler <- function(x, size = 1) {
+#' @examples
+#' x <- 1:10
+#' tiler(x, size = 3)
+#' y <- 10:1
+#' tiler(x, y, size = 3)
+tiler <- function(..., size = 1) {
+  x <- list(...)
+  if (has_length(x, 1)) {
+    return(tiler_base(x[[1]], size = size))
+  } else {
+    return(purrr::map(x, ~ tiler_base(., size = size)))
+  }
+}
+
+tiler_base <- function(x, size = 1) {
   bad_window_function(x, size)
   len_x <- NROW(x)
   seq_x <- seq_len(len_x)
@@ -175,7 +201,6 @@ tiler <- function(x, size = 1) {
 #' * `stretch()` always returns a vector of numerics
 #' * `stretch_lst()` returns a list
 #' * `stretch_dfr()` return data frame using row-binding
-#' * `stretcher()` splits the input `x` to a list according to the window size.
 #'
 #' @inheritParams slide
 #' @param size,init An integer for moving and initial window size.
@@ -189,29 +214,28 @@ tiler <- function(x, size = 1) {
 #' x <- 1:10
 #' stretch(x, mean, init = 3)
 #' stretch(x, ~ mean(.), init = 3)
-#' stretcher(x, init = 3)
 #'
 #' # stretching a 2-day window for a data frame ----
 #' sx <- pedestrian %>% 
 #'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 #' sx %>%
 #'   stretch_dfr(~ quantile(.$Count), init = 48)
-stretch <- function(x, .f, ..., size = 1, init = 1) {
-  lst_x <- stretcher(x, size = size, init = init)
+stretch <- function(.x, .f, ..., size = 1, init = 1) {
+  lst_x <- stretcher(.x, size = size, init = init)
   purrr::map_dbl(lst_x, .f, ...)
 }
 
 #' @rdname stretch
 #' @export
-stretch_lst <- function(x, .f, ..., size = 1, init = 1) {
-  lst_x <- stretcher(x, size = size, init = init)
+stretch_lst <- function(.x, .f, ..., size = 1, init = 1) {
+  lst_x <- stretcher(.x, size = size, init = init)
   purrr::map(lst_x, .f, ...)
 }
 
 #' @rdname stretch
 #' @export
-stretch_dfr <- function(x, .f, ..., size = 1, init = 1, .id = NULL) {
-  out <- stretch_lst(x, .f = .f, ..., size = size, init = init)
+stretch_dfr <- function(.x, .f, ..., size = 1, init = 1, .id = NULL) {
+  out <- stretch_lst(.x, .f = .f, ..., size = size, init = init)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
@@ -222,9 +246,23 @@ stretch_dfr <- function(x, .f, ..., size = 1, init = 1, .id = NULL) {
 #   dplyr::bind_cols(!!! out)
 # }
 
-#' @rdname stretch
+#' @rdname slider
 #' @export
-stretcher <- function(x, size = 1, init = 1) {
+#' @examples
+#' x <- 1:10
+#' stretcher(x, init = 3)
+#' y <- 10:1
+#' stretcher(x, y, init = 3)
+stretcher <- function(..., size = 1, init = 1) {
+  x <- list(...)
+  if (has_length(x, 1)) {
+    return(stretcher_base(x[[1]], size = size, init = init))
+  } else {
+    return(purrr::map(x, ~ stretcher_base(., size = size, init = init)))
+  }
+}
+
+stretcher_base <- function(x, size = 1, init = 1) {
   bad_window_function(x, size)
   if (!is_bare_numeric(init, n = 1) || init < 1) {
     abort("`init` must be a positive integer.")
@@ -243,9 +281,9 @@ stretcher <- function(x, size = 1, init = 1) {
   purrr::map(incr_lst, ~ x[., , drop = FALSE])
 }
 
-bad_window_function <- function(x, size) {
-  if (is_bare_list(x)) {
-    abort("`x` must not be a list.")
+bad_window_function <- function(.x, size) {
+  if (is_bare_list(.x)) {
+    abort("`.x` must not be a list.")
   }
   if (!is_bare_numeric(size, n = 1) || size < 1) {
     abort("`size` must be a positive integer.")

@@ -4,19 +4,16 @@
 \alias{tile}
 \alias{tile_lst}
 \alias{tile_dfr}
-\alias{tiler}
 \title{Tiling window calculation}
 \usage{
-tile(x, .f, ..., size = 1)
+tile(.x, .f, ..., size = 1)
 
-tile_lst(x, .f, ..., size = 1)
+tile_lst(.x, .f, ..., size = 1)
 
-tile_dfr(x, .f, ..., size = 1, .id = NULL)
-
-tiler(x, size = 1)
+tile_dfr(.x, .f, ..., size = 1, .id = NULL)
 }
 \arguments{
-\item{x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
+\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
 window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
@@ -36,7 +33,6 @@ Tiling window without overlapping observations:
 \item \code{tile()} always returns a vector of numerics
 \item \code{tile_lst()} returns a list
 \item \code{tile_dfr()} return data frame using row-binding
-\item \code{tiler()} splits the input \code{x} to a list according to the window size.
 }
 }
 \examples{
@@ -44,7 +40,6 @@ Tiling window without overlapping observations:
 x <- 1:10
 tile(x, sum, size = 3)
 tile(x, ~ sum(.), size = 3)
-tiler(x, size = 3)
 
 # tiling over a 2-day window for hourly data ----
 \dontrun{
