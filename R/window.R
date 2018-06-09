@@ -427,14 +427,14 @@ stretch2_dfr <- function(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @export
 pstretch <- function(.l, .f, ..., .size = 1, .init = 1) {
   lst <- stretcher(.l, .size = .size, .init = .init)
-  purrr::pmap_dbl(.l, .f, ...)
+  purrr::pmap_dbl(lst, .f, ...)
 }
 
 #' @rdname stretch2
 #' @export
 pstretch_lst <- function(.l, .f, ..., .size = 1, .init = 1) {
   lst <- stretcher(.l, .size = .size, .init = .init)
-  purrr::pmap(.l, .f, ...)
+  purrr::pmap(lst, .f, ...)
 }
 
 #' @rdname stretch2

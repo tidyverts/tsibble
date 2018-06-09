@@ -154,7 +154,7 @@ windows using purrr-like syntax:
 
   - `slide()`/`slide2()`/`pslide()`: sliding window with overlapping
     observations.
-  - `tile()`/`tile2()`/`ptile2()`: tiling window without overlapping
+  - `tile()`/`tile2()`/`ptile()`: tiling window without overlapping
     observations.
   - `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and
     expanding to include more observations.
