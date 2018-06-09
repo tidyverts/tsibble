@@ -9,30 +9,30 @@
 \alias{pslide_dfr}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., size = 1, fill = NA_real_)
+slide2(.x, .y, .f, ..., .size = 1, .fill = NA_real_)
 
-slide2_lst(.x, .y, .f, ..., size = 1, fill = NA)
+slide2_lst(.x, .y, .f, ..., .size = 1, .fill = NA)
 
-slide2_dfr(.x, .y, .f, ..., size = 1, fill = NA, .id = NULL)
+slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
-pslide(.l, .f, ..., size = 1, fill = NA_real_)
+pslide(.l, .f, ..., .size = 1, .fill = NA_real_)
 
-pslide_lst(.l, .f, ..., size = 1, fill = NA)
+pslide_lst(.l, .f, ..., .size = 1, .fill = NA)
 
-pslide_dfr(.l, .f, ..., size = 1, fill = NA, .id = NULL)
+pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
 }
 \arguments{
-\item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise
+rolling window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
 formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size}{An integer for window size.}
+\item{.size}{An integer for window size.}
 
-\item{fill}{A single value or data frame to replace \code{NA}.}
+\item{.fill}{A single value or data frame to replace \code{NA}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -48,10 +48,15 @@ Sliding window calculation over multiple inputs simultaneously
 \examples{
 x <- 1:10
 y <- 10:1
-slide2(x, y, cor, size = 3)
-slide2_lst(x, y, cor, size = 3)
+z <- x * 2
+slide2(x, y, cor, .size = 3)
+slide2_lst(x, y, cor, .size = 3)
+pslide(list(x, y, z), sum, .size = 3)
 }
 \seealso{
-\link{tile2} for tiling window without overlapping observations;
-\link{stretch2} for expanding more observations
+\itemize{
+\item \link{slide}
+\item \link{tile2} for tiling window without overlapping observations
+\item \link{stretch2} for expanding more observations
+}
 }

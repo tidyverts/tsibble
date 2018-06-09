@@ -9,31 +9,31 @@
 \alias{pstretch_dfr}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., size = 1, init = 1)
+stretch2(.x, .y, .f, ..., .size = 1, .init = 1)
 
-stretch2_lst(.x, .y, .f, ..., size = 1, init = 1)
+stretch2_lst(.x, .y, .f, ..., .size = 1, .init = 1)
 
-stretch2_dfr(.x, .y, .f, ..., size = 1, init = 1, .id = NULL)
+stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL)
 
-pstretch(.l, .f, ..., size = 1, init = 1)
+pstretch(.l, .f, ..., .size = 1, .init = 1)
 
-pstretch_lst(.l, .f, ..., size = 1, init = 1)
+pstretch_lst(.l, .f, ..., .size = 1, .init = 1)
 
-pstretch_dfr(.l, .f, ..., size = 1, init = 1, .id = NULL)
+pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .id = NULL)
 }
 \arguments{
-\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise
+rolling window is performed.}
 
-\item{.y}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.y}{A vector of numerics, or data frame. If a data frame, row-wise
+rolling window is performed.}
 
 \item{.f}{A function or one-sided formula using purrr-like syntax. If a
 formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size, init}{An integer for moving and initial window size.}
+\item{.size, .init}{An integer for moving and initial window size.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -49,10 +49,15 @@ Stretching window calculation over multiple simultaneously
 \examples{
 x <- 1:10
 y <- 10:1
-stretch2(x, y, cor, init = 3)
-stretch2(x, y, ~ cor(.x, .y), init = 3)
+z <- x * 2
+stretch2(x, y, cor, .init = 3)
+stretch2(x, y, ~ cor(.x, .y), .init = 3)
+pstretch(list(x, y, z), sum, .init = 3)
 }
 \seealso{
-\link{slide2} for sliding window with overlapping observations;
-\link{tile2} for tiling window without overlapping observations.
+\itemize{
+\item \link{stretch}
+\item \link{slide2} for sliding window with overlapping observations
+\item \link{tile2} for tiling window without overlapping observations
+}
 }

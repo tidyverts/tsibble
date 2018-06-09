@@ -4,33 +4,33 @@
 \alias{slider}
 \alias{tiler}
 \alias{stretcher}
-\title{Splits the input to a list according to the rolling window size.}
+\title{Splits the input to a list according to the rolling window .size.}
 \usage{
-slider(..., size = 1)
+slider(..., .size = 1)
 
-tiler(..., size = 1)
+tiler(..., .size = 1)
 
-stretcher(..., size = 1, init = 1)
+stretcher(..., .size = 1, .init = 1)
 }
 \arguments{
 \item{...}{Objects to be splitted.}
 
-\item{size}{An integer for window size.}
+\item{.size, .init}{An integer for moving and initial window size.}
 }
 \description{
-Splits the input to a list according to the rolling window size.
+Splits the input to a list according to the rolling window .size.
 }
 \examples{
 x <- 1:10
-slider(x, size = 3)
+slider(x, .size = 3)
 y <- 10:1
-slider(x, y, size = 3)
+slider(x, y, .size = 3)
 x <- 1:10
-tiler(x, size = 3)
+tiler(x, .size = 3)
 y <- 10:1
-tiler(x, y, size = 3)
+tiler(x, y, .size = 3)
 x <- 1:10
-stretcher(x, init = 3)
+stretcher(x, .init = 3)
 y <- 10:1
-stretcher(x, y, init = 3)
+stretcher(x, y, .init = 3)
 }

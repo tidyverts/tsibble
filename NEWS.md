@@ -2,7 +2,7 @@
 
 ## Breaking changes
 
-* Renamed `x` to `.x` in windowed functions, `slide()`, `tile()` and `stretch()`, to be consistent with purrr functions.
+* Renamed arguments in windowed functions, `slide()`, `tile()` and `stretch()`, to be consistent with purrr functions.
 * Renamed `x` to `...` in windowed functions, `slider()`, `tiler()` and `stretcher()`, to take multiple inputs.
 
 ## New features
@@ -10,6 +10,7 @@
 * New `holiday_aus()` for Australian national and state-based public holiday.
 * Defined `diff()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
+* Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously.
 * `slider()`, `tiler()`, `stretcher()` supported multiple inputs now.
 
 ## Improvements

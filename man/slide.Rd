@@ -6,11 +6,11 @@
 \alias{slide_dfr}
 \title{Sliding window calculation}
 \usage{
-slide(.x, .f, ..., size = 1, fill = NA_real_)
+slide(.x, .f, ..., .size = 1, .fill = NA_real_)
 
-slide_lst(.x, .f, ..., size = 1, fill = NA)
+slide_lst(.x, .f, ..., .size = 1, .fill = NA)
 
-slide_dfr(.x, .f, ..., size = 1, fill = NA, .id = NULL)
+slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .id = NULL)
 }
 \arguments{
 \item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
@@ -21,9 +21,9 @@ formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size}{An integer for window size.}
+\item{.size}{An integer for window size.}
 
-\item{fill}{A single value or data frame to replace \code{NA}.}
+\item{.fill}{A single value or data frame to replace \code{NA}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -46,9 +46,9 @@ you may like to check out for
 \examples{
 # sliding through a vector ----
 x <- 1:10
-slide(x, mean, size = 3)
-slide(x, ~ mean(.), size = 3)
-slide(x, mean, size = 3, fill = 0)
+slide(x, mean, .size = 3)
+slide(x, ~ mean(.), .size = 3)
+slide(x, mean, .size = 3, .fill = 0)
 
 \dontrun{
 # takes a little longer for cran check
@@ -63,18 +63,21 @@ diag_jan <- jan \%>\%
     ~ slide_dfr(., function(x) {
       fit <- lm(Count ~ Time, data = x)
       data.frame(fitted = fitted(fit), resid = residuals(fit))
-    }, size = 48)
+    }, .size = 48)
   )
 diag_jan[48:57, ]
 # save lm models as additional columns
 lm_jan <- jan \%>\% 
   purrr::map(
-    ~ mutate(., lm = slide_lst(., ~ lm(Count ~ Time, data = .), size = 48)
+    ~ mutate(., lm = slide_lst(., ~ lm(Count ~ Time, data = .), .size = 48)
   ))
 lm_jan[[1]][48:57, ]
 }
 }
 \seealso{
-\link{tile} for tiling window without overlapping observations;
-\link{stretch} for expanding more observations
+\itemize{
+\item \link{slide2}, \link{pslide}
+\item \link{tile} for tiling window without overlapping observations
+\item \link{stretch} for expanding more observations
+}
 }

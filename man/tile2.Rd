@@ -9,17 +9,17 @@
 \alias{ptile_dfr}
 \title{Tiling window calculation over multiple inputs simultaneously}
 \usage{
-tile2(.x, .y, .f, ..., size = 1)
+tile2(.x, .y, .f, ..., .size = 1)
 
-tile2_lst(.x, .y, .f, ..., size = 1)
+tile2_lst(.x, .y, .f, ..., .size = 1)
 
-tile2_dfr(.x, .y, .f, ..., size = 1, .id = NULL)
+tile2_dfr(.x, .y, .f, ..., .size = 1, .id = NULL)
 
-ptile(.l, .f, ..., size = 1)
+ptile(.l, .f, ..., .size = 1)
 
-ptile_lst(.l, .f, ..., size = 1)
+ptile_lst(.l, .f, ..., .size = 1)
 
-ptile_dfr(.l, .f, ..., size = 1, .id = NULL)
+ptile_dfr(.l, .f, ..., .size = 1, .id = NULL)
 }
 \arguments{
 \item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise rolling
@@ -30,7 +30,7 @@ formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size}{An integer for window size.}
+\item{.size}{An integer for window size.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -46,10 +46,15 @@ Tiling window calculation over multiple inputs simultaneously
 \examples{
 x <- 1:10
 y <- 10:1
-tile2(x, y, cor, size = 5)
-tile2_lst(x, y, ~ cor(.x, .y), size = 5)
+z <- x * 2
+tile2(x, y, cor, .size = 5)
+tile2_lst(x, y, ~ cor(.x, .y), .size = 5)
+ptile(list(x, y, z), sum, .size = 5)
 }
 \seealso{
-\link{slide2} for sliding window with overlapping observations;
-\link{stretch2} for expanding more observations
+\itemize{
+\item \link{tile}
+\item \link{slide2} for sliding window with overlapping observations
+\item \link{stretch2} for expanding more observations
+}
 }

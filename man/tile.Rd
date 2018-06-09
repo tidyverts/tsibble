@@ -6,11 +6,11 @@
 \alias{tile_dfr}
 \title{Tiling window calculation}
 \usage{
-tile(.x, .f, ..., size = 1)
+tile(.x, .f, ..., .size = 1)
 
-tile_lst(.x, .f, ..., size = 1)
+tile_lst(.x, .f, ..., .size = 1)
 
-tile_dfr(.x, .f, ..., size = 1, .id = NULL)
+tile_dfr(.x, .f, ..., .size = 1, .id = NULL)
 }
 \arguments{
 \item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
@@ -21,7 +21,7 @@ formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size}{An integer for window size.}
+\item{.size}{An integer for window size.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -38,17 +38,20 @@ Tiling window without overlapping observations:
 \examples{
 # tiling over a vector ----
 x <- 1:10
-tile(x, sum, size = 3)
-tile(x, ~ sum(.), size = 3)
+tile(x, sum, .size = 3)
+tile(x, ~ sum(.), .size = 3)
 
 # tiling over a 2-day window for hourly data ----
 \dontrun{
 pedestrian \%>\% 
   split_by(Sensor) \%>\% 
-  purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), size = 48))
+  purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), .size = 48))
 }
 }
 \seealso{
-\link{slide} for sliding window with overlapping observations;
-\link{stretch} for expanding more observations
+\itemize{
+\item \link{tile2}, \link{ptile}
+\item \link{slide} for sliding window with overlapping observations
+\item \link{stretch} for expanding more observations
+}
 }

@@ -91,6 +91,8 @@ full_weather <- weather_tsbl %>%
   fill_na(precip = 0) %>% 
   group_by(origin) %>% 
   tidyr::fill(temp, humid, .direction = "down")
+#> Warning in if (is.na(not_zero)) {: the condition has length > 1 and only
+#> the first element will be used
 full_weather
 #> # A tsibble: 26,208 x 5 [1HOUR]
 #> # Keys:      origin [3]
@@ -150,10 +152,12 @@ Temporal data often involves moving window calculations. Several
 functions in the *tsibble* allow for different variations of moving
 windows using purrr-like syntax:
 
-  - `slide()`: sliding window with overlapping observations.
-  - `tile()`: tiling window without overlapping observations.
-  - `stretch()`: fixing an initial window and expanding to include more
+  - `slide()`/`slide2()`/`pslide()`: sliding window with overlapping
     observations.
+  - `tile()`/`tile2()`/`ptile2()`: tiling window without overlapping
+    observations.
+  - `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and
+    expanding to include more observations.
 
 For example, a moving average of window size 3 is carried out on hourly
 temperatures for each group (*origin*).
@@ -161,7 +165,7 @@ temperatures for each group (*origin*).
 ``` r
 full_weather %>% 
   group_by(origin) %>% 
-  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
+  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), .size = 3))
 #> # A tsibble: 26,208 x 6 [1HOUR]
 #> # Keys:      origin [3]
 #> # Groups:    origin [3]

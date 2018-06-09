@@ -6,11 +6,11 @@
 \alias{stretch_dfr}
 \title{Stretching window calculation}
 \usage{
-stretch(.x, .f, ..., size = 1, init = 1)
+stretch(.x, .f, ..., .size = 1, .init = 1)
 
-stretch_lst(.x, .f, ..., size = 1, init = 1)
+stretch_lst(.x, .f, ..., .size = 1, .init = 1)
 
-stretch_dfr(.x, .f, ..., size = 1, init = 1, .id = NULL)
+stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
 }
 \arguments{
 \item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
@@ -21,7 +21,7 @@ formula, it is converted to a function.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{size, init}{An integer for moving and initial window size.}
+\item{.size, .init}{An integer for moving and initial window size.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created giving
 either the name or the index of the data frame, which is passed to
@@ -37,16 +37,19 @@ Fixing an initial window and expanding more observations:
 }
 \examples{
 x <- 1:10
-stretch(x, mean, init = 3)
-stretch(x, ~ mean(.), init = 3)
+stretch(x, mean, .init = 3)
+stretch(x, ~ mean(.), .init = 3)
 
 # stretching a 2-day window for a data frame ----
 sx <- pedestrian \%>\% 
   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 sx \%>\%
-  stretch_dfr(~ quantile(.$Count), init = 48)
+  stretch_dfr(~ quantile(.$Count), .init = 48)
 }
 \seealso{
-\link{slide} for sliding window with overlapping observations;
-\link{tile} for tiling window without overlapping observations.
+\itemize{
+\item \link{stretch2}, \link{pstretch}
+\item \link{slide} for sliding window with overlapping observations
+\item \link{tile} for tiling window without overlapping observations
+}
 }

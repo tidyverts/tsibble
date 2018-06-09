@@ -94,16 +94,16 @@ This combo can also help with regularising a tsibble of irregular time space.
 
 Temporal data often involves moving window calculations. Several functions in the *tsibble* allow for different variations of moving windows using purrr-like syntax:
 
-* `slide()`: sliding window with overlapping observations.
-* `tile()`: tiling window without overlapping observations.
-* `stretch()`: fixing an initial window and expanding to include more observations.
+* `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
+* `tile()`/`tile2()`/`ptile2()`: tiling window without overlapping observations.
+* `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
 
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 
 ```{r slide}
 full_weather %>% 
   group_by(origin) %>% 
-  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), size = 3))
+  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
 ## Reexported functions from the tidyverse
