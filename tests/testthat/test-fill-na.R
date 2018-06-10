@@ -1,4 +1,3 @@
-library(tibble)
 context("fill_na() & count_gaps() for a tsibble")
 
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
@@ -71,7 +70,11 @@ dat_x <- tibble(
 dat_y <- dat_x[c(2:8, 10), ]
 tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 
-test_that("fill_na for yearquarter", {
+test_that("fill_na() for corner case", {
+  expect_identical(fill_na(tsbl[1:5, ]), tsbl[1:5, ])
+})
+
+test_that("fill_na() for yearquarter", {
   full_tsbl <- tourism %>%
     fill_na()
   expect_is(full_tsbl$Quarter, "yearquarter")
