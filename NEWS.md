@@ -10,7 +10,7 @@
 * New `holiday_aus()` for Australian national and state-based public holiday.
 * Defined `diff()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
-* Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously.
+* Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously (#33).
 * `slider()`, `tiler()`, `stretcher()` supported multiple inputs now.
 * New S3 generics `units_since()` for index classes.
 * New `is_53weeks()` for determine if the year has 53 ISO weeks.

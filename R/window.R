@@ -174,7 +174,7 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' y <- 10:1
 #' slider(x, y, .size = 3)
 slider <- function(..., .size = 1) {
-  x <- flatten(list(...))
+  x <- flatten(rlang::list2(...))
   if (has_length(x, 1)) {
     return(slider_base(x[[1]], .size = .size))
   } else {
@@ -315,7 +315,7 @@ ptile_dfr <- function(.l, .f, ..., .size = 1, .id = NULL) {
 #' y <- 10:1
 #' tiler(x, y, .size = 3)
 tiler <- function(..., .size = 1) {
-  x <- flatten(list(...))
+  x <- flatten(rlang::list2(...))
   if (has_length(x, 1)) {
     return(tiler_base(x[[1]], .size = .size))
   } else {
@@ -453,7 +453,7 @@ pstretch_dfr <- function(.l, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' y <- 10:1
 #' stretcher(x, y, .init = 3)
 stretcher <- function(..., .size = 1, .init = 1) {
-  x <- flatten(list(...))
+  x <- flatten(rlang::list2(...))
   if (has_length(x, 1)) {
     return(stretcher_base(x[[1]], .size = .size, .init = .init))
   } else {
