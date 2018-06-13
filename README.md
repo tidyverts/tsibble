@@ -91,8 +91,6 @@ full_weather <- weather_tsbl %>%
   fill_na(precip = 0) %>% 
   group_by(origin) %>% 
   tidyr::fill(temp, humid, .direction = "down")
-#> Warning in if (is.na(not_zero)) {: the condition has length > 1 and only
-#> the first element will be used
 full_weather
 #> # A tsibble: 26,208 x 5 [1HOUR]
 #> # Keys:      origin [3]

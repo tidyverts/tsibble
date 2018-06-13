@@ -12,6 +12,16 @@ units_since(x)
 \description{
 Time units since Unix Epoch
 }
+\details{
+origin:
+\itemize{
+\item \code{POSIXct}: 1970-01-01 00:00:00
+\item \code{Date}: 1970-01-01
+\item \code{yearweek}: 1970 W01 (i.e. 1969-12-29)
+\item \code{yearmonth}: 1970 Jan
+\item \code{yearquarter}: 1970 Qtr1
+}
+}
 \examples{
 units_since(x = yearmonth(2012 + (0:11) / 12))
 }

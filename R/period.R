@@ -107,7 +107,9 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   yrs <- yr
   yrs[wks == 0] <- yr[wks == 0] - 1
   yrs[wks == 53] <- yr[wks == 53] + !is_53weeks(yr)
-  # paste(yrs, str_wks <- strftime(x, format = "W%V"))
+  if (format == "%Y W%V") {
+    return(paste(yrs, strftime(x, format = "W%V")))
+  }
   year_sym <- "%Y"
   if (grepl("%y", format)) {
     yrs <- sprintf("%02d", yrs %% 100)
@@ -449,6 +451,13 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 #'
 #' @param x An object of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`.
 #'
+#' @details
+#' origin:
+#' * `POSIXct`: 1970-01-01 00:00:00
+#' * `Date`: 1970-01-01
+#' * `yearweek`: 1970 W01 (i.e. 1969-12-29)
+#' * `yearmonth`: 1970 Jan
+#' * `yearquarter`: 1970 Qtr1
 #' @export
 #' @examples
 #' units_since(x = yearmonth(2012 + (0:11) / 12))
