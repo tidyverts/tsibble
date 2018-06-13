@@ -2,11 +2,14 @@
 % Please edit documentation in R/period.R
 \name{yearweek}
 \alias{yearweek}
+\alias{is_53weeks}
 \alias{yearmonth}
 \alias{yearquarter}
 \title{Represent year-week (ISO), year-month or year-quarter objects}
 \usage{
 yearweek(x)
+
+is_53weeks(year)
 
 yearmonth(x)
 
@@ -14,10 +17,14 @@ yearquarter(x)
 }
 \arguments{
 \item{x}{Other object.}
+
+\item{year}{A vector of years.}
 }
 \value{
 Year-week (\code{yearweek}), year-month (\code{yearmonth}) or year-quarter
 (\code{yearquarter}) objects.
+
+\code{TRUE}/\code{FALSE} if the year has 53 ISO weeks.
 }
 \description{
 Create or coerce using \code{yearweek()}, \code{yearmonth()}, or \code{yearquarter()}
@@ -55,6 +62,7 @@ seq(from = wk1, to = wk2, by = 2) # by two weeks
 mth <- yearmonth(as.Date("2017-11-01"))
 seq(mth, length.out = 5, by = 1) # by 1 month
 seq(yearquarter(mth), length.out = 5, by = 1) # by 1 quarter
+is_53weeks(2015:2016)
 }
 \seealso{
 \link{pull_interval}

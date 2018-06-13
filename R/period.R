@@ -99,7 +99,44 @@ yearweek.yearweek <- function(x) {
 #' @export
 format.yearweek <- function(x, format = "%Y W%V", ...) {
   x <- as_date(x)
-  strftime(x, format = format)
+  yr <- lubridate::year(x)
+  ord <- lubridate::make_date(yr, 1)
+  wday <- lubridate::wday(x) - 1
+  wday[wday == 0] <- 7
+  wks <- as.integer(floor((x - ord - wday + 10) / 7))
+  yrs <- yr
+  yrs[wks == 0] <- yr[wks == 0] - 1
+  yrs[wks == 53] <- yr[wks == 53] + !is_53weeks(yr)
+  # paste(yrs, str_wks <- strftime(x, format = "W%V"))
+  year_sym <- "%Y"
+  if (grepl("%y", format)) {
+    yrs <- sprintf("%02d", yrs %% 100)
+    year_sym <- "%y"
+  } else if (grepl("%C", format)) {
+    yrs <- yrs %/% 100
+    year_sym <- "%C"
+  }
+  wk <- strftime(x, format = "%V")
+  wk_sub <- purrr::map_chr(wk, ~ gsub("%V", ., x = format))
+  year_sub <- purrr::map2_chr(yrs, wk_sub, ~ gsub(year_sym, .x, x = .y))
+  year_sub
+}
+
+#' @rdname period
+#' @param year A vector of years.
+#' @return `TRUE`/`FALSE` if the year has 53 ISO weeks.
+#' @export
+#' @examples
+#' is_53weeks(2015:2016)
+is_53weeks <- function(year) {
+  if (!is_bare_numeric(year) || year < 1) {
+    abort("`year` must be positive integers.")
+  }
+  pre_year <- year - 1
+  p_year <- function(year) {
+    (year + floor(year / 4) - floor(year / 100) + floor(year / 400)) %% 7
+  }
+  p_year(year) == 4 | p_year(pre_year) == 3
 }
 
 #' @export
@@ -436,7 +473,7 @@ units_since.yearquarter <- function(x) {
 
 #' @export
 units_since.Date <- function(x) {
-  as.numeric(Date)
+  as.numeric(x)
 }
 
 #' @export

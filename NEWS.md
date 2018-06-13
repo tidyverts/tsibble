@@ -13,6 +13,7 @@
 * Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously.
 * `slider()`, `tiler()`, `stretcher()` supported multiple inputs now.
 * New S3 generics `units_since()` for index classes.
+* New `is_53weeks()` for determine if the year has 53 ISO weeks.
 
 ## Improvements
 
@@ -26,6 +27,7 @@
 * Fixed bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 * Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).
+* Fixed bug in `format.yearweek()` due to the boundary issue. (#27).
 
 # tsibble 0.3.0
 
