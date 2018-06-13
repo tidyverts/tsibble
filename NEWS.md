@@ -12,6 +12,7 @@
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 * Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously.
 * `slider()`, `tiler()`, `stretcher()` supported multiple inputs now.
+* New S3 generics `units_since()` for index classes.
 
 ## Improvements
 

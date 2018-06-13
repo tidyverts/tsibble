@@ -408,6 +408,42 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
   as.POSIXlt(as_date(x), tz = tz, ...)
 }
 
+#' Time units since Unix Epoch
+#'
+#' @param x An object of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`.
+#'
+#' @export
+#' @examples
+#' units_since(x = yearmonth(2012 + (0:11) / 12))
+units_since <- function(x) {
+  UseMethod("units_since")
+}
+
+#' @export
+units_since.yearweek <- function(x) {
+  as.numeric((x - as_date("1969-12-29")) / 7)
+}
+
+#' @export
+units_since.yearmonth <- function(x) {
+  as.numeric((lubridate::year(x) - 1970) * 12 + lubridate::month(x) - 1)
+}
+
+#' @export
+units_since.yearquarter <- function(x) {
+  as.numeric((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x) - 1)
+}
+
+#' @export
+units_since.Date <- function(x) {
+  as.numeric(Date)
+}
+
+#' @export
+units_since.POSIXct <- function(x) {
+  as.numeric(x)
+}
+
 seq_date <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {

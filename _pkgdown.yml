@@ -43,6 +43,7 @@ reference:
 - title: Index functions
   contents:
     - starts_with("year")
+    - units_since
     - guess_frequency
 
 - title: Key helpers
