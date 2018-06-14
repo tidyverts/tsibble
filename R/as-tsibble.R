@@ -428,7 +428,7 @@ build_tsibble <- function(
       "interval" = structure(interval, class = "interval"),
       "regular" = regular,
       "ordered" = ordered,
-      subclass= c("tbl_ts")
+      subclass = c("tbl_ts")
     ))
   }
 
@@ -469,7 +469,6 @@ id <- function(...) {
 ## objects, it would fail when tsibble contain multiple time objects.
 validate_index <- function(data, index) {
   val_idx <- purrr::map_lgl(data, index_valid)
-  is_quo <- is_quosure(index)
   if (quo_is_null(index)) {
     abort("`index` must not be NULL.")
   }

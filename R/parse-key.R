@@ -43,7 +43,7 @@ key_vars.tbl_ts <- function(x) {
 #' @export
 #' @examples
 #' # unkey() only works for a tsibble with 1 key size ----
-#' sx <- pedestrian %>% 
+#' sx <- pedestrian %>%
 #'   filter(Sensor == "Southern Cross Station")
 #' unkey(sx)
 unkey <- function(x) {
@@ -163,7 +163,7 @@ key_flatten <- function(x) {
 #'
 #' @examples
 #' # tourism could be identified by Region and Purpose ----
-#' tourism %>% 
+#' tourism %>%
 #'   key_update(Region, Purpose)
 #' @export
 key_update <- function(.data, ..., validate = TRUE) {
@@ -172,7 +172,7 @@ key_update <- function(.data, ..., validate = TRUE) {
   key <- validate_key(.data, quos)
   build_tsibble(
     .data, key = key, index = !! index(.data), index2 = !! index2(.data),
-    groups = groups(.data), regular = is_regular(.data), validate = validate, 
+    groups = groups(.data), regular = is_regular(.data), validate = validate,
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
@@ -203,7 +203,6 @@ key_rename <- function(
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
   new_chr <- names2[.vars %in% old_chr]
-  dat_key_pos <- match(old_chr, names1)
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
@@ -221,7 +220,6 @@ grp_rename <- function(
   .data, .vars, names1 = names(.data), names2 = names(.vars)
 ) {
   old_grp_chr <- group_vars(.data)
-  dat_grp_pos <- match(old_grp_chr, names1)
   new_grp_chr <- names2[.vars %in% old_grp_chr]
   syms(new_grp_chr)
 }
@@ -280,4 +278,4 @@ flatten_nest <- function(key) { # call
     key
   }
 }
- 
+
