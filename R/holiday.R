@@ -173,7 +173,7 @@ holiday_aus_nsw <- function(year) {
 
   tibble::tibble(
     holiday = rep("Labour Day", each = year_length),
-    date = labour,
+    date = labour
   ) %>%
   dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
@@ -224,7 +224,7 @@ holiday_aus_vic <- function(year) {
   hdays_labels <- c("Labour Day", "Melbourne Cup")
   tibble::tibble(
     holiday = rep(hdays_labels, each = year_length),
-    date = c(labour, melb_cup),
+    date = c(labour, melb_cup)
   ) %>%
   dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
@@ -247,7 +247,7 @@ holiday_aus_wa <- function(year) {
   hdays_labels <- c("Labour Day", "Western Australia Day")
   tibble::tibble(
     holiday = rep(hdays_labels, each = year_length),
-    date = c(labour, western),
+    date = c(labour, western)
   ) %>%
   dplyr::bind_rows(easter_break(year))
 }
@@ -346,7 +346,7 @@ easter_break <- function(year) {
   hdays_labels <- c("Easter Saturday", "Easter Sunday")
   tibble::tibble(
     holiday = rep(hdays_labels, each = length(year)),
-    date = c(easter_sat, easter_sun),
+    date = c(easter_sat, easter_sun)
   )
 }
 
