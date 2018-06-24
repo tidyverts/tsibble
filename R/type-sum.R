@@ -103,7 +103,7 @@ index_valid.yearmth <- index_valid.yearmonth
 index_valid.yearquarter <- index_valid.POSIXct
 
 #' @export
-index_valid.yearqrt <- index_valid.yearquarter
+index_valid.yearqtr <- index_valid.yearquarter
 
 #' @export
 index_valid.numeric <- function(x) {
