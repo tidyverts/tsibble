@@ -151,7 +151,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
 unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
-  use_id(key)
+  key <- use_id(data, !! enquo(key))
   preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
   quos <- enquos(...)
   if (is_empty(quos)) {

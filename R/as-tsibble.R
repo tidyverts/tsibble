@@ -49,7 +49,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
   }
   tbl <- tibble::tibble(...)
   index <- enquo(index)
-  build_tsibble(tbl, key = key, index = !! index, regular = regular)
+  build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular)
 }
 
 #' Coerce to a tsibble object
@@ -100,7 +100,7 @@ as_tsibble.tbl_df <- function(
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = key, index = !! index, regular = regular,
+    x, key = !! enquo(key), index = !! index, regular = regular,
     validate = validate
   )
 }
@@ -130,8 +130,8 @@ as_tsibble.grouped_df <- function(
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = key, index = !! index, groups = groups, regular = regular,
-    validate = validate
+    x, key = !! enquo(key), index = !! index, groups = !! enquo(groups), 
+    regular = regular, validate = validate
   )
 }
 
@@ -349,7 +349,7 @@ build_tsibble <- function(
     abort("A tsibble must not be empty.")
   }
   # if key is quosures
-  use_id(key)
+  key <- use_id(x, !! enquo(key))
 
   # x is lst, data.frame, tbl_df, use ungroup()
   # x is tbl_ts, use as_tibble(ungroup = TRUE)
@@ -582,15 +582,22 @@ as.data.frame.tbl_ts <- function(x, ...) {
   NextMethod()
 }
 
-use_id <- function(x) {
-  tryCatch(
-    is_quosures(x),
-    error = function(e) {
-      e$call <- NULL
-      e$message <- "Have you forgotten `tsibble::id()` to create the `key`?"
-      stop(e)
-    }
+use_id <- function(x, key) {
+  key <- enquo(key)
+  safe_key <- purrr::safely(eval_tidy)(
+    get_expr(key), 
+    env = child_env(get_env(key), id = id)
   )
+  if (is_null(safe_key$error)) {
+    fn <- function(x) {
+      if (is_list(x)) all(purrr::map_lgl(x, fn)) else is_expression(x)
+    }
+    lgl <- fn(safe_key$result)
+    if (lgl) {
+      return(safe_key$result)
+    }
+  }
+  abort("Have you forgotten `id()` to create the `key`?")
 }
 
 #' Find duplication of key and index variables
@@ -608,7 +615,7 @@ use_id <- function(x) {
 #' @return A logical vector of the same length as the row number of `data`
 #' @export
 find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
-  use_id(key)
+  key <- use_id(data, !! enquo(key))
   index <- validate_index(data, enquo(index))
 
   grouped_df(data, vars = key_flatten(key)) %>%

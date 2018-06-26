@@ -51,10 +51,10 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
-    ordered <- ifelse(any(mvars %in% val_vars), FALSE, TRUE)
+    ordered <- !any(mvars %in% val_vars)
   } else if (quo_is_call(idx_is_call)) { # desc(index)
     fn <- call_name(idx_is_call)
-    ordered <- ifelse(fn == "desc", FALSE, TRUE)
+    ordered <- fn != "desc"
   } else {
     exp_vars <- c(red_key, idx)
     exp_idx <- which(val_vars %in% exp_vars)
