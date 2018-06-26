@@ -19,8 +19,7 @@ as_tsibble(x, ...)
 \method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
   validate = TRUE, ...)
 
-\method{as_tsibble}{tbl_ts}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, ...)
+\method{as_tsibble}{tbl_ts}(x, ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
   validate = TRUE, ...)

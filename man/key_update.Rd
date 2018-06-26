@@ -26,6 +26,6 @@ Change/update key variables for a given \code{tbl_ts}
 }
 \examples{
 # tourism could be identified by Region and Purpose ----
-tourism \%>\% 
+tourism \%>\%
   key_update(Region, Purpose)
 }

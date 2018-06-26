@@ -27,7 +27,7 @@ key_vars(pedestrian)
 key(tourism)
 key_vars(tourism)
 # unkey() only works for a tsibble with 1 key size ----
-sx <- pedestrian \%>\% 
+sx <- pedestrian \%>\%
   filter(Sensor == "Southern Cross Station")
 unkey(sx)
 }
