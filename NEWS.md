@@ -21,13 +21,14 @@
 * Dropped the "lst_col" attribute from `lst_ts` (#25).
 * More informative error message when a data frame is passed to `tsibble()`.
 * More informative error message for `fill_na()` and `count_gaps` when a tsibble of unknown interval.
+* `as_tsibble.tbl_ts()` & `as_tsibble.grouped_ts()` now return self (#34).
 
 ## Bug fixes
 
 * Fixed bug in `as.ts.tbl_ts()` for ignoring the `value` argument when the key is empty.
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 * Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).
-* Fixed bug in `format.yearweek()` due to the boundary issue. (#27).
+* Fixed bug in `format.yearweek()` due to the boundary issue (#27).
 
 # tsibble 0.3.0
 
