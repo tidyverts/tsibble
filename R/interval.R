@@ -50,15 +50,15 @@ pull_interval.Date <- function(x) {
 
 #' @export
 pull_interval.yearweek <- function(x) {
-  wk <- lubridate::year(x) + (lubridate::isoweek(x) - 1) / 52.5
-  nweeks <- ceiling(gcd_interval(wk) * 52.5)
+  wk <- units_since(x)
+  nweeks <- gcd_interval(wk)
   structure(list(week = nweeks), class = "interval")
 }
 
 #' @export
 pull_interval.yearmonth <- function(x) {
-  mon <- lubridate::year(x) + (lubridate::month(x) - 1) / 12
-  nmonths <- ceiling(gcd_interval(mon) * 12)
+  mon <- units_since(x)
+  nmonths <- gcd_interval(mon)
   structure(list(month = nmonths), class = "interval")
 }
 
@@ -69,8 +69,8 @@ pull_interval.yearmth <- function(x) {
 
 #' @export
 pull_interval.yearquarter <- function(x) {
-  qtr <- lubridate::year(x) + (lubridate::quarter(x) - 1) / 4
-  nqtrs <- ceiling(gcd_interval(qtr) * 4)
+  qtr <- units_since(x)
+  nqtrs <- gcd_interval(qtr)
   structure(list(quarter = nqtrs), class = "interval")
 }
 
