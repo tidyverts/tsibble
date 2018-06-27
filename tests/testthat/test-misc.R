@@ -39,13 +39,13 @@ test_that("tbl_sum.tbl_ts()", {
   )
   expect_identical(
     tbl_sum(tbl2),
-    c("A tsibble" = "30 x 3 [1QUARTER]", "Keys" = "group [3]")
+    c("A tsibble" = "30 x 3 [1QUARTER]", "Key" = "group [3]")
   )
   expect_identical(
     tbl_sum(tbl2 %>% index_by(year = year(qtr))),
     c(
       "A tsibble" = "30 x 4 [1QUARTER]",
-      "Keys" = "group [3]",
+      "Key" = "group [3]",
       "Groups" = "@ year [3]"
     )
   )
@@ -56,7 +56,7 @@ test_that("tbl_sum.grouped_ts()", {
     tbl_sum(tbl2 %>% group_by(group)),
     c(
       "A tsibble" = "30 x 3 [1QUARTER]",
-      "Keys" = "group [3]",
+      "Key" = "group [3]",
       "Groups" = "group [3]"
     )
   )
@@ -64,7 +64,7 @@ test_that("tbl_sum.grouped_ts()", {
     tbl_sum(tbl2 %>% index_by(year = year(qtr)) %>% group_by(group)),
     c(
       "A tsibble" = "30 x 4 [1QUARTER]",
-      "Keys" = "group [3]",
+      "Key" = "group [3]",
       "Groups" = "group @ year [9]"
     )
   )

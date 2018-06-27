@@ -22,6 +22,7 @@
 * More informative error message when a data frame is passed to `tsibble()`.
 * More informative error message for `fill_na()` and `count_gaps` when a tsibble of unknown interval.
 * `as_tsibble.tbl_ts()` & `as_tsibble.grouped_ts()` now return self (#34).
+* `id()` is used in the tsibble context (e.g. `as_tsibble()`, `tsibble()`, `build_tsibble()`) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).
 
 ## Bug fixes
 
@@ -29,6 +30,10 @@
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 * Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).
 * Fixed bug in `format.yearweek()` due to the boundary issue (#27).
+
+## Misc
+
+* Suggested on `nycflights13 >= 1.0.0`.
 
 # tsibble 0.3.0
 
