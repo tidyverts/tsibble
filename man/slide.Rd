@@ -2,8 +2,6 @@
 % Please edit documentation in R/window.R
 \name{slide}
 \alias{slide}
-\alias{slide_if}
-\alias{slide_at}
 \alias{slide_dbl}
 \alias{slide}
 \alias{slide_dfr}
@@ -11,10 +9,6 @@
 \title{Sliding window calculation}
 \usage{
 slide(.x, .f, ..., .size = 1, .fill = NA)
-
-slide_if(.x, .p, .f, ..., .size = 1, .fill = NA)
-
-slide_at(.x, .at, .f, ..., .size = 1, .fill = NA)
 
 slide_dbl(.x, .f, ..., .size = 1, .fill = NA)
 
@@ -51,17 +45,6 @@ to extract named attributes. If a component is not present, the value of
 \item{.size}{An integer for window size.}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
-
-\item{.p}{A single predicate function, a formula describing such a
-predicate function, or a logical vector of the same length as \code{.x}.
-Alternatively, if the elements of \code{.x} are themselves lists of
-objects, a string indicating the name of a logical element in the
-inner lists. Only those elements where \code{.p} evaluates to
-\code{TRUE} will be modified.}
-
-\item{.at}{A character vector of names or a numeric vector of
-positions. Only those elements corresponding to \code{.at} will be
-modified.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

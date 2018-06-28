@@ -77,27 +77,29 @@ slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
 }
 
-#' @rdname slide
-#' @export
-slide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
-  lst_x <- slider(.x, .size = .size)
-  result <- purrr::map_if(lst_x, .p, .f, ...)
-  if (is.na(.fill)) {
-    .fill <- rep_len(.fill, length(result[[1]]))
-  }
-  c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
-}
+# #' @rdname slide
+# #' @export
+# slide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
+#   lst_x <- flatten(slider(.x, .size = .size))
+#   names(lst_x) <- names(.x)
+#   result <- purrr::map_if(lst_x, .p, .f, ...)
+#   if (is.na(.fill)) {
+#     .fill <- rep_len(.fill, length(result[[1]]))
+#   }
+#   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
+# }
 
-#' @rdname slide
-#' @export
-slide_at <- function(.x, .at, .f, ..., .size = 1, .fill = NA) {
-  lst_x <- slider(.x, .size = .size)
-  result <- purrr::map_at(lst_x, .at, .f, ...)
-  if (is.na(.fill)) {
-    .fill <- rep_len(.fill, length(result[[1]]))
-  }
-  c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
-}
+# #' @rdname slide
+# #' @export
+# slide_at <- function(.x, .at, .f, ..., .size = 1, .fill = NA) {
+#   lst_x <- flatten(slider(.x, .size = .size))
+#   names(lst_x) <- names(.x)
+#   result <- purrr::map_at(lst_x, .at, .f, ...)
+#   if (is.na(.fill)) {
+#     .fill <- rep_len(.fill, length(result[[1]]))
+#   }
+#   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
+# }
 
 #' @rdname slide
 #' @export
@@ -261,7 +263,7 @@ slider <- function(..., .size = 1) {
   if (has_length(x, 1)) {
     return(slider_base(x[[1]], .size = .size))
   } else {
-    return(purrr::map(x, ~ slider_base(., .size = .size)))
+    return(unname(purrr::map(x, ~ slider_base(., .size = .size))))
   }
 }
 
@@ -309,19 +311,21 @@ tile <- function(.x, .f, ..., .size = 1) {
   purrr::map(lst_x, .f, ...)
 }
 
-#' @rdname tile
-#' @export
-tile_if <- function(.x, .p, .f, ..., .size = 1) {
-  lst_x <- tiler(.x, .size = .size)
-  purrr::map_if(lst_x, .p, .f, ...)
-}
+# #' @rdname tile
+# #' @export
+# tile_if <- function(.x, .p, .f, ..., .size = 1) {
+#   lst_x <- flatten(tiler(.x, .size = .size))
+#   names(lst_x) <- names(.x)
+#   purrr::map_if(lst_x, .p, .f, ...)
+# }
 
-#' @rdname tile
-#' @export
-tile_at <- function(.x, .at, .f, ..., .size = 1) {
-  lst_x <- tiler(.x, .size = .size)
-  purrr::map_at(lst_x, .at, .f, ...)
-}
+# #' @rdname tile
+# #' @export
+# tile_at <- function(.x, .at, .f, ..., .size = 1) {
+#   lst_x <- flatten(tiler(.x, .size = .size))
+#   names(lst_x) <- names(.x)
+#   purrr::map_at(lst_x, .at, .f, ...)
+# }
 
 #' @evalRd paste0('\\alias{tile_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
 #' @name tile
@@ -443,7 +447,7 @@ tiler <- function(..., .size = 1) {
   if (has_length(x, 1)) {
     return(tiler_base(x[[1]], .size = .size))
   } else {
-    return(purrr::map(x, ~ tiler_base(., .size = .size)))
+    return(unname(purrr::map(x, ~ tiler_base(., .size = .size))))
   }
 }
 
@@ -489,19 +493,23 @@ stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
   purrr::map(lst_x, .f, ...)
 }
 
-#' @rdname stretch
-#' @export
-stretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
-  lst_x <- stretcher(.x, .size = .size, .init = .init)
-  purrr::map_if(lst_x, .p, .f, ...)
-}
-
-#' @rdname stretch
-#' @export
-stretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
-  lst_x <- stretcher(.x, .size = .size, .init = .init)
-  purrr::map_at(lst_x, .at, .f, ...)
-}
+# #' @rdname stretch
+# #' @export
+# stretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
+#   lst_x <- stretcher(.x, .size = .size, .init = .init) %>% 
+#     lapply(unlist, recursive = FALSE, use.names = FALSE)
+#   names(lst_x) <- names(.x)
+#   purrr::map_if(lst_x, .p, .f, ...)
+# }
+#
+# #' @rdname stretch
+# #' @export
+# stretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
+#   lst_x <- stretcher(.x, .size = .size, .init = .init) %>% 
+#     lapply(unlist, recursive = FALSE, use.names = FALSE)
+#   names(lst_x) <- names(.x)
+#   purrr::map_at(lst_x, .at, .f, ...)
+# }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
 #' @name stretch
@@ -622,7 +630,7 @@ stretcher <- function(..., .size = 1, .init = 1) {
   if (has_length(x, 1)) {
     return(stretcher_base(x[[1]], .size = .size, .init = .init))
   } else {
-    return(purrr::map(x, ~ stretcher_base(., .size = .size, .init = .init)))
+    return(unname(purrr::map(x, ~ stretcher_base(., .size = .size, .init = .init))))
   }
 }
 

@@ -1,6 +1,7 @@
 context("Rolling window function and its variants")
 
 x <- 1:3
+# xx <- list(a = 1L, b = TRUE, c = "a")
 
 test_that("slide() and slider() output", {
   expect_error(slider(x, .size = 0))
@@ -9,22 +10,47 @@ test_that("slide() and slider() output", {
   expect_equal(slider(x, .size = 2), list(1:2, 2:3))
   expect_equal(slide_dbl(x, sum), 1:3)
   expect_equal(slide_int(x, sum), 1L:3L)
+  expect_equal(slide_lgl(x, ~ sum(.) > 1L), c(FALSE, TRUE, TRUE))
   expect_equal(slide_dbl(x, sum, .size = 2), c(NA, 3, 5))
   expect_equal(slide_dbl(x, sum, .size = 2, .fill = 0), c(0, 3, 5))
 })
+
+# test_that("slide_if() & slide_at()", {
+#   expect_equal(
+#     slide_if(xx, is.integer, ~ . - 1), 
+#     purrr::map_if(xx, is.integer, ~ . - 1)
+#   )
+#   expect_equal(
+#     slide_at(xx, "b", ~ . - 1), 
+#     purrr::map_at(xx, "b", ~ . - 1)
+#   )
+# })
 
 test_that("tile() and tiler() output", {
   expect_equal(tiler(x), list(1, 2, 3))
   expect_equal(tiler(x, .size = 2), list(1:2, 3))
   expect_equal(tile_dbl(x, sum), 1:3)
+  expect_equal(tile_int(x, sum), 1L:3L)
   expect_equal(tile_dbl(x, sum, .size = 2), c(3, 3))
 })
+
+# test_that("tile_if() & tile_at()", {
+#   expect_equal(
+#     tile_if(xx, is.integer, ~ . - 1), 
+#     purrr::map_if(xx, is.integer, ~ . - 1)
+#   )
+#   expect_equal(
+#     tile_at(xx, "b", ~ . - 1), 
+#     purrr::map_at(xx, "b", ~ . - 1)
+#   )
+# })
 
 test_that("stretch() and stretcher() output", {
   expect_error(stretcher(x, .init = c(3, 5)))
   expect_equal(stretcher(x), list(1, 1:2, 1:3))
   expect_equal(stretcher(x, .init = 2), list(1:2, 1:3))
   expect_equal(stretch_dbl(x, sum), c(1, 3, 6))
+  expect_equal(stretch_int(x, sum), c(1L, 3L, 6L))
   expect_equal(stretch_dbl(x, sum, .init = 2), c(3, 6))
 })
 

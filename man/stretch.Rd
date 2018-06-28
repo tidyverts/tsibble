@@ -2,18 +2,12 @@
 % Please edit documentation in R/window.R
 \name{stretch}
 \alias{stretch}
-\alias{stretch_if}
-\alias{stretch_at}
 \alias{stretch}
 \alias{stretch_dfr}
 \alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
 stretch(.x, .f, ..., .size = 1, .init = 1)
-
-stretch_if(.x, .p, .f, ..., .size = 1, .init = 1)
-
-stretch_at(.x, .at, .f, ..., .size = 1, .init = 1)
 
 stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
 
@@ -46,17 +40,6 @@ to extract named attributes. If a component is not present, the value of
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{.size, .init}{An integer for moving and initial window size.}
-
-\item{.p}{A single predicate function, a formula describing such a
-predicate function, or a logical vector of the same length as \code{.x}.
-Alternatively, if the elements of \code{.x} are themselves lists of
-objects, a string indicating the name of a logical element in the
-inner lists. Only those elements where \code{.p} evaluates to
-\code{TRUE} will be modified.}
-
-\item{.at}{A character vector of names or a numeric vector of
-positions. Only those elements corresponding to \code{.at} will be
-modified.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
