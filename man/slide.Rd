@@ -69,8 +69,10 @@ giving either the name or the index of the data frame.}
 \description{
 Rolling window with overlapping observations:
 \itemize{
-\item \code{slide()} returns a list
-\item \code{slide_dfr()} return data frame using row-binding
+\item \code{slide()}, \code{slide_if()} & \code{slide_at()} always returns a list.
+\item \code{slide_lgl()}, \code{slide_int()}, \code{slide_dbl()}, \code{slide_chr()} return vectors
+of the corresponding type.
+\item \code{slide_dfr()} \code{slide_dfc()} return data frames using row-binding & column-binding.
 }
 }
 \details{

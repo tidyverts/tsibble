@@ -1,10 +1,10 @@
-globalVariables(".id")
+# nocov start
 replace_fn_names <- function(fn, replace = list()){
   rec_fn <- function(cl) {
-    if(!is_call(cl)) {
+    if (!is_call(cl)) {
       return(cl)
     }
-    if(any(repl_fn <- names(replace) %in% call_name(cl))) {
+    if (any(repl_fn <- names(replace) %in% call_name(cl))) {
       cl[[1]] <- replace[[repl_fn]]
     }
     as.call(append(cl[[1]], purrr::map(as.list(cl[-1]), rec_fn)))
@@ -12,12 +12,15 @@ replace_fn_names <- function(fn, replace = list()){
   body(fn) <- rec_fn(body(fn))
   fn
 }
+# nocov end
 
 #' Sliding window calculation
 #'
 #' Rolling window with overlapping observations:
-#' * `slide()` returns a list
-#' * `slide_dfr()` return data frame using row-binding
+#' * `slide()`, `slide_if()` & `slide_at()` always returns a list.
+#' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors
+#' of the corresponding type.
+#' * `slide_dfr()` `slide_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams purrr::map
 #' @param .size An integer for window size.
@@ -275,8 +278,10 @@ slider_base <- function(x, .size = 1) {
 #' Tiling window calculation
 #'
 #' Tiling window without overlapping observations:
-#' * `tile()` returns a list
-#' * `tile_dfr()` return data frame using row-binding
+#' * `tile()`, `tile_if()` & `tile_at()` always returns a list.
+#' * `tile_lgl()`, `tile_int()`, `tile_dbl()`, `tile_chr()` return vectors
+#' of the corresponding type.
+#' * `tile_dfr()` `tile_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide
 #'
@@ -423,7 +428,7 @@ ptile_dfr <- function(.l, .f, ..., .size = 1, .id = NULL) {
 #' @export
 ptile_dfc <- function(.l, .f, ..., .size = 1) {
   out <- tile(.l, .f = .f, ..., .size = .size)
-  dplyr::bind_cols(!!! out, .id = .id)
+  dplyr::bind_cols(!!! out)
 }
 
 #' @rdname slider
@@ -454,8 +459,10 @@ tiler_base <- function(x, .size = 1) {
 #' Stretching window calculation
 #'
 #' Fixing an initial window and expanding more observations:
-#' * `stretch()` returns a list
-#' * `stretch_dfr()` return data frame using row-binding
+#' * `stretch()`, `stretch_if()` & `stretch_at()` always returns a list.
+#' * `stretch_lgl()`, `stretch_int()`, `stretch_dbl()`, `stretch_chr()` return vectors
+#' of the corresponding type.
+#' * `stretch_dfr()` `stretch_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide
 #' @param .size,.init An integer for moving and initial window size.
@@ -518,7 +525,7 @@ stretch_dfr <- function(.x, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @export
 stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
   out <- stretch(.x, .f = .f, ..., .size = .size, .init = .init)
-  dplyr::bind_cols(!!! out, .id = .id)
+  dplyr::bind_cols(!!! out)
 }
 
 #' Stretching window calculation over multiple simultaneously
@@ -599,7 +606,7 @@ pstretch_dfr <- function(.l, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @export
 pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
   out <- stretch(.l, .f = .f, ..., .size = .size, .init = .init)
-  dplyr::bind_cols(!!! out, .id = .id)
+  dplyr::bind_cols(!!! out)
 }
 
 #' @rdname slider

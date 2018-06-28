@@ -64,8 +64,10 @@ giving either the name or the index of the data frame.}
 \description{
 Fixing an initial window and expanding more observations:
 \itemize{
-\item \code{stretch()} returns a list
-\item \code{stretch_dfr()} return data frame using row-binding
+\item \code{stretch()}, \code{stretch_if()} & \code{stretch_at()} always returns a list.
+\item \code{stretch_lgl()}, \code{stretch_int()}, \code{stretch_dbl()}, \code{stretch_chr()} return vectors
+of the corresponding type.
+\item \code{stretch_dfr()} \code{stretch_dfc()} return data frames using row-binding & column-binding.
 }
 }
 \examples{

@@ -64,8 +64,10 @@ giving either the name or the index of the data frame.}
 \description{
 Tiling window without overlapping observations:
 \itemize{
-\item \code{tile()} returns a list
-\item \code{tile_dfr()} return data frame using row-binding
+\item \code{tile()}, \code{tile_if()} & \code{tile_at()} always returns a list.
+\item \code{tile_lgl()}, \code{tile_int()}, \code{tile_dbl()}, \code{tile_chr()} return vectors
+of the corresponding type.
+\item \code{tile_dfr()} \code{tile_dfc()} return data frames using row-binding & column-binding.
 }
 }
 \examples{
