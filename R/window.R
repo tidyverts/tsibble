@@ -17,11 +17,12 @@ replace_fn_names <- function(fn, replace = list()){
 #' Sliding window calculation
 #'
 #' Rolling window with overlapping observations:
-#' * `slide()`, `slide_if()` & `slide_at()` always returns a list.
+#' * `slide()` always returns a list.
 #' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors
 #' of the corresponding type.
 #' * `slide_dfr()` `slide_dfc()` return data frames using row-binding & column-binding.
 #'
+#' @param .x An atomic vector. Instead [lslide] takes list & data.frame.
 #' @inheritParams purrr::map
 #' @param .size An integer for window size.
 #' @param .fill A single value or data frame to replace `NA`.
@@ -29,7 +30,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' @rdname slide
 #' @export
 #' @seealso
-#' * [slide2], [pslide]
+#' * [slide2], [pslide], [lslide]
 #' * [tile] for tiling window without overlapping observations
 #' * [stretch] for expanding more observations
 #' @details The `slide()` function attempts to tackle more general problems using
@@ -43,32 +44,9 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide_dbl(x, mean, .size = 3)
 #' slide_dbl(x, mean, .size = 3, .fill = 0)
 #' slide_lgl(x, ~ mean(.) > 1, .size = 3)
-#'
-#' \dontrun{
-#' # takes a little longer for cran check
-#' # sliding a 2-day window for a data frame ----
-#' jan <- pedestrian %>%
-#'   filter(Date <= as.Date("2015-01-31")) %>%
-#'   split_by(Sensor)
-#' # returns a data frame of fitted values and residuals for each sensor,
-#' # and then combines
-#' diag_jan <- jan %>%
-#'   purrr::map_dfr(
-#'     ~ slide_dfr(., function(x) {
-#'       fit <- lm(Count ~ Time, data = x)
-#'       data.frame(fitted = fitted(fit), resid = residuals(fit))
-#'     }, .size = 48)
-#'   )
-#' diag_jan[48:57, ]
-#' # save lm models as additional columns
-#' lm_jan <- jan %>%
-#'   purrr::map(
-#'     ~ mutate(., lm = slide(., ~ lm(Count ~ Time, data = .), .size = 48)
-#'   ))
-#' lm_jan[[1]][48:57, ]
-#' }
 #' @export
 slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
   lst_x <- slider(.x, .size = .size)
   result <- purrr::map(lst_x, .f, ...)
   if (is.na(.fill)) {
@@ -77,33 +55,10 @@ slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
 }
 
-# #' @rdname slide
-# #' @export
-# slide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
-#   lst_x <- flatten(slider(.x, .size = .size))
-#   names(lst_x) <- names(.x)
-#   result <- purrr::map_if(lst_x, .p, .f, ...)
-#   if (is.na(.fill)) {
-#     .fill <- rep_len(.fill, length(result[[1]]))
-#   }
-#   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
-# }
-
-# #' @rdname slide
-# #' @export
-# slide_at <- function(.x, .at, .f, ..., .size = 1, .fill = NA) {
-#   lst_x <- flatten(slider(.x, .size = .size))
-#   names(lst_x) <- names(.x)
-#   result <- purrr::map_at(lst_x, .at, .f, ...)
-#   if (is.na(.fill)) {
-#     .fill <- rep_len(.fill, length(result[[1]]))
-#   }
-#   c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
-# }
-
 #' @rdname slide
 #' @export
 slide_dbl <- function(.x, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
   lst_x <- slider(.x, .size = .size)
   c(rep_len(.fill, .size - 1), purrr::map_dbl(lst_x, .f, ...))
 }
@@ -122,6 +77,7 @@ for(type in c("lgl", "chr", "int")){
 #' @rdname slide
 #' @export
 slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
+  only_atomic(.x)
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
   out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
@@ -130,6 +86,7 @@ slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' @rdname slide
 #' @export
 slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
   out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
   dplyr::bind_cols(!!! out_named)
@@ -137,8 +94,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
 
 #' Sliding window calculation over multiple inputs simultaneously
 #'
-#' @param .x,.y A vector of numerics, or data frame. If a data frame, row-wise
-#' rolling window is performed.
+#' @param .x,.y An atomic vector.
 #' @inheritParams slide
 #'
 #' @rdname slide2
@@ -159,6 +115,8 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
 #' @rdname slide2
 #' @export
 slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
+  only_atomic(.y)
   lst <- slider(.x, .y, .size = .size)
   result <- purrr::map2(lst[[1]], lst[[2]], .f, ...)
   if (is.na(.fill)) {
@@ -170,11 +128,13 @@ slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
 #' @rdname slide2
 #' @export
 slide2_dbl <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
+  only_atomic(.y)
   lst <- slider(.x, .y, .size = .size)
   c(rep_len(.fill, .size - 1), purrr::map2_dbl(lst[[1]], lst[[2]], .f, ...))
 }
 
-#' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int"), '}', collapse = '\n')
+#' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int"), '}')
 #' @name slide2
 #' @rdname slide2
 #' @exportPattern ^slide2_
@@ -188,15 +148,19 @@ for(type in c("lgl", "chr", "int")){
 #' @rdname slide2
 #' @export
 slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL) {
-  out <- slide(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
+  only_atomic(.x)
+  only_atomic(.y)
+  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
   out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
 }
 
 #' @rdname slide2
 #' @export
-slide2_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
-  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
+slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
+  only_atomic(.x)
+  only_atomic(.y)
+  out <- slide2(.x, .f = .f, ..., .size = .size, .fill = .fill)
   out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
   dplyr::bind_cols(!!! out_named)
 }
@@ -220,7 +184,7 @@ pslide_dbl <- function(.l, .f, ..., .size = 1, .fill = NA) {
   c(rep_len(.fill, .size - 1), purrr::pmap_dbl(lst, .f, ...))
 }
 
-#' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int"), '}', collapse = '\n')
+#' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int"), '}')
 #' @name pslide
 #' @rdname slide2
 #' @exportPattern ^pslide_
@@ -247,6 +211,48 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
   dplyr::bind_cols(!!! out_named)
 }
 
+#' Rolling window on a list
+#'
+#' @inheritParams purrr::lmap
+#' @inheritParams slide
+#' @rdname lslide
+#' @export
+lslide <- function(.x, .f, ..., .size = 1, .fill = NA) {
+  only_list(.x)
+  lst <- slider(.x, .size = .size)
+  lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
+}
+
+#' @rdname lslide
+#' @export
+lslide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
+  only_list(.x)
+  sel <- probe(.x, .p)
+  out <- list_along(.x)
+  lst <- slider(.x[sel], .size = .size)
+  out[sel] <- lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+#' @rdname lslide
+#' @export
+lslide_at <- function(.x, .at, .f, ..., .size = 1, .fill = NA) {
+  only_list(.x)
+  sel <- inv_which(.x, .at)
+  out <- list_along(.x)
+  lst <- slider(.x[sel], .size = .size)
+  out[sel] <- lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+lslide_constructor <- function(x, .f, ..., .size = 1, .fill = NA) {
+  purrr::modify_depth(x, 2, .f, ...) %>% 
+    purrr::map(~ c(rep(.fill, .size - 1), .)) %>% 
+    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
+}
+
 #' Splits the input to a list according to the rolling window .size.
 #'
 #' @param ... Objects to be splitted.
@@ -259,11 +265,12 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
 #' y <- 10:1
 #' slider(x, y, .size = 3)
 slider <- function(..., .size = 1) {
-  x <- flatten(rlang::list2(...))
-  if (has_length(x, 1)) {
+  lst <- list2(...)
+  x <- flatten(lst)
+  if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
     return(slider_base(x[[1]], .size = .size))
   } else {
-    return(unname(purrr::map(x, ~ slider_base(., .size = .size))))
+    return(purrr::map(x, ~ slider_base(., .size = .size)))
   }
 }
 
@@ -307,27 +314,12 @@ slider_base <- function(x, .size = 1) {
 #'   purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), .size = 48))
 #' }
 tile <- function(.x, .f, ..., .size = 1) {
+  only_atomic(.x)
   lst_x <- tiler(.x, .size = .size)
   purrr::map(lst_x, .f, ...)
 }
 
-# #' @rdname tile
-# #' @export
-# tile_if <- function(.x, .p, .f, ..., .size = 1) {
-#   lst_x <- flatten(tiler(.x, .size = .size))
-#   names(lst_x) <- names(.x)
-#   purrr::map_if(lst_x, .p, .f, ...)
-# }
-
-# #' @rdname tile
-# #' @export
-# tile_at <- function(.x, .at, .f, ..., .size = 1) {
-#   lst_x <- flatten(tiler(.x, .size = .size))
-#   names(lst_x) <- names(.x)
-#   purrr::map_at(lst_x, .at, .f, ...)
-# }
-
-#' @evalRd paste0('\\alias{tile_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
+#' @evalRd paste0('\\alias{tile_', c("lgl", "chr", "dbl", "int"), '}')
 #' @name tile
 #' @rdname tile
 #' @exportPattern ^tile_
@@ -341,6 +333,7 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname tile
 #' @export
 tile_dfr <- function(.x, .f, ..., .size = 1, .id = NULL) {
+  only_atomic(.x)
   out <- tile(.x = .x, .f = .f, ..., .size = .size)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -348,6 +341,7 @@ tile_dfr <- function(.x, .f, ..., .size = 1, .id = NULL) {
 #' @rdname tile
 #' @export
 tile_dfc <- function(.x, .f, ..., .size = 1) {
+  only_atomic(.x)
   out <- tile(.x = .x, .f = .f, ..., .size = .size)
   dplyr::bind_cols(!!! out)
 }
@@ -374,6 +368,8 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' tile2(x, y, ~ cor(.x, .y), .size = 5)
 #' ptile(list(x, y, z), sum, .size = 5)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {
+  only_atomic(.x)
+  only_atomic(.y)
   lst <- tiler(.x, .y, .size = .size)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
@@ -392,6 +388,8 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname tile2
 #' @export
 tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .id = NULL) {
+  only_atomic(.x)
+  only_atomic(.y)
   out <- tile2(.x, .y, .f = .f, ..., .size = .size)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -399,6 +397,8 @@ tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .id = NULL) {
 #' @rdname tile2
 #' @export
 tile2_dfc <- function(.x, .y, .f, ..., .size = 1) {
+  only_atomic(.x)
+  only_atomic(.y)
   out <- tile2(.x, .y, .f = .f, ..., .size = .size)
   dplyr::bind_cols(!!! out)
 }
@@ -435,6 +435,47 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
   dplyr::bind_cols(!!! out)
 }
 
+#' Tiling window on a list
+#'
+#' @inheritParams purrr::lmap
+#' @inheritParams tile
+#' @rdname ltile
+#' @export
+ltile <- function(.x, .f, ..., .size = 1) {
+  only_list(.x)
+  lst <- tiler(.x, .size = .size)
+  ltile_constructor(lst, .f, ...)
+}
+
+#' @rdname ltile
+#' @export
+ltile_if <- function(.x, .p, .f, ..., .size = 1) {
+  only_list(.x)
+  sel <- probe(.x, .p)
+  out <- list_along(.x)
+  lst <- tiler(.x[sel], .size = .size)
+  out[sel] <- ltile_constructor(lst, .f, ...)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+#' @rdname ltile
+#' @export
+ltile_at <- function(.x, .at, .f, ..., .size = 1) {
+  only_list(.x)
+  sel <- inv_which(.x, .at)
+  out <- list_along(.x)
+  lst <- tiler(.x[sel], .size = .size)
+  out[sel] <- ltile_constructor(lst, .f, ...)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+ltile_constructor <- function(x, .f, ...) {
+  purrr::modify_depth(x, 2, .f, ...) %>% 
+    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
+}
+
 #' @rdname slider
 #' @export
 #' @examples
@@ -443,11 +484,12 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' y <- 10:1
 #' tiler(x, y, .size = 3)
 tiler <- function(..., .size = 1) {
-  x <- flatten(rlang::list2(...))
-  if (has_length(x, 1)) {
+  lst <- list2(...)
+  x <- flatten(lst)
+  if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
     return(tiler_base(x[[1]], .size = .size))
   } else {
-    return(unname(purrr::map(x, ~ tiler_base(., .size = .size))))
+    return(purrr::map(x, ~ tiler_base(., .size = .size)))
   }
 }
 
@@ -482,34 +524,11 @@ tiler_base <- function(x, .size = 1) {
 #' x <- 1:10
 #' stretch(x, mean, .init = 3)
 #' stretch_dbl(x, ~ mean(.), .init = 3)
-#'
-#' # stretching a 2-day window for a data frame ----
-#' sx <- pedestrian %>%
-#'   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
-#' sx %>%
-#'   stretch_dfr(~ quantile(.$Count), .init = 48)
 stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
+  only_atomic(.x)
   lst_x <- stretcher(.x, .size = .size, .init = .init)
   purrr::map(lst_x, .f, ...)
 }
-
-# #' @rdname stretch
-# #' @export
-# stretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
-#   lst_x <- stretcher(.x, .size = .size, .init = .init) %>% 
-#     lapply(unlist, recursive = FALSE, use.names = FALSE)
-#   names(lst_x) <- names(.x)
-#   purrr::map_if(lst_x, .p, .f, ...)
-# }
-#
-# #' @rdname stretch
-# #' @export
-# stretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
-#   lst_x <- stretcher(.x, .size = .size, .init = .init) %>% 
-#     lapply(unlist, recursive = FALSE, use.names = FALSE)
-#   names(lst_x) <- names(.x)
-#   purrr::map_at(lst_x, .at, .f, ...)
-# }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
 #' @name stretch
@@ -525,6 +544,7 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch
 #' @export
 stretch_dfr <- function(.x, .f, ..., .size = 1, .init = 1, .id = NULL) {
+  only_atomic(.x)
   out <- stretch(.x, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -532,6 +552,7 @@ stretch_dfr <- function(.x, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @rdname stretch
 #' @export
 stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
+  only_atomic(.x)
   out <- stretch(.x, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_cols(!!! out)
 }
@@ -556,11 +577,13 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 #' stretch2_dbl(x, y, ~ cor(.x, .y), .init = 3)
 #' pstretch(list(x, y, z), sum, .init = 3)
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
+  only_atomic(.x)
+  only_atomic(.y)
   lst <- stretcher(.x, .y, .size = .size, .init = .init)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
 
-#' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
+#' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
 #' @name stretch2
 #' @rdname stretch2
 #' @exportPattern ^stretch2_
@@ -574,6 +597,8 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch2
 #' @export
 stretch2_dfr <- function(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL) {
+  only_atomic(.x)
+  only_atomic(.y)
   out <- stretch(.x, .y, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -581,6 +606,8 @@ stretch2_dfr <- function(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @rdname stretch2
 #' @export
 stretch2_dfc <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
+  only_atomic(.x)
+  only_atomic(.y)
   out <- stretch(.x, .y, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_cols(!!! out)
 }
@@ -592,7 +619,7 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1) {
   purrr::pmap(lst, .f, ...)
 }
 
-#' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
+#' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
 #' @name pstretch
 #' @rdname stretch2
 #' @exportPattern ^pstretch_
@@ -617,6 +644,47 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
   dplyr::bind_cols(!!! out)
 }
 
+#' Stretching window on a list
+#'
+#' @inheritParams purrr::lmap
+#' @inheritParams stretch
+#' @rdname lstretch
+#' @export
+lstretch <- function(.x, .f, ..., .size = 1, .init = 1) {
+  only_list(.x)
+  lst <- stretcher(.x, .size = .size, .init = .init)
+  lstretch_constructor(lst, .f, ...)
+}
+
+#' @rdname lstretch
+#' @export
+lstretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
+  only_list(.x)
+  sel <- probe(.x, .p)
+  out <- list_along(.x)
+  lst <- stretcher(.x[sel], .size = .size, .init = .init)
+  out[sel] <- lstretch_constructor(lst, .f, ...)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+#' @rdname lstretch
+#' @export
+lstretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
+  only_list(.x)
+  sel <- inv_which(.x, .at)
+  out <- list_along(.x)
+  lst <- stretcher(.x[sel], .size = .size, .init = .init)
+  out[sel] <- lstretch_constructor(lst, .f, ...)
+  out[!sel] <- .x[!sel]
+  set_names(out, names(.x))
+}
+
+lstretch_constructor <- function(x, .f, ...) {
+  purrr::modify_depth(x, 2, .f, ...) %>% 
+    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
+}
+
 #' @rdname slider
 #' @param .size,.init An integer for moving and initial window size.
 #' @export
@@ -626,11 +694,12 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #' y <- 10:1
 #' stretcher(x, y, .init = 3)
 stretcher <- function(..., .size = 1, .init = 1) {
-  x <- flatten(rlang::list2(...))
-  if (has_length(x, 1)) {
+  lst <- list2(...)
+  x <- flatten(lst)
+  if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
     return(stretcher_base(x[[1]], .size = .size, .init = .init))
   } else {
-    return(unname(purrr::map(x, ~ stretcher_base(., .size = .size, .init = .init))))
+    return(purrr::map(x, ~ stretcher_base(., .size = .size, .init = .init)))
   }
 }
 
@@ -667,5 +736,46 @@ incr <- function(init, size) {
   function() {
     init <<- init + size
     init
+  }
+}
+
+only_atomic <- function(x) {
+  if (!is_bare_atomic(x)) {
+    abort("Only accepts atomic vector, not list/data.frame.")
+  }
+}
+
+only_list <- function(x) {
+  if (!is_list(x)) {
+    abort("Only accetps a list or data.frame.")
+  }
+}
+
+# from purrr
+probe <- function(.x, .p, ...) {
+  if (is_logical(.p)) {
+    stopifnot(length(.p) == length(.x))
+    .p
+  } else {
+    map_lgl(.x, .p, ...)
+  }
+}
+
+inv_which <- function(x, sel) {
+  if (is.character(sel)) {
+    names <- names(x)
+    if (is.null(names)) {
+      stop("character indexing requires a named object", call. = FALSE)
+    }
+    names %in% sel
+  } else if (is.numeric(sel)) {
+    if (any(sel < 0)) {
+      !seq_along(x) %in% abs(sel)
+    } else {
+      seq_along(x) %in% sel
+    }
+
+  } else {
+    stop("unrecognised index type", call. = FALSE)
   }
 }

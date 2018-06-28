@@ -14,7 +14,7 @@ tile_dfr(.x, .f, ..., .size = 1, .id = NULL)
 tile_dfc(.x, .f, ..., .size = 1)
 }
 \arguments{
-\item{.x}{A list or atomic vector.}
+\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
 
 \item{.f}{A function, formula, or atomic vector.
 

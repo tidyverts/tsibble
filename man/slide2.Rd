@@ -19,7 +19,7 @@ slide2_dbl(.x, .y, .f, ..., .size = 1, .fill = NA)
 
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
-slide2_dfc(.x, .f, ..., .size = 1, .fill = NA)
+slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA)
 
 pslide(.l, .f, ..., .size = 1, .fill = NA)
 
@@ -30,8 +30,7 @@ pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
 pslide_dfc(.l, .f, ..., .size = 1, .fill = NA)
 }
 \arguments{
-\item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise
-rolling window is performed.}
+\item{.x, .y}{An atomic vector.}
 
 \item{.f}{A function, formula, or atomic vector.
 

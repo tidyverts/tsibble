@@ -17,7 +17,7 @@ slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .id = NULL)
 slide_dfc(.x, .f, ..., .size = 1, .fill = NA)
 }
 \arguments{
-\item{.x}{A list or atomic vector.}
+\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
 
 \item{.f}{A function, formula, or atomic vector.
 
@@ -52,7 +52,7 @@ giving either the name or the index of the data frame.}
 \description{
 Rolling window with overlapping observations:
 \itemize{
-\item \code{slide()}, \code{slide_if()} & \code{slide_at()} always returns a list.
+\item \code{slide()} always returns a list.
 \item \code{slide_lgl()}, \code{slide_int()}, \code{slide_dbl()}, \code{slide_chr()} return vectors
 of the corresponding type.
 \item \code{slide_dfr()} \code{slide_dfc()} return data frames using row-binding & column-binding.
@@ -70,34 +70,10 @@ x <- 1:10
 slide_dbl(x, mean, .size = 3)
 slide_dbl(x, mean, .size = 3, .fill = 0)
 slide_lgl(x, ~ mean(.) > 1, .size = 3)
-
-\dontrun{
-# takes a little longer for cran check
-# sliding a 2-day window for a data frame ----
-jan <- pedestrian \%>\%
-  filter(Date <= as.Date("2015-01-31")) \%>\%
-  split_by(Sensor)
-# returns a data frame of fitted values and residuals for each sensor,
-# and then combines
-diag_jan <- jan \%>\%
-  purrr::map_dfr(
-    ~ slide_dfr(., function(x) {
-      fit <- lm(Count ~ Time, data = x)
-      data.frame(fitted = fitted(fit), resid = residuals(fit))
-    }, .size = 48)
-  )
-diag_jan[48:57, ]
-# save lm models as additional columns
-lm_jan <- jan \%>\%
-  purrr::map(
-    ~ mutate(., lm = slide(., ~ lm(Count ~ Time, data = .), .size = 48)
-  ))
-lm_jan[[1]][48:57, ]
-}
 }
 \seealso{
 \itemize{
-\item \link{slide2}, \link{pslide}
+\item \link{slide2}, \link{pslide}, \link{lslide}
 \item \link{tile} for tiling window without overlapping observations
 \item \link{stretch} for expanding more observations
 }

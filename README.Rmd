@@ -94,9 +94,9 @@ This combo can also help with regularising a tsibble of irregular time space.
 
 Temporal data often involves moving window calculations. Several functions in the *tsibble* allow for different variations of moving windows using purrr-like syntax:
 
-* `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
-* `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
-* `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
+* `slide()`/`slide2()`/`pslide()`/`lslide()`: sliding window with overlapping observations.
+* `tile()`/`tile2()`/`ptile()`/`ltile()`: tiling window without overlapping observations.
+* `stretch()`/`stretch2()`/`pstretch()`/`lstretch()`: fixing an initial window and expanding to include more observations.
 
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 

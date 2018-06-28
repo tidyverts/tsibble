@@ -14,7 +14,7 @@ stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
 stretch_dfc(.x, .f, ..., .size = 1, .init = 1)
 }
 \arguments{
-\item{.x}{A list or atomic vector.}
+\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
 
 \item{.f}{A function, formula, or atomic vector.
 
@@ -57,12 +57,6 @@ of the corresponding type.
 x <- 1:10
 stretch(x, mean, .init = 3)
 stretch_dbl(x, ~ mean(.), .init = 3)
-
-# stretching a 2-day window for a data frame ----
-sx <- pedestrian \%>\%
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
-sx \%>\%
-  stretch_dfr(~ quantile(.$Count), .init = 48)
 }
 \seealso{
 \itemize{

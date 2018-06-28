@@ -24,11 +24,9 @@ pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .id = NULL)
 pstretch_dfc(.l, .f, ..., .size = 1, .init = 1)
 }
 \arguments{
-\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise
-rolling window is performed.}
+\item{.x}{An atomic vector.}
 
-\item{.y}{A vector of numerics, or data frame. If a data frame, row-wise
-rolling window is performed.}
+\item{.y}{An atomic vector.}
 
 \item{.f}{A function, formula, or atomic vector.
 

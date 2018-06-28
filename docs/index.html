@@ -176,11 +176,11 @@
 <p>Temporal data often involves moving window calculations. Several functions in the <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide">slide()</a></code>/<code><a href="reference/slide.html">slide2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide2">pslide()</a></code>: sliding window with overlapping observations.</li>
+<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide">slide()</a></code>/<code><a href="reference/slide.html">slide2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide2">pslide()</a></code>/<code><a href="reference/lslide.html">lslide()</a></code>: sliding window with overlapping observations.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile">tile()</a></code>/<code><a href="reference/tile.html">tile2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile2">ptile()</a></code>: tiling window without overlapping observations.</li>
+<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile">tile()</a></code>/<code><a href="reference/tile.html">tile2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile2">ptile()</a></code>/<code><a href="reference/ltile.html">ltile()</a></code>: tiling window without overlapping observations.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch">stretch()</a></code>/<code><a href="reference/stretch.html">stretch2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch2">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
+<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch">stretch()</a></code>/<code><a href="reference/stretch.html">stretch2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch2">pstretch()</a></code>/<code><a href="reference/lstretch.html">lstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
 </ul>
 <p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>

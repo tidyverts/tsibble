@@ -1,7 +1,7 @@
 context("Rolling window function and its variants")
 
 x <- 1:3
-# xx <- list(a = 1L, b = TRUE, c = "a")
+xx <- list(a = rep(1L, 3), b = rep(TRUE, 3), c = rep("a", 3))
 
 test_that("slide() and slider() output", {
   expect_error(slider(x, .size = 0))
@@ -15,16 +15,20 @@ test_that("slide() and slider() output", {
   expect_equal(slide_dbl(x, sum, .size = 2, .fill = 0), c(0, 3, 5))
 })
 
-# test_that("slide_if() & slide_at()", {
-#   expect_equal(
-#     slide_if(xx, is.integer, ~ . - 1), 
-#     purrr::map_if(xx, is.integer, ~ . - 1)
-#   )
-#   expect_equal(
-#     slide_at(xx, "b", ~ . - 1), 
-#     purrr::map_at(xx, "b", ~ . - 1)
-#   )
-# })
+test_that("lslide_if() & lslide_at()", {
+  expect_equal(
+    lslide(xx[1:2], sum, .size = 2),
+    list(a = c(NA, 2, 2), b = c(NA, 2, 2))
+  )
+  expect_equal(
+    lslide_if(xx, is.integer, sum, .size = 2), 
+    list(a = c(NA, 2, 2), b = xx$b, c = xx$c)
+  )
+  expect_equal(
+    lslide_at(xx, "b", sum, .size = 2), 
+    list(a = xx$a, b = c(NA, 2, 2), c = xx$c)
+  )
+})
 
 test_that("tile() and tiler() output", {
   expect_equal(tiler(x), list(1, 2, 3))
@@ -34,16 +38,20 @@ test_that("tile() and tiler() output", {
   expect_equal(tile_dbl(x, sum, .size = 2), c(3, 3))
 })
 
-# test_that("tile_if() & tile_at()", {
-#   expect_equal(
-#     tile_if(xx, is.integer, ~ . - 1), 
-#     purrr::map_if(xx, is.integer, ~ . - 1)
-#   )
-#   expect_equal(
-#     tile_at(xx, "b", ~ . - 1), 
-#     purrr::map_at(xx, "b", ~ . - 1)
-#   )
-# })
+test_that("ltile_if() & ltile_at()", {
+  expect_equal(
+    ltile(xx[1:2], sum, .size = 2),
+    list(a = c(2, 1), b = c(2, 1))
+  )
+  expect_equal(
+    ltile_if(xx, is.integer, sum, .size = 2), 
+    list(a = c(2, 1), b = xx$b, c = xx$c)
+  )
+  expect_equal(
+    ltile_at(xx, "b", sum, .size = 2), 
+    list(a = xx$a, b = c(2, 1), c = xx$c)
+  )
+})
 
 test_that("stretch() and stretcher() output", {
   expect_error(stretcher(x, .init = c(3, 5)))
@@ -52,6 +60,21 @@ test_that("stretch() and stretcher() output", {
   expect_equal(stretch_dbl(x, sum), c(1, 3, 6))
   expect_equal(stretch_int(x, sum), c(1L, 3L, 6L))
   expect_equal(stretch_dbl(x, sum, .init = 2), c(3, 6))
+})
+
+test_that("lstretch_if() & lstretch_at()", {
+  expect_equal(
+    lstretch(xx[1:2], sum, .size = 2),
+    list(a = c(1, 3), b = c(1, 3))
+  )
+  expect_equal(
+    lstretch_if(xx, is.integer, sum, .size = 2), 
+    list(a = c(1, 3), b = xx$b, c = xx$c)
+  )
+  expect_equal(
+    lstretch_at(xx, "b", sum, .size = 2), 
+    list(a = xx$a, b = c(1, 3), c = xx$c)
+  )
 })
 
 y <- 3:1
@@ -147,40 +170,3 @@ test_that("pstretch()", {
   expect_equal(pstretch(list(x, y, z), sum, .size = 2), list(7, 18))
   expect_equal(pstretch(list(x, y, z), sum, .size = 2, .init = 2), list(13, 18))
 })
-
-sx <- pedestrian %>%
-  filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-06"))
-
-test_that("slide_*()", {
-  qtl_df <- sx %>%
-    slide_dfr(~ quantile(.$Count), .size = 24)
-  expect_equal(dim(qtl_df), c(NROW(sx), 5))
-  expect_is(qtl_df, "tbl_df")
-  qtl_lst <- sx %>%
-    slide(~ quantile(.$Count), .size = 24)
-  expect_equal(NROW(qtl_df), NROW(sx))
-  expect_is(qtl_lst, "list")
-})
-
-test_that("tile_*()", {
-  qtl_df <- sx %>%
-    tile_dfr(~ quantile(.$Count), .size = 24)
-  expect_equal(dim(qtl_df), c(NROW(sx) / 24, 5))
-  expect_is(qtl_df, "tbl_df")
-  qtl_lst <- sx %>%
-    tile(~ quantile(.$Count), .size = 24)
-  expect_equal(NROW(qtl_df), NROW(sx) / 24)
-  expect_is(qtl_lst, "list")
-})
-
-test_that("stretch_*()", {
-  qtl_df <- sx %>%
-    stretch_dfr(~ quantile(.$Count), .init = 48)
-  expect_equal(dim(qtl_df), c(NROW(sx) - 47, 5))
-  expect_is(qtl_df, "tbl_df")
-  qtl_lst <- sx %>%
-    stretch(~ quantile(.$Count), .init = 48)
-  expect_equal(NROW(qtl_df), NROW(sx) - 47)
-  expect_is(qtl_lst, "list")
-})
-
