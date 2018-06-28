@@ -2,7 +2,9 @@
 
 ## Breaking changes
 
-* Renamed arguments in windowed functions, `slide()`, `tile()` and `stretch()`, to be consistent with purrr functions.
+* Now windowed functions follow the `purrr` style exactly (#35): 
+  + `slide()`, `tile()`, `stretch()` return an output of lists instead of numerics before.
+  + added other type-stable variants like `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
 * Renamed `x` to `...` in windowed functions, `slider()`, `tiler()` and `stretcher()`, to take multiple inputs.
 
 ## New features

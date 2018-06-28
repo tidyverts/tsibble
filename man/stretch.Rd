@@ -2,46 +2,79 @@
 % Please edit documentation in R/window.R
 \name{stretch}
 \alias{stretch}
-\alias{stretch_lst}
+\alias{stretch_if}
+\alias{stretch_at}
+\alias{stretch}
 \alias{stretch_dfr}
+\alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
 stretch(.x, .f, ..., .size = 1, .init = 1)
 
-stretch_lst(.x, .f, ..., .size = 1, .init = 1)
+stretch_if(.x, .p, .f, ..., .size = 1, .init = 1)
+
+stretch_at(.x, .at, .f, ..., .size = 1, .init = 1)
 
 stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
+
+stretch_dfc(.x, .f, ..., .size = 1, .init = 1)
 }
 \arguments{
-\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.x}{A list or atomic vector.}
 
-\item{.f}{A function or one-sided formula using purrr-like syntax. If a
-formula, it is converted to a function.}
+\item{.f}{A function, formula, or atomic vector.
+
+If a \strong{function}, it is used as is.
+
+If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
+are three ways to refer to the arguments:
+\itemize{
+\item For a single argument function, use \code{.}
+\item For a two argument function, use \code{.x} and \code{.y}
+\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
+}
+
+This syntax allows you to create very compact anonymous functions.
+
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
+is converted to an extractor function. Character vectors index by name
+and numeric vectors index by position; use a list to index by position
+and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
+to extract named attributes. If a component is not present, the value of
+\code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{.size, .init}{An integer for moving and initial window size.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created giving
-either the name or the index of the data frame, which is passed to
-\link[dplyr:bind_rows]{dplyr::bind_rows}.}
+\item{.p}{A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as \code{.x}.
+Alternatively, if the elements of \code{.x} are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where \code{.p} evaluates to
+\code{TRUE} will be modified.}
+
+\item{.at}{A character vector of names or a numeric vector of
+positions. Only those elements corresponding to \code{.at} will be
+modified.}
+
+\item{.id}{If not \code{NULL} a variable with this name will be created
+giving either the name or the index of the data frame.}
 }
 \description{
 Fixing an initial window and expanding more observations:
 \itemize{
-\item \code{stretch()} always returns a vector of numerics
-\item \code{stretch_lst()} returns a list
+\item \code{stretch()} returns a list
 \item \code{stretch_dfr()} return data frame using row-binding
 }
 }
 \examples{
 x <- 1:10
 stretch(x, mean, .init = 3)
-stretch(x, ~ mean(.), .init = 3)
+stretch_dbl(x, ~ mean(.), .init = 3)
 
 # stretching a 2-day window for a data frame ----
-sx <- pedestrian \%>\% 
+sx <- pedestrian \%>\%
   filter(Sensor == "Southern Cross Station", Date <= as.Date("2015-01-10"))
 sx \%>\%
   stretch_dfr(~ quantile(.$Count), .init = 48)
@@ -53,3 +86,7 @@ sx \%>\%
 \item \link{tile} for tiling window without overlapping observations
 }
 }
+\alias{stretch_lgl}
+\alias{stretch_chr}
+\alias{stretch_dbl}
+\alias{stretch_int}

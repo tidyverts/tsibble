@@ -103,7 +103,7 @@ For example, a moving average of window size 3 is carried out on hourly temperat
 ```{r slide}
 full_weather %>% 
   group_by(origin) %>% 
-  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), .size = 3))
+  mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
 ## Reexported functions from the tidyverse

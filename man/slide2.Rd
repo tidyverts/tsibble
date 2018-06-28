@@ -2,31 +2,57 @@
 % Please edit documentation in R/window.R
 \name{slide2}
 \alias{slide2}
-\alias{slide2_lst}
+\alias{slide2_dbl}
+\alias{slide2}
 \alias{slide2_dfr}
+\alias{slide2_dfc}
 \alias{pslide}
-\alias{pslide_lst}
+\alias{pslide_dbl}
+\alias{pslide}
 \alias{pslide_dfr}
+\alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., .size = 1, .fill = NA_real_)
+slide2(.x, .y, .f, ..., .size = 1, .fill = NA)
 
-slide2_lst(.x, .y, .f, ..., .size = 1, .fill = NA)
+slide2_dbl(.x, .y, .f, ..., .size = 1, .fill = NA)
 
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
-pslide(.l, .f, ..., .size = 1, .fill = NA_real_)
+slide2_dfc(.x, .f, ..., .size = 1, .fill = NA)
 
-pslide_lst(.l, .f, ..., .size = 1, .fill = NA)
+pslide(.l, .f, ..., .size = 1, .fill = NA)
+
+pslide_dbl(.l, .f, ..., .size = 1, .fill = NA)
 
 pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
+
+pslide_dfc(.l, .f, ..., .size = 1, .fill = NA)
 }
 \arguments{
 \item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise
 rolling window is performed.}
 
-\item{.f}{A function or one-sided formula using purrr-like syntax. If a
-formula, it is converted to a function.}
+\item{.f}{A function, formula, or atomic vector.
+
+If a \strong{function}, it is used as is.
+
+If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
+are three ways to refer to the arguments:
+\itemize{
+\item For a single argument function, use \code{.}
+\item For a two argument function, use \code{.x} and \code{.y}
+\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
+}
+
+This syntax allows you to create very compact anonymous functions.
+
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
+is converted to an extractor function. Character vectors index by name
+and numeric vectors index by position; use a list to index by position
+and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
+to extract named attributes. If a component is not present, the value of
+\code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
@@ -34,9 +60,8 @@ formula, it is converted to a function.}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created giving
-either the name or the index of the data frame, which is passed to
-\link[dplyr:bind_rows]{dplyr::bind_rows}.}
+\item{.id}{If not \code{NULL} a variable with this name will be created
+giving either the name or the index of the data frame.}
 
 \item{.l}{A list of lists. The length of \code{.l} determines the
 number of arguments that \code{.f} will be called with. List
@@ -49,9 +74,9 @@ Sliding window calculation over multiple inputs simultaneously
 x <- 1:10
 y <- 10:1
 z <- x * 2
+slide2_dbl(x, y, cor, .size = 3)
 slide2(x, y, cor, .size = 3)
-slide2_lst(x, y, cor, .size = 3)
-pslide(list(x, y, z), sum, .size = 3)
+pslide_dbl(list(x, y, z), sum, .size = 3)
 }
 \seealso{
 \itemize{
@@ -60,3 +85,9 @@ pslide(list(x, y, z), sum, .size = 3)
 \item \link{stretch2} for expanding more observations
 }
 }
+\alias{slide2_lgl}
+\alias{slide2_chr}
+\alias{slide2_int}
+\alias{pslide_lgl}
+\alias{pslide_chr}
+\alias{pslide_int}

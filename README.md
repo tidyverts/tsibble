@@ -163,7 +163,7 @@ temperatures for each group (*origin*).
 ``` r
 full_weather %>% 
   group_by(origin) %>% 
-  mutate(temp_ma = slide(temp, ~ mean(., na.rm = TRUE), .size = 3))
+  mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 #> # A tsibble: 26,190 x 6 [1HOUR]
 #> # Key:       origin [3]
 #> # Groups:    origin [3]

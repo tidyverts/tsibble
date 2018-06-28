@@ -2,49 +2,82 @@
 % Please edit documentation in R/window.R
 \name{tile}
 \alias{tile}
-\alias{tile_lst}
+\alias{tile_if}
+\alias{tile_at}
+\alias{tile}
 \alias{tile_dfr}
+\alias{tile_dfc}
 \title{Tiling window calculation}
 \usage{
 tile(.x, .f, ..., .size = 1)
 
-tile_lst(.x, .f, ..., .size = 1)
+tile_if(.x, .p, .f, ..., .size = 1)
+
+tile_at(.x, .at, .f, ..., .size = 1)
 
 tile_dfr(.x, .f, ..., .size = 1, .id = NULL)
+
+tile_dfc(.x, .f, ..., .size = 1)
 }
 \arguments{
-\item{.x}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.x}{A list or atomic vector.}
 
-\item{.f}{A function or one-sided formula using purrr-like syntax. If a
-formula, it is converted to a function.}
+\item{.f}{A function, formula, or atomic vector.
+
+If a \strong{function}, it is used as is.
+
+If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
+are three ways to refer to the arguments:
+\itemize{
+\item For a single argument function, use \code{.}
+\item For a two argument function, use \code{.x} and \code{.y}
+\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
+}
+
+This syntax allows you to create very compact anonymous functions.
+
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
+is converted to an extractor function. Character vectors index by name
+and numeric vectors index by position; use a list to index by position
+and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
+to extract named attributes. If a component is not present, the value of
+\code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{.size}{An integer for window size.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created giving
-either the name or the index of the data frame, which is passed to
-\link[dplyr:bind_rows]{dplyr::bind_rows}.}
+\item{.p}{A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as \code{.x}.
+Alternatively, if the elements of \code{.x} are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where \code{.p} evaluates to
+\code{TRUE} will be modified.}
+
+\item{.at}{A character vector of names or a numeric vector of
+positions. Only those elements corresponding to \code{.at} will be
+modified.}
+
+\item{.id}{If not \code{NULL} a variable with this name will be created
+giving either the name or the index of the data frame.}
 }
 \description{
 Tiling window without overlapping observations:
 \itemize{
-\item \code{tile()} always returns a vector of numerics
-\item \code{tile_lst()} returns a list
+\item \code{tile()} returns a list
 \item \code{tile_dfr()} return data frame using row-binding
 }
 }
 \examples{
 # tiling over a vector ----
 x <- 1:10
-tile(x, sum, .size = 3)
-tile(x, ~ sum(.), .size = 3)
+tile_dbl(x, sum, .size = 3)
+tile_dbl(x, ~ sum(.), .size = 3)
 
 # tiling over a 2-day window for hourly data ----
 \dontrun{
-pedestrian \%>\% 
-  split_by(Sensor) \%>\% 
+pedestrian \%>\%
+  split_by(Sensor) \%>\%
   purrr::map_dfr(~ tile_dfr(., ~ quantile(.$Count), .size = 48))
 }
 }
@@ -55,3 +88,7 @@ pedestrian \%>\%
 \item \link{stretch} for expanding more observations
 }
 }
+\alias{tile_lgl}
+\alias{tile_chr}
+\alias{tile_dbl}
+\alias{tile_int}

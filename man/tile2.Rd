@@ -2,39 +2,58 @@
 % Please edit documentation in R/window.R
 \name{tile2}
 \alias{tile2}
-\alias{tile2_lst}
+\alias{tile2}
 \alias{tile2_dfr}
+\alias{tile2_dfc}
 \alias{ptile}
-\alias{ptile_lst}
+\alias{ptile}
 \alias{ptile_dfr}
+\alias{ptile_dfc}
 \title{Tiling window calculation over multiple inputs simultaneously}
 \usage{
 tile2(.x, .y, .f, ..., .size = 1)
 
-tile2_lst(.x, .y, .f, ..., .size = 1)
-
 tile2_dfr(.x, .y, .f, ..., .size = 1, .id = NULL)
+
+tile2_dfc(.x, .y, .f, ..., .size = 1)
 
 ptile(.l, .f, ..., .size = 1)
 
-ptile_lst(.l, .f, ..., .size = 1)
-
 ptile_dfr(.l, .f, ..., .size = 1, .id = NULL)
+
+ptile_dfc(.l, .f, ..., .size = 1)
 }
 \arguments{
 \item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise rolling
 window is performed.}
 
-\item{.f}{A function or one-sided formula using purrr-like syntax. If a
-formula, it is converted to a function.}
+\item{.f}{A function, formula, or atomic vector.
+
+If a \strong{function}, it is used as is.
+
+If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
+are three ways to refer to the arguments:
+\itemize{
+\item For a single argument function, use \code{.}
+\item For a two argument function, use \code{.x} and \code{.y}
+\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
+}
+
+This syntax allows you to create very compact anonymous functions.
+
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
+is converted to an extractor function. Character vectors index by name
+and numeric vectors index by position; use a list to index by position
+and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
+to extract named attributes. If a component is not present, the value of
+\code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{.size}{An integer for window size.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created giving
-either the name or the index of the data frame, which is passed to
-\link[dplyr:bind_rows]{dplyr::bind_rows}.}
+\item{.id}{If not \code{NULL} a variable with this name will be created
+giving either the name or the index of the data frame.}
 
 \item{.l}{A list of lists. The length of \code{.l} determines the
 number of arguments that \code{.f} will be called with. List
@@ -47,8 +66,8 @@ Tiling window calculation over multiple inputs simultaneously
 x <- 1:10
 y <- 10:1
 z <- x * 2
-tile2(x, y, cor, .size = 5)
-tile2_lst(x, y, ~ cor(.x, .y), .size = 5)
+tile2_dbl(x, y, cor, .size = 5)
+tile2(x, y, ~ cor(.x, .y), .size = 5)
 ptile(list(x, y, z), sum, .size = 5)
 }
 \seealso{
@@ -58,3 +77,11 @@ ptile(list(x, y, z), sum, .size = 5)
 \item \link{stretch2} for expanding more observations
 }
 }
+\alias{tile2_lgl}
+\alias{tile2_chr}
+\alias{tile2_dbl}
+\alias{tile2_int}
+\alias{ptile_lgl}
+\alias{ptile_chr}
+\alias{ptile_dbl}
+\alias{ptile_int}
