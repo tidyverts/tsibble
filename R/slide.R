@@ -79,7 +79,7 @@ for(type in c("lgl", "chr", "int")){
 slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   only_atomic(.x)
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
 }
 
@@ -88,7 +88,7 @@ slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_cols(!!! out_named)
 }
 
@@ -151,7 +151,7 @@ slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   only_atomic(.x)
   only_atomic(.y)
   out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
 }
 
@@ -160,8 +160,8 @@ slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   only_atomic(.y)
-  out <- slide2(.x, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::map(out, `names<-`, names(out[[.size]]))
+  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_cols(!!! out_named)
 }
 
@@ -199,7 +199,7 @@ for(type in c("lgl", "chr", "int")){
 #' @export
 pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::pmap(out, `names<-`, names(out[[.size]]))
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_rows(!!! out_named, .id = .id)
 }
 
@@ -207,7 +207,7 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' @export
 pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
   out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
-  out_named <- purrr::pmap(out, `names<-`, names(out[[.size]]))
+  out_named <- purrr::map(out, set_names, names(out[[.size]]))
   dplyr::bind_cols(!!! out_named)
 }
 
@@ -303,13 +303,13 @@ incr <- function(init, size) {
 
 only_atomic <- function(x) {
   if (!is_bare_atomic(x)) {
-    abort("Only accepts atomic vector, not list/data.frame.")
+    abort("Only accepts atomic vector, not a list or data.frame.")
   }
 }
 
 only_list <- function(x) {
   if (!is_list(x)) {
-    abort("Only accetps a list or data.frame.")
+    abort("Only accepts a list or data.frame.")
   }
 }
 

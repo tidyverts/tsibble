@@ -6,6 +6,7 @@ xx <- list(a = rep(1L, 3), b = rep(TRUE, 3), c = rep("a", 3))
 test_that("slide() and slider() output", {
   expect_error(slider(x, .size = 0))
   expect_error(slider(list(list(x))))
+  expect_error(slide(xx), "atomic vector")
   expect_equal(slider(x), list(1, 2, 3))
   expect_equal(slider(x, .size = 2), list(1:2, 2:3))
   expect_equal(slide_dbl(x, sum), 1:3)
@@ -13,9 +14,19 @@ test_that("slide() and slider() output", {
   expect_equal(slide_lgl(x, ~ sum(.) > 1L), c(FALSE, TRUE, TRUE))
   expect_equal(slide_dbl(x, sum, .size = 2), c(NA, 3, 5))
   expect_equal(slide_dbl(x, sum, .size = 2, .fill = 0), c(0, 3, 5))
+  expect_equal(slide(x, sum), list(1, 2, 3))
+  expect_equal(
+    slide_dfr(x, quantile, 0.5),
+    tibble::tibble(`50%` = as.numeric(1:3))
+  )
+  expect_equal(
+    slide_dfc(x, ~ data.frame(a = .)),
+    data.frame(a = 1, a1 = 2, a2 = 3)
+  )
 })
 
 test_that("lslide_if() & lslide_at()", {
+  expect_error(lslide(x, sum), "accepts a list")
   expect_equal(
     lslide(xx[1:2], sum, .size = 2),
     list(a = c(NA, 2, 2), b = c(NA, 2, 2))
@@ -23,6 +34,10 @@ test_that("lslide_if() & lslide_at()", {
   expect_equal(
     lslide_if(xx, is.integer, sum, .size = 2), 
     list(a = c(NA, 2, 2), b = xx$b, c = xx$c)
+  )
+  expect_equal(
+    lslide_if(xx, is.integer, sum, .size = 2), 
+    lslide_if(tibble::as_tibble(xx), is.integer, sum, .size = 2)
   )
   expect_equal(
     lslide_at(xx, "b", sum, .size = 2), 
@@ -80,6 +95,14 @@ test_that("lstretch_if() & lstretch_at()", {
 y <- 3:1
 
 test_that("slide2()", {
+  expect_equal(
+    slide2_dfr(x, y, ~ data.frame(a = sum(.))),
+    data.frame(a = 1:3)
+  )
+  expect_equal(
+    slide2_dfc(x, y, ~ data.frame(a = sum(.))),
+    data.frame(a = 1, a1 = 2, a2 = 3)
+  )
   expect_equal(slide2_dbl(x, y, sum), rep(4, 3))
   expect_equal(slide2_dbl(x, y, cor, .size = 2), c(NA, -1, -1))
   expect_equal(slide2_dbl(x, y, cor, .size = 2, .fill = 0), c(0, -1, -1))
