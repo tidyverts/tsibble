@@ -129,14 +129,16 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch2
 #' @export
 pstretch_dfr <- function(.l, .f, ..., .size = 1, .init = 1, .id = NULL) {
-  out <- stretch(.l, .f = .f, ..., .size = .size, .init = .init)
+  lst <- stretcher(.l, .size = .size, .init = .init)
+  out <- purrr::pmap(lst, .f, ...)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
 pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
-  out <- stretch(.l, .f = .f, ..., .size = .size, .init = .init)
+  lst <- stretcher(.l, .size = .size, .init = .init)
+  out <- purrr::pmap(lst, .f, ...)
   dplyr::bind_cols(!!! out)
 }
 
@@ -215,6 +217,6 @@ stretcher_base <- function(x, .size = 1, .init = 1) {
   if (is_atomic(x)) {
     return(purrr::map(incr_lst, function(i) x[i]))
   }
-  purrr::map(incr_lst, ~ x[., , drop = FALSE])
+  # purrr::map(incr_lst, ~ x[., , drop = FALSE])
 }
 

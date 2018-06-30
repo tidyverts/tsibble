@@ -131,14 +131,16 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname tile2
 #' @export
 ptile_dfr <- function(.l, .f, ..., .size = 1, .id = NULL) {
-  out <- tile(.l, .f = .f, ..., .size = .size)
+  lst <- tiler(.l, .size = .size)
+  out <- purrr::pmap(lst, .f, ...)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
 ptile_dfc <- function(.l, .f, ..., .size = 1) {
-  out <- tile(.l, .f = .f, ..., .size = .size)
+  lst <- tiler(.l, .size = .size)
+  out <- purrr::pmap(lst, .f, ...)
   dplyr::bind_cols(!!! out)
 }
 
