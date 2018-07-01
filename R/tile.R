@@ -158,8 +158,8 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' @export
 ltile <- function(.x, .f, ..., .size = 1) {
   only_list(.x)
-  lst <- tiler(.x, .size = .size)
-  ltile_constructor(lst, .f, ...)
+  lst <- tiler_base(.x, .size = .size)
+  list_constructor(lst, .f, ...)
 }
 
 #' @rdname ltile
@@ -168,8 +168,8 @@ ltile_if <- function(.x, .p, .f, ..., .size = 1) {
   only_list(.x)
   sel <- probe(.x, .p)
   out <- list_along(.x)
-  lst <- tiler(.x[sel], .size = .size)
-  out[sel] <- ltile_constructor(lst, .f, ...)
+  lst <- tiler_base(.x[sel], .size = .size)
+  out[sel] <- list_constructor(lst, .f, ...)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
 }
@@ -180,15 +180,10 @@ ltile_at <- function(.x, .at, .f, ..., .size = 1) {
   only_list(.x)
   sel <- inv_which(.x, .at)
   out <- list_along(.x)
-  lst <- tiler(.x[sel], .size = .size)
-  out[sel] <- ltile_constructor(lst, .f, ...)
+  lst <- tiler_base(.x[sel], .size = .size)
+  out[sel] <- list_constructor(lst, .f, ...)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
-}
-
-ltile_constructor <- function(x, .f, ...) {
-  purrr::modify_depth(x, 2, .f, ...) %>% 
-    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
 }
 
 #' @rdname slider

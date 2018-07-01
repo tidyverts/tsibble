@@ -48,30 +48,17 @@ replace_fn_names <- function(fn, replace = list()){
 slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   lst_x <- slider(.x, .size = .size)
-  result <- purrr::map(lst_x, .f, ...)
-  if (is.na(.fill)) {
-    .fill <- rep_len(.fill, length(result[[1]]))
-  }
-  c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
+  c(rep_len(.fill, .size - 1), purrr::map(lst_x, .f, ...))
 }
 
-#' @rdname slide
-#' @export
-#' @usage NULL
-slide_dbl <- function(.x, .f, ..., .size = 1, .fill = NA) {
-  only_atomic(.x)
-  lst_x <- slider(.x, .size = .size)
-  c(rep_len(.fill, .size - 1), purrr::map_dbl(lst_x, .f, ...))
-}
-
-#' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int"), '}')
+#' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
 #' @name slide
 #' @rdname slide
 #' @exportPattern ^slide_
-for(type in c("lgl", "chr", "int")){
+for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide_", type),
-    replace_fn_names(slide_dbl, list(map_dbl = sym(paste0("map_", type))))
+    replace_fn_names(slide, list(map = sym(paste0("map_", type))))
   )
 }
 
@@ -125,31 +112,17 @@ slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   only_atomic(.y)
   lst <- slider(.x, .y, .size = .size)
-  result <- purrr::map2(lst[[1]], lst[[2]], .f, ...)
-  if (is.na(.fill)) {
-    .fill <- rep_len(.fill, length(result[[1]]))
-  }
-  c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
+  c(rep_len(.fill, .size - 1), purrr::map2(lst[[1]], lst[[2]], .f, ...))
 }
 
-#' @rdname slide2
-#' @export
-#' @usage NULL
-slide2_dbl <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
-  only_atomic(.x)
-  only_atomic(.y)
-  lst <- slider(.x, .y, .size = .size)
-  c(rep_len(.fill, .size - 1), purrr::map2_dbl(lst[[1]], lst[[2]], .f, ...))
-}
-
-#' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int"), '}')
+#' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
 #' @name slide2
 #' @rdname slide2
 #' @exportPattern ^slide2_
-for(type in c("lgl", "chr", "int")){
+for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide2_", type),
-    replace_fn_names(slide2_dbl, list(map2_dbl = sym(paste0("map2_", type))))
+    replace_fn_names(slide2, list(map2 = sym(paste0("map2_", type))))
   )
 }
 
@@ -178,29 +151,17 @@ slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
 #' @export
 pslide <- function(.l, .f, ..., .size = 1, .fill = NA) {
   lst <- slider(.l, .size = .size)
-  result <- purrr::pmap(lst, .f, ...)
-  if (is.na(.fill)) {
-    .fill <- rep_len(.fill, length(result[[1]]))
-  }
-  c(replicate(n = .size - 1, .fill, simplify = FALSE), result)
+  c(rep_len(.fill, .size - 1), purrr::pmap(lst, .f, ...))
 }
 
-#' @rdname slide2
-#' @export
-#' @usage NULL
-pslide_dbl <- function(.l, .f, ..., .size = 1, .fill = NA) {
-  lst <- slider(.l, .size = .size)
-  c(rep_len(.fill, .size - 1), purrr::pmap_dbl(lst, .f, ...))
-}
-
-#' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int"), '}')
+#' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
 #' @name pslide
 #' @rdname slide2
 #' @exportPattern ^pslide_
-for(type in c("lgl", "chr", "int")){
+for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("pslide_", type),
-    replace_fn_names(pslide_dbl, list(pmap_dbl = sym(paste0("pmap_", type))))
+    replace_fn_names(pslide, list(pmap = sym(paste0("pmap_", type))))
   )
 }
 
@@ -228,8 +189,8 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
 #' @export
 lslide <- function(.x, .f, ..., .size = 1, .fill = NA) {
   only_list(.x)
-  lst <- slider(.x, .size = .size)
-  lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
+  lst <- slider_base(.x, .size = .size)
+  c(rep_len(.fill, .size - 1), list_constructor(lst, .f, ...))
 }
 
 #' @rdname lslide
@@ -237,11 +198,9 @@ lslide <- function(.x, .f, ..., .size = 1, .fill = NA) {
 lslide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
   only_list(.x)
   sel <- probe(.x, .p)
-  out <- list_along(.x)
-  lst <- slider(.x[sel], .size = .size)
-  out[sel] <- lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
+  lst <- slider_base(.x[sel], .size = .size)
+  out <- list_constructor(lst, .f, ...)
+  c(rep_len(.fill, .size - 1), out)
 }
 
 #' @rdname lslide
@@ -249,17 +208,19 @@ lslide_if <- function(.x, .p, .f, ..., .size = 1, .fill = NA) {
 lslide_at <- function(.x, .at, .f, ..., .size = 1, .fill = NA) {
   only_list(.x)
   sel <- inv_which(.x, .at)
-  out <- list_along(.x)
-  lst <- slider(.x[sel], .size = .size)
-  out[sel] <- lslide_constructor(lst, .f, ..., .size = .size, .fill = .fill)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
+  lst <- slider_base(.x[sel], .size = .size)
+  out <- list_constructor(lst, .f, ...)
+  c(rep_len(.fill, .size - 1), out)
 }
 
-lslide_constructor <- function(x, .f, ..., .size = 1, .fill = NA) {
-  purrr::modify_depth(x, 2, .f, ...) %>% 
-    purrr::map(~ c(rep(.fill, .size - 1), .)) %>% 
-    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
+list_constructor <- function(x, .f, ...) {
+  type <- flatten(x)[[1]]
+  if (is_list(type)) {
+    out <- purrr::map(x, dplyr::bind_rows)
+  } else {
+    out <- purrr::map(x, unlist, recursive = FALSE, use.names = FALSE)
+  }
+  purrr::map(out, .f, ...)
 }
 
 #' Splits the input to a list according to the rolling window .size.
@@ -290,11 +251,11 @@ slider_base <- function(x, .size = 1) {
   if (is_atomic(x)) {
     return(purrr::map(lst_idx, ~ x[(.):(. + .size - 1)]))
   }
-  purrr::map(lst_idx, ~ x[(.):(. + .size - 1), , drop = FALSE])
+  purrr::map(lst_idx, ~ x[(.):(. + .size - 1)])
 }
 
 bad_window_function <- function(.x, .size) {
-  if (is_bare_list(.x)) {
+  if (purrr::vec_depth(.x) > 3) {
     abort("`.x` must not be a list of lists.")
   }
   if (!is_bare_numeric(.size, n = 1) || .size < 1) {

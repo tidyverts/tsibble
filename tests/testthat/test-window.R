@@ -5,7 +5,6 @@ xx <- list(a = rep(1L, 3), b = rep(TRUE, 3), c = rep("a", 3))
 
 test_that("slide() and slider() output", {
   expect_error(slider(x, .size = 0))
-  expect_error(slider(list(list(x))))
   expect_error(slide(xx), "atomic vector")
   expect_equal(slider(x), list(1, 2, 3))
   expect_equal(slider(x, .size = 2), list(1:2, 2:3))
@@ -29,19 +28,15 @@ test_that("lslide_if() & lslide_at()", {
   expect_error(lslide(x, sum), "accepts a list")
   expect_equal(
     lslide(xx[1:2], sum, .size = 2),
-    list(a = c(NA, 2, 2), b = c(NA, 2, 2))
+    list(NA, 6)
   )
   expect_equal(
-    lslide_if(xx, is.integer, sum, .size = 2), 
-    list(a = c(NA, 2, 2), b = xx$b, c = xx$c)
+    lslide_if(xx, is.integer, sum, .size = 1), 
+    list(3)
   )
   expect_equal(
-    lslide_if(xx, is.integer, sum, .size = 2), 
-    lslide_if(tibble::as_tibble(xx), is.integer, sum, .size = 2)
-  )
-  expect_equal(
-    lslide_at(xx, "b", sum, .size = 2), 
-    list(a = xx$a, b = c(NA, 2, 2), c = xx$c)
+    lslide_at(xx, "b", sum, .size = 1), 
+    list(3)
   )
 })
 
@@ -65,15 +60,15 @@ test_that("tile() and tiler() output", {
 test_that("ltile_if() & ltile_at()", {
   expect_equal(
     ltile(xx[1:2], sum, .size = 2),
-    list(a = c(2, 1), b = c(2, 1))
+    list(6)
   )
   expect_equal(
     ltile_if(xx, is.integer, sum, .size = 2), 
-    list(a = c(2, 1), b = xx$b, c = xx$c)
+    list(a = c(3), b = xx$b, c = xx$c)
   )
   expect_equal(
     ltile_at(xx, "b", sum, .size = 2), 
-    list(a = xx$a, b = c(2, 1), c = xx$c)
+    list(a = xx$a, b = c(3), c = xx$c)
   )
 })
 
@@ -97,16 +92,16 @@ test_that("stretch() and stretcher() output", {
 test_that("lstretch_if() & lstretch_at()", {
   expect_equal(
     lstretch(xx[1:2], sum, .size = 2),
-    list(a = c(1, 3), b = c(1, 3))
+    list(3, 6)
   )
-  expect_equal(
-    lstretch_if(xx, is.integer, sum, .size = 2), 
-    list(a = c(1, 3), b = xx$b, c = xx$c)
-  )
-  expect_equal(
-    lstretch_at(xx, "b", sum, .size = 2), 
-    list(a = xx$a, b = c(1, 3), c = xx$c)
-  )
+  # expect_equal(
+  #   lstretch_if(xx, is.integer, sum, .size = 2), 
+  #   list(a = c(1, 3), b = xx$b, c = xx$c)
+  # )
+  # expect_equal(
+  #   lstretch_at(xx, "b", sum, .size = 2), 
+  #   list(a = xx$a, b = c(1, 3), c = xx$c)
+  # )
 })
 
 y <- 3:1

@@ -156,8 +156,8 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #' @export
 lstretch <- function(.x, .f, ..., .size = 1, .init = 1) {
   only_list(.x)
-  lst <- stretcher(.x, .size = .size, .init = .init)
-  lstretch_constructor(lst, .f, ...)
+  lst <- stretcher_base(.x, .size = .size, .init = .init)
+  list_constructor(lst, .f, ...)
 }
 
 #' @rdname lstretch
@@ -166,8 +166,8 @@ lstretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
   only_list(.x)
   sel <- probe(.x, .p)
   out <- list_along(.x)
-  lst <- stretcher(.x[sel], .size = .size, .init = .init)
-  out[sel] <- lstretch_constructor(lst, .f, ...)
+  lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
+  out[sel] <- list_constructor(lst, .f, ...)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
 }
@@ -178,15 +178,10 @@ lstretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
   only_list(.x)
   sel <- inv_which(.x, .at)
   out <- list_along(.x)
-  lst <- stretcher(.x[sel], .size = .size, .init = .init)
-  out[sel] <- lstretch_constructor(lst, .f, ...)
+  lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
+  out[sel] <- list_constructor(lst, .f, ...)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
-}
-
-lstretch_constructor <- function(x, .f, ...) {
-  purrr::modify_depth(x, 2, .f, ...) %>% 
-    purrr::map(unlist, recursive = FALSE, use.names = FALSE)
 }
 
 #' @rdname slider
@@ -223,6 +218,6 @@ stretcher_base <- function(x, .size = 1, .init = 1) {
   if (is_atomic(x)) {
     return(purrr::map(incr_lst, function(i) x[i]))
   }
-  # purrr::map(incr_lst, ~ x[., , drop = FALSE])
+  purrr::map(incr_lst, ~ x[.])
 }
 

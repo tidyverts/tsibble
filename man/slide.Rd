@@ -2,7 +2,6 @@
 % Please edit documentation in R/slide.R
 \name{slide}
 \alias{slide}
-\alias{slide_dbl}
 \alias{slide}
 \alias{slide_dfr}
 \alias{slide_dfc}
@@ -79,3 +78,4 @@ slide_lgl(x, ~ mean(.) > 1, .size = 3)
 \alias{slide_lgl}
 \alias{slide_chr}
 \alias{slide_int}
+\alias{slide_dbl}
