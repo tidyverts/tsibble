@@ -61,7 +61,13 @@ number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-Stretching window calculation over multiple simultaneously
+Fixing an initial window and expanding more observations:
+\itemize{
+\item \code{stretch2()} and \code{pstretch()} always returns a list.
+\item \code{stretch2_lgl()}, \code{stretch2_int()}, \code{stretch2_dbl()}, \code{stretch2_chr()} use the same
+arguments as \code{stretch2()}, but return vectors of the corresponding type.
+\item \code{stretch2_dfr()} \code{stretch2_dfc()} return data frames using row-binding & column-binding.
+}
 }
 \examples{
 x <- 1:10

@@ -10,8 +10,6 @@
 \usage{
 slide(.x, .f, ..., .size = 1, .fill = NA)
 
-slide_dbl(.x, .f, ..., .size = 1, .fill = NA)
-
 slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
 slide_dfc(.x, .f, ..., .size = 1, .fill = NA)
@@ -53,8 +51,8 @@ giving either the name or the index of the data frame.}
 Rolling window with overlapping observations:
 \itemize{
 \item \code{slide()} always returns a list.
-\item \code{slide_lgl()}, \code{slide_int()}, \code{slide_dbl()}, \code{slide_chr()} return vectors
-of the corresponding type.
+\item \code{slide_lgl()}, \code{slide_int()}, \code{slide_dbl()}, \code{slide_chr()} use the same
+arguments as \code{slide()}, but return vectors of the corresponding type.
 \item \code{slide_dfr()} \code{slide_dfc()} return data frames using row-binding & column-binding.
 }
 }

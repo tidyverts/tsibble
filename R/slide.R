@@ -18,8 +18,8 @@ replace_fn_names <- function(fn, replace = list()){
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
-#' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors
-#' of the corresponding type.
+#' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` use the same
+#' arguments as `slide()`, but return vectors of the corresponding type.
 #' * `slide_dfr()` `slide_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @param .x An atomic vector. Instead [lslide] takes list & data.frame.
@@ -57,6 +57,7 @@ slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
 
 #' @rdname slide
 #' @export
+#' @usage NULL
 slide_dbl <- function(.x, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   lst_x <- slider(.x, .size = .size)
@@ -94,6 +95,12 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
 
 #' Sliding window calculation over multiple inputs simultaneously
 #'
+#' Rolling window with overlapping observations:
+#' * `slide2()` and `pslide()` always returns a list.
+#' * `slide2_lgl()`, `slide2_int()`, `slide2_dbl()`, `slide2_chr()` use the same
+#' arguments as `slide2()`, but return vectors of the corresponding type.
+#' * `slide2_dfr()` `slide2_dfc()` return data frames using row-binding & column-binding.
+#'
 #' @param .x,.y An atomic vector.
 #' @inheritParams slide
 #'
@@ -127,6 +134,7 @@ slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
 
 #' @rdname slide2
 #' @export
+#' @usage NULL
 slide2_dbl <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
   only_atomic(.x)
   only_atomic(.y)
@@ -179,6 +187,7 @@ pslide <- function(.l, .f, ..., .size = 1, .fill = NA) {
 
 #' @rdname slide2
 #' @export
+#' @usage NULL
 pslide_dbl <- function(.l, .f, ..., .size = 1, .fill = NA) {
   lst <- slider(.l, .size = .size)
   c(rep_len(.fill, .size - 1), purrr::pmap_dbl(lst, .f, ...))

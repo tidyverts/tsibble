@@ -15,15 +15,11 @@
 \usage{
 slide2(.x, .y, .f, ..., .size = 1, .fill = NA)
 
-slide2_dbl(.x, .y, .f, ..., .size = 1, .fill = NA)
-
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
 slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA)
 
 pslide(.l, .f, ..., .size = 1, .fill = NA)
-
-pslide_dbl(.l, .f, ..., .size = 1, .fill = NA)
 
 pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
 
@@ -67,7 +63,13 @@ number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-Sliding window calculation over multiple inputs simultaneously
+Rolling window with overlapping observations:
+\itemize{
+\item \code{slide2()} and \code{pslide()} always returns a list.
+\item \code{slide2_lgl()}, \code{slide2_int()}, \code{slide2_dbl()}, \code{slide2_chr()} use the same
+arguments as \code{slide2()}, but return vectors of the corresponding type.
+\item \code{slide2_dfr()} \code{slide2_dfc()} return data frames using row-binding & column-binding.
+}
 }
 \examples{
 x <- 1:10

@@ -2,8 +2,8 @@
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
-#' * `tile_lgl()`, `tile_int()`, `tile_dbl()`, `tile_chr()` return vectors
-#' of the corresponding type.
+#' * `tile_lgl()`, `tile_int()`, `tile_dbl()`, `tile_chr()` use the same
+#' arguments as `tile()`, but return vectors of the corresponding type.
 #' * `tile_dfr()` `tile_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide
@@ -54,6 +54,12 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 }
 
 #' Tiling window calculation over multiple inputs simultaneously
+#'
+#' Tiling window without overlapping observations:
+#' * `tile2()` and `ptile()` always returns a list.
+#' * `tile2_lgl()`, `tile2_int()`, `tile2_dbl()`, `tile2_chr()` use the same
+#' arguments as `tile2()`, but return vectors of the corresponding type.
+#' * `tile2_dfr()` `tile2_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @param .x,.y A vector of numerics, or data frame. If a data frame, row-wise rolling
 #' window is performed.

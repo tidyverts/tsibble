@@ -2,8 +2,8 @@
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
-#' * `stretch_lgl()`, `stretch_int()`, `stretch_dbl()`, `stretch_chr()` return vectors
-#' of the corresponding type.
+#' * `stretch_lgl()`, `stretch_int()`, `stretch_dbl()`, `stretch_chr()` use the same
+#' arguments as `stretch()`, but return vectors of the corresponding type.
 #' * `stretch_dfr()` `stretch_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide
@@ -54,6 +54,12 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 }
 
 #' Stretching window calculation over multiple simultaneously
+#'
+#' Fixing an initial window and expanding more observations:
+#' * `stretch2()` and `pstretch()` always returns a list.
+#' * `stretch2_lgl()`, `stretch2_int()`, `stretch2_dbl()`, `stretch2_chr()` use the same
+#' arguments as `stretch2()`, but return vectors of the corresponding type.
+#' * `stretch2_dfr()` `stretch2_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide2
 #' @param .size,.init An integer for moving and initial window size.

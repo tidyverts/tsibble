@@ -48,8 +48,8 @@ giving either the name or the index of the data frame.}
 Fixing an initial window and expanding more observations:
 \itemize{
 \item \code{stretch()} always returns a list.
-\item \code{stretch_lgl()}, \code{stretch_int()}, \code{stretch_dbl()}, \code{stretch_chr()} return vectors
-of the corresponding type.
+\item \code{stretch_lgl()}, \code{stretch_int()}, \code{stretch_dbl()}, \code{stretch_chr()} use the same
+arguments as \code{stretch()}, but return vectors of the corresponding type.
 \item \code{stretch_dfr()} \code{stretch_dfc()} return data frames using row-binding & column-binding.
 }
 }

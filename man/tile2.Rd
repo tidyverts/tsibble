@@ -60,7 +60,13 @@ number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-Tiling window calculation over multiple inputs simultaneously
+Tiling window without overlapping observations:
+\itemize{
+\item \code{tile2()} and \code{ptile()} always returns a list.
+\item \code{tile2_lgl()}, \code{tile2_int()}, \code{tile2_dbl()}, \code{tile2_chr()} use the same
+arguments as \code{tile2()}, but return vectors of the corresponding type.
+\item \code{tile2_dfr()} \code{tile2_dfc()} return data frames using row-binding & column-binding.
+}
 }
 \examples{
 x <- 1:10
