@@ -94,9 +94,9 @@ This combo can also help with regularising a tsibble of irregular time space.
 
 Temporal data often involves moving window calculations. Several functions in the *tsibble* allow for different variations of moving windows using purrr-like syntax:
 
-* `slide()`/`slide2()`/`pslide()`/`lslide()`: sliding window with overlapping observations.
-* `tile()`/`tile2()`/`ptile()`/`ltile()`: tiling window without overlapping observations.
-* `stretch()`/`stretch2()`/`pstretch()`/`lstretch()`: fixing an initial window and expanding to include more observations.
+* `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
+* `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
+* `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
 
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 
@@ -108,13 +108,13 @@ full_weather %>%
 
 ## Reexported functions from the tidyverse
 
-It can be noticed that the tsibble seamlessly works with *dplyr* verbs. Use `?tsibble::reexports` for a full list of re-exported functions.
+It can be noticed that the tsibble seamlessly works with *tidyverse* verbs. Use `?tsibble::reexports` for a full list of re-exported functions.
 
 * **dplyr:** 
   - `arrange()`, `filter()`, `slice()`
   - `mutate()`/`transmute()`, `select()`, `summarise()`/`summarize()` with an additional argument `.drop = FALSE` to drop `tbl_ts` and coerce to `tbl_df`
   - `rename()`
-  - `*_join()`
+  - `[left/right/full/inner/anti/semi]_join()`
   - `group_by()`, `ungroup()`
 * **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
 * **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
