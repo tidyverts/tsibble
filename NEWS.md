@@ -34,6 +34,7 @@
 * Fixed bug in `[.tbl_ts()` when subsetting columns by characters (#30).
 * Fixed bug in `fill_na.tbl_ts()` dropping custom index class (#32).
 * Fixed bug in `format.yearweek()` due to the boundary issue (#27).
+* If a column passed as `index` contains `NA`, abort.
 
 ## Misc
 

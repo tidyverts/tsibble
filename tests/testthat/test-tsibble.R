@@ -15,6 +15,12 @@ test_that("A tsibble cannot be empty", {
   expect_error(as_tsibble(), "NULL")
 })
 
+test_that("A tsibble must not contain missing values in index", {
+  expect_error(
+    tsibble(idx = ymd_h("2017-10-01 0", tz = "Australia/Melbourne") + hours(1:3)),
+    "must not contain `NA`.")
+})
+
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
   expect_error(key(dat_x), "Can't find the `key`")

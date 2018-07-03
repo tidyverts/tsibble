@@ -47,7 +47,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
   }
-  tbl <- tibble::tibble(...)
+  tbl <- tibble::tibble(!!! dots)
   index <- enquo(index)
   build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular)
 }
@@ -467,7 +467,6 @@ validate_index <- function(data, index) {
     chr_index <- names(data)[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("The `index` is `%s`.", chr_index))
-    return(sym(chr_index))
   } else {
     chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
@@ -480,8 +479,11 @@ validate_index <- function(data, index) {
         "Unsupported index type: `%s`", cls_idx[idx_pos])
       )
     }
-    sym(chr_index)
   }
+  if (anyNA(data[[chr_index]])) {
+    abort(sprintf("Column `%s` passed as `index` must not contain `NA`.", chr_index))
+  }
+  sym(chr_index)
 }
 
 # check if the number of unique values is in descending order for a set of
