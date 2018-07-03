@@ -21,7 +21,9 @@
 #' tile_dbl(x, sum, .size = 3)
 #' tile_dbl(x, ~ sum(.), .size = 3)
 tile <- function(.x, .f, ..., .size = 1) {
-  only_atomic(.x)
+  if (is_list(.x)) {
+    return(ltile(.x, .f, ..., .size = .size, .fill = .fill))
+  }
   lst_x <- tiler(.x, .size = .size)
   purrr::map(lst_x, .f, ...)
 }
@@ -40,7 +42,6 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname tile
 #' @export
 tile_dfr <- function(.x, .f, ..., .size = 1, .id = NULL) {
-  only_atomic(.x)
   out <- tile(.x = .x, .f = .f, ..., .size = .size)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -48,7 +49,6 @@ tile_dfr <- function(.x, .f, ..., .size = 1, .id = NULL) {
 #' @rdname tile
 #' @export
 tile_dfc <- function(.x, .f, ..., .size = 1) {
-  only_atomic(.x)
   out <- tile(.x = .x, .f = .f, ..., .size = .size)
   dplyr::bind_cols(!!! out)
 }
@@ -81,8 +81,6 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' tile2(x, y, ~ cor(.x, .y), .size = 5)
 #' ptile(list(x, y, z), sum, .size = 5)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {
-  only_atomic(.x)
-  only_atomic(.y)
   lst <- tiler(.x, .y, .size = .size)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
@@ -101,8 +99,6 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname tile2
 #' @export
 tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .id = NULL) {
-  only_atomic(.x)
-  only_atomic(.y)
   out <- tile2(.x, .y, .f = .f, ..., .size = .size)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -110,8 +106,6 @@ tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .id = NULL) {
 #' @rdname tile2
 #' @export
 tile2_dfc <- function(.x, .y, .f, ..., .size = 1) {
-  only_atomic(.x)
-  only_atomic(.y)
   out <- tile2(.x, .y, .f = .f, ..., .size = .size)
   dplyr::bind_cols(!!! out)
 }
@@ -150,41 +144,40 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
   dplyr::bind_cols(!!! out)
 }
 
-#' Tiling window on a list
-#'
-#' @inheritParams purrr::lmap
-#' @inheritParams tile
-#' @rdname ltile
-#' @export
+# #' Tiling window on a list
+# #'
+# #' @inheritParams purrr::lmap
+# #' @inheritParams tile
+# #' @rdname ltile
+# #' @export
 ltile <- function(.x, .f, ..., .size = 1) {
-  only_list(.x)
   lst <- tiler_base(.x, .size = .size)
   list_constructor(lst, .f, ...)
 }
 
-#' @rdname ltile
-#' @export
-ltile_if <- function(.x, .p, .f, ..., .size = 1) {
-  only_list(.x)
-  sel <- probe(.x, .p)
-  out <- list_along(.x)
-  lst <- tiler_base(.x[sel], .size = .size)
-  out[sel] <- list_constructor(lst, .f, ...)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
-}
-
-#' @rdname ltile
-#' @export
-ltile_at <- function(.x, .at, .f, ..., .size = 1) {
-  only_list(.x)
-  sel <- inv_which(.x, .at)
-  out <- list_along(.x)
-  lst <- tiler_base(.x[sel], .size = .size)
-  out[sel] <- list_constructor(lst, .f, ...)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
-}
+# #' @rdname ltile
+# #' @export
+# ltile_if <- function(.x, .p, .f, ..., .size = 1) {
+#   only_list(.x)
+#   sel <- probe(.x, .p)
+#   out <- list_along(.x)
+#   lst <- tiler_base(.x[sel], .size = .size)
+#   out[sel] <- list_constructor(lst, .f, ...)
+#   out[!sel] <- .x[!sel]
+#   set_names(out, names(.x))
+# }
+#
+# #' @rdname ltile
+# #' @export
+# ltile_at <- function(.x, .at, .f, ..., .size = 1) {
+#   only_list(.x)
+#   sel <- inv_which(.x, .at)
+#   out <- list_along(.x)
+#   lst <- tiler_base(.x[sel], .size = .size)
+#   out[sel] <- list_constructor(lst, .f, ...)
+#   out[!sel] <- .x[!sel]
+#   set_names(out, names(.x))
+# }
 
 #' @rdname slider
 #' @export
@@ -195,7 +188,10 @@ ltile_at <- function(.x, .at, .f, ..., .size = 1) {
 #' tiler(x, y, .size = 3)
 tiler <- function(..., .size = 1) {
   lst <- list2(...)
-  x <- flatten(lst)
+  x <- df2lst(x)
+  if (.dots_list) {
+    return(tiler_base(x, .size = .size))
+  }
   if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
     return(tiler_base(x[[1]], .size = .size))
   } else {

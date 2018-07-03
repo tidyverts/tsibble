@@ -6,16 +6,18 @@
 \alias{tiler}
 \title{Splits the input to a list according to the rolling window .size.}
 \usage{
-slider(..., .size = 1)
+slider(.x, .size = 1)
 
 stretcher(..., .size = 1, .init = 1)
 
 tiler(..., .size = 1)
 }
 \arguments{
-\item{...}{Objects to be splitted.}
+\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
 
 \item{.size, .init}{An integer for moving and initial window size.}
+
+\item{...}{Objects to be splitted.}
 }
 \description{
 Splits the input to a list according to the rolling window .size.

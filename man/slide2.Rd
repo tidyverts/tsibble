@@ -76,6 +76,22 @@ z <- x * 2
 slide2_dbl(x, y, cor, .size = 3)
 slide2(x, y, cor, .size = 3)
 pslide_dbl(list(x, y, z), sum, .size = 3)
+\dontrun{
+jan <- pedestrian \%>\%
+  filter(Date <= as.Date("2015-01-31")) \%>\%
+  split_by(Sensor)
+# returns a data frame of fitted values and residuals for each sensor,
+# and then combines
+my_diag <- function(...) {
+  l <- list(...)
+  fit <- lm(l$Count ~ l$Time)
+  data.frame(fitted = fitted(fit), resid = residuals(fit))
+}
+diag_jan <- jan \%>\%
+  purrr::map_dfr(
+    ~ pslide_dfr(., my_diag, .size = 48)
+  )
+}
 }
 \seealso{
 \itemize{

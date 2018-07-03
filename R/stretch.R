@@ -21,7 +21,9 @@
 #' stretch(x, mean, .init = 3)
 #' stretch_dbl(x, ~ mean(.), .init = 3)
 stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
-  only_atomic(.x)
+  if (is_list(.x)) {
+    return(lstretch(.x, .f, ..., .size = .size, .fill = .fill))
+  }
   lst_x <- stretcher(.x, .size = .size, .init = .init)
   purrr::map(lst_x, .f, ...)
 }
@@ -40,7 +42,6 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch
 #' @export
 stretch_dfr <- function(.x, .f, ..., .size = 1, .init = 1, .id = NULL) {
-  only_atomic(.x)
   out <- stretch(.x, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -48,7 +49,6 @@ stretch_dfr <- function(.x, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @rdname stretch
 #' @export
 stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
-  only_atomic(.x)
   out <- stretch(.x, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_cols(!!! out)
 }
@@ -79,8 +79,6 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 #' stretch2_dbl(x, y, ~ cor(.x, .y), .init = 3)
 #' pstretch(list(x, y, z), sum, .init = 3)
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
-  only_atomic(.x)
-  only_atomic(.y)
   lst <- stretcher(.x, .y, .size = .size, .init = .init)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
@@ -99,8 +97,6 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch2
 #' @export
 stretch2_dfr <- function(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL) {
-  only_atomic(.x)
-  only_atomic(.y)
   out <- stretch(.x, .y, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_rows(!!! out, .id = .id)
 }
@@ -108,8 +104,6 @@ stretch2_dfr <- function(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL) {
 #' @rdname stretch2
 #' @export
 stretch2_dfc <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
-  only_atomic(.x)
-  only_atomic(.y)
   out <- stretch(.x, .y, .f = .f, ..., .size = .size, .init = .init)
   dplyr::bind_cols(!!! out)
 }
@@ -148,41 +142,38 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
   dplyr::bind_cols(!!! out)
 }
 
-#' Stretching window on a list
-#'
-#' @inheritParams purrr::lmap
-#' @inheritParams stretch
-#' @rdname lstretch
-#' @export
+# #' Stretching window on a list
+# #'
+# #' @inheritParams purrr::lmap
+# #' @inheritParams stretch
+# #' @rdname lstretch
+# #' @export
 lstretch <- function(.x, .f, ..., .size = 1, .init = 1) {
-  only_list(.x)
   lst <- stretcher_base(.x, .size = .size, .init = .init)
   list_constructor(lst, .f, ...)
 }
 
-#' @rdname lstretch
-#' @export
-lstretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
-  only_list(.x)
-  sel <- probe(.x, .p)
-  out <- list_along(.x)
-  lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
-  out[sel] <- list_constructor(lst, .f, ...)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
-}
-
-#' @rdname lstretch
-#' @export
-lstretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
-  only_list(.x)
-  sel <- inv_which(.x, .at)
-  out <- list_along(.x)
-  lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
-  out[sel] <- list_constructor(lst, .f, ...)
-  out[!sel] <- .x[!sel]
-  set_names(out, names(.x))
-}
+# #' @rdname lstretch
+# #' @export
+# lstretch_if <- function(.x, .p, .f, ..., .size = 1, .init = 1) {
+#   sel <- probe(.x, .p)
+#   out <- list_along(.x)
+#   lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
+#   out[sel] <- list_constructor(lst, .f, ...)
+#   out[!sel] <- .x[!sel]
+#   set_names(out, names(.x))
+# }
+#
+# #' @rdname lstretch
+# #' @export
+# lstretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
+#   sel <- inv_which(.x, .at)
+#   out <- list_along(.x)
+#   lst <- stretcher_base(.x[sel], .size = .size, .init = .init)
+#   out[sel] <- list_constructor(lst, .f, ...)
+#   out[!sel] <- .x[!sel]
+#   set_names(out, names(.x))
+# }
 
 #' @rdname slider
 #' @param .size,.init An integer for moving and initial window size.
@@ -194,7 +185,7 @@ lstretch_at <- function(.x, .at, .f, ..., .size = 1, .init = 1) {
 #' stretcher(x, y, .init = 3)
 stretcher <- function(..., .size = 1, .init = 1) {
   lst <- list2(...)
-  x <- flatten(lst)
+  x <- df2lst(x)
   if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
     return(stretcher_base(x[[1]], .size = .size, .init = .init))
   } else {

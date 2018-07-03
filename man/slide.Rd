@@ -70,7 +70,7 @@ slide_lgl(x, ~ mean(.) > 1, .size = 3)
 }
 \seealso{
 \itemize{
-\item \link{slide2}, \link{pslide}, \link{lslide}
+\item \link{slide2}, \link{pslide}
 \item \link{tile} for tiling window without overlapping observations
 \item \link{stretch} for expanding more observations
 }

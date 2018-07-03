@@ -7,7 +7,7 @@
   + added `slide2()`, `pslide()` to map over multiple inputs simultaneously. 
   + `lside()`, `ltile()`, `lstretch()` take lists as input.
   + added other type-stable variants including `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
-* Renamed `x` to `...` in windowed functions, `slider()`, `tiler()` and `stretcher()`, to take multiple inputs.
+* Renamed `x` to `.x` in windowed functions.
 
 ## New features
 
