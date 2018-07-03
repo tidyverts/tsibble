@@ -267,7 +267,7 @@ incr <- function(init, size) {
 }
 
 unlist2 <- function(x) {
-  unlist(x, recursive = FALSE, use.names = TRUE)
+  unlist(x, recursive = FALSE, use.names = FALSE)
 }
 
 new_data_frame <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
