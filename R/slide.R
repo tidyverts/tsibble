@@ -256,7 +256,7 @@ slider_base <- function(x, .size = 1) {
 
 bad_window_function <- function(.x, .size) {
   if (purrr::vec_depth(.x) > 3) {
-    abort("`.x` must not be a list of lists.")
+    abort("`.x` must not be deeper than 3.")
   }
   if (!is_bare_numeric(.size, n = 1) || .size < 1) {
     abort("`.size` must be a positive integer.")

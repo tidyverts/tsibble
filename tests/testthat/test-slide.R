@@ -6,6 +6,11 @@ context("Sliding window function and its variants")
 .lst <- list(x = .x, y = .y, z = .z)
 .df <- as.data.frame(.lst)
 
+test_that("Invalid input", {
+  expect_error(slider(list(list(.lst))), "must not be deeper than 3.")
+  expect_error(slider(.lst, 0), "a positive integer.")
+})
+
 test_that("slider() & pslider()", {
   expect_equal(slider(.x, .size = 2), list(1:2, 2:3, 3:4, 4:5))
   expect_equal(
@@ -15,6 +20,10 @@ test_that("slider() & pslider()", {
   expect_equal(
     slider(list(.x, .y), .size = 2),
     list(list(.x, .y))
+  )
+  expect_equal(
+    slider(.df, .size = 2),
+    slider(.lst, .size = 2)
   )
   expect_equal(
     pslider(.lst, .size = 2),
@@ -76,6 +85,10 @@ test_that("pslide() and its variants", {
   expect_equal(
     pslide_lgl(.lst, ~ sum(..1, ..2) > 10, size = 1),
     pslide_int(.lst, ~ sum(..1, ..2), size = 1) > 10
+  )
+  expect_equal(
+    pslide(.lst, ~ sum(..1, ..2) > 10, size = 1),
+    as.list(pslide_int(.lst, ~ sum(..1, ..2), size = 1) > 10)
   )
   expect_equal(
     pslide(list(.lst, .lst), ~ ..1, .size = 2),
