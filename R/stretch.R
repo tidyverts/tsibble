@@ -228,8 +228,5 @@ stretcher_base <- function(x, .size = 1, .init = 1) {
     purrr::map(ncall, ~ seq_len(counter())),
     list(seq_along(x))
   )
-  if (is_atomic(x)) {
-    return(purrr::map(incr_lst, function(i) x[i]))
-  }
   purrr::map(incr_lst, ~ x[.])
 }

@@ -80,21 +80,17 @@ slide2(.lst, .lst, sum, .size = 2)
 slide2(.df, .df, sum, .size = 2)
 pslide(.lst, sum, size = 1)
 pslide(list(.lst, .lst), ~ ., .size = 2)
+# row-oriented workflow
 \dontrun{
-jan <- pedestrian \%>\%
-  filter(Date <= as.Date("2015-01-31")) \%>\%
-  split_by(Sensor)
-# returns a data frame of fitted values and residuals for each sensor,
-# and then combines
 my_diag <- function(...) {
-  l <- list(...)
-  fit <- lm(l$Count ~ l$Time)
+  data <- list(...)
+  fit <- lm(data$Count ~ data$Time)
   data.frame(fitted = fitted(fit), resid = residuals(fit))
 }
-diag_jan <- jan \%>\%
-  purrr::map_dfr(
-    ~ pslide_dfr(., my_diag, .size = 48)
-  )
+diag <- pedestrian \%>\%
+  filter(Date <= as.Date("2015-01-31")) \%>\%
+  nest(-Sensor) \%>\% 
+  mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }
 }
 \seealso{
