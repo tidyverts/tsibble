@@ -279,6 +279,10 @@ incr <- function(init, size) {
 }
 
 unlist2 <- function(x) {
+  df_lgl <- purrr::map_lgl(x, is.data.frame)
+  if (any(df_lgl)) {
+    return(dplyr::bind_rows(x))
+  }
   unlist(x, recursive = FALSE, use.names = FALSE)
 }
 
