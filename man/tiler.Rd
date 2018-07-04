@@ -12,7 +12,7 @@ ptiler(..., .size = 1)
 \arguments{
 \item{.x}{An object to slide over.}
 
-\item{.size}{An integer for moving and initial window size.}
+\item{.size}{An integer for window size.}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 }

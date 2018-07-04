@@ -70,12 +70,16 @@ arguments as \code{stretch2()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-x <- 1:10
-y <- 10:1
-z <- x * 2
-stretch2(x, y, cor, .init = 3)
-stretch2_dbl(x, y, ~ cor(.x, .y), .init = 3)
-pstretch(list(x, y, z), sum, .init = 3)
+.x <- 1:5
+.y <- 6:10
+.z <- 11:15
+.lst <- list(x = .x, y = .y, z = .z)
+.df <- as.data.frame(.lst)
+stretch2(.x, .y, sum, .size = 2)
+stretch2(.lst, .lst, sum, .size = 2)
+stretch2(.df, .df, sum, .size = 2)
+pstretch(.lst, sum, size = 1)
+pstretch(list(.lst, .lst), ~ ., .size = 2)
 }
 \seealso{
 \itemize{
