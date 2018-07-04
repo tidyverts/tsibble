@@ -31,7 +31,7 @@ higher, if nested variables are passed to \code{key}. If you are sure that it's 
 valid input, specify \code{FALSE} to skip the checks.}
 
 \item{ordered}{The default of \code{NULL} arranges the key variable(s) first and
-then index in ascending order. \code{TRUE} suggests to skip the ordering as \code{x} in
+then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
 the correct order. \code{FALSE} also skips the ordering but gives a warning instead.}
 
 \item{interval}{\code{NULL} computes the interval. Use the specified interval as

@@ -12,7 +12,9 @@ pstretcher(..., .size = 1, .init = 1)
 \arguments{
 \item{.x}{An object to slide over.}
 
-\item{.size}{An integer for window size.}
+\item{.size}{An integer for moving and initial window size.}
+
+\item{.init}{An integer for moving and initial window size.}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 
@@ -31,7 +33,6 @@ Splits the input to a list according to the stretching window size.
 stretcher(.x, .size = 2)
 stretcher(.lst, .size = 2)
 pstretcher(.lst, .size = 2)
-pstretcher(list(.x, .y), list(.y))
 stretcher(.df, .size = 2)
 pstretcher(.df, .df, .size = 2)
 }

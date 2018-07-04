@@ -169,7 +169,7 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #'
 #' @param x An objects to be splitted.
 #' @param ... Multiple objects to be splitted in parallel.
-#' @inheritParams slide
+#' @inheritParams stretch
 #' @rdname stretcher
 #' @export
 #' @examples
@@ -182,7 +182,6 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #' stretcher(.x, .size = 2)
 #' stretcher(.lst, .size = 2)
 #' pstretcher(.lst, .size = 2)
-#' pstretcher(list(.x, .y), list(.y))
 #' stretcher(.df, .size = 2)
 #' pstretcher(.df, .df, .size = 2)
 stretcher <- function(.x, .size = 1, .init = 1) {

@@ -3,11 +3,10 @@
 ## Breaking changes
 
 * Now windowed functions follow the `purrr` style exactly (#35): 
-  + `slide()`, `tile()`, `stretch()` only accept atomic vector, and return lists instead of numerics before.
+  + `slide()`, `tile()`, `stretch()` return lists only instead of numerics before.
   + added `slide2()`, `pslide()` to map over multiple inputs simultaneously. 
-  + `lside()`, `ltile()`, `lstretch()` take lists as input.
-  + added other type-stable variants including `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
-* Renamed `x` to `.x` in windowed functions.
+  + added other type-stable variants such as `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
+* Renamed `x` to `.x` in `slider()`, `tiler()`, `stretcher()`.
 
 ## New features
 
@@ -15,7 +14,7 @@
 * Defined `diff()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 * Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously (#33).
-* `slider()`, `tiler()`, `stretcher()` supported multiple inputs now.
+* `pslider()`, `ptiler()`, `pstretcher()` supported multiple inputs now.
 * New S3 generics `units_since()` for index classes.
 * New `is_53weeks()` for determine if the year has 53 ISO weeks.
 

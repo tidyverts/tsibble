@@ -329,7 +329,7 @@ as.tsibble <- function(x, ...) {
 #' [index_by]. By default, it's identical to `index`.
 #' @param groups Grouping variable(s) when [group_by.tbl_ts].
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
-#' then index in ascending order. `TRUE` suggests to skip the ordering as `x` in
+#' then index from past to future. `TRUE` suggests to skip the ordering as `x` in
 #' the correct order. `FALSE` also skips the ordering but gives a warning instead.
 #' @param interval `NULL` computes the interval. Use the specified interval as
 #' is, if an class of `interval` is supplied.
