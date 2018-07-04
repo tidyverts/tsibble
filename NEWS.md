@@ -17,6 +17,7 @@
 * `pslider()`, `ptiler()`, `pstretcher()` supported multiple inputs now.
 * New S3 generics `units_since()` for index classes.
 * New `is_53weeks()` for determine if the year has 53 ISO weeks.
+* New S3 generics `key_sum()` for extending tsibble.
 
 ## Improvements
 

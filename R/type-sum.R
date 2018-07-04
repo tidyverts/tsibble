@@ -26,11 +26,7 @@ tbl_sum.tbl_ts <- function(x) {
   if (is_empty(key(x))) {
     return(first)
   }
-  n_keys <- big_mark(n_keys(x))
-  c(
-    first,
-    "Key" = paste(paste_comma(format(key(x))), surround(n_keys, "["))
-  )
+  c(first, key_sum(x))
 }
 
 #' @export
@@ -61,6 +57,22 @@ tbl_sum.grouped_ts <- function(x) {
   }
 }
 
+#' Summary of key variables
+#'
+#' @param x An object that contains "key".
+#'
+#' @export
+#' @examples
+#' key_sum(pedestrian)
+key_sum <- function(x) {
+  UseMethod("key_sum")
+}
+
+#' @export
+key_sum.tbl_ts <- function(x) {
+  n_keys <- big_mark(n_keys(x))
+  c("Key" = paste(paste_comma(format(key(x))), surround(n_keys, "[")))
+}
 
 #' Extensible index type to tsibble
 #'
