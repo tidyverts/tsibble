@@ -11,20 +11,23 @@
 #' @rdname tile
 #' @export
 #' @seealso
-#' * [tile2], [ptile], [ltile]
+#' * [tile2], [ptile]
 #' * [slide] for sliding window with overlapping observations
 #' * [stretch] for expanding more observations
 #'
 #' @examples
-#' # tiling over a vector ----
-#' x <- 1:10
-#' tile_dbl(x, sum, .size = 3)
-#' tile_dbl(x, ~ sum(.), .size = 3)
+#' .x <- 1:5
+#' .lst <- list(x = .x, y = 6:10, z = 11:15)
+#' tile_dbl(.x, mean, .size = 2)
+#' tile_lgl(.x, ~ mean(.) > 2, .size = 2)
+#' tile(.lst, ~ ., .size = 2)
 tile <- function(.x, .f, ..., .size = 1) {
   if (is_list(.x)) {
-    return(ltile(.x, .f, ..., .size = .size, .fill = .fill))
+    lst_x <- tiler(.x, .size = .size) %>% 
+      purrr::modify_depth(1, unlist2)
+  } else {
+    lst_x <- tiler(.x, .size = .size)
   }
-  lst_x <- tiler(.x, .size = .size)
   purrr::map(lst_x, .f, ...)
 }
 
@@ -61,11 +64,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' arguments as `tile2()`, but return vectors of the corresponding type.
 #' * `tile2_dfr()` `tile2_dfc()` return data frames using row-binding & column-binding.
 #'
-#' @param .x,.y A vector of numerics, or data frame. If a data frame, row-wise rolling
-#' window is performed.
-#'
 #' @inheritParams slide2
-#'
 #' @rdname tile2
 #' @export
 #' @seealso
@@ -74,14 +73,23 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' * [stretch2] for expanding more observations
 #'
 #' @examples
-#' x <- 1:10
-#' y <- 10:1
-#' z <- x * 2
-#' tile2_dbl(x, y, cor, .size = 5)
-#' tile2(x, y, ~ cor(.x, .y), .size = 5)
-#' ptile(list(x, y, z), sum, .size = 5)
+#' .x <- 1:5
+#' .y <- 6:10
+#' .z <- 11:15
+#' .lst <- list(x = .x, y = .y, z = .z)
+#' .df <- as.data.frame(.lst)
+#' tile2(.x, .y, sum, .size = 2)
+#' tile2(.lst, .lst, sum, .size = 2)
+#' tile2(.df, .df, sum, .size = 2)
+#' ptile(.lst, sum, size = 1)
+#' ptile(list(.lst, .lst), ~ ., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {
-  lst <- tiler(.x, .y, .size = .size)
+  if (is_list(.x)) {
+    lst <- ptiler(.x, .y, .size = .size) %>% 
+      purrr::modify_depth(2, unlist2)
+  } else {
+    lst <- ptiler(.x, .y, .size = .size)
+  }
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
 
@@ -113,7 +121,17 @@ tile2_dfc <- function(.x, .y, .f, ..., .size = 1) {
 #' @rdname tile2
 #' @export
 ptile <- function(.l, .f, ..., .size = 1) {
-  lst <- tiler(.l, .size = .size)
+  if (is.data.frame(.l)) {
+    .l <- as.list(.l)
+  }
+  depth <- purrr::vec_depth(.l)
+  if (depth == 2) { # a list of multiple elements
+    lst <- ptiler(!!! .l, .size = .size) %>%  # slide simultaneously
+      purrr::modify_depth(2, unlist2)
+  } else if (depth == 3) { # a list of lists
+    lst <- ptiler(!!! .l, .size = .size) %>% 
+      purrr::modify_depth(3, unlist2)
+  }
   purrr::pmap(lst, .f, ...)
 }
 
@@ -144,60 +162,29 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
   dplyr::bind_cols(!!! out)
 }
 
-# #' Tiling window on a list
-# #'
-# #' @inheritParams purrr::lmap
-# #' @inheritParams tile
-# #' @rdname ltile
-# #' @export
-ltile <- function(.x, .f, ..., .size = 1) {
-  lst <- tiler_base(.x, .size = .size)
-  list_constructor(lst, .f, ...)
-}
-
-# #' @rdname ltile
-# #' @export
-# ltile_if <- function(.x, .p, .f, ..., .size = 1) {
-#   only_list(.x)
-#   sel <- probe(.x, .p)
-#   out <- list_along(.x)
-#   lst <- tiler_base(.x[sel], .size = .size)
-#   out[sel] <- list_constructor(lst, .f, ...)
-#   out[!sel] <- .x[!sel]
-#   set_names(out, names(.x))
-# }
-#
-# #' @rdname ltile
-# #' @export
-# ltile_at <- function(.x, .at, .f, ..., .size = 1) {
-#   only_list(.x)
-#   sel <- inv_which(.x, .at)
-#   out <- list_along(.x)
-#   lst <- tiler_base(.x[sel], .size = .size)
-#   out[sel] <- list_constructor(lst, .f, ...)
-#   out[!sel] <- .x[!sel]
-#   set_names(out, names(.x))
-# }
-
-#' @rdname slider
+#' Splits the input to a list according to the tiling window size.
+#'
+#' @inheritParams slider
+#' @rdname tiler
 #' @export
 #' @examples
-#' x <- 1:10
-#' tiler(x, .size = 3)
-#' y <- 10:1
-#' tiler(x, y, .size = 3)
-tiler <- function(..., .size = 1) {
-  lst <- list2(...)
-  x <- df2lst(x)
-  if (.dots_list) {
-    return(tiler_base(x, .size = .size))
-  }
-  if (purrr::vec_depth(lst) == 2 && has_length(x, 1)) {
-    return(tiler_base(x[[1]], .size = .size))
-  } else {
-    return(purrr::map(x, ~ tiler_base(., .size = .size)))
-  }
-}
+#' .x <- 1:5
+#' .y <- 6:10
+#' .z <- 11:15
+#' .lst <- list(x = .x, y = .y, z = .z)
+#' .df <- as.data.frame(.lst)
+#' 
+#' tiler(.x, .size = 2)
+#' tiler(.lst, .size = 2)
+#' ptiler(.lst, .size = 2)
+#' ptiler(list(.x, .y), list(.y))
+#' ptiler(.df, .size = 2)
+#' ptiler(.df, .df, .size = 2)
+tiler <- replace_fn_names(slider, list(slider_base = sym("tiler_base")))
+
+#' @rdname tiler
+#' @export
+ptiler <- replace_fn_names(pslider, list(slider_base = sym("tiler_base")))
 
 tiler_base <- function(x, .size = 1) {
   bad_window_function(x, .size)
@@ -207,4 +194,3 @@ tiler_base <- function(x, .size = 1) {
   frac <- ceiling((seq_x %% denom) / .size)
   unname(split(x, frac, drop = TRUE))
 }
-

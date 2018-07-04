@@ -24,8 +24,9 @@ ptile_dfr(.l, .f, ..., .size = 1, .id = NULL)
 ptile_dfc(.l, .f, ..., .size = 1)
 }
 \arguments{
-\item{.x, .y}{A vector of numerics, or data frame. If a data frame, row-wise rolling
-window is performed.}
+\item{.x}{Objects to slide over simultaneously.}
+
+\item{.y}{Objects to slide over simultaneously.}
 
 \item{.f}{A function, formula, or atomic vector.
 
@@ -69,12 +70,16 @@ arguments as \code{tile2()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-x <- 1:10
-y <- 10:1
-z <- x * 2
-tile2_dbl(x, y, cor, .size = 5)
-tile2(x, y, ~ cor(.x, .y), .size = 5)
-ptile(list(x, y, z), sum, .size = 5)
+.x <- 1:5
+.y <- 6:10
+.z <- 11:15
+.lst <- list(x = .x, y = .y, z = .z)
+.df <- as.data.frame(.lst)
+tile2(.x, .y, sum, .size = 2)
+tile2(.lst, .lst, sum, .size = 2)
+tile2(.df, .df, sum, .size = 2)
+ptile(.lst, sum, size = 1)
+ptile(list(.lst, .lst), ~ ., .size = 2)
 }
 \seealso{
 \itemize{

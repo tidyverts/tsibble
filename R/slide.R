@@ -236,17 +236,16 @@ slider <- function(.x, .size = 1) {
 #' @rdname slider
 #' @export
 pslider <- function(..., .size = 1) { # parallel sliding
-  # if ... is a data frame, list2() converts it to a list already
   .x <- list2(...)
   depth <- purrr::vec_depth(.x)
   if (depth == 2) {
-    return(purrr::map(.x, ~ slider_base(., .size = .size)))
+    return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
   } else if (depth == 3) { # a list of lists
     df_lgl <- purrr::map_lgl(.x, is.data.frame)
     if (any(df_lgl)) {
       .x[df_lgl] <- purrr::map(.x[df_lgl], as.list)
     }
-    return(purrr::map(.x, ~ slider_base(., .size = .size)))
+    return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
   } else {
     abort("Must not be deeper than 3.")
   }

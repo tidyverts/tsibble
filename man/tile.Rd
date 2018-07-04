@@ -54,14 +54,15 @@ arguments as \code{tile()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-# tiling over a vector ----
-x <- 1:10
-tile_dbl(x, sum, .size = 3)
-tile_dbl(x, ~ sum(.), .size = 3)
+.x <- 1:5
+.lst <- list(x = .x, y = 6:10, z = 11:15)
+tile_dbl(.x, mean, .size = 2)
+tile_lgl(.x, ~ mean(.) > 2, .size = 2)
+tile(.lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
-\item \link{tile2}, \link{ptile}, \link{ltile}
+\item \link{tile2}, \link{ptile}
 \item \link{slide} for sliding window with overlapping observations
 \item \link{stretch} for expanding more observations
 }
