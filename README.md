@@ -185,10 +185,8 @@ functions.
 
   - **dplyr:**
       - `arrange()`, `filter()`, `slice()`
-      - `mutate()`/`transmute()`, `select()`,
-        `summarise()`/`summarize()` with an additional argument `.drop =
-        FALSE` to drop `tbl_ts` and coerce to `tbl_df`
-      - `rename()`
+      - `mutate()`, `transmute()`, `select()`, `rename()`,
+        `summarise()`/`summarize()`
       - `[left/right/full/inner/anti/semi]_join()`
       - `group_by()`, `ungroup()`
   - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`

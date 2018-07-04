@@ -196,8 +196,7 @@ stretcher <- function(.x, .size = 1, .init = 1) {
 #' @rdname stretcher
 #' @export
 pstretcher <- function(..., .size = 1, .init = 1) { # parallel sliding
-  .x <- list2(...)
-  .x <- recycle(.x)
+  .x <- recycle(list2(...))
   depth <- purrr::vec_depth(.x)
   if (depth == 2) {
     return(purrr::map(.x, 

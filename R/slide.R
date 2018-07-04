@@ -232,8 +232,7 @@ slider <- function(.x, .size = 1) {
 #' @rdname slider
 #' @export
 pslider <- function(..., .size = 1) { # parallel sliding
-  .x <- list2(...)
-  .x <- recycle(.x)
+  .x <- recycle(list2(...))
   depth <- purrr::vec_depth(.x)
   if (depth == 2) {
     return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
