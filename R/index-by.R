@@ -126,11 +126,11 @@ tsibble_rename <- function(.data, ...) {
 }
 
 tsibble_select <- function(.data, ..., validate = TRUE) {
-  dots <- enquos(...)
+  dots <- c(enquos(...), new_quosure(index(.data)))
   names_dat <- names(.data)
-  val_vars <- tidyselect::vars_select(names_dat, !! index(.data), !!! dots)
+  val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   names_vars <- names(val_vars)
-  sel_data <- select(as_tibble(.data), !! index(.data), !!! dots)
+  sel_data <- select(as_tibble(.data), !!! val_vars)
 
   # checking
   # val_idx <- has_index(j = val_vars, x = .data)
@@ -167,9 +167,10 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
     # either key or index is present in ...
     # suggests that the operations are done on these variables
     # validate = TRUE to check if tsibble still holds
-    val_idx <- has_index(vec_names, .data)
-    val_key <- has_any_key(vec_names, .data)
-    validate <- val_idx || val_key
+    # val_idx <- has_index(vec_names, .data)
+    # val_key <- has_any_key(vec_names, .data)
+    # validate <- val_idx || val_key
+    validate <- has_any_key(vec_names, .data)
   }
   
   build_tsibble(
