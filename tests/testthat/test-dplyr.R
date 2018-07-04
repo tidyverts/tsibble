@@ -33,11 +33,11 @@ test_that("group_by()", {
 })
 
 test_that("ungroup()", {
-  grped_df <- pedestrian %>% 
+  grped_df <- pedestrian %>%
     index_by(Date)
   expect_identical(ungroup(grped_df), pedestrian)
-  grped_df2 <- pedestrian %>% 
-    index_by(Date) %>% 
+  grped_df2 <- pedestrian %>%
+    index_by(Date) %>%
     group_by(Sensor)
   expect_identical(ungroup(grped_df), pedestrian)
 })
@@ -121,8 +121,9 @@ test_that("filter() and slice()", {
 
 test_that("select() and rename()", {
   expect_error(select(tourism, Quarter), "Invalid tsibble")
-  expect_error(select(tourism, Region), "must not be dropped")
+  expect_error(select(tourism, Region), "Invalid tsibble")
   expect_is(select(tourism, Region, .drop = TRUE), "tbl_df")
+  expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),

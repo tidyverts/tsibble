@@ -27,6 +27,7 @@
 * More informative error message for `fill_na()` and `count_gaps` when a tsibble of unknown interval.
 * `as_tsibble.tbl_ts()` & `as_tsibble.grouped_ts()` now return self (#34).
 * `id()` is used in the tsibble context (e.g. `as_tsibble()`, `tsibble()`, `build_tsibble()`) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).
+* `select.tbl_ts()` now preserved index.
 
 ## Bug fixes
 

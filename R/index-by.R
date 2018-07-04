@@ -126,19 +126,20 @@ tsibble_rename <- function(.data, ...) {
 }
 
 tsibble_select <- function(.data, ..., validate = TRUE) {
+  dots <- enquos(...)
   names_dat <- names(.data)
-  val_vars <- tidyselect::vars_select(names_dat, ...)
+  val_vars <- tidyselect::vars_select(names_dat, !! index(.data), !!! dots)
   names_vars <- names(val_vars)
-  sel_data <- select(as_tibble(.data), ...)
+  sel_data <- select(as_tibble(.data), !! index(.data), !!! dots)
 
   # checking
-  val_idx <- has_index(j = val_vars, x = .data)
-  if (is_false(val_idx)) {
-    abort(sprintf(
-      "The `index` (`%s`) must not be dropped, do you want `.drop = TRUE` to drop `tbl_ts`?",
-      quo_text(index(.data))
-    ))
-  }
+  # val_idx <- has_index(j = val_vars, x = .data)
+  # if (is_false(val_idx)) {
+  #   abort(sprintf(
+  #     "The `index` (`%s`) must not be dropped, do you want `.drop = TRUE` to drop `tbl_ts`?",
+  #     quo_text(index(.data))
+  #   ))
+  # }
   
   # index
   idx <- index_rename(.data, val_vars, names = names_vars)
