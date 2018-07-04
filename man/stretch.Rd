@@ -14,7 +14,7 @@ stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
 stretch_dfc(.x, .f, ..., .size = 1, .init = 1)
 }
 \arguments{
-\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
+\item{.x}{An object to slide over.}
 
 \item{.f}{A function, formula, or atomic vector.
 

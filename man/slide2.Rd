@@ -24,7 +24,7 @@ pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
 pslide_dfc(.l, .f, ..., .size = 1, .fill = NA)
 }
 \arguments{
-\item{.x, .y}{An atomic vector.}
+\item{.x, .y}{Objects to slide over simultaneously.}
 
 \item{.f}{A function, formula, or atomic vector.
 
@@ -70,12 +70,16 @@ arguments as \code{slide2()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-x <- 1:10
-y <- 10:1
-z <- x * 2
-slide2_dbl(x, y, cor, .size = 3)
-slide2(x, y, cor, .size = 3)
-pslide_dbl(list(x, y, z), sum, .size = 3)
+.x <- 1:5
+.y <- 6:10
+.z <- 11:15
+.lst <- list(x = .x, y = .y, z = .z)
+.df <- as.data.frame(.lst)
+slide2(.x, .y, sum, .size = 2)
+slide2(.lst, .lst, sum, .size = 2)
+slide2(.df, .df, sum, .size = 2)
+pslide(.lst, sum, size = 1)
+pslide(list(.lst, .lst), ~ ., .size = 2)
 \dontrun{
 jan <- pedestrian \%>\%
   filter(Date <= as.Date("2015-01-31")) \%>\%

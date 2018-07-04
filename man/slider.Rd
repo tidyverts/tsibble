@@ -2,31 +2,44 @@
 % Please edit documentation in R/slide.R, R/stretch.R, R/tile.R
 \name{slider}
 \alias{slider}
+\alias{pslider}
 \alias{stretcher}
 \alias{tiler}
-\title{Splits the input to a list according to the rolling window .size.}
+\title{Splits the input to a list according to the rolling window size.}
 \usage{
 slider(.x, .size = 1)
+
+pslider(..., .size = 1)
 
 stretcher(..., .size = 1, .init = 1)
 
 tiler(..., .size = 1)
 }
 \arguments{
-\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
+\item{.x}{An object to slide over.}
 
 \item{.size, .init}{An integer for moving and initial window size.}
 
-\item{...}{Objects to be splitted.}
+\item{...}{Multiple objects to be splitted in parallel.}
+
+\item{x}{An objects to be splitted.}
 }
 \description{
-Splits the input to a list according to the rolling window .size.
+Splits the input to a list according to the rolling window size.
 }
 \examples{
-x <- 1:10
-slider(x, .size = 3)
-y <- 10:1
-slider(x, y, .size = 3)
+.x <- 1:5
+.y <- 6:10
+.z <- 11:15
+.lst <- list(x = .x, y = .y, z = .z)
+.df <- as.data.frame(.lst)
+
+slider(.x, .size = 2)
+slider(.lst, .size = 2)
+pslider(.lst, .size = 2)
+pslider(list(.x, .y), list(.y))
+slider(.df, .size = 2)
+pslider(.df, .df, .size = 2)
 x <- 1:10
 stretcher(x, .init = 3)
 y <- 10:1

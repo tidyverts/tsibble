@@ -14,7 +14,7 @@ slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .id = NULL)
 slide_dfc(.x, .f, ..., .size = 1, .fill = NA)
 }
 \arguments{
-\item{.x}{An atomic vector. Instead \link{lslide} takes list & data.frame.}
+\item{.x}{An object to slide over.}
 
 \item{.f}{A function, formula, or atomic vector.
 
@@ -62,11 +62,11 @@ you may like to check out for
 \href{https://CRAN.R-project.org/package=RcppRoll}{RcppRoll} for faster performance.
 }
 \examples{
-# sliding through a vector ----
-x <- 1:10
-slide_dbl(x, mean, .size = 3)
-slide_dbl(x, mean, .size = 3, .fill = 0)
-slide_lgl(x, ~ mean(.) > 1, .size = 3)
+.x <- 1:5
+.lst <- list(x = .x, y = 6:10, z = 11:15)
+slide_dbl(.x, mean, .size = 2)
+slide_lgl(.x, ~ mean(.) > 2, .size = 2)
+slide(.lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{

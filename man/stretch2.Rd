@@ -24,9 +24,9 @@ pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .id = NULL)
 pstretch_dfc(.l, .f, ..., .size = 1, .init = 1)
 }
 \arguments{
-\item{.x}{An atomic vector.}
+\item{.x}{Objects to slide over simultaneously.}
 
-\item{.y}{An atomic vector.}
+\item{.y}{Objects to slide over simultaneously.}
 
 \item{.f}{A function, formula, or atomic vector.
 
