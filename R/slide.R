@@ -284,13 +284,13 @@ unlist2 <- function(x) {
 }
 
 new_data_frame <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
+  if (.size < 2) {
+    if (byrow) return(dplyr::bind_rows(x, .id = .id))
+    return(dplyr::bind_cols(x))
+  }
   lst <- new_list_along(x[[.size]])
   lst[] <- .fill
-  if (.size > 1) {
-    lst <- rep_len(list(lst), .size - 1)
-  }
-  if (byrow) {
-    return(dplyr::bind_rows(lst, x[-seq_len(.size - 1)], .id = .id))
-  }
-  dplyr::bind_cols(lst, x[-seq_len(.size - 1)])
+  if (byrow) 
+    return(dplyr::bind_rows(lst, !!! x[-seq_len(.size - 1)], .id = .id))
+  dplyr::bind_cols(lst, !!! x[-seq_len(.size - 1)])
 }
