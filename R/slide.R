@@ -233,6 +233,7 @@ slider <- function(.x, .size = 1) {
 #' @export
 pslider <- function(..., .size = 1) { # parallel sliding
   .x <- list2(...)
+  .x <- recycle(.x)
   depth <- purrr::vec_depth(.x)
   if (depth == 2) {
     return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
@@ -250,8 +251,14 @@ pslider <- function(..., .size = 1) { # parallel sliding
 slider_base <- function(x, .size = 1) {
   bad_window_function(x, .size)
   len_x <- NROW(x)
+  if (.size > len_x) {
+    abort(sprintf(
+      "`.size` (%s) must not be larger than the length (%s) of the input.",
+      .size, len_x
+    ))
+  }
   lst_idx <- seq_len(len_x - .size + 1)
-  return(purrr::map(lst_idx, ~ x[(.):(. + .size - 1)]))
+  purrr::map(lst_idx, ~ x[(.):(. + .size - 1)])
 }
 
 bad_window_function <- function(.x, .size) {
@@ -263,17 +270,9 @@ bad_window_function <- function(.x, .size) {
   }
 }
 
-incr <- function(init, size) {
-  init
-  function() {
-    init <<- init + size
-    init
-  }
-}
-
 unlist2 <- function(x) {
   df_lgl <- purrr::map_lgl(x, is.data.frame)
-  if (any(df_lgl)) {
+  if (all(df_lgl)) {
     return(dplyr::bind_rows(x))
   }
   unlist(x, recursive = FALSE, use.names = FALSE)
@@ -290,3 +289,21 @@ new_data_frame <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
     return(dplyr::bind_rows(lst, !!! x[-seq_len(.size - 1)], .id = .id))
   dplyr::bind_cols(lst, !!! x[-seq_len(.size - 1)])
 }
+
+recycle <- function(x) {
+  len <- purrr::map_int(x, length)
+  max_len <- max(len)
+  len1 <- len == 1
+  check <- !len1 & len != max_len
+  if (sum(check) != 0) {
+    bad <- which(check)[1]
+    abort(sprintf(
+      "Element %s has length %s, not 1 or %s.", bad, len[bad], max_len
+    ))
+  }
+  if (sum(len1) == 0) return(x)
+  rep_idx <- which(len1)
+  x[len1] <- lapply(rep_idx, function(i) rep_len(x[[i]], max_len))
+  x
+}
+

@@ -9,6 +9,8 @@ context("Sliding window function and its variants")
 test_that("Invalid input", {
   expect_error(slider(list(list(.lst))), "must not be deeper than 3.")
   expect_error(slider(.lst, 0), "a positive integer.")
+  expect_error(slider(.x, 6), "larger")
+  expect_error(slider(list()), "larger")
 })
 
 test_that("slider() & pslider()", {
@@ -31,7 +33,7 @@ test_that("slider() & pslider()", {
   )
   expect_equal(
     pslider(list(.x, .y), list(.y), .size = 2),
-    list(list(list(.x, .y)), list())
+    list(list(list(.x, .y)), list(list(.y, .y)))
   )
   expect_equal(
     pslider(.df, .size = 2),
@@ -40,6 +42,10 @@ test_that("slider() & pslider()", {
   expect_equal(
     pslider(.df, .df, .size = 2),
     pslider(.lst, .lst, .size = 2)
+  )
+  expect_equal(
+    pslider(.x, 1), # recycling
+    list(as.list(1:5), as.list(rep(1, 5)))
   )
 })
 
@@ -98,4 +104,14 @@ test_that("pslide() and its variants", {
     pslide(list(list(.x, .y), list(.y)), ~ list(..1, ..2)),
     pslide(list(list(.x, .y), list(.y, .y)), ~ list(..1, ..2))
   )
+})
+
+x1 <- list(1:3, 1, 1:2)
+x2 <- list(1:3, 1)
+x3 <- list(1:3, 1:3)
+
+test_that("recycle()", {
+  expect_error(recycle(x1), "Element 3 has length 2, not 1 or 3.")
+  expect_equal(recycle(x2), list(1:3, rep(1, 3)))
+  expect_equal(recycle(x3), x3)
 })

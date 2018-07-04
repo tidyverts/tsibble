@@ -22,7 +22,7 @@ test_that("tiler() & ptiler()", {
   )
   expect_equal(
     ptiler(list(.x, .y), list(.y), .size = 2),
-    list(list(list(.x, .y)), list(list(.y)))
+    list(list(list(.x, .y)), list(list(.y, .y)))
   )
   expect_equal(
     ptiler(.df, .size = 2),
