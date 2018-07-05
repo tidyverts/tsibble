@@ -7,7 +7,7 @@
 #' * `stretch_dfr()` `stretch_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide
-#' @param .size,.init An integer for moving and initial window size.
+#' @param .init A positive integer for an initial window size.
 #'
 #' @rdname stretch
 #' @export

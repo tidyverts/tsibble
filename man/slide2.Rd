@@ -81,6 +81,11 @@ slide2(.lst, .lst, ~ ., .size = 2)
 slide2(.df, .df, ~ ., .size = 2)
 pslide(.lst, ~ ., size = 1)
 pslide(list(.lst, .lst), ~ ., .size = 2)
+## window over 2 months
+pedestrian \%>\% 
+  index_by(yrmth = yearmonth(Date_Time)) \%>\% 
+  nest(-yrmth) \%>\% 
+  mutate(ma = slide_dbl(data, ~ mean(do.call(rbind, .)$Count), .size = 2))
 # row-oriented workflow
 \dontrun{
 my_diag <- function(...) {

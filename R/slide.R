@@ -167,6 +167,11 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' @rdname slide2
 #' @export
 #' @examples
+#' ## window over 2 months
+#' pedestrian %>% 
+#'   index_by(yrmth = yearmonth(Date_Time)) %>% 
+#'   nest(-yrmth) %>% 
+#'   mutate(ma = slide_dbl(data, ~ mean(do.call(rbind, .)$Count), .size = 2))
 #' # row-oriented workflow
 #' \dontrun{
 #' my_diag <- function(...) {

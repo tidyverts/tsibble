@@ -6,7 +6,9 @@
   + `slide()`, `tile()`, `stretch()` return lists only instead of numerics before.
   + added `slide2()`, `pslide()` to map over multiple inputs simultaneously. 
   + added other type-stable variants such as `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
+  * A negative window size results in a backward moving direction.
 * Renamed `x` to `.x` in `slider()`, `tiler()`, `stretcher()`.
+* `pslider()`, `ptiler()`, `pstretcher()` support multiple inputs now, and split them in parallel.
 
 ## New features
 
@@ -14,7 +16,6 @@
 * Defined `diff()` for year-week, year-month, and year-quarter.
 * `yearweek()`, `yearmonth()`, `yearquarter()` supported for character.
 * Added `slide2()`, `pslide()`, `tile2()`, `ptile()`, `stretch2()`, `pstretch()` to slide over multiple inputs simultaneously (#33).
-* `pslider()`, `ptiler()`, `pstretcher()` supported multiple inputs now.
 * New S3 generics `units_since()` for index classes.
 * New `is_53weeks()` for determine if the year has 53 ISO weeks.
 * New S3 generics `key_sum()` for extending tsibble.
