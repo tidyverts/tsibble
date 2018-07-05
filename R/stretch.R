@@ -23,12 +23,7 @@
 #' stretch_lgl(.x, ~ mean(.) > 2, .size = 2)
 #' stretch(.lst, ~ ., .size = 2)
 stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
-  if (is_list(.x)) {
-    lst_x <- stretcher(.x, .size = .size, .init = .init) %>% 
-      purrr::modify_depth(1, unlist2)
-  } else {
-    lst_x <- stretcher(.x, .size = .size, .init = .init)
-  }
+  lst_x <- stretcher(.x, .size = .size, .init = .init)
   purrr::map(lst_x, .f, ...)
 }
 
@@ -87,12 +82,7 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 #' pstretch(.lst, sum, size = 1)
 #' pstretch(list(.lst, .lst), ~ ., .size = 2)
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
-  if (is_list(.x)) {
-    lst <- pstretcher(.x, .y, .size = .size, .init = .init) %>% 
-      purrr::modify_depth(2, unlist2)
-  } else {
-    lst <- pstretcher(.x, .y, .size = .size, .init = .init)
-  }
+  lst <- pstretcher(.x, .y, .size = .size, .init = .init)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
 
@@ -127,14 +117,7 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  depth <- purrr::vec_depth(.l)
-  if (depth == 2) { # a list of multiple elements
-    lst <- pstretcher(!!! .l, .size = .size, .init = .init) %>%  # slide simultaneously
-      purrr::modify_depth(2, unlist2)
-  } else if (depth == 3) { # a list of lists
-    lst <- pstretcher(!!! .l, .size = .size, .init = .init) %>% 
-      purrr::modify_depth(3, unlist2)
-  }
+  lst <- pstretcher(!!! .l, .size = .size, .init = .init)
   purrr::pmap(lst, .f, ...)
 }
 
@@ -185,44 +168,31 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #' stretcher(.df, .size = 2)
 #' pstretcher(.df, .df, .size = 2)
 stretcher <- function(.x, .size = 1, .init = 1) {
-  if (is_atomic(.x)) {
-    return(stretcher_base(.x, .size = .size, .init = .init))
-  } else {
-    if (is.data.frame(.x)) .x <- as.list(.x)
-    return(stretcher_base(.x, .size = .size, .init = .init))
-  }
+  if (is.data.frame(.x)) .x <- as.list(.x)
+  stretcher_base(.x, .size = .size, .init = .init)
 }
 
 #' @rdname stretcher
 #' @export
 pstretcher <- function(..., .size = 1, .init = 1) { # parallel sliding
-  .x <- recycle(list2(...))
-  depth <- purrr::vec_depth(.x)
-  if (depth == 2) {
-    return(purrr::map(.x, 
-      function(x) stretcher_base(x, .size = .size, .init = .init)
-    ))
-  } else if (depth == 3) { # a list of lists
-    df_lgl <- purrr::map_lgl(.x, is.data.frame)
-    if (any(df_lgl)) {
-      .x[df_lgl] <- purrr::map(.x[df_lgl], as.list)
-    }
-    return(purrr::map(.x, 
-      function(x) stretcher_base(x, .size = .size, .init = .init)
-    ))
-  } else {
-    abort("Must not be deeper than 3.")
+  lst <- recycle(list2(...))
+  df_lgl <- purrr::map_lgl(lst, is.data.frame)
+  if (any(df_lgl)) {
+    lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
   }
+  purrr::map(lst, function(x) stretcher_base(x, .size = .size, .init = .init))
 }
 
 stretcher_base <- function(x, .size = 1, .init = 1) {
-  bad_window_function(x, .size)
-  if (!is_bare_numeric(.init, n = 1) || .init < 1) {
+  bad_window_function(.size)
+  if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
   }
-  counter <- incr(init = .init, size = .size)
+  abs_size <- abs(.size)
+  counter <- incr(init = .init, size = abs_size)
+  if (sign(.size) < 0) x <- rev(x)
 
-  ncall <- seq_len(ceiling((NROW(x) - .init) / .size) - 1)
+  ncall <- seq_len(ceiling((NROW(x) - .init) / abs_size) - 1)
   incr_lst <- c(
     list(seq_len(.init)),
     purrr::map(ncall, ~ seq_len(counter())),

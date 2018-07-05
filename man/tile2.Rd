@@ -51,7 +51,8 @@ to extract named attributes. If a component is not present, the value of
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{.size}{An integer for window size.}
+\item{.size}{An integer for window size. If positive, moving forward from left
+to right; if negative, moving backward (from right to left).}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

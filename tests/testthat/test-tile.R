@@ -41,7 +41,7 @@ test_that("tile() and its variants", {
   )
   expect_equal(
     tile(.lst, ~ ., .size = 2),
-    list(c(.x, .y), c(.z))
+    list(list(x = .x, y = .y), list(z = .z))
   )
   expect_equal(
     tile_dfr(.x, ~ data.frame(x = .), .size = 1),
@@ -63,12 +63,12 @@ test_that("tile2() and its variants", {
     c(16L, 24L, 15L)
   )
   expect_equal(
-    tile2(.lst, .lst, sum, .size = 2),
-    list(110, 130)
+    tile2(.lst, .lst, ~ ., .size = 2),
+    list(list(x = .x, y = .y), list(z = .z))
   )
   expect_equal(
-    tile2(.df, .df, sum, .size = 2),
-    tile2(.lst, .lst, sum, .size = 2)
+    tile2(.df, .df, ~ ., .size = 2),
+    tile2(.lst, .lst, ~ ., .size = 2)
   )
 })
 

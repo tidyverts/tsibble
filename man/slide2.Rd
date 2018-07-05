@@ -49,7 +49,8 @@ to extract named attributes. If a component is not present, the value of
 
 \item{...}{Additional arguments passed on to \code{.f}.}
 
-\item{.size}{An integer for window size.}
+\item{.size}{An integer for window size. If positive, moving forward from left
+to right; if negative, moving backward (from right to left).}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
 
@@ -89,7 +90,7 @@ my_diag <- function(...) {
 }
 diag <- pedestrian \%>\%
   filter(Date <= as.Date("2015-01-31")) \%>\%
-  nest(-Sensor) \%>\% 
+  nest(-Sensor) \%>\%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }
 }

@@ -5,14 +5,17 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1)
+slider(.x, .size = 1, .fill = NA)
 
-pslider(..., .size = 1)
+pslider(..., .size = 1, .fill = NA)
 }
 \arguments{
 \item{.x}{An object to slide over.}
 
-\item{.size}{An integer for window size.}
+\item{.size}{An integer for window size. If positive, moving forward from left
+to right; if negative, moving backward (from right to left).}
+
+\item{.fill}{A single value or data frame to replace \code{NA}.}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 

@@ -12,7 +12,8 @@ ptiler(..., .size = 1)
 \arguments{
 \item{.x}{An object to slide over.}
 
-\item{.size}{An integer for window size.}
+\item{.size}{An integer for window size. If positive, moving forward from left
+to right; if negative, moving backward (from right to left).}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 }

@@ -41,7 +41,7 @@ test_that("stretch() and its variants", {
   )
   expect_equal(
     stretch(.lst, ~ ., .size = 2),
-    list(c(.x), c(.x, .y, .z))
+    list(list(x = .x), list(x = .x, y = .y, z = .z))
   )
   expect_equal(
     stretch_dfr(.x, ~ data.frame(x = mean(.)), .size = 1),
@@ -63,12 +63,12 @@ test_that("stretch2() and its variants", {
     c(7L, 27L, 55L)
   )
   expect_equal(
-    stretch2(.lst, .lst, sum, .size = 2),
-    list(30, 240)
+    stretch2(.lst, .lst, ~ ., .size = 2),
+    list(list(x = .x), list(x = .x, y = .y, z = .z))
   )
   expect_equal(
-    stretch2(.df, .df, sum, .size = 2),
-    stretch2(.lst, .lst, sum, .size = 2)
+    stretch2(.df, .df, ~ ., .size = 2),
+    stretch2(.lst, .lst, ~ ., .size = 2)
   )
 })
 

@@ -22,12 +22,7 @@
 #' tile_lgl(.x, ~ mean(.) > 2, .size = 2)
 #' tile(.lst, ~ ., .size = 2)
 tile <- function(.x, .f, ..., .size = 1) {
-  if (is_list(.x)) {
-    lst_x <- tiler(.x, .size = .size) %>% 
-      purrr::modify_depth(1, unlist2)
-  } else {
-    lst_x <- tiler(.x, .size = .size)
-  }
+  lst_x <- tiler(.x, .size = .size)
   purrr::map(lst_x, .f, ...)
 }
 
@@ -84,12 +79,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' ptile(.lst, sum, size = 1)
 #' ptile(list(.lst, .lst), ~ ., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {
-  if (is_list(.x)) {
-    lst <- ptiler(.x, .y, .size = .size) %>% 
-      purrr::modify_depth(2, unlist2)
-  } else {
-    lst <- ptiler(.x, .y, .size = .size)
-  }
+  lst <- ptiler(.x, .y, .size = .size)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
 
@@ -124,14 +114,7 @@ ptile <- function(.l, .f, ..., .size = 1) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  depth <- purrr::vec_depth(.l)
-  if (depth == 2) { # a list of multiple elements
-    lst <- ptiler(!!! .l, .size = .size) %>%  # slide simultaneously
-      purrr::modify_depth(2, unlist2)
-  } else if (depth == 3) { # a list of lists
-    lst <- ptiler(!!! .l, .size = .size) %>% 
-      purrr::modify_depth(3, unlist2)
-  }
+  lst <- ptiler(!!! .l, .size = .size)
   purrr::pmap(lst, .f, ...)
 }
 
@@ -180,14 +163,24 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' ptiler(list(.x, .y), list(.y))
 #' ptiler(.df, .size = 2)
 #' ptiler(.df, .df, .size = 2)
-tiler <- replace_fn_names(slider, list(slider_base = sym("tiler_base")))
+tiler <- function(.x, .size = 1) {
+  if (is.data.frame(.x)) .x <- as.list(.x)
+  tiler_base(.x, .size = .size)
+}
 
 #' @rdname tiler
 #' @export
-ptiler <- replace_fn_names(pslider, list(slider_base = sym("tiler_base")))
+ptiler <- function(..., .size = 1) { # parallel sliding
+  lst <- recycle(list2(...))
+  df_lgl <- purrr::map_lgl(lst, is.data.frame)
+  if (any(df_lgl)) {
+    lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
+  }
+  purrr::map(lst, function(x) tiler_base(x, .size = .size))
+}
 
 tiler_base <- function(x, .size = 1) {
-  bad_window_function(x, .size)
+  bad_window_function(.size)
   len_x <- NROW(x)
   seq_x <- seq_len(len_x)
   denom <- len_x + 1

@@ -24,7 +24,8 @@ replace_fn_names <- function(fn, replace = list()){
 #'
 #' @param .x An object to slide over.
 #' @inheritParams purrr::map
-#' @param .size An integer for window size.
+#' @param .size An integer for window size. If positive, moving forward from left
+#' to right; if negative, moving backward (from right to left).
 #' @param .fill A single value or data frame to replace `NA`.
 #'
 #' @rdname slide
@@ -45,13 +46,8 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide_lgl(.x, ~ mean(.) > 2, .size = 2)
 #' slide(.lst, ~ ., .size = 2)
 slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
-  if (is_list(.x)) {
-    lst_x <- slider(.x, .size = .size) %>% 
-      purrr::modify_depth(1, unlist2)
-  } else {
-    lst_x <- slider(.x, .size = .size)
-  }
-  c(rep_len(.fill, .size - 1), purrr::map(lst_x, .f, ...))
+  lst_x <- slider(.x, .size = .size, .fill = .fill)
+  purrr::map(lst_x, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -69,14 +65,14 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, .id = .id)
+  dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide
 #' @export
 slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
   out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, byrow = FALSE)
+  dplyr::bind_cols(!!! out)
 }
 
 #' Sliding window calculation over multiple inputs simultaneously
@@ -110,13 +106,8 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
 #' pslide(.lst, sum, size = 1)
 #' pslide(list(.lst, .lst), ~ ., .size = 2)
 slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
-  if (is_list(.x)) {
-    lst <- pslider(.x, .y, .size = .size) %>% 
-      purrr::modify_depth(2, unlist2)
-  } else {
-    lst <- pslider(.x, .y, .size = .size)
-  }
-  c(rep_len(.fill, .size - 1), purrr::map2(lst[[1]], lst[[2]], .f = .f, ...))
+  lst <- pslider(.x, .y, .size = .size, .fill = .fill)
+  purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
@@ -134,14 +125,14 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, .id = .id)
+  dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
 #' @export
 slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
   out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, byrow = FALSE)
+  dplyr::bind_cols(!!! out)
 }
 
 #' @rdname slide2
@@ -151,15 +142,8 @@ pslide <- function(.l, .f, ..., .size = 1, .fill = NA) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  depth <- purrr::vec_depth(.l)
-  if (depth == 2) { # a list of multiple elements
-    lst <- pslider(!!! .l, .size = .size) %>%  # slide simultaneously
-      purrr::modify_depth(2, unlist2)
-  } else if (depth == 3) { # a list of lists
-    lst <- pslider(!!! .l, .size = .size) %>% 
-      purrr::modify_depth(3, unlist2)
-  }
-  c(rep_len(.fill, .size - 1), purrr::pmap(lst, .f, ...))
+  lst <- pslider(!!! .l, .size = .size, .fill = .fill)
+  purrr::pmap(lst, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -177,7 +161,7 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
   out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, .id = .id)
+  dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
@@ -192,12 +176,12 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' }
 #' diag <- pedestrian %>%
 #'   filter(Date <= as.Date("2015-01-31")) %>%
-#'   nest(-Sensor) %>% 
+#'   nest(-Sensor) %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
 pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
   out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
-  new_data_frame(out, .size, .fill = .fill, byrow = FALSE)
+  dplyr::bind_cols(!!! out)
 }
 
 #' Splits the input to a list according to the rolling window size.
@@ -220,73 +204,45 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
 #' pslider(list(.x, .y), list(.y))
 #' slider(.df, .size = 2)
 #' pslider(.df, .df, .size = 2)
-slider <- function(.x, .size = 1) {
-  if (is_atomic(.x)) {
-    return(slider_base(.x, .size = .size))
-  } else {
-    if (is.data.frame(.x)) .x <- as.list(.x)
-    return(slider_base(.x, .size = .size))
-  }
+slider <- function(.x, .size = 1, .fill = NA) {
+  if (is.data.frame(.x)) .x <- as.list(.x)
+  slider_base(.x, .size = .size, .fill = .fill)
 }
 
 #' @rdname slider
 #' @export
-pslider <- function(..., .size = 1) { # parallel sliding
-  .x <- recycle(list2(...))
-  depth <- purrr::vec_depth(.x)
-  if (depth == 2) {
-    return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
-  } else if (depth == 3) { # a list of lists
-    df_lgl <- purrr::map_lgl(.x, is.data.frame)
-    if (any(df_lgl)) {
-      .x[df_lgl] <- purrr::map(.x[df_lgl], as.list)
-    }
-    return(purrr::map(.x, function(x) slider_base(x, .size = .size)))
-  } else {
-    abort("Must not be deeper than 3.")
+pslider <- function(..., .size = 1, .fill = NA) { # parallel sliding
+  lst <- recycle(list2(...))
+  df_lgl <- purrr::map_lgl(lst, is.data.frame)
+  if (any(df_lgl)) {
+    lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
   }
+  purrr::map(lst, function(x) slider_base(x, .size = .size, .fill = .fill))
 }
 
-slider_base <- function(x, .size = 1) {
-  bad_window_function(x, .size)
+slider_base <- function(x, .size = 1, .fill = NA) {
+  bad_window_function(.size)
   len_x <- NROW(x)
-  if (.size > len_x) {
+  abs_size <- abs(.size)
+  if (abs_size > len_x) {
     abort(sprintf(
-      "`.size` (%s) must not be larger than the length (%s) of the input.",
-      .size, len_x
+      "`abs(.size)` (%s) must not be larger than the length (%s) of the input.",
+      abs_size, len_x
     ))
   }
-  lst_idx <- seq_len(len_x - .size + 1)
-  purrr::map(lst_idx, ~ x[(.):(. + .size - 1)])
+  sign <- sign(.size)
+  lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
+  if (sign < 0) lst_idx <- rev(lst_idx)
+  purrr::map(lst_idx, function(idx) {
+    idx <- idx:(idx + sign * (abs_size - 1))
+    c(rep(.fill, sum(idx <= 0 | idx > len_x)), x[idx[idx > 0 & idx <= len_x]])
+  })
 }
 
-bad_window_function <- function(.x, .size) {
-  if (purrr::vec_depth(.x) > 3) {
-    abort("`.x` must not be deeper than 3.")
+bad_window_function <- function(.size) {
+  if (!is_integerish(.size, n = 1) || .size == 0) {
+    abort("`.size` must not be 0.")
   }
-  if (!is_bare_numeric(.size, n = 1) || .size < 1) {
-    abort("`.size` must be a positive integer.")
-  }
-}
-
-unlist2 <- function(x) {
-  df_lgl <- purrr::map_lgl(x, is.data.frame)
-  if (all(df_lgl)) {
-    return(dplyr::bind_rows(x))
-  }
-  unlist(x, recursive = FALSE, use.names = FALSE)
-}
-
-new_data_frame <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
-  if (.size < 2) {
-    if (byrow) return(dplyr::bind_rows(x, .id = .id))
-    return(dplyr::bind_cols(x))
-  }
-  lst <- new_list_along(x[[.size]])
-  lst[] <- .fill
-  if (byrow) 
-    return(dplyr::bind_rows(lst, !!! x[-seq_len(.size - 1)], .id = .id))
-  dplyr::bind_cols(lst, !!! x[-seq_len(.size - 1)])
 }
 
 recycle <- function(x) {
