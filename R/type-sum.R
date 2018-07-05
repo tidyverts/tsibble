@@ -69,7 +69,7 @@ key_sum <- function(x) {
 }
 
 #' @export
-key_sum.tbl_ts <- function(x) {
+key_sum.default <- function(x) {
   n_keys <- big_mark(n_keys(x))
   c("Key" = paste(paste_comma(format(key(x))), surround(n_keys, "[")))
 }
