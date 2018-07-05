@@ -77,8 +77,8 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 #' .lst <- list(x = .x, y = .y, z = .z)
 #' .df <- as.data.frame(.lst)
 #' stretch2(.x, .y, sum, .size = 2)
-#' stretch2(.lst, .lst, sum, .size = 2)
-#' stretch2(.df, .df, sum, .size = 2)
+#' stretch2(.lst, .lst, ~ ., .size = 2)
+#' stretch2(.df, .df, ~ ., .size = 2)
 #' pstretch(.lst, sum, size = 1)
 #' pstretch(list(.lst, .lst), ~ ., .size = 2)
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {

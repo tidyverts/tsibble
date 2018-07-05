@@ -74,8 +74,8 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' .lst <- list(x = .x, y = .y, z = .z)
 #' .df <- as.data.frame(.lst)
 #' tile2(.x, .y, sum, .size = 2)
-#' tile2(.lst, .lst, sum, .size = 2)
-#' tile2(.df, .df, sum, .size = 2)
+#' tile2(.lst, .lst, ~ ., .size = 2)
+#' tile2(.df, .df, ~ ., .size = 2)
 #' ptile(.lst, sum, size = 1)
 #' ptile(list(.lst, .lst), ~ ., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {

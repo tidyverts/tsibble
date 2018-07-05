@@ -77,9 +77,9 @@ arguments as \code{slide2()}, but return vectors of the corresponding type.
 .lst <- list(x = .x, y = .y, z = .z)
 .df <- as.data.frame(.lst)
 slide2(.x, .y, sum, .size = 2)
-slide2(.lst, .lst, sum, .size = 2)
-slide2(.df, .df, sum, .size = 2)
-pslide(.lst, sum, size = 1)
+slide2(.lst, .lst, ~ ., .size = 2)
+slide2(.df, .df, ~ ., .size = 2)
+pslide(.lst, ~ ., size = 1)
 pslide(list(.lst, .lst), ~ ., .size = 2)
 # row-oriented workflow
 \dontrun{
