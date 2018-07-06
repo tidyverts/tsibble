@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Stretching window calculation — stretch • tsibble</title>
+<title>Stretching window calculation over multiple simultaneously — stretch2 • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,13 +30,13 @@
 
 
 
-<meta property="og:title" content="Stretching window calculation — stretch" />
+<meta property="og:title" content="Stretching window calculation over multiple simultaneously — stretch2" />
 
 <meta property="og:description" content="Fixing an initial window and expanding more observations:
-stretch() always returns a list.
-stretch_lgl(), stretch_int(), stretch_dbl(), stretch_chr() use the same
-arguments as stretch(), but return vectors of the corresponding type.
-stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; column-binding.
+stretch2() and pstretch() always returns a list.
+stretch2_lgl(), stretch2_int(), stretch2_dbl(), stretch2_chr() use the same
+arguments as stretch2(), but return vectors of the corresponding type.
+stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; column-binding.
 " />
 
 <meta property="og:image" content="/logo.png" />
@@ -113,34 +113,44 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Stretching window calculation</h1>
+    <h1>Stretching window calculation over multiple simultaneously</h1>
     
-    <div class="hidden name"><code>stretch.Rd</code></div>
+    <div class="hidden name"><code>stretch2.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>Fixing an initial window and expanding more observations:</p><ul>
-<li><p><code>stretch()</code> always returns a list.</p></li>
-<li><p><code>stretch_lgl()</code>, <code>stretch_int()</code>, <code>stretch_dbl()</code>, <code>stretch_chr()</code> use the same
-arguments as <code>stretch()</code>, but return vectors of the corresponding type.</p></li>
-<li><p><code>stretch_dfr()</code> <code>stretch_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
+<li><p><code><a href='stretch.html'>stretch2()</a></code> and <code>pstretch()</code> always returns a list.</p></li>
+<li><p><code>stretch2_lgl()</code>, <code>stretch2_int()</code>, <code>stretch2_dbl()</code>, <code>stretch2_chr()</code> use the same
+arguments as <code><a href='stretch.html'>stretch2()</a></code>, but return vectors of the corresponding type.</p></li>
+<li><p><code>stretch2_dfr()</code> <code>stretch2_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
 </ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'><a href='stretch.html'>stretch2</a></span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'>stretch_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>stretch2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>stretch_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>stretch2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+
+<span class='fu'>pstretch</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+
+<span class='fu'>pstretch_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>pstretch_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.x</th>
-      <td><p>An object to slide over.</p></td>
+      <td><p>Objects to slide over simultaneously.</p></td>
+    </tr>
+    <tr>
+      <th>.y</th>
+      <td><p>Objects to slide over simultaneously.</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -166,34 +176,90 @@ to extract named attributes. If a component is not present, the value of
       <td><p>Additional arguments passed on to <code>.f</code>.</p></td>
     </tr>
     <tr>
-      <th>.size</th>
-      <td><p>An integer for window size. If positive, moving forward from left
-to right; if negative, moving backward (from right to left).</p></td>
-    </tr>
-    <tr>
-      <th>.init</th>
-      <td><p>A positive integer for an initial window size.</p></td>
+      <th>.size, .init</th>
+      <td><p>An integer for moving and initial window size.</p></td>
     </tr>
     <tr>
       <th>.id</th>
       <td><p>If not <code>NULL</code> a variable with this name will be created
 giving either the name or the index of the data frame.</p></td>
     </tr>
+    <tr>
+      <th>.l</th>
+      <td><p>A list of lists. The length of <code>.l</code> determines the
+number of arguments that <code>.f</code> will be called with. List
+names will be used if present.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p>stretch2, pstretch</p></li>
-<li><p>slide for sliding window with overlapping observations</p></li>
-<li><p>tile for tiling window without overlapping observations</p></li>
+<li><p>stretch</p></li>
+<li><p><a href='slide.html'>slide2</a> for sliding window with overlapping observations</p></li>
+<li><p><a href='tile.html'>tile2</a> for tiling window without overlapping observations</p></li>
 </ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>.x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>.lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
-<span class='fu'>stretch_dbl</span>(<span class='no'>.x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>stretch_lgl</span>(<span class='no'>.x</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'>stretch</span>(<span class='no'>.lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='no'>.y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
+<span class='no'>.z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
+<span class='no'>.lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>.z</span>)
+<span class='no'>.df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>.lst</span>)
+<span class='fu'><a href='stretch.html'>stretch2</a></span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 7
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 27
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 55
+#&gt; </div><div class='input'><span class='fu'><a href='stretch.html'>stretch2</a></span>(<span class='no'>.lst</span>, <span class='no'>.lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'><a href='stretch.html'>stretch2</a></span>(<span class='no'>.df</span>, <span class='no'>.df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='no'>.lst</span>, <span class='no'>sum</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 19
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 40
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 64
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 91
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 121
+#&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='fu'>list</span>(<span class='no'>.lst</span>, <span class='no'>.lst</span>), ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 

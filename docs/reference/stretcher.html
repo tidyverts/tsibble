@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tiling window calculation — tile • tsibble</title>
+<title>Splits the input to a list according to the stretching window size. — stretcher • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,14 +30,9 @@
 
 
 
-<meta property="og:title" content="Tiling window calculation — tile" />
+<meta property="og:title" content="Splits the input to a list according to the stretching window size. — stretcher" />
 
-<meta property="og:description" content="Tiling window without overlapping observations:
-tile() always returns a list.
-tile_lgl(), tile_int(), tile_dbl(), tile_chr() use the same
-arguments as tile(), but return vectors of the corresponding type.
-tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-binding.
-" />
+<meta property="og:description" content="Splits the input to a list according to the stretching window size." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -113,27 +108,20 @@ tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-bind
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tiling window calculation</h1>
+    <h1>Splits the input to a list according to the stretching window size.</h1>
     
-    <div class="hidden name"><code>tile.Rd</code></div>
+    <div class="hidden name"><code>stretcher.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Tiling window without overlapping observations:</p><ul>
-<li><p><code>tile()</code> always returns a list.</p></li>
-<li><p><code>tile_lgl()</code>, <code>tile_int()</code>, <code>tile_dbl()</code>, <code>tile_chr()</code> use the same
-arguments as <code>tile()</code>, but return vectors of the corresponding type.</p></li>
-<li><p><code>tile_dfr()</code> <code>tile_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
-</ul>
+    <p>Splits the input to a list according to the stretching window size.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>tile</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>stretcher</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'>tile_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>tile_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>pstretcher</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,63 +131,121 @@ arguments as <code>tile()</code>, but return vectors of the corresponding type.<
       <td><p>An object to slide over.</p></td>
     </tr>
     <tr>
-      <th>.f</th>
-      <td><p>A function, formula, or atomic vector.</p>
-<p>If a <strong>function</strong>, it is used as is.</p>
-<p>If a <strong>formula</strong>, e.g. <code>~ .x + 2</code>, it is converted to a function. There
-are three ways to refer to the arguments:</p><ul>
-<li><p>For a single argument function, use <code>.</code></p></li>
-<li><p>For a two argument function, use <code>.x</code> and <code>.y</code></p></li>
-<li><p>For more arguments, use <code>..1</code>, <code>..2</code>, <code>..3</code> etc</p></li>
-</ul>
-
-<p>This syntax allows you to create very compact anonymous functions.</p>
-<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in <code>get-attr()</code>
-to extract named attributes. If a component is not present, the value of
-<code>.default</code> will be returned.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed on to <code>.f</code>.</p></td>
-    </tr>
-    <tr>
       <th>.size</th>
       <td><p>An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).</p></td>
     </tr>
     <tr>
-      <th>.id</th>
-      <td><p>If not <code>NULL</code> a variable with this name will be created
-giving either the name or the index of the data frame.</p></td>
+      <th>.init</th>
+      <td><p>A positive integer for an initial window size.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Multiple objects to be splitted in parallel.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An objects to be splitted.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><ul>
-<li><p>tile2, ptile</p></li>
-<li><p>slide for sliding window with overlapping observations</p></li>
-<li><p>stretch for expanding more observations</p></li>
-</ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>.x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>.lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
-<span class='fu'>tile_dbl</span>(<span class='no'>.x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 1.5 3.5 5.0</div><div class='input'><span class='fu'>tile_lgl</span>(<span class='no'>.x</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE</div><div class='input'><span class='fu'>tile</span>(<span class='no'>.lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='no'>.y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
+<span class='no'>.z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
+<span class='no'>.lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>.z</span>)
+<span class='no'>.df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>.lst</span>)
+
+<span class='fu'>stretcher</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 1 2 3
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 1 2 3 4 5
+#&gt; </div><div class='input'><span class='fu'>stretcher</span>(<span class='no'>.lst</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
-#&gt; [[1]]$y
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[2]]$y
 #&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>pstretcher</span>(<span class='no'>.lst</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]][[1]]
+#&gt; [[1]][[1]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; 
+#&gt; [[1]][[2]]
+#&gt; [[1]][[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[1]][[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[1]][[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>stretcher</span>(<span class='no'>.df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]]$x
+#&gt; [1] 1 2 3 4 5
 #&gt; 
 #&gt; 
 #&gt; [[2]]
+#&gt; [[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>pstretcher</span>(<span class='no'>.df</span>, <span class='no'>.df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]][[1]]
+#&gt; [[1]][[1]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; 
+#&gt; [[1]][[2]]
+#&gt; [[1]][[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[1]][[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[1]][[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]][[1]]
+#&gt; [[2]][[1]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; 
+#&gt; [[2]][[2]]
+#&gt; [[2]][[2]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[2]][[2]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[2]][[2]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
 #&gt; 
 #&gt; </div></pre>
   </div>
@@ -207,9 +253,7 @@ giving either the name or the index of the data frame.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

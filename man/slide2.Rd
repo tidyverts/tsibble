@@ -96,9 +96,9 @@ pedestrian \%>\%
 my_diag <- function(...) {
   data <- list(...)
   fit <- lm(data$Count ~ data$Time)
-  data.frame(fitted = fitted(fit), resid = residuals(fit))
+  tibble::tibble(fitted = fitted(fit), resid = residuals(fit))
 }
-diag <- pedestrian \%>\%
+pedestrian \%>\%
   filter(Date <= as.Date("2015-01-31")) \%>\%
   nest(-Sensor) \%>\%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))

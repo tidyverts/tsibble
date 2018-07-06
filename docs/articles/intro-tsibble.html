@@ -8,8 +8,8 @@
 <title>Introduction to tsibble • tsibble</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to tsibble">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to tsibble">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9000</span>
       </span>
     </div>
 
@@ -95,29 +95,29 @@
 <a class="sourceLine" id="cb1-3" data-line-number="3">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">weather</a></code></pre></div>
-<pre><code>#&gt; # A tibble: 26,130 x 5
+<pre><code>#&gt; # A tibble: 26,115 x 5
 #&gt;   origin time_hour            temp humid precip
 #&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 EWR    2013-01-01 11:00:00  37.0  54.0      0
-#&gt; 2 EWR    2013-01-01 12:00:00  37.0  54.0      0
-#&gt; 3 EWR    2013-01-01 13:00:00  37.9  52.1      0
-#&gt; 4 EWR    2013-01-01 14:00:00  37.9  54.5      0
-#&gt; 5 EWR    2013-01-01 15:00:00  37.9  57.0      0
-#&gt; # ... with 2.612e+04 more rows</code></pre>
+#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#&gt; # ... with 2.611e+04 more rows</code></pre>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only one column consisting of the timestamps, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> detects it as the index variable; alternatively, it would be more verbose to specify the argument <code>index = time_hour</code>. A tsibble is comprised of an index and key variables. In this case, the <code>origin</code> variable is the identifier created via <code><a href="../reference/id.html">id()</a></code> and passed to the <code>key</code> argument in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Therefore, <strong>the key together with the index uniquely identifies each observation</strong>, which gives a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are considered as measured variables.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(origin))</a></code></pre></div>
 <pre><code>#&gt; The `index` is `time_hour`.</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">weather_tsbl</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 26,130 x 5 [1HOUR]
-#&gt; # Keys:      origin [3]
+<pre><code>#&gt; # A tsibble: 26,115 x 5 [1HOUR]
+#&gt; # Key:       origin [3]
 #&gt;   origin time_hour            temp humid precip
 #&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 EWR    2013-01-01 11:00:00  37.0  54.0      0
-#&gt; 2 EWR    2013-01-01 12:00:00  37.0  54.0      0
-#&gt; 3 EWR    2013-01-01 13:00:00  37.9  52.1      0
-#&gt; 4 EWR    2013-01-01 14:00:00  37.9  54.5      0
-#&gt; 5 EWR    2013-01-01 15:00:00  37.9  57.0      0
-#&gt; # ... with 2.612e+04 more rows</code></pre>
+#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#&gt; # ... with 2.611e+04 more rows</code></pre>
 <p>The tsibble fully utilises the <code>print</code> method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the <code>weather_tsbl</code> its one-hour interval and the <code>origin</code> as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order. This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
@@ -126,16 +126,16 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">temp_high =</span> <span class="kw">max</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">temp_low =</span> <span class="kw">min</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">  )</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 1,095 x 4 [1DAY]
-#&gt; # Keys:      origin [3]
+<pre><code>#&gt; # A tsibble: 1,092 x 4 [1DAY]
+#&gt; # Key:       origin [3]
 #&gt;   origin date       temp_high temp_low
 #&gt;   &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1 EWR    2013-01-01      39.9     37.0
-#&gt; 2 EWR    2013-01-02      41       24.1
-#&gt; 3 EWR    2013-01-03      34.0     25.0
-#&gt; 4 EWR    2013-01-04      34.0     27.0
-#&gt; 5 EWR    2013-01-05      39.9     32  
-#&gt; # ... with 1,090 more rows</code></pre>
+#&gt; 1 EWR    2013-01-01      41       28.0
+#&gt; 2 EWR    2013-01-02      34.0     24.1
+#&gt; 3 EWR    2013-01-03      34.0     26.1
+#&gt; 4 EWR    2013-01-04      39.9     28.9
+#&gt; 5 EWR    2013-01-05      44.1     32  
+#&gt; # ... with 1,087 more rows</code></pre>
 </div>
 <div id="nested-and-crossed-structures" class="section level2">
 <h2 class="hasAnchor">
@@ -143,9 +143,9 @@
 <p>The key is not constrained to a single variable, but expressive of nested and crossed data structures <span class="citation">(Wilkinson <a href="#ref-wilkinson2006grammar">2005</a>)</span>. A built-in dataset <code>tourism</code> includes the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from <a href="https://www.tra.gov.au">Tourism Research Australia</a>. The key structure is imposed by <code>Region | State, Purpose</code>. The <code>Region</code> and <code>State</code> naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (<code>|</code>). The crossing of <code>Purpose</code> (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (<code>,</code>) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(tourism, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(Region <span class="op">|</span><span class="st"> </span>State, Purpose), <span class="dt">index =</span> Quarter)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 23,408 x 5 [1QUARTER]
-#&gt; # Keys:      Region | State, Purpose [308]
+#&gt; # Key:       Region | State, Purpose [308]
 #&gt;   Quarter Region   State           Purpose  Trips
-#&gt;     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+#&gt; *   &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
 #&gt; 1 1998 Q1 Adelaide South Australia Business  135.
 #&gt; 2 1998 Q2 Adelaide South Australia Business  110.
 #&gt; 3 1998 Q3 Adelaide South Australia Business  166.
@@ -157,7 +157,7 @@
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Region, State) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">Geo_Trips =</span> <span class="kw">sum</span>(Trips))</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 5,852 x 4 [1QUARTER]
-#&gt; # Keys:      Region | State [77]
+#&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;   Region   State           Quarter Geo_Trips
 #&gt;   &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
@@ -187,7 +187,7 @@
 <a class="sourceLine" id="cb14-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb14-7" data-line-number="7">flights_tsbl</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 336,776 x 21 [!]
-#&gt; # Keys:      flight_num [5,725]
+#&gt; # Key:       flight_num [5,725]
 #&gt;    year month   day dep_time sched_dep_time dep_delay arr_time
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
 #&gt; 1  2013    11     3     1531           1540        -9     1653

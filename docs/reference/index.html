@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -58,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9000</span>
       </span>
     </div>
 
@@ -109,6 +112,7 @@
     <table class="ref-index">
 
     <colgroup>
+      
       <col class="alias" />
       <col class="title" />
     </colgroup>
@@ -121,7 +125,7 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="tsibble-package.html">tsibble-package</a></code> </p>
         </td>
@@ -135,25 +139,25 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="tsibble.html">tsibble()</a></code> </p>
         </td>
         <td><p>Create a tsibble object</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="as-tsibble.html">as_tsibble()</a></code> </p>
         </td>
         <td><p>Coerce to a tsibble object</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="is-tsibble.html">is_tsibble()</a></code> <code><a href="is-tsibble.html">is_grouped_ts()</a></code> </p>
         </td>
         <td><p>Test if the object is a tsibble</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
         </td>
@@ -167,31 +171,31 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="index-by.html">index_by()</a></code> </p>
         </td>
         <td><p>Group by time index</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="fill-na.html">fill_na()</a></code> </p>
         </td>
         <td><p>Turn implicit missing values into explicit missing values</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gaps.html">count_gaps()</a></code> <code><a href="gaps.html">gaps()</a></code> </p>
         </td>
         <td><p>Count implicit gaps</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="find_duplicates.html">find_duplicates()</a></code> </p>
         </td>
         <td><p>Find duplication of key and index variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="split-by.html">split_by()</a></code> </p>
         </td>
@@ -200,12 +204,12 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vector-functions" class="hasAnchor"><a href="#section-vector-functions" class="anchor"></a>Vector functions</h2>
+          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="difference.html">difference()</a></code> </p>
         </td>
@@ -219,43 +223,91 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
-          <p><code><a href="slide.html">slide()</a></code> <code><a href="slide.html">slide_lst()</a></code> <code><a href="slide.html">slide_dfr()</a></code> <code><a href="slide.html">slider()</a></code> </p>
+          <p><code><a href="slide.html">slide()</a></code> <code><a href="slide.html">slide_dfr()</a></code> <code><a href="slide.html">slide_dfc()</a></code> </p>
         </td>
         <td><p>Sliding window calculation</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
-          <p><code><a href="tile.html">tile()</a></code> <code><a href="tile.html">tile_lst()</a></code> <code><a href="tile.html">tile_dfr()</a></code> <code><a href="tile.html">tiler()</a></code> </p>
+          <p><code><a href="slide2.html">slide2()</a></code> <code><a href="slide2.html">slide2_dfr()</a></code> <code><a href="slide2.html">slide2_dfc()</a></code> <code><a href="slide2.html">pslide()</a></code> <code><a href="slide2.html">pslide_dfr()</a></code> <code><a href="slide2.html">pslide_dfc()</a></code> </p>
+        </td>
+        <td><p>Sliding window calculation over multiple inputs simultaneously</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="slider.html">slider()</a></code> <code><a href="slider.html">pslider()</a></code> </p>
+        </td>
+        <td><p>Splits the input to a list according to the rolling window size.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tile.html">tile()</a></code> <code><a href="tile.html">tile_dfr()</a></code> <code><a href="tile.html">tile_dfc()</a></code> </p>
         </td>
         <td><p>Tiling window calculation</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
-          <p><code><a href="stretch.html">stretch()</a></code> <code><a href="stretch.html">stretch_lst()</a></code> <code><a href="stretch.html">stretch_dfr()</a></code> <code><a href="stretch.html">stretcher()</a></code> </p>
+          <p><code><a href="tile2.html">tile2()</a></code> <code><a href="tile2.html">tile2_dfr()</a></code> <code><a href="tile2.html">tile2_dfc()</a></code> <code><a href="tile2.html">ptile()</a></code> <code><a href="tile2.html">ptile_dfr()</a></code> <code><a href="tile2.html">ptile_dfc()</a></code> </p>
+        </td>
+        <td><p>Tiling window calculation over multiple inputs simultaneously</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tiler.html">tiler()</a></code> <code><a href="tiler.html">ptiler()</a></code> </p>
+        </td>
+        <td><p>Splits the input to a list according to the tiling window size.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stretch.html">stretch()</a></code> <code><a href="stretch.html">stretch_dfr()</a></code> <code><a href="stretch.html">stretch_dfc()</a></code> </p>
         </td>
         <td><p>Stretching window calculation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stretch2.html">stretch2()</a></code> <code><a href="stretch2.html">stretch2_dfr()</a></code> <code><a href="stretch2.html">stretch2_dfc()</a></code> <code><a href="stretch2.html">pstretch()</a></code> <code><a href="stretch2.html">pstretch_dfr()</a></code> <code><a href="stretch2.html">pstretch_dfc()</a></code> </p>
+        </td>
+        <td><p>Stretching window calculation over multiple simultaneously</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stretcher.html">stretcher()</a></code> <code><a href="stretcher.html">pstretcher()</a></code> </p>
+        </td>
+        <td><p>Splits the input to a list according to the stretching window size.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-index-functions" class="hasAnchor"><a href="#section-index-functions" class="anchor"></a>Index functions</h2>
+          <h2 id="section-index" class="hasAnchor"><a href="#section-index" class="anchor"></a>Index</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
-          <p><code><a href="period.html">yearweek()</a></code> <code><a href="period.html">yearmonth()</a></code> <code><a href="period.html">yearquarter()</a></code> </p>
+          <p><code><a href="period.html">yearweek()</a></code> <code><a href="period.html">is_53weeks()</a></code> <code><a href="period.html">yearmonth()</a></code> <code><a href="period.html">yearquarter()</a></code> </p>
         </td>
         <td><p>Represent year-week (ISO), year-month or year-quarter objects</p></td>
       </tr><tr>
-        <!--  -->
+        
+        <td>
+          <p><code><a href="units_since.html">units_since()</a></code> </p>
+        </td>
+        <td><p>Time units since Unix Epoch</p></td>
+      </tr><tr>
+        
         <td>
           <p><code><a href="guess_frequency.html">guess_frequency()</a></code> </p>
         </td>
         <td><p>Guess a time frequency from other index objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="holiday_aus.html">holiday_aus()</a></code> </p>
+        </td>
+        <td><p>Australian national and state-based public holiday</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -265,23 +317,29 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="key.html">key()</a></code> <code><a href="key.html">key_vars()</a></code> <code><a href="key.html">unkey()</a></code> </p>
         </td>
         <td><p>Return key variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="key-size.html">key_size()</a></code> <code><a href="key-size.html">n_keys()</a></code> <code><a href="key-size.html">key_indices()</a></code> </p>
         </td>
         <td><p>Compute sizes of key variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="key_update.html">key_update()</a></code> </p>
         </td>
         <td><p>Change/update key variables for a given <code>tbl_ts</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="key_sum.html">key_sum()</a></code> </p>
+        </td>
+        <td><p>Summary of key variables</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -291,32 +349,32 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="id.html">id()</a></code> </p>
         </td>
         <td><p>Identifier to construct structural variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="index-rd.html">interval()</a></code> <code><a href="index-rd.html">index()</a></code> <code><a href="index-rd.html">index2()</a></code> </p>
         </td>
         <td><p>Return index and interval from a tsibble</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="measured-vars.html">measured_vars()</a></code> </p>
         </td>
         <td><p>Return measured variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="regular.html">is_regular()</a></code> <code><a href="regular.html">is.regular()</a></code> <code><a href="regular.html">is_ordered()</a></code> </p>
         </td>
         <td><p><code>is_regular</code> checks if a tsibble is spaced at regular time or not; <code>is_ordered</code>
 checks if a tsibble is ordered by key and index.</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="case_na.html">case_na()</a></code> </p>
         </td>
@@ -330,13 +388,13 @@ checks if a tsibble is ordered by key and index.</p></td>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="index_valid.html">index_valid()</a></code> </p>
         </td>
         <td><p>Extensible index type to tsibble</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="pull-interval.html">pull_interval()</a></code> <code><a href="pull-interval.html">time_unit()</a></code> </p>
         </td>
@@ -350,13 +408,13 @@ checks if a tsibble is ordered by key and index.</p></td>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="as.ts.tbl_ts.html">as.ts(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Coerce a tsibble to a time series</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="as-tibble.html">as.data.frame(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
@@ -370,13 +428,13 @@ checks if a tsibble is ordered by key and index.</p></td>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="pedestrian.html">pedestrian</a></code> </p>
         </td>
         <td><p>Pedestrian counts in the city of Melbourne</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="tourism.html">tourism</a></code> </p>
         </td>
@@ -390,43 +448,43 @@ checks if a tsibble is ordered by key and index.</p></td>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="arrange.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="arrange.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Arrange rows by variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="filter.tbl_ts.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Return rows with matching conditions</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="slice.tbl_ts.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Selects rows by position</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="select.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="select.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Select/rename variables by name</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="mutate.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="mutate.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Add new variables</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="summarise.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="summarise.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Collapse multiple rows to a single value</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="group-by.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="group-by.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> </p>
         </td>
@@ -440,25 +498,25 @@ checks if a tsibble is ordered by key and index.</p></td>
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gather.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Gather columns into key-value pairs.</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="spread.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Spread a key-value pair across multiple columns.</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="nest.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Nest repeated values in a list-variable.</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="unnest.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> </p>
         </td>
@@ -474,9 +532,9 @@ checks if a tsibble is ordered by key and index.</p></td>
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
       <li><a href="#section-tsibble-verbs">Tsibble verbs</a></li>
-      <li><a href="#section-vector-functions">Vector functions</a></li>
+      <li><a href="#section-vector">Vector</a></li>
       <li><a href="#section-windowed-functions">Windowed functions</a></li>
-      <li><a href="#section-index-functions">Index functions</a></li>
+      <li><a href="#section-index">Index</a></li>
       <li><a href="#section-key-helpers">Key helpers</a></li>
       <li><a href="#section-tsibble-helpers">Tsibble helpers</a></li>
       <li><a href="#section-extend-tsibble">Extend tsibble</a></li>

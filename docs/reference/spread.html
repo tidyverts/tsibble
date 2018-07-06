@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -60,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9000</span>
       </span>
     </div>
 
@@ -186,18 +189,18 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>The `index` is `time`.</span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
 <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1DAY]
-#&gt;    time            X      Y      Z
-#&gt;    &lt;date&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 -1.75  -3.79  -1.92 
-#&gt;  2 2009-01-02  0.894  0.153  0.461
-#&gt;  3 2009-01-03  0.223  1.75  -7.07 
-#&gt;  4 2009-01-04  0.581  0.908 -5.63 
-#&gt;  5 2009-01-05 -0.178 -1.70   2.84 
-#&gt;  6 2009-01-06  0.741  1.13  -4.96 
-#&gt;  7 2009-01-07 -0.997  2.30  -1.47 
-#&gt;  8 2009-01-08 -2.94  -1.51   1.85 
-#&gt;  9 2009-01-09  0.719 -0.979 -1.29 
-#&gt; 10 2009-01-10 -0.698 -2.33  -5.15 </div></pre>
+#&gt;    time             X      Y     Z
+#&gt;    &lt;date&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 2009-01-01  0.581   0.908 -5.63
+#&gt;  2 2009-01-02 -0.178  -1.70   2.84
+#&gt;  3 2009-01-03  0.741   1.13  -4.96
+#&gt;  4 2009-01-04 -0.997   2.30  -1.47
+#&gt;  5 2009-01-05 -2.94   -1.51   1.85
+#&gt;  6 2009-01-06  0.719  -0.979 -1.29
+#&gt;  7 2009-01-07 -0.698  -2.33  -5.15
+#&gt;  8 2009-01-08 -1.89   -0.959 -4.12
+#&gt;  9 2009-01-09  0.0763  0.231  6.06
+#&gt; 10 2009-01-10  0.875  -3.54   1.39</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

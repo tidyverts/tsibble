@@ -30,27 +30,29 @@ reference:
     - find_duplicates
     - split_by
 
-- title: Vector functions
+- title: Vector
   contents:
     - difference
 
 - title: Windowed functions
   contents:
-    - slide
-    - tile
-    - stretch
+    - starts_with("slide")
+    - starts_with("tile")
+    - starts_with("stretch")
 
-- title: Index functions
+- title: Index
   contents:
     - starts_with("year")
     - units_since
     - guess_frequency
+    - holiday_aus
 
 - title: Key helpers
   contents:
     - key
     - key_size
     - key_update
+    - key_sum
 
 - title: Tsibble helpers
   contents:

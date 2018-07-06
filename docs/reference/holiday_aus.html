@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return rows with matching conditions — filter.tbl_ts • tsibble</title>
+<title>Australian national and state-based public holiday — holiday_aus • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Return rows with matching conditions — filter.tbl_ts" />
+<meta property="og:title" content="Australian national and state-based public holiday — holiday_aus" />
 
-<meta property="og:description" content="Return rows with matching conditions" />
+<meta property="og:description" content="Australian national and state-based public holiday" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -108,46 +108,94 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return rows with matching conditions</h1>
+    <h1>Australian national and state-based public holiday</h1>
     
-    <div class="hidden name"><code>filter.tbl_ts.Rd</code></div>
+    <div class="hidden name"><code>holiday_aus.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Return rows with matching conditions</p>
+    <p>Australian national and state-based public holiday</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>holiday_aus</span>(<span class='no'>year</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='st'>"national"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
+      <th>year</th>
+      <td><p>A vector of integer(s) indicating year(s).</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Logical predicates defined in terms of the variables.</p></td>
+      <th>state</th>
+      <td><p>A state in Australia including "ACT", "NSW", "NT", "QLD", "SA",
+"TAS", "VIC", "WA", as well as "national".</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/filter.html'>dplyr::filter</a></p></div>
+    <p>A tibble consisting of <code>holiday</code> labels and their associated dates
+in the year(s).</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Not documented public holidays:</p><ul>
+<li><p>AFL public holidays for Victoria</p></li>
+<li><p>Queen's Birthday for Western Australia</p></li>
+<li><p>Royal Queensland Show for Queensland, which is for Brisbane only</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays'>Public holidays</a></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>holiday_aus</span>(<span class='fl'>2016</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='st'>"VIC"</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
+#&gt;    holiday          date      
+#&gt;    &lt;chr&gt;            &lt;date&gt;    
+#&gt;  1 New Year's Day   2016-01-01
+#&gt;  2 Australia Day    2016-01-26
+#&gt;  3 Labour Day       2016-03-14
+#&gt;  4 Good Friday      2016-03-25
+#&gt;  5 Easter Saturday  2016-03-26
+#&gt;  6 Easter Sunday    2016-03-27
+#&gt;  7 Easter Monday    2016-03-28
+#&gt;  8 ANZAC Day        2016-04-25
+#&gt;  9 Queen's Birthday 2016-06-13
+#&gt; 10 Melbourne Cup    2016-11-01
+#&gt; 11 Boxing Day       2016-12-26
+#&gt; 12 Christmas Day    2016-12-27</div><div class='input'><span class='fu'>holiday_aus</span>(<span class='fl'>2013</span>:<span class='fl'>2016</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='st'>"ACT"</span>)</div><div class='output co'>#&gt; # A tibble: 44 x 2
+#&gt;    holiday          date      
+#&gt;    &lt;chr&gt;            &lt;date&gt;    
+#&gt;  1 New Year's Day   2013-01-01
+#&gt;  2 Australia Day    2013-01-28
+#&gt;  3 Canberra Day     2013-03-11
+#&gt;  4 Good Friday      2013-03-29
+#&gt;  5 Easter Saturday  2013-03-30
+#&gt;  6 Easter Sunday    2013-03-31
+#&gt;  7 Easter Monday    2013-04-01
+#&gt;  8 ANZAC Day        2013-04-25
+#&gt;  9 Queen's Birthday 2013-06-10
+#&gt; 10 Christmas Day    2013-12-25
+#&gt; # ... with 34 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

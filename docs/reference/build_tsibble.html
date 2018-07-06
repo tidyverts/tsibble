@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,6 +38,7 @@ determine if the time needs ordering and the interval needs calculating." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -62,7 +65,7 @@ determine if the time needs ordering and the interval needs calculating." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9000</span>
       </span>
     </div>
 
@@ -165,7 +168,7 @@ valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     <tr>
       <th>ordered</th>
       <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
-then index in ascending order. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
+then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
 the correct order. <code>FALSE</code> also skips the ordering but gives a warning instead.</p></td>
     </tr>
     <tr>
@@ -182,7 +185,7 @@ is, if an class of <code>interval</code> is supplied.</p></td>
   <span class='fu'>build_tsibble</span>(
     <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='index-rd.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1HOUR]
-#&gt; # Keys:      Sensor [4]
+#&gt; # Key:       Sensor [4]
 #&gt; # Groups:    @ Date [731]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;

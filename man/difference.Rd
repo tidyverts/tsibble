@@ -2,7 +2,7 @@
 % Please edit documentation in R/time-wise.R
 \name{difference}
 \alias{difference}
-\title{Lagged Differences}
+\title{Lagged differences}
 \usage{
 difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 }
@@ -21,7 +21,7 @@ difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 A numeric vector of the same length as \code{x}.
 }
 \description{
-Lagged Differences
+Lagged differences
 }
 \examples{
 # examples from base

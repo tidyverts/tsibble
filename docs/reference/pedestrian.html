@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -35,6 +37,7 @@
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -61,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9000</span>
       </span>
     </div>
 
@@ -139,7 +142,7 @@
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
 <span class='co'># make implicit missingness to be explicit ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='fill-na.html'>fill_na</a></span>()</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1HOUR]
-#&gt; # Keys:      Sensor [4]
+#&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
@@ -157,7 +160,7 @@
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 2,755 x 3 [1DAY]
-#&gt; # Keys:      Sensor [4]
+#&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date        MaxC
 #&gt;    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt;
 #&gt;  1 Birrarung Marr 2015-01-01  1630

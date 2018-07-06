@@ -1,4 +1,4 @@
-#' Lagged Differences
+#' Lagged differences
 #' 
 #' @param x A numeric vector.
 #' @param lag An positive integer indicating which lag to use.

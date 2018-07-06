@@ -23,9 +23,9 @@ along with index and keys;
 }
 \details{
 These column-wise verbs from dplyr have an additional argument of \code{.drop = FALSE}
-for tsibble. The index variable cannot be dropped for a tsibble. If any key
-variable is changed, it will validate whether it's a tsibble internally.
-Turning \code{.drop = TRUE} converts to a tibble first and then do the operations.
+for tsibble. If any key variable is changed, it will validate whether it's a
+tsibble internally.  Turning \code{.drop = TRUE} converts to a tibble first and
+then do the operations.
 \itemize{
 \item \code{summarise()} will not collapse on the index variable.
 }

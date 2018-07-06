@@ -73,7 +73,8 @@ slide_dfr <- function(
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_rows(!!! out, .id = .id)
+  do.call(rbind, out)
+  # dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide
@@ -83,7 +84,8 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_cols(!!! out)
+  do.call(cbind, out)
+  # dplyr::bind_cols(!!! out)
 }
 
 #' Sliding window calculation over multiple inputs simultaneously
@@ -143,7 +145,8 @@ slide2_dfr <- function(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_rows(!!! out, .id = .id)
+  do.call(rbind, out)
+  # dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
@@ -155,7 +158,8 @@ slide2_dfc <- function(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_cols(!!! out)
+  do.call(cbind, out)
+  # dplyr::bind_cols(!!! out)
 }
 
 #' @rdname slide2
@@ -191,7 +195,8 @@ pslide_dfr <- function(
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_rows(!!! out, .id = .id)
+  do.call(rbind, out)
+  # dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
@@ -208,9 +213,9 @@ pslide_dfr <- function(
 #' my_diag <- function(...) {
 #'   data <- list(...)
 #'   fit <- lm(data$Count ~ data$Time)
-#'   data.frame(fitted = fitted(fit), resid = residuals(fit))
+#'   tibble::tibble(fitted = fitted(fit), resid = residuals(fit))
 #' }
-#' diag <- pedestrian %>%
+#' pedestrian %>%
 #'   filter(Date <= as.Date("2015-01-31")) %>%
 #'   nest(-Sensor) %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
@@ -220,7 +225,8 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  dplyr::bind_cols(!!! out)
+  do.call(cbind, out)
+  # dplyr::bind_cols(!!! out)
 }
 
 #' Splits the input to a list according to the rolling window size.
