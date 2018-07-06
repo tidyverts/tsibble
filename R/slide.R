@@ -47,7 +47,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide_lgl(.x, ~ mean(.) > 2, .size = 2)
 #' slide(.lst, ~ ., .size = 2)
 slide <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
-  lst_x <- slider(.x, .size = .size, .fill = .fill, .partial)
+  lst_x <- slider(.x, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map(lst_x, .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill)
@@ -69,14 +69,20 @@ for(type in c("lgl", "chr", "int", "dbl")){
 slide_dfr <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
 ) {
-  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+  out <- slide(
+    .x, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide
 #' @export
 slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
-  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+  out <- slide(
+    .x, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_cols(!!! out)
 }
 
@@ -111,7 +117,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 #' pslide(.lst, ~ ., size = 1)
 #' pslide(list(.lst, .lst), ~ ., .size = 2)
 slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
-  lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial)
+  lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill)
@@ -133,14 +139,22 @@ for(type in c("lgl", "chr", "int", "dbl")){
 slide2_dfr <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
 ) {
-  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+  out <- slide2(
+    .x, .y, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
 #' @export
-slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
-  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+slide2_dfc <- function(
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE
+) {
+  out <- slide2(
+    .x, .y, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_cols(!!! out)
 }
 
@@ -170,8 +184,13 @@ for(type in c("lgl", "chr", "int", "dbl")){
 
 #' @rdname slide2
 #' @export
-pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL) {
-  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+pslide_dfr <- function(
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+) {
+  out <- pslide(
+    .l, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
@@ -197,7 +216,10 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
 pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
-  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
+  out <- pslide(
+    .l, .f = .f, ..., 
+    .size = .size, .fill = .fill, .partial = .partial
+  )
   dplyr::bind_cols(!!! out)
 }
 
