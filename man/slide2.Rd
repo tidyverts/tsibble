@@ -11,17 +11,19 @@
 \alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., .size = 1, .fill = NA)
+slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 
-slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL)
+slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .id = NULL)
 
-slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA)
+slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 
-pslide(.l, .f, ..., .size = 1, .fill = NA)
+pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 
-pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .id = NULL)
+pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .id = NULL)
 
-pslide_dfc(.l, .f, ..., .size = 1, .fill = NA)
+pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -54,6 +56,8 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
 
+\item{.partial}{if \code{TRUE}, partial sliding.}
+
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
 
@@ -83,6 +87,7 @@ pslide(.lst, ~ ., size = 1)
 pslide(list(.lst, .lst), ~ ., .size = 2)
 ## window over 2 months
 pedestrian \%>\% 
+  filter(Sensor == "Southern Cross Station") \%>\% 
   index_by(yrmth = yearmonth(Date_Time)) \%>\% 
   nest(-yrmth) \%>\% 
   mutate(ma = slide_dbl(data, ~ mean(do.call(rbind, .)$Count), .size = 2))

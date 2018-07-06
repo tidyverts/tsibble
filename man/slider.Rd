@@ -5,9 +5,9 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1, .fill = NA)
+slider(.x, .size = 1, .fill = NA, .partial = FALSE)
 
-pslider(..., .size = 1, .fill = NA)
+pslider(..., .size = 1, .fill = NA, .partial = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -16,6 +16,9 @@ pslider(..., .size = 1, .fill = NA)
 to right; if negative, moving backward (from right to left).}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
+
+\item{.partial}{if \code{TRUE}, split to partial set (\code{FALSE} ignores specified
+\code{.fill}).}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 
@@ -33,7 +36,6 @@ Splits the input to a list according to the rolling window size.
 
 slider(.x, .size = 2)
 slider(.lst, .size = 2)
-pslider(.lst, .size = 2)
 pslider(list(.x, .y), list(.y))
 slider(.df, .size = 2)
 pslider(.df, .df, .size = 2)

@@ -2,11 +2,12 @@
 
 ## Breaking changes
 
-* Now windowed functions follow the `purrr` style exactly (#35): 
+* Restructured windowed functions to follow the `purrr` style exactly (#35): 
   + `slide()`, `tile()`, `stretch()` return lists only instead of numerics before.
   + added `slide2()`, `pslide()` to map over multiple inputs simultaneously. 
   + added other type-stable variants such as `slide_dbl()`, `slide_int()`, `slide_chr()`, `slide_lgl()`.
   * A negative window size results in a backward moving direction.
+  * `slide()` gained a new argument `.partial` to support partial sliding.
 * Renamed `x` to `.x` in `slider()`, `tiler()`, `stretcher()`.
 * `pslider()`, `ptiler()`, `pstretcher()` support multiple inputs now, and split them in parallel.
 

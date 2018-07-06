@@ -7,11 +7,12 @@
 \alias{slide_dfc}
 \title{Sliding window calculation}
 \usage{
-slide(.x, .f, ..., .size = 1, .fill = NA)
+slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 
-slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .id = NULL)
+slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .id = NULL)
 
-slide_dfc(.x, .f, ..., .size = 1, .fill = NA)
+slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -43,6 +44,8 @@ to extract named attributes. If a component is not present, the value of
 to right; if negative, moving backward (from right to left).}
 
 \item{.fill}{A single value or data frame to replace \code{NA}.}
+
+\item{.partial}{if \code{TRUE}, partial sliding.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

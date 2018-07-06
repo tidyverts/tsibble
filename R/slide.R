@@ -27,6 +27,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' @param .size An integer for window size. If positive, moving forward from left
 #' to right; if negative, moving backward (from right to left).
 #' @param .fill A single value or data frame to replace `NA`.
+#' @param .partial if `TRUE`, partial sliding.
 #'
 #' @rdname slide
 #' @export
@@ -45,9 +46,11 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide_dbl(.x, mean, .size = 2)
 #' slide_lgl(.x, ~ mean(.) > 2, .size = 2)
 #' slide(.lst, ~ ., .size = 2)
-slide <- function(.x, .f, ..., .size = 1, .fill = NA) {
-  lst_x <- slider(.x, .size = .size, .fill = .fill)
-  purrr::map(lst_x, .f, ...)
+slide <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+  lst_x <- slider(.x, .size = .size, .fill = .fill, .partial)
+  out <- purrr::map(lst_x, .f, ...)
+  if (.partial) return(out)
+  pad_slide(out, .size, .fill)
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -63,15 +66,17 @@ for(type in c("lgl", "chr", "int", "dbl")){
 
 #' @rdname slide
 #' @export
-slide_dfr <- function(.x, .f, ..., .size = 1, .fill = NA, .id = NULL) {
-  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
+slide_dfr <- function(
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+) {
+  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide
 #' @export
-slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
-  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill)
+slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+  out <- slide(.x, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_cols(!!! out)
 }
 
@@ -105,9 +110,11 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA) {
 #' slide2(.df, .df, ~ ., .size = 2)
 #' pslide(.lst, ~ ., size = 1)
 #' pslide(list(.lst, .lst), ~ ., .size = 2)
-slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
-  lst <- pslider(.x, .y, .size = .size, .fill = .fill)
-  purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
+slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+  lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial)
+  out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
+  if (.partial) return(out)
+  pad_slide(out, .size, .fill)
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
@@ -123,27 +130,31 @@ for(type in c("lgl", "chr", "int", "dbl")){
 
 #' @rdname slide2
 #' @export
-slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .id = NULL) {
-  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
+slide2_dfr <- function(
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+) {
+  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname slide2
 #' @export
-slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA) {
-  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill)
+slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+  out <- slide2(.x, .y, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_cols(!!! out)
 }
 
 #' @rdname slide2
 #' @inheritParams purrr::pmap
 #' @export
-pslide <- function(.l, .f, ..., .size = 1, .fill = NA) {
+pslide <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  lst <- pslider(!!! .l, .size = .size, .fill = .fill)
-  purrr::pmap(lst, .f, ...)
+  lst <- pslider(!!! .l, .size = .size, .fill = .fill, .partial = .partial)
+  out <- purrr::pmap(lst, .f, ...)
+  if (.partial) return(out)
+  pad_slide(out, .size, .fill)
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -159,8 +170,8 @@ for(type in c("lgl", "chr", "int", "dbl")){
 
 #' @rdname slide2
 #' @export
-pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
-  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
+pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL) {
+  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
@@ -169,6 +180,7 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #' @examples
 #' ## window over 2 months
 #' pedestrian %>% 
+#'   filter(Sensor == "Southern Cross Station") %>% 
 #'   index_by(yrmth = yearmonth(Date_Time)) %>% 
 #'   nest(-yrmth) %>% 
 #'   mutate(ma = slide_dbl(data, ~ mean(do.call(rbind, .)$Count), .size = 2))
@@ -184,8 +196,8 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .fill = NA, .id = NULL) {
 #'   nest(-Sensor) %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
-pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
-  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill)
+pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+  out <- pslide(.l, .f = .f, ..., .size = .size, .fill = .fill, .partial = .partial)
   dplyr::bind_cols(!!! out)
 }
 
@@ -193,6 +205,8 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
 #'
 #' @param x An objects to be splitted.
 #' @param ... Multiple objects to be splitted in parallel.
+#' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
+#' `.fill`).
 #' @inheritParams slide
 #' @rdname slider
 #' @export
@@ -205,27 +219,26 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA) {
 #'
 #' slider(.x, .size = 2)
 #' slider(.lst, .size = 2)
-#' pslider(.lst, .size = 2)
 #' pslider(list(.x, .y), list(.y))
 #' slider(.df, .size = 2)
 #' pslider(.df, .df, .size = 2)
-slider <- function(.x, .size = 1, .fill = NA) {
+slider <- function(.x, .size = 1, .fill = NA, .partial = FALSE) {
   if (is.data.frame(.x)) .x <- as.list(.x)
-  slider_base(.x, .size = .size, .fill = .fill)
+  slider_base(.x, .size, .fill = .fill, .partial)
 }
 
 #' @rdname slider
 #' @export
-pslider <- function(..., .size = 1, .fill = NA) { # parallel sliding
+pslider <- function(..., .size = 1, .fill = NA, .partial = FALSE) { # parallel sliding
   lst <- recycle(list2(...))
   df_lgl <- purrr::map_lgl(lst, is.data.frame)
   if (any(df_lgl)) {
     lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
   }
-  purrr::map(lst, function(x) slider_base(x, .size = .size, .fill = .fill))
+  purrr::map(lst, function(x) slider_base(x, .size, .fill = .fill, .partial))
 }
 
-slider_base <- function(x, .size = 1, .fill = NA) {
+slider_base <- function(x, .size = 1, .fill = NA, .partial = FALSE) {
   bad_window_function(.size)
   len_x <- NROW(x)
   abs_size <- abs(.size)
@@ -236,16 +249,24 @@ slider_base <- function(x, .size = 1, .fill = NA) {
     ))
   }
   sign <- sign(.size)
-  lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
-  if (sign < 0) lst_idx <- rev(lst_idx)
-  purrr::map(lst_idx, function(idx) {
-    idx <- idx:(idx + sign * (abs_size - 1))
-    c(rep(.fill, sum(idx <= 0 | idx > len_x)), x[idx[idx > 0 & idx <= len_x]])
-  })
+  if (.partial) {
+    lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
+    if (sign < 0) lst_idx <- rev(lst_idx)
+    return(purrr::map(lst_idx, function(idx) {
+      idx <- idx:(idx + sign * (abs_size - 1))
+      c(rep(.fill, sum(idx <= 0 | idx > len_x)), x[idx[idx > 0 & idx <= len_x]])
+    }))
+  }
+  lst_idx <- seq_len(len_x - abs_size + 1)
+  if (sign < 0) lst_idx <- rev(lst_idx) + 1
+  purrr::map(lst_idx, function(idx) x[idx:(idx + sign * (abs_size - 1))])
 }
 
 bad_window_function <- function(.size) {
-  if (!is_integerish(.size, n = 1) || .size == 0) {
+  if (!is_integerish(.size, n = 1)) {
+    abort("`.size` must be an integer.")
+  }
+  if (.size == 0) {
     abort("`.size` must not be 0.")
   }
 }
@@ -267,3 +288,12 @@ recycle <- function(x) {
   x
 }
 
+
+pad_slide <- function(x, .size = 1, .fill = NA) {
+  rep_fill <- rep_len(.fill, .size - 1)
+  if (.size > 0) {
+    return(c(rep_fill, x))
+  } else {
+    return(c(x, rep_fill))
+  }
+}
