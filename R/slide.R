@@ -73,8 +73,7 @@ slide_dfr <- function(
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(rbind, out)
-  # dplyr::bind_rows(!!! out, .id = .id)
+  bind_df(out, .size, .fill, .id = .id)
 }
 
 #' @rdname slide
@@ -84,8 +83,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(cbind, out)
-  # dplyr::bind_cols(!!! out)
+  bind_df(out, .size, .fill, byrow = FALSE)
 }
 
 #' Sliding window calculation over multiple inputs simultaneously
@@ -145,8 +143,7 @@ slide2_dfr <- function(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(rbind, out)
-  # dplyr::bind_rows(!!! out, .id = .id)
+  bind_df(out, .size, .fill, .id = .id)
 }
 
 #' @rdname slide2
@@ -158,8 +155,7 @@ slide2_dfc <- function(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(cbind, out)
-  # dplyr::bind_cols(!!! out)
+  bind_df(out, .size, .fill, byrow = FALSE)
 }
 
 #' @rdname slide2
@@ -195,8 +191,7 @@ pslide_dfr <- function(
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(rbind, out)
-  # dplyr::bind_rows(!!! out, .id = .id)
+  bind_df(out, .size, .fill, .id = .id)
 }
 
 #' @rdname slide2
@@ -225,8 +220,7 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial
   )
-  do.call(cbind, out)
-  # dplyr::bind_cols(!!! out)
+  bind_df(out, .size, .fill, byrow = FALSE)
 }
 
 #' Splits the input to a list according to the rolling window size.
@@ -318,4 +312,17 @@ recycle <- function(x) {
 
 pad_slide <- function(x, .size = 1, .fill = NA) {
   c(rep_len(.fill, abs(.size) - 1), x)
+}
+
+bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
+  abs_size <- abs(.size)
+  if (abs_size < 2) {
+    if (byrow) return(dplyr::bind_rows(x, .id = .id))
+    return(dplyr::bind_cols(x))
+  }
+  lst <- new_list_along(x[[abs_size]])
+  lst[] <- .fill
+  if (byrow) 
+    return(dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id))
+  dplyr::bind_cols(lst, !!! x[-seq_len(abs_size - 1)])
 }

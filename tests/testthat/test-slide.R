@@ -64,10 +64,10 @@ test_that("slide() and its variants", {
     slide_dfr(.x, ~ data.frame(x = .), .size = 1),
     data.frame(x = .x)
   )
-  # expect_equal(
-  #   slide_dfc(.x, ~ data.frame(x = .), .size = 1),
-  #   data.frame(x = 1, x = 2, x = 3, x = 4, x = 5)
-  # )
+  expect_equal(
+    slide_dfc(.x, ~ data.frame(x = .), .size = 1),
+    data.frame(x = 1, x1 = 2, x2 = 3, x3 = 4, x4 = 5)
+  )
 })
 
 test_that("slide2() and its variants", {
