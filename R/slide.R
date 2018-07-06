@@ -225,8 +225,8 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 
 #' Splits the input to a list according to the rolling window size.
 #'
-#' @param x An objects to be splitted.
-#' @param ... Multiple objects to be splitted in parallel.
+#' @param x An objects to be split.
+#' @param ... Multiple objects to be split in parallel.
 #' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
 #' `.fill`).
 #' @inheritParams slide

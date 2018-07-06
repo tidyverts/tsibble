@@ -20,9 +20,9 @@ to right; if negative, moving backward (from right to left).}
 \item{.partial}{if \code{TRUE}, split to partial set (\code{FALSE} ignores specified
 \code{.fill}).}
 
-\item{...}{Multiple objects to be splitted in parallel.}
+\item{...}{Multiple objects to be split in parallel.}
 
-\item{x}{An objects to be splitted.}
+\item{x}{An objects to be split.}
 }
 \description{
 Splits the input to a list according to the rolling window size.

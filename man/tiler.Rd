@@ -15,7 +15,7 @@ ptiler(..., .size = 1)
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{...}{Multiple objects to be splitted in parallel.}
+\item{...}{Multiple objects to be split in parallel.}
 }
 \description{
 Splits the input to a list according to the tiling window size.
