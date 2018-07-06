@@ -147,8 +147,8 @@ space.
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 
 Temporal data often involves moving window calculations. Several
-functions in the *tsibble* allow for different variations of moving
-windows using purrr-like syntax:
+functions in *tsibble* allow for different variations of moving windows
+using purrr-like syntax:
 
   - `slide()`/`slide2()`/`pslide()`: sliding window with overlapping
     observations.
@@ -187,7 +187,7 @@ functions.
       - `arrange()`, `filter()`, `slice()`
       - `mutate()`, `transmute()`, `select()`, `rename()`,
         `summarise()`/`summarize()`
-      - `[left/right/full/inner/anti/semi]_join()`
+      - `left/right/full/inner/anti/semi_join()`
       - `group_by()`, `ungroup()`
   - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
