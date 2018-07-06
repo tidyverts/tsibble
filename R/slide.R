@@ -310,12 +310,6 @@ recycle <- function(x) {
   x
 }
 
-
 pad_slide <- function(x, .size = 1, .fill = NA) {
-  rep_fill <- rep_len(.fill, .size - 1)
-  if (.size > 0) {
-    return(c(rep_fill, x))
-  } else {
-    return(c(x, rep_fill))
-  }
+  c(rep_len(.fill, abs(.size) - 1), x)
 }
