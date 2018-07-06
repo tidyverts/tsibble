@@ -10,4 +10,7 @@
 
 ## Reverse dependencies
 
-I have run R CMD check on the 1 downstream dependency. The package that I could install passed the checks.
+I have run R CMD check on the 2 downstream dependencies. 
+
+* The `sugrrants` package had 1 error and 1 warning due to incompatibility with ggplot2 v3.0.0, which is unrelated to this release.
+* The `tsbox` package that I could install passed the checks.
