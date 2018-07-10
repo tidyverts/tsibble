@@ -60,22 +60,11 @@ format.interval <- function(x, digits = NULL, ...) {
   if (is_empty(x)) {
     return("!")
   }
-  if (is.null(digits)) {
-    digits <- 1
-    secs <- x$second
-    if (!(is.null(secs) || is.na(secs))) {
-      digits <- 3
-      decs <- secs - floor(secs)
-      if (decs < 0.001) {
-        digits  <- nchar(decs)
-      }
-    }
-  }
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   # if output is empty, it means that duplicated time entries
   # if output is NA, it means that only one time entry
   output <- x[not_zero]
-  vec_x <- round(rlang::flatten_dbl(output), digits = digits)
+  vec_x <- rlang::flatten_dbl(output)
   if (is_empty(output) || is_empty(vec_x)) {
     return("?")
   }

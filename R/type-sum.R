@@ -118,6 +118,9 @@ index_valid.yearquarter <- index_valid.POSIXct
 index_valid.yearqtr <- index_valid.yearquarter
 
 #' @export
+index_valid.nanotime <- index_valid.POSIXct
+
+#' @export
 index_valid.numeric <- function(x) {
   NA
 }

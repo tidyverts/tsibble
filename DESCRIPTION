@@ -36,6 +36,7 @@ Suggests:
     hms,
     hts,
     knitr,
+    nanotime,
     nycflights13 (>= 1.0.0),
     rmarkdown,
     testthat

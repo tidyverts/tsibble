@@ -30,9 +30,21 @@ pull_interval.POSIXt <- function(x) {
   nhms <- gcd_interval(dttm) # num of seconds
   period <- split_period(nhms)
   structure(
-    list(hour = period$hour, minute = period$minute, second = period$second),
+    list(
+      hour = period$hour, 
+      minute = period$minute, 
+      second = round(period$second, digits = 3)
+    ),
     class = "interval"
   )
+}
+
+#' @export
+pull_interval.nanotime <- function(x) {
+  nano <- as.numeric(x)
+  int <- gcd_interval(nano) # num of nanoseconds
+  sec <- int * 1e-9
+  structure(list(second = sec), class = "interval")
 }
 
 #' @export

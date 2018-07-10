@@ -45,6 +45,15 @@ test_that("POSIXct with 10 milliseconds interval", {
   expect_output(print(tsbl), "A tsibble: 10 x 2 \\[0.01SECOND\\]")
 })
 
+library(nanotime)
+x <- nanotime("1970-01-01T00:00:00.000000001+00:00") + 0:9
+df <- data.frame(time = x, value = rnorm(10))
+tsbl <- as_tsibble(df)
+
+test_that("nanotime with 1 nanoseconds interval", {
+  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[1e-09SECOND\\]")
+})
+
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))

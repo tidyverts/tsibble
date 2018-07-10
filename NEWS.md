@@ -1,3 +1,8 @@
+# tsibble 0.4.0.9000
+
+## New features
+* Added "nanotime" support for nanoseconds.
+
 # tsibble 0.4.0
 
 ## Breaking changes
