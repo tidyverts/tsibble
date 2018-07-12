@@ -109,6 +109,7 @@ x2 <- list(1:3, 1)
 x3 <- list(1:3, 1:3)
 
 test_that("recycle()", {
+  expect_equal(recycle(integer(0)), integer(0))
   expect_error(recycle(x1), "Element 3 has length 2, not 1 or 3.")
   expect_equal(recycle(x2), list(1:3, rep(1, 3)))
   expect_equal(recycle(x3), x3)

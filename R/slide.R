@@ -294,11 +294,14 @@ bad_window_function <- function(.size) {
 }
 
 recycle <- function(x) {
+  if (has_length(x, 0)) {
+    return(x)
+  }
   len <- purrr::map_int(x, length)
   max_len <- max(len)
   len1 <- len == 1
   check <- !len1 & len != max_len
-  if (sum(check) != 0) {
+  if (any(check)) {
     bad <- which(check)[1]
     abort(sprintf(
       "Element %s has length %s, not 1 or %s.", bad, len[bad], max_len
@@ -306,7 +309,7 @@ recycle <- function(x) {
   }
   if (sum(len1) == 0) return(x)
   rep_idx <- which(len1)
-  x[len1] <- lapply(rep_idx, function(i) rep_len(x[[i]], max_len))
+  x[len1] <- lapply(x[rep_idx], rep, max_len)
   x
 }
 
