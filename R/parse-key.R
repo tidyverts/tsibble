@@ -33,6 +33,11 @@ key.tbl_ts <- function(x) {
   NextMethod()
 }
 
+#' @export
+`[.key` <- function(x, i, j, drop = FALSE) {
+  NextMethod()
+}
+
 #' @rdname key
 #' @export
 key_vars <- function(x) {

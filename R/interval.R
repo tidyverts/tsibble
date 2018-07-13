@@ -100,6 +100,16 @@ pull_interval.numeric <- function(x) {
   structure(list(unit = nunits), class = "interval")
 }
 
+#' @export
+`[[.interval` <- function(x, i, j, ..., exact = TRUE) {
+  NextMethod()
+}
+
+#' @export
+`[.interval` <- function(x, i, j, drop = FALSE) {
+  NextMethod()
+}
+
 #' @rdname pull-interval
 #' @export
 #' @examples
