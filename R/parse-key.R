@@ -28,6 +28,11 @@ key.tbl_ts <- function(x) {
   attr(x, "key")
 }
 
+#' @export
+`[[.key` <- function(x, i, j, ..., exact = TRUE) {
+  NextMethod()
+}
+
 #' @rdname key
 #' @export
 key_vars <- function(x) {
