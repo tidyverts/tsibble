@@ -141,8 +141,10 @@ full_weather %>%
 #> # ... with 31 more rows
 ```
 
-This combo can also help with regularising a tsibble of irregular time
-space.
+While collapsing rows (like `summarise()`), `group_by()` and
+`index_by()` will update the key and index respectively. This
+`index_by()` + `summarise()` combo can help with regularising a tsibble
+of irregular time space too.
 
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 
@@ -192,16 +194,6 @@ functions.
   - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
   - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
   - **rlang:** `!!`, `!!!`
-
-## Related work
-
-  - [zoo](https://CRAN.R-project.org/package=zoo): regular and irregular
-    time series with methods.
-  - [xts](https://github.com/joshuaulrich/xts): extensible time series.
-  - [tibbletime](https://github.com/business-science/tibbletime):
-    time-aware tibbles.
-  - [padr](https://github.com/EdwinTh/padr): padding of missing records
-    in time series.
 
 -----
 
