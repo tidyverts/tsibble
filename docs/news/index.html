@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -46,6 +46,16 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-83007123-3');
+</script>
+
   </head>
 
   <body>
@@ -61,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
       </span>
     </div>
 
@@ -110,6 +120,18 @@
       
     </div>
 
+    <div id="tsibble-0-4-0-9000" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-4-0-9000" class="anchor"></a>tsibble 0.4.0.9000<small> Unreleased </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added “nanotime” support for nanoseconds.</li>
+</ul>
+</div>
+</div>
     <div id="tsibble-0-4-0" class="section level1">
 <h1 class="page-header">
 <a href="#tsibble-0-4-0" class="anchor"></a>tsibble 0.4.0<small> 2018-07-06 </small>
@@ -134,9 +156,9 @@
 <code><a href="../reference/slider.html">pslider()</a></code>, <code><a href="../reference/tiler.html">ptiler()</a></code>, <code><a href="../reference/stretcher.html">pstretcher()</a></code> support multiple inputs now, and split them in parallel.</li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
 <li>Defined <code>diff()</code> for year-week, year-month, and year-quarter.</li>
@@ -162,7 +184,7 @@
 <li>
 <code><a href="../reference/id.html">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
 <li>
-<code><a href="../reference/select.html">select.tbl_ts()</a></code> now preserved index.</li>
+<code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> now preserved index.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -265,7 +287,7 @@
 <li>Renamed the <code>drop</code> argument to <code>.drop</code> in column-wise dplyr verbs.</li>
 <li>Dropped the <code>duplicated</code> argument in <code><a href="../reference/pull-interval.html">pull_interval()</a></code>.</li>
 <li>
-<code><a href="../reference/group-by.html">group_by.tbl_ts()</a></code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> thinks.</li>
+<code><a href="../reference/tidyverse.html">group_by.tbl_ts()</a></code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> thinks.</li>
 </ul>
 </div>
 <div id="improvements-1" class="section level2">
@@ -280,9 +302,9 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed <code><a href="../reference/mutate.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
-<li>Fixed bug in <code><a href="../reference/select.html">select.tbl_ts()</a></code> and <code><a href="../reference/select.html">rename.tbl_ts()</a></code> for not preserving grouped variables (#12).</li>
-<li>Fixed bug in <code><a href="../reference/select.html">select.tbl_ts()</a></code> and <code><a href="../reference/select.html">rename.tbl_ts()</a></code> for renaming grouped variables.</li>
+<li>Fixed <code><a href="../reference/tidyverse.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
+<li>Fixed bug in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> and <code><a href="../reference/tidyverse.html">rename.tbl_ts()</a></code> for not preserving grouped variables (#12).</li>
+<li>Fixed bug in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> and <code><a href="../reference/tidyverse.html">rename.tbl_ts()</a></code> for renaming grouped variables.</li>
 </ul>
 </div>
 <div id="internal-changes-1" class="section level2">
@@ -334,7 +356,7 @@
 <ul>
 <li>Fixed <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> for daily time series (when frequency = 7).</li>
 <li>
-<code><a href="../reference/group-by.html">group_by.tbl_ts()</a></code> does not accept named expressions.</li>
+<code><a href="../reference/tidyverse.html">group_by.tbl_ts()</a></code> does not accept named expressions.</li>
 </ul>
 </div>
 <div id="internal-changes-2" class="section level2">
@@ -364,7 +386,7 @@
 <li>The windowed functions, including <code>slide()</code>, <code>tile()</code>, <code>stretch()</code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code>tsummarise()</code> instead of any position in the call.</li>
 <li>
-<code><a href="../reference/mutate.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
+<code><a href="../reference/tidyverse.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
@@ -405,13 +427,13 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fix bug in <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
-<li>In <code><a href="../reference/summarise.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
+<li>Fix bug in <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
+<li>In <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
 <li>Fix incorrect group and key indices.</li>
 <li>
 <code>NULL</code> and <code>tbl_ts</code> are supported in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. An empty tsibble is not allowed.</li>
 <li>
-<code><a href="../reference/group-by.html">group_by.tbl_ts(.data, ..., add = TRUE)</a></code> works as expected now.</li>
+<code><a href="../reference/tidyverse.html">group_by.tbl_ts(.data, ..., add = TRUE)</a></code> works as expected now.</li>
 </ul>
 </div>
 <div id="internal-changes-3" class="section level2">
@@ -446,6 +468,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tsibble-0-4-0-9000">0.4.0.9000</a></li>
         <li><a href="#tsibble-0-4-0">0.4.0</a></li>
         <li><a href="#tsibble-0-3-0">0.3.0</a></li>
         <li><a href="#tsibble-0-2-0">0.2.0</a></li>

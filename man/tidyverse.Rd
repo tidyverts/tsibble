@@ -105,8 +105,15 @@ Should be a character vector of length 2.}
 
 \item{.data}{A \code{tbl_ts}.}
 
+\item{.by_group}{If \code{TRUE}, will sort first by grouping variable. Applies to
+grouped data frames only.}
+
 \item{.drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
 tsibble and returns a tibble.}
+
+\item{add}{When \code{add = FALSE}, the default, \code{group_by()} will
+override existing groups. To add to the existing groups, use
+\code{add = TRUE}.}
 
 \item{data}{A data frame.}
 

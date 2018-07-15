@@ -6,8 +6,8 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
   update_tsibble(tbl, x, ordered = is_ordered(x))
 }
 
-#' @rdname tidyverse
 #' @inheritParams dplyr::left_join
+#' @rdname tidyverse
 #' @export
 left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...

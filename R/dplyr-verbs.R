@@ -2,6 +2,7 @@
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... same arguments accepted as its dplyr generitc.
+#' @inheritParams dplyr::arrange
 #'
 #' @details 
 #' * `arrange()`: if not arranging key and index in past-to-future order, a warning is
@@ -217,6 +218,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' @export
 summarize.tbl_ts <- summarise.tbl_ts
 
+#' @inheritParams dplyr::group_by
 #' @importFrom dplyr grouped_df
 #' @rdname tidyverse
 #' @export
