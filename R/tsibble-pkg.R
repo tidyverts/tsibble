@@ -1,5 +1,6 @@
 #' tsibble: tidy temporal data frames and tools
 #'
+#' \if{html}{\figure{logo.png}{options: align='right'}}
 #' The **tsibble** package provides a data class of `tbl_ts` to store and manage
 #' temporal data frames in a "tidy" form. A tsibble consists of a time index, 
 #' key(s) and other measured variables in a data-centric format, which is built on 

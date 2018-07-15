@@ -6,6 +6,8 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
   update_tsibble(tbl, x, ordered = is_ordered(x))
 }
 
+#' @rdname tidyverse
+#' @inheritParams dplyr::left_join
 #' @export
 left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -14,6 +16,7 @@ left_join.tbl_ts <- function(
 }
 
 
+#' @rdname tidyverse
 #' @export
 right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -21,6 +24,7 @@ right_join.tbl_ts <- function(
   join_tsibble(right_join, x, y, by = by, copy = copy, suffix = suffix, ...)
 }
 
+#' @rdname tidyverse
 #' @export
 inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -28,6 +32,7 @@ inner_join.tbl_ts <- function(
   join_tsibble(inner_join, x, y, by = by, copy = copy, suffix = suffix, ...)
 }
 
+#' @rdname tidyverse
 #' @export
 full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -35,11 +40,13 @@ full_join.tbl_ts <- function(
   join_tsibble(full_join, x, y, by = by, copy = copy, suffix = suffix, ...)
 }
 
+#' @rdname tidyverse
 #' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   join_tsibble(semi_join, x, y, by = by, copy = copy, ...)
 }
 
+#' @rdname tidyverse
 #' @export
 anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   join_tsibble(anti_join, x, y, by = by, copy = copy, ...)

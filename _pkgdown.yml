@@ -1,6 +1,10 @@
+development:
+  mode: auto
+
 template:
   params:
-    bootswatch: united
+    bootswatch: cosmo
+    ganalytics: UA-83007123-3
 
 authors:
   Earo Wang:
@@ -45,6 +49,9 @@ reference:
     - starts_with("year")
     - units_since
     - guess_frequency
+
+- title: Calendar
+  contents:
     - holiday_aus
 
 - title: Key helpers
@@ -79,22 +86,9 @@ reference:
     - pedestrian
     - tourism
 
-- title: Dplyr verbs
+- title: Tidyverse methods
   contents:
-    - arrange.tbl_ts
-    - filter.tbl_ts
-    - slice.tbl_ts
-    - select.tbl_ts
-    - mutate.tbl_ts
-    - summarise.tbl_ts
-    - group_by.tbl_ts
-
-- title: Tidyr verbs
-  contents:
-    - gather.tbl_ts
-    - spread.tbl_ts
-    - nest.tbl_ts
-    - unnest.lst_ts
+    - tidyverse
 
 navbar:
   type: default

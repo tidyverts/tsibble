@@ -1,10 +1,6 @@
-#' Gather columns into key-value pairs.
-#'
-#' @param data A `tbl_ts`.
 #' @inheritParams tidyr::gather
 #'
-#' @seealso [tidyr::gather]
-#' @rdname gather
+#' @rdname tidyverse
 #' @export
 #' @examples
 #' # example from tidyr
@@ -39,13 +35,8 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   )
 }
 
-#' Spread a key-value pair across multiple columns.
-#'
-#' @param data A `tbl_ts`.
 #' @inheritParams tidyr::spread
-#'
-#' @seealso [tidyr::spread]
-#' @rdname spread
+#' @rdname tidyverse
 #' @export
 #' @examples
 #' # example from tidyr
@@ -57,7 +48,6 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 #' )
 #' stocksm <- stocks %>% gather(stock, price, -time)
 #' stocksm %>% spread(stock, price)
-#' @export
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
   key <- enexpr(key)
@@ -82,14 +72,8 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   )
 }
 
-#' Nest repeated values in a list-variable.
-#'
-#' @param data A `tbl_ts`.
 #' @inheritParams tidyr::nest
-#'
-#' @return A tibble containing a list column of `tbl_ts`.
-#' @seealso [tidyr::nest], [unnest.lst_ts] for the inverse operation.
-#' @rdname nest
+#' @rdname tidyverse
 #' @export
 #' @examples
 #' pedestrian %>% 
@@ -129,15 +113,10 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   as_lst_ts(out)
 }
 
-#' Unnest a list column.
-#'
-#' @param data A `lst_ts`.
 #' @param key Unquoted variables to create the key (via [id]) after unnesting.
 #' @inheritParams tidyr::unnest
 #'
-#' @return A `tbl_ts`.
-#' @seealso [tidyr::unnest], [nest.tbl_ts] for the inverse operation.
-#' @rdname unnest
+#' @rdname tidyverse
 #' @export
 #' @examples
 #' nested_ped <- pedestrian %>% 
