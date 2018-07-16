@@ -15,7 +15,8 @@ pslider(..., .size = 1, .fill = NA, .partial = FALSE)
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{.fill}{A single value or data frame to replace \code{NA}.}
+\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
+\code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, split to partial set (\code{FALSE} ignores specified
 \code{.fill}).}

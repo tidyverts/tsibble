@@ -27,8 +27,6 @@ tile <- function(.x, .f, ..., .size = 1) {
 }
 
 #' @evalRd paste0('\\alias{tile_', c("lgl", "chr", "dbl", "int"), '}')
-#' @name tile
-#' @rdname tile
 #' @exportPattern ^tile_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
@@ -66,7 +64,6 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' * [tile]
 #' * [slide2] for sliding window with overlapping observations
 #' * [stretch2] for expanding more observations
-#'
 #' @examples
 #' .x <- 1:5
 #' .y <- 6:10
@@ -84,8 +81,6 @@ tile2 <- function(.x, .y, .f, ..., .size = 1) {
 }
 
 #' @evalRd paste0('\\alias{tile2_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
-#' @name tile2
-#' @rdname tile2
 #' @exportPattern ^tile2_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
@@ -119,8 +114,6 @@ ptile <- function(.l, .f, ..., .size = 1) {
 }
 
 #' @evalRd paste0('\\alias{ptile_', c("lgl", "chr", "dbl", "int"), '}')
-#' @name ptile
-#' @rdname tile2
 #' @exportPattern ^ptile_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(

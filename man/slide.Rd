@@ -2,7 +2,6 @@
 % Please edit documentation in R/slide.R
 \name{slide}
 \alias{slide}
-\alias{slide}
 \alias{slide_dfr}
 \alias{slide_dfc}
 \title{Sliding window calculation}
@@ -43,7 +42,8 @@ to extract named attributes. If a component is not present, the value of
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{.fill}{A single value or data frame to replace \code{NA}.}
+\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
+\code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
@@ -79,7 +79,3 @@ slide(.lst, ~ ., .size = 2)
 \item \link{stretch} for expanding more observations
 }
 }
-\alias{slide_lgl}
-\alias{slide_chr}
-\alias{slide_int}
-\alias{slide_dbl}

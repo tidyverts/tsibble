@@ -2,10 +2,8 @@
 % Please edit documentation in R/slide.R
 \name{slide2}
 \alias{slide2}
-\alias{slide2}
 \alias{slide2_dfr}
 \alias{slide2_dfc}
-\alias{pslide}
 \alias{pslide}
 \alias{pslide_dfr}
 \alias{pslide_dfc}
@@ -54,7 +52,8 @@ to extract named attributes. If a component is not present, the value of
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{.fill}{A single value or data frame to replace \code{NA}.}
+\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
+\code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
@@ -111,11 +110,3 @@ pedestrian \%>\%
 \item \link{stretch2} for expanding more observations
 }
 }
-\alias{slide2_lgl}
-\alias{slide2_chr}
-\alias{slide2_int}
-\alias{slide2_dbl}
-\alias{pslide_lgl}
-\alias{pslide_chr}
-\alias{pslide_int}
-\alias{pslide_dbl}

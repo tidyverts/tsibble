@@ -2,7 +2,6 @@
 % Please edit documentation in R/tile.R
 \name{tile}
 \alias{tile}
-\alias{tile}
 \alias{tile_dfr}
 \alias{tile_dfc}
 \title{Tiling window calculation}
@@ -68,7 +67,3 @@ tile(.lst, ~ ., .size = 2)
 \item \link{stretch} for expanding more observations
 }
 }
-\alias{tile_lgl}
-\alias{tile_chr}
-\alias{tile_dbl}
-\alias{tile_int}

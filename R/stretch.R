@@ -28,8 +28,6 @@ stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
 }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
-#' @name stretch
-#' @rdname stretch
 #' @exportPattern ^stretch_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
@@ -87,8 +85,6 @@ stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
 }
 
 #' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
-#' @name stretch2
-#' @rdname stretch2
 #' @exportPattern ^stretch2_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
@@ -122,8 +118,6 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1) {
 }
 
 #' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
-#' @name pstretch
-#' @rdname stretch2
 #' @exportPattern ^pstretch_
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(

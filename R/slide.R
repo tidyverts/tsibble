@@ -26,7 +26,8 @@ replace_fn_names <- function(fn, replace = list()){
 #' @inheritParams purrr::map
 #' @param .size An integer for window size. If positive, moving forward from left
 #' to right; if negative, moving backward (from right to left).
-#' @param .fill A single value or data frame to replace `NA`.
+#' @param .fill A value to fill at the left of the data range (`NA` by default).
+#' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
 #'
 #' @rdname slide
@@ -54,8 +55,6 @@ slide <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
-#' @name slide
-#' @rdname slide
 #' @exportPattern ^slide_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
@@ -124,8 +123,6 @@ slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
-#' @name slide2
-#' @rdname slide2
 #' @exportPattern ^slide2_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
@@ -172,8 +169,6 @@ pslide <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
-#' @name pslide
-#' @rdname slide2
 #' @exportPattern ^pslide_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
@@ -314,6 +309,7 @@ recycle <- function(x) {
 }
 
 pad_slide <- function(x, .size = 1, .fill = NA) {
+  if (is_null(.fill)) return(x) 
   c(rep_len(.fill, abs(.size) - 1), x)
 }
 
