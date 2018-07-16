@@ -228,13 +228,24 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
-
   build_tsibble(
     grped_tbl, key = key(.data), index = !! index(.data), 
     index2 = !! index2(.data), groups = groups(grped_tbl), validate = FALSE, 
     regular = is_regular(.data), ordered = is_ordered(.data), 
     interval = interval(.data)
   )
+}
+
+#' Group by key variables
+#'
+#' @param .tbl A `tbl_ts` object.
+#' @inheritParams dplyr::group_by_all
+#' @export
+#' @examples
+#' tourism %>% 
+#'   group_by_key()
+group_by_key <- function(.tbl, .funs = list(), ...) {
+  dplyr::group_by_at(.tbl, .vars = key_vars(.tbl), .funs = .funs, ...)
 }
 
 #' @rdname tidyverse

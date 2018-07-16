@@ -142,9 +142,9 @@ full_weather %>%
 ```
 
 While collapsing rows (like `summarise()`), `group_by()` and
-`index_by()` will update the key and index respectively. This
-`index_by()` + `summarise()` combo can help with regularising a tsibble
-of irregular time space too.
+`index_by()` will take care of updating the key and index respectively.
+This `index_by()` + `summarise()` combo can help with regularising a
+tsibble of irregular time space too.
 
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 

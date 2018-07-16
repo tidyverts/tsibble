@@ -1,7 +1,9 @@
 # tsibble 0.4.0.9000
 
 ## New features
+
 * Added "nanotime" support for nanoseconds.
+* Added scoped variant `group_by_key()` to easily group the key variables.
 
 # tsibble 0.4.0
 

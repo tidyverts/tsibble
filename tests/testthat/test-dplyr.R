@@ -30,6 +30,7 @@ test_that("group_by()", {
     group_by(Purpose) %>%
     group_by(Region, State, add = TRUE)
   expect_length(group_vars(grped_t), 3)
+  expect_equal(group_by_key(tourism), grped_t)
 })
 
 test_that("ungroup()", {
