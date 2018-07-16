@@ -3,4 +3,8 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   intro-tsibble: intro-tsibble.html
+  window: window.html
+urls:
+  reference: https://pkg.earo.me/tsibble/reference
+  article: https://pkg.earo.me/tsibble/articles
 

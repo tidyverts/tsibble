@@ -11,7 +11,6 @@ output:
 */ˈt͡sɪbəl/*
 
 [![Travis-CI Build Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/tsibble)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
@@ -22,7 +21,6 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", fig.path = "man/figure/"
 )
 options(tibble.print_min = 5)
-Sys.setenv(TZ = "UTC")
 ```
 
 The **tsibble** package provides a data class of `tbl_ts` to store and manage temporal-context data frames in a "tidy" form. A *tsibble* consists of a time index, key and other measured variables in a data-centric format, which is built on top of the *tibble*.
@@ -108,7 +106,7 @@ full_weather %>%
 
 ## Reexported functions from the tidyverse
 
-It can be noticed that the tsibble seamlessly works with *tidyverse* verbs. Use `?tsibble::reexports` for a full list of re-exported functions.
+It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but in a slightly different way that it does the best to keep the index. Use `?tsibble::reexports` for a full list of re-exported functions.
 
 * **dplyr:** 
   - `arrange()`, `filter()`, `slice()`

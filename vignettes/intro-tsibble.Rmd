@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(tibble.print_min = 5)
-Sys.setenv(TZ = "")
 ```
 
 `tsibble()` creates a tsibble object, and `as_tsibble()` is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as `ts`, `mts`, or `hts`, can be automated to a tsibble using `as_tsibble()` without any specification. If it is a tibble or data frame, `as_tsibble()` requires a little more setup in order to identify the index and key variables.
@@ -42,7 +41,7 @@ weather_tsbl <- as_tsibble(weather, key = id(origin))
 weather_tsbl
 ```
 
-The tsibble fully utilises the `print` method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order.  This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a "data pipeline" in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, `index_by()` is the counterpart of `group_by()` in temporal context, but it only groups the time index. `index_by()` + `summarise()` is used to summarise daily highs and lows at each station. As a result, the index is updated to the `date` with one-day interval from `time_hour`; two new variables are created and computed for daily maximum and minimum temperatures.
+The tsibble fully utilises the `print` method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the `weather_tsbl` its one-hour interval and the `origin` as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time from past to future.  This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a "data pipeline" in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, `index_by()` is the counterpart of `group_by()` in temporal context, but it only groups the time index. `index_by()` + `summarise()` is used to summarise daily highs and lows at each station. As a result, the index is updated to the `date` with one-day interval from `time_hour`; two new variables are created and computed for daily maximum and minimum temperatures.
 
 ```{r weather-tsum}
 weather_tsbl %>%
