@@ -9,9 +9,11 @@
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to tsibble">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Introduction to tsibble">
 <meta property="og:description" content="">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -69,7 +71,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -124,7 +132,7 @@
 #&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
 #&gt; # ... with 2.611e+04 more rows</code></pre>
-<p>The tsibble fully utilises the <code>print</code> method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the <code>weather_tsbl</code> its one-hour interval and the <code>origin</code> as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order. This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
+<p>The tsibble fully utilises the <code>print</code> method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the <code>weather_tsbl</code> its one-hour interval and the <code>origin</code> as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time from past to future. This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/index-by.html">index_by</a></span>(<span class="dt">date =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -250,6 +258,20 @@
 </div>
 
   
-
-  </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    
+    apiKey: 'b7cf533da009fba6bd7a07d530e0824e',
+    indexName: 'tsibble',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

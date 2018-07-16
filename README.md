@@ -7,8 +7,6 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/tsibble)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
@@ -182,7 +180,8 @@ full_weather %>%
 ## Reexported functions from the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *tidyverse*
-verbs. Use `?tsibble::reexports` for a full list of re-exported
+verbs, but in a slightly different way that it does the best to keep the
+index. Use `?tsibble::reexports` for a full list of re-exported
 functions.
 
   - **dplyr:**
