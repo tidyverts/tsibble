@@ -292,6 +292,6 @@ update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
 as_tibble2 <- function(x) {
   grps <- groups(x)
   idx2 <- index2(x)
-  x <- tibble::new_tibble(x)
+  x <- as_tibble(x)
   group_by(x, !!! flatten(c(grps, idx2)))
 }
