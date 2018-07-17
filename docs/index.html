@@ -128,7 +128,7 @@
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,115 x 5 [1HOUR]</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0</span></a>
@@ -151,7 +151,7 @@
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0</span></a>
@@ -174,7 +174,7 @@
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; * &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 1 EWR      2013 Jan     35.6       3.53</span></a>
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 2 EWR      2013 Feb     34.2       3.83</span></a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.1       3   </span></a>
@@ -185,16 +185,16 @@
 </div>
 <div id="a-family-of-window-functions-slide-tile-stretch" class="section level3">
 <h3 class="hasAnchor">
-<a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide">slide()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile">tile()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch">stretch()</a></code>
+<a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="https://pkg.earo.me/tsibble/reference/slide.html">slide()</a></code>, <code><a href="https://pkg.earo.me/tsibble/reference/tile.html">tile()</a></code>, <code><a href="https://pkg.earo.me/tsibble/reference/stretch.html">stretch()</a></code>
 </h3>
 <p>Temporal data often involves moving window calculations. Several functions in <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide">slide()</a></code>/<code><a href="reference/slide.html">slide2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/slide2">pslide()</a></code>: sliding window with overlapping observations.</li>
+<code><a href="https://pkg.earo.me/tsibble/reference/slide.html">slide()</a></code>/<code><a href="reference/slide.html">slide2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/slide2.html">pslide()</a></code>: sliding window with overlapping observations.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile">tile()</a></code>/<code><a href="reference/tile.html">tile2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/tile2">ptile()</a></code>: tiling window without overlapping observations.</li>
+<code><a href="https://pkg.earo.me/tsibble/reference/tile.html">tile()</a></code>/<code><a href="reference/tile.html">tile2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/tile2.html">ptile()</a></code>: tiling window without overlapping observations.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch">stretch()</a></code>/<code><a href="reference/stretch.html">stretch2()</a></code>/<code><a href="http://www.rdocumentation.org/packages/tsibble/topics/stretch2">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
+<code><a href="https://pkg.earo.me/tsibble/reference/stretch.html">stretch()</a></code>/<code><a href="reference/stretch.html">stretch2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/stretch2.html">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
 </ul>
 <p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -204,7 +204,7 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   origin time_hour            temp humid precip temp_ma</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0    NA  </span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0    NA  </span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0    39.0</span></a>
@@ -216,7 +216,7 @@
 <div id="reexported-functions-from-the-tidyverse" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reexported-functions-from-the-tidyverse" class="anchor"></a>Reexported functions from the tidyverse</h2>
-<p>It can be noticed that the tsibble seamlessly works with <em>tidyverse</em> verbs, but in a slightly different way that it does the best to keep the index. Use <code><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">?tsibble::reexports</a></code> for a full list of re-exported functions.</p>
+<p>It can be noticed that the tsibble seamlessly works with <em>tidyverse</em> verbs, but in a slightly different way that it does the best to keep the index. Use <code><a href="reference/tidyverse.html">?tidyverse</a></code> for a full list of tidyverse functions.</p>
 <ul>
 <li>
 <strong>dplyr:</strong>
