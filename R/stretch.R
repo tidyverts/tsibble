@@ -17,11 +17,11 @@
 #' * [tile] for tiling window without overlapping observations
 #'
 #' @examples
-#' .x <- 1:5
-#' .lst <- list(x = .x, y = 6:10, z = 11:15)
-#' stretch_dbl(.x, mean, .size = 2)
-#' stretch_lgl(.x, ~ mean(.) > 2, .size = 2)
-#' stretch(.lst, ~ ., .size = 2)
+#' x <- 1:5
+#' lst <- list(x = x, y = 6:10, z = 11:15)
+#' stretch_dbl(x, mean, .size = 2)
+#' stretch_lgl(x, ~ mean(.) > 2, .size = 2)
+#' stretch(lst, ~ ., .size = 2)
 stretch <- function(.x, .f, ..., .size = 1, .init = 1) {
   lst_x <- stretcher(.x, .size = .size, .init = .init)
   purrr::map(lst_x, .f, ...)
@@ -69,16 +69,16 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1) {
 #' * [tile2] for tiling window without overlapping observations
 #'
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
-#' stretch2(.x, .y, sum, .size = 2)
-#' stretch2(.lst, .lst, ~ ., .size = 2)
-#' stretch2(.df, .df, ~ ., .size = 2)
-#' pstretch(.lst, sum, size = 1)
-#' pstretch(list(.lst, .lst), ~ ., .size = 2)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
+#' stretch2(x, y, sum, .size = 2)
+#' stretch2(lst, lst, ~ ., .size = 2)
+#' stretch2(df, df, ~ ., .size = 2)
+#' pstretch(lst, sum, .size = 1)
+#' pstretch(list(lst, lst), ~ ., .size = 2)
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1) {
   lst <- pstretcher(.x, .y, .size = .size, .init = .init)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
@@ -150,17 +150,17 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1) {
 #' @rdname stretcher
 #' @export
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
 #'
-#' stretcher(.x, .size = 2)
-#' stretcher(.lst, .size = 2)
-#' pstretcher(.lst, .size = 2)
-#' stretcher(.df, .size = 2)
-#' pstretcher(.df, .df, .size = 2)
+#' stretcher(x, .size = 2)
+#' stretcher(lst, .size = 2)
+#' pstretcher(lst, .size = 2)
+#' stretcher(df, .size = 2)
+#' pstretcher(df, df, .size = 2)
 stretcher <- function(.x, .size = 1, .init = 1) {
   if (is.data.frame(.x)) .x <- as.list(.x)
   stretcher_base(.x, .size = .size, .init = .init)

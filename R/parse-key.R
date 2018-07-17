@@ -238,6 +238,7 @@ grp_rename <- function(
 # it also handles `-` and `:` and `c`
 # return: a list of symbols (if (is_nest) a list of list)
 validate_key <- function(data, key) {
+  if (inherits(key, "key")) return(key)
   col_names <- colnames(data)
   keys <- parse_key(key)
   if (is_empty(keys)) {

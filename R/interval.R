@@ -20,6 +20,15 @@
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 #' pull_interval(x)
 pull_interval <- function(x) {
+  if (has_length(x, 1)) {
+    return(structure(
+      list(
+        year = NA, quarter = NA, month = NA, week = NA,
+        hour = NA, minute = NA, second = NA, unit = NA
+      ),
+      class = "interval"
+    ))
+  }
   UseMethod("pull_interval")
 }
 

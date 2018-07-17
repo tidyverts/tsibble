@@ -95,7 +95,11 @@ slice.tbl_ts <- function(.data, ...) {
   }
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
   ascending <- row_validate(pos_eval)
-  by_row(slice, .data, ordered = ascending, interval = NULL, ...)
+  int <- NULL
+  if (ascending && length(pos_eval) > 1) {
+    int <- interval(.data)
+  }
+  by_row(slice, .data, ordered = ascending, interval = int, ...)
 }
 
 row_validate <- function(x) {
@@ -288,6 +292,6 @@ update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
 as_tibble2 <- function(x) {
   grps <- groups(x)
   idx2 <- index2(x)
-  x <- tibble::new_tibble(x)
+  x <- as_tibble(x)
   group_by(x, !!! flatten(c(grps, idx2)))
 }

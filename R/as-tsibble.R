@@ -358,10 +358,13 @@ build_tsibble <- function(
   index <- validate_index(tbl, enquo(index))
   # if index2 not specified
   index2 <- enquo(index2)
+  idx2_sym <- get_expr(index2)
   if (quo_is_missing(index2)) {
     index2 <- index
-  } else {
+  } else if (!identical(index, idx2_sym)) {
     index2 <- validate_index(tbl, index2)
+  } else {
+    index2 <- idx2_sym
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(tbl, key)
@@ -406,8 +409,9 @@ build_tsibble <- function(
   } # true do nothing
 
   idx_lgl <- identical(index, index2)
+  cls <- c("tbl_df", "tbl", "data.frame")
   if (is_empty(groups) && idx_lgl) {
-    return(tibble::new_tibble(
+    return(structure(
       tbl,
       "key" = structure(key_vars, class = "key"),
       # "key_indices" = attr(grped_key, "indices"),
@@ -416,7 +420,7 @@ build_tsibble <- function(
       "interval" = structure(interval, class = "interval"),
       "regular" = regular,
       "ordered" = ordered,
-      subclass = c("tbl_ts")
+      class = c("tbl_ts", cls)
     ))
   }
 
@@ -427,7 +431,7 @@ build_tsibble <- function(
   } else {
     grped_df <- tbl %>% group_by(!!! groups, !! index2)
   }
-  tibble::new_tibble(
+  structure(
     grped_df,
     "key" = structure(key_vars, class = "key"),
     # "key_indices" = attr(grped_key, "indices"),
@@ -436,7 +440,7 @@ build_tsibble <- function(
     "interval" = structure(interval, class = "interval"),
     "regular" = regular,
     "ordered" = ordered,
-    subclass = c("grouped_ts", "tbl_ts")
+    class = c("grouped_ts", "tbl_ts", cls)
   )
 }
 
@@ -557,7 +561,7 @@ validate_tsibble <- function(data, key, index) {
 as_tibble.tbl_ts <- function(x, ...) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  tibble::new_tibble(x)
+  structure(x, class = c("tbl_df", "tbl", "data.frame"))
 }
 
 #' @export
@@ -568,7 +572,7 @@ as_tibble.grouped_ts <- function(x, ...) {
 #' @keywords internal
 #' @export
 as_tibble.lst_ts <- function(x, ...) {
-  tibble::new_tibble(x)
+  structure(x, class = c("tbl_df", "tbl", "data.frame"))
 }
 
 #' @export
@@ -586,6 +590,9 @@ as.data.frame.tbl_ts <- function(x, ...) {
 
 use_id <- function(x, key) {
   key <- enquo(key)
+  if (quo_is_call(key)) {
+    if (call_name(key) == "key") return(eval_tidy(key)) # key(x)
+  }
   safe_key <- purrr::safely(eval_tidy)(
     get_expr(key), 
     env = child_env(get_env(key), id = id)

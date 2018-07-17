@@ -68,16 +68,16 @@ arguments as \code{stretch2()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-.x <- 1:5
-.y <- 6:10
-.z <- 11:15
-.lst <- list(x = .x, y = .y, z = .z)
-.df <- as.data.frame(.lst)
-stretch2(.x, .y, sum, .size = 2)
-stretch2(.lst, .lst, ~ ., .size = 2)
-stretch2(.df, .df, ~ ., .size = 2)
-pstretch(.lst, sum, size = 1)
-pstretch(list(.lst, .lst), ~ ., .size = 2)
+x <- 1:5
+y <- 6:10
+z <- 11:15
+lst <- list(x = x, y = y, z = z)
+df <- as.data.frame(lst)
+stretch2(x, y, sum, .size = 2)
+stretch2(lst, lst, ~ ., .size = 2)
+stretch2(df, df, ~ ., .size = 2)
+pstretch(lst, sum, .size = 1)
+pstretch(list(lst, lst), ~ ., .size = 2)
 }
 \seealso{
 \itemize{

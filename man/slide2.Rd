@@ -74,16 +74,16 @@ arguments as \code{slide2()}, but return vectors of the corresponding type.
 }
 }
 \examples{
-.x <- 1:5
-.y <- 6:10
-.z <- 11:15
-.lst <- list(x = .x, y = .y, z = .z)
-.df <- as.data.frame(.lst)
-slide2(.x, .y, sum, .size = 2)
-slide2(.lst, .lst, ~ ., .size = 2)
-slide2(.df, .df, ~ ., .size = 2)
-pslide(.lst, ~ ., size = 1)
-pslide(list(.lst, .lst), ~ ., .size = 2)
+x <- 1:5
+y <- 6:10
+z <- 11:15
+lst <- list(x = x, y = y, z = z)
+df <- as.data.frame(lst)
+slide2(x, y, sum, .size = 2)
+slide2(lst, lst, ~ ., .size = 2)
+slide2(df, df, ~ ., .size = 2)
+pslide(lst, ~ ., .size = 1)
+pslide(list(lst, lst), ~ ., .size = 2)
 ## window over 2 months
 pedestrian \%>\% 
   filter(Sensor == "Southern Cross Station") \%>\% 
