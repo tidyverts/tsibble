@@ -41,11 +41,11 @@ replace_fn_names <- function(fn, replace = list()){
 #' [RcppRoll](https://CRAN.R-project.org/package=RcppRoll) for faster performance.
 #'
 #' @examples
-#' .x <- 1:5
-#' .lst <- list(x = .x, y = 6:10, z = 11:15)
-#' slide_dbl(.x, mean, .size = 2)
-#' slide_lgl(.x, ~ mean(.) > 2, .size = 2)
-#' slide(.lst, ~ ., .size = 2)
+#' x <- 1:5
+#' lst <- list(x = x, y = 6:10, z = 11:15)
+#' slide_dbl(x, mean, .size = 2)
+#' slide_lgl(x, ~ mean(.) > 2, .size = 2)
+#' slide(lst, ~ ., .size = 2)
 slide <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
   lst_x <- slider(.x, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map(lst_x, .f, ...)
@@ -106,16 +106,16 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 #'
 #' @export
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
-#' slide2(.x, .y, sum, .size = 2)
-#' slide2(.lst, .lst, ~ ., .size = 2)
-#' slide2(.df, .df, ~ ., .size = 2)
-#' pslide(.lst, ~ ., size = 1)
-#' pslide(list(.lst, .lst), ~ ., .size = 2)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
+#' slide2(x, y, sum, .size = 2)
+#' slide2(lst, lst, ~ ., .size = 2)
+#' slide2(df, df, ~ ., .size = 2)
+#' pslide(lst, ~ ., .size = 1)
+#' pslide(list(lst, lst), ~ ., .size = 2)
 slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
   lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
@@ -233,17 +233,17 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 #' @rdname slider
 #' @export
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
 #'
-#' slider(.x, .size = 2)
-#' slider(.lst, .size = 2)
-#' pslider(list(.x, .y), list(.y))
-#' slider(.df, .size = 2)
-#' pslider(.df, .df, .size = 2)
+#' slider(x, .size = 2)
+#' slider(lst, .size = 2)
+#' pslider(list(x, y), list(y))
+#' slider(df, .size = 2)
+#' pslider(df, df, .size = 2)
 slider <- function(.x, .size = 1, .fill = NA, .partial = FALSE) {
   if (is.data.frame(.x)) .x <- as.list(.x)
   slider_base(.x, .size, .fill = .fill, .partial)

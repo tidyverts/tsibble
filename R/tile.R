@@ -16,11 +16,11 @@
 #' * [stretch] for expanding more observations
 #'
 #' @examples
-#' .x <- 1:5
-#' .lst <- list(x = .x, y = 6:10, z = 11:15)
-#' tile_dbl(.x, mean, .size = 2)
-#' tile_lgl(.x, ~ mean(.) > 2, .size = 2)
-#' tile(.lst, ~ ., .size = 2)
+#' x <- 1:5
+#' lst <- list(x = x, y = 6:10, z = 11:15)
+#' tile_dbl(x, mean, .size = 2)
+#' tile_lgl(x, ~ mean(.) > 2, .size = 2)
+#' tile(lst, ~ ., .size = 2)
 tile <- function(.x, .f, ..., .size = 1) {
   lst_x <- tiler(.x, .size = .size)
   purrr::map(lst_x, .f, ...)
@@ -68,16 +68,16 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' * [stretch2] for expanding more observations
 #'
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
-#' tile2(.x, .y, sum, .size = 2)
-#' tile2(.lst, .lst, ~ ., .size = 2)
-#' tile2(.df, .df, ~ ., .size = 2)
-#' ptile(.lst, sum, size = 1)
-#' ptile(list(.lst, .lst), ~ ., .size = 2)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
+#' tile2(x, y, sum, .size = 2)
+#' tile2(lst, lst, ~ ., .size = 2)
+#' tile2(df, df, ~ ., .size = 2)
+#' ptile(lst, sum, .size = 1)
+#' ptile(list(lst, lst), ~ ., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1) {
   lst <- ptiler(.x, .y, .size = .size)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
@@ -151,18 +151,18 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' @rdname tiler
 #' @export
 #' @examples
-#' .x <- 1:5
-#' .y <- 6:10
-#' .z <- 11:15
-#' .lst <- list(x = .x, y = .y, z = .z)
-#' .df <- as.data.frame(.lst)
+#' x <- 1:5
+#' y <- 6:10
+#' z <- 11:15
+#' lst <- list(x = x, y = y, z = z)
+#' df <- as.data.frame(lst)
 #' 
-#' tiler(.x, .size = 2)
-#' tiler(.lst, .size = 2)
-#' ptiler(.lst, .size = 2)
-#' ptiler(list(.x, .y), list(.y))
-#' ptiler(.df, .size = 2)
-#' ptiler(.df, .df, .size = 2)
+#' tiler(x, .size = 2)
+#' tiler(lst, .size = 2)
+#' ptiler(lst, .size = 2)
+#' ptiler(list(x, y), list(y))
+#' ptiler(df, .size = 2)
+#' ptiler(df, df, .size = 2)
 tiler <- function(.x, .size = 1) {
   if (is.data.frame(.x)) .x <- as.list(.x)
   tiler_base(.x, .size = .size)

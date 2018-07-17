@@ -25,15 +25,15 @@ to right; if negative, moving backward (from right to left).}
 Splits the input to a list according to the stretching window size.
 }
 \examples{
-.x <- 1:5
-.y <- 6:10
-.z <- 11:15
-.lst <- list(x = .x, y = .y, z = .z)
-.df <- as.data.frame(.lst)
+x <- 1:5
+y <- 6:10
+z <- 11:15
+lst <- list(x = x, y = y, z = z)
+df <- as.data.frame(lst)
 
-stretcher(.x, .size = 2)
-stretcher(.lst, .size = 2)
-pstretcher(.lst, .size = 2)
-stretcher(.df, .size = 2)
-pstretcher(.df, .df, .size = 2)
+stretcher(x, .size = 2)
+stretcher(lst, .size = 2)
+pstretcher(lst, .size = 2)
+stretcher(df, .size = 2)
+pstretcher(df, df, .size = 2)
 }

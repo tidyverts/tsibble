@@ -66,11 +66,11 @@ you may like to check out for
 \href{https://CRAN.R-project.org/package=RcppRoll}{RcppRoll} for faster performance.
 }
 \examples{
-.x <- 1:5
-.lst <- list(x = .x, y = 6:10, z = 11:15)
-slide_dbl(.x, mean, .size = 2)
-slide_lgl(.x, ~ mean(.) > 2, .size = 2)
-slide(.lst, ~ ., .size = 2)
+x <- 1:5
+lst <- list(x = x, y = 6:10, z = 11:15)
+slide_dbl(x, mean, .size = 2)
+slide_lgl(x, ~ mean(.) > 2, .size = 2)
+slide(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
