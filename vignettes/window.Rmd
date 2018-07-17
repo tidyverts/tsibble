@@ -14,5 +14,68 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(tibble.print_min = 5)
+```
+
+## Fixed window size
+
+```{r full-data, message = FALSE}
+library(tsibble)
+library(dplyr)
+pedestrian_full <- pedestrian %>% 
+  fill_na(.full = TRUE)
+```
+
+```{r daily-mv}
+pedestrian_full %>% 
+  group_by(Sensor) %>% 
+  mutate(Daily_MV = slide_dbl(Count, mean, na.rm = TRUE, .size = 24))
+```
+
+## Flexible calendar period
+
+```{r monthly-mv-pre}
+pedestrian_mth <- pedestrian_full %>% 
+  mutate(YrMth = yearmonth(Date_Time)) %>% 
+  nest(-Sensor, -YrMth)
+pedestrian_mth
+```
+
+```{r monthly-mv}
+pedestrian_mth %>% 
+  group_by(Sensor) %>% 
+  mutate(Monthly_MV = slide_dbl(data, 
+    ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 2
+  ))
+```
+
+## Row-oriented workflow
+
+```{r lm}
+my_diag <- function(...) {
+  data <- list(...)
+  fit <- lm(data$Count ~ data$Time)
+  list(fitted = fitted(fit), resid = residuals(fit))
+}
+pedestrian_full %>%
+  filter(Date <= as.Date("2015-03-31")) %>%
+  nest(-Sensor) %>%
+  mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
+```
+
+## Block bootstrapping
+
+```{r block}
+sx <- pedestrian_full %>% 
+  filter(Sensor == "Southern Cross Station")
+block <- function(...) {
+  bind_rows(list(...))
+}
+block_data <- tibble(weekly_block = pslide(
+  sx, block, .size = 24 * 7, .fill = NULL
+))
+block_data
+block_data %>% 
+  sample_n(size = nrow(.), replace = TRUE)
 ```
 
