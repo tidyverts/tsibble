@@ -26,7 +26,15 @@ test_that("if it's a tibble", {
   expect_is(tsbl[, c(1, 3)], "tbl_df")
 })
 
+tsbl1 <- tsibble(date = as.Date("2010-01-01") + 0:10)
+test_that("if it's a vector", {
+  expect_equal(tsbl1[, 1, drop = TRUE], tsbl1$date)
+  tsbl2 <- tsbl1[1, ]
+  expect_equal(tsbl2[, 1, drop = TRUE], as.Date("2010-01-01"))
+})
+
 test_that("if it's a tsibble", {
+  expect_equal(tsbl[], tsbl)
   expect_is(tsbl[, c(1, 2)], "tbl_ts")
   expect_warning(tsbl[c("group", "date"), drop = TRUE], "`drop` is ignored.")
   expect_error(tsbl[FALSE, ], "empty")

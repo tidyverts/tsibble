@@ -96,9 +96,7 @@ slice.tbl_ts <- function(.data, ...) {
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
   ascending <- row_validate(pos_eval)
   int <- NULL
-  if (ascending && length(pos_eval) > 1) {
-    int <- interval(.data)
-  }
+  if (is_min_gap_one(pos_eval)) int <- interval(.data)
   by_row(slice, .data, ordered = ascending, interval = int, ...)
 }
 

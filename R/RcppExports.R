@@ -25,3 +25,7 @@ is_ascending <- function(x) {
     .Call(`_tsibble_is_ascending`, x)
 }
 
+is_min_gap_one <- function(x) {
+    .Call(`_tsibble_is_min_gap_one`, x)
+}
+
