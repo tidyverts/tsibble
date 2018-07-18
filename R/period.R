@@ -389,9 +389,7 @@ pillar_shaft.yearquarter <- pillar_shaft.yearweek
 seq.yearweek <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
-  if (!is_bare_numeric(by, n = 1)) {
-    abort("`by` only takes a numeric.")
-  }
+  bad_by(by)
   by_wk <- paste(by, "week")
   yearweek(seq_date(
     from = from, to = to, by = by_wk, length.out = length.out,
@@ -403,9 +401,7 @@ seq.yearweek <- function(
 seq.yearmonth <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
-  if (!is_bare_numeric(by, n = 1)) {
-    abort("`by` only takes a numeric.")
-  }
+  bad_by(by)
   by_mth <- paste(by, "month")
   yearmonth(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
@@ -417,9 +413,7 @@ seq.yearmonth <- function(
 seq.yearquarter <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
-  if (!is.numeric(by)) {
-    abort("`by` only takes a numeric.")
-  }
+  bad_by(by)
   by_qtr <- paste(by, "quarter")
   yearquarter(seq_date(
     from = from, to = to, by = by_qtr, length.out = length.out,
@@ -588,4 +582,10 @@ seq_date <- function(
     else res[res >= to]
   }
   res
+}
+
+bad_by <- function(by) {
+  if (!is_bare_numeric(by, n = 1)) {
+    abort("`by` only takes a numeric.")
+  }
 }

@@ -49,6 +49,8 @@ pedestrian_full %>%
   ))
 ```
 
+To make this even-order moving average symmetric, a second moving average with `.size = 2` can be applied to `Daily_MA`.
+
 ## Flexible calendar period
 
 What if the time period we'd like to slide over happens not to be a fixed window size, for example sliding over three months. The preprocessing step is to wrap observations into monthly subsets (a list of tsibbles) using `nest()`.
@@ -72,7 +74,7 @@ pedestrian_mth %>%
 
 ## Row-oriented workflow
 
-We have had a glimpse at [row-oriented workflow](https://github.com/jennybc/row-oriented-workflows) to slide over consecutive months using `nest()`. To leverage this workflow more, we can fit a linear model for each sensor simultaneously but independently, and in turn obtain its fitted values and residuals over weekly rolling windows. This is where `pslide()` comes to play. It takes a list or a data frame (multiple inputs) and apply the custom function `my_diag()` to every rolling block. We start with a tsibble and end up with a diagnostic tibble of relatively larger size.
+We have had a glimpse at [row-oriented workflow](https://github.com/jennybc/row-oriented-workflows) to slide over consecutive months using `nest()` in the preceding example. To leverage this workflow more, we can fit a linear model for each sensor simultaneously but independently, and in turn obtain its fitted values and residuals over weekly rolling windows. This is where `pslide()` comes to play. It takes a list or a data frame (multiple inputs) and apply the custom function `my_diag()` to every rolling block. We start with a tsibble and end up with a diagnostic tibble of relatively larger size.
 
 ```{r lm}
 my_diag <- function(...) {
@@ -85,20 +87,3 @@ pedestrian_full %>%
   nest(-Sensor) %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
-
-## Block bootstrap
-
-```{r block}
-sx <- pedestrian_full %>% 
-  filter(Sensor == "Southern Cross Station")
-block <- function(...) {
-  bind_rows(list(...))
-}
-block_data <- tibble(
-  weekly_block = pslide(sx, block, .size = 24 * 7, .fill = NULL)
-)
-block_data
-block_data %>% 
-  sample_n(size = nrow(.), replace = TRUE)
-```
-
