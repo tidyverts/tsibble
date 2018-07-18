@@ -16,7 +16,10 @@ test_that("Invalid input", {
 test_that("slider() & pslider()", {
   expect_equal(slider(.x, .size = 2), list(1:2, 2:3, 3:4, 4:5))
   expect_equal(slider(.x, .size = -2), list(5:4, 4:3, 3:2, 2:1))
-  expect_equal(slider(.x, .size = 2, .partial = TRUE), list(c(NA, 1), 1:2, 2:3, 3:4, 4:5))
+  expect_equal(
+    slider(.x, .size = 2, .partial = TRUE), 
+    list(c(NA, 1), 1:2, 2:3, 3:4, 4:5)
+  )
   expect_equal(
     slider(.lst, .size = 2),
     list(list(x = .x, y = .y), list(y = .y, z = .z))
@@ -44,6 +47,17 @@ test_that("slider() & pslider()", {
   expect_equal(
     pslider(.x, 1), # recycling
     list(as.list(1:5), as.list(rep(1, 5)))
+  )
+})
+
+test_that("Argument `.align`", {
+  expect_equal(
+    slide_int(.x, sum, .size = 3, .align = "left"),
+    c(6L, 9L, 12L, NA_integer_, NA_integer_)
+  )
+  expect_equal(
+    slide_int(.x, sum, .size = 3, .align = "center"),
+    c(NA_integer_, 6L, 9L, 12L, NA_integer_)
   )
 })
 

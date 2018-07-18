@@ -9,19 +9,23 @@
 \alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .id = NULL)
+  .align = "right", .id = NULL)
 
-slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 
-pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 
 pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .id = NULL)
+  .align = "right", .id = NULL)
 
-pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -56,6 +60,8 @@ to right; if negative, moving backward (from right to left).}
 \code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
+
+\item{.align}{Align at the "right", "center", or "left".}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

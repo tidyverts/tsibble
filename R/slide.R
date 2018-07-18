@@ -29,6 +29,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' @param .fill A value to fill at the left of the data range (`NA` by default).
 #' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
+#' @param .align Align at the "right", "center", or "left".
 #'
 #' @rdname slide
 #' @export
@@ -45,13 +46,16 @@ replace_fn_names <- function(fn, replace = list()){
 #' x <- 1:5
 #' lst <- list(x = x, y = 6:10, z = 11:15)
 #' slide_dbl(x, mean, .size = 2)
+#' slide_dbl(x, mean, .size = 2, align = "center")
 #' slide_lgl(x, ~ mean(.) > 2, .size = 2)
 #' slide(lst, ~ ., .size = 2)
-slide <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+slide <- function(
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   lst_x <- slider(.x, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map(lst_x, .f, ...)
   if (.partial) return(out)
-  pad_slide(out, .size, .fill)
+  pad_slide(out, .size, .fill, .align)
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -66,21 +70,24 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide
 #' @export
 slide_dfr <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right", 
+  .id = NULL
 ) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, .id = .id)
 }
 
 #' @rdname slide
 #' @export
-slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+slide_dfc <- function(
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -115,11 +122,13 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
 #' slide2(df, df, ~ ., .size = 2)
 #' pslide(lst, ~ ., .size = 1)
 #' pslide(list(lst, lst), ~ ., .size = 2)
-slide2 <- function(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+slide2 <- function(
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
-  pad_slide(out, .size, .fill)
+  pad_slide(out, .size, .fill, .align)
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
@@ -134,11 +143,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide2
 #' @export
 slide2_dfr <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
+  .id = NULL
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -146,11 +156,11 @@ slide2_dfr <- function(
 #' @rdname slide2
 #' @export
 slide2_dfc <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -158,14 +168,16 @@ slide2_dfc <- function(
 #' @rdname slide2
 #' @inheritParams purrr::pmap
 #' @export
-pslide <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+pslide <- function(
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
   lst <- pslider(!!! .l, .size = .size, .fill = .fill, .partial = .partial)
   out <- purrr::pmap(lst, .f, ...)
   if (.partial) return(out)
-  pad_slide(out, .size, .fill)
+  pad_slide(out, .size, .fill, .align)
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -180,11 +192,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide2
 #' @export
 pslide_dfr <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .id = NULL
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
+  .id = NULL
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -210,10 +223,12 @@ pslide_dfr <- function(
 #'   nest(-Sensor) %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
-pslide_dfc <- function(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE) {
+pslide_dfc <- function(
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial
+    .size = .size, .fill = .fill, .partial = .partial, .align = .align
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -308,9 +323,18 @@ recycle <- function(x) {
   x
 }
 
-pad_slide <- function(x, .size = 1, .fill = NA) {
+pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
+  align <- match.arg(.align, c("right", "center", "left"))
   if (is_null(.fill)) return(x) 
-  c(rep_len(.fill, abs(.size) - 1), x)
+  fill_size <- abs(.size) - 1
+  if (align == "right") {
+    return(c(rep_len(.fill, fill_size), x))
+  } else if (align == "center") {
+    lsize <- ceiling(fill_size / abs(.size))
+    return(c(rep_len(.fill, lsize), x, rep_len(.fill, fill_size - lsize)))
+  } else {
+    return(c(x, rep_len(.fill, fill_size)))
+  }
 }
 
 bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {

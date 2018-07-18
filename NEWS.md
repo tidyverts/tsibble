@@ -4,6 +4,7 @@
 
 * Added "nanotime" support for nanoseconds.
 * Added scoped variant `group_by_key()` to easily group the key variables.
+* `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left".
 
 ## Improvements
 

@@ -6,12 +6,14 @@
 \alias{slide_dfc}
 \title{Sliding window calculation}
 \usage{
-slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 
 slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .id = NULL)
+  .align = "right", .id = NULL)
 
-slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE)
+slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
+  .align = "right")
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -47,6 +49,8 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
+\item{.align}{Align at the "right", "center", or "left".}
+
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
 }
@@ -69,6 +73,7 @@ you may like to check out for
 x <- 1:5
 lst <- list(x = x, y = 6:10, z = 11:15)
 slide_dbl(x, mean, .size = 2)
+slide_dbl(x, mean, .size = 2, align = "center")
 slide_lgl(x, ~ mean(.) > 2, .size = 2)
 slide(lst, ~ ., .size = 2)
 }
