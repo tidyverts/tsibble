@@ -180,9 +180,16 @@ key_update <- function(.data, ..., validate = TRUE) {
   not_tsibble(.data)
   quos <- enquos(...)
   key <- validate_key(.data, quos)
-  build_tsibble(
+  if (validate) {
+    return(build_tsibble(
+      .data, key = key, index = !! index(.data), index2 = !! index2(.data),
+      groups = groups(.data), regular = is_regular(.data), validate = validate,
+      ordered = is_ordered(.data), interval = interval(.data)
+    ))
+  }
+  build_tsibble_meta(
     .data, key = key, index = !! index(.data), index2 = !! index2(.data),
-    groups = groups(.data), regular = is_regular(.data), validate = validate,
+    groups = groups(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }

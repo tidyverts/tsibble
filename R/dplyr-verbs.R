@@ -96,9 +96,7 @@ slice.tbl_ts <- function(.data, ...) {
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
   ascending <- row_validate(pos_eval)
   int <- NULL
-  if (ascending && length(pos_eval) > 1) {
-    int <- interval(.data)
-  }
+  if (is_min_gap_one(pos_eval)) int <- interval(.data)
   by_row(slice, .data, ordered = ascending, interval = int, ...)
 }
 
@@ -281,9 +279,9 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  restore_index_class(build_tsibble(
+  restore_index_class(build_tsibble_meta(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
-    groups = groups(old), regular = is_regular(old), validate = FALSE, 
+    groups = groups(old), regular = is_regular(old),
     ordered = ordered, interval = interval
   ), old)
 }

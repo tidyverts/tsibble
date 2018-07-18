@@ -106,3 +106,20 @@ bool is_ascending(IntegerVector x) {
   };
   return true;
 }
+
+// If the minimal difference of  x is one
+// whether needs updating interval
+
+// [[Rcpp::export]]
+bool is_min_gap_one(NumericVector x) {
+  std::sort(x.begin(), x.end());
+  NumericVector y = diff(x);
+  NumericVector::iterator it;
+
+  for (it = y.begin(); it != y.end(); ++it) {
+    if (*it == 1) {
+      return true;
+    }
+  };
+  return false;
+}

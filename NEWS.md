@@ -5,6 +5,10 @@
 * Added "nanotime" support for nanoseconds.
 * Added scoped variant `group_by_key()` to easily group the key variables.
 
+## Improvements
+
+* Speed improvement for internals when it's a known valid tsibble. (#43)
+
 # tsibble 0.4.0
 
 ## Breaking changes

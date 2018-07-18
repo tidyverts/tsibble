@@ -19,7 +19,7 @@
       warn("`drop` is ignored.")
     }
 
-    if (!missing(i)) {
+    if (!missing(i)) { # x[1:2]
       i <- validate_vars(i, names(x))
       lgl_i <- has_index(i, x) && has_distinct_key(i, x)
       result <- .subset(x, i)
@@ -28,17 +28,18 @@
       if (is_false(lgl_i)) {
         return(as_tibble(result))
       } else {
-        return(build_tsibble(
+        return(build_tsibble_meta(
           result, key = key(x), index = !! index(x), index2 = !! index2(x),
-          validate = FALSE, regular = is_regular(x), ordered = ordered
+          groups = groups(x), regular = is_regular(x), ordered = ordered
         ))
       }
-    } else {
+    } else { # e.g. x[]
       result <- x
       attr(result, "row.names") <- .set_row_names(nr)
-      return(build_tsibble(
+      return(build_tsibble_meta(
         result, key = key(x), index = !! index(x), index2 = !! index2(x),
-        validate = FALSE, regular = is_regular(x), ordered = ordered
+        groups = groups(x), regular = is_regular(x), ordered = ordered,
+        interval = interval(x)
       ))
     }
   }
@@ -55,12 +56,14 @@
   } else {
     result <- x
   }
+  int <- interval(x)
 
   ordered <- is_ordered(x)
   if (!missing(i)) {
     # ordered <- row_validate(i)
     result <- purrr::map(result, `[`, i)
     nr <- length(result[[1]])
+    if (!is_min_gap_one(i)) int <- NULL
   }
 
   if (drop) {
@@ -72,9 +75,10 @@
   }
 
   attr(result, "row.names") <- .set_row_names(nr)
-  build_tsibble(
+  build_tsibble_meta(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
-    validate = FALSE, regular = is_regular(x), ordered = ordered
+    groups = groups(x), regular = is_regular(x), ordered = ordered, 
+    interval = int
   )
 }
 
