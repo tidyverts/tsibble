@@ -279,9 +279,9 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 
 # put new data with existing attributes
 update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  restore_index_class(build_tsibble(
+  restore_index_class(build_tsibble_meta(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
-    groups = groups(old), regular = is_regular(old), validate = FALSE, 
+    groups = groups(old), regular = is_regular(old),
     ordered = ordered, interval = interval
   ), old)
 }

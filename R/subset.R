@@ -28,17 +28,17 @@
       if (is_false(lgl_i)) {
         return(as_tibble(result))
       } else {
-        return(build_tsibble(
+        return(build_tsibble_meta(
           result, key = key(x), index = !! index(x), index2 = !! index2(x),
-          validate = FALSE, regular = is_regular(x), ordered = ordered
+          groups = groups(x), regular = is_regular(x), ordered = ordered
         ))
       }
     } else { # e.g. x[]
       result <- x
       attr(result, "row.names") <- .set_row_names(nr)
-      return(build_tsibble(
+      return(build_tsibble_meta(
         result, key = key(x), index = !! index(x), index2 = !! index2(x),
-        validate = FALSE, regular = is_regular(x), ordered = ordered,
+        groups = groups(x), regular = is_regular(x), ordered = ordered,
         interval = interval(x)
       ))
     }
@@ -75,9 +75,9 @@
   }
 
   attr(result, "row.names") <- .set_row_names(nr)
-  build_tsibble(
+  build_tsibble_meta(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
-    validate = FALSE, regular = is_regular(x), ordered = ordered,
+    groups = groups(x), regular = is_regular(x), ordered = ordered, 
     interval = int
   )
 }

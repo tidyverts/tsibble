@@ -27,11 +27,11 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
     as_tibble(data), key = !! key, value = !! value, !!! quos,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
-  build_tsibble(
+  build_tsibble_meta(
     tbl, key = new_key, index = !! index(data), 
     index2 = !! index2_update(data, vars),
     groups = grp_update(data, vars), regular = is_regular(data), 
-    validate = FALSE, ordered = is_ordered(data), interval = interval(data)
+    ordered = is_ordered(data), interval = interval(data)
   )
 }
 
@@ -64,10 +64,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     convert = convert, drop = drop, sep = sep
   )
   vars <- names(tbl)
-  build_tsibble(
+  build_tsibble_meta(
     tbl, key = new_key, index = !! index(data), 
     index2 = !! index2_update(data, vars), groups = grp_update(data, vars),
-    regular = is_regular(data), validate = FALSE, ordered = is_ordered(data),
+    regular = is_regular(data), ordered = is_ordered(data),
     interval = interval(data)
   )
 }
