@@ -59,6 +59,8 @@ slide <- function(
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
+#' @name slide
+#' @rdname slide
 #' @exportPattern ^slide_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
@@ -132,6 +134,8 @@ slide2 <- function(
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
+#' @name slide2
+#' @rdname slide2
 #' @exportPattern ^slide2_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
@@ -181,6 +185,8 @@ pslide <- function(
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
+#' @name pslide
+#' @rdname slide2
 #' @exportPattern ^pslide_
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(

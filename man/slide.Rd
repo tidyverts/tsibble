@@ -2,6 +2,7 @@
 % Please edit documentation in R/slide.R
 \name{slide}
 \alias{slide}
+\alias{slide}
 \alias{slide_dfr}
 \alias{slide_dfc}
 \title{Sliding window calculation}
@@ -84,3 +85,7 @@ slide(lst, ~ ., .size = 2)
 \item \link{stretch} for expanding more observations
 }
 }
+\alias{slide_lgl}
+\alias{slide_chr}
+\alias{slide_int}
+\alias{slide_dbl}

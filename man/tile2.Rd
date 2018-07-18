@@ -2,8 +2,10 @@
 % Please edit documentation in R/tile.R
 \name{tile2}
 \alias{tile2}
+\alias{tile2}
 \alias{tile2_dfr}
 \alias{tile2_dfc}
+\alias{ptile}
 \alias{ptile}
 \alias{ptile_dfr}
 \alias{ptile_dfc}
@@ -87,3 +89,11 @@ ptile(list(lst, lst), ~ ., .size = 2)
 \item \link{stretch2} for expanding more observations
 }
 }
+\alias{tile2_lgl}
+\alias{tile2_chr}
+\alias{tile2_dbl}
+\alias{tile2_int}
+\alias{ptile_lgl}
+\alias{ptile_chr}
+\alias{ptile_dbl}
+\alias{ptile_int}

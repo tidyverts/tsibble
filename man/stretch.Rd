@@ -2,6 +2,7 @@
 % Please edit documentation in R/stretch.R
 \name{stretch}
 \alias{stretch}
+\alias{stretch}
 \alias{stretch_dfr}
 \alias{stretch_dfc}
 \title{Stretching window calculation}
@@ -69,3 +70,7 @@ stretch(lst, ~ ., .size = 2)
 \item \link{tile} for tiling window without overlapping observations
 }
 }
+\alias{stretch_lgl}
+\alias{stretch_chr}
+\alias{stretch_dbl}
+\alias{stretch_int}

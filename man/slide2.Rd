@@ -2,8 +2,10 @@
 % Please edit documentation in R/slide.R
 \name{slide2}
 \alias{slide2}
+\alias{slide2}
 \alias{slide2_dfr}
 \alias{slide2_dfc}
+\alias{pslide}
 \alias{pslide}
 \alias{pslide_dfr}
 \alias{pslide_dfc}
@@ -116,3 +118,11 @@ pedestrian \%>\%
 \item \link{stretch2} for expanding more observations
 }
 }
+\alias{slide2_lgl}
+\alias{slide2_chr}
+\alias{slide2_int}
+\alias{slide2_dbl}
+\alias{pslide_lgl}
+\alias{pslide_chr}
+\alias{pslide_int}
+\alias{pslide_dbl}

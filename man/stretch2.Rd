@@ -2,8 +2,10 @@
 % Please edit documentation in R/stretch.R
 \name{stretch2}
 \alias{stretch2}
+\alias{stretch2}
 \alias{stretch2_dfr}
 \alias{stretch2_dfc}
+\alias{pstretch}
 \alias{pstretch}
 \alias{pstretch_dfr}
 \alias{pstretch_dfc}
@@ -86,3 +88,11 @@ pstretch(list(lst, lst), ~ ., .size = 2)
 \item \link{tile2} for tiling window without overlapping observations
 }
 }
+\alias{stretch2_lgl}
+\alias{stretch2_chr}
+\alias{stretch2_dbl}
+\alias{stretch2_int}
+\alias{pstretch_lgl}
+\alias{pstretch_chr}
+\alias{pstretch_dbl}
+\alias{pstretch_int}
