@@ -39,12 +39,14 @@ pedestrian_full
 
 ## Fixed window size
 
-Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. `slide()` returns an output of the same length as the input with `.fill = NA` (by default) padded at the left of the data range, so that the result fits into `mutate()` in harmony. `slide_dbl()` produces the numeric vector returned by `mean()`.
+Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. `slide()` returns an output of the same length as the input with `.fill = NA` (by default) and `.align = "center"` padded at both sides of the data range, so that the result fits into `mutate()` in harmony. `slide_dbl()` produces the numeric vector returned by `mean()`.
 
 ```{r daily-mv}
 pedestrian_full %>% 
   group_by(Sensor) %>% 
-  mutate(Daily_MV = slide_dbl(Count, mean, na.rm = TRUE, .size = 24))
+  mutate(Daily_MA = slide_dbl(Count, 
+    mean, na.rm = TRUE, .size = 24, .align = "center"
+  ))
 ```
 
 ## Flexible calendar period
@@ -63,8 +65,8 @@ Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it beh
 ```{r monthly-mv}
 pedestrian_mth %>% 
   group_by(Sensor) %>% 
-  mutate(Monthly_MV = slide_dbl(data, 
-    ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3
+  mutate(Monthly_MA = slide_dbl(data, 
+    ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"
   ))
 ```
 
@@ -84,7 +86,7 @@ pedestrian_full %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 
-## Block bootstrapping
+## Block bootstrap
 
 ```{r block}
 sx <- pedestrian_full %>% 

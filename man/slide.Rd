@@ -49,7 +49,7 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
-\item{.align}{Align at the "right", "center", or "left".}
+\item{.align}{Align at the "right", "centre"/"center", or "left".}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
