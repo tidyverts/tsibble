@@ -17,14 +17,29 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-## Fixed window size
+Time series comes with strict temporal order. We typically reply our operations or analysis on this preserved order, for example computing moving averages over time. Adapting from `purrr`-like interface, the tsibble package provides three verbs to allow for different variations of moving windows:
+
+* `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
+* `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
+* `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
+
+In this vignette, I will walk you through the `slide()`-related functions, but the example snippets are also applicable to `tile()` and `stretch()`.
+
+In spirit of `purrr::map()`, `slide()` accepts one input, `slide2()` two inputs, and `pslide()` multiple inputs, all of which always return lists for the sake of type stability. Other variants including `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors of the corresponding type, as well as `slide_dfr()` and `slide_dfc()` for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in a way we want, from fixed window size to calendar periods, and from moving average to model fitting.
+
+The `pedestrian` dataset includes hourly pedestrian counts in the city of Melbourne, with `Sensor` as key and `Date_Time` as index. These windowed functions are index-based rolling for tackling general problems, rather than time-based. Implicit missing values are thereby made explicit using `fill_na()`, and `.full = TRUE` warrants the equal time length of each sensor. This prepares the data inputs in the expected order.
 
 ```{r full-data, message = FALSE}
 library(tsibble)
 library(dplyr)
 pedestrian_full <- pedestrian %>% 
   fill_na(.full = TRUE)
+pedestrian_full
 ```
+
+## Fixed window size
+
+Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. `slide()` returns an output of the same length as the input with `.fill = NA` (by default) padded at the left of the data range, so that the result fits into `mutate()` in harmony. `slide_dbl()` produces the numeric vector returned by `mean()`.
 
 ```{r daily-mv}
 pedestrian_full %>% 
@@ -34,6 +49,8 @@ pedestrian_full %>%
 
 ## Flexible calendar period
 
+What if the time period we'd like to slide over happens not to be a fixed window size, for example sliding over three months. The preprocessing step is to wrap observations into monthly subsets (a list of tsibbles) using `nest()`.
+
 ```{r monthly-mv-pre}
 pedestrian_mth <- pedestrian_full %>% 
   mutate(YrMth = yearmonth(Date_Time)) %>% 
@@ -41,20 +58,24 @@ pedestrian_mth <- pedestrian_full %>%
 pedestrian_mth
 ```
 
+Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, a bundle of 3 subsets (`.size = 3`) needs to be binded and then computed for average counts. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
+
 ```{r monthly-mv}
 pedestrian_mth %>% 
   group_by(Sensor) %>% 
   mutate(Monthly_MV = slide_dbl(data, 
-    ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 2
+    ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3
   ))
 ```
 
 ## Row-oriented workflow
 
+We have had a glimpse at [row-oriented workflow](https://github.com/jennybc/row-oriented-workflows) to slide over consecutive months using `nest()`. To leverage this workflow more, we can fit a linear model for each sensor simultaneously but independently, and in turn obtain its fitted values and residuals over weekly rolling windows. This is where `pslide()` comes to play. It takes a list or a data frame (multiple inputs) and apply the custom function `my_diag()` to every rolling block. We start with a tsibble and end up with a diagnostic tibble of relatively larger size.
+
 ```{r lm}
 my_diag <- function(...) {
   data <- list(...)
-  fit <- lm(data$Count ~ data$Time)
+  fit <- lm(Count ~ Time, data = data)
   list(fitted = fitted(fit), resid = residuals(fit))
 }
 pedestrian_full %>%
@@ -71,9 +92,9 @@ sx <- pedestrian_full %>%
 block <- function(...) {
   bind_rows(list(...))
 }
-block_data <- tibble(weekly_block = pslide(
-  sx, block, .size = 24 * 7, .fill = NULL
-))
+block_data <- tibble(
+  weekly_block = pslide(sx, block, .size = 24 * 7, .fill = NULL)
+)
 block_data
 block_data %>% 
   sample_n(size = nrow(.), replace = TRUE)

@@ -94,7 +94,7 @@ pedestrian \%>\%
 \dontrun{
 my_diag <- function(...) {
   data <- list(...)
-  fit <- lm(data$Count ~ data$Time)
+  fit <- lm(Count ~ Time, data = data)
   tibble::tibble(fitted = fitted(fit), resid = residuals(fit))
 }
 pedestrian \%>\%
