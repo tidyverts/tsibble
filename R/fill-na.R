@@ -76,7 +76,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   grped_tbl <- tbl %>% 
     grouped_df(vars = flat_key)
   if (.full) {
-    idx_full <- seq_by(eval_tidy(idx, data = tbl))
+    idx_full <- seq_generator(eval_tidy(idx, data = tbl))
     ref_data <- grped_tbl %>% 
       summarise(
         !! idx_chr := list(tibble::tibble(!! idx_chr := idx_full))
@@ -85,7 +85,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   } else {
     ref_data <- grped_tbl %>% 
       summarise(
-        !! idx_chr := list(tibble::tibble(!! idx_chr := seq_by(!! idx)))
+        !! idx_chr := list(tibble::tibble(!! idx_chr := seq_generator(!! idx)))
       ) %>% 
       unnest(!! idx)
   }
@@ -139,7 +139,7 @@ count_gaps <- function(.data, ...) {
 #' count_gaps(pedestrian)
 count_gaps.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
-  idx_full <- seq_by(eval_tidy(idx, data = .data))
+  idx_full <- seq_generator(eval_tidy(idx, data = .data))
   ungroup(as_tibble(.data)) %>% 
     summarise(gaps = list(gaps(unique.default(!! idx), idx_full))) %>% 
     unnest(gaps)
@@ -173,13 +173,13 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
   idx <- index(.data)
   tbl <- as_tibble(.data)
   if (.full) {
-    idx_full <- seq_by(eval_tidy(idx, data = tbl))
+    idx_full <- seq_generator(eval_tidy(idx, data = tbl))
     out <- tbl %>% 
       summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
       unnest(gaps)
   } else {
     out <- tbl %>% 
-      summarise(gaps = list(gaps(!! idx, seq_by(!! idx)))) %>% 
+      summarise(gaps = list(gaps(!! idx, seq_generator(!! idx)))) %>% 
       unnest(gaps)
   }
   ungroup(out)
@@ -228,8 +228,24 @@ gaps <- function(x, y) {
 #     any()
 # }
 
-seq_by <- function(x) {
-  seq(from = min0(x), to = max0(x), by = time_unit(x))
+seq_generator <- function(x) {
+  min_x <- min0(x)
+  max_x <- max0(x)
+  tunit <- time_unit(x)
+  res <- tryCatch(
+    seq(min_x, max_x, tunit),
+    error = function(e) NA
+  )
+  if (!anyNA(res)) return(res)
+  # no seq.* available
+  tryCatch(
+    min_x + seq.int(0, as.double(max_x - min_x), tunit),
+    error = function(e) {
+      e$call <- NULL
+      e$message <- sprintf("Neither `+` nor `seq` are defined for class `%s`.", class(x))
+      stop(e)
+    }
+  )
 }
 
 modify_na <- function(.data, ...) {

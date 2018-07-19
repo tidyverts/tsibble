@@ -31,11 +31,13 @@ pull_interval <- function(x) {
 pull_interval.POSIXt <- function(x) {
   dttm <- as.numeric(x)
   nhms <- gcd_interval(dttm) # num of seconds
+  if (nhms < 1e-5) return(init_interval(micro = ceiling(nhms * 1e+6))) # likely wrong
+  if (nhms < 0.01) return(init_interval(milli = ceiling(nhms * 1e+3)))
   period <- split_period(nhms)
   init_interval(
     hour = period$hour, 
     minute = period$minute, 
-    second = round(period$second, digits = 3)
+    second = period$second
   )
 }
 
@@ -43,8 +45,7 @@ pull_interval.POSIXt <- function(x) {
 pull_interval.nanotime <- function(x) {
   nano <- as.numeric(x)
   int <- gcd_interval(nano) # num of nanoseconds
-  sec <- int * 1e-9
-  init_interval(second = sec)
+  init_interval(nano = int)
 }
 
 #' @export
@@ -112,18 +113,20 @@ pull_interval.numeric <- function(x) {
 
 init_interval <- function(
   year = 0, quarter = 0, month = 0, week = 0, 
-  day = 0, hour = 0, minute = 0, second = 0, unit = 0
+  day = 0, hour = 0, minute = 0, second = 0, 
+  milli = 0, micro = 0, nano = 0, unit = 0
 ) {
   structure(list(
     year = year, quarter = quarter, month = month, week = week,
     day = day, hour = hour, minute = minute, second = second,
-    unit = unit
+    milli = milli, micro = micro, nano = nano, unit = unit
   ), class = "interval")
 }
 
 time_unit <- function(x) {
   if (has_length(x, 1)) return(0L)
   int <- pull_interval(x)
+  int$nano + int$micro / 1e+6 + int$milli / 1e+3 +
   int$second + int$minute * 60 + int$hour * 3600 + 
   int$day + int$week + int$month + int$quarter + 
   int$year + int$unit
