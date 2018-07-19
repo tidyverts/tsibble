@@ -5,10 +5,15 @@
 * Added "nanotime" support for nanoseconds.
 * Added scoped variant `group_by_key()` to easily group the key variables.
 * `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left".
+* Defined arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
 
 ## Improvements
 
 * Speed improvement for internals when it's a known valid tsibble. (#43)
+
+## Bug fixes
+
+* Fixed warning in `format.yearweek()`.
 
 # tsibble 0.4.0
 

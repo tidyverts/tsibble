@@ -22,6 +22,18 @@ test_that("diff()", {
   expect_equal(as.numeric(diff(yq)), rep(1, 2))
 })
 
+test_that("Arit", {
+  expect_equal(format(yw + 1), c("1970 W02", "1970 W03", "1970 W04"))
+  expect_equal(format(1 + yw), format(yw + 1))
+  expect_equal(format(yw - 1), c("1969 W52", "1970 W01", "1970 W02"))
+  expect_equal(format(ym + 1), c("1970 Feb", "1970 Mar", "1970 Apr"))
+  expect_equal(format(1 + ym), format(ym + 1))
+  expect_equal(format(ym - 1), c("1969 Dec", "1970 Jan", "1970 Feb"))
+  expect_equal(format(yq + 1), c("1970 Q2", "1970 Q3", "1970 Q4"))
+  expect_equal(format(1 + yq), format(yq + 1))
+  expect_equal(format(yq - 1), c("1969 Q4", "1970 Q1", "1970 Q2"))
+})
+
 a <- yearweek(seq(ymd("2017-02-01"), length.out = 12, by = "1 week"))
 a2 <- rep(a, 2)
 x <- yearmonth(seq(2010, 2012, by = 1 / 12))
