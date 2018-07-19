@@ -15,6 +15,10 @@
 
 * Fixed warning in `format.yearweek()`.
 
+## Internal changes
+
+* The `interval` class no longer has `NA`.
+
 # tsibble 0.4.0
 
 ## Breaking changes
