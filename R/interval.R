@@ -121,52 +121,12 @@ init_interval <- function(
   ), class = "interval")
 }
 
-#' @rdname pull-interval
-#' @export
-#' @examples
-#' # at two months interval ----
-#' x <- yearmonth(seq(2016, 2018, by = 0.5))
-#' time_unit(x)
 time_unit <- function(x) {
-  if (has_length(x, 1)) {
-    return(0L)
-  }
-  UseMethod("time_unit")
-}
-
-#' @export
-time_unit.POSIXt <- function(x) {
+  if (has_length(x, 1)) return(0L)
   int <- pull_interval(x)
-  int$second + int$minute * 60 + int$hour * 60 * 60
-}
-
-#' @export
-time_unit.numeric <- function(x) {
-  int <- pull_interval(x)
-  if (min0(x) > 1599 && max0(x) < 2500) {
-    return(int$year)
-  }
-  int$unit
-}
-
-#' @export
-time_unit.Date <- function(x) {
-  pull_interval(x)$day
-}
-
-#' @export
-time_unit.yearweek <- function(x) {
-  pull_interval(x)$week
-}
-
-#' @export
-time_unit.yearmonth <- function(x) {
-  pull_interval(x)$month
-}
-
-#' @export
-time_unit.yearquarter <- function(x) {
-  pull_interval(x)$quarter
+  int$second + int$minute * 60 + int$hour * 3600 + 
+  int$day + int$week + int$month + int$quarter + 
+  int$year + int$unit
 }
 
 # from ts time to dates

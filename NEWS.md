@@ -18,6 +18,7 @@
 ## Internal changes
 
 * The `interval` class no longer has `NA`.
+* Retired `time_unit()` S3 generic, and made index extension a bit easier.
 
 # tsibble 0.4.0
 
