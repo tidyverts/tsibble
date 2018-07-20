@@ -53,7 +53,7 @@ pull_interval.POSIXt <- function(x) {
 pull_interval.nanotime <- function(x) {
   nano <- as.numeric(x)
   int <- gcd_interval(nano) # num of nanoseconds
-  init_interval(nano = int)
+  init_interval(nanosecond = int)
 }
 
 #' @export
