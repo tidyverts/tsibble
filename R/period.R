@@ -26,6 +26,7 @@
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 #' yearweek(x)
 #' yearmonth(yearweek(x)); yearmonth(x)
+#' yearmonth("201807")
 #' yearquarter(x)
 #'
 #' # coerce numerics to yearmonth, yearquarter ----
@@ -118,7 +119,7 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
-  as_yearweek(as_date(x))
+  as_yearweek(as_date(anytime::anytime(x)))
 }
 
 #' @export
@@ -272,7 +273,7 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
-  as_yearmonth(as_date(x))
+  as_yearmonth(as_date(anytime::anytime(x)))
 }
 
 #' @export
@@ -393,7 +394,7 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
-  as_yearquarter(as_date(x))
+  as_yearquarter(as_date(anytime::anytime(x)))
 }
 
 #' @export

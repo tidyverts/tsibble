@@ -26,6 +26,7 @@ This release introduced the changes to the "interval" class to make tsibble bett
 ## Misc
 
 * Moved package "timeDate" from Imports to Suggests.
+* Added "anytime" to Imports for better parsing characters.
 
 # tsibble 0.4.0
 

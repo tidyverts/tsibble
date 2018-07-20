@@ -20,6 +20,7 @@ BugReports: https://github.com/tidyverts/tsibble/issues
 Depends: 
     R (>= 3.1.3)
 Imports: 
+    anytime,
     dplyr (>= 0.7.3),
     lubridate,
     pillar (>= 1.0.1),

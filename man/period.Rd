@@ -45,6 +45,7 @@ the input \code{x}, contrasting to their zoo counterparts.
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearweek(x)
 yearmonth(yearweek(x)); yearmonth(x)
+yearmonth("201807")
 yearquarter(x)
 
 # coerce numerics to yearmonth, yearquarter ----
