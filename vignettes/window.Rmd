@@ -65,31 +65,10 @@ pedestrian_mth
 Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, a bundle of 3 subsets (`.size = 3`) needs to be binded and then computed for average counts. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
 
 ```{r monthly-mv}
-quarter_mean <- function(...) {
-  data <- list(...)
-  mean(data$Count, na.rm = TRUE)
-}
 pedestrian_mth %>% 
   group_by(Sensor) %>% 
   mutate(Monthly_MA = slide_dbl(data, 
     ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"
-  ))
-pedestrian_mth
-pedestrian_mth %>% 
-  group_by(Sensor) %>% 
-  mutate(Monthly_MA = pslide(data, 
-    quarter_mean, .size = 3, .align = "center"
-  ))
-x <- pslider(!!! pedestrian_mth %>% filter(Sensor == "Birrarung Marr"), .size = 3)
-pedestrian_mth %>% 
-  group_by(Sensor) %>% 
-  mutate(Monthly_MA = pslide_dbl(!!! data, 
-    quarter_mean, .size = 3, .align = "center"
-  ))
-pedestrian_mth %>% 
-  group_by(Sensor) %>% 
-  mutate(Monthly_MA = pslider(data, 
-    .size = 3,.partial = TRUE
   ))
 ```
 
