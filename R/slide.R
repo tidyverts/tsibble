@@ -281,6 +281,7 @@ pslide_dfc <- function(
 #'
 #' slider(x, .size = 2)
 #' slider(lst, .size = 2)
+#' slider(df, .size = 2, .flatten = TRUE)
 #' pslider(list(x, y), list(y))
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
@@ -288,35 +289,9 @@ slider <- function(
   .x, .size = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .flatten = FALSE
 ) {
-  slider_base(.x, .size, .fill = .fill, .partial, .align, .flatten)
-}
-
-#' @rdname slider
-#' @export
-pslider <- function(
-  ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
-) { # parallel sliding
-  lst <- recycle(list2(...))
-  purrr::map(lst, 
-    function(x) slider_base(x, .size, .fill = .fill, .partial, .align, .flatten)
-  )
-}
-
-slider_base <- function(
-  x, .size = 1, .fill = NA, .partial = FALSE, .align = "right", .flatten = FALSE
-) {
   bad_window_function(.size)
-  cannot_flatten(x, .flatten)
-  if (is_false(.flatten)) {
-    if (is.data.frame(x)) {
-      x <- as.list(x)
-    } else if (is_bare_list(x)){
-      df_lgl <- purrr::map_lgl(x, is.data.frame)
-      if (any(df_lgl)) x[df_lgl] <- purrr::map(x[df_lgl], as.list)
-    }
-  }
-  len_x <- NROW(x)
+  .x <- df2lst(.x, .flatten)
+  len_x <- NROW(.x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
     abort(sprintf(
@@ -325,9 +300,9 @@ slider_base <- function(
     ))
   }
   sign <- sign(.size)
-  is_df <- is.data.frame(x)
-  if (is_bare_list(x) && .flatten) {
-    x <- do.call(rbind, x) # dplyr::bind_rows() doesn't protect attributes
+  is_df <- is.data.frame(.x)
+  if (is_bare_list(.x) && .flatten) {
+    .x <- do.call(rbind, .x) # dplyr::bind_rows() doesn't protect attributes
     is_df <- TRUE
   }
   if (.partial) {
@@ -338,18 +313,31 @@ slider_base <- function(
       size <- sum(idx <= 0 | idx > len_x) + 1
       if (is_df) 
         return(pad_slide(
-          x[idx[idx > 0 & idx <= len_x], , drop = FALSE], size, .fill, .align
+          .x[idx[idx > 0 & idx <= len_x], , drop = FALSE], size, .fill, .align
         ))
-      pad_slide(x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
+      pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
     }))
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
   if (is_df)
     return(purrr::map(lst_idx, 
-      function(idx) x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
+      function(idx) .x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
     ))
-  purrr::map(lst_idx, function(idx) x[idx:(idx + sign * (abs_size - 1))])
+  purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
+
+}
+
+#' @rdname slider
+#' @export
+pslider <- function(
+  ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
+) { # parallel sliding
+  lst <- recycle(list2(...))
+  purrr::map(lst, 
+    function(x) slider(x, .size, .fill = .fill, .partial, .align, .flatten)
+  )
 }
 
 bad_window_function <- function(.size) {
@@ -426,7 +414,16 @@ check_valid_window <- function(.size, .align) {
   }
 }
 
-cannot_flatten <- function(x, .flatten = FALSE) {
+df2lst <- function(x, .flatten = FALSE) {
   if (.flatten && is_atomic(x)) 
     warn(sprintf("`.flatten = TRUE` is ignored for type `%s`.", typeof(x)))
+  if (is_false(.flatten)) {
+    if (is.data.frame(x)) {
+      x <- as.list(x)
+    } else if (is_bare_list(x)){
+      df_lgl <- purrr::map_lgl(x, is.data.frame)
+      if (any(df_lgl)) x[df_lgl] <- purrr::map(x[df_lgl], as.list)
+    }
+  }
+  x
 }

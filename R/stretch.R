@@ -167,7 +167,7 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE) {
 
 #' Splits the input to a list according to the stretching window size.
 #'
-#' @param x An objects to be splitted.
+#' @param .x An objects to be splitted.
 #' @param ... Multiple objects to be splitted in parallel.
 #' @inheritParams stretch
 #' @rdname stretcher
@@ -181,39 +181,32 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE) {
 #'
 #' stretcher(x, .size = 2)
 #' stretcher(lst, .size = 2)
+#' stretcher(df, .size = 2, .flatten = TRUE)
 #' pstretcher(lst, .size = 2)
 #' stretcher(df, .size = 2)
 #' pstretcher(df, df, .size = 2)
-stretcher <- function(x, .size = 1, .init = 1, .flatten = FALSE) {
+stretcher <- function(.x, .size = 1, .init = 1, .flatten = FALSE) {
   bad_window_function(.size)
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
   }
-  cannot_flatten(x, .flatten)
-  if (is_false(.flatten)) {
-    if (is.data.frame(x)) {
-      x <- as.list(x)
-    } else if (is_bare_list(x)){
-      df_lgl <- purrr::map_lgl(x, is.data.frame)
-      if (any(df_lgl)) x[df_lgl] <- purrr::map(x[df_lgl], as.list)
-    }
-  }
+  .x <- df2lst(.x, .flatten)
   abs_size <- abs(.size)
   counter <- incr(init = .init, size = abs_size)
-  if (sign(.size) < 0) x <- rev(x)
-  ncall <- seq_len(ceiling((NROW(x) - .init) / abs_size) - 1)
+  if (sign(.size) < 0) .x <- rev(.x)
+  ncall <- seq_len(ceiling((NROW(.x) - .init) / abs_size) - 1)
   incr_lst <- c(
     list(seq_len(.init)),
     purrr::map(ncall, ~ seq_len(counter())),
-    list(seq_along(x))
+    list(seq_along(.x))
   )
-  is_df <- is.data.frame(x)
-  if (is_bare_list(x) && .flatten) {
-    x <- do.call(rbind, x) # dplyr::bind_rows() doesn't protect attributes
+  is_df <- is.data.frame(.x)
+  if (is_bare_list(.x) && .flatten) {
+    .x <- do.call(rbind, .x) # dplyr::bind_rows() doesn't protect attributes
     is_df <- TRUE
   }
-  if (is_df) return(purrr::map(incr_lst, ~ x[., , drop = FALSE]))
-  purrr::map(incr_lst, ~ x[.])
+  if (is_df) return(purrr::map(incr_lst, function(idx) .x[idx, , drop = FALSE]))
+  purrr::map(incr_lst, function(idx) .x[idx])
 }
 
 

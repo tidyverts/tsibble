@@ -46,6 +46,7 @@ df <- as.data.frame(lst)
 
 slider(x, .size = 2)
 slider(lst, .size = 2)
+slider(df, .size = 2, .flatten = TRUE)
 pslider(list(x, y), list(y))
 slider(df, .size = 2)
 pslider(df, df, .size = 2)

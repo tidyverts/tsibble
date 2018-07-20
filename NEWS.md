@@ -8,7 +8,7 @@ This release introduced the changes to the "interval" class to make tsibble bett
 * Added scoped variant `group_by_key()` to easily group the key variables.
 * `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left". If window size is even for center alignment, either "center-right" or "center-left" is needed.
 * Defined arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
-* `slide()` gained a new argument `.flatten = FALSE`. If `.x` is a list or data frame, the input will be flattened to a list of data frames first.
+* `slide()`, `tile()` and `stretch()` gained a new argument `.flatten = FALSE`. If `.x` is a list or data frame, the input will be flattened to a list of data frames first.
 
 ## Improvements
 

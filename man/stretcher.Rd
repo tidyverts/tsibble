@@ -5,12 +5,12 @@
 \alias{pstretcher}
 \title{Splits the input to a list according to the stretching window size.}
 \usage{
-stretcher(x, .size = 1, .init = 1, .flatten = FALSE)
+stretcher(.x, .size = 1, .init = 1, .flatten = FALSE)
 
 pstretcher(..., .size = 1, .init = 1, .flatten = FALSE)
 }
 \arguments{
-\item{x}{An objects to be splitted.}
+\item{.x}{An objects to be splitted.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
@@ -34,6 +34,7 @@ df <- as.data.frame(lst)
 
 stretcher(x, .size = 2)
 stretcher(lst, .size = 2)
+stretcher(df, .size = 2, .flatten = TRUE)
 pstretcher(lst, .size = 2)
 stretcher(df, .size = 2)
 pstretcher(df, df, .size = 2)
