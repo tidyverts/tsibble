@@ -376,7 +376,7 @@ pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
       "cl", "center-left", "centre-left"
     )
   )
-  # check_valid_window(.size, align)
+  check_valid_window(.size, align)
   if (is_null(.fill)) return(x) 
   fill_size <- abs(.size) - 1
   if (align == "right") {
@@ -387,9 +387,8 @@ pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
   } else if (align %in% c("cr", "center-right", "centre-right")) {
     lsize <- ceiling(fill_size / 2)
     return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
-  } else {
-    return(c(x, rep(.fill, fill_size)))
   }
+  c(x, rep(.fill, fill_size)) # "left"
 }
 
 bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
@@ -408,7 +407,7 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
 check_valid_window <- function(.size, .align) {
   if (is_even(.size) && .align %in% c("c", "centre", "center")) {
     abort(sprintf(
-      "Can't use `.algin = %s` for even window `.size`. Please use `.align = 'center-left'` or `.align = 'center-right'`.",
+      "Can't use `.align = %s` for even window `.size`. Please use `.align = 'center-left'` or `.align = 'center-right'`.",
       .align
     ))
   }

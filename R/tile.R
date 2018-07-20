@@ -178,5 +178,5 @@ ptiler <- function(..., .size = 1) { # parallel sliding
   if (any(df_lgl)) {
     lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
   }
-  purrr::map(lst, function(x) tiler_base(x, .size = .size))
+  purrr::map(lst, function(x) tiler(x, .size = .size))
 }
