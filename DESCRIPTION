@@ -28,8 +28,7 @@ Imports:
     rlang (>= 0.2.0),
     tibble (>= 1.4.1),
     tidyr,
-    tidyselect,
-    timeDate
+    tidyselect
 Suggests: 
     covr,
     ggplot2 (>= 2.2.0),
@@ -39,7 +38,8 @@ Suggests:
     nanotime,
     nycflights13 (>= 1.0.0),
     rmarkdown,
-    testthat
+    testthat,
+    timeDate
 LinkingTo: 
     Rcpp (>= 0.12.0)
 VignetteBuilder: knitr

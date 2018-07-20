@@ -23,6 +23,10 @@ This release introduced the changes to the "interval" class to make tsibble bett
 
 * Fixed warning in `format.yearweek()`.
 
+## Misc
+
+* Moved package "timeDate" from Imports to Suggests.
+
 # tsibble 0.4.0
 
 ## Breaking changes
