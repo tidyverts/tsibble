@@ -308,7 +308,7 @@ slider_base <- function(
     return(purrr::map(lst_idx, function(idx) {
       idx <- idx:(idx + sign * (abs_size - 1))
       size <- sum(idx <= 0 | idx > len_x) + 1
-      pad_slide(x[idx[idx > 0 & idx <= len_x]], .size = size, .align)
+      pad_slide(x[idx[idx > 0 & idx <= len_x]], .size, .fill, .align)
     }))
   }
   lst_idx <- seq_len(len_x - abs_size + 1)

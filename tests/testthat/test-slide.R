@@ -17,7 +17,7 @@ test_that("slider() & pslider()", {
   expect_equal(slider(.x, .size = 2), list(1:2, 2:3, 3:4, 4:5))
   expect_equal(slider(.x, .size = -2), list(5:4, 4:3, 3:2, 2:1))
   expect_equal(
-    slider(.x, .size = 2, .partial = TRUE), 
+    slider(.x, .size = 2, .partial = TRUE),
     list(c(NA, 1), 1:2, 2:3, 3:4, 4:5)
   )
   expect_equal(
