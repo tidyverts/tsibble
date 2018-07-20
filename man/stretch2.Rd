@@ -11,17 +11,19 @@
 \alias{pstretch_dfc}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., .size = 1, .init = 1)
+stretch2(.x, .y, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 
-stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .id = NULL)
+stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .flatten = FALSE,
+  .id = NULL)
 
-stretch2_dfc(.x, .y, .f, ..., .size = 1, .init = 1)
+stretch2_dfc(.x, .y, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 
-pstretch(.l, .f, ..., .size = 1, .init = 1)
+pstretch(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 
-pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .id = NULL)
+pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE,
+  .id = NULL)
 
-pstretch_dfc(.l, .f, ..., .size = 1, .init = 1)
+pstretch_dfc(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -52,6 +54,9 @@ to extract named attributes. If a component is not present, the value of
 \item{...}{Additional arguments passed on to \code{.f}.}
 
 \item{.size, .init}{An integer for moving and initial window size.}
+
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

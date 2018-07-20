@@ -30,7 +30,10 @@ replace_fn_names <- function(fn, replace = list()){
 #' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
 #' @param .align Align index at the "**r**ight", "**c**entre"/"center", or "**l**eft"
-#' of the window.
+#' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"
+#' is needed.
+#' @param .flatten If `.x` is a list or data frame, the input will be flattened
+#' to a list of data frames first and then apply `.f`.
 #'
 #' @rdname slide
 #' @export
@@ -51,10 +54,12 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide_lgl(x, ~ mean(.) > 2, .size = 2)
 #' slide(lst, ~ ., .size = 2)
 slide <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
   lst_x <- slider(
-    .x, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .x, .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   out <- purrr::map(lst_x, .f, ...)
   if (.partial) return(out)
@@ -76,11 +81,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide_dfr <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right", 
-  .id = NULL
+  .flatten = FALSE, .id = NULL
 ) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -88,11 +94,13 @@ slide_dfr <- function(
 #' @rdname slide
 #' @export
 slide_dfc <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -128,10 +136,12 @@ slide_dfc <- function(
 #' pslide(lst, ~ ., .size = 1)
 #' pslide(list(lst, lst), ~ ., .size = 2)
 slide2 <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
   lst <- pslider(
-    .x, .y, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .x, .y, .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
@@ -153,11 +163,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide2_dfr <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .id = NULL
+  .flatten = FALSE, .id = NULL
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -165,11 +176,13 @@ slide2_dfr <- function(
 #' @rdname slide2
 #' @export
 slide2_dfc <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -178,13 +191,12 @@ slide2_dfc <- function(
 #' @inheritParams purrr::pmap
 #' @export
 pslide <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
-  if (is.data.frame(.l)) {
-    .l <- as.list(.l)
-  }
   lst <- pslider(
-    !!! .l, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    !!! .l, .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   out <- purrr::pmap(lst, .f, ...)
   if (.partial) return(out)
@@ -206,11 +218,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 pslide_dfr <- function(
   .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .id = NULL
+  .flatten = FALSE, .id = NULL
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -237,11 +250,13 @@ pslide_dfr <- function(
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
 pslide_dfc <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, .align = .align
+    .size = .size, .fill = .fill, .partial = .partial, 
+    .align = .align, .flatten = .flatten
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -252,6 +267,8 @@ pslide_dfc <- function(
 #' @param ... Multiple objects to be split in parallel.
 #' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
 #' `.fill` and `.align`).
+#' @param .flatten If `.x` is a list or data frame, the input will be flattened
+#' to a list of data frames.
 #' @inheritParams slide
 #' @rdname slider
 #' @export
@@ -268,31 +285,37 @@ pslide_dfc <- function(
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
 slider <- function(
-  .x, .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  .x, .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) {
-  if (is.data.frame(.x)) .x <- as.list(.x)
-  slider_base(.x, .size, .fill = .fill, .partial, .align)
+  slider_base(.x, .size, .fill = .fill, .partial, .align, .flatten)
 }
 
 #' @rdname slider
 #' @export
 pslider <- function(
-  ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .align = "right", .flatten = FALSE
 ) { # parallel sliding
   lst <- recycle(list2(...))
-  df_lgl <- purrr::map_lgl(lst, is.data.frame)
-  if (any(df_lgl)) {
-    lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
-  }
   purrr::map(lst, 
-    function(x) slider_base(x, .size, .fill = .fill, .partial, .align)
+    function(x) slider_base(x, .size, .fill = .fill, .partial, .align, .flatten)
   )
 }
 
 slider_base <- function(
-  x, .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+  x, .size = 1, .fill = NA, .partial = FALSE, .align = "right", .flatten = FALSE
 ) {
   bad_window_function(.size)
+  cannot_flatten(x, .flatten)
+  if (is_false(.flatten)) {
+    if (is.data.frame(x)) {
+      x <- as.list(x)
+    } else if (is_bare_list(x)){
+      df_lgl <- purrr::map_lgl(x, is.data.frame)
+      if (any(df_lgl)) x[df_lgl] <- purrr::map(x[df_lgl], as.list)
+    }
+  }
   len_x <- NROW(x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
@@ -302,17 +325,30 @@ slider_base <- function(
     ))
   }
   sign <- sign(.size)
+  is_df <- is.data.frame(x)
+  if (is_bare_list(x) && .flatten) {
+    x <- do.call(rbind, x) # dplyr::bind_rows() doesn't protect attributes
+    is_df <- TRUE
+  }
   if (.partial) {
     lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
     if (sign < 0) lst_idx <- rev(lst_idx)
     return(purrr::map(lst_idx, function(idx) {
       idx <- idx:(idx + sign * (abs_size - 1))
       size <- sum(idx <= 0 | idx > len_x) + 1
-      pad_slide(x[idx[idx > 0 & idx <= len_x]], .size, .fill, .align)
+      if (is_df) 
+        return(pad_slide(
+          x[idx[idx > 0 & idx <= len_x], , drop = FALSE], size, .fill, .align
+        ))
+      pad_slide(x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
     }))
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
+  if (is_df)
+    return(purrr::map(lst_idx, 
+      function(idx) x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
+    ))
   purrr::map(lst_idx, function(idx) x[idx:(idx + sign * (abs_size - 1))])
 }
 
@@ -346,23 +382,23 @@ recycle <- function(x) {
 }
 
 pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
-  align <- match.arg(.align, c("right", "c", "center", "centre", "left"))
-    # c("right", "c", "center", "centre", "left",
-    #   "cr", "center-right", "centre-right", 
-    #   "cl", "center-left", "centre-left"
-    # )
-  # )
+  align <- match.arg(.align,
+    c("right", "c", "center", "centre", "left",
+      "cr", "center-right", "centre-right", 
+      "cl", "center-left", "centre-left"
+    )
+  )
   # check_valid_window(.size, align)
   if (is_null(.fill)) return(x) 
   fill_size <- abs(.size) - 1
   if (align == "right") {
     return(c(rep(.fill, fill_size), x))
-  } else if (align %in% c("c", "center", "centre")) { # c("c", "center", "centre", "cl", "center-left", "centre-left")
+  } else if (align %in% c("c", "center", "centre", "cl", "center-left", "centre-left")) {
     lsize <- floor(fill_size / 2)
     return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
-  # } else if (align %in% c("cr", "center-right", "centre-right")) {
-  #   lsize <- ceiling(fill_size / 2)
-  #   return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
+  } else if (align %in% c("cr", "center-right", "centre-right")) {
+    lsize <- ceiling(fill_size / 2)
+    return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
   } else {
     return(c(x, rep(.fill, fill_size)))
   }
@@ -388,4 +424,9 @@ check_valid_window <- function(.size, .align) {
       .align
     ))
   }
+}
+
+cannot_flatten <- function(x, .flatten = FALSE) {
+  if (.flatten && is_atomic(x)) 
+    warn(sprintf("`.flatten = TRUE` is ignored for type `%s`.", typeof(x)))
 }

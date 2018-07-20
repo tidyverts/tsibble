@@ -5,9 +5,11 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1, .fill = NA, .partial = FALSE, .align = "right")
+slider(.x, .size = 1, .fill = NA, .partial = FALSE, .align = "right",
+  .flatten = FALSE)
 
-pslider(..., .size = 1, .fill = NA, .partial = FALSE, .align = "right")
+pslider(..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
+  .flatten = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -22,7 +24,11 @@ to right; if negative, moving backward (from right to left).}
 \code{.fill} and \code{.align}).}
 
 \item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
-of the window.}
+of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
+is needed.}
+
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames.}
 
 \item{...}{Multiple objects to be split in parallel.}
 

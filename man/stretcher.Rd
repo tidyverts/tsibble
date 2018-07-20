@@ -5,21 +5,22 @@
 \alias{pstretcher}
 \title{Splits the input to a list according to the stretching window size.}
 \usage{
-stretcher(.x, .size = 1, .init = 1)
+stretcher(x, .size = 1, .init = 1, .flatten = FALSE)
 
-pstretcher(..., .size = 1, .init = 1)
+pstretcher(..., .size = 1, .init = 1, .flatten = FALSE)
 }
 \arguments{
-\item{.x}{An object to slide over.}
+\item{x}{An objects to be splitted.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
 \item{.init}{A positive integer for an initial window size.}
 
-\item{...}{Multiple objects to be splitted in parallel.}
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames first and then apply \code{.f}.}
 
-\item{x}{An objects to be splitted.}
+\item{...}{Multiple objects to be splitted in parallel.}
 }
 \description{
 Splits the input to a list according to the stretching window size.

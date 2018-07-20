@@ -7,11 +7,12 @@
 \alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
-stretch(.x, .f, ..., .size = 1, .init = 1)
+stretch(.x, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 
-stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .id = NULL)
+stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .flatten = FALSE,
+  .id = NULL)
 
-stretch_dfc(.x, .f, ..., .size = 1, .init = 1)
+stretch_dfc(.x, .f, ..., .size = 1, .init = 1, .flatten = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -43,6 +44,9 @@ to extract named attributes. If a component is not present, the value of
 to right; if negative, moving backward (from right to left).}
 
 \item{.init}{A positive integer for an initial window size.}
+
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

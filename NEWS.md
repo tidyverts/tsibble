@@ -6,8 +6,9 @@ This release introduced the changes to the "interval" class to make tsibble bett
 
 * Added "nanotime" support for nanoseconds.
 * Added scoped variant `group_by_key()` to easily group the key variables.
-* `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left".
+* `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left". If window size is even for center alignment, either "center-right" or "center-left" is needed.
 * Defined arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
+* `slide()` gained a new argument `.flatten = FALSE`. If `.x` is a list or data frame, the input will be flattened to a list of data frames first.
 
 ## Improvements
 
@@ -22,6 +23,7 @@ This release introduced the changes to the "interval" class to make tsibble bett
 ## Bug fixes
 
 * Fixed warning in `format.yearweek()`.
+* Fixed `group_by.lst_ts()` for dropping the grouping information.
 
 ## Misc
 

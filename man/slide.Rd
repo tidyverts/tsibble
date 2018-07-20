@@ -8,13 +8,13 @@
 \title{Sliding window calculation}
 \usage{
 slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 
 slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .id = NULL)
+  .align = "right", .flatten = FALSE, .id = NULL)
 
 slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -51,7 +51,11 @@ to right; if negative, moving backward (from right to left).}
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
 \item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
-of the window.}
+of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
+is needed.}
+
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

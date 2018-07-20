@@ -12,22 +12,22 @@
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
 slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .id = NULL)
+  .align = "right", .flatten = FALSE, .id = NULL)
 
 slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 
 pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 
 pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .id = NULL)
+  .align = "right", .flatten = FALSE, .id = NULL)
 
 pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right")
+  .align = "right", .flatten = FALSE)
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -64,7 +64,11 @@ to right; if negative, moving backward (from right to left).}
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
 \item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
-of the window.}
+of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
+is needed.}
+
+\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
