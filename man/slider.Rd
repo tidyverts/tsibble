@@ -5,9 +5,9 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1, .fill = NA, .partial = FALSE)
+slider(.x, .size = 1, .fill = NA, .partial = FALSE, .align = "right")
 
-pslider(..., .size = 1, .fill = NA, .partial = FALSE)
+pslider(..., .size = 1, .fill = NA, .partial = FALSE, .align = "right")
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -19,7 +19,10 @@ to right; if negative, moving backward (from right to left).}
 \code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, split to partial set (\code{FALSE} ignores specified
-\code{.fill}).}
+\code{.fill} and \code{.align}).}
+
+\item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
+of the window.}
 
 \item{...}{Multiple objects to be split in parallel.}
 

@@ -63,7 +63,8 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 
-\item{.align}{Align at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft".}
+\item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
+of the window.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
