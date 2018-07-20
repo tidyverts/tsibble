@@ -222,5 +222,11 @@ anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
 semi_join.lst_ts <- anti_join.lst_ts
 
 as_lst_ts <- function(x) {
+  grped_df <- dplyr::is_grouped_df(x)
+  if (grped_df) {
+    return(structure(
+      x, class = c("lst_ts", "grouped_df", "tbl_df", "tbl", "data.frame")
+    ))
+  }
   structure(x, class = c("lst_ts", "tbl_df", "tbl", "data.frame"))
 }

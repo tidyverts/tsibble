@@ -29,7 +29,8 @@ replace_fn_names <- function(fn, replace = list()){
 #' @param .fill A value to fill at the left of the data range (`NA` by default).
 #' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
-#' @param .align Align at the "**r**ight", "**c**entre"/"center", or "**l**eft".
+#' @param .align Align index at the "**r**ight", "**c**entre"/"center", or "**l**eft"
+#' of the window.
 #'
 #' @rdname slide
 #' @export
@@ -52,7 +53,9 @@ replace_fn_names <- function(fn, replace = list()){
 slide <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
 ) {
-  lst_x <- slider(.x, .size = .size, .fill = .fill, .partial = .partial)
+  lst_x <- slider(
+    .x, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+  )
   out <- purrr::map(lst_x, .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
@@ -127,7 +130,9 @@ slide_dfc <- function(
 slide2 <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
 ) {
-  lst <- pslider(.x, .y, .size = .size, .fill = .fill, .partial = .partial)
+  lst <- pslider(
+    .x, .y, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+  )
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
@@ -178,7 +183,9 @@ pslide <- function(
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  lst <- pslider(!!! .l, .size = .size, .fill = .fill, .partial = .partial)
+  lst <- pslider(
+    !!! .l, .size = .size, .fill = .fill, .partial = .partial, .align = .align
+  )
   out <- purrr::pmap(lst, .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
@@ -244,7 +251,7 @@ pslide_dfc <- function(
 #' @param x An objects to be split.
 #' @param ... Multiple objects to be split in parallel.
 #' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
-#' `.fill`).
+#' `.fill` and `.align`).
 #' @inheritParams slide
 #' @rdname slider
 #' @export
@@ -260,23 +267,31 @@ pslide_dfc <- function(
 #' pslider(list(x, y), list(y))
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
-slider <- function(.x, .size = 1, .fill = NA, .partial = FALSE) {
+slider <- function(
+  .x, .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   if (is.data.frame(.x)) .x <- as.list(.x)
-  slider_base(.x, .size, .fill = .fill, .partial)
+  slider_base(.x, .size, .fill = .fill, .partial, .align)
 }
 
 #' @rdname slider
 #' @export
-pslider <- function(..., .size = 1, .fill = NA, .partial = FALSE) { # parallel sliding
+pslider <- function(
+  ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) { # parallel sliding
   lst <- recycle(list2(...))
   df_lgl <- purrr::map_lgl(lst, is.data.frame)
   if (any(df_lgl)) {
     lst[df_lgl] <- purrr::map(lst[df_lgl], as.list)
   }
-  purrr::map(lst, function(x) slider_base(x, .size, .fill = .fill, .partial))
+  purrr::map(lst, 
+    function(x) slider_base(x, .size, .fill = .fill, .partial, .align)
+  )
 }
 
-slider_base <- function(x, .size = 1, .fill = NA, .partial = FALSE) {
+slider_base <- function(
+  x, .size = 1, .fill = NA, .partial = FALSE, .align = "right"
+) {
   bad_window_function(.size)
   len_x <- NROW(x)
   abs_size <- abs(.size)
@@ -292,7 +307,8 @@ slider_base <- function(x, .size = 1, .fill = NA, .partial = FALSE) {
     if (sign < 0) lst_idx <- rev(lst_idx)
     return(purrr::map(lst_idx, function(idx) {
       idx <- idx:(idx + sign * (abs_size - 1))
-      c(rep(.fill, sum(idx <= 0 | idx > len_x)), x[idx[idx > 0 & idx <= len_x]])
+      size <- sum(idx <= 0 | idx > len_x) + 1
+      pad_slide(x[idx[idx > 0 & idx <= len_x]], .size = size, .align)
     }))
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
@@ -331,15 +347,24 @@ recycle <- function(x) {
 
 pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
   align <- match.arg(.align, c("right", "c", "center", "centre", "left"))
+    # c("right", "c", "center", "centre", "left",
+    #   "cr", "center-right", "centre-right", 
+    #   "cl", "center-left", "centre-left"
+    # )
+  # )
+  # check_valid_window(.size, align)
   if (is_null(.fill)) return(x) 
   fill_size <- abs(.size) - 1
   if (align == "right") {
-    return(c(rep_len(.fill, fill_size), x))
-  } else if (align %in% c("c", "center", "centre")) {
+    return(c(rep(.fill, fill_size), x))
+  } else if (align %in% c("c", "center", "centre")) { # c("c", "center", "centre", "cl", "center-left", "centre-left")
     lsize <- floor(fill_size / 2)
-    return(c(rep_len(.fill, lsize), x, rep_len(.fill, fill_size - lsize)))
+    return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
+  # } else if (align %in% c("cr", "center-right", "centre-right")) {
+  #   lsize <- ceiling(fill_size / 2)
+  #   return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
   } else {
-    return(c(x, rep_len(.fill, fill_size)))
+    return(c(x, rep(.fill, fill_size)))
   }
 }
 
@@ -354,4 +379,13 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
   if (byrow) 
     return(dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id))
   dplyr::bind_cols(lst, !!! x[-seq_len(abs_size - 1)])
+}
+
+check_valid_window <- function(.size, .align) {
+  if (is_even(.size) && .align %in% c("c", "centre", "center")) {
+    abort(sprintf(
+      "Can't use `.algin = %s` for even window `.size`. Please use `.align = 'center-left'` or `.align = 'center-right'`.",
+      .align
+    ))
+  }
 }

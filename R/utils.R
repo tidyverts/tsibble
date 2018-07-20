@@ -77,3 +77,7 @@ unknown_interval <- function(x) {
   no_zeros <- !purrr::map_lgl(x, function(x) x == 0)
   if (sum(no_zeros) == 0) abort("Cannot deal with data of unknown interval.")
 }
+
+is_even <- function(x) {
+  (abs(x) %% 2) == 0
+}
