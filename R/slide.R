@@ -29,7 +29,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' @param .fill A value to fill at the left of the data range (`NA` by default).
 #' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
-#' @param .align Align at the "right", "centre"/"center", or "left".
+#' @param .align Align at the "**r**ight", "**c**entre"/"center", or "**l**eft".
 #'
 #' @rdname slide
 #' @export
@@ -330,12 +330,12 @@ recycle <- function(x) {
 }
 
 pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
-  align <- match.arg(.align, c("right", "center", "centre", "left"))
+  align <- match.arg(.align, c("right", "c", "center", "centre", "left"))
   if (is_null(.fill)) return(x) 
   fill_size <- abs(.size) - 1
   if (align == "right") {
     return(c(rep_len(.fill, fill_size), x))
-  } else if (align %in% c("center", "centre")) {
+  } else if (align %in% c("c", "center", "centre")) {
     lsize <- floor(fill_size / 2)
     return(c(rep_len(.fill, lsize), x, rep_len(.fill, fill_size - lsize)))
   } else {
