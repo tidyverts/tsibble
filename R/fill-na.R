@@ -234,15 +234,15 @@ seq_generator <- function(x) {
   tunit <- time_unit(x)
   res <- tryCatch(
     seq(min_x, max_x, tunit),
-    error = function(e) NA
+    error = function(e) NULL
   )
-  if (!anyNA(res)) return(res)
+  if (!is_null(res)) return(res)
   # no seq.* available
   tryCatch(
     min_x + seq.int(0, as.double(max_x - min_x), tunit),
     error = function(e) {
       e$call <- NULL
-      e$message <- sprintf("Neither `+` nor `seq` are defined for class `%s`.", class(x))
+      e$message <- sprintf("Neither `+` nor `seq` are defined for class `%s`", class(x))
       stop(e)
     }
   )

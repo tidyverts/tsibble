@@ -42,7 +42,15 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df, index = time)
 
 test_that("POSIXct with 10 milliseconds interval", {
-  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[10MILLI\\]")
+  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[10ms\\]")
+})
+
+x <- ISOdatetime(2011,8,2,0,0,0) + c(34201881660:34201881669)*1e-6
+df <- data.frame(time = x, value = rnorm(10))
+tsbl <- as_tsibble(df, index = time)
+
+test_that("POSIXct with 1 microseconds interval", {
+  expect_output(print(tsbl), cat("A tsibble: 10 x 2 [10\xC2\xB5s]"))
 })
 
 library(nanotime)
@@ -51,13 +59,13 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df)
 
 test_that("nanotime with 1 nanoseconds interval", {
-  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[1NANO\\]")
+  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[1ns\\]")
 })
 
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1SECOND\\]")
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1s\\]")
   expect_error(as_tsibble(dat_x, key = id(date_time)))
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "name")
@@ -65,8 +73,8 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(time_unit(tsbl$date_time), 1)
   expect_identical(format(key(tsbl)), list())
   expect_identical(format(groups(tsbl)), "NULL")
-  expect_identical(format(interval(tsbl)), "1SECOND")
-  expect_output(print(interval(tsbl)), "1SECOND")
+  expect_identical(format(interval(tsbl)), "1s")
+  expect_output(print(interval(tsbl)), "1s")
   expect_true(is_regular(tsbl))
   expect_equal(key_size(tsbl), 5)
   expect_equal(n_keys(tsbl), 1)
@@ -114,7 +122,7 @@ dat_x <- tibble(
 
 test_that("POSIXt with 2 minutes interval", {
   tsbl <- as_tsibble(dat_x)
-  expect_identical(format(interval(tsbl)), "2MINUTE")
+  expect_identical(format(interval(tsbl)), "2m")
   expect_identical(time_unit(tsbl$date_time), 120)
 })
 
@@ -129,7 +137,7 @@ dat_x <- tibble(
 
 test_that("POSIXt with 3 hours interval", {
   tsbl <- as_tsibble(dat_x)
-  expect_identical(format(interval(tsbl)), "3HOUR")
+  expect_identical(format(interval(tsbl)), "3h")
   expect_identical(time_unit(tsbl$date_time), 3 * 60 * 60)
 })
 
@@ -144,7 +152,7 @@ test_that("Date with 4 days interval", {
   expect_identical(index_valid(dat_x$date), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "4DAY")
+  expect_identical(format(interval(tsbl)), "4D")
   expect_identical(time_unit(tsbl$date), 4)
 })
 
@@ -154,9 +162,9 @@ dat_x <- tibble(yrwk = idx_week, value = rnorm(5))
 test_that("Year week with 1 week interval", {
   expect_identical(index_valid(dat_x$yrwk), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1WEEK\\]")
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1W\\]")
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "1WEEK")
+  expect_identical(format(interval(tsbl)), "1W")
   expect_identical(time_unit(tsbl$yrwk), 1)
 })
 
@@ -171,9 +179,9 @@ dat_x <- tibble(
 test_that("Year month with 1 month interval", {
   expect_identical(index_valid(dat_x$yrmth), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1MONTH\\]")
+  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1M\\]")
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "1MONTH")
+  expect_identical(format(interval(tsbl)), "1M")
   expect_identical(time_unit(tsbl$yrmth), 1)
 })
 
@@ -189,7 +197,7 @@ test_that("Year quarter with 1 quarter interval", {
   expect_identical(index_valid(dat_x$yrqtr), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "1QUARTER")
+  expect_identical(format(interval(tsbl)), "1Q")
   expect_identical(time_unit(tsbl$yrqtr), 1)
 })
 
@@ -204,7 +212,7 @@ test_that("Year with 10 years interval", {
   expect_error(as_tsibble(dat_x))
   tsbl <- as_tsibble(dat_x, index = year)
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "10YEAR")
+  expect_identical(format(interval(tsbl)), "10Y")
   expect_identical(time_unit(tsbl$year), 10)
 })
 
@@ -216,7 +224,7 @@ test_that("Difftime with 1 minute interval", {
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
-  expect_identical(format(interval(tsbl)), "1MINUTE")
+  expect_identical(format(interval(tsbl)), "1m")
 })
 
 context("as_tsibble() with a single key for data of long form")
@@ -231,7 +239,7 @@ dat_x <- tibble(
 test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date))
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
-  expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1DAY\\]")
+  expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
   expect_is(key(tsbl), "key")
   expect_identical(format(key(tsbl))[[1]], "group")
   expect_identical(format(groups(tsbl)), "NULL")

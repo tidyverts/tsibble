@@ -1,5 +1,7 @@
 # tsibble 0.4.0.9000
 
+This release introduced the changes to the "interval" class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). To support new time index class, only `index_valid()` and `pull_interval()` need to be defined now.
+
 ## New features
 
 * Added "nanotime" support for nanoseconds.
@@ -11,15 +13,15 @@
 
 * Speed improvement for internals when it's a known valid tsibble. (#43)
 
+## Internal changes
+
+* Replaced `NA` or `NULL` with `0` in the "interval" class to make the representation simpler.
+* The `interval` class has new slots of "millisecond", "microsecond", "nanosecond".
+* Retired `time_unit()` S3 generic, and made index extension a bit easier.
+
 ## Bug fixes
 
 * Fixed warning in `format.yearweek()`.
-
-## Internal changes
-
-* The `interval` class no longer has `NA`.
-* The `interval` class has new slots of "milli", "micro", "nano".
-* Retired `time_unit()` S3 generic, and made index extension a bit easier.
 
 # tsibble 0.4.0
 

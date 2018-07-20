@@ -164,9 +164,9 @@
 <span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Region"  "State"   "Purpose"</div><div class='input'><span class='co'># unkey() only works for a tsibble with 1 key size ----</span>
 <span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>)
-<span class='fu'>unkey</span>(<span class='no'>sx</span>)</div><div class='output co'>#&gt; # A tsibble: 17,539 x 5 [1HOUR]
+<span class='fu'>unkey</span>(<span class='no'>sx</span>)</div><div class='output co'>#&gt; # A tsibble: 17,539 x 5 [1h]
 #&gt;    Sensor                 Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  * &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746
 #&gt;  2 Southern Cross Station 2015-01-01 01:00:00 2015-01-01     1   312
 #&gt;  3 Southern Cross Station 2015-01-01 02:00:00 2015-01-01     2   180

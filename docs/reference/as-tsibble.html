@@ -230,9 +230,9 @@ daily.</p></td>
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>The `index` is `date`.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>The `index` is `date`.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date          value
-#&gt;    &lt;date&gt;        &lt;dbl&gt;
+#&gt;  * &lt;date&gt;        &lt;dbl&gt;
 #&gt;  1 2017-01-01 -1.40   
 #&gt;  2 2017-01-02  0.255  
 #&gt;  3 2017-01-03 -2.44   
@@ -243,9 +243,9 @@ daily.</p></td>
 #&gt;  8 2017-01-08 -0.247  
 #&gt;  9 2017-01-09 -0.244  
 #&gt; 10 2017-01-10 -0.283  </div><div class='input'><span class='co'># specify the index var</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date          value
-#&gt;    &lt;date&gt;        &lt;dbl&gt;
+#&gt;  * &lt;date&gt;        &lt;dbl&gt;
 #&gt;  1 2017-01-01 -1.40   
 #&gt;  2 2017-01-02  0.255  
 #&gt;  3 2017-01-03 -2.44   
@@ -263,10 +263,10 @@ daily.</p></td>
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The `index` is `mth`.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>The `index` is `mth`.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
 #&gt; # Key:       group [3]
 #&gt;         mth group   value
-#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
 #&gt;  1 2017 Jan x     -0.554 
 #&gt;  2 2017 Feb x      0.629 
 #&gt;  3 2017 Mar x      2.07  
@@ -277,10 +277,10 @@ daily.</p></td>
 #&gt;  8 2017 Aug x     -0.0526
 #&gt;  9 2017 Sep x      0.543 
 #&gt; 10 2017 Oct x     -0.914 
-#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1MONTH]
+#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
 #&gt; # Key:       group [3]
 #&gt;         mth group   value
-#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
 #&gt;  1 2017 Jan x     -0.554 
 #&gt;  2 2017 Feb x      0.629 
 #&gt;  3 2017 Mar x      2.07  
@@ -293,9 +293,9 @@ daily.</p></td>
 #&gt; 10 2017 Oct x     -0.914 
 #&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># coerce ts to tsibble</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1MONTH]
+<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1M]
 #&gt;       index value
-#&gt;       &lt;mth&gt; &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt; &lt;dbl&gt;
 #&gt;  1 1949 Jan   112
 #&gt;  2 1949 Feb   118
 #&gt;  3 1949 Mar   132
@@ -306,9 +306,9 @@ daily.</p></td>
 #&gt;  8 1949 Aug   148
 #&gt;  9 1949 Sep   136
 #&gt; 10 1949 Oct   119
-#&gt; # ... with 134 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; # A tsibble: 289 x 2 [1YEAR]
+#&gt; # ... with 134 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; # A tsibble: 289 x 2 [1Y]
 #&gt;    index value
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  * &lt;dbl&gt; &lt;dbl&gt;
 #&gt;  1  1700     5
 #&gt;  2  1701    11
 #&gt;  3  1702    16
@@ -319,9 +319,9 @@ daily.</p></td>
 #&gt;  8  1707    20
 #&gt;  9  1708    10
 #&gt; 10  1709     8
-#&gt; # ... with 279 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; # A tsibble: 3,177 x 2 [1MONTH]
+#&gt; # ... with 279 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; # A tsibble: 3,177 x 2 [1M]
 #&gt;       index value
-#&gt;       &lt;mth&gt; &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt; &lt;dbl&gt;
 #&gt;  1 1749 Jan  58  
 #&gt;  2 1749 Feb  62.6
 #&gt;  3 1749 Mar  70  
@@ -332,9 +332,9 @@ daily.</p></td>
 #&gt;  8 1749 Aug  66.3
 #&gt;  9 1749 Sep  75.9
 #&gt; 10 1749 Oct  75.5
-#&gt; # ... with 3,167 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; # A tsibble: 89 x 2 [1QUARTER]
+#&gt; # ... with 3,167 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; # A tsibble: 89 x 2 [1Q]
 #&gt;      index  value
-#&gt;      &lt;qtr&gt;  &lt;dbl&gt;
+#&gt;  *   &lt;qtr&gt;  &lt;dbl&gt;
 #&gt;  1 1971 Q2 13067.
 #&gt;  2 1971 Q3 13130.
 #&gt;  3 1971 Q4 13198.
@@ -348,10 +348,10 @@ daily.</p></td>
 #&gt; # ... with 79 more rows</div><div class='input'>
 <span class='co'># coerce mts to tsibble</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>ts</span>(<span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
-<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; # A tsibble: 300 x 3 [1MONTH]
+<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; # A tsibble: 300 x 3 [1M]
 #&gt; # Key:       key [3]
 #&gt;       index key        value
-#&gt;       &lt;mth&gt; &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt; &lt;chr&gt;      &lt;dbl&gt;
 #&gt;  1 1961 Jan Series 1  0.0700
 #&gt;  2 1961 Feb Series 1 -0.639 
 #&gt;  3 1961 Mar Series 1 -0.0500
@@ -362,9 +362,9 @@ daily.</p></td>
 #&gt;  8 1961 Aug Series 1  0.578 
 #&gt;  9 1961 Sep Series 1  0.118 
 #&gt; 10 1961 Oct Series 1 -1.91  
-#&gt; # ... with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1MONTH]
+#&gt; # ... with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1M]
 #&gt;       index `Series 1` `Series 2` `Series 3`
-#&gt;       &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  *    &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 #&gt;  1 1961 Jan     0.0700     -0.163   -0.903  
 #&gt;  2 1961 Feb    -0.639      -0.827    1.32   
 #&gt;  3 1961 Mar    -0.0500      1.88     1.10   
@@ -380,10 +380,10 @@ daily.</p></td>
 <span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"hts"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'>stop</span>(<span class='st'>"Please install the hts package to run these following examples."</span>)
 }
-<span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg1</a></span>)</div><div class='output co'>#&gt; # A tsibble: 50 x 4 [1YEAR]
+<span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg1</a></span>)</div><div class='output co'>#&gt; # A tsibble: 50 x 4 [1Y]
 #&gt; # Key:       `Level 2` | `Level 1` [5]
 #&gt;    index value `Level 2` `Level 1`
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+#&gt;  * &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
 #&gt;  1  1992  7.86 AA        A        
 #&gt;  2  1993  8.34 AA        A        
 #&gt;  3  1994  8.55 AA        A        
@@ -394,10 +394,10 @@ daily.</p></td>
 #&gt;  8  1999  8.93 AA        A        
 #&gt;  9  2000  9.13 AA        A        
 #&gt; 10  2001  9.15 AA        A        
-#&gt; # ... with 40 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; # A tsibble: 160 x 5 [1YEAR]
+#&gt; # ... with 40 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; # A tsibble: 160 x 5 [1Y]
 #&gt; # Key:       `Level 3` | `Level 2` | `Level 1` [10]
 #&gt;    index value `Level 3` `Level 2` `Level 1`
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
+#&gt;  * &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
 #&gt;  1  1992 -2.42 A10A      A10       A        
 #&gt;  2  1993 -2.20 A10A      A10       A        
 #&gt;  3  1994 -2.19 A10A      A10       A        

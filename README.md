@@ -50,7 +50,7 @@ weather <- nycflights13::weather %>%
   select(origin, time_hour, temp, humid, precip)
 weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
-#> # A tsibble: 26,115 x 5 [1HOUR]
+#> # A tsibble: 26,115 x 5 [1h]
 #> # Key:       origin [3]
 #>   origin time_hour            temp humid precip
 #> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
@@ -90,7 +90,7 @@ full_weather <- weather_tsbl %>%
   group_by(origin) %>% 
   tidyr::fill(temp, humid, .direction = "down")
 full_weather
-#> # A tsibble: 26,190 x 5 [1HOUR]
+#> # A tsibble: 26,190 x 5 [1h]
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
@@ -127,7 +127,7 @@ full_weather %>%
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
   )
-#> # A tsibble: 36 x 4 [1MONTH]
+#> # A tsibble: 36 x 4 [1M]
 #> # Key:       origin [3]
 #>   origin year_month avg_temp ttl_precip
 #> * <chr>       <mth>    <dbl>      <dbl>
@@ -164,7 +164,7 @@ temperatures for each group (*origin*).
 full_weather %>% 
   group_by(origin) %>% 
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
-#> # A tsibble: 26,190 x 6 [1HOUR]
+#> # A tsibble: 26,190 x 6 [1h]
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip temp_ma

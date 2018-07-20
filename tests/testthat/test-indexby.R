@@ -207,5 +207,5 @@ test_that("index_by() with pedestrian", {
   expect_identical(group_vars(ped_mut), "Date")
   ped_sum3 <- ped_mut %>%
     summarise(ttl_prop = sum(prop))
-  expect_equal(format(interval(ped_sum3)), "1DAY")
+  expect_equal(format(interval(ped_sum3)), "1D")
 })

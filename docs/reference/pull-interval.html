@@ -145,9 +145,7 @@ time units.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>pull_interval</span>(<span class='no'>x</span>)
-
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>pull_interval</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,8 +160,8 @@ time units.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>pull_interval()</code>: an "interval" class (a list) includes "year",
-"quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-other self-defined interval.</p>
+"quarter", "month", #' "week", "day", "hour", "minute", "second", "millisecond",
+"microsecond", "nanosecond", "unit".</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -173,9 +171,7 @@ support custom time index.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-10-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-10-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>pull_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; 3DAY</div><div class='input'><span class='co'># at two months interval ----</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='fu'>seq</span>(<span class='fl'>2016</span>, <span class='fl'>2018</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
-<span class='fu'>time_unit</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 6</div></pre>
+<span class='fu'>pull_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; 3D</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

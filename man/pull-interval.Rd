@@ -12,8 +12,8 @@ pull_interval(x)
 }
 \value{
 \code{pull_interval()}: an "interval" class (a list) includes "year",
-"quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-other self-defined interval.
+"quarter", "month", #' "week", "day", "hour", "minute", "second", "millisecond",
+"microsecond", "nanosecond", "unit".
 }
 \description{
 Assuming regularly spaced time, the \code{pull_interval()} returns a list of time

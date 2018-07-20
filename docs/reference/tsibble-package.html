@@ -233,9 +233,9 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>
 )
-<span class='no'>tsbl1</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1DAY]
+<span class='no'>tsbl1</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date          value
-#&gt;    &lt;date&gt;        &lt;dbl&gt;
+#&gt;  * &lt;date&gt;        &lt;dbl&gt;
 #&gt;  1 2017-01-01  1.78   
 #&gt;  2 2017-01-02  0.387  
 #&gt;  3 2017-01-03 -0.919  
@@ -253,10 +253,10 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>
 )
-<span class='no'>tsbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1QUARTER]
+<span class='no'>tsbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
 #&gt; # Key:       group [3]
 #&gt;        qtr group  value
-#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
+#&gt;  *   &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
 #&gt;  1 2010 Q1 x      1.02 
 #&gt;  2 2010 Q2 x     -0.264
 #&gt;  3 2010 Q3 x      1.66 

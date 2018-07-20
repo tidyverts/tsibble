@@ -225,12 +225,12 @@ names will be used if present.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>.x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>.y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
-<span class='no'>.z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
-<span class='no'>.lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>.z</span>)
-<span class='no'>.df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>.lst</span>)
-<span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
+<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>lst</span>)
+<span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 16
 #&gt; 
 #&gt; [[2]]
@@ -238,7 +238,7 @@ names will be used if present.</p></td>
 #&gt; 
 #&gt; [[3]]
 #&gt; [1] 15
-#&gt; </div><div class='input'><span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>.lst</span>, <span class='no'>.lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
@@ -250,7 +250,7 @@ names will be used if present.</p></td>
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>.df</span>, <span class='no'>.df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'><a href='tile.html'>tile2</a></span>(<span class='no'>df</span>, <span class='no'>df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
@@ -262,21 +262,21 @@ names will be used if present.</p></td>
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='no'>.lst</span>, <span class='no'>sum</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 19
+#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='no'>lst</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 18
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 22
+#&gt; [1] 21
 #&gt; 
 #&gt; [[3]]
-#&gt; [1] 25
+#&gt; [1] 24
 #&gt; 
 #&gt; [[4]]
-#&gt; [1] 28
+#&gt; [1] 27
 #&gt; 
 #&gt; [[5]]
-#&gt; [1] 31
-#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='fu'>list</span>(<span class='no'>.lst</span>, <span class='no'>.lst</span>), ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 30
+#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='fu'>list</span>(<span class='no'>lst</span>, <span class='no'>lst</span>), ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 

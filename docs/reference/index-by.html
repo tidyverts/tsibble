@@ -199,10 +199,10 @@ non-index variables.</p></li>
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>Count</span>)
   )
-<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1MONTH]
+<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1M]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Year_Month Max_Count Min_Count
-#&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  * &lt;chr&gt;               &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 #&gt;  1 Birrarung Marr   2015 Jan      5524         1
 #&gt;  2 Birrarung Marr   2015 Feb     10121         1
 #&gt;  3 Birrarung Marr   2015 Mar      9858         1
@@ -221,10 +221,10 @@ non-index variables.</p></li>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>Count</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 2,755 x 4 [1DAY]
+  )</div><div class='output co'>#&gt; # A tsibble: 2,755 x 4 [1D]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date       Max_Count Min_Count
-#&gt;    &lt;chr&gt;          &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  * &lt;chr&gt;          &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;
 #&gt;  1 Birrarung Marr 2015-01-01      1630        44
 #&gt;  2 Birrarung Marr 2015-01-02       352         1
 #&gt;  3 Birrarung Marr 2015-01-03       226         3
@@ -240,11 +240,11 @@ non-index variables.</p></li>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>Quarter</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,463 x 4 [1YEAR]
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,463 x 4 [1Y]
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;    Region   State            Year Total
-#&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  * &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
 #&gt;  1 Adelaide South Australia  1998 2226.
 #&gt;  2 Adelaide South Australia  1999 2218.
 #&gt;  3 Adelaide South Australia  2000 2418.

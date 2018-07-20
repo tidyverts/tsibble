@@ -125,7 +125,7 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="reference/id.html">id</a></span>(origin), <span class="dt">index =</span> time_hour)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">weather_tsbl</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,115 x 5 [1HOUR]</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,115 x 5 [1h]</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
@@ -147,7 +147,7 @@
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/fill">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,190 x 5 [1HOUR]</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,190 x 5 [1h]</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
@@ -171,7 +171,7 @@
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw">mean</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw">sum</span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1MONTH]</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1M]</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   origin year_month avg_temp ttl_precip</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; * &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
@@ -200,7 +200,7 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide_dbl</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,190 x 6 [1HOUR]</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,190 x 6 [1h]</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   origin time_hour            temp humid precip temp_ma</span></a>

@@ -171,11 +171,11 @@ dots</a> support.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>group_by_key</span>()</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1QUARTER]
+  <span class='fu'>group_by_key</span>()</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1Q]
 #&gt; # Key:       Region | State, Purpose [308]
 #&gt; # Groups:    Region, State, Purpose [308]
 #&gt;    Quarter Region   State           Purpose  Trips
-#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  *   &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
 #&gt;  1 1998 Q1 Adelaide South Australia Business  135.
 #&gt;  2 1998 Q2 Adelaide South Australia Business  110.
 #&gt;  3 1998 Q3 Adelaide South Australia Business  166.

@@ -33,8 +33,9 @@ reference:
     - index_by
     - fill_na
     - count_gaps
-    - find_duplicates
+    - group_by_key
     - split_by
+    - find_duplicates
 
 - title: Vector
   contents:
@@ -76,7 +77,6 @@ reference:
   contents:
     - index_valid
     - pull_interval
-    - time_unit
 
 - title: Coerce to other objects
   contents:

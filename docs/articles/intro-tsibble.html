@@ -122,10 +122,10 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(origin))</a></code></pre></div>
 <pre><code>#&gt; The `index` is `time_hour`.</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">weather_tsbl</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 26,115 x 5 [1HOUR]
+<pre><code>#&gt; # A tsibble: 26,115 x 5 [1h]
 #&gt; # Key:       origin [3]
 #&gt;   origin time_hour            temp humid precip
-#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
@@ -140,10 +140,10 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">temp_high =</span> <span class="kw">max</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">temp_low =</span> <span class="kw">min</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">  )</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 1,092 x 4 [1DAY]
+<pre><code>#&gt; # A tsibble: 1,092 x 4 [1D]
 #&gt; # Key:       origin [3]
 #&gt;   origin date       temp_high temp_low
-#&gt;   &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; * &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
 #&gt; 1 EWR    2013-01-01      41       28.0
 #&gt; 2 EWR    2013-01-02      34.0     24.1
 #&gt; 3 EWR    2013-01-03      34.0     26.1
@@ -156,7 +156,7 @@
 <a href="#nested-and-crossed-structures" class="anchor"></a>Nested and crossed structures</h2>
 <p>The key is not constrained to a single variable, but expressive of nested and crossed data structures <span class="citation">(Wilkinson <a href="#ref-wilkinson2006grammar">2005</a>)</span>. A built-in dataset <code>tourism</code> includes the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from <a href="https://www.tra.gov.au">Tourism Research Australia</a>. The key structure is imposed by <code>Region | State, Purpose</code>. The <code>Region</code> and <code>State</code> naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (<code>|</code>). The crossing of <code>Purpose</code> (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (<code>,</code>) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(tourism, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(Region <span class="op">|</span><span class="st"> </span>State, Purpose), <span class="dt">index =</span> Quarter)</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 23,408 x 5 [1QUARTER]
+<pre><code>#&gt; # A tsibble: 23,408 x 5 [1Q]
 #&gt; # Key:       Region | State, Purpose [308]
 #&gt;   Quarter Region   State           Purpose  Trips
 #&gt; *   &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
@@ -170,11 +170,11 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tourism <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Region, State) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">Geo_Trips =</span> <span class="kw">sum</span>(Trips))</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 5,852 x 4 [1QUARTER]
+<pre><code>#&gt; # A tsibble: 5,852 x 4 [1Q]
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;   Region   State           Quarter Geo_Trips
-#&gt;   &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
+#&gt; * &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
 #&gt; 1 Adelaide South Australia 1998 Q1      659.
 #&gt; 2 Adelaide South Australia 1998 Q2      450.
 #&gt; 3 Adelaide South Australia 1998 Q3      593.
@@ -203,7 +203,7 @@
 <pre><code>#&gt; # A tsibble: 336,776 x 21 [!]
 #&gt; # Key:       flight_num [5,725]
 #&gt;    year month   day dep_time sched_dep_time dep_delay arr_time
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+#&gt; * &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
 #&gt; 1  2013    11     3     1531           1540        -9     1653
 #&gt; 2  2013    11     4     1539           1540        -1     1712
 #&gt; 3  2013    11     5     1548           1540         8     1708

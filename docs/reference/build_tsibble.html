@@ -206,11 +206,11 @@ is, if an class of <code>interval</code> is supplied.</p></td>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
     <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='index-rd.html'>interval</a></span>(<span class='no'>.</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1HOUR]
+  )</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt; # Groups:    @ Date [731]
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567

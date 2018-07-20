@@ -61,7 +61,14 @@ format.interval <- function(x, digits = NULL, ...) {
   not_zero <- !purrr::map_lgl(x, function(x) x == 0)
   # if output contains all the zeros
   if (sum(not_zero) == 0) return("?")
+  x <- translate_interval(x)
   output <- x[not_zero]
-  vec_x <- rlang::flatten_dbl(output)
-  paste0(vec_x, toupper(names(output)), collapse = " ")
+  paste0(output, names(output), collapse = " ")
+}
+
+translate_interval <- function(x) {
+  set_names(
+    x, 
+    c("Y", "Q", "M", "W", "D", "h", "m", "s", "ms", "\xC2\xB5s", "ns", "")
+  )
 }

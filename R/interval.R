@@ -10,8 +10,8 @@
 #' @details The `pull_interval()` and `time_unit()` make a tsibble extensible to
 #' support custom time index.
 #' @return `pull_interval()`: an "interval" class (a list) includes "year", 
-#' "quarter", "month", #' "week", "day", "hour", "minute", "second", "unit", and
-#' other self-defined interval.
+#' "quarter", "month", #' "week", "day", "hour", "minute", "second", "millisecond",
+#' "microsecond", "nanosecond", "unit".
 #'
 #' @rdname pull-interval
 #' @export
@@ -29,16 +29,24 @@ pull_interval <- function(x) {
 #' @export
 # Assume date is regularly spaced
 pull_interval.POSIXt <- function(x) {
-  dttm <- as.numeric(x)
-  nhms <- gcd_interval(dttm) # num of seconds
-  if (nhms < 1e-5) return(init_interval(micro = ceiling(nhms * 1e+6))) # likely wrong
-  if (nhms < 0.01) return(init_interval(milli = ceiling(nhms * 1e+3)))
-  period <- split_period(nhms)
-  init_interval(
-    hour = period$hour, 
-    minute = period$minute, 
-    second = period$second
-  )
+  fmt6 <- substring(format(x[1], "%OS6"), first = 4)
+  dttm <- as.double(x)
+  if (fmt6 == "000000") { # second
+    nhms <- gcd_interval(dttm)
+    period <- split_period(nhms)
+    return(init_interval(
+      hour = period$hour, 
+      minute = period$minute, 
+      second = period$second
+    ))
+  } else if (substring(fmt6, 4) %in% c("000", "999")) { # millisecond
+    nhms <- ceiling(gcd_interval(dttm) * 1e+3)
+    return(init_interval(millisecond = nhms))
+  } else { # microsecond
+    dttm <- dttm * 1e+6
+    nhms <- gcd_interval(dttm)
+    return(init_interval(microsecond = nhms))
+  }
 }
 
 #' @export
@@ -49,7 +57,16 @@ pull_interval.nanotime <- function(x) {
 }
 
 #' @export
-pull_interval.difftime <- pull_interval.POSIXt
+pull_interval.difftime <- function(x) {
+  dttm <- as.double(x)
+  nhms <- gcd_interval(dttm)
+  period <- split_period(nhms)
+  init_interval(
+    hour = period$hour, 
+    minute = period$minute, 
+    second = period$second
+  )
+}
 
 #' @export
 pull_interval.hms <- pull_interval.difftime # for hms package
@@ -114,19 +131,21 @@ pull_interval.numeric <- function(x) {
 init_interval <- function(
   year = 0, quarter = 0, month = 0, week = 0, 
   day = 0, hour = 0, minute = 0, second = 0, 
-  milli = 0, micro = 0, nano = 0, unit = 0
+  millisecond = 0, microsecond = 0, nanosecond = 0, 
+  unit = 0
 ) {
   structure(list(
     year = year, quarter = quarter, month = month, week = week,
     day = day, hour = hour, minute = minute, second = second,
-    milli = milli, micro = micro, nano = nano, unit = unit
+    millisecond = millisecond, microsecond = microsecond, 
+    nanosecond = nanosecond, unit = unit
   ), class = "interval")
 }
 
 time_unit <- function(x) {
   if (has_length(x, 1)) return(0L)
   int <- pull_interval(x)
-  int$nano + int$micro / 1e+6 + int$milli / 1e+3 +
+  int$nanosecond + int$microsecond * 1e-6 + int$millisecond * 1e-3 +
   int$second + int$minute * 60 + int$hour * 3600 + 
   int$day + int$week + int$month + int$quarter + 
   int$year + int$unit
