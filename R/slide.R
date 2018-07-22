@@ -33,7 +33,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"
 #' is needed.
 #' @param .flatten If `.x` is a list or data frame, the input will be flattened
-#' to a list of data frames first and then apply `.f`.
+#' to row-binding data frames first and then apply `.f`.
 #'
 #' @rdname slide
 #' @export
@@ -302,7 +302,7 @@ slider <- function(
   sign <- sign(.size)
   is_df <- is.data.frame(.x)
   if (is_bare_list(.x) && .flatten) {
-    .x <- do.call(rbind, .x) # dplyr::bind_rows() doesn't protect attributes
+    .x <- bind_rows(.x[[1]], !!! .x[-1])
     is_df <- TRUE
   }
   if (.partial) {
@@ -325,7 +325,6 @@ slider <- function(
       function(idx) .x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
     ))
   purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
-
 }
 
 #' @rdname slider

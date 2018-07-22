@@ -583,6 +583,7 @@ build_tsibble_meta <- function(
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
   }
+  if (is_null(regular)) abort("`regular` must not be NULL.")
   key <- eval_tidy(enquo(key))
   index <- get_expr(enquo(index))
   index2 <- get_expr(enquo(index2))

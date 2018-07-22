@@ -56,7 +56,7 @@ to extract named attributes. If a component is not present, the value of
 \item{.size, .init}{An integer for moving and initial window size.}
 
 \item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to a list of data frames first and then apply \code{.f}.}
+to row-binding data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

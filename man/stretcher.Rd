@@ -18,7 +18,7 @@ to right; if negative, moving backward (from right to left).}
 \item{.init}{A positive integer for an initial window size.}
 
 \item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to a list of data frames first and then apply \code{.f}.}
+to row-binding data frames first and then apply \code{.f}.}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 }
