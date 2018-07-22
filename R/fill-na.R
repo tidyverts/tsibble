@@ -234,7 +234,8 @@ seq_generator <- function(x) {
   tunit <- time_unit(x)
   res <- tryCatch(
     seq(min_x, max_x, tunit),
-    error = function(e) NULL
+    error = function(e) NULL,
+    warning = function(w) NULL
   )
   if (!is_null(res)) return(res)
   # no seq.* available

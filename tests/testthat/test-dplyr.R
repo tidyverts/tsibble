@@ -44,13 +44,15 @@ test_that("ungroup()", {
 })
 
 test_that("arrange.tbl_ts()", {
- expect_warning(tsbl1 <- arrange(tourism, Quarter), "not sorted by")
- expect_equal(tsbl1, tourism)
- expect_false(is_ordered(tsbl1))
- expect_identical(key(tsbl1), key(tourism))
- expect_identical(groups(tsbl1), groups(tourism))
- tsbl2 <- arrange(tsbl1, Region, State, Purpose, Quarter)
- expect_identical(tsbl2, tourism)
+  expect_equal(arrange(tourism), tourism)
+  expect_equal(arrange(tourism %>% group_by(Purpose)), group_by(tourism, Purpose))
+  expect_warning(tsbl1 <- arrange(tourism, Quarter), "not sorted by")
+  expect_equal(tsbl1, tourism)
+  expect_false(is_ordered(tsbl1))
+  expect_identical(key(tsbl1), key(tourism))
+  expect_identical(groups(tsbl1), groups(tourism))
+  tsbl2 <- arrange(tsbl1, Region, State, Purpose, Quarter)
+  expect_identical(tsbl2, tourism)
 })
 
 idx_year <- seq.int(1970, 2010, by = 10)
@@ -206,7 +208,7 @@ test_that("summarise()", {
   expect_error(pedestrian %>% summarise(month = yearmonth(Date_Time)))
   tbl_ped <- pedestrian %>%
     group_by(Date) %>%
-    summarise(DailyCount = mean(Count), drop = TRUE)
+    summarise(DailyCount = mean(Count), .drop = TRUE)
   expect_is(tbl_ped, "tbl_df")
 })
 
@@ -220,6 +222,10 @@ tsbl <- tsibble(
 )
 
 test_that("transmute()", {
+  expect_equal(
+    ncol(tourism %>% transmute(Region = paste(Region, State), .drop = TRUE)),
+    1
+  )
   out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
   trans_tsbl <- tsbl %>% transmute(z = a / b)

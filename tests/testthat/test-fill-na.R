@@ -160,3 +160,11 @@ test_that("count_gaps.grouped_ts(.full = FALSE)", {
 test_that("Error in gaps()", {
   expect_error(gaps(x = 1:4, y = 1:3), "must not be greater than")
 })
+
+test_that("seq_generator()", {
+  x <- nanotime::nanotime("1970-01-01T00:00:00.000000001+00:00") + c(0:3, 5:9)
+  expect_length(seq_generator(x), 10)
+  y <- structure("x", class = "xxx")
+  pull_interval.xxx <- function(x) {init_interval(unit = 1)}
+  expect_error(seq_generator(y), "defined")
+})

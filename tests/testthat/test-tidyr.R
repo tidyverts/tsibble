@@ -89,4 +89,9 @@ test_that("dplyr verbs for lst_ts", {
   )
   expect_is(unnest(nest_t %>% mutate(data = 1)), "tbl_df")
   expect_is(nest_t %>% select(data2 = data), "lst_ts")
+  expect_is(nest_t %>% group_by(State), "grouped_df")
+  expect_equal(
+    nest_t %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value), 
+    as_tibble(nest_t) %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value)
+  )
 })
