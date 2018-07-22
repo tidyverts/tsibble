@@ -23,10 +23,10 @@ test_that("stretcher() & pstretcher()", {
     stretcher(df, .flatten = TRUE),
     list(df[1, , drop = FALSE], df[1:2, ], df[1:3, ], df[1:4, ], df)
   )
-  expect_equal(
-    stretcher(lst_cols$lst, .flatten = TRUE),
-    list(lst_cols$lst[[1]], do.call(rbind, lst_cols$lst[1:2]), do.call(rbind, lst_cols$lst[1:3]))
-  )
+  # expect_equal(
+  #   stretcher(lst_cols$lst, .flatten = TRUE),
+  #   list(lst_cols$lst[[1]], do.call(rbind, lst_cols$lst[1:2]), do.call(rbind, lst_cols$lst[1:3]))
+  # )
   expect_equal(
     pstretcher(lst, .size = 2),
     list(list(list(x = x), list(x = x, y = y, z = z)))

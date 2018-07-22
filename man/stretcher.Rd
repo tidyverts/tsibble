@@ -35,7 +35,6 @@ df <- as.data.frame(lst)
 stretcher(x, .size = 2)
 stretcher(lst, .size = 2)
 stretcher(df, .size = 2, .flatten = TRUE)
-pstretcher(lst, .size = 2)
 stretcher(df, .size = 2)
 pstretcher(df, df, .size = 2)
 }

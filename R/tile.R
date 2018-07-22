@@ -153,7 +153,6 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' 
 #' tiler(x, .size = 2)
 #' tiler(lst, .size = 2)
-#' tiler(df, .size = 2, .flatten = TRUE)
 #' ptiler(lst, .size = 2)
 #' ptiler(list(x, y), list(y))
 #' ptiler(df, .size = 2)
