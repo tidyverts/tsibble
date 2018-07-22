@@ -11,17 +11,17 @@
 \alias{ptile_dfc}
 \title{Tiling window calculation over multiple inputs simultaneously}
 \usage{
-tile2(.x, .y, .f, ..., .size = 1, .flatten = FALSE)
+tile2(.x, .y, .f, ..., .size = 1)
 
-tile2_dfr(.x, .y, .f, ..., .size = 1, .flatten = FALSE, .id = NULL)
+tile2_dfr(.x, .y, .f, ..., .size = 1, .id = NULL)
 
-tile2_dfc(.x, .y, .f, ..., .size = 1, .flatten = FALSE)
+tile2_dfc(.x, .y, .f, ..., .size = 1)
 
-ptile(.l, .f, ..., .size = 1, .flatten = FALSE)
+ptile(.l, .f, ..., .size = 1)
 
-ptile_dfr(.l, .f, ..., .size = 1, .flatten = FALSE, .id = NULL)
+ptile_dfr(.l, .f, ..., .size = 1, .id = NULL)
 
-ptile_dfc(.l, .f, ..., .size = 1, .flatten = FALSE)
+ptile_dfc(.l, .f, ..., .size = 1)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -53,9 +53,6 @@ to extract named attributes. If a component is not present, the value of
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
-
-\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to row-binding data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

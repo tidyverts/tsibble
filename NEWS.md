@@ -24,6 +24,7 @@ This release introduced the changes to the "interval" class to make tsibble bett
 
 * Fixed warning in `format.yearweek()`.
 * Fixed `group_by.lst_ts()` for dropping the grouping information.
+* Fixed `stretch2()` only applying `.f` to one input.
 
 ## Misc
 

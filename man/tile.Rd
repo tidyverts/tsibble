@@ -7,11 +7,11 @@
 \alias{tile_dfc}
 \title{Tiling window calculation}
 \usage{
-tile(.x, .f, ..., .size = 1, .flatten = FALSE)
+tile(.x, .f, ..., .size = 1)
 
-tile_dfr(.x, .f, ..., .size = 1, .flatten = FALSE, .id = NULL)
+tile_dfr(.x, .f, ..., .size = 1, .id = NULL)
 
-tile_dfc(.x, .f, ..., .size = 1, .flatten = FALSE)
+tile_dfc(.x, .f, ..., .size = 1)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -41,9 +41,6 @@ to extract named attributes. If a component is not present, the value of
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
-
-\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to row-binding data frames first and then apply \code{.f}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

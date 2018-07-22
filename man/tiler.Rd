@@ -5,7 +5,7 @@
 \alias{ptiler}
 \title{Splits the input to a list according to the tiling window size.}
 \usage{
-tiler(.x, .size = 1, .flatten = FALSE)
+tiler(.x, .size = 1)
 
 ptiler(..., .size = 1)
 }
@@ -14,9 +14,6 @@ ptiler(..., .size = 1)
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
-
-\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to a list of data frames.}
 
 \item{...}{Multiple objects to be split in parallel.}
 }

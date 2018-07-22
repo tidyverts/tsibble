@@ -110,7 +110,7 @@ for(type in c("lgl", "chr", "dbl", "int")){
 stretch2_dfr <- function(
   .x, .y, .f, ..., .size = 1, .init = 1, .flatten = FALSE, .id = NULL
 ) {
-  out <- stretch(
+  out <- stretch2(
     .x, .y, .f = .f, ..., .size = .size, .init = .init,
     .flatten = .flatten
   )
@@ -122,7 +122,7 @@ stretch2_dfr <- function(
 stretch2_dfc <- function(
   .x, .y, .f, ..., .size = 1, .init = 1, .flatten = FALSE
 ) {
-  out <- stretch(
+  out <- stretch2(
     .x, .y, .f = .f, ..., .size = .size, .init = .init,
     .flatten = .flatten
   )
@@ -152,16 +152,14 @@ for(type in c("lgl", "chr", "dbl", "int")){
 pstretch_dfr <- function(
   .l, .f, ..., .size = 1, .init = 1, .flatten = FALSE, .id = NULL
 ) {
-  lst <- stretcher(.l, .size = .size, .init = .init, .flatten = .flatten)
-  out <- purrr::pmap(lst, .f, ...)
+  out <- pstretch(.l, .f, ..., .size = .size, .init = .init, .flatten = .flatten)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
 pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE) {
-  lst <- stretcher(.l, .size = .size, .init = .init, .flatten = .flatten)
-  out <- purrr::pmap(lst, .f, ...)
+  out <- pstretch(.l, .f, ..., .size = .size, .init = .init, .flatten = .flatten)
   dplyr::bind_cols(!!! out)
 }
 
@@ -182,7 +180,6 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .flatten = FALSE) {
 #' stretcher(x, .size = 2)
 #' stretcher(lst, .size = 2)
 #' stretcher(df, .size = 2, .flatten = TRUE)
-#' pstretcher(lst, .size = 2)
 #' stretcher(df, .size = 2)
 #' pstretcher(df, df, .size = 2)
 stretcher <- function(.x, .size = 1, .init = 1, .flatten = FALSE) {
@@ -191,22 +188,23 @@ stretcher <- function(.x, .size = 1, .init = 1, .flatten = FALSE) {
     abort("`.init` must be a positive integer.")
   }
   .x <- df2lst(.x, .flatten)
+  len_x <- NROW(.x)
   abs_size <- abs(.size)
   counter <- incr(init = .init, size = abs_size)
   if (sign(.size) < 0) .x <- rev(.x)
-  ncall <- seq_len(ceiling((NROW(.x) - .init) / abs_size) - 1)
+  ncall <- seq_len(ceiling((len_x - .init) / abs_size) - 1)
   incr_lst <- c(
     list(seq_len(.init)),
     purrr::map(ncall, ~ seq_len(counter())),
-    list(seq_along(.x))
+    list(seq_len(len_x))
   )
   is_df <- is.data.frame(.x)
-  if (is_bare_list(.x) && .flatten) {
-    .x <- do.call(rbind, .x) # dplyr::bind_rows() doesn't protect attributes
-    is_df <- TRUE
-  }
   if (is_df) return(purrr::map(incr_lst, function(idx) .x[idx, , drop = FALSE]))
-  purrr::map(incr_lst, function(idx) .x[idx])
+  out <- purrr::map(incr_lst, function(idx) .x[idx])
+  if (is_bare_list(.x) && .flatten) { # a list of data frames
+    return(lapply(out, bind_rows))
+  }
+  out
 }
 
 
