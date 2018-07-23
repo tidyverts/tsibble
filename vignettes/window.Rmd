@@ -23,9 +23,9 @@ Time series come with a strict temporal order that dictate the type of operation
 * `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
 * `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
 
-In this vignette, I will walk you through the `slide()`-related functions, but the example snippets are also applicable to `tile()` and `stretch()`.
+These functions handle all sorts of objects and feature *purrr*-like interface. In this vignette, I will walk you through the `slide()` and its variants, but the example snippets are also applicable to `tile()` and `stretch()`.
 
-In spirit of `purrr::map()`, `slide()` accepts one input, `slide2()` two inputs, and `pslide()` multiple inputs, all of which always return lists for the sake of type stability. Other variants including `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors of the corresponding type, as well as `slide_dfr()` and `slide_dfc()` for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in a way we want, from fixed window size to calendar periods, and from moving average to model fitting.
+In spirit of `purrr::map()`, `slide()` accepts one input, `slide2()` two inputs, and `pslide()` multiple inputs, all of which always return lists for the sake of type stability. Other variants including `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors of the corresponding type, as well as `slide_dfr()` and `slide_dfc()` for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in all sorts of ways, from fixed window size to calendar periods, and from moving average to model fitting.
 
 The `pedestrian` dataset includes hourly pedestrian counts in the city of Melbourne, with `Sensor` as key and `Date_Time` as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using `fill_na()`, and `.full = TRUE` warrants the equal time length of each sensor. This prepares the data inputs in the expected order.
 
@@ -39,7 +39,7 @@ pedestrian_full
 
 ## Fixed window size
 
-Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. `slide()` returns an output of the same length as the input with `.fill = NA` (by default) and `.align = "center-left"` padded at both sides of the data range, so that the result fits into `mutate()` in harmony. `slide_dbl()` produces the numeric vector returned by `mean()`.
+Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. `slide()` returns an output the same length as the input with `.fill = NA` (by default) and `.align = "center-left"` padded at both sides of the data range, so that the result fits into `mutate()` in harmony. `slide_dbl()` produces the numeric vector returned by `mean()`.
 
 ```{r daily-mv}
 pedestrian_full %>% 
@@ -62,7 +62,7 @@ pedestrian_mth <- pedestrian_full %>%
 pedestrian_mth
 ```
 
-Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, a bundle of 3 subsets (`.size = 3`) needs to be binded first and then computed for average counts; alternatively, `.flatten = TRUE` does row binding internally for a data frame. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
+Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, `(1)` a bundle of 3 subsets (`.size = 3`) needs to be binded first and then computed for average counts; `(2)` alternatively, `.flatten = TRUE` takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
 
 ```{r monthly-mv}
 pedestrian_mth %>% 
@@ -71,7 +71,7 @@ pedestrian_mth %>%
   # mutate(Monthly_MA = slide_dbl(data, 
   #   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"
   # ))
-  # (2)
+  # (2) equivalent to (1)
   mutate(Monthly_MA = slide_dbl(data, 
     ~ mean(.$Count, na.rm = TRUE), .size = 3, .align = "center", .flatten = TRUE
   ))
@@ -93,6 +93,6 @@ pedestrian_full %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 
-## Summary
+## Other features 
 
-
+The `slide()` examples default to sliding over complete sets. In some cases, you may find partial sliding more appropriate, which can be enabled by `.partial = TRUE`. Additionally, as opposed to moving window forward by a positive `.size`, a negative one moves window backward.

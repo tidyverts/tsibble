@@ -26,6 +26,7 @@ This release introduced the changes to the "interval" class to make tsibble bett
 * Fixed `group_by.lst_ts()` for dropping the grouping information.
 * Fixed `stretch2()` only applying `.f` to one input.
 * Fixed NSE in `as_tsibble.grouped_df()` for groups. (#44)
+* Fixed bug in `.fill = NULL` for `slide()`.
 
 ## Misc
 
