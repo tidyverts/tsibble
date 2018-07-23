@@ -177,7 +177,7 @@ full_weather %>%
 #> # ... with 2.618e+04 more rows
 ```
 
-## Reexported functions from the tidyverse
+## Working with the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *tidyverse*
 verbs, but in a slightly different way that it does the best to keep the

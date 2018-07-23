@@ -104,7 +104,7 @@ full_weather %>%
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
-## Reexported functions from the tidyverse
+## Working with the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but in a slightly different way that it does the best to keep the index. Use `?tidyverse` for a full list of tidyverse functions.
 

@@ -152,13 +152,13 @@ arguments as <code>slide()</code>, but return vectors of the corresponding type.
     </div>
 
     <pre class="usage"><span class='fu'>slide</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>slide_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>slide_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</pre>
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,7 +206,14 @@ to right; if negative, moving backward (from right to left).</p></td>
     </tr>
     <tr>
       <th>.align</th>
-      <td><p>Align at the "right", "centre"/"center", or "left".</p></td>
+      <td><p>Align index at the "<strong>r</strong>ight", "<strong>c</strong>entre"/"center", or "<strong>l</strong>eft"
+of the window. If <code>.size</code> is even for center alignment, "centre-right" &amp; "centre-left"
+is needed.</p></td>
+    </tr>
+    <tr>
+      <th>.flatten</th>
+      <td><p>If <code>.x</code> is a list or data frame, the input will be flattened
+to row-binding data frames first and then apply <code>.f</code>.</p></td>
     </tr>
     <tr>
       <th>.id</th>

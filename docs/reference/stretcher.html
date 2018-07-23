@@ -141,16 +141,16 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>stretcher</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>stretcher</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>pstretcher</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>pstretcher</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.x</th>
-      <td><p>An object to slide over.</p></td>
+      <td><p>An objects to be splitted.</p></td>
     </tr>
     <tr>
       <th>.size</th>
@@ -162,12 +162,13 @@ to right; if negative, moving backward (from right to left).</p></td>
       <td><p>A positive integer for an initial window size.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Multiple objects to be splitted in parallel.</p></td>
+      <th>.flatten</th>
+      <td><p>If <code>.x</code> is a list or data frame, the input will be flattened
+to row-binding data frames first and then apply <code>.f</code>.</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>An objects to be splitted.</p></td>
+      <th>...</th>
+      <td><p>Multiple objects to be splitted in parallel.</p></td>
     </tr>
     </table>
     
@@ -202,23 +203,23 @@ to right; if negative, moving backward (from right to left).</p></td>
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>pstretcher</span>(<span class='no'>lst</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]][[1]]
-#&gt; [[1]][[1]]$x
-#&gt; [1] 1 2 3 4 5
+#&gt; </div><div class='input'><span class='fu'>stretcher</span>(<span class='no'>df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;   x y  z
+#&gt; 1 1 6 11
 #&gt; 
+#&gt; [[2]]
+#&gt;   x y  z
+#&gt; 1 1 6 11
+#&gt; 2 2 7 12
+#&gt; 3 3 8 13
 #&gt; 
-#&gt; [[1]][[2]]
-#&gt; [[1]][[2]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[1]][[2]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; [[1]][[2]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; 
+#&gt; [[3]]
+#&gt;   x  y  z
+#&gt; 1 1  6 11
+#&gt; 2 2  7 12
+#&gt; 3 3  8 13
+#&gt; 4 4  9 14
+#&gt; 5 5 10 15
 #&gt; </div><div class='input'><span class='fu'>stretcher</span>(<span class='no'>df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5

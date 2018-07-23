@@ -38,9 +38,13 @@
 
 <meta property="og:title" content="Construct a tsibble object — build_tsibble" />
 
-<meta property="og:description" content="A relatively more controllable function to create a tbl_ts object. It is useful
+<meta property="og:description" content="
+build_tsibble() creates a tbl_ts object with more control. It is useful
 for creating a tbl_ts internally inside a function, and it allows users to
-determine if the time needs ordering and the interval needs calculating." />
+determine if the time needs ordering and the interval needs calculating.
+build_tsibble_meta() assigns the attributes to an object, assuming this
+object is a valid tsibble.
+" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -139,14 +143,21 @@ determine if the time needs ordering and the interval needs calculating." />
 
     <div class="ref-description">
     
-    <p>A relatively more controllable function to create a <code>tbl_ts</code> object. It is useful
+    <ul>
+<li><p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more control. It is useful
 for creating a <code>tbl_ts</code> internally inside a function, and it allows users to
-determine if the time needs ordering and the interval needs calculating.</p>
+determine if the time needs ordering and the interval needs calculating.</p></li>
+<li><p><code>build_tsibble_meta()</code> assigns the attributes to an object, assuming this
+object is a valid tsibble.</p></li>
+</ul>
     
     </div>
 
     <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>build_tsibble_meta</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>index</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(),
+  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

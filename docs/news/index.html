@@ -136,7 +136,7 @@
 <h1 class="page-header">
 <a href="#tsibble-0-4-0-9000" class="anchor"></a>tsibble 0.4.0.9000<small> Unreleased </small>
 </h1>
-<p>This release introduced the changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
+<p>This release introduced the changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -144,8 +144,10 @@
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
 <li>
-<code>slide()</code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”.</li>
+<code>slide()</code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
 <li>Defined arithmetic operators (<code>+</code> &amp; <code>-</code>) for yearweek, yearmonth, and yearquarter.</li>
+<li>
+<code>slide()</code> and <code>stretch()</code> gained a new argument <code>.flatten = FALSE</code>. If <code>.x</code> is a list or data frame, the input will be flattened to a list of data frames first.</li>
 </ul>
 </div>
 <div id="improvements" class="section level2">
@@ -169,6 +171,18 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed warning in <code>format.yearweek()</code>.</li>
+<li>Fixed <code>group_by.lst_ts()</code> for dropping the grouping information.</li>
+<li>Fixed <code><a href="../reference/stretch.html">stretch2()</a></code> only applying <code>.f</code> to one input.</li>
+<li>Fixed NSE in <code>as_tsibble.grouped_df()</code> for groups. (#44)</li>
+<li>Fixed bug in <code>.fill = NULL</code> for <code>slide()</code>.</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h2>
+<ul>
+<li>Moved package “timeDate” from Imports to Suggests.</li>
+<li>Added “anytime” to Imports for better parsing characters.</li>
 </ul>
 </div>
 </div>
@@ -238,9 +252,9 @@
 <li>If a column passed as <code>index</code> contains <code>NA</code>, abort.</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h2>
+<a href="#misc-1" class="anchor"></a>Misc</h2>
 <ul>
 <li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li>
 </ul>

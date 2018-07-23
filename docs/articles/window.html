@@ -91,7 +91,7 @@
       <h1>A family of window functions</h1>
                         <h4 class="author">Earo Wang</h4>
             
-            <h4 class="date">2018-07-20</h4>
+            <h4 class="date">2018-07-23</h4>
       
       
       <div class="hidden name"><code>window.Rmd</code></div>
@@ -100,7 +100,7 @@
 
     
     
-<p>Time series comes with strict temporal order. We typically reply our operations or analysis on this preserved order, for example computing moving averages over time. Adapting from <code>purrr</code>-like interface, the tsibble package provides three verbs to allow for different variations of moving windows:</p>
+<p>Time series come with a strict temporal order that dictate the type of operations that can be done. An example of operation is the moving average, where a window slides over the time order and averages of the response are computed on the temporal subset. The tsibble package provides three moving window operations, called verbs that operate on temporal data objects (nouns):</p>
 <ul>
 <li>
 <code>slide()</code>/<code><a href="../reference/slide.html">slide2()</a></code>/<code>pslide()</code>: sliding window with overlapping observations.</li>
@@ -109,9 +109,9 @@
 <li>
 <code>stretch()</code>/<code><a href="../reference/stretch.html">stretch2()</a></code>/<code>pstretch()</code>: fixing an initial window and expanding to include more observations.</li>
 </ul>
-<p>In this vignette, I will walk you through the <code>slide()</code>-related functions, but the example snippets are also applicable to <code>tile()</code> and <code>stretch()</code>.</p>
-<p>In spirit of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, <code>slide()</code> accepts one input, <code><a href="../reference/slide.html">slide2()</a></code> two inputs, and <code>pslide()</code> multiple inputs, all of which always return lists for the sake of type stability. Other variants including <code><a href="../reference/slide.html">slide_lgl()</a></code>, <code><a href="../reference/slide.html">slide_int()</a></code>, <code><a href="../reference/slide.html">slide_dbl()</a></code>, <code><a href="../reference/slide.html">slide_chr()</a></code> return vectors of the corresponding type, as well as <code><a href="../reference/slide.html">slide_dfr()</a></code> and <code><a href="../reference/slide.html">slide_dfc()</a></code> for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in a way we want, from fixed window size to calendar periods, and from moving average to model fitting.</p>
-<p>The <code>pedestrian</code> dataset includes hourly pedestrian counts in the city of Melbourne, with <code>Sensor</code> as key and <code>Date_Time</code> as index. These windowed functions are index-based rolling for tackling general problems, rather than time-based. Implicit missing values are thereby made explicit using <code><a href="../reference/fill-na.html">fill_na()</a></code>, and <code>.full = TRUE</code> warrants the equal time length of each sensor. This prepares the data inputs in the expected order.</p>
+<p>These functions handle all sorts of objects and feature <em>purrr</em>-like interface. In this vignette, I will walk you through the <code>slide()</code> and its variants, but the example snippets are also applicable to <code>tile()</code> and <code>stretch()</code>.</p>
+<p>In spirit of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, <code>slide()</code> accepts one input, <code><a href="../reference/slide.html">slide2()</a></code> two inputs, and <code>pslide()</code> multiple inputs, all of which always return lists for the sake of type stability. Other variants including <code><a href="../reference/slide.html">slide_lgl()</a></code>, <code><a href="../reference/slide.html">slide_int()</a></code>, <code><a href="../reference/slide.html">slide_dbl()</a></code>, <code><a href="../reference/slide.html">slide_chr()</a></code> return vectors of the corresponding type, as well as <code><a href="../reference/slide.html">slide_dfr()</a></code> and <code><a href="../reference/slide.html">slide_dfc()</a></code> for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in all sorts of ways, from fixed window size to calendar periods, and from moving average to model fitting.</p>
+<p>The <code>pedestrian</code> dataset includes hourly pedestrian counts in the city of Melbourne, with <code>Sensor</code> as key and <code>Date_Time</code> as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using <code><a href="../reference/fill-na.html">fill_na()</a></code>, and <code>.full = TRUE</code> warrants the equal time length of each sensor. This prepares the data inputs in the expected order.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tsibble)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">pedestrian_full &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -130,11 +130,11 @@
 <div id="fixed-window-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed-window-size" class="anchor"></a>Fixed window size</h2>
-<p>Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. <code>slide()</code> returns an output of the same length as the input with <code>.fill = NA</code> (by default) and <code>.align = "center"</code> padded at both sides of the data range, so that the result fits into <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in harmony. <code><a href="../reference/slide.html">slide_dbl()</a></code> produces the numeric vector returned by <code>mean()</code>.</p>
+<p>Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. <code>slide()</code> returns an output the same length as the input with <code>.fill = NA</code> (by default) and <code>.align = "center-left"</code> padded at both sides of the data range, so that the result fits into <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in harmony. <code><a href="../reference/slide.html">slide_dbl()</a></code> produces the numeric vector returned by <code>mean()</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center"</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center-left"</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">  ))</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h]</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
@@ -147,7 +147,7 @@
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264       NA</span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139       NA</span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # ... with 7.017e+04 more rows</span></a></code></pre></div>
-<p>To make this even-order moving average symmetric, a second moving average with <code>.size = 2</code> can be applied to <code>Daily_MA</code>.</p>
+<p>To make this even-order moving average symmetric, a second moving average with <code>.size = 2</code> should be applied to <code>Daily_MA</code>.</p>
 </div>
 <div id="flexible-calendar-period" class="section level2">
 <h2 class="hasAnchor">
@@ -166,21 +166,27 @@
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
-<p>Now it’s ready to (rock and) roll. When setting <code>.size = 1</code> in <code>slide()</code>, it behaves exactly the same as <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, mapping over each element in the object. However, a bundle of 3 subsets (<code>.size = 3</code>) needs to be binded and then computed for average counts. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.</p>
+<p>Now it’s ready to (rock and) roll. When setting <code>.size = 1</code> in <code>slide()</code>, it behaves exactly the same as <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, mapping over each element in the object. However, <code>(1)</code> a bundle of 3 subsets (<code>.size = 3</code>) needs to be binded first and then computed for average counts; <code>(2)</code> alternatively, <code>.flatten = TRUE</code> takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pedestrian_mth <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(.)<span class="op">$</span>Count, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>, <span class="dt">.align =</span> <span class="st">"center"</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  ))</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tibble: 96 x 4</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;   Sensor            YrMth data                Monthly_MA</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; * &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;                   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;        NA </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;       634.</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;       546.</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;       554.</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;       397.</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="co"># (1)</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="co"># mutate(Monthly_MA = slide_dbl(data, </span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="co">#   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="co"># ))</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="co"># (2) equivalent to (1)</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.<span class="op">$</span>Count, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>, <span class="dt">.align =</span> <span class="st">"center"</span>, <span class="dt">.flatten =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">  ))</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; # A tibble: 96 x 4</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; # Groups:   Sensor [4]</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;   Sensor            YrMth data                Monthly_MA</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; * &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;                   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;        NA </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;      1008.</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;       552.</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;       323.</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;       160 </span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
 </div>
 <div id="row-oriented-workflow" class="section level2">
 <h2 class="hasAnchor">
@@ -203,6 +209,11 @@
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4… &lt;tibble [334,825 × 2…</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4… &lt;tibble [334,825 × 2…</span></a></code></pre></div>
 </div>
+<div id="other-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-features" class="anchor"></a>Other features</h2>
+<p>The <code>slide()</code> examples default to sliding over complete sets. In some cases, you may find partial sliding more appropriate, which can be enabled by <code>.partial = TRUE</code>. Additionally, as opposed to moving window forward by a positive <code>.size</code>, a negative one moves window backward.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -213,6 +224,7 @@
 <li><a href="#fixed-window-size">Fixed window size</a></li>
       <li><a href="#flexible-calendar-period">Flexible calendar period</a></li>
       <li><a href="#row-oriented-workflow">Row-oriented workflow</a></li>
+      <li><a href="#other-features">Other features</a></li>
       </ul>
 </div>
       </div>

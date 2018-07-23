@@ -141,9 +141,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>slider</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>slider</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>pslider</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>pslider</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +167,18 @@ to right; if negative, moving backward (from right to left).</p></td>
     <tr>
       <th>.partial</th>
       <td><p>if <code>TRUE</code>, split to partial set (<code>FALSE</code> ignores specified
-<code>.fill</code>).</p></td>
+<code>.fill</code> and <code>.align</code>).</p></td>
+    </tr>
+    <tr>
+      <th>.align</th>
+      <td><p>Align index at the "<strong>r</strong>ight", "<strong>c</strong>entre"/"center", or "<strong>l</strong>eft"
+of the window. If <code>.size</code> is even for center alignment, "centre-right" &amp; "centre-left"
+is needed.</p></td>
+    </tr>
+    <tr>
+      <th>.flatten</th>
+      <td><p>If <code>.x</code> is a list or data frame, the input will be flattened
+to a list of data frames.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -211,6 +224,25 @@ to right; if negative, moving backward (from right to left).</p></td>
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
+#&gt; </div><div class='input'><span class='fu'>slider</span>(<span class='no'>df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;   x y  z
+#&gt; 1 1 6 11
+#&gt; 2 2 7 12
+#&gt; 
+#&gt; [[2]]
+#&gt;   x y  z
+#&gt; 2 2 7 12
+#&gt; 3 3 8 13
+#&gt; 
+#&gt; [[3]]
+#&gt;   x y  z
+#&gt; 3 3 8 13
+#&gt; 4 4 9 14
+#&gt; 
+#&gt; [[4]]
+#&gt;   x  y  z
+#&gt; 4 4  9 14
+#&gt; 5 5 10 15
 #&gt; </div><div class='input'><span class='fu'>pslider</span>(<span class='fu'>list</span>(<span class='no'>x</span>, <span class='no'>y</span>), <span class='fu'>list</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]][[1]]
 #&gt; [[1]][[1]][[1]]

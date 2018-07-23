@@ -41,7 +41,7 @@
 <meta property="og:description" content="
 The tsibble package provides a data class of tbl_ts to store and manage
 temporal data frames in a &quot;tidy&quot; form. A tsibble consists of a time index,
-key(s) and other measured variables in a data-centric format, which is built on
+key, and other measured variables in a data-centric format, which is built on
 top of the tibble." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
@@ -144,7 +144,7 @@ top of the tibble." />
     <p><img src='figures/logo.png' align='right' />
 The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage
 temporal data frames in a "tidy" form. A tsibble consists of a time index,
-key(s) and other measured variables in a data-centric format, which is built on
+key, and other measured variables in a data-centric format, which is built on
 top of the tibble.</p>
     
     </div>
@@ -153,12 +153,13 @@ top of the tibble.</p>
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
     
-    <p>The time indices are no longer an attribute (for example, the <code>tsp</code> attribute
-in a <code>ts</code> object), but preserved as the essential component of the tsibble. A
+    <p>The time indices are no longer an implicit attribute (for example, the <code>tsp</code> attribute
+in a <code>ts</code> object), but preserved as the essential data component of the tsibble. A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
 the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
-representing year-week, year-month, and year-quarter respectively. <code>zoo::yearmth</code>
-and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code> are also supported. For a <code>tbl_ts</code> of regular interval,
+representing year-week, year-month, and year-quarter respectively. Any arbitrary
+index class are also supported, including <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>.
+For a <code>tbl_ts</code> of regular interval,
 a choice of index representation has to be made. For example, a monthly data
 should correspond to time index created by <a href='period.html'>yearmonth</a> or <code>zoo::yearmth</code>,
 instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year ensures the regularity,
@@ -172,7 +173,7 @@ vector or a list, a <code>tbl_ts</code> doesn't accept <code>POSIXlt</code> and 
 
     
     <p>Key variable(s) together with the index uniquely identifies each record. And
-key(s) also imposes the structure on a tsibble, which can be created via the
+the key also imposes the structure on a tsibble, which can be created via the
 <a href='id.html'>id</a> function as identifiers:</p><ul>
 <li><p>None: an implicit variable <code><a href='id.html'>id()</a></code> resulting a univariate time series.</p></li>
 <li><p>A single variable: an explicit variable. For example, <code>data(pedestrian)</code>
@@ -189,15 +190,16 @@ in the <code>data(tourism)</code>. A comma (<code>,</code>) is used to indicate 
 relationship. Nested and crossed variables can be combined, such as
 <code>data(tourism)</code> using <code><a href='id.html'>id(Region | State, Purpose)</a></code>.</p></li>
 </ul>
-    <p>These key variables describe the data structure.</p>
+    <p>These key variables describe the data structure, which will prove useful in
+data visualisation and statistical modelling.</p>
     
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
 
     
     <p>The <a href='index-rd.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
-<li><p>Regular: the value and its time unit including "second", "minute",
-"hour", "day", "week", "month", "quarter", "year". An unrecognisable time
-interval is labelled as "unit".</p></li>
+<li><p>Regular: the value and its time unit including "nanosecond", "microsecond",
+"millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
+"year". An unrecognisable time interval is labelled as "unit".</p></li>
 <li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
 marked with <code>!</code>.</p></li>
 <li><p>Unknown: if there is only one entry for each key variable, the interval
@@ -209,7 +211,8 @@ cannot be determined (<code>?</code>).</p></li>
 <li><p><code>yearmonth</code>/<code>yearmth</code>: "month"</p></li>
 <li><p><code>yearweek</code>: "week"</p></li>
 <li><p><code>Date</code>: "day"</p></li>
-<li><p><code>POSIXct</code> &amp; <code>nanotime</code>: "hour", "minute", "second"</p></li>
+<li><p><code>POSIXct</code>: "hour", "minute", "second", "millisecond", "microsecond"</p></li>
+<li><p><code>nanotime</code>: "nanosecond"</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="print-options"><a class="anchor" href="#print-options"></a>Print options</h2>
