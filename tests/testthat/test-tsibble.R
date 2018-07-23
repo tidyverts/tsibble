@@ -343,11 +343,20 @@ test_that("Spectial characters in column names", {
   expect_identical(key_vars(tsbl)[[3]], "Group 2")
 })
 
+tbl <- tibble::tibble(
+    mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
+    group = rep(c("x", "y", "z"), each = 10),
+    value = rnorm(30)
+  ) %>%
+  group_by(group)
+
 test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
   ped <- as_tsibble(pedestrian)
   expect_identical(ped, pedestrian)
   grped_ped <- pedestrian %>% group_by(Date)
   expect_equal(as_tsibble(grped_ped), grped_ped)
+  expect_is(as_tsibble(tbl, key = id(group), index = mth), "tbl_ts")
+  expect_is(as_tsibble(tbl, key = id(group), index = mth, groups = id(group)), "grouped_ts")
 })
 
 test_that("build_tsibble()", {

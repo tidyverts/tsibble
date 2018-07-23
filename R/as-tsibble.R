@@ -130,7 +130,7 @@ as_tsibble.grouped_df <- function(
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = !! enquo(key), index = !! index, groups = !! enquo(groups), 
+    x, key = !! enquo(key), index = !! index, groups = groups, 
     regular = regular, validate = validate
   )
 }
