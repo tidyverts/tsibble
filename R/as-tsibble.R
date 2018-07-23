@@ -319,9 +319,11 @@ as.tsibble <- function(x, ...) {
 
 #' Construct a tsibble object
 #'
-#' A relatively more controllable function to create a `tbl_ts` object. It is useful
-#' for creating a `tbl_ts` internally inside a function, and it allows users to
+#' * `build_tsibble()` creates a `tbl_ts` object with more control. It is useful 
+#' for creating a `tbl_ts` internally inside a function, and it allows users to 
 #' determine if the time needs ordering and the interval needs calculating.
+#' * `build_tsibble_meta()` assigns the attributes to an object, assuming this
+#' object is a valid tsibble.
 #'
 #' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
 #' @inheritParams as_tsibble
@@ -334,6 +336,7 @@ as.tsibble <- function(x, ...) {
 #' @param interval `NULL` computes the interval. Use the specified interval as
 #' is, if an class of `interval` is supplied.
 #'
+#' @rdname build_tsibble
 #' @export
 #' @examples
 #' # Prepare `pedestrian` to use a new index `Date` ----
@@ -381,6 +384,83 @@ build_tsibble <- function(
   build_tsibble_meta(
     tbl, key = key_vars, index = !! index, index2 = !! index2, groups = groups,
     regular = regular, ordered = ordered, interval = interval
+  )
+}
+
+#' @rdname build_tsibble
+#' @export
+build_tsibble_meta <- function(
+  x, key, index, index2 = index, groups = id(), regular = TRUE,
+  ordered = NULL, interval = NULL
+) {
+  if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
+    abort("A tsibble must not be empty.")
+  }
+  if (is_null(regular)) abort("`regular` must not be NULL.")
+  key <- eval_tidy(enquo(key))
+  index <- get_expr(enquo(index))
+  index2 <- get_expr(enquo(index2))
+  tbl <- ungroup(as_tibble(x, validate = FALSE))
+  if (is_false(regular)) {
+    interval <- list()
+  } else if (regular && is.null(interval)) {
+    eval_idx <- eval_tidy(index, data = tbl)
+    interval <- pull_interval(eval_idx)
+  } else if (is_false(inherits(interval, "interval"))) {
+    int_cls <- class(interval)[1]
+    abort(sprintf("`interval` must be the `interval` class not %s.", int_cls))
+  }
+
+  # arrange in time order (by key and index)
+  if (is.null(ordered)) { # first time to create a tsibble
+    tbl <- tbl %>%
+      arrange(!!! syms(key_flatten(key)), !! index)
+    ordered <- TRUE
+  } else if (is_false(ordered)) { # false returns a warning
+    if (is_empty(key)) {
+      msg <- sprintf("The `tbl_ts` is not sorted by `%s`.", expr_text(index))
+    } else {
+      msg <- sprintf(
+        "The `tbl_ts` is not sorted by `%s`, and `%s`.",
+        paste_comma(format(key)), expr_text(index)
+      )
+    }
+    warn(msg)
+  } # true do nothing
+
+  idx_lgl <- identical(index, index2)
+  cls <- c("tbl_ts", "tbl_df", "tbl", "data.frame")
+  if (is_empty(groups) && idx_lgl) {
+    return(structure(
+      tbl,
+      "key" = structure(key, class = "key"),
+      # "key_indices" = attr(grped_key, "indices"),
+      "index" = index,
+      "index2" = index2,
+      "interval" = structure(interval, class = "interval"),
+      "regular" = regular,
+      "ordered" = ordered,
+      class = cls
+    ))
+  }
+
+  # convert grouped_df to tsibble:
+  # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
+  if (idx_lgl) {
+    grped_df <- tbl %>% group_by(!!! groups)
+  } else {
+    grped_df <- tbl %>% group_by(!!! groups, !! index2)
+  }
+  structure(
+    grped_df,
+    "key" = structure(key, class = "key"),
+    # "key_indices" = attr(grped_key, "indices"),
+    "index" = index,
+    "index2" = index2,
+    "interval" = structure(interval, class = "interval"),
+    "regular" = regular,
+    "ordered" = ordered,
+    class = c("grouped_ts", cls)
   )
 }
 
@@ -574,79 +654,4 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   # identifiers <- c(key_flatten(key), quo_text(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
-}
-
-build_tsibble_meta <- function(
-  x, key, index, index2 = index, groups = id(), regular = TRUE,
-  ordered = NULL, interval = NULL
-) {
-  if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
-    abort("A tsibble must not be empty.")
-  }
-  if (is_null(regular)) abort("`regular` must not be NULL.")
-  key <- eval_tidy(enquo(key))
-  index <- get_expr(enquo(index))
-  index2 <- get_expr(enquo(index2))
-  tbl <- ungroup(as_tibble(x, validate = FALSE))
-  if (is_false(regular)) {
-    interval <- list()
-  } else if (regular && is.null(interval)) {
-    eval_idx <- eval_tidy(index, data = tbl)
-    interval <- pull_interval(eval_idx)
-  } else if (is_false(inherits(interval, "interval"))) {
-    int_cls <- class(interval)[1]
-    abort(sprintf("`interval` must be the `interval` class not %s.", int_cls))
-  }
-
-  # arrange in time order (by key and index)
-  if (is.null(ordered)) { # first time to create a tsibble
-    tbl <- tbl %>%
-      arrange(!!! syms(key_flatten(key)), !! index)
-    ordered <- TRUE
-  } else if (is_false(ordered)) { # false returns a warning
-    if (is_empty(key)) {
-      msg <- sprintf("The `tbl_ts` is not sorted by `%s`.", expr_text(index))
-    } else {
-      msg <- sprintf(
-        "The `tbl_ts` is not sorted by `%s`, and `%s`.",
-        paste_comma(format(key)), expr_text(index)
-      )
-    }
-    warn(msg)
-  } # true do nothing
-
-  idx_lgl <- identical(index, index2)
-  cls <- c("tbl_ts", "tbl_df", "tbl", "data.frame")
-  if (is_empty(groups) && idx_lgl) {
-    return(structure(
-      tbl,
-      "key" = structure(key, class = "key"),
-      # "key_indices" = attr(grped_key, "indices"),
-      "index" = index,
-      "index2" = index2,
-      "interval" = structure(interval, class = "interval"),
-      "regular" = regular,
-      "ordered" = ordered,
-      class = cls
-    ))
-  }
-
-  # convert grouped_df to tsibble:
-  # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
-  if (idx_lgl) {
-    grped_df <- tbl %>% group_by(!!! groups)
-  } else {
-    grped_df <- tbl %>% group_by(!!! groups, !! index2)
-  }
-  structure(
-    grped_df,
-    "key" = structure(key, class = "key"),
-    # "key_indices" = attr(grped_key, "indices"),
-    "index" = index,
-    "index2" = index2,
-    "interval" = structure(interval, class = "interval"),
-    "regular" = regular,
-    "ordered" = ordered,
-    class = c("grouped_ts", cls)
-  )
 }

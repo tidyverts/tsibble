@@ -2,10 +2,14 @@
 % Please edit documentation in R/as-tsibble.R
 \name{build_tsibble}
 \alias{build_tsibble}
+\alias{build_tsibble_meta}
 \title{Construct a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
+
+build_tsibble_meta(x, key, index, index2 = index, groups = id(),
+  regular = TRUE, ordered = NULL, interval = NULL)
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
@@ -38,9 +42,13 @@ the correct order. \code{FALSE} also skips the ordering but gives a warning inst
 is, if an class of \code{interval} is supplied.}
 }
 \description{
-A relatively more controllable function to create a \code{tbl_ts} object. It is useful
+\itemize{
+\item \code{build_tsibble()} creates a \code{tbl_ts} object with more control. It is useful
 for creating a \code{tbl_ts} internally inside a function, and it allows users to
 determine if the time needs ordering and the interval needs calculating.
+\item \code{build_tsibble_meta()} assigns the attributes to an object, assuming this
+object is a valid tsibble.
+}
 }
 \examples{
 # Prepare `pedestrian` to use a new index `Date` ----

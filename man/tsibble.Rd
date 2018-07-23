@@ -76,9 +76,9 @@ These key variables describe the data structure.
 
 The \link{interval} function returns the interval associated with the tsibble.
 \itemize{
-\item Regular: the value and its time unit including "second", "minute",
-"hour", "day", "week", "month", "quarter", "year". An unrecognisable time
-interval is labelled as "unit".
+\item Regular: the value and its time unit including "nanosecond", "microsecond",
+"millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
+"year". An unrecognisable time interval is labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
 marked with \code{!}.
 \item Unknown: if there is only one entry for each key variable, the interval
@@ -92,7 +92,8 @@ An interval is obtained based on the corresponding index representation:
 \item \code{yearmonth}/\code{yearmth}: "month"
 \item \code{yearweek}: "week"
 \item \code{Date}: "day"
-\item \code{POSIXct} & \code{nanotime}: "hour", "minute", "second"
+\item \code{POSIXct}: "hour", "minute", "second", "millisecond", "microsecond"
+\item \code{nanotime}: "nanosecond"
 }
 }
 

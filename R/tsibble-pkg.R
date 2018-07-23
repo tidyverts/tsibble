@@ -46,9 +46,9 @@
 #'
 #' @section Interval:
 #' The [interval] function returns the interval associated with the tsibble.
-#' * Regular: the value and its time unit including "second", "minute", 
-#' "hour", "day", "week", "month", "quarter", "year". An unrecognisable time 
-#' interval is labelled as "unit".
+#' * Regular: the value and its time unit including "nanosecond", "microsecond",
+#' "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter", 
+#' "year". An unrecognisable time interval is labelled as "unit".
 #' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
 #' marked with `!`.
 #' * Unknown: if there is only one entry for each key variable, the interval
@@ -60,7 +60,8 @@
 #' * `yearmonth`/`yearmth`: "month"
 #' * `yearweek`: "week"
 #' * `Date`: "day"
-#' * `POSIXct` & `nanotime`: "hour", "minute", "second"
+#' * `POSIXct`: "hour", "minute", "second", "millisecond", "microsecond"
+#' * `nanotime`: "nanosecond"
 #'
 #' @section Print options:
 #' The tsibble package fully utilises the `print` method from the tibble. Please
