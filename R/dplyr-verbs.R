@@ -293,22 +293,3 @@ as_tibble2 <- function(x) {
   x <- as_tibble(x)
   group_by(x, !!! flatten(c(grps, idx2)))
 }
-
-bind_rows <- function(x, ...) {
-  UseMethod("bind_rows")
-}
-
-bind_rows.tbl_ts <- function(x, ..., .id = NULL) {
-  out <- dplyr::bind_rows(x, ..., .id = .id)
-  build_tsibble_meta(
-    out, key = key(x), index = !! index(x), index2 = !! index2(x),
-    groups = groups(x), regular = is_regular(x), ordered = ordered, 
-    interval = interval(x)
-  )
-}
-
-bind_rows.data.frame <- function(x, ..., .id = NULL) {
-  dplyr::bind_rows(x, ..., .id = .id)
-}
-
-bind_rows.list <- bind_rows.data.frame
