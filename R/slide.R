@@ -32,8 +32,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' @param .align Align index at the "**r**ight", "**c**entre"/"center", or "**l**eft"
 #' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"
 #' is needed.
-#' @param .flatten If `.x` is a list or data frame, the input will be flattened
-#' to row-binding data frames first and then apply `.f`.
+#' @param .combine Should `.x` be combined before applying `.f`.
 #'
 #' @rdname slide
 #' @export
@@ -55,11 +54,11 @@ replace_fn_names <- function(fn, replace = list()){
 #' slide(lst, ~ ., .size = 2)
 slide <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   lst_x <- slider(
     .x, .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   out <- purrr::map(lst_x, .f, ...)
   if (.partial) return(out)
@@ -81,12 +80,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide_dfr <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right", 
-  .flatten = FALSE, .id = NULL
+  .combine = FALSE, .id = NULL
 ) {
   out <- slide(
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -95,12 +94,12 @@ slide_dfr <- function(
 #' @export
 slide_dfc <- function(
   .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   out <- slide(
     .x, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -137,11 +136,11 @@ slide_dfc <- function(
 #' pslide(list(lst, lst), ~ ., .size = 2)
 slide2 <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   lst <- pslider(
     .x, .y, .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
@@ -163,12 +162,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 slide2_dfr <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .flatten = FALSE, .id = NULL
+  .combine = FALSE, .id = NULL
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -177,12 +176,12 @@ slide2_dfr <- function(
 #' @export
 slide2_dfc <- function(
   .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -192,11 +191,11 @@ slide2_dfc <- function(
 #' @export
 pslide <- function(
   .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   lst <- pslider(
     !!! .l, .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   out <- purrr::pmap(lst, .f, ...)
   if (.partial) return(out)
@@ -218,12 +217,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @export
 pslide_dfr <- function(
   .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .flatten = FALSE, .id = NULL
+  .combine = FALSE, .id = NULL
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, .id = .id)
 }
@@ -251,12 +250,12 @@ pslide_dfr <- function(
 #' }
 pslide_dfc <- function(
   .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
     .size = .size, .fill = .fill, .partial = .partial, 
-    .align = .align, .flatten = .flatten
+    .align = .align, .combine = .combine
   )
   bind_df(out, .size, .fill, byrow = FALSE)
 }
@@ -267,7 +266,7 @@ pslide_dfc <- function(
 #' @param ... Multiple objects to be split in parallel.
 #' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
 #' `.fill` and `.align`).
-#' @param .flatten If `.x` is a list or data frame, the input will be flattened
+#' @param .combine If `.x` is a list or data frame, the input will be flattened
 #' to a list of data frames.
 #' @inheritParams slide
 #' @rdname slider
@@ -281,16 +280,16 @@ pslide_dfc <- function(
 #'
 #' slider(x, .size = 2)
 #' slider(lst, .size = 2)
-#' slider(df, .size = 2, .flatten = TRUE)
+#' slider(df, .size = 2, .combine = TRUE)
 #' pslider(list(x, y), list(y))
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
 slider <- function(
   .x, .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) {
   bad_window_function(.size)
-  .x <- df2lst(.x, .flatten)
+  .x <- df2lst(.x, .combine)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
@@ -312,7 +311,7 @@ slider <- function(
           .x[idx[idx > 0 & idx <= len_x], , drop = FALSE], size, .fill, .align
         ))
       out <- pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
-      if (is_bare_list(.x) && .flatten) return(lapply(out, bind_rows))
+      if (is_bare_list(.x) && .combine) return(lapply(out, dplyr::bind_rows))
       return(out)
     }))
   }
@@ -323,8 +322,8 @@ slider <- function(
       function(idx) .x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
     ))
   out <- purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
-  if (is_bare_list(.x) && .flatten) {
-    return(lapply(out, bind_rows))
+  if (is_bare_list(.x) && .combine) {
+    return(lapply(out, dplyr::bind_rows))
   }
   out
 }
@@ -333,11 +332,11 @@ slider <- function(
 #' @export
 pslider <- function(
   ..., .size = 1, .fill = NA, .partial = FALSE, 
-  .align = "right", .flatten = FALSE
+  .align = "right", .combine = FALSE
 ) { # parallel sliding
   lst <- recycle(list2(...))
   purrr::map(lst, 
-    function(x) slider(x, .size, .fill = .fill, .partial, .align, .flatten)
+    function(x) slider(x, .size, .fill = .fill, .partial, .align, .combine)
   )
 }
 
@@ -414,10 +413,10 @@ check_valid_window <- function(.size, .align) {
   }
 }
 
-df2lst <- function(x, .flatten = FALSE) {
-  if (.flatten && is_atomic(x)) 
-    warn(sprintf("`.flatten = TRUE` is ignored for type `%s`.", typeof(x)))
-  if (is_false(.flatten)) {
+df2lst <- function(x, .combine = FALSE) {
+  if (.combine && is_atomic(x)) 
+    warn(sprintf("`.combine = TRUE` is ignored for type `%s`.", typeof(x)))
+  if (is_false(.combine)) {
     if (is.data.frame(x)) {
       x <- as.list(x)
     } else if (is_bare_list(x)){

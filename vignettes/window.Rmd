@@ -62,7 +62,7 @@ pedestrian_mth <- pedestrian_full %>%
 pedestrian_mth
 ```
 
-Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, `(1)` a bundle of 3 subsets (`.size = 3`) needs to be binded first and then computed for average counts; `(2)` alternatively, `.flatten = TRUE` takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
+Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it behaves exactly the same as `purrr::map()`, mapping over each element in the object. However, `(1)` a bundle of 3 subsets (`.size = 3`) needs to be binded first and then computed for average counts; `(2)` alternatively, `.combined = TRUE` takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.
 
 ```{r monthly-mv}
 pedestrian_mth %>% 
@@ -73,7 +73,7 @@ pedestrian_mth %>%
   # ))
   # (2) equivalent to (1)
   mutate(Monthly_MA = slide_dbl(data, 
-    ~ mean(.$Count, na.rm = TRUE), .size = 3, .align = "center", .flatten = TRUE
+    ~ mean(.$Count, na.rm = TRUE), .size = 3, .align = "center", .combined = TRUE
   ))
 ```
 

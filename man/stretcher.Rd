@@ -5,9 +5,9 @@
 \alias{pstretcher}
 \title{Splits the input to a list according to the stretching window size.}
 \usage{
-stretcher(.x, .size = 1, .init = 1, .flatten = FALSE)
+stretcher(.x, .size = 1, .init = 1, .combine = FALSE)
 
-pstretcher(..., .size = 1, .init = 1, .flatten = FALSE)
+pstretcher(..., .size = 1, .init = 1, .combine = FALSE)
 }
 \arguments{
 \item{.x}{An objects to be splitted.}
@@ -17,8 +17,7 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.init}{A positive integer for an initial window size.}
 
-\item{.flatten}{If \code{.x} is a list or data frame, the input will be flattened
-to row-binding data frames first and then apply \code{.f}.}
+\item{.combine}{Should \code{.x} be combined before applying \code{.f}.}
 
 \item{...}{Multiple objects to be splitted in parallel.}
 }
@@ -34,7 +33,7 @@ df <- as.data.frame(lst)
 
 stretcher(x, .size = 2)
 stretcher(lst, .size = 2)
-stretcher(df, .size = 2, .flatten = TRUE)
+stretcher(df, .size = 2, .combine = TRUE)
 stretcher(df, .size = 2)
 pstretcher(df, df, .size = 2)
 }
