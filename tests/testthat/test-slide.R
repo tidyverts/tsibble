@@ -66,15 +66,15 @@ test_that("slider() & pslider()", {
     list(as.list(1:5), as.list(rep(1, 5)))
   )
   expect_equal(
-    slider(df, .size = 2, .flatten = TRUE)[[1]],
+    slider(df, .size = 2, .combine = TRUE)[[1]],
     df[1:2, ]
   )
   expect_equal(
-    slider(df, .size = -2, .flatten = TRUE)[[1]],
+    slider(df, .size = -2, .combine = TRUE)[[1]],
     df[5:4, ]
   )
   expect_equal(
-    slider(lst_cols$lst, .size = 2, .flatten = TRUE)[[1]],
+    slider(lst_cols$lst, .size = 2, .combine = TRUE)[[1]],
     bind_rows(df, df)
   )
 })
@@ -112,7 +112,7 @@ test_that("slide() and its variants", {
     data.frame(x = 1, x1 = 2, x2 = 3, x3 = 4, x4 = 5)
   )
   expect_equal(
-    slide_int(lst_cols$lst, ~ sum(.$x), .size = 2, .flatten = TRUE),
+    slide_int(lst_cols$lst, ~ sum(.$x), .size = 2, .combine = TRUE),
     c(NA, 30L, 30L)
   )
 })
@@ -135,11 +135,11 @@ test_that("slide2() and its variants", {
     slide2(lst, lst, ~ ., .size = 2)
   )
   expect_equal(
-    slide2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .flatten = TRUE)[2, 1, drop  = TRUE],
+    slide2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .combine = TRUE)[2, 1, drop  = TRUE],
     sum(df[1:2, ]) * 2
   )
   expect_equal(
-    slide2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .flatten = TRUE)[1, 2, drop  = TRUE],
+    slide2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .combine = TRUE)[1, 2, drop  = TRUE],
     sum(df[1:2, ]) * 2
   )
 })
