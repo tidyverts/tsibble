@@ -301,10 +301,6 @@ slider <- function(
   }
   sign <- sign(.size)
   is_df <- is.data.frame(.x)
-  if (is_bare_list(.x) && .flatten) {
-    .x <- bind_rows(.x[[1]], !!! .x[-1])
-    is_df <- TRUE
-  }
   if (.partial) {
     lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
     if (sign < 0) lst_idx <- rev(lst_idx)
@@ -315,7 +311,9 @@ slider <- function(
         return(pad_slide(
           .x[idx[idx > 0 & idx <= len_x], , drop = FALSE], size, .fill, .align
         ))
-      pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
+      out <- pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
+      if (is_bare_list(.x) && .flatten) return(lapply(out, bind_rows))
+      return(out)
     }))
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
@@ -324,7 +322,11 @@ slider <- function(
     return(purrr::map(lst_idx, 
       function(idx) .x[idx:(idx + sign * (abs_size - 1)), , drop = FALSE]
     ))
-  purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
+  out <- purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
+  if (is_bare_list(.x) && .flatten) {
+    return(lapply(out, bind_rows))
+  }
+  out
 }
 
 #' @rdname slider

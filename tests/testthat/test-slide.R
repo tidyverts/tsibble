@@ -75,7 +75,7 @@ test_that("slider() & pslider()", {
   )
   expect_equal(
     slider(lst_cols$lst, .size = 2, .flatten = TRUE)[[1]],
-    df[1:2, ]
+    bind_rows(df, df)
   )
 })
 
@@ -113,7 +113,7 @@ test_that("slide() and its variants", {
   )
   expect_equal(
     slide_int(lst_cols$lst, ~ sum(.$x), .size = 2, .flatten = TRUE),
-    c(NA, 3L, 5L)
+    c(NA, 30L, 30L)
   )
 })
 
