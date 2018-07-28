@@ -142,6 +142,12 @@ init_interval <- function(
   ), class = "interval")
 }
 
+#' @rdname pull-interval
+#' @export
+#' @examples
+#' # at two months interval ----
+#' x <- yearmonth(seq(2016, 2018, by = 0.5))
+#' time_unit(x)
 time_unit <- function(x) {
   if (has_length(x, 1)) return(0L)
   int <- pull_interval(x)

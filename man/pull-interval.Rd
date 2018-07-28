@@ -2,9 +2,12 @@
 % Please edit documentation in R/interval.R
 \name{pull_interval}
 \alias{pull_interval}
+\alias{time_unit}
 \title{Extract time interval from a vector}
 \usage{
 pull_interval(x)
+
+time_unit(x)
 }
 \arguments{
 \item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
@@ -27,4 +30,7 @@ support custom time index.
 \examples{
 x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 pull_interval(x)
+# at two months interval ----
+x <- yearmonth(seq(2016, 2018, by = 0.5))
+time_unit(x)
 }
