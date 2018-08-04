@@ -26,8 +26,8 @@
 \alias{unnest.lst_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
-\method{left_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, suffix = c(".x",
-  ".y"), ...)
+\method{left_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
+  suffix = c(".x", ".y"), ...)
 
 \method{right_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
   suffix = c(".x", ".y"), ...)
@@ -35,8 +35,8 @@
 \method{inner_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
   suffix = c(".x", ".y"), ...)
 
-\method{full_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, suffix = c(".x",
-  ".y"), ...)
+\method{full_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
+  suffix = c(".x", ".y"), ...)
 
 \method{semi_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
 
@@ -74,8 +74,8 @@
 
 \method{nest}{tbl_ts}(data, ..., .key = "data")
 
-\method{unnest}{lst_ts}(data, ..., key = id(), .drop = NA, .id = NULL,
-  .sep = NULL, .preserve = NULL)
+\method{unnest}{lst_ts}(data, ..., key = id(), .drop = NA,
+  .id = NULL, .sep = NULL, .preserve = NULL)
 }
 \arguments{
 \item{x}{tbls to join}

@@ -2,32 +2,30 @@
 % Please edit documentation in R/slide.R
 \name{slide2}
 \alias{slide2}
-\alias{slide2}
 \alias{slide2_dfr}
 \alias{slide2_dfc}
-\alias{pslide}
 \alias{pslide}
 \alias{pslide_dfr}
 \alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
 slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 
 slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE, .id = NULL)
+  .align = "right", .bind = FALSE, .id = NULL)
 
 slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 
 pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 
 pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE, .id = NULL)
+  .align = "right", .bind = FALSE, .id = NULL)
 
 pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -67,7 +65,7 @@ to right; if negative, moving backward (from right to left).}
 of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
 is needed.}
 
-\item{.combine}{Should \code{.x} be combined before applying \code{.f}.}
+\item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

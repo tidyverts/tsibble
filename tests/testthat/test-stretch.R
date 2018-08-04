@@ -20,11 +20,7 @@ test_that("stretcher() & pstretcher()", {
     list(list(x), list(x, y))
   )
   expect_equal(
-    stretcher(df, .combine = TRUE),
-    list(df[1, , drop = FALSE], df[1:2, ], df[1:3, ], df[1:4, ], df)
-  )
-  expect_equal(
-    stretcher(lst_cols$lst, .combine = TRUE),
+    stretcher(lst_cols$lst, .bind = TRUE),
     list(lst_cols$lst[[1]], dplyr::bind_rows(lst_cols$lst[1:2]), dplyr::bind_rows(lst_cols$lst[1:3]))
   )
   expect_equal(
@@ -82,12 +78,12 @@ test_that("stretch2() and its variants", {
     stretch2(lst, lst, ~ ., .size = 2)
   )
   expect_equal(
-    stretch2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .combine = TRUE)[1, 1, drop  = TRUE],
-    sum(df[1, ]) * 2
+    stretch2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[1, 1, drop  = TRUE],
+    sum(df[, 1]) * 2
   )
   expect_equal(
-    stretch2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .combine = TRUE)[1, 1, drop  = TRUE],
-    sum(df[1, ]) * 2
+    stretch2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[1, 1, drop  = TRUE],
+    sum(df[, 1]) * 2
   )
 })
 

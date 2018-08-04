@@ -3,7 +3,6 @@
 \name{is_regular}
 \alias{is_regular}
 \alias{is.regular}
-\alias{is.regular}
 \alias{is_ordered}
 \title{\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
 checks if a tsibble is ordered by key and index.}

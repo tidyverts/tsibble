@@ -2,19 +2,18 @@
 % Please edit documentation in R/slide.R
 \name{slide}
 \alias{slide}
-\alias{slide}
 \alias{slide_dfr}
 \alias{slide_dfc}
 \title{Sliding window calculation}
 \usage{
 slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 
 slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE, .id = NULL)
+  .align = "right", .bind = FALSE, .id = NULL)
 
 slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .combine = FALSE)
+  .align = "right", .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -54,7 +53,7 @@ to right; if negative, moving backward (from right to left).}
 of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
 is needed.}
 
-\item{.combine}{Should \code{.x} be combined before applying \code{.f}.}
+\item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

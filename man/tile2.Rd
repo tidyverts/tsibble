@@ -2,10 +2,8 @@
 % Please edit documentation in R/tile.R
 \name{tile2}
 \alias{tile2}
-\alias{tile2}
 \alias{tile2_dfr}
 \alias{tile2_dfc}
-\alias{ptile}
 \alias{ptile}
 \alias{ptile_dfr}
 \alias{ptile_dfc}

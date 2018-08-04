@@ -12,9 +12,7 @@
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
   quos <- enquos(...)
-  if (is_empty(quos)) {
-    return(.data)
-  }
+  if (is_empty(quos)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! quos)
 
   arr_data <- NextMethod()
@@ -25,9 +23,7 @@ arrange.tbl_ts <- function(.data, ...) {
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   quos <- enquos(...)
-  if (is_empty(quos)) {
-    return(.data)
-  }
+  if (is_empty(quos)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! quos, .by_group = .by_group)
 
   arr_data <- arrange(as_tibble(.data), !!! quos, .by_group = .by_group)

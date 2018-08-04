@@ -81,3 +81,10 @@ unknown_interval <- function(x) {
 is_even <- function(x) {
   (abs(x) %% 2) == 0
 }
+
+identical_class <- function(x, y) {
+  if (identical(x, y)) 
+    return(x) 
+  else 
+    abort("Different classes of elements in the list.")
+}

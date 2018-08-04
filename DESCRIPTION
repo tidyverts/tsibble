@@ -48,4 +48,4 @@ ByteCompile: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

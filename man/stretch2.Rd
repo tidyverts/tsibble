@@ -2,28 +2,26 @@
 % Please edit documentation in R/stretch.R
 \name{stretch2}
 \alias{stretch2}
-\alias{stretch2}
 \alias{stretch2_dfr}
 \alias{stretch2_dfc}
-\alias{pstretch}
 \alias{pstretch}
 \alias{pstretch_dfr}
 \alias{pstretch_dfc}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., .size = 1, .init = 1, .combine = FALSE)
+stretch2(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE)
 
-stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .combine = FALSE,
+stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE,
   .id = NULL)
 
-stretch2_dfc(.x, .y, .f, ..., .size = 1, .init = 1, .combine = FALSE)
+stretch2_dfc(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE)
 
-pstretch(.l, .f, ..., .size = 1, .init = 1, .combine = FALSE)
+pstretch(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE)
 
-pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .combine = FALSE,
+pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE,
   .id = NULL)
 
-pstretch_dfc(.l, .f, ..., .size = 1, .init = 1, .combine = FALSE)
+pstretch_dfc(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -55,7 +53,7 @@ to extract named attributes. If a component is not present, the value of
 
 \item{.size, .init}{An integer for moving and initial window size.}
 
-\item{.combine}{Should \code{.x} be combined before applying \code{.f}.}
+\item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

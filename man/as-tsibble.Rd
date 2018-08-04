@@ -7,7 +7,6 @@
 \alias{as_tsibble.tbl_ts}
 \alias{as_tsibble.data.frame}
 \alias{as_tsibble.list}
-\alias{as.tsibble}
 \alias{as_tsibble.ts}
 \alias{as_tsibble.mts}
 \alias{as_tsibble.msts}

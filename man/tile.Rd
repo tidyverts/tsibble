@@ -2,7 +2,6 @@
 % Please edit documentation in R/tile.R
 \name{tile}
 \alias{tile}
-\alias{tile}
 \alias{tile_dfr}
 \alias{tile_dfc}
 \title{Tiling window calculation}
