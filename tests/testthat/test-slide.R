@@ -71,6 +71,10 @@ test_that("slider() & pslider()", {
     slider(lst_cols$lst, .size = 2, .bind = TRUE)[[1]],
     bind_rows(df, df)
   )
+  expect_equal(
+    unname(slider(lst, .size = 2, .partial = TRUE, .bind = TRUE, .fill = NA_integer_)[[1]]),
+    c(NA, 1:5)
+  )
 })
 
 test_that("Argument `.align`", {

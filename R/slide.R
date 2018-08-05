@@ -304,12 +304,12 @@ slider <- function(
   if (.partial) {
     lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
     if (sign < 0) lst_idx <- rev(lst_idx)
-    return(purrr::map(lst_idx, function(idx) {
+    out <- purrr::map(lst_idx, function(idx) {
       idx <- idx:(idx + sign * (abs_size - 1))
       size <- sum(idx <= 0 | idx > len_x) + 1
-      out <- pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
-      if (.bind) return(bind_lst(out)) else return(out)
-    }))
+      pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
+    })
+    if (.bind) return(bind_lst(out)) else return(out)
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
