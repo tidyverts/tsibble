@@ -101,7 +101,7 @@ it is a potentially expensive operation so you must opt into it.}
 \code{y}, these suffixes will be added to the output to disambiguate them.
 Should be a character vector of length 2.}
 
-\item{...}{same arguments accepted as its dplyr generitc.}
+\item{...}{same arguments accepted as its dplyr generic.}
 
 \item{.data}{A \code{tbl_ts}.}
 
@@ -175,27 +175,21 @@ will be duplicated in the same way as atomic vectors. This has
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 }
 \description{
-Tidyverse methods for tsibble
-}
-\details{
 \itemize{
 \item \code{arrange()}: if not arranging key and index in past-to-future order, a warning is
 likely to be issued.
-}
-
-\itemize{
 \item \code{slice()}: if row numbers are not in ascending order, a warning is likely to
 be issued.
+\item \code{select()}: keeps the variables you mention as well as the index.
+\item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
+\item The column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
+\code{mutate()} & \code{transmute()}, have an additional argument of \code{.drop = FALSE} for
+tsibble. The index variable cannot be dropped for a tsibble. If any key variable
+is changed, it will validate whether it's a tsibble internally. Turning
+\code{.drop = TRUE} converts to a tibble first and then do the operations.
 }
-
-\itemize{
-\item \code{select()}, \code{summarise()}, \code{mutate()} & \code{transmute()} have an additional
-argument of \code{.drop = FALSE} for tsibble. The index variable cannot be dropped
-for a tsibble. If any key variable is changed, it will validate whether it's
-a tsibble internally. Turning \code{.drop = TRUE} converts to a tibble first and
-then do the operations.
 }
-
+\details{
 \itemize{
 \item \code{summarise()} will not collapse on the index variable.
 }

@@ -1,12 +1,21 @@
 #' Tidyverse methods for tsibble
 #'
-#' @param .data A `tbl_ts`.
-#' @param ... same arguments accepted as its dplyr generitc.
-#' @inheritParams dplyr::arrange
-#'
-#' @details 
 #' * `arrange()`: if not arranging key and index in past-to-future order, a warning is
 #' likely to be issued.
+#' * `slice()`: if row numbers are not in ascending order, a warning is likely to
+#' be issued.
+#' * `select()`: keeps the variables you mention as well as the index. 
+#' * `transmute()`: keeps the variable you operate on, as well as the index and key.
+#' * The column-wise verbs, including `select()`, `transmute()`, `summarise()`, 
+#' `mutate()` & `transmute()`, have an additional argument of `.drop = FALSE` for 
+#' tsibble. The index variable cannot be dropped for a tsibble. If any key variable 
+#' is changed, it will validate whether it's a tsibble internally. Turning 
+#' `.drop = TRUE` converts to a tibble first and then do the operations.
+#'
+#' @param .data A `tbl_ts`.
+#' @param ... same arguments accepted as its dplyr generic.
+#' @inheritParams dplyr::arrange
+#'
 #' @name tidyverse
 #' @rdname tidyverse
 #' @export
@@ -79,9 +88,6 @@ filter.tbl_ts <- function(.data, ...) {
   by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...)
 }
 
-#' @details 
-#' * `slice()`: if row numbers are not in ascending order, a warning is likely to
-#' be issued.
 #' @rdname tidyverse
 #' @export
 slice.tbl_ts <- function(.data, ...) {
@@ -107,12 +113,6 @@ row_validate <- function(x) {
 #' @param .drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
 #' tsibble and returns a tibble.
 #'
-#' @details
-#' * `select()`, `summarise()`, `mutate()` & `transmute()` have an additional 
-#' argument of `.drop = FALSE` for tsibble. The index variable cannot be dropped 
-#' for a tsibble. If any key variable is changed, it will validate whether it's 
-#' a tsibble internally. Turning `.drop = TRUE` converts to a tibble first and 
-#' then do the operations.
 #' @rdname tidyverse
 #' @export
 select.tbl_ts <- function(.data, ..., .drop = FALSE) {

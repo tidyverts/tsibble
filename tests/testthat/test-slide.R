@@ -12,6 +12,8 @@ test_that("Invalid input", {
   expect_error(slider(lst, c(1, 3)), "must be an integer.")
   expect_error(slider(x, -6), "larger")
   expect_error(slider(list()), "larger")
+  expect_error(slider(x, .bind = TRUE), "only accepts list")
+  expect_error(slider(list(x = 1.5, y = 1L), .bind = TRUE), "different types.")
 })
 
 test_that("check .align", {

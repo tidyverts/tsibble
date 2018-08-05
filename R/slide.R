@@ -288,6 +288,9 @@ slider <- function(
   .align = "right", .bind = FALSE
 ) {
   bad_window_function(.size)
+  if (!is.list(.x) && .bind) {
+    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
+  }
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
@@ -327,12 +330,9 @@ pslider <- function(
 }
 
 bind_lst <- function(x) {
-  if (!is.list(x)) {
-    abort(sprintf("`.bind = TRUE` only accepts a list, not %s.", typeof(x)))
-  }
-  cls_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ class(.)[1]))
-  cls <- purrr::reduce(cls_elements, identical_class)
-  if (cls == "data.frame") {
+  type_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ typeof(.)[1]))
+  type <- purrr::reduce(type_elements, identical_type)
+  if (type == "list") {
     out <- lapply(x, dplyr::bind_rows)
   } else {
     out <- lapply(x, function(y) do.call(c, y))

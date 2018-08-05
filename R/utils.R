@@ -82,9 +82,9 @@ is_even <- function(x) {
   (abs(x) %% 2) == 0
 }
 
-identical_class <- function(x, y) {
+identical_type <- function(x, y) {
   if (identical(x, y)) 
     return(x) 
   else 
-    abort("Different classes of elements in the list.")
+    abort("Don't know how to bind list elements of different types.")
 }
