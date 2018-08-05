@@ -1,18 +1,18 @@
 #' tsibble: tidy temporal data frames and tools
 #'
 #' \if{html}{\figure{logo.png}{options: align='right'}}
-#' The **tsibble** package provides a data class of `tbl_ts` to store and manage
-#' temporal data frames in a "tidy" form. A tsibble consists of a time index, 
-#' key, and other measured variables in a data-centric format, which is built on 
-#' top of the tibble. 
+#' The **tsibble** package provides a data class of `tbl_ts` to represent tidy 
+#' temporal-context data. A tsibble consists of a time index, key, and other 
+#' measured variables in a data-centric format, which is built on top of the tibble. 
 #'
 #' @section Index:
-#' The time indices are no longer an implicit attribute (for example, the `tsp` attribute 
-#' in a `ts` object), but preserved as the essential data component of the tsibble. A 
+#' The time indices are preserved as the essential data component of the tsibble,
+#' instead of implicit attribute (for example, the `tsp` attribute in a `ts` object). A 
 #' few index classes, such as `Date`, `POSIXct`, and `difftime`, forms the basis of 
 #' the tsibble, with new additions [yearweek], [yearmonth], and [yearquarter] 
 #' representing year-week, year-month, and year-quarter respectively. Any arbitrary
-#' index class are also supported, including `zoo::yearmth` and `zoo::yearqtr`. 
+#' index class are also supported, including `zoo::yearmth`, `zoo::yearqtr`, and
+#' `nanotime`. 
 #' For a `tbl_ts` of regular interval,
 #' a choice of index representation has to be made. For example, a monthly data 
 #' should correspond to time index created by [yearmonth] or `zoo::yearmth`, 

@@ -103,6 +103,9 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -143,31 +146,31 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     <div class="ref-description">
     
     <p>Rolling window with overlapping observations:</p><ul>
-<li><p><code><a href='slide.html'>slide2()</a></code> and <code>pslide()</code> always returns a list.</p></li>
+<li><p><code>slide2()</code> and <code>pslide()</code> always returns a list.</p></li>
 <li><p><code>slide2_lgl()</code>, <code>slide2_int()</code>, <code>slide2_dbl()</code>, <code>slide2_chr()</code> use the same
-arguments as <code><a href='slide.html'>slide2()</a></code>, but return vectors of the corresponding type.</p></li>
+arguments as <code>slide2()</code>, but return vectors of the corresponding type.</p></li>
 <li><p><code>slide2_dfr()</code> <code>slide2_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
 </ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='slide.html'>slide2</a></span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>slide2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>slide2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>slide2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>pslide</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>pslide_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pslide_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,9 +223,8 @@ of the window. If <code>.size</code> is even for center alignment, "centre-right
 is needed.</p></td>
     </tr>
     <tr>
-      <th>.flatten</th>
-      <td><p>If <code>.x</code> is a list or data frame, the input will be flattened
-to row-binding data frames first and then apply <code>.f</code>.</p></td>
+      <th>.bind</th>
+      <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -240,9 +242,9 @@ names will be used if present.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p>slide</p></li>
-<li><p><a href='tile.html'>tile2</a> for tiling window without overlapping observations</p></li>
-<li><p><a href='stretch.html'>stretch2</a> for expanding more observations</p></li>
+<li><p><a href='slide.html'>slide</a></p></li>
+<li><p><a href='tile2.html'>tile2</a> for tiling window without overlapping observations</p></li>
+<li><p><a href='stretch2.html'>stretch2</a> for expanding more observations</p></li>
 </ul></div>
     
 
@@ -252,7 +254,7 @@ names will be used if present.</p></td>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
 <span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>)
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>lst</span>)
-<span class='fu'><a href='slide.html'>slide2</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>slide2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] NA
 #&gt; 
 #&gt; [[2]]
@@ -266,7 +268,7 @@ names will be used if present.</p></td>
 #&gt; 
 #&gt; [[5]]
 #&gt; [1] 28
-#&gt; </div><div class='input'><span class='fu'><a href='slide.html'>slide2</a></span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>slide2</span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] NA
 #&gt; 
 #&gt; [[2]]
@@ -284,7 +286,7 @@ names will be used if present.</p></td>
 #&gt; [[3]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'><a href='slide.html'>slide2</a></span>(<span class='no'>df</span>, <span class='no'>df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>slide2</span>(<span class='no'>df</span>, <span class='no'>df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] NA
 #&gt; 
 #&gt; [[2]]
@@ -339,19 +341,19 @@ names will be used if present.</p></td>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'>mean</span>(<span class='fu'>do.call</span>(<span class='no'>rbind</span>, <span class='no'>.</span>)$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; # A tibble: 24 x 3
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'>mean</span>(<span class='fu'>do.call</span>(<span class='no'>rbind</span>, <span class='no'>.</span>)$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
 #&gt;       yrmth data                   ma
 #&gt;  *    &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
-#&gt;  1 2015 Jan &lt;tsibble [744 × 5]&gt;    NA
-#&gt;  2 2015 Feb &lt;tsibble [672 × 5]&gt;    NA
-#&gt;  3 2015 Mar &lt;tsibble [744 × 5]&gt;    NA
-#&gt;  4 2015 Apr &lt;tsibble [720 × 5]&gt;    NA
-#&gt;  5 2015 May &lt;tsibble [744 × 5]&gt;    NA
-#&gt;  6 2015 Jun &lt;tsibble [720 × 5]&gt;    NA
-#&gt;  7 2015 Jul &lt;tsibble [744 × 5]&gt;    NA
-#&gt;  8 2015 Aug &lt;tsibble [744 × 5]&gt;    NA
-#&gt;  9 2015 Sep &lt;tsibble [720 × 5]&gt;    NA
-#&gt; 10 2015 Oct &lt;tsibble [743 × 5]&gt;    NA
+#&gt;  1 2015 Jan &lt;tsibble [744 × 5]&gt;   NA 
+#&gt;  2 2015 Feb &lt;tsibble [672 × 5]&gt;  424.
+#&gt;  3 2015 Mar &lt;tsibble [744 × 5]&gt;  477.
+#&gt;  4 2015 Apr &lt;tsibble [720 × 5]&gt;  459.
+#&gt;  5 2015 May &lt;tsibble [744 × 5]&gt;  463.
+#&gt;  6 2015 Jun &lt;tsibble [720 × 5]&gt;  489.
+#&gt;  7 2015 Jul &lt;tsibble [744 × 5]&gt;  513.
+#&gt;  8 2015 Aug &lt;tsibble [744 × 5]&gt;  508.
+#&gt;  9 2015 Sep &lt;tsibble [720 × 5]&gt;  500.
+#&gt; 10 2015 Oct &lt;tsibble [743 × 5]&gt;  508.
 #&gt; # ... with 14 more rows</div><div class='input'># row-oriented workflow
 </div><div class='input'><span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>...</span>)

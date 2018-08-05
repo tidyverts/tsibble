@@ -1,16 +1,15 @@
 #' Extract time interval from a vector
 #'
 #' Assuming regularly spaced time, the `pull_interval()` returns a list of time
-#' components as the "interval" class; the `time_unit()` returns the value of
-#' time units.
+#' components as the "interval" class.
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
 #' `hms`, `integer`, `numeric`.
 #'
-#' @details The `pull_interval()` and `time_unit()` make a tsibble extensible to
+#' @details `index_valid()` and `pull_interval()` make a tsibble extensible to 
 #' support custom time index.
-#' @return `pull_interval()`: an "interval" class (a list) includes "year", 
-#' "quarter", "month", #' "week", "day", "hour", "minute", "second", "millisecond",
+#' @return an "interval" class (a list) includes "year", 
+#' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 #' "microsecond", "nanosecond", "unit".
 #'
 #' @rdname pull-interval
@@ -142,10 +141,10 @@ init_interval <- function(
   ), class = "interval")
 }
 
-#' @rdname pull-interval
+#' Extract time unit from a vector
+#'
 #' @export
 #' @examples
-#' # at two months interval ----
 #' x <- yearmonth(seq(2016, 2018, by = 0.5))
 #' time_unit(x)
 time_unit <- function(x) {

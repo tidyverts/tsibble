@@ -57,6 +57,9 @@
 <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -135,7 +138,7 @@
 <p>The tsibble fully utilises the <code>print</code> method from tibble: a tsibble object (along with its dimension and time interval) and key variables in the header. Above displays the <code>weather_tsbl</code> its one-hour interval and the <code>origin</code> as the key. Given the nature of temporal ordering, a tsibble must be sorted by time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time from past to future. This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/index-by.html">index_by</a></span>(<span class="dt">date =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/index-by.html">index_by</a></span>(<span class="dt">date =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/as_date">as_date</a></span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">temp_high =</span> <span class="kw">max</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">temp_low =</span> <span class="kw">min</span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
@@ -189,7 +192,7 @@
 <p>It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see <code><a href="../reference/tsibble.html">?tsibble</a></code>). The option <code>regular</code>, by default, is set to <code>TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Specify <code>regular</code> to <code>FALSE</code> to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York City:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">flights &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">sched_dep_datetime =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(year, month, day, hour, minute, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">sched_dep_datetime =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/lubridate/topics/make_datetime">make_datetime</a></span>(year, month, day, hour, minute, <span class="dv">0</span>),</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="dt">flight_num =</span> <span class="kw">paste0</span>(carrier, flight)</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">  )</a></code></pre></div>
 <p>The key variable is the <code>flight_num</code>. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>

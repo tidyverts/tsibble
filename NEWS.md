@@ -13,12 +13,14 @@ This release introduced the breaking changes to the "interval" class to make tsi
 ## Improvements
 
 * Speed improvement for internals when it's a known valid tsibble. (#43)
+* Better support "millisecond" and "microsecond".
+* A new vignette on window functions.
 
 ## Internal changes
 
 * Replaced `NA` or `NULL` with `0` in the "interval" class to make the representation simpler.
 * The `interval` class has new slots of "millisecond", "microsecond", "nanosecond".
-* Retired `time_unit()` S3 generic, and made index extension a bit easier.
+* `time_unit()` is a function instead of S3 generic, and made index extension a bit easier.
 
 ## Bug fixes
 

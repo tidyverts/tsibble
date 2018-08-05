@@ -6,8 +6,9 @@
 #' the helper [id]. If a univariate time series (without an explicit key),
 #' simply call `id()`. See below for details.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
-#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). `TRUE`
-#' finds the greatest common divisor of positive time distances as the interval.
+#' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
+#' interval is determined by the greatest common divisor of positive time distances,
+#' if `TRUE`.
 #'
 #' @inheritSection tsibble-package Index
 #'
@@ -66,7 +67,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #' @aliases as.tsibble
-#' @seealso tsibble
+#' @seealso [tsibble]
 #'
 #' @examples
 #' # coerce tibble to tsibble w/o a key ----
@@ -268,7 +269,7 @@ not_tsibble <- function(x) {
   }
 }
 
-#' Test if the object is a tsibble
+#' If the object is a tsibble
 #'
 #' @param x An object.
 #'
@@ -317,9 +318,9 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 
-#' Construct a tsibble object
+#' Construct a tsibble object for extention
 #'
-#' * `build_tsibble()` creates a `tbl_ts` object with more control. It is useful 
+#' * `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful 
 #' for creating a `tbl_ts` internally inside a function, and it allows users to 
 #' determine if the time needs ordering and the interval needs calculating.
 #' * `build_tsibble_meta()` assigns the attributes to an object, assuming this

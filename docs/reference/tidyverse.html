@@ -38,7 +38,19 @@
 
 <meta property="og:title" content="Tidyverse methods for tsibble — left_join.tbl_ts" />
 
-<meta property="og:description" content="Tidyverse methods for tsibble" />
+<meta property="og:description" content="
+arrange(): if not arranging key and index in past-to-future order, a warning is
+likely to be issued.
+slice(): if row numbers are not in ascending order, a warning is likely to
+be issued.
+select(): keeps the variables you mention as well as the index.
+transmute(): keeps the variable you operate on, as well as the index and key.
+The column-wise verbs, including select(), transmute(), summarise(),
+mutate() &amp;amp; transmute(), have an additional argument of .drop = FALSE for
+tsibble. The index variable cannot be dropped for a tsibble. If any key variable
+is changed, it will validate whether it's a tsibble internally. Turning
+.drop = TRUE converts to a tibble first and then do the operations.
+" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -98,6 +110,9 @@
     <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -137,13 +152,25 @@
 
     <div class="ref-description">
     
-    <p>Tidyverse methods for tsibble</p>
+    <ul>
+<li><p><code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange()</a></code>: if not arranging key and index in past-to-future order, a warning is
+likely to be issued.</p></li>
+<li><p><code><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice()</a></code>: if row numbers are not in ascending order, a warning is likely to
+be issued.</p></li>
+<li><p><code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>: keeps the variables you mention as well as the index.</p></li>
+<li><p><code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>: keeps the variable you operate on, as well as the index and key.</p></li>
+<li><p>The column-wise verbs, including <code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>,
+<code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> &amp; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, have an additional argument of <code>.drop = FALSE</code> for
+tsibble. The index variable cannot be dropped for a tsibble. If any key variable
+is changed, it will validate whether it's a tsibble internally. Turning
+<code>.drop = TRUE</code> converts to a tibble first and then do the operations.</p></li>
+</ul>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>,
-  <span class='st'>".y"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -154,8 +181,8 @@
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>,
-  <span class='st'>".y"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>semi_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
@@ -211,8 +238,8 @@
 <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='st'>"data"</span>)
 
 <span class='co'># S3 method for lst_ts</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -251,7 +278,7 @@ Should be a character vector of length 2.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>same arguments accepted as its dplyr generitc.</p></td>
+      <td><p>same arguments accepted as its dplyr generic.</p></td>
     </tr>
     <tr>
       <th>.data</th>
@@ -360,21 +387,6 @@ will be duplicated in the same way as atomic vectors. This has
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange()</a></code>: if not arranging key and index in past-to-future order, a warning is
-likely to be issued.</p></li>
-</ul>
-    <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice()</a></code>: if row numbers are not in ascending order, a warning is likely to
-be issued.</p></li>
-</ul>
-    <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> &amp; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code> have an additional
-argument of <code>.drop = FALSE</code> for tsibble. The index variable cannot be dropped
-for a tsibble. If any key variable is changed, it will validate whether it's
-a tsibble internally. Turning <code>.drop = TRUE</code> converts to a tibble first and
-then do the operations.</p></li>
-</ul>
     <ul>
 <li><p><code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will not collapse on the index variable.</p></li>
 </ul>

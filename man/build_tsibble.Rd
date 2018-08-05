@@ -3,7 +3,7 @@
 \name{build_tsibble}
 \alias{build_tsibble}
 \alias{build_tsibble_meta}
-\title{Construct a tsibble object}
+\title{Construct a tsibble object for extention}
 \usage{
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
@@ -25,8 +25,9 @@ simply call \code{id()}. See below for details.}
 
 \item{groups}{Grouping variable(s) when \link{group_by.tbl_ts}.}
 
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the greatest common divisor of positive time distances as the interval.}
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
+interval is determined by the greatest common divisor of positive time distances,
+if \code{TRUE}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will
@@ -43,7 +44,7 @@ is, if an class of \code{interval} is supplied.}
 }
 \description{
 \itemize{
-\item \code{build_tsibble()} creates a \code{tbl_ts} object with more control. It is useful
+\item \code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful
 for creating a \code{tbl_ts} internally inside a function, and it allows users to
 determine if the time needs ordering and the interval needs calculating.
 \item \code{build_tsibble_meta()} assigns the attributes to an object, assuming this

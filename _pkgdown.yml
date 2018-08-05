@@ -47,11 +47,12 @@ reference:
     - starts_with("tile")
     - starts_with("stretch")
 
-- title: Index
+- title: Time
   contents:
     - starts_with("year")
     - units_since
     - guess_frequency
+    - time_unit
 
 - title: Calendar
   contents:
@@ -101,6 +102,8 @@ navbar:
     menu:
     - text: Introduction to tsibble
       href: articles/intro-tsibble.html
+    - text: Windown functions
+      href: articles/window.html
   - text: News
     href: news/index.html
   right:

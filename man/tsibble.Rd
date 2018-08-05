@@ -16,8 +16,9 @@ simply call \code{id()}. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the greatest common divisor of positive time distances as the interval.}
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
+interval is determined by the greatest common divisor of positive time distances,
+if \code{TRUE}.}
 }
 \value{
 A tsibble object.
@@ -30,12 +31,13 @@ A tsibble is sorted by its key first and index.
 }
 \section{Index}{
 
-The time indices are no longer an implicit attribute (for example, the \code{tsp} attribute
-in a \code{ts} object), but preserved as the essential data component of the tsibble. A
+The time indices are preserved as the essential data component of the tsibble,
+instead of implicit attribute (for example, the \code{tsp} attribute in a \code{ts} object). A
 few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
 the tsibble, with new additions \link{yearweek}, \link{yearmonth}, and \link{yearquarter}
 representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including \code{zoo::yearmth} and \code{zoo::yearqtr}.
+index class are also supported, including \code{zoo::yearmth}, \code{zoo::yearqtr}, and
+\code{nanotime}.
 For a \code{tbl_ts} of regular interval,
 a choice of index representation has to be made. For example, a monthly data
 should correspond to time index created by \link{yearmonth} or \code{zoo::yearmth},

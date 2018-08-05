@@ -45,8 +45,9 @@ simply call \code{id()}. See below for details.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). \code{TRUE}
-finds the greatest common divisor of positive time distances as the interval.}
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
+interval is determined by the greatest common divisor of positive time distances,
+if \code{TRUE}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables lead to unique time indices (i.e. a valid tsibble). It will
@@ -104,5 +105,5 @@ as_tsibble(hts::htseg1)
 as_tsibble(hts::htseg2)
 }
 \seealso{
-tsibble
+\link{tsibble}
 }

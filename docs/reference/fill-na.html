@@ -98,6 +98,9 @@
     <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -272,8 +275,8 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(
-    <span class='kw'>Date</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='no'>Date_Time</span>),
-    <span class='kw'>Time</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/hour.html'>hour</a></span>(<span class='no'>Date_Time</span>),
+    <span class='kw'>Date</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/lubridate/topics/as_date'>as_date</a></span>(<span class='no'>Date_Time</span>),
+    <span class='kw'>Time</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/lubridate/topics/hour'>hour</a></span>(<span class='no'>Date_Time</span>),
     <span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'>as.integer</span>(<span class='fu'>median</span>(<span class='no'>Count</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
   )</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h]
 #&gt; # Key:       Sensor [4]

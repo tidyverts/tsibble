@@ -61,6 +61,9 @@
 <li>
       <a href="articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -102,7 +105,7 @@
 </h1></div>
 <p><em>/ˈt͡sɪbəl/</em></p>
 <p><a href="https://travis-ci.org/tidyverts/tsibble"><img src="https://travis-ci.org/tidyverts/tsibble.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/github/tidyverts/tsibble?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg" alt="Coverage Status"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://www.r-pkg.org/badges/version/tsibble" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen" alt="Downloads"></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></p>
-<p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage temporal-context data frames in a “tidy” form. A <em>tsibble</em> consists of a time index, key and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
+<p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to represent tidy temporal-context data. A <em>tsibble</em> consists of a time index, key and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -185,16 +188,16 @@
 </div>
 <div id="a-family-of-window-functions-slide-tile-stretch" class="section level3">
 <h3 class="hasAnchor">
-<a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="https://pkg.earo.me/tsibble/reference/slide.html">slide()</a></code>, <code><a href="https://pkg.earo.me/tsibble/reference/tile.html">tile()</a></code>, <code><a href="https://pkg.earo.me/tsibble/reference/stretch.html">stretch()</a></code>
+<a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
 </h3>
 <p>Temporal data often involves moving window calculations. Several functions in <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
 <li>
-<code><a href="https://pkg.earo.me/tsibble/reference/slide.html">slide()</a></code>/<code><a href="reference/slide.html">slide2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/slide2.html">pslide()</a></code>: sliding window with overlapping observations.</li>
+<code><a href="reference/slide.html">slide()</a></code>/<code><a href="reference/slide2.html">slide2()</a></code>/<code><a href="reference/slide2.html">pslide()</a></code>: sliding window with overlapping observations.</li>
 <li>
-<code><a href="https://pkg.earo.me/tsibble/reference/tile.html">tile()</a></code>/<code><a href="reference/tile.html">tile2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/tile2.html">ptile()</a></code>: tiling window without overlapping observations.</li>
+<code><a href="reference/tile.html">tile()</a></code>/<code><a href="reference/tile2.html">tile2()</a></code>/<code><a href="reference/tile2.html">ptile()</a></code>: tiling window without overlapping observations.</li>
 <li>
-<code><a href="https://pkg.earo.me/tsibble/reference/stretch.html">stretch()</a></code>/<code><a href="reference/stretch.html">stretch2()</a></code>/<code><a href="https://pkg.earo.me/tsibble/reference/stretch2.html">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
+<code><a href="reference/stretch.html">stretch()</a></code>/<code><a href="reference/stretch2.html">stretch2()</a></code>/<code><a href="reference/stretch2.html">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
 </ul>
 <p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>

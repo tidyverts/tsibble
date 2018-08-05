@@ -103,6 +103,9 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
     <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -151,12 +154,12 @@ arguments as <code>stretch()</code>, but return vectors of the corresponding typ
     
     </div>
 
-    <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>stretch_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'>stretch_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>stretch_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>stretch_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,9 +201,8 @@ to right; if negative, moving backward (from right to left).</p></td>
       <td><p>A positive integer for an initial window size.</p></td>
     </tr>
     <tr>
-      <th>.flatten</th>
-      <td><p>If <code>.x</code> is a list or data frame, the input will be flattened
-to row-binding data frames first and then apply <code>.f</code>.</p></td>
+      <th>.bind</th>
+      <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -212,9 +214,9 @@ giving either the name or the index of the data frame.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p>stretch2, pstretch</p></li>
-<li><p>slide for sliding window with overlapping observations</p></li>
-<li><p>tile for tiling window without overlapping observations</p></li>
+<li><p><a href='stretch2.html'>stretch2</a>, <a href='stretch2.html'>pstretch</a></p></li>
+<li><p><a href='slide.html'>slide</a> for sliding window with overlapping observations</p></li>
+<li><p><a href='tile.html'>tile</a> for tiling window without overlapping observations</p></li>
 </ul></div>
     
 

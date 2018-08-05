@@ -96,6 +96,9 @@
     <li>
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
+    <li>
+      <a href="../articles/window.html">Windown functions</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -136,7 +139,7 @@
 <h1 class="page-header">
 <a href="#tsibble-0-4-0-9000" class="anchor"></a>tsibble 0.4.0.9000<small> Unreleased </small>
 </h1>
-<p>This release introduced the changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
+<p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -144,10 +147,10 @@
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
 <li>
-<code>slide()</code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
+<code><a href="../reference/slide.html">slide()</a></code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
 <li>Defined arithmetic operators (<code>+</code> &amp; <code>-</code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
-<code>slide()</code> and <code>stretch()</code> gained a new argument <code>.flatten = FALSE</code>. If <code>.x</code> is a list or data frame, the input will be flattened to a list of data frames first.</li>
+<code><a href="../reference/slide.html">slide()</a></code> and <code><a href="../reference/stretch.html">stretch()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
 </ul>
 </div>
 <div id="improvements" class="section level2">
@@ -163,7 +166,7 @@
 <ul>
 <li>Replaced <code>NA</code> or <code>NULL</code> with <code>0</code> in the “interval” class to make the representation simpler.</li>
 <li>The <code>interval</code> class has new slots of “millisecond”, “microsecond”, “nanosecond”.</li>
-<li>Retired <code>time_unit()</code> S3 generic, and made index extension a bit easier.</li>
+<li>Retired <code><a href="../reference/pull-interval.html">time_unit()</a></code> S3 generic, and made index extension a bit easier.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -172,9 +175,9 @@
 <ul>
 <li>Fixed warning in <code>format.yearweek()</code>.</li>
 <li>Fixed <code>group_by.lst_ts()</code> for dropping the grouping information.</li>
-<li>Fixed <code><a href="../reference/stretch.html">stretch2()</a></code> only applying <code>.f</code> to one input.</li>
+<li>Fixed <code><a href="../reference/stretch2.html">stretch2()</a></code> only applying <code>.f</code> to one input.</li>
 <li>Fixed NSE in <code>as_tsibble.grouped_df()</code> for groups. (#44)</li>
-<li>Fixed bug in <code>.fill = NULL</code> for <code>slide()</code>.</li>
+<li>Fixed bug in <code>.fill = NULL</code> for <code><a href="../reference/slide.html">slide()</a></code>.</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
@@ -197,12 +200,12 @@
 <li>Restructured windowed functions to follow the <code>purrr</code> style exactly (#35):
 <ul>
 <li>
-<code>slide()</code>, <code>tile()</code>, <code>stretch()</code> return lists only instead of numerics before.</li>
-<li>added <code><a href="../reference/slide.html">slide2()</a></code>, <code>pslide()</code> to map over multiple inputs simultaneously.</li>
+<code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code> return lists only instead of numerics before.</li>
+<li>added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code> to map over multiple inputs simultaneously.</li>
 <li>added other type-stable variants such as <code><a href="../reference/slide.html">slide_dbl()</a></code>, <code><a href="../reference/slide.html">slide_int()</a></code>, <code><a href="../reference/slide.html">slide_chr()</a></code>, <code><a href="../reference/slide.html">slide_lgl()</a></code>.</li>
 <li>A negative window size results in a backward moving direction.</li>
 <li>
-<code>slide()</code> gained a new argument <code>.partial</code> to support partial sliding.</li>
+<code><a href="../reference/slide.html">slide()</a></code> gained a new argument <code>.partial</code> to support partial sliding.</li>
 </ul>
 </li>
 <li>Renamed <code>x</code> to <code>.x</code> in <code><a href="../reference/slider.html">slider()</a></code>, <code><a href="../reference/tiler.html">tiler()</a></code>, <code><a href="../reference/stretcher.html">stretcher()</a></code>.</li>
@@ -218,7 +221,7 @@
 <li>Defined <code>diff()</code> for year-week, year-month, and year-quarter.</li>
 <li>
 <code><a href="../reference/period.html">yearweek()</a></code>, <code><a href="../reference/period.html">yearmonth()</a></code>, <code><a href="../reference/period.html">yearquarter()</a></code> supported for character.</li>
-<li>Added <code><a href="../reference/slide.html">slide2()</a></code>, <code>pslide()</code>, <code><a href="../reference/tile.html">tile2()</a></code>, <code>ptile()</code>, <code><a href="../reference/stretch.html">stretch2()</a></code>, <code>pstretch()</code> to slide over multiple inputs simultaneously (#33).</li>
+<li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (#33).</li>
 <li>New S3 generics <code><a href="../reference/units_since.html">units_since()</a></code> for index classes.</li>
 <li>New <code><a href="../reference/period.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
 <li>New S3 generics <code><a href="../reference/key_sum.html">key_sum()</a></code> for extending tsibble.</li>
@@ -437,7 +440,7 @@
 <h2 class="hasAnchor">
 <a href="#api-changes-1" class="anchor"></a>API changes</h2>
 <ul>
-<li>The windowed functions, including <code>slide()</code>, <code>tile()</code>, <code>stretch()</code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
+<li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code>tsummarise()</code> instead of any position in the call.</li>
 <li>
 <code><a href="../reference/tidyverse.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>

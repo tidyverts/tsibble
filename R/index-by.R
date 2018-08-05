@@ -25,9 +25,6 @@
 #' @details
 #' * A `index_by()`-ed tsibble is indicated by `@` in the "Groups" when 
 #' displaying on the screen.
-#' * Time index will not be collapsed by `summarise.tbl_ts`.
-#' * The scoped variants of `summarise()` only operate on the non-key and 
-#' non-index variables.
 #'
 #' @rdname index-by
 #' @export
