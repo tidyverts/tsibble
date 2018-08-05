@@ -143,6 +143,7 @@ init_interval <- function(
 
 #' Extract time unit from a vector
 #'
+#' @inheritParams pull_interval
 #' @export
 #' @examples
 #' x <- yearmonth(seq(2016, 2018, by = 0.5))

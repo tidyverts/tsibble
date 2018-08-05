@@ -6,6 +6,10 @@
 \usage{
 time_unit(x)
 }
+\arguments{
+\item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
+\code{hms}, \code{integer}, \code{numeric}.}
+}
 \description{
 Extract time unit from a vector
 }
