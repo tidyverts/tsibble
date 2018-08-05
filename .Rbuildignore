@@ -11,3 +11,4 @@
 ^appveyor\.yml$
 ^\.github$
 ^revdep$
+^LICENSE\.md$

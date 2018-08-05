@@ -14,7 +14,7 @@ Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
     the 'tibble'. The 'tsibble' aims at easily manipulating and analysing temporal 
     data, including counting and filling time gaps, aggregate over calendar periods, 
     performing rolling window calculations, and etc.
-License: GPL (>= 3)
+License: GPL-3
 URL: https://pkg.earo.me/tsibble
 BugReports: https://github.com/tidyverts/tsibble/issues
 Depends: 
