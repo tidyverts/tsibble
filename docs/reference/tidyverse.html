@@ -91,7 +91,7 @@ is changed, it will validate whether it's a tsibble internally. Turning
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -153,14 +153,14 @@ is changed, it will validate whether it's a tsibble internally. Turning
     <div class="ref-description">
     
     <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange()</a></code>: if not arranging key and index in past-to-future order, a warning is
+<li><p><code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>arrange()</a></code>: if not arranging key and index in past-to-future order, a warning is
 likely to be issued.</p></li>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice()</a></code>: if row numbers are not in ascending order, a warning is likely to
+<li><p><code><a href='http://www.rdocumentation.org/packages/dplyr/topics/slice'>slice()</a></code>: if row numbers are not in ascending order, a warning is likely to
 be issued.</p></li>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>: keeps the variables you mention as well as the index.</p></li>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>: keeps the variable you operate on, as well as the index and key.</p></li>
-<li><p>The column-wise verbs, including <code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>,
-<code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> &amp; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, have an additional argument of <code>.drop = FALSE</code> for
+<li><p><code><a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select()</a></code>: keeps the variables you mention as well as the index.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>transmute()</a></code>: keeps the variable you operate on, as well as the index and key.</p></li>
+<li><p>The column-wise verbs, including <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select()</a></code>, <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>transmute()</a></code>, <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise()</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>mutate()</a></code> &amp; <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>transmute()</a></code>, have an additional argument of <code>.drop = FALSE</code> for
 tsibble. The index variable cannot be dropped for a tsibble. If any key variable
 is changed, it will validate whether it's a tsibble internally. Turning
 <code>.drop = TRUE</code> converts to a tibble first and then do the operations.</p></li>
@@ -169,62 +169,62 @@ is changed, it will validate whether it's a tsibble internally. Turning
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>right_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>inner_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>semi_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>semi_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>arrange</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for grouped_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.by_group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>arrange</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.by_group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/filter'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/slice'>slice</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>rename</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>rename</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>mutate</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>transmute</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarize</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for grouped_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>ungroup</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"key"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='no'>...</span>,
@@ -296,7 +296,7 @@ tsibble and returns a tibble.</p></td>
     </tr>
     <tr>
       <th>add</th>
-      <td><p>When <code>add = FALSE</code>, the default, <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> will
+      <td><p>When <code>add = FALSE</code>, the default, <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by()</a></code> will
 override existing groups. To add to the existing groups, use
 <code>add = TRUE</code>.</p></td>
     </tr>
@@ -380,7 +380,7 @@ nested data frame, separated by <code>.sep</code>.</p></td>
       <th>.preserve</th>
       <td><p>Optionally, list-columns to preserve in the output. These
 will be duplicated in the same way as atomic vectors. This has
-<a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
+<a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>dplyr::select</a> semantics so you can preserve multiple variables with
 <code>.preserve = c(x, y)</code> or <code>.preserve = starts_with("list")</code>.</p></td>
     </tr>
     </table>
@@ -388,14 +388,14 @@ will be duplicated in the same way as atomic vectors. This has
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will not collapse on the index variable.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise()</a></code> will not collapse on the index variable.</p></li>
 </ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Sum over sensors ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h]
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h]
 #&gt;    Date_Time           Total
 #&gt;  * &lt;dttm&gt;              &lt;int&gt;
 #&gt;  1 2015-01-01 00:00:00  2866
@@ -411,7 +411,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Sum over sensors by days ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1D]
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1D]
 #&gt;    Date       Total
 #&gt;  * &lt;date&gt;     &lt;int&gt;
 #&gt;  1 2015-01-01 18079
@@ -426,12 +426,12 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; 10 2015-01-10 30904
 #&gt; # ... with 721 more rows</div><div class='input'><span class='co'>## .drop = TRUE ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
 #&gt;      &lt;int&gt;
 #&gt; 1 45494418</div><div class='input'><span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>geo_trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>geo_trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;    Region   State           Quarter geo_trips
@@ -493,7 +493,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; 2 Bourke Street Mall (North)    &lt;tsibble [16,414 × 4]&gt;
 #&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [17,526 × 4]&gt;
 #&gt; 4 Southern Cross Station        &lt;tsibble [17,539 × 4]&gt;</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>()</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   Sensor                        data                  
 #&gt; * &lt;chr&gt;                         &lt;list&gt;                

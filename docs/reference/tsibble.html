@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -166,8 +166,9 @@ simply call <code><a href='id.html'>id()</a></code>. See below for details.</p><
     </tr>
     <tr>
       <th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
-finds the greatest common divisor of positive time distances as the interval.</p></td>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+interval is determined by the greatest common divisor of positive time distances,
+if <code>TRUE</code>.</p></td>
     </tr>
     </table>
     
@@ -182,12 +183,13 @@ finds the greatest common divisor of positive time distances as the interval.</p
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
     
-    <p>The time indices are no longer an implicit attribute (for example, the <code>tsp</code> attribute
-in a <code>ts</code> object), but preserved as the essential data component of the tsibble. A
+    <p>The time indices are preserved as the essential data component of the tsibble,
+instead of implicit attribute (for example, the <code>tsp</code> attribute in a <code>ts</code> object). A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
 the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
 representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>.
+index class are also supported, including <code>zoo::yearmth</code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>, and
+<code>nanotime</code>.
 For a <code>tbl_ts</code> of regular interval,
 a choice of index representation has to be made. For example, a monthly data
 should correspond to time index created by <a href='period.html'>yearmonth</a> or <code>zoo::yearmth</code>,

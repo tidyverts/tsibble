@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Construct a tsibble object — build_tsibble • tsibble</title>
+<title>Construct a tsibble object for extension — build_tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,10 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Construct a tsibble object — build_tsibble" />
+<meta property="og:title" content="Construct a tsibble object for extension — build_tsibble" />
 
 <meta property="og:description" content="
-build_tsibble() creates a tbl_ts object with more control. It is useful
+build_tsibble() creates a tbl_ts object with more controls. It is useful
 for creating a tbl_ts internally inside a function, and it allows users to
 determine if the time needs ordering and the interval needs calculating.
 build_tsibble_meta() assigns the attributes to an object, assuming this
@@ -85,7 +85,7 @@ object is a valid tsibble.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ object is a valid tsibble.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Construct a tsibble object</h1>
+    <h1>Construct a tsibble object for extension</h1>
     
     <div class="hidden name"><code>build_tsibble.Rd</code></div>
     </div>
@@ -147,7 +147,7 @@ object is a valid tsibble.
     <div class="ref-description">
     
     <ul>
-<li><p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more control. It is useful
+<li><p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more controls. It is useful
 for creating a <code>tbl_ts</code> internally inside a function, and it allows users to
 determine if the time needs ordering and the interval needs calculating.</p></li>
 <li><p><code>build_tsibble_meta()</code> assigns the attributes to an object, assuming this
@@ -190,8 +190,9 @@ simply call <code><a href='id.html'>id()</a></code>. See below for details.</p><
     </tr>
     <tr>
       <th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). <code>TRUE</code>
-finds the greatest common divisor of positive time distances as the interval.</p></td>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+interval is determined by the greatest common divisor of positive time distances,
+if <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>validate</th>

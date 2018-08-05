@@ -39,10 +39,9 @@
 <meta property="og:title" content="tsibble: tidy temporal data frames and tools — tsibble-package" />
 
 <meta property="og:description" content="
-The tsibble package provides a data class of tbl_ts to store and manage
-temporal data frames in a &quot;tidy&quot; form. A tsibble consists of a time index,
-key, and other measured variables in a data-centric format, which is built on
-top of the tibble." />
+The tsibble package provides a data class of tbl_ts to represent tidy
+temporal-context data. A tsibble consists of a time index, key, and other
+measured variables in a data-centric format, which is built on top of the tibble." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -83,7 +82,7 @@ top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -145,10 +144,9 @@ top of the tibble." />
     <div class="ref-description">
     
     <p><img src='figures/logo.png' align='right' />
-The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to store and manage
-temporal data frames in a "tidy" form. A tsibble consists of a time index,
-key, and other measured variables in a data-centric format, which is built on
-top of the tibble.</p>
+The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to represent tidy
+temporal-context data. A tsibble consists of a time index, key, and other
+measured variables in a data-centric format, which is built on top of the tibble.</p>
     
     </div>
 
@@ -156,12 +154,13 @@ top of the tibble.</p>
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
     
-    <p>The time indices are no longer an implicit attribute (for example, the <code>tsp</code> attribute
-in a <code>ts</code> object), but preserved as the essential data component of the tsibble. A
+    <p>The time indices are preserved as the essential data component of the tsibble,
+instead of implicit attribute (for example, the <code>tsp</code> attribute in a <code>ts</code> object). A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
 the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
 representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including <code>zoo::yearmth</code> and <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>.
+index class are also supported, including <code>zoo::yearmth</code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>, and
+<code>nanotime</code>.
 For a <code>tbl_ts</code> of regular interval,
 a choice of index representation has to be made. For example, a monthly data
 should correspond to time index created by <a href='period.html'>yearmonth</a> or <code>zoo::yearmth</code>,
