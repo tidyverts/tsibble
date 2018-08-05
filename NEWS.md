@@ -1,3 +1,5 @@
+# tsibble 0.5.0.9000
+
 # tsibble 0.5.0
 
 This release introduced the breaking changes to the "interval" class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The "interval" format changes from upper case to short hand. To support new time index class, only `index_valid()` and `pull_interval()` need to be defined now.
