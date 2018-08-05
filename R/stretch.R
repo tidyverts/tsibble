@@ -163,10 +163,10 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
   dplyr::bind_cols(!!! out)
 }
 
-#' Splits the input to a list according to the stretching window size.
+#' Split the input to a list according to the stretching window size.
 #'
-#' @param .x An objects to be splitted.
-#' @param ... Multiple objects to be splitted in parallel.
+#' @param .x An objects to be split.
+#' @param ... Multiple objects to be split in parallel.
 #' @inheritParams stretch
 #' @rdname stretcher
 #' @export

@@ -3,7 +3,7 @@
 \name{build_tsibble}
 \alias{build_tsibble}
 \alias{build_tsibble_meta}
-\title{Construct a tsibble object for extention}
+\title{Construct a tsibble object for extension}
 \usage{
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)

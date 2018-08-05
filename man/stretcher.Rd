@@ -3,14 +3,14 @@
 \name{stretcher}
 \alias{stretcher}
 \alias{pstretcher}
-\title{Splits the input to a list according to the stretching window size.}
+\title{Split the input to a list according to the stretching window size.}
 \usage{
 stretcher(.x, .size = 1, .init = 1, .bind = FALSE)
 
 pstretcher(..., .size = 1, .init = 1, .bind = FALSE)
 }
 \arguments{
-\item{.x}{An objects to be splitted.}
+\item{.x}{An objects to be split.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
@@ -19,10 +19,10 @@ to right; if negative, moving backward (from right to left).}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?}
 
-\item{...}{Multiple objects to be splitted in parallel.}
+\item{...}{Multiple objects to be split in parallel.}
 }
 \description{
-Splits the input to a list according to the stretching window size.
+Split the input to a list according to the stretching window size.
 }
 \examples{
 x <- 1:5
