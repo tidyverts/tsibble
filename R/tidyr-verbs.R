@@ -57,7 +57,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     abort(sprintf("`key` must not be `%s`, as it's the `index`.", key_var))
   }
   key_left <- setdiff(key_vars(data), key_var)
-  new_key <- key(key_reduce(data, .vars = key_left, validate = FALSE))
+  new_key <- key(key_remove(data, .vars = key_left, validate = FALSE))
 
   tbl <- spread(
     as_tibble(data), key = !! key, value = !! value, fill = fill, 

@@ -24,7 +24,7 @@
       lgl_i <- has_index(i, x) && has_distinct_key(i, x)
       result <- .subset(x, i)
       attr(result, "row.names") <- .set_row_names(nr)
-      x <- key_reduce(x, i, validate = FALSE)
+      x <- key_remove(x, i, validate = FALSE)
       if (is_false(lgl_i)) {
         return(as_tibble(result))
       } else {
@@ -52,7 +52,7 @@
       return(NextMethod())
     }
     result <- .subset(x, j)
-    x <- key_reduce(x, chr_j, validate = FALSE)
+    x <- key_remove(x, chr_j, validate = FALSE)
   } else {
     result <- x
   }

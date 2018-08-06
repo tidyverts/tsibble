@@ -194,8 +194,8 @@ key_update <- function(.data, ..., validate = TRUE) {
   )
 }
 
-# drop some keys
-key_reduce <- function(.data, .vars, validate = TRUE) {
+# remove some variables from the key
+key_remove <- function(.data, .vars, validate = TRUE) {
   old_key <- key(.data)
   old_chr <- key_flatten(old_key)
   key_idx <- which(.vars %in% old_chr)

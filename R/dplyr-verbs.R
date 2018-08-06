@@ -205,7 +205,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   grps <- group_vars(.data)
   # mostly attempt to preserve the nesting structure
-  key_less <- key(key_reduce(.data, grps, validate = FALSE))
+  key_less <- key(key_remove(.data, grps, validate = FALSE))
   flat_key <- key_flatten(key_less)
   # currently no way to set up nesting in `group_by()`
   add_key <- setdiff(grps, c(flat_key, idx2_chr))
