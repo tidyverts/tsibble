@@ -188,7 +188,8 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
 
   lst_quos <- enquos(..., .named = TRUE)
   idx2_chr <- quo_name(idx2)
-  nonkey <- setdiff(names(lst_quos), 
+  nonkey <- setdiff(
+    names(lst_quos), 
     squash(c(key(.data), quo_name(idx), idx2_chr))
   )
   nonkey_quos <- lst_quos[nonkey]
@@ -203,7 +204,12 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
     reg <- TRUE
   }
   grps <- group_vars(.data)
-  new_key <- key(key_reduce(.data, grps, validate = FALSE))
+  # mostly attempt to preserve the nesting structure
+  key_less <- key(key_reduce(.data, grps, validate = FALSE))
+  flat_key <- key_flatten(key_less)
+  # currently no way to set up nesting in `group_by()`
+  add_key <- setdiff(grps, c(flat_key, idx2_chr))
+  new_key <- c(key_less, add_key) 
 
   build_tsibble(
     sum_data, key = new_key, index = !! idx2,

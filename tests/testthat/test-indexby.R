@@ -1,6 +1,5 @@
 context("index_by() + verbs")
 
-
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:01"),
   ymd_hms("2017-01-01 00:00:05"),
