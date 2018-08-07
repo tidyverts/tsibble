@@ -356,16 +356,16 @@ build_tsibble <- function(
   # x is tbl_ts, use as_tibble(ungroup = TRUE)
   tbl <- ungroup(as_tibble(x, validate = validate))
   # extract or pass the index var
-  index <- validate_index(tbl, enquo(index))
+  qindex <- enquo(index)
+  index <- validate_index(tbl, qindex)
   # if index2 not specified
   index2 <- enquo(index2)
-  idx2_sym <- get_expr(index2)
   if (quo_is_missing(index2)) {
     index2 <- index
-  } else if (!identical(index, idx2_sym)) {
-    index2 <- validate_index(tbl, index2)
+  } else if (identical(qindex, index2)) {
+    index2 <- get_expr(index2)
   } else {
-    index2 <- idx2_sym
+    index2 <- validate_index(tbl, index2)
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(tbl, key)
@@ -391,8 +391,8 @@ build_tsibble <- function(
 #' @rdname build_tsibble
 #' @export
 build_tsibble_meta <- function(
-  x, key, index, index2 = index, groups = id(), regular = TRUE,
-  ordered = NULL, interval = NULL
+  x, key, index, index2, groups = id(), regular = TRUE, ordered = NULL, 
+  interval = NULL
 ) {
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
@@ -400,7 +400,12 @@ build_tsibble_meta <- function(
   if (is_null(regular)) abort("`regular` must not be NULL.")
   key <- eval_tidy(enquo(key))
   index <- get_expr(enquo(index))
-  index2 <- get_expr(enquo(index2))
+  index2 <- enquo(index2)
+  if (quo_is_missing(index2)) {
+    index2 <- index
+  } else {
+    index2 <- get_expr(index2)
+  }
   tbl <- ungroup(as_tibble(x, validate = FALSE))
   if (is_false(regular)) {
     interval <- list()

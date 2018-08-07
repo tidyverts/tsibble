@@ -211,9 +211,8 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   add_key <- setdiff(grps, c(flat_key, idx2_chr))
   new_key <- c(key_less, add_key) 
 
-  build_tsibble(
-    sum_data, key = new_key, index = !! idx2,
-    groups = grp_drop(grps, idx2_chr), validate = FALSE, 
+  build_tsibble_meta(
+    sum_data, key = new_key, index = !! idx2, groups = grp_drop(grps, idx2_chr), 
     regular = reg, ordered = TRUE, interval = int
   )
 }
@@ -232,9 +231,9 @@ summarize.tbl_ts <- summarise.tbl_ts
 #'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
-  build_tsibble(
+  build_tsibble_meta(
     grped_tbl, key = key(.data), index = !! index(.data), 
-    index2 = !! index2(.data), groups = groups(grped_tbl), validate = FALSE, 
+    index2 = !! index2(.data), groups = groups(grped_tbl),
     regular = is_regular(.data), ordered = is_ordered(.data), 
     interval = interval(.data)
   )
@@ -255,10 +254,9 @@ group_by_key <- function(.tbl, .funs = list(), ...) {
 #' @rdname tidyverse
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
-  build_tsibble(
+  build_tsibble_meta(
     x, key = key(x), index = !! index(x), groups = id(),
-    validate = FALSE, regular = is_regular(x), ordered = is_ordered(x),
-    interval = interval(x)
+    regular = is_regular(x), ordered = is_ordered(x), interval = interval(x)
   )
 }
 
