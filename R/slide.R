@@ -33,6 +33,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"
 #' is needed.
 #' @param .bind If `.x` is a list, should `.x` be combined before applying `.f`?
+#' If `.x` is a list of data frame, row binding is carried out.
 #'
 #' @rdname slide
 #' @export

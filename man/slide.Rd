@@ -53,7 +53,8 @@ to right; if negative, moving backward (from right to left).}
 of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
 is needed.}
 
-\item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?}
+\item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
+If \code{.x} is a list of data frame, row binding is carried out.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

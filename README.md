@@ -69,10 +69,11 @@ framework. See `package?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
 for details.
 
-The **tsibble** internally computes the interval for a given time index,
-based on its representation. The `POSIXct` corresponds to sub-daily
-series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmth` to
-monthly, `yearquarter`/`yearqtr` to quarterly, and
+The **tsibble** internally computes the interval for given time indices
+based on the time representation, ranging from year to nanosecond. The
+`POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek`
+to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to
+quarterly, and
 etc.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
