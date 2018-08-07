@@ -8,7 +8,7 @@
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
 
-build_tsibble_meta(x, key, index, index2 = index, groups = id(),
+build_tsibble_meta(x, key, index, index2, groups = id(),
   regular = TRUE, ordered = NULL, interval = NULL)
 }
 \arguments{
