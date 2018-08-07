@@ -198,8 +198,7 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
     list(seq_len(len_x))
   )
   out <- purrr::map(incr_lst, function(idx) .x[idx])
-  if (.bind) return(bind_lst(out)) else out
-  out
+  if (.bind) bind_lst(out) else out
 }
 
 

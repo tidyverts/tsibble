@@ -315,7 +315,7 @@ slider <- function(
   lst_idx <- seq_len(len_x - abs_size + 1)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
   out <- purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
-  if (.bind) return(bind_lst(out)) else out
+  if (.bind) bind_lst(out) else out
 }
 
 #' @rdname slider
@@ -333,11 +333,10 @@ pslider <- function(
 bind_lst <- function(x) {
   type_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ typeof(.)[1]))
   if (all(type_elements == "list")) {
-    out <- lapply(x, dplyr::bind_rows)
+    lapply(x, dplyr::bind_rows)
   } else {
-    out <- lapply(x, dplyr::combine)
+    lapply(x, dplyr::combine)
   }
-  out
 }
 
 bad_window_function <- function(.size) {
@@ -380,15 +379,16 @@ pad_slide <- function(x, .size = 1, .fill = NA, .align = "right") {
   if (is_null(.fill)) return(x) 
   fill_size <- abs(.size) - 1
   if (align == "right") {
-    return(c(rep(.fill, fill_size), x))
+    c(rep(.fill, fill_size), x)
   } else if (align %in% c("c", "center", "centre", "cl", "center-left", "centre-left")) {
     lsize <- floor(fill_size / 2)
-    return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
+    c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
   } else if (align %in% c("cr", "center-right", "centre-right")) {
     lsize <- ceiling(fill_size / 2)
-    return(c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize)))
+    c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
+  } else {
+    c(x, rep(.fill, fill_size)) # "left"
   }
-  c(x, rep(.fill, fill_size)) # "left"
 }
 
 bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
@@ -399,9 +399,11 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
   }
   lst <- new_list_along(x[[abs_size]])
   lst[] <- .fill
-  if (byrow) 
-    return(dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id))
-  dplyr::bind_cols(lst, !!! x[-seq_len(abs_size - 1)])
+  if (byrow) {
+    dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id)
+  } else {
+    dplyr::bind_cols(lst, !!! x[-seq_len(abs_size - 1)])
+  }
 }
 
 check_valid_window <- function(.size, .align) {

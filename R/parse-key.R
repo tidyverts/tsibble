@@ -65,7 +65,7 @@ unkey.tbl_ts <- function(x) {
   nkey <- n_keys(x)
   if (nkey < 2 || nkey == nrow(x)) {
     attr(x, "key") <- structure(id(), class = "key")
-    return(x)
+    x
   } else {
     abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
   }
@@ -90,9 +90,10 @@ key_size <- function(x) {
 key_size.tbl_ts <- function(x) {
   key_indices <- key_indices(x)
   if (is_empty(key_indices)) {
-    return(NROW(x))
+    NROW(x)
+  } else {
+    vapply(key_indices, length, integer(1))
   }
-  vapply(key_indices, length, integer(1))
 }
 
 #' @rdname key-size
@@ -105,9 +106,10 @@ n_keys <- function(x) {
 n_keys.tbl_ts <- function(x) {
   key <- key_vars(x)
   if (is_empty(key)) {
-    return(1L)
+    1L
+  } else {
+    NROW(distinct(ungroup(as_tibble(x)), !!! syms(key)))
   }
-  NROW(distinct(ungroup(as_tibble(x)), !!! syms(key)))
 }
 
 #' @rdname key-size
@@ -141,7 +143,7 @@ grp_drop <- function(x, index2 = NULL) {
   len <- length(x)
   new_grps <- x[-len] # drop one grouping level
   if (is_empty(new_grps)) {
-    return(id())
+    id()
   } else {
     syms(new_grps)
   }
@@ -150,9 +152,10 @@ grp_drop <- function(x, index2 = NULL) {
 grp_update <- function(x, .vars) {
   chr <- intersect(group_vars(x), .vars)
   if (is_empty(chr)) {
-    return(id())
+    id()
+  } else {
+    syms(chr)
   }
-  syms(chr)
 }
 
 # this returns a vector of groups/key characters
@@ -181,17 +184,18 @@ key_update <- function(.data, ..., validate = TRUE) {
   quos <- enquos(...)
   key <- validate_key(.data, quos)
   if (validate) {
-    return(build_tsibble(
+    build_tsibble(
       .data, key = key, index = !! index(.data), index2 = !! index2(.data),
       groups = groups(.data), regular = is_regular(.data), validate = validate,
       ordered = is_ordered(.data), interval = interval(.data)
-    ))
+    )
+  } else {
+    build_tsibble_meta(
+      .data, key = key, index = !! index(.data), index2 = !! index2(.data),
+      groups = groups(.data), regular = is_regular(.data),
+      ordered = is_ordered(.data), interval = interval(.data)
+    )
   }
-  build_tsibble_meta(
-    .data, key = key, index = !! index(.data), index2 = !! index2(.data),
-    groups = groups(.data), regular = is_regular(.data),
-    ordered = is_ordered(.data), interval = interval(.data)
-  )
 }
 
 # remove some variables from the key
@@ -265,17 +269,19 @@ validate_key <- function(data, key) {
 
 is_nest <- function(lst_syms) {
   if (is_empty(lst_syms)) {
-    return(FALSE)
+    FALSE
+  } else {
+    unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
   }
-  unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
 }
 
 parse_key <- function(x) {
   if (is_empty(x)) {
-    return(id())
+    id()
+  } else {
+    # purrr::map(x, ~ flatten_nest(.[[-1]]))
+    purrr::map(x, flatten_nest)
   }
-  # purrr::map(x, ~ flatten_nest(.[[-1]]))
-  purrr::map(x, flatten_nest)
 }
 
 # interpret a nested calls A | B | C

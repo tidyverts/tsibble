@@ -93,9 +93,10 @@ index2_rename <- function(.data, .vars, names = names(.vars)) {
 index2_update <- function(x, .vars) {
   chr <- intersect(quo_name(index2(x)), .vars)
   if (is_empty(chr)) {
-    return(index(x))
+    index(x)
+  } else {
+    sym(chr)
   }
-  sym(chr)
 }
 
 tsibble_rename <- function(.data, ...) {

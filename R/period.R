@@ -83,9 +83,9 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
     abort("binary `+` is not defined for `yearweek` objects")
   }
   if (e1_yrwk) {
-    return(yearweek(as_date(e1) + e2 * 7))
+    yearweek(as_date(e1) + e2 * 7)
   } else {
-    return(yearweek(e1 * 7 + as_date(e2)))
+    yearweek(e1 * 7 + as_date(e2))
   }
 }
 
@@ -237,9 +237,9 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
     abort("binary `+` is not defined for `yearmonth` objects")
   }
   if (e1_yrmth) {
-    return(yearmonth(as_date(e1) + lubridate::period(e2, units = "month")))
+    yearmonth(as_date(e1) + lubridate::period(e2, units = "month"))
   } else {
-    return(yearmonth(lubridate::period(e1, units = "month") + as_date(e2)))
+    yearmonth(lubridate::period(e1, units = "month") + as_date(e2))
   }
 }
 
@@ -358,9 +358,9 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
     abort("binary `+` is not defined for `yearquarter` objects")
   }
   if (e1_yrqtr) {
-    return(yearquarter(as_date(e1) + lubridate::period(e2 * 3, units = "month")))
+    yearquarter(as_date(e1) + lubridate::period(e2 * 3, units = "month"))
   } else {
-    return(yearquarter(lubridate::period(e1 * 3, units = "month") + as_date(e2)))
+    yearquarter(lubridate::period(e1 * 3, units = "month") + as_date(e2))
   }
 }
 

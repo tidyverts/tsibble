@@ -43,11 +43,12 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     arrange(!!! key_vars, !! idx) %>% 
     select(!! idx, !!! key_vars, !! value_var)
   if (is_empty(key_vars)) {
-    return(finalise_ts(tsbl_sel, index = index(x), frequency = frequency))
+    finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
+  } else {
+    mat_ts <- tsbl_sel %>% 
+      spread(key = !! key_vars[[1]], value = !! value_var, fill = fill)
+    finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
-  mat_ts <- tsbl_sel %>% 
-    spread(key = !! key_vars[[1]], value = !! value_var, fill = fill)
-  finalise_ts(mat_ts, index = idx, frequency = frequency)
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {
@@ -160,9 +161,9 @@ guess_frequency.POSIXt <- function(x) {
   int <- pull_interval(x)
   number <- int$hour + int$minute / 60 + int$second / 3600
   if (number > 1 / 60) {
-    return(24 / number)
+    24 / number
   } else if (number > 1 / 3600 && number <= 1 / 60) {
-    return(3600 * number)
+    3600 * number
   } else {
     3600 * 60 * number
   }

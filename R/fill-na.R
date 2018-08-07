@@ -211,13 +211,14 @@ gaps <- function(x, y) {
   from <- c(1, to[-length(to)] + 1)
   nobs <- gap_idx[lgl_rle]
   if (is_empty(nobs)) {
-    return(tibble::tibble(from = NA, to = NA, n = 0L))
+    tibble::tibble(from = NA, to = NA, n = 0L)
+  } else {
+    tibble::tibble(
+      from = y[from][lgl_rle],
+      to = y[to][lgl_rle],
+      n = nobs
+    )
   }
-  tibble::tibble(
-    from = y[from][lgl_rle],
-    to = y[to][lgl_rle],
-    n = nobs
-  )
 }
 
 # has_gaps <- function(.data, .full = FALSE) {

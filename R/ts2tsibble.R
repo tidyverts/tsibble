@@ -32,9 +32,9 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
 as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
   if (gather) {
     long_tbl <- gather_ts(x, tz = tz)
-    return(build_tsibble_meta(
+    build_tsibble_meta(
       long_tbl, key = id(key), index = index, ordered = TRUE
-    ))
+    )
   } else {
     wide_tbl <- bind_time(x, tz = tz)
     build_tsibble_meta(
@@ -47,7 +47,7 @@ as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
 #' @export
 as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
   if (NCOL(x) == 1) {
-    return(as_tsibble.ts(x, tz = tz))
+    as_tsibble.ts(x, tz = tz)
   } else {
     as_tsibble.mts(x, tz = tz, gather = gather)
   }
@@ -124,7 +124,7 @@ rep_nodes <- function(x, level = 1L, index = seq_along(x[[level]])) {
   }
   index <- rep.int(index, x[[level]])
   if (has_length(x, level)) {
-    return(index)
+    index
   } else {
     rep_nodes(x, level + 1L, index)
   }

@@ -36,9 +36,10 @@ first_arg <- function(x) {
 # time distances.
 gcd_interval <- function(x) {
   if (has_length(x, 1)) { # only one time index
-    return(NA_real_)
+    NA_real_
+  } else {
+    gcd_vector(x)
   }
-  gcd_vector(x)
 }
 
 validate_vars <- function(j, x) { # j = quos/chr/dbl
@@ -47,11 +48,11 @@ validate_vars <- function(j, x) { # j = quos/chr/dbl
 
 surround <- function(x, bracket = "(") {
   if (bracket == "(") {
-    return(paste0("(", x, ")"))
+    paste0("(", x, ")")
   } else if (bracket == "[") {
-    return(paste0("[", x, "]"))
+    paste0("[", x, "]")
   } else if (bracket == "<") {
-    return(paste0("<", x, ">"))
+    paste0("<", x, ">")
   } else {
     paste0("`", x, "`")
   }
