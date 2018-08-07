@@ -3,6 +3,7 @@
 ## Bug fixes
 
 * Fixed key updating via `group_by()` + `summarise()`. (#47)
+* `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()`, when `.bind = TRUE`.
 
 # tsibble 0.5.0
 

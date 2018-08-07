@@ -332,11 +332,10 @@ pslider <- function(
 
 bind_lst <- function(x) {
   type_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ typeof(.)[1]))
-  type <- purrr::reduce(type_elements, identical_type)
-  if (type == "list") {
+  if (all(type_elements == "list")) {
     out <- lapply(x, dplyr::bind_rows)
   } else {
-    out <- lapply(x, function(y) do.call(c, y))
+    out <- lapply(x, dplyr::combine)
   }
   out
 }

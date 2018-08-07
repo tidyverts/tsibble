@@ -81,10 +81,3 @@ unknown_interval <- function(x) {
 is_even <- function(x) {
   (abs(x) %% 2) == 0
 }
-
-identical_type <- function(x, y) {
-  if (identical(x, y)) 
-    return(x) 
-  else 
-    abort("Don't know how to bind list elements of different types.")
-}
