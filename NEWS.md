@@ -1,9 +1,8 @@
 # tsibble 0.5.0.9000
 
-## Bug fixes
-
 * Fixed key updating via `group_by()` + `summarise()`. (#47)
 * `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()`, when `.bind = TRUE`.
+* Avoid strong dependency on `pillar`.
 
 # tsibble 0.5.0
 
@@ -16,12 +15,12 @@ This release introduced the breaking changes to the "interval" class to make tsi
 * `slide()` gained a new argument `.align = "right"` to align at "right", "center", or "left". If window size is even for center alignment, either "center-right" or "center-left" is needed.
 * Defined arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
 * `slide()` and `stretch()` gained a new argument `.bind = FALSE`.
+* A new vignette on window functions.
 
 ## Improvements
 
 * Speed improvement for internals when it's a known valid tsibble. (#43)
 * Better support "millisecond" and "microsecond".
-* A new vignette on window functions.
 
 ## Internal changes
 

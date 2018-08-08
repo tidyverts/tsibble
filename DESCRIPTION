@@ -23,7 +23,6 @@ Imports:
     anytime,
     dplyr (>= 0.7.3),
     lubridate,
-    pillar (>= 1.0.1),
     purrr (>= 0.2.3),
     Rcpp (>= 0.12.3),
     rlang (>= 0.2.0),
@@ -38,6 +37,7 @@ Suggests:
     knitr,
     nanotime,
     nycflights13 (>= 1.0.0),
+    pillar (>= 1.0.1),
     rmarkdown,
     testthat,
     timeDate

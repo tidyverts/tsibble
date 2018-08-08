@@ -134,18 +134,14 @@ rlang::`!!`
 #' @export
 rlang::`!!!`
 
-#' @importFrom pillar type_sum
+#' @importFrom tibble type_sum
 #' @export
-pillar::type_sum
+tibble::type_sum
 
-#' @importFrom pillar obj_sum
+#' @importFrom tibble obj_sum
 #' @export
-pillar::obj_sum
+tibble::obj_sum
 
-#' @importFrom pillar is_vector_s3
+#' @importFrom tibble is_vector_s3
 #' @export
-pillar::is_vector_s3
-
-#' @importFrom pillar pillar_shaft
-#' @export
-pillar::pillar_shaft
+tibble::is_vector_s3

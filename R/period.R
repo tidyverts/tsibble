@@ -190,7 +190,6 @@ is_vector_s3.yearweek <- function(x) {
   TRUE
 }
 
-#' @export
 pillar_shaft.yearweek <- function(x, ...) {
   out <- format(x)
   pillar::new_pillar_shaft_simple(out, align = "right", min_width = 10)
@@ -314,7 +313,6 @@ obj_sum.yearmonth <- function(x) {
 #' @export
 is_vector_s3.yearmonth <- is_vector_s3.yearweek
 
-#' @export
 pillar_shaft.yearmonth <- pillar_shaft.yearweek
 
 #' @rdname period
@@ -475,7 +473,6 @@ obj_sum.yearquarter <- function(x) {
 #' @export
 is_vector_s3.yearquarter <- is_vector_s3.yearweek
 
-#' @export
 pillar_shaft.yearquarter <- pillar_shaft.yearweek
 
 #' @export
