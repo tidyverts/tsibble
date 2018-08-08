@@ -41,7 +41,7 @@
 #'
 #' @export
 tsibble <- function(..., key = id(), index, regular = TRUE) {
-  dots <- rlang::list2(...)
+  dots <- list2(...)
   if (is_empty(dots)) {
     abort("A tsibble must not be empty.")
   }
