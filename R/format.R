@@ -32,16 +32,11 @@ print.key <- function(x, ...) {
 #' @export
 format.key <- function(x, ...) {
   if (is_empty(x)) return(list())
-  nest_lgl <- is_nest(x)
-  comb_keys <- purrr::map(x[!nest_lgl], as.character)
-  full_keys <- vector(mode = "list", length = length(comb_keys) + sum(nest_lgl))
-  if (any(nest_lgl)) {
-    nest_keys <- purrr::map(x[nest_lgl], as.character) %>% 
-      purrr::map(paste, collapse = " | ")
-    full_keys[nest_lgl] <- nest_keys
-  }
-  full_keys[!nest_lgl] <- comb_keys
-  full_keys
+  reconstruct_key(
+    x, 
+    ~ purrr::map(purrr::map(., as.character), paste, collapse = " | "),
+    ~ purrr::map(., as.character)
+  )
 }
 
 #' @export

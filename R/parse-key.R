@@ -126,16 +126,8 @@ key_indices.tbl_ts <- function(x) {
 }
 
 key_distinct <- function(x) { # x = a list of keys (symbols)
-  if (is_empty(x)) {
-    return(x)
-  }
-  nest_lgl <- is_nest(x)
-  comb_keys <- x[!nest_lgl]
-  if (any(nest_lgl)) {
-    nest_keys <- purrr::map(x[nest_lgl], ~ .[[1]])
-    comb_keys <- c(nest_keys, comb_keys)
-  }
-  unname(comb_keys)
+  if (is_empty(x)) return(x)
+  reconstruct_key(x, ~ purrr::map(., ~ .[[1]]), ~ .)
 }
 
 grp_drop <- function(x, index2 = NULL) {
@@ -210,38 +202,39 @@ key_remove <- function(.data, .vars, validate = TRUE) {
   }
   new_lgl <- old_lgl[match(key_vars, old_chr)]
 
-  new_key <- syms(key_vars[!new_lgl])
-  if (any(new_lgl)) {
-    new_key <- c(list(syms(key_vars[new_lgl])), new_key)
-  }
+  new_nest_key <- syms(key_vars[new_lgl])
+  new_cross_key <- syms(key_vars[!new_lgl])
+  new_key <- reconstruct_key(
+    old_key,
+    ~ purrr::map(., ~ .[flatten(.) %in% new_nest_key]),
+    ~ .[. %in% new_cross_key]
+  )
   key_update(.data, !!! new_key, validate = validate)
 }
 
-key_rename <- function(
-  .data, .vars, names1 = names(.data), names2 = names(.vars)
-) {
+key_rename <- function(.data, .vars) {
   # key (key of the same size (bf & af))
   old_key <- key(.data)
+  if (is_empty(old_key)) return(id())
   old_chr <- key_flatten(old_key)
-  new_chr <- names2[.vars %in% old_chr]
+  names <- names(.vars)
+  new_chr <- names[.vars %in% old_chr]
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
   }
-  new_key <- syms(new_chr[!lgl])
-  if (is_empty(new_chr)) {
-    new_key <- id()
-  } else if (any(lgl)) {
-    new_key <- c(list(syms(new_chr[lgl])), new_key)
-  }
-  new_key
+  new_nest_key <- syms(new_chr[lgl])
+  reconstruct_key(
+    old_key,
+    ~ `[<-`(., list(new_nest_key)),
+    ~ `[<-`(., syms(new_chr[!lgl]))
+  )
 }
 
-grp_rename <- function(
-  .data, .vars, names1 = names(.data), names2 = names(.vars)
-) {
+grp_rename <- function(.data, .vars) {
+  names <- names(.vars)
   old_grp_chr <- group_vars(.data)
-  new_grp_chr <- names2[.vars %in% old_grp_chr]
+  new_grp_chr <- names[.vars %in% old_grp_chr]
   syms(new_grp_chr)
 }
 
@@ -254,18 +247,31 @@ validate_key <- function(data, key) {
   keys <- parse_key(key)
   if (is_empty(keys)) return(keys)
 
-  nest_lgl <- is_nest(keys)
-  cross_keys <- syms(validate_vars(keys[!nest_lgl], cn))
-  valid_keys <- vector(mode = "list", length = length(cross_keys) + sum(nest_lgl))
+  reconstruct_key(
+    keys, 
+    ~ purrr::map(., ~ syms(validate_vars(flatten(.), cn))),
+    ~ syms(validate_vars(., cn))
+  )
+}
+
+reconstruct_key <- function(key, nesting, crossing) {
+  nest_lgl <- is_nest(key)
+  crossing_fun <- as_function(crossing)
+  cross_vars <- crossing_fun(key[!nest_lgl])
+  len_cross <- length(cross_vars)
+  ttl_len <- len_cross + sum(nest_lgl)
+  valid_key <- vector(mode = "list", length = ttl_len)
   if (any(nest_lgl)) {
-    nest_keys <- purrr::map(
-      keys[nest_lgl],
-      ~ syms(validate_vars(flatten(.), cn))
-    )
-    valid_keys[nest_lgl] <- nest_keys
+    nest_idx <- which(nest_lgl)
+    nesting_fun <- as_function(nesting)
+    nest_vars <- nesting_fun(key[nest_lgl])
+    valid_key[nest_idx] <- nest_vars
+    cross_idx <- seq_len(ttl_len)[-nest_idx]
+  } else {
+    cross_idx <- seq_len(ttl_len)
   }
-  valid_keys[!nest_lgl] <- cross_keys
-  valid_keys
+  valid_key[cross_idx] <- cross_vars
+  purrr::compact(valid_key)
 }
 
 is_nest <- function(lst_syms) {

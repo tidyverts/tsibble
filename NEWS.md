@@ -1,7 +1,7 @@
 # tsibble 0.5.0.9000
 
 * Fixed key updating via `group_by()` + `summarise()`. (#47)
-* `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()`, when `.bind = TRUE`.
+* `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()` now, if `.bind = TRUE`.
 * Avoid strong dependency on `pillar`.
 * Respected the ordering of input variables while creating the key.
 

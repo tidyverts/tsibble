@@ -78,22 +78,24 @@ index_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-index_rename <- function(.data, .vars, names = names(.vars)) {
+index_rename <- function(.data, .vars) {
+  names <- names(.vars)
   idx_chr <- quo_text(index(.data))
   new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
 
-index2_rename <- function(.data, .vars, names = names(.vars)) {
+index2_rename <- function(.data, .vars) {
+  names <- names(.vars)
   idx_chr <- quo_text(index2(.data))
   new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
 
-index2_update <- function(x, .vars) {
-  chr <- intersect(quo_name(index2(x)), .vars)
+index2_update <- function(.data, .vars) {
+  chr <- intersect(quo_name(index2(.data)), .vars)
   if (is_empty(chr)) {
-    index(x)
+    index(.data)
   } else {
     sym(chr)
   }
@@ -102,20 +104,19 @@ index2_update <- function(x, .vars) {
 tsibble_rename <- function(.data, ...) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_rename(names_dat, ...)
-  names_vars <- names(val_vars)
 
   # index
-  idx <- index_rename(.data, val_vars, names = names_vars)
+  idx <- index_rename(.data, val_vars)
   # index2
-  idx2 <- index2_rename(.data, val_vars, names = names_vars)
+  idx2 <- index2_rename(.data, val_vars)
   attr(.data, "index2") <- idx2
   # key (key of the same size (bf & af))
-  new_key <- key_rename(.data, val_vars, names_dat, names_vars)
+  new_key <- key_rename(.data, val_vars)
   # groups
-  new_grp <- grp_rename(.data, val_vars, names_dat, names_vars)
+  new_grp <- grp_rename(.data, val_vars)
   attr(.data, "vars") <- new_grp
 
-  names(.data) <- names_vars
+  names(.data) <- names(val_vars)
   build_tsibble(
     .data, key = new_key, index = !! idx, index2 = !! idx2,
     groups = new_grp, regular = is_regular(.data), validate = FALSE, 
@@ -127,7 +128,6 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   dots <- c(enquos(...), new_quosure(index(.data)))
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
-  names_vars <- names(val_vars)
   sel_data <- select(as_tibble(.data), !!! val_vars)
 
   # checking
@@ -140,28 +140,18 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   # }
   
   # index
-  idx <- index_rename(.data, val_vars, names = names_vars)
+  idx <- index_rename(.data, val_vars)
   # index2
-  idx2 <- index2_rename(.data, val_vars, names = names_vars)
+  idx2 <- index2_rename(.data, val_vars)
   # key (key of the reduced size (bf & af) but also different names)
-  old_key <- key(.data)
-  old_chr <- key_flatten(old_key)
-  key_idx <- which(val_vars %in% old_chr)
-  key_vars <- val_vars[key_idx]
-  old_lgl <- FALSE
-  if (!is_empty(old_key)) {
-    old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
-  }
-  new_lgl <- old_lgl[match(key_vars, old_chr)]
-  new_key <- syms(names(key_vars)[!new_lgl])
-  if (any(new_lgl)) {
-    new_key <- c(list(syms(names(key_vars)[new_lgl])), new_key)
-  }
+  key_vars <- val_vars[val_vars %in% key_vars(.data)]
+  tmp_data <- key_remove(.data, key_vars, validate = FALSE)
+  new_key <- key_rename(tmp_data, key_vars)
   # groups
   new_grp <- grp_rename(.data, val_vars)
   
   if (validate) {
-    vec_names <- union(names_vars, names(.data))
+    vec_names <- union(names(val_vars), names(.data))
     # either key or index is present in ...
     # suggests that the operations are done on these variables
     # validate = TRUE to check if tsibble still holds
