@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
       </span>
     </div>
 
@@ -132,10 +132,10 @@
 <div id="fixed-window-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed-window-size" class="anchor"></a>Fixed window size</h2>
-<p>Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. <code><a href="../reference/slide.html">slide()</a></code> returns an output the same length as the input with <code>.fill = NA</code> (by default) and <code>.align = "center-left"</code> padded at both sides of the data range, so that the result fits into <code><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate()</a></code> in harmony. <code><a href="../reference/slide.html">slide_dbl()</a></code> produces the numeric vector returned by <code>mean()</code>.</p>
+<p>Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. <code><a href="../reference/slide.html">slide()</a></code> returns an output the same length as the input with <code>.fill = NA</code> (by default) and <code>.align = "center-left"</code> padded at both sides of the data range, so that the result fits into <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in harmony. <code><a href="../reference/slide.html">slide_dbl()</a></code> produces the numeric vector returned by <code>mean()</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center-left"</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">  ))</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h]</span></a>
@@ -156,7 +156,7 @@
 <a href="#flexible-calendar-period" class="anchor"></a>Flexible calendar period</h2>
 <p>What if the time period we’d like to slide over happens not to be a fixed window size, for example sliding over three months. The preprocessing step is to wrap observations into monthly subsets (a list of tsibbles) using <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">pedestrian_mth &lt;-<span class="st"> </span>pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">YrMth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(Date_Time)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">YrMth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(Date_Time)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest</a></span>(<span class="op">-</span>Sensor, <span class="op">-</span>YrMth)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">pedestrian_mth</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; # A tibble: 96 x 3</span></a>
@@ -170,13 +170,13 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
 <p>Now it’s ready to (rock and) roll. When setting <code>.size = 1</code> in <code><a href="../reference/slide.html">slide()</a></code>, it behaves exactly the same as <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, mapping over each element in the object. However, <code>(1)</code> a bundle of 3 subsets (<code>.size = 3</code>) needs to be binded first and then computed for average counts; <code>(2)</code> alternatively, <code>.bind = TRUE</code> takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pedestrian_mth <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="co"># (1)</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="co"># mutate(Monthly_MA = slide_dbl(data, </span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="co">#   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="co"># ))</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="co"># (2) equivalent to (1)</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.<span class="op">$</span>Count, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>, <span class="dt">.align =</span> <span class="st">"center"</span>, <span class="dt">.bind =</span> <span class="ot">TRUE</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">  ))</a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; # A tibble: 96 x 4</span></a>
@@ -199,10 +199,10 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Count <span class="op">~</span><span class="st"> </span>Time, <span class="dt">data =</span> data)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw">list</span>(<span class="dt">fitted =</span> <span class="kw">fitted</span>(fit), <span class="dt">resid =</span> <span class="kw">residuals</span>(fit))</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">pedestrian_full <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/filter">filter</a></span>(Date <span class="op">&lt;=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2015-03-31"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">pedestrian <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(Date_Time <span class="op">&lt;</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2015-04-01"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest</a></span>(<span class="op">-</span>Sensor) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">diag =</span> purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/slide2.html">pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/slide2.html">pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   Sensor                        data                 diag                 </span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; * &lt;chr&gt;                         &lt;list&gt;               &lt;list&gt;               </span></a>

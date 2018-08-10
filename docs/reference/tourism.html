@@ -80,7 +80,7 @@ across Australia." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
       </span>
     </div>
 
@@ -184,8 +184,8 @@ variables are crossed with <em>Purpose</em> of visit. The resulting structure is
 <span class='co'># nesting and crossed structure</span>
 <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; Region | State, Purpose</div><div class='input'><span class='co'># Total trips over geographical regions</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;    Region   State           Quarter Total_Trips

@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 8  2013 kiwi       8</div><div class='input'>
 <span class='co'># use fill() to fill `NA` by previous/next entry</span>
 <span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/fill'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt; # Groups:    fruit [2]
@@ -257,7 +257,7 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 8  2013 kiwi       8</div><div class='input'>
 <span class='co'># replace NA using a function for each group ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt; # Groups:    fruit [2]
@@ -273,7 +273,7 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 8  2013 kiwi       8</div><div class='input'>
 <span class='co'># replace NA ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_na</span>(
     <span class='kw'>Date</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='no'>Date_Time</span>),
     <span class='kw'>Time</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/hour.html'>hour</a></span>(<span class='no'>Date_Time</span>),

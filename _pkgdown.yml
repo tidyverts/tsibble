@@ -18,17 +18,27 @@ authors:
 
 reference:
 - title: Overview
+  desc: >
+    Describes the key components underlying a **tsibble**, or `tbl_ts`: index, 
+    key, interval.
   contents:
     - tsibble-package
 
 - title: Create/coerce to a tsibble
+  desc: >
+    `tsibble()` creates a `tbl_ts`; `as_tsibble()` coerces other objects to `tbl_ts`;
+    `build_tsibble()` constructs a `tbl_ts` with more controls over attributes.
   contents:
     - tsibble
     - as_tsibble
     - is_tsibble
     - build_tsibble
 
-- title: Tsibble verbs
+- title: Basic tsibble verbs
+  desc: >
+    Verbs that manipulate data in time-based context. `index_by()` and `group_by_key()`
+    create a grouped tsibble, or `grouped_ts`, but how the data looks remains
+    unchanged. They needs operating with other `tidyverse` verbs.
   contents:
     - index_by
     - fill_na
@@ -37,17 +47,21 @@ reference:
     - split_by
     - find_duplicates
 
-- title: Vector
-  contents:
-    - difference
-
-- title: Windowed functions
+- title: A family of window functions
+  desc: >
+    Map and roll over a list of elements. It features the `purrr`-like interface.
   contents:
     - starts_with("slide")
     - starts_with("tile")
     - starts_with("stretch")
 
+- title: Vector functions
+  contents:
+    - difference
+
 - title: Time
+  desc: >
+    New index classes representing `yearquarter`, `yearmonth`, and `yearweek`.
   contents:
     - starts_with("year")
     - units_since
@@ -58,15 +72,12 @@ reference:
   contents:
     - holiday_aus
 
-- title: Key helpers
+- title: Helpers
   contents:
     - key
     - key_size
     - key_update
     - key_sum
-
-- title: Tsibble helpers
-  contents:
     - id
     - index
     - measured_vars
@@ -75,6 +86,8 @@ reference:
     - case_na
 
 - title: Extend tsibble
+  desc: >
+    Add support to custom index class for **tsibble**.
   contents:
     - index_valid
     - pull_interval
@@ -90,6 +103,9 @@ reference:
     - tourism
 
 - title: Tidyverse methods
+  desc: >
+    Dplyr and tidyr verbs that support manipulating and reshaping `tbl_ts` in
+    time-based context.
   contents:
     - tidyverse
 

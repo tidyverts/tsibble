@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-overview" class="hasAnchor"><a href="#section-overview" class="anchor"></a>Overview</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>Describes the key components underlying a <strong>tsibble</strong>, or <code>tbl_ts</code>: index, key, interval.</p></p>
         </th>
       </tr>
       <tr>
@@ -160,7 +160,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-create-coerce-to-a-tsibble" class="hasAnchor"><a href="#section-create-coerce-to-a-tsibble" class="anchor"></a>Create/coerce to a tsibble</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>; <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> constructs a <code>tbl_ts</code> with more controls over attributes.</p></p>
         </th>
       </tr>
       <tr>
@@ -191,8 +191,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-tsibble-verbs" class="hasAnchor"><a href="#section-tsibble-verbs" class="anchor"></a>Tsibble verbs</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-basic-tsibble-verbs" class="hasAnchor"><a href="#section-basic-tsibble-verbs" class="anchor"></a>Basic tsibble verbs</h2>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       <tr>
@@ -235,22 +235,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="difference.html">difference()</a></code> </p>
-        </td>
-        <td><p>Lagged differences</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-windowed-functions" class="hasAnchor"><a href="#section-windowed-functions" class="anchor"></a>Windowed functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
+          <p class="section-desc"><p>Map and roll over a list of elements. It features the <code>purrr</code>-like interface.</p></p>
         </th>
       </tr>
       <tr>
@@ -311,8 +297,22 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
+          <h2 id="section-vector-functions" class="hasAnchor"><a href="#section-vector-functions" class="anchor"></a>Vector functions</h2>
           <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="difference.html">difference()</a></code> </p>
+        </td>
+        <td><p>Lagged differences</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
+          <p class="section-desc"><p>New index classes representing <code>yearquarter</code>, <code>yearmonth</code>, and <code>yearweek</code>.</p></p>
         </th>
       </tr>
       <tr>
@@ -357,7 +357,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-key-helpers" class="hasAnchor"><a href="#section-key-helpers" class="anchor"></a>Key helpers</h2>
+          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -385,15 +385,7 @@
           <p><code><a href="key_sum.html">key_sum()</a></code> </p>
         </td>
         <td><p>Summary of key variables</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tsibble-helpers" class="hasAnchor"><a href="#section-tsibble-helpers" class="anchor"></a>Tsibble helpers</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
+      </tr><tr>
         
         <td>
           <p><code><a href="id.html">id()</a></code> </p>
@@ -429,7 +421,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>Add support to custom index class for <strong>tsibble</strong>.</p></p>
         </th>
       </tr>
       <tr>
@@ -489,7 +481,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-tidyverse-methods" class="hasAnchor"><a href="#section-tidyverse-methods" class="anchor"></a>Tidyverse methods</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></p>
         </th>
       </tr>
       <tr>
@@ -508,13 +500,12 @@ checks if a tsibble is ordered by key and index.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
-      <li><a href="#section-tsibble-verbs">Tsibble verbs</a></li>
-      <li><a href="#section-vector">Vector</a></li>
-      <li><a href="#section-windowed-functions">Windowed functions</a></li>
+      <li><a href="#section-basic-tsibble-verbs">Basic tsibble verbs</a></li>
+      <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
+      <li><a href="#section-vector-functions">Vector functions</a></li>
       <li><a href="#section-time">Time</a></li>
       <li><a href="#section-calendar">Calendar</a></li>
-      <li><a href="#section-key-helpers">Key helpers</a></li>
-      <li><a href="#section-tsibble-helpers">Tsibble helpers</a></li>
+      <li><a href="#section-helpers">Helpers</a></li>
       <li><a href="#section-extend-tsibble">Extend tsibble</a></li>
       <li><a href="#section-coerce-to-other-objects">Coerce to other objects</a></li>
       <li><a href="#section-data">Data</a></li>

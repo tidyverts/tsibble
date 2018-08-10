@@ -33,7 +33,7 @@ You could install the development version from Github using
 devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
 ```
 
-## Get started
+## Usage
 
 ### Coerce to a tsibble with `as_tsibble()`
 

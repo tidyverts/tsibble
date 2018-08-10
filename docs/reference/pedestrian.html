@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
       </span>
     </div>
 
@@ -182,9 +182,9 @@
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
 #&gt; # ... with 69,038 more rows</div><div class='input'><span class='co'># compute daily maximum counts across sensors ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/summarise'>summarise</a></span>(<span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 2,755 x 3 [1D]
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 2,755 x 3 [1D]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date        MaxC
 #&gt;  * &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt;
