@@ -250,21 +250,22 @@ grp_rename <- function(
 # return: a list of symbols (if (is_nest) a list of list)
 validate_key <- function(data, key) {
   if (inherits(key, "key")) return(key)
-  col_names <- colnames(data)
+  cn <- names(data)
   keys <- parse_key(key)
-  if (is_empty(keys)) {
-    return(keys)
-  }
+  if (is_empty(keys)) return(keys)
+
   nest_lgl <- is_nest(keys)
-  valid_keys <- syms(validate_vars(keys[!nest_lgl], col_names))
+  cross_keys <- syms(validate_vars(keys[!nest_lgl], cn))
+  valid_keys <- vector(mode = "list", length = length(cross_keys) + sum(nest_lgl))
   if (any(nest_lgl)) {
     nest_keys <- purrr::map(
       keys[nest_lgl],
-      ~ syms(validate_vars(flatten(.), col_names))
+      ~ syms(validate_vars(flatten(.), cn))
     )
-    valid_keys <- c(nest_keys, valid_keys)
+    valid_keys[nest_lgl] <- nest_keys
   }
-  unname(valid_keys)
+  valid_keys[!nest_lgl] <- cross_keys
+  valid_keys
 }
 
 is_nest <- function(lst_syms) {

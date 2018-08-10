@@ -270,7 +270,7 @@ dat_x <- tibble(
   value = rnorm(10)
 )
 
-test_that("2 nested variable", {
+test_that("2 nested variables", {
   expect_error(as_tsibble(dat_x, key = id(level | group), index = date))
   tsbl <- as_tsibble(dat_x, key = id(group | level), index = date)
   expect_identical(length(key(tsbl)), 1L)
@@ -331,6 +331,9 @@ test_that("2 nested variables crossed with 1 variable", {
   expect_identical(length(key(tsbl))[[1]], 2L)
   expect_identical(format(key(tsbl))[[1]], "bottom | group1")
   expect_identical(key_vars(tsbl)[[3]], "group2")
+  tsbl2 <- as_tsibble(dat_x, key = id(group2, bottom | group1), index = date)
+  expect_identical(format(key(tsbl2))[[2]], "bottom | group1")
+  expect_identical(key_vars(tsbl2)[[1]], "group2")
 })
 
 colnames(dat_x) <- c("1", "Bottom 1", "Group 1", "Group 2", "Value X")

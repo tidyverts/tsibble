@@ -31,22 +31,17 @@ print.key <- function(x, ...) {
 
 #' @export
 format.key <- function(x, ...) {
-  if (is_empty(x)) {
-    return(list())
-  }
+  if (is_empty(x)) return(list())
   nest_lgl <- is_nest(x)
   comb_keys <- purrr::map(x[!nest_lgl], as.character)
+  full_keys <- vector(mode = "list", length = length(comb_keys) + sum(nest_lgl))
   if (any(nest_lgl)) {
-    nest_keys <- purrr::map(x[nest_lgl], as.character)
-    cond_keys <- paste_comma(purrr::map(nest_keys, paste, collapse = " | "))
-    comb_keys <- if (is_true(nest_lgl)) {
-      cond_keys
-    } else {
-      c(cond_keys, comb_keys)
-    }
+    nest_keys <- purrr::map(x[nest_lgl], as.character) %>% 
+      purrr::map(paste, collapse = " | ")
+    full_keys[nest_lgl] <- nest_keys
   }
-  names(comb_keys) <- comb_keys
-  comb_keys
+  full_keys[!nest_lgl] <- comb_keys
+  full_keys
 }
 
 #' @export
