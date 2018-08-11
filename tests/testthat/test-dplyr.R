@@ -2,6 +2,16 @@ library(lubridate)
 library(dplyr)
 context("dplyr verbs for tsibble")
 
+pedestrian <- pedestrian %>% 
+  group_by(Sensor) %>% 
+  slice(1:10) %>% 
+  ungroup()
+
+tourism <- tourism %>% 
+  group_by_key() %>% 
+  slice(1:10) %>% 
+  ungroup()
+
 test_that("group_by()", {
   grped_df <- pedestrian %>%
     group_by(Date) %>%
@@ -295,4 +305,37 @@ test_that("summarise() scoped variants", {
       summarise_at(vars(a:c), sum),
     ref_tsbl
   )
+})
+
+dat_x <- tribble(
+  ~ date, ~ bottom1, ~ group1, ~ bottom2, ~ group2, ~ value,
+  ymd("2017-10-01"), 1, "a", "x", "z", 1,
+  ymd("2017-10-02"), 1, "a", "x", "z", 1,
+  ymd("2017-10-01"), 2, "a", "x", "z", 1,
+  ymd("2017-10-02"), 2, "a", "x", "z", 1,
+  ymd("2017-10-01"), 1, "a", "y", "z", 1,
+  ymd("2017-10-02"), 1, "a", "y", "z", 1,
+  ymd("2017-10-01"), 2, "a", "y", "z", 1,
+  ymd("2017-10-02"), 2, "a", "y", "z", 1,
+  ymd("2017-10-01"), 3, "b", "y", "z", 3,
+  ymd("2017-10-02"), 3, "b", "y", "z", 3,
+  ymd("2017-10-01"), 3, "b", "x", "z", 3,
+  ymd("2017-10-02"), 3, "b", "x", "z", 3,
+  ymd("2017-10-01"), 4, "b", "y", "z", 3,
+  ymd("2017-10-02"), 4, "b", "y", "z", 3,
+  ymd("2017-10-01"), 4, "b", "x", "z", 3,
+  ymd("2017-10-02"), 4, "b", "x", "z", 3
+)
+
+tsbl <- as_tsibble(dat_x, key = id(bottom1 | group1, bottom2 | group2), index = date)
+
+test_that("verbs for 2 nestings", {
+  # key_remove
+  sel_data <- select(tsbl, bottom1, bottom2)
+  expect_named(sel_data, c("bottom1", "bottom2", "date"))
+  expect_equal(unclass(key(sel_data)), rlang::syms(c("bottom1", "bottom2")))
+  # key_rename
+  sel_data2 <- select(tsbl, bot1 = bottom1, bot2 = bottom2)
+  expect_named(sel_data2, c("bot1", "bot2", "date"))
+  expect_equal(unclass(key(sel_data2)), rlang::syms(c("bot1", "bot2")))
 })

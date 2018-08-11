@@ -336,6 +336,15 @@ test_that("2 nested variables crossed with 1 variable", {
   expect_identical(key_vars(tsbl2)[[1]], "group2")
 })
 
+dat_y <- dat_x %>% 
+  mutate(top = "z")
+
+test_that("2 nestings, crossed with each other", {
+  tsbl <- as_tsibble(dat_y, key = id(bottom | group1, group2 | top), index = date)
+  expect_identical(format(key(tsbl))[[1]], "bottom | group1")
+  expect_identical(format(key(tsbl))[[2]], "group2 | top")
+})
+
 colnames(dat_x) <- c("1", "Bottom 1", "Group 1", "Group 2", "Value X")
 
 test_that("Spectial characters in column names", {

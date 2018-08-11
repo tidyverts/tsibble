@@ -74,6 +74,11 @@ test_that("fill_na() for corner case", {
   expect_identical(fill_na(tsbl[1:5, ]), tsbl[1:5, ])
 })
 
+tourism <- tourism %>% 
+  group_by_key() %>% 
+  slice(1:10) %>% 
+  ungroup()
+
 test_that("fill_na() for yearquarter", {
   full_tsbl <- tourism %>%
     fill_na()
