@@ -258,19 +258,20 @@ reconstruct_key <- function(key, nesting, crossing) {
   nest_lgl <- is_nest(key)
   crossing_fun <- as_function(crossing)
   cross_vars <- crossing_fun(key[!nest_lgl])
-  len_cross <- length(cross_vars)
-  ttl_len <- len_cross + sum(nest_lgl)
+  ttl_len <- length(cross_vars) + sum(nest_lgl)
   valid_key <- vector(mode = "list", length = ttl_len)
+  cross_idx <- seq_len(ttl_len)
   if (any(nest_lgl)) {
     nest_idx <- which(nest_lgl)
     nesting_fun <- as_function(nesting)
     nest_vars <- nesting_fun(key[nest_lgl])
     valid_key[nest_idx] <- nest_vars
-    cross_idx <- seq_len(ttl_len)[-nest_idx]
-  } else {
-    cross_idx <- seq_len(ttl_len)
+    cross_idx <- cross_idx[-nest_idx]
   }
   valid_key[cross_idx] <- cross_vars
+  # if there's only one variable in nesting lists --> flatten
+  len_1 <- purrr::map_lgl(valid_key, ~ is_list(.) && has_length(., 1))
+  valid_key[len_1] <- flatten(valid_key[len_1])
   purrr::compact(valid_key)
 }
 
