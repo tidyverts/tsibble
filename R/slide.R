@@ -137,7 +137,7 @@ slide_dfc <- function(
 #' pslide(list(lst, lst), ~ ., .size = 2)
 #'
 #' ###
-#' # row-wise workflow
+#' # row-wise sliding over data frame
 #' ###
 #'
 #' my_df <- data.frame(

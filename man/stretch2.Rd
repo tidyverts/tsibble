@@ -83,6 +83,17 @@ stretch2(lst, lst, ~ ., .size = 2)
 stretch2(df, df, ~ ., .size = 2)
 pstretch(lst, sum, .size = 1)
 pstretch(list(lst, lst), ~ ., .size = 2)
+
+###
+# row-wise stretching over data frame
+###
+
+x <- as.Date("2017-01-01") + 0:364
+df <- data.frame(x = x, y = seq_along(x))
+
+tibble::tibble(
+  data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
+)
 }
 \seealso{
 \itemize{

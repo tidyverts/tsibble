@@ -89,6 +89,17 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' stretch2(df, df, ~ ., .size = 2)
 #' pstretch(lst, sum, .size = 1)
 #' pstretch(list(lst, lst), ~ ., .size = 2)
+#'
+#' ###
+#' # row-wise stretching over data frame
+#' ###
+#'
+#' x <- as.Date("2017-01-01") + 0:364
+#' df <- data.frame(x = x, y = seq_along(x))
+#' 
+#' tibble::tibble(
+#'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
+#' )
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
   lst <- pstretcher(.x, .y, .size = .size, .init = .init, .bind = .bind)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
