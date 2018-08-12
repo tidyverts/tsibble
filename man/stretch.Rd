@@ -45,7 +45,7 @@ to right; if negative, moving backward (from right to left).}
 \item{.init}{A positive integer for an initial window size.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
-If \code{.x} is a list of data frame, row binding is carried out.}
+If \code{.x} is a list of data frames, row binding is carried out.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}

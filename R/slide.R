@@ -33,7 +33,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"
 #' is needed.
 #' @param .bind If `.x` is a list, should `.x` be combined before applying `.f`?
-#' If `.x` is a list of data frame, row binding is carried out.
+#' If `.x` is a list of data frames, row binding is carried out.
 #'
 #' @rdname slide
 #' @export
@@ -45,6 +45,9 @@ replace_fn_names <- function(fn, replace = list()){
 #' the purrr-like syntax. For some specialist functions like `mean` and `sum`,
 #' you may like to check out for
 #' [RcppRoll](https://CRAN.R-project.org/package=RcppRoll) for faster performance.
+#'
+#' `slide()` is intended to work with list (and column-wise data frame). To
+#' perform row-wise sliding window on data frame, please check out [pslide()].
 #'
 #' @examples
 #' x <- 1:5

@@ -92,6 +92,8 @@ pedestrian %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 
+Why `slide()` not working for this case? It is intended to work with list (i.e. column-wise data frame). However, when we perform a row-wise sliding over data frame, `pslide()` does the job.
+
 ## Other features 
 
 The `slide()` examples default to sliding over complete sets. In some cases, you may find partial sliding more appropriate, which can be enabled by `.partial = TRUE`. Additionally, as opposed to moving window forward by a positive `.size`, a negative one moves window backward.

@@ -54,7 +54,7 @@ of the window. If \code{.size} is even for center alignment, "centre-right" & "c
 is needed.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
-If \code{.x} is a list of data frame, row binding is carried out.}
+If \code{.x} is a list of data frames, row binding is carried out.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
@@ -73,6 +73,9 @@ The \code{slide()} function attempts to tackle more general problems using
 the purrr-like syntax. For some specialist functions like \code{mean} and \code{sum},
 you may like to check out for
 \href{https://CRAN.R-project.org/package=RcppRoll}{RcppRoll} for faster performance.
+
+\code{slide()} is intended to work with list (and column-wise data frame). To
+perform row-wise sliding window on data frame, please check out \code{\link[=pslide]{pslide()}}.
 }
 \examples{
 x <- 1:5
