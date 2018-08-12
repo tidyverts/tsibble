@@ -111,7 +111,9 @@ pull_interval.yearqtr <- function(x) {
 #' @export
 pull_interval.numeric <- function(x) {
   nunits <- gcd_interval(x)
-  if (min0(x) > 1599 && max0(x) < 2500) {
+  # "place our origin at 1582 if we are historically in- clined or at 1900 if 
+  # we are more financially motivated." (p98, the grammar of graphics v2)
+  if (min0(x) > 1581 && max0(x) < 2500) {
     init_interval(year = nunits)
   } else {
     init_interval(unit = nunits)
