@@ -6,6 +6,7 @@
 * Respected the ordering of input variables while creating the key.
 * Vectorised arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
 * Fixed "attempt to select less than one element in integerOneIndex" error message in `unnest.lst_ts()`.
+* Fixed incorrect interval when doing join operations for custom index class. (#52)
 
 ## Misc
 

@@ -304,6 +304,9 @@ restore_index_class <- function(new, old) {
   old_idx <- quo_text(index(old))
   new_idx <- quo_text(index(new))
   class(new[[new_idx]]) <- class(old[[old_idx]])
+  if (!identical(interval(new), interval(old))) {
+    attr(new, "interval") <- pull_interval(new[[new_idx]])
+  }
   new
 }
 
