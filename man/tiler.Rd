@@ -5,15 +5,18 @@
 \alias{ptiler}
 \title{Splits the input to a list according to the tiling window size.}
 \usage{
-tiler(.x, .size = 1)
+tiler(.x, .size = 1, .bind = FALSE)
 
-ptiler(..., .size = 1)
+ptiler(..., .size = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
+
+\item{.bind}{If \code{.x} is a list or data frame, the input will be flattened
+to a list of data frames.}
 
 \item{...}{Multiple objects to be split in parallel.}
 }

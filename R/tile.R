@@ -21,8 +21,8 @@
 #' tile_dbl(x, mean, .size = 2)
 #' tile_lgl(x, ~ mean(.) > 2, .size = 2)
 #' tile(lst, ~ ., .size = 2)
-tile <- function(.x, .f, ..., .size = 1) {
-  lst_x <- tiler(.x, .size = .size)
+tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
+  lst_x <- tiler(.x, .size = .size, .bind = .bind)
   purrr::map(lst_x, .f, ...)
 }
 
@@ -39,15 +39,15 @@ for(type in c("lgl", "chr", "dbl", "int")){
 
 #' @rdname tile
 #' @export
-tile_dfr <- function(.x, .f, ..., .size = 1, .id = NULL) {
-  out <- tile(.x = .x, .f = .f, ..., .size = .size)
+tile_dfr <- function(.x, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
+  out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname tile
 #' @export
-tile_dfc <- function(.x, .f, ..., .size = 1) {
-  out <- tile(.x = .x, .f = .f, ..., .size = .size)
+tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
+  out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_cols(!!! out)
 }
 
@@ -77,8 +77,8 @@ tile_dfc <- function(.x, .f, ..., .size = 1) {
 #' tile2(df, df, ~ ., .size = 2)
 #' ptile(lst, sum, .size = 1)
 #' ptile(list(lst, lst), ~ ., .size = 2)
-tile2 <- function(.x, .y, .f, ..., .size = 1) {
-  lst <- ptiler(.x, .y, .size = .size)
+tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
+  lst <- ptiler(.x, .y, .size = .size, .bind = .bind)
   purrr::map2(lst[[1]], lst[[2]], .f, ...)
 }
 
@@ -95,22 +95,22 @@ for(type in c("lgl", "chr", "dbl", "int")){
 
 #' @rdname tile2
 #' @export
-tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .id = NULL) {
-  out <- tile2(.x, .y, .f = .f, ..., .size = .size)
+tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
+  out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
-tile2_dfc <- function(.x, .y, .f, ..., .size = 1) {
-  out <- tile2(.x, .y, .f = .f, ..., .size = .size)
+tile2_dfc <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
+  out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_cols(!!! out)
 }
 
 #' @rdname tile2
 #' @export
-ptile <- function(.l, .f, ..., .size = 1) {
-  lst <- ptiler(!!! .l, .size = .size)
+ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
+  lst <- ptiler(!!! .l, .size = .size, .bind = .bind)
   purrr::pmap(lst, .f, ...)
 }
 
@@ -127,15 +127,15 @@ for(type in c("lgl", "chr", "dbl", "int")){
 
 #' @rdname tile2
 #' @export
-ptile_dfr <- function(.l, .f, ..., .size = 1, .id = NULL) {
-  out <- ptile(.l, .f, ..., .size = .size)
+ptile_dfr <- function(.l, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
+  out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
-ptile_dfc <- function(.l, .f, ..., .size = 1) {
-  out <- ptile(.l, .f, ..., .size = .size)
+ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
+  out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
   dplyr::bind_cols(!!! out)
 }
 
@@ -157,18 +157,20 @@ ptile_dfc <- function(.l, .f, ..., .size = 1) {
 #' ptiler(list(x, y), list(y))
 #' ptiler(df, .size = 2)
 #' ptiler(df, df, .size = 2)
-tiler <- function(.x, .size = 1) {
+tiler <- function(.x, .size = 1, .bind = FALSE) {
   bad_window_function(.size)
+  abort_not_lst(.x, .bind = .bind)
   len_x <- NROW(.x)
   seq_x <- seq_len(len_x)
   denom <- len_x + 1
   frac <- ceiling((seq_x %% denom) / .size)
-  unname(split(.x, frac, drop = TRUE))
+  out <- unname(split(.x, frac, drop = TRUE))
+  if (.bind) bind_lst(out) else out
 }
 
 #' @rdname tiler
 #' @export
-ptiler <- function(..., .size = 1) { # parallel sliding
+ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
   lst <- recycle(list2(...))
-  purrr::map(lst, function(x) tiler(x, .size = .size))
+  purrr::map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
 }

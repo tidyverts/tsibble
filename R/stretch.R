@@ -197,6 +197,7 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
   }
+  abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
   abs_size <- abs(.size)

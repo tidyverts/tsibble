@@ -5,6 +5,7 @@ y <- 6:10
 z <- 11:15
 lst <- list(x = x, y = y, z = z)
 df <- as.data.frame(lst)
+lst_cols <- tibble::tibble(lst = list(df, df, df))
 
 test_that("tiler() & ptiler()", {
   expect_equal(tiler(x, .size = 2), list(1:2, 3:4, 5))
@@ -27,6 +28,10 @@ test_that("tiler() & ptiler()", {
   expect_equal(
     ptiler(as.list(df), .size = 2),
     ptiler(lst, .size = 2)
+  )
+  expect_equal(
+    tiler(list(x = 1.5, y = 1L), .size = 2, .bind = TRUE),
+    list(c(1.5, 1.0))
   )
 })
 

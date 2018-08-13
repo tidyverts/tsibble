@@ -1,10 +1,14 @@
 # tsibble 0.5.0.9000
 
+## New features
+
+* `tile()` gained a new argument `.bind = FALSE`.
+* Vectorised arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
+
 ## Bug fixes
 
 * Fixed key updating via `group_by()` + `summarise()`. (#47)
 * Respected the ordering of input variables while creating the key.
-* Vectorised arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
 * Fixed "attempt to select less than one element in integerOneIndex" error message in `unnest.lst_ts()`.
 * Fixed incorrect interval when doing join operations for custom index class. (#52)
 
@@ -12,7 +16,7 @@
 
 * `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()` now, if `.bind = TRUE`.
 * Avoid strong dependency on `pillar`.
-* Setting row names on a tsibble is deprecated. 
+* Setting row names on a tsibble is deprecated, which is consistent with `tibble`. 
 
 # tsibble 0.5.0
 

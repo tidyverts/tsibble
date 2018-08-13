@@ -314,9 +314,7 @@ slider <- function(
   .align = "right", .bind = FALSE
 ) {
   bad_window_function(.size)
-  if (!is.list(.x) && .bind) {
-    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
-  }
+  abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
@@ -437,5 +435,11 @@ check_valid_window <- function(.size, .align) {
       "Can't use `.align = %s` for even window `.size`. Please use `.align = 'center-left'` or `.align = 'center-right'`.",
       .align
     ))
+  }
+}
+
+abort_not_lst <- function (.x, .bind = FALSE) {
+  if (!is.list(.x) && .bind) {
+    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
   }
 }
