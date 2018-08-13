@@ -7,6 +7,7 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
 }
 
 #' @inheritParams dplyr::left_join
+#' @name tidyverse
 #' @rdname tidyverse
 #' @export
 left_join.tbl_ts <- function(
