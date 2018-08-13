@@ -9,6 +9,7 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
 #' @inheritParams dplyr::left_join
 #' @name tidyverse
 #' @rdname tidyverse
+#' @include dplyr-verbs.R
 #' @export
 left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
