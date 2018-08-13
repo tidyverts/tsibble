@@ -3,7 +3,7 @@
 \name{build_tsibble}
 \alias{build_tsibble}
 \alias{build_tsibble_meta}
-\title{Construct a tsibble object for extension}
+\title{Low-level construction of a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
@@ -39,8 +39,8 @@ valid input, specify \code{FALSE} to skip the checks.}
 then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
 the correct order. \code{FALSE} also skips the ordering but gives a warning instead.}
 
-\item{interval}{\code{NULL} computes the interval. Use the specified interval as
-is, if an class of \code{interval} is supplied.}
+\item{interval}{\code{NULL} computes the interval. Use the specified interval via
+\code{\link[=new_interval]{new_interval()}} as is, if an class of \code{interval} is supplied.}
 }
 \description{
 \itemize{

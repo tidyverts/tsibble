@@ -27,7 +27,7 @@ reference:
 - title: Create/coerce to a tsibble
   desc: >
     `tsibble()` creates a `tbl_ts`; `as_tsibble()` coerces other objects to `tbl_ts`;
-    `build_tsibble()` constructs a `tbl_ts` with more controls over attributes.
+    `build_tsibble()` is the powerhouse of `as_tsibble()`.
   contents:
     - tsibble
     - as_tsibble
@@ -82,6 +82,7 @@ reference:
     - index
     - measured_vars
     - interval
+    - new_interval
     - is_regular
     - case_na
 

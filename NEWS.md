@@ -4,6 +4,7 @@
 
 * `tile()` gained a new argument `.bind = FALSE`.
 * Vectorised arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
+* `new_interval()` creates an "interval" object with the specified values.
 
 ## Bug fixes
 

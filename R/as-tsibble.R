@@ -319,7 +319,7 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 
-#' Construct a tsibble object for extension
+#' Low-level construction of a tsibble object
 #'
 #' * `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful 
 #' for creating a `tbl_ts` internally inside a function, and it allows users to 
@@ -335,8 +335,8 @@ as.tsibble <- function(x, ...) {
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
 #' then index from past to future. `TRUE` suggests to skip the ordering as `x` in
 #' the correct order. `FALSE` also skips the ordering but gives a warning instead.
-#' @param interval `NULL` computes the interval. Use the specified interval as
-#' is, if an class of `interval` is supplied.
+#' @param interval `NULL` computes the interval. Use the specified interval via
+#' [new_interval()] as is, if an class of `interval` is supplied.
 #'
 #' @rdname build_tsibble
 #' @export

@@ -130,6 +130,34 @@ pull_interval.numeric <- function(x) {
   NextMethod()
 }
 
+#' Create a time interval
+#'
+#' `new_interval()` creates an interval object with the specified values.
+#'
+#' @param ... A list of time units to be included in the interval and their
+#' amounts. "year", "quarter", "month", "week", "day", "hour", "minute", "second", 
+#' "millisecond", "microsecond", "nanosecond", "unit" are supported.
+#'
+#' @return an "interval" class
+#' @export
+#' @examples
+#' new_interval(hour = 1, minute = 30)
+new_interval <- function(...) {
+  args <- list2(...)
+  if (is_false(all(purrr::map_lgl(args, ~ has_length(., 1))))) {
+    abort("Only accepts one input for each unit, not `NULL` or multiple.")
+  }
+  names_args <- names(args)
+  names_unit <- fn_fmls_names(init_interval)
+  pidx <- pmatch(names_args, names_unit)
+  if (anyNA(pidx)) {
+    x_units <- paste(names_args[is.na(pidx)], collapse = ", ")
+    abort(sprintf("Invalid unit name: %s.", x_units))
+  }
+  # names(args) <- names_unit[pidx]
+  eval_tidy(call2("init_interval", !!! args))
+}
+
 init_interval <- function(
   year = 0, quarter = 0, month = 0, week = 0, 
   day = 0, hour = 0, minute = 0, second = 0, 
@@ -183,7 +211,7 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 1) { # yearly
     time_x
   } else {
-    if (stats::end(x)[1] > 999) {
+    if (stats::end(x)[1] > 1581) {
       date_x <- lubridate::date_decimal(time_x, tz = tz)
       lubridate::round_date(date_x, unit = "seconds")
     } else {
