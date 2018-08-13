@@ -108,7 +108,8 @@ as_tsibble.tbl_df <- function(
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_ts <- function(x, ...) {
+as_tsibble.tbl_ts <- function(x, validate = FALSE, ...) {
+  if (validate) return(NextMethod())
   x
 }
 
@@ -435,9 +436,8 @@ build_tsibble_meta <- function(
   } # true do nothing
 
   idx_lgl <- identical(index, index2)
-  cls <- c("tbl_ts", "tbl_df", "tbl", "data.frame")
   if (is_empty(groups) && idx_lgl) {
-    return(structure(
+    return(set_tsibble_class(
       tbl,
       "key" = structure(key, class = "key"),
       # "key_indices" = attr(grped_key, "indices"),
@@ -445,8 +445,7 @@ build_tsibble_meta <- function(
       "index2" = index2,
       "interval" = structure(interval, class = "interval"),
       "regular" = regular,
-      "ordered" = ordered,
-      class = cls
+      "ordered" = ordered
     ))
   }
 
@@ -457,7 +456,7 @@ build_tsibble_meta <- function(
   } else {
     grped_df <- tbl %>% group_by(!!! groups, !! index2)
   }
-  structure(
+  set_tsibble_class(
     grped_df,
     "key" = structure(key, class = "key"),
     # "key_indices" = attr(grped_key, "indices"),
@@ -466,7 +465,7 @@ build_tsibble_meta <- function(
     "interval" = structure(interval, class = "interval"),
     "regular" = regular,
     "ordered" = ordered,
-    class = c("grouped_ts", cls)
+    subclass = "grouped_ts"
   )
 }
 
@@ -575,6 +574,8 @@ validate_tsibble <- function(data, key, index) {
 #'
 #' @param x A `tbl_ts`.
 #' @param ... Ignored.
+#' @inheritParams tibble::as_tibble
+#' @inheritParams base::as.data.frame
 #'
 #' @rdname as-tibble
 #' @export
@@ -584,10 +585,10 @@ validate_tsibble <- function(data, key, index) {
 #' # a grouped tbl_ts -----
 #' grped_ped <- pedestrian %>% group_by(Sensor)
 #' as_tibble(grped_ped)
-as_tibble.tbl_ts <- function(x, ...) {
-  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
-  structure(x, class = c("tbl_df", "tbl", "data.frame"))
+as_tibble.tbl_ts <- function(x, ..., rownames = NULL) {
+  x <- remove_tsibble_attrs(x)
+  class(x) <- c("tbl_df", "tbl", "data.frame")
+  as_tibble(x, ..., rownames = rownames)
 }
 
 #' @export
@@ -609,7 +610,7 @@ as.tibble.grouped_ts <- as_tibble.grouped_ts
 
 #' @rdname as-tibble
 #' @export
-as.data.frame.tbl_ts <- function(x, ...) {
+as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
   x <- as_tibble(x)
   NextMethod()
 }
@@ -628,9 +629,7 @@ use_id <- function(x, key) {
       if (is_list(x)) all(purrr::map_lgl(x, fn)) else is_expression(x)
     }
     lgl <- fn(safe_key$result)
-    if (lgl) {
-      return(safe_key$result)
-    }
+    if (lgl) return(safe_key$result)
   }
   abort("Have you forgotten `id()` to create the `key`?")
 }
@@ -660,4 +659,26 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   # identifiers <- c(key_flatten(key), quo_text(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
+}
+
+set_tsibble_class <- function(x, ..., subclass = NULL) {
+  out <- structure(
+    x, ..., 
+    class = c(subclass, "tbl_ts", "tbl_df", "tbl", "data.frame")
+  )
+  tibble::remove_rownames(out)
+}
+
+remove_tsibble_attrs <- function(x) {
+  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
+  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
+  x
+}
+
+#' @export
+`row.names<-.tbl_ts` <- function(x, value) {
+  if (!is_null(value)) {
+    warn("Setting row names on a tsibble is deprecated.")
+  }
+  NextMethod()
 }

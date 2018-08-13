@@ -12,6 +12,7 @@
 
 * `slide()` & `stretch()` use the same coercion rules as `dplyr::combine()` now, if `.bind = TRUE`.
 * Avoid strong dependency on `pillar`.
+* Setting row names on a tsibble is deprecated. 
 
 # tsibble 0.5.0
 

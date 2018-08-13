@@ -53,7 +53,7 @@ weather_tsbl
 #> # A tsibble: 26,115 x 5 [1h]
 #> # Key:       origin [3]
 #>   origin time_hour            temp humid precip
-#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
@@ -95,7 +95,7 @@ full_weather
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
-#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
@@ -131,7 +131,7 @@ full_weather %>%
 #> # A tsibble: 36 x 4 [1M]
 #> # Key:       origin [3]
 #>   origin year_month avg_temp ttl_precip
-#> * <chr>       <mth>    <dbl>      <dbl>
+#>   <chr>       <mth>    <dbl>      <dbl>
 #> 1 EWR      2013 Jan     35.6       3.53
 #> 2 EWR      2013 Feb     34.2       3.83
 #> 3 EWR      2013 Mar     40.1       3   
@@ -169,7 +169,7 @@ full_weather %>%
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip temp_ma
-#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
 #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0    NA  
 #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0    NA  
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0    39.0
