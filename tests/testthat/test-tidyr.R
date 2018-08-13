@@ -52,6 +52,16 @@ test_that("gather()", {
   expect_identical(out, out2)
 })
 
+pedestrian <- pedestrian %>% 
+  group_by(Sensor) %>% 
+  slice(1:10) %>% 
+  ungroup()
+
+tourism <- tourism %>% 
+  group_by_key() %>% 
+  slice(1:10) %>% 
+  ungroup()
+
 test_that("nest()", {
  expect_error(pedestrian %>% nest(-Date_Time), "must nest the `index`")
  expect_error(pedestrian %>% nest(Sensor), "must nest the `index`")
@@ -76,6 +86,12 @@ test_that("unnest()", {
   expect_error(nest_t %>% unnest(), "Invalid tsibble:")
   expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
+  expect_is(
+    nest_t %>% 
+      mutate(data2 = lapply(data, as_tibble)) %>% 
+      unnest(key = id(Region | State)),
+    "tbl_ts"
+  )
 })
 
 test_that("dplyr verbs for lst_ts", {

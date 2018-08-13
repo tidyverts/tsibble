@@ -138,29 +138,26 @@ unnest.lst_ts <- function(data, ..., key = id(),
     list_cols <- setdiff(list_cols, preserve)
     quos <- syms(list_cols)
   }
-  if (length(quos) == 0) {
-    return(data)
-  }
+  if (length(quos) == 0) return(data)
+
   nested <- transmute(ungroup(data), !!! quos)
 
   # checking if the nested columns has `tbl_ts` class (only for the first row)
   first_nested <- slice(nested, 1)
   eval_df <- purrr::imap(first_nested, dplyr::first)
   is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
-  if (is_false(any(is_tsbl))) {
-    return(NextMethod())
-  }
+  if (is_false(any(is_tsbl))) return(NextMethod())
+
   if (sum(is_tsbl) > 1) {
     abort("Only accepts a list-column of `tbl_ts` to be unnested.")
   }
   out <- as_tibble(data) %>% 
     unnest(!!! quos, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-  tsbl <- eval_df[[is_tsbl]]
+  tsbl <- eval_df[is_tsbl][[1L]]
   idx <- index(tsbl)
   validate <- FALSE
-  if (is_empty(key)) {
-    validate <- TRUE
-  }
+  if (is_empty(key)) validate <- TRUE
+
   key <- c(key(tsbl), key)
   idx_chr <- quo_text(idx)
   # restore the index class, as it's dropped by NextMethod()
