@@ -96,11 +96,10 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
       bad_names <- paste_comma(lhs[which(!check_names)])
       abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
     }
-    non_grps <- setdiff(cn, c(group_vars(tbl), idx_chr))
     replaced_df <- tbl %>% 
       summarise(!!! lst_quos) %>% 
       ungroup() %>% 
-      select(non_grps)
+      select(!!! lhs)
     full_data <- replace_na2(full_data, replaced_df)
   }
   if (!identical(cn, names(full_data))) {
