@@ -46,7 +46,6 @@ fill_na.data.frame <- function(.data, ...) {
 #'   fill_na(kilo = 0L)
 #'
 #' # replace NA using a function by variable ----
-#' # enable `na.rm = TRUE` when necessary ----
 #' harvest %>%
 #'   fill_na(kilo = sum(kilo))
 #'
