@@ -25,8 +25,9 @@ Not documented public holidays:
 \item AFL public holidays for Victoria
 \item Queen's Birthday for Western Australia
 \item Royal Queensland Show for Queensland, which is for Brisbane only
-This function requires "timeDate" to be installed.
 }
+
+This function requires "timeDate" to be installed.
 }
 \examples{
 holiday_aus(2016, state = "VIC")

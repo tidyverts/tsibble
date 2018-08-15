@@ -14,8 +14,7 @@ fill_na(.data, ...)
 
 \item{...}{A set of name-value pairs. The values will replace existing explicit
 missing values by variable, otherwise \code{NA}. The replacement values must be of
-the same type as the original one. If using a function to fill the \code{NA},
-please make sure that \code{na.rm = TRUE} is switched on.}
+the same type as the original one.}
 
 \item{.full}{\code{FALSE} to insert \code{NA} for each key within its own period. \code{TRUE}
 to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
@@ -48,21 +47,17 @@ harvest \%>\%
 # replace NA using a function by variable ----
 # enable `na.rm = TRUE` when necessary ----
 harvest \%>\%
-  fill_na(kilo = sum(kilo, na.rm = TRUE))
+  fill_na(kilo = sum(kilo))
 
 # replace NA using a function for each group ----
 harvest \%>\%
   group_by(fruit) \%>\%
-  fill_na(kilo = sum(kilo, na.rm = TRUE))
+  fill_na(kilo = sum(kilo))
 
 # replace NA ----
 pedestrian \%>\%
   group_by(Sensor) \%>\%
-  fill_na(
-    Date = lubridate::as_date(Date_Time),
-    Time = lubridate::hour(Date_Time),
-    Count = as.integer(median(Count, na.rm = TRUE))
-  )
+  fill_na(Count = as.integer(median(Count)))
 }
 \seealso{
 \link{count_gaps}, \link{case_na}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}

@@ -42,7 +42,6 @@ test_that("a tbl_ts of 4 day interval with no replacement", {
 })
 
 test_that("a tbl_ts of 4 day interval with value replacement", {
-  expect_error(fill_na(tsbl, value = 0L), "must be type integer")
   full_tsbl <- fill_na(tsbl, value = 0)
   expect_equal(
     as_tibble(full_tsbl[4, ]),
@@ -74,9 +73,9 @@ test_that("fill_na() for corner case", {
   expect_identical(fill_na(tsbl[1:5, ]), tsbl[1:5, ])
 })
 
-tourism <- tourism %>% 
-  group_by_key() %>% 
-  slice(1:10) %>% 
+tourism <- tourism %>%
+  group_by_key() %>%
+  slice(1:10) %>%
   ungroup()
 
 test_that("fill_na() for yearquarter", {

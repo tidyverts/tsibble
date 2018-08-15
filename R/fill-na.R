@@ -5,8 +5,7 @@ globalVariables(".")
 #' @param .data A data frame.
 #' @param ... A set of name-value pairs. The values will replace existing explicit
 #' missing values by variable, otherwise `NA`. The replacement values must be of
-#' the same type as the original one. If using a function to fill the `NA`,
-#' please make sure that `na.rm = TRUE` is switched on.
+#' the same type as the original one.
 #'
 #' @seealso [count_gaps], [case_na], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
@@ -49,21 +48,17 @@ fill_na.data.frame <- function(.data, ...) {
 #' # replace NA using a function by variable ----
 #' # enable `na.rm = TRUE` when necessary ----
 #' harvest %>%
-#'   fill_na(kilo = sum(kilo, na.rm = TRUE))
+#'   fill_na(kilo = sum(kilo))
 #'
 #' # replace NA using a function for each group ----
 #' harvest %>%
 #'   group_by(fruit) %>%
-#'   fill_na(kilo = sum(kilo, na.rm = TRUE))
+#'   fill_na(kilo = sum(kilo))
 #'
 #' # replace NA ----
 #' pedestrian %>%
 #'   group_by(Sensor) %>%
-#'   fill_na(
-#'     Date = lubridate::as_date(Date_Time),
-#'     Time = lubridate::hour(Date_Time),
-#'     Count = as.integer(median(Count, na.rm = TRUE))
-#'   )
+#'   fill_na(Count = as.integer(median(Count)))
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
@@ -72,8 +67,8 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   idx_chr <- quo_text(idx)
   key <- key(.data)
   flat_key <- key_flatten(key)
-  tbl <- ungroup(as_tibble(.data))
-  grped_tbl <- tbl %>% 
+  tbl <- as_tibble(.data)
+  grped_tbl <- ungroup(tbl) %>% 
     grouped_df(vars = flat_key)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = tbl))
@@ -92,15 +87,22 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   full_data <- ungroup(ref_data) %>% 
     left_join(.data, by = c(flat_key, idx_chr))
 
-  if (is_grouped_ts(.data)) {
-    full_data <- full_data %>% 
-      grouped_df(vars = group_vars(.data)) %>% 
-      dplyr::do(modify_na(., !!! enquos(...)))
-  } else {
-    full_data <- full_data %>%
-      modify_na(!!! enquos(...))
-  }
   cn <- names(.data)
+  lst_quos <- enquos(..., .named = TRUE)
+  if (!is_empty(lst_quos)) {
+    lhs <- names(lst_quos)
+    check_names <- lhs %in% cn
+    if (is_false(all(check_names))) {
+      bad_names <- paste_comma(lhs[which(!check_names)])
+      abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
+    }
+    non_grps <- setdiff(cn, c(group_vars(tbl), idx_chr))
+    replaced_df <- tbl %>% 
+      summarise(!!! lst_quos) %>% 
+      ungroup() %>% 
+      select(non_grps)
+    full_data <- replace_na2(full_data, replaced_df)
+  }
   if (!identical(cn, names(full_data))) {
     full_data <- full_data %>%
       select(!!! syms(cn)) # keep the original order
@@ -244,38 +246,7 @@ seq_generator <- function(x) {
     min_x + seq.int(0, as.double(max_x - min_x), tunit),
     error = function(e) {
       e$call <- NULL
-      e$message <- sprintf("Neither `+` nor `seq` are defined for class `%s`", class(x))
-      stop(e)
-    }
-  )
-}
-
-modify_na <- function(.data, ...) {
-  lst_quos <- enquos(..., .named = TRUE)
-  if (is_empty(lst_quos)) {
-    return(.data)
-  }
-  lhs <- names(lst_quos)
-  check_names <- lhs %in% colnames(.data)
-  if (is_false(all(check_names))) {
-    bad_names <- paste_comma(lhs[which(!check_names)])
-    abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
-  }
-
-  rhs <- purrr::map(lst_quos, f_rhs)
-  lst_lang <- purrr::map2(
-    syms(lhs), rhs, ~ new_formula(.x, .y, env = env(!!! .data))
-  )
-  mod_quos <- purrr::map(lst_lang, ~ call2("case_na", .))
-  names(mod_quos) <- lhs
-  modify_na_handler(.data, mod_quos)
-}
-
-modify_na_handler <- function(.data, quos) {
-  tryCatch(
-    mutate(.data, !!! quos),
-    error = function(e) {
-      e$call <- "fill_na(.data, ...)"
+      e$message <- sprintf("Neither `+` nor `seq()` are defined for class `%s`", class(x))
       stop(e)
     }
   )
@@ -314,4 +285,12 @@ not_regular <- function(x) {
   if (!is_regular(x)) {
     abort("Can't handle `tbl_ts` of irregular interval.")
   }
+}
+
+replace_na2 <- function(.data, replace = list()) {
+  replace_vars <- intersect(names(replace), names(.data))
+  for (var in replace_vars) {
+    .data[[var]][is.na(.data[[var]])] <- replace[[var]]
+  }
+  .data
 }

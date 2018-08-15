@@ -14,6 +14,7 @@ globalVariables("holiday")
 #' * AFL public holidays for Victoria
 #' * Queen's Birthday for Western Australia
 #' * Royal Queensland Show for Queensland, which is for Brisbane only
+#'
 #' This function requires "timeDate" to be installed.
 #' @references
 #' [Public holidays](https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays)
