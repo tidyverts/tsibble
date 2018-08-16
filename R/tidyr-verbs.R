@@ -13,7 +13,7 @@
 #' stocks %>% gather(stock, price, -time)
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  key <- enexpr(key)
+  key <- sym(enexpr(key))
   new_key <- c(key(data), key)
   value <- enexpr(value)
   quos <- enquos(...)

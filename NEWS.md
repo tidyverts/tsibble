@@ -13,6 +13,7 @@
 * Respected the ordering of input variables while creating the key.
 * Fixed "attempt to select less than one element in integerOneIndex" error message in `unnest.lst_ts()`.
 * Fixed incorrect interval when doing join operations for custom index class. (#52)
+* Avoided warnings when character input for key and value in `gather.tbl_ts()`. (#54)
 
 ## Misc
 
