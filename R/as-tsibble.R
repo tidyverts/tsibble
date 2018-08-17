@@ -662,11 +662,23 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
 }
 
 set_tsibble_class <- function(x, ..., subclass = NULL) {
-  out <- structure(
-    x, ..., 
-    class = c(subclass, "tbl_ts", "tbl_df", "tbl", "data.frame")
+  attribs <- list(...)
+  nested_attribs <- purrr::map2(
+    names(attribs), attribs, 
+    function(name, value) set_names(list(value), name)
   )
-  tibble::remove_rownames(out)
+  x <- purrr::reduce(
+    .init = x,
+    nested_attribs,
+    function(x, attr) {
+      if (!is.null(attr[[1]])) {
+        attr(x, names(attr)) <- attr[[1]]
+      }
+      x
+    }
+  )
+  class(x) <- c(subclass, "tbl_ts", "tbl_df", "tbl", "data.frame")
+  x
 }
 
 remove_tsibble_attrs <- function(x) {
