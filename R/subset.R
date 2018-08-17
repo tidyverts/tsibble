@@ -74,7 +74,7 @@
     }
   }
 
-  attr(result, "row.names") <- .set_row_names(nr)
+  # attr(result, "row.names") <- .set_row_names(nr)
   build_tsibble_meta(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
     groups = groups(x), regular = is_regular(x), ordered = ordered, 
