@@ -512,18 +512,18 @@ seq.yearquarter <- function(
 }
 
 #' @export
-`[.yearweek` <- function(x, i) {
-  yearweek(as_date(x)[i])
+`[.yearweek` <- function(x, ..., drop = FALSE) {
+  yearweek(NextMethod())
 }
 
 #' @export
-`[.yearmonth` <- function(x, i) {
-  yearmonth(as_date(x)[i])
+`[.yearmonth` <- function(x, ..., drop = FALSE) {
+  yearmonth(NextMethod())
 }
 
 #' @export
-`[.yearquarter` <- function(x, i) {
-  yearquarter(as_date(x)[i])
+`[.yearquarter` <- function(x, ..., drop = FALSE) {
+  yearquarter(NextMethod())
 }
 
 #' @export

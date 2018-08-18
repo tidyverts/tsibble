@@ -5,7 +5,11 @@
 * `tile()` gained a new argument `.bind = FALSE`.
 * Vectorised arithmetic operators (`+` & `-`) for yearweek, yearmonth, and yearquarter.
 * `new_interval()` creates an "interval" object with the specified values.
+
+## Improvements
+
 * Faster performance in `fill_na()` for replacing values when `group_by()`.
+* Speed improvement when subsetting yearweek, yearmonth and yearquarter using `[`.
 
 ## Bug fixes
 
