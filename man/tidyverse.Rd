@@ -182,16 +182,12 @@ likely to be issued.
 be issued.
 \item \code{select()}: keeps the variables you mention as well as the index.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
+\item \code{summarise()} will not collapse on the index variable.
 \item The column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
 \code{mutate()} & \code{transmute()}, have an additional argument of \code{.drop = FALSE} for
 tsibble. The index variable cannot be dropped for a tsibble. If any key variable
 is changed, it will validate whether it's a tsibble internally. Turning
 \code{.drop = TRUE} converts to a tibble first and then do the operations.
-}
-}
-\details{
-\itemize{
-\item \code{summarise()} will not collapse on the index variable.
 }
 }
 \examples{

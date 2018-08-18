@@ -6,6 +6,7 @@
 #' be issued.
 #' * `select()`: keeps the variables you mention as well as the index. 
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
+#' * `summarise()` will not collapse on the index variable.
 #' * The column-wise verbs, including `select()`, `transmute()`, `summarise()`, 
 #' `mutate()` & `transmute()`, have an additional argument of `.drop = FALSE` for 
 #' tsibble. The index variable cannot be dropped for a tsibble. If any key variable 
@@ -165,8 +166,6 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 }
 
 #' @rdname tidyverse
-#' @details
-#' * `summarise()` will not collapse on the index variable.
 #' @export
 #' @examples
 #' # Sum over sensors ----
