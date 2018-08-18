@@ -31,7 +31,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // gcd_vector
-double gcd_vector(NumericVector x);
+int gcd_vector(NumericVector x);
 RcppExport SEXP _tsibble_gcd_vector(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

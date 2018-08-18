@@ -37,12 +37,12 @@ test_that("Coerce to tbl_df and data.frame", {
 })
 
 start <- as.POSIXct("2010-01-15 13:55:23.975", tz = "UTC")
-x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 10))
-df <- data.frame(time = x, value = rnorm(10))
+x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 5))
+df <- data.frame(time = x, value = rnorm(length(x)))
 tsbl <- as_tsibble(df, index = time)
 
 test_that("POSIXct with 10 milliseconds interval", {
-  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[10ms\\]")
+  expect_output(print(tsbl), "A tsibble: 20 x 2 \\[5ms\\]")
 })
 
 x <- ISOdatetime(2011,8,2,0,0,0) + c(34201881660:34201881669)*1e-6
@@ -336,7 +336,7 @@ test_that("2 nested variables crossed with 1 variable", {
   expect_identical(key_vars(tsbl2)[[1]], "group2")
 })
 
-dat_y <- dat_x %>% 
+dat_y <- dat_x %>%
   mutate(top = "z")
 
 test_that("2 nestings, crossed with each other", {

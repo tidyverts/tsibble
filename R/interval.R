@@ -39,7 +39,8 @@ pull_interval.POSIXt <- function(x) {
       second = period$second
     )
   } else if (substring(fmt6, 4) %in% c("000", "999")) { # millisecond
-    nhms <- ceiling(gcd_interval(dttm) * 1e+3)
+    dttm <- round(dttm * 1e+3)
+    nhms <- gcd_interval(dttm)
     init_interval(millisecond = nhms)
   } else { # microsecond
     dttm <- dttm * 1e+6
