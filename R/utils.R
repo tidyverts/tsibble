@@ -82,3 +82,8 @@ unknown_interval <- function(x) {
 is_even <- function(x) {
   (abs(x) %% 2) == 0
 }
+
+exceed_rows <- function(x, n = 1L) {
+  nr <- NROW(x)
+  if (n > nr) abort(sprintf("Must not exceed the rows (%i).", nr))
+}

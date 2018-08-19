@@ -61,6 +61,7 @@
   ordered <- is_ordered(x)
   if (!missing(i)) {
     # ordered <- row_validate(i)
+    exceed_rows(result, max(i))
     result <- purrr::map(result, `[`, i)
     nr <- length(result[[1]])
     if (!is_min_gap_one(i)) int <- NULL
