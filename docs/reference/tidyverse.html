@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tidyverse methods for tsibble — left_join.tbl_ts • tsibble</title>
+<title>Tidyverse methods for tsibble — tidyverse • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Tidyverse methods for tsibble — left_join.tbl_ts" />
+<meta property="og:title" content="Tidyverse methods for tsibble — tidyverse" />
 
 <meta property="og:description" content="
 arrange(): if not arranging key and index in past-to-future order, a warning is
@@ -45,6 +45,7 @@ slice(): if row numbers are not in ascending order, a warning is likely to
 be issued.
 select(): keeps the variables you mention as well as the index.
 transmute(): keeps the variable you operate on, as well as the index and key.
+summarise() will not collapse on the index variable.
 The column-wise verbs, including select(), transmute(), summarise(),
 mutate() &amp;amp; transmute(), have an additional argument of .drop = FALSE for
 tsibble. The index variable cannot be dropped for a tsibble. If any key variable
@@ -91,7 +92,7 @@ is changed, it will validate whether it's a tsibble internally. Turning
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -159,6 +160,7 @@ likely to be issued.</p></li>
 be issued.</p></li>
 <li><p><code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>: keeps the variables you mention as well as the index.</p></li>
 <li><p><code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>: keeps the variable you operate on, as well as the index and key.</p></li>
+<li><p><code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will not collapse on the index variable.</p></li>
 <li><p>The column-wise verbs, including <code><a href='http://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>,
 <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> &amp; <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, have an additional argument of <code>.drop = FALSE</code> for
 tsibble. The index variable cannot be dropped for a tsibble. If any key variable
@@ -169,28 +171,6 @@ is changed, it will validate whether it's a tsibble internally. Turning
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>semi_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for grouped_ts</span>
@@ -227,6 +207,28 @@ is changed, it will validate whether it's a tsibble internally. Turning
 <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>semi_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>copy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"key"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='no'>...</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -245,8 +247,32 @@ is changed, it will validate whether it's a tsibble internally. Turning
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>.data</th>
+      <td><p>A <code>tbl_ts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>same arguments accepted as its dplyr generic.</p></td>
+    </tr>
+    <tr>
+      <th>.by_group</th>
+      <td><p>If <code>TRUE</code>, will sort first by grouping variable. Applies to
+grouped data frames only.</p></td>
+    </tr>
+    <tr>
+      <th>.drop</th>
+      <td><p><code>FALSE</code> returns a tsibble object as the input. <code>TRUE</code> drops a
+tsibble and returns a tibble.</p></td>
+    </tr>
+    <tr>
+      <th>add</th>
+      <td><p>When <code>add = FALSE</code>, the default, <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> will
+override existing groups. To add to the existing groups, use
+<code>add = TRUE</code>.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>tbls to join</p></td>
+      <td><p>A <code>tbl()</code></p></td>
     </tr>
     <tr>
       <th>y</th>
@@ -275,30 +301,6 @@ it is a potentially expensive operation so you must opt into it.</p></td>
       <td><p>If there are non-joined duplicate variables in <code>x</code> and
 <code>y</code>, these suffixes will be added to the output to disambiguate them.
 Should be a character vector of length 2.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>same arguments accepted as its dplyr generic.</p></td>
-    </tr>
-    <tr>
-      <th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
-    </tr>
-    <tr>
-      <th>.by_group</th>
-      <td><p>If <code>TRUE</code>, will sort first by grouping variable. Applies to
-grouped data frames only.</p></td>
-    </tr>
-    <tr>
-      <th>.drop</th>
-      <td><p><code>FALSE</code> returns a tsibble object as the input. <code>TRUE</code> drops a
-tsibble and returns a tibble.</p></td>
-    </tr>
-    <tr>
-      <th>add</th>
-      <td><p>When <code>add = FALSE</code>, the default, <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> will
-override existing groups. To add to the existing groups, use
-<code>add = TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -385,19 +387,13 @@ will be duplicated in the same way as atomic vectors. This has
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <ul>
-<li><p><code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will not collapse on the index variable.</p></li>
-</ul>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Sum over sensors ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h]
 #&gt;    Date_Time           Total
-#&gt;  * &lt;dttm&gt;              &lt;int&gt;
+#&gt;    &lt;dttm&gt;              &lt;int&gt;
 #&gt;  1 2015-01-01 00:00:00  2866
 #&gt;  2 2015-01-01 01:00:00  1535
 #&gt;  3 2015-01-01 02:00:00   994
@@ -413,7 +409,7 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1D]
 #&gt;    Date       Total
-#&gt;  * &lt;date&gt;     &lt;int&gt;
+#&gt;    &lt;date&gt;     &lt;int&gt;
 #&gt;  1 2015-01-01 18079
 #&gt;  2 2015-01-02 19306
 #&gt;  3 2015-01-03 12708
@@ -435,7 +431,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;    Region   State           Quarter geo_trips
-#&gt;  * &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
+#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
 #&gt;  1 Adelaide South Australia 1998 Q1      659.
 #&gt;  2 Adelaide South Australia 1998 Q2      450.
 #&gt;  3 Adelaide South Australia 1998 Q3      593.
@@ -454,18 +450,18 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>The `index` is `time`.</span></div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1D]
 #&gt; # Key:       stock [3]
-#&gt;    time       stock    price
-#&gt;  * &lt;date&gt;     &lt;chr&gt;    &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -0.412  
-#&gt;  2 2009-01-02 X      0.934  
-#&gt;  3 2009-01-03 X      1.84   
-#&gt;  4 2009-01-04 X     -0.705  
-#&gt;  5 2009-01-05 X      0.00851
-#&gt;  6 2009-01-06 X      2.03   
-#&gt;  7 2009-01-07 X     -1.34   
-#&gt;  8 2009-01-08 X      1.16   
-#&gt;  9 2009-01-09 X     -0.203  
-#&gt; 10 2009-01-10 X     -0.378  
+#&gt;    time       stock   price
+#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 2009-01-01 X      0.630 
+#&gt;  2 2009-01-02 X      2.10  
+#&gt;  3 2009-01-03 X     -0.614 
+#&gt;  4 2009-01-04 X     -1.63  
+#&gt;  5 2009-01-05 X     -0.0104
+#&gt;  6 2009-01-06 X     -0.657 
+#&gt;  7 2009-01-07 X     -0.670 
+#&gt;  8 2009-01-08 X     -0.479 
+#&gt;  9 2009-01-09 X      1.32  
+#&gt; 10 2009-01-10 X      0.637 
 #&gt; # ... with 20 more rows</div><div class='input'><span class='co'># example from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
@@ -474,18 +470,18 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>The `index` is `time`.</span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
 <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1D]
-#&gt;    time             X      Y     Z
-#&gt;  * &lt;date&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 2009-01-01  0.581   0.908 -5.63
-#&gt;  2 2009-01-02 -0.178  -1.70   2.84
-#&gt;  3 2009-01-03  0.741   1.13  -4.96
-#&gt;  4 2009-01-04 -0.997   2.30  -1.47
-#&gt;  5 2009-01-05 -2.94   -1.51   1.85
-#&gt;  6 2009-01-06  0.719  -0.979 -1.29
-#&gt;  7 2009-01-07 -0.698  -2.33  -5.15
-#&gt;  8 2009-01-08 -1.89   -0.959 -4.12
-#&gt;  9 2009-01-09  0.0763  0.231  6.06
-#&gt; 10 2009-01-10  0.875  -3.54   1.39</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+#&gt;    time            X      Y       Z
+#&gt;    &lt;date&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1 2009-01-01 -1.17  -2.57   0.0143
+#&gt;  2 2009-01-02 -0.480 -2.06  -1.42  
+#&gt;  3 2009-01-03  0.115  3.03   4.59  
+#&gt;  4 2009-01-04 -1.77   0.694 -0.885 
+#&gt;  5 2009-01-05 -1.41   3.56   4.07  
+#&gt;  6 2009-01-06  0.709  0.773 -1.05  
+#&gt;  7 2009-01-07 -1.24  -1.84   6.63  
+#&gt;  8 2009-01-08 -0.368 -3.17  -3.10  
+#&gt;  9 2009-01-09  0.462 -0.168 -3.70  
+#&gt; 10 2009-01-10 -0.323 -4.17  -1.10  </div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   Sensor                        data                  
 #&gt; * &lt;chr&gt;                         &lt;list&gt;                
@@ -506,7 +502,7 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Sensor</span>))</div><div class='output co'>#&gt; # A tsibble: 66,071 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;  * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
@@ -521,9 +517,9 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Region</span>, -<span class='no'>State</span>)
 <span class='no'>nested_tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Region</span> <span class='kw'>|</span> <span class='no'>State</span>))</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1Q]
-#&gt; # Key:       Region | State, Purpose [308]
+#&gt; # Key:       Purpose, Region | State [308]
 #&gt;    Region   State           Quarter Purpose  Trips
-#&gt;  * &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
 #&gt;  1 Adelaide South Australia 1998 Q1 Business  135.
 #&gt;  2 Adelaide South Australia 1998 Q2 Business  110.
 #&gt;  3 Adelaide South Australia 1998 Q3 Business  166.
@@ -540,9 +536,7 @@ will be duplicated in the same way as atomic vectors. This has
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

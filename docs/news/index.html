@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -135,25 +135,59 @@
       
     </div>
 
-    <div id="tsibble-0-5-0-9000" class="section level1">
+    <div id="tsibble-0-5-1" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-0-9000" class="anchor"></a>tsibble 0.5.0.9000<small> Unreleased </small>
+<a href="#tsibble-0-5-1" class="anchor"></a>tsibble 0.5.1<small> 2018-08-20 </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
+<li>Vectorised arithmetic operators (<code>+</code> &amp; <code>-</code>) for yearweek, yearmonth, and yearquarter.</li>
+<li>
+<code><a href="../reference/new_interval.html">new_interval()</a></code> creates an “interval” object with the specified values.</li>
+</ul>
+</div>
+<div id="improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements</h2>
+<ul>
+<li>Faster performance in <code><a href="../reference/fill-na.html">fill_na()</a></code> for replacing values when <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>.</li>
+<li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code>[</code>.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed key updating via <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. (#47)</li>
-<li>
-<code><a href="../reference/slide.html">slide()</a></code> &amp; <code><a href="../reference/stretch.html">stretch()</a></code> use the same coercion rules as <code><a href="http://dplyr.tidyverse.org/reference/bind.html">dplyr::combine()</a></code>, when <code>.bind = TRUE</code>.</li>
-<li>Avoid strong dependency on <code>pillar</code>.</li>
+<li>Respected the ordering of input variables while creating the key.</li>
+<li>Fixed “attempt to select less than one element in integerOneIndex” error message in <code><a href="../reference/tidyverse.html">unnest.lst_ts()</a></code>.</li>
+<li>Fixed incorrect interval when doing join operations for custom index class. (#52)</li>
+<li>Avoided warnings when character input for key and value in <code><a href="../reference/tidyverse.html">gather.tbl_ts()</a></code>. (#54)</li>
 </ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h2>
+<ul>
+<li>
+<code><a href="../reference/slide.html">slide()</a></code> &amp; <code><a href="../reference/stretch.html">stretch()</a></code> use the same coercion rules as <code><a href="http://dplyr.tidyverse.org/reference/bind.html">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
+<li>Avoid strong dependency on <code>pillar</code>.</li>
+<li>Setting row names on a tsibble is deprecated, which is consistent with <code>tibble</code>.</li>
+</ul>
+</div>
 </div>
     <div id="tsibble-0-5-0" class="section level1">
 <h1 class="page-header">
 <a href="#tsibble-0-5-0" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
 </h1>
 <p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
@@ -165,9 +199,9 @@
 <li>A new vignette on window functions.</li>
 </ul>
 </div>
-<div id="improvements" class="section level2">
+<div id="improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements" class="anchor"></a>Improvements</h2>
+<a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Speed improvement for internals when it’s a known valid tsibble. (#43)</li>
 <li>Better support “millisecond” and “microsecond”.</li>
@@ -183,9 +217,9 @@
 <code><a href="../reference/time_unit.html">time_unit()</a></code> is a function instead of S3 generic, and made index extension a bit easier.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed warning in <code>format.yearweek()</code>.</li>
 <li>Fixed <code>group_by.lst_ts()</code> for dropping the grouping information.</li>
@@ -194,9 +228,9 @@
 <li>Fixed bug in <code>.fill = NULL</code> for <code><a href="../reference/slide.html">slide()</a></code>.</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h2>
+<a href="#misc-1" class="anchor"></a>Misc</h2>
 <ul>
 <li>Moved package “timeDate” from Imports to Suggests.</li>
 <li>Added “anytime” to Imports for better parsing characters.</li>
@@ -227,9 +261,9 @@
 <code><a href="../reference/slider.html">pslider()</a></code>, <code><a href="../reference/tiler.html">ptiler()</a></code>, <code><a href="../reference/stretcher.html">pstretcher()</a></code> support multiple inputs now, and split them in parallel.</li>
 </ul>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
 <li>Defined <code>diff()</code> for year-week, year-month, and year-quarter.</li>
@@ -241,9 +275,9 @@
 <li>New S3 generics <code><a href="../reference/key_sum.html">key_sum()</a></code> for extending tsibble.</li>
 </ul>
 </div>
-<div id="improvements-1" class="section level2">
+<div id="improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements</h2>
+<a href="#improvements-2" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
 <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> removed the <code>tsp</code> attribute from the <code>value</code> column.</li>
@@ -258,9 +292,9 @@
 <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> now preserved index.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring the <code>value</code> argument when the key is empty.</li>
 <li>Fixed bug in <code>[.tbl_ts()</code> when subsetting columns by characters (#30).</li>
@@ -269,9 +303,9 @@
 <li>If a column passed as <code>index</code> contains <code>NA</code>, abort.</li>
 </ul>
 </div>
-<div id="misc-1" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>Misc</h2>
+<a href="#misc-2" class="anchor"></a>Misc</h2>
 <ul>
 <li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li>
 </ul>
@@ -361,17 +395,17 @@
 <code><a href="../reference/tidyverse.html">group_by.tbl_ts()</a></code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> thinks.</li>
 </ul>
 </div>
-<div id="improvements-2" class="section level2">
+<div id="improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements</h2>
+<a href="#improvements-3" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Added overall time span to the <code>glimpse.tbl_ts()</code>.</li>
 <li>Slightly improved the speed of <code><a href="../reference/fill-na.html">fill_na()</a></code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/tidyverse.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
 <li>Fixed bug in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> and <code><a href="../reference/tidyverse.html">rename.tbl_ts()</a></code> for not preserving grouped variables (#12).</li>
@@ -421,9 +455,9 @@
 <li>Added <code><a href="../reference/as-tsibble.html">as_tsibble.msts()</a></code> for multiple seasonality time series defined in the forecast package.</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> for daily time series (when frequency = 7).</li>
 <li>
@@ -461,9 +495,9 @@
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed the error message in <code>glimpse.tbl_ts()</code>
 </li>
@@ -494,9 +528,9 @@
 <code>inform_duplicates()</code> informs which row has duplicated elements of key and index variables.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix bug in <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
 <li>In <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
@@ -539,7 +573,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tsibble-0-5-0-9000">0.5.0.9000</a></li>
+        <li><a href="#tsibble-0-5-1">0.5.1</a></li>
         <li><a href="#tsibble-0-5-0">0.5.0</a></li>
         <li><a href="#tsibble-0-4-0">0.4.0</a></li>
         <li><a href="#tsibble-0-3-0">0.3.0</a></li>

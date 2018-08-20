@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
 <pre><code>#&gt; # A tsibble: 26,115 x 5 [1h]
 #&gt; # Key:       origin [3]
 #&gt;   origin time_hour            temp humid precip
-#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
@@ -146,7 +146,7 @@
 <pre><code>#&gt; # A tsibble: 1,092 x 4 [1D]
 #&gt; # Key:       origin [3]
 #&gt;   origin date       temp_high temp_low
-#&gt; * &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;   &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
 #&gt; 1 EWR    2013-01-01      41       28.0
 #&gt; 2 EWR    2013-01-02      34.0     24.1
 #&gt; 3 EWR    2013-01-03      34.0     26.1
@@ -162,7 +162,7 @@
 <pre><code>#&gt; # A tsibble: 23,408 x 5 [1Q]
 #&gt; # Key:       Region | State, Purpose [308]
 #&gt;   Quarter Region   State           Purpose  Trips
-#&gt; *   &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+#&gt;     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
 #&gt; 1 1998 Q1 Adelaide South Australia Business  135.
 #&gt; 2 1998 Q2 Adelaide South Australia Business  110.
 #&gt; 3 1998 Q3 Adelaide South Australia Business  166.
@@ -177,7 +177,7 @@
 #&gt; # Key:       Region | State [77]
 #&gt; # Groups:    Region [77]
 #&gt;   Region   State           Quarter Geo_Trips
-#&gt; * &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
+#&gt;   &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
 #&gt; 1 Adelaide South Australia 1998 Q1      659.
 #&gt; 2 Adelaide South Australia 1998 Q2      450.
 #&gt; 3 Adelaide South Australia 1998 Q3      593.
@@ -206,7 +206,7 @@
 <pre><code>#&gt; # A tsibble: 336,776 x 21 [!]
 #&gt; # Key:       flight_num [5,725]
 #&gt;    year month   day dep_time sched_dep_time dep_delay arr_time
-#&gt; * &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
 #&gt; 1  2013    11     3     1531           1540        -9     1653
 #&gt; 2  2013    11     4     1539           1540        -1     1712
 #&gt; 3  2013    11     5     1548           1540         8     1708

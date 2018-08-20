@@ -84,7 +84,7 @@ tile2_dfr() tile2_dfc() return data frames using row-binding &amp;amp; column-bi
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -154,17 +154,17 @@ arguments as <code>tile2()</code>, but return vectors of the corresponding type.
     
     </div>
 
-    <pre class="usage"><span class='fu'>tile2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>tile2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>tile2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>tile2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>tile2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>tile2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>ptile</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>ptile</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>ptile_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>ptile_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>ptile_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>ptile_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,6 +204,11 @@ to extract named attributes. If a component is not present, the value of
       <th>.size</th>
       <td><p>An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).</p></td>
+    </tr>
+    <tr>
+      <th>.bind</th>
+      <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?
+If <code>.x</code> is a list of data frames, row binding is carried out.</p></td>
     </tr>
     <tr>
       <th>.id</th>

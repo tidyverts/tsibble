@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Construct a tsibble object for extension — build_tsibble • tsibble</title>
+<title>Low-level construction of a tsibble object — build_tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Construct a tsibble object for extension — build_tsibble" />
+<meta property="og:title" content="Low-level construction of a tsibble object — build_tsibble" />
 
 <meta property="og:description" content="
 build_tsibble() creates a tbl_ts object with more controls. It is useful
@@ -85,7 +85,7 @@ object is a valid tsibble.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ object is a valid tsibble.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Construct a tsibble object for extension</h1>
+    <h1>Low-level construction of a tsibble object</h1>
     
     <div class="hidden name"><code>build_tsibble.Rd</code></div>
     </div>
@@ -210,8 +210,8 @@ the correct order. <code>FALSE</code> also skips the ordering but gives a warnin
     </tr>
     <tr>
       <th>interval</th>
-      <td><p><code>NULL</code> computes the interval. Use the specified interval as
-is, if an class of <code>interval</code> is supplied.</p></td>
+      <td><p><code>NULL</code> computes the interval. Use the specified interval via
+<code><a href='new_interval.html'>new_interval()</a></code> as is, if an class of <code>interval</code> is supplied.</p></td>
     </tr>
     </table>
     
@@ -225,7 +225,7 @@ is, if an class of <code>interval</code> is supplied.</p></td>
 #&gt; # Key:       Sensor [4]
 #&gt; # Groups:    @ Date [731]
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;  * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567

@@ -84,7 +84,7 @@ stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; col
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -209,7 +209,7 @@ to extract named attributes. If a component is not present, the value of
     <tr>
       <th>.bind</th>
       <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?
-If <code>.x</code> is a list of data frame, row binding is carried out.</p></td>
+If <code>.x</code> is a list of data frames, row binding is carried out.</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -306,7 +306,30 @@ names will be used if present.</p></td>
 #&gt; [[2]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='co'>###</span>
+<span class='co'># row-wise stretching over data frame</span>
+<span class='co'>###</span>
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>364</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>seq_along</span>(<span class='no'>x</span>))
+
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>pstretch</span>(<span class='no'>df</span>, <span class='kw'>function</span>(<span class='no'>...</span>) <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='fu'>list</span>(<span class='no'>...</span>)), <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+)</div><div class='output co'>#&gt; # A tibble: 356 x 1
+#&gt;    data             
+#&gt;    &lt;list&gt;           
+#&gt;  1 &lt;tibble [10 × 2]&gt;
+#&gt;  2 &lt;tibble [11 × 2]&gt;
+#&gt;  3 &lt;tibble [12 × 2]&gt;
+#&gt;  4 &lt;tibble [13 × 2]&gt;
+#&gt;  5 &lt;tibble [14 × 2]&gt;
+#&gt;  6 &lt;tibble [15 × 2]&gt;
+#&gt;  7 &lt;tibble [16 × 2]&gt;
+#&gt;  8 &lt;tibble [17 × 2]&gt;
+#&gt;  9 &lt;tibble [18 × 2]&gt;
+#&gt; 10 &lt;tibble [19 × 2]&gt;
+#&gt; # ... with 346 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

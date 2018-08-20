@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -145,10 +145,11 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>optional</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,13 +162,35 @@
       <th>...</th>
       <td><p>Ignored.</p></td>
     </tr>
+    <tr>
+      <th>rownames</th>
+      <td><p>If <code>NULL</code>, remove row names (default for matrices, may become
+default for data frames in the future). If <code>NA</code>, keep row names (current
+default for data frames). Otherwise, the name of the new column that will
+contain the existing row names.</p></td>
+    </tr>
+    <tr>
+      <th>row.names</th>
+      <td><p><code>NULL</code> or a character vector giving the row
+    names for the data frame.  Missing values are not allowed.</p></td>
+    </tr>
+    <tr>
+      <th>optional</th>
+      <td><p>logical. If <code>TRUE</code>, setting row names and
+    converting column names (to syntactic names: see
+    <code>make.names</code>) is optional.  Note that all of <span style="R">R</span>'s
+    <span class="pkg">base</span> package <code>as.data.frame()</code> methods use
+    <code>optional</code> only for column names treatment, basically with the
+    meaning of <code>data.frame(*, check.names = !optional)</code>.
+    See also the <code>make.names</code> argument of the <code>matrix</code> method.</p></td>
+    </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; # A tibble: 66,071 x 5
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;  * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
@@ -184,7 +207,7 @@
 <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='no'>grped_ped</span>)</div><div class='output co'>#&gt; # A tibble: 66,071 x 5
 #&gt; # Groups:   Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;  * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567

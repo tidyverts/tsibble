@@ -84,7 +84,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -225,7 +225,7 @@ is needed.</p></td>
     <tr>
       <th>.bind</th>
       <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?
-If <code>.x</code> is a list of data frame, row binding is carried out.</p></td>
+If <code>.x</code> is a list of data frames, row binding is carried out.</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -337,7 +337,44 @@ names will be used if present.</p></td>
 #&gt; [[3]]$z
 #&gt; [1] 11 12 13 14 15
 #&gt; 
-#&gt; </div><div class='input'><span class='co'>## window over 2 months</span>
+#&gt; </div><div class='input'>
+<span class='co'>###</span>
+<span class='co'># row-wise sliding over data frame</span>
+<span class='co'>###</span>
+
+<span class='no'>my_df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>8</span>),
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fl'>8</span>:<span class='fl'>1</span>),
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>2</span> * <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fl'>8</span>:<span class='fl'>1</span>) + <span class='fu'>rnorm</span>(<span class='fl'>16</span>),
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>as.Date</span>(<span class='st'>"2016-06-01"</span>) + <span class='fl'>0</span>:<span class='fl'>7</span>, <span class='fl'>2</span>)
+)
+
+<span class='no'>slope</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
+  <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>...</span>)
+  <span class='no'>fm</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
+  <span class='fu'>coef</span>(<span class='no'>fm</span>)<span class='kw'>[[</span><span class='fl'>2</span>]]
+}
+
+<span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>()</div><div class='output co'>#&gt;    group       slope x          y       date
+#&gt; 1      a          NA 1  1.5878623 2016-06-01
+#&gt; 2      a  3.34639883 2  4.9342611 2016-06-02
+#&gt; 3      a  2.90605561 3  7.8403167 2016-06-03
+#&gt; 4      a -0.54513640 4  7.2951803 2016-06-04
+#&gt; 5      a  2.71332998 5 10.0085103 2016-06-05
+#&gt; 6      a  4.02567957 6 14.0341899 2016-06-06
+#&gt; 7      a -1.37587595 7 12.6583139 2016-06-07
+#&gt; 8      a  4.50066525 8 17.1589792 2016-06-08
+#&gt; 9      b          NA 8 15.7967910 2016-06-01
+#&gt; 10     b  2.17481960 7 13.6219714 2016-06-02
+#&gt; 11     b -0.11413960 6 13.7361110 2016-06-03
+#&gt; 12     b  4.58135886 5  9.1547522 2016-06-04
+#&gt; 13     b  2.11632368 4  7.0384285 2016-06-05
+#&gt; 14     b  0.02093745 3  7.0174911 2016-06-06
+#&gt; 15     b  4.51354479 2  2.5039463 2016-06-07
+#&gt; 16     b  1.68876499 1  0.8151813 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>

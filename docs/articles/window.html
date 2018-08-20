@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.1</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 5 [1h]</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span></a>
@@ -142,7 +142,7 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; # Groups:    Sensor [4]</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count Daily_MA</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; * &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630       NA</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826       NA</span></a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567       NA</span></a>
@@ -210,6 +210,7 @@
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4… &lt;tibble [145,321 × 2…</span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4… &lt;tibble [334,825 × 2…</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4… &lt;tibble [334,825 × 2…</span></a></code></pre></div>
+<p>Why <code><a href="../reference/slide.html">slide()</a></code> not working for this case? It is intended to work with list (i.e. column-wise data frame). However, when we perform a row-wise sliding over data frame, <code><a href="../reference/slide2.html">pslide()</a></code> does the job.</p>
 </div>
 <div id="other-features" class="section level2">
 <h2 class="hasAnchor">
