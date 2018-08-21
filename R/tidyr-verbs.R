@@ -164,7 +164,8 @@ unnest.lst_ts <- function(data, ..., key = id(),
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
     out, key = key, index = !! idx, validate = validate, 
-    regular = is_regular(tsbl), interval = interval(tsbl)
+    ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
+    interval = interval(tsbl)
   )
 }
 
