@@ -19,7 +19,7 @@ split_by.tbl_ts <- function(x, ...) {
   vars_split <- validate_vars(quos, names(x))
   grped_df <- grouped_df(x, vars = vars_split)
   idx <- attr(grped_df, "indices")
-  uni_idx <- unique(dplyr::group_indices(grped_df))
+  uni_idx <- unique(group_indices(grped_df))
   lapply(idx, function(idx) x[idx + 1, , drop = FALSE])[uni_idx]
 }
 

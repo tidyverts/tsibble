@@ -88,11 +88,12 @@ key_size <- function(x) {
 
 #' @export
 key_size.tbl_ts <- function(x) {
-  key_indices <- key_indices(x)
-  if (is_empty(key_indices)) {
+  idx <- key_indices(x)
+  out <- as.integer(rowsum.default(rep_len(1L, length(idx)), idx, reorder = FALSE))
+  if (has_length(out, 1)) {
     NROW(x)
   } else {
-    vapply(key_indices, length, integer(1))
+    out
   }
 }
 
@@ -122,7 +123,7 @@ key_indices <- function(x) {
 key_indices.tbl_ts <- function(x) {
   flat_keys <- key_flatten(key(x))
   grped_key <- grouped_df(x, flat_keys)
-  attr(grped_key, "indices")
+  group_indices(grped_key)
 }
 
 key_distinct <- function(x) { # x = a list of keys (symbols)

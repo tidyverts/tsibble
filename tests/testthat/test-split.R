@@ -1,10 +1,10 @@
 context("split_by()")
 
 test_that("Empty quosure", {
- x_lst <- pedestrian %>% split_by()
- expect_is(x_lst, "list")
- expect_length(x_lst, 1)
- expect_equal(dim(x_lst[[1]]), dim(pedestrian))
+  x_lst <- pedestrian %>% split_by()
+  expect_is(x_lst, "list")
+  expect_length(x_lst, 1)
+  expect_equal(dim(x_lst[[1]]), dim(pedestrian))
 })
 
 test_that("Split by bare variables", {

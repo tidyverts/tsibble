@@ -175,7 +175,7 @@ group_vars.grouped_ts <- function(x) {
 
 #' @export
 group_size.grouped_ts <- function(x) {
-  vapply(attr(x, "indices"), length, integer(1))
+  attr(x, "group_sizes")
 }
 
 #' @export
@@ -185,7 +185,13 @@ n_groups.tbl_ts <- function(x) {
 
 #' @export
 group_indices.grouped_ts <- function(.data, ...) {
-  attr(.data, "indices")
+  idx <- attr(.data, "indices")
+  nr_idx <- seq_len(NROW(.data))
+  for (i in seq_along(idx)) {
+    tmp <- idx[[i]] + 1L
+    nr_idx[tmp] <- rep_len(i, length(nr_idx[tmp]))
+  }
+  nr_idx
 }
 
 #' Return measured variables

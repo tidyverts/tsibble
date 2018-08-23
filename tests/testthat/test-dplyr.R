@@ -2,14 +2,14 @@ library(lubridate)
 library(dplyr)
 context("dplyr verbs for tsibble")
 
-pedestrian <- pedestrian %>% 
-  group_by(Sensor) %>% 
-  slice(1:10) %>% 
+pedestrian <- pedestrian %>%
+  group_by(Sensor) %>%
+  slice(1:10) %>%
   ungroup()
 
-tourism <- tourism %>% 
-  group_by_key() %>% 
-  slice(1:10) %>% 
+tourism <- tourism %>%
+  group_by_key() %>%
+  slice(1:10) %>%
   ungroup()
 
 test_that("group_by()", {
@@ -21,11 +21,7 @@ test_that("group_by()", {
     group_by(Sensor)
   expect_equal(n_groups(grped_df), 4)
   expect_length(group_size(grped_df), 4)
-  expect_length(group_indices(grped_df), 4)
-  expect_equal(
-    vapply(group_indices(grped_df), length, integer(1)),
-    key_size(grped_df)
-  )
+  expect_length(group_indices(grped_df), 40)
   expect_named(
     pedestrian %>% group_by(sensor = Sensor),
     c(names(pedestrian), "sensor")
