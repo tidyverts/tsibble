@@ -3,6 +3,7 @@
 * `unnest.lst_ts` respects the ordering of "key" values. (#56)
 * `split_by()` and `nest.tbl_ts()` respect the appearance ordering of input variables (#57)
 * `group_indices.tbl_ts()` and `key_indices()` return consistent formats as its generic.
+* Slightly faster `nest.tbl_ts()`.
 
 # tsibble 0.5.1
 

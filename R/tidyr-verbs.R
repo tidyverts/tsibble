@@ -105,11 +105,14 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   }
   nest_vars <- setdiff(nest_vars, grp_vars)
   grp <- syms(grp_vars)
-  nest_df <- split_by(data, !!! grp)
-  out <- distinct(data, !!! grp)
-  out[[key_var]] <- purrr::map(
-    nest_df, ~ tsibble_select(., !!! nest_vars, validate = FALSE)
-  )
+
+  out <- select(data, !!! grp, .drop = TRUE)
+  idx <- group_indices(data, !!! grp)
+  representatives <- which(!duplicated(idx))
+  out <- slice(out, representatives)
+  tsb_sel <- data %>% 
+    tsibble_select(!!! nest_vars, validate = FALSE)
+  out[[key_var]] <- unname(split(tsb_sel, idx))[unique(idx)]
   as_lst_ts(out)
 }
 
