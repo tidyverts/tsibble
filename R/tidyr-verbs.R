@@ -101,7 +101,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   }
   data <- ungroup(data)
   if (is_empty(grp_vars)) {
-    return(as_lst_ts(tibble::tibble(!! key_var := list(data))))
+    return(as_lst_ts(tibble(!! key_var := list(data))))
   }
   nest_vars <- setdiff(nest_vars, grp_vars)
   grp <- syms(grp_vars)

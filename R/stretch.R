@@ -97,7 +97,7 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' x <- as.Date("2017-01-01") + 0:364
 #' df <- data.frame(x = x, y = seq_along(x))
 #' 
-#' tibble::tibble(
+#' tibble(
 #'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
 #' )
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {

@@ -48,7 +48,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
   }
-  tbl <- tibble::tibble(!!! dots)
+  tbl <- tibble(!!! dots)
   index <- enquo(index)
   build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular)
 }
@@ -71,7 +71,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #'
 #' @examples
 #' # coerce tibble to tsibble w/o a key ----
-#' tbl1 <- tibble::tibble(
+#' tbl1 <- tibble(
 #'   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
 #'   value = rnorm(10)
 #' )
@@ -81,7 +81,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #'
 #' # coerce tibble to tsibble with one key ----
 #' # "date" is automatically considered as the index var, and "group" is the key
-#' tbl2 <- tibble::tibble(
+#' tbl2 <- tibble(
 #'   mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30)
@@ -285,7 +285,7 @@ not_tsibble <- function(x) {
 #' @aliases is.tsibble
 #' @examples
 #' # A tibble is not a tsibble ----
-#' tbl <- tibble::tibble(
+#' tbl <- tibble(
 #'   date = seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 1),
 #'   value = rnorm(31)
 #' )

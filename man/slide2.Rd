@@ -128,7 +128,7 @@ pedestrian \%>\%
 my_diag <- function(...) {
   data <- list(...)
   fit <- lm(Count ~ Time, data = data)
-  tibble::tibble(fitted = fitted(fit), resid = residuals(fit))
+  tibble(fitted = fitted(fit), resid = residuals(fit))
 }
 pedestrian \%>\%
   filter(Date <= as.Date("2015-01-31")) \%>\%

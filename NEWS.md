@@ -4,6 +4,7 @@
 * `split_by()` and `nest.tbl_ts()` respect the appearance ordering of input variables. (#57)
 * `group_indices.tbl_ts()` and `key_indices()` return consistent formats as its generic.
 * Slightly faster `nest.tbl_ts()`.
+* Reexported `tibble()`.
 
 ## Changes catering for the updates in `tibble`
 

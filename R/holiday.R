@@ -74,7 +74,7 @@ holiday_aus_act <- function(year) {
   diff_mon <- 2 - lubridate::wday(recon)
   recon <- recon + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  out <- tibble::tibble(
+  out <- tibble(
     holiday = rep(c("Canberra Day", "Reconciliation Day"), each = year_length),
     date = c(canb, recon)
   )
@@ -97,7 +97,7 @@ holiday_aus_nt <- function(year) {
   diff_mon <- 2 - lubridate::wday(picnic)
   picnic <- picnic + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  tibble::tibble(
+  tibble(
     holiday = rep(c("May Day", "Picnic Day"), each = year_length),
     date = c(may_day, picnic)
   )  %>%
@@ -118,7 +118,7 @@ holiday_aus_qld <- function(year) {
   diff_mon <- 2 - starting_wday
   queens <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  tibble::tibble(
+  tibble(
     holiday = rep(c("Labour Day", "Queen's Birthday"), each = year_length),
     date = c(may_day, queens)
   )  %>%
@@ -147,7 +147,7 @@ holiday_aus_sa <- function(year) {
   # Find the first Monday in March
   labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  out <- tibble::tibble(
+  out <- tibble(
     holiday = rep(
       c(rep("Adelaide Cup Day", 2), "Labour Day"), each = year_length
     ),
@@ -179,7 +179,7 @@ holiday_aus_nsw <- function(year) {
   # Find the first Monday in Oct
   labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  tibble::tibble(
+  tibble(
     holiday = rep("Labour Day", each = year_length),
     date = labour
   ) %>%
@@ -197,7 +197,7 @@ holiday_aus_tas <- function(year) {
   labour <- march_1mon + lubridate::weeks(1) # VIC and Tas
 
   # Holiday labels
-  tibble::tibble(
+  tibble(
     holiday = rep("Eight Hours Day", each = year_length),
     date = labour
   ) %>%
@@ -230,7 +230,7 @@ holiday_aus_vic <- function(year) {
 
   # Holiday labels
   hdays_labels <- c("Labour Day", "Melbourne Cup")
-  tibble::tibble(
+  tibble(
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, melb_cup)
   ) %>%
@@ -253,7 +253,7 @@ holiday_aus_wa <- function(year) {
 
   # Holiday labels
   hdays_labels <- c("Labour Day", "Western Australia Day")
-  tibble::tibble(
+  tibble(
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, western)
   ) %>%
@@ -339,7 +339,7 @@ holiday_aus_national <- function(year) {
     "Good Friday", "Easter Monday",
     "ANZAC Day", "Christmas Day", "Boxing Day"
   )
-  tibble::tibble(
+  tibble(
     holiday = rep(hdays_labels, each = year_length),
     date = public_holidays
   )
@@ -352,7 +352,7 @@ easter_break <- function(year) {
 
   # Holiday labels
   hdays_labels <- c("Easter Saturday", "Easter Sunday")
-  tibble::tibble(
+  tibble(
     holiday = rep(hdays_labels, each = length(year)),
     date = c(easter_sat, easter_sun)
   )
@@ -366,7 +366,7 @@ queens_birthday <- function(year) {
   june_1mon <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
   # Find the second Monday in June (Queen's birthday)
   queens <- june_1mon + lubridate::weeks(1) # except QLD, WA
-  tibble::tibble(
+  tibble(
     holiday = rep("Queen's Birthday", each = length(year)),
     date = queens
   )

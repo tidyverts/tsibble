@@ -22,7 +22,7 @@ If the object is a tsibble
 }
 \examples{
 # A tibble is not a tsibble ----
-tbl <- tibble::tibble(
+tbl <- tibble(
   date = seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 1),
   value = rnorm(31)
 )

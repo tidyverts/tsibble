@@ -73,13 +73,13 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     idx_full <- seq_generator(eval_tidy(idx, data = tbl))
     ref_data <- grped_tbl %>% 
       summarise(
-        !! idx_chr := list(tibble::tibble(!! idx_chr := idx_full))
+        !! idx_chr := list(tibble(!! idx_chr := idx_full))
       ) %>% 
       tidyr::unnest(!! idx)
   } else {
     ref_data <- grped_tbl %>% 
       summarise(
-        !! idx_chr := list(tibble::tibble(!! idx_chr := seq_generator(!! idx)))
+        !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx)))
       ) %>% 
       unnest(!! idx)
   }
@@ -211,9 +211,9 @@ gaps <- function(x, y) {
   from <- c(1, to[-length(to)] + 1)
   nobs <- gap_idx[lgl_rle]
   if (is_empty(nobs)) {
-    tibble::tibble(from = NA, to = NA, n = 0L)
+    tibble(from = NA, to = NA, n = 0L)
   } else {
-    tibble::tibble(
+    tibble(
       from = y[from][lgl_rle],
       to = y[to][lgl_rle],
       n = nobs

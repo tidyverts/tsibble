@@ -13,7 +13,7 @@
 as_tsibble.ts <- function(x, tz = "UTC", ...) {
   idx <- time_to_date(x, tz = tz)
   value <- as.numeric(x) # rm its ts class
-  tbl <- tibble::tibble(index = idx, value = value)
+  tbl <- tibble(index = idx, value = value)
   build_tsibble_meta(
     tbl, key = id(), index = index, ordered = TRUE
   )
