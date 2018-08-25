@@ -122,9 +122,9 @@ tibble::tbl_sum
 #' @export
 tibble::as_tibble
 
-#' @importFrom tibble as.tibble
+#' @importFrom tibble tibble
 #' @export
-tibble::as.tibble
+tibble::tibble
 
 #' @importFrom rlang !!
 #' @export
@@ -137,11 +137,3 @@ rlang::`!!!`
 #' @importFrom tibble type_sum
 #' @export
 tibble::type_sum
-
-#' @importFrom tibble obj_sum
-#' @export
-tibble::obj_sum
-
-#' @importFrom tibble is_vector_s3
-#' @export
-tibble::is_vector_s3

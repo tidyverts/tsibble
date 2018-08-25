@@ -180,12 +180,10 @@ print.yearweek <- function(x, format = "%Y W%V", ...) {
   invisible(x)
 }
 
-#' @export
 obj_sum.yearweek <- function(x) {
   rep("week", length(x))
 }
 
-#' @export
 is_vector_s3.yearweek <- function(x) {
   TRUE
 }
@@ -305,12 +303,10 @@ print.yearmonth <- function(x, format = "%Y %b", ...) {
   invisible(x)
 }
 
-#' @export
 obj_sum.yearmonth <- function(x) {
   rep("mth", length(x))
 }
 
-#' @export
 is_vector_s3.yearmonth <- is_vector_s3.yearweek
 
 pillar_shaft.yearmonth <- pillar_shaft.yearweek
@@ -465,12 +461,10 @@ print.yearquarter <- function(x, format = "%Y Q%q", ...) {
   invisible(x)
 }
 
-#' @export
 obj_sum.yearquarter <- function(x) {
   rep("qtr", length(x))
 }
 
-#' @export
 is_vector_s3.yearquarter <- is_vector_s3.yearweek
 
 pillar_shaft.yearquarter <- pillar_shaft.yearweek

@@ -5,7 +5,7 @@
 \alias{as.data.frame.tbl_ts}
 \title{Coerce to a tibble or data frame}
 \usage{
-\method{as_tibble}{tbl_ts}(x, ..., rownames = NULL)
+\method{as_tibble}{tbl_ts}(x, ...)
 
 \method{as.data.frame}{tbl_ts}(x, row.names = NULL, optional = FALSE,
   ...)
@@ -14,11 +14,6 @@
 \item{x}{A \code{tbl_ts}.}
 
 \item{...}{Ignored.}
-
-\item{rownames}{If \code{NULL}, remove row names (default for matrices, may become
-default for data frames in the future). If \code{NA}, keep row names (current
-default for data frames). Otherwise, the name of the new column that will
-contain the existing row names.}
 
 \item{row.names}{\code{NULL} or a character vector giving the row
     names for the data frame.  Missing values are not allowed.}

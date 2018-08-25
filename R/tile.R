@@ -33,7 +33,7 @@ tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("tile_", type),
-    replace_fn_names(tile, list(map = sym(paste0("map_", type))))
+    replace_fn_names(tile, list(map = rlang::sym(paste0("map_", type))))
   )
 }
 
@@ -89,7 +89,7 @@ tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("tile2_", type),
-    replace_fn_names(tile2, list(map2 = sym(paste0("map2_", type))))
+    replace_fn_names(tile2, list(map2 = rlang::sym(paste0("map2_", type))))
   )
 }
 
@@ -121,7 +121,7 @@ ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("ptile_", type),
-    replace_fn_names(ptile, list(pmap = sym(paste0("pmap_", type))))
+    replace_fn_names(ptile, list(pmap = rlang::sym(paste0("pmap_", type))))
   )
 }
 

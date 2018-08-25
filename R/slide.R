@@ -1,10 +1,10 @@
 # nocov start
 replace_fn_names <- function(fn, replace = list()){
   rec_fn <- function(cl) {
-    if (!is_call(cl)) {
+    if (!rlang::is_call(cl)) {
       return(cl)
     }
-    if (any(repl_fn <- names(replace) %in% call_name(cl))) {
+    if (any(repl_fn <- names(replace) %in% rlang::call_name(cl))) {
       cl[[1]] <- replace[[repl_fn]]
     }
     as.call(append(cl[[1]], purrr::map(as.list(cl[-1]), rec_fn)))
@@ -76,7 +76,7 @@ slide <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide_", type),
-    replace_fn_names(slide, list(map = sym(paste0("map_", type))))
+    replace_fn_names(slide, list(map = rlang::sym(paste0("map_", type))))
   )
 }
 
@@ -180,7 +180,7 @@ slide2 <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide2_", type),
-    replace_fn_names(slide2, list(map2 = sym(paste0("map2_", type))))
+    replace_fn_names(slide2, list(map2 = rlang::sym(paste0("map2_", type))))
   )
 }
 
@@ -235,7 +235,7 @@ pslide <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("pslide_", type),
-    replace_fn_names(pslide, list(pmap = sym(paste0("pmap_", type))))
+    replace_fn_names(pslide, list(pmap = rlang::sym(paste0("pmap_", type))))
   )
 }
 

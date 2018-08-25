@@ -34,7 +34,7 @@ stretch <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("stretch_", type),
-    replace_fn_names(stretch, list(map = sym(paste0("map_", type))))
+    replace_fn_names(stretch, list(map = rlang::sym(paste0("map_", type))))
   )
 }
 
@@ -112,7 +112,7 @@ stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("stretch2_", type),
-    replace_fn_names(stretch2, list(map2 = sym(paste0("map2_", type))))
+    replace_fn_names(stretch2, list(map2 = rlang::sym(paste0("map2_", type))))
   )
 }
 
@@ -154,7 +154,7 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("pstretch_", type),
-    replace_fn_names(pstretch, list(pmap = sym(paste0("pmap_", type))))
+    replace_fn_names(pstretch, list(pmap = rlang::sym(paste0("pmap_", type))))
   )
 }
 

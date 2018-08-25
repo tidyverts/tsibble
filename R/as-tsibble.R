@@ -361,7 +361,7 @@ build_tsibble <- function(
 
   # x is lst, data.frame, tbl_df, use ungroup()
   # x is tbl_ts, use as_tibble(ungroup = TRUE)
-  tbl <- ungroup(as_tibble(x, validate = validate))
+  tbl <- ungroup(as_tibble(x))
   # extract or pass the index var
   qindex <- enquo(index)
   index <- validate_index(tbl, qindex)
@@ -580,7 +580,6 @@ validate_tsibble <- function(data, key, index) {
 #'
 #' @param x A `tbl_ts`.
 #' @param ... Ignored.
-#' @inheritParams tibble::as_tibble
 #' @inheritParams base::as.data.frame
 #'
 #' @rdname as-tibble
@@ -591,10 +590,10 @@ validate_tsibble <- function(data, key, index) {
 #' # a grouped tbl_ts -----
 #' grped_ped <- pedestrian %>% group_by(Sensor)
 #' as_tibble(grped_ped)
-as_tibble.tbl_ts <- function(x, ..., rownames = NULL) {
+as_tibble.tbl_ts <- function(x, ...) {
   x <- remove_tsibble_attrs(x)
   class(x) <- c("tbl_df", "tbl", "data.frame")
-  as_tibble(x, ..., rownames = rownames)
+  as_tibble(x, ...)
 }
 
 #' @export
@@ -607,12 +606,6 @@ as_tibble.grouped_ts <- function(x, ...) {
 as_tibble.lst_ts <- function(x, ...) {
   structure(x, class = c("tbl_df", "tbl", "data.frame"))
 }
-
-#' @export
-as.tibble.tbl_ts <- as_tibble.tbl_ts
-
-#' @export
-as.tibble.grouped_ts <- as_tibble.grouped_ts
 
 #' @rdname as-tibble
 #' @export
