@@ -208,8 +208,8 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   key_less <- key(key_remove(.data, grps, validate = FALSE))
   flat_key <- key_flatten(key_less)
   # currently no way to set up nesting in `group_by()`
-  add_key <- setdiff(grps, c(flat_key, idx2_chr))
-  new_key <- c(key_less, add_key) 
+  add_key <- syms(setdiff(grps, c(flat_key, idx2_chr)))
+  new_key <- c(key_less, add_key)
 
   build_tsibble_meta(
     sum_data, key = new_key, index = !! idx2, groups = grp_drop(grps, idx2_chr), 
