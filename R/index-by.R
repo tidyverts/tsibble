@@ -68,11 +68,17 @@ index_by.tbl_ts <- function(.data, ...) {
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
+  expr_name <- names(exprs)[1]
+  idx <- index(.data)
+  idx_chr <- quo_text(idx)
+  if (identical(idx_chr, expr_name)) {
+    abort(sprintf("LHS must not be named as index (`%s`).", idx_chr))
+  }
   # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs)
-  idx2 <- sym(names(exprs)[1])
+  idx2 <- sym(expr_name)
   build_tsibble(
-    tbl, key = key(.data), index = !! index(.data), index2 = !! idx2,
+    tbl, key = key(.data), index = !! idx, index2 = !! idx2,
     groups = groups(.data), regular = is_regular(.data), validate = FALSE,
     ordered = is_ordered(.data), interval = interval(.data)
   )

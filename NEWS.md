@@ -5,6 +5,7 @@
 * `group_indices.tbl_ts()` and `key_indices()` return consistent formats as its generic.
 * Slightly faster `nest.tbl_ts()`.
 * Reexported `tibble()`.
+* `index_by()` gives more informative error when LHS is named as index.
 
 ## Changes catering for the updates in `tibble`
 
