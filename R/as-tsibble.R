@@ -382,7 +382,7 @@ build_tsibble <- function(
   idx_chr <- c(quo_text(index), quo_text(index2))
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
-    abort(sprintf("`%s` can't be `index`, as it's used as `key`.", idx_chr))
+    abort(sprintf("`%s` can't be `index`, as it's used as `key`.", idx_chr[[1]]))
   }
   # validate tbl_ts
   if (validate) {
