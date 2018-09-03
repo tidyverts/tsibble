@@ -50,7 +50,7 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df, index = time)
 
 test_that("POSIXct with 1 microseconds interval", {
-  expect_output(print(tsbl), cat("A tsibble: 10 x 2 [10\xC2\xB5s]"))
+  expect_output(print(tsbl), cat("A tsibble: 10 x 2 [10\U00B5s]"))
 })
 
 library(nanotime)

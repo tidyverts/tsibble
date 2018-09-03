@@ -82,6 +82,7 @@ test_that("POSIXct", {
 })
 
 test_that("character", {
+  skip_on_cran()
   expect_equal(format(yearweek(as.character(xx))), "2018 W01")
   expect_equal(format(yearmonth(as.character(xx))), "2018 Jan")
   expect_equal(format(yearmonth("201801")), "2018 Jan")

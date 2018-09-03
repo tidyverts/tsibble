@@ -59,6 +59,9 @@ format.interval <- function(x, digits = NULL, ...) {
 translate_interval <- function(x) {
   set_names(
     x, 
-    c("Y", "Q", "M", "W", "D", "h", "m", "s", "ms", "\xC2\xB5s", "ns", "")
+    c(
+      "Y", "Q", "M", "W", "D", 
+      "h", "m", "s", "ms", ifelse(is_utf8_output(), "\U00B5s", "us"), "ns", ""
+    )
   )
 }
