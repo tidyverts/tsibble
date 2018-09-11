@@ -378,7 +378,11 @@ test_that("build_tsibble()", {
   ), "`interval` must be the `interval` class")
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = Date_Time),
-    "Have you forgotten"
+    "Please use"
+  )
+  expect_error(
+    build_tsibble(pedestrian, key = dplyr::vars(Sensor), index = Date_Time),
+    "Please use"
   )
 
   tsbl <- build_tsibble(

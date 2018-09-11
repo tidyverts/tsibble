@@ -617,10 +617,15 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 use_id <- function(x, key) {
   key <- enquo(key)
   if (quo_is_call(key)) {
-    if (call_name(key) == "key") return(eval_tidy(key)) # key(x)
+    call_fn <- call_name(key)
+    if (call_fn == "key") return(eval_tidy(key)) # key(x)
+    if (call_fn != "id") {
+      abort(sprintf("Please use `key = id(...)`, not `%s(...)`.", call_fn))
+    } # vars(x)
   }
+  key_expr <- get_expr(key)
   safe_key <- purrr::safely(eval_tidy)(
-    get_expr(key), 
+    key_expr, 
     env = child_env(get_env(key), id = id)
   )
   if (is_null(safe_key$error)) {
@@ -630,7 +635,7 @@ use_id <- function(x, key) {
     lgl <- fn(safe_key$result)
     if (lgl) return(safe_key$result)
   }
-  abort("Have you forgotten `id()` to create the `key`?")
+  abort(sprintf("Please use `key = id(%s)` to create `tbl_ts`.", quo_text(key_expr)))
 }
 
 #' Find duplication of key and index variables

@@ -52,14 +52,14 @@ test_that("gather()", {
   expect_identical(out, out2)
 })
 
-pedestrian <- pedestrian %>% 
-  group_by(Sensor) %>% 
-  slice(1:10) %>% 
+pedestrian <- pedestrian %>%
+  group_by(Sensor) %>%
+  slice(1:10) %>%
   ungroup()
 
-tourism <- tourism %>% 
-  group_by_key() %>% 
-  slice(1:10) %>% 
+tourism <- tourism %>%
+  group_by_key() %>%
+  slice(1:10) %>%
   ungroup()
 
 test_that("nest()", {
@@ -82,13 +82,13 @@ nest_t <- tourism %>%
   nest(-Region, -State)
 
 test_that("unnest()", {
-  expect_error(nest_t %>% unnest(key = Region), "Have you forgotten")
+  expect_error(nest_t %>% unnest(key = Region), "Please use")
   expect_error(nest_t %>% unnest(), "Invalid tsibble:")
   expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
   expect_is(
-    nest_t %>% 
-      mutate(data2 = lapply(data, as_tibble)) %>% 
+    nest_t %>%
+      mutate(data2 = lapply(data, as_tibble)) %>%
       unnest(key = id(Region | State)),
     "tbl_ts"
   )
@@ -107,7 +107,7 @@ test_that("dplyr verbs for lst_ts", {
   expect_is(nest_t %>% select(data2 = data), "lst_ts")
   expect_is(nest_t %>% group_by(State), "grouped_df")
   expect_equal(
-    nest_t %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value), 
+    nest_t %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value),
     as_tibble(nest_t) %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value)
   )
 })
