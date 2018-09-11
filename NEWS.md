@@ -1,4 +1,4 @@
-# tsibble 0.5.1.9000
+# tsibble 0.5.2
 
 ## Bug fixes
 
