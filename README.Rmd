@@ -114,7 +114,7 @@ It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but 
   - `left/right/full/inner/anti/semi_join()`
   - `group_by()`, `ungroup()`
 * **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
-* **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
+* **tibble:** `glimpse()`, `as_tibble()`
 * **rlang:** `!!`, `!!!`
 
 ---

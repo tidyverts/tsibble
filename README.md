@@ -191,7 +191,7 @@ index. Use `?tidyverse` for a full list of tidyverse functions.
       - `left/right/full/inner/anti/semi_join()`
       - `group_by()`, `ungroup()`
   - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
-  - **tibble:** `glimpse()`, `as_tibble()`/`as.tibble()`
+  - **tibble:** `glimpse()`, `as_tibble()`
   - **rlang:** `!!`, `!!!`
 
 -----
