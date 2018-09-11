@@ -2,7 +2,7 @@
 % Please edit documentation in R/index-by.R
 \name{index_by}
 \alias{index_by}
-\title{Group by time index}
+\title{Group and collapse by time index}
 \usage{
 index_by(.data, ...)
 }

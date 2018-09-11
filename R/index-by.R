@@ -1,4 +1,4 @@
-#' Group by time index
+#' Group and collapse by time index
 #'
 #' `index_by()` is the counterpart of `group_by()` in temporal context, but it
 #' only groups the time index. It adds a new column and then group it. The 

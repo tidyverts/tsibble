@@ -624,6 +624,9 @@ use_id <- function(x, key) {
     } # vars(x)
   }
   key_expr <- get_expr(key)
+  if (is_string(key_expr)) {
+    abort(suggest_key(key_expr))
+  }
   safe_key <- purrr::safely(eval_tidy)(
     key_expr, 
     env = child_env(get_env(key), id = id)
@@ -635,7 +638,7 @@ use_id <- function(x, key) {
     lgl <- fn(safe_key$result)
     if (lgl) return(safe_key$result)
   }
-  abort(sprintf("Please use `key = id(%s)` to create `tbl_ts`.", quo_text(key_expr)))
+  abort(suggest_key(quo_text(key_expr)))
 }
 
 #' Find duplication of key and index variables
@@ -698,3 +701,8 @@ remove_tsibble_attrs <- function(x) {
   }
   NextMethod()
 }
+
+suggest_key <- function(x) {
+  sprintf("Can't create/coerce to a tsibble.\nDid you mean `key = id(%s)`?", x)
+}
+

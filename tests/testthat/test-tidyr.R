@@ -82,7 +82,7 @@ nest_t <- tourism %>%
   nest(-Region, -State)
 
 test_that("unnest()", {
-  expect_error(nest_t %>% unnest(key = Region), "Please use")
+  expect_error(nest_t %>% unnest(key = Region), "Can't")
   expect_error(nest_t %>% unnest(), "Invalid tsibble:")
   expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
