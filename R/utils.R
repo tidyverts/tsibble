@@ -29,7 +29,10 @@ paste_comma <- function(...) {
 }
 
 first_arg <- function(x) {
-  purrr::compact(purrr::map(x, ~ dplyr::first(call_args(.))))
+  lst_env <- purrr::map(x, get_env)
+  purrr::compact(
+    purrr::map2(x, lst_env, ~ new_quosure(dplyr::first(call_args(.x)), .y))
+  )
 }
 
 # regular time interval is obtained from the greatest common divisor of positive
