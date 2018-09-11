@@ -71,8 +71,7 @@ arguments as \code{slide()}, but return vectors of the corresponding type.
 \details{
 The \code{slide()} function attempts to tackle more general problems using
 the purrr-like syntax. For some specialist functions like \code{mean} and \code{sum},
-you may like to check out for
-\href{https://CRAN.R-project.org/package=RcppRoll}{RcppRoll} for faster performance.
+you may like to check out for \strong{RcppRoll} for faster performance.
 
 \code{slide()} is intended to work with list (and column-wise data frame). To
 perform row-wise sliding window on data frame, please check out \code{\link[=pslide]{pslide()}}.

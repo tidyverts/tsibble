@@ -43,8 +43,7 @@ replace_fn_names <- function(fn, replace = list()){
 #' * [stretch] for expanding more observations
 #' @details The `slide()` function attempts to tackle more general problems using
 #' the purrr-like syntax. For some specialist functions like `mean` and `sum`,
-#' you may like to check out for
-#' [RcppRoll](https://CRAN.R-project.org/package=RcppRoll) for faster performance.
+#' you may like to check out for **RcppRoll** for faster performance.
 #'
 #' `slide()` is intended to work with list (and column-wise data frame). To
 #' perform row-wise sliding window on data frame, please check out [pslide()].
