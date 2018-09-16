@@ -1,0 +1,33 @@
+#' @export
+#' @keywords internal
+append_row <- function(.data, n = 1L) {
+  if (!is_tsibble(.data)) {
+    abort("`.data` must be a tsibble.\nDo you need `tibble::add_row()`?")
+  }
+  not_regular(.data)
+  unknown_interval(interval(.data))
+
+  if (!is_integerish(n, 1) && n > 0) {
+    abort("`n` must be a positive integer.")
+  }
+
+  key_vars <- key_vars(.data)
+  idx <- index(.data)
+  tunit <- time_unit(eval_tidy(idx, .data))
+
+  last_entry <- as_tibble(.data) %>% 
+    grouped_df(key_vars) %>% 
+    summarise(!! idx := max(!! idx))
+
+  nc <- NCOL(last_entry)
+  new_lst <- new_list(NROW(last_entry))
+  for (i in seq_len(NROW(last_entry))) {
+    lst_i <- new_lst[[i]] <- as_list(last_entry[i, ])
+    new_lst[[i]][[nc]] <- seq(lst_i[[nc]], by = tunit, length.out = n + 1)[-1]
+    new_lst[[i]] <- as_tibble(new_lst[[i]])
+  }
+  out <- dplyr::bind_rows(.data, !!! new_lst)
+  ord <- is_ordered(.data)
+  if (ord) ord <- NULL # re-order
+  update_tsibble(out, .data, ordered = ord, interval = interval(.data))
+}
