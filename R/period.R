@@ -29,20 +29,18 @@
 #' yearmonth("201807")
 #' yearquarter(x)
 #'
-#' # coerce numerics to yearmonth, yearquarter ----
-#' yearmonth(seq(2010, 2017, by = 1 / 12))
-#' yearquarter(seq(2010, 2017, by = 1 / 4))
-#'
 #' # coerce yearmonths to yearquarter ----
 #' y <- yearmonth(x)
 #' yearquarter(y)
 #'
-#' # S3 method seq() ----
-#' wk1 <- yearweek(as.Date("2017-11-01"))
-#' wk2 <- yearweek(as.Date("2018-04-29"))
+#' # seq() and binary operaters ----
+#' wk1 <- yearweek("2017-11-01")
+#' wk2 <- yearweek("2018-04-29")
 #' seq(from = wk1, to = wk2, by = 2) # by two weeks
-#' mth <- yearmonth(as.Date("2017-11-01"))
+#' wk1 + 0:9
+#' mth <- yearmonth("2017-11-01")
 #' seq(mth, length.out = 5, by = 1) # by 1 month
+#' mth + 0:9
 #' seq(yearquarter(mth), length.out = 5, by = 1) # by 1 quarter
 yearweek <- function(x) {
   UseMethod("yearweek")
