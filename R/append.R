@@ -1,5 +1,21 @@
+#' Append rows to a tsibble
+#'
+#' Add new rows to the end of a tsibble by filling a key-index pair and `NA` for 
+#' measured variables.
+#'
+#' @param .data A `tbl_ts`.
+#' @param n An integer indicates the number of key-index pair to append.
+#'
 #' @export
-#' @keywords internal
+#' @examples
+#' tsbl <- tsibble(
+#'   date = rep(as.Date("2017-01-01") + 0:2, each = 2), 
+#'   group = rep(letters[1:2], 3),
+#'   value = rnorm(6),
+#'   key = id(group)
+#' )
+#' append_row(tsbl)
+#' append_row(tsbl, n = 2)
 append_row <- function(.data, n = 1L) {
   if (!is_tsibble(.data)) {
     abort("`.data` must be a tsibble.\nDo you need `tibble::add_row()`?")

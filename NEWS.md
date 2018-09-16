@@ -1,5 +1,9 @@
 # tsibble 0.5.2.9000
 
+## New features
+
+* Added `append_row()` for easily appending new observations to a tsibble. (#59)
+
 # tsibble 0.5.2
 
 ## Bug fixes
