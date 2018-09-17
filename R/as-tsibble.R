@@ -431,8 +431,8 @@ build_tsibble_meta <- function(
       msg <- sprintf("The `tbl_ts` is not sorted by `%s`.", expr_text(index))
     } else {
       msg <- sprintf(
-        "The `tbl_ts` is not sorted by `%s`, and `%s`.",
-        paste_comma(format(key)), expr_text(index)
+        "The `tbl_ts` is not sorted by %s, and `%s`.",
+        paste_comma(surround(key_flatten(key), "`")), expr_text(index)
       )
     }
     warn(msg)

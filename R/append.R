@@ -18,7 +18,7 @@
 #' append_row(tsbl, n = 2)
 append_row <- function(.data, n = 1L) {
   if (!is_tsibble(.data)) {
-    abort("`.data` must be a tsibble.\nDo you need `tibble::add_row()`?")
+    abort(sprintf("`.data` must be a tsibble, not `%s`.", class(.data)[1]))
   }
   not_regular(.data)
   unknown_interval(interval(.data))

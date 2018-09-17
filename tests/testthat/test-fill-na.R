@@ -54,7 +54,7 @@ test_that("a tbl_ts of 4 day interval with bad names", {
 })
 
 test_that("a tbl_ts of 4 day interval with function replacement", {
-  full_tsbl <- fill_na(tsbl, value = sum(value, na.rm = TRUE))
+  full_tsbl <- fill_na(tsbl, value = sum(value))
   expect_equal(
     as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = sum(tsbl$value))
@@ -87,7 +87,7 @@ test_that("fill_na() for yearquarter", {
 test_that("fill_na() for a grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%
-    fill_na(value = sum(value, na.rm = TRUE), .full = TRUE)
+    fill_na(value = sum(value), .full = TRUE)
   expect_identical(dim(full_tsbl), c(10L, 3L))
   expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),
