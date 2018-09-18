@@ -4,6 +4,10 @@
 
 * Added `append_row()` for easily appending new observations to a tsibble. (#59)
 
+## Misc
+
+* Soft-deprecated `case_na()`.
+
 # tsibble 0.5.2
 
 ## Bug fixes

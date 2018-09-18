@@ -84,7 +84,6 @@ reference:
     - interval
     - new_interval
     - is_regular
-    - case_na
 
 - title: Extend tsibble
   desc: >

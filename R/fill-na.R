@@ -257,6 +257,7 @@ seq_generator <- function(x) {
 #'
 #' @export
 #' @seealso [dplyr::case_when]
+#' @keywords internal
 #' @examples
 #' x <- rnorm(10)
 #' x[c(3, 7)] <- NA_real_
