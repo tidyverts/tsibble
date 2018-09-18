@@ -40,9 +40,9 @@ devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
 The `weather` data included in the package `nycflights13` is used as an
 example to illustrate. The “index” variable is the `time_hour`
 containing the date-times, and the “key” is the `origin` as weather
-stations created via `id()`. **The key(s) together with the index
-uniquely identifies each observation**, which gives a valid *tsibble*.
-Other columns can be considered as measured variables.
+stations created via `id()`. **The key together with the index uniquely
+identifies each observation**, which gives a valid *tsibble*. Other
+columns can be considered as measured variables.
 
 ``` r
 library(tsibble)
@@ -64,12 +64,12 @@ weather_tsbl
 
 The **key** is not constrained to a single variable, but expressive of
 nested and crossed data structures. This incorporates univariate,
-multivariate, hierarchical and grouped time series into the tsibble
+multivariate, hierarchical and grouped time series into the *tsibble*
 framework. See `package?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
 for details.
 
-The **tsibble** internally computes the interval for given time indices
+The *tsibble* internally computes the interval for given time indices
 based on the time representation, ranging from year to nanosecond. The
 `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek`
 to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to
@@ -178,6 +178,9 @@ full_weather %>%
 #> # ... with 2.618e+04 more rows
 ```
 
+More examples can be found at
+[`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
+
 ## Working with the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *tidyverse*
@@ -191,7 +194,7 @@ index. Use `?tidyverse` for a full list of tidyverse functions.
       - `left/right/full/inner/anti/semi_join()`
       - `group_by()`, `ungroup()`
   - **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
-  - **tibble:** `glimpse()`, `as_tibble()`
+  - **tibble:** `glimpse()`, `tibble()`, `as_tibble()`
   - **rlang:** `!!`, `!!!`
 
 -----

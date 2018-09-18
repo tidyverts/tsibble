@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.2.9000</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
 <h3 class="hasAnchor">
 <a href="#coerce-to-a-tsibble-with-as_tsibble" class="anchor"></a>Coerce to a tsibble with <code><a href="reference/as-tsibble.html">as_tsibble()</a></code>
 </h3>
-<p>The <code>weather</code> data included in the package <code>nycflights13</code> is used as an example to illustrate. The “index” variable is the <code>time_hour</code> containing the date-times, and the “key” is the <code>origin</code> as weather stations created via <code><a href="reference/id.html">id()</a></code>. <strong>The key(s) together with the index uniquely identifies each observation</strong>, which gives a valid <em>tsibble</em>. Other columns can be considered as measured variables.</p>
+<p>The <code>weather</code> data included in the package <code>nycflights13</code> is used as an example to illustrate. The “index” variable is the <code>time_hour</code> containing the date-times, and the “key” is the <code>origin</code> as weather stations created via <code><a href="reference/id.html">id()</a></code>. <strong>The key together with the index uniquely identifies each observation</strong>, which gives a valid <em>tsibble</em>. Other columns can be considered as measured variables.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tsibble)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
@@ -138,8 +138,8 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.611e+04 more rows</span></a></code></pre></div>
-<p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
-<p>The <strong>tsibble</strong> internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmth</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
+<p>The <strong>key</strong> is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the <em>tsibble</em> framework. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
+<p>The <em>tsibble</em> internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmth</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
 </div>
 <div id="fill_na-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
@@ -214,6 +214,7 @@
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0    39.3</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0    39.3</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.618e+04 more rows</span></a></code></pre></div>
+<p>More examples can be found at <a href="https://pkg.earo.me/tsibble/articles/window.html"><code><a href="articles/window.html">vignette("window")</a></code></a>.</p>
 </div>
 </div>
 <div id="working-with-the-tidyverse" class="section level2">
@@ -240,7 +241,7 @@
 <strong>tidyr</strong>: <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/unnest">unnest()</a></code>
 </li>
 <li>
-<strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>
+<strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>
 </li>
 <li>
 <strong>rlang:</strong> <code>!!</code>, <code>!!!</code>

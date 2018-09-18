@@ -44,7 +44,7 @@ devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
 
 ### Coerce to a tsibble with `as_tsibble()`
 
-The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "index" variable is the `time_hour` containing the date-times, and the "key" is the `origin` as weather stations created via `id()`. **The key(s) together with the index uniquely identifies each observation**, which gives a valid *tsibble*. Other columns can be considered as measured variables.
+The `weather` data included in the package `nycflights13` is used as an example to illustrate. The "index" variable is the `time_hour` containing the date-times, and the "key" is the `origin` as weather stations created via `id()`. **The key together with the index uniquely identifies each observation**, which gives a valid *tsibble*. Other columns can be considered as measured variables.
 
 ```{r nycflights13, message = FALSE}
 library(tsibble)
@@ -54,9 +54,9 @@ weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 ```
 
-The **key** is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the tsibble framework. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
+The **key** is not constrained to a single variable, but expressive of nested and crossed data structures. This incorporates univariate, multivariate, hierarchical and grouped time series into the *tsibble* framework. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
 
-The **tsibble** internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to quarterly, and etc.
+The *tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to quarterly, and etc.
 
 ### `fill_na()` to turn implicit missing values into explicit missing values
 
@@ -104,6 +104,8 @@ full_weather %>%
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
+More examples can be found at [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
+
 ## Working with the tidyverse
 
 It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but in a slightly different way that it does the best to keep the index. Use `?tidyverse` for a full list of tidyverse functions.
@@ -114,7 +116,7 @@ It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but 
   - `left/right/full/inner/anti/semi_join()`
   - `group_by()`, `ungroup()`
 * **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
-* **tibble:** `glimpse()`, `as_tibble()`
+* **tibble:** `glimpse()`, `tibble()`, `as_tibble()`
 * **rlang:** `!!`, `!!!`
 
 ---
