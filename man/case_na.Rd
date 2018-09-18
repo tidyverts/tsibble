@@ -22,3 +22,4 @@ case_na(x ~ mean(x, na.rm = TRUE))
 \seealso{
 \link[dplyr:case_when]{dplyr::case_when}
 }
+\keyword{internal}
