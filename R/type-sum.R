@@ -39,21 +39,14 @@ tbl_sum.grouped_ts <- function(x) {
   idx2 <- quo_name(index2(x))
   grp_var <- setdiff(grps, idx2)
   idx_suffix <- paste("@", idx2)
+  res <- NextMethod()
+  n_grps <- surround(n_grps, "[")
   if (is_empty(grp_var)) {
-    return(c(
-      NextMethod(), 
-      "Groups" = paste(idx_suffix, surround(n_grps, "["))
-    ))
+    c(res, "Groups" = paste(idx_suffix, n_grps))
   } else if (has_length(grps, length(grp_var))) {
-    return(c(
-      NextMethod(), 
-      "Groups" = paste(paste_comma(grp_var), surround(n_grps, "["))
-    ))
+    c(res, "Groups" = paste(paste_comma(grp_var), n_grps))
   } else {
-    return(c(
-      NextMethod(), 
-      "Groups" = paste(paste_comma(grp_var), idx_suffix, surround(n_grps, "["))
-    ))
+    c(res, "Groups" = paste(paste_comma(grp_var), idx_suffix, n_grps))
   }
 }
 

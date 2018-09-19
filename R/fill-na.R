@@ -99,7 +99,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
       summarise(!!! lst_quos) %>% 
       ungroup() %>% 
       select(!!! lhs)
-    full_data <- replace_na2(full_data, replaced_df)
+    full_data <- replace_na2(full_data, replaced_df, group_vars(tbl))
   }
   if (!identical(cn, names(full_data))) {
     full_data <- full_data %>%
@@ -244,7 +244,7 @@ seq_generator <- function(x) {
     min_x + seq.int(0, as.double(max_x - min_x), tunit),
     error = function(e) {
       e$call <- NULL
-      e$message <- sprintf("Neither `+` nor `seq()` are defined for class `%s`", class(x))
+      e$message <- sprintf("Neither `+` nor `seq()` are defined for class `%s`", class(x)[1L])
       stop(e)
     }
   )
@@ -286,10 +286,13 @@ not_regular <- function(x) {
   }
 }
 
-replace_na2 <- function(.data, replace = list()) {
+replace_na2 <- function(.data, replace = list(), grp_vars = character(0)) {
   replace_vars <- intersect(names(replace), names(.data))
-  for (var in replace_vars) {
-    .data[[var]][is.na(.data[[var]])] <- replace[[var]]
+  split_data <- split(.data, group_indices(dplyr::grouped_df(.data, grp_vars)))
+  for (i in seq_along(split_data)) {
+    for (var in replace_vars) {
+      split_data[[i]][[var]][is.na(split_data[[i]][[var]])] <- replace[[var]][i]
+    }
   }
-  .data
+  dplyr::bind_rows(split_data)
 }

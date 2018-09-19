@@ -4,6 +4,10 @@
 
 * Added `append_row()` for easily appending new observations to a tsibble. (#59)
 
+## Bug fixes
+
+* Fixed warning in `fill_na()` for multiple replacements when using with `group_by()`, introduced in v0.5.1.
+
 ## Misc
 
 * Soft-deprecated `case_na()`.
