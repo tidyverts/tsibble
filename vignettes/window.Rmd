@@ -82,12 +82,12 @@ We have had a glimpse at [row-oriented workflow](https://github.com/jennybc/row-
 
 ```{r lm}
 my_diag <- function(...) {
-  data <- list(...)
+  data <- tibble(...)
   fit <- lm(Count ~ Time, data = data)
   list(fitted = fitted(fit), resid = residuals(fit))
 }
 pedestrian %>%
-  filter(Date_Time < as.Date("2015-04-01")) %>%
+  filter(Date_Time < yearmonth("201504")) %>%
   nest(-Sensor) %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
