@@ -270,26 +270,3 @@ ungroup.tbl_ts <- function(x, ...) {
 distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
 }
-
-by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
-  FUN <- match.fun(FUN, descend = FALSE)
-  tbl <- FUN(as_tibble(.data), ...)
-  update_tsibble(tbl, .data, ordered = ordered, interval = interval)
-}
-
-# put new data with existing attributes
-update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  restore_index_class(build_tsibble_meta(
-    new, key = key(old), index = !! index(old), index2 = !! index2(old),
-    groups = groups(old), regular = is_regular(old),
-    ordered = ordered, interval = interval
-  ), old)
-}
-
-# needed when grouping by index2 (e.g. summarise)
-as_tibble2 <- function(x) {
-  grps <- groups(x)
-  idx2 <- index2(x)
-  x <- as_tibble(x)
-  group_by(x, !!! flatten(c(grps, idx2)))
-}

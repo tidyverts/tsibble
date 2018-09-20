@@ -1,11 +1,3 @@
-join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
-  FUN <- match.fun(FUN, descend = FALSE)
-  tbl_x <- as_tibble(x)
-  tbl_y <- as_tibble(y, validate = FALSE)
-  tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
-  update_tsibble(tbl, x, ordered = is_ordered(x))
-}
-
 #' @inheritParams dplyr::left_join
 #' @name tidyverse
 #' @rdname tidyverse

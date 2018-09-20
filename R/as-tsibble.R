@@ -267,12 +267,6 @@ is_ordered <- function(x) {
   attr(x, "ordered")
 }
 
-not_tsibble <- function(x) {
-  if (is_false(is_tsibble(x) || inherits(x, "lst_ts"))) {
-    abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
-  }
-}
-
 #' If the object is a tsibble
 #'
 #' @param x An object.
@@ -410,7 +404,7 @@ build_tsibble_meta <- function(
   } else {
     index2 <- get_expr(index2)
   }
-  tbl <- ungroup(as_tibble(x, validate = FALSE))
+  tbl <- ungroup(as_tibble(x))
   if (is_false(regular)) {
     interval <- list()
   } else if (regular && is.null(interval)) {
@@ -697,9 +691,5 @@ remove_tsibble_attrs <- function(x) {
     warn("Setting row names on a tsibble is deprecated.")
   }
   NextMethod()
-}
-
-suggest_key <- function(x) {
-  sprintf("Can't create/coerce to a tsibble.\nDid you mean `key = id(%s)`?", x)
 }
 

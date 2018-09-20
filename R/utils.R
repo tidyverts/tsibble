@@ -1,31 +1,9 @@
-## helpers
-# ref: tibble:::big_mark
-big_mark <- function(x, ...) {
-  mark <- if (identical(getOption("OutDec"), ",")) "." else ","
-  formatC(x, big.mark = mark, ...)
-}
-
-# ref: tibble:::cat_line
-cat_line <- function(...) {
-  cat(paste0(..., "\n"), sep = "")
-}
-
-dim_tbl_ts <- function(x) {
-  dim_x <- dim(x)
-  format_dim <- purrr::map_chr(dim_x, big_mark)
-  paste(format_dim, collapse = " x ")
-}
-
 split_period <- function(x) {
   output <- lubridate::seconds_to_period(x)
   list(
     year = output$year, month = output$month, day = output$day,
     hour = output$hour, minute = output$minute, second = output$second
   )
-}
-
-paste_comma <- function(...) {
-  paste(..., collapse = ", ")
 }
 
 first_arg <- function(x) {
@@ -49,16 +27,21 @@ validate_vars <- function(j, x) { # j = quos/chr/dbl
   tidyselect::vars_select(.vars = x, !!! j)
 }
 
-surround <- function(x, bracket = "(") {
-  if (bracket == "(") {
-    paste0("(", x, ")")
-  } else if (bracket == "[") {
-    paste0("[", x, "]")
-  } else if (bracket == "<") {
-    paste0("<", x, ">")
-  } else {
-    paste0("`", x, "`")
-  }
+# this function usually follows validate_vars()
+has_index <- function(j, x) {
+  is_index_null(x)
+  index <- c(quo_name(index(x)), quo_name(index2(x)))
+  any(index %in% j)
+}
+
+has_distinct_key <- function(j, x) {
+  key_vars <- key_flatten(key_distinct(key(x)))
+  all(key_vars %in% j)
+}
+
+has_any_key <- function(j, x) {
+  key_vars <- key_flatten(key(x))
+  any(key_vars %in% j)
 }
 
 min0 <- function(...) {
@@ -69,39 +52,6 @@ max0 <- function(...) {
   max(..., na.rm = TRUE)
 }
 
-dont_know <- function(x, FUN) {
-  cls <- class(x)[1]
-  msg <- sprintf(
-    "`%s()` doesn't know how to coerce the `%s` class yet.", FUN, cls
-  )
-  abort(msg)
-}
-
-unknown_interval <- function(x) {
-  no_zeros <- !purrr::map_lgl(x, function(x) x == 0)
-  if (sum(no_zeros) == 0) abort("Cannot deal with data of unknown interval.")
-}
-
 is_even <- function(x) {
   (abs(x) %% 2) == 0
-}
-
-exceed_rows <- function(x, n = 1L) {
-  nr <- NROW(x)
-  if (n > nr) abort(sprintf("Must not exceed the rows (%i).", nr))
-}
-
-# inlined from https://github.com/r-lib/cli/blob/master/R/utf8.R
-is_utf8_output <- function() {
-  opt <- getOption("cli.unicode", NULL)
-  if (! is.null(opt)) {
-    isTRUE(opt)
-  } else {
-    l10n_info()$`UTF-8` && !is_latex_output()
-  }
-}
-
-is_latex_output <- function() {
-  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
-  get("is_latex_output", asNamespace("knitr"))()
 }

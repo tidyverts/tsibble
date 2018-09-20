@@ -88,20 +88,3 @@ is_index_null <- function(x) {
     abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
   }
 }
-
-# this function usually follows validate_vars()
-has_index <- function(j, x) {
-  is_index_null(x)
-  index <- c(quo_name(index(x)), quo_name(index2(x)))
-  any(index %in% j)
-}
-
-has_distinct_key <- function(j, x) {
-  key_vars <- key_flatten(key_distinct(key(x)))
-  all(key_vars %in% j)
-}
-
-has_any_key <- function(j, x) {
-  key_vars <- key_flatten(key(x))
-  any(key_vars %in% j)
-}

@@ -361,15 +361,6 @@ bind_lst <- function(x) {
   }
 }
 
-bad_window_function <- function(.size) {
-  if (!is_integerish(.size, n = 1)) {
-    abort("`.size` must be an integer.")
-  }
-  if (.size == 0) {
-    abort("`.size` must not be 0.")
-  }
-}
-
 recycle <- function(x) {
   if (has_length(x, 0)) {
     return(x)
@@ -425,20 +416,5 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
     dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id)
   } else {
     dplyr::bind_cols(lst, !!! x[-seq_len(abs_size - 1)])
-  }
-}
-
-check_valid_window <- function(.size, .align) {
-  if (is_even(.size) && .align %in% c("c", "centre", "center")) {
-    abort(sprintf(
-      "Can't use `.align = %s` for even window `.size`. Please use `.align = 'center-left'` or `.align = 'center-right'`.",
-      .align
-    ))
-  }
-}
-
-abort_not_lst <- function (.x, .bind = FALSE) {
-  if (!is.list(.x) && .bind) {
-    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
   }
 }

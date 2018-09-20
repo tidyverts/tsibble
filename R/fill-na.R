@@ -280,12 +280,6 @@ restore_index_class <- function(new, old) {
   new
 }
 
-not_regular <- function(x) {
-  if (!is_regular(x)) {
-    abort("Can't handle `tbl_ts` of irregular interval.")
-  }
-}
-
 replace_na2 <- function(.data, replace = list(), grp_vars = character(0)) {
   replace_vars <- intersect(names(replace), names(.data))
   split_data <- split(.data, group_indices(dplyr::grouped_df(.data, grp_vars)))
