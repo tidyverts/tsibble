@@ -125,11 +125,12 @@ as_tsibble.list <- as_tsibble.tbl_df
 #' @keywords internal
 #' @export
 as_tsibble.grouped_df <- function(
-  x, key = id(), index, groups = id(), regular = TRUE, validate = TRUE, ...
+  x, key = id(), index, regular = TRUE, validate = TRUE, ...
 ) {
+  grps <- groups(x)
   index <- enquo(index)
   build_tsibble(
-    x, key = !! enquo(key), index = !! index, groups = groups, 
+    x, key = !! enquo(key), index = !! index, groups = grps,
     regular = regular, validate = validate
   )
 }
