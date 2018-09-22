@@ -23,7 +23,7 @@ not_regular <- function(x) {
 }
 
 suggest_key <- function(x) {
-  sprintf("Can't create/coerce to a tsibble.\nDid you mean `key = id(%s)`?", x)
+  sprintf("Key must be created via `id()`.\nDid you mean `key = id(%s)`?", x)
 }
 
 not_tsibble <- function(x) {

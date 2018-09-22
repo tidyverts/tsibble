@@ -238,7 +238,7 @@ dat_x <- tibble(
 
 test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date), "Invalid")
-  expect_error(as_tsibble(dat_x, key = "group", index = date), "Can't")
+  expect_error(as_tsibble(dat_x, key = "group", index = date), "Key must be created")
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
   expect_is(key(tsbl), "key")
@@ -379,7 +379,7 @@ test_that("build_tsibble()", {
   ), "`interval` must be the `interval` class")
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = Date_Time),
-    "Can't"
+    "Key must be created"
   )
   expect_error(
     build_tsibble(pedestrian, key = dplyr::vars(Sensor), index = Date_Time),
