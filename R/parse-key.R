@@ -121,8 +121,8 @@ key_indices <- function(x) {
 
 #' @export
 key_indices.tbl_ts <- function(x) {
-  flat_keys <- key_flatten(key(x))
-  grped_key <- grouped_df(x, flat_keys)
+  key_vars <- key_vars(x)
+  grped_key <- grouped_df(x, key_vars)
   group_indices(grped_key)
 }
 

@@ -15,10 +15,9 @@ glimpse.tbl_ts <- function(x, width = NULL, ...) {
   idx <- index(x)
   t_span <- paste(range(dplyr::pull(x, !! idx), na.rm = TRUE), collapse = " ~ ")
   cat_line(t_span)
-  build_tsibble(
+  build_tsibble_meta(
     NextMethod(), key = key(x), index = !! idx, index2 = !! index2(x), 
-    groups = groups(x), validate = FALSE, ordered = is_ordered(x), 
-    regular = is_regular(x)
+    groups = groups(x), ordered = is_ordered(x), regular = is_regular(x)
   )
   invisible(x)
 }
