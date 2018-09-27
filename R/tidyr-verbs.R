@@ -223,12 +223,12 @@ anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
 semi_join.lst_ts <- anti_join.lst_ts
 
 as_lst_ts <- function(x) {
+  cls <- c("tbl_df", "tbl", "data.frame")
   grped_df <- dplyr::is_grouped_df(x)
   if (grped_df) {
-    structure(
-      x, class = c("lst_ts", "grouped_df", "tbl_df", "tbl", "data.frame")
-    )
+    class(x) <- c("lst_ts", "grouped_df", cls)
   } else {
-    structure(x, class = c("lst_ts", "tbl_df", "tbl", "data.frame"))
+    class(x) <- c("lst_ts", cls)
   }
+  x
 }
