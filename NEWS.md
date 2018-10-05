@@ -8,6 +8,7 @@
 
 * Fixed warning in `fill_na()` for multiple replacements when using with `group_by()`, introduced in v0.5.1.
 * `as_tsibble.grouped_df()` respected its existing groups and removed argument `group`. (#60)
+* Preserve the ordering of key specification in `select.tbl_ts()`. (#63)
 
 ## Misc
 

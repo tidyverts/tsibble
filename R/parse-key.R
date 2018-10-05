@@ -218,6 +218,7 @@ key_rename <- function(.data, .vars) {
   old_key <- key(.data)
   if (is_empty(old_key)) return(id())
   old_chr <- key_flatten(old_key)
+  .vars <- .vars[match(old_chr, .vars)]
   names <- names(.vars)
   new_chr <- names[.vars %in% old_chr]
   lgl <- FALSE
@@ -249,7 +250,7 @@ validate_key <- function(data, key) {
   if (is_empty(keys)) return(keys)
 
   reconstruct_key(
-    keys, 
+    keys,
     ~ purrr::map(., ~ syms(validate_vars(flatten(.), cn))),
     ~ syms(validate_vars(., cn))
   )
