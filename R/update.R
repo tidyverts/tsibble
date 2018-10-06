@@ -42,7 +42,6 @@ tsibble_rename <- function(.data, ...) {
   new_key <- key_rename(.data, val_vars)
   # groups
   new_grp <- grp_rename(.data, val_vars)
-  attr(.data, "vars") <- new_grp
 
   names(.data) <- names(val_vars)
   build_tsibble(

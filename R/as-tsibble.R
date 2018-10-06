@@ -158,7 +158,8 @@ groups.tbl_ts <- function(x) {
 
 #' @export
 groups.grouped_ts <- function(x) {
-  syms(group_vars(x))
+  res <- as_grouped_df(x)
+  groups(res)
 }
 
 #' @export
@@ -168,28 +169,26 @@ group_vars.tbl_ts <- function(x) {
 
 #' @export
 group_vars.grouped_ts <- function(x) {
-  attr(x, "vars")
+  res <- as_grouped_df(x)
+  group_vars(res)
 }
 
 #' @export
 group_size.grouped_ts <- function(x) {
-  attr(x, "group_sizes")
+  res <- as_grouped_df(x)
+  group_size(res)
 }
 
 #' @export
 n_groups.tbl_ts <- function(x) {
-  length(group_size(x))
+  res <- as_grouped_df(x)
+  n_groups(res)
 }
 
 #' @export
 group_indices.grouped_ts <- function(.data, ...) {
-  idx <- attr(.data, "indices")
-  nr_idx <- seq_len(NROW(.data))
-  for (i in seq_along(idx)) {
-    tmp <- idx[[i]] + 1L
-    nr_idx[tmp] <- rep_len(i, length(nr_idx[tmp]))
-  }
-  nr_idx
+  res <- as_grouped_df(.data)
+  group_indices(res)
 }
 
 #' Return measured variables
@@ -590,7 +589,7 @@ as_tibble.tbl_ts <- function(x, ...) {
 
 #' @export
 as_tibble.grouped_ts <- function(x, ...) {
-  group_by(NextMethod(), !!! groups(x))
+  as_grouped_df(x)
 }
 
 #' @keywords internal
@@ -694,3 +693,8 @@ remove_tsibble_attrs <- function(x) {
   NextMethod()
 }
 
+as_grouped_df <- function(x) {
+  class(x) <- class(x)[-match("tbl_ts", class(x))] # remove "tbl_ts"
+  class(x)[match("grouped_ts", class(x))] <- "grouped_df"
+  x
+}
