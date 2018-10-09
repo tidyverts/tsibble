@@ -25,7 +25,7 @@ test_that("spread()", {
     spread(key = State, value = Trips)
   expect_equal(key_vars(out3), c("Region", "Purpose"))
   expect_equal(ncol(out3), 10)
-  expect_error(tsbl %>% spread(qtr, value = value), "`key` must not be `qtr`,")
+  expect_error(tsbl %>% spread(qtr, value = value), "can't be spread.")
   out4 <- tourism %>%
     group_by(Purpose) %>%
     spread(key = State, value = Trips)
@@ -63,8 +63,8 @@ tourism <- tourism %>%
   ungroup()
 
 test_that("nest()", {
- expect_error(pedestrian %>% nest(-Date_Time), "must nest the `index`")
- expect_error(pedestrian %>% nest(Sensor), "must nest the `index`")
+ expect_error(pedestrian %>% nest(-Date_Time), "must be nested")
+ expect_error(pedestrian %>% nest(Sensor), "must be nested")
  expect_named(pedestrian %>% nest(), "data")
  expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
  expect_named(
@@ -83,7 +83,7 @@ nest_t <- tourism %>%
 
 test_that("unnest()", {
   expect_error(nest_t %>% unnest(key = Region), "Key must be created")
-  expect_error(nest_t %>% unnest(), "Invalid tsibble:")
+  expect_error(nest_t %>% unnest(), "A valid tsibble")
   expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
   expect_is(

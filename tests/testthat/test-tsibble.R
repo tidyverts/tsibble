@@ -23,7 +23,7 @@ test_that("A tsibble must not contain missing values in index", {
 
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
-  expect_error(key(dat_x), "Can't find the `key`")
+  expect_error(key(dat_x), "Can't find the attribute key")
   expect_error(index(dat_x), "tsibble")
   expect_error(interval(dat_x), "tsibble")
   expect_error(is_regular(dat_x), "tsibble")
@@ -90,7 +90,7 @@ test_that("Space in index variable", {
 
 test_that("Duplicated time index", {
   dat_y <- dat_x[c(1, 1, 3:5), ]
-  expect_error(as_tsibble(dat_y, index = date_time), "Invalid tsibble")
+  expect_error(as_tsibble(dat_y, index = date_time), "A valid tsibble")
 
   y <- c(FALSE, TRUE, rep(FALSE, 3))
   expect_identical(find_duplicates(dat_y, index = date_time), y)
@@ -237,7 +237,7 @@ dat_x <- tibble(
 )
 
 test_that("A single key", {
-  expect_error(as_tsibble(dat_x, index = date), "Invalid")
+  expect_error(as_tsibble(dat_x, index = date), "A valid tsibble")
   expect_error(as_tsibble(dat_x, key = "group", index = date), "Key must be created")
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
@@ -376,7 +376,7 @@ test_that("build_tsibble()", {
   expect_error(build_tsibble(
     pedestrian, key = id(Sensor), index = Date_Time,
     interval = list(hour = 1)
-  ), "`interval` must be the `interval` class")
+  ), "Argument `interval` must be class interval,")
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = Date_Time),
     "Key must be created"

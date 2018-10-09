@@ -107,7 +107,7 @@ slice.tbl_ts <- function(.data, ...) {
 row_validate <- function(x) {
   pos_dup <- anyDuplicated.default(x)
   if (any_not_equal_to_c(pos_dup, 0)) {
-    abort(sprintf("Duplicated integers occurs to the position of %i.", pos_dup))
+    abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
   }
   is_ascending(x)
 }

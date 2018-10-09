@@ -52,7 +52,7 @@ test_that("ungroup()", {
 test_that("arrange.tbl_ts()", {
   expect_equal(arrange(tourism), tourism)
   expect_equal(arrange(tourism %>% group_by(Purpose)), group_by(tourism, Purpose))
-  expect_warning(tsbl1 <- arrange(tourism, Quarter), "not sorted by")
+  expect_warning(tsbl1 <- arrange(tourism, Quarter), "Unexpected temporal order.")
   expect_equal(tsbl1, tourism)
   expect_false(is_ordered(tsbl1))
   expect_identical(key(tsbl1), key(tourism))
@@ -65,27 +65,27 @@ idx_year <- seq.int(1970, 2010, by = 10)
 dat_x <- tsibble(year = idx_year, value = rnorm(5), index = year)
 
 test_that("warnings for arrange a univariate time series", {
-  expect_warning(arrange(dat_x, value), "not sorted by `year`")
+  expect_warning(arrange(dat_x, value), "Unexpected temporal order.")
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {
   expect_is(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
-  expect_warning(pedestrian %>% arrange(Time), "not sorted by")
-  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "not sorted by")
-  expect_warning(pedestrian %>% arrange(desc(Date_Time)), "not sorted by")
-  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "not sorted by")
-  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "not sorted by")
-  expect_warning(tbl <- pedestrian %>% arrange(Date_Time, Sensor), "not sorted by")
+  expect_warning(pedestrian %>% arrange(Time), "Unexpected temporal order.")
+  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "Unexpected temporal order.")
+  expect_warning(pedestrian %>% arrange(desc(Date_Time)), "Unexpected temporal order.")
+  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "Unexpected temporal order.")
+  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "Unexpected temporal order.")
+  expect_warning(tbl <- pedestrian %>% arrange(Date_Time, Sensor), "Unexpected temporal order.")
   expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr")
-  expect_warning(bm %>% arrange(desc(Date_Time)), "not sorted by")
+  expect_warning(bm %>% arrange(desc(Date_Time)), "Unexpected temporal order.")
 })
 
 test_that("arrange.grouped_ts()", {
   expect_warning(
     tsbl2 <- tourism %>% group_by(Region, State) %>% arrange(Quarter),
-    "not sorted by"
+    "Unexpected temporal order."
   )
   expect_equal(tsbl2, tourism)
   expect_identical(key(tsbl2), key(tourism))
@@ -94,7 +94,7 @@ test_that("arrange.grouped_ts()", {
     tsbl3 <- tourism %>%
       group_by(Region, State) %>%
       arrange(Quarter, .by_group = TRUE),
-    "not sorted by"
+    "Unexpected temporal order."
   )
   expect_equal(tsbl3, tourism)
   expect_identical(key(tsbl3), key(tourism))
@@ -123,14 +123,14 @@ test_that("filter() and slice()", {
     group_by(Purpose) %>%
     slice(1:3)
   expect_identical(dim(tsbl4), c(12L, ncol(tourism)))
-  expect_warning(slice(pedestrian, 3:1), "not sorted by `Sensor`, and `Date_Time`")
+  expect_warning(slice(pedestrian, 3:1), "Unexpected temporal order.")
   expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
 })
 
 test_that("select() and rename()", {
-  expect_error(select(tourism, Quarter), "Invalid tsibble")
-  expect_error(select(tourism, Region), "Invalid tsibble")
+  expect_error(select(tourism, Quarter), "A valid tsibble")
+  expect_error(select(tourism, Region), "A valid tsibble")
   expect_is(select(tourism, Region, .drop = TRUE), "tbl_df")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
@@ -184,9 +184,9 @@ test_that("select() with group_by()", {
 })
 
 test_that("mutate()", {
-  expect_error(mutate(tourism, Quarter = 1), "Invalid tsibble")
+  expect_error(mutate(tourism, Quarter = 1), "A valid tsibble")
   expect_is(mutate(tourism, Quarter = 1, .drop = TRUE), "tbl_df")
-  expect_error(mutate(tourism, Region = State), "Invalid tsibble")
+  expect_error(mutate(tourism, Region = State), "A valid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   tsbl <- tourism %>%
     group_by(Region, State, Purpose) %>%

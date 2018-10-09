@@ -72,7 +72,7 @@ index_by.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
   idx_chr <- quo_text(idx)
   if (identical(idx_chr, expr_name)) {
-    abort(sprintf("LHS must not be named as index (`%s`).", idx_chr))
+    abort(sprintf("Column `%s` (index) can't be overwritten.", idx_chr))
   }
   # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs)

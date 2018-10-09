@@ -8,7 +8,7 @@ nat_2018 <- tibble::tibble(
 )
 
 test_that("National holidays", {
-  expect_error(holiday_aus("2018"), "must be double/integer.")
+  expect_error(holiday_aus("2018"), "must be integers.")
   expect_equal(holiday_aus(2018), nat_2018)
 })
 

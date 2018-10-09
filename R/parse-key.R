@@ -20,7 +20,7 @@ key <- function(x) {
 
 #' @export
 key.default <- function(x) {
-  abort(sprintf("Can't find the `key` in `%s`", class(x)[1]))
+  abort(sprintf("Can't find the attribute key in class %s", class(x)[1]))
 }
 
 #' @export
@@ -63,11 +63,11 @@ unkey <- function(x) {
 #' @export
 unkey.tbl_ts <- function(x) {
   nkey <- n_keys(x)
-  if (nkey < 2 || nkey == nrow(x)) {
+  if (nkey < 2 || nkey == NROW(x)) {
     attr(x, "key") <- structure(id(), class = "key")
     x
   } else {
-    abort("`unkey()` must not be applied to a `tbl_ts` of more than 1 key size.")
+    abort("Can't apply to a tsibble of more than 1 key size.")
   }
 }
 

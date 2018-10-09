@@ -54,7 +54,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   value <- enexpr(value)
   key_var <- tidyselect::vars_pull(names(data), !! key)
   if (has_index(key_var, data)) {
-    abort(sprintf("`key` must not be `%s`, as it's the `index`.", key_var))
+    abort(sprintf(
+      "Column `%s` (index) can't be spread.\nPlease use `as_tibble()` to coerce.", 
+      key_var
+    ))
   }
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key(key_remove(data, .vars = key_left, validate = FALSE))
@@ -91,7 +94,10 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
     nest_vars <- tidyselect::vars_select(cn, !!! nest_quos)
   }
   if (is_false(has_index(nest_vars, data))) {
-    abort("`nest.tbl_ts()` must nest the `index` in the list-column.")
+    abort(sprintf(
+      "Column `%s` (index) must be nested in the list-column", 
+      as_string(index(data))
+    ))
   }
   tbl <- as_tibble(data)
   if (is_grouped_ts(data)) {

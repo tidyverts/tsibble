@@ -1,14 +1,14 @@
 dont_know <- function(x, FUN) {
   cls <- class(x)[1]
   msg <- sprintf(
-    "`%s()` doesn't know how to coerce the `%s` class yet.", FUN, cls
+    "`%s()` doesn't know how to coerce the %s class yet.", FUN, cls
   )
   abort(msg)
 }
 
 unknown_interval <- function(x) {
   no_zeros <- !purrr::map_lgl(x, function(x) x == 0)
-  if (sum(no_zeros) == 0) abort("Cannot deal with data of unknown interval.")
+  if (sum(no_zeros) == 0) abort("Can't proceed with data of unknown interval.")
 }
 
 exceed_rows <- function(x, n = 1L) {
@@ -18,7 +18,7 @@ exceed_rows <- function(x, n = 1L) {
 
 not_regular <- function(x) {
   if (!is_regular(x)) {
-    abort("Can't handle `tbl_ts` of irregular interval.")
+    abort("Can't handle tsibble of irregular interval.")
   }
 }
 

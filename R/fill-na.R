@@ -186,8 +186,7 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
 }
 
 #' @rdname gaps
-#' @param x,y A vector of numbers, dates, or date-times. The length of `y` must
-#' be greater than the length of `x`.
+#' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
 #' @export
 #' @examples
 #' # Vectors ----
@@ -197,7 +196,7 @@ gaps <- function(x, y) {
   len_y <- length(y)
   if (len_y < len_x) {
     msg <- sprintf(
-      "The length of `x` (%d) must not be greater than the length of `y` (%d).",
+      "`length(x)` (%d) must not be greater than `length(y)` (%d).",
       len_x, len_y
     )
     abort(msg)
@@ -244,7 +243,7 @@ seq_generator <- function(x) {
     min_x + seq.int(0, as.double(max_x - min_x), tunit),
     error = function(e) {
       e$call <- NULL
-      e$message <- sprintf("Neither `+` nor `seq()` are defined for class `%s`", class(x)[1L])
+      e$message <- sprintf("Neither `+` nor `seq()` are defined for class %s", class(x)[1L])
       stop(e)
     }
   )

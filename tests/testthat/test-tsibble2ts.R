@@ -40,7 +40,7 @@ test_that("a tsibble with a single key", {
 })
 
 test_that("a tsibble with more than one measured vars", {
-  expect_error(as.ts(pedestrian), "Can't determine the `value`:")
+  expect_error(as.ts(pedestrian), "Can't determine column `value`:")
   expect_error(as.ts(pedestrian, value = Date_Time), "`value` must be one of them:")
   y <- as.ts(pedestrian, value = Count)
   expect_is(y, "mts")

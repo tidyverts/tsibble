@@ -17,10 +17,10 @@ test_that("difference() output", {
 tsbl <- tsibble(year = 2000:2005, value = (0:5) ^ 2, index = year)
 
 test_that("difference() with `order_by`", {
-  expect_warning(scrambled <- tsbl %>% slice(sample(nrow(tsbl))), "not sorted")
+  expect_warning(scrambled <- tsbl %>% slice(sample(nrow(tsbl))), "Unexpected temporal order.")
   expect_warning(
     right <- mutate(scrambled, diff = difference(value, order_by = year)),
-    "not sorted"
+    "Unexpected temporal order."
   )
   expect_equal(sort(right$diff, na.last = FALSE), difference(tsbl$value))
 })

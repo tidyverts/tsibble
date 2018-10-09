@@ -14,7 +14,7 @@ tsbl1 <- as_tsibble(dat_x, index = date_time)
 test_that("illegal input in index_by()", {
   expect_identical(tsbl1 %>% index_by(), tsbl1)
   expect_error(tsbl1 %>% index_by("date_time"), "Unsupported index type:")
-  expect_error(tsbl1 %>% index_by(date_time = date_time), "must not be named")
+  expect_error(tsbl1 %>% index_by(date_time = date_time), "be overwritten.")
   expect_error(
     tsbl1 %>% index_by(as.Date(date_time), yearmonth(date_time)),
     "only accepts one expression."

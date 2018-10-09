@@ -78,7 +78,7 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
   e1_yrwk <- is_yearweek(e1)
   e2_yrwk <- is_yearweek(e2)
   if (e1_yrwk && e2_yrwk) {
-    abort("binary `+` is not defined for `yearweek` objects")
+    abort("Binary `+` is not defined for class yearweek.")
   }
   if (e1_yrwk) {
     yearweek(as_date(e1) + e2 * 7)
@@ -93,7 +93,7 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
   e1_yrwk <- is_yearweek(e1)
   e2_yrwk <- is_yearweek(e2)
   if (e1_yrwk && e2_yrwk) {
-    abort("binary `-` is not defined for `yearweek` objects")
+    abort("Binary `-` is not defined for class yearweek.")
   }
   yearweek(as_date(e1) - e2 * 7)
 }
@@ -162,8 +162,8 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
 #' is_53weeks(2015:2016)
 is_53weeks <- function(year) {
   if (is_empty(year)) return(FALSE)
-  if (!is_bare_numeric(year) || year < 1) {
-    abort("`year` must be positive integers.")
+  if (!is_integerish(year) || year < 1) {
+    abort("Argument `year` must be positive integers.")
   }
   pre_year <- year - 1
   p_year <- function(year) {
@@ -229,7 +229,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
-    abort("binary `+` is not defined for `yearmonth` objects")
+    abort("Binary `+` is not defined for class yearmonth.")
   }
   if (e1_yrmth) {
     yearmonth(as_date(e1) + lubridate::period(months = e2))
@@ -244,7 +244,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
-    abort("binary `-` is not defined for `yearmonth` objects")
+    abort("Binary `-` is not defined for class yearmonth.")
   }
   yearmonth(as_date(e1) - lubridate::period(months = e2, units = "month"))
 }
@@ -347,7 +347,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
-    abort("binary `+` is not defined for `yearquarter` objects")
+    abort("Binary `+` is not defined for class yearquarter.")
   }
   if (e1_yrqtr) {
     yearquarter(as_date(e1) + lubridate::period(months = e2 * 3))
@@ -362,7 +362,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
-    abort("binary `-` is not defined for `yearquarter` objects")
+    abort("Binary `-` is not defined for class yearquarter.")
   }
   yearquarter(as_date(e1) - lubridate::period(months = e2 * 3))
 }

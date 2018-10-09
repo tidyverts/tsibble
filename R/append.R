@@ -24,7 +24,7 @@ append_row <- function(.data, n = 1L) {
   unknown_interval(interval(.data))
 
   if (!is_integerish(n, 1) && n > 0) {
-    abort("`n` must be a positive integer.")
+    abort("Argument `n` must be a positive integer.")
   }
 
   key_vars <- key_vars(.data)

@@ -373,7 +373,7 @@ build_tsibble <- function(
   idx_chr <- c(quo_text(index), quo_text(index2))
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
-    abort(sprintf("`%s` can't be `index`, as it's used as `key`.", idx_chr[[1]]))
+    abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # validate tbl_ts
   if (validate) {
@@ -395,7 +395,7 @@ build_tsibble_meta <- function(
   if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
     abort("A tsibble must not be empty.")
   }
-  if (is_null(regular)) abort("`regular` must not be NULL.")
+  if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
   key <- eval_tidy(enquo(key))
   index <- get_expr(enquo(index))
   index2 <- enquo(index2)
@@ -411,8 +411,10 @@ build_tsibble_meta <- function(
     eval_idx <- eval_tidy(index, data = tbl)
     interval <- pull_interval(eval_idx)
   } else if (is_false(inherits(interval, "interval"))) {
-    int_cls <- class(interval)[1]
-    abort(sprintf("`interval` must be the `interval` class not %s.", int_cls))
+    abort(sprintf(
+      "Argument `interval` must be class interval, not %s.",
+      class(interval)[1]
+    ))
   }
 
   # arrange in time order (by key and index)
@@ -421,13 +423,12 @@ build_tsibble_meta <- function(
       arrange(!!! syms(key_flatten(key)), !! index)
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
+    msg_header <- "Unexpected temporal order. Please sort by %s."
+    idx_txt <- expr_text(index)
     if (is_empty(key)) {
-      msg <- sprintf("The `tbl_ts` is not sorted by `%s`.", expr_text(index))
+      msg <- sprintf(msg_header, idx_txt)
     } else {
-      msg <- sprintf(
-        "The `tbl_ts` is not sorted by %s, and `%s`.",
-        paste_comma(surround(key_flatten(key), "`")), expr_text(index)
-      )
+      msg <- sprintf(msg_header, paste_comma(c(key_flatten(key), idx_txt)))
     }
     warn(msg)
   } # true do nothing
@@ -484,15 +485,15 @@ id <- function(...) {
 validate_index <- function(data, index) {
   val_idx <- purrr::map_lgl(data, index_valid)
   if (quo_is_null(index)) {
-    abort("`index` must not be NULL.")
+    abort("Argument `index` must not be `NULL`.")
   }
   if (quo_is_missing(index)) {
     if (sum(val_idx, na.rm = TRUE) != 1) {
-      abort("Can't determine the `index` and please specify.")
+      abort("Can't determine the index and please specify argument `index`.")
     }
     chr_index <- names(data)[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
-    inform(sprintf("The `index` is `%s`.", chr_index))
+    inform(sprintf("Column `%s` is the index.", chr_index))
   } else {
     chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
@@ -502,12 +503,12 @@ validate_index <- function(data, index) {
     } else if (!val_idx[idx_pos]) {
       cls_idx <- purrr::map_chr(data, ~ class(.)[1])
       abort(sprintf(
-        "Unsupported index type: `%s`", cls_idx[idx_pos])
+        "Unsupported index type: %s", cls_idx[idx_pos])
       )
     }
   }
   if (anyNA(data[[chr_index]])) {
-    abort(sprintf("Column `%s` passed as `index` must not contain `NA`.", chr_index))
+    abort(sprintf("Column `%s` (the index) must not contain `NA`.", chr_index))
   }
   sym(chr_index)
 }
@@ -533,7 +534,7 @@ validate_nested <- function(data, key) {
       wrong_nested <- paste_comma(wrong_nested)
       wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
       abort(sprintf(
-        "Incorrect nesting: %s (%s). Please see `?tsibble`.",
+        "Unexpected nested ordering: %s (%s). Please see `?tsibble`.",
         wrong_nested, wrong_dim
       ))
     }
@@ -554,15 +555,9 @@ validate_tsibble <- function(data, key, index) {
   tbl_dup <- grouped_df(data, vars = key_flatten(key)) %>%
     summarise(!! "zzz" := anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    msg <- sprintf("Invalid tsibble: identical data entries from `%s`", idx)
-    if (!is_empty(key)) {
-      class(key) <- "key"
-      msg <- sprintf("%s and `%s`.", msg, paste_comma(format(key)))
-    } else {
-      msg <- paste0(msg, ".")
-    }
-    msg <- paste(msg, "Use `find_duplicates()` to check the duplicated rows.")
-    abort(msg)
+    header <- "A valid tsibble must have distinct rows identified by key and index.\n"
+    hint <- "Please use `find_duplicates()` to check the duplicated rows."
+    abort(paste0(header, hint))
   }
   data
 }

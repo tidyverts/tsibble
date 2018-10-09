@@ -23,19 +23,19 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   value <- enquo(value)
   key_vars <- key(x)
   if (any(is_nest(key_vars)) || length(key_vars) > 1) {
-    abort("`as.ts()` can't deal with nested or crossed keys.")
+    abort("Can't proceed with the key of multiple variables.")
   }
   mvars <- measured_vars(x)
   str_val <- paste_comma(surround(mvars, "`"))
   if (quo_is_missing(value)) {
     if (is_false(has_length(mvars, 1) || is_empty(key_vars))) {
-      abort(sprintf("Can't determine the `value`: %s.", str_val))
+      abort(sprintf("Can't determine column `value`: %s.", str_val))
     }
     value_var <- mvars
   } else {
     value_var <- tidyselect::vars_pull(names(x), !! value)
     if (is_false(value_var %in% mvars)) {
-      abort(sprintf("`value` must be one of them: %s.", str_val))
+      abort(sprintf("Column `value` must be one of them: %s.", str_val))
     }
   }
   idx <- index(x)

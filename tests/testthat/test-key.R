@@ -23,7 +23,7 @@ test_that("tsibble_rename()", {
 test_that("key_reduce()", {
   melb <- tourism %>%
     filter(Region == "Melbourne")
-  expect_error(melb %>% select(-Purpose), "Invalid")
+  expect_error(melb %>% select(-Purpose), "A valid tsibble")
   key_m <- melb %>%
     select(-Region, -State)
   expect_equal(key_flatten(key(key_m)), "Purpose")
