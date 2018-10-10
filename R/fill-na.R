@@ -87,16 +87,16 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     left_join(.data, by = c(flat_key, idx_chr))
 
   cn <- names(.data)
-  lst_quos <- enquos(..., .named = TRUE)
-  if (!is_empty(lst_quos)) {
-    lhs <- names(lst_quos)
+  lst_exprs <- exprs(..., .named = TRUE)
+  if (!is_empty(lst_exprs)) {
+    lhs <- names(lst_exprs)
     check_names <- lhs %in% cn
     if (is_false(all(check_names))) {
       bad_names <- paste_comma(lhs[which(!check_names)])
       abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
     }
     replaced_df <- tbl %>% 
-      summarise(!!! lst_quos) %>% 
+      summarise(!!! lst_exprs) %>% 
       ungroup() %>% 
       select(!!! lhs)
     full_data <- replace_na2(full_data, replaced_df, group_vars(tbl))

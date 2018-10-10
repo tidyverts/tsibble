@@ -52,7 +52,7 @@ tsibble_rename <- function(.data, ...) {
 }
 
 tsibble_select <- function(.data, ..., validate = TRUE) {
-  dots <- c(exprs(...), index(.data))
+  dots <- c(enexprs(...), index(.data))
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   sel_data <- select(as_tibble(.data), !!! val_vars)

@@ -7,10 +7,7 @@ split_period <- function(x) {
 }
 
 first_arg <- function(x) {
-  lst_env <- purrr::map(x, get_env)
-  purrr::compact(
-    purrr::map2(x, lst_env, ~ new_quosure(dplyr::first(call_args(.x)), .y))
-  )
+  purrr::compact(purrr::map(x, ~ dplyr::first(call_args(.x))))
 }
 
 # regular time interval is obtained from the greatest common divisor of positive

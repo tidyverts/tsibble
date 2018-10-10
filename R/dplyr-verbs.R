@@ -4,13 +4,13 @@
 #' likely to be issued.
 #' * `slice()`: if row numbers are not in ascending order, a warning is likely to
 #' be issued.
-#' * `select()`: keeps the variables you mention as well as the index. 
+#' * `select()`: keeps the variables you mention as well as the index.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` will not collapse on the index variable.
-#' * The column-wise verbs, including `select()`, `transmute()`, `summarise()`, 
-#' `mutate()` & `transmute()`, have an additional argument of `.drop = FALSE` for 
-#' tsibble. The index variable cannot be dropped for a tsibble. If any key variable 
-#' is changed, it will validate whether it's a tsibble internally. Turning 
+#' * The column-wise verbs, including `select()`, `transmute()`, `summarise()`,
+#' `mutate()` & `transmute()`, have an additional argument of `.drop = FALSE` for
+#' tsibble. The index variable cannot be dropped for a tsibble. If any key variable
+#' is changed, it will validate whether it's a tsibble internally. Turning
 #' `.drop = TRUE` converts to a tibble first and then do the operations.
 #'
 #' @param .data A `tbl_ts`.
@@ -21,44 +21,44 @@
 #' @rdname tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  quos <- enquos(...)
-  if (is_empty(quos)) return(.data)
-  ordered <- ordered_by_arrange(.data, !!! quos)
+  exprs <- enexprs(...)
+  if (is_empty(exprs)) return(.data)
+  ordered <- ordered_by_arrange(.data, !!! exprs)
 
-  arr_data <- NextMethod()
+  arr_data <- arrange(as_tibble(.data), !!! exprs)
   update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 #' @rdname tidyverse
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
-  quos <- enquos(...)
-  if (is_empty(quos)) return(.data)
-  ordered <- ordered_by_arrange(.data, !!! quos, .by_group = .by_group)
+  exprs <- enexprs(...)
+  if (is_empty(exprs)) return(.data)
+  ordered <- ordered_by_arrange(.data, !!! exprs, .by_group = .by_group)
 
-  arr_data <- arrange(as_tibble(.data), !!! quos, .by_group = .by_group)
+  arr_data <- arrange(as_tibble(.data), !!! exprs, .by_group = .by_group)
   update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
-  vars <- quos <- enquos(...)
+  vars <- exprs <- enexprs(...)
   if (.by_group) {
-    grps <- quos(!!! syms(key_flatten(groups(.data))))
-    vars <- quos <- c(grps, vars)
+    grps <- groups(.data)
+    vars <- exprs <- c(grps, vars)
   }
-  call_pos <- purrr::map_lgl(quos, quo_is_call)
+  call_pos <- purrr::map_lgl(exprs, is.call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- validate_vars(vars, names(.data))
   idx <- as_string(index(.data))
   idx_pos <- val_vars %in% idx
-  idx_is_call <- dplyr::first(quos[idx_pos])
+  idx_is_call <- dplyr::first(exprs[idx_pos])
   key <- key(.data)
   red_key <-  key_flatten(key_distinct(key))
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
     ordered <- !any(mvars %in% val_vars)
-  } else if (quo_is_call(idx_is_call)) { # desc(index)
+  } else if (is.call(idx_is_call)) { # desc(index)
     fn <- call_name(idx_is_call)
     ordered <- fn != "desc"
   } else {
@@ -146,9 +146,9 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   val_key <- has_any_key(vec_names, .data)
   validate <- val_idx || val_key
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data), 
-    index2 = !! index2(.data), groups = groups(.data), 
-    regular = is_regular(.data), validate = validate, 
+    mut_data, key = key(.data), index = !! index(.data),
+    index2 = !! index2(.data), groups = groups(.data),
+    regular = is_regular(.data), validate = validate,
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
@@ -163,7 +163,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   mut_data <- mutate(.data, !!! lst_quos)
   idx_key <- c(as_string(index(.data)), key_flatten(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
-  select(mut_data, vec_names)
+  select(mut_data, !!! vec_names)
 }
 
 #' @rdname tidyverse
@@ -174,7 +174,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #'   summarise(Total = sum(Count))
 #' # Sum over sensors by days ----
 #' pedestrian %>%
-#'   index_by(Date) %>% 
+#'   index_by(Date) %>%
 #'   summarise(Total = sum(Count))
 #' ## .drop = TRUE ----
 #' pedestrian %>%
@@ -186,15 +186,15 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx <- index(.data)
   idx2 <- index2(.data)
 
-  lst_quos <- enquos(..., .named = TRUE)
+  lst_quos <- enexprs(..., .named = TRUE)
   idx2_chr <- quo_name(idx2)
   nonkey <- setdiff(
-    names(lst_quos), 
+    names(lst_quos),
     squash(c(key(.data), quo_name(idx), idx2_chr))
   )
   nonkey_quos <- lst_quos[nonkey]
 
-  sum_data <- as_tibble2(.data) %>% 
+  sum_data <- as_tibble2(.data) %>%
     summarise(!!! nonkey_quos)
   if (identical(idx, idx2)) {
     int <- interval(.data)
@@ -212,7 +212,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   new_key <- c(key_less, add_key)
 
   build_tsibble_meta(
-    sum_data, key = new_key, index = !! idx2, groups = grp_drop(grps, idx2_chr), 
+    sum_data, key = new_key, index = !! idx2, groups = grp_drop(grps, idx2_chr),
     regular = reg, ordered = TRUE, interval = int
   )
 }
@@ -232,9 +232,9 @@ summarize.tbl_ts <- summarise.tbl_ts
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(
-    grped_tbl, key = key(.data), index = !! index(.data), 
+    grped_tbl, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), groups = groups(grped_tbl),
-    regular = is_regular(.data), ordered = is_ordered(.data), 
+    regular = is_regular(.data), ordered = is_ordered(.data),
     interval = interval(.data)
   )
 }
@@ -245,7 +245,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' @inheritParams dplyr::group_by_all
 #' @export
 #' @examples
-#' tourism %>% 
+#' tourism %>%
 #'   group_by_key()
 group_by_key <- function(.tbl, .funs = list(), ...) {
   dplyr::group_by_at(.tbl, .vars = key_vars(.tbl), .funs = .funs, ...)

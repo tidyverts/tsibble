@@ -174,7 +174,7 @@ key_flatten <- function(x) {
 #' @export
 key_update <- function(.data, ..., validate = TRUE) {
   not_tsibble(.data)
-  quos <- enquos(...)
+  quos <- enexprs(...)
   key <- validate_key(.data, quos)
   if (validate) {
     build_tsibble(

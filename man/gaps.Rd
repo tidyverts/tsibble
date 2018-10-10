@@ -23,8 +23,7 @@ gaps(x, y)
 \item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
 to find gaps over the entire time span of the data.}
 
-\item{x, y}{A vector of numbers, dates, or date-times. The length of \code{y} must
-be greater than the length of \code{x}.}
+\item{x, y}{Atomic vectors. The length of \code{y} must be greater than the length of \code{x}.}
 }
 \value{
 A tibble contains:

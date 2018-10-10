@@ -196,7 +196,7 @@ pedestrian \%>\%
   summarise(Total = sum(Count))
 # Sum over sensors by days ----
 pedestrian \%>\%
-  index_by(Date) \%>\% 
+  index_by(Date) \%>\%
   summarise(Total = sum(Count))
 ## .drop = TRUE ----
 pedestrian \%>\%

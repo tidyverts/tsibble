@@ -16,15 +16,15 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   key <- sym(enexpr(key))
   new_key <- c(key(data), key)
   value <- enexpr(value)
-  quos <- enquos(...)
-  if (is_empty(quos)) {
-    quos <- setdiff(names(data), 
+  exprs <- enexprs(...)
+  if (is_empty(exprs)) {
+    exprs <- setdiff(names(data), 
       c(quo_name(key), quo_name(value), quo_name(index(data)))
     )
   }
-  vars <- validate_vars(quos, names(data))
+  vars <- validate_vars(exprs, names(data))
   tbl <- gather(
-    as_tibble(data), key = !! key, value = !! value, !!! quos,
+    as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble_meta(
@@ -85,13 +85,13 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
 #'   group_by(Sensor) %>% 
 #'   nest()
 nest.tbl_ts <- function(data, ..., .key = "data") {
-  nest_quos <- enquos(...)
-  key_var <- quo_name(enexpr(.key))
+  nest_exprs <- enexprs(...)
+  key_var <- expr_name(enexpr(.key))
   cn <- names(data)
-  if (is_empty(nest_quos)) {
+  if (is_empty(nest_exprs)) {
     nest_vars <- cn
   } else {
-    nest_vars <- tidyselect::vars_select(cn, !!! nest_quos)
+    nest_vars <- tidyselect::vars_select(cn, !!! nest_exprs)
   }
   if (is_false(has_index(nest_vars, data))) {
     abort(sprintf(
@@ -141,15 +141,15 @@ unnest.lst_ts <- function(data, ..., key = id(),
 ) {
   key <- use_id(data, !! enquo(key))
   preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
-  quos <- enquos(...)
-  if (is_empty(quos)) {
+  exprs <- enexprs(...)
+  if (is_empty(exprs)) {
     list_cols <- names(data)[purrr::map_lgl(data, is_list)]
     list_cols <- setdiff(list_cols, preserve)
-    quos <- syms(list_cols)
+    exprs <- syms(list_cols)
   }
-  if (length(quos) == 0) return(data)
+  if (length(exprs) == 0) return(data)
 
-  nested <- transmute(ungroup(data), !!! quos)
+  nested <- transmute(ungroup(data), !!! exprs)
 
   # checking if the nested columns has `tbl_ts` class (only for the first row)
   first_nested <- slice(nested, 1)
@@ -161,7 +161,7 @@ unnest.lst_ts <- function(data, ..., key = id(),
     abort("Only accepts a list-column of `tbl_ts` to be unnested.")
   }
   out <- as_tibble(data) %>% 
-    unnest(!!! quos, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+    unnest(!!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
   tsbl <- eval_df[is_tsbl][[1L]]
   idx <- index(tsbl)
   validate <- FALSE

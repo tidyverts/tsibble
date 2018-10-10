@@ -26,6 +26,6 @@ dots} support.}
 Group by key variables
 }
 \examples{
-tourism \%>\% 
+tourism \%>\%
   group_by_key()
 }
