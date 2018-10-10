@@ -46,7 +46,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
     grps <- groups(.data)
     vars <- exprs <- c(grps, vars)
   }
-  call_pos <- purrr::map_lgl(exprs, is.call)
+  call_pos <- purrr::map_lgl(exprs, is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- validate_vars(vars, names(.data))
   idx <- as_string(index(.data))
@@ -58,7 +58,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
     ordered <- !any(mvars %in% val_vars)
-  } else if (is.call(idx_is_call)) { # desc(index)
+  } else if (is_call(idx_is_call)) { # desc(index)
     fn <- call_name(idx_is_call)
     ordered <- fn != "desc"
   } else {
