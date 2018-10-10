@@ -23,7 +23,7 @@
 #' tile(lst, ~ ., .size = 2)
 tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
   lst_x <- tiler(.x, .size = .size, .bind = .bind)
-  purrr::map(lst_x, .f, ...)
+  map(lst_x, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{tile_', c("lgl", "chr", "dbl", "int"), '}')
@@ -79,7 +79,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' ptile(list(lst, lst), ~ ., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
   lst <- ptiler(.x, .y, .size = .size, .bind = .bind)
-  purrr::map2(lst[[1]], lst[[2]], .f, ...)
+  map2(lst[[1]], lst[[2]], .f, ...)
 }
 
 #' @evalRd paste0('\\alias{tile2_', c("lgl", "chr", "dbl", "int"), '}', collapse = '\n')
@@ -111,7 +111,7 @@ tile2_dfc <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
 #' @export
 ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
   lst <- ptiler(!!! .l, .size = .size, .bind = .bind)
-  purrr::pmap(lst, .f, ...)
+  pmap(lst, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{ptile_', c("lgl", "chr", "dbl", "int"), '}')
@@ -172,5 +172,5 @@ tiler <- function(.x, .size = 1, .bind = FALSE) {
 #' @export
 ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
   lst <- recycle(list2(...))
-  purrr::map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
+  map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
 }

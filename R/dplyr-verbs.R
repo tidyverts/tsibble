@@ -46,7 +46,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
     grps <- groups(.data)
     vars <- exprs <- c(grps, vars)
   }
-  call_pos <- purrr::map_lgl(exprs, is_call)
+  call_pos <- map_lgl(exprs, is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- validate_vars(vars, names(.data))
   idx <- as_string(index(.data))

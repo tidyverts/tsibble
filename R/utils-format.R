@@ -12,7 +12,7 @@ cat_line <- function(...) {
 
 dim_tbl_ts <- function(x) {
   dim_x <- dim(x)
-  format_dim <- purrr::map_chr(dim_x, big_mark)
+  format_dim <- map_chr(dim_x, big_mark)
   paste(format_dim, collapse = " x ")
 }
 

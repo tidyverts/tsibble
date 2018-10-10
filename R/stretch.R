@@ -24,7 +24,7 @@
 #' stretch(lst, ~ ., .size = 2)
 stretch <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
   lst_x <- stretcher(.x, .size = .size, .init = .init, .bind)
-  purrr::map(lst_x, .f, ...)
+  map(lst_x, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -102,7 +102,7 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' )
 stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
   lst <- pstretcher(.x, .y, .size = .size, .init = .init, .bind = .bind)
-  purrr::map2(lst[[1]], lst[[2]], .f, ...)
+  map2(lst[[1]], lst[[2]], .f, ...)
 }
 
 #' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
@@ -144,7 +144,7 @@ stretch2_dfc <- function(
 #' @export
 pstretch <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
   lst <- pstretcher(!!! .l, .size = .size, .init = .init, .bind = .bind)
-  purrr::pmap(lst, .f, ...)
+  pmap(lst, .f, ...)
 }
 
 #' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -206,10 +206,10 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
   ncall <- seq_len(ceiling((len_x - .init) / abs_size) - 1)
   incr_lst <- c(
     list(seq_len(.init)),
-    purrr::map(ncall, ~ seq_len(counter())),
+    map(ncall, ~ seq_len(counter())),
     list(seq_len(len_x))
   )
-  out <- purrr::map(incr_lst, function(idx) .x[idx])
+  out <- map(incr_lst, function(idx) .x[idx])
   if (.bind) bind_lst(out) else out
 }
 
@@ -218,7 +218,7 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
 #' @export
 pstretcher <- function(..., .size = 1, .init = 1, .bind = FALSE) { # parallel sliding
   lst <- recycle(list2(...))
-  purrr::map(lst, function(x) stretcher(x, .size, .init, .bind))
+  map(lst, function(x) stretcher(x, .size, .init, .bind))
 }
 
 incr <- function(init, size) {

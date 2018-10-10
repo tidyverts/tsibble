@@ -7,7 +7,7 @@ dont_know <- function(x, FUN) {
 }
 
 unknown_interval <- function(x) {
-  no_zeros <- !purrr::map_lgl(x, function(x) x == 0)
+  no_zeros <- !map_lgl(x, function(x) x == 0)
   if (sum(no_zeros) == 0) abort("Can't proceed with data of unknown interval.")
 }
 

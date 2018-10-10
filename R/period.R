@@ -149,8 +149,8 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
     year_sym <- "%C"
   }
   wk <- strftime(x, format = "%V")
-  wk_sub <- purrr::map_chr(wk, ~ gsub("%V", ., x = format))
-  year_sub <- purrr::map2_chr(yrs, wk_sub, ~ gsub(year_sym, .x, x = .y))
+  wk_sub <- map_chr(wk, ~ gsub("%V", ., x = format))
+  year_sub <- map2_chr(yrs, wk_sub, ~ gsub(year_sym, .x, x = .y))
   year_sub
 }
 
@@ -448,8 +448,8 @@ format.yearquarter <- function(x, format = "%Y Q%q", ...) {
     year_sym <- "%C"
   }
   qtr <- lubridate::quarter(x)
-  qtr_sub <- purrr::map_chr(qtr, ~ gsub("%q", ., x = format))
-  year_sub <- purrr::map2_chr(year, qtr_sub, ~ gsub(year_sym, .x, x = .y))
+  qtr_sub <- map_chr(qtr, ~ gsub("%q", ., x = format))
+  year_sub <- map2_chr(year, qtr_sub, ~ gsub(year_sym, .x, x = .y))
   year_sub
 }
 

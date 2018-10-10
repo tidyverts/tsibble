@@ -145,7 +145,7 @@ pull_interval.numeric <- function(x) {
 #' new_interval(hour = 1, minute = 30)
 new_interval <- function(...) {
   args <- list2(...)
-  if (is_false(all(purrr::map_lgl(args, ~ has_length(., 1))))) {
+  if (is_false(all(map_lgl(args, ~ has_length(., 1))))) {
     abort("Only accepts one input for each unit, not `NULL` or multiple.")
   }
   names_args <- names(args)

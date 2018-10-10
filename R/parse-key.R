@@ -128,7 +128,7 @@ key_indices.tbl_ts <- function(x) {
 
 key_distinct <- function(x) { # x = a list of keys (symbols)
   if (is_empty(x)) return(x)
-  reconstruct_key(x, ~ purrr::map(., ~ .[[1]]), ~ .)
+  reconstruct_key(x, ~ map(., ~ .[[1]]), ~ .)
 }
 
 grp_drop <- function(x, index2 = NULL) {
@@ -156,7 +156,7 @@ key_flatten <- function(x) {
   if (is.null(x)) {
     x <- id()
   }
-  unname(purrr::map_chr(flatten(x), as_string))
+  unname(map_chr(flatten(x), as_string))
 }
 
 #' Change/update key variables for a given `tbl_ts`
@@ -199,7 +199,7 @@ key_remove <- function(.data, .vars, validate = TRUE) {
   key_vars <- .vars[key_idx]
   old_lgl <- FALSE
   if (!is_empty(old_key)) {
-    old_lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
+    old_lgl <- rep(is_nest(old_key), map(old_key, length))
   }
   new_lgl <- old_lgl[match(key_vars, old_chr)]
 
@@ -207,7 +207,7 @@ key_remove <- function(.data, .vars, validate = TRUE) {
   new_cross_key <- syms(key_vars[!new_lgl])
   new_key <- reconstruct_key(
     old_key,
-    ~ purrr::map(., ~ .[flatten(.) %in% new_nest_key]),
+    ~ map(., ~ .[flatten(.) %in% new_nest_key]),
     ~ .[. %in% new_cross_key]
   )
   key_update(.data, !!! new_key, validate = validate)
@@ -223,7 +223,7 @@ key_rename <- function(.data, .vars) {
   new_chr <- names[.vars %in% old_chr]
   lgl <- FALSE
   if (!is_empty(old_key)) {
-    lgl <- rep(is_nest(old_key), purrr::map(old_key, length))
+    lgl <- rep(is_nest(old_key), map(old_key, length))
   }
   new_nest_key <- syms(new_chr[lgl])
   reconstruct_key(
@@ -251,7 +251,7 @@ validate_key <- function(data, key) {
 
   reconstruct_key(
     keys,
-    ~ purrr::map(., ~ syms(validate_vars(flatten(.), cn))),
+    ~ map(., ~ syms(validate_vars(flatten(.), cn))),
     ~ syms(validate_vars(., cn))
   )
 }
@@ -272,7 +272,7 @@ reconstruct_key <- function(key, nesting, crossing) {
   }
   valid_key[cross_idx] <- cross_vars
   # if there's only one variable in nesting lists --> flatten
-  len_1 <- purrr::map_lgl(valid_key, ~ is_list(.) && has_length(., 1))
+  len_1 <- map_lgl(valid_key, ~ is_list(.) && has_length(., 1))
   valid_key[len_1] <- flatten(valid_key[len_1])
   purrr::compact(valid_key)
 }
@@ -281,7 +281,7 @@ is_nest <- function(lst_syms) {
   if (is_empty(lst_syms)) {
     FALSE
   } else {
-    unname(purrr::map_lgl(lst_syms, is_list)) # expected to be a list not call
+    unname(map_lgl(lst_syms, is_list)) # expected to be a list not call
   }
 }
 
@@ -289,7 +289,7 @@ parse_key <- function(x) {
   if (is_empty(x)) {
     id()
   } else {
-    purrr::map(x, flatten_nest)
+    map(x, flatten_nest)
   }
 }
 

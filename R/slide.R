@@ -7,7 +7,7 @@ replace_fn_names <- function(fn, replace = list()){
     if (any(repl_fn <- names(replace) %in% rlang::call_name(cl))) {
       cl[[1]] <- replace[[repl_fn]]
     }
-    as.call(append(cl[[1]], purrr::map(as.list(cl[-1]), rec_fn)))
+    as.call(append(cl[[1]], map(as.list(cl[-1]), rec_fn)))
   }
   body(fn) <- rec_fn(body(fn))
   fn
@@ -63,7 +63,7 @@ slide <- function(
     .x, .size = .size, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
-  out <- purrr::map(lst_x, .f, ...)
+  out <- map(lst_x, .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
 }
@@ -167,7 +167,7 @@ slide2 <- function(
     .x, .y, .size = .size, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
-  out <- purrr::map2(lst[[1]], lst[[2]], .f = .f, ...)
+  out <- map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
 }
@@ -222,7 +222,7 @@ pslide <- function(
     !!! .l, .size = .size, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
-  out <- purrr::pmap(lst, .f, ...)
+  out <- pmap(lst, .f, ...)
   if (.partial) return(out)
   pad_slide(out, .size, .fill, .align)
 }
@@ -327,7 +327,7 @@ slider <- function(
   if (.partial) {
     lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
     if (sign < 0) lst_idx <- rev(lst_idx)
-    out <- purrr::map(lst_idx, function(idx) {
+    out <- map(lst_idx, function(idx) {
       idx <- idx:(idx + sign * (abs_size - 1))
       size <- sum(idx <= 0 | idx > len_x) + 1
       pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align)
@@ -336,7 +336,7 @@ slider <- function(
   }
   lst_idx <- seq_len(len_x - abs_size + 1)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
-  out <- purrr::map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
+  out <- map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
   if (.bind) bind_lst(out) else out
 }
 
@@ -347,7 +347,7 @@ pslider <- function(
   .align = "right", .bind = FALSE
 ) { # parallel sliding
   lst <- recycle(list2(...))
-  purrr::map(lst, 
+  map(lst, 
     function(x) slider(x, .size, .fill = .fill, .partial, .align, .bind)
   )
 }
@@ -365,7 +365,7 @@ recycle <- function(x) {
   if (has_length(x, 0)) {
     return(x)
   }
-  len <- purrr::map_int(x, length)
+  len <- map_int(x, length)
   max_len <- max(len)
   len1 <- len == 1
   check <- !len1 & len != max_len

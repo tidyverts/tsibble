@@ -483,7 +483,7 @@ id <- function(...) {
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
 validate_index <- function(data, index) {
-  val_idx <- purrr::map_lgl(data, index_valid)
+  val_idx <- map_lgl(data, index_valid)
   if (quo_is_null(index)) {
     abort("Argument `index` must not be `NULL`.")
   }
@@ -501,7 +501,7 @@ validate_index <- function(data, index) {
     if (is.na(val_lgl)) {
       return(sym(chr_index))
     } else if (!val_idx[idx_pos]) {
-      cls_idx <- purrr::map_chr(data, ~ class(.)[1])
+      cls_idx <- map_chr(data, ~ class(.)[1])
       abort(sprintf(
         "Unsupported index type: %s", cls_idx[idx_pos])
       )
@@ -519,24 +519,13 @@ validate_nested <- function(data, key) {
   nest_lgl <- is_nest(key)
   if (any(nest_lgl)) {
     key_nest <- key[nest_lgl]
-    nest_keys <- purrr::map(
-      key_nest, ~ purrr::map_chr(., as_string)
-    )
-    n_dist <- purrr::map(
-      nest_keys, ~ purrr::map_int(., ~ dplyr::n_distinct(data[[.]]))
-    )
-    n_lgl <- purrr::map_lgl(n_dist, is_descending)
+    nest_keys <- map(key_nest, ~ map_chr(., as_string))
+    n_dist <- map(nest_keys, ~ map_int(., ~ dplyr::n_distinct(data[[.]])))
+    n_lgl <- map_lgl(n_dist, is_descending)
     if (is_false(all(n_lgl))) {
-      which_bad <- key_nest[!n_lgl]
-      wrong_nested <- purrr::map(which_bad,
-        ~ paste(surround(., "`"), collapse = " | ")
-      )
-      wrong_nested <- paste_comma(wrong_nested)
-      wrong_dim <- purrr::map_chr(n_dist, ~ paste(., collapse = " | "))
-      abort(sprintf(
-        "Unexpected nested ordering: %s (%s). Please see `?tsibble`.",
-        wrong_nested, wrong_dim
-      ))
+      suggested <- map2(nest_keys, map(n_dist, order, decreasing = TRUE), `[`)
+      res <- map(suggested, ~ paste(., collapse = " | "))
+      abort(sprintf("Unexpected nested ordering. Do you mean `key = id(%s)`?", res))
     }
   }
   data
@@ -627,7 +616,7 @@ use_id <- function(x, key) {
   )
   if (is_null(safe_key$error)) {
     fn <- function(x) {
-      if (is_list(x)) all(purrr::map_lgl(x, fn)) else is_expression(x)
+      if (is_list(x)) all(map_lgl(x, fn)) else is_expression(x)
     }
     lgl <- fn(safe_key$result)
     if (lgl) return(safe_key$result)
@@ -664,7 +653,7 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
 
 set_tsibble_class <- function(x, ..., subclass = NULL) {
   attribs <- list(...)
-  nested_attribs <- purrr::map2(
+  nested_attribs <- map2(
     names(attribs), attribs, 
     function(name, value) set_names(list(value), name)
   )

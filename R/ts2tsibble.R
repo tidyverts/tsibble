@@ -82,15 +82,15 @@ as_tsibble.hts <- function(x, tz = "UTC", ...) {
 #     abort("I don't know how to handle a grouped time series with no group.")
 #   }
 #   seq_labs <- seq_along(labels)
-#   grp_label <- purrr::map(seq_labs, ~ labels[[.]][group[., ]])
+#   grp_label <- map(seq_labs, ~ labels[[.]][group[., ]])
 #   chr_labs <- vector(mode = "list", length = length(labels))
 #   for (i in seq_labs) {
-#     chr_labs[[i]] <- purrr::map_chr(
+#     chr_labs[[i]] <- map_chr(
 #       strsplit(grp_label[[i]], split = "/", fixed = TRUE), ~ .[2]
 #     )
 #   }
 #   nr <- nrow(bts)
-#   full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
+#   full_labs <- map(chr_labs, ~ rep(., each = nr))
 #   names(full_labs) <- names(labels)
 #
 #   tbl <- gather_ts(bts, tz = tz) %>% 
@@ -139,11 +139,11 @@ extract_labels.hts <- function(x) {
   old_labels <- x$labels
   btm_labels <- old_labels[[length(old_labels)]]
   new_labels <- old_labels[-c(1, length(old_labels))]
-  chr_labs <- purrr::map2(
+  chr_labs <- map2(
     new_labels, seq_along(new_labels), ~ .x[rep_nodes(nodes, level = .y)]
   )
   nr <- nrow(x$bts)
-  full_labs <- purrr::map(chr_labs, ~ rep(., each = nr))
+  full_labs <- map(chr_labs, ~ rep(., each = nr))
   full_labs <- c(full_labs, list(rep(btm_labels, each = nr)))
   names(full_labs) <- names(old_labels[-1])
   rev.default(full_labs)
