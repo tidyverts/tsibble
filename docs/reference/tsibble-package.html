@@ -82,7 +82,7 @@ measured variables in a data-centric format, which is built on top of the tibble
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
       </span>
     </div>
 
@@ -185,6 +185,8 @@ uses the <code><a href='id.html'>id(Sensor)</a></code> column as the key.</p></l
 <code>Region</code> is the lower level than <code>State</code> in Australia; in other words, <code>Region</code>
 is nested into <code>State</code>, which naturally forms a hierarchy. A vertical bar (<code>|</code>)
 is used to describe this nesting relationship, and thus <code>Region</code> | <code>State</code>.
+Alternatively, a forward slash (<code>/</code>) expresses the equivalent hierarchy but
+in a reverse order, for example <code>State</code> / <code>Region</code>.
 In theory, nesting can involve infinite levels, so is <code>tsibble</code>.</p></li>
 <li><p>Crossed variables: a crossing of one variable with another. For example,
 the geographical locations are crossed with the purpose of visiting (<code>Purpose</code>)
@@ -233,45 +235,42 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create a tsibble w/o a key ----</span>
-<span class='no'>tsbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-10"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>),
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>
-)
-<span class='no'>tsbl1</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+<span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
+)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date        value
 #&gt;    &lt;date&gt;      &lt;dbl&gt;
-#&gt;  1 2017-01-01 -0.593
-#&gt;  2 2017-01-02 -0.122
-#&gt;  3 2017-01-03  1.18 
-#&gt;  4 2017-01-04  0.641
-#&gt;  5 2017-01-05 -0.630
-#&gt;  6 2017-01-06 -0.808
-#&gt;  7 2017-01-07 -0.860
-#&gt;  8 2017-01-08 -2.17 
-#&gt;  9 2017-01-09 -1.38 
-#&gt; 10 2017-01-10 -0.493</div><div class='input'>
+#&gt;  1 2017-01-01 -0.860
+#&gt;  2 2017-01-02 -2.17 
+#&gt;  3 2017-01-03 -1.38 
+#&gt;  4 2017-01-04 -0.493
+#&gt;  5 2017-01-05 -0.582
+#&gt;  6 2017-01-06 -0.167
+#&gt;  7 2017-01-07  0.486
+#&gt;  8 2017-01-08 -1.33 
+#&gt;  9 2017-01-09 -0.262
+#&gt; 10 2017-01-10  0.652</div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
-<span class='no'>tsbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2010</span>, <span class='fl'>2012.25</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>4</span>)), <span class='fl'>3</span>),
+<span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>
-)
-<span class='no'>tsbl2</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
+)</div><div class='output co'>#&gt; <span class='message'>Column `qtr` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
 #&gt; # Key:       group [3]
-#&gt;        qtr group  value
-#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
-#&gt;  1 2010 Q1 x     -0.582
-#&gt;  2 2010 Q2 x     -0.167
-#&gt;  3 2010 Q3 x      0.486
-#&gt;  4 2010 Q4 x     -1.33 
-#&gt;  5 2011 Q1 x     -0.262
-#&gt;  6 2011 Q2 x      0.652
-#&gt;  7 2011 Q3 x      0.749
-#&gt;  8 2011 Q4 x      0.897
-#&gt;  9 2012 Q1 x      1.49 
-#&gt; 10 2012 Q2 x     -0.659
+#&gt;        qtr group   value
+#&gt;      &lt;qtr&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 2010 Q1 x      0.749 
+#&gt;  2 2010 Q2 x      0.897 
+#&gt;  3 2010 Q3 x      1.49  
+#&gt;  4 2010 Q4 x     -0.659 
+#&gt;  5 2011 Q1 x      0.537 
+#&gt;  6 2011 Q2 x      0.747 
+#&gt;  7 2011 Q3 x      1.90  
+#&gt;  8 2011 Q4 x     -2.06  
+#&gt;  9 2012 Q1 x      0.0645
+#&gt; 10 2012 Q2 x     -0.265 
 #&gt; # ... with 20 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

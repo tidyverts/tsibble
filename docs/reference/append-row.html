@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Guess a time frequency from other index objects — guess_frequency • tsibble</title>
+<title>Append rows to a tsibble — append_row • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Guess a time frequency from other index objects — guess_frequency" />
+<meta property="og:title" content="Append rows to a tsibble — append_row" />
 
-<meta property="og:description" content="A possible frequency passed to the ts() function" />
+<meta property="og:description" content="Add new rows to the end of a tsibble by filling a key-index pair and NA for
+measured variables." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -133,46 +134,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Guess a time frequency from other index objects</h1>
+    <h1>Append rows to a tsibble</h1>
     
-    <div class="hidden name"><code>guess_frequency.Rd</code></div>
+    <div class="hidden name"><code>append-row.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A possible frequency passed to the <code>ts()</code> function</p>
+    <p>Add new rows to the end of a tsibble by filling a key-index pair and <code>NA</code> for
+measured variables.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>guess_frequency</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>append_row</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>An index object including "yearmonth", "yearquarter", "Date" and others.</p></td>
+      <th>.data</th>
+      <td><p>A <code>tbl_ts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>An integer indicates the number of key-index pair to append.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If a series of observations are collected more frequently than
-weekly, it is more likely to have multiple seasonalities. This function
-returns a frequency value at its nearest ceiling time resolution. For example,
-hourly data would have daily, weekly and annual frequencies of 24, 168 and 8766
-respectively, and hence it gives 24.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://robjhyndman.com/hyndsight/seasonal-periods/'>https://robjhyndman.com/hyndsight/seasonal-periods/</a></p>
+    <p><code>append_case()</code> is an alias of <code>append_row()</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>guess_frequency</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='fu'>seq</span>(<span class='fl'>2016</span>, <span class='fl'>2018</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>4</span>)))</div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'>guess_frequency</span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='fu'>seq</span>(<span class='fl'>2016</span>, <span class='fl'>2018</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span> / <span class='fl'>12</span>)))</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>guess_frequency</span>(<span class='fu'>seq</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>), <span class='fu'>as.Date</span>(<span class='st'>"2017-01-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 7</div><div class='input'><span class='fu'>guess_frequency</span>(<span class='fu'>seq</span>(
-  <span class='fu'>as.POSIXct</span>(<span class='st'>"2017-01-01 00:00"</span>), <span class='fu'>as.POSIXct</span>(<span class='st'>"2017-01-10 23:00"</span>),
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 hour"</span>
-))</div><div class='output co'>#&gt; [1] 24</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>tsbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>2</span>),
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>3</span>),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>6</span>),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
+)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1D]
+#&gt; # Key:       group [2]
+#&gt;   date       group     value
+#&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
+#&gt; 1 2017-01-01 a      -1.40   
+#&gt; 2 2017-01-02 a      -2.44   
+#&gt; 3 2017-01-03 a       0.622  
+#&gt; 4 2017-01-04 a      NA      
+#&gt; 5 2017-01-01 b       0.255  
+#&gt; 6 2017-01-02 b      -0.00557
+#&gt; 7 2017-01-03 b       1.15   
+#&gt; 8 2017-01-04 b      NA      </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1D]
+#&gt; # Key:       group [2]
+#&gt;    date       group     value
+#&gt;    &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
+#&gt;  1 2017-01-01 a      -1.40   
+#&gt;  2 2017-01-02 a      -2.44   
+#&gt;  3 2017-01-03 a       0.622  
+#&gt;  4 2017-01-04 a      NA      
+#&gt;  5 2017-01-05 a      NA      
+#&gt;  6 2017-01-01 b       0.255  
+#&gt;  7 2017-01-02 b      -0.00557
+#&gt;  8 2017-01-03 b       1.15   
+#&gt;  9 2017-01-04 b      NA      
+#&gt; 10 2017-01-05 b      NA      </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -180,8 +204,6 @@ respectively, and hence it gives 24.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

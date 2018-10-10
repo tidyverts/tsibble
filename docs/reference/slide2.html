@@ -84,7 +84,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
       </span>
     </div>
 
@@ -358,30 +358,30 @@ names will be used if present.</p></td>
 <span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>()</div><div class='output co'>#&gt;    group       slope x          y       date
-#&gt; 1      a          NA 1  1.5878623 2016-06-01
-#&gt; 2      a  3.34639883 2  4.9342611 2016-06-02
-#&gt; 3      a  2.90605561 3  7.8403167 2016-06-03
-#&gt; 4      a -0.54513640 4  7.2951803 2016-06-04
-#&gt; 5      a  2.71332998 5 10.0085103 2016-06-05
-#&gt; 6      a  4.02567957 6 14.0341899 2016-06-06
-#&gt; 7      a -1.37587595 7 12.6583139 2016-06-07
-#&gt; 8      a  4.50066525 8 17.1589792 2016-06-08
-#&gt; 9      b          NA 8 15.7967910 2016-06-01
-#&gt; 10     b  2.17481960 7 13.6219714 2016-06-02
-#&gt; 11     b -0.11413960 6 13.7361110 2016-06-03
-#&gt; 12     b  4.58135886 5  9.1547522 2016-06-04
-#&gt; 13     b  2.11632368 4  7.0384285 2016-06-05
-#&gt; 14     b  0.02093745 3  7.0174911 2016-06-06
-#&gt; 15     b  4.51354479 2  2.5039463 2016-06-07
-#&gt; 16     b  1.68876499 1  0.8151813 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>()</div><div class='output co'>#&gt;    group      slope x          y       date
+#&gt; 1      a         NA 1  0.6583139 2016-06-01
+#&gt; 2      a  4.5006653 2  5.1589792 2016-06-02
+#&gt; 3      a  0.6378119 3  5.7967910 2016-06-03
+#&gt; 4      a  1.8251804 4  7.6219714 2016-06-04
+#&gt; 5      a  4.1141396 5 11.7361110 2016-06-05
+#&gt; 6      a -0.5813589 6 11.1547522 2016-06-06
+#&gt; 7      a  1.8836763 7 13.0384285 2016-06-07
+#&gt; 8      a  3.9790625 8 17.0174911 2016-06-08
+#&gt; 9      b         NA 8 14.5039463 2016-06-01
+#&gt; 10     b  1.6887650 7 12.8151813 2016-06-02
+#&gt; 11     b  0.1849469 6 12.6302344 2016-06-03
+#&gt; 12     b  0.5289819 5 12.1012525 2016-06-04
+#&gt; 13     b  4.7149893 4  7.3862632 2016-06-05
+#&gt; 14     b  3.0209015 3  4.3653617 2016-06-06
+#&gt; 15     b  0.3758028 2  3.9895589 2016-06-07
+#&gt; 16     b  2.6460650 1  1.3434939 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
 #&gt;       yrmth data                   ma
-#&gt;  *    &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
+#&gt;       &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
 #&gt;  1 2015 Jan &lt;tsibble [744 × 5]&gt;   NA 
 #&gt;  2 2015 Feb &lt;tsibble [672 × 5]&gt;  424.
 #&gt;  3 2015 Mar &lt;tsibble [744 × 5]&gt;  477.
@@ -403,7 +403,7 @@ names will be used if present.</p></td>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;   Sensor                        data                diag                 
-#&gt; * &lt;chr&gt;                         &lt;list&gt;              &lt;list&gt;               
+#&gt;   &lt;chr&gt;                         &lt;list&gt;              &lt;list&gt;               
 #&gt; 1 Birrarung Marr                &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
 #&gt; 2 QV Market-Elizabeth St (West) &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
 #&gt; 3 Southern Cross Station        &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;</div></pre>

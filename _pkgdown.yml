@@ -43,8 +43,8 @@ reference:
     - index_by
     - fill_na
     - count_gaps
+    - append_row
     - group_by_key
-    - split_by
     - find_duplicates
 
 - title: A family of window functions

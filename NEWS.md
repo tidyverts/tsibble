@@ -1,4 +1,4 @@
-# tsibble 0.5.2.9000
+# tsibble 0.5.3
 
 ## New features
 
@@ -13,7 +13,7 @@
 
 ## Misc
 
-* Soft-deprecated `case_na()`.
+* Soft-deprecated `case_na()` & `split_by()`.
 
 # tsibble 0.5.2
 
