@@ -2,6 +2,7 @@
 % Please edit documentation in R/append.R
 \name{append_row}
 \alias{append_row}
+\alias{append_case}
 \title{Append rows to a tsibble}
 \usage{
 append_row(.data, n = 1L)
@@ -14,6 +15,9 @@ append_row(.data, n = 1L)
 \description{
 Add new rows to the end of a tsibble by filling a key-index pair and \code{NA} for
 measured variables.
+}
+\details{
+\code{append_case()} is an alias of \code{append_row()}.
 }
 \examples{
 tsbl <- tsibble(

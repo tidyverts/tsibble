@@ -3,9 +3,12 @@
 #' Add new rows to the end of a tsibble by filling a key-index pair and `NA` for 
 #' measured variables.
 #'
+#' `append_case()` is an alias of `append_row()`.
+#'
 #' @param .data A `tbl_ts`.
 #' @param n An integer indicates the number of key-index pair to append.
 #'
+#' @rdname append-row
 #' @export
 #' @examples
 #' tsbl <- tsibble(
@@ -47,3 +50,8 @@ append_row <- function(.data, n = 1L) {
   if (ord) ord <- NULL # re-order
   update_tsibble(out, .data, ordered = ord, interval = interval(.data))
 }
+
+#' @rdname append-row
+#' @export
+#' @usage NULL
+append_case <- append_row
