@@ -84,7 +84,7 @@ test_that("POSIXt with 1 second interval", {
 test_that("Space in index variable", {
   tbl <- rename(dat_x, `Date Time` = date_time)
   tsbl <- as_tsibble(tbl)
-  expect_identical(quo_text(index(tsbl)), "Date Time")
+  expect_identical(as_string(index(tsbl)), "Date Time")
 
 })
 

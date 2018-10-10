@@ -34,7 +34,7 @@ format.key <- function(x, ...) {
   reconstruct_key(
     x, 
     ~ purrr::map(purrr::map(., as.character), paste, collapse = " | "),
-    ~ purrr::map(., quo_text)
+    ~ purrr::map(., as_string)
   )
 }
 

@@ -63,7 +63,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
   unknown_interval(interval(.data))
   idx <- index(.data)
-  idx_chr <- quo_text(idx)
+  idx_chr <- as_string(idx)
   key <- key(.data)
   flat_key <- key_flatten(key)
   tbl <- as_tibble(.data)
@@ -270,8 +270,8 @@ case_na <- function(formula) {
 }
 
 restore_index_class <- function(new, old) {
-  old_idx <- quo_text(index(old))
-  new_idx <- quo_text(index(new))
+  old_idx <- as_string(index(old))
+  new_idx <- as_string(index(new))
   class(new[[new_idx]]) <- class(old[[old_idx]])
   if (!identical(interval(new), interval(old))) {
     attr(new, "interval") <- pull_interval(new[[new_idx]])

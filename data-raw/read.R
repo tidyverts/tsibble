@@ -13,7 +13,7 @@ pedestrian <- rwalkr::run_melb(
   ), na.rm = TRUE, tz = "Australia/Melbourne")
 
 pedestrian <- as_tsibble(
-  pedestrian, key = tsibble::id(Sensor), index = Date_Time
+  pedestrian, key = id(Sensor), index = Date_Time
 )
 devtools::use_data(pedestrian, overwrite = TRUE, compress = "xz")
 
@@ -49,7 +49,7 @@ qtr_data <- long_data %>%
 
 # convert to tsibble
 tourism <- qtr_data %>%
-  as_tsibble(key = tsibble::id(Region | State, Purpose), index = Quarter)
+  as_tsibble(key = id(Region | State, Purpose), index = Quarter)
 devtools::use_data(tourism, overwrite = TRUE, compress = "xz")
 
 # hms data ----

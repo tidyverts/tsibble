@@ -208,7 +208,7 @@ measured_vars <- function(x) {
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
   key_vars <- key_vars(x)
-  idx_var <- quo_text(index(x))
+  idx_var <- as_string(index(x))
   setdiff(all_vars, c(key_vars, idx_var))
 }
 
@@ -370,7 +370,7 @@ build_tsibble <- function(
   # (2) if there exists a list of lists, flatten it as characters
   flat_keys <- key_flatten(key_vars)
   # (3) index cannot be part of the keys
-  idx_chr <- c(quo_text(index), quo_text(index2))
+  idx_chr <- c(as_string(index), as_string(index2))
   is_index_in_keys <- intersect(idx_chr, flat_keys)
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
@@ -520,7 +520,7 @@ validate_nested <- function(data, key) {
   if (any(nest_lgl)) {
     key_nest <- key[nest_lgl]
     nest_keys <- purrr::map(
-      key_nest, ~ purrr::map_chr(., quo_text)
+      key_nest, ~ purrr::map_chr(., as_string)
     )
     n_dist <- purrr::map(
       nest_keys, ~ purrr::map_int(., ~ dplyr::n_distinct(data[[.]]))
@@ -545,7 +545,7 @@ validate_nested <- function(data, key) {
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tsibble <- function(data, key, index) {
-  idx <- quo_text(index)
+  idx <- as_string(index)
   # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
   # identifiers <- c(key_flatten(key), idx)
   # below calls anyDuplicated.data.frame():
@@ -624,7 +624,7 @@ use_id <- function(x, key) {
     lgl <- fn(safe_key$result)
     if (lgl) return(safe_key$result)
   }
-  abort(suggest_key(quo_text(key_expr)))
+  abort(suggest_key(as_string(key_expr)))
 }
 
 #' Find duplication of key and index variables
@@ -649,7 +649,7 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
     mutate(!! "zzz" := duplicated.default(!! index, fromLast = fromLast)) %>%
     dplyr::pull(!! "zzz")
 
-  # identifiers <- c(key_flatten(key), quo_text(index))
+  # identifiers <- c(key_flatten(key), as_string(index))
   # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
   # not handling time zone correctly for duplicated.data.frame
 }

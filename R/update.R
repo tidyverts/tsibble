@@ -52,7 +52,7 @@ tsibble_rename <- function(.data, ...) {
 }
 
 tsibble_select <- function(.data, ..., validate = TRUE) {
-  dots <- c(enquos(...), new_quosure(index(.data)))
+  dots <- c(exprs(...), index(.data))
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   sel_data <- select(as_tibble(.data), !!! val_vars)
@@ -62,7 +62,7 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   # if (is_false(val_idx)) {
   #   abort(sprintf(
   #     "The `index` (`%s`) must not be dropped, do you want `.drop = TRUE` to drop `tbl_ts`?",
-  #     quo_text(index(.data))
+  #     as_string(index(.data))
   #   ))
   # }
   

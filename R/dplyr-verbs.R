@@ -49,7 +49,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   call_pos <- purrr::map_lgl(quos, quo_is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- validate_vars(vars, names(.data))
-  idx <- quo_text(index(.data))
+  idx <- as_string(index(.data))
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(quos[idx_pos])
   key <- key(.data)
@@ -161,7 +161,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(quo_text(index(.data)), key_flatten(key(.data)))
+  idx_key <- c(as_string(index(.data)), key_flatten(key(.data)))
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, vec_names)
 }

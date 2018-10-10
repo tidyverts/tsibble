@@ -70,7 +70,7 @@ index_by.tbl_ts <- function(.data, ...) {
   }
   expr_name <- names(exprs)[1]
   idx <- index(.data)
-  idx_chr <- quo_text(idx)
+  idx_chr <- as_string(idx)
   if (identical(idx_chr, expr_name)) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx_chr))
   }
@@ -86,14 +86,14 @@ index_by.tbl_ts <- function(.data, ...) {
 
 index_rename <- function(.data, .vars) {
   names <- names(.vars)
-  idx_chr <- quo_text(index(.data))
+  idx_chr <- as_string(index(.data))
   new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
 
 index2_rename <- function(.data, .vars) {
   names <- names(.vars)
-  idx_chr <- quo_text(index2(.data))
+  idx_chr <- as_string(index2(.data))
   new_idx_chr <- names[idx_chr == .vars]
   sym(new_idx_chr)
 }
