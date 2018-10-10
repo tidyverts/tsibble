@@ -289,7 +289,6 @@ parse_key <- function(x) {
   if (is_empty(x)) {
     id()
   } else {
-    # purrr::map(x, ~ flatten_nest(.[[-1]]))
     purrr::map(x, flatten_nest)
   }
 }
@@ -306,6 +305,8 @@ flatten_nest <- function(key) { # call
   y <- key[[3]]
   if (op == sym("|")) {
     c(flatten_nest(x), flatten_nest(y))
+  } else if (op == sym("/")) {
+    c(flatten_nest(y), flatten_nest(x))
   } else if (op == sym("-")) {
     c(flatten_nest(x), expr(-flatten_nest(y)))
   } else {

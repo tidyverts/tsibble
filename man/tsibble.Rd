@@ -64,6 +64,8 @@ uses the \code{id(Sensor)} column as the key.
 \code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
 is nested into \code{State}, which naturally forms a hierarchy. A vertical bar (\code{|})
 is used to describe this nesting relationship, and thus \code{Region} | \code{State}.
+Alternatively, a forward slash (\code{/}) expresses the equivalent hierarchy but
+in a reverse order, for example \code{State} / \code{Region}.
 In theory, nesting can involve infinite levels, so is \code{tsibble}.
 \item Crossed variables: a crossing of one variable with another. For example,
 the geographical locations are crossed with the purpose of visiting (\code{Purpose})

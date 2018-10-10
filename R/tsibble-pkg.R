@@ -36,6 +36,8 @@
 #' `Region` is the lower level than `State` in Australia; in other words, `Region`
 #' is nested into `State`, which naturally forms a hierarchy. A vertical bar (`|`)
 #' is used to describe this nesting relationship, and thus `Region` | `State`. 
+#' Alternatively, a forward slash (`/`) expresses the equivalent hierarchy but 
+#' in a reverse order, for example `State` / `Region`. 
 #' In theory, nesting can involve infinite levels, so is `tsibble`.
 #' * Crossed variables: a crossing of one variable with another. For example,
 #' the geographical locations are crossed with the purpose of visiting (`Purpose`)

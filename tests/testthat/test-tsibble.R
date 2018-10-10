@@ -278,6 +278,7 @@ test_that("2 nested variables", {
   expect_identical(length(key(tsbl)[[1]]), 2L)
   expect_identical(format(key(tsbl))[[1]], "group | level")
   expect_output(print(key(tsbl)), "group | level")
+  expect_identical(tsbl, as_tsibble(dat_x, key = id(level / group), index = date))
 })
 
 dat_x <- tribble(

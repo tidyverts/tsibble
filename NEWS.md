@@ -3,6 +3,7 @@
 ## New features
 
 * Added `append_row()` for easily appending new observations to a tsibble. (#59)
+* Nesting structure can be specified using `/`, consistent with `lm`. (#64)
 
 ## Bug fixes
 
