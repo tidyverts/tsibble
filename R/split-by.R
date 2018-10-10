@@ -3,6 +3,7 @@
 #' @param x A data frame.
 #' @param ... A list of unquoted variables, separated by commas, to split a dataset.
 #' @rdname split-by
+#' @keywords internal
 #' @export
 #' @examples
 #' pedestrian %>% 

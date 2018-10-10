@@ -18,3 +18,4 @@ Split a data frame into a list of subsets by variables
 pedestrian \%>\% 
   split_by(Sensor)
 }
+\keyword{internal}

@@ -2,14 +2,11 @@
 % Please edit documentation in R/as-tsibble.R
 \name{is_regular}
 \alias{is_regular}
-\alias{is.regular}
 \alias{is_ordered}
 \title{\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
 checks if a tsibble is ordered by key and index.}
 \usage{
 is_regular(x)
-
-is.regular(x)
 
 is_ordered(x)
 }

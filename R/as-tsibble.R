@@ -245,7 +245,6 @@ index2 <- function(x) {
 #'
 #' @param x A tsibble object.
 #' @rdname regular
-#' @aliases is.regular
 #' @examples
 #' data(pedestrian)
 #' is_regular(pedestrian)
@@ -255,10 +254,6 @@ is_regular <- function(x) {
   not_tsibble(x)
   attr(x, "regular")
 }
-
-#' @rdname regular
-#' @export
-is.regular <- is_regular
 
 #' @rdname regular
 #' @export
