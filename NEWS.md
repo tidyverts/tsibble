@@ -1,3 +1,9 @@
+# tsibble 0.5.3.9000
+
+## New features
+
+* Added `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
+
 # tsibble 0.5.3
 
 ## New features

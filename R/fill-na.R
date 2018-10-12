@@ -109,14 +109,11 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 }
 
 #' Count implicit gaps
-#'
-#' `count_gaps()` counts gaps for a tsibble; `gaps()` find where the gaps in `x` 
-#' with respect to `y`.
 #' 
 #' @param .data A `tbl_ts`.
 #' @param ... Other arguments passed on to individual methods.
 #'
-#' @rdname gaps
+#' @rdname count-gaps
 #' @export
 #' @seealso [fill_na]
 #' @return
@@ -131,7 +128,7 @@ count_gaps <- function(.data, ...) {
   UseMethod("count_gaps")
 }
 
-#' @rdname gaps
+#' @rdname count-gaps
 #' @export
 #' @examples
 #' # Implicit missing time without group_by ----
@@ -145,7 +142,7 @@ count_gaps.tbl_ts <- function(.data, ...) {
     unnest(gaps)
 }
 
-#' @rdname gaps
+#' @rdname count-gaps
 #' @param .full `FALSE` to find gaps for each group within its own period. `TRUE`
 #' to find gaps over the entire time span of the data.
 #' @export
@@ -185,11 +182,46 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
   ungroup(out)
 }
 
-#' @rdname gaps
-#' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
+#' Does a tsibble have implict gaps in time?
+#'
+#' Returns a vector of `TRUE`/`FALSE` corresponding to each key.
+#'
+#' @inheritParams count_gaps
 #' @export
 #' @examples
-#' # Vectors ----
+#' harvest <- tsibble(
+#'   year = c(2010, 2011, 2013, 2011, 2012, 2013),
+#'   fruit = rep(c("kiwi", "cherry"), each = 3),
+#'   kilo = sample(1:10, size = 6),
+#'   key = id(fruit), index = year
+#' )
+#' has_gaps(harvest)
+#' has_gaps(harvest, .full = TRUE)
+has_gaps <- function(.data, .full = FALSE) {
+  not_regular(.data)
+  unknown_interval(interval(.data))
+
+  idx <- index(.data)
+  grped_tbl <- grouped_df(.data, key_vars(.data))
+  if (.full) {
+    idx_full <- seq_generator(eval_tidy(idx, data = .data))
+    res <- grped_tbl %>% 
+      summarise(!! "lgl" := (length(idx_full) - length(!! idx)) > 0)
+  } else {
+    res <- grped_tbl %>% 
+      summarise(
+        !! "lgl" := (length(seq_generator(!! idx)) - length(!! idx)) > 0
+      )
+  }
+  res[["lgl"]]
+}
+
+#' Find missing elements in `x` with respect to `y`
+#'
+#' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
+#' @return A tibble of columns `from`, `to` and `n`.
+#' @export
+#' @examples
 #' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 gaps <- function(x, y) {
   len_x <- length(x)
@@ -219,14 +251,6 @@ gaps <- function(x, y) {
     )
   }
 }
-
-# has_gaps <- function(.data, .full = FALSE) {
-#   grouped_df(.data, key_vars(.data)) %>% 
-#     mutate(!! "diff" := difference(as.double(!! index(.data)))) %>% 
-#     summarise(!! "lgl" := any_not_equal_to_c(diff[-1], diff[2])) %>% 
-#     dplyr::pull("lgl") %>% 
-#     any()
-# }
 
 seq_generator <- function(x) {
   min_x <- min0(x)

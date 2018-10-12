@@ -14,12 +14,14 @@ test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
   expect_error(fill_na(tsbl), "data of unknown interval.")
   expect_error(count_gaps(tsbl), "data of unknown interval.")
+  expect_error(has_gaps(tsbl), "data of unknown interval.")
 })
 
 test_that("an irregular tbl_ts", {
   tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
   expect_error(fill_na(tsbl), "irregular")
   expect_error(count_gaps(tsbl), "irregular")
+  expect_error(has_gaps(tsbl), "irregular")
 })
 
 test_that("a tbl_ts without implicit missing values", {
@@ -159,6 +161,18 @@ test_that("count_gaps.grouped_ts(.full = FALSE)", {
     n = 1L
   )
   expect_equal(full_tbl, dplyr::bind_rows(a, b))
+})
+
+harvest <- tsibble(
+  year = c(2010, 2011, 2013, 2011, 2012, 2013),
+  fruit = rep(c("kiwi", "cherry"), each = 3),
+  kilo = sample(1:10, size = 6),
+  key = id(fruit), index = year
+)
+
+test_that("has_gaps()", {
+  expect_equal(has_gaps(harvest), c(FALSE, TRUE))
+  expect_equal(has_gaps(harvest, .full = TRUE), c(TRUE, TRUE))
 })
 
 test_that("Error in gaps()", {
