@@ -200,9 +200,19 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
 has_gaps <- function(.data, .full = FALSE) {
   not_regular(.data)
   unknown_interval(interval(.data))
+  UseMethod("has_gaps")
+}
 
+#' @export
+has_gaps.tbl_ts <- function(.data, .full = FALSE) {
+  grped_tbl <- group_by(.data, !!! flatten(key(.data)))
+  has_gaps.grouped_ts(grped_tbl, .full = .full)
+}
+
+#' @export
+has_gaps.grouped_ts <- function(.data, .full = FALSE) {
   idx <- index(.data)
-  grped_tbl <- grouped_df(.data, key_vars(.data))
+  grped_tbl <- as_grouped_df(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data))
     res <- grped_tbl %>% 
