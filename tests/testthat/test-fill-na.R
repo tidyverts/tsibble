@@ -131,15 +131,8 @@ test_that("fill.tbl_ts(.full = FALSE)", {
   )
 })
 
-test_that("count_gaps.tbl_ts()", {
-  expect_equal(
-    count_gaps(tsbl),
-    tibble(from = NA, to = NA, n = 0L)
-  )
-})
-
-test_that("count_gaps.grouped_ts(.full = TRUE)", {
-  full_tbl <- tsbl  %>% group_by(group) %>% count_gaps(.full = TRUE)
+test_that("count_gaps.tbl_ts(.full = TRUE)", {
+  full_tbl <- tsbl  %>% count_gaps(.full = TRUE)
   expect_equal(
     full_tbl,
     tibble(
@@ -151,8 +144,8 @@ test_that("count_gaps.grouped_ts(.full = TRUE)", {
   )
 })
 
-test_that("count_gaps.grouped_ts(.full = FALSE)", {
-  full_tbl <- tsbl %>% group_by(group) %>% count_gaps()
+test_that("count_gaps.tbl_ts(.full = FALSE)", {
+  full_tbl <- tsbl %>% count_gaps()
   a <- tibble(group = "a", from = NA, to = NA, n = 0L)
   b <- tibble(
     group = "b",

@@ -3,14 +3,11 @@
 \name{count_gaps}
 \alias{count_gaps}
 \alias{count_gaps.tbl_ts}
-\alias{count_gaps.grouped_ts}
 \title{Count implicit gaps}
 \usage{
 count_gaps(.data, ...)
 
-\method{count_gaps}{tbl_ts}(.data, ...)
-
-\method{count_gaps}{grouped_ts}(.data, .full = FALSE, ...)
+\method{count_gaps}{tbl_ts}(.data, .full = FALSE, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -33,17 +30,7 @@ A tibble contains:
 Count implicit gaps
 }
 \examples{
-# Implicit missing time without group_by ----
-# All the sensors have 2 common missing time points in the data
-count_gaps(pedestrian)
-# Time gaps for each sensor per month ----
-pedestrian \%>\% 
-  index_by(yrmth = yearmonth(Date)) \%>\% 
-  group_by(Sensor) \%>\% 
-  count_gaps()
-# Time gaps for each sensor ----
 ped_gaps <- pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
   count_gaps(.full = TRUE)
 if (!requireNamespace("ggplot2", quietly = TRUE)) {
   stop("Please install the ggplot2 package to run these following examples.")

@@ -1,8 +1,12 @@
 # tsibble 0.5.3.9000
 
+## Breaking changes
+
+* `count_gaps()` returns a tibble with each row corresponding to each key value, to be consistent with the rest tsibble methods.
+
 ## New features
 
-* Added `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
+* Added new S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
 
 # tsibble 0.5.3
 

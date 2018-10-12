@@ -123,23 +123,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' * "end": the ending time point of the gap
 #' * "n": the implicit missing observations during the time period
 count_gaps <- function(.data, ...) {
-  not_regular(.data)
-  unknown_interval(interval(.data))
   UseMethod("count_gaps")
-}
-
-#' @rdname count-gaps
-#' @export
-#' @examples
-#' # Implicit missing time without group_by ----
-#' # All the sensors have 2 common missing time points in the data
-#' count_gaps(pedestrian)
-count_gaps.tbl_ts <- function(.data, ...) {
-  idx <- index(.data)
-  idx_full <- seq_generator(eval_tidy(idx, data = .data))
-  ungroup(as_tibble(.data)) %>% 
-    summarise(gaps = list(gaps(unique.default(!! idx), idx_full))) %>% 
-    unnest(gaps)
 }
 
 #' @rdname count-gaps
@@ -147,14 +131,7 @@ count_gaps.tbl_ts <- function(.data, ...) {
 #' to find gaps over the entire time span of the data.
 #' @export
 #' @examples
-#' # Time gaps for each sensor per month ----
-#' pedestrian %>% 
-#'   index_by(yrmth = yearmonth(Date)) %>% 
-#'   group_by(Sensor) %>% 
-#'   count_gaps()
-#' # Time gaps for each sensor ----
 #' ped_gaps <- pedestrian %>% 
-#'   group_by(Sensor) %>% 
 #'   count_gaps(.full = TRUE)
 #' if (!requireNamespace("ggplot2", quietly = TRUE)) {
 #'   stop("Please install the ggplot2 package to run these following examples.")
@@ -166,16 +143,22 @@ count_gaps.tbl_ts <- function(.data, ...) {
 #'   geom_point(aes(x = Sensor, y = to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
-count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
+count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
+  not_regular(.data)
+  unknown_interval(interval(.data))
+
   idx <- index(.data)
-  tbl <- as_tibble(.data)
+  if (!is_grouped_ts(.data)) {
+    .data <- group_by(.data, !!! flatten(key(.data)))
+  }
+  grped_tbl <- as_grouped_df(.data)
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = tbl))
-    out <- tbl %>% 
+    idx_full <- seq_generator(eval_tidy(idx, data = .data))
+    out <- grped_tbl %>% 
       summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
       unnest(gaps)
   } else {
-    out <- tbl %>% 
+    out <- grped_tbl %>% 
       summarise(gaps = list(gaps(!! idx, seq_generator(!! idx)))) %>% 
       unnest(gaps)
   }
@@ -188,6 +171,7 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @inheritParams count_gaps
 #' @export
+#' @rdname has-gaps
 #' @examples
 #' harvest <- tsibble(
 #'   year = c(2010, 2011, 2013, 2011, 2012, 2013),
@@ -197,21 +181,19 @@ count_gaps.grouped_ts <- function(.data, .full = FALSE, ...) {
 #' )
 #' has_gaps(harvest)
 #' has_gaps(harvest, .full = TRUE)
-has_gaps <- function(.data, .full = FALSE) {
-  not_regular(.data)
-  unknown_interval(interval(.data))
+has_gaps <- function(.data, ...) {
   UseMethod("has_gaps")
 }
 
+#' @rdname has-gaps
 #' @export
-has_gaps.tbl_ts <- function(.data, .full = FALSE) {
-  grped_tbl <- group_by(.data, !!! flatten(key(.data)))
-  has_gaps.grouped_ts(grped_tbl, .full = .full)
-}
-
-#' @export
-has_gaps.grouped_ts <- function(.data, .full = FALSE) {
+has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
+  not_regular(.data)
+  unknown_interval(interval(.data))
   idx <- index(.data)
+  if (!is_grouped_ts(.data)) {
+    .data <- group_by(.data, !!! flatten(key(.data)))
+  }
   grped_tbl <- as_grouped_df(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data))
