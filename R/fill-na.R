@@ -7,7 +7,7 @@ globalVariables(".")
 #' missing values by variable, otherwise `NA`. The replacement values must be of
 #' the same type as the original one.
 #'
-#' @seealso [count_gaps], [case_na], [tidyr::fill], [tidyr::replace_na]
+#' @seealso [count_gaps], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
 #' @export
 fill_na <- function(.data, ...) {
@@ -279,6 +279,7 @@ seq_generator <- function(x) {
 #' case_na(x ~ 10)
 #' case_na(x ~ mean(x, na.rm = TRUE))
 case_na <- function(formula) {
+  .Deprecated(msg = "This function will be defunct soon.")
   env_f <- f_env(formula)
   lhs <- eval_bare(f_lhs(formula), env = env_f)
   rhs <- eval_bare(f_rhs(formula), env = env_f)

@@ -59,5 +59,5 @@ pedestrian \%>\%
   fill_na(Count = as.integer(median(Count)))
 }
 \seealso{
-\link{count_gaps}, \link{case_na}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}
+\link{count_gaps}, \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na}
 }
