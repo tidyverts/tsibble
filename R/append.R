@@ -24,7 +24,7 @@ append_row <- function(.data, n = 1L) {
     abort(sprintf("`.data` must be a tsibble, not `%s`.", class(.data)[1]))
   }
   not_regular(.data)
-  unknown_interval(interval(.data))
+  unknown_interval(int <- interval(.data))
 
   if (!is_integerish(n, 1) && n > 0) {
     abort("Argument `n` must be a positive integer.")
@@ -32,9 +32,9 @@ append_row <- function(.data, n = 1L) {
 
   key_vars <- key_vars(.data)
   idx <- index(.data)
-  tunit <- time_unit(eval_tidy(idx, .data))
+  tunit <- time_unit(int)
 
-  last_entry <- .data %>% 
+  last_entry <- as_tibble(.data) %>% 
     grouped_df(key_vars) %>% 
     summarise(!! idx := max(!! idx))
 

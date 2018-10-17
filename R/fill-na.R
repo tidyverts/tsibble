@@ -61,7 +61,7 @@ fill_na.data.frame <- function(.data, ...) {
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
-  unknown_interval(interval(.data))
+  unknown_interval(int <- interval(.data))
   idx <- index(.data)
   idx_chr <- as_string(idx)
   key <- key(.data)
@@ -70,7 +70,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   grped_tbl <- ungroup(tbl) %>% 
     grouped_df(vars = flat_key)
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = tbl))
+    idx_full <- seq_generator(eval_tidy(idx, data = tbl), int)
     ref_data <- grped_tbl %>% 
       summarise(
         !! idx_chr := list(tibble(!! idx_chr := idx_full))
@@ -79,7 +79,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   } else {
     ref_data <- grped_tbl %>% 
       summarise(
-        !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx)))
+        !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx, int)))
       ) %>% 
       unnest(!! idx)
   }
@@ -145,7 +145,7 @@ count_gaps <- function(.data, ...) {
 #'   theme(legend.position = "bottom")
 count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
-  unknown_interval(interval(.data))
+  unknown_interval(int <- interval(.data))
 
   idx <- index(.data)
   if (!is_grouped_ts(.data)) {
@@ -153,13 +153,13 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   }
   grped_tbl <- as_grouped_df(.data)
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = .data))
+    idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     out <- grped_tbl %>% 
       summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
       unnest(gaps)
   } else {
     out <- grped_tbl %>% 
-      summarise(gaps = list(gaps(!! idx, seq_generator(!! idx)))) %>% 
+      summarise(gaps = list(gaps(!! idx, seq_generator(!! idx, int)))) %>% 
       unnest(gaps)
   }
   ungroup(out)
@@ -189,20 +189,20 @@ has_gaps <- function(.data, ...) {
 #' @export
 has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
-  unknown_interval(interval(.data))
+  unknown_interval(int <- interval(.data))
   idx <- index(.data)
   if (!is_grouped_ts(.data)) {
     .data <- group_by(.data, !!! flatten(key(.data)))
   }
   grped_tbl <- as_grouped_df(.data)
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = .data))
+    idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     res <- grped_tbl %>% 
       summarise(!! "lgl" := (length(idx_full) - length(!! idx)) > 0)
   } else {
     res <- grped_tbl %>% 
       summarise(
-        !! "lgl" := (length(seq_generator(!! idx)) - length(!! idx)) > 0
+        !! "lgl" := (length(seq_generator(!! idx, int)) - length(!! idx)) > 0
       )
   }
   res[["lgl"]]
@@ -244,10 +244,14 @@ gaps <- function(x, y) {
   }
 }
 
-seq_generator <- function(x) {
+seq_generator <- function(x, interval = NULL) {
   min_x <- min0(x)
   max_x <- max0(x)
-  tunit <- time_unit(x)
+  if (is_null(interval)) {
+    interval <- pull_interval(x)
+  }
+  tunit <- time_unit(interval)
+  if (tunit == 0) return(x)
   res <- tryCatch(
     seq(min_x, max_x, tunit),
     error = function(e) NULL,

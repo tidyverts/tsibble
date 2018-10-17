@@ -3,6 +3,7 @@
 ## Breaking changes
 
 * `count_gaps()` returns a tibble with each row corresponding to each key value, to be consistent with the rest tsibble methods.
+* `time_unit()` accepts `interval` input instead of time vectors, also marked as interval function.
 
 ## New features
 

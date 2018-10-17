@@ -13,7 +13,4 @@ time_unit(x)
 \description{
 Extract time unit from a vector
 }
-\examples{
-x <- yearmonth(seq(2016, 2018, by = 0.5))
-time_unit(x)
-}
+\keyword{interval}

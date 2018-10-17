@@ -175,18 +175,17 @@ init_interval <- function(
 
 #' Extract time unit from a vector
 #'
-#' @inheritParams pull_interval
+#' @param x An interval.
 #' @export
-#' @examples
-#' x <- yearmonth(seq(2016, 2018, by = 0.5))
-#' time_unit(x)
+#' @keywords interval
 time_unit <- function(x) {
-  if (has_length(x, 1)) return(0L)
-  int <- pull_interval(x)
-  int$nanosecond + int$microsecond * 1e-6 + int$millisecond * 1e-3 +
-  int$second + int$minute * 60 + int$hour * 3600 + 
-  int$day + int$week + int$month + int$quarter + 
-  int$year + int$unit
+  if (is_false(inherits(x, "interval"))) {
+    abort("Must be class interval.")
+  }
+  x$nanosecond + x$microsecond * 1e-6 + x$millisecond * 1e-3 +
+  x$second + x$minute * 60 + x$hour * 3600 + 
+  x$day + x$week + x$month + x$quarter + 
+  x$year + x$unit
 }
 
 # from ts time to dates

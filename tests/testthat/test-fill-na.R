@@ -175,7 +175,7 @@ test_that("Error in gaps()", {
 test_that("seq_generator()", {
   x <- nanotime::nanotime("1970-01-01T00:00:00.000000001+00:00") + c(0:3, 5:9)
   expect_length(seq_generator(x), 10)
-  y <- structure("x", class = "xxx")
+  y <- structure(c("x", "y"), class = "xxx")
   pull_interval.xxx <- function(x) {init_interval(unit = 1)}
-  expect_error(seq_generator(y), "defined")
+  expect_error(seq_generator(y, pull_interval(y)), "defined")
 })
