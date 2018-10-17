@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 69,038 more rows</div><div class='input'><span class='co'># compute daily maximum counts across sensors ----</span>
+#&gt; # … with 69,038 more rows</div><div class='input'><span class='co'># compute daily maximum counts across sensors ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
@@ -198,7 +198,7 @@
 #&gt;  8 Birrarung Marr 2015-01-08   568
 #&gt;  9 Birrarung Marr 2015-01-09  1629
 #&gt; 10 Birrarung Marr 2015-01-10  2439
-#&gt; # ... with 2,745 more rows</div></pre>
+#&gt; # … with 2,745 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

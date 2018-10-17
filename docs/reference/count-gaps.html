@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summary of key variables — key_sum • tsibble</title>
+<title>Count implicit gaps — count_gaps • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Summary of key variables — key_sum" />
+<meta property="og:title" content="Count implicit gaps — count_gaps" />
 
-<meta property="og:description" content="Summary of key variables" />
+<meta property="og:description" content="Count implicit gaps" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -133,38 +133,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summary of key variables</h1>
+    <h1>Count implicit gaps</h1>
     
-    <div class="hidden name"><code>key_sum.Rd</code></div>
+    <div class="hidden name"><code>count-gaps.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Summary of key variables</p>
+    <p>Count implicit gaps</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>key_sum</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>count_gaps</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'>count_gaps</span>(<span class='no'>.data</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>An object that contains "key".</p></td>
+      <th>.data</th>
+      <td><p>A <code>tbl_ts</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments passed on to individual methods.</p></td>
+    </tr>
+    <tr>
+      <th>.full</th>
+      <td><p><code>FALSE</code> to find gaps for each group within its own period. <code>TRUE</code>
+to find gaps over the entire time span of the data.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble contains:</p><ul>
+<li><p>the "key" of the <code>tbl_ts</code></p></li>
+<li><p>"from": the starting time point of the gap</p></li>
+<li><p>"end": the ending time point of the gap</p></li>
+<li><p>"n": the implicit missing observations during the time period</p></li>
+</ul>
+
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='fill-na.html'>fill_na</a></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>key_sum</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt;          Key 
-#&gt; "Sensor [4]" </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ped_gaps</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>count_gaps</span>(<span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='fu'>stop</span>(<span class='st'>"Please install the ggplot2 package to run these following examples."</span>)
+}
+<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>ped_gaps</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Sensor</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_linerange'>geom_linerange</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>to</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>from</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>to</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/coord_flip'>coord_flip</a></span>() +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/theme'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count-gaps-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

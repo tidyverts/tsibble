@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-basic-tsibble-verbs" class="hasAnchor"><a href="#section-basic-tsibble-verbs" class="anchor"></a>Basic tsibble verbs</h2>
+          <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
           <p class="section-desc"><p>Verbs that manipulate data in time-based context. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
@@ -210,7 +210,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="gaps.html">count_gaps()</a></code> <code><a href="gaps.html">gaps()</a></code> </p>
+          <p><code><a href="has-gaps.html">has_gaps()</a></code> </p>
+        </td>
+        <td><p>Does a tsibble have implict gaps in time?</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="count-gaps.html">count_gaps()</a></code> </p>
         </td>
         <td><p>Count implicit gaps</p></td>
       </tr><tr>
@@ -333,12 +339,6 @@
           <p><code><a href="guess_frequency.html">guess_frequency()</a></code> </p>
         </td>
         <td><p>Guess a time frequency from other index objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="time_unit.html">time_unit()</a></code> </p>
-        </td>
-        <td><p>Extract time unit from a vector</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -500,7 +500,7 @@ checks if a tsibble is ordered by key and index.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
-      <li><a href="#section-basic-tsibble-verbs">Basic tsibble verbs</a></li>
+      <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
       <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
       <li><a href="#section-vector-functions">Vector functions</a></li>
       <li><a href="#section-time">Time</a></li>

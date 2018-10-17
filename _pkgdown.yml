@@ -34,7 +34,7 @@ reference:
     - is_tsibble
     - build_tsibble
 
-- title: Basic tsibble verbs
+- title: Time-based verbs
   desc: >
     Verbs that manipulate data in time-based context. `index_by()` and `group_by_key()`
     create a grouped tsibble, or `grouped_ts`, but how the data looks remains
@@ -42,6 +42,7 @@ reference:
   contents:
     - index_by
     - fill_na
+    - has_gaps
     - count_gaps
     - append_row
     - group_by_key
@@ -66,7 +67,6 @@ reference:
     - starts_with("year")
     - units_since
     - guess_frequency
-    - time_unit
 
 - title: Calendar
   contents:

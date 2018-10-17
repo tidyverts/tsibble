@@ -103,6 +103,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
 #' @return A tibble of columns `from`, `to` and `n`.
+#' @keywords internal
 #' @export
 #' @examples
 #' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)

@@ -84,7 +84,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -358,23 +358,23 @@ names will be used if present.</p></td>
 <span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>()</div><div class='output co'>#&gt;    group      slope x          y       date
-#&gt; 1      a         NA 1  0.6583139 2016-06-01
-#&gt; 2      a  4.5006653 2  5.1589792 2016-06-02
-#&gt; 3      a  0.6378119 3  5.7967910 2016-06-03
-#&gt; 4      a  1.8251804 4  7.6219714 2016-06-04
-#&gt; 5      a  4.1141396 5 11.7361110 2016-06-05
-#&gt; 6      a -0.5813589 6 11.1547522 2016-06-06
-#&gt; 7      a  1.8836763 7 13.0384285 2016-06-07
-#&gt; 8      a  3.9790625 8 17.0174911 2016-06-08
-#&gt; 9      b         NA 8 14.5039463 2016-06-01
-#&gt; 10     b  1.6887650 7 12.8151813 2016-06-02
-#&gt; 11     b  0.1849469 6 12.6302344 2016-06-03
-#&gt; 12     b  0.5289819 5 12.1012525 2016-06-04
-#&gt; 13     b  4.7149893 4  7.3862632 2016-06-05
-#&gt; 14     b  3.0209015 3  4.3653617 2016-06-06
-#&gt; 15     b  0.3758028 2  3.9895589 2016-06-07
-#&gt; 16     b  2.6460650 1  1.3434939 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>()</div><div class='output co'>#&gt;    group      slope x         y       date
+#&gt; 1      a         NA 1  1.621971 2016-06-01
+#&gt; 2      a  4.1141396 2  5.736111 2016-06-02
+#&gt; 3      a -0.5813589 3  5.154752 2016-06-03
+#&gt; 4      a  1.8836763 4  7.038429 2016-06-04
+#&gt; 5      a  3.9790625 5 11.017491 2016-06-05
+#&gt; 6      a -0.5135448 6 10.503946 2016-06-06
+#&gt; 7      a  2.3112350 7 12.815181 2016-06-07
+#&gt; 8      a  3.8150531 8 16.630234 2016-06-08
+#&gt; 9      b         NA 8 18.101253 2016-06-01
+#&gt; 10     b  4.7149893 7 13.386263 2016-06-02
+#&gt; 11     b  3.0209015 6 10.365362 2016-06-03
+#&gt; 12     b  0.3758028 5  9.989559 2016-06-04
+#&gt; 13     b  2.6460650 4  7.343494 2016-06-05
+#&gt; 14     b  2.0130273 3  5.330467 2016-06-06
+#&gt; 15     b  1.8090556 2  3.521411 2016-06-07
+#&gt; 16     b  0.2019547 1  3.319456 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
@@ -392,7 +392,7 @@ names will be used if present.</p></td>
 #&gt;  8 2015 Aug &lt;tsibble [744 × 5]&gt;  508.
 #&gt;  9 2015 Sep &lt;tsibble [720 × 5]&gt;  500.
 #&gt; 10 2015 Oct &lt;tsibble [743 × 5]&gt;  508.
-#&gt; # ... with 14 more rows</div><div class='input'># row-oriented workflow
+#&gt; # … with 14 more rows</div><div class='input'># row-oriented workflow
 </div><div class='input'><span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>...</span>)
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)

@@ -67,17 +67,16 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   key <- key(.data)
   flat_key <- key_flatten(key)
   tbl <- as_tibble(.data)
-  grped_tbl <- ungroup(tbl) %>% 
-    grouped_df(vars = flat_key)
+  keyed_tbl <- grouped_df(tbl, vars = flat_key)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = tbl), int)
-    ref_data <- grped_tbl %>% 
+    ref_data <- keyed_tbl %>% 
       summarise(
         !! idx_chr := list(tibble(!! idx_chr := idx_full))
       ) %>% 
       tidyr::unnest(!! idx)
   } else {
-    ref_data <- grped_tbl %>% 
+    ref_data <- keyed_tbl %>% 
       summarise(
         !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx, int)))
       ) %>% 

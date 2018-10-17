@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -135,13 +135,42 @@
       
     </div>
 
+    <div id="tsibble-0-5-3-9000" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-5-3-9000" class="anchor"></a>tsibble 0.5.3.9000<small> Unreleased </small>
+</h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>
+<code><a href="../reference/count-gaps.html">count_gaps()</a></code> returns a tibble with each row corresponding to each key value, to be consistent with the rest tsibble methods.</li>
+<li>
+<code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors, also marked as interval function.</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added new S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h2>
+<ul>
+<li>Deprecated <code><a href="../reference/case_na.html">case_na()</a></code> &amp; <code><a href="../reference/split-by.html">split_by()</a></code>.</li>
+</ul>
+</div>
+</div>
     <div id="tsibble-0-5-3" class="section level1">
 <h1 class="page-header">
 <a href="#tsibble-0-5-3" class="anchor"></a>tsibble 0.5.3<small> 2018-10-10 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added <code><a href="../reference/append-row.html">append_row()</a></code> for easily appending new observations to a tsibble. (#59)</li>
 <li>Nesting structure can be specified using <code>/</code>, consistent with <code>lm</code>. (#64)</li>
@@ -157,9 +186,9 @@
 <li>Preserve the ordering of key specification in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code>. (#63)</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h2>
+<a href="#misc-1" class="anchor"></a>Misc</h2>
 <ul>
 <li>Soft-deprecated <code><a href="../reference/case_na.html">case_na()</a></code> &amp; <code><a href="../reference/split-by.html">split_by()</a></code>.</li>
 </ul>
@@ -205,9 +234,9 @@
 <h1 class="page-header">
 <a href="#tsibble-0-5-1" class="anchor"></a>tsibble 0.5.1<small> 2018-08-20 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
@@ -235,9 +264,9 @@
 <li>Avoided warnings when character input for key and value in <code><a href="../reference/tidyverse.html">gather.tbl_ts()</a></code>. (#54)</li>
 </ul>
 </div>
-<div id="misc-1" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>Misc</h2>
+<a href="#misc-2" class="anchor"></a>Misc</h2>
 <ul>
 <li>
 <code><a href="../reference/slide.html">slide()</a></code> &amp; <code><a href="../reference/stretch.html">stretch()</a></code> use the same coercion rules as <code><a href="http://dplyr.tidyverse.org/reference/bind.html">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
@@ -251,9 +280,9 @@
 <a href="#tsibble-0-5-0" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
 </h1>
 <p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
@@ -294,9 +323,9 @@
 <li>Fixed bug in <code>.fill = NULL</code> for <code><a href="../reference/slide.html">slide()</a></code>.</li>
 </ul>
 </div>
-<div id="misc-2" class="section level2">
+<div id="misc-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>Misc</h2>
+<a href="#misc-3" class="anchor"></a>Misc</h2>
 <ul>
 <li>Moved package “timeDate” from Imports to Suggests.</li>
 <li>Added “anytime” to Imports for better parsing characters.</li>
@@ -307,9 +336,9 @@
 <h1 class="page-header">
 <a href="#tsibble-0-4-0" class="anchor"></a>tsibble 0.4.0<small> 2018-07-06 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Restructured windowed functions to follow the <code>purrr</code> style exactly (#35):
 <ul>
@@ -327,9 +356,9 @@
 <code><a href="../reference/slider.html">pslider()</a></code>, <code><a href="../reference/tiler.html">ptiler()</a></code>, <code><a href="../reference/stretcher.html">pstretcher()</a></code> support multiple inputs now, and split them in parallel.</li>
 </ul>
 </div>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
 <li>Defined <code>diff()</code> for year-week, year-month, and year-quarter.</li>
@@ -369,9 +398,9 @@
 <li>If a column passed as <code>index</code> contains <code>NA</code>, abort.</li>
 </ul>
 </div>
-<div id="misc-3" class="section level2">
+<div id="misc-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>Misc</h2>
+<a href="#misc-4" class="anchor"></a>Misc</h2>
 <ul>
 <li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li>
 </ul>
@@ -424,9 +453,9 @@
 <li>
 <code>ordered</code>: time-wise and rolling window functions assume data of temporal ordering. A tsibble will be sorted by its time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order. If it’s not in time order, it broadcasts a warning.</li>
 </ul>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Deprecated <code>tsummarise()</code> and its scoped variants. It can be replaced by the combo <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> (#20). <code>tsummarise()</code> provides an unintuitive interface where the first argument keeps the same size of the index, but the remaining arguments reduces rows to a single one. Analogously, it does <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and then <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. The proposed <code><a href="../reference/index-by.html">index_by()</a></code> solves the issue of index update.</li>
 <li>Renamed <code>inform_duplicates()</code> (defunct) to <code><a href="../reference/find_duplicates.html">find_duplicates()</a></code> to better reflect its functionality.</li>
@@ -444,7 +473,7 @@
 <ul>
 <li>
 <code><a href="../reference/index-by.html">index_by()</a></code> groups time index, as the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context.</li>
-<li>A new S3 generic <code><a href="../reference/gaps.html">count_gaps()</a></code> and <code><a href="../reference/gaps.html">gaps()</a></code> counts time gaps (implicit missing observations in time).</li>
+<li>A new S3 generic <code><a href="../reference/count-gaps.html">count_gaps()</a></code> and <code><a href="../reference/gaps.html">gaps()</a></code> counts time gaps (implicit missing observations in time).</li>
 <li>
 <code><a href="../reference/period.html">yearweek()</a></code> creates and coerces to a year-week object. (#17)</li>
 </ul>
@@ -639,6 +668,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tsibble-0-5-3-9000">0.5.3.9000</a></li>
         <li><a href="#tsibble-0-5-3">0.5.3</a></li>
         <li><a href="#tsibble-0-5-2">0.5.2</a></li>
         <li><a href="#tsibble-0-5-1">0.5.1</a></li>

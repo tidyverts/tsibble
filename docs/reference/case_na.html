@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -164,8 +164,8 @@ and the RHS gives the replacement value.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 <span class='no'>x</span>[<span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>7</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA_real_</span>
-<span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124 10.00000000  0.78646286 -0.57894525 -0.14542689
-#&gt;  [7] 10.00000000  1.73357811  1.44865722  1.51819315</div><div class='input'><span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124  0.53064554  0.78646286 -0.57894525 -0.14542689
+<span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124 10.00000000  0.78646286 -0.57894525 -0.14542689
+#&gt;  [7] 10.00000000  1.73357811  1.44865722  1.51819315</div><div class='input'><span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124  0.53064554  0.78646286 -0.57894525 -0.14542689
 #&gt;  [7]  0.53064554  1.73357811  1.44865722  1.51819315</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

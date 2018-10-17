@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -196,8 +196,7 @@ preferred frequency is passed to <code>ts()</code>.</p></td>
 #&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
 #&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div><div class='input'>
 <span class='co'># equally spaced over trading days, not smart enough to guess frequency ----</span>
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>EuStockMarkets</span>)
-<span class='fu'>head</span>(<span class='fu'>as.ts</span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt; Time Series:
+<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>EuStockMarkets</span>)</div><div class='output co'>#&gt; <span class='message'>The `validate` argument to `as_tibble()` is deprecated. Please use `.name_repair` to control column names.</span></div><div class='input'><span class='fu'>head</span>(<span class='fu'>as.ts</span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = c(1991, 130) 
 #&gt; End = c(1991, 135) 
 #&gt; Frequency = 260 

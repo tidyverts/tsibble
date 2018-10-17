@@ -92,7 +92,7 @@ is changed, it will validate whether it's a tsibble internally. Turning
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -404,7 +404,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 2015-01-01 07:00:00   146
 #&gt;  9 2015-01-01 08:00:00   258
 #&gt; 10 2015-01-01 09:00:00   419
-#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Sum over sensors by days ----</span>
+#&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># Sum over sensors by days ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1D]
@@ -420,7 +420,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 2015-01-08 28664
 #&gt;  9 2015-01-09 31269
 #&gt; 10 2015-01-10 30904
-#&gt; # ... with 721 more rows</div><div class='input'><span class='co'>## .drop = TRUE ----</span>
+#&gt; # … with 721 more rows</div><div class='input'><span class='co'>## .drop = TRUE ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
@@ -442,7 +442,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 Adelaide South Australia 1999 Q4      562.
 #&gt;  9 Adelaide South Australia 2000 Q1      646.
 #&gt; 10 Adelaide South Australia 2000 Q2      563.
-#&gt; # ... with 5,842 more rows</div><div class='input'><span class='co'># example from tidyr</span>
+#&gt; # … with 5,842 more rows</div><div class='input'><span class='co'># example from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
@@ -452,17 +452,17 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; # Key:       stock [3]
 #&gt;    time       stock  price
 #&gt;    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -0.670
-#&gt;  2 2009-01-02 X     -0.479
-#&gt;  3 2009-01-03 X      1.32 
-#&gt;  4 2009-01-04 X      0.637
-#&gt;  5 2009-01-05 X      0.514
-#&gt;  6 2009-01-06 X     -1.75 
-#&gt;  7 2009-01-07 X      0.894
-#&gt;  8 2009-01-08 X      0.223
-#&gt;  9 2009-01-09 X      0.581
-#&gt; 10 2009-01-10 X     -0.178
-#&gt; # ... with 20 more rows</div><div class='input'><span class='co'># example from tidyr</span>
+#&gt;  1 2009-01-01 X      0.637
+#&gt;  2 2009-01-02 X      0.514
+#&gt;  3 2009-01-03 X     -1.75 
+#&gt;  4 2009-01-04 X      0.894
+#&gt;  5 2009-01-05 X      0.223
+#&gt;  6 2009-01-06 X      0.581
+#&gt;  7 2009-01-07 X     -0.178
+#&gt;  8 2009-01-08 X      0.741
+#&gt;  9 2009-01-09 X     -0.997
+#&gt; 10 2009-01-10 X     -2.94 
+#&gt; # … with 20 more rows</div><div class='input'><span class='co'># example from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
@@ -470,18 +470,18 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>Column `time` is the index.</span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
 <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1D]
-#&gt;    time            X        Y      Z
-#&gt;    &lt;date&gt;      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 -1.24  -1.84     6.63 
-#&gt;  2 2009-01-02 -0.368 -3.17    -3.10 
-#&gt;  3 2009-01-03  0.462 -0.168   -3.70 
-#&gt;  4 2009-01-04 -0.323 -4.17    -1.10 
-#&gt;  5 2009-01-05 -1.29   0.00714 -2.37 
-#&gt;  6 2009-01-06 -1.03  -0.712   -0.489
-#&gt;  7 2009-01-07  1.51   2.29     4.72 
-#&gt;  8 2009-01-08  0.347 -0.442    2.56 
-#&gt;  9 2009-01-09  1.78   2.04    -2.52 
-#&gt; 10 2009-01-10  0.387 -0.527   -3.23 </div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+#&gt;    time             X        Y      Z
+#&gt;    &lt;date&gt;       &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01 -0.323  -4.17    -1.10 
+#&gt;  2 2009-01-02 -1.29    0.00714 -2.37 
+#&gt;  3 2009-01-03 -1.03   -0.712   -0.489
+#&gt;  4 2009-01-04  1.51    2.29     4.72 
+#&gt;  5 2009-01-05  0.347  -0.442    2.56 
+#&gt;  6 2009-01-06  1.78    2.04    -2.52 
+#&gt;  7 2009-01-07  0.387  -0.527   -3.23 
+#&gt;  8 2009-01-08 -0.919   3.32    -3.44 
+#&gt;  9 2009-01-09 -1.58   -1.55    -8.68 
+#&gt; 10 2009-01-10 -0.0841 -1.85    -5.50 </div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   Sensor                        data                  
 #&gt;   &lt;chr&gt;                         &lt;list&gt;                
@@ -513,7 +513,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 66,061 more rows</div><div class='input'><span class='no'>nested_tourism</span> <span class='kw'>&lt;-</span> <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
+#&gt; # … with 66,061 more rows</div><div class='input'><span class='no'>nested_tourism</span> <span class='kw'>&lt;-</span> <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/nest'>nest</a></span>(-<span class='no'>Region</span>, -<span class='no'>State</span>)
 <span class='no'>nested_tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Region</span> <span class='kw'>|</span> <span class='no'>State</span>))</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1Q]
@@ -530,7 +530,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 Adelaide South Australia 1999 Q4 Business  134.
 #&gt;  9 Adelaide South Australia 2000 Q1 Business  154.
 #&gt; 10 Adelaide South Australia 2000 Q2 Business  169.
-#&gt; # ... with 23,398 more rows</div></pre>
+#&gt; # … with 23,398 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

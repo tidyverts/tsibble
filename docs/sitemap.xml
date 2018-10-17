@@ -22,6 +22,9 @@
     <loc>https://pkg.earo.me/tsibble/reference/case_na.html</loc>
   </url>
   <url>
+    <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>
+  </url>
+  <url>
     <loc>https://pkg.earo.me/tsibble/reference/difference.html</loc>
   </url>
   <url>
@@ -38,6 +41,9 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/guess_frequency.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/has-gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/holiday_aus.html</loc>

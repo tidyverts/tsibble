@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -261,16 +261,16 @@ cannot be determined (<code>?</code>).</p></li>
 )</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date         value
 #&gt;    &lt;date&gt;       &lt;dbl&gt;
-#&gt;  1 2017-01-01 -0.157 
-#&gt;  2 2017-01-02 -0.423 
-#&gt;  3 2017-01-03 -0.198 
-#&gt;  4 2017-01-04 -0.895 
-#&gt;  5 2017-01-05  0.904 
-#&gt;  6 2017-01-06  0.0796
-#&gt;  7 2017-01-07 -1.26  
-#&gt;  8 2017-01-08  1.03  
-#&gt;  9 2017-01-09 -0.731 
-#&gt; 10 2017-01-10 -0.190 </div><div class='input'>
+#&gt;  1 2017-01-01 -0.895 
+#&gt;  2 2017-01-02  0.904 
+#&gt;  3 2017-01-03  0.0796
+#&gt;  4 2017-01-04 -1.26  
+#&gt;  5 2017-01-05  1.03  
+#&gt;  6 2017-01-06 -0.731 
+#&gt;  7 2017-01-07 -0.190 
+#&gt;  8 2017-01-08  0.529 
+#&gt;  9 2017-01-09  0.550 
+#&gt; 10 2017-01-10  0.550 </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='fu'>tsibble</span>(
   <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
@@ -281,17 +281,17 @@ cannot be determined (<code>?</code>).</p></li>
 #&gt; # Key:       group [3]
 #&gt;        qtr group   value
 #&gt;      &lt;qtr&gt; &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2010 Q1 x      0.529 
-#&gt;  2 2010 Q2 x      0.550 
-#&gt;  3 2010 Q3 x      0.550 
-#&gt;  4 2010 Q4 x     -0.660 
-#&gt;  5 2011 Q1 x      0.0574
-#&gt;  6 2011 Q2 x     -2.81  
-#&gt;  7 2011 Q3 x     -0.912 
-#&gt;  8 2011 Q4 x     -0.782 
-#&gt;  9 2012 Q1 x     -0.664 
-#&gt; 10 2012 Q2 x      0.626 
-#&gt; # ... with 20 more rows</div><div class='input'>
+#&gt;  1 2010 Q1 x     -0.660 
+#&gt;  2 2010 Q2 x      0.0574
+#&gt;  3 2010 Q3 x     -2.81  
+#&gt;  4 2010 Q4 x     -0.912 
+#&gt;  5 2011 Q1 x     -0.782 
+#&gt;  6 2011 Q2 x     -0.664 
+#&gt;  7 2011 Q3 x      0.626 
+#&gt;  8 2011 Q4 x     -0.507 
+#&gt;  9 2012 Q1 x      0.270 
+#&gt; 10 2012 Q2 x      0.467 
+#&gt; # … with 20 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

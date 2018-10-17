@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.3.9000</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; # ... with 7.017e+04 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; # … with 7.017e+04 more rows</span></a></code></pre></div>
 <div id="fixed-window-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed-window-size" class="anchor"></a>Fixed window size</h2>
@@ -148,7 +148,7 @@
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567       NA</span></a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264       NA</span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139       NA</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # ... with 7.017e+04 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # … with 7.017e+04 more rows</span></a></code></pre></div>
 <p>To make this even-order moving average symmetric, a second moving average with <code>.size = 2</code> should be applied to <code>Daily_MA</code>.</p>
 </div>
 <div id="flexible-calendar-period" class="section level2">
@@ -167,7 +167,7 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # … with 91 more rows</span></a></code></pre></div>
 <p>Now it’s ready to (rock and) roll. When setting <code>.size = 1</code> in <code><a href="../reference/slide.html">slide()</a></code>, it behaves exactly the same as <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">purrr::map()</a></code>, mapping over each element in the object. However, <code>(1)</code> a bundle of 3 subsets (<code>.size = 3</code>) needs to be binded first and then computed for average counts; <code>(2)</code> alternatively, <code>.bind = TRUE</code> takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pedestrian_mth <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -188,7 +188,7 @@
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;       546.</span></a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;       554.</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;       397.</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # ... with 91 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # … with 91 more rows</span></a></code></pre></div>
 </div>
 <div id="row-oriented-workflow" class="section level2">
 <h2 class="hasAnchor">
