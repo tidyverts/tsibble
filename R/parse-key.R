@@ -78,7 +78,6 @@ unkey.tbl_ts <- function(x) {
 #' @examples
 #' key_size(pedestrian)
 #' n_keys(pedestrian)
-#' key_indices(pedestrian)
 #'
 #' @rdname key-size
 #' @export

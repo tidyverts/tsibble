@@ -34,7 +34,7 @@ append_row <- function(.data, n = 1L) {
   idx <- index(.data)
   tunit <- time_unit(eval_tidy(idx, .data))
 
-  last_entry <- as_tibble(.data) %>% 
+  last_entry <- .data %>% 
     grouped_df(key_vars) %>% 
     summarise(!! idx := max(!! idx))
 
