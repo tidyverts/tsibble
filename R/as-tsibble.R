@@ -679,9 +679,3 @@ remove_tsibble_attrs <- function(x) {
   }
   NextMethod()
 }
-
-as_grouped_df <- function(x) {
-  class(x) <- class(x)[-match("tbl_ts", class(x))] # remove "tbl_ts"
-  class(x)[match("grouped_ts", class(x))] <- "grouped_df"
-  x
-}

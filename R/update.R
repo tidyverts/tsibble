@@ -21,6 +21,22 @@ as_tibble2 <- function(x) {
   group_by(x, !!! flatten(c(grps, idx2)))
 }
 
+as_grouped_df <- function(x) {
+  class(x) <- class(x)[-match("tbl_ts", class(x))] # remove "tbl_ts"
+  class(x)[match("grouped_ts", class(x))] <- "grouped_df"
+  x
+}
+
+restore_index_class <- function(new, old) {
+  old_idx <- as_string(index(old))
+  new_idx <- as_string(index(new))
+  class(new[[new_idx]]) <- class(old[[old_idx]])
+  if (!identical(interval(new), interval(old))) {
+    attr(new, "interval") <- pull_interval(new[[new_idx]])
+  }
+  new
+}
+
 join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl_x <- as_tibble(x)
