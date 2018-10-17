@@ -182,10 +182,11 @@ time_unit <- function(x) {
   if (is_false(inherits(x, "interval"))) {
     abort("Must be class interval.")
   }
-  x$nanosecond + x$microsecond * 1e-6 + x$millisecond * 1e-3 +
-  x$second + x$minute * 60 + x$hour * 3600 + 
-  x$day + x$week + x$month + x$quarter + 
-  x$year + x$unit
+  x[["microsecond"]]  <- x[["microsecond"]] * 1e-6
+  x[["millisecond"]] <- x[["millisecond"]] * 1e-3
+  x[["minute"]] <- x[["minute"]] * 60
+  x[["hour"]] <- x[["hour"]] * 3600
+  purrr::reduce(x, `+`)
 }
 
 # from ts time to dates
