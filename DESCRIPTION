@@ -59,6 +59,7 @@ Collate:
     'error.R'
     'fill-na.R'
     'format.R'
+    'gaps.R'
     'holiday.R'
     'index-by.R'
     'interval.R'
