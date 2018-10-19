@@ -347,9 +347,7 @@ pslider <- function(
   .align = "right", .bind = FALSE
 ) { # parallel sliding
   lst <- recycle(list2(...))
-  map(lst, 
-    function(x) slider(x, .size, .fill = .fill, .partial, .align, .bind)
-  )
+  map(lst, function(x) slider(x, .size, .fill = .fill, .partial, .align, .bind))
 }
 
 bind_lst <- function(x) {
