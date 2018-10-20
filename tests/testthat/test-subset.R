@@ -34,7 +34,7 @@ test_that("if it's a vector", {
 })
 
 test_that("if it's a tsibble", {
-  expect_error(tsbl[1:11, ], "exceed the rows")
+  expect_error(tsbl[1:11, ], "exceed the number of rows")
   expect_equal(tsbl[], tsbl)
   expect_is(tsbl[, c(1, 2)], "tbl_ts")
   expect_warning(tsbl[c("group", "date"), drop = TRUE], "`drop` is ignored.")

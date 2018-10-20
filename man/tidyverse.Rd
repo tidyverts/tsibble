@@ -85,8 +85,9 @@
 \item{.by_group}{If \code{TRUE}, will sort first by grouping variable. Applies to
 grouped data frames only.}
 
-\item{.drop}{\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a
-tsibble and returns a tibble.}
+\item{.drop}{Deprecated, please use \code{as_tibble()} for \code{.drop = TRUE} instead.
+\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a tsibble and
+returns a tibble.}
 
 \item{add}{When \code{add = FALSE}, the default, \code{group_by()} will
 override existing groups. To add to the existing groups, use
@@ -183,11 +184,11 @@ be issued.
 \item \code{select()}: keeps the variables you mention as well as the index.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} will not collapse on the index variable.
-\item The column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
-\code{mutate()} & \code{transmute()}, have an additional argument of \code{.drop = FALSE} for
-tsibble. The index variable cannot be dropped for a tsibble. If any key variable
-is changed, it will validate whether it's a tsibble internally. Turning
-\code{.drop = TRUE} converts to a tibble first and then do the operations.
+\item Column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
+\code{mutate()} & \code{transmute()}, keep the time context hanging around. That is,
+the index variable cannot be dropped for a tsibble. If any key variable
+is changed, it will validate whether it's a tsibble internally. Use \code{as_tibble()}
+to leave off the time context.
 }
 }
 \examples{
@@ -198,9 +199,10 @@ pedestrian \%>\%
 pedestrian \%>\%
   index_by(Date) \%>\%
   summarise(Total = sum(Count))
-## .drop = TRUE ----
+# Back to tibble
 pedestrian \%>\%
-  summarise(Total = sum(Count), .drop = TRUE)
+  as_tibble() \%>\% 
+  summarise(Total = sum(Count))
 tourism \%>\%
   group_by(Region, State) \%>\%
   summarise(geo_trips = sum(Trips))

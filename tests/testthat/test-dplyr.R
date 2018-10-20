@@ -131,7 +131,6 @@ test_that("filter() and slice()", {
 test_that("select() and rename()", {
   expect_error(select(tourism, Quarter), "A valid tsibble")
   expect_error(select(tourism, Region), "A valid tsibble")
-  expect_is(select(tourism, Region, .drop = TRUE), "tbl_df")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
@@ -185,7 +184,6 @@ test_that("select() with group_by()", {
 
 test_that("mutate()", {
   expect_error(mutate(tourism, Quarter = 1), "A valid tsibble")
-  expect_is(mutate(tourism, Quarter = 1, .drop = TRUE), "tbl_df")
   expect_error(mutate(tourism, Region = State), "A valid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   tsbl <- tourism %>%
@@ -216,10 +214,6 @@ test_that("summarise()", {
   expect_identical(nrow(tsbl3), nrow(tourism))
 
   expect_error(pedestrian %>% summarise(month = yearmonth(Date_Time)))
-  tbl_ped <- pedestrian %>%
-    group_by(Date) %>%
-    summarise(DailyCount = mean(Count), .drop = TRUE)
-  expect_is(tbl_ped, "tbl_df")
 })
 
 tsbl <- tsibble(
@@ -232,10 +226,6 @@ tsbl <- tsibble(
 )
 
 test_that("transmute()", {
-  expect_equal(
-    ncol(tourism %>% transmute(Region = paste(Region, State), .drop = TRUE)),
-    1
-  )
   out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
   trans_tsbl <- tsbl %>% transmute(z = a / b)

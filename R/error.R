@@ -13,7 +13,7 @@ unknown_interval <- function(x) {
 
 exceed_rows <- function(x, n = 1L) {
   nr <- NROW(x)
-  if (n > nr) abort(sprintf("Must not exceed the rows (%i).", nr))
+  if (n > nr) abort(sprintf("Must not exceed the number of rows (%i).", nr))
 }
 
 not_regular <- function(x) {

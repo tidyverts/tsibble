@@ -112,7 +112,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   nest_vars <- setdiff(nest_vars, grp_vars)
   grp <- syms(grp_vars)
 
-  out <- select(data, !!! grp, .drop = TRUE)
+  out <- select(ungroup(tbl), !!! grp)
   idx <- group_indices(data, !!! grp)
   representatives <- which(!duplicated(idx))
   out <- slice(out, representatives)

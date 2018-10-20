@@ -7,11 +7,11 @@
 #' * `select()`: keeps the variables you mention as well as the index.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` will not collapse on the index variable.
-#' * The column-wise verbs, including `select()`, `transmute()`, `summarise()`,
-#' `mutate()` & `transmute()`, have an additional argument of `.drop = FALSE` for
-#' tsibble. The index variable cannot be dropped for a tsibble. If any key variable
-#' is changed, it will validate whether it's a tsibble internally. Turning
-#' `.drop = TRUE` converts to a tibble first and then do the operations.
+#' * Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
+#' `mutate()` & `transmute()`, keep the time context hanging around. That is,
+#' the index variable cannot be dropped for a tsibble. If any key variable
+#' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
+#' to leave off the time context.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... same arguments accepted as its dplyr generic.
@@ -112,13 +112,15 @@ row_validate <- function(x) {
   is_ascending(x)
 }
 
-#' @param .drop `FALSE` returns a tsibble object as the input. `TRUE` drops a
-#' tsibble and returns a tibble.
+#' @param .drop Deprecated, please use `as_tibble()` for `.drop = TRUE` instead.
+#' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and 
+#' returns a tibble.
 #'
 #' @rdname tidyverse
 #' @export
 select.tbl_ts <- function(.data, ..., .drop = FALSE) {
   if (.drop) {
+    warn_drop()
     return(select(as_tibble(.data), ...))
   }
   tsibble_select(.data, ...)
@@ -135,6 +137,7 @@ rename.tbl_ts <- function(.data, ...) {
 mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   mut_data <- mutate(as_tibble(.data), ...)
   if (.drop) {
+    warn_drop()
     return(mut_data)
   }
   lst_quos <- enquos(..., .named = TRUE)
@@ -157,6 +160,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' @export
 transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   if (.drop) {
+    warn_drop()
     return(transmute(as_tibble(.data), ...))
   }
   lst_quos <- enquos(..., .named = TRUE)
@@ -176,11 +180,13 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' pedestrian %>%
 #'   index_by(Date) %>%
 #'   summarise(Total = sum(Count))
-#' ## .drop = TRUE ----
+#' # Back to tibble
 #' pedestrian %>%
-#'   summarise(Total = sum(Count), .drop = TRUE)
+#'   as_tibble() %>% 
+#'   summarise(Total = sum(Count))
 summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   if (.drop) {
+    warn_drop()
     return(summarise(as_tibble(.data), ...))
   }
   idx <- index(.data)
@@ -269,4 +275,8 @@ ungroup.tbl_ts <- function(x, ...) {
 #' @export
 distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
+}
+
+warn_drop <- function() {
+  warn("Argument `.drop` is deprecated. Please use `as_tibble()` instead.")
 }

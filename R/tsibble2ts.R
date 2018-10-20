@@ -53,11 +53,11 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
 
 finalise_ts <- function(data, index, frequency = NULL) {
   idx_time <- time(dplyr::pull(data, !! index))
-  out <- select(data, - !! index, .drop = TRUE)
+  out <- select(as_tibble(data), - !! index)
   if (NCOL(out) == 1) {
     out <- out[[1]]
   }
-  if (is.null(frequency)) {
+  if (is_null(frequency)) {
     frequency <- stats::frequency(idx_time)
   }
   stats::ts(out, stats::start(idx_time), frequency = frequency)

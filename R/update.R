@@ -40,7 +40,7 @@ restore_index_class <- function(new, old) {
 join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl_x <- as_tibble(x)
-  tbl_y <- as_tibble(y, validate = FALSE)
+  tbl_y <- as_tibble(y)
   tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
   update_tsibble(tbl, x, ordered = is_ordered(x))
 }
@@ -60,9 +60,9 @@ tsibble_rename <- function(.data, ...) {
   new_grp <- grp_rename(.data, val_vars)
 
   names(.data) <- names(val_vars)
-  build_tsibble(
+  build_tsibble_meta(
     .data, key = new_key, index = !! idx, index2 = !! idx2,
-    groups = new_grp, regular = is_regular(.data), validate = FALSE, 
+    groups = new_grp, regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
@@ -72,15 +72,6 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   sel_data <- select(as_tibble(.data), !!! val_vars)
-
-  # checking
-  # val_idx <- has_index(j = val_vars, x = .data)
-  # if (is_false(val_idx)) {
-  #   abort(sprintf(
-  #     "The `index` (`%s`) must not be dropped, do you want `.drop = TRUE` to drop `tbl_ts`?",
-  #     as_string(index(.data))
-  #   ))
-  # }
   
   # index
   idx <- index_rename(.data, val_vars)
