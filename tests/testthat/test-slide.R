@@ -180,11 +180,11 @@ test_that("pslide() and its variants", {
   }
   expect_equal(
     pslide_dfr(df, my_sum2, .size = 2),
-    tibble::tibble(x = c(NA, 3L, 5L, 7L, 9L))
+    tibble(x = c(NA, 3L, 5L, 7L, 9L))
   )
   expect_equal(
     pslide_dfc(df, my_sum2, .size = 2),
-    tibble::tibble(x = NA, x1 = 3L, x2 = 5L, x3 = 7L, x4 = 9L)
+    tibble(x = NA, x1 = 3L, x2 = 5L, x3 = 7L, x4 = 9L)
   )
 })
 

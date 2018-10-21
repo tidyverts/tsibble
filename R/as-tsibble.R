@@ -311,7 +311,7 @@ as.tsibble <- function(x, ...) {
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 
-#' Low-level construction of a tsibble object
+#' Low-level constructor to a tsibble object
 #'
 #' * `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful 
 #' for creating a `tbl_ts` internally inside a function, and it allows users to 

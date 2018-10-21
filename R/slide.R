@@ -1,5 +1,5 @@
 # nocov start
-replace_fn_names <- function(fn, replace = list()){
+replace_fn_names <- function(fn, replace = list()) {
   rec_fn <- function(cl) {
     if (!rlang::is_call(cl)) {
       return(cl)
@@ -287,7 +287,7 @@ pslide_dfc <- function(
 
 #' Splits the input to a list according to the rolling window size.
 #'
-#' @param x An objects to be split.
+#' @param .x An objects to be split.
 #' @param ... Multiple objects to be split in parallel.
 #' @param .partial if `TRUE`, split to partial set (`FALSE` ignores specified 
 #' `.fill` and `.align`).

@@ -10,7 +10,7 @@ tiler(.x, .size = 1, .bind = FALSE)
 ptiler(..., .size = 1, .bind = FALSE)
 }
 \arguments{
-\item{.x}{An object to slide over.}
+\item{.x}{An objects to be split.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}

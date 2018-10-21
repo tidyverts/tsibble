@@ -12,7 +12,7 @@ pslider(..., .size = 1, .fill = NA, .partial = FALSE,
   .align = "right", .bind = FALSE)
 }
 \arguments{
-\item{.x}{An object to slide over.}
+\item{.x}{An objects to be split.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
@@ -31,8 +31,6 @@ is needed.}
 to a list of data frames.}
 
 \item{...}{Multiple objects to be split in parallel.}
-
-\item{x}{An objects to be split.}
 }
 \description{
 Splits the input to a list according to the rolling window size.

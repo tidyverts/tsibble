@@ -3,7 +3,7 @@
 \name{build_tsibble}
 \alias{build_tsibble}
 \alias{build_tsibble_meta}
-\title{Low-level construction of a tsibble object}
+\title{Low-level constructor to a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, groups = id(), regular = TRUE,
   validate = TRUE, ordered = NULL, interval = NULL)
