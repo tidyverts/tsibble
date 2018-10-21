@@ -9,6 +9,8 @@
 split_by(x, ...)
 
 case_na(formula)
+
+as.tsibble(x, ...)
 }
 \arguments{
 \item{x}{A data frame.}

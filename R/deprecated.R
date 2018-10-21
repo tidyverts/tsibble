@@ -54,7 +54,7 @@ case_na <- function(formula) {
 
 #' @rdname deprecated
 #' @export
-#' @usage NULL
+#' @keywords internal
 as.tsibble <- function(x, ...) {
   as_tsibble(x, ...)
 }

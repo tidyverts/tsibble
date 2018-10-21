@@ -5,27 +5,15 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+slider(.x, .size = 1, .bind = FALSE)
 
-pslider(..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+pslider(..., .size = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An objects to be split.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
-
-\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
-\code{NULL} means no filling.}
-
-\item{.partial}{if \code{TRUE}, split to partial set (\code{FALSE} ignores specified
-\code{.fill} and \code{.align}).}
-
-\item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
-of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"
-is needed.}
 
 \item{.bind}{If \code{.x} is a list or data frame, the input will be flattened
 to a list of data frames.}
@@ -47,4 +35,7 @@ slider(lst, .size = 2)
 pslider(list(x, y), list(y))
 slider(df, .size = 2)
 pslider(df, df, .size = 2)
+}
+\seealso{
+\link{partial_slider}, \link{partial_pslider} for patial sliding
 }

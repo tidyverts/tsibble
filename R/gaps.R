@@ -1,4 +1,3 @@
-
 #' Count implicit gaps
 #' 
 #' @param .data A `tbl_ts`.
