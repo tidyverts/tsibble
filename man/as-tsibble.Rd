@@ -2,7 +2,6 @@
 % Please edit documentation in R/as-tsibble.R, R/ts2tsibble.R
 \name{as_tsibble}
 \alias{as_tsibble}
-\alias{as.tsibble}
 \alias{as_tsibble.tbl_df}
 \alias{as_tsibble.tbl_ts}
 \alias{as_tsibble.data.frame}

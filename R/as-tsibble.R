@@ -63,7 +63,6 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #'
 #' @return A tsibble object.
 #' @rdname as-tsibble
-#' @aliases as.tsibble
 #' @seealso [tsibble]
 #'
 #' @examples
