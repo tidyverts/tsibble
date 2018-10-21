@@ -301,13 +301,6 @@ is_grouped_ts <- function(x) {
 #' @export
 is.grouped_ts <- is_grouped_ts
 
-#' @rdname as-tsibble
-#' @export
-#' @usage NULL
-as.tsibble <- function(x, ...) {
-  UseMethod("as_tsibble")
-}
-
 ## tsibble is a special class of tibble that handles temporal data. It
 ## requires a sequence of time index to be unique across every identifier.
 

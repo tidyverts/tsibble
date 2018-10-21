@@ -132,27 +132,6 @@ seq_generator <- function(x, interval = NULL) {
   )
 }
 
-#' A thin wrapper of `dplyr::case_when()` if there are `NA`s
-#'
-#' @param formula A two-sided formula. The LHS expects a vector containing `NA`,
-#' and the RHS gives the replacement value.
-#'
-#' @export
-#' @seealso [dplyr::case_when]
-#' @keywords internal
-#' @examples
-#' x <- rnorm(10)
-#' x[c(3, 7)] <- NA_real_
-#' case_na(x ~ 10)
-#' case_na(x ~ mean(x, na.rm = TRUE))
-case_na <- function(formula) {
-  .Deprecated(msg = "This function will be defunct soon.")
-  env_f <- f_env(formula)
-  lhs <- eval_bare(f_lhs(formula), env = env_f)
-  rhs <- eval_bare(f_rhs(formula), env = env_f)
-  dplyr::case_when(is.na(lhs) ~ rhs, TRUE ~ lhs)
-}
-
 replace_na2 <- function(.data, replace = list(), grp_vars = character(0)) {
   replace_vars <- intersect(names(replace), names(.data))
   split_data <- split(.data, group_indices(dplyr::grouped_df(.data, grp_vars)))

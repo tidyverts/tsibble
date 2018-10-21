@@ -12,6 +12,7 @@
 ## Misc
 
 * Deprecated `case_na()` & `split_by()`.
+* Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.
 
 # tsibble 0.5.3
 
