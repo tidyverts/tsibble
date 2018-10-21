@@ -10,6 +10,10 @@
 
 * Added new S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
 
+## Bug fixes
+
+* Fixed unclear error message for `holiday_aus()` that requires package "timeDate".
+
 ## Misc
 
 * Deprecated `case_na()` & `split_by()`.
