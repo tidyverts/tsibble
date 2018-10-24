@@ -50,11 +50,12 @@ format.interval <- function(x, digits = NULL, ...) {
 }
 
 translate_interval <- function(x) {
+  names_unit <- fn_fmls_names(init_interval)
   set_names(
-    x, 
+    x[names_unit], 
     c(
-      "Y", "Q", "M", "W", "D", 
-      "h", "m", "s", "ms", ifelse(is_utf8_output(), "\U00B5s", "us"), "ns", ""
+      "Y", "Q", "M", "W", "D", "h", "m", "s", "ms", 
+      ifelse(is_utf8_output(), "\U00B5s", "us"), "ns", ""
     )
   )
 }
