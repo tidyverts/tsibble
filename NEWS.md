@@ -18,6 +18,7 @@
 
 * Deprecated `case_na()` & `split_by()`.
 * Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.
+* Deprecated `.drop` argument in column-wise verbs, and suggested to use `as_tibble()`.
 
 # tsibble 0.5.3
 

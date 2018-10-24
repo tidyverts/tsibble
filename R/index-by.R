@@ -77,9 +77,9 @@ index_by.tbl_ts <- function(.data, ...) {
   # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs)
   idx2 <- sym(expr_name)
-  build_tsibble(
+  build_tsibble_meta(
     tbl, key = key(.data), index = !! idx, index2 = !! idx2,
-    groups = groups(.data), regular = is_regular(.data), validate = FALSE,
+    groups = groups(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
