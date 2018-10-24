@@ -31,6 +31,16 @@ test_that("a tbl_ts without implicit missing values", {
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
+daylight <- pedestrian %>% 
+  filter(Sensor == "Birrarung Marr", Date == lubridate::ymd("20151004"))
+standard <- pedestrian %>% 
+  filter(Sensor == "Birrarung Marr", Date == lubridate::ymd("20150405"))
+
+test_that("daylight saving", {
+  expect_identical(NROW(fill_na(daylight)), 23L)
+  expect_identical(NROW(fill_na(standard)), 25L)
+})
+
 dat_y <- dat_x[c(1:3, 5), ]
 tsbl <- as_tsibble(dat_y, index = date)
 
