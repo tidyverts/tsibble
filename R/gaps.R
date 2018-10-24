@@ -38,10 +38,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   unknown_interval(int <- interval(.data))
 
   idx <- index(.data)
-  if (!is_grouped_ts(.data)) {
-    .data <- group_by(.data, !!! flatten(key(.data)))
-  }
-  grped_tbl <- as_grouped_df(.data)
+  grped_tbl <- grped_df_by_key(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     out <- grped_tbl %>% 
@@ -81,10 +78,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   unknown_interval(int <- interval(.data))
   idx <- index(.data)
-  if (!is_grouped_ts(.data)) {
-    .data <- group_by(.data, !!! flatten(key(.data)))
-  }
-  grped_tbl <- as_grouped_df(.data)
+  grped_tbl <- grped_df_by_key(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     res <- grped_tbl %>% 

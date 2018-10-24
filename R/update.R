@@ -5,16 +5,18 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
 }
 
 # put new data with existing attributes
-update_tsibble <- function(new, old, ordered = TRUE, interval = NULL) {
-  restore_index_class(build_tsibble_meta(
+update_tsibble <- function(
+  new, old, ordered = TRUE, interval = NULL, validate = FALSE
+) {
+  restore_index_class(build_tsibble(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
-    groups = groups(old), regular = is_regular(old),
+    groups = groups(old), regular = is_regular(old), validate = validate,
     ordered = ordered, interval = interval
   ), old)
 }
 
 # needed when grouping by index2 (e.g. summarise)
-as_tibble2 <- function(x) {
+group_by_index2 <- function(x) {
   grps <- groups(x)
   idx2 <- index2(x)
   x <- as_tibble(x)
@@ -27,6 +29,16 @@ as_grouped_df <- function(x) {
   x
 }
 
+grped_df_by_key <- function(.data) {
+  grp <- group_vars(.data)
+  key <- key_vars(.data)
+  if (all(is.element(key, grp))) {
+    as_grouped_df(.data)
+  } else {
+    grouped_df(as_tibble(.data), key)
+  }
+}
+
 restore_index_class <- function(new, old) {
   old_idx <- as_string(index(old))
   new_idx <- as_string(index(new))
@@ -37,12 +49,13 @@ restore_index_class <- function(new, old) {
   new
 }
 
-join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, ...) {
+join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, validate = FALSE, 
+  ...) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl_x <- as_tibble(x)
   tbl_y <- as_tibble(y)
   tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
-  update_tsibble(tbl, x, ordered = is_ordered(x))
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = validate)
 }
 
 tsibble_rename <- function(.data, ...) {
@@ -100,4 +113,25 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
     groups = new_grp, regular = is_regular(.data), validate = validate, 
     ordered = is_ordered(.data), interval = interval(.data)
   )
+}
+
+validate_vars <- function(j, x) { # j = quos/chr/dbl
+  tidyselect::vars_select(.vars = x, !!! j)
+}
+
+# this function usually follows validate_vars()
+has_index <- function(j, x) {
+  is_index_null(x)
+  index <- c(quo_name(index(x)), quo_name(index2(x)))
+  any(index %in% j)
+}
+
+has_distinct_key <- function(j, x) {
+  key_vars <- key_flatten(key_distinct(key(x)))
+  all(key_vars %in% j)
+}
+
+has_any_key <- function(j, x) {
+  key_vars <- key_flatten(key(x))
+  any(key_vars %in% j)
 }

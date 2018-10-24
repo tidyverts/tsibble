@@ -200,7 +200,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   )
   nonkey_quos <- lst_quos[nonkey]
 
-  sum_data <- as_tibble2(.data) %>%
+  sum_data <- group_by_index2(.data) %>%
     summarise(!!! nonkey_quos)
   if (identical(idx, idx2)) {
     int <- interval(.data)

@@ -9,7 +9,7 @@
 #' pedestrian %>% 
 #'   split_by(Sensor)
 split_by <- function(x, ...) {
-  .Deprecated(msg = "This function will be defunct soon.")
+  .Deprecated(msg = "This function will be defunct soon.\nPlease use `split()` instead.")
   UseMethod("split_by")
 }
 

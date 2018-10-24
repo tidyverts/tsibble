@@ -66,14 +66,11 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   idx_chr <- as_string(idx)
   key <- key(.data)
   flat_key <- key_flatten(key)
-  tbl <- as_tibble(.data)
-  keyed_tbl <- grouped_df(tbl, vars = flat_key)
+  keyed_tbl <- grped_df_by_key(.data)
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = tbl), int)
+    idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     ref_data <- keyed_tbl %>% 
-      summarise(
-        !! idx_chr := list(tibble(!! idx_chr := idx_full))
-      ) %>% 
+      summarise(!! idx_chr := list(tibble(!! idx_chr := idx_full))) %>% 
       tidyr::unnest(!! idx)
   } else {
     ref_data <- keyed_tbl %>% 
@@ -94,11 +91,11 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
       bad_names <- paste_comma(lhs[which(!check_names)])
       abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
     }
-    replaced_df <- tbl %>% 
+    replaced_df <- keyed_tbl %>% 
       summarise(!!! lst_exprs) %>% 
       ungroup() %>% 
       select(!!! lhs)
-    full_data <- replace_na2(full_data, replaced_df, group_vars(tbl))
+    full_data <- replace_na2(full_data, replaced_df, group_vars(.data))
   }
   if (!identical(cn, names(full_data))) {
     full_data <- full_data %>%

@@ -15,7 +15,8 @@ left_join.tbl_ts <- function(
 right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(right_join, x, y, by = by, copy = copy, suffix = suffix, ...)
+  join_tsibble(right_join, x, y, by = by, copy = copy, suffix = suffix, 
+    validate = TRUE, ...)
 }
 
 #' @rdname tidyverse
@@ -23,7 +24,8 @@ right_join.tbl_ts <- function(
 inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(inner_join, x, y, by = by, copy = copy, suffix = suffix, ...)
+  join_tsibble(inner_join, x, y, by = by, copy = copy, suffix = suffix, 
+    validate = TRUE, ...)
 }
 
 #' @rdname tidyverse
@@ -31,7 +33,8 @@ inner_join.tbl_ts <- function(
 full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(full_join, x, y, by = by, copy = copy, suffix = suffix, ...)
+  join_tsibble(full_join, x, y, by = by, copy = copy, suffix = suffix, 
+    validate = TRUE, ...)
 }
 
 #' @rdname tidyverse

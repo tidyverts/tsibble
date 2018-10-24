@@ -30,13 +30,11 @@ append_row <- function(.data, n = 1L) {
     abort("Argument `n` must be a positive integer.")
   }
 
-  key_vars <- key_vars(.data)
   idx <- index(.data)
   tunit <- time_unit(int)
 
-  last_entry <- as_tibble(.data) %>% 
-    grouped_df(key_vars) %>% 
-    summarise(!! idx := max(!! idx))
+  grped_df <- grped_df_by_key(.data)
+  last_entry <- summarise(grped_df, !! idx := max(!! idx))
 
   nc <- NCOL(last_entry)
   new_lst <- new_list(NROW(last_entry))
