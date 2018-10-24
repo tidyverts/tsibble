@@ -113,7 +113,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"tsibble"</span>)</a></code></pre></div>
 <p>You could install the development version from Github using</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverts/tsibble"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverts/tsibble"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -161,7 +161,7 @@
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # … with 2.618e+04 more rows</span></a></code></pre></div>
-<p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out <code><a href="reference/count-gaps.html">count_gaps()</a></code>.</p>
+<p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling <code>NA</code> by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out <code><a href="reference/has-gaps.html">has_gaps()</a></code> &amp; <code><a href="reference/count-gaps.html">count_gaps()</a></code>.</p>
 </div>
 <div id="index_by-summarise-to-aggregate-over-calendar-periods" class="section level3">
 <h3 class="hasAnchor">
@@ -217,36 +217,10 @@
 <p>More examples can be found at <a href="https://pkg.earo.me/tsibble/articles/window.html"><code><a href="articles/window.html">vignette("window")</a></code></a>.</p>
 </div>
 </div>
-<div id="working-with-the-tidyverse" class="section level2">
+<div id="forecast-tsibble" class="section level2">
 <h2 class="hasAnchor">
-<a href="#working-with-the-tidyverse" class="anchor"></a>Working with the tidyverse</h2>
-<p>It can be noticed that the tsibble seamlessly works with <em>tidyverse</em> verbs, but in a slightly different way that it does the best to keep the index. Use <code><a href="reference/tidyverse.html">?tidyverse</a></code> for a full list of tidyverse functions.</p>
-<ul>
-<li>
-<strong>dplyr:</strong>
-<ul>
-<li>
-<code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>
-</li>
-<li>
-<code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">transmute()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/select.html">rename()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>/<code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>
-</li>
-<li><code>left/right/full/inner/anti/semi_join()</code></li>
-<li>
-<code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>
-</li>
-</ul>
-</li>
-<li>
-<strong>tidyr</strong>: <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/unnest">unnest()</a></code>
-</li>
-<li>
-<strong>tibble:</strong> <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble()</a></code>, <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>
-</li>
-<li>
-<strong>rlang:</strong> <code>!!</code>, <code>!!!</code>
-</li>
-</ul>
+<a href="#forecast-tsibble" class="anchor"></a>Forecast tsibble</h2>
+<p>The <strong>tsibble</strong> structure is also a natural data input to forecasting and many downstream analytical tasks. Stay tuned for <a href="http://tidyverts.org">tidyverts.org</a>.</p>
 <hr>
 <p>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>

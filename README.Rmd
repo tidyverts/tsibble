@@ -70,7 +70,7 @@ full_weather <- weather_tsbl %>%
 full_weather
 ```
 
-`fill_na()` also handles filling `NA` by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out `count_gaps()`.
+`fill_na()` also handles filling `NA` by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out `has_gaps()` & `count_gaps()`.
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -106,18 +106,9 @@ full_weather %>%
 
 More examples can be found at [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
 
-## Working with the tidyverse
+## Forecast tsibble
 
-It can be noticed that the tsibble seamlessly works with *tidyverse* verbs, but in a slightly different way that it does the best to keep the index. Use `?tidyverse` for a full list of tidyverse functions.
-
-* **dplyr:** 
-  - `arrange()`, `filter()`, `slice()`
-  - `mutate()`, `transmute()`, `select()`, `rename()`, `summarise()`/`summarize()`
-  - `left/right/full/inner/anti/semi_join()`
-  - `group_by()`, `ungroup()`
-* **tidyr**: `gather()`, `spread()`, `nest()`, `unnest()`
-* **tibble:** `glimpse()`, `tibble()`, `as_tibble()`
-* **rlang:** `!!`, `!!!`
+The **tsibble** structure is also a natural data input to forecasting and many downstream analytical tasks. Stay tuned for [tidyverts.org](http://tidyverts.org).
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
