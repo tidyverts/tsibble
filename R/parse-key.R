@@ -29,6 +29,11 @@ key.tbl_ts <- function(x) {
 }
 
 #' @export
+key.key <- function(x) {
+  x
+}
+
+#' @export
 `[[.key` <- function(x, i, j, ..., exact = TRUE) {
   NextMethod()
 }
@@ -47,6 +52,11 @@ key_vars <- function(x) {
 #' @export
 key_vars.tbl_ts <- function(x) {
   key_flatten(key(x))
+}
+
+#' @export
+key_vars.key <- function(x) {
+  key_flatten(x)
 }
 
 #' @rdname key
