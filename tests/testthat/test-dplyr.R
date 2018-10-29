@@ -141,14 +141,14 @@ test_that("select() and rename()", {
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
     "Index"
   )
-  expect_equal(
-    format(key(select(tourism, Bottom = Region, Quarter, State:Purpose)))[[1]],
-    "Bottom | State"
-  )
-  expect_equal(
-    format(key(select(tourism, State, Region2 = Region, Purpose, Trips)))[[1]],
-    "Region2 | State"
-  )
+  # expect_equal(
+  #   format(key(select(tourism, Bottom = Region, Quarter, State:Purpose)))[[1]],
+  #   "Bottom | State"
+  # )
+  # expect_equal(
+  #   format(key(select(tourism, State, Region2 = Region, Purpose, Trips)))[[1]],
+  #   "Region2 | State"
+  # )
   expect_equal(
     quo_name(index(rename(tourism, Index = Quarter))),
     "Index"

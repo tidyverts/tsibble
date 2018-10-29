@@ -30,7 +30,7 @@
       } else {
         return(build_tsibble_meta(
           result, key = key(x), index = !! index(x), index2 = !! index2(x),
-          groups = groups(x), regular = is_regular(x), ordered = ordered
+          regular = is_regular(x), ordered = ordered
         ))
       }
     } else { # e.g. x[]
@@ -38,8 +38,7 @@
       attr(result, "row.names") <- .set_row_names(nr)
       return(build_tsibble_meta(
         result, key = key(x), index = !! index(x), index2 = !! index2(x),
-        groups = groups(x), regular = is_regular(x), ordered = ordered,
-        interval = interval(x)
+        regular = is_regular(x), ordered = ordered, interval = interval(x)
       ))
     }
   }
@@ -80,8 +79,7 @@
   # attr(result, "row.names") <- .set_row_names(nr)
   build_tsibble_meta(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
-    groups = groups(x), regular = is_regular(x), ordered = ordered, 
-    interval = int
+    regular = is_regular(x), ordered = ordered, interval = int
   )
 }
 

@@ -123,7 +123,13 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
     warn_drop()
     return(select(as_tibble(.data), ...))
   }
-  tsibble_select(.data, ...)
+
+  lst_exprs <- enexprs(...)
+  named <- list_is_named(lst_exprs)
+  .data <- tsibble_rename(.data, !!! lst_exprs[named])
+
+  lst_exprs[named] <- names(lst_exprs)[named]
+  tsibble_select(.data, !!! lst_exprs)
 }
 
 #' @rdname tidyverse
@@ -150,9 +156,9 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   validate <- val_idx || val_key
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data),
-    index2 = !! index2(.data), groups = groups(.data),
-    regular = is_regular(.data), validate = validate,
-    ordered = is_ordered(.data), interval = interval(.data)
+    index2 = !! index2(.data), regular = is_regular(.data),
+    ordered = is_ordered(.data), interval = interval(.data), 
+    validate = validate
   )
 }
 
@@ -200,8 +206,12 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   )
   nonkey_quos <- lst_quos[nonkey]
 
-  sum_data <- group_by_index2(.data) %>%
-    summarise(!!! nonkey_quos)
+  grped_data <- group_by_index2(.data)
+  grps <- groups(grped_data)
+  len_grps <- length(grps)
+  sum_data <- grped_data %>%
+    summarise(!!! nonkey_quos) %>% 
+    group_by(!!! grps[-((len_grps - 1):len_grps)]) # remove index2 and last grp
   if (identical(idx, idx2)) {
     int <- interval(.data)
     reg <- is_regular(.data)
@@ -218,7 +228,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   new_key <- c(key_less, add_key)
 
   build_tsibble_meta(
-    sum_data, key = new_key, index = !! idx2, groups = grp_drop(grps, idx2_chr),
+    sum_data, key = new_key, index = !! idx2,
     regular = reg, ordered = TRUE, interval = int
   )
 }
@@ -239,9 +249,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(
     grped_tbl, key = key(.data), index = !! index(.data),
-    index2 = !! index2(.data), groups = groups(grped_tbl),
-    regular = is_regular(.data), ordered = is_ordered(.data),
-    interval = interval(.data)
+    index2 = !! index2(.data), regular = is_regular(.data), 
+    ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
@@ -260,9 +269,10 @@ group_by_key <- function(.tbl, .funs = list(), ...) {
 #' @rdname tidyverse
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
+  tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
-    x, key = key(x), index = !! index(x), groups = id(),
-    regular = is_regular(x), ordered = is_ordered(x), interval = interval(x)
+    tbl, key = key(x), index = !! index(x), regular = is_regular(x), 
+    ordered = is_ordered(x), interval = interval(x)
   )
 }
 

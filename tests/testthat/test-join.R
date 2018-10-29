@@ -26,7 +26,7 @@ test_that("right_join()", {
 
   grped_right <- x %>% group_by(grp) %>% right_join(y_key)
   expect_is(grped_right, "grouped_ts")
-  expect_equal(n_groups(grped_right), 1)
+  expect_equal(n_groups(grped_right), 0)
   expect_equal(group_size(grped_right), 2)
 })
 

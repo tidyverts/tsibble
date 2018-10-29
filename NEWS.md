@@ -4,7 +4,8 @@
 
 * `count_gaps()` returns a tibble with each row corresponding to each key value, to be consistent with the rest of tsibble methods.
 * `time_unit()` accepts `interval` input instead of time vectors, also marked as internal function.
-* Separate partial sliding from `slider()` and `pslider()` as new functions `partial_slider()` and `partial_pslider()`. Argument `.partial` is removed from `slider()` and `pslider()` to feature a simple interface.
+* Separate partial sliding from `slider()` and `pslider()` as new functions `partial_slider()` and `partial_pslider()`. Argument `.partial` is removed from `slider()` and `pslider()` to feature a simpler interface.
+* Removed argument `group` from `build_tsibble()`. In order to construct a grouped tsibble, `x` is expected as a grouped df.
 
 ## New features
 

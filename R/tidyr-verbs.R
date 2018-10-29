@@ -29,8 +29,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   )
   build_tsibble_meta(
     tbl, key = new_key, index = !! index(data), 
-    index2 = !! index2_update(data, vars),
-    groups = grp_update(data, vars), regular = is_regular(data), 
+    index2 = !! index2_update(data, vars), regular = is_regular(data), 
     ordered = is_ordered(data), interval = interval(data)
   )
 }
@@ -69,9 +68,8 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   vars <- names(tbl)
   build_tsibble_meta(
     tbl, key = new_key, index = !! index(data), 
-    index2 = !! index2_update(data, vars), groups = grp_update(data, vars),
-    regular = is_regular(data), ordered = is_ordered(data),
-    interval = interval(data)
+    index2 = !! index2_update(data, vars), regular = is_regular(data), 
+    ordered = is_ordered(data), interval = interval(data)
   )
 }
 

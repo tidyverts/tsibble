@@ -188,14 +188,14 @@ key_update <- function(.data, ..., validate = TRUE) {
   if (validate) {
     build_tsibble(
       .data, key = key, index = !! index(.data), index2 = !! index2(.data),
-      groups = groups(.data), regular = is_regular(.data), validate = validate,
+      regular = is_regular(.data), validate = validate,
       ordered = is_ordered(.data), interval = interval(.data)
     )
   } else {
     build_tsibble_meta(
       .data, key = key, index = !! index(.data), index2 = !! index2(.data),
-      groups = groups(.data), regular = is_regular(.data),
-      ordered = is_ordered(.data), interval = interval(.data)
+      regular = is_regular(.data), ordered = is_ordered(.data), 
+      interval = interval(.data)
     )
   }
 }
@@ -222,31 +222,39 @@ key_remove <- function(.data, .vars, validate = TRUE) {
   key_update(.data, !!! new_key, validate = validate)
 }
 
-key_rename <- function(.data, .vars) {
+rename_key <- function(.data, .vars) {
+  if (is_empty(.vars)) return(.data)
+
   # key (key of the same size (bf & af))
   old_key <- key(.data)
-  if (is_empty(old_key)) return(id())
+  if (is_empty(old_key)) {
+    attr(.data, "key") <- id()
+    return(.data)
+  }
   old_chr <- key_flatten(old_key)
-  .vars <- .vars[match(old_chr, .vars)]
   names <- names(.vars)
-  new_chr <- names[.vars %in% old_chr]
+  idx <- .vars %in% old_chr
+  names(.data)[idx] <- new_chr <- names[idx]
   lgl <- FALSE
   if (!is_empty(old_key)) {
     lgl <- rep(is_nest(old_key), map(old_key, length))
   }
   new_nest_key <- syms(new_chr[lgl])
-  reconstruct_key(
+  new_key <- reconstruct_key(
     old_key,
     ~ `[<-`(., list(new_nest_key)),
     ~ `[<-`(., syms(new_chr[!lgl]))
   )
+  attr(.data, "key") <- new_key
+  .data
 }
 
-grp_rename <- function(.data, .vars) {
+rename_group <- function(.data, .vars) {
   names <- names(.vars)
   old_grp_chr <- group_vars(.data)
-  new_grp_chr <- names[.vars %in% old_grp_chr]
-  syms(new_grp_chr)
+  idx <- .vars %in% old_grp_chr
+  names(.data)[idx] <- new_grp_chr <- names[idx]
+  group_by(.data, !!! syms(new_grp_chr))
 }
 
 # The function takes a nested key/group str, i.e. `|` sym

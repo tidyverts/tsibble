@@ -75,27 +75,36 @@ index_by.tbl_ts <- function(.data, ...) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx_chr))
   }
   # ungroup() protect the index class
-  tbl <- mutate(ungroup(.data), !!! exprs)
+  tbl <- mutate(ungroup(.data), !!! exprs) %>% 
+    group_by(!!! groups(.data))
   idx2 <- sym(expr_name)
   build_tsibble(
     tbl, key = key(.data), index = !! idx, index2 = !! idx2,
-    groups = groups(.data), regular = is_regular(.data), validate = FALSE,
+    regular = is_regular(.data), validate = FALSE,
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
 
-index_rename <- function(.data, .vars) {
+rename_index <- function(.data, .vars) {
   names <- names(.vars)
   idx_chr <- as_string(index(.data))
-  new_idx_chr <- names[idx_chr == .vars]
-  sym(new_idx_chr)
+  idx <- idx_chr == .vars
+  if (sum(idx) == 0) return(.data)
+
+  names(.data)[idx] <- new_idx_chr <- names[idx]
+  attr(.data, "index") <- sym(new_idx_chr)
+  .data
 }
 
-index2_rename <- function(.data, .vars) {
+rename_index2 <- function(.data, .vars) {
   names <- names(.vars)
-  idx_chr <- as_string(index2(.data))
-  new_idx_chr <- names[idx_chr == .vars]
-  sym(new_idx_chr)
+  idx2_chr <- as_string(index2(.data))
+  idx <- idx2_chr == .vars
+  if (sum(idx) == 0) return(.data)
+
+  names(.data)[idx] <- new_idx2_chr <- names[idx]
+  attr(.data, "index2") <- sym(new_idx2_chr)
+  .data
 }
 
 index2_update <- function(.data, .vars) {

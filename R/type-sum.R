@@ -32,7 +32,7 @@ tbl_sum.tbl_ts <- function(x) {
 #' @export
 tbl_sum.grouped_ts <- function(x) {
   n_grps <- big_mark(n_groups(x))
-  if (has_length(n_grps, 0)) {
+  if (n_grps == 0) {
     n_grps <- "?"
   }
   grps <- group_vars(x)

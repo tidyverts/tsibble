@@ -10,8 +10,8 @@ update_tsibble <- function(
 ) {
   restore_index_class(build_tsibble(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
-    groups = groups(old), regular = is_regular(old), validate = validate,
-    ordered = ordered, interval = interval
+    regular = is_regular(old), ordered = ordered, interval = interval, 
+    validate = validate
   ), old)
 }
 
@@ -63,20 +63,17 @@ tsibble_rename <- function(.data, ...) {
   val_vars <- tidyselect::vars_rename(names_dat, ...)
 
   # index
-  idx <- index_rename(.data, val_vars)
-  # index2
-  idx2 <- index2_rename(.data, val_vars)
-  attr(.data, "index2") <- idx2
-  # key (key of the same size (bf & af))
-  new_key <- key_rename(.data, val_vars)
-  # groups
-  new_grp <- grp_rename(.data, val_vars)
+  res <- .data %>% 
+    rename_index(val_vars) %>% 
+    rename_index2(val_vars) %>% 
+    rename_key(val_vars) %>% 
+    rename_group(val_vars)
+  names(res) <- names(val_vars)
 
-  names(.data) <- names(val_vars)
   build_tsibble_meta(
-    .data, key = new_key, index = !! idx, index2 = !! idx2,
-    groups = new_grp, regular = is_regular(.data),
-    ordered = is_ordered(.data), interval = interval(.data)
+    res, key = key(res), index = !! index(res), index2 = !! index2(res),
+    regular = is_regular(res), ordered = is_ordered(res), 
+    interval = interval(res)
   )
 }
 
@@ -86,16 +83,10 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   sel_data <- select(as_tibble(.data), !!! val_vars)
   
-  # index
-  idx <- index_rename(.data, val_vars)
-  # index2
-  idx2 <- index2_rename(.data, val_vars)
   # key (key of the reduced size (bf & af) but also different names)
-  key_vars <- val_vars[val_vars %in% key_vars(.data)]
-  tmp_data <- key_remove(.data, key_vars, validate = FALSE)
-  new_key <- key_rename(tmp_data, key_vars)
-  # groups
-  new_grp <- grp_rename(.data, val_vars)
+  key_vars <- syms(val_vars[val_vars %in% key_vars(.data)])
+  # tmp_data <- key_remove(.data, key_vars, validate = FALSE)
+  # new_key <- key(tmp_data)
   
   if (validate) {
     vec_names <- union(names(val_vars), names(.data))
@@ -109,8 +100,8 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   }
   
   build_tsibble(
-    sel_data, key = new_key, index = !! idx, index2 = !! idx2,
-    groups = new_grp, regular = is_regular(.data), validate = validate, 
+    sel_data, key = key_vars, index = !! index(.data), index2 = !! index2(.data),
+    regular = is_regular(.data), validate = validate, 
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
