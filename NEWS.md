@@ -9,6 +9,7 @@
 ## New features
 
 * Added new S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
+* An empty tsibble will not raise an error and is valid.
 
 ## Bug fixes
 

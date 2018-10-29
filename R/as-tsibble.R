@@ -39,9 +39,6 @@
 #' @export
 tsibble <- function(..., key = id(), index, regular = TRUE) {
   dots <- list2(...)
-  if (is_empty(dots)) {
-    abort("A tsibble must not be empty.")
-  }
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
   }
@@ -379,10 +376,8 @@ build_tsibble_meta <- function(
   x, key, index, index2, groups = id(), regular = TRUE, ordered = NULL, 
   interval = NULL
 ) {
-  if (NROW(x) == 0 || has_length(x[[1]], 0)) { # no elements or length of 0
-    abort("A tsibble must not be empty.")
-  }
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
+
   key <- eval_tidy(enquo(key))
   index <- get_expr(enquo(index))
   index2 <- enquo(index2)
@@ -392,8 +387,27 @@ build_tsibble_meta <- function(
     index2 <- get_expr(index2)
   }
   tbl <- ungroup(as_tibble(x))
+
+  if (NROW(x) == 0) {
+    if (is_false(regular)) {
+      interval <- irregular()
+    } else {
+      interval <- init_interval()
+    }
+    return(set_tsibble_class(
+      group_by(tbl, !!! groups),
+      "key" = structure(key, class = "key"),
+      # "key_indices" = attr(grped_key, "indices"),
+      "index" = index,
+      "index2" = index2,
+      "interval" = interval,
+      "regular" = regular,
+      "ordered" = TRUE
+    ))
+  }
+
   if (is_false(regular)) {
-    interval <- list()
+    interval <- irregular()
   } else if (regular && is.null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
     interval <- pull_interval(eval_idx)
@@ -421,19 +435,6 @@ build_tsibble_meta <- function(
   } # true do nothing
 
   idx_lgl <- identical(index, index2)
-  if (is_empty(groups) && idx_lgl) {
-    return(set_tsibble_class(
-      tbl,
-      "key" = structure(key, class = "key"),
-      # "key_indices" = attr(grped_key, "indices"),
-      "index" = index,
-      "index2" = index2,
-      "interval" = structure(interval, class = "interval"),
-      "regular" = regular,
-      "ordered" = ordered
-    ))
-  }
-
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (idx_lgl) {
@@ -449,8 +450,7 @@ build_tsibble_meta <- function(
     "index2" = index2,
     "interval" = structure(interval, class = "interval"),
     "regular" = regular,
-    "ordered" = ordered,
-    subclass = "grouped_ts"
+    "ordered" = ordered
   )
 }
 
@@ -638,11 +638,15 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   # not handling time zone correctly for duplicated.data.frame
 }
 
-set_tsibble_class <- function(x, ..., subclass = NULL) {
+set_tsibble_class <- function(x, ...) {
   attribs <- list(...)
   attributes(x)[names(attribs)] <- attribs
   attr(x, "row.names") <- .set_row_names(NROW(x))
-  class(x) <- c(subclass, "tbl_ts", "tbl_df", "tbl", "data.frame")
+  if (is_empty(groups(x))) {
+    class(x) <- c("tbl_ts", "tbl_df", "tbl", "data.frame")
+  } else {
+    class(x) <- c("grouped_ts", "tbl_ts", "tbl_df", "tbl", "data.frame")
+  }
   x
 }
 

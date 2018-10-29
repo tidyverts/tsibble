@@ -10,8 +10,8 @@ dat_x <- tibble(
   value = rnorm(5)
 )
 
-test_that("A tsibble cannot be empty", {
-  expect_error(tsibble(), "empty")
+test_that("A tsibble cannot be NULL or without index", {
+  expect_error(tsibble(), "Can't determine the index")
   expect_error(as_tsibble(), "NULL")
 })
 

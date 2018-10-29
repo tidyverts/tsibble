@@ -11,6 +11,8 @@ globalVariables(".")
 #' @rdname fill-na
 #' @export
 fill_na <- function(.data, ...) {
+  if (NROW(.data) == 0L || NROW(.data) == 1L) return(.data)
+    
   UseMethod("fill_na")
 }
 
@@ -61,7 +63,7 @@ fill_na.data.frame <- function(.data, ...) {
 #' @export
 fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   not_regular(.data)
-  unknown_interval(int <- interval(.data))
+  int <- interval(.data)
   idx <- index(.data)
   idx_chr <- as_string(idx)
   key <- key(.data)

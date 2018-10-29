@@ -35,7 +35,7 @@ count_gaps <- function(.data, ...) {
 #'   theme(legend.position = "bottom")
 count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
-  unknown_interval(int <- interval(.data))
+  int <- interval(.data)
 
   idx <- index(.data)
   grped_tbl <- grped_df_by_key(.data)
@@ -69,6 +69,8 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' has_gaps(harvest)
 #' has_gaps(harvest, .full = TRUE)
 has_gaps <- function(.data, ...) {
+  if (NROW(.data) == 0L || NROW(.data) == 1L) return(FALSE)
+    
   UseMethod("has_gaps")
 }
 
@@ -76,7 +78,7 @@ has_gaps <- function(.data, ...) {
 #' @export
 has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
-  unknown_interval(int <- interval(.data))
+  int <- interval(.data)
   idx <- index(.data)
   grped_tbl <- grped_df_by_key(.data)
   if (.full) {

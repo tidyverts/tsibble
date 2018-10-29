@@ -112,6 +112,9 @@ bool is_ascending(IntegerVector x) {
 
 // [[Rcpp::export]]
 bool is_min_gap_one(NumericVector x) {
+  if (x.size() == 0) {
+    return false;
+  }
   std::sort(x.begin(), x.end());
   NumericVector y = diff(x);
   NumericVector::iterator it;

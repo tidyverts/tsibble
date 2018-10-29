@@ -19,7 +19,7 @@
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 #' pull_interval(x)
 pull_interval <- function(x) {
-  if (has_length(x, 1)) {
+  if (has_length(x, 1L) || has_length(x, 0L)) {
     return(init_interval())
   }
   UseMethod("pull_interval")
@@ -171,6 +171,10 @@ init_interval <- function(
     millisecond = millisecond, microsecond = microsecond, 
     nanosecond = nanosecond, unit = unit
   ), class = "interval")
+}
+
+irregular <- function() {
+  structure(list(), class = "interval")
 }
 
 #' Extract time unit from a vector

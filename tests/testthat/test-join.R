@@ -60,5 +60,5 @@ test_that("anti_join()", {
   expect_equal(dim(anti), c(2, 2))
   expect_identical(key(x), key(anti))
   expect_identical(index(x), index(anti))
-  expect_error(x %>% anti_join(z), "empty")
+  expect_identical(x %>% anti_join(z), x[0, ])
 })
