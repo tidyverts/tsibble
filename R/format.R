@@ -7,11 +7,11 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #' @export
 glimpse.tbl_ts <- function(x, width = NULL, ...) {
   idx <- index(x)
-  t_span <- paste(range(dplyr::pull(x, !! idx), na.rm = TRUE), collapse = " ~ ")
+  t_span <- paste(range(dplyr::pull(x, !! idx)), collapse = " ~ ")
   cat_line(t_span)
   build_tsibble_meta(
     NextMethod(), key = key(x), index = !! idx, index2 = !! index2(x), 
-    groups = groups(x), ordered = is_ordered(x), regular = is_regular(x)
+    ordered = is_ordered(x), regular = is_regular(x)
   )
   invisible(x)
 }
