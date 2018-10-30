@@ -190,8 +190,22 @@ group_indices.grouped_ts <- function(.data, ...) {
 #'
 #' @rdname measured-vars
 #' @examples
+#' measures(pedestrian)
+#' measures(tourism)
+#'
 #' measured_vars(pedestrian)
 #' measured_vars(tourism)
+#' @export
+measures <- function(x) {
+  UseMethod("measures")
+}
+
+#' @export
+measures.tbl_ts <- function(x) {
+  syms(measured_vars(x))
+}
+
+#' @rdname measured-vars
 #' @export
 measured_vars <- function(x) {
   UseMethod("measured_vars")

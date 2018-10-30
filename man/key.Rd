@@ -3,14 +3,11 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
-\alias{unkey}
 \title{Return key variables}
 \usage{
 key(x)
 
 key_vars(x)
-
-unkey(x)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -24,8 +21,4 @@ key_vars(pedestrian)
 
 key(tourism)
 key_vars(tourism)
-# unkey() only works for a tsibble with 1 key size ----
-sx <- pedestrian \%>\%
-  filter(Sensor == "Southern Cross Station")
-unkey(sx)
 }

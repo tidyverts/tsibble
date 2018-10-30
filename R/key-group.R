@@ -47,26 +47,30 @@ key_vars.tbl_ts <- function(x) {
   map_chr(key(x), as_string)
 }
 
-#' @rdname key
+#' Change key variables for a given `tbl_ts`
+#'
+#' @param .data A `tbl_ts`.
+#' @param ... Variables to construct the key.
+#'
 #' @export
 #' @examples
-#' # unkey() only works for a tsibble with 1 key size ----
-#' sx <- pedestrian %>%
-#'   filter(Sensor == "Southern Cross Station")
-#' unkey(sx)
-unkey <- function(x) {
-  UseMethod("unkey")
+#' # By removing `State` from key, it is a valid tsibble too.
+#' tourism %>%
+#'   key_by(Region, Purpose)
+key_by <- function(.data, ...) {
+  UseMethod("key_by")
 }
 
 #' @export
-unkey.tbl_ts <- function(x) {
-  nkey <- n_keys(x)
-  if (nkey < 2 || nkey == NROW(x)) {
-    attr(x, "key") <- id()
-    x
-  } else {
-    abort("Can't apply to a tsibble of more than 1 key size.")
-  }
+key_by.tbl_ts <- function(.data, ...) {
+  exprs <- enexprs(...)
+  key <- validate_key(.data, exprs)
+  validate <- !all(is.element(key(.data), key))
+  build_tsibble(
+    .data, key = key, index = !! index(.data), index2 = !! index2(.data),
+    regular = is_regular(.data), ordered = is_ordered(.data), 
+    interval = interval(.data), validate = validate
+  )
 }
 
 #' Compute sizes of key variables

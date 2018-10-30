@@ -2,18 +2,29 @@ Type: Package
 Package: tsibble
 Title: Tidy Temporal Data Frames and Tools
 Version: 0.5.3.9000
-Date: 2018-10-10
-Authors@R: c(
-    person("Earo", "Wang", email = "earo.wang@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6448-5260")),
-    person("Di", "Cook", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-3813-7155")),
-    person("Rob", "Hyndman", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2140-5352")),
-    person("Mitchell", "O'Hara-Wild", role = c("ctb"))
-    )
-Description: Provides a 'tbl_ts' class (the 'tsibble') to store and manage
-    temporal-context data in a data-centric format, which is built on top of
-    the 'tibble'. The 'tsibble' aims at easily manipulating and analysing temporal 
-    data, including counting and filling time gaps, aggregate over calendar periods, 
-    performing rolling window calculations, and etc.
+Authors@R: 
+    c(person(given = "Earo",
+             family = "Wang",
+             role = c("aut", "cre"),
+             email = "earo.wang@gmail.com",
+             comment = c(ORCID = "0000-0001-6448-5260")),
+      person(given = "Di",
+             family = "Cook",
+             role = c("aut", "ths"),
+             comment = c(ORCID = "0000-0002-3813-7155")),
+      person(given = "Rob",
+             family = "Hyndman",
+             role = c("aut", "ths"),
+             comment = c(ORCID = "0000-0002-2140-5352")),
+      person(given = "Mitchell",
+             family = "O'Hara-Wild",
+             role = "ctb"))
+Description: Provides a 'tbl_ts' class (the 'tsibble') to store
+    and manage temporal-context data in a data-centric format, which is
+    built on top of the 'tibble'. The 'tsibble' aims at easily
+    manipulating and analysing temporal data, including counting and
+    filling time gaps, aggregate over calendar periods, performing rolling
+    window calculations, and etc.
 License: GPL-3
 URL: https://pkg.earo.me/tsibble
 BugReports: https://github.com/tidyverts/tsibble/issues
@@ -43,11 +54,13 @@ Suggests:
     timeDate
 LinkingTo: 
     Rcpp (>= 0.12.0)
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
+Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate',
+    'namespace'))
 RoxygenNote: 6.1.0
 Collate: 
     'RcppExports.R'
