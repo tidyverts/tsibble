@@ -19,10 +19,10 @@
     <loc>https://pkg.earo.me/tsibble/reference/build_tsibble.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/case_na.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/deprecated.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/difference.html</loc>
@@ -70,16 +70,19 @@
     <loc>https://pkg.earo.me/tsibble/reference/key.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/key_sum.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/key_by.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/key_update.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/key_sum.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/measured-vars.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/new_interval.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/partial-slider.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/pedestrian.html</loc>
@@ -104,9 +107,6 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/slider.html</loc>
-  </url>
-  <url>
-    <loc>https://pkg.earo.me/tsibble/reference/split-by.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/stretch.html</loc>

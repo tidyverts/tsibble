@@ -41,7 +41,7 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 \description{
 \itemize{
 \item \code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful
-for creating a \code{tbl_ts} internally inside a function, and it allows users to
+for creating a \code{tbl_ts} internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating.
 \item \code{build_tsibble_meta()} assigns the attributes to an object, assuming this
 object is a valid tsibble.

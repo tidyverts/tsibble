@@ -151,6 +151,46 @@ rename_key <- function(.data, .vars) {
   .data
 }
 
+#' @export
+groups.tbl_ts <- function(x) {
+  NULL
+}
+
+#' @export
+groups.grouped_ts <- function(x) {
+  res <- as_grouped_df(x)
+  groups(res)
+}
+
+#' @export
+group_vars.tbl_ts <- function(x) {
+  character(0L)
+}
+
+#' @export
+group_vars.grouped_ts <- function(x) {
+  res <- as_grouped_df(x)
+  group_vars(res)
+}
+
+#' @export
+group_size.grouped_ts <- function(x) {
+  res <- as_grouped_df(x)
+  group_size(res)
+}
+
+#' @export
+n_groups.tbl_ts <- function(x) {
+  res <- as_grouped_df(x)
+  n_groups(res)
+}
+
+#' @export
+group_indices.grouped_ts <- function(.data, ...) {
+  res <- as_grouped_df(.data)
+  group_indices(res)
+}
+
 rename_group <- function(.data, .vars) {
   names <- names(.vars)
   old_grp_chr <- group_vars(.data)

@@ -144,46 +144,6 @@ as_tsibble.NULL <- function(x, ...) {
   abort("A tsibble must not be NULL.")
 }
 
-#' @export
-groups.tbl_ts <- function(x) {
-  NULL
-}
-
-#' @export
-groups.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  groups(res)
-}
-
-#' @export
-group_vars.tbl_ts <- function(x) {
-  character(0L)
-}
-
-#' @export
-group_vars.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  group_vars(res)
-}
-
-#' @export
-group_size.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  group_size(res)
-}
-
-#' @export
-n_groups.tbl_ts <- function(x) {
-  res <- as_grouped_df(x)
-  n_groups(res)
-}
-
-#' @export
-group_indices.grouped_ts <- function(.data, ...) {
-  res <- as_grouped_df(.data)
-  group_indices(res)
-}
-
 #' Return measured variables
 #'
 #' @param x A `tbl_ts`.
@@ -314,7 +274,7 @@ is.grouped_ts <- is_grouped_ts
 #' Low-level constructor to a tsibble object
 #'
 #' * `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful
-#' for creating a `tbl_ts` internally inside a function, and it allows users to
+#' for creating a `tbl_ts` internally inside a function, and it allows developers to
 #' determine if the time needs ordering and the interval needs calculating.
 #' * `build_tsibble_meta()` assigns the attributes to an object, assuming this
 #' object is a valid tsibble.
@@ -592,7 +552,7 @@ use_id <- function(x, key) {
   abort(suggest_key(as_string(key_expr)))
 }
 
-#' Find duplication of key and index variables
+#' Find duplicates of key and index variables
 #'
 #' Find which row has duplicated key and index elements
 #'

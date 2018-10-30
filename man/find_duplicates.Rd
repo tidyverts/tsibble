@@ -2,7 +2,7 @@
 % Please edit documentation in R/as-tsibble.R
 \name{find_duplicates}
 \alias{find_duplicates}
-\title{Find duplication of key and index variables}
+\title{Find duplicates of key and index variables}
 \usage{
 find_duplicates(data, key = id(), index, fromLast = FALSE)
 }

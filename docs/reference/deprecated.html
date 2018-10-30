@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pedestrian counts in the city of Melbourne — pedestrian • tsibble</title>
+<title>Split a data frame into a list of subsets by variables — split_by • tsibble</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
@@ -38,10 +38,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Pedestrian counts in the city of Melbourne — pedestrian" />
+<meta property="og:title" content="Split a data frame into a list of subsets by variables — split_by" />
 
-<meta property="og:description" content="A dataset containing the hourly pedestrian counts from 2015-01-01 to
-2016-12-31 at 4 sensors in the city of Melbourne." />
+<meta property="og:description" content="Split a data frame into a list of subsets by variables
+A thin wrapper of dplyr::case_when() if there are NAs" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -137,40 +137,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pedestrian counts in the city of Melbourne</h1>
+    <h1>Split a data frame into a list of subsets by variables</h1>
     
-    <div class="hidden name"><code>pedestrian.Rd</code></div>
+    <div class="hidden name"><code>deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A dataset containing the hourly pedestrian counts from 2015-01-01 to
-2016-12-31 at 4 sensors in the city of Melbourne.</p>
+    <p>Split a data frame into a list of subsets by variables</p>
+<p>A thin wrapper of <code><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when()</a></code> if there are <code>NA</code>s</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>pedestrian</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <pre class="usage"><span class='fu'>split_by</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-    <p>A tsibble with 66,071 rows and 5 variables:</p><ul>
-<li><p><strong>Sensor</strong>: Sensor names (key)</p></li>
-<li><p><strong>Date_Time</strong>: Date time when the pedestrian counts are recorded (index)</p></li>
-<li><p><strong>Date</strong>: Date when the pedestrian counts are recorded</p></li>
-<li><p><strong>Time</strong>: Hour associated with Date_Time</p></li>
-<li><p><strong>Counts</strong>: Hourly pedestrian counts</p></li>
-</ul>
+<span class='fu'>case_na</span>(<span class='no'>formula</span>)
+
+<span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>A list of unquoted variables, separated by commas, to split a dataset.</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p>A two-sided formula. The LHS expects a vector containing <code>NA</code>,
+and the RHS gives the replacement value.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp'>Melbourne Open Data Portal</a></p>
+    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
-<span class='co'># make implicit missingness to be explicit ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='fill-na.html'>fill_na</a></span>()</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h]
-#&gt; # Key:       Sensor [4]
+    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>split_by</span>(<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span>
+#&gt; <span class='warning'>Please use `split()` instead.</span></div><div class='output co'>#&gt; [[1]]
+#&gt; # A tsibble: 14,566 x 5 [1h]
+#&gt; # Key:       Sensor [1]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
@@ -183,33 +196,70 @@
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 69,038 more rows</div><div class='input'><span class='co'># compute daily maximum counts across sensors ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 2,752 x 3 [1D]
-#&gt; # Key:       Sensor [4]
-#&gt;    Sensor         Date        MaxC
-#&gt;    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt;
-#&gt;  1 Birrarung Marr 2015-01-01  1630
-#&gt;  2 Birrarung Marr 2015-01-02   352
-#&gt;  3 Birrarung Marr 2015-01-03   226
-#&gt;  4 Birrarung Marr 2015-01-04   852
-#&gt;  5 Birrarung Marr 2015-01-05  1427
-#&gt;  6 Birrarung Marr 2015-01-06   937
-#&gt;  7 Birrarung Marr 2015-01-07   708
-#&gt;  8 Birrarung Marr 2015-01-08   568
-#&gt;  9 Birrarung Marr 2015-01-09  1629
-#&gt; 10 Birrarung Marr 2015-01-10  2439
-#&gt; # ... with 2,742 more rows</div></pre>
+#&gt; # ... with 14,556 more rows
+#&gt; 
+#&gt; [[2]]
+#&gt; # A tsibble: 16,414 x 5 [1h]
+#&gt; # Key:       Sensor [1]
+#&gt;    Sensor                     Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;                      &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Bourke Street Mall (North) 2015-02-17 00:00:00 2015-02-17     0    61
+#&gt;  2 Bourke Street Mall (North) 2015-02-17 01:00:00 2015-02-17     1    16
+#&gt;  3 Bourke Street Mall (North) 2015-02-17 02:00:00 2015-02-17     2    15
+#&gt;  4 Bourke Street Mall (North) 2015-02-17 03:00:00 2015-02-17     3    17
+#&gt;  5 Bourke Street Mall (North) 2015-02-17 04:00:00 2015-02-17     4     9
+#&gt;  6 Bourke Street Mall (North) 2015-02-17 05:00:00 2015-02-17     5    25
+#&gt;  7 Bourke Street Mall (North) 2015-02-17 06:00:00 2015-02-17     6    88
+#&gt;  8 Bourke Street Mall (North) 2015-02-17 07:00:00 2015-02-17     7   279
+#&gt;  9 Bourke Street Mall (North) 2015-02-17 08:00:00 2015-02-17     8   770
+#&gt; 10 Bourke Street Mall (North) 2015-02-17 09:00:00 2015-02-17     9   722
+#&gt; # ... with 16,404 more rows
+#&gt; 
+#&gt; [[3]]
+#&gt; # A tsibble: 17,518 x 5 [1h]
+#&gt; # Key:       Sensor [1]
+#&gt;    Sensor                        Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490
+#&gt;  2 QV Market-Elizabeth St (West) 2015-01-01 01:00:00 2015-01-01     1   397
+#&gt;  3 QV Market-Elizabeth St (West) 2015-01-01 02:00:00 2015-01-01     2   247
+#&gt;  4 QV Market-Elizabeth St (West) 2015-01-01 03:00:00 2015-01-01     3   172
+#&gt;  5 QV Market-Elizabeth St (West) 2015-01-01 04:00:00 2015-01-01     4   128
+#&gt;  6 QV Market-Elizabeth St (West) 2015-01-01 05:00:00 2015-01-01     5    66
+#&gt;  7 QV Market-Elizabeth St (West) 2015-01-01 06:00:00 2015-01-01     6    72
+#&gt;  8 QV Market-Elizabeth St (West) 2015-01-01 07:00:00 2015-01-01     7    69
+#&gt;  9 QV Market-Elizabeth St (West) 2015-01-01 08:00:00 2015-01-01     8   106
+#&gt; 10 QV Market-Elizabeth St (West) 2015-01-01 09:00:00 2015-01-01     9   217
+#&gt; # ... with 17,508 more rows
+#&gt; 
+#&gt; [[4]]
+#&gt; # A tsibble: 17,539 x 5 [1h]
+#&gt; # Key:       Sensor [1]
+#&gt;    Sensor                 Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746
+#&gt;  2 Southern Cross Station 2015-01-01 01:00:00 2015-01-01     1   312
+#&gt;  3 Southern Cross Station 2015-01-01 02:00:00 2015-01-01     2   180
+#&gt;  4 Southern Cross Station 2015-01-01 03:00:00 2015-01-01     3   133
+#&gt;  5 Southern Cross Station 2015-01-01 04:00:00 2015-01-01     4    44
+#&gt;  6 Southern Cross Station 2015-01-01 05:00:00 2015-01-01     5    16
+#&gt;  7 Southern Cross Station 2015-01-01 06:00:00 2015-01-01     6    13
+#&gt;  8 Southern Cross Station 2015-01-01 07:00:00 2015-01-01     7    21
+#&gt;  9 Southern Cross Station 2015-01-01 08:00:00 2015-01-01     8    39
+#&gt; 10 Southern Cross Station 2015-01-01 09:00:00 2015-01-01     9    36
+#&gt; # ... with 17,529 more rows
+#&gt; </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
+<span class='no'>x</span>[<span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>7</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA_real_</span>
+<span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124 10.00000000  0.78646286 -0.57894525 -0.14542689
+#&gt;  [7] 10.00000000  1.73357811  1.44865722  1.51819315</div><div class='input'><span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124  0.53064554  0.78646286 -0.57894525 -0.14542689
+#&gt;  [7]  0.53064554  1.73357811  1.44865722  1.51819315</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#references">References</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -76,11 +76,11 @@ reference:
   contents:
     - key
     - key_size
-    - key_update
+    - key_by
     - key_sum
     - id
     - index
-    - measured_vars
+    - measures
     - interval
     - new_interval
     - is_regular
@@ -118,7 +118,7 @@ navbar:
     menu:
     - text: Introduction to tsibble
       href: articles/intro-tsibble.html
-    - text: Windown functions
+    - text: Window functions
       href: articles/window.html
   - text: News
     href: news/index.html
