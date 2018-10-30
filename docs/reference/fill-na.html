@@ -186,109 +186,109 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 )
 
 <span class='co'># leave NA as is ----</span>
-<span class='fu'>fill_na</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1Y]
-#&gt; # Key:       fruit [2]
+<span class='fu'>fill_na</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 10 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
 #&gt;     year fruit   kilo
-#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt;  1  2010 cherry    NA
-#&gt;  2  2011 cherry     1
-#&gt;  3  2012 cherry     3
-#&gt;  4  2013 cherry    NA
-#&gt;  5  2014 cherry     6
-#&gt;  6  2010 kiwi       8
-#&gt;  7  2011 kiwi       4
-#&gt;  8  2012 kiwi      NA
-#&gt;  9  2013 kiwi      10
-#&gt; 10  2014 kiwi      NA</div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_na</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>full_harvest</span></div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
+#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m  [4m2[24m010 cherry    [31mNA[39m
+#&gt; [38;5;250m 2[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m 3[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m 4[39m  [4m2[24m013 cherry    [31mNA[39m
+#&gt; [38;5;250m 5[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m 6[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m 7[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m 8[39m  [4m2[24m012 kiwi      [31mNA[39m
+#&gt; [38;5;250m 9[39m  [4m2[24m013 kiwi      10
+#&gt; [38;5;250m10[39m  [4m2[24m014 kiwi      [31mNA[39m</div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_na</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>full_harvest</span></div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
 #&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     1
-#&gt; 2  2012 cherry     3
-#&gt; 3  2013 cherry    NA
-#&gt; 4  2014 cherry     6
-#&gt; 5  2010 kiwi       8
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi      NA
-#&gt; 8  2013 kiwi      10</div><div class='input'>
+#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m2[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m3[39m  [4m2[24m013 cherry    [31mNA[39m
+#&gt; [38;5;250m4[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m5[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m6[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m7[39m  [4m2[24m012 kiwi      [31mNA[39m
+#&gt; [38;5;250m8[39m  [4m2[24m013 kiwi      10</div><div class='input'>
 <span class='co'># use fill() to fill `NA` by previous/next entry</span>
 <span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
-#&gt; # Groups:    fruit [2]
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
+#&gt; [38;5;246m# Groups:    fruit [2][39m
 #&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     1
-#&gt; 2  2012 cherry     3
-#&gt; 3  2013 cherry     3
-#&gt; 4  2014 cherry     6
-#&gt; 5  2010 kiwi       8
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi       4
-#&gt; 8  2013 kiwi      10</div><div class='input'>
+#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m2[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m3[39m  [4m2[24m013 cherry     3
+#&gt; [38;5;250m4[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m5[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m6[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m7[39m  [4m2[24m012 kiwi       4
+#&gt; [38;5;250m8[39m  [4m2[24m013 kiwi      10</div><div class='input'>
 <span class='co'># replace NA with a specific value ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
+  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
 #&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     1
-#&gt; 2  2012 cherry     3
-#&gt; 3  2013 cherry     0
-#&gt; 4  2014 cherry     6
-#&gt; 5  2010 kiwi       8
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi       0
-#&gt; 8  2013 kiwi      10</div><div class='input'>
+#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m2[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m3[39m  [4m2[24m013 cherry     0
+#&gt; [38;5;250m4[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m5[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m6[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m7[39m  [4m2[24m012 kiwi       0
+#&gt; [38;5;250m8[39m  [4m2[24m013 kiwi      10</div><div class='input'>
 <span class='co'># replace NA using a function by variable ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
+  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
 #&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     1
-#&gt; 2  2012 cherry     3
-#&gt; 3  2013 cherry    10
-#&gt; 4  2014 cherry     6
-#&gt; 5  2010 kiwi       8
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi      10
-#&gt; 8  2013 kiwi      10</div><div class='input'>
+#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m2[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m3[39m  [4m2[24m013 cherry    10
+#&gt; [38;5;250m4[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m5[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m6[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m7[39m  [4m2[24m012 kiwi      10
+#&gt; [38;5;250m8[39m  [4m2[24m013 kiwi      10</div><div class='input'>
 <span class='co'># replace NA using a function for each group ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
+  <span class='fu'>fill_na</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1Y][39m
+#&gt; [38;5;246m# Key:       fruit [2][39m
 #&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     1
-#&gt; 2  2012 cherry     3
-#&gt; 3  2013 cherry    10
-#&gt; 4  2014 cherry     6
-#&gt; 5  2010 kiwi       8
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi      22
-#&gt; 8  2013 kiwi      10</div><div class='input'>
+#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m  [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m011 cherry     1
+#&gt; [38;5;250m2[39m  [4m2[24m012 cherry     3
+#&gt; [38;5;250m3[39m  [4m2[24m013 cherry    10
+#&gt; [38;5;250m4[39m  [4m2[24m014 cherry     6
+#&gt; [38;5;250m5[39m  [4m2[24m010 kiwi       8
+#&gt; [38;5;250m6[39m  [4m2[24m011 kiwi       4
+#&gt; [38;5;250m7[39m  [4m2[24m012 kiwi      22
+#&gt; [38;5;250m8[39m  [4m2[24m013 kiwi      10</div><div class='input'>
 <span class='co'># replace NA ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_na</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'>as.integer</span>(<span class='fu'>median</span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h]
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>fill_na</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'>as.integer</span>(<span class='fu'>median</span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 69,048 x 5 [1h][39m
+#&gt; [38;5;246m# Key:       Sensor [4][39m
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 69,038 more rows</div></pre>
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m          [3m[38;5;246m&lt;dttm&gt;[39m[23m              [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m Birrarung Marr 2015-01-01 [38;5;246m00:00:00[39m 2015-01-01     0  [4m1[24m630
+#&gt; [38;5;250m 2[39m Birrarung Marr 2015-01-01 [38;5;246m01:00:00[39m 2015-01-01     1   826
+#&gt; [38;5;250m 3[39m Birrarung Marr 2015-01-01 [38;5;246m02:00:00[39m 2015-01-01     2   567
+#&gt; [38;5;250m 4[39m Birrarung Marr 2015-01-01 [38;5;246m03:00:00[39m 2015-01-01     3   264
+#&gt; [38;5;250m 5[39m Birrarung Marr 2015-01-01 [38;5;246m04:00:00[39m 2015-01-01     4   139
+#&gt; [38;5;250m 6[39m Birrarung Marr 2015-01-01 [38;5;246m05:00:00[39m 2015-01-01     5    77
+#&gt; [38;5;250m 7[39m Birrarung Marr 2015-01-01 [38;5;246m06:00:00[39m 2015-01-01     6    44
+#&gt; [38;5;250m 8[39m Birrarung Marr 2015-01-01 [38;5;246m07:00:00[39m 2015-01-01     7    56
+#&gt; [38;5;250m 9[39m Birrarung Marr 2015-01-01 [38;5;246m08:00:00[39m 2015-01-01     8   113
+#&gt; [38;5;250m10[39m Birrarung Marr 2015-01-01 [38;5;246m09:00:00[39m 2015-01-01     9   166
+#&gt; [38;5;246m# ... with 69,038 more rows[39m</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

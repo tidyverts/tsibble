@@ -235,32 +235,32 @@ daily.</p></td>
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; [38;5;246m# A tsibble: 10 x 2 [1D][39m
 #&gt;    date        value
-#&gt;    &lt;date&gt;      &lt;dbl&gt;
-#&gt;  1 2017-01-01 -1.82 
-#&gt;  2 2017-01-02 -0.247
-#&gt;  3 2017-01-03 -0.244
-#&gt;  4 2017-01-04 -0.283
-#&gt;  5 2017-01-05 -0.554
-#&gt;  6 2017-01-06  0.629
-#&gt;  7 2017-01-07  2.07 
-#&gt;  8 2017-01-08 -1.63 
-#&gt;  9 2017-01-09  0.512
-#&gt; 10 2017-01-10 -1.86 </div><div class='input'><span class='co'># specify the index var</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+#&gt;    [3m[38;5;246m&lt;date&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017-01-01 -[31m1[39m[31m.[39m[31m82[39m 
+#&gt; [38;5;250m 2[39m 2017-01-02 -[31m0[39m[31m.[39m[31m247[39m
+#&gt; [38;5;250m 3[39m 2017-01-03 -[31m0[39m[31m.[39m[31m244[39m
+#&gt; [38;5;250m 4[39m 2017-01-04 -[31m0[39m[31m.[39m[31m283[39m
+#&gt; [38;5;250m 5[39m 2017-01-05 -[31m0[39m[31m.[39m[31m554[39m
+#&gt; [38;5;250m 6[39m 2017-01-06  0.629
+#&gt; [38;5;250m 7[39m 2017-01-07  2.07 
+#&gt; [38;5;250m 8[39m 2017-01-08 -[31m1[39m[31m.[39m[31m63[39m 
+#&gt; [38;5;250m 9[39m 2017-01-09  0.512
+#&gt; [38;5;250m10[39m 2017-01-10 -[31m1[39m[31m.[39m[31m86[39m </div><div class='input'><span class='co'># specify the index var</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 10 x 2 [1D][39m
 #&gt;    date        value
-#&gt;    &lt;date&gt;      &lt;dbl&gt;
-#&gt;  1 2017-01-01 -1.82 
-#&gt;  2 2017-01-02 -0.247
-#&gt;  3 2017-01-03 -0.244
-#&gt;  4 2017-01-04 -0.283
-#&gt;  5 2017-01-05 -0.554
-#&gt;  6 2017-01-06  0.629
-#&gt;  7 2017-01-07  2.07 
-#&gt;  8 2017-01-08 -1.63 
-#&gt;  9 2017-01-09  0.512
-#&gt; 10 2017-01-10 -1.86 </div><div class='input'>
+#&gt;    [3m[38;5;246m&lt;date&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017-01-01 -[31m1[39m[31m.[39m[31m82[39m 
+#&gt; [38;5;250m 2[39m 2017-01-02 -[31m0[39m[31m.[39m[31m247[39m
+#&gt; [38;5;250m 3[39m 2017-01-03 -[31m0[39m[31m.[39m[31m244[39m
+#&gt; [38;5;250m 4[39m 2017-01-04 -[31m0[39m[31m.[39m[31m283[39m
+#&gt; [38;5;250m 5[39m 2017-01-05 -[31m0[39m[31m.[39m[31m554[39m
+#&gt; [38;5;250m 6[39m 2017-01-06  0.629
+#&gt; [38;5;250m 7[39m 2017-01-07  2.07 
+#&gt; [38;5;250m 8[39m 2017-01-08 -[31m1[39m[31m.[39m[31m63[39m 
+#&gt; [38;5;250m 9[39m 2017-01-09  0.512
+#&gt; [38;5;250m10[39m 2017-01-10 -[31m1[39m[31m.[39m[31m86[39m </div><div class='input'>
 <span class='co'># coerce tibble to tsibble with one key ----</span>
 <span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
@@ -268,152 +268,152 @@ daily.</p></td>
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Column `mth` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
-#&gt; # Key:       group [3]
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Column `mth` is the index.</span></div><div class='output co'>#&gt; [38;5;246m# A tsibble: 30 x 3 [1M][39m
+#&gt; [38;5;246m# Key:       group [3][39m
 #&gt;         mth group   value
-#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2017 Jan x     -0.522 
-#&gt;  2 2017 Feb x     -0.0526
-#&gt;  3 2017 Mar x      0.543 
-#&gt;  4 2017 Apr x     -0.914 
-#&gt;  5 2017 May x      0.468 
-#&gt;  6 2017 Jun x      0.363 
-#&gt;  7 2017 Jul x     -1.30  
-#&gt;  8 2017 Aug x      0.738 
-#&gt;  9 2017 Sep x      1.89  
-#&gt; 10 2017 Oct x     -0.0974
-#&gt; # ... with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
-#&gt; # Key:       group [3]
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m   [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017 Jan x     -[31m0[39m[31m.[39m[31m522[39m 
+#&gt; [38;5;250m 2[39m 2017 Feb x     -[31m0[39m[31m.[39m[31m0[39m[31m52[4m6[24m[39m
+#&gt; [38;5;250m 3[39m 2017 Mar x      0.543 
+#&gt; [38;5;250m 4[39m 2017 Apr x     -[31m0[39m[31m.[39m[31m914[39m 
+#&gt; [38;5;250m 5[39m 2017 May x      0.468 
+#&gt; [38;5;250m 6[39m 2017 Jun x      0.363 
+#&gt; [38;5;250m 7[39m 2017 Jul x     -[31m1[39m[31m.[39m[31m30[39m  
+#&gt; [38;5;250m 8[39m 2017 Aug x      0.738 
+#&gt; [38;5;250m 9[39m 2017 Sep x      1.89  
+#&gt; [38;5;250m10[39m 2017 Oct x     -[31m0[39m[31m.[39m[31m0[39m[31m97[4m4[24m[39m
+#&gt; [38;5;246m# ... with 20 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 30 x 3 [1M][39m
+#&gt; [38;5;246m# Key:       group [3][39m
 #&gt;         mth group   value
-#&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2017 Jan x     -0.522 
-#&gt;  2 2017 Feb x     -0.0526
-#&gt;  3 2017 Mar x      0.543 
-#&gt;  4 2017 Apr x     -0.914 
-#&gt;  5 2017 May x      0.468 
-#&gt;  6 2017 Jun x      0.363 
-#&gt;  7 2017 Jul x     -1.30  
-#&gt;  8 2017 Aug x      0.738 
-#&gt;  9 2017 Sep x      1.89  
-#&gt; 10 2017 Oct x     -0.0974
-#&gt; # ... with 20 more rows</div><div class='input'>
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m   [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017 Jan x     -[31m0[39m[31m.[39m[31m522[39m 
+#&gt; [38;5;250m 2[39m 2017 Feb x     -[31m0[39m[31m.[39m[31m0[39m[31m52[4m6[24m[39m
+#&gt; [38;5;250m 3[39m 2017 Mar x      0.543 
+#&gt; [38;5;250m 4[39m 2017 Apr x     -[31m0[39m[31m.[39m[31m914[39m 
+#&gt; [38;5;250m 5[39m 2017 May x      0.468 
+#&gt; [38;5;250m 6[39m 2017 Jun x      0.363 
+#&gt; [38;5;250m 7[39m 2017 Jul x     -[31m1[39m[31m.[39m[31m30[39m  
+#&gt; [38;5;250m 8[39m 2017 Aug x      0.738 
+#&gt; [38;5;250m 9[39m 2017 Sep x      1.89  
+#&gt; [38;5;250m10[39m 2017 Oct x     -[31m0[39m[31m.[39m[31m0[39m[31m97[4m4[24m[39m
+#&gt; [38;5;246m# ... with 20 more rows[39m</div><div class='input'>
 <span class='co'># coerce ts to tsibble</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1M]
+<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 144 x 2 [1M][39m
 #&gt;       index value
-#&gt;       &lt;mth&gt; &lt;dbl&gt;
-#&gt;  1 1949 Jan   112
-#&gt;  2 1949 Feb   118
-#&gt;  3 1949 Mar   132
-#&gt;  4 1949 Apr   129
-#&gt;  5 1949 May   121
-#&gt;  6 1949 Jun   135
-#&gt;  7 1949 Jul   148
-#&gt;  8 1949 Aug   148
-#&gt;  9 1949 Sep   136
-#&gt; 10 1949 Oct   119
-#&gt; # ... with 134 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; # A tsibble: 289 x 2 [1Y]
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 1949 Jan   112
+#&gt; [38;5;250m 2[39m 1949 Feb   118
+#&gt; [38;5;250m 3[39m 1949 Mar   132
+#&gt; [38;5;250m 4[39m 1949 Apr   129
+#&gt; [38;5;250m 5[39m 1949 May   121
+#&gt; [38;5;250m 6[39m 1949 Jun   135
+#&gt; [38;5;250m 7[39m 1949 Jul   148
+#&gt; [38;5;250m 8[39m 1949 Aug   148
+#&gt; [38;5;250m 9[39m 1949 Sep   136
+#&gt; [38;5;250m10[39m 1949 Oct   119
+#&gt; [38;5;246m# ... with 134 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 289 x 2 [1Y][39m
 #&gt;    index value
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1  1700     5
-#&gt;  2  1701    11
-#&gt;  3  1702    16
-#&gt;  4  1703    23
-#&gt;  5  1704    36
-#&gt;  6  1705    58
-#&gt;  7  1706    29
-#&gt;  8  1707    20
-#&gt;  9  1708    10
-#&gt; 10  1709     8
-#&gt; # ... with 279 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; # A tsibble: 3,177 x 2 [1M]
+#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m  [4m1[24m700     5
+#&gt; [38;5;250m 2[39m  [4m1[24m701    11
+#&gt; [38;5;250m 3[39m  [4m1[24m702    16
+#&gt; [38;5;250m 4[39m  [4m1[24m703    23
+#&gt; [38;5;250m 5[39m  [4m1[24m704    36
+#&gt; [38;5;250m 6[39m  [4m1[24m705    58
+#&gt; [38;5;250m 7[39m  [4m1[24m706    29
+#&gt; [38;5;250m 8[39m  [4m1[24m707    20
+#&gt; [38;5;250m 9[39m  [4m1[24m708    10
+#&gt; [38;5;250m10[39m  [4m1[24m709     8
+#&gt; [38;5;246m# ... with 279 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 3,177 x 2 [1M][39m
 #&gt;       index value
-#&gt;       &lt;mth&gt; &lt;dbl&gt;
-#&gt;  1 1749 Jan  58  
-#&gt;  2 1749 Feb  62.6
-#&gt;  3 1749 Mar  70  
-#&gt;  4 1749 Apr  55.7
-#&gt;  5 1749 May  85  
-#&gt;  6 1749 Jun  83.5
-#&gt;  7 1749 Jul  94.8
-#&gt;  8 1749 Aug  66.3
-#&gt;  9 1749 Sep  75.9
-#&gt; 10 1749 Oct  75.5
-#&gt; # ... with 3,167 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; # A tsibble: 89 x 2 [1Q]
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 1749 Jan  58  
+#&gt; [38;5;250m 2[39m 1749 Feb  62.6
+#&gt; [38;5;250m 3[39m 1749 Mar  70  
+#&gt; [38;5;250m 4[39m 1749 Apr  55.7
+#&gt; [38;5;250m 5[39m 1749 May  85  
+#&gt; [38;5;250m 6[39m 1749 Jun  83.5
+#&gt; [38;5;250m 7[39m 1749 Jul  94.8
+#&gt; [38;5;250m 8[39m 1749 Aug  66.3
+#&gt; [38;5;250m 9[39m 1749 Sep  75.9
+#&gt; [38;5;250m10[39m 1749 Oct  75.5
+#&gt; [38;5;246m# ... with 3,167 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 89 x 2 [1Q][39m
 #&gt;      index  value
-#&gt;      &lt;qtr&gt;  &lt;dbl&gt;
-#&gt;  1 1971 Q2 13067.
-#&gt;  2 1971 Q3 13130.
-#&gt;  3 1971 Q4 13198.
-#&gt;  4 1972 Q1 13254.
-#&gt;  5 1972 Q2 13304.
-#&gt;  6 1972 Q3 13354.
-#&gt;  7 1972 Q4 13409.
-#&gt;  8 1973 Q1 13459.
-#&gt;  9 1973 Q2 13504.
-#&gt; 10 1973 Q3 13553.
-#&gt; # ... with 79 more rows</div><div class='input'>
+#&gt;      [3m[38;5;246m&lt;qtr&gt;[39m[23m  [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 1971 Q2 [4m1[24m[4m3[24m067.
+#&gt; [38;5;250m 2[39m 1971 Q3 [4m1[24m[4m3[24m130.
+#&gt; [38;5;250m 3[39m 1971 Q4 [4m1[24m[4m3[24m198.
+#&gt; [38;5;250m 4[39m 1972 Q1 [4m1[24m[4m3[24m254.
+#&gt; [38;5;250m 5[39m 1972 Q2 [4m1[24m[4m3[24m304.
+#&gt; [38;5;250m 6[39m 1972 Q3 [4m1[24m[4m3[24m354.
+#&gt; [38;5;250m 7[39m 1972 Q4 [4m1[24m[4m3[24m409.
+#&gt; [38;5;250m 8[39m 1973 Q1 [4m1[24m[4m3[24m459.
+#&gt; [38;5;250m 9[39m 1973 Q2 [4m1[24m[4m3[24m504.
+#&gt; [38;5;250m10[39m 1973 Q3 [4m1[24m[4m3[24m553.
+#&gt; [38;5;246m# ... with 79 more rows[39m</div><div class='input'>
 <span class='co'># coerce mts to tsibble</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>ts</span>(<span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
-<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; # A tsibble: 300 x 3 [1M]
-#&gt; # Key:       key [3]
+<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 300 x 3 [1M][39m
+#&gt; [38;5;246m# Key:       key [3][39m
 #&gt;       index key        value
-#&gt;       &lt;mth&gt; &lt;chr&gt;      &lt;dbl&gt;
-#&gt;  1 1961 Jan Series 1  0.0465
-#&gt;  2 1961 Feb Series 1  0.578 
-#&gt;  3 1961 Mar Series 1  0.118 
-#&gt;  4 1961 Apr Series 1 -1.91  
-#&gt;  5 1961 May Series 1  0.862 
-#&gt;  6 1961 Jun Series 1 -0.243 
-#&gt;  7 1961 Jul Series 1 -0.206 
-#&gt;  8 1961 Aug Series 1  0.0192
-#&gt;  9 1961 Sep Series 1  0.0296
-#&gt; 10 1961 Oct Series 1  0.550 
-#&gt; # ... with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1M]
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 1961 Jan Series 1  0.046[4m5[24m
+#&gt; [38;5;250m 2[39m 1961 Feb Series 1  0.578 
+#&gt; [38;5;250m 3[39m 1961 Mar Series 1  0.118 
+#&gt; [38;5;250m 4[39m 1961 Apr Series 1 -[31m1[39m[31m.[39m[31m91[39m  
+#&gt; [38;5;250m 5[39m 1961 May Series 1  0.862 
+#&gt; [38;5;250m 6[39m 1961 Jun Series 1 -[31m0[39m[31m.[39m[31m243[39m 
+#&gt; [38;5;250m 7[39m 1961 Jul Series 1 -[31m0[39m[31m.[39m[31m206[39m 
+#&gt; [38;5;250m 8[39m 1961 Aug Series 1  0.019[4m2[24m
+#&gt; [38;5;250m 9[39m 1961 Sep Series 1  0.029[4m6[24m
+#&gt; [38;5;250m10[39m 1961 Oct Series 1  0.550 
+#&gt; [38;5;246m# ... with 290 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 100 x 4 [1M][39m
 #&gt;       index `Series 1` `Series 2` `Series 3`
-#&gt;       &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-#&gt;  1 1961 Jan     0.0465     -1.12     0.00313
-#&gt;  2 1961 Feb     0.578       0.515   -0.0779 
-#&gt;  3 1961 Mar     0.118      -1.51     0.441  
-#&gt;  4 1961 Apr    -1.91        1.53     0.129  
-#&gt;  5 1961 May     0.862       0.429   -0.830  
-#&gt;  6 1961 Jun    -0.243       0.122   -0.504  
-#&gt;  7 1961 Jul    -0.206      -1.14    -1.19   
-#&gt;  8 1961 Aug     0.0192     -0.558   -0.752  
-#&gt;  9 1961 Sep     0.0296      1.05     1.46   
-#&gt; 10 1961 Oct     0.550       0.678   -0.829  
-#&gt; # ... with 90 more rows</div><div class='input'>
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m      [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 1961 Jan     0.046[4m5[24m     -[31m1[39m[31m.[39m[31m12[39m     0.003[4m1[24m[4m3[24m
+#&gt; [38;5;250m 2[39m 1961 Feb     0.578       0.515   -[31m0[39m[31m.[39m[31m0[39m[31m77[4m9[24m[39m 
+#&gt; [38;5;250m 3[39m 1961 Mar     0.118      -[31m1[39m[31m.[39m[31m51[39m     0.441  
+#&gt; [38;5;250m 4[39m 1961 Apr    -[31m1[39m[31m.[39m[31m91[39m        1.53     0.129  
+#&gt; [38;5;250m 5[39m 1961 May     0.862       0.429   -[31m0[39m[31m.[39m[31m830[39m  
+#&gt; [38;5;250m 6[39m 1961 Jun    -[31m0[39m[31m.[39m[31m243[39m       0.122   -[31m0[39m[31m.[39m[31m504[39m  
+#&gt; [38;5;250m 7[39m 1961 Jul    -[31m0[39m[31m.[39m[31m206[39m      -[31m1[39m[31m.[39m[31m14[39m    -[31m1[39m[31m.[39m[31m19[39m   
+#&gt; [38;5;250m 8[39m 1961 Aug     0.019[4m2[24m     -[31m0[39m[31m.[39m[31m558[39m   -[31m0[39m[31m.[39m[31m752[39m  
+#&gt; [38;5;250m 9[39m 1961 Sep     0.029[4m6[24m      1.05     1.46   
+#&gt; [38;5;250m10[39m 1961 Oct     0.550       0.678   -[31m0[39m[31m.[39m[31m829[39m  
+#&gt; [38;5;246m# ... with 90 more rows[39m</div><div class='input'>
 <span class='co'># coerce hts from the "hts" package to tsibble</span>
 <span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"hts"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'>stop</span>(<span class='st'>"Please install the hts package to run these following examples."</span>)
 }
-<span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg1</a></span>)</div><div class='output co'>#&gt; # A tsibble: 50 x 4 [1Y]
-#&gt; # Key:       Level 1, Level 2 [5]
+<span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg1</a></span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 50 x 4 [1Y][39m
+#&gt; [38;5;246m# Key:       Level 1, Level 2 [5][39m
 #&gt;    index value `Level 1` `Level 2`
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
-#&gt;  1  1992  7.86 A         AA       
-#&gt;  2  1993  8.34 A         AA       
-#&gt;  3  1994  8.55 A         AA       
-#&gt;  4  1995  8.60 A         AA       
-#&gt;  5  1996  8.77 A         AA       
-#&gt;  6  1997  8.84 A         AA       
-#&gt;  7  1998  8.89 A         AA       
-#&gt;  8  1999  8.93 A         AA       
-#&gt;  9  2000  9.13 A         AA       
-#&gt; 10  2001  9.15 A         AA       
-#&gt; # ... with 40 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; # A tsibble: 160 x 5 [1Y]
-#&gt; # Key:       Level 1, Level 2, Level 3 [10]
+#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m    
+#&gt; [38;5;250m 1[39m  [4m1[24m992  7.86 A         AA       
+#&gt; [38;5;250m 2[39m  [4m1[24m993  8.34 A         AA       
+#&gt; [38;5;250m 3[39m  [4m1[24m994  8.55 A         AA       
+#&gt; [38;5;250m 4[39m  [4m1[24m995  8.60 A         AA       
+#&gt; [38;5;250m 5[39m  [4m1[24m996  8.77 A         AA       
+#&gt; [38;5;250m 6[39m  [4m1[24m997  8.84 A         AA       
+#&gt; [38;5;250m 7[39m  [4m1[24m998  8.89 A         AA       
+#&gt; [38;5;250m 8[39m  [4m1[24m999  8.93 A         AA       
+#&gt; [38;5;250m 9[39m  [4m2[24m000  9.13 A         AA       
+#&gt; [38;5;250m10[39m  [4m2[24m001  9.15 A         AA       
+#&gt; [38;5;246m# ... with 40 more rows[39m</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='kw pkg'>hts</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/hts/topics/htseg1'>htseg2</a></span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 160 x 5 [1Y][39m
+#&gt; [38;5;246m# Key:       Level 1, Level 2, Level 3 [10][39m
 #&gt;    index value `Level 1` `Level 2` `Level 3`
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
-#&gt;  1  1992 -2.42 A         A10       A10A     
-#&gt;  2  1993 -2.20 A         A10       A10A     
-#&gt;  3  1994 -2.19 A         A10       A10A     
-#&gt;  4  1995 -1.93 A         A10       A10A     
-#&gt;  5  1996 -1.64 A         A10       A10A     
-#&gt;  6  1997 -1.63 A         A10       A10A     
-#&gt;  7  1998 -1.61 A         A10       A10A     
-#&gt;  8  1999 -1.59 A         A10       A10A     
-#&gt;  9  2000 -1.53 A         A10       A10A     
-#&gt; 10  2001 -1.39 A         A10       A10A     
-#&gt; # ... with 150 more rows</div></pre>
+#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m    
+#&gt; [38;5;250m 1[39m  [4m1[24m992 -[31m2[39m[31m.[39m[31m42[39m A         A10       A10A     
+#&gt; [38;5;250m 2[39m  [4m1[24m993 -[31m2[39m[31m.[39m[31m20[39m A         A10       A10A     
+#&gt; [38;5;250m 3[39m  [4m1[24m994 -[31m2[39m[31m.[39m[31m19[39m A         A10       A10A     
+#&gt; [38;5;250m 4[39m  [4m1[24m995 -[31m1[39m[31m.[39m[31m93[39m A         A10       A10A     
+#&gt; [38;5;250m 5[39m  [4m1[24m996 -[31m1[39m[31m.[39m[31m64[39m A         A10       A10A     
+#&gt; [38;5;250m 6[39m  [4m1[24m997 -[31m1[39m[31m.[39m[31m63[39m A         A10       A10A     
+#&gt; [38;5;250m 7[39m  [4m1[24m998 -[31m1[39m[31m.[39m[31m61[39m A         A10       A10A     
+#&gt; [38;5;250m 8[39m  [4m1[24m999 -[31m1[39m[31m.[39m[31m59[39m A         A10       A10A     
+#&gt; [38;5;250m 9[39m  [4m2[24m000 -[31m1[39m[31m.[39m[31m53[39m A         A10       A10A     
+#&gt; [38;5;250m10[39m  [4m2[24m001 -[31m1[39m[31m.[39m[31m39[39m A         A10       A10A     
+#&gt; [38;5;246m# ... with 150 more rows[39m</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

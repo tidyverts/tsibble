@@ -175,31 +175,31 @@ measured variables.</p>
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>3</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>6</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1D]
-#&gt; # Key:       group [2]
+)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 8 x 3 [1D][39m
+#&gt; [38;5;246m# Key:       group [2][39m
 #&gt;   date       group     value
-#&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
-#&gt; 1 2017-01-01 a      -1.40   
-#&gt; 2 2017-01-02 a      -2.44   
-#&gt; 3 2017-01-03 a       0.622  
-#&gt; 4 2017-01-04 a      NA      
-#&gt; 5 2017-01-01 b       0.255  
-#&gt; 6 2017-01-02 b      -0.00557
-#&gt; 7 2017-01-03 b       1.15   
-#&gt; 8 2017-01-04 b      NA      </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1D]
-#&gt; # Key:       group [2]
+#&gt;   [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m1[39m 2017-01-01 a      -[31m1[39m[31m.[39m[31m40[39m   
+#&gt; [38;5;250m2[39m 2017-01-02 a      -[31m2[39m[31m.[39m[31m44[39m   
+#&gt; [38;5;250m3[39m 2017-01-03 a       0.622  
+#&gt; [38;5;250m4[39m 2017-01-04 a      [31mNA[39m      
+#&gt; [38;5;250m5[39m 2017-01-01 b       0.255  
+#&gt; [38;5;250m6[39m 2017-01-02 b      -[31m0[39m[31m.[39m[31m00[39m[31m5[4m5[24m[4m7[24m[39m
+#&gt; [38;5;250m7[39m 2017-01-03 b       1.15   
+#&gt; [38;5;250m8[39m 2017-01-04 b      [31mNA[39m      </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 10 x 3 [1D][39m
+#&gt; [38;5;246m# Key:       group [2][39m
 #&gt;    date       group     value
-#&gt;    &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
-#&gt;  1 2017-01-01 a      -1.40   
-#&gt;  2 2017-01-02 a      -2.44   
-#&gt;  3 2017-01-03 a       0.622  
-#&gt;  4 2017-01-04 a      NA      
-#&gt;  5 2017-01-05 a      NA      
-#&gt;  6 2017-01-01 b       0.255  
-#&gt;  7 2017-01-02 b      -0.00557
-#&gt;  8 2017-01-03 b       1.15   
-#&gt;  9 2017-01-04 b      NA      
-#&gt; 10 2017-01-05 b      NA      </div></pre>
+#&gt;    [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017-01-01 a      -[31m1[39m[31m.[39m[31m40[39m   
+#&gt; [38;5;250m 2[39m 2017-01-02 a      -[31m2[39m[31m.[39m[31m44[39m   
+#&gt; [38;5;250m 3[39m 2017-01-03 a       0.622  
+#&gt; [38;5;250m 4[39m 2017-01-04 a      [31mNA[39m      
+#&gt; [38;5;250m 5[39m 2017-01-05 a      [31mNA[39m      
+#&gt; [38;5;250m 6[39m 2017-01-01 b       0.255  
+#&gt; [38;5;250m 7[39m 2017-01-02 b      -[31m0[39m[31m.[39m[31m00[39m[31m5[4m5[24m[4m7[24m[39m
+#&gt; [38;5;250m 8[39m 2017-01-03 b       1.15   
+#&gt; [38;5;250m 9[39m 2017-01-04 b      [31mNA[39m      
+#&gt; [38;5;250m10[39m 2017-01-05 b      [31mNA[39m      </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

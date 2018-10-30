@@ -190,24 +190,24 @@
 <span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1]  NA  NA   9  16  25  36  49  64  81 100</div><div class='input'><span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  3  4  5  6  7  8  9 10</div><div class='input'><span class='co'># Use order_by if data not already ordered (example from dplyr)</span>
 <span class='no'>tsbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>value</span> <span class='kw'>=</span> (<span class='fl'>0</span>:<span class='fl'>5</span>) ^ <span class='fl'>2</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)
 <span class='no'>scrambled</span> <span class='kw'>&lt;-</span> <span class='no'>tsbl</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fu'>sample</span>(<span class='fu'>nrow</span>(<span class='no'>tsbl</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unexpected temporal order. Please sort by year.</span></div><div class='input'>
-<span class='no'>wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unexpected temporal order. Please sort by year.</span></div><div class='input'><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>wrong</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; # A tsibble: 6 x 3 [1Y]
+<span class='no'>wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unexpected temporal order. Please sort by year.</span></div><div class='input'><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>wrong</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 6 x 3 [1Y][39m
 #&gt;    year value  diff
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2000     0   -25
-#&gt; 2  2001     1    NA
-#&gt; 3  2002     4    -5
-#&gt; 4  2003     9     9
-#&gt; 5  2004    16    15
-#&gt; 6  2005    25     9</div><div class='input'>
-<span class='no'>right</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>, <span class='kw'>order_by</span> <span class='kw'>=</span> <span class='no'>year</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unexpected temporal order. Please sort by year.</span></div><div class='input'><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>right</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; # A tsibble: 6 x 3 [1Y]
+#&gt;   [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m000     0   -[31m25[39m
+#&gt; [38;5;250m2[39m  [4m2[24m001     1    [31mNA[39m
+#&gt; [38;5;250m3[39m  [4m2[24m002     4    -[31m5[39m
+#&gt; [38;5;250m4[39m  [4m2[24m003     9     9
+#&gt; [38;5;250m5[39m  [4m2[24m004    16    15
+#&gt; [38;5;250m6[39m  [4m2[24m005    25     9</div><div class='input'>
+<span class='no'>right</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>, <span class='kw'>order_by</span> <span class='kw'>=</span> <span class='no'>year</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unexpected temporal order. Please sort by year.</span></div><div class='input'><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>right</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 6 x 3 [1Y][39m
 #&gt;    year value  diff
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2000     0    NA
-#&gt; 2  2001     1     1
-#&gt; 3  2002     4     3
-#&gt; 4  2003     9     5
-#&gt; 5  2004    16     7
-#&gt; 6  2005    25     9</div></pre>
+#&gt;   [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m1[39m  [4m2[24m000     0    [31mNA[39m
+#&gt; [38;5;250m2[39m  [4m2[24m001     1     1
+#&gt; [38;5;250m3[39m  [4m2[24m002     4     3
+#&gt; [38;5;250m4[39m  [4m2[24m003     9     5
+#&gt; [38;5;250m5[39m  [4m2[24m004    16     7
+#&gt; [38;5;250m6[39m  [4m2[24m005    25     9</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

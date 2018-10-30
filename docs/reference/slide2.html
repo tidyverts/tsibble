@@ -382,20 +382,20 @@ names will be used if present.</p></td>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'>mean</span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [38;5;246m# A tibble: 24 x 3[39m
 #&gt;       yrmth data                   ma
-#&gt;       &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
-#&gt;  1 2015 Jan &lt;tsibble [744 × 5]&gt;   NA 
-#&gt;  2 2015 Feb &lt;tsibble [672 × 5]&gt;  424.
-#&gt;  3 2015 Mar &lt;tsibble [744 × 5]&gt;  477.
-#&gt;  4 2015 Apr &lt;tsibble [720 × 5]&gt;  459.
-#&gt;  5 2015 May &lt;tsibble [744 × 5]&gt;  463.
-#&gt;  6 2015 Jun &lt;tsibble [720 × 5]&gt;  489.
-#&gt;  7 2015 Jul &lt;tsibble [744 × 5]&gt;  513.
-#&gt;  8 2015 Aug &lt;tsibble [744 × 5]&gt;  508.
-#&gt;  9 2015 Sep &lt;tsibble [720 × 5]&gt;  500.
-#&gt; 10 2015 Oct &lt;tsibble [743 × 5]&gt;  508.
-#&gt; # ... with 14 more rows</div><div class='input'># row-oriented workflow
+#&gt;       [3m[38;5;246m&lt;mth&gt;[39m[23m [3m[38;5;246m&lt;list&gt;[39m[23m              [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2015 Jan [38;5;246m&lt;tsibble [744 × 5]&gt;[39m   [31mNA[39m 
+#&gt; [38;5;250m 2[39m 2015 Feb [38;5;246m&lt;tsibble [672 × 5]&gt;[39m  424.
+#&gt; [38;5;250m 3[39m 2015 Mar [38;5;246m&lt;tsibble [744 × 5]&gt;[39m  477.
+#&gt; [38;5;250m 4[39m 2015 Apr [38;5;246m&lt;tsibble [720 × 5]&gt;[39m  459.
+#&gt; [38;5;250m 5[39m 2015 May [38;5;246m&lt;tsibble [744 × 5]&gt;[39m  463.
+#&gt; [38;5;250m 6[39m 2015 Jun [38;5;246m&lt;tsibble [720 × 5]&gt;[39m  489.
+#&gt; [38;5;250m 7[39m 2015 Jul [38;5;246m&lt;tsibble [744 × 5]&gt;[39m  513.
+#&gt; [38;5;250m 8[39m 2015 Aug [38;5;246m&lt;tsibble [744 × 5]&gt;[39m  508.
+#&gt; [38;5;250m 9[39m 2015 Sep [38;5;246m&lt;tsibble [720 × 5]&gt;[39m  500.
+#&gt; [38;5;250m10[39m 2015 Oct [38;5;246m&lt;tsibble [743 × 5]&gt;[39m  508.
+#&gt; [38;5;246m# ... with 14 more rows[39m</div><div class='input'># row-oriented workflow
 </div><div class='input'><span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>...</span>)
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
@@ -404,12 +404,12 @@ names will be used if present.</p></td>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-31"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 3[39m
 #&gt;   Sensor                        data                diag                 
-#&gt;   &lt;chr&gt;                         &lt;list&gt;              &lt;list&gt;               
-#&gt; 1 Birrarung Marr                &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
-#&gt; 2 QV Market-Elizabeth St (West) &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
-#&gt; 3 Southern Cross Station        &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;</div></pre>
+#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m                         [3m[38;5;246m&lt;list&gt;[39m[23m              [3m[38;5;246m&lt;list&gt;[39m[23m               
+#&gt; [38;5;250m1[39m Birrarung Marr                [38;5;246m&lt;tsibble [744 × 4]&gt;[39m [38;5;246m&lt;tibble [33,457 × 2]&gt;[39m
+#&gt; [38;5;250m2[39m QV Market-Elizabeth St (West) [38;5;246m&lt;tsibble [744 × 4]&gt;[39m [38;5;246m&lt;tibble [33,457 × 2]&gt;[39m
+#&gt; [38;5;250m3[39m Southern Cross Station        [38;5;246m&lt;tsibble [744 × 4]&gt;[39m [38;5;246m&lt;tibble [33,457 × 2]&gt;[39m</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

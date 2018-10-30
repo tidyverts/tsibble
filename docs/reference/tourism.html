@@ -188,22 +188,22 @@ needs</p></li>
 #&gt; </div><div class='input'><span class='co'># Total trips over geographical regions</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
-#&gt; # Key:       Region, State [77]
-#&gt; # Groups:    Region [77]
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; [38;5;246m# A tsibble: 5,852 x 4 [1Q][39m
+#&gt; [38;5;246m# Key:       Region, State [77][39m
+#&gt; [38;5;246m# Groups:    Region [77][39m
 #&gt;    Region   State           Quarter Total_Trips
-#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;       &lt;dbl&gt;
-#&gt;  1 Adelaide South Australia 1998 Q1        659.
-#&gt;  2 Adelaide South Australia 1998 Q2        450.
-#&gt;  3 Adelaide South Australia 1998 Q3        593.
-#&gt;  4 Adelaide South Australia 1998 Q4        524.
-#&gt;  5 Adelaide South Australia 1999 Q1        548.
-#&gt;  6 Adelaide South Australia 1999 Q2        569.
-#&gt;  7 Adelaide South Australia 1999 Q3        538.
-#&gt;  8 Adelaide South Australia 1999 Q4        562.
-#&gt;  9 Adelaide South Australia 2000 Q1        646.
-#&gt; 10 Adelaide South Australia 2000 Q2        563.
-#&gt; # ... with 5,842 more rows</div></pre>
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;chr&gt;[39m[23m             [3m[38;5;246m&lt;qtr&gt;[39m[23m       [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m Adelaide South Australia 1998 Q1        659.
+#&gt; [38;5;250m 2[39m Adelaide South Australia 1998 Q2        450.
+#&gt; [38;5;250m 3[39m Adelaide South Australia 1998 Q3        593.
+#&gt; [38;5;250m 4[39m Adelaide South Australia 1998 Q4        524.
+#&gt; [38;5;250m 5[39m Adelaide South Australia 1999 Q1        548.
+#&gt; [38;5;250m 6[39m Adelaide South Australia 1999 Q2        569.
+#&gt; [38;5;250m 7[39m Adelaide South Australia 1999 Q3        538.
+#&gt; [38;5;250m 8[39m Adelaide South Australia 1999 Q4        562.
+#&gt; [38;5;250m 9[39m Adelaide South Australia 2000 Q1        646.
+#&gt; [38;5;250m10[39m Adelaide South Australia 2000 Q2        563.
+#&gt; [38;5;246m# ... with 5,842 more rows[39m</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -246,40 +246,40 @@ cannot be determined (<code>?</code>).</p></li>
 <span class='fu'>tsibble</span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; [38;5;246m# A tsibble: 10 x 2 [1D][39m
 #&gt;    date         value
-#&gt;    &lt;date&gt;       &lt;dbl&gt;
-#&gt;  1 2017-01-01 -0.895 
-#&gt;  2 2017-01-02  0.904 
-#&gt;  3 2017-01-03  0.0796
-#&gt;  4 2017-01-04 -1.26  
-#&gt;  5 2017-01-05  1.03  
-#&gt;  6 2017-01-06 -0.731 
-#&gt;  7 2017-01-07 -0.190 
-#&gt;  8 2017-01-08  0.529 
-#&gt;  9 2017-01-09  0.550 
-#&gt; 10 2017-01-10  0.550 </div><div class='input'>
+#&gt;    [3m[38;5;246m&lt;date&gt;[39m[23m       [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2017-01-01 -[31m0[39m[31m.[39m[31m895[39m 
+#&gt; [38;5;250m 2[39m 2017-01-02  0.904 
+#&gt; [38;5;250m 3[39m 2017-01-03  0.079[4m6[24m
+#&gt; [38;5;250m 4[39m 2017-01-04 -[31m1[39m[31m.[39m[31m26[39m  
+#&gt; [38;5;250m 5[39m 2017-01-05  1.03  
+#&gt; [38;5;250m 6[39m 2017-01-06 -[31m0[39m[31m.[39m[31m731[39m 
+#&gt; [38;5;250m 7[39m 2017-01-07 -[31m0[39m[31m.[39m[31m190[39m 
+#&gt; [38;5;250m 8[39m 2017-01-08  0.529 
+#&gt; [38;5;250m 9[39m 2017-01-09  0.550 
+#&gt; [38;5;250m10[39m 2017-01-10  0.550 </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='fu'>tsibble</span>(
   <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Column `qtr` is the index.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
-#&gt; # Key:       group [3]
+)</div><div class='output co'>#&gt; <span class='message'>Column `qtr` is the index.</span></div><div class='output co'>#&gt; [38;5;246m# A tsibble: 30 x 3 [1Q][39m
+#&gt; [38;5;246m# Key:       group [3][39m
 #&gt;        qtr group   value
-#&gt;      &lt;qtr&gt; &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2010 Q1 x     -0.660 
-#&gt;  2 2010 Q2 x      0.0574
-#&gt;  3 2010 Q3 x     -2.81  
-#&gt;  4 2010 Q4 x     -0.912 
-#&gt;  5 2011 Q1 x     -0.782 
-#&gt;  6 2011 Q2 x     -0.664 
-#&gt;  7 2011 Q3 x      0.626 
-#&gt;  8 2011 Q4 x     -0.507 
-#&gt;  9 2012 Q1 x      0.270 
-#&gt; 10 2012 Q2 x      0.467 
-#&gt; # ... with 20 more rows</div><div class='input'>
+#&gt;      [3m[38;5;246m&lt;qtr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m   [3m[38;5;246m&lt;dbl&gt;[39m[23m
+#&gt; [38;5;250m 1[39m 2010 Q1 x     -[31m0[39m[31m.[39m[31m660[39m 
+#&gt; [38;5;250m 2[39m 2010 Q2 x      0.057[4m4[24m
+#&gt; [38;5;250m 3[39m 2010 Q3 x     -[31m2[39m[31m.[39m[31m81[39m  
+#&gt; [38;5;250m 4[39m 2010 Q4 x     -[31m0[39m[31m.[39m[31m912[39m 
+#&gt; [38;5;250m 5[39m 2011 Q1 x     -[31m0[39m[31m.[39m[31m782[39m 
+#&gt; [38;5;250m 6[39m 2011 Q2 x     -[31m0[39m[31m.[39m[31m664[39m 
+#&gt; [38;5;250m 7[39m 2011 Q3 x      0.626 
+#&gt; [38;5;250m 8[39m 2011 Q4 x     -[31m0[39m[31m.[39m[31m507[39m 
+#&gt; [38;5;250m 9[39m 2012 Q1 x      0.270 
+#&gt; [38;5;250m10[39m 2012 Q2 x      0.467 
+#&gt; [38;5;246m# ... with 20 more rows[39m</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

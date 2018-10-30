@@ -182,72 +182,72 @@ and the RHS gives the replacement value.</p></td>
     <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>split_by</span>(<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span>
 #&gt; <span class='warning'>Please use `split()` instead.</span></div><div class='output co'>#&gt; [[1]]
-#&gt; # A tsibble: 14,566 x 5 [1h]
-#&gt; # Key:       Sensor [1]
+#&gt; [38;5;246m# A tsibble: 14,566 x 5 [1h][39m
+#&gt; [38;5;246m# Key:       Sensor [1][39m
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 14,556 more rows
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m          [3m[38;5;246m&lt;dttm&gt;[39m[23m              [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m Birrarung Marr 2015-01-01 [38;5;246m00:00:00[39m 2015-01-01     0  [4m1[24m630
+#&gt; [38;5;250m 2[39m Birrarung Marr 2015-01-01 [38;5;246m01:00:00[39m 2015-01-01     1   826
+#&gt; [38;5;250m 3[39m Birrarung Marr 2015-01-01 [38;5;246m02:00:00[39m 2015-01-01     2   567
+#&gt; [38;5;250m 4[39m Birrarung Marr 2015-01-01 [38;5;246m03:00:00[39m 2015-01-01     3   264
+#&gt; [38;5;250m 5[39m Birrarung Marr 2015-01-01 [38;5;246m04:00:00[39m 2015-01-01     4   139
+#&gt; [38;5;250m 6[39m Birrarung Marr 2015-01-01 [38;5;246m05:00:00[39m 2015-01-01     5    77
+#&gt; [38;5;250m 7[39m Birrarung Marr 2015-01-01 [38;5;246m06:00:00[39m 2015-01-01     6    44
+#&gt; [38;5;250m 8[39m Birrarung Marr 2015-01-01 [38;5;246m07:00:00[39m 2015-01-01     7    56
+#&gt; [38;5;250m 9[39m Birrarung Marr 2015-01-01 [38;5;246m08:00:00[39m 2015-01-01     8   113
+#&gt; [38;5;250m10[39m Birrarung Marr 2015-01-01 [38;5;246m09:00:00[39m 2015-01-01     9   166
+#&gt; [38;5;246m# ... with 14,556 more rows[39m
 #&gt; 
 #&gt; [[2]]
-#&gt; # A tsibble: 16,414 x 5 [1h]
-#&gt; # Key:       Sensor [1]
+#&gt; [38;5;246m# A tsibble: 16,414 x 5 [1h][39m
+#&gt; [38;5;246m# Key:       Sensor [1][39m
 #&gt;    Sensor                     Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;                      &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Bourke Street Mall (North) 2015-02-17 00:00:00 2015-02-17     0    61
-#&gt;  2 Bourke Street Mall (North) 2015-02-17 01:00:00 2015-02-17     1    16
-#&gt;  3 Bourke Street Mall (North) 2015-02-17 02:00:00 2015-02-17     2    15
-#&gt;  4 Bourke Street Mall (North) 2015-02-17 03:00:00 2015-02-17     3    17
-#&gt;  5 Bourke Street Mall (North) 2015-02-17 04:00:00 2015-02-17     4     9
-#&gt;  6 Bourke Street Mall (North) 2015-02-17 05:00:00 2015-02-17     5    25
-#&gt;  7 Bourke Street Mall (North) 2015-02-17 06:00:00 2015-02-17     6    88
-#&gt;  8 Bourke Street Mall (North) 2015-02-17 07:00:00 2015-02-17     7   279
-#&gt;  9 Bourke Street Mall (North) 2015-02-17 08:00:00 2015-02-17     8   770
-#&gt; 10 Bourke Street Mall (North) 2015-02-17 09:00:00 2015-02-17     9   722
-#&gt; # ... with 16,404 more rows
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m                      [3m[38;5;246m&lt;dttm&gt;[39m[23m              [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m00:00:00[39m 2015-02-17     0    61
+#&gt; [38;5;250m 2[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m01:00:00[39m 2015-02-17     1    16
+#&gt; [38;5;250m 3[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m02:00:00[39m 2015-02-17     2    15
+#&gt; [38;5;250m 4[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m03:00:00[39m 2015-02-17     3    17
+#&gt; [38;5;250m 5[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m04:00:00[39m 2015-02-17     4     9
+#&gt; [38;5;250m 6[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m05:00:00[39m 2015-02-17     5    25
+#&gt; [38;5;250m 7[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m06:00:00[39m 2015-02-17     6    88
+#&gt; [38;5;250m 8[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m07:00:00[39m 2015-02-17     7   279
+#&gt; [38;5;250m 9[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m08:00:00[39m 2015-02-17     8   770
+#&gt; [38;5;250m10[39m Bourke Street Mall (North) 2015-02-17 [38;5;246m09:00:00[39m 2015-02-17     9   722
+#&gt; [38;5;246m# ... with 16,404 more rows[39m
 #&gt; 
 #&gt; [[3]]
-#&gt; # A tsibble: 17,518 x 5 [1h]
-#&gt; # Key:       Sensor [1]
+#&gt; [38;5;246m# A tsibble: 17,518 x 5 [1h][39m
+#&gt; [38;5;246m# Key:       Sensor [1][39m
 #&gt;    Sensor                        Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 QV Market-Elizabeth St (West) 2015-01-01 00:00:00 2015-01-01     0   490
-#&gt;  2 QV Market-Elizabeth St (West) 2015-01-01 01:00:00 2015-01-01     1   397
-#&gt;  3 QV Market-Elizabeth St (West) 2015-01-01 02:00:00 2015-01-01     2   247
-#&gt;  4 QV Market-Elizabeth St (West) 2015-01-01 03:00:00 2015-01-01     3   172
-#&gt;  5 QV Market-Elizabeth St (West) 2015-01-01 04:00:00 2015-01-01     4   128
-#&gt;  6 QV Market-Elizabeth St (West) 2015-01-01 05:00:00 2015-01-01     5    66
-#&gt;  7 QV Market-Elizabeth St (West) 2015-01-01 06:00:00 2015-01-01     6    72
-#&gt;  8 QV Market-Elizabeth St (West) 2015-01-01 07:00:00 2015-01-01     7    69
-#&gt;  9 QV Market-Elizabeth St (West) 2015-01-01 08:00:00 2015-01-01     8   106
-#&gt; 10 QV Market-Elizabeth St (West) 2015-01-01 09:00:00 2015-01-01     9   217
-#&gt; # ... with 17,508 more rows
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m                         [3m[38;5;246m&lt;dttm&gt;[39m[23m              [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m00:00:00[39m 2015-01-01     0   490
+#&gt; [38;5;250m 2[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m01:00:00[39m 2015-01-01     1   397
+#&gt; [38;5;250m 3[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m02:00:00[39m 2015-01-01     2   247
+#&gt; [38;5;250m 4[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m03:00:00[39m 2015-01-01     3   172
+#&gt; [38;5;250m 5[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m04:00:00[39m 2015-01-01     4   128
+#&gt; [38;5;250m 6[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m05:00:00[39m 2015-01-01     5    66
+#&gt; [38;5;250m 7[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m06:00:00[39m 2015-01-01     6    72
+#&gt; [38;5;250m 8[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m07:00:00[39m 2015-01-01     7    69
+#&gt; [38;5;250m 9[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m08:00:00[39m 2015-01-01     8   106
+#&gt; [38;5;250m10[39m QV Market-Elizabeth St (West) 2015-01-01 [38;5;246m09:00:00[39m 2015-01-01     9   217
+#&gt; [38;5;246m# ... with 17,508 more rows[39m
 #&gt; 
 #&gt; [[4]]
-#&gt; # A tsibble: 17,539 x 5 [1h]
-#&gt; # Key:       Sensor [1]
+#&gt; [38;5;246m# A tsibble: 17,539 x 5 [1h][39m
+#&gt; [38;5;246m# Key:       Sensor [1][39m
 #&gt;    Sensor                 Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;                  &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Southern Cross Station 2015-01-01 00:00:00 2015-01-01     0   746
-#&gt;  2 Southern Cross Station 2015-01-01 01:00:00 2015-01-01     1   312
-#&gt;  3 Southern Cross Station 2015-01-01 02:00:00 2015-01-01     2   180
-#&gt;  4 Southern Cross Station 2015-01-01 03:00:00 2015-01-01     3   133
-#&gt;  5 Southern Cross Station 2015-01-01 04:00:00 2015-01-01     4    44
-#&gt;  6 Southern Cross Station 2015-01-01 05:00:00 2015-01-01     5    16
-#&gt;  7 Southern Cross Station 2015-01-01 06:00:00 2015-01-01     6    13
-#&gt;  8 Southern Cross Station 2015-01-01 07:00:00 2015-01-01     7    21
-#&gt;  9 Southern Cross Station 2015-01-01 08:00:00 2015-01-01     8    39
-#&gt; 10 Southern Cross Station 2015-01-01 09:00:00 2015-01-01     9    36
-#&gt; # ... with 17,529 more rows
+#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m                  [3m[38;5;246m&lt;dttm&gt;[39m[23m              [3m[38;5;246m&lt;date&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m
+#&gt; [38;5;250m 1[39m Southern Cross Station 2015-01-01 [38;5;246m00:00:00[39m 2015-01-01     0   746
+#&gt; [38;5;250m 2[39m Southern Cross Station 2015-01-01 [38;5;246m01:00:00[39m 2015-01-01     1   312
+#&gt; [38;5;250m 3[39m Southern Cross Station 2015-01-01 [38;5;246m02:00:00[39m 2015-01-01     2   180
+#&gt; [38;5;250m 4[39m Southern Cross Station 2015-01-01 [38;5;246m03:00:00[39m 2015-01-01     3   133
+#&gt; [38;5;250m 5[39m Southern Cross Station 2015-01-01 [38;5;246m04:00:00[39m 2015-01-01     4    44
+#&gt; [38;5;250m 6[39m Southern Cross Station 2015-01-01 [38;5;246m05:00:00[39m 2015-01-01     5    16
+#&gt; [38;5;250m 7[39m Southern Cross Station 2015-01-01 [38;5;246m06:00:00[39m 2015-01-01     6    13
+#&gt; [38;5;250m 8[39m Southern Cross Station 2015-01-01 [38;5;246m07:00:00[39m 2015-01-01     7    21
+#&gt; [38;5;250m 9[39m Southern Cross Station 2015-01-01 [38;5;246m08:00:00[39m 2015-01-01     8    39
+#&gt; [38;5;250m10[39m Southern Cross Station 2015-01-01 [38;5;246m09:00:00[39m 2015-01-01     9    36
+#&gt; [38;5;246m# ... with 17,529 more rows[39m
 #&gt; </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 <span class='no'>x</span>[<span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>7</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA_real_</span>
 <span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.08007363 -0.43728124 10.00000000  0.78646286 -0.57894525 -0.14542689

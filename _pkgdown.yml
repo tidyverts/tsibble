@@ -53,6 +53,7 @@ reference:
     Map and roll over a list of elements. It features the `purrr`-like interface.
   contents:
     - starts_with("slide")
+    - starts_with("partial")
     - starts_with("tile")
     - starts_with("stretch")
 
