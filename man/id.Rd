@@ -2,7 +2,7 @@
 % Please edit documentation in R/as-tsibble.R
 \name{id}
 \alias{id}
-\title{Identifier to construct structural variables}
+\title{Identifiers}
 \usage{
 id(...)
 }
@@ -10,7 +10,7 @@ id(...)
 \item{...}{Variables passed to tsibble()/as_tsibble().}
 }
 \description{
-Impose a structure to a tsibble
+Identifiers
 }
 \seealso{
 \link{tsibble}, \link{as_tsibble}

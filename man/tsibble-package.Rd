@@ -33,9 +33,8 @@ vector or a list, a \code{tbl_ts} doesn't accept \code{POSIXlt} and \code{timeDa
 
 \section{Key}{
 
-Key variable(s) together with the index uniquely identifies each record. And
-the key also imposes the structure on a tsibble, which can be created via the
-\link{id} function as identifiers:
+Key variable(s) together with the index uniquely identifies each record, which
+can be created via the \link{id} function as identifiers:
 \itemize{
 \item Empty: an implicit variable \code{id()} resulting in a univariate time series.
 \item One or more variables: explicit variables. For example, \code{data(pedestrian)}

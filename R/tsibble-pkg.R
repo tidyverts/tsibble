@@ -25,9 +25,8 @@
 #' vector or a list, a `tbl_ts` doesn't accept `POSIXlt` and `timeDate` columns.
 #'
 #' @section Key:
-#' Key variable(s) together with the index uniquely identifies each record. And
-#' the key also imposes the structure on a tsibble, which can be created via the
-#' [id] function as identifiers:
+#' Key variable(s) together with the index uniquely identifies each record, which 
+#' can be created via the [id] function as identifiers:
 #' * Empty: an implicit variable `id()` resulting in a univariate time series.
 #' * One or more variables: explicit variables. For example, `data(pedestrian)`
 #' and `data(tourism)` use the `id(Sensor)` & `id(Region, State, Purpose)` as 

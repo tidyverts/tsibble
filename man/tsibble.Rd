@@ -10,9 +10,9 @@ tsibble(..., key = id(), index, regular = TRUE)
 \item{...}{A set of name-value pairs. The names of "key" and "index" should
 be avoided as they are used as the arguments.}
 
-\item{key}{Structural variable(s) that define unique time indices, used with
-the helper \link{id}. If a univariate time series (without an explicit key),
-simply call \code{id()}. See below for details.}
+\item{key}{Variable(s) that define unique time indices, used with the helper
+\code{\link[=id]{id()}}. If a univariate time series (without an explicit key), simply call
+\code{id()}.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -52,9 +52,8 @@ vector or a list, a \code{tbl_ts} doesn't accept \code{POSIXlt} and \code{timeDa
 
 \section{Key}{
 
-Key variable(s) together with the index uniquely identifies each record. And
-the key also imposes the structure on a tsibble, which can be created via the
-\link{id} function as identifiers:
+Key variable(s) together with the index uniquely identifies each record, which
+can be created via the \link{id} function as identifiers:
 \itemize{
 \item Empty: an implicit variable \code{id()} resulting in a univariate time series.
 \item One or more variables: explicit variables. For example, \code{data(pedestrian)}

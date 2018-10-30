@@ -38,9 +38,9 @@ as_tsibble(x, ...)
 
 \item{...}{Other arguments passed on to individual methods.}
 
-\item{key}{Structural variable(s) that define unique time indices, used with
-the helper \link{id}. If a univariate time series (without an explicit key),
-simply call \code{id()}. See below for details.}
+\item{key}{Variable(s) that define unique time indices, used with the helper
+\code{\link[=id]{id()}}. If a univariate time series (without an explicit key), simply call
+\code{id()}.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

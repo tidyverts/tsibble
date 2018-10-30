@@ -2,9 +2,9 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Structural variable(s) that define unique time indices, used with
-#' the helper [id]. If a univariate time series (without an explicit key),
-#' simply call `id()`. See below for details.
+#' @param key Variable(s) that define unique time indices, used with the helper 
+#' [id()]. If a univariate time series (without an explicit key), simply call 
+#' `id()`.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of positive time distances,
@@ -457,9 +457,7 @@ build_tsibble_meta <- function(
 }
 
 
-#' Identifier to construct structural variables
-#'
-#' Impose a structure to a tsibble
+#' Identifiers
 #'
 #' @param ... Variables passed to tsibble()/as_tsibble().
 #'
