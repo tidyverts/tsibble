@@ -28,25 +28,10 @@
 #' Key variable(s) together with the index uniquely identifies each record. And
 #' the key also imposes the structure on a tsibble, which can be created via the
 #' [id] function as identifiers:
-#' * None: an implicit variable `id()` resulting a univariate time series.
-#' * A single variable: an explicit variable. For example, `data(pedestrian)`
-#' uses the `id(Sensor)` column as the key.
-#' * Nested variables: a nesting of one variable under another. For example, 
-#' `data(tourism)` contains two geographical locations: `Region` and `State`.
-#' `Region` is the lower level than `State` in Australia; in other words, `Region`
-#' is nested into `State`, which naturally forms a hierarchy. A vertical bar (`|`)
-#' is used to describe this nesting relationship, and thus `Region` | `State`. 
-#' Alternatively, a forward slash (`/`) expresses the equivalent hierarchy but 
-#' in a reverse order, for example `State` / `Region`. 
-#' In theory, nesting can involve infinite levels, so is `tsibble`.
-#' * Crossed variables: a crossing of one variable with another. For example,
-#' the geographical locations are crossed with the purpose of visiting (`Purpose`)
-#' in the `data(tourism)`. A comma (`,`) is used to indicate this crossing
-#' relationship. Nested and crossed variables can be combined, such as 
-#' `data(tourism)` using `id(Region | State, Purpose)`.
-#'
-#' These key variables describe the data structure, which will prove useful in
-#' data visualisation and statistical modelling.
+#' * Empty: an implicit variable `id()` resulting in a univariate time series.
+#' * One or more variables: explicit variables. For example, `data(pedestrian)`
+#' and `data(tourism)` use the `id(Sensor)` & `id(Region, State, Purpose)` as 
+#' the key respectively.
 #'
 #' @section Interval:
 #' The [interval] function returns the interval associated with the tsibble.

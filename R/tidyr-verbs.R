@@ -22,7 +22,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
       c(quo_name(key), quo_name(value), quo_name(index(data)))
     )
   }
-  vars <- validate_vars(exprs, names(data))
+  vars <- tidyselect::vars_select(names(data), !!! exprs)
   tbl <- gather(
     as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
@@ -59,7 +59,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     ))
   }
   key_left <- setdiff(key_vars(data), key_var)
-  new_key <- key(key_remove(data, .vars = key_left, validate = FALSE))
+  new_key <- key(remove_key(data, .vars = key_left))
 
   tbl <- spread(
     as_tibble(data), key = !! key, value = !! value, fill = fill, 
@@ -133,7 +133,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
 #' nested_tourism <- tourism %>% 
 #'   nest(-Region, -State)
 #' nested_tourism %>% 
-#'   unnest(key = id(Region | State))
+#'   unnest(key = id(Region, State))
 unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {

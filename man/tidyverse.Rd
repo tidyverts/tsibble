@@ -126,7 +126,7 @@ symbols.
 This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
 and symbols). The name is captured from the expression with
-\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
@@ -135,7 +135,7 @@ value column in \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
-names are actually numeric, integer, or logical.}
+types are actually numeric, integer, or logical.}
 
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
@@ -158,7 +158,7 @@ by "<key_name><sep><key_value>".}
 This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
 and symbols). The name is captured from the expression with
-\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
@@ -235,5 +235,5 @@ nested_ped \%>\%
 nested_tourism <- tourism \%>\% 
   nest(-Region, -State)
 nested_tourism \%>\% 
-  unnest(key = id(Region | State))
+  unnest(key = id(Region, State))
 }

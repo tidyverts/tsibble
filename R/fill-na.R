@@ -67,7 +67,6 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   idx <- index(.data)
   idx_chr <- as_string(idx)
   key <- key(.data)
-  flat_key <- key_flatten(key)
   keyed_tbl <- grped_df_by_key(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
@@ -82,7 +81,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
       unnest(!! idx)
   }
   full_data <- ungroup(ref_data) %>% 
-    left_join(.data, by = c(flat_key, idx_chr))
+    left_join(.data, by = c(key_vars(.data), idx_chr))
 
   cn <- names(.data)
   lst_exprs <- exprs(..., .named = TRUE)

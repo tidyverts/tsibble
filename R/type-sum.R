@@ -24,9 +24,10 @@ tbl_sum.tbl_ts <- function(x) {
   fnt_int <- format(int_x)
   first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(fnt_int, "[")))
   if (is_empty(key(x))) {
-    return(first)
+    first
+  } else {
+    c(first, key_sum(x))
   }
-  c(first, key_sum(x))
 }
 
 #' @export
@@ -64,64 +65,5 @@ key_sum <- function(x) {
 #' @export
 key_sum.default <- function(x) {
   n_keys <- big_mark(n_keys(x))
-  c("Key" = paste(paste_comma(format(key(x))), surround(n_keys, "[")))
-}
-
-#' Extensible index type to tsibble
-#'
-#' S3 method to add an index type support for a tsibble.
-#'
-#' @param x An object of index type that the tsibble supports.
-#'
-#' @details This method is primarily used for adding an index type support in 
-#' [as_tsibble].
-#' @seealso [pull_interval] for obtaining interval for regularly spaced time.
-#' @return `TRUE`/`FALSE` or `NA` (unsure)
-#' @export
-#' @examples
-#' index_valid(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1))
-index_valid <- function(x) {
-  UseMethod("index_valid")
-}
-
-#' @export
-index_valid.POSIXct <- function(x) { 
-  TRUE 
-}
-
-#' @export
-index_valid.difftime <- index_valid.POSIXct
-
-#' @export
-index_valid.Date <- index_valid.POSIXct
-
-#' @export
-index_valid.yearweek <- index_valid.POSIXct
-
-#' @export
-index_valid.yearmonth <- index_valid.POSIXct
-
-#' @export
-index_valid.yearmth <- index_valid.yearmonth
-
-#' @export
-index_valid.yearquarter <- index_valid.POSIXct
-
-#' @export
-index_valid.yearqtr <- index_valid.yearquarter
-
-#' @export
-index_valid.nanotime <- index_valid.POSIXct
-
-#' @export
-index_valid.numeric <- function(x) {
-  NA
-}
-
-#' @export
-index_valid.integer <- index_valid.numeric
-
-#' @export
-index_valid.default <- function(x) {
-  FALSE
+  c("Key" = paste(paste_comma(key_vars(x)), surround(n_keys, "[")))
 }

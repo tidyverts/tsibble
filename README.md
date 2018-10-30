@@ -59,13 +59,11 @@ weather_tsbl
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 2.611e+04 more rows
+#> # ... with 2.611e+04 more rows
 ```
 
-The **key** is not constrained to a single variable, but expressive of
-nested and crossed data structures. This incorporates univariate,
-multivariate, hierarchical and grouped time series into the *tsibble*
-framework. See `package?tsibble` and
+The **key** is comprised of one ore more variables. See
+`package?tsibble` and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
 for details.
 
@@ -101,7 +99,7 @@ full_weather
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 2.618e+04 more rows
+#> # ... with 2.618e+04 more rows
 ```
 
 `fill_na()` also handles filling `NA` by values or functions, and
@@ -137,7 +135,7 @@ full_weather %>%
 #> 3 EWR      2013 Mar     40.1       3   
 #> 4 EWR      2013 Apr     53.0       1.47
 #> 5 EWR      2013 May     63.3       5.44
-#> # … with 31 more rows
+#> # ... with 31 more rows
 ```
 
 While collapsing rows (like `summarise()`), `group_by()` and
@@ -175,7 +173,7 @@ full_weather %>%
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0    39.0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0    39.3
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0    39.3
-#> # … with 2.618e+04 more rows
+#> # ... with 2.618e+04 more rows
 ```
 
 More examples can be found at

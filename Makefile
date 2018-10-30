@@ -14,10 +14,10 @@ check:
 	Rscript -e "devtools::check()"
 
 install:
-	Rscript -e "devtools::install(build_vignettes = TRUE, upgrade_dependencies = FALSE)"
+	Rscript -e "devtools::install(build_vignettes = TRUE, dependencies = FALSE)"
 
 winbuild:
-	Rscript -e "devtools::build_win(version = 'R-devel', quiet = TRUE)"
+	Rscript -e "devtools::chekc_win_devel(quiet = TRUE)"
 
 pkgdown:
 	Rscript -e "pkgdown::build_site(run_dont_run = TRUE)"

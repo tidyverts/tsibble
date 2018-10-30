@@ -52,16 +52,6 @@ dat_x <- tibble(
   value = rnorm(10)
 )
 
-test_that("Subset 2 nested variable in a tsibble", {
-  tsbl <- as_tsibble(dat_x, key = id(group | level), index = date)
-  tsbl2 <- tsbl[, c(1, 2, 4)]
-  expect_is(tsbl2, "tbl_ts")
-  expect_is(tsbl2[c("date", "group", "value")], "tbl_ts")
-  expect_identical(key_vars(tsbl2)[[1]], "group")
-  expect_is(tsbl[, c(1, 3, 4)], "tbl_df")
-  expect_is(tsbl[c("date", "level", "value")], "tbl_df")
-})
-
 dat_x <- tribble(
   ~ date, ~ group1, ~ group2, ~ value,
   ymd("2017-10-01"), "a", "x", 1,
@@ -72,7 +62,7 @@ dat_x <- tribble(
   ymd("2017-10-02"), "b", "y", 2
 )
 
-test_that("Subset 2 crossed variable in a tsibble", {
+test_that("Subset 2 variables in a tsibble", {
   tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
   expect_is(tsbl[, c(1, 2, 4)], "tbl_df")
   expect_is(tsbl[, c(1, 3, 4)], "tbl_df")

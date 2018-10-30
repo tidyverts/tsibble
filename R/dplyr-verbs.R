@@ -48,39 +48,26 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   }
   call_pos <- map_lgl(exprs, is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
-  val_vars <- validate_vars(vars, names(.data))
+  val_vars <- tidyselect::vars_select(names(.data), !!! vars)
   idx <- as_string(index(.data))
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(exprs[idx_pos])
   key <- key(.data)
-  red_key <-  key_flatten(key_distinct(key))
   if (is_false(any(idx_pos))) { # no index presented in the ...
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
-    ordered <- !any(mvars %in% val_vars)
+    !any(mvars %in% val_vars)
   } else if (is_call(idx_is_call)) { # desc(index)
     fn <- call_name(idx_is_call)
-    ordered <- fn != "desc"
+    fn != "desc"
   } else {
-    exp_vars <- c(red_key, idx)
+    exp_vars <- c(key, idx)
     exp_idx <- which(val_vars %in% exp_vars)
-    nested <- any(is_nest(key))
-    if (n_keys(.data) < 2) { # univariate, index present
-      ordered <- TRUE
-    } else if (is_false(nested) &&
-      all(exp_idx == seq_along(exp_idx)) &&
-      is_false(idx_pos[1])
-    ) {
-      ordered <- TRUE
-    } else if (is_true(nested) &&
+    n_keys(.data) < 2 || 
+      all(exp_idx == seq_along(exp_idx)) && 
       has_length(exp_idx, length(exp_vars)) &&
-      is_false(idx_pos[1])) {
-      ordered <- TRUE
-    } else {
-      ordered <- FALSE
-    }
+      is_false(idx_pos[1])
   }
-  ordered
 }
 
 #' @rdname tidyverse
@@ -147,7 +134,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     return(mut_data)
   }
   lst_quos <- enquos(..., .named = TRUE)
-  vec_names <- union(names(lst_quos), names(.data))
+  vec_names <- names(lst_quos)
   # either key or index is present in ...
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
@@ -171,7 +158,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(as_string(index(.data)), key_flatten(key(.data)))
+  idx_key <- c(as_string(index(.data)), key_vars(.data))
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, !!! vec_names)
 }
@@ -219,16 +206,10 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
     int <- NULL
     reg <- TRUE
   }
-  grps <- group_vars(.data)
-  # mostly attempt to preserve the nesting structure
-  key_less <- key(key_remove(.data, grps, validate = FALSE))
-  flat_key <- key_flatten(key_less)
-  # currently no way to set up nesting in `group_by()`
-  add_key <- syms(setdiff(grps, c(flat_key, idx2_chr)))
-  new_key <- c(key_less, add_key)
+  grps <- syms(setdiff(group_vars(.data), as_string(idx2)))
 
   build_tsibble_meta(
-    sum_data, key = new_key, index = !! idx2,
+    sum_data, key = grps, index = !! idx2,
     regular = reg, ordered = TRUE, interval = int
   )
 }

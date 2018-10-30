@@ -17,14 +17,10 @@ test_that("tsibble_rename()", {
   expect_true("sensor" %in% names(key_bm))
   key_t <- tourism %>%
     tsibble_rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
-  expect_equal(key_flatten(key(key_t)), c("region", "State", "purpose"))
 })
 
 test_that("key_reduce()", {
   melb <- tourism %>%
     filter(Region == "Melbourne")
   expect_error(melb %>% select(-Purpose), "A valid tsibble")
-  key_m <- melb %>%
-    select(-Region, -State)
-  expect_equal(key_flatten(key(key_m)), "Purpose")
 })

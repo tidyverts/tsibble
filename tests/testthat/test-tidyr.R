@@ -11,7 +11,7 @@ test_that("spread()", {
   out <- tsbl %>%
     spread(key = group, value = value)
   expect_is(out, "tbl_ts")
-  expect_equal(format(key(out)), list())
+  expect_equal(key(out), list())
   expect_named(out, c("qtr", "x", "y", "z"))
   out_grp <- tsbl %>%
     group_by(group) %>%
@@ -84,12 +84,12 @@ nest_t <- tourism %>%
 test_that("unnest()", {
   expect_error(nest_t %>% unnest(key = Region), "Key must be created")
   expect_error(nest_t %>% unnest(), "A valid tsibble")
-  expect_is(nest_t %>% unnest(key = id(Region | State)), "tbl_ts")
-  expect_equal(nest_t %>% unnest(key = id(Region | State)), tourism)
+  expect_is(nest_t %>% unnest(key = id(Region, State)), "tbl_ts")
+  expect_equal(nest_t %>% unnest(key = id(Region, State)), tourism)
   expect_is(
     nest_t %>%
       mutate(data2 = lapply(data, as_tibble)) %>%
-      unnest(key = id(Region | State)),
+      unnest(key = id(Region, State)),
     "tbl_ts"
   )
 })
@@ -100,7 +100,7 @@ test_that("dplyr verbs for lst_ts", {
     "accepts a list-column of `tbl_ts` to be unnested."
   )
   expect_named(
-    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = id(Region | State)),
+    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = id(Region, State)),
     c("Region", "State", "Quarter", "Purpose", "Trips")
   )
   expect_is(unnest(nest_t %>% mutate(data = 1)), "tbl_df")

@@ -20,11 +20,11 @@
     }
 
     if (!missing(i)) { # x[1:2]
-      i <- validate_vars(i, names(x))
-      lgl_i <- has_index(i, x) && has_distinct_key(i, x)
+      i <- tidyselect::vars_select(names(x), i)
+      lgl_i <- has_index(i, x) && has_any_key(i, x)
       result <- .subset(x, i)
       attr(result, "row.names") <- .set_row_names(nr)
-      x <- key_remove(x, i, validate = FALSE)
+      x <- remove_key(x, i)
       if (is_false(lgl_i)) {
         return(as_tibble(result))
       } else {
@@ -45,13 +45,13 @@
 
   # subset by columns
   if (!missing(j)) {
-    chr_j <- validate_vars(j, colnames(x))
-    lgl_j <- has_index(chr_j, x) && has_distinct_key(chr_j, x)
+    chr_j <- tidyselect::vars_select(names(x), j)
+    lgl_j <- has_index(chr_j, x) && has_any_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
     result <- .subset(x, j)
-    x <- key_remove(x, chr_j, validate = FALSE)
+    x <- remove_key(x, chr_j)
   } else {
     result <- x
   }

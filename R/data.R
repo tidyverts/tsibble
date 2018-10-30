@@ -42,11 +42,6 @@
 #'   - "Business" 
 #'   - "Other reason"
 #' * **Trips**: Overnight trips in thousands
-#' @details This data gives an example of nested and crossed time series
-#' structure. *Region* and *State* together form a geographical hierarchy.
-#' In other words, *Region* is nested into *State*. These two geographical
-#' variables are crossed with *Purpose* of visit. The resulting structure is 
-#' `Region` | `State`, `Purpose`.
 #' @references [Tourism Research Australia](https://www.tra.gov.au)
 #' @docType data
 #' @name tourism

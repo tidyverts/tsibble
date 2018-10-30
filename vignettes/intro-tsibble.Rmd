@@ -11,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principle [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential component and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify units over time, using a syntactical and user-oriented approach in which it imposes nested or crossed structures on the data. Multiple variables separated by a vertical bar (`|`) or a comma (`,`) are expressive of nested or crossed factors. This binds [hierarchical and grouped time series](http://pkg.earo.me/hts/) together into the `tbl_ts` class. The tsibble package aims at managing temporal data and getting analysis done in a succinct and transparent workflow.
+The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal-context data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principle [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential component and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify units over time. The tsibble package aims at managing temporal data and getting analysis done in a succinct and transparent workflow.
 
 ```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
 knitr::opts_chunk$set(
@@ -53,42 +53,21 @@ weather_tsbl %>%
   )
 ```
 
-## Nested and crossed structures
-
-The key is not constrained to a single variable, but expressive of nested and crossed data structures [@wilkinson2006grammar]. A built-in dataset `tourism` includes the quarterly overnight trips from 1998 Q1 to 2016 Q4 across Australia, which is sourced from [Tourism Research Australia](https://www.tra.gov.au). The key structure is imposed by `Region | State, Purpose`. The `Region` and `State` naturally form a two-level geographical hierarchy: the lower-level regions are nested into the higher-level states. This nesting/hierarchical structure is indicated using a vertical bar (`|`). The crossing of `Purpose` (purpose of visiting) with the geographical variables suffices to validate the tsibble, where a comma (`,`) separates these two groups. Each observation is the number of trips made to a specific region for a certain purpose of travelling at one quarter of the year.
-
-```{r tourism}
-as_tsibble(tourism, key = id(Region | State, Purpose), index = Quarter)
-```
-
-The commonly used dplyr verbs, such as `filter()`, `summarise()` and `mutate()`, have been implemented to support the tsibble. To obtain the numerical summaries for the geographical variables, `summarise()` is performed in conjunction with the `Region, State` in the `group_by()`. The `Purpose` variable has been dropped from the key, but `Region | State` keeps the hierarchical structure. The tsibble `summarise()` never collapses the rows over the time index, which is slightly different from the dplyr `summarise()`.
-
-```{r tourism-sum}
-tourism %>%
-  group_by(Region, State) %>%
-  summarise(Geo_Trips = sum(Trips))
-```
-
-This syntactical approach appears more advantageous for the structural variables when coming to hierarchical and grouped time series forecast.
-
 ## Intervals
 
-It has been seen that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see `?tsibble`). The option `regular`, by default, is set to `TRUE` in `as_tsibble()`. Specify `regular` to `FALSE` to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York City:
+Note that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see `?tsibble`). The option `regular`, by default, is set to `TRUE` in `as_tsibble()`. Specify `regular` to `FALSE` to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York:
 
 ```{r flights}
 flights <- nycflights13::flights %>%
-  mutate(
-    sched_dep_datetime = make_datetime(year, month, day, hour, minute, 0),
-    flight_num = paste0(carrier, flight)
-  )
+  mutate(sched_dep_datetime = make_datetime(year, month, day, hour, minute))
 ```
 
-The key variable is the `flight_num`. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.
+The key contains columns `carrier` and `flight` to identify observational units over time, from a passenger's point of view. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.
 
 ```{r flights-ts}
 flights_tsbl <- flights %>%
   as_tsibble(
-    key = id(flight_num), 
+    key = id(carrier, flight), 
     index = sched_dep_datetime, 
     regular = FALSE
   )

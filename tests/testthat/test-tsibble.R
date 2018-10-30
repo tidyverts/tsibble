@@ -71,7 +71,7 @@ test_that("POSIXt with 1 second interval", {
   expect_is(index(tsbl), "name")
   expect_identical(quo_text(index(tsbl)), "date_time")
   expect_identical(time_unit(pull_interval(tsbl$date_time)), 1)
-  expect_identical(format(key(tsbl)), list())
+  expect_identical(key(tsbl), list())
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1s")
   expect_output(print(interval(tsbl)), "1s")
@@ -241,8 +241,6 @@ test_that("A single key", {
   expect_error(as_tsibble(dat_x, key = "group", index = date), "Key must be created")
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
-  expect_is(key(tsbl), "key")
-  expect_identical(format(key(tsbl))[[1]], "group")
   expect_identical(format(groups(tsbl)), "NULL")
   expect_equal(key_size(tsbl), c(5, 5))
   expect_equal(n_keys(tsbl), 2)
@@ -264,23 +262,6 @@ test_that("validate = FALSE", {
   expect_is(tsbl, "tbl_ts")
 })
 
-dat_x <- tibble(
-  date = rep(idx_day, 2),
-  group = rep(letters[1:2], each = 5),
-  level = rep("z", 10),
-  value = rnorm(10)
-)
-
-test_that("2 nested variables", {
-  expect_error(as_tsibble(dat_x, key = id(level | group), index = date))
-  tsbl <- as_tsibble(dat_x, key = id(group | level), index = date)
-  expect_identical(length(key(tsbl)), 1L)
-  expect_identical(length(key(tsbl)[[1]]), 2L)
-  expect_identical(format(key(tsbl))[[1]], "group | level")
-  expect_output(print(key(tsbl)), "group | level")
-  expect_identical(tsbl, as_tsibble(dat_x, key = id(level / group), index = date))
-})
-
 dat_x <- tribble(
   ~ date, ~ group1, ~ group2, ~ value,
   ymd("2017-10-01"), "a", "x", 1,
@@ -291,7 +272,7 @@ dat_x <- tribble(
   ymd("2017-10-02"), "b", "y", 2
 )
 
-test_that("2 crossed variable", {
+test_that("multiple variables", {
   expect_error(as_tsibble(dat_x, key = id(group1), index = date))
   expect_error(as_tsibble(dat_x, key = id(group2), index = date))
   tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
@@ -303,58 +284,6 @@ test_that("Use '-' and ':' in key vars", {
   expect_identical(length(key(tsbl1)), 2L)
   tsbl2 <- as_tsibble(dat_x, key = id(group1:group2), index = date)
   expect_identical(length(key(tsbl2)), 2L)
-})
-
-dat_x <- tribble(
-  ~ date, ~ bottom, ~ group1, ~ group2, ~ value,
-  ymd("2017-10-01"), 1, "a", "x", 1,
-  ymd("2017-10-02"), 1, "a", "x", 1,
-  ymd("2017-10-01"), 2, "a", "x", 1,
-  ymd("2017-10-02"), 2, "a", "x", 1,
-  ymd("2017-10-01"), 1, "a", "y", 1,
-  ymd("2017-10-02"), 1, "a", "y", 1,
-  ymd("2017-10-01"), 2, "a", "y", 1,
-  ymd("2017-10-02"), 2, "a", "y", 1,
-  ymd("2017-10-01"), 3, "b", "y", 3,
-  ymd("2017-10-02"), 3, "b", "y", 3,
-  ymd("2017-10-01"), 3, "b", "x", 3,
-  ymd("2017-10-02"), 3, "b", "x", 3,
-  ymd("2017-10-01"), 4, "b", "y", 3,
-  ymd("2017-10-02"), 4, "b", "y", 3,
-  ymd("2017-10-01"), 4, "b", "x", 3,
-  ymd("2017-10-02"), 4, "b", "x", 3
-)
-
-test_that("2 nested variables crossed with 1 variable", {
-  expect_error(as_tsibble(dat_x, key = id(bottom | group1), index = date))
-  expect_error(as_tsibble(dat_x, key = id(group1, group2), index = date))
-  tsbl <- as_tsibble(dat_x, key = id(bottom | group1, group2), index = date)
-  expect_identical(length(key(tsbl)), 2L)
-  expect_identical(length(key(tsbl))[[1]], 2L)
-  expect_identical(format(key(tsbl))[[1]], "bottom | group1")
-  expect_identical(key_vars(tsbl)[[3]], "group2")
-  tsbl2 <- as_tsibble(dat_x, key = id(group2, bottom | group1), index = date)
-  expect_identical(format(key(tsbl2))[[2]], "bottom | group1")
-  expect_identical(key_vars(tsbl2)[[1]], "group2")
-})
-
-dat_y <- dat_x %>%
-  mutate(top = "z")
-
-test_that("2 nestings, crossed with each other", {
-  tsbl <- as_tsibble(dat_y, key = id(bottom | group1, group2 | top), index = date)
-  expect_identical(format(key(tsbl))[[1]], "bottom | group1")
-  expect_identical(format(key(tsbl))[[2]], "group2 | top")
-})
-
-colnames(dat_x) <- c("1", "Bottom 1", "Group 1", "Group 2", "Value X")
-
-test_that("Spectial characters in column names", {
-  tsbl <- as_tsibble(
-    dat_x, key = id(`Bottom 1` | `Group 1`, `Group 2`), index = `1`
-  )
-  expect_identical(format(key(tsbl))[[1]], "`Bottom 1` | `Group 1`")
-  expect_identical(key_vars(tsbl)[[3]], "Group 2")
 })
 
 tbl <- tibble::tibble(

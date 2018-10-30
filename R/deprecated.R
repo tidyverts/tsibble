@@ -18,7 +18,7 @@ split_by.tbl_ts <- function(x, ...) {
   quos <- enquos(...)
   if (is_empty(quos)) return(list(x))
 
-  vars_split <- validate_vars(quos, names(x))
+  vars_split <- tidyselect::vars_select(names(x), !!! quos)
   grped_df <- grouped_df(x, vars = vars_split)
   res <- split(x, group_indices(grped_df))
   unname(res)

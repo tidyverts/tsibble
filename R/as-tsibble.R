@@ -52,10 +52,8 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
 #' @param validate `TRUE` suggests to verify that each key or each combination
-#' of key variables lead to unique time indices (i.e. a valid tsibble). It will
-#' also make sure that the nested variables are arranged from lower level to
-#' higher, if nested variables are passed to `key`. If you are sure that it's a
-#' valid input, specify `FALSE` to skip the checks.
+#' of key variables lead to unique time indices (i.e. a valid tsibble). If you 
+#' are sure that it's a valid input, specify `FALSE` to skip the checks.
 #' @param ... Other arguments passed on to individual methods.
 #'
 #' @return A tsibble object.
@@ -347,18 +345,15 @@ build_tsibble <- function(
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(tbl, key)
-  # (2) if there exists a list of lists, flatten it as characters
-  flat_keys <- key_flatten(key_vars)
-  # (3) index cannot be part of the keys
+  # (2) index cannot be part of the keys
   idx_chr <- c(as_string(index), as_string(index2))
-  is_index_in_keys <- intersect(idx_chr, flat_keys)
+  is_index_in_keys <- intersect(idx_chr, key_vars)
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # validate tbl_ts
   if (validate) {
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
-    tbl <- validate_nested(data = tbl, key = key_vars)
   }
   build_tsibble_meta(
     tbl, key = key_vars, index = !! index, index2 = !! index2,
@@ -391,7 +386,7 @@ build_tsibble_meta <- function(
     }
     return(set_tsibble_class(
       tbl,
-      "key" = structure(key, class = "key"),
+      "key" = key,
       # "key_indices" = attr(grped_key, "indices"),
       "index" = index,
       "index2" = index2,
@@ -416,7 +411,7 @@ build_tsibble_meta <- function(
   # arrange in time order (by key and index)
   if (is.null(ordered)) { # first time to create a tsibble
     tbl <- tbl %>%
-      arrange(!!! syms(key_flatten(key)), !! index)
+      arrange(!!! key, !! index)
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
     msg_header <- "Unexpected temporal order. Please sort by %s."
@@ -424,7 +419,7 @@ build_tsibble_meta <- function(
     if (is_empty(key)) {
       msg <- sprintf(msg_header, idx_txt)
     } else {
-      msg <- sprintf(msg_header, paste_comma(c(key_flatten(key), idx_txt)))
+      msg <- sprintf(msg_header, paste_comma(c(key, idx_txt)))
     }
     warn(msg)
   } # true do nothing
@@ -437,7 +432,7 @@ build_tsibble_meta <- function(
   }
   set_tsibble_class(
     tbl,
-    "key" = structure(key, class = "key"),
+    "key" = key,
     # "key_indices" = attr(grped_key, "indices"),
     "index" = index,
     "index2" = index2,
@@ -457,7 +452,7 @@ build_tsibble_meta <- function(
 #' @seealso [tsibble], [as_tsibble]
 #' @export
 id <- function(...) {
-  enexprs(...)
+  unname(enexprs(...))
 }
 
 ## Although the "index" arg is possible to automate the detection of time
@@ -493,34 +488,16 @@ validate_index <- function(data, index) {
   sym(chr_index)
 }
 
-# check if the number of unique values is in descending order for a set of
-# nested variables
-validate_nested <- function(data, key) {
-  nest_lgl <- is_nest(key)
-  if (any(nest_lgl)) {
-    key_nest <- key[nest_lgl]
-    nest_keys <- map(key_nest, ~ map_chr(., as_string))
-    n_dist <- map(nest_keys, ~ map_int(., ~ dplyr::n_distinct(data[[.]])))
-    n_lgl <- map_lgl(n_dist, is_descending)
-    if (is_false(all(n_lgl))) {
-      suggested <- map2(nest_keys, map(n_dist, order, decreasing = TRUE), `[`)
-      res <- map(suggested, ~ paste(., collapse = " | "))
-      abort(sprintf("Unexpected nested ordering. Do you mean `key = id(%s)`?", res))
-    }
-  }
-  data
-}
-
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tsibble <- function(data, key, index) {
   # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
-  # identifiers <- c(key_flatten(key), idx)
+  # identifiers <- c(key, idx)
   # below calls anyDuplicated.data.frame():
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  tbl_dup <- grouped_df(data, vars = key_flatten(key)) %>%
+  tbl_dup <- grouped_df(data, vars = key) %>%
     summarise(!! "zzz" := anyDuplicated.default(!! index))
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     header <- "A valid tsibble must have distinct rows identified by key and index.\n"
@@ -621,13 +598,9 @@ find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, enquo(index))
 
-  grouped_df(data, vars = key_flatten(key)) %>%
+  grouped_df(data, vars = key) %>%
     mutate(!! "zzz" := duplicated.default(!! index, fromLast = fromLast)) %>%
     dplyr::pull(!! "zzz")
-
-  # identifiers <- c(key_flatten(key), as_string(index))
-  # duplicated(data[, identifiers, drop = FALSE], fromLast = fromLast)
-  # not handling time zone correctly for duplicated.data.frame
 }
 
 set_tsibble_class <- function(x, ...) {

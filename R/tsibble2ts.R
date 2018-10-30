@@ -22,7 +22,7 @@
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   value <- enquo(value)
   key_vars <- key(x)
-  if (any(is_nest(key_vars)) || length(key_vars) > 1) {
+  if (length(key_vars) > 1) {
     abort("Can't proceed with the key of multiple variables.")
   }
   mvars <- measured_vars(x)

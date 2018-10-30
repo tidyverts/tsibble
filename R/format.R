@@ -17,22 +17,6 @@ glimpse.tbl_ts <- function(x, width = NULL, ...) {
 }
 
 #' @export
-print.key <- function(x, ...) {
-  cat_line(paste_comma(format(x, ...)))
-  invisible(x)
-}
-
-#' @export
-format.key <- function(x, ...) {
-  if (is_empty(x)) return(list())
-  reconstruct_key(
-    x, 
-    ~ map(map(., as.character), paste, collapse = " | "),
-    ~ map(., as_string)
-  )
-}
-
-#' @export
 print.interval <- function(x, digits = NULL, ...) {
   cat_line(format(x, digits = digits, ...))
   invisible(x)

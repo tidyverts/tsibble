@@ -35,10 +35,8 @@ the correct order. \code{FALSE} also skips the ordering but gives a warning inst
 \code{\link[=new_interval]{new_interval()}} as is, if an class of \code{interval} is supplied.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). It will
-also make sure that the nested variables are arranged from lower level to
-higher, if nested variables are passed to \code{key}. If you are sure that it's a
-valid input, specify \code{FALSE} to skip the checks.}
+of key variables lead to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{
 \itemize{

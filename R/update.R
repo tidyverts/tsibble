@@ -85,17 +85,9 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   
   # key (key of the reduced size (bf & af) but also different names)
   key_vars <- syms(val_vars[val_vars %in% key_vars(.data)])
-  # tmp_data <- key_remove(.data, key_vars, validate = FALSE)
-  # new_key <- key(tmp_data)
   
   if (validate) {
     vec_names <- union(names(val_vars), names(.data))
-    # either key or index is present in ...
-    # suggests that the operations are done on these variables
-    # validate = TRUE to check if tsibble still holds
-    # val_idx <- has_index(vec_names, .data)
-    # val_key <- has_any_key(vec_names, .data)
-    # validate <- val_idx || val_key
     validate <- has_any_key(vec_names, .data)
   }
   
@@ -106,23 +98,13 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   )
 }
 
-validate_vars <- function(j, x) { # j = quos/chr/dbl
-  tidyselect::vars_select(.vars = x, !!! j)
-}
-
-# this function usually follows validate_vars()
 has_index <- function(j, x) {
   is_index_null(x)
   index <- c(quo_name(index(x)), quo_name(index2(x)))
   any(index %in% j)
 }
 
-has_distinct_key <- function(j, x) {
-  key_vars <- key_flatten(key_distinct(key(x)))
-  all(key_vars %in% j)
-}
-
 has_any_key <- function(j, x) {
-  key_vars <- key_flatten(key(x))
+  key_vars <- key_vars(x)
   any(key_vars %in% j)
 }

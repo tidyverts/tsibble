@@ -28,13 +28,6 @@ tourism
 A dataset containing the quarterly overnight trips from 1998 Q1 to 2016 Q4
 across Australia.
 }
-\details{
-This data gives an example of nested and crossed time series
-structure. \emph{Region} and \emph{State} together form a geographical hierarchy.
-In other words, \emph{Region} is nested into \emph{State}. These two geographical
-variables are crossed with \emph{Purpose} of visit. The resulting structure is
-\code{Region} | \code{State}, \code{Purpose}.
-}
 \examples{
 data(tourism)
 # nesting and crossed structure

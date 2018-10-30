@@ -56,26 +56,11 @@ Key variable(s) together with the index uniquely identifies each record. And
 the key also imposes the structure on a tsibble, which can be created via the
 \link{id} function as identifiers:
 \itemize{
-\item None: an implicit variable \code{id()} resulting a univariate time series.
-\item A single variable: an explicit variable. For example, \code{data(pedestrian)}
-uses the \code{id(Sensor)} column as the key.
-\item Nested variables: a nesting of one variable under another. For example,
-\code{data(tourism)} contains two geographical locations: \code{Region} and \code{State}.
-\code{Region} is the lower level than \code{State} in Australia; in other words, \code{Region}
-is nested into \code{State}, which naturally forms a hierarchy. A vertical bar (\code{|})
-is used to describe this nesting relationship, and thus \code{Region} | \code{State}.
-Alternatively, a forward slash (\code{/}) expresses the equivalent hierarchy but
-in a reverse order, for example \code{State} / \code{Region}.
-In theory, nesting can involve infinite levels, so is \code{tsibble}.
-\item Crossed variables: a crossing of one variable with another. For example,
-the geographical locations are crossed with the purpose of visiting (\code{Purpose})
-in the \code{data(tourism)}. A comma (\code{,}) is used to indicate this crossing
-relationship. Nested and crossed variables can be combined, such as
-\code{data(tourism)} using \code{id(Region | State, Purpose)}.
+\item Empty: an implicit variable \code{id()} resulting in a univariate time series.
+\item One or more variables: explicit variables. For example, \code{data(pedestrian)}
+and \code{data(tourism)} use the \code{id(Sensor)} & \code{id(Region, State, Purpose)} as
+the key respectively.
 }
-
-These key variables describe the data structure, which will prove useful in
-data visualisation and statistical modelling.
 }
 
 \section{Interval}{
