@@ -13,6 +13,8 @@ test_that("units_since()", {
   expect_equal(units_since(yw), 0:2)
   expect_equal(units_since(ym), 0:2)
   expect_equal(units_since(yq), 0:2)
+  expect_equal(units_since(year(yq)), rep(0, 3))
+  expect_equal(units_since(1:3), 1:3)
 })
 
 test_that("diff()", {

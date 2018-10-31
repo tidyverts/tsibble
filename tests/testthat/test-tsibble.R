@@ -181,6 +181,7 @@ test_that("Year month with 1 month interval", {
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1M\\]")
   expect_is(tsbl, "tbl_ts")
+  expect_is(as_tsibble(tsbl, validate = TRUE), "tbl_ts")
   expect_identical(format(interval(tsbl)), "1M")
   expect_identical(time_unit(pull_interval(tsbl$yrmth)), 1)
 })

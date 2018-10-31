@@ -141,6 +141,7 @@ test_that("select() and rename()", {
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
     "Index"
   )
+  expect_identical(rename(tourism), tourism)
 })
 
 test_that("select() with group_by()", {
