@@ -38,9 +38,9 @@ as_tsibble(x, ...)
 
 \item{...}{Other arguments passed on to individual methods.}
 
-\item{key}{Variable(s) that define unique time indices, used with the helper
-\code{\link[=id]{id()}}. If a univariate time series (without an explicit key), simply call
-\code{id()}.}
+\item{key}{Variable(s) that define unique time indices, used in conjuction
+with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
+simply call \code{id()}.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -49,7 +49,7 @@ interval is determined by the greatest common divisor of positive time distances
 if \code{TRUE}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). If you
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than

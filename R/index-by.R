@@ -107,11 +107,12 @@ rename_index2 <- function(.data, .vars) {
   .data
 }
 
-index2_update <- function(.data, .vars) {
-  chr <- intersect(quo_name(index2(.data)), .vars)
+mutate_index2 <- function(.data, .vars) {
+  chr <- intersect(as_string(index2(.data)), .vars)
   if (is_empty(chr)) {
-    index(.data)
+    attr(.data, "index2") <- index(.data)
   } else {
-    sym(chr)
+    attr(.data, "index2") <- sym(chr)
   }
+  .data
 }

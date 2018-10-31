@@ -85,6 +85,6 @@
 
 is_index_null <- function(x) {
   if (is.null(index(x))) {
-    abort("The `index` has been dropped somehow. Please reconstruct the `tbl_ts`.")
+    abort("The `index` has been dropped somehow. Please reconstruct the tsibble.")
   }
 }

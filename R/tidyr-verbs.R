@@ -23,14 +23,15 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
     )
   }
   vars <- tidyselect::vars_select(names(data), !!! exprs)
+  data <- mutate_index2(data, vars)
   tbl <- gather(
     as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble_meta(
-    tbl, key = new_key, index = !! index(data), 
-    index2 = !! index2_update(data, vars), regular = is_regular(data), 
-    ordered = is_ordered(data), interval = interval(data)
+    tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
+    regular = is_regular(data), ordered = is_ordered(data), 
+    interval = interval(data)
   )
 }
 
@@ -66,10 +67,12 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     convert = convert, drop = drop, sep = sep
   )
   vars <- names(tbl)
+  data <- mutate_index2(data, vars)
+
   build_tsibble_meta(
-    tbl, key = new_key, index = !! index(data), 
-    index2 = !! index2_update(data, vars), regular = is_regular(data), 
-    ordered = is_ordered(data), interval = interval(data)
+    tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
+    regular = is_regular(data), ordered = is_ordered(data), 
+    interval = interval(data)
   )
 }
 

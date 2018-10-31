@@ -14,9 +14,9 @@ build_tsibble_meta(x, key, index, index2, regular = TRUE,
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
 
-\item{key}{Variable(s) that define unique time indices, used with the helper
-\code{\link[=id]{id()}}. If a univariate time series (without an explicit key), simply call
-\code{id()}.}
+\item{key}{Variable(s) that define unique time indices, used in conjuction
+with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
+simply call \code{id()}.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -35,7 +35,7 @@ the correct order. \code{FALSE} also skips the ordering but gives a warning inst
 \code{\link[=new_interval]{new_interval()}} as is, if an class of \code{interval} is supplied.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables lead to unique time indices (i.e. a valid tsibble). If you
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{

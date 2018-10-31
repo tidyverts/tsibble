@@ -2,9 +2,9 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Variable(s) that define unique time indices, used with the helper 
-#' [id()]. If a univariate time series (without an explicit key), simply call 
-#' `id()`.
+#' @param key Variable(s) that define unique time indices, used in conjuction 
+#' with the helper [id()]. If a univariate time series (without an explicit key), 
+#' simply call `id()`.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of positive time distances,
@@ -52,7 +52,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
 #' @param validate `TRUE` suggests to verify that each key or each combination
-#' of key variables lead to unique time indices (i.e. a valid tsibble). If you 
+#' of key variables leads to unique time indices (i.e. a valid tsibble). If you 
 #' are sure that it's a valid input, specify `FALSE` to skip the checks.
 #' @param ... Other arguments passed on to individual methods.
 #'
@@ -417,7 +417,7 @@ build_tsibble_meta <- function(
 }
 
 
-#' Identifiers
+#' Identifiers used for creating key
 #'
 #' @param ... Variables passed to tsibble()/as_tsibble().
 #'
