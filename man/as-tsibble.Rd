@@ -30,8 +30,6 @@ as_tsibble(x, ...)
 \method{as_tsibble}{mts}(x, tz = "UTC", gather = TRUE, ...)
 
 \method{as_tsibble}{msts}(x, tz = "UTC", gather = TRUE, ...)
-
-\method{as_tsibble}{hts}(x, tz = "UTC", ...)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
@@ -94,12 +92,6 @@ z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)
 as_tsibble(z, gather = FALSE)
 
-# coerce hts from the "hts" package to tsibble
-if (!requireNamespace("hts", quietly = TRUE)) {
-  stop("Please install the hts package to run these following examples.")
-}
-as_tsibble(hts::htseg1)
-as_tsibble(hts::htseg2)
 }
 \seealso{
 \link{tsibble}

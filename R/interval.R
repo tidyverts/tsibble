@@ -181,7 +181,7 @@ irregular <- function() {
 #'
 #' @param x An interval.
 #' @export
-#' @keywords interval
+#' @keywords internal
 time_unit <- function(x) {
   if (is_false(inherits(x, "interval"))) {
     abort("Must be class interval.")

@@ -44,14 +44,14 @@ Suggests:
     covr,
     ggplot2 (>= 2.2.0),
     hms,
-    hts,
     knitr,
     nanotime,
     nycflights13 (>= 1.0.0),
     pillar (>= 1.0.1),
     rmarkdown,
     testthat,
-    timeDate
+    timeDate,
+    spelling
 LinkingTo: 
     Rcpp (>= 0.12.0)
 VignetteBuilder: 
@@ -95,3 +95,4 @@ Collate:
     'utils-format.R'
     'utils.R'
     'zzz.R'
+Language: en-GB

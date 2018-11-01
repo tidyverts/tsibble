@@ -12,4 +12,4 @@ time_unit(x)
 \description{
 Extract time unit from a vector
 }
-\keyword{interval}
+\keyword{internal}
