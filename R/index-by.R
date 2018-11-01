@@ -49,6 +49,12 @@
 #'     Min_Count = min(Count)
 #'   )
 #'
+#' # Aggregate to 5-hour interval ---
+#' pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   index_by(Date_Time5 = lubridate::floor_date(Date_Time, "5 hour")) %>%
+#'   summarise(Total_Count = sum(Count))
+#'
 #' # Annual trips by Region and State ----
 #' tourism %>% 
 #'   index_by(Year = lubridate::year(Quarter)) %>% 
