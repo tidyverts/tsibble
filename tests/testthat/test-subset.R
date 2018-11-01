@@ -73,16 +73,6 @@ test_that("`[<-.tbl_ts", {
   expect_is({tsbl[4, 2] <- 0; tsbl}, "tbl_ts")
 })
 
-test_that("`[[<-.tbl_ts", {
-  expect_error(tsbl[[]] <- 0, "missing subscript.")
-  expect_error(tsbl[[1]] <- 0, "valid tsibble")
-  expect_error(tsbl[[1:7, 2]] <- 0, "not exceed")
-  expect_is({tsbl[[4]] <- 0; tsbl}, "tbl_ts")
-  expect_is({tsbl[["value"]] <- 0; tsbl}, "tbl_ts")
-  expect_error(tsbl[[1:5, 2]] <- 0, "valid tsibble")
-  expect_is({tsbl[[4, 2]] <- 0; tsbl}, "tbl_ts")
-})
-
 test_that("`$<-.tbl_ts", {
   expect_error(tsbl$date <- 0, "valid tsibble")
   expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")

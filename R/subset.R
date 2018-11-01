@@ -5,11 +5,12 @@
 
 #' @export
 `$<-.tbl_ts` <- function(x, name, value) {
+  exceed_rows(x, length(value))
   name <- tidyselect::vars_select(names(x), name)
   if (is_null(value)) {
     lst_i <- map(name, ~ (.x = NULL))
   } else {
-    lst_i <- map2(name, value, ~ (.x = .y))
+    lst_i <- map(name, ~ (.x = value))
   }
   mutate(x, !!! lst_i)
 }
@@ -17,40 +18,6 @@
 #' @export
 `[[.tbl_ts` <- function(x, i, j, ..., exact = TRUE) {
   NextMethod()
-}
-
-#' @export
-`[[<-.tbl_ts` <- function(x, i, j, value) {
-  n_args <- nargs()
-  x <- ungroup(x)
-
-  if (missing(i) && missing(j)) {
-    abort("x[[i]] <- value : [[ ]] with missing subscript.")
-  }
-
-  if (n_args <= 3) { # x, i/j, value
-    if (!missing(i)) { # x[[1:2]]
-      i <- tidyselect::vars_select(names(x), i)
-      if (is_null(value)) {
-        lst_i <- map(i, ~ (.x = NULL))
-      } else {
-        lst_i <- map2(i, value, ~ (.x = .y))
-      }
-      mutate(x, !!! lst_i)
-    }
-  } else {
-    exceed_rows(x, max(i))
-    res <- x[i, ]
-    j <- tidyselect::vars_select(names(x), j)
-    lst_j <- map2(j, value, ~ (.x = .y))
-    out <- rbind(mutate(res, !!! lst_j), x[-i, ])
-    full_seq <- seq_len(NROW(x))
-    orig_idx <- c(i, full_seq[-i])
-    build_tsibble_meta(
-      out[orig_idx, ], key = key(x), index = !! index(x), index2 = !! index2(x),
-      regular = is_regular(x), ordered = is_ordered(x)
-    )
-  }
 }
 
 #' @export
@@ -131,10 +98,26 @@
   }
 
   n_args <- nargs()
-  if (n_args <= 3) {
-    x[[i]] <- value
-  } else {
-    x[[i, j]] <- value
+  x <- ungroup(x)
+  exceed_rows(x, length(value))
+
+  if (n_args <= 3 && !missing(i)) { # x, i/j, value
+    # x[i] <- 
+    # x[, j] <- 
+    i <- tidyselect::vars_select(names(x), i)
+    lst_i <- map(i, ~ (.x = value))
+    mutate(x, !!! lst_i)
+  } else { # x[i, j] <- 
+    exceed_rows(x, max(i))
+    res <- x[i, ]
+    j <- tidyselect::vars_select(names(x), j)
+    lst_j <- map2(j, value, ~ (.x = .y))
+    out <- rbind(mutate(res, !!! lst_j), x[-i, ])
+    full_seq <- seq_len(NROW(x))
+    orig_idx <- c(i, full_seq[-i])
+    build_tsibble_meta(
+      out[orig_idx, ], key = key(x), index = !! index(x), index2 = !! index2(x),
+      regular = is_regular(x), ordered = is_ordered(x)
+    )
   }
-  x
 }
