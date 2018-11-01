@@ -1,0 +1,63 @@
+---
+title: "Get started with tsibble"
+author: "Earo Wang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get started with tsibble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE, echo = TRUE,
+  fig.width = 7, fig.height = 6, fig.align = 'centre',
+  comment = "#>"
+)
+options(tibble.print_min = 5)
+```
+
+We have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html) and are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into our analysis, it is a good practice to inspect any implicit missingness in the tsibble in the beginning. Does it have time gaps using `has_gaps()`? 
+
+```{r}
+library(tsibble)
+has_gaps(pedestrian, .full = TRUE)
+
+ped_gaps <- pedestrian %>% 
+  count_gaps(.full = TRUE)
+
+ped_gaps
+
+library(ggplot2)
+ggplot(ped_gaps, aes(colour = Sensor)) +
+  geom_linerange(aes(x = Sensor, ymin = from, ymax = to)) +
+  geom_point(aes(x = Sensor, y = from)) +
+  geom_point(aes(x = Sensor, y = to)) +
+  coord_flip() +
+  theme(legend.position = "bottom")
+
+ped_full <- pedestrian %>% 
+  fill_na(.full = TRUE)
+ped_full
+
+pedestrian %>% 
+  fill_na(Count = 0L, .full = TRUE)
+
+pedestrian %>% 
+  group_by(Sensor) %>% 
+  fill_na(Count = mean(Count), .full = TRUE)
+
+library(lubridate)
+ped_annual <- ped_full %>% 
+  group_by(Sensor) %>% 
+  index_by(Year = year(Date_Time)) %>% 
+  summarise(Annual_Count = sum(Count, na.rm = TRUE))
+
+ped_annual
+
+ped_annual %>% 
+  ggplot(aes(x = as.factor(Year), y = Annual_Count)) +
+  geom_col() +
+  facet_grid(~ Sensor)
+```
+
