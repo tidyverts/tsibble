@@ -75,6 +75,12 @@ you may like to check out for \strong{RcppRoll} for faster performance.
 
 \code{slide()} is intended to work with list (and column-wise data frame). To
 perform row-wise sliding window on data frame, please check out \code{\link[=pslide]{pslide()}}.
+\itemize{
+\item \code{.partial = TRUE} allows for partial sliding. Window contains observations
+outside of the vector will be treated as value of \code{.fill}, which will be passed to \code{.f}.
+\item \code{.partial = FALSE} restricts calculations to be done on complete sliding windows.
+Window contains observations outside of the vector will return the value \code{.fill}.
+}
 }
 \examples{
 x <- 1:5

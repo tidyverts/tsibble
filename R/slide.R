@@ -48,6 +48,11 @@ replace_fn_names <- function(fn, replace = list()) {
 #' `slide()` is intended to work with list (and column-wise data frame). To
 #' perform row-wise sliding window on data frame, please check out [pslide()].
 #'
+#' * `.partial = TRUE` allows for partial sliding. Window contains observations 
+#' outside of the vector will be treated as value of `.fill`, which will be passed to `.f`.
+#' * `.partial = FALSE` restricts calculations to be done on complete sliding windows. 
+#' Window contains observations outside of the vector will return the value `.fill`.
+#'
 #' @examples
 #' x <- 1:5
 #' lst <- list(x = x, y = 6:10, z = 11:15)
