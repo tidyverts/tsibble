@@ -179,25 +179,23 @@ measured_vars.tbl_ts <- function(x) {
   setdiff(all_vars, c(key_vars, idx_var))
 }
 
-#' Return index and interval from a tsibble
+#' Return index variable from a tsibble
 #'
 #' @param x A tsibble object.
 #' @rdname index-rd
 #' @examples
-#' data(pedestrian)
 #' index(pedestrian)
-#' interval(pedestrian)
-#' @export
-interval <- function(x) {
-  not_tsibble(x)
-  attr(x, "interval")
-}
-
-#' @rdname index-rd
+#' index_var(pedestrian)
 #' @export
 index <- function(x) {
   not_tsibble(x)
   attr(x, "index")
+}
+
+#' @rdname index-rd
+#' @export
+index_var <- function(x) {
+  as_string(index(x))
 }
 
 #' @rdname index-rd
@@ -207,13 +205,27 @@ index2 <- function(x) {
   attr(x, "index2")
 }
 
+#' @rdname index-rd
+#' @export
+index2_var <- function(x) {
+  as_string(index2(x))
+}
+
 #' `is_regular` checks if a tsibble is spaced at regular time or not; `is_ordered`
 #' checks if a tsibble is ordered by key and index.
 #'
 #' @param x A tsibble object.
 #' @rdname regular
 #' @examples
-#' data(pedestrian)
+#' interval(pedestrian)
+#' @export
+interval <- function(x) {
+  not_tsibble(x)
+  attr(x, "interval")
+}
+
+#' @rdname regular
+#' @examples
 #' is_regular(pedestrian)
 #' is_ordered(pedestrian)
 #' @export

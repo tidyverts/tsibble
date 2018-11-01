@@ -97,7 +97,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   if (is_false(has_index(nest_vars, data))) {
     abort(sprintf(
       "Column `%s` (index) must be nested in the list-column", 
-      as_string(index(data))
+      index_var(data)
     ))
   }
   tbl <- as_tibble(data)

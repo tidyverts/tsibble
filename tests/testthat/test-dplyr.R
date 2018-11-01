@@ -168,9 +168,11 @@ test_that("select() with group_by()", {
 })
 
 test_that("mutate()", {
+  expect_error(mutate(tourism, Quarter = NULL), "can't be removed.")
   expect_error(mutate(tourism, Quarter = 1), "A valid tsibble")
   expect_error(mutate(tourism, Region = State), "A valid tsibble")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
+  expect_equal(ncol(mutate(tourism, State = NULL)), 4)
   tsbl <- tourism %>%
     group_by(Region, State, Purpose) %>%
     mutate(New = 1:n())
