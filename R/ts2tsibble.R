@@ -44,6 +44,7 @@ as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
 }
 
 #' @rdname as-tsibble
+#' @usage NULL
 #' @export
 as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
   if (NCOL(x) == 1) {

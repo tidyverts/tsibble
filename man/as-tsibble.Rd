@@ -28,8 +28,6 @@ as_tsibble(x, ...)
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
 \method{as_tsibble}{mts}(x, tz = "UTC", gather = TRUE, ...)
-
-\method{as_tsibble}{msts}(x, tz = "UTC", gather = TRUE, ...)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
