@@ -49,13 +49,6 @@ test_that("a tsibble with more than one measured vars", {
   expect_equal(ncol(y), 4)
 })
 
-test_that("a tsibble with composite keys", {
-  eg1 <- hts::htseg1
-  tsbl1 <- as_tsibble(hts::htseg1)
-  expect_error(as.ts(tsbl1))
-  expect_error(as.ts(tourism))
-})
-
 test_that("time.* and guess_frequency.*", {
  dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
  y <- time(dat)

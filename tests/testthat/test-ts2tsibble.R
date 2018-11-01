@@ -33,13 +33,3 @@ test_that("a mts", {
   expect_identical(key_vars(tsbl2), character(0))
   expect_identical(colnames(tsbl2), c("index", "Series 1", "Series 2"))
 })
-
-test_that("a hts", {
-  eg1 <- hts::htseg1
-  tsbl1 <- as_tsibble(hts::htseg1)
-  expect_identical(dim(tsbl1), c(nrow(eg1$bts) * ncol(eg1$bts), 4L))
-  expect_identical(unique(tsbl1$`Level 2`), unname(eg1$labels[[3]]))
-  expect_identical(tsbl1$`Level 2`, rep(eg1$labels[[3]], each = 10))
-  expect_identical(unique(tsbl1$`Level 1`), unname(eg1$labels[[2]]))
-  expect_identical(tsbl1$`Level 1`, rep(eg1$labels[[2]], times = c(30, 20)))
-})
