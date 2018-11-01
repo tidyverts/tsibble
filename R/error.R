@@ -1,3 +1,9 @@
+is_index_null <- function(x) {
+  if (is.null(index(x))) {
+    abort("The `index` has been dropped somehow. Please reconstruct the tsibble.")
+  }
+}
+
 dont_know <- function(x, FUN) {
   cls <- class(x)[1]
   msg <- sprintf(

@@ -49,7 +49,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   call_pos <- map_lgl(exprs, is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- tidyselect::vars_select(names(.data), !!! vars)
-  idx <- as_string(index(.data))
+  idx <- index_var(.data)
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(exprs[idx_pos])
   key <- key(.data)
@@ -133,6 +133,11 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     warn_drop()
     return(mut_data)
   }
+  idx_chr <- index_var(.data)
+  if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
+    abort(sprintf("Column `%s` ('index') can't be removed.", idx_chr))
+  }
+
   lst_quos <- enquos(..., .named = TRUE)
   vec_names <- names(lst_quos)
   # either key or index is present in ...
@@ -140,6 +145,10 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   # validate = TRUE to check if tsibble still holds
   val_idx <- has_index(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
+  if (val_key) {
+    key_vars <- setdiff(names(mut_data), measured_vars(.data))
+    .data <- remove_key(.data, key_vars)
+  }
   validate <- val_idx || val_key
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data),
@@ -158,7 +167,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(as_string(index(.data)), key_vars(.data))
+  idx_key <- c(index_var(.data), key_vars(.data))
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, !!! vec_names)
 }

@@ -45,14 +45,7 @@ test_that("if it's a tsibble", {
   expect_true(is_regular(tsbl2))
 })
 
-dat_x <- tibble(
-  date = rep(idx_day, 2),
-  group = rep(letters[1:2], each = 5),
-  level = rep("z", 10),
-  value = rnorm(10)
-)
-
-dat_x <- tribble(
+dat_x <- tibble::tribble(
   ~ date, ~ group1, ~ group2, ~ value,
   ymd("2017-10-01"), "a", "x", 1,
   ymd("2017-10-02"), "a", "x", 1,
@@ -62,9 +55,25 @@ dat_x <- tribble(
   ymd("2017-10-02"), "b", "y", 2
 )
 
-test_that("Subset 2 variables in a tsibble", {
-  tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
+tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
+
+test_that("subset 2 variables in a tsibble", {
   expect_is(tsbl[, c(1, 2, 4)], "tbl_df")
   expect_is(tsbl[, c(1, 3, 4)], "tbl_df")
   expect_is(tsbl[, 2:4], "tbl_df")
+})
+
+test_that("`[<-.tbl_ts", {
+  expect_error(tsbl[] <- 0, "Oops!")
+  expect_error(tsbl[1] <- 0, "valid tsibble")
+  expect_error(tsbl[1:7, 2] <- 0, "not exceed")
+  expect_is({tsbl[4] <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl["value"] <- 0; tsbl}, "tbl_ts")
+  expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
+  expect_is({tsbl[4, 2] <- 0; tsbl}, "tbl_ts")
+})
+
+test_that("`$<-.tbl_ts", {
+  expect_error(tsbl$date <- 0, "valid tsibble")
+  expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
 })

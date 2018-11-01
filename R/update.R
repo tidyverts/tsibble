@@ -40,8 +40,8 @@ grped_df_by_key <- function(.data) {
 }
 
 restore_index_class <- function(new, old) {
-  old_idx <- as_string(index(old))
-  new_idx <- as_string(index(new))
+  old_idx <- index2(old)
+  new_idx <- index2(new)
   class(new[[new_idx]]) <- class(old[[old_idx]])
   if (!identical(interval(new), interval(old))) {
     attr(new, "interval") <- pull_interval(new[[new_idx]])
@@ -100,11 +100,17 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
 
 has_index <- function(j, x) {
   is_index_null(x)
-  index <- c(quo_name(index(x)), quo_name(index2(x)))
+  index <- c(index_var(x), index2_var(x))
   any(index %in% j)
 }
 
 has_any_key <- function(j, x) {
   key_vars <- key_vars(x)
   any(key_vars %in% j)
+}
+
+assign_index_null <- function(j, x) {
+  is_index_null(x)
+  index <- c(index_var(x), index2_var(x))
+  any(index %in% j)
 }

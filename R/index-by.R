@@ -49,6 +49,12 @@
 #'     Min_Count = min(Count)
 #'   )
 #'
+#' # Aggregate to 5-hour interval ---
+#' pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   index_by(Date_Time5 = lubridate::floor_date(Date_Time, "5 hour")) %>%
+#'   summarise(Total_Count = sum(Count))
+#'
 #' # Annual trips by Region and State ----
 #' tourism %>% 
 #'   index_by(Year = lubridate::year(Quarter)) %>% 
@@ -87,7 +93,7 @@ index_by.tbl_ts <- function(.data, ...) {
 
 rename_index <- function(.data, .vars) {
   names <- names(.vars)
-  idx_chr <- as_string(index(.data))
+  idx_chr <- index_var(.data)
   idx <- idx_chr == .vars
   if (sum(idx) == 0) return(.data)
 
@@ -98,7 +104,7 @@ rename_index <- function(.data, .vars) {
 
 rename_index2 <- function(.data, .vars) {
   names <- names(.vars)
-  idx2_chr <- as_string(index2(.data))
+  idx2_chr <- index2_var(.data)
   idx <- idx2_chr == .vars
   if (sum(idx) == 0) return(.data)
 
@@ -108,7 +114,7 @@ rename_index2 <- function(.data, .vars) {
 }
 
 mutate_index2 <- function(.data, .vars) {
-  chr <- intersect(as_string(index2(.data)), .vars)
+  chr <- intersect(index2_var(.data), .vars)
   if (is_empty(chr)) {
     attr(.data, "index2") <- index(.data)
   } else {
