@@ -55,7 +55,7 @@
   # subset by columns
   if (!missing(j)) {
     chr_j <- tidyselect::vars_select(names(x), j)
-    lgl_j <- has_index(chr_j, x) && has_any_key(chr_j, x)
+    lgl_j <- has_index(chr_j, x) || has_any_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }
