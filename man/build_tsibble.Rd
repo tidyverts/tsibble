@@ -14,7 +14,7 @@ build_tsibble_meta(x, key, index, index2, regular = TRUE,
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjuction
+\item{key}{Variable(s) that define unique time indices, used in conjunction
 with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
 simply call \code{id()}.}
 

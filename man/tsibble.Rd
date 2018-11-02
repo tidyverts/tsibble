@@ -10,7 +10,7 @@ tsibble(..., key = id(), index, regular = TRUE)
 \item{...}{A set of name-value pairs. The names of "key" and "index" should
 be avoided as they are used as the arguments.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjuction
+\item{key}{Variable(s) that define unique time indices, used in conjunction
 with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
 simply call \code{id()}.}
 

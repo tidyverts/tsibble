@@ -34,7 +34,7 @@ as_tsibble(x, ...)
 
 \item{...}{Other arguments passed on to individual methods.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjuction
+\item{key}{Variable(s) that define unique time indices, used in conjunction
 with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
 simply call \code{id()}.}
 

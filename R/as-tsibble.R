@@ -2,7 +2,7 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Variable(s) that define unique time indices, used in conjuction 
+#' @param key Variable(s) that define unique time indices, used in conjunction 
 #' with the helper [id()]. If a univariate time series (without an explicit key), 
 #' simply call `id()`.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
