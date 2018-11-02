@@ -68,17 +68,23 @@ test_that("subset 2 variables in a tsibble", {
   expect_is(tsbl[, 2:4], "tbl_df")
 })
 
-# test_that("`[<-.tbl_ts", {
-#   expect_error(tsbl[] <- 0, "Oops!")
-#   expect_error(tsbl[1] <- 0, "valid tsibble")
-#   expect_error(tsbl[1:7, 2] <- 0, "not exceed")
-#   expect_is({tsbl[4] <- 0; tsbl}, "tbl_ts")
-#   expect_is({tsbl["value"] <- 0; tsbl}, "tbl_ts")
-#   expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
-#   expect_is({tsbl[4, 2] <- 0; tsbl}, "tbl_ts")
-# })
-#
-# test_that("`$<-.tbl_ts", {
-#   expect_error(tsbl$date <- 0, "valid tsibble")
-#   expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
-# })
+test_that("`[<-.tbl_ts", {
+  expect_error(tsbl[] <- 0, "Oops!")
+  expect_error(tsbl[1] <- 0, "valid tsibble")
+  expect_error(tsbl[1:7, 2] <- 0, "not exceed")
+  expect_is({tsbl[4] <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl["value"] <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl["value2"] <- 0; tsbl}, "tbl_ts")
+  expect_equal({tsbl["value2"] <- 0; NCOL(tsbl)}, 5)
+  expect_equal({tsbl[6] <- 0; NCOL(tsbl)}, 6)
+  expect_equal({tsbl[6] <- 0; names(tsbl)[6]}, "6")
+  expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
+  expect_is({tsbl[4, 2] <- 0; tsbl}, "tbl_ts")
+})
+
+test_that("`$<-.tbl_ts", {
+  expect_error(tsbl$date <- 0, "valid tsibble")
+  expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl$value2 <- 0; tsbl}, "tbl_ts")
+  expect_equal({tsbl$value2 <- 0; NCOL(tsbl)}, 5)
+})

@@ -17,17 +17,28 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-We have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html) and are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into our analysis, it is a good practice to inspect any implicit missingness in the tsibble in the beginning. Does it have time gaps using `has_gaps()`? 
+We have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html) and are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into our analysis, it is a good practice to inspect any **implicit missingness** in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) `has_gaps()` scans if there exists implicit missingness; (2) `count_gaps()` reports the time range that is absent from the data; (3) `fill_na()` turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument `.full`, if `FALSE` (default) looking into the time period for each key, otherwise the full-length time span. The `pedestrian` data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.
 
-```{r}
+```{r ped}
 library(tsibble)
-has_gaps(pedestrian, .full = TRUE)
+pedestrian
+```
 
+Indeed each sensor has gaps in time.
+
+```{r has-gaps}
+has_gaps(pedestrian, .full = TRUE)
+```
+
+So where are these gaps? A table presents the individual time gap and the number of 
+
+```{r count-gaps}
 ped_gaps <- pedestrian %>% 
   count_gaps(.full = TRUE)
-
 ped_gaps
+```
 
+```{r}
 library(ggplot2)
 ggplot(ped_gaps, aes(colour = Sensor)) +
   geom_linerange(aes(x = Sensor, ymin = from, ymax = to)) +
