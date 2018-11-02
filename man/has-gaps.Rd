@@ -3,7 +3,7 @@
 \name{has_gaps}
 \alias{has_gaps}
 \alias{has_gaps.tbl_ts}
-\title{Does a tsibble have implict gaps in time?}
+\title{Does a tsibble have implicit gaps in time?}
 \usage{
 has_gaps(.data, ...)
 

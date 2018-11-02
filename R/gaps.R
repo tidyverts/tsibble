@@ -52,7 +52,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   ungroup(out)
 }
 
-#' Does a tsibble have implict gaps in time?
+#' Does a tsibble have implicit gaps in time?
 #'
 #' Returns a vector of `TRUE`/`FALSE` corresponding to each key.
 #'

@@ -316,7 +316,7 @@ pslide_dfc <- function(
 #' to a list of data frames.
 #' @inheritParams slide
 #' @rdname slider
-#' @seealso [partial_slider], [partial_pslider] for patial sliding
+#' @seealso [partial_slider], [partial_pslider] for partial sliding
 #' @export
 #' @examples
 #' x <- 1:5
