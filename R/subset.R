@@ -32,7 +32,7 @@
     ordered <- is_ordered(x)
     if (!missing(i)) { # x[1:2]
       i <- tidyselect::vars_select(names(x), i)
-      lgl_i <- has_index(i, x) || has_any_key(i, x)
+      lgl_i <- has_index(i, x) && n_keys(x) < 2 || has_any_key(i, x)
       result <- .subset(x, i)
       x <- remove_key(x, i)
       if (is_false(lgl_i)) {
@@ -55,7 +55,7 @@
   # subset by columns
   if (!missing(j)) {
     chr_j <- tidyselect::vars_select(names(x), j)
-    lgl_j <- has_index(chr_j, x) || has_any_key(chr_j, x)
+    lgl_j <- has_index(chr_j, x) && n_keys(x) < 2 || has_any_key(chr_j, x)
     if (is_false(lgl_j)) {
       return(NextMethod())
     }

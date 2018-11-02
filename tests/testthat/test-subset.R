@@ -19,11 +19,16 @@ test_that("if it's an atomic vector", {
 })
 
 test_that("if it's a tibble", {
+  expect_is(tsbl[, "date"], "tbl_df")
+  expect_is(tsbl["date"], "tbl_df")
   expect_is(tsbl[, 1], "tbl_df")
   expect_is(tsbl[, 2], "tbl_df")
   expect_is(tsbl[, 3], "tbl_df")
   expect_is(tsbl[, 2:3], "tbl_df")
   expect_is(tsbl[, c(1, 3)], "tbl_df")
+  tsbl_tmp <- tsbl %>% filter(group == "a")
+  expect_is(tsbl_tmp[, "date"], "tbl_ts")
+  expect_is(tsbl_tmp["date"], "tbl_ts")
 })
 
 tsbl1 <- tsibble(date = as.Date("2010-01-01") + 0:10)
