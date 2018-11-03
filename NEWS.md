@@ -1,24 +1,27 @@
-# tsibble 0.5.3.9000
+# tsibble 0.5.3.9000 (To be released as 0.6.0)
+
+This release simplifies the "key" structure. The nesting and crossing definition has been removed from the "key" specification. One or more variables forming the "key", are required to identify observational units over time, but no longer assume the relationship between these variables. The nesting and crossing structure will be dealt with visualisation and forecasting reconciliation in downstream packages.
 
 ## Breaking changes
 
-* `count_gaps()` returns a tibble with each row corresponding to each key value, to be consistent with the rest of tsibble methods.
-* `time_unit()` accepts `interval` input instead of time vectors, also marked as internal function.
+* `count_gaps.tbl_ts()` returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods.
+* `time_unit()` accepts `interval` input instead of time vectors to avoid overheads, also marked as internal function.
 * Separate partial sliding from `slider()` and `pslider()` as new functions `partial_slider()` and `partial_pslider()`. Argument `.partial` is removed from `slider()` and `pslider()` to feature a simpler interface.
 * Removed argument `group` from `build_tsibble()`. In order to construct a grouped tsibble, `x` is expected as a grouped df.
 
 ## New features
 
 * Added new S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
-* An empty tsibble will not raise an error and is valid.
+* An empty tsibble is now valid and will not raise an error, which is made easier to programme with.
 
 ## Bug fixes
 
-* Fixed unclear error message for `holiday_aus()` that requires package "timeDate".
+* Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
 
 ## Misc
 
-* Deprecated `case_na()` & `split_by()`.
+* Deprecated `case_na()`, and will be defunct in next release.
+* Deprecated `split_by()`, which is under development as S3 generic in **dplyr**.
 * Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.
 * Deprecated `.drop` argument in column-wise verbs, and suggested to use `as_tibble()`.
 
