@@ -10,7 +10,7 @@ gaps(x, y)
 \item{x, y}{Atomic vectors. The length of \code{y} must be greater than the length of \code{x}.}
 }
 \value{
-A tibble of columns \code{from}, \code{to} and \code{n}.
+A tibble of columns \code{.from}, \code{.to} and \code{.n}.
 }
 \description{
 Find missing elements in \code{x} with respect to \code{y}

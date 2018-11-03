@@ -17,8 +17,11 @@ has_gaps(.data, ...)
 \item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
 to find gaps over the entire time span of the data.}
 }
+\value{
+A tibble contains "key" variables and new column \code{.gaps} of \code{TRUE}/\code{FALSE}.
+}
 \description{
-Returns a vector of \code{TRUE}/\code{FALSE} corresponding to each key.
+Does a tsibble have implicit gaps in time?
 }
 \examples{
 harvest <- tsibble(

@@ -21,9 +21,9 @@ to find gaps over the entire time span of the data.}
 A tibble contains:
 \itemize{
 \item the "key" of the \code{tbl_ts}
-\item "from": the starting time point of the gap
-\item "end": the ending time point of the gap
-\item "n": the implicit missing observations during the time period
+\item ".from": the starting time point of the gap
+\item ".to": the ending time point of the gap
+\item ".n": the implicit missing observations during the time period
 }
 }
 \description{
@@ -37,9 +37,9 @@ if (!requireNamespace("ggplot2", quietly = TRUE)) {
 }
 library(ggplot2)
 ggplot(ped_gaps, aes(colour = Sensor)) +
-  geom_linerange(aes(x = Sensor, ymin = from, ymax = to)) +
-  geom_point(aes(x = Sensor, y = from)) +
-  geom_point(aes(x = Sensor, y = to)) +
+  geom_linerange(aes(x = Sensor, ymin = .from, ymax = .to)) +
+  geom_point(aes(x = Sensor, y = .from)) +
+  geom_point(aes(x = Sensor, y = .to)) +
   coord_flip() +
   theme(legend.position = "bottom")
 }

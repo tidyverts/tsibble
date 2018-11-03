@@ -13,8 +13,8 @@ test_that("a tbl_df/data.frame", {
 test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
   expect_identical(fill_na(tsbl), tsbl)
-  expect_equal(count_gaps(tsbl)$n, 0)
-  expect_equal(has_gaps(tsbl), FALSE)
+  expect_equal(count_gaps(tsbl)$.n, 0)
+  expect_equal(has_gaps(tsbl), tibble(".gaps" = FALSE))
 })
 
 test_that("an irregular tbl_ts", {
@@ -27,7 +27,7 @@ test_that("an irregular tbl_ts", {
 test_that("a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
   expect_identical(fill_na(tsbl), tsbl)
-  ref_tbl <- tibble(from = NA, to = NA, n = 0L)
+  ref_tbl <- tibble(.from = NA, .to = NA, .n = 0L)
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
@@ -147,21 +147,21 @@ test_that("count_gaps.tbl_ts(.full = TRUE)", {
     full_tbl,
     tibble(
       group = c("a", "b"),
-      from = c(ymd("2017-01-01"), ymd("2017-01-13")),
-      to = c(ymd("2017-01-01"), ymd("2017-01-13")),
-      n = c(1L, 1L)
+      .from = c(ymd("2017-01-01"), ymd("2017-01-13")),
+      .to = c(ymd("2017-01-01"), ymd("2017-01-13")),
+      .n = c(1L, 1L)
     )
   )
 })
 
 test_that("count_gaps.tbl_ts(.full = FALSE)", {
   full_tbl <- tsbl %>% count_gaps()
-  a <- tibble(group = "a", from = NA, to = NA, n = 0L)
+  a <- tibble(group = "a", .from = NA, .to = NA, .n = 0L)
   b <- tibble(
     group = "b",
-    from = ymd("2017-01-13"),
-    to = ymd("2017-01-13"),
-    n = 1L
+    .from = ymd("2017-01-13"),
+    .to = ymd("2017-01-13"),
+    .n = 1L
   )
   expect_equal(full_tbl, dplyr::bind_rows(a, b))
 })
@@ -174,8 +174,8 @@ harvest <- tsibble(
 )
 
 test_that("has_gaps()", {
-  expect_equal(has_gaps(harvest), c(FALSE, TRUE))
-  expect_equal(has_gaps(harvest, .full = TRUE), c(TRUE, TRUE))
+  expect_equal(has_gaps(harvest)$.gaps, c(FALSE, TRUE))
+  expect_equal(has_gaps(harvest, .full = TRUE)$.gaps, c(TRUE, TRUE))
 })
 
 test_that("Error in gaps()", {

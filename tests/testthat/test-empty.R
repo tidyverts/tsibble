@@ -25,6 +25,6 @@ test_that("dplyr verbs", {
 
 test_that("tsibble verbs", {
   expect_identical(fill_na(ped_null), ped_null)
-  expect_identical(has_gaps(ped_null), FALSE)
+  expect_identical(has_gaps(ped_null), tibble(.gaps = FALSE))
   expect_equal(NROW(count_gaps(ped_null)), 0)
 })

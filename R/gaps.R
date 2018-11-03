@@ -9,9 +9,9 @@
 #' @return
 #' A tibble contains:
 #' * the "key" of the `tbl_ts`
-#' * "from": the starting time point of the gap
-#' * "end": the ending time point of the gap
-#' * "n": the implicit missing observations during the time period
+#' * ".from": the starting time point of the gap
+#' * ".to": the ending time point of the gap
+#' * ".n": the implicit missing observations during the time period
 count_gaps <- function(.data, ...) {
   UseMethod("count_gaps")
 }
@@ -28,9 +28,9 @@ count_gaps <- function(.data, ...) {
 #' }
 #' library(ggplot2)
 #' ggplot(ped_gaps, aes(colour = Sensor)) +
-#'   geom_linerange(aes(x = Sensor, ymin = from, ymax = to)) +
-#'   geom_point(aes(x = Sensor, y = from)) +
-#'   geom_point(aes(x = Sensor, y = to)) +
+#'   geom_linerange(aes(x = Sensor, ymin = .from, ymax = .to)) +
+#'   geom_point(aes(x = Sensor, y = .from)) +
+#'   geom_point(aes(x = Sensor, y = .to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
 count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
@@ -54,11 +54,10 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 
 #' Does a tsibble have implicit gaps in time?
 #'
-#' Returns a vector of `TRUE`/`FALSE` corresponding to each key.
-#'
 #' @inheritParams count_gaps
 #' @export
 #' @rdname has-gaps
+#' @return A tibble contains "key" variables and new column `.gaps` of `TRUE`/`FALSE`.
 #' @examples
 #' harvest <- tsibble(
 #'   year = c(2010, 2011, 2013, 2011, 2012, 2013),
@@ -69,7 +68,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' has_gaps(harvest)
 #' has_gaps(harvest, .full = TRUE)
 has_gaps <- function(.data, ...) {
-  if (NROW(.data) == 0L || NROW(.data) == 1L) return(FALSE)
+  if (NROW(.data) == 0L) return(tibble(!! ".gaps" := FALSE))
     
   UseMethod("has_gaps")
 }
@@ -84,20 +83,20 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     res <- grped_tbl %>% 
-      summarise(!! "lgl" := (length(idx_full) - length(!! idx)) > 0)
+      summarise(!! ".gaps" := (length(idx_full) - length(!! idx)) > 0)
   } else {
     res <- grped_tbl %>% 
       summarise(
-        !! "lgl" := (length(seq_generator(!! idx, int)) - length(!! idx)) > 0
+        !! ".gaps" := (length(seq_generator(!! idx, int)) - length(!! idx)) > 0
       )
   }
-  res[["lgl"]]
+  ungroup(res)
 }
 
 #' Find missing elements in `x` with respect to `y`
 #'
 #' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
-#' @return A tibble of columns `from`, `to` and `n`.
+#' @return A tibble of columns `.from`, `.to` and `.n`.
 #' @keywords internal
 #' @export
 #' @examples
@@ -121,12 +120,12 @@ gaps <- function(x, y) {
   from <- c(1, to[-length(to)] + 1)
   nobs <- gap_idx[lgl_rle]
   if (is_empty(nobs)) {
-    tibble(from = NA, to = NA, n = 0L)
+    tibble(.from = NA, .to = NA, .n = 0L)
   } else {
     tibble(
-      from = y[from][lgl_rle],
-      to = y[to][lgl_rle],
-      n = nobs
+      .from = y[from][lgl_rle],
+      .to = y[to][lgl_rle],
+      .n = nobs
     )
   }
 }
