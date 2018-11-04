@@ -119,6 +119,8 @@ navbar:
     menu:
     - text: Introduction to tsibble
       href: articles/intro-tsibble.html
+    - text: Handle implicit missingess with tsibble
+      href: articles/implicit-na.html
     - text: Window functions
       href: articles/window.html
   - text: News

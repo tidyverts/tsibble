@@ -36,10 +36,10 @@ if (!requireNamespace("ggplot2", quietly = TRUE)) {
   stop("Please install the ggplot2 package to run these following examples.")
 }
 library(ggplot2)
-ggplot(ped_gaps, aes(colour = Sensor)) +
-  geom_linerange(aes(x = Sensor, ymin = .from, ymax = .to)) +
-  geom_point(aes(x = Sensor, y = .from)) +
-  geom_point(aes(x = Sensor, y = .to)) +
+ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
+  geom_linerange(aes(ymin = .from, ymax = .to)) +
+  geom_point(aes(y = .from)) +
+  geom_point(aes(y = .to)) +
   coord_flip() +
   theme(legend.position = "bottom")
 }

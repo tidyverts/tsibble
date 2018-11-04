@@ -1,0 +1,69 @@
+---
+title: "Handle implicit missingness with tsibble"
+author: "Earo Wang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Handle implicit missingness with tsibble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE, echo = TRUE,
+  fig.width = 7, fig.height = 6, fig.align = 'centre',
+  comment = "#>"
+)
+options(tibble.print_min = 5)
+```
+
+We have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html) and are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into our analysis, it is a good practice to inspect any **implicit missingness** in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) `has_gaps()` scans if there exists implicit missingness; (2) `count_gaps()` reports the time range that is absent from the data; (3) `fill_na()` turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument `.full`. If `FALSE` (default) looks into the time period for each key, otherwise the full-length time span. The `pedestrian` data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.
+
+```{r ped}
+library(tsibble)
+pedestrian
+```
+
+Indeed each sensor has gaps in time.
+
+```{r has-gaps}
+has_gaps(pedestrian, .full = TRUE)
+```
+
+So where are these gaps? A table presents the individual time gap alongside the number of missing observations for each key. It is clear that Birrarung Marr exhibits many chunks of missingness, while Bourke Street Mall (North) displays as many consecutive missingness as 1128. If `.full = FALSE`, the opening gap for Bourke Street Mall (North) will not be recognised.
+
+```{r count-gaps}
+ped_gaps <- pedestrian %>% 
+  count_gaps(.full = TRUE)
+ped_gaps
+```
+
+These missing gaps can be visually presented using **ggplot2** as follows. Two missing points pop out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.
+
+```{r ggplot-gaps, fig.height = 3}
+library(ggplot2)
+ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
+  geom_linerange(aes(ymin = .from, ymax = .to)) +
+  geom_point(aes(y = .from)) +
+  geom_point(aes(y = .to)) +
+  coord_flip() +
+  theme(legend.position = "bottom")
+```
+
+We have learned if any missing periods and where, and we enlarge the tsibble to include explicit `NA` (previously as implicit missingness). The function `fill_na()` takes care of filling the key and index, and leaves other variables filled by the default `NA`. The `pedestrian` data initially contains `r format(NROW(pedestrian))` and gets augmented to `r format(NROW(fill_na(pedestrian, .full = TRUE)))`.
+
+```{r fill-na-default}
+ped_full <- pedestrian %>% 
+  fill_na(.full = TRUE)
+ped_full
+```
+
+Other than `NA`, a set of name-value pairs goes along with `fill_na()`, by imputing values or functions as desired.
+
+```{r fill-na, eval = FALSE}
+pedestrian %>% 
+  fill_na(Count = 0L, .full = TRUE)
+pedestrian %>% 
+  group_by(Sensor) %>% 
+  fill_na(Count = mean(Count), .full = TRUE)
+```
