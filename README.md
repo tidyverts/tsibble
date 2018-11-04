@@ -104,7 +104,8 @@ full_weather
 
 `fill_na()` also handles filling `NA` by values or functions, and
 preserves time zones for date-times. Wanna a quick overview of implicit
-time gaps? Check out `has_gaps()` & `count_gaps()`.
+time gaps? Check out
+[`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 

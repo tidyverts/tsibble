@@ -97,6 +97,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -135,18 +138,19 @@
       
     </div>
 
-    <div id="tsibble-0-5-3-9000" class="section level1">
+    <div id="tsibble-0-5-3-9000-to-be-released-as-0-6-0" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-3-9000" class="anchor"></a>tsibble 0.5.3.9000<small> Unreleased </small>
+<a href="#tsibble-0-5-3-9000-to-be-released-as-0-6-0" class="anchor"></a>tsibble 0.5.3.9000 (To be released as 0.6.0)<small> Unreleased </small>
 </h1>
+<p>This release simplifies the “key” structure. The nesting and crossing definition has been removed from the “key” specification. One or more variables forming the “key”, are required to identify observational units over time, but no longer assume the relationship between these variables. The nesting and crossing structure will be dealt with visualisation and forecasting reconciliation in downstream packages.</p>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
-<code><a href="../reference/count-gaps.html">count_gaps()</a></code> returns a tibble with each row corresponding to each key value, to be consistent with the rest of tsibble methods.</li>
+<code><a href="../reference/count-gaps.html">count_gaps.tbl_ts()</a></code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods.</li>
 <li>
-<code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors, also marked as internal function.</li>
+<code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
 <li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial-slider.html">partial_slider()</a></code> and <code><a href="../reference/partial-slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
 <li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> is expected as a grouped df.</li>
 </ul>
@@ -156,21 +160,22 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>Added new S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
-<li>An empty tsibble will not raise an error and is valid.</li>
+<li>An empty tsibble is now valid and will not raise an error, which is made easier to programme with.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed unclear error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
+<li>Fixed unexpected error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#misc" class="anchor"></a>Misc</h2>
 <ul>
-<li>Deprecated <code><a href="../reference/deprecated.html">case_na()</a></code> &amp; <code><a href="../reference/deprecated.html">split_by()</a></code>.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">case_na()</a></code>, and will be defunct in next release.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">split_by()</a></code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
 <li>Deprecated <code>.drop</code> argument in column-wise verbs, and suggested to use <code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>.</li>
 </ul>
@@ -379,7 +384,7 @@
 <li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (#33).</li>
 <li>New S3 generics <code><a href="../reference/units_since.html">units_since()</a></code> for index classes.</li>
 <li>New <code><a href="../reference/period.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
-<li>New S3 generics <code><a href="../reference/key_sum.html">key_sum()</a></code> for extending tsibble.</li>
+<li>New S3 generics <code>key_sum()</code> for extending tsibble.</li>
 </ul>
 </div>
 <div id="improvements-3" class="section level2">
@@ -680,7 +685,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tsibble-0-5-3-9000">0.5.3.9000</a></li>
+        <li><a href="#tsibble-0-5-3-9000-to-be-released-as-0-6-0">0.5.3.9000</a></li>
         <li><a href="#tsibble-0-5-3">0.5.3</a></li>
         <li><a href="#tsibble-0-5-2">0.5.2</a></li>
         <li><a href="#tsibble-0-5-1">0.5.1</a></li>

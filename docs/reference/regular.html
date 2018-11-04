@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title><code>is_regular</code> checks if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular • tsibble</title>
+checks if a tsibble is ordered by key and index. — interval • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -38,7 +38,7 @@ checks if a tsibble is ordered by key and index. — is_regular • tsibble</tit
 
 
 <meta property="og:title" content="<code>is_regular</code> checks if a tsibble is spaced at regular time or not; <code>is_ordered</code>
-checks if a tsibble is ordered by key and index. — is_regular" />
+checks if a tsibble is ordered by key and index. — interval" />
 
 <meta property="og:description" content="is_regular checks if a tsibble is spaced at regular time or not; is_ordered
 checks if a tsibble is ordered by key and index." />
@@ -102,6 +102,9 @@ checks if a tsibble is ordered by key and index." />
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -149,7 +152,9 @@ checks if a tsibble is ordered by key and index.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is_regular</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>interval</span>(<span class='no'>x</span>)
+
+<span class='fu'>is_regular</span>(<span class='no'>x</span>)
 
 <span class='fu'>is_ordered</span>(<span class='no'>x</span>)</pre>
     
@@ -164,8 +169,7 @@ checks if a tsibble is ordered by key and index.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>pedestrian</span>)
-<span class='fu'>is_regular</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>interval</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; 1h</div><div class='input'><span class='fu'>is_regular</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

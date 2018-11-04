@@ -2,6 +2,7 @@ pandoc: 2.2.3.2
 pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
+  implicit-na: implicit-na.html
   intro-tsibble: intro-tsibble.html
   window: window.html
 urls:

@@ -104,6 +104,9 @@ index_by() with no arguments to remove the index grouping vars." />
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -236,6 +239,25 @@ displaying on the screen.</p></li>
 #&gt;  9 Birrarung Marr 2015-01-09      1629         5
 #&gt; 10 Birrarung Marr 2015-01-10      2439        10
 #&gt; # ... with 2,742 more rows</div><div class='input'>
+<span class='co'># Aggregate to 5-hour interval ---</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>index_by</span>(<span class='kw'>Date_Time5</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span>(<span class='no'>Date_Time</span>, <span class='st'>"5 hour"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Count</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 13,760 x 3 [1h]
+#&gt; # Key:       Sensor [4]
+#&gt;    Sensor         Date_Time5          Total_Count
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;                    &lt;int&gt;
+#&gt;  1 Birrarung Marr 2015-01-01 00:00:00        3426
+#&gt;  2 Birrarung Marr 2015-01-01 05:00:00         456
+#&gt;  3 Birrarung Marr 2015-01-01 10:00:00        2236
+#&gt;  4 Birrarung Marr 2015-01-01 15:00:00        2426
+#&gt;  5 Birrarung Marr 2015-01-01 20:00:00         406
+#&gt;  6 Birrarung Marr 2015-01-02 00:00:00          52
+#&gt;  7 Birrarung Marr 2015-01-02 05:00:00        1130
+#&gt;  8 Birrarung Marr 2015-01-02 10:00:00        1229
+#&gt;  9 Birrarung Marr 2015-01-02 15:00:00        1020
+#&gt; 10 Birrarung Marr 2015-01-02 20:00:00         541
+#&gt; # ... with 13,750 more rows</div><div class='input'>
 <span class='co'># Annual trips by Region and State ----</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>Quarter</span>)) <span class='kw'>%&gt;%</span>

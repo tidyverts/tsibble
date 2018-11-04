@@ -105,6 +105,9 @@ object is a valid tsibble.
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -171,7 +174,7 @@ object is a valid tsibble.</p></li>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Variable(s) that define unique time indices, used in conjuction
+      <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
     </tr>
@@ -214,7 +217,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='index-rd.html'>interval</a></span>(<span class='no'>.</span>)
+    <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt; # Groups:    @ Date [731]

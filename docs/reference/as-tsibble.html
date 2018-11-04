@@ -99,6 +99,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -165,9 +168,6 @@
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for mts</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for msts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -183,7 +183,7 @@
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Variable(s) that define unique time indices, used in conjuction
+      <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
     </tr>

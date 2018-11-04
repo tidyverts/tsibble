@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Does a tsibble have implict gaps in time? — has_gaps • tsibble</title>
+<title>Does a tsibble have implicit gaps in time? — has_gaps • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Does a tsibble have implict gaps in time? — has_gaps" />
+<meta property="og:title" content="Does a tsibble have implicit gaps in time? — has_gaps" />
 
-<meta property="og:description" content="Returns a vector of TRUE/FALSE corresponding to each key." />
+<meta property="og:description" content="Does a tsibble have implicit gaps in time?" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -99,6 +99,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -133,14 +136,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Does a tsibble have implict gaps in time?</h1>
+    <h1>Does a tsibble have implicit gaps in time?</h1>
     
     <div class="hidden name"><code>has-gaps.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Returns a vector of <code>TRUE</code>/<code>FALSE</code> corresponding to each key.</p>
+    <p>Does a tsibble have implicit gaps in time?</p>
     
     </div>
 
@@ -167,6 +170,10 @@ to find gaps over the entire time span of the data.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble contains "key" variables and new column <code>.gaps</code> of <code>TRUE</code>/<code>FALSE</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
@@ -175,13 +182,23 @@ to find gaps over the entire time span of the data.</p></td>
   <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'>sample</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>6</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
 )
-<span class='fu'>has_gaps</span>(<span class='no'>harvest</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE</div></pre>
+<span class='fu'>has_gaps</span>(<span class='no'>harvest</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;   fruit  .gaps
+#&gt;   &lt;chr&gt;  &lt;lgl&gt;
+#&gt; 1 cherry FALSE
+#&gt; 2 kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;   fruit  .gaps
+#&gt;   &lt;chr&gt;  &lt;lgl&gt;
+#&gt; 1 cherry TRUE 
+#&gt; 2 kiwi   TRUE </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

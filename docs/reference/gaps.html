@@ -99,6 +99,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -157,12 +160,12 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of columns <code>from</code>, <code>to</code> and <code>n</code>.</p>
+    <p>A tibble of columns <code>.from</code>, <code>.to</code> and <code>.n</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>gaps</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>6</span>, <span class='fl'>9</span>:<span class='fl'>10</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
-#&gt;    from    to     n
+#&gt;   .from   .to    .n
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     4     4     1
 #&gt; 2     7     8     2</div></pre>

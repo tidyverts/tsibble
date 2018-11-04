@@ -104,6 +104,9 @@ slide_dfr() slide_dfc() return data frames using row-binding &amp;amp; column-bi
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -231,7 +234,12 @@ giving either the name or the index of the data frame.</p></td>
 the purrr-like syntax. For some specialist functions like <code>mean</code> and <code>sum</code>,
 you may like to check out for <strong>RcppRoll</strong> for faster performance.</p>
 <p><code>slide()</code> is intended to work with list (and column-wise data frame). To
-perform row-wise sliding window on data frame, please check out <code><a href='slide2.html'>pslide()</a></code>.</p>
+perform row-wise sliding window on data frame, please check out <code><a href='slide2.html'>pslide()</a></code>.</p><ul>
+<li><p><code>.partial = TRUE</code> allows for partial sliding. Window contains observations
+outside of the vector will be treated as value of <code>.fill</code>, which will be passed to <code>.f</code>.</p></li>
+<li><p><code>.partial = FALSE</code> restricts calculations to be done on complete sliding windows.
+Window contains observations outside of the vector will return the value <code>.fill</code>.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

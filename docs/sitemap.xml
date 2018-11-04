@@ -73,9 +73,6 @@
     <loc>https://pkg.earo.me/tsibble/reference/key_by.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/key_sum.html</loc>
-  </url>
-  <url>
     <loc>https://pkg.earo.me/tsibble/reference/measured-vars.html</loc>
   </url>
   <url>
@@ -143,6 +140,9 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/units_since.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/articles/implicit-na.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/articles/intro-tsibble.html</loc>

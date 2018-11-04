@@ -99,6 +99,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -171,9 +174,9 @@ to find gaps over the entire time span of the data.</p></td>
 
     <p>A tibble contains:</p><ul>
 <li><p>the "key" of the <code>tbl_ts</code></p></li>
-<li><p>"from": the starting time point of the gap</p></li>
-<li><p>"end": the ending time point of the gap</p></li>
-<li><p>"n": the implicit missing observations during the time period</p></li>
+<li><p>".from": the starting time point of the gap</p></li>
+<li><p>".to": the ending time point of the gap</p></li>
+<li><p>".n": the implicit missing observations during the time period</p></li>
 </ul>
 
     
@@ -189,10 +192,10 @@ to find gaps over the entire time span of the data.</p></td>
   <span class='fu'>stop</span>(<span class='st'>"Please install the ggplot2 package to run these following examples."</span>)
 }
 <span class='fu'>library</span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>ped_gaps</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Sensor</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>to</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>from</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>to</span>)) +
+<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>ped_gaps</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Sensor</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>.from</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.from</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
   <span class='fu'><a href='ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() +
   <span class='fu'><a href='ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count-gaps-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

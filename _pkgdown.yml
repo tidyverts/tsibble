@@ -78,7 +78,6 @@ reference:
     - key
     - key_size
     - key_by
-    - key_sum
     - id
     - index
     - measures

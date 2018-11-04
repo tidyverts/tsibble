@@ -38,7 +38,7 @@ ped_gaps <- pedestrian %>%
 ped_gaps
 ```
 
-These missing gaps can be visually presented using **ggplot2** as follows. Two missing points pop out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.
+These gaps can be visually presented using **ggplot2** as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.
 
 ```{r ggplot-gaps, fig.height = 3}
 library(ggplot2)

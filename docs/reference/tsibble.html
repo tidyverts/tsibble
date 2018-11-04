@@ -99,6 +99,9 @@
       <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
     </li>
     <li>
+      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
+    </li>
+    <li>
       <a href="../articles/window.html">Window functions</a>
     </li>
   </ul>
@@ -156,7 +159,7 @@ be avoided as they are used as the arguments.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Variable(s) that define unique time indices, used in conjuction
+      <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
     </tr>
@@ -214,7 +217,7 @@ the key respectively.</p></li>
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
 
     
-    <p>The <a href='index-rd.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
+    <p>The <a href='regular.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
 <li><p>Regular: the value and its time unit including "nanosecond", "microsecond",
 "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
 "year". An unrecognisable time interval is labelled as "unit".</p></li>
