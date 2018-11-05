@@ -20,7 +20,9 @@ test_that("if it's an atomic vector", {
 
 test_that("if it's a tibble", {
   expect_is(tsbl[, "date"], "tbl_df")
-  expect_is(tsbl["date"], "tbl_df")
+  expect_is(tsbl[, "date"], "tbl_df")
+  expect_is(tsbl[1, "group"], "tbl_df")
+  expect_is(tsbl[1, c("group", "date")], "tbl_ts")
   expect_is(tsbl[, 1], "tbl_df")
   expect_is(tsbl[, 2], "tbl_df")
   expect_is(tsbl[, 3], "tbl_df")
