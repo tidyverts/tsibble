@@ -33,7 +33,7 @@ You could install the development version from Github using
 devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
 ```
 
-## Usage
+## Get started
 
 ### Coerce to a tsibble with `as_tsibble()`
 
@@ -180,10 +180,10 @@ full_weather %>%
 More examples can be found at
 [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
 
-## Forecast tsibble
+## More around tsibble
 
-The **tsibble** structure is also a natural data input to forecasting
-and many downstream analytical tasks. Stay tuned for
+Tsibble also serves a natural input to forecasting and many other
+downstream analytical tasks. Stay tuned for
 [tidyverts.org](http://tidyverts.org).
 
 -----
