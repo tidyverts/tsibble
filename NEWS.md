@@ -13,6 +13,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 
 * Added new S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
 * An empty tsibble is now valid and will not raise an error, which is made easier to programme with.
+* New vignette on handling implicit missingness.
 
 ## Bug fixes
 
