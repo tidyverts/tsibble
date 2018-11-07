@@ -194,11 +194,11 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx <- index(.data)
   idx2 <- index2(.data)
 
-  lst_quos <- enexprs(..., .named = TRUE)
-  idx2_chr <- quo_name(idx2)
+  lst_quos <- enquos(..., .named = TRUE)
+  idx2_chr <- as_string(idx2)
   nonkey <- setdiff(
     names(lst_quos),
-    squash(c(key(.data), quo_name(idx), idx2_chr))
+    squash(c(key(.data), as_string(idx), idx2_chr))
   )
   nonkey_quos <- lst_quos[nonkey]
 

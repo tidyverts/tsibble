@@ -18,6 +18,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 ## Bug fixes
 
 * Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
+* Fixed `summarise.tbl_ts()` scoping issue (#67).
 
 ## Misc
 
