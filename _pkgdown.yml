@@ -44,8 +44,9 @@ reference:
     - fill_na
     - has_gaps
     - count_gaps
-    - append_row
     - group_by_key
+    - new_data
+    - append_row
     - find_duplicates
 
 - title: A family of window functions

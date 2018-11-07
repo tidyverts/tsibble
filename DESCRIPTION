@@ -64,7 +64,6 @@ Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate',
 RoxygenNote: 6.1.0
 Collate: 
     'RcppExports.R'
-    'append.R'
     'as-tsibble.R'
     'data.R'
     'deprecated.R'
@@ -79,6 +78,7 @@ Collate:
     'index-valid.R'
     'interval.R'
     'key-group.R'
+    'new-data.R'
     'period.R'
     'reexports.R'
     'slide.R'

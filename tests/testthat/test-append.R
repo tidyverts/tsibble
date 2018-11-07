@@ -46,3 +46,8 @@ test_that("ordered?", {
     new_t[["Trips"]][(NROW(tourism) + 1):NROW(new_t)], 
     rep(NA_real_, n_keys(tourism)))
 })
+
+test_that("`.keep_all = TRUE", {
+  new_t <- new_data(tourism, .keep_all = TRUE)
+  expect_equal(dim(new_t), c(308, 5))
+})
