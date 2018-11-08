@@ -123,7 +123,7 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
-  as_yearweek(as_date(anytime::anytime(x)))
+  as_yearweek(anytime::anydate(x))
 }
 
 #' @export
@@ -274,7 +274,7 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
-  as_yearmonth(as_date(anytime::anytime(x)))
+  as_yearmonth(anytime::anydate(x))
 }
 
 #' @export
@@ -392,7 +392,7 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
-  as_yearquarter(as_date(anytime::anytime(x)))
+  as_yearquarter(anytime::anydate(x))
 }
 
 #' @export
