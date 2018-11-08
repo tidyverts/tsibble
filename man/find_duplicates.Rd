@@ -4,7 +4,8 @@
 \alias{find_duplicates}
 \title{Find duplicates of key and index variables}
 \usage{
-find_duplicates(data, key = id(), index, fromLast = FALSE)
+find_duplicates(data, key = id(), index, from_last = FALSE,
+  fromLast = from_last)
 }
 \arguments{
 \item{data}{A \code{tbl_ts} object.}
@@ -15,8 +16,10 @@ simply call \code{id()}.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
-\item{fromLast}{\code{TRUE} does the duplication check from the last of identical
+\item{from_last}{\code{TRUE} does the duplication check from the last of identical
 elements.}
+
+\item{fromLast}{Deprecated. Please use \code{from_last} instead.}
 }
 \value{
 A logical vector of the same length as the row number of \code{data}
