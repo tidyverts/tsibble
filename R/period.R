@@ -549,8 +549,8 @@ units_since <- function(x) {
 
 #' @export
 units_since.numeric <- function(x) {
-  if (min(x) > 1581) { # Input is years
-    x - 1970
+  if (min0(x) > 1581 && max0(x) < 2500) { # Input is years
+    x - 1970L
   } else {
     x
   }
