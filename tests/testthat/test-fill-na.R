@@ -100,6 +100,10 @@ test_that("fill_na() for a grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%
     fill_na(value = sum(value), .full = TRUE)
+  expect_error(
+    tourism %>% group_by(Quarter) %>% fill_na(Trips = sum(Trips)),
+    "Replacement"
+  )
   expect_identical(dim(full_tsbl), c(10L, 3L))
   expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),

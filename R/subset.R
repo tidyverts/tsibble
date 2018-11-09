@@ -118,8 +118,10 @@
     }
     if (j > NCOL(x)) {
       j <- as.character(j)
+      j <- tidyselect::vars_select(union(j, names(x)), j)
+    } else {
+      j <- tidyselect::vars_select(names(x), j)
     }
-    j <- tidyselect::vars_select(union(j, names(x)), j)
     lst_j <- map(j, ~ (.x = value))
     out <- rbind(mutate(res, !!! lst_j), x[-i, ])
     full_seq <- seq_len(NROW(x))

@@ -2,10 +2,12 @@ globalVariables(".")
 
 #' Turn implicit missing values into explicit missing values
 #'
-#' @param .data A data frame.
-#' @param ... A set of name-value pairs. The values will replace existing explicit
-#' missing values by variable, otherwise `NA`. The replacement values must be of
-#' the same type as the original one.
+#' @param .data A tsibble.
+#' @param ... A set of name-value pairs. The values provided will only replace 
+#' missing values that were marked as "implicit", and will leave previously
+#' existing `NA` untouched.
+#' * empty: filled with default `NA`.
+#' * filled by values or functions.
 #'
 #' @seealso [count_gaps], [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
@@ -33,7 +35,7 @@ fill_na.data.frame <- function(.data, ...) {
 #'   key = id(fruit), index = year
 #' )
 #'
-#' # leave NA as is ----
+#' # gaps as default `NA` ----
 #' fill_na(harvest, .full = TRUE)
 #' full_harvest <- fill_na(harvest, .full = FALSE)
 #' full_harvest
@@ -43,18 +45,24 @@ fill_na.data.frame <- function(.data, ...) {
 #'   group_by(fruit) %>% 
 #'   tidyr::fill(kilo, .direction = "down")
 #'
-#' # replace NA with a specific value ----
+#' # replace gaps with a specific value ----
 #' harvest %>%
 #'   fill_na(kilo = 0L)
 #'
-#' # replace NA using a function by variable ----
+#' # replace gaps using a function by variable ----
 #' harvest %>%
 #'   fill_na(kilo = sum(kilo))
 #'
-#' # replace NA using a function for each group ----
+#' # replace gaps using a function for each group ----
 #' harvest %>%
 #'   group_by(fruit) %>%
 #'   fill_na(kilo = sum(kilo))
+#'
+#' # leaves existing `NA` untouched ----
+#' harvest[2, 3] <- NA
+#' harvest %>%
+#'   group_by(fruit) %>%
+#'   fill_na(kilo = sum(kilo, na.rm = TRUE))
 #'
 #' # replace NA ----
 #' pedestrian %>%
@@ -72,37 +80,59 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     ref_data <- keyed_tbl %>% 
       summarise(!! idx_chr := list(tibble(!! idx_chr := idx_full))) %>% 
-      tidyr::unnest(!! idx)
+      tidyr::unnest(!! idx) %>% 
+      ungroup()
   } else {
     ref_data <- keyed_tbl %>% 
       summarise(
         !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx, int)))
       ) %>% 
-      unnest(!! idx)
+      unnest(!! idx) %>% 
+      ungroup()
   }
-  full_data <- ungroup(ref_data) %>% 
-    left_join(.data, by = c(key_vars(.data), idx_chr))
 
   cn <- names(.data)
   lst_exprs <- enquos(..., .named = TRUE)
-  if (!is_empty(lst_exprs)) {
+  if (is_empty(lst_exprs)) { # no replacement
+    ord <- TRUE
+    full_data <- ref_data %>% 
+      left_join(.data, by = c(key_vars(.data), idx_chr))
+  } else {
     lhs <- names(lst_exprs)
     check_names <- lhs %in% cn
     if (is_false(all(check_names))) {
       bad_names <- paste_comma(lhs[which(!check_names)])
       abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
     }
-    replaced_df <- keyed_tbl %>% 
+
+    ord <- NULL
+    replaced_df <- as_grouped_df(.data) %>% 
       summarise(!!! lst_exprs) %>% 
-      ungroup() %>% 
-      select(!!! lhs)
-    full_data <- replace_na2(full_data, replaced_df, group_vars(.data))
+      ungroup()
+    filled_data <- ref_data %>% 
+      anti_join(.data, by = c(key_vars(.data), idx_chr))
+    by_name <- intersect(names(filled_data), names(replaced_df))
+
+    if (NROW(replaced_df) > NROW(filled_data)) {
+      abort(sprintf(
+        "Replacement has length %s, not 1 or %s.", 
+        NROW(replaced_df), NROW(filled_data)
+      ))
+    } else if (is_empty(by_name)) { # by value
+      filled_data <- filled_data %>% 
+        mutate(!!! replaced_df)
+    } else { # by function
+      filled_data <- filled_data %>% 
+        left_join(replaced_df, by = by_name)
+    }
+    full_data <- filled_data %>% 
+      dplyr::bind_rows(.data)
   }
   if (!identical(cn, names(full_data))) {
     full_data <- full_data %>%
       select(!!! syms(cn)) # keep the original order
   }
-  update_tsibble(full_data, .data, interval = interval(.data))
+  update_tsibble(full_data, .data, ordered = ord, interval = interval(.data))
 }
 
 seq_generator <- function(x, interval = NULL) {
@@ -128,15 +158,4 @@ seq_generator <- function(x, interval = NULL) {
       stop(e)
     }
   )
-}
-
-replace_na2 <- function(.data, replace = list(), grp_vars = character(0)) {
-  replace_vars <- intersect(names(replace), names(.data))
-  split_data <- split(.data, group_indices(dplyr::grouped_df(.data, grp_vars)))
-  for (i in seq_along(split_data)) {
-    for (var in replace_vars) {
-      split_data[[i]][[var]][is.na(split_data[[i]][[var]])] <- replace[[var]][i]
-    }
-  }
-  dplyr::bind_rows(split_data)
 }

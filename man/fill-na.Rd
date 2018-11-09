@@ -10,11 +10,15 @@ fill_na(.data, ...)
 \method{fill_na}{tbl_ts}(.data, ..., .full = FALSE)
 }
 \arguments{
-\item{.data}{A data frame.}
+\item{.data}{A tsibble.}
 
-\item{...}{A set of name-value pairs. The values will replace existing explicit
-missing values by variable, otherwise \code{NA}. The replacement values must be of
-the same type as the original one.}
+\item{...}{A set of name-value pairs. The values provided will only replace
+missing values that were marked as "implicit", and will leave previously
+existing \code{NA} untouched.
+\itemize{
+\item empty: filled with default \code{NA}.
+\item filled by values or functions.
+}}
 
 \item{.full}{\code{FALSE} to insert \code{NA} for each key within its own period. \code{TRUE}
 to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
@@ -30,7 +34,7 @@ harvest <- tsibble(
   key = id(fruit), index = year
 )
 
-# leave NA as is ----
+# gaps as default `NA` ----
 fill_na(harvest, .full = TRUE)
 full_harvest <- fill_na(harvest, .full = FALSE)
 full_harvest
@@ -40,18 +44,24 @@ full_harvest \%>\%
   group_by(fruit) \%>\% 
   tidyr::fill(kilo, .direction = "down")
 
-# replace NA with a specific value ----
+# replace gaps with a specific value ----
 harvest \%>\%
   fill_na(kilo = 0L)
 
-# replace NA using a function by variable ----
+# replace gaps using a function by variable ----
 harvest \%>\%
   fill_na(kilo = sum(kilo))
 
-# replace NA using a function for each group ----
+# replace gaps using a function for each group ----
 harvest \%>\%
   group_by(fruit) \%>\%
   fill_na(kilo = sum(kilo))
+
+# leaves existing `NA` untouched ----
+harvest[2, 3] <- NA
+harvest \%>\%
+  group_by(fruit) \%>\%
+  fill_na(kilo = sum(kilo, na.rm = TRUE))
 
 # replace NA ----
 pedestrian \%>\%
