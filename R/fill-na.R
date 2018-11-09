@@ -84,7 +84,7 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
     left_join(.data, by = c(key_vars(.data), idx_chr))
 
   cn <- names(.data)
-  lst_exprs <- exprs(..., .named = TRUE)
+  lst_exprs <- enquos(..., .named = TRUE)
   if (!is_empty(lst_exprs)) {
     lhs <- names(lst_exprs)
     check_names <- lhs %in% cn
