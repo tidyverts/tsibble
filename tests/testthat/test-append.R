@@ -47,7 +47,7 @@ test_that("ordered?", {
     rep(NA_real_, n_keys(tourism)))
 })
 
-test_that("`.keep_all = TRUE", {
-  new_t <- new_data(tourism, .keep_all = TRUE)
+test_that("`keep_all = TRUE", {
+  new_t <- new_data(tourism, keep_all = TRUE)
   expect_equal(dim(new_t), c(308, 5))
 })

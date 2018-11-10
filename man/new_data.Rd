@@ -4,21 +4,22 @@
 \alias{new_data}
 \title{New tsibble data}
 \usage{
-new_data(.data, n = 1L, .keep_all = FALSE)
+new_data(.data, n = 1L, keep_all = FALSE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
 \item{n}{An integer indicates the number of key-index pair to append.}
 
-\item{.keep_all}{Keep all the measured variables.}
+\item{keep_all}{If \code{TRUE} keep all the measured variables as well as index
+and key, otherwise only index and key.}
 }
 \description{
 New tsibble data
 }
 \examples{
 new_data(pedestrian)
-new_data(pedestrian, .keep_all = TRUE)
+new_data(pedestrian, keep_all = TRUE)
 new_data(pedestrian, n = 3)
 }
 \seealso{

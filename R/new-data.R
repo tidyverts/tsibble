@@ -1,15 +1,16 @@
 #' New tsibble data
 #'
 #' @inheritParams append_row
-#' @param .keep_all Keep all the measured variables.
+#' @param keep_all If `TRUE` keep all the measured variables as well as index
+#' and key, otherwise only index and key.
 #'
 #' @seealso [append_row] for appending new observations to a tsibble
 #' @export
 #' @examples
 #' new_data(pedestrian)
-#' new_data(pedestrian, .keep_all = TRUE)
+#' new_data(pedestrian, keep_all = TRUE)
 #' new_data(pedestrian, n = 3)
-new_data <- function(.data, n = 1L, .keep_all = FALSE) {
+new_data <- function(.data, n = 1L, keep_all = FALSE) {
   if (!is_tsibble(.data)) {
     abort(sprintf("`.data` must be a tsibble, not `%s`.", class(.data)[1]))
   }
@@ -34,7 +35,7 @@ new_data <- function(.data, n = 1L, .keep_all = FALSE) {
     new_lst[[i]] <- as_tibble(new_lst[[i]])
   }
   out <- dplyr::bind_rows(!!! new_lst)
-  if (.keep_all) {
+  if (keep_all) {
     out <- dplyr::bind_rows(.data[0L, ], out)
   }
   if (n == 1L) {
