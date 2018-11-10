@@ -58,7 +58,7 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, validate = FALSE,
   update_tsibble(tbl, x, ordered = is_ordered(x), validate = validate)
 }
 
-tsibble_rename <- function(.data, ...) {
+rename_tsibble <- function(.data, ...) {
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_rename(names_dat, ...)
 
@@ -77,7 +77,7 @@ tsibble_rename <- function(.data, ...) {
   )
 }
 
-tsibble_select <- function(.data, ..., validate = TRUE) {
+select_tsibble <- function(.data, ..., validate = TRUE) {
   dots <- c(enexprs(...), index(.data))
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)

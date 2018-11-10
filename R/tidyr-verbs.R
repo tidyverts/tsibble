@@ -117,7 +117,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   idx <- group_indices(data, !!! grp)
   representatives <- which(!duplicated(idx))
   out <- slice(out, representatives)
-  tsb_sel <- tsibble_select(data, !!! nest_vars, validate = FALSE)
+  tsb_sel <- select_tsibble(data, !!! nest_vars, validate = FALSE)
   out[[key_var]] <- unname(split(tsb_sel, idx))[unique(idx)]
   as_lst_ts(out)
 }

@@ -113,16 +113,16 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
 
   lst_exprs <- enexprs(...)
   named <- list_is_named(lst_exprs)
-  .data <- tsibble_rename(.data, !!! lst_exprs[named])
+  .data <- rename_tsibble(.data, !!! lst_exprs[named])
 
   lst_exprs[named] <- names(lst_exprs)[named]
-  tsibble_select(.data, !!! lst_exprs)
+  select_tsibble(.data, !!! lst_exprs)
 }
 
 #' @rdname tidyverse
 #' @export
 rename.tbl_ts <- function(.data, ...) {
-  tsibble_rename(.data, ...)
+  rename_tsibble(.data, ...)
 }
 
 #' @rdname tidyverse
