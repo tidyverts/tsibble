@@ -56,10 +56,13 @@ key_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(...)
   key <- validate_key(.data, exprs)
   validate <- !all(is.element(key(.data), key))
-  build_tsibble(
+  if (validate) {
+    .data <- retain_tsibble(.data, key, index(.data))
+  }
+  build_tsibble_meta(
     .data, key = key, index = !! index(.data), index2 = !! index2(.data),
     regular = is_regular(.data), ordered = is_ordered(.data), 
-    interval = interval(.data), validate = validate
+    interval = interval(.data)
   )
 }
 
@@ -118,7 +121,7 @@ key_indices.tbl_ts <- function(x) {
 }
 
 validate_key <- function(.data, .vars) {
-  syms(unname(tidyselect::vars_select(names(.data), !!! .vars)))
+  syms(tidyselect::vars_select(names(.data), !!! .vars))
 }
 
 remove_key <- function(.data, .vars) {

@@ -87,14 +87,18 @@ tsibble_select <- function(.data, ..., validate = TRUE) {
   key_vars <- syms(val_vars[val_vars %in% key_vars(.data)])
   
   if (validate) {
-    vec_names <- union(names(val_vars), names(.data))
-    validate <- has_any_key(vec_names, .data)
+    vec_names <- names(val_vars)
+    validate <- !has_all_key(vec_names, .data)
+  }
+
+  if (validate) {
+    sel_data <- retain_tsibble(sel_data, key_vars, index(.data))
   }
   
-  build_tsibble(
+  build_tsibble_meta(
     sel_data, key = key_vars, index = !! index(.data), index2 = !! index2(.data),
-    regular = is_regular(.data), validate = validate, 
-    ordered = is_ordered(.data), interval = interval(.data)
+    regular = is_regular(.data), ordered = is_ordered(.data), 
+    interval = interval(.data)
   )
 }
 
@@ -107,6 +111,11 @@ has_index <- function(j, x) {
 has_any_key <- function(j, x) {
   key_vars <- key_vars(x)
   any(key_vars %in% j)
+}
+
+has_all_key <- function(j, x) {
+  key_vars <- key_vars(x)
+  all(key_vars %in% j)
 }
 
 assign_index_null <- function(j, x) {

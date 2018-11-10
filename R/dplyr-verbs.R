@@ -150,11 +150,14 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     .data <- remove_key(.data, key_vars)
   }
   validate <- val_idx || val_key
+  if (validate) {
+    mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
+  }
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
-    ordered = is_ordered(.data), interval = interval(.data), 
-    validate = validate
+    ordered = is_ordered(.data), interval = interval(.data),
+    validate = FALSE
   )
 }
 

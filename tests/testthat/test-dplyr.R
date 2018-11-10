@@ -129,8 +129,8 @@ test_that("filter() and slice()", {
 })
 
 test_that("select() and rename()", {
-  expect_error(select(tourism, Quarter), "A valid tsibble")
-  expect_error(select(tourism, Region), "A valid tsibble")
+  expect_error(select(tourism, Quarter), "Can't retain")
+  expect_error(select(tourism, Region), "Can't retain")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
@@ -169,8 +169,8 @@ test_that("select() with group_by()", {
 
 test_that("mutate()", {
   expect_error(mutate(tourism, Quarter = NULL), "can't be removed.")
-  expect_error(mutate(tourism, Quarter = 1), "A valid tsibble")
-  expect_error(mutate(tourism, Region = State), "A valid tsibble")
+  expect_error(mutate(tourism, Quarter = 1), "Can't retain")
+  expect_error(mutate(tourism, Region = State), "Can't retain")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   expect_equal(ncol(mutate(tourism, State = NULL)), 4)
   tsbl <- tourism %>%

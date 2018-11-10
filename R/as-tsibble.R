@@ -354,7 +354,7 @@ build_tsibble_meta <- function(
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
-  key <- eval_tidy(enquo(key))
+  key <- unname(eval_tidy(enquo(key)))
   index <- get_expr(enquo(index))
   index2 <- enquo(index2)
   if (quo_is_missing(index2)) {
@@ -486,6 +486,18 @@ validate_tsibble <- function(data, key, index) {
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     header <- "A valid tsibble must have distinct rows identified by key and index.\n"
     hint <- "Please use `find_duplicates()` to check the duplicated rows."
+    abort(paste0(header, hint))
+  }
+  data
+}
+
+# used for column-verbs to check if it's a tsibble
+retain_tsibble <- function(data, key, index) {
+  tbl_dup <- grouped_df(data, vars = key) %>%
+    summarise(!! "zzz" := anyDuplicated.default(!! index))
+  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
+    header <- "Can't retain a valid tsibble.\n"
+    hint <- "Do you need `as_tibble()` to work with data frame?."
     abort(paste0(header, hint))
   }
   data

@@ -28,9 +28,9 @@ test_that("4 day interval", {
   expect_error(append_row(tsbl, 1:3), "a positive")
 })
 
-tourism <- tourism %>% 
-  group_by_key() %>% 
-  slice(1:3) %>% 
+tourism <- tourism %>%
+  group_by_key() %>%
+  slice(1:3) %>%
   ungroup()
 
 test_that("custom index class", {
@@ -43,7 +43,7 @@ test_that("ordered?", {
   expect_warning(unord_t <- tourism %>% arrange(Trips))
   expect_warning(new_t <- append_row(unord_t))
   expect_equal(
-    new_t[["Trips"]][(NROW(tourism) + 1):NROW(new_t)], 
+    new_t[["Trips"]][(NROW(tourism) + 1):NROW(new_t)],
     rep(NA_real_, n_keys(tourism)))
 })
 
