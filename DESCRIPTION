@@ -20,7 +20,7 @@ Authors@R:
              family = "O'Hara-Wild",
              role = "ctb"))
 Description: Provides a 'tbl_ts' class (the 'tsibble') to store
-    and manage temporal-context data in a data-centric format, which is
+    and manage temporal data in a data-centric format, which is
     built on top of the 'tibble'. The 'tsibble' aims at easily
     manipulating and analysing temporal data, including counting and
     filling time gaps, aggregate over calendar periods, performing rolling

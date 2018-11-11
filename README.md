@@ -13,9 +13,9 @@ Status](https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg)](h
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data class of `tbl_ts` to represent
-tidy temporal-context data. A *tsibble* consists of a time index, key
-and other measured variables in a data-centric format, which is built on
-top of the *tibble*.
+tidy temporal data. A *tsibble* consists of a time index, key and other
+measured variables in a data-centric format, which is built on top of
+the *tibble*.
 
 ## Installation
 

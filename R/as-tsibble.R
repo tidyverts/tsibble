@@ -99,8 +99,7 @@ as_tsibble.tbl_df <- function(
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_ts <- function(x, validate = FALSE, ...) {
-  if (validate) return(NextMethod())
+as_tsibble.tbl_ts <- function(x, ...) {
   x
 }
 
@@ -130,7 +129,9 @@ as_tsibble.grouped_df <- function(
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_ts <- as_tsibble.tbl_ts
+as_tsibble.grouped_ts <- function(x, ...) {
+  ungroup(x)
+}
 
 #' @keywords internal
 #' @export
