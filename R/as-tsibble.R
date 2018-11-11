@@ -533,7 +533,6 @@ as_tibble.tbl_ts <- function(x, ...) {
   as_tibble(x, ...)
 }
 
-#' @export
 as_tibble.grouped_ts <- function(x, ...) {
   as_grouped_df(x)
 }
