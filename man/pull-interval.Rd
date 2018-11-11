@@ -8,7 +8,7 @@ pull_interval(x)
 }
 \arguments{
 \item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
-\code{hms}, \code{integer}, \code{numeric}.}
+\code{hms}, \code{ordered}, \code{integer}, \code{numeric}.}
 }
 \value{
 an "interval" class (a list) includes "year",

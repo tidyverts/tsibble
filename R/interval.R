@@ -4,7 +4,7 @@
 #' components as the "interval" class.
 #'
 #' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
-#' `hms`, `integer`, `numeric`.
+#' `hms`, `ordered`, `integer`, `numeric`.
 #'
 #' @details `index_valid()` and `pull_interval()` make a tsibble extensible to 
 #' support custom time index.
@@ -119,6 +119,11 @@ pull_interval.numeric <- function(x) {
   } else {
     init_interval(unit = nunits)
   }
+}
+
+#' @export
+pull_interval.ordered <- function(x) {
+  pull_interval.numeric(as.integer(x))
 }
 
 #' @export
