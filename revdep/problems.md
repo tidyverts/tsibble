@@ -1,28 +1,49 @@
-# Setup
+# nullabor
 
-## Platform
+Version: 0.3.5
 
-|setting  |value                        |
-|:--------|:----------------------------|
-|version  |R version 3.5.1 (2018-07-02) |
-|system   |x86_64, darwin15.6.0         |
-|ui       |RStudio (1.2.830)            |
-|language |(EN)                         |
-|collate  |en_AU.UTF-8                  |
-|tz       |America/Chicago              |
-|date     |2018-08-19                   |
+## In both
 
-## Packages
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘forecast’ ‘rlang’ ‘tidyverse’ ‘tsibble’
+      All declared Imports should be used.
+    ```
 
-|package |*  |version    |date       |source                        |
-|:-------|:--|:----------|:----------|:-----------------------------|
-|pillar  |   |1.3.0.9000 |2018-08-20 |Github (r-lib/pillar@3fabb4e) |
-|tsibble |   |0.5.0      |2018-08-05 |cran (@0.5.0)                 |
+# sugrrants
 
-# Check results
+Version: 0.2.0
 
-0 packages with problems
+## Newly broken
 
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+                 ordered = tsibble::is_ordered(data))
+      15: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+      16: eval(quote(`_fseq`(`_lhs`)), env, env)
+      17: eval(quote(`_fseq`(`_lhs`)), env, env)
+      18: `_fseq`(`_lhs`)
+      19: freduce(value, `_function_list`)
+      20: withVisible(function_list[[k]](value))
+      21: function_list[[k]](value)
+      
+      ══ testthat results  ═══════════════════════════════════════════════
+      OK: 38 SKIPPED: 0 FAILED: 1
+      1. Error: The tsibble data (@test-calendar.R#126) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
+## In both
 
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘gtable’
+      All declared Imports should be used.
+    ```
 
