@@ -316,7 +316,12 @@ build_tsibble <- function(
   # if key is quosures
   key <- use_id(x, !! enquo(key))
 
-  tbl <- as_tibble(x)
+  if (dplyr::is_grouped_df(x)) {
+    tbl <- x
+  } else {
+    tbl <- as_tibble(x)
+  }
+
   # extract or pass the index var
   qindex <- enquo(index)
   index <- validate_index(tbl, qindex)
@@ -362,7 +367,11 @@ build_tsibble_meta <- function(
   } else {
     index2 <- get_expr(index2)
   }
-  tbl <- as_tibble(x)
+  if (dplyr::is_grouped_df(x)) {
+    tbl <- x
+  } else {
+    tbl <- as_tibble(x)
+  }
 
   if (NROW(x) == 0) {
     if (is_false(regular)) {

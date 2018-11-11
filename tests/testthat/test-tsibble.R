@@ -300,7 +300,7 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
   grped_ped <- pedestrian %>% group_by(Date)
   expect_equal(as_tsibble(grped_ped), grped_ped)
   expect_is(as_tsibble(tbl, key = id(group), index = mth), "tbl_ts")
-  expect_is(as_tsibble(tbl, key = id(group), index = mth, groups = id(group)), "grouped_ts")
+  expect_is(as_tsibble(tbl, key = id(group), index = mth), "grouped_ts")
 })
 
 test_that("build_tsibble()", {

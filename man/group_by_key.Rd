@@ -19,8 +19,7 @@ supply functions like \code{mean()} directly rather than in a
 lambda-formula.}
 
 \item{...}{Additional arguments for the function calls in
-\code{.funs}. These are evaluated only once, with \link[rlang:tidy-dots]{tidy
-dots} support.}
+\code{.funs}. These are evaluated only once, with \link[rlang:tidy-dots]{tidy dots} support.}
 }
 \description{
 Group by key variables

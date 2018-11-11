@@ -37,6 +37,9 @@ new_data <- function(.data, n = 1L, keep_all = FALSE) {
   out <- dplyr::bind_rows(!!! new_lst)
   if (keep_all) {
     out <- dplyr::bind_rows(.data[0L, ], out)
+  } else { # reorder column names according to the data input
+    cn <- setdiff(names(.data), measured_vars(.data))
+    out <- select(out, !!! cn)
   }
   if (n == 1L) {
     int <- init_interval()
