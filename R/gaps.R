@@ -49,7 +49,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
       summarise(gaps = list(gaps(!! idx, seq_generator(!! idx, int)))) %>% 
       unnest(gaps)
   }
-  ungroup(out)
+  tibble(!!! out)
 }
 
 #' Does a tsibble have implicit gaps in time?
@@ -90,7 +90,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
         !! ".gaps" := (length(seq_generator(!! idx, int)) - length(!! idx)) > 0
       )
   }
-  ungroup(res)
+  tibble(!!! res)
 }
 
 #' Find missing elements in `x` with respect to `y`
