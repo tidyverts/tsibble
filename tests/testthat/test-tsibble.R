@@ -228,6 +228,16 @@ test_that("Difftime with 1 minute interval", {
   expect_identical(format(interval(tsbl)), "1m")
 })
 
+idx_time <- factor(c(1, 3, 5), levels = 1:5, ordered = TRUE)
+dat_x <- tibble(time = idx_time, value = rnorm(3))
+
+test_that("ordered factor with 2 unit interval", {
+  expect_identical(index_valid(dat_x$time), TRUE)
+  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "2")
+})
+
 context("as_tsibble() with a single key for data of long form")
 
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
