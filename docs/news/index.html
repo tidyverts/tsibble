@@ -152,7 +152,7 @@
 <li>
 <code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
 <li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial-slider.html">partial_slider()</a></code> and <code><a href="../reference/partial-slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
-<li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> is expected as a grouped df.</li>
+<li>Removed argument <code>group</code> from <code><a href="../reference/build-tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> is expected as a grouped df.</li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
@@ -160,7 +160,8 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>Added new S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
-<li>An empty tsibble is now valid and will not raise an error, which is made easier to programme with.</li>
+<li>New <code><a href="../reference/new_data.html">new_data()</a></code> to produce the future of a tsibble.</li>
+<li>An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.</li>
 <li>New vignette on handling implicit missingness.</li>
 </ul>
 </div>
@@ -169,6 +170,7 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed unexpected error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
+<li>Fixed <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> scoping issue (#67).</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
@@ -400,7 +402,7 @@
 <li>
 <code><a href="../reference/as-tsibble.html">as_tsibble.tbl_ts()</a></code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (#34).</li>
 <li>
-<code><a href="../reference/id.html">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
+<code><a href="../reference/id.html">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build-tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
 <li>
 <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> now preserved index.</li>
 </ul>
@@ -564,8 +566,8 @@
 <li>
 <code><a href="../reference/deprecated.html">split_by()</a></code> to split a tsibble into a list of data by unquoted variables.</li>
 <li>
-<code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> allows users to gain more control over a tsibble construction.</li>
-<li>Added <code><a href="../reference/as-tsibble.html">as_tsibble.msts()</a></code> for multiple seasonality time series defined in the forecast package.</li>
+<code><a href="../reference/build-tsibble.html">build_tsibble()</a></code> allows users to gain more control over a tsibble construction.</li>
+<li>Added <code>as_tsibble.msts()</code> for multiple seasonality time series defined in the forecast package.</li>
 </ul>
 </div>
 <div id="bug-fixes-7" class="section level2">

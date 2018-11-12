@@ -302,7 +302,7 @@ is.grouped_ts <- is_grouped_ts
 #' @param interval `NULL` computes the interval. Use the specified interval via
 #' [new_interval()] as is, if an class of `interval` is supplied.
 #'
-#' @rdname build_tsibble
+#' @rdname build-tsibble
 #' @export
 #' @examples
 #' # Prepare `pedestrian` to use a new index `Date` ----
@@ -353,7 +353,8 @@ build_tsibble <- function(
   )
 }
 
-#' @rdname build_tsibble
+#' @rdname build-tsibble
+#' @usage NULL
 #' @export
 build_tsibble_meta <- function(
   x, key, index, index2, regular = TRUE, ordered = NULL, interval = NULL

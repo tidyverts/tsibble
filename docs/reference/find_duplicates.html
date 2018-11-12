@@ -147,7 +147,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>find_duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>fromLast</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>find_duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>from_last</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>fromLast</span> <span class='kw'>=</span> <span class='no'>from_last</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,9 +168,13 @@ simply call <code><a href='id.html'>id()</a></code>.</p></td>
       <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
     </tr>
     <tr>
-      <th>fromLast</th>
+      <th>from_last</th>
       <td><p><code>TRUE</code> does the duplication check from the last of identical
 elements.</p></td>
+    </tr>
+    <tr>
+      <th>fromLast</th>
+      <td><p>Deprecated. Please use <code>from_last</code> instead.</p></td>
     </tr>
     </table>
     

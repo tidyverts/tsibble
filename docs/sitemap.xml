@@ -16,7 +16,7 @@
     <loc>https://pkg.earo.me/tsibble/reference/as.ts.tbl_ts.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/build_tsibble.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/build-tsibble.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>
@@ -74,6 +74,9 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/measured-vars.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/new_data.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/new_interval.html</loc>
