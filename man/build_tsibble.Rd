@@ -2,7 +2,6 @@
 % Please edit documentation in R/as-tsibble.R
 \name{build_tsibble}
 \alias{build_tsibble}
-\alias{build_tsibble_meta}
 \title{Low-level constructor to a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, regular = TRUE, ordered = NULL,
@@ -36,13 +35,9 @@ of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{
-\itemize{
-\item \code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful
+\code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful
 for creating a \code{tbl_ts} internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating.
-\item \code{build_tsibble_meta()} assigns the attributes to an object, assuming this
-object is a valid tsibble.
-}
 }
 \examples{
 # Prepare `pedestrian` to use a new index `Date` ----

@@ -81,7 +81,7 @@ test_that("`[<-.tbl_ts", {
   expect_equal({tsbl[6] <- 0; NCOL(tsbl)}, 6)
   expect_equal({tsbl[6] <- 0; names(tsbl)[6]}, "6")
   expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
-  expect_is({tsbl[4, 2] <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl[4, 2] <- "c"; tsbl}, "tbl_ts")
 })
 
 test_that("`$<-.tbl_ts", {

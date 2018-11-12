@@ -286,11 +286,9 @@ is.grouped_ts <- is_grouped_ts
 
 #' Low-level constructor to a tsibble object
 #'
-#' * `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful
+#' `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful
 #' for creating a `tbl_ts` internally inside a function, and it allows developers to
 #' determine if the time needs ordering and the interval needs calculating.
-#' * `build_tsibble_meta()` assigns the attributes to an object, assuming this
-#' object is a valid tsibble.
 #'
 #' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
 #' @inheritParams as_tsibble
@@ -302,7 +300,6 @@ is.grouped_ts <- is_grouped_ts
 #' @param interval `NULL` computes the interval. Use the specified interval via
 #' [new_interval()] as is, if an class of `interval` is supplied.
 #'
-#' @rdname build-tsibble
 #' @export
 #' @examples
 #' # Prepare `pedestrian` to use a new index `Date` ----
@@ -353,8 +350,13 @@ build_tsibble <- function(
   )
 }
 
-#' @rdname build-tsibble
-#' @usage NULL
+#' Low-level constructor to a tsibble object
+#'
+#' `build_tsibble_meta()` assigns the attributes to an object, assuming this
+#' object is a valid tsibble.
+#'
+#' @inheritParams build_tsibble
+#' @keywords internal
 #' @export
 build_tsibble_meta <- function(
   x, key, index, index2, regular = TRUE, ordered = NULL, interval = NULL
