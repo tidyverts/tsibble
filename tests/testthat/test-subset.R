@@ -19,6 +19,7 @@ test_that("if it's an atomic vector", {
 })
 
 test_that("if it's a tibble", {
+  expect_is(pedestrian[2], "tbl_df")
   expect_is(tsbl[, "date"], "tbl_df")
   expect_is(tsbl[, "date"], "tbl_df")
   expect_is(tsbl[1, "group"], "tbl_df")
@@ -78,7 +79,8 @@ test_that("`[<-.tbl_ts", {
   expect_is({tsbl["value"] <- 0; tsbl}, "tbl_ts")
   expect_is({tsbl["value2"] <- 0; tsbl}, "tbl_ts")
   expect_equal({tsbl["value2"] <- 0; NCOL(tsbl)}, 5)
-  expect_equal({tsbl[6] <- 0; NCOL(tsbl)}, 6)
+  expect_equal({tsbl[6] <- 0; NCOL(tsbl)}, 5 + 1)
+  expect_equal({tsbl[, 7] <- 0; NCOL(tsbl)}, 5 + 2)
   expect_equal({tsbl[6] <- 0; names(tsbl)[6]}, "6")
   expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
   expect_is({tsbl[4, 2] <- "c"; tsbl}, "tbl_ts")

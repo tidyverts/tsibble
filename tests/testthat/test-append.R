@@ -48,6 +48,7 @@ test_that("ordered?", {
 })
 
 test_that("`keep_all = TRUE", {
+  expect_equal(interval(new_data(tourism, n = 2)), new_interval(quarter = 1))
   new_t <- new_data(tourism, keep_all = TRUE)
   expect_equal(dim(new_t), c(308, 5))
 })
