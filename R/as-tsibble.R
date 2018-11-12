@@ -446,7 +446,7 @@ build_tsibble_meta <- function(
 #'
 #' @param ... Variables passed to tsibble()/as_tsibble().
 #'
-#' @seealso [tsibble], [as_tsibble]
+#' @keywords internal
 #' @export
 id <- function(...) {
   unname(enexprs(...))

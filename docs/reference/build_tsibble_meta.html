@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Low-level constructor to a tsibble object — build_tsibble • tsibble</title>
+<title>Low-level constructor to a tsibble object — build_tsibble_meta • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,11 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Low-level constructor to a tsibble object — build_tsibble" />
+<meta property="og:title" content="Low-level constructor to a tsibble object — build_tsibble_meta" />
 
-<meta property="og:description" content="build_tsibble() creates a tbl_ts object with more controls. It is useful
-for creating a tbl_ts internally inside a function, and it allows developers to
-determine if the time needs ordering and the interval needs calculating." />
+<meta property="og:description" content="build_tsibble_meta() assigns the attributes to an object, assuming this
+object is a valid tsibble." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -140,19 +139,18 @@ determine if the time needs ordering and the interval needs calculating." />
     <div class="page-header">
     <h1>Low-level constructor to a tsibble object</h1>
     
-    <div class="hidden name"><code>build_tsibble.Rd</code></div>
+    <div class="hidden name"><code>build_tsibble_meta.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more controls. It is useful
-for creating a <code>tbl_ts</code> internally inside a function, and it allows developers to
-determine if the time needs ordering and the interval needs calculating.</p>
+    <p><code>build_tsibble_meta()</code> assigns the attributes to an object, assuming this
+object is a valid tsibble.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>build_tsibble_meta</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,44 +191,15 @@ the correct order. <code>FALSE</code> also skips the ordering but gives a warnin
       <td><p><code>NULL</code> computes the interval. Use the specified interval via
 <code><a href='new_interval.html'>new_interval()</a></code> as is, if an class of <code>interval</code> is supplied.</p></td>
     </tr>
-    <tr>
-      <th>validate</th>
-      <td><p><code>TRUE</code> suggests to verify that each key or each combination
-of key variables leads to unique time indices (i.e. a valid tsibble). If you
-are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
-    </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h]
-#&gt; # Key:       Sensor [4]
-#&gt; # Groups:    @ Date [731]
-#&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 66,027 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

@@ -70,12 +70,12 @@ key_by.tbl_ts <- function(.data, ...) {
 #'
 #' @param x A data frame.
 #'
+#' @keywords internal
+#' @rdname key-size
+#' @export
 #' @examples
 #' key_size(pedestrian)
 #' n_keys(pedestrian)
-#'
-#' @rdname key-size
-#' @export
 key_size <- function(x) {
   UseMethod("key_size")
 }
@@ -92,6 +92,7 @@ key_size.tbl_ts <- function(x) {
 }
 
 #' @rdname key-size
+#' @keywords internal
 #' @export
 n_keys <- function(x) {
   UseMethod("n_keys")
@@ -108,6 +109,7 @@ n_keys.tbl_ts <- function(x) {
 }
 
 #' @rdname key-size
+#' @keywords internal
 #' @export
 key_indices <- function(x) {
   UseMethod("key_indices")

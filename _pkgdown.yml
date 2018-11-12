@@ -77,9 +77,7 @@ reference:
 - title: Helpers
   contents:
     - key
-    - key_size
     - key_by
-    - id
     - index
     - measures
     - interval

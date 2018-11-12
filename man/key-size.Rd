@@ -21,5 +21,5 @@ Compute sizes of key variables
 \examples{
 key_size(pedestrian)
 n_keys(pedestrian)
-
 }
+\keyword{internal}

@@ -16,7 +16,10 @@
     <loc>https://pkg.earo.me/tsibble/reference/as.ts.tbl_ts.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/build-tsibble.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/build_tsibble.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/build_tsibble_meta.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>

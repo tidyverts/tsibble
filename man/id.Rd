@@ -12,6 +12,4 @@ id(...)
 \description{
 Identifiers used for creating key
 }
-\seealso{
-\link{tsibble}, \link{as_tsibble}
-}
+\keyword{internal}
