@@ -168,13 +168,41 @@ unnest.lst_ts <- function(data, ..., key = id(),
   if (is_empty(key)) validate <- TRUE
 
   key <- c(key(tsbl), key)
-  idx_chr <- quo_text(idx)
+  idx_chr <- as_string(idx)
   # restore the index class, as it's dropped by NextMethod()
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
     out, key = key, index = !! idx, validate = validate, 
     ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
     interval = interval(tsbl)
+  )
+}
+
+#' @rdname tidyverse
+#' @export
+#' @examples
+#' ped_qtl <- pedestrian %>% 
+#'   group_by(Sensor) %>% 
+#'   summarise(
+#'     value = list(quantile(Count)), 
+#'     qtl = list(c("0%", "25%", "50%", "75%", "100%"))
+#'   )
+#' unnest(ped_qtl, key = id(qtl))
+unnest.tbl_ts <- function(data, ..., key = id(),
+  .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
+) {
+  key <- use_id(data, !! enquo(key))
+  tbl <- as_tibble(data) %>% 
+    unnest(..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+
+  key <- c(key(data), key)
+  idx <- index(data)
+  idx_chr <- as_string(idx)
+  class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
+  build_tsibble(
+    tbl, key = key, index = !! idx, index2 = !! index2(data), 
+    ordered = is_ordered(data), regular = is_regular(data), 
+    interval = interval(data)
   )
 }
 

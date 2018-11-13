@@ -24,6 +24,7 @@
 \alias{spread.tbl_ts}
 \alias{nest.tbl_ts}
 \alias{unnest.lst_ts}
+\alias{unnest.tbl_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -75,6 +76,9 @@
 \method{nest}{tbl_ts}(data, ..., .key = "data")
 
 \method{unnest}{lst_ts}(data, ..., key = id(), .drop = NA,
+  .id = NULL, .sep = NULL, .preserve = NULL)
+
+\method{unnest}{tbl_ts}(data, ..., key = id(), .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
 }
 \arguments{
@@ -236,4 +240,11 @@ nested_tourism <- tourism \%>\%
   nest(-Region, -State)
 nested_tourism \%>\% 
   unnest(key = id(Region, State))
+ped_qtl <- pedestrian \%>\% 
+  group_by(Sensor) \%>\% 
+  summarise(
+    value = list(quantile(Count)), 
+    qtl = c("0\%", "25\%", "50\%", "75\%", "100\%")
+)
+unnest(ped_qtl, key = id(qtl))
 }

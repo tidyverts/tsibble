@@ -81,7 +81,7 @@ test_that("nest()", {
 nest_t <- tourism %>%
   nest(-Region, -State)
 
-test_that("unnest()", {
+test_that("unnest.lst_ts()", {
   expect_error(nest_t %>% unnest(key = Region), "Key must be created")
   expect_error(nest_t %>% unnest(), "A valid tsibble")
   expect_is(nest_t %>% unnest(key = id(Region, State)), "tbl_ts")
@@ -92,6 +92,20 @@ test_that("unnest()", {
       unnest(key = id(Region, State)),
     "tbl_ts"
   )
+})
+
+nest2_t <- tourism %>% 
+  group_by_key() %>% 
+  summarise(
+    value = list(quantile(Trips, c(0.3, 0.5, 0.7))),
+    qtl = list(c(3, 5, 7))
+  )
+
+test_that("unnest.tbl_ts()", {
+  expect_error(nest2_t %>% unnest(key = qtl), "Key must be created")
+  expect_error(nest2_t %>% unnest(), "A valid tsibble")
+  expect_is(nest2_t %>% unnest(key = id(qtl)), "tbl_ts")
+  expect_equal(nest2_t %>% unnest(key = id(qtl)) %>% NCOL, 6)
 })
 
 test_that("dplyr verbs for lst_ts", {
