@@ -164,15 +164,14 @@ unnest.lst_ts <- function(data, ..., key = id(),
     unnest(!!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
   tsbl <- eval_df[is_tsbl][[1L]]
   idx <- index(tsbl)
-  validate <- FALSE
-  if (is_empty(key)) validate <- TRUE
-
   key <- c(key(tsbl), key)
+  out <- unnest_tsibble(out, key, idx)
+
   idx_chr <- as_string(idx)
   # restore the index class, as it's dropped by NextMethod()
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
-  build_tsibble(
-    out, key = key, index = !! idx, validate = validate, 
+  build_tsibble_meta(
+    out, key = key, index = !! idx, index2 = !! index2(tsbl),
     ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
     interval = interval(tsbl)
   )
@@ -194,16 +193,28 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   key <- use_id(data, !! enquo(key))
   tbl <- as_tibble(data) %>% 
     unnest(..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-
   key <- c(key(data), key)
   idx <- index(data)
+  tbl <- unnest_tsibble(tbl, key, idx)
+
   idx_chr <- as_string(idx)
   class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
-  build_tsibble(
+  build_tsibble_meta(
     tbl, key = key, index = !! idx, index2 = !! index2(data), 
     ordered = is_ordered(data), regular = is_regular(data), 
     interval = interval(data)
   )
+}
+
+# used for unnest() to check if the tsibble holds
+unnest_tsibble <- function(data, key, index) {
+  tbl_dup <- duplicated_key_index(data, key, index)
+  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
+    header <- "Can't retain a valid tsibble.\n"
+    hint <- "Do you forget argument `key = id(...)` in `unnest()` to create the key?."
+    abort(paste0(header, hint))
+  }
+  data
 }
 
 #' @export

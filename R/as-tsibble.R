@@ -485,17 +485,21 @@ validate_index <- function(data, index) {
   sym(chr_index)
 }
 
-# check if a comb of key vars result in a unique data entry
-# if TRUE return the data, otherwise raise an error
-validate_tsibble <- function(data, key, index) {
+duplicated_key_index <- function(data, key, index) {
   # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
   # identifiers <- c(key, idx)
   # below calls anyDuplicated.data.frame():
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  tbl_dup <- grouped_df(data, vars = key) %>%
+  grouped_df(data, vars = key) %>%
     summarise(!! "zzz" := anyDuplicated.default(!! index))
+}
+
+# check if a comb of key vars result in a unique data entry
+# if TRUE return the data, otherwise raise an error
+validate_tsibble <- function(data, key, index) {
+  tbl_dup <- duplicated_key_index(data, key, index)
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     header <- "A valid tsibble must have distinct rows identified by key and index.\n"
     hint <- "Please use `find_duplicates()` to check the duplicated rows."
@@ -504,10 +508,9 @@ validate_tsibble <- function(data, key, index) {
   data
 }
 
-# used for column-verbs to check if it's a tsibble
+# used for column-verbs to check if the tsibble holds
 retain_tsibble <- function(data, key, index) {
-  tbl_dup <- grouped_df(data, vars = key) %>%
-    summarise(!! "zzz" := anyDuplicated.default(!! index))
+  tbl_dup <- duplicated_key_index(data, key, index)
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
     header <- "Can't retain a valid tsibble.\n"
     hint <- "Do you need `as_tibble()` to work with data frame?."

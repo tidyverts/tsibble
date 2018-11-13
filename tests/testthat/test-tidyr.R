@@ -83,7 +83,7 @@ nest_t <- tourism %>%
 
 test_that("unnest.lst_ts()", {
   expect_error(nest_t %>% unnest(key = Region), "Key must be created")
-  expect_error(nest_t %>% unnest(), "A valid tsibble")
+  expect_error(nest_t %>% unnest(), "Can't retain")
   expect_is(nest_t %>% unnest(key = id(Region, State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = id(Region, State)), tourism)
   expect_is(
@@ -103,7 +103,7 @@ nest2_t <- tourism %>%
 
 test_that("unnest.tbl_ts()", {
   expect_error(nest2_t %>% unnest(key = qtl), "Key must be created")
-  expect_error(nest2_t %>% unnest(), "A valid tsibble")
+  expect_error(nest2_t %>% unnest(), "Can't retain")
   expect_is(nest2_t %>% unnest(key = id(qtl)), "tbl_ts")
   expect_equal(nest2_t %>% unnest(key = id(qtl)) %>% NCOL, 6)
 })
