@@ -28,7 +28,7 @@ install.packages("tsibble")
 You could install the development version from Github using
 
 ``` r
-# install.packages("devtools")
+# install.packages("remotes")
 remotes::install_github("tidyverts/tsibble")
 ```
 
@@ -61,8 +61,8 @@ weather_tsbl
 #> # ... with 2.611e+04 more rows
 ```
 
-The **key** is comprised of one ore more variables. See
-`package?tsibble` and
+The **key** is comprised of one or more variables. See `package?tsibble`
+and
 [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
 for details.
 

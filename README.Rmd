@@ -35,7 +35,7 @@ install.packages("tsibble")
 You could install the development version from Github using
 
 ```{r, eval = FALSE}
-# install.packages("devtools")
+# install.packages("remotes")
 remotes::install_github("tidyverts/tsibble")
 ```
 
@@ -53,7 +53,7 @@ weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 ```
 
-The **key** is comprised of one ore more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
+The **key** is comprised of one or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
 
 The *tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to quarterly, and etc.
 
