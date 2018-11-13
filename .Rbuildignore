@@ -12,3 +12,4 @@
 ^\.github$
 ^revdep$
 ^LICENSE\.md$
+^vignettes$

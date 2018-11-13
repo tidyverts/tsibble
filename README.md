@@ -29,7 +29,7 @@ You could install the development version from Github using
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("tidyverts/tsibble", build_vignettes = TRUE)
+remotes::install_github("tidyverts/tsibble")
 ```
 
 ## Get started
