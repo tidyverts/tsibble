@@ -244,7 +244,7 @@ ped_qtl <- pedestrian \%>\%
   group_by(Sensor) \%>\% 
   summarise(
     value = list(quantile(Count)), 
-    qtl = c("0\%", "25\%", "50\%", "75\%", "100\%")
-)
+    qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
+  )
 unnest(ped_qtl, key = id(qtl))
 }
