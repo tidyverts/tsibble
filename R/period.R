@@ -27,7 +27,7 @@
 #' yearweek(x)
 #' yearmonth(x)
 #' yearmonth(yearweek(x))
-#' yearmonth("201807")
+#' yearmonth("2018-07")
 #' yearquarter(x)
 #'
 #' # coerce yearmonths to yearquarter
@@ -123,6 +123,7 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
+  anytime::assertDate(x)
   as_yearweek(anytime::anydate(x))
 }
 
@@ -274,6 +275,7 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
+  anytime::assertDate(x)
   as_yearmonth(anytime::anydate(x))
 }
 
@@ -392,6 +394,7 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
+  anytime::assertDate(x)
   as_yearquarter(anytime::anydate(x))
 }
 

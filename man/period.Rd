@@ -46,7 +46,7 @@ x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearweek(x)
 yearmonth(x)
 yearmonth(yearweek(x))
-yearmonth("201807")
+yearmonth("2018-07")
 yearquarter(x)
 
 # coerce yearmonths to yearquarter

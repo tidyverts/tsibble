@@ -71,7 +71,7 @@ as_tsibble(tbl1, index = date)
 # coerce tibble to tsibble with one key ----
 # "date" is automatically considered as the index var, and "group" is the key
 tbl2 <- tibble(
-  mth = rep(yearmonth("201701") + 0:9, 3),
+  mth = rep(yearmonth("2017-01") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 )
