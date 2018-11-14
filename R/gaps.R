@@ -3,9 +3,9 @@
 #' @param .data A `tbl_ts`.
 #' @param ... Other arguments passed on to individual methods.
 #'
+#' @family implict gaps handling
 #' @rdname count-gaps
 #' @export
-#' @seealso [fill_na]
 #' @return
 #' A tibble contains:
 #' * the "key" of the `tbl_ts`
@@ -54,6 +54,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 
 #' Does a tsibble have implicit gaps in time?
 #'
+#' @family implict gaps
 #' @inheritParams count_gaps
 #' @export
 #' @rdname has-gaps

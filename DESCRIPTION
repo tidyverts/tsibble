@@ -72,6 +72,7 @@ Collate:
     'dplyr-join.R'
     'error.R'
     'fill-na.R'
+    'filter-index.R'
     'format.R'
     'gaps.R'
     'holiday.R'

@@ -9,7 +9,8 @@ globalVariables(".")
 #' * empty: filled with default `NA`.
 #' * filled by values or functions.
 #'
-#' @seealso [count_gaps], [tidyr::fill], [tidyr::replace_na]
+#' @family implict gaps handling
+#' @seealso [tidyr::fill], [tidyr::replace_na]
 #' @rdname fill-na
 #' @export
 fill_na <- function(.data, ...) {

@@ -44,5 +44,6 @@ ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
   theme(legend.position = "bottom")
 }
 \seealso{
-\link{fill_na}
+Other implict gaps handling: \code{\link{fill_na}}
 }
+\concept{implict gaps handling}
