@@ -258,7 +258,7 @@ daily.</p></td>
 <span class='co'># coerce tibble to tsibble with one key ----</span>
 <span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
-  <span class='kw'>mth</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='st'>"201701"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
+  <span class='kw'>mth</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='st'>"2017-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
 )

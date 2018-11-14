@@ -51,7 +51,7 @@ filter_index.tbl_ts <- function(.data, ...) {
     if (is_atomic(f)) {
       f <- new_formula(f, f)
     }
-    env <- get_env(f)
+    env <- f_env(f)
     lhs[[i]] <- start(index, eval_bare(is_dot_null(f_lhs(f)), env = env))
     rhs[[i]] <- end(index, eval_bare(is_dot_null(f_rhs(f)), env = env))
     lgl[[i]] <- eval_bare(index >= lhs[[i]] & index < rhs[[i]])
@@ -107,9 +107,8 @@ start.Date <- function(x, y = NULL, ...) {
   } else {
     abort_not_chr(y, class = "Date")
     anytime::assertDate(y)
-    tz <- lubridate::tz(x)
-    y <- anytime::anydate(y)
-    tz(y) <- tz
+    y <- anytime::utcdate(y, tz = "UTC")
+    tz(y) <- lubridate::tz(x)
     y
   }
 }
@@ -123,9 +122,8 @@ end.Date <- function(x, y = NULL, ...) {
     
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
-    tz <- lubridate::tz(x)
-    y <- anytime::anydate(y)
-    tz(y) <- tz
+    y <- anytime::utcdate(y, tz = "UTC")
+    tz(y) <- lubridate::tz(x)
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
         y[lgl_yrmth] + lubridate::period(1, "month"), 
@@ -147,9 +145,8 @@ start.POSIXct <- function(x, y = NULL, ...) {
   } else {
     abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
-    tz <- lubridate::tz(x)
-    y <- anytime::anytime(y)
-    tz(y) <- tz
+    y <- anytime::utctime(y, tz = "UTC")
+    tz(y) <- lubridate::tz(x)
     y
   }
 }
@@ -163,9 +160,8 @@ end.POSIXct <- function(x, y = NULL, ...) {
     
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
-    tz <- lubridate::tz(x)
-    y <- anytime::anytime(y)
-    tz(y) <- tz
+    y <- anytime::utctime(y, tz = "UTC")
+    tz(y) <- lubridate::tz(x)
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
         y[lgl_yrmth] + lubridate::period(1, "month"), 

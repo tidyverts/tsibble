@@ -36,15 +36,16 @@ reference:
 
 - title: Time-based verbs
   desc: >
-    Verbs that manipulate data in time-based context. `index_by()` and `group_by_key()`
+    Verbs that manipulate data in time-based context. `filter_index()` is a
+    shorthand for filtering time index. `index_by()` and `group_by_key()`
     create a grouped tsibble, or `grouped_ts`, but how the data looks remains
     unchanged. They needs operating with other `tidyverse` verbs.
   contents:
     - index_by
-    - filter_index
     - fill_na
     - has_gaps
     - count_gaps
+    - filter_index
     - group_by_key
     - new_data
     - append_row
@@ -52,7 +53,7 @@ reference:
 
 - title: A family of window functions
   desc: >
-    Map and roll over a list of elements. It features the `purrr`-like interface.
+    Map and roll over a list of elements. It features `purrr`-like interface.
   contents:
     - starts_with("slide")
     - starts_with("partial")

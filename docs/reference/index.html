@@ -195,7 +195,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
-          <p class="section-desc"><p>Verbs that manipulate data in time-based context. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       <tr>
@@ -225,13 +225,19 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="filter_index.html">filter_index()</a></code> </p>
+        </td>
+        <td><p>A shorthand for filtering for time index</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="group_by_key.html">group_by_key()</a></code> </p>
         </td>
         <td><p>Group by key variables</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="new_data.html">new_data()</a></code> </p>
+          <p><code><a href="new-data.html">new_data()</a></code> </p>
         </td>
         <td><p>New tsibble data</p></td>
       </tr><tr>
@@ -251,7 +257,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
-          <p class="section-desc"><p>Map and roll over a list of elements. It features the <code>purrr</code>-like interface.</p></p>
+          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface.</p></p>
         </th>
       </tr>
       <tr>
@@ -484,7 +490,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <tr>
         
         <td>
-          <p><code><a href="tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">left_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">right_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">inner_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">full_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">semi_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">anti_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> </p>
+          <p><code><a href="tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">left_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">right_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">inner_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">full_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">semi_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">anti_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Tidyverse methods for tsibble</p></td>
       </tr>

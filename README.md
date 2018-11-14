@@ -69,7 +69,7 @@ for details.
 The *tsibble* internally computes the interval for given time indices
 based on the time representation, ranging from year to nanosecond. The
 `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek`
-to weekly, `yearmonth`/`yearmth` to monthly, `yearquarter`/`yearqtr` to
+to weekly, `yearmonth`/`yearmon` to monthly, `yearquarter`/`yearqtr` to
 quarterly, and
 etc.
 

@@ -244,6 +244,10 @@ to leave off the time context.</p></li>
 
 <span class='co'># S3 method for lst_ts</span>
 <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -535,7 +539,27 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 Adelaide South Australia 1999 Q4 Business  134.
 #&gt;  9 Adelaide South Australia 2000 Q1 Business  154.
 #&gt; 10 Adelaide South Australia 2000 Q2 Business  169.
-#&gt; # ... with 23,398 more rows</div></pre>
+#&gt; # ... with 23,398 more rows</div><div class='input'><span class='no'>ped_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
+    <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>quantile</span>(<span class='no'>Count</span>)),
+    <span class='kw'>qtl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>c</span>(<span class='st'>"0%"</span>, <span class='st'>"25%"</span>, <span class='st'>"50%"</span>, <span class='st'>"75%"</span>, <span class='st'>"100%"</span>))
+  )
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>ped_qtl</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>qtl</span>))</div><div class='output co'>#&gt; # A tsibble: 330,185 x 4 [1h]
+#&gt; # Key:       Sensor, qtl [20]
+#&gt;    Sensor         Date_Time           value qtl  
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 Birrarung Marr 2015-01-01 00:00:00  1630 0%   
+#&gt;  2 Birrarung Marr 2015-01-01 00:00:00  1630 25%  
+#&gt;  3 Birrarung Marr 2015-01-01 00:00:00  1630 50%  
+#&gt;  4 Birrarung Marr 2015-01-01 00:00:00  1630 75%  
+#&gt;  5 Birrarung Marr 2015-01-01 00:00:00  1630 100% 
+#&gt;  6 Birrarung Marr 2015-01-01 01:00:00   826 0%   
+#&gt;  7 Birrarung Marr 2015-01-01 01:00:00   826 25%  
+#&gt;  8 Birrarung Marr 2015-01-01 01:00:00   826 50%  
+#&gt;  9 Birrarung Marr 2015-01-01 01:00:00   826 75%  
+#&gt; 10 Birrarung Marr 2015-01-01 01:00:00   826 100% 
+#&gt; # ... with 330,175 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

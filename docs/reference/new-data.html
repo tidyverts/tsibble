@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count implicit gaps — count_gaps • tsibble</title>
+<title>New tsibble data — new_data • tsibble</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Count implicit gaps — count_gaps" />
+<meta property="og:title" content="New tsibble data — new_data" />
 
-<meta property="og:description" content="Count implicit gaps" />
+<meta property="og:description" content="New tsibble data" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -136,21 +136,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Count implicit gaps</h1>
+    <h1>New tsibble data</h1>
     
-    <div class="hidden name"><code>count-gaps.Rd</code></div>
+    <div class="hidden name"><code>new-data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Count implicit gaps</p>
+    <p>New tsibble data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>count_gaps</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>new_data</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>count_gaps</span>(<span class='no'>.data</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>new_data</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>keep_all</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,52 +160,62 @@
       <td><p>A <code>tbl_ts</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments passed on to individual methods.</p></td>
+      <th>n</th>
+      <td><p>An integer indicates the number of key-index pair to append.</p></td>
     </tr>
     <tr>
-      <th>.full</th>
-      <td><p><code>FALSE</code> to find gaps for each group within its own period. <code>TRUE</code>
-to find gaps over the entire time span of the data.</p></td>
+      <th>...</th>
+      <td><p>Passed to individual S3 method.</p></td>
+    </tr>
+    <tr>
+      <th>keep_all</th>
+      <td><p>If <code>TRUE</code> keep all the measured variables as well as index
+and key, otherwise only index and key.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A tibble contains:</p><ul>
-<li><p>the "key" of the <code>tbl_ts</code></p></li>
-<li><p>".from": the starting time point of the gap</p></li>
-<li><p>".to": the ending time point of the gap</p></li>
-<li><p>".n": the implicit missing observations during the time period</p></li>
-</ul>
-
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other implict gaps handling: <code><a href='fill-na.html'>fill_na</a></code></p></div>
+    <div class='dont-index'><p><a href='append-row.html'>append_row</a> for appending new observations to a tsibble</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ped_gaps</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>count_gaps</span>(<span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'>stop</span>(<span class='st'>"Please install the ggplot2 package to run these following examples."</span>)
-}
-<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>ped_gaps</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Sensor</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>.from</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.from</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() +
-  <span class='fu'><a href='ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count-gaps-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; # A tsibble: 4 x 2 [?]
+#&gt; # Key:       Sensor [4]
+#&gt;   Sensor                        Date_Time          
+#&gt;   &lt;chr&gt;                         &lt;dttm&gt;             
+#&gt; 1 Birrarung Marr                2017-01-01 00:00:00
+#&gt; 2 Bourke Street Mall (North)    2017-01-01 00:00:00
+#&gt; 3 QV Market-Elizabeth St (West) 2017-01-01 00:00:00
+#&gt; 4 Southern Cross Station        2017-01-01 00:00:00</div><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>, <span class='kw'>keep_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tsibble: 4 x 5 [?]
+#&gt; # Key:       Sensor [4]
+#&gt;   Sensor                        Date_Time           Date        Time Count
+#&gt;   &lt;chr&gt;                         &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt; 1 Birrarung Marr                2017-01-01 00:00:00 NA            NA    NA
+#&gt; 2 Bourke Street Mall (North)    2017-01-01 00:00:00 NA            NA    NA
+#&gt; 3 QV Market-Elizabeth St (West) 2017-01-01 00:00:00 NA            NA    NA
+#&gt; 4 Southern Cross Station        2017-01-01 00:00:00 NA            NA    NA</div><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tsibble: 12 x 2 [1h]
+#&gt; # Key:       Sensor [4]
+#&gt;    Sensor                        Date_Time          
+#&gt;    &lt;chr&gt;                         &lt;dttm&gt;             
+#&gt;  1 Birrarung Marr                2017-01-01 00:00:00
+#&gt;  2 Birrarung Marr                2017-01-01 01:00:00
+#&gt;  3 Birrarung Marr                2017-01-01 02:00:00
+#&gt;  4 Bourke Street Mall (North)    2017-01-01 00:00:00
+#&gt;  5 Bourke Street Mall (North)    2017-01-01 01:00:00
+#&gt;  6 Bourke Street Mall (North)    2017-01-01 02:00:00
+#&gt;  7 QV Market-Elizabeth St (West) 2017-01-01 00:00:00
+#&gt;  8 QV Market-Elizabeth St (West) 2017-01-01 01:00:00
+#&gt;  9 QV Market-Elizabeth St (West) 2017-01-01 02:00:00
+#&gt; 10 Southern Cross Station        2017-01-01 00:00:00
+#&gt; 11 Southern Cross Station        2017-01-01 01:00:00
+#&gt; 12 Southern Cross Station        2017-01-01 02:00:00</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

@@ -402,7 +402,7 @@ names will be used if present.</p></td>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'>fitted</span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>fit</span>))
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Date</span> <span class='kw'>&lt;=</span> <span class='fu'>as.Date</span>(<span class='st'>"2015-01-31"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='filter_index.html'>filter_index</a></span>(<span class='st'>"2015-01"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;   Sensor                        data                diag                 

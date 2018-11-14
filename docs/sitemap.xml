@@ -34,6 +34,9 @@
     <loc>https://pkg.earo.me/tsibble/reference/fill-na.html</loc>
   </url>
   <url>
+    <loc>https://pkg.earo.me/tsibble/reference/filter_index.html</loc>
+  </url>
+  <url>
     <loc>https://pkg.earo.me/tsibble/reference/find_duplicates.html</loc>
   </url>
   <url>
@@ -79,7 +82,7 @@
     <loc>https://pkg.earo.me/tsibble/reference/measured-vars.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/new_data.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/new-data.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/new_interval.html</loc>

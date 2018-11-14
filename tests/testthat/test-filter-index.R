@@ -70,10 +70,19 @@ test_that("filter_index()", {
       filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
     pedestrian %>%
       filter(
-        Date_Time >= ymd_h("2015-08-01 00", tz =tz) &
+        Date_Time >= ymd_h("2015-08-01 00", tz = tz) &
         Date_Time < ymd_h("2015-10-01 00", tz = tz) |
         Date_Time <= ymd_h("2015-02-28 23", tz = tz) |
         Date_Time >= ymd_h("2015-12-01 00", tz = tz)
+      )
+  )
+  expect_identical(
+    pedestrian %>%
+      filter_index("2015-03-23 10" ~ "2015-10-31 12"),
+    pedestrian %>%
+      filter(
+        Date_Time >= ymd_h("2015-03-23 10", tz = tz),
+        Date_Time <= ymd_h("2015-10-31 12", tz = tz)
       )
   )
   expect_identical(
