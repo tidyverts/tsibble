@@ -292,7 +292,7 @@ pslide_dfr <- function(
 #'   tibble(fitted = fitted(fit), resid = residuals(fit))
 #' }
 #' pedestrian %>%
-#'   filter(Date <= as.Date("2015-01-31")) %>%
+#'   filter_index("2015-01") %>%
 #'   nest(-Sensor) %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }

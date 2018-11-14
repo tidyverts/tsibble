@@ -5,12 +5,14 @@
 \alias{append_case}
 \title{Append rows to a tsibble}
 \usage{
-append_row(.data, n = 1L)
+append_row(.data, n = 1L, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
 \item{n}{An integer indicates the number of key-index pair to append.}
+
+\item{...}{Passed to individual S3 method.}
 }
 \description{
 Add new rows to the end of a tsibble by filling a key-index pair and \code{NA} for

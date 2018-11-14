@@ -2,14 +2,19 @@
 % Please edit documentation in R/new-data.R
 \name{new_data}
 \alias{new_data}
+\alias{new_data.tbl_ts}
 \title{New tsibble data}
 \usage{
-new_data(.data, n = 1L, keep_all = FALSE)
+new_data(.data, n = 1L, ...)
+
+\method{new_data}{tbl_ts}(.data, n = 1L, keep_all = FALSE, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
 \item{n}{An integer indicates the number of key-index pair to append.}
+
+\item{...}{Passed to individual S3 method.}
 
 \item{keep_all}{If \code{TRUE} keep all the measured variables as well as index
 and key, otherwise only index and key.}
