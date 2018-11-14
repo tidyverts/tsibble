@@ -23,11 +23,27 @@ filter_index <- function(.data, ...) {
 
 #' @importFrom stats start end
 #' @importFrom lubridate tz<-
+start.numeric <- function(x, y = NULL, ...) {
+  if (is_null(y)) {
+    min(x)
+  } else {
+    as.numeric(y)
+  }
+}
+
+end.numeric <- function(x, y = NULL, ...) {
+  if (is_null(y)) {
+    max(x) + 1
+  } else {
+    as.numeric(y) + 1
+  }
+}
+
 start.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
   } else {
-    abort_not_chr(y)
+    abort_not_chr(y, class = "Date")
     anytime::assertDate(y)
     tz <- lubridate::tz(x)
     y <- anytime::anydate(y)
@@ -40,7 +56,7 @@ end.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + lubridate::period(1, "day")
   } else {
-    abort_not_chr(y)
+    abort_not_chr(y, class = "Date")
     anytime::assertDate(y)
     
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
@@ -67,7 +83,7 @@ start.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
   } else {
-    abort_not_chr(y)
+    abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
     tz <- lubridate::tz(x)
     y <- anytime::anytime(y)
@@ -78,9 +94,9 @@ start.POSIXct <- function(x, y = NULL, ...) {
 
 end.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
-    max(x) + lubridate::period(1, "hour")
+    max(x) + lubridate::period(1, "second")
   } else {
-    abort_not_chr(y)
+    abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
     
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
@@ -98,10 +114,28 @@ end.POSIXct <- function(x, y = NULL, ...) {
       y[lgl_yr] <- y[lgl_yr] + lubridate::period(1, "year")
     }
     lgl_date <- !(lgl_yrmth | lgl_yr)
-    y[lgl_date] <- y[lgl_date] + lubridate::period(1, "hour")
+    y[lgl_date] <- y[lgl_date] + lubridate::period(1, "second")
     y
   }
 }
+
+start.yearweek <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  NextMethod()
+}
+
+end.yearweek <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  NextMethod()
+}
+
+start.yearmonth <- start.yearweek
+
+end.yearmonth <- end.yearweek
+
+start.yearquarter <- start.yearweek
+
+end.yearquarter <- end.yearweek
 
 is_dot_null <- function(x) { # x is a sym
   if (is_null(x)) {
@@ -113,8 +147,8 @@ is_dot_null <- function(x) { # x is a sym
   }
 }
 
-abort_not_chr <- function(x) {
+abort_not_chr <- function(x, class) {
   if (!is_character(x)) {
-    abort(sprintf("Must be character(s), not %s.", typeof(x)))
+    abort(sprintf("Must be character(s) for %s, not %s.", class, typeof(x)))
   }
 }

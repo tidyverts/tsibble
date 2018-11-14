@@ -16,24 +16,39 @@ test_that("class: Date", {
   )
 })
 
+test_that("class: year*", {
+  yrwk <- as_yearweek(unique(pedestrian$Date))
+  expect_error(start(yrwk, 2017), "Must be")
+  expect_equal(start(yrwk), as.Date("2015-01-01"))
+  expect_equal(
+    start(yrwk, x),
+    as.Date(c("2016-01-01", "2016-10-01", "2016-12-09"))
+  )
+  expect_equal(end(pedestrian$Date), as.Date("2017-01-01"))
+  expect_equal(
+    end(pedestrian$Date, x),
+    as.Date(c("2017-01-01", "2016-11-01", "2016-12-10"))
+  )
+})
+
 y <- c("2016", "2016-10", "2016-12-09", "2016-12-09 10")
 tz <- "Australia/Melbourne"
 
 test_that("class: POSIXct", {
   expect_error(start(pedestrian$Date_Time, 2017), "Must be")
-  expect_equal(start(pedestrian$Date_Time), as.POSIXct("2015-01-01", tz = tz))
+  expect_equal(start(pedestrian$Date_Time), ymd("2015-01-01", tz = tz))
   expect_equal(
     start(pedestrian$Date_Time, y),
-    as.POSIXct(
+    ymd_hm(
       c("2016-01-01 00:00", "2016-10-01 00:00", "2016-12-09 00:00", "2016-12-09 10:00"),
       tz = tz
     )
   )
-  expect_equal(end(pedestrian$Date_Time), as.POSIXct("2017-01-01", tz = tz))
+  expect_equal(end(pedestrian$Date_Time), ymd_hms("2016-12-31 23:00:01", tz = tz))
   expect_equal(
     end(pedestrian$Date_Time, y),
-    as.POSIXct(
-      c("2017-01-01 00:00", "2016-11-01 00:00", "2016-12-09 01:00", "2016-12-09 11:00"),
+    ymd_hms(
+      c("2017-01-01 00:00:00", "2016-11-01 00:00:00", "2016-12-09 00:00:01", "2016-12-09 10:00:01"),
       tz = tz
     )
   )
@@ -41,42 +56,50 @@ test_that("class: POSIXct", {
 
 test_that("filter_index()", {
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
-    pedestrian %>% 
+    pedestrian %>%
       filter(
-        Date_Time >= lubridate::ymd_h("2015-08-01 00", tz =tz) &
-        Date_Time < lubridate::ymd_h("2015-10-01 00", tz = tz) |
-        Date_Time <= lubridate::ymd_h("2015-02-28 23", tz = tz) | 
-        Date_Time >= lubridate::ymd_h("2015-12-01 00", tz = tz)
+        Date_Time >= ymd_h("2015-08-01 00", tz =tz) &
+        Date_Time < ymd_h("2015-10-01 00", tz = tz) |
+        Date_Time <= ymd_h("2015-02-28 23", tz = tz) |
+        Date_Time >= ymd_h("2015-12-01 00", tz = tz)
       )
   )
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index("2015-02", "2015-08" ~ .),
-    pedestrian %>% 
+    pedestrian %>%
       filter_index("2015-02" ~ "2015-02", "2015-08" ~ .)
   )
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index(~ "2015-02"),
-    pedestrian %>% 
+    pedestrian %>%
       filter_index(. ~ "2015-02")
   )
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index(~ "2015"),
-    pedestrian %>% 
-      filter(lubridate::year(Date_Time) == 2015)
+    pedestrian %>%
+      filter(year(Date_Time) == 2015)
   )
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index("2015" ~ "2016"),
     pedestrian
   )
   expect_identical(
-    pedestrian %>% 
+    pedestrian %>%
       filter_index("2015-08" ~ "2015-02"),
     pedestrian[0L, ]
+  )
+  ped_yr <- pedestrian %>% 
+      group_by(Sensor) %>% 
+      index_by(year = as.integer(year(Date_Time))) %>% 
+      summarise(cc = sum(Count))
+  expect_identical(
+    ped_yr %>% filter_index(2015),
+    ped_yr %>% filter(year == 2015)
   )
 })
