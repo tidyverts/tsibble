@@ -54,6 +54,16 @@ test_that("class: POSIXct", {
   )
 })
 
+test_that("class: hms", {
+  z <- hms::as.hms(unique(pedestrian$Date_Time))
+  expect_error(start(z, y = 11), "Must be")
+  expect_equal(start(z), hms::as.hms("00:00:00"))
+  expect_error(start(z, y = "11:00"), "cannot be expressed as difftime")
+  expect_equal(start(z, y = "11:00:00"), hms::as.hms("11:00:00"))
+  expect_equal(end(z), hms::as.hms("23:00:01"))
+  expect_equal(end(z, y = "21:00:00"), hms::as.hms("21:00:01"))
+})
+
 test_that("filter_index()", {
   expect_identical(
     pedestrian %>%
