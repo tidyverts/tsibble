@@ -199,17 +199,10 @@ to leave off the time context.
 # Sum over sensors ----
 pedestrian \%>\%
   summarise(Total = sum(Count))
-# Sum over sensors by days ----
-pedestrian \%>\%
-  index_by(Date) \%>\%
-  summarise(Total = sum(Count))
 # Back to tibble
 pedestrian \%>\%
   as_tibble() \%>\% 
   summarise(Total = sum(Count))
-tourism \%>\%
-  group_by(Region, State) \%>\%
-  summarise(geo_trips = sum(Trips))
 # example from tidyr
 stocks <- tsibble(
   time = as.Date('2009-01-01') + 0:9,
@@ -227,24 +220,18 @@ stocks <- tsibble(
 )
 stocksm <- stocks \%>\% gather(stock, price, -time)
 stocksm \%>\% spread(stock, price)
-pedestrian \%>\% 
-  nest(-Sensor)
-pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
+nested_stock <- stocksm \%>\% 
+  nest(-stock)
+stocksm \%>\% 
+  group_by(stock) \%>\% 
   nest()
-nested_ped <- pedestrian \%>\% 
-  nest(-Sensor)
-nested_ped \%>\% 
-  unnest(key = id(Sensor))
-nested_tourism <- tourism \%>\% 
-  nest(-Region, -State)
-nested_tourism \%>\% 
-  unnest(key = id(Region, State))
-ped_qtl <- pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
+nested_stock \%>\% 
+  unnest(key = id(stock))
+stock_qtl <- stocksm \%>\% 
+  group_by(stock) \%>\% 
   summarise(
-    value = list(quantile(Count)), 
+    value = list(quantile(price)), 
     qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
   )
-unnest(ped_qtl, key = id(qtl))
+unnest(stock_qtl, key = id(qtl))
 }

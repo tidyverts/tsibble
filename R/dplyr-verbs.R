@@ -182,10 +182,6 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' # Sum over sensors ----
 #' pedestrian %>%
 #'   summarise(Total = sum(Count))
-#' # Sum over sensors by days ----
-#' pedestrian %>%
-#'   index_by(Date) %>%
-#'   summarise(Total = sum(Count))
 #' # Back to tibble
 #' pedestrian %>%
 #'   as_tibble() %>% 
@@ -235,10 +231,6 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' @importFrom dplyr grouped_df
 #' @rdname tidyverse
 #' @export
-#' @examples
-#' tourism %>%
-#'   group_by(Region, State) %>%
-#'   summarise(geo_trips = sum(Trips))
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(

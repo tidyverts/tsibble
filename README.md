@@ -77,9 +77,9 @@ etc.
 
 Often there are implicit missing cases in temporal data. If the
 observations are made at regular time interval, we could turn these
-implicit missings to be explicit simply using `fill_na()`. Meanwhile,
-fill `NA`s in by 0 for precipitation (`precip`). It is quite common to
-replaces `NA`s with its previous observation for each origin in time
+implicit missings to be explicit simply using `fill_na()`, filling gaps
+in precipitation (`precip`) with 0 in the meanwhile. It is quite common
+to replaces `NA`s with its previous observation for each origin in time
 series analysis, which is easily done using `fill()` from *tidyr*.
 
 ``` r
@@ -101,7 +101,7 @@ full_weather
 #> # ... with 2.618e+04 more rows
 ```
 
-`fill_na()` also handles filling `NA` by values or functions, and
+`fill_na()` also handles filling time gaps by values or functions, and
 preserves time zones for date-times. Wanna a quick overview of implicit
 time gaps? Check out
 [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).

@@ -412,46 +412,13 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 2015-01-01 07:00:00   146
 #&gt;  9 2015-01-01 08:00:00   258
 #&gt; 10 2015-01-01 09:00:00   419
-#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Sum over sensors by days ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 731 x 2 [1D]
-#&gt;    Date       Total
-#&gt;    &lt;date&gt;     &lt;int&gt;
-#&gt;  1 2015-01-01 18079
-#&gt;  2 2015-01-02 19306
-#&gt;  3 2015-01-03 12708
-#&gt;  4 2015-01-04 20665
-#&gt;  5 2015-01-05 29724
-#&gt;  6 2015-01-06 31024
-#&gt;  7 2015-01-07 28842
-#&gt;  8 2015-01-08 28664
-#&gt;  9 2015-01-09 31269
-#&gt; 10 2015-01-10 30904
-#&gt; # ... with 721 more rows</div><div class='input'><span class='co'># Back to tibble</span>
+#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Back to tibble</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
 #&gt;      &lt;int&gt;
-#&gt; 1 45483871</div><div class='input'><span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>geo_trips</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 5,852 x 4 [1Q]
-#&gt; # Key:       Region, State [77]
-#&gt; # Groups:    Region [77]
-#&gt;    Region   State           Quarter geo_trips
-#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt;     &lt;dbl&gt;
-#&gt;  1 Adelaide South Australia 1998 Q1      659.
-#&gt;  2 Adelaide South Australia 1998 Q2      450.
-#&gt;  3 Adelaide South Australia 1998 Q3      593.
-#&gt;  4 Adelaide South Australia 1998 Q4      524.
-#&gt;  5 Adelaide South Australia 1999 Q1      548.
-#&gt;  6 Adelaide South Australia 1999 Q2      569.
-#&gt;  7 Adelaide South Australia 1999 Q3      538.
-#&gt;  8 Adelaide South Australia 1999 Q4      562.
-#&gt;  9 Adelaide South Australia 2000 Q1      646.
-#&gt; 10 Adelaide South Australia 2000 Q2      563.
-#&gt; # ... with 5,842 more rows</div><div class='input'><span class='co'># example from tidyr</span>
+#&gt; 1 45483871</div><div class='input'><span class='co'># example from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
@@ -490,76 +457,51 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  7 2009-01-07  0.387  -0.527   -3.23 
 #&gt;  8 2009-01-08 -0.919   3.32    -3.44 
 #&gt;  9 2009-01-09 -1.58   -1.55    -8.68 
-#&gt; 10 2009-01-10 -0.0841 -1.85    -5.50 </div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   Sensor                        data                  
-#&gt;   &lt;chr&gt;                         &lt;list&gt;                
-#&gt; 1 Birrarung Marr                &lt;tsibble [14,566 × 4]&gt;
-#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [16,414 × 4]&gt;
-#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [17,518 × 4]&gt;
-#&gt; 4 Southern Cross Station        &lt;tsibble [17,539 × 4]&gt;</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>()</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   Sensor                        data                  
-#&gt;   &lt;chr&gt;                         &lt;list&gt;                
-#&gt; 1 Birrarung Marr                &lt;tsibble [14,566 × 4]&gt;
-#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [16,414 × 4]&gt;
-#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [17,518 × 4]&gt;
-#&gt; 4 Southern Cross Station        &lt;tsibble [17,539 × 4]&gt;</div><div class='input'><span class='no'>nested_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>)
-<span class='no'>nested_ped</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Sensor</span>))</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h]
-#&gt; # Key:       Sensor [4]
-#&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 66,027 more rows</div><div class='input'><span class='no'>nested_tourism</span> <span class='kw'>&lt;-</span> <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Region</span>, -<span class='no'>State</span>)
-<span class='no'>nested_tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>))</div><div class='output co'>#&gt; # A tsibble: 23,408 x 5 [1Q]
-#&gt; # Key:       Purpose, Region, State [308]
-#&gt;    Region   State           Quarter Purpose  Trips
-#&gt;    &lt;chr&gt;    &lt;chr&gt;             &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;
-#&gt;  1 Adelaide South Australia 1998 Q1 Business  135.
-#&gt;  2 Adelaide South Australia 1998 Q2 Business  110.
-#&gt;  3 Adelaide South Australia 1998 Q3 Business  166.
-#&gt;  4 Adelaide South Australia 1998 Q4 Business  127.
-#&gt;  5 Adelaide South Australia 1999 Q1 Business  137.
-#&gt;  6 Adelaide South Australia 1999 Q2 Business  200.
-#&gt;  7 Adelaide South Australia 1999 Q3 Business  169.
-#&gt;  8 Adelaide South Australia 1999 Q4 Business  134.
-#&gt;  9 Adelaide South Australia 2000 Q1 Business  154.
-#&gt; 10 Adelaide South Australia 2000 Q2 Business  169.
-#&gt; # ... with 23,398 more rows</div><div class='input'><span class='no'>ped_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+#&gt; 10 2009-01-10 -0.0841 -1.85    -5.50 </div><div class='input'><span class='no'>nested_stock</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>stock</span>)
+<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>()</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   stock data              
+#&gt;   &lt;chr&gt; &lt;list&gt;            
+#&gt; 1 X     &lt;tsibble [10 × 2]&gt;
+#&gt; 2 Y     &lt;tsibble [10 × 2]&gt;
+#&gt; 3 Z     &lt;tsibble [10 × 2]&gt;</div><div class='input'><span class='no'>nested_stock</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>stock</span>))</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1D]
+#&gt; # Key:       stock [3]
+#&gt;    stock time         price
+#&gt;    &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt;
+#&gt;  1 X     2009-01-01 -0.323 
+#&gt;  2 X     2009-01-02 -1.29  
+#&gt;  3 X     2009-01-03 -1.03  
+#&gt;  4 X     2009-01-04  1.51  
+#&gt;  5 X     2009-01-05  0.347 
+#&gt;  6 X     2009-01-06  1.78  
+#&gt;  7 X     2009-01-07  0.387 
+#&gt;  8 X     2009-01-08 -0.919 
+#&gt;  9 X     2009-01-09 -1.58  
+#&gt; 10 X     2009-01-10 -0.0841
+#&gt; # ... with 20 more rows</div><div class='input'><span class='no'>stock_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
-    <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>quantile</span>(<span class='no'>Count</span>)),
+    <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>quantile</span>(<span class='no'>price</span>)),
     <span class='kw'>qtl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>c</span>(<span class='st'>"0%"</span>, <span class='st'>"25%"</span>, <span class='st'>"50%"</span>, <span class='st'>"75%"</span>, <span class='st'>"100%"</span>))
   )
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>ped_qtl</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>qtl</span>))</div><div class='output co'>#&gt; # A tsibble: 330,185 x 4 [1h]
-#&gt; # Key:       Sensor, qtl [20]
-#&gt;    Sensor         Date_Time           value qtl  
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00  1630 0%   
-#&gt;  2 Birrarung Marr 2015-01-01 00:00:00  1630 25%  
-#&gt;  3 Birrarung Marr 2015-01-01 00:00:00  1630 50%  
-#&gt;  4 Birrarung Marr 2015-01-01 00:00:00  1630 75%  
-#&gt;  5 Birrarung Marr 2015-01-01 00:00:00  1630 100% 
-#&gt;  6 Birrarung Marr 2015-01-01 01:00:00   826 0%   
-#&gt;  7 Birrarung Marr 2015-01-01 01:00:00   826 25%  
-#&gt;  8 Birrarung Marr 2015-01-01 01:00:00   826 50%  
-#&gt;  9 Birrarung Marr 2015-01-01 01:00:00   826 75%  
-#&gt; 10 Birrarung Marr 2015-01-01 01:00:00   826 100% 
-#&gt; # ... with 330,175 more rows</div></pre>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>stock_qtl</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>qtl</span>))</div><div class='output co'>#&gt; # A tsibble: 150 x 4 [1D]
+#&gt; # Key:       stock, qtl [15]
+#&gt;    stock time        value qtl  
+#&gt;    &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 X     2009-01-01 -0.323 0%   
+#&gt;  2 X     2009-01-01 -0.323 25%  
+#&gt;  3 X     2009-01-01 -0.323 50%  
+#&gt;  4 X     2009-01-01 -0.323 75%  
+#&gt;  5 X     2009-01-01 -0.323 100% 
+#&gt;  6 X     2009-01-02 -1.29  0%   
+#&gt;  7 X     2009-01-02 -1.29  25%  
+#&gt;  8 X     2009-01-02 -1.29  50%  
+#&gt;  9 X     2009-01-02 -1.29  75%  
+#&gt; 10 X     2009-01-02 -1.29  100% 
+#&gt; # ... with 140 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

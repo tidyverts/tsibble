@@ -17,7 +17,7 @@ install:
 	Rscript -e "devtools::install(dependencies = FALSE)"
 
 winbuild:
-	Rscript -e "devtools::chekc_win_devel(quiet = TRUE)"
+	Rscript -e "devtools::check_win_devel(quiet = TRUE)"
 
 pkgdown:
 	Rscript -e "pkgdown::build_site(run_dont_run = TRUE)"

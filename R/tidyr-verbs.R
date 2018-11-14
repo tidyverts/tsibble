@@ -80,10 +80,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
 #' @rdname tidyverse
 #' @export
 #' @examples
-#' pedestrian %>% 
-#'   nest(-Sensor)
-#' pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#' nested_stock <- stocksm %>% 
+#'   nest(-stock)
+#' stocksm %>% 
+#'   group_by(stock) %>% 
 #'   nest()
 nest.tbl_ts <- function(data, ..., .key = "data") {
   nest_exprs <- enexprs(...)
@@ -128,14 +128,8 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
 #' @rdname tidyverse
 #' @export
 #' @examples
-#' nested_ped <- pedestrian %>% 
-#'   nest(-Sensor)
-#' nested_ped %>% 
-#'   unnest(key = id(Sensor))
-#' nested_tourism <- tourism %>% 
-#'   nest(-Region, -State)
-#' nested_tourism %>% 
-#'   unnest(key = id(Region, State))
+#' nested_stock %>% 
+#'   unnest(key = id(stock))
 unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
@@ -180,13 +174,13 @@ unnest.lst_ts <- function(data, ..., key = id(),
 #' @rdname tidyverse
 #' @export
 #' @examples
-#' ped_qtl <- pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#' stock_qtl <- stocksm %>% 
+#'   group_by(stock) %>% 
 #'   summarise(
-#'     value = list(quantile(Count)), 
+#'     value = list(quantile(price)), 
 #'     qtl = list(c("0%", "25%", "50%", "75%", "100%"))
 #'   )
-#' unnest(ped_qtl, key = id(qtl))
+#' unnest(stock_qtl, key = id(qtl))
 unnest.tbl_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
