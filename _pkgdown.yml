@@ -41,6 +41,7 @@ reference:
     unchanged. They needs operating with other `tidyverse` verbs.
   contents:
     - index_by
+    - filter_index
     - fill_na
     - has_gaps
     - count_gaps

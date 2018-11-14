@@ -1,4 +1,44 @@
+#' A shorthand for filtering for time index
+#'
+#' This shorthand takes care of time zone and only subsets time windows.
+#'
+#' @param .data A tsibble.
+#' @param ... A list of formulas that specify start and end periods (inclusive).
+#' * `~ end` or `. ~ end`: from the very beginning to a specified ending period.
+#' * `start ~ end`: from specified beginning to ending periods.
+#' * `start ~ .`: from a specified beginning to the very end of the data.
+#'
+#' @export
+#' @examples
+#' # from the starting time to the end of Feb, 2015
+#' pedestrian %>%
+#'   filter_index(~ "2015-02")
+#'
+#' # entire Feb 2015, & from the beginning of Aug 2016 to the end
+#' pedestrian %>%
+#'   filter_index("2015-02", "2016-08" ~ .)
+#'
+#' # multiple time windows
+#' pedestrian %>%
+#'   filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
+#'
+#' # entire 2015
+#' pedestrian %>%
+#'   filter_index(~ "2015")
+#'
+#' # specific
+#' pedestrian %>% 
+#'   filter_index("2015-03-23" ~ "2015-10")
+#' pedestrian %>% 
+#'   filter_index("2015-03-23" ~ "2015-10-31")
+#' pedestrian %>% 
+#'   filter_index("2015-03-23 10" ~ "2015-10-31 12")
 filter_index <- function(.data, ...) {
+  UseMethod("filter_index")
+}
+
+#' @export
+filter_index.tbl_ts <- function(.data, ...) {
   formulas <- list2(...)
   n <- length(formulas)
 
