@@ -1,5 +1,5 @@
 # Unlike zoo::yearmon and zoo::yearqtr based on numerics,
-# tsibble::yearmth and tsibble::yearqtr are based on the "Date" class.
+# tsibble::yearmonth and tsibble::yearquarter are based on the "Date" class.
 
 #' Represent year-week (ISO), year-month or year-quarter objects
 #'
@@ -296,7 +296,7 @@ yearmonth.numeric <- function(x) {
 }
 
 #' @export
-yearmonth.yearmth <- yearmonth.numeric
+yearmonth.yearmon <- yearmonth.numeric
 
 #' @export
 format.yearmonth <- function(x, format = "%Y %b", ...) {

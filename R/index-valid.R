@@ -33,7 +33,7 @@ index_valid.yearweek <- index_valid.POSIXct
 index_valid.yearmonth <- index_valid.POSIXct
 
 #' @export
-index_valid.yearmth <- index_valid.yearmonth
+index_valid.yearmon <- index_valid.yearmonth
 
 #' @export
 index_valid.yearquarter <- index_valid.POSIXct

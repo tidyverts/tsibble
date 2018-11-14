@@ -199,6 +199,26 @@ start.yearquarter <- start.yearweek
 
 end.yearquarter <- end.yearweek
 
+start.yearmon <- function(x, y = NULL, ...) {
+  x <- yearmonth(x)
+  start(x, y = y)
+}
+
+end.yearmon <- function(x, y = NULL, ...) {
+  x <- yearmonth(x)
+  end(x, y = y)
+}
+
+start.yearqtr <- function(x, y = NULL, ...) {
+  x <- yearquarter(x)
+  start(x, y = y)
+}
+
+end.yearqtr <- function(x, y = NULL, ...) {
+  x <- yearquarter(x)
+  end(x, y = y)
+}
+
 is_dot_null <- function(x) { # x is a sym
   if (is_null(x)) {
     NULL
