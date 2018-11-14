@@ -92,6 +92,7 @@ slice.tbl_ts <- function(.data, ...) {
 }
 
 row_validate <- function(x) {
+  if (is_logical(x)) return(x)
   pos_dup <- anyDuplicated.default(x)
   if (any_not_equal_to_c(pos_dup, 0)) {
     abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
