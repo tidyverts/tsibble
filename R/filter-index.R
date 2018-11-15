@@ -7,7 +7,10 @@
 #' * `~ end` or `. ~ end`: from the very beginning to a specified ending period.
 #' * `start ~ end`: from specified beginning to ending periods.
 #' * `start ~ .`: from a specified beginning to the very end of the data.
+#' Supported index type: `POSIXct` (to seconds), `Date`, `yearweek`, `yearmonth`/`yearmon`,
+#' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
 #'
+#' @seealso [time_in] for a vector of time index
 #' @export
 #' @examples
 #' # from the starting time to the end of Feb, 2015
@@ -39,26 +42,47 @@ filter_index <- function(.data, ...) {
 
 #' @export
 filter_index.tbl_ts <- function(.data, ...) {
+  index <- eval_tidy(index(.data), data = .data)
+  lgl <- time_in(index, ...)
+  filter(.data, lgl)
+}
+
+#' If time falls in the ranges, with no need for time zone specification
+#'
+#' @param x A vector of time index, such as classes `POSIXct`, `Date`, `yearweek`, 
+#' `yearmonth`, `yearquarter`, `hms`/`difftime`, and `numeric`.
+#' @inheritParams filter_index
+#'
+#' @return logical vector
+#' @seealso [filter_index] for filtering tsibble
+#' @export
+#' @examples
+#' x <- unique(pedestrian$Date_Time)
+#' lgl <- time_in(x, ~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
+#' lgl[1:10]
+time_in <- function(x, ...) {
+  UseMethod("time_in")
+}
+
+#' @export
+time_in.default <- function(x, ...) {
   formulas <- list2(...)
   n <- length(formulas)
-
-  if (n == 0) return(.data)
+  if (n == 0) return(!logical(length(x)))
 
   lgl <- lhs <- rhs <- vector("list", n)
-  index <- eval_tidy(index(.data), data = .data)
   for (i in seq_len(n)) {
     f <- formulas[[i]]
     if (is_atomic(f)) {
       f <- new_formula(f, f)
     }
     env <- f_env(f)
-    lhs[[i]] <- start(index, eval_bare(is_dot_null(f_lhs(f)), env = env))
-    rhs[[i]] <- end(index, eval_bare(is_dot_null(f_rhs(f)), env = env))
-    lgl[[i]] <- eval_bare(index >= lhs[[i]] & index < rhs[[i]])
+    lhs[[i]] <- start(x, eval_bare(is_dot_null(f_lhs(f)), env = env))
+    rhs[[i]] <- end(x, eval_bare(is_dot_null(f_rhs(f)), env = env))
+    lgl[[i]] <- eval_bare(x >= lhs[[i]] & x < rhs[[i]])
   }
 
-  lgl <- purrr::reduce(lgl, `|`)
-  filter(.data, lgl)
+  purrr::reduce(lgl, `|`)
 }
 
 #' @importFrom stats start end

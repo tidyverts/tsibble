@@ -14,6 +14,8 @@ filter_index(.data, ...)
 \item \code{~ end} or \code{. ~ end}: from the very beginning to a specified ending period.
 \item \code{start ~ end}: from specified beginning to ending periods.
 \item \code{start ~ .}: from a specified beginning to the very end of the data.
+Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek}, \code{yearmonth}/\code{yearmon},
+\code{yearquarter}/\code{yearqtr}, \code{hms}/\code{difftime} & \code{numeric}.
 }}
 }
 \description{
@@ -43,4 +45,7 @@ pedestrian \%>\%
   filter_index("2015-03-23" ~ "2015-10-31")
 pedestrian \%>\% 
   filter_index("2015-03-23 10" ~ "2015-10-31 12")
+}
+\seealso{
+\link{time_in} for a vector of time index
 }

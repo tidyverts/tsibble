@@ -65,9 +65,8 @@ reference:
     - difference
 
 - title: Time
-  desc: >
-    New index classes representing `yearquarter`, `yearmonth`, and `yearweek`.
   contents:
+    - time_in
     - starts_with("year")
     - units_since
     - guess_frequency

@@ -161,10 +161,16 @@
       <td><p>A list of formulas that specify start and end periods (inclusive).</p><ul>
 <li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
 <li><p><code>start ~ end</code>: from specified beginning to ending periods.</p></li>
-<li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.</p></li>
+<li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.
+Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <code>yearweek</code>, <code>yearmonth</code>/<code>yearmon</code>,
+<code>yearquarter</code>/<code>yearqtr</code>, <code>hms</code>/<code>difftime</code> &amp; <code>numeric</code>.</p></li>
 </ul></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='time_in.html'>time_in</a> for a vector of time index</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -288,7 +294,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
