@@ -46,12 +46,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
     cn <- setdiff(names(.data), measured_vars(.data))
     out <- select(out, !!! cn)
   }
-  if (n == 1L) {
-    int <- init_interval()
-  } else {
-    int <- interval(.data)
-  }
-  update_tsibble(out, .data, ordered = TRUE, interval = int)
+  update_tsibble(out, .data, ordered = TRUE, interval = interval(.data))
 }
 
 #' Append rows to a tsibble
