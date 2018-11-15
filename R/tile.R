@@ -10,8 +10,8 @@
 #'
 #' @rdname tile
 #' @export
+#' @family tiling window functions
 #' @seealso
-#' * [tile2], [ptile]
 #' * [slide] for sliding window with overlapping observations
 #' * [stretch] for expanding more observations
 #'
@@ -62,8 +62,8 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @inheritParams slide2
 #' @rdname tile2
 #' @export
+#' @family tiling window functions
 #' @seealso
-#' * [tile]
 #' * [slide2] for sliding window with overlapping observations
 #' * [stretch2] for expanding more observations
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/as-tsibble.R
 \name{build_tsibble}
 \alias{build_tsibble}
-\title{Low-level constructor to a tsibble object}
+\title{Low-level constructor for a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, regular = TRUE, ordered = NULL,
   interval = NULL, validate = TRUE)

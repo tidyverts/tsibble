@@ -1,6 +1,6 @@
 #' A shorthand for filtering for time index
 #'
-#' This shorthand takes care of time zone and only subsets time windows.
+#' This shorthand takes care of time zone and uses compact expressions.
 #'
 #' @param .data A tsibble.
 #' @param ... A list of formulas that specify start and end periods (inclusive).
@@ -47,7 +47,7 @@ filter_index.tbl_ts <- function(.data, ...) {
   filter(.data, lgl)
 }
 
-#' If time falls in the ranges, with no need for time zone specification
+#' If time falls in the ranges using compact expressions
 #'
 #' @param x A vector of time index, such as classes `POSIXct`, `Date`, `yearweek`, 
 #' `yearmonth`, `yearquarter`, `hms`/`difftime`, and `numeric`.

@@ -92,11 +92,13 @@ slide(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
-\item \link{slide2}, \link{pslide}
 \item \link{tile} for tiling window without overlapping observations
 \item \link{stretch} for expanding more observations
 }
+
+Other sliding window functions: \code{\link{slide2}}
 }
+\concept{sliding window functions}
 \alias{slide_lgl}
 \alias{slide_chr}
 \alias{slide_int}

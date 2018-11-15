@@ -19,7 +19,7 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 }}
 }
 \description{
-This shorthand takes care of time zone and only subsets time windows.
+This shorthand takes care of time zone and uses compact expressions.
 }
 \examples{
 # from the starting time to the end of Feb, 2015

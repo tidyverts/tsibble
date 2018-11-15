@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="A shorthand for filtering for time index — filter_index" />
 
-<meta property="og:description" content="This shorthand takes care of time zone and only subsets time windows." />
+<meta property="og:description" content="This shorthand takes care of time zone and uses compact expressions." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -143,7 +143,7 @@
 
     <div class="ref-description">
     
-    <p>This shorthand takes care of time zone and only subsets time windows.</p>
+    <p>This shorthand takes care of time zone and uses compact expressions.</p>
     
     </div>
 
@@ -190,7 +190,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 4,526 more rows</div><div class='input'>
+#&gt; # … with 4,526 more rows</div><div class='input'>
 <span class='co'># entire Feb 2015, &amp; from the beginning of Aug 2016 to the end</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(<span class='st'>"2015-02"</span>, <span class='st'>"2016-08"</span> ~ <span class='no'>.</span>)</div><div class='output co'>#&gt; # A tsibble: 16,244 x 5 [1h]
@@ -207,7 +207,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-02-01 07:00:00 2015-02-01     7    45
 #&gt;  9 Birrarung Marr 2015-02-01 08:00:00 2015-02-01     8    96
 #&gt; 10 Birrarung Marr 2015-02-01 09:00:00 2015-02-01     9   116
-#&gt; # ... with 16,234 more rows</div><div class='input'>
+#&gt; # … with 16,234 more rows</div><div class='input'>
 <span class='co'># multiple time windows</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 19,008 x 5 [1h]
@@ -224,7 +224,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 18,998 more rows</div><div class='input'>
+#&gt; # … with 18,998 more rows</div><div class='input'>
 <span class='co'># entire 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(~ <span class='st'>"2015"</span>)</div><div class='output co'>#&gt; # A tsibble: 32,276 x 5 [1h]
@@ -241,7 +241,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # ... with 32,266 more rows</div><div class='input'>
+#&gt; # … with 32,266 more rows</div><div class='input'>
 <span class='co'># specific</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,180 x 5 [1h]
@@ -258,7 +258,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-03-23 07:00:00 2015-03-23     7   462
 #&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
 #&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
-#&gt; # ... with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+#&gt; # … with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,111 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
@@ -273,7 +273,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-03-23 07:00:00 2015-03-23     7   462
 #&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
 #&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
-#&gt; # ... with 20,101 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+#&gt; # … with 20,101 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,107 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
@@ -288,7 +288,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-03-23 17:00:00 2015-03-23    17   698
 #&gt;  9 Birrarung Marr 2015-03-23 18:00:00 2015-03-23    18   546
 #&gt; 10 Birrarung Marr 2015-03-23 19:00:00 2015-03-23    19   276
-#&gt; # ... with 20,097 more rows</div></pre>
+#&gt; # … with 20,097 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

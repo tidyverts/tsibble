@@ -11,8 +11,8 @@
 #'
 #' @rdname stretch
 #' @export
+#' @family stretching window functions
 #' @seealso
-#' * [stretch2], [pstretch]
 #' * [slide] for sliding window with overlapping observations
 #' * [tile] for tiling window without overlapping observations
 #'
@@ -73,8 +73,8 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #'
 #' @rdname stretch2
 #' @export
+#' @family stretching window functions
 #' @seealso
-#' * [stretch]
 #' * [slide2] for sliding window with overlapping observations
 #' * [tile2] for tiling window without overlapping observations
 #'

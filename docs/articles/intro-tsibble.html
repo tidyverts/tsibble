@@ -123,7 +123,7 @@
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#&gt; # ... with 2.611e+04 more rows</code></pre>
+#&gt; # … with 2.611e+04 more rows</code></pre>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only column involving the timestamps, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> defaults it to the index variable; alternatively, it would be more verbose to specify the argument <code>index = time_hour</code>.</p>
 <p>Except for index, a tsibble requires “key”, which defines subjects or individuals tracked over time. In this example, the <code>origin</code> variable is the identifier using <code><a href="../reference/id.html">id()</a></code>, which is passed to the argument <code>key</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Therefore, <strong>the composition of index and key uniquely identifies each observation</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. While creating a tsibble, it is sorted by time index. If a key is explicitly declared, the key will be sorted first, and followed by arranging time from past to recent.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(origin))</a></code></pre></div>
@@ -138,7 +138,7 @@
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#&gt; # ... with 2.611e+04 more rows</code></pre>
+#&gt; # … with 2.611e+04 more rows</code></pre>
 <p>An interval is automatically obtained based on the corresponding time representation:</p>
 <ul>
 <li>
@@ -179,7 +179,7 @@
 #&gt; 3 EWR    2013-01-03      34.0     26.1
 #&gt; 4 EWR    2013-01-04      39.9     28.9
 #&gt; 5 EWR    2013-01-05      44.1     32  
-#&gt; # ... with 1,087 more rows</code></pre>
+#&gt; # … with 1,087 more rows</code></pre>
 </div>
 <div id="irregular-time-interval" class="section level2">
 <h2 class="hasAnchor">
@@ -204,11 +204,10 @@
 #&gt; 3  2013    11     5     1548           1540         8     1708
 #&gt; 4  2013    11     6     1535           1540        -5     1657
 #&gt; 5  2013    11     7     1549           1540         9     1733
-#&gt; # ... with 3.368e+05 more rows, and 13 more variables:
-#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
-#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,
-#&gt; #   sched_dep_datetime &lt;dttm&gt;</code></pre>
+#&gt; # … with 3.368e+05 more rows, and 13 more variables: sched_arr_time &lt;int&gt;,
+#&gt; #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, sched_dep_datetime &lt;dttm&gt;</code></pre>
 <p>To regularise an irregular tsibble, it can be achieved with <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>.</p>
 </div>
 <div id="reference" class="section level2 unnumbered">

@@ -68,11 +68,13 @@ stretch(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
-\item \link{stretch2}, \link{pstretch}
 \item \link{slide} for sliding window with overlapping observations
 \item \link{tile} for tiling window without overlapping observations
 }
+
+Other stretching window functions: \code{\link{stretch2}}
 }
+\concept{stretching window functions}
 \alias{stretch_lgl}
 \alias{stretch_chr}
 \alias{stretch_dbl}

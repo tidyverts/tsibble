@@ -1,4 +1,4 @@
-#' Extensible index type to tsibble
+#' Add custom index support for a tsibble
 #'
 #' S3 method to add an index type support for a tsibble.
 #'

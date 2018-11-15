@@ -65,11 +65,13 @@ tile(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
-\item \link{tile2}, \link{ptile}
 \item \link{slide} for sliding window with overlapping observations
 \item \link{stretch} for expanding more observations
 }
+
+Other tiling window functions: \code{\link{tile2}}
 }
+\concept{tiling window functions}
 \alias{tile_lgl}
 \alias{tile_chr}
 \alias{tile_dbl}

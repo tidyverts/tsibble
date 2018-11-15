@@ -141,7 +141,7 @@
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # ... with 2.611e+04 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # … with 2.611e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> is comprised of one or more variables. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
 <p>The <em>tsibble</em> internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmon</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
 </div>
@@ -164,7 +164,7 @@
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # ... with 2.618e+04 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # … with 2.618e+04 more rows</span></a></code></pre></div>
 <p><code><a href="reference/fill-na.html">fill_na()</a></code> also handles filling time gaps by values or functions, and preserves time zones for date-times. Wanna a quick overview of implicit time gaps? Check out <a href="http://pkg.earo.me/tsibble/articles/implicit-na.html"><code><a href="articles/implicit-na.html">vignette("implicit-na")</a></code></a>.</p>
 </div>
 <div id="index_by-summarise-to-aggregate-over-calendar-periods" class="section level3">
@@ -187,7 +187,7 @@
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 3 EWR      2013 Mar     40.1       3   </span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     53.0       1.47</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.3       5.44</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # … with 31 more rows</span></a></code></pre></div>
 <p>While collapsing rows (like <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>), <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="reference/index-by.html">index_by()</a></code> will take care of updating the key and index respectively. This <code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> combo can help with regularising a tsibble of irregular time space too.</p>
 </div>
 <div id="a-family-of-window-functions-slide-tile-stretch" class="section level3">
@@ -217,7 +217,7 @@
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0    39.0</span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0    39.3</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0    39.3</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # ... with 2.618e+04 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # … with 2.618e+04 more rows</span></a></code></pre></div>
 <p>More examples can be found at <a href="https://pkg.earo.me/tsibble/articles/window.html"><code><a href="articles/window.html">vignette("window")</a></code></a>.</p>
 </div>
 </div>

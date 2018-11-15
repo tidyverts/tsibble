@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter-index.R
 \name{time_in}
 \alias{time_in}
-\title{If time falls in the ranges, with no need for time zone specification}
+\title{If time falls in the ranges using compact expressions}
 \usage{
 time_in(x, ...)
 }
@@ -23,7 +23,7 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 logical vector
 }
 \description{
-If time falls in the ranges, with no need for time zone specification
+If time falls in the ranges using compact expressions
 }
 \examples{
 x <- unique(pedestrian$Date_Time)

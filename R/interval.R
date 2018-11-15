@@ -1,4 +1,4 @@
-#' Extract time interval from a vector
+#' Pull time interval from a vector
 #'
 #' Assuming regularly spaced time, the `pull_interval()` returns a list of time
 #' components as the "interval" class.

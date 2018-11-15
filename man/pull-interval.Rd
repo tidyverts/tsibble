@@ -2,7 +2,7 @@
 % Please edit documentation in R/interval.R
 \name{pull_interval}
 \alias{pull_interval}
-\title{Extract time interval from a vector}
+\title{Pull time interval from a vector}
 \usage{
 pull_interval(x)
 }

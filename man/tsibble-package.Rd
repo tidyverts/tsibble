@@ -7,8 +7,8 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to represent tidy
-temporal-context data. A tsibble consists of a time index, key, and other
-measured variables in a data-centric format, which is built on top of the tibble.
+temporaldata. A tsibble consists of a time index, key, and other measured
+variables in a data-centric format, which is built on top of the tibble.
 }
 \section{Index}{
 
@@ -17,11 +17,11 @@ instead of implicit attribute (for example, the \code{tsp} attribute in a \code{
 few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
 the tsibble, with new additions \link{yearweek}, \link{yearmonth}, and \link{yearquarter}
 representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including \code{zoo::yearmth}, \code{zoo::yearqtr}, and
+index class are also supported, including \code{zoo::yearmon}, \code{zoo::yearqtr}, and
 \code{nanotime}.
 For a \code{tbl_ts} of regular interval,
 a choice of index representation has to be made. For example, a monthly data
-should correspond to time index created by \link{yearmonth} or \code{zoo::yearmth},
+should correspond to time index created by \link{yearmonth} or \code{zoo::yearmon},
 instead of \code{Date} or \code{POSIXct}. Because months in a year ensures the regularity,
 12 months every year. However, if using \code{Date}, a month contains days ranging
 from 28 to 31 days, which results in irregular time space. This is also applicable

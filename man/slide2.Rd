@@ -138,11 +138,13 @@ pedestrian \%>\%
 }
 \seealso{
 \itemize{
-\item \link{slide}
 \item \link{tile2} for tiling window without overlapping observations
 \item \link{stretch2} for expanding more observations
 }
+
+Other sliding window functions: \code{\link{slide}}
 }
+\concept{sliding window functions}
 \alias{slide2_lgl}
 \alias{slide2_chr}
 \alias{slide2_int}

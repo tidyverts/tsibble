@@ -2,7 +2,7 @@
 % Please edit documentation in R/index-valid.R
 \name{index_valid}
 \alias{index_valid}
-\title{Extensible index type to tsibble}
+\title{Add custom index support for a tsibble}
 \usage{
 index_valid(x)
 }

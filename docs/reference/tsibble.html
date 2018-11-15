@@ -191,11 +191,11 @@ instead of implicit attribute (for example, the <code>tsp</code> attribute in a 
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
 the tsibble, with new additions <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>
 representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including <code>zoo::yearmth</code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>, and
+index class are also supported, including <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearmon'>zoo::yearmon</a></code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>, and
 <code>nanotime</code>.
 For a <code>tbl_ts</code> of regular interval,
 a choice of index representation has to be made. For example, a monthly data
-should correspond to time index created by <a href='period.html'>yearmonth</a> or <code>zoo::yearmth</code>,
+should correspond to time index created by <a href='period.html'>yearmonth</a> or <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearmon'>zoo::yearmon</a></code>,
 instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year ensures the regularity,
 12 months every year. However, if using <code>Date</code>, a month contains days ranging
 from 28 to 31 days, which results in irregular time space. This is also applicable
@@ -279,7 +279,7 @@ cannot be determined (<code>?</code>).</p></li>
 #&gt;  8 2011 Q4 x     -0.507 
 #&gt;  9 2012 Q1 x      0.270 
 #&gt; 10 2012 Q2 x      0.467 
-#&gt; # ... with 20 more rows</div><div class='input'>
+#&gt; # … with 20 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

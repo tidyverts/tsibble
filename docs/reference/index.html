@@ -189,28 +189,16 @@
         <td>
           <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
         </td>
-        <td><p>Low-level constructor to a tsibble object</p></td>
+        <td><p>Low-level constructor for a tsibble object</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
-          <p class="section-desc"><p>Verbs that manipulate data in time-based context. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has-gaps.html">has_gaps()</a></code>, <code><a href="../reference/count-gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill-na.html">fill_na()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. They needs operating with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="index-by.html">index_by()</a></code> </p>
-        </td>
-        <td><p>Group and collapse by time index</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fill-na.html">fill_na()</a></code> </p>
-        </td>
-        <td><p>Turn implicit missing values into explicit missing values</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="has-gaps.html">has_gaps()</a></code> </p>
@@ -225,9 +213,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="fill-na.html">fill_na()</a></code> </p>
+        </td>
+        <td><p>Turn implicit missing values into explicit missing values</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="filter_index.html">filter_index()</a></code> </p>
         </td>
         <td><p>A shorthand for filtering for time index</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="index-by.html">index_by()</a></code> </p>
+        </td>
+        <td><p>Group and collapse by time index</p></td>
       </tr><tr>
         
         <td>
@@ -257,7 +257,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
-          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface.</p></p>
+          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and functional programming.</p></p>
         </th>
       </tr>
       <tr>
@@ -324,7 +324,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vector-functions" class="hasAnchor"><a href="#section-vector-functions" class="anchor"></a>Vector functions</h2>
+          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -347,7 +347,7 @@
         <td>
           <p><code><a href="time_in.html">time_in()</a></code> </p>
         </td>
-        <td><p>If time falls in the ranges, with no need for time zone specification</p></td>
+        <td><p>If time falls in the ranges using compact expressions</p></td>
       </tr><tr>
         
         <td>
@@ -438,13 +438,13 @@ checks if a tsibble is ordered by key and index.</p></td>
         <td>
           <p><code><a href="index_valid.html">index_valid()</a></code> </p>
         </td>
-        <td><p>Extensible index type to tsibble</p></td>
+        <td><p>Add custom index support for a tsibble</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="pull-interval.html">pull_interval()</a></code> </p>
         </td>
-        <td><p>Extract time interval from a vector</p></td>
+        <td><p>Pull time interval from a vector</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -511,7 +511,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
       <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
       <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
-      <li><a href="#section-vector-functions">Vector functions</a></li>
+      <li><a href="#section-vector">Vector</a></li>
       <li><a href="#section-time">Time</a></li>
       <li><a href="#section-calendar">Calendar</a></li>
       <li><a href="#section-helpers">Helpers</a></li>

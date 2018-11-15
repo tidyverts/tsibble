@@ -97,11 +97,13 @@ tibble(
 }
 \seealso{
 \itemize{
-\item \link{stretch}
 \item \link{slide2} for sliding window with overlapping observations
 \item \link{tile2} for tiling window without overlapping observations
 }
+
+Other stretching window functions: \code{\link{stretch}}
 }
+\concept{stretching window functions}
 \alias{stretch2_lgl}
 \alias{stretch2_chr}
 \alias{stretch2_dbl}

@@ -37,8 +37,8 @@ replace_fn_names <- function(fn, replace = list()) {
 #'
 #' @rdname slide
 #' @export
+#' @family sliding window functions
 #' @seealso
-#' * [slide2], [pslide]
 #' * [tile] for tiling window without overlapping observations
 #' * [stretch] for expanding more observations
 #' @details The `slide()` function attempts to tackle more general problems using
@@ -131,8 +131,8 @@ slide_dfc <- function(
 #'
 #' @rdname slide2
 #' @export
+#' @family sliding window functions
 #' @seealso
-#' * [slide]
 #' * [tile2] for tiling window without overlapping observations
 #' * [stretch2] for expanding more observations
 #'

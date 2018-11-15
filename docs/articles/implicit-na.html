@@ -117,7 +117,7 @@
 #&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
 #&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # ... with 6.603e+04 more rows</code></pre>
+#&gt; # … with 6.603e+04 more rows</code></pre>
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/has-gaps.html">has_gaps</a></span>(pedestrian, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>#&gt; # A tibble: 4 x 2
@@ -175,7 +175,7 @@
 #&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
 #&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # ... with 7.017e+04 more rows</code></pre>
+#&gt; # … with 7.017e+04 more rows</code></pre>
 <p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill-na.html">fill_na()</a></code>, by imputing values or functions as desired.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/fill-na.html">fill_na</a></span>(<span class="dt">Count =</span> 0L, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>

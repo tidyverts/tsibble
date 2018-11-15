@@ -323,9 +323,9 @@ Should be a character vector of length 2.</p></td>
       <td><p>Names of new key and value columns, as strings or
 symbols.</p>
 <p>This argument is passed by expression and supports
-<a href='http://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -368,9 +368,9 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
       <th>.key</th>
       <td><p>The name of the new column, as a string or symbol.</p>
 <p>This argument is passed by expression and supports
-<a href='http://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='http://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -412,7 +412,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 2015-01-01 07:00:00   146
 #&gt;  9 2015-01-01 08:00:00   258
 #&gt; 10 2015-01-01 09:00:00   419
-#&gt; # ... with 17,532 more rows</div><div class='input'><span class='co'># Back to tibble</span>
+#&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># Back to tibble</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
@@ -438,7 +438,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 2009-01-08 X      0.741
 #&gt;  9 2009-01-09 X     -0.997
 #&gt; 10 2009-01-10 X     -2.94 
-#&gt; # ... with 20 more rows</div><div class='input'><span class='co'># example from tidyr</span>
+#&gt; # … with 20 more rows</div><div class='input'><span class='co'># example from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
@@ -481,7 +481,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 X     2009-01-08 -0.919 
 #&gt;  9 X     2009-01-09 -1.58  
 #&gt; 10 X     2009-01-10 -0.0841
-#&gt; # ... with 20 more rows</div><div class='input'><span class='no'>stock_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
+#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stock_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>quantile</span>(<span class='no'>price</span>)),
@@ -501,7 +501,7 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt;  8 X     2009-01-02 -1.29  50%  
 #&gt;  9 X     2009-01-02 -1.29  75%  
 #&gt; 10 X     2009-01-02 -1.29  100% 
-#&gt; # ... with 140 more rows</div></pre>
+#&gt; # … with 140 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
