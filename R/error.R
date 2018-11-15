@@ -7,7 +7,7 @@ is_index_null <- function(x) {
 dont_know <- function(x, FUN) {
   cls <- class(x)[1]
   msg <- sprintf(
-    "`%s()` doesn't know how to coerce the %s class yet.", FUN, cls
+    "`%s()` doesn't know how to handle the %s class yet.", FUN, cls
   )
   abort(msg)
 }

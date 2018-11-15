@@ -72,7 +72,7 @@ test_that("some S3 methods for yearweek, yearmonth & yearquarter", {
 })
 
 test_that("unsupported class for index functions", {
-  expect_error(yearweek(seq(2010, 2012, by = 1 / 52)), "coerce the numeric")
+  expect_error(yearweek(seq(2010, 2012, by = 1 / 52)), "handle the numeric")
 })
 
 xx <- make_datetime(2018, 1, 1, 0)

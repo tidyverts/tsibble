@@ -66,6 +66,11 @@ time_in <- function(x, ...) {
 
 #' @export
 time_in.default <- function(x, ...) {
+  dont_know(x, "time_in")
+}
+
+#' @export
+time_in.POSIXct <- function(x, ...) {
   formulas <- list2(...)
   n <- length(formulas)
   if (n == 0) return(!logical(length(x)))
@@ -84,6 +89,30 @@ time_in.default <- function(x, ...) {
 
   purrr::reduce(lgl, `|`)
 }
+
+#' @export
+time_in.Date <- time_in.POSIXct
+
+#' @export
+time_in.difftime <- time_in.POSIXct
+
+#' @export
+time_in.yearweek <- time_in.POSIXct
+
+#' @export
+time_in.yearmonth <- time_in.POSIXct
+
+#' @export
+time_in.yearmon <- time_in.POSIXct
+
+#' @export
+time_in.yearquarter <- time_in.POSIXct
+
+#' @export
+time_in.yearqtr <- time_in.POSIXct
+
+#' @export
+time_in.numeric <- time_in.POSIXct
 
 #' @importFrom stats start end
 #' @importFrom lubridate tz<-
