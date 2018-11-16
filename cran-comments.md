@@ -10,6 +10,7 @@
 
 ## Reverse dependencies
 
-I have run R CMD check on the 2 downstream dependencies. 
+I have run R CMD check on the 3 downstream dependencies. 
 
-* The `sugrrants` & `tsbox` packages that I could install passed the checks.
+* The `nullabor` & `tsbox` packages that I could install passed the checks.
+* Two unit tests failed in the **sugrrants** package. As the maintainer of **sugrrants**, it will be on CRAN, following **tsibble**.

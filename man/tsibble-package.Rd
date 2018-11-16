@@ -83,7 +83,7 @@ tsibble(
 
 # create a tsibble with one key ----
 tsibble(
-  qtr = rep(yearquarter("201001") + 0:9, 3),
+  qtr = rep(yearquarter("2010-01") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
   key = id(group)

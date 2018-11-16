@@ -20,8 +20,7 @@ simply call \code{id()}.}
 \link{index_by}. By default, it's identical to \code{index}.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
-interval is determined by the greatest common divisor of positive time distances,
-if \code{TRUE}.}
+interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
 
 \item{ordered}{The default of \code{NULL} arranges the key variable(s) first and
 then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in

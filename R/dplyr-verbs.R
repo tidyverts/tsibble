@@ -86,9 +86,7 @@ slice.tbl_ts <- function(.data, ...) {
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
   exceed_rows(.data, max(pos_eval))
   ascending <- row_validate(pos_eval)
-  int <- NULL
-  if (is_min_gap_one(pos_eval)) int <- interval(.data)
-  by_row(slice, .data, ordered = ascending, interval = int, ...)
+  by_row(slice, .data, ordered = ascending, interval = NULL, ...)
 }
 
 row_validate <- function(x) {

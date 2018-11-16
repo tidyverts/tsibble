@@ -60,7 +60,6 @@
   } else {
     result <- x
   }
-  int <- interval(x)
 
   ordered <- is_ordered(x)
   if (!missing(i)) {
@@ -70,7 +69,6 @@
     }
     result <- purrr::map(result, `[`, i)
     nr <- length(result[[1]])
-    if (!is_min_gap_one(i)) int <- NULL
   }
 
   if (drop) {
@@ -83,7 +81,7 @@
 
   build_tsibble_meta(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
-    regular = is_regular(x), ordered = ordered, interval = int
+    regular = is_regular(x), ordered = ordered, interval = NULL
   )
 }
 

@@ -29,6 +29,9 @@ If time falls in the ranges using compact expressions
 x <- unique(pedestrian$Date_Time)
 lgl <- time_in(x, ~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
 lgl[1:10]
+# more specific
+lgl2 <- time_in(x, "2015-03-23 10" ~ "2015-10-31 12")
+lgl2[1:10]
 }
 \seealso{
 \link{filter_index} for filtering tsibble

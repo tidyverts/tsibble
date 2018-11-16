@@ -1,6 +1,6 @@
 is_index_null <- function(x) {
   if (is.null(index(x))) {
-    abort("The `index` has been dropped somehow. Please reconstruct the tsibble.")
+    abort("The `index` has been dropped somehow. Please reconstruct tsibble.")
   }
 }
 
@@ -19,7 +19,10 @@ unknown_interval <- function(x) {
 
 exceed_rows <- function(x, n = 1L) {
   nr <- NROW(x)
-  if (n > nr) abort(sprintf("Must not exceed the number of rows (%i).", nr))
+  if (n > nr) abort(sprintf(
+    "Must not exceed the number of rows (%i).\nDo you need `append_row()`?", 
+    nr
+  ))
 }
 
 not_regular <- function(x) {

@@ -7,8 +7,7 @@
 #' simply call `id()`.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
-#' interval is determined by the greatest common divisor of positive time distances,
-#' if `TRUE`.
+#' interval is determined by the greatest common divisor of index column, if `TRUE`.
 #'
 #' @inheritSection tsibble-package Index
 #'
