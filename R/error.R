@@ -19,7 +19,7 @@ unknown_interval <- function(x) {
 
 exceed_rows <- function(x, n = 1L) {
   nr <- NROW(x)
-  if (n > nr) abort(sprintf(
+  if (!is.na(n) && n > nr) abort(sprintf(
     "Must not exceed the number of rows (%i).\nDo you need `append_row()`?", 
     nr
   ))
