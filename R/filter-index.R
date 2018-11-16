@@ -232,7 +232,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
       y[lgl_yr] <- y[lgl_yr] + lubridate::period(1, "year")
     }
     lgl_time <- !(lgl_date | lgl_yrmth | lgl_yr)
-    y[lgl_time] <- y[lgl_time] + lubridate::period(1, "second")
+    y[lgl_time] <- y[lgl_time] + 1
     y
   }
 }
