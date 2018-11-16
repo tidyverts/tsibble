@@ -9,7 +9,7 @@ filter_index(.data, ...)
 \arguments{
 \item{.data}{A tsibble.}
 
-\item{...}{A list of formulas that specify start and end periods (inclusive).
+\item{...}{Formulas that specify start and end periods (inclusive) or strings.
 \itemize{
 \item \code{~ end} or \code{. ~ end}: from the very beginning to a specified ending period.
 \item \code{start ~ end}: from specified beginning to ending periods.

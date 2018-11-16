@@ -3,7 +3,7 @@
 #' This shorthand takes care of time zone and uses compact expressions.
 #'
 #' @param .data A tsibble.
-#' @param ... A list of formulas that specify start and end periods (inclusive).
+#' @param ... Formulas that specify start and end periods (inclusive) or strings.
 #' * `~ end` or `. ~ end`: from the very beginning to a specified ending period.
 #' * `start ~ end`: from specified beginning to ending periods.
 #' * `start ~ .`: from a specified beginning to the very end of the data.
