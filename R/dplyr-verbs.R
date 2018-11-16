@@ -240,14 +240,14 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 
 #' Group by key variables
 #'
-#' @param .tbl A `tbl_ts` object.
-#' @inheritParams dplyr::group_by_all
+#' @param .data A `tbl_ts` object.
+#' @param ... Ignored.
 #' @export
 #' @examples
 #' tourism %>%
 #'   group_by_key()
-group_by_key <- function(.tbl, .funs = list(), ...) {
-  dplyr::group_by_at(.tbl, .vars = key_vars(.tbl), .funs = .funs, ...)
+group_by_key <- function(.data, ...) {
+  dplyr::group_by(.data, !!! key(.data))
 }
 
 #' @rdname tidyverse
