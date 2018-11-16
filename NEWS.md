@@ -4,24 +4,25 @@ This release simplifies the "key" structure. The nesting and crossing definition
 
 ## Breaking changes
 
-* `count_gaps.tbl_ts()` returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods.
+* `count_gaps.tbl_ts()` returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed ".".
 * `time_unit()` accepts `interval` input instead of time vectors to avoid overheads, also marked as internal function.
 * Separate partial sliding from `slider()` and `pslider()` as new functions `partial_slider()` and `partial_pslider()`. Argument `.partial` is removed from `slider()` and `pslider()` to feature a simpler interface.
 * Removed argument `group` from `build_tsibble()`. In order to construct a grouped tsibble, `x` is expected as a grouped df.
 
 ## New features
 
-* New S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
-* New S3 generic `new_data()` to produce the future of a tsibble.
+* Added S3 generic `has_gaps()` to quickly check if there are implicit time gaps for each key in a tsibble.
+* Added S3 generic `new_data()` to produce the future of a tsibble.
 * A shorthand `filter_index()` to filter time window for a tsibble.
 * New S3 generic `time_in()` to check if time falls in the ranges in compact expression, with no need for time zone specification.
 * An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.
 * New vignette on handling implicit missingness.
+* `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
 
 ## Bug fixes
 
 * Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
-* Fixed `summarise.tbl_ts()` scoping issue (#67).
+* Fixed `summarise.tbl_ts()` & `fill_na.tbl_ts()` scoping issue (#67).
 
 ## Misc
 
