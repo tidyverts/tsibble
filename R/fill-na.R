@@ -80,13 +80,13 @@ fill_na.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     ref_data <- keyed_tbl %>% 
-      summarise(!! idx_chr := list(tibble(!! idx_chr := idx_full))) %>% 
+      summarise(!! idx_chr := list2(!! idx_chr := idx_full)) %>% 
       tidyr::unnest(!! idx) %>% 
       ungroup()
   } else {
     ref_data <- keyed_tbl %>% 
       summarise(
-        !! idx_chr := list(tibble(!! idx_chr := seq_generator(!! idx, int)))
+        !! idx_chr := list2(!! idx_chr := seq_generator(!! idx, int))
       ) %>% 
       unnest(!! idx) %>% 
       ungroup()

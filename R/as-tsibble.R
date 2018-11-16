@@ -370,11 +370,7 @@ build_tsibble_meta <- function(
   } else {
     index2 <- get_expr(index2)
   }
-  if (dplyr::is_grouped_df(x)) {
-    tbl <- x
-  } else {
-    tbl <- as_tibble(x)
-  }
+  tbl <- as_tibble(x)
 
   if (NROW(x) == 0) {
     if (is_false(regular)) {
@@ -382,16 +378,11 @@ build_tsibble_meta <- function(
     } else {
       interval <- init_interval()
     }
-    return(set_tsibble_class(
-      tbl,
-      "key" = key,
-      # "key_indices" = attr(grped_key, "indices"),
-      "index" = index,
-      "index2" = index2,
-      "interval" = interval,
-      "regular" = regular,
-      "ordered" = TRUE
-    ))
+    tbl <- update_tsibble_attrs(
+      tbl, "key" = key, "index" = index, "index2" = index2,
+      "interval" = interval, "regular" = regular, "ordered" = TRUE
+    )
+    return(set_grped_tsibble_class(tbl))
   }
 
   if (is_false(regular)) {
@@ -428,18 +419,26 @@ build_tsibble_meta <- function(
   if (!idx_lgl) {
     tbl <- tbl %>% group_by(!! index2, add = TRUE)
   }
-  set_tsibble_class(
-    tbl,
-    "key" = key,
-    # "key_indices" = attr(grped_key, "indices"),
-    "index" = index,
-    "index2" = index2,
-    "interval" = structure(interval, class = "interval"),
-    "regular" = regular,
-    "ordered" = ordered
+  tbl <- update_tsibble_attrs(
+    tbl, "key" = key, "index" = index, "index2" = index2,
+    "interval" = structure(interval, class = "interval"), 
+    "regular" = regular, "ordered" = ordered
   )
+  set_grped_tsibble_class(tbl)
 }
 
+#' Create a subclass of a tsibble
+#'
+#' @param x A `tbl_ts`, required.
+#' @param ... Attributes passed on to [structure()].
+#' @param class Subclasses to assign to the new object, default: none.
+#'
+#' @export
+new_tsibble <- function(x, ..., class = NULL) {
+  not_tsibble(x)
+  x <- update_tsibble_attrs(x, ...)
+  set_tsibble_class(x, class = class)
+}
 
 #' Identifiers used for creating key
 #'
@@ -542,6 +541,10 @@ as_tibble.grouped_ts <- function(x, ...) {
   as_grouped_df(x)
 }
 
+as_tibble.grouped_df <- function(x, ...) {
+  x
+}
+
 #' @keywords internal
 #' @export
 as_tibble.lst_ts <- function(x, ...) {
@@ -615,16 +618,27 @@ find_duplicates <- function(data, key = id(), index, from_last = FALSE,
     dplyr::pull(!! "zzz")
 }
 
-set_tsibble_class <- function(x, ...) {
-  attribs <- list(...)
-  attributes(x)[names(attribs)] <- attribs
-  attr(x, "row.names") <- .set_row_names(NROW(x))
-  if (is_empty(groups(x))) {
-    class(x) <- c("tbl_ts", "tbl_df", "tbl", "data.frame")
-  } else {
-    class(x) <- c("grouped_ts", "tbl_ts", "tbl_df", "tbl", "data.frame")
+update_tsibble_attrs <- function(x, ...) {
+  # Can't use structure() here because it breaks the row.names attribute
+  attribs <- list2(...)
+  if (has_length(attribs)) {
+    attributes(x)[names(attribs)] <- attribs
   }
   x
+}
+
+set_tsibble_class <- function(x, class = NULL) {
+  attr(x, "row.names") <- .set_row_names(NROW(x))
+  class(x) <- c(class, "tbl_ts", "tbl_df", "tbl", "data.frame")
+  x
+}
+
+set_grped_tsibble_class <- function(x) {
+  if (is_empty(groups(x))) {
+    set_tsibble_class(x)
+  } else {
+    set_tsibble_class(x, class = "grouped_ts")
+  }
 }
 
 remove_tsibble_attrs <- function(x) {

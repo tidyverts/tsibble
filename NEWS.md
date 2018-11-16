@@ -18,6 +18,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.
 * New vignette on handling implicit missingness.
 * `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
+* `new_tsibble()` creates a subclass of a tsibble.
 
 ## Bug fixes
 

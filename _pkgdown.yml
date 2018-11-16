@@ -89,10 +89,12 @@ reference:
 
 - title: Extend tsibble
   desc: >
-    Add support to custom index class for **tsibble**.
+    Add **tsibble** support for custom index class with `index_valid()` & `pull_interval()`.
+    Create a subclass of a tsibble with `new_tsibble()`.
   contents:
     - index_valid
     - pull_interval
+    - new_tsibble
 
 - title: Coerce to other objects
   contents:
