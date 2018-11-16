@@ -214,10 +214,14 @@ end.POSIXct <- function(x, y = NULL, ...) {
     abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
     
+    lgl_date <- nchar(y) > 7 & nchar(y) < 11
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- anytime::utctime(y, tz = "UTC")
     tz(y) <- lubridate::tz(x)
+    if (any(lgl_date)) {
+      y[lgl_date] <- y[lgl_date] + lubridate::period(1, "day")
+    }
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
         y[lgl_yrmth] + lubridate::period(1, "month"), 
@@ -227,8 +231,8 @@ end.POSIXct <- function(x, y = NULL, ...) {
     if (any(lgl_yr)) {
       y[lgl_yr] <- y[lgl_yr] + lubridate::period(1, "year")
     }
-    lgl_date <- !(lgl_yrmth | lgl_yr)
-    y[lgl_date] <- y[lgl_date] + lubridate::period(1, "second")
+    lgl_time <- !(lgl_date | lgl_yrmth | lgl_yr)
+    y[lgl_time] <- y[lgl_time] + lubridate::period(1, "second")
     y
   }
 }

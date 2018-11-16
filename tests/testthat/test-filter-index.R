@@ -48,7 +48,7 @@ test_that("class: POSIXct", {
   expect_equal(
     end(pedestrian$Date_Time, y),
     ymd_hms(
-      c("2017-01-01 00:00:00", "2016-11-01 00:00:00", "2016-12-09 00:00:01", "2016-12-09 10:00:01"),
+      c("2017-01-01 00:00:00", "2016-11-01 00:00:00", "2016-12-10 00:00:00", "2016-12-09 10:00:01"),
       tz = tz
     )
   )
@@ -113,9 +113,9 @@ test_that("filter_index()", {
       filter_index("2015-08" ~ "2015-02"),
     pedestrian[0L, ]
   )
-  ped_yr <- pedestrian %>% 
-      group_by(Sensor) %>% 
-      index_by(year = as.integer(year(Date_Time))) %>% 
+  ped_yr <- pedestrian %>%
+      group_by(Sensor) %>%
+      index_by(year = as.integer(year(Date_Time))) %>%
       summarise(cc = sum(Count))
   expect_identical(
     ped_yr %>% filter_index(2015),
