@@ -31,10 +31,16 @@ test_that("a tbl_ts without implicit missing values", {
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
-daylight <- pedestrian %>% 
-  filter(Sensor == "Birrarung Marr", Date == lubridate::ymd("20151004"))
-standard <- pedestrian %>% 
-  filter(Sensor == "Birrarung Marr", Date == lubridate::ymd("20150405"))
+daylight <- pedestrian %>%
+  filter(
+    Sensor == "Birrarung Marr",
+    Date == lubridate::ymd("20151004", tz = "Australia/Melbourne")
+  )
+standard <- pedestrian %>%
+  filter(
+    Sensor == "Birrarung Marr",
+    Date == lubridate::ymd("20150405", tz = "Australia/Melbourne")
+  )
 
 test_that("daylight saving", {
   expect_identical(NROW(fill_na(daylight)), 23L)
