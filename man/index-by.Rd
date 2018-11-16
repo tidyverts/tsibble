@@ -9,11 +9,10 @@ index_by(.data, ...)
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{\itemize{
-\item A single name-value pair of expression: a new index on LHS and the current
-index on RHS
-\item An existing variable to be used as index
+\item{...}{A single name-value pair of expression: a new index on LHS and the
+current index on RHS. Or an existing variable to be used as index.
 The index functions that can be used, but not limited:
+\itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
 \item \link{yearquarter}: quarterly aggregation
 \item \link{yearmonth}: monthly aggregation
@@ -59,10 +58,11 @@ pedestrian \%>\%
     Min_Count = min(Count)
   )
 
-# Aggregate to 5-hour interval ---
+# Aggregate to 4-hour interval ---
 pedestrian \%>\% 
   group_by(Sensor) \%>\% 
-  index_by(Date_Time5 = lubridate::floor_date(Date_Time, "5 hour")) \%>\%
+  mutate(Date_Time = lubridate::force_tz(Date_Time, tzone = "UTC")) \%>\% # convert to UTC for handling DST
+  index_by(Date_Time5 = lubridate::floor_date(Date_Time, "4 hour")) \%>\% # floor_date() doesn't respect tz
   summarise(Total_Count = sum(Count))
 
 # Annual trips by Region and State ----

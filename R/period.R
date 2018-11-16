@@ -14,7 +14,7 @@
 #' then use [mutate].
 #'
 #' @section Index functions:
-#' The tsibble `yearmonth()` and `yearquarter()` function preserve the time zone of
+#' The tsibble `yearmonth()` and `yearquarter()` function respects time zones of
 #' the input `x`, contrasting to their zoo counterparts.
 #'
 #' @export
