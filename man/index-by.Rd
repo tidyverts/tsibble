@@ -61,7 +61,7 @@ pedestrian \%>\%
 # Aggregate to 4-hour interval ---
 pedestrian \%>\% 
   group_by(Sensor) \%>\% 
-convert to UTC for handling DST in floor_date(), since it does not respect tz
+# convert to UTC for handling DST in floor_date(), since it does not respect tz
   mutate(Date_Time = lubridate::force_tz(Date_Time, tzone = "UTC")) \%>\% 
   index_by(Date_Time5 = lubridate::floor_date(Date_Time, "4 hour")) \%>\%
   summarise(Total_Count = sum(Count))
