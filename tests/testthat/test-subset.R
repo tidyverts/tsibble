@@ -73,7 +73,7 @@ test_that("subset 2 variables in a tsibble", {
 
 test_that("`[<-.tbl_ts", {
   expect_error(tsbl[] <- 0, "Oops!")
-  expect_error(tsbl[1] <- 0, "valid tsibble")
+  expect_error(tsbl[1] <- 0, "Can't retain")
   expect_error(tsbl[1:7, 2] <- 0, "not exceed")
   expect_is({tsbl[4] <- 0; tsbl}, "tbl_ts")
   expect_is({tsbl["value"] <- 0; tsbl}, "tbl_ts")
@@ -82,12 +82,13 @@ test_that("`[<-.tbl_ts", {
   expect_equal({tsbl[6] <- 0; NCOL(tsbl)}, 5 + 1)
   expect_equal({tsbl[, 7] <- 0; NCOL(tsbl)}, 5 + 2)
   expect_equal({tsbl[6] <- 0; names(tsbl)[6]}, "6")
-  expect_error(tsbl[1:5, 2] <- 0, "valid tsibble")
+  expect_error(tsbl[1:5, 2] <- 0, "Can't retain")
   expect_is({tsbl[4, 2] <- "c"; tsbl}, "tbl_ts")
+  expect_identical({tsbl[2, "value"] <- 1; tsbl[, 1:3]}, tsbl[, 1:3])
 })
 
 test_that("`$<-.tbl_ts", {
-  expect_error(tsbl$date <- 0, "valid tsibble")
+  expect_error(tsbl$date <- 0, "Can't retain")
   expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
   expect_is({tsbl$value2 <- 0; tsbl}, "tbl_ts")
   expect_equal({tsbl$value2 <- 0; NCOL(tsbl)}, 5)

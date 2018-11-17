@@ -114,16 +114,16 @@
       exceed_rows(x, max(i))
       res <- x[i, ]
     }
-    if (j > NCOL(x)) {
+    if (j > NCOL(x)) { # character always greater than numbers
       j <- as.character(j)
       j <- tidyselect::vars_select(union(j, names(x)), j)
     } else {
       j <- tidyselect::vars_select(names(x), j)
     }
     lst_j <- map(j, ~ (.x = value))
-    out <- rbind(mutate(res, !!! lst_j), x[-i, ])
+    out <- rbind.data.frame(mutate(res, !!! lst_j), x[-i, ])
     full_seq <- seq_len(NROW(x))
-    orig_idx <- c(i, full_seq[-i])
+    orig_idx <- order(c(i, full_seq[-i]))
     build_tsibble_meta(
       out[orig_idx, ], key = key(x), index = !! index(x), index2 = !! index2(x),
       regular = is_regular(x), ordered = is_ordered(x)
