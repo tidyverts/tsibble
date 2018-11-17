@@ -1,4 +1,4 @@
-context("fill_na() & count_gaps() for a tsibble")
+context("fill_gaps() & count_gaps() for a tsibble")
 
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
 dat_x <- tibble(
@@ -7,26 +7,26 @@ dat_x <- tibble(
 )
 
 test_that("a tbl_df/data.frame", {
-  expect_error(fill_na(dat_x), "data.frame")
+  expect_error(fill_gaps(dat_x), "data.frame")
 })
 
 test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
-  expect_identical(fill_na(tsbl), tsbl)
+  expect_identical(fill_gaps(tsbl), tsbl)
   expect_equal(count_gaps(tsbl)$.n, 0)
   expect_equal(has_gaps(tsbl), tibble(".gaps" = FALSE))
 })
 
 test_that("an irregular tbl_ts", {
   tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
-  expect_error(fill_na(tsbl), "irregular")
+  expect_error(fill_gaps(tsbl), "irregular")
   expect_error(count_gaps(tsbl), "irregular")
   expect_error(has_gaps(tsbl), "irregular")
 })
 
 test_that("a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
-  expect_identical(fill_na(tsbl), tsbl)
+  expect_identical(fill_gaps(tsbl), tsbl)
   ref_tbl <- tibble(.from = NA, .to = NA, .n = 0L)
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
@@ -43,15 +43,15 @@ standard <- pedestrian %>%
   )
 
 test_that("daylight saving", {
-  expect_identical(NROW(fill_na(daylight)), 23L)
-  expect_identical(NROW(fill_na(standard)), 25L)
+  expect_identical(NROW(fill_gaps(daylight)), 23L)
+  expect_identical(NROW(fill_gaps(standard)), 25L)
 })
 
 dat_y <- dat_x[c(1:3, 5), ]
 tsbl <- as_tsibble(dat_y, index = date)
 
 test_that("a tbl_ts of 4 day interval with no replacement", {
-  full_tsbl <- fill_na(tsbl)
+  full_tsbl <- fill_gaps(tsbl)
   expect_identical(dim(full_tsbl), c(5L, 2L))
   expect_equal(
     as_tibble(full_tsbl[4, ]),
@@ -60,7 +60,7 @@ test_that("a tbl_ts of 4 day interval with no replacement", {
 })
 
 test_that("a tbl_ts of 4 day interval with value replacement", {
-  full_tsbl <- fill_na(tsbl, value = 0)
+  full_tsbl <- fill_gaps(tsbl, value = 0)
   expect_equal(
     as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = 0)
@@ -68,11 +68,11 @@ test_that("a tbl_ts of 4 day interval with value replacement", {
 })
 
 test_that("a tbl_ts of 4 day interval with bad names", {
-  expect_error(fill_na(tsbl, value1 = value), "Can't find column")
+  expect_error(fill_gaps(tsbl, value1 = value), "Can't find column")
 })
 
 test_that("a tbl_ts of 4 day interval with function replacement", {
-  full_tsbl <- fill_na(tsbl, value = sum(value))
+  full_tsbl <- fill_gaps(tsbl, value = sum(value))
   expect_equal(
     as_tibble(full_tsbl[4, ]),
     tibble(date = ymd("2017-01-13"), value = sum(tsbl$value))
@@ -87,8 +87,8 @@ dat_x <- tibble(
 dat_y <- dat_x[c(2:8, 10), ]
 tsbl <- as_tsibble(dat_y, key = id(group), index = date)
 
-test_that("fill_na() for corner case", {
-  expect_identical(fill_na(tsbl[1:5, ]), tsbl[1:5, ])
+test_that("fill_gaps() for corner case", {
+  expect_identical(fill_gaps(tsbl[1:5, ]), tsbl[1:5, ])
 })
 
 tourism <- tourism %>%
@@ -96,18 +96,18 @@ tourism <- tourism %>%
   slice(1:10) %>%
   ungroup()
 
-test_that("fill_na() for yearquarter", {
+test_that("fill_gaps() for yearquarter", {
   full_tsbl <- tourism %>%
-    fill_na()
+    fill_gaps()
   expect_is(full_tsbl$Quarter, "yearquarter")
 })
 
-test_that("fill_na() for a grouped_ts", {
+test_that("fill_gaps() for a grouped_ts", {
   full_tsbl <- tsbl %>%
     group_by(group) %>%
-    fill_na(value = sum(value), .full = TRUE)
+    fill_gaps(value = sum(value), .full = TRUE)
   expect_error(
-    tourism %>% group_by(Quarter) %>% fill_na(Trips = sum(Trips)),
+    tourism %>% group_by(Quarter) %>% fill_gaps(Trips = sum(Trips)),
     "Replacement"
   )
   expect_identical(dim(full_tsbl), c(10L, 3L))
@@ -123,7 +123,7 @@ test_that("fill_na() for a grouped_ts", {
 
 test_that("fill.tbl_ts(.full = TRUE)", {
   full_tsbl <- tsbl %>%
-    fill_na(.full = TRUE) %>%
+    fill_gaps(.full = TRUE) %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
   expect_equal(
@@ -138,7 +138,7 @@ test_that("fill.tbl_ts(.full = TRUE)", {
 
 test_that("fill.tbl_ts(.full = FALSE)", {
   full_tsbl <- tsbl %>%
-    fill_na() %>%
+    fill_gaps() %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
   expect_equal(

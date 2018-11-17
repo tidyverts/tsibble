@@ -31,7 +31,7 @@
     <loc>https://pkg.earo.me/tsibble/reference/difference.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/fill-na.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/fill-gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/filter_index.html</loc>
@@ -86,6 +86,9 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/new_interval.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/new_tsibble.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/partial-slider.html</loc>

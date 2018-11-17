@@ -241,7 +241,7 @@ refer to <a href='http://www.rdocumentation.org/packages/tibble/topics/tibble-pa
 #&gt; 10 2017-01-10  1.49 </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"2010-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)

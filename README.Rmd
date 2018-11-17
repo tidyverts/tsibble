@@ -57,19 +57,19 @@ The **key** is comprised of one or more variables. See `package?tsibble` and [`v
 
 The *tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmon` to monthly, `yearquarter`/`yearqtr` to quarterly, and etc.
 
-### `fill_na()` to turn implicit missing values into explicit missing values
+### `fill_gaps()` to turn implicit missing values into explicit missing values
 
-Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using `fill_na()`, filling gaps in precipitation (`precip`) with 0 in the meanwhile. It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
+Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using `fill_gaps()`, filling gaps in precipitation (`precip`) with 0 in the meanwhile. It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
 
 ```{r fill-na}
 full_weather <- weather_tsbl %>%
-  fill_na(precip = 0) %>% 
+  fill_gaps(precip = 0) %>% 
   group_by(origin) %>% 
   tidyr::fill(temp, humid, .direction = "down")
 full_weather
 ```
 
-`fill_na()` also handles filling time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit time gaps? Check out [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
+`fill_gaps()` also handles filling time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 

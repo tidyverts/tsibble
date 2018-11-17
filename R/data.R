@@ -16,7 +16,7 @@
 #' @examples
 #' data(pedestrian)
 #' # make implicit missingness to be explicit ----
-#' pedestrian %>% fill_na()
+#' pedestrian %>% fill_gaps()
 #' # compute daily maximum counts across sensors ----
 #' pedestrian %>% 
 #'   group_by(Sensor) %>% 

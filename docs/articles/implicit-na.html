@@ -105,7 +105,7 @@
 
     
     
-<p>Assuming you have <a href="https://pkg.earo.me/tsibble/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) <code><a href="../reference/has-gaps.html">has_gaps()</a></code> scans if there exists implicit missingness; (2) <code><a href="../reference/count-gaps.html">count_gaps()</a></code> reports the time range that is absent from the data; (3) <code><a href="../reference/fill-na.html">fill_na()</a></code> turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
+<p>Assuming you have <a href="https://pkg.earo.me/tsibble/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) <code><a href="../reference/has-gaps.html">has_gaps()</a></code> scans if there exists implicit missingness; (2) <code><a href="../reference/count-gaps.html">count_gaps()</a></code> reports the time range that is absent from the data; (3) <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code> turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tsibble)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">pedestrian</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 66,037 x 5 [1h]
@@ -162,9 +162,9 @@
 <a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position =</span> <span class="st">"bottom"</span>)</a></code></pre></div>
 <p><img src="implicit-na_files/figure-html/ggplot-gaps-1.png" width="672"></p>
-<p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill-na.html">fill_na()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
+<p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">ped_full &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/fill-na.html">fill_na</a></span>(<span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">ped_full</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 70,176 x 5 [1h]
 #&gt; # Key:       Sensor [4]
@@ -176,12 +176,12 @@
 #&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
 #&gt; # … with 7.017e+04 more rows</code></pre>
-<p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill-na.html">fill_na()</a></code>, by imputing values or functions as desired.</p>
+<p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/fill-na.html">fill_na</a></span>(<span class="dt">Count =</span> 0L, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">Count =</span> 0L, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/fill-na.html">fill_na</a></span>(<span class="dt">Count =</span> <span class="kw">mean</span>(Count), <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">Count =</span> <span class="kw">mean</span>(Count), <span class="dt">.full =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

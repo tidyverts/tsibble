@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="A shorthand for filtering for time index — filter_index" />
 
-<meta property="og:description" content="This shorthand takes care of time zone and uses compact expressions." />
+<meta property="og:description" content="This shorthand respects time zone and encourages compact expressions." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -143,7 +143,7 @@
 
     <div class="ref-description">
     
-    <p>This shorthand takes care of time zone and uses compact expressions.</p>
+    <p>This shorthand respects time zone and encourages compact expressions.</p>
     
     </div>
 
@@ -158,7 +158,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>A list of formulas that specify start and end periods (inclusive).</p><ul>
+      <td><p>Formulas that specify start and end periods (inclusive) or strings.</p><ul>
 <li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
 <li><p><code>start ~ end</code>: from specified beginning to ending periods.</p></li>
 <li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.
@@ -259,7 +259,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
 #&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
 #&gt; # … with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,111 x 5 [1h]
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,180 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
@@ -273,7 +273,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt;  8 Birrarung Marr 2015-03-23 07:00:00 2015-03-23     7   462
 #&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
 #&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
-#&gt; # … with 20,101 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+#&gt; # … with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,107 x 5 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count

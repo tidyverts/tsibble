@@ -22,7 +22,7 @@ A dataset containing the hourly pedestrian counts from 2015-01-01 to
 \examples{
 data(pedestrian)
 # make implicit missingness to be explicit ----
-pedestrian \%>\% fill_na()
+pedestrian \%>\% fill_gaps()
 # compute daily maximum counts across sensors ----
 pedestrian \%>\% 
   group_by(Sensor) \%>\% 

@@ -33,4 +33,8 @@ harvest <- tsibble(
 has_gaps(harvest)
 has_gaps(harvest, .full = TRUE)
 }
-\concept{implict gaps}
+\seealso{
+Other implict gaps handling: \code{\link{count_gaps}},
+  \code{\link{fill_gaps}}
+}
+\concept{implict gaps handling}

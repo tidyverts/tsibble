@@ -148,23 +148,26 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
-<code><a href="../reference/count-gaps.html">count_gaps.tbl_ts()</a></code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods.</li>
+<code><a href="../reference/count-gaps.html">count_gaps.tbl_ts()</a></code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed “.”.</li>
 <li>
 <code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
 <li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial-slider.html">partial_slider()</a></code> and <code><a href="../reference/partial-slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
-<li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> is expected as a grouped df.</li>
+<li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> requires a grouped df.</li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li>New S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
-<li>New S3 generic <code><a href="../reference/new-data.html">new_data()</a></code> to produce the future of a tsibble.</li>
+<li>Added S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
+<li>Added S3 generic <code><a href="../reference/new-data.html">new_data()</a></code> to produce the future of a tsibble.</li>
 <li>A shorthand <code><a href="../reference/filter_index.html">filter_index()</a></code> to filter time window for a tsibble.</li>
 <li>New S3 generic <code><a href="../reference/time_in.html">time_in()</a></code> to check if time falls in the ranges in compact expression, with no need for time zone specification.</li>
 <li>An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.</li>
 <li>New vignette on handling implicit missingness.</li>
+<li>
+<code><a href="../reference/new_tsibble.html">new_tsibble()</a></code> creates a subclass of a tsibble.</li>
+<li>Renamed <code><a href="../reference/deprecated.html">fill_na()</a></code> to <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>, for more expressive function name and consistency to <code><a href="../reference/has-gaps.html">has_gaps()</a></code> and <code><a href="../reference/count-gaps.html">count_gaps()</a></code>. Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>. (#71)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -172,13 +175,18 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed unexpected error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
-<li>Fixed <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> scoping issue (#67).</li>
+<li>Fixed <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> &amp; <code>fill_na.tbl_ts()</code> scoping issue (#67).</li>
+<li>
+<code><a href="../reference/tidyverse.html">slice.tbl_ts()</a></code> handles logical <code>NA</code>.</li>
+<li>
+<code><a href="../reference/deprecated.html">fill_na()</a></code> will only replace implicit time gaps by values and functions, and leave originally explicit <code>NA</code> intact.</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#misc" class="anchor"></a>Misc</h2>
 <ul>
+<li>Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>, in favour of <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>.</li>
 <li>Deprecated <code><a href="../reference/deprecated.html">case_na()</a></code>, and will be defunct in next release.</li>
 <li>Deprecated <code><a href="../reference/deprecated.html">split_by()</a></code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
@@ -202,7 +210,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed warning in <code><a href="../reference/fill-na.html">fill_na()</a></code> for multiple replacements when using with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, introduced in v0.5.1.</li>
+<li>Fixed warning in <code><a href="../reference/deprecated.html">fill_na()</a></code> for multiple replacements when using with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, introduced in v0.5.1.</li>
 <li>
 <code>as_tsibble.grouped_df()</code> respected its existing groups and removed argument <code>group</code>. (#60)</li>
 <li>Preserve the ordering of key specification in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code>. (#63)</li>
@@ -271,7 +279,7 @@
 <h2 class="hasAnchor">
 <a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Faster performance in <code><a href="../reference/fill-na.html">fill_na()</a></code> for replacing values when <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>.</li>
+<li>Faster performance in <code><a href="../reference/deprecated.html">fill_na()</a></code> for replacing values when <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>.</li>
 <li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code>[</code>.</li>
 </ul>
 </div>
@@ -400,7 +408,7 @@
 <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> removed the <code>tsp</code> attribute from the <code>value</code> column.</li>
 <li>Dropped the “lst_col” attribute from <code>lst_ts</code> (#25).</li>
 <li>More informative error message when a data frame is passed to <code><a href="../reference/tsibble.html">tsibble()</a></code>.</li>
-<li>More informative error message for <code><a href="../reference/fill-na.html">fill_na()</a></code> and <code>count_gaps</code> when a tsibble of unknown interval.</li>
+<li>More informative error message for <code><a href="../reference/deprecated.html">fill_na()</a></code> and <code>count_gaps</code> when a tsibble of unknown interval.</li>
 <li>
 <code><a href="../reference/as-tsibble.html">as_tsibble.tbl_ts()</a></code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (#34).</li>
 <li>
@@ -415,7 +423,7 @@
 <ul>
 <li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring the <code>value</code> argument when the key is empty.</li>
 <li>Fixed bug in <code>[.tbl_ts()</code> when subsetting columns by characters (#30).</li>
-<li>Fixed bug in <code><a href="../reference/fill-na.html">fill_na.tbl_ts()</a></code> dropping custom index class (#32).</li>
+<li>Fixed bug in <code>fill_na.tbl_ts()</code> dropping custom index class (#32).</li>
 <li>Fixed bug in <code>format.yearweek()</code> due to the boundary issue (#27).</li>
 <li>If a column passed as <code>index</code> contains <code>NA</code>, abort.</li>
 </ul>
@@ -505,7 +513,7 @@
 <a href="#api-changes" class="anchor"></a>API changes</h2>
 <ul>
 <li>
-<code><a href="../reference/fill-na.html">fill_na.tbl_ts()</a></code> gained a new argument of <code>.full = FALSE</code>. <code>.full = FALSE</code> (the default) inserts <code>NA</code> for each key within its time period, <code>TRUE</code> for the entire time span. This affects the results of <code><a href="../reference/fill-na.html">fill_na.tbl_ts()</a></code> as it only took <code>TRUE</code> into account previously. (#15)</li>
+<code>fill_na.tbl_ts()</code> gained a new argument of <code>.full = FALSE</code>. <code>.full = FALSE</code> (the default) inserts <code>NA</code> for each key within its time period, <code>TRUE</code> for the entire time span. This affects the results of <code>fill_na.tbl_ts()</code> as it only took <code>TRUE</code> into account previously. (#15)</li>
 <li>Renamed the <code>drop</code> argument to <code>.drop</code> in column-wise dplyr verbs.</li>
 <li>Dropped the <code>duplicated</code> argument in <code><a href="../reference/pull-interval.html">pull_interval()</a></code>.</li>
 <li>
@@ -517,7 +525,7 @@
 <a href="#improvements-4" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Added overall time span to the <code>glimpse.tbl_ts()</code>.</li>
-<li>Slightly improved the speed of <code><a href="../reference/fill-na.html">fill_na()</a></code>.</li>
+<li>Slightly improved the speed of <code><a href="../reference/deprecated.html">fill_na()</a></code>.</li>
 </ul>
 </div>
 <div id="bug-fixes-6" class="section level2">

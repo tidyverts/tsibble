@@ -23,7 +23,7 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 logical vector
 }
 \description{
-If time falls in the ranges using compact expressions
+This function respects time zone and encourages compact expressions.
 }
 \examples{
 x <- unique(pedestrian$Date_Time)

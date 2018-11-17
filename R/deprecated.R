@@ -58,3 +58,9 @@ case_na <- function(formula) {
 as.tsibble <- function(x, ...) {
   as_tsibble(x, ...)
 }
+
+#' @rdname deprecated
+#' @export
+#' @keywords internal
+#' @include gaps.R
+fill_na <- fill_gaps.tbl_ts

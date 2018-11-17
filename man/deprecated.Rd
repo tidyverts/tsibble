@@ -4,6 +4,7 @@
 \alias{split_by}
 \alias{case_na}
 \alias{as.tsibble}
+\alias{fill_na}
 \title{Split a data frame into a list of subsets by variables}
 \usage{
 split_by(x, ...)
@@ -11,6 +12,8 @@ split_by(x, ...)
 case_na(formula)
 
 as.tsibble(x, ...)
+
+fill_na(.data, ..., .full = FALSE)
 }
 \arguments{
 \item{x}{A data frame.}

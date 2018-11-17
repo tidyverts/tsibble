@@ -7,7 +7,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * `count_gaps.tbl_ts()` returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed ".".
 * `time_unit()` accepts `interval` input instead of time vectors to avoid overheads, also marked as internal function.
 * Separate partial sliding from `slider()` and `pslider()` as new functions `partial_slider()` and `partial_pslider()`. Argument `.partial` is removed from `slider()` and `pslider()` to feature a simpler interface.
-* Removed argument `group` from `build_tsibble()`. In order to construct a grouped tsibble, `x` is expected as a grouped df.
+* Removed argument `group` from `build_tsibble()`. In order to construct a grouped tsibble, `x` requires a grouped df.
 
 ## New features
 
@@ -17,17 +17,19 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * New S3 generic `time_in()` to check if time falls in the ranges in compact expression, with no need for time zone specification.
 * An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.
 * New vignette on handling implicit missingness.
-* `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
 * `new_tsibble()` creates a subclass of a tsibble.
+* Renamed `fill_na()` to `fill_gaps()`, for more expressive function name and consistency to `has_gaps()` and `count_gaps()`. Soft-deprecated `fill_na()`. (#71)
 
 ## Bug fixes
 
 * Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
 * Fixed `summarise.tbl_ts()` & `fill_na.tbl_ts()` scoping issue (#67).
 * `slice.tbl_ts()` handles logical `NA`.
+* `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
 
 ## Misc
 
+* Soft-deprecated `fill_na()`, in favour of `fill_gaps()`.
 * Deprecated `case_na()`, and will be defunct in next release.
 * Deprecated `split_by()`, which is under development as S3 generic in **dplyr**.
 * Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.

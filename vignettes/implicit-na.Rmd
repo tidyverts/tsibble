@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-Assuming you have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html), you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any **implicit missingness** in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) `has_gaps()` scans if there exists implicit missingness; (2) `count_gaps()` reports the time range that is absent from the data; (3) `fill_na()` turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument `.full`. If `FALSE` (default) looks into the time period for each key, otherwise the full-length time span. The `pedestrian` data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.
+Assuming you have [set up a tsibble](https://pkg.earo.me/tsibble/articles/intro-tsibble.html), you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any **implicit missingness** in the tsibble in the beginning. A handful of tools are provided to understand and tackle missing values in: (1) `has_gaps()` scans if there exists implicit missingness; (2) `count_gaps()` reports the time range that is absent from the data; (3) `fill_gaps()` turns them into explicit ones, alongside imputing by values or functions. These functions have a common argument `.full`. If `FALSE` (default) looks into the time period for each key, otherwise the full-length time span. The `pedestrian` data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.
 
 ```{r ped}
 library(tsibble)
@@ -50,20 +50,20 @@ ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
   theme(legend.position = "bottom")
 ```
 
-We have learned if any missing periods and where, and we enlarge the tsibble to include explicit `NA` (previously as implicit missingness). The function `fill_na()` takes care of filling the key and index, and leaves other variables filled by the default `NA`. The `pedestrian` data initially contains `r format(NROW(pedestrian))` and gets augmented to `r format(NROW(fill_na(pedestrian, .full = TRUE)))`.
+We have learned if any missing periods and where, and we enlarge the tsibble to include explicit `NA` (previously as implicit missingness). The function `fill_gaps()` takes care of filling the key and index, and leaves other variables filled by the default `NA`. The `pedestrian` data initially contains `r format(NROW(pedestrian))` and gets augmented to `r format(NROW(fill_gaps(pedestrian, .full = TRUE)))`.
 
 ```{r fill-na-default}
 ped_full <- pedestrian %>% 
-  fill_na(.full = TRUE)
+  fill_gaps(.full = TRUE)
 ped_full
 ```
 
-Other than `NA`, a set of name-value pairs goes along with `fill_na()`, by imputing values or functions as desired.
+Other than `NA`, a set of name-value pairs goes along with `fill_gaps()`, by imputing values or functions as desired.
 
 ```{r fill-na, eval = FALSE}
 pedestrian %>% 
-  fill_na(Count = 0L, .full = TRUE)
+  fill_gaps(Count = 0L, .full = TRUE)
 pedestrian %>% 
   group_by(Sensor) %>% 
-  fill_na(Count = mean(Count), .full = TRUE)
+  fill_gaps(Count = mean(Count), .full = TRUE)
 ```
