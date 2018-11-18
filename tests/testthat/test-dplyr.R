@@ -123,6 +123,9 @@ test_that("filter() and slice()", {
     group_by(Purpose) %>%
     slice(1:3)
   expect_identical(dim(tsbl4), c(12L, ncol(tourism)))
+  expect_identical(slice(pedestrian, NA), slice(pedestrian, 0L))
+  expect_identical(slice(pedestrian, c(1, NA)), slice(pedestrian, 1L))
+  expect_error(slice(pedestrian, c(1, NA, 100000)), "exceed")
   expect_warning(slice(pedestrian, 3:1), "Unexpected temporal order.")
   expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")

@@ -13,7 +13,7 @@ test_that("a tbl_df/data.frame", {
 
 test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
-  expect_error(append_row(tsbl), "data of unknown interval.")
+  expect_error(append_row(tsbl), "tsibble of unknown interval.")
 })
 
 test_that("an irregular tbl_ts", {

@@ -77,10 +77,11 @@ bool any_not_equal_to_c(NumericVector x, double c) {
 
 // [[Rcpp::export]]
 bool is_descending(IntegerVector x) {
-  int prev = x[0];
+  IntegerVector y = wrap(na_omit(x));
+  int prev = y[0];
 
   IntegerVector::iterator it;
-  for (it = x.begin() + 1; it != x.end(); ++it) {
+  for (it = y.begin() + 1; it != y.end(); ++it) {
     if (prev >= *it) {
       prev = *it;
     } else {
@@ -94,10 +95,11 @@ bool is_descending(IntegerVector x) {
 
 // [[Rcpp::export]]
 bool is_ascending(IntegerVector x) {
-  int prev = x[0];
+  IntegerVector y = wrap(na_omit(x));
+  int prev = y[0];
 
   IntegerVector::iterator it;
-  for (it = x.begin() + 1; it != x.end(); ++it) {
+  for (it = y.begin() + 1; it != y.end(); ++it) {
     if (prev < *it) {
       prev = *it;
     } else {

@@ -24,7 +24,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 
 * Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
 * Fixed `summarise.tbl_ts()` & `fill_na.tbl_ts()` scoping issue (#67).
-* `slice.tbl_ts()` handles logical `NA`.
+* `slice.tbl_ts()` correctly handles logical `NA`.
 * `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
 
 ## Misc

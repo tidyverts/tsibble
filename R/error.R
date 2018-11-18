@@ -14,15 +14,17 @@ dont_know <- function(x, FUN) {
 
 unknown_interval <- function(x) {
   no_zeros <- !map_lgl(x, function(x) x == 0)
-  if (sum(no_zeros) == 0) abort("Can't proceed with data of unknown interval.")
+  if (sum(no_zeros) == 0) abort("Can't proceed with tsibble of unknown interval.")
 }
 
 exceed_rows <- function(x, n = 1L) {
   nr <- NROW(x)
-  if (!is.na(n) && n > nr) abort(sprintf(
-    "Must not exceed the number of rows (%i).\nDo you need `append_row()`?", 
-    nr
-  ))
+  if (n > nr) {
+    abort(sprintf(
+      "Must not exceed the number of rows (%i).\nDo you need `append_row()`?", 
+      nr
+    ))
+  }
 }
 
 not_regular <- function(x) {

@@ -85,7 +85,9 @@ slice.tbl_ts <- function(.data, ...) {
     abort("`slice()` only accepts one expression.")
   }
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
-  exceed_rows(.data, max(pos_eval))
+  if (!all(is.na(pos_eval))) {
+    exceed_rows(.data, max0(pos_eval))
+  }
   ascending <- row_validate(pos_eval)
   by_row(slice, .data, ordered = ascending, interval = NULL, ...)
 }
