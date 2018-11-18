@@ -24,7 +24,7 @@ reference:
   contents:
     - tsibble-package
 
-- title: Create/coerce to a tsibble
+- title: Create/coerce and append to a tsibble
   desc: >
     `tsibble()` creates a `tbl_ts`; `as_tsibble()` coerces other objects to `tbl_ts`;
     `build_tsibble()` is the powerhouse of `as_tsibble()`.
@@ -33,6 +33,8 @@ reference:
     - as_tsibble
     - is_tsibble
     - build_tsibble
+    - new_data
+    - append_row
 
 - title: Time-based verbs
   desc: >
@@ -48,8 +50,6 @@ reference:
     - filter_index
     - index_by
     - group_by_key
-    - new_data
-    - append_row
     - find_duplicates
 
 - title: A family of window functions

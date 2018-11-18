@@ -48,8 +48,6 @@
 #' @usage tourism
 #' @examples
 #' data(tourism)
-#' # nesting and crossed structure
-#' key(tourism)
 #' # Total trips over geographical regions
 #' tourism %>% 
 #'   group_by(Region, State) %>% 

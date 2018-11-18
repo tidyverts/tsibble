@@ -162,7 +162,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-create-coerce-to-a-tsibble" class="hasAnchor"><a href="#section-create-coerce-to-a-tsibble" class="anchor"></a>Create/coerce to a tsibble</h2>
+          <h2 id="section-create-coerce-and-append-to-a-tsibble" class="hasAnchor"><a href="#section-create-coerce-and-append-to-a-tsibble" class="anchor"></a>Create/coerce and append to a tsibble</h2>
           <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>; <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> is the powerhouse of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</p></p>
         </th>
       </tr>
@@ -190,6 +190,18 @@
           <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
         </td>
         <td><p>Low-level constructor for a tsibble object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="new-data.html">new_data()</a></code> </p>
+        </td>
+        <td><p>New tsibble data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="append-row.html">append_row()</a></code> </p>
+        </td>
+        <td><p>Append rows to a tsibble</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -234,18 +246,6 @@
           <p><code><a href="group_by_key.html">group_by_key()</a></code> </p>
         </td>
         <td><p>Group by key variables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="new-data.html">new_data()</a></code> </p>
-        </td>
-        <td><p>New tsibble data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="append-row.html">append_row()</a></code> </p>
-        </td>
-        <td><p>Append rows to a tsibble</p></td>
       </tr><tr>
         
         <td>
@@ -514,7 +514,7 @@ checks if a tsibble is ordered by key and index.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-overview">Overview</a></li>
-      <li><a href="#section-create-coerce-to-a-tsibble">Create/coerce to a tsibble</a></li>
+      <li><a href="#section-create-coerce-and-append-to-a-tsibble">Create/coerce and append to a tsibble</a></li>
       <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
       <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
       <li><a href="#section-vector">Vector</a></li>

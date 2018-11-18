@@ -5,7 +5,7 @@
 \alias{case_na}
 \alias{as.tsibble}
 \alias{fill_na}
-\title{Split a data frame into a list of subsets by variables}
+\title{Deprecated functions}
 \usage{
 split_by(x, ...)
 
@@ -24,7 +24,7 @@ fill_na(.data, ..., .full = FALSE)
 and the RHS gives the replacement value.}
 }
 \description{
-Split a data frame into a list of subsets by variables
+Deprecated functions
 
 A thin wrapper of \code{dplyr::case_when()} if there are \code{NA}s
 }

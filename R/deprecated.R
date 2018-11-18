@@ -1,4 +1,4 @@
-#' Split a data frame into a list of subsets by variables
+#' Deprecated functions
 #'
 #' @param x A data frame.
 #' @param ... A list of unquoted variables, separated by commas, to split a dataset.
