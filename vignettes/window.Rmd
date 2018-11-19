@@ -26,13 +26,13 @@ These functions handle all sorts of objects and feature *purrr*-like interface. 
 
 In spirit of `purrr::map()`, `slide()` accepts one input, `slide2()` two inputs, and `pslide()` multiple inputs, all of which always return lists for the sake of type stability. Other variants including `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` return vectors of the corresponding type, as well as `slide_dfr()` and `slide_dfc()` for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in all sorts of ways, from fixed window size to calendar periods, and from moving average to model fitting.
 
-The `pedestrian` dataset includes hourly pedestrian counts in the city of Melbourne, with `Sensor` as key and `Date_Time` as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using `fill_na()`, and `.full = TRUE` warrants the equal time length of each sensor. This prepares the data inputs in the expected order.
+The `pedestrian` dataset includes hourly pedestrian counts in the city of Melbourne, with `Sensor` as key and `Date_Time` as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using `fill_gaps()`, and `.full = TRUE` warrants the equal time length of each sensor. This prepares the data inputs in the expected order.
 
 ```{r full-data, message = FALSE}
 library(tsibble)
 library(dplyr)
 pedestrian_full <- pedestrian %>% 
-  fill_na(.full = TRUE)
+  fill_gaps(.full = TRUE)
 pedestrian_full
 ```
 

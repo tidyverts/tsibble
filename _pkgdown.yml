@@ -126,6 +126,8 @@ navbar:
       href: articles/implicit-na.html
     - text: Window functions
       href: articles/window.html
+  - text: FAQ
+    href: articles/faq.html
   - text: News
     href: news/index.html
   right:

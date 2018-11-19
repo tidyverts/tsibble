@@ -107,6 +107,9 @@
   </ul>
 </li>
 <li>
+  <a href="../articles/faq.html">FAQ</a>
+</li>
+<li>
   <a href="../news/index.html">News</a>
 </li>
       </ul>
@@ -183,7 +186,42 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 <span class='no'>lgl</span> <span class='kw'>&lt;-</span> <span class='fu'>time_in</span>(<span class='no'>x</span>, ~ <span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)
 <span class='no'>lgl</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</div><div class='input'><span class='co'># more specific</span>
 <span class='no'>lgl2</span> <span class='kw'>&lt;-</span> <span class='fu'>time_in</span>(<span class='no'>x</span>, <span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)
-<span class='no'>lgl2</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</div></pre>
+<span class='no'>lgl2</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</div><div class='input'>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>))</div><div class='output co'>#&gt; # A tsibble: 20,107 x 5 [1h]
+#&gt; # Key:       Sensor [4]
+#&gt;    Sensor         Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Birrarung Marr 2015-03-23 10:00:00 2015-03-23    10   199
+#&gt;  2 Birrarung Marr 2015-03-23 11:00:00 2015-03-23    11   120
+#&gt;  3 Birrarung Marr 2015-03-23 12:00:00 2015-03-23    12   317
+#&gt;  4 Birrarung Marr 2015-03-23 13:00:00 2015-03-23    13   583
+#&gt;  5 Birrarung Marr 2015-03-23 14:00:00 2015-03-23    14   265
+#&gt;  6 Birrarung Marr 2015-03-23 15:00:00 2015-03-23    15   275
+#&gt;  7 Birrarung Marr 2015-03-23 16:00:00 2015-03-23    16   409
+#&gt;  8 Birrarung Marr 2015-03-23 17:00:00 2015-03-23    17   698
+#&gt;  9 Birrarung Marr 2015-03-23 18:00:00 2015-03-23    18   546
+#&gt; 10 Birrarung Marr 2015-03-23 19:00:00 2015-03-23    19   276
+#&gt; # … with 20,097 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Season</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(
+    <span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015-03"</span> ~ <span class='st'>"2015-08"</span>),
+    <span class='st'>"Autumn-Winter"</span>, <span class='st'>"Spring-Summer"</span>
+  ))</div><div class='output co'>#&gt; # A tsibble: 32,276 x 6 [1h]
+#&gt; # Key:       Sensor [4]
+#&gt;    Sensor         Date_Time           Date        Time Count Season       
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630 Spring-Summer
+#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826 Spring-Summer
+#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567 Spring-Summer
+#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264 Spring-Summer
+#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139 Spring-Summer
+#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77 Spring-Summer
+#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44 Spring-Summer
+#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56 Spring-Summer
+#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113 Spring-Summer
+#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166 Spring-Summer
+#&gt; # … with 32,266 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
