@@ -64,8 +64,8 @@
   ordered <- is_ordered(x)
   if (!missing(i)) {
     # ordered <- row_validate(i)
-    if (!is_empty(i)) {
-      exceed_rows(result, max(i))
+    if (any(i > NROW(x))) {
+      return(as_tibble(NextMethod()))
     }
     result <- purrr::map(result, `[`, i)
     nr <- length(result[[1]])
