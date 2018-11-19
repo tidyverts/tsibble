@@ -16,7 +16,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * A shorthand `filter_index()` to filter time window for a tsibble.
 * New S3 generic `time_in()` to check if time falls in the ranges in compact expression, with no need for time zone specification.
 * An empty tsibble is now valid and will not raise an error, which makes it easier to programme with.
-* New vignette on handling implicit missingness.
+* New vignettes on handling implicit missingness and FAQ.
 * `new_tsibble()` creates a subclass of a tsibble.
 * Renamed `fill_na()` to `fill_gaps()`, for more expressive function name and consistency to `has_gaps()` and `count_gaps()`. Soft-deprecated `fill_na()`. (#71)
 

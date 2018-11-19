@@ -29,7 +29,7 @@ mth <- make_date("2018") + months(0:3)
 tsibble(mth = mth, index = mth)
 ```
 
-The interval depends on time representation. Class `yearmonth` is the accurate representaion for monthly data. It is unclear to to tell if it's daily data with implicit missingness or it's monthly data. This applies to `POSIXct` for sub-daily data, `Date` for daily, `yearquarter` for quarterly, and etc.
+The interval depends on time representation. Class `yearmonth` is the accurate representation for monthly data. It is unclear to to tell if it's daily data with implicit missingness or it's monthly data. This applies to `POSIXct` for sub-daily data, `Date` for daily, `yearquarter` for quarterly, and etc.
 
 ```{r}
 tsibble(mth = yearmonth(mth), index = mth)
@@ -80,7 +80,7 @@ tbl <- tibble(
 as_tsibble(tbl, index = time, key = id(station))
 ```
 
-Each station shares the same 15-minute interval, but their timestamps don't align. A quick way to fix is rounding the date-times.
+Each station shares the same 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't make much difference to the analysis. If it does, please organise them in different tables.
 
 ```{r}
 tbl %>% 
@@ -88,3 +88,4 @@ tbl %>%
   as_tsibble(index = time, key = id(station))
 ```
 
+If it's event data, each event couples with a precise timestamp, and most likely you need `regular = FALSE` for irregular-spaced tsibble.
