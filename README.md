@@ -87,7 +87,7 @@ in time series analysis, which is easily done using `fill()` from
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
   group_by(origin) %>% 
-  tidyr::fill(temp, humid, .direction = "down")
+  fill(temp, humid, .direction = "down")
 full_weather
 #> # A tsibble: 26,190 x 5 [1h]
 #> # Key:       origin [3]

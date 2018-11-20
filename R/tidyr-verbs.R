@@ -211,6 +211,7 @@ unnest_tsibble <- function(data, key, index) {
   data
 }
 
+#' @inheritParams tidyr::fill
 #' @rdname tidyverse
 #' @export
 fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {

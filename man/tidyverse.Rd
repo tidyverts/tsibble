@@ -181,6 +181,9 @@ nested data frame, separated by \code{.sep}.}
 will be duplicated in the same way as atomic vectors. This has
 \link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
+
+\item{.direction}{Direction in which to fill missing values. Currently
+either "down" (the default) or "up".}
 }
 \description{
 \itemize{
