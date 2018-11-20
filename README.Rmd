@@ -65,7 +65,7 @@ Often there are implicit missing cases in temporal data. If the observations are
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
   group_by(origin) %>% 
-  tidyr::fill(temp, humid, .direction = "down")
+  fill(temp, humid, .direction = "down")
 full_weather
 ```
 

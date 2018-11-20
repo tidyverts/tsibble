@@ -25,6 +25,7 @@
 \alias{nest.tbl_ts}
 \alias{unnest.lst_ts}
 \alias{unnest.tbl_ts}
+\alias{fill.grouped_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -80,6 +81,8 @@
 
 \method{unnest}{tbl_ts}(data, ..., key = id(), .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
+
+\method{fill}{grouped_ts}(data, ..., .direction = c("down", "up"))
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}

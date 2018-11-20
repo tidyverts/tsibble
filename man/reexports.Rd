@@ -31,6 +31,7 @@
 \alias{spread}
 \alias{nest}
 \alias{unnest}
+\alias{fill}
 \alias{glimpse}
 \alias{tbl_sum}
 \alias{as_tibble}
@@ -51,6 +52,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{glimpse}}, \code{\link[tibble]{tbl_sum}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}, \code{\link[tibble]{type_sum}}}
 
-  \item{tidyr}{\code{\link[tidyr]{gather}}, \code{\link[tidyr]{spread}}, \code{\link[tidyr]{nest}}, \code{\link[tidyr]{unnest}}}
+  \item{tidyr}{\code{\link[tidyr]{gather}}, \code{\link[tidyr]{spread}}, \code{\link[tidyr]{nest}}, \code{\link[tidyr]{unnest}}, \code{\link[tidyr]{fill}}}
 }}
 

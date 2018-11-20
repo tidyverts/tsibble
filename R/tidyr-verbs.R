@@ -211,6 +211,15 @@ unnest_tsibble <- function(data, key, index) {
   data
 }
 
+#' @rdname tidyverse
+#' @export
+fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
+  grped_df <- as_grouped_df(data)
+  res <- fill(grped_df, ..., .direction = .direction)
+  update_tsibble(res, data, ordered = is_ordered(data), 
+    interval = interval(data))
+}
+
 #' @export
 mutate.lst_ts <- function(.data, ...) {
   as_lst_ts(NextMethod())

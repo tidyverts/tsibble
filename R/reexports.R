@@ -110,6 +110,10 @@ tidyr::nest
 #' @export
 tidyr::unnest
 
+#' @importFrom tidyr fill
+#' @export
+tidyr::fill
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

@@ -43,7 +43,7 @@ fill_gaps.data.frame <- function(.data, ...) {
 #' # use fill() to fill `NA` by previous/next entry
 #' full_harvest %>% 
 #'   group_by(fruit) %>% 
-#'   tidyr::fill(kilo, .direction = "down")
+#'   fill(kilo, .direction = "down")
 #'
 #' # replace gaps with a specific value ----
 #' harvest %>%

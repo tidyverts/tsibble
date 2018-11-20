@@ -125,3 +125,24 @@ test_that("dplyr verbs for lst_ts", {
     as_tibble(nest_t) %>% group_by(State) %>% mutate(Value = n()) %>% dplyr::pull(Value)
   )
 })
+
+harvest <- tsibble(
+  year = c(2011, 2013, 2014, 2010, 2012, 2014),
+  fruit = rep(c("kiwi", "cherry"), each = 3),
+  kilo = sample(1:10, size = 6),
+  key = id(fruit), index = year
+)
+
+harvest_fill <- fill_gaps(harvest, .full = TRUE)
+
+test_that("fill()", {
+  expect_equal(
+    harvest_fill %>%
+      group_by_key() %>%
+      fill(kilo, .direction = "down"),
+    harvest_fill %>% 
+      as_tibble() %>% 
+      group_by(fruit) %>% 
+      fill(kilo, .direction = "down")
+  )
+})
