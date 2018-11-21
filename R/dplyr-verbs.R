@@ -110,7 +110,7 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
     return(select(as_tibble(.data), ...))
   }
 
-  lst_exprs <- enexprs(...)
+  lst_exprs <- enquos(...)
   named <- list_is_named(lst_exprs)
   .data <- rename_tsibble(.data, !!! lst_exprs[named])
 
@@ -134,7 +134,10 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
-    abort(sprintf("Column `%s` ('index') can't be removed.", idx_chr))
+    abort(sprintf(
+      "Column `%s` ('index') can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
+      idx_chr
+    ))
   }
 
   lst_quos <- enquos(..., .named = TRUE)

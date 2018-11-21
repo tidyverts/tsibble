@@ -78,7 +78,8 @@ rename_tsibble <- function(.data, ...) {
 }
 
 select_tsibble <- function(.data, ..., validate = TRUE) {
-  dots <- c(enexprs(...), index(.data))
+  quos <- enquos(...)
+  dots <- c(quos, new_quosure(index(.data)))
   names_dat <- names(.data)
   val_vars <- tidyselect::vars_select(names_dat, !!! dots)
   sel_data <- select(as_tibble(.data), !!! val_vars)

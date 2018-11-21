@@ -23,7 +23,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 ## Bug fixes
 
 * Fixed unexpected error message for `holiday_aus()` that requires package "timeDate".
-* Fixed `summarise.tbl_ts()` & `fill_na.tbl_ts()` scoping issue (#67).
+* Fixed `summarise.tbl_ts()`, `select.tbl_ts()` & `fill_na.tbl_ts()` scoping issue (#67).
 * `slice.tbl_ts()` correctly handles logical `NA`.
 * `fill_na()` will only replace implicit time gaps by values and functions, and leave originally explicit `NA` intact. 
 * `tidyr::fill()` gained support for class "grouped_ts", and it is re-exported again. (#73)
