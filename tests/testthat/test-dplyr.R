@@ -136,6 +136,7 @@ test_that("select() and rename()", {
   expect_error(select(tourism, Quarter), "Can't retain")
   expect_error(select(tourism, Region), "Can't retain")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
+  expect_message(select(tourism, Region:Purpose), "Selecting index:")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),

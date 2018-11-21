@@ -35,6 +35,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * Deprecated `split_by()`, which is under development as S3 generic in **dplyr**.
 * Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.
 * Deprecated `.drop` argument in column-wise verbs, and suggested to use `as_tibble()`.
+* If `select()` doesn't select index, it will inform users and automatically select it.
 
 # tsibble 0.5.3
 
