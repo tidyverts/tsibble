@@ -132,6 +132,7 @@ test_that("filter() and slice()", {
 })
 
 test_that("select() and rename()", {
+  expect_error(select(tourism, -Quarter), "can't be removed.")
   expect_error(select(tourism, Quarter), "Can't retain")
   expect_error(select(tourism, Region), "Can't retain")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")

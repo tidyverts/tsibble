@@ -110,12 +110,22 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
     return(select(as_tibble(.data), ...))
   }
 
-  lst_exprs <- enquos(...)
-  named <- list_is_named(lst_exprs)
-  .data <- rename_tsibble(.data, !!! lst_exprs[named])
+  lst_quos <- enquos(...)
+  lst_exprs <- map(lst_quos, quo_get_expr)
+  idx_chr <- index_var(.data)
+  rm_index <- sym(paste0("-", idx_chr))
+  if (any(map_lgl(lst_exprs, function(x) x == rm_index))) {
+    abort(sprintf(
+      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
+      idx_chr
+    ))
+  }
 
-  lst_exprs[named] <- names(lst_exprs)[named]
-  select_tsibble(.data, !!! lst_exprs)
+  named <- list_is_named(lst_quos)
+  .data <- rename_tsibble(.data, !!! lst_quos[named])
+
+  lst_quos[named] <- names(lst_quos)[named]
+  select_tsibble(.data, !!! lst_quos)
 }
 
 #' @rdname tidyverse
@@ -135,7 +145,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
     abort(sprintf(
-      "Column `%s` ('index') can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
+      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
       idx_chr
     ))
   }
