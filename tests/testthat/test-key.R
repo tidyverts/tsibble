@@ -1,7 +1,7 @@
 context("key for tsibble")
 
 test_that("key_by()", {
-  expect_error(key_by(pedestrian), "Can't retain")
+  expect_error(key_by(pedestrian), "is not a valid tsibble.")
   sx <- pedestrian %>% filter(Sensor == "Southern Cross Station")
   expect_equal(key_vars(key_by(sx)), character(0))
   unkey_sx <- key_by(sx) %>% key_by()
@@ -22,5 +22,5 @@ test_that("rename_tsibble()", {
 test_that("key_reduce()", {
   melb <- tourism %>%
     filter(Region == "Melbourne")
-  expect_error(melb %>% select(-Purpose), "Can't retain")
+  expect_error(melb %>% select(-Purpose), "is not a valid tsibble.")
 })

@@ -510,7 +510,7 @@ validate_tsibble <- function(data, key, index) {
 retain_tsibble <- function(data, key, index) {
   tbl_dup <- duplicated_key_index(data, key, index)
   if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    header <- "Can't retain a valid tsibble.\n"
+    header <- "The result is not a valid tsibble.\n"
     hint <- "Do you need `as_tibble()` to work with data frame?"
     abort(paste0(header, hint))
   }
