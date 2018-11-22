@@ -1,9 +1,9 @@
-#' New tsibble data
+#' New tsibble data and append new observations to a tsibble
 #'
-#' @inheritParams append_row
+#' @param .data A `tbl_ts`.
+#' @param n An integer indicates the number of key-index pair to append.
 #' @param ... Passed to individual S3 method.
 #'
-#' @seealso [append_row] for appending new observations to a tsibble
 #' @rdname new-data
 #' @export
 new_data <- function(.data, n = 1L, ...) {
@@ -49,19 +49,12 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   update_tsibble(out, .data, ordered = TRUE, interval = interval(.data))
 }
 
-#' Append rows to a tsibble
-#'
-#' Add new rows to the end of a tsibble by filling a key-index pair and `NA` for 
-#' measured variables.
+#' @description
+#' `append_row()`: add new rows to the end of a tsibble by filling a key-index
+#' pair and `NA` for measured variables.
 #'
 #' `append_case()` is an alias of `append_row()`.
-#'
-#' @param .data A `tbl_ts`.
-#' @param n An integer indicates the number of key-index pair to append.
-#' @param ... Passed to individual S3 method.
-#'
-#' @seealso [new_data] for generating new observations to a tsibble
-#' @rdname append-row
+#' @rdname new-data
 #' @export
 #' @examples
 #' tsbl <- tsibble(
@@ -90,7 +83,7 @@ append_row.data.frame <- function(.data, n = 1L, ...) {
   abort("Do you need `tibble::add_row()` for a `tbl_df`/`data.frame`?")
 }
 
-#' @rdname append-row
+#' @rdname new-data
 #' @export
 #' @usage NULL
 append_case <- append_row

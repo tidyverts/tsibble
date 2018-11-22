@@ -33,8 +33,8 @@ reference:
     - as_tsibble
     - is_tsibble
     - build_tsibble
+    - find_duplicates
     - new_data
-    - append_row
 
 - title: Time-based verbs
   desc: >
@@ -50,7 +50,6 @@ reference:
     - filter_index
     - index_by
     - group_by_key
-    - find_duplicates
 
 - title: A family of window functions
   desc: >

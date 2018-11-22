@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principles [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing temporal data and getting analysis done in a fluent and transparent workflow.
+The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principles [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing temporal data and getting analysis done in a fluent and fluid workflow.
 
 ## Contextual semantics: index and key
 

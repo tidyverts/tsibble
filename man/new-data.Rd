@@ -3,11 +3,15 @@
 \name{new_data}
 \alias{new_data}
 \alias{new_data.tbl_ts}
-\title{New tsibble data}
+\alias{append_row}
+\alias{append_case}
+\title{New tsibble data and append new observations to a tsibble}
 \usage{
 new_data(.data, n = 1L, ...)
 
 \method{new_data}{tbl_ts}(.data, n = 1L, keep_all = FALSE, ...)
+
+append_row(.data, n = 1L, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -20,13 +24,21 @@ new_data(.data, n = 1L, ...)
 and key, otherwise only index and key.}
 }
 \description{
-New tsibble data
+\code{append_row()}: add new rows to the end of a tsibble by filling a key-index
+pair and \code{NA} for measured variables.
+
+\code{append_case()} is an alias of \code{append_row()}.
 }
 \examples{
 new_data(pedestrian)
 new_data(pedestrian, keep_all = TRUE)
 new_data(pedestrian, n = 3)
-}
-\seealso{
-\link{append_row} for appending new observations to a tsibble
+tsbl <- tsibble(
+  date = rep(as.Date("2017-01-01") + 0:2, each = 2), 
+  group = rep(letters[1:2], 3),
+  value = rnorm(6),
+  key = id(group)
+)
+append_row(tsbl)
+append_row(tsbl, n = 2)
 }
