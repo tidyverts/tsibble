@@ -28,13 +28,13 @@
     <loc>https://pkg.earo.me/tsibble/reference/difference.html</loc>
   </url>
   <url>
+    <loc>https://pkg.earo.me/tsibble/reference/duplicated.html</loc>
+  </url>
+  <url>
     <loc>https://pkg.earo.me/tsibble/reference/fill-gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/filter_index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkg.earo.me/tsibble/reference/find_duplicates.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/gaps.html</loc>

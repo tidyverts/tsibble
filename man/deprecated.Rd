@@ -5,6 +5,7 @@
 \alias{case_na}
 \alias{as.tsibble}
 \alias{fill_na}
+\alias{find_duplicates}
 \title{Deprecated functions}
 \usage{
 split_by(x, ...)
@@ -14,6 +15,8 @@ case_na(formula)
 as.tsibble(x, ...)
 
 fill_na(.data, ..., .full = FALSE)
+
+find_duplicates(data, key = id(), index, fromLast = FALSE)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -22,11 +25,25 @@ fill_na(.data, ..., .full = FALSE)
 
 \item{formula}{A two-sided formula. The LHS expects a vector containing \code{NA},
 and the RHS gives the replacement value.}
+
+\item{data}{A \code{tbl_ts} object.}
+
+\item{key}{Structural variable(s) that define unique time indices, used with
+the helper \link{id}. If a univariate time series (without an explicit key),
+simply call \code{id()}.}
+
+\item{index}{A bare (or unquoted) variable to specify the time index variable.}
+
+\item{fromLast}{\code{TRUE} does the duplication check from the last of identical
+elements.}
+}
+\value{
+A logical vector of the same length as the row number of \code{data}
 }
 \description{
-Deprecated functions
-
 A thin wrapper of \code{dplyr::case_when()} if there are \code{NA}s
+
+Find which row has duplicated key and index elements
 }
 \examples{
 pedestrian \%>\% 

@@ -19,6 +19,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * New vignettes on handling implicit missingness and FAQ.
 * `new_tsibble()` creates a subclass of a tsibble.
 * Renamed `fill_na()` to `fill_gaps()`, for more expressive function name and consistency to `has_gaps()` and `count_gaps()`. Soft-deprecated `fill_na()`. (#71)
+* Added `is_duplicated()`, `are_duplicated()` and `duplicates()`.
 
 ## Bug fixes
 
@@ -31,6 +32,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 ## Misc
 
 * Soft-deprecated `fill_na()`, in favour of `fill_gaps()`.
+* Soft-deprecated `find_duplicates()`, in favour of `are_duplicated()`.
 * Deprecated `case_na()`, and will be defunct in next release.
 * Deprecated `split_by()`, which is under development as S3 generic in **dplyr**.
 * Soft-deprecated `as.tsibble()`, following `as.tibble()` in **tibble**.

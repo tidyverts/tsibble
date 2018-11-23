@@ -172,6 +172,7 @@
 <li>
 <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code> creates a subclass of a tsibble.</li>
 <li>Renamed <code><a href="../reference/deprecated.html">fill_na()</a></code> to <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>, for more expressive function name and consistency to <code><a href="../reference/has-gaps.html">has_gaps()</a></code> and <code><a href="../reference/count-gaps.html">count_gaps()</a></code>. Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>. (#71)</li>
+<li>Added <code><a href="../reference/duplicated.html">is_duplicated()</a></code>, <code><a href="../reference/duplicated.html">are_duplicated()</a></code> and <code><a href="../reference/duplicated.html">duplicates()</a></code>.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -193,6 +194,7 @@
 <a href="#misc" class="anchor"></a>Misc</h2>
 <ul>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>, in favour of <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>.</li>
+<li>Soft-deprecated <code><a href="../reference/deprecated.html">find_duplicates()</a></code>, in favour of <code><a href="../reference/duplicated.html">are_duplicated()</a></code>.</li>
 <li>Deprecated <code><a href="../reference/deprecated.html">case_na()</a></code>, and will be defunct in next release.</li>
 <li>Deprecated <code><a href="../reference/deprecated.html">split_by()</a></code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
@@ -495,7 +497,7 @@
 <a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Deprecated <code>tsummarise()</code> and its scoped variants. It can be replaced by the combo <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> (#20). <code>tsummarise()</code> provides an unintuitive interface where the first argument keeps the same size of the index, but the remaining arguments reduces rows to a single one. Analogously, it does <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and then <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. The proposed <code><a href="../reference/index-by.html">index_by()</a></code> solves the issue of index update.</li>
-<li>Renamed <code>inform_duplicates()</code> (defunct) to <code><a href="../reference/find_duplicates.html">find_duplicates()</a></code> to better reflect its functionality.</li>
+<li>Renamed <code>inform_duplicates()</code> (defunct) to <code><a href="../reference/deprecated.html">find_duplicates()</a></code> to better reflect its functionality.</li>
 <li>
 <code><a href="../reference/key.html">key_vars()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/groups.html">group_vars()</a></code> return a vector of characters instead of a list.</li>
 <li>

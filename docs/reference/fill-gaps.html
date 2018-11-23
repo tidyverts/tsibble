@@ -200,27 +200,27 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;     year fruit   kilo
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 cherry    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
 #&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
 #&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 kiwi      </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>full_harvest</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
 #&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># use fill() to fill `NA` by previous/next entry</span>
 <span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
@@ -229,42 +229,42 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; </span><span style='color: #949494;'># Groups:    fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry     2
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi       5
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry     1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi       4
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># replace gaps with a specific value ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry     0
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
 #&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi       0
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># replace gaps using a function by variable ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    31
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      31
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    33
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      33
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># replace gaps using a function for each group ----</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
@@ -272,14 +272,14 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; </span><span style='color: #949494;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    14
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      17
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    17
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      16
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># leaves existing `NA` untouched ----</span>
 <span class='no'>harvest</span>[<span class='fl'>2</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
@@ -288,14 +288,14 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; </span><span style='color: #949494;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     6
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    12
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      17
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       8</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 cherry    16
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       9
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      16
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi       3</div><div class='input'>
 <span class='co'># replace NA ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>

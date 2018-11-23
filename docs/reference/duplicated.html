@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • tsibble</title>
+<title>Test duplicated observations determined by key and index variables — is_duplicated • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -35,18 +35,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
+<meta property="og:title" content="Test duplicated observations determined by key and index variables — is_duplicated" />
 
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  dplyrgroup_size, n_groups, group_indices, group_vars, groups, ungroup, group_by, mutate, filter, slice, select, rename, arrange, summarise, summarize, transmute, distinct, full_join, inner_join, left_join, right_join, semi_join, anti_join, %&amp;gt;%" />
-
-<meta property="og:description" content="rlang!!, !!!" />
-
-<meta property="og:description" content="tibbleglimpse, tbl_sum, as_tibble, tibble, type_sum" />
-
-<meta property="og:description" content="tidyrgather, spread, nest, unnest, fill
+<meta property="og:description" content="
+is_duplicated(): a logical if the data exist duplicated observations.
+are_duplicated(): logicals of the same length as the row number of data.
+duplicates(): identical key-index data entries.
 " />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
@@ -150,34 +144,71 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>Test duplicated observations determined by key and index variables</h1>
     
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <div class="hidden name"><code>duplicated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl class='dl-horizontal'>
-  <dt>dplyr</dt><dd><p><code><a href='http://dplyr.tidyverse.org/reference/group_size.html'>group_size</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/group_size.html'>n_groups</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/group_indices.html'>group_indices</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/groups.html'>group_vars</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/groups.html'>groups</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/select.html'>rename</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>full_join</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>semi_join</a></code>, <code><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></code>, <code>%&gt;%</code></p></dd>
-
-    <dt>rlang</dt><dd><p><code><a href='https://rlang.r-lib.org/reference/quasiquotation.html'>!!</a></code>, <code><a href='https://rlang.r-lib.org/reference/quasiquotation.html'>!!!</a></code></p></dd>
-
-    <dt>tibble</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></code>, <code><a href='https://www.rdocumentation.org/packages/tibble/topics/tbl_sum'>tbl_sum</a></code>, <code><a href='https://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></code>, <code><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></code>, <code><a href='https://www.rdocumentation.org/packages/tibble/topics/reexports'>type_sum</a></code></p></dd>
-
-    <dt>tidyr</dt><dd><p><code><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></code></p></dd>
-</dl>
+    <ul>
+<li><p><code>is_duplicated()</code>: a logical if the data exist duplicated observations.</p></li>
+<li><p><code>are_duplicated()</code>: logicals of the same length as the row number of <code>data</code>.</p></li>
+<li><p><code>duplicates()</code>: identical key-index data entries.</p></li>
+</ul>
     
     </div>
 
-        
+    <pre class="usage"><span class='fu'>is_duplicated</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>)
 
+<span class='fu'>are_duplicated</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>from_last</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame for creating a tsibble.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Variable(s) that define unique time indices, used in conjunction
+with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>index</th>
+      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>from_last</th>
+      <td><p><code>TRUE</code> does the duplication check from the last of identical
+elements.</p></td>
+    </tr>
+    </table>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2011</span>, <span class='fl'>2013</span>, <span class='fl'>2011</span>, <span class='fl'>2012</span>, <span class='fl'>2014</span>, <span class='fl'>2014</span>),
+  <span class='kw'>fruit</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='st'>"cherry"</span>),
+  <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>7</span>)
+)
+<span class='fu'>is_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>from_last</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</div><div class='input'><span class='fu'>duplicates</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>fruit</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span><span>
+#&gt;    year fruit   kilo
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     9
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     1</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

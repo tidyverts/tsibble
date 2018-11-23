@@ -490,17 +490,19 @@ duplicated_key_index <- function(data, key, index) {
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  grouped_df(data, vars = key) %>%
-    summarise(!! "zzz" := anyDuplicated.default(!! index))
+  res <- grouped_df(data, vars = key) %>%
+    summarise(!! "zzz" := anyDuplicated.default(!! index)) %>% 
+    dplyr::pull(zzz)
+  any_not_equal_to_c(res, 0)
 }
 
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
 validate_tsibble <- function(data, key, index) {
-  tbl_dup <- duplicated_key_index(data, key, index)
-  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
+  is_dup <- duplicated_key_index(data, key, index)
+  if (is_dup) {
     header <- "A valid tsibble must have distinct rows identified by key and index.\n"
-    hint <- "Please use `find_duplicates()` to check the duplicated rows."
+    hint <- "Please use `duplicates()` to check the duplicated rows."
     abort(paste0(header, hint))
   }
   data
@@ -508,8 +510,8 @@ validate_tsibble <- function(data, key, index) {
 
 # used for column-verbs to check if the tsibble holds
 retain_tsibble <- function(data, key, index) {
-  tbl_dup <- duplicated_key_index(data, key, index)
-  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
+  is_dup <- duplicated_key_index(data, key, index)
+  if (is_dup) {
     header <- "The result is not a valid tsibble.\n"
     hint <- "Do you need `as_tibble()` to work with data frame?"
     abort(paste0(header, hint))
@@ -593,29 +595,60 @@ use_id <- function(x, key) {
   abort(suggest_key(as_string(key_expr)))
 }
 
-#' Find duplicates of key and index variables
+#' Test duplicated observations determined by key and index variables
 #'
-#' Find which row has duplicated key and index elements
+#' * `is_duplicated()`: a logical if the data exist duplicated observations.
+#' * `are_duplicated()`: logicals of the same length as the row number of `data`.
+#' * `duplicates()`: identical key-index data entries.
 #'
-#' @param data A `tbl_ts` object.
-#' @param key Structural variable(s) that define unique time indices, used with
-#' the helper [id]. If a univariate time series (without an explicit key),
-#' simply call `id()`.
-#' @param index A bare (or unquoted) variable to specify the time index variable.
+#' @param data A data frame for creating a tsibble.
+#' @inheritParams tsibble
+#'
+#' @rdname duplicated
+#' @export
+#' @examples
+#' harvest <- tibble(
+#'   year = c(2010, 2011, 2013, 2011, 2012, 2014, 2014),
+#'   fruit = c(rep(c("kiwi", "cherry"), each = 3), "cherry"),
+#'   kilo = sample(1:10, size = 7)
+#' )
+#' is_duplicated(harvest, key = id(fruit), index = year)
+#' are_duplicated(harvest, key = id(fruit), index = year)
+#' are_duplicated(harvest, key = id(fruit), index = year, from_last = TRUE)
+#' duplicates(harvest, key = id(fruit), index = year)
+is_duplicated <- function(data, key = id(), index) {
+  key <- use_id(data, !! enquo(key))
+  index <- validate_index(data, enquo(index))
+
+  duplicated_key_index(data, key = key, index = index)
+}
+
 #' @param from_last `TRUE` does the duplication check from the last of identical
 #' elements.
-#' @param fromLast Deprecated. Please use `from_last` instead.
 #'
-#' @return A logical vector of the same length as the row number of `data`
+#' @rdname duplicated
 #' @export
-find_duplicates <- function(data, key = id(), index, from_last = FALSE, 
-  fromLast = from_last) {
+are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, enquo(index))
 
   grouped_df(data, vars = key) %>%
     mutate(!! "zzz" := duplicated.default(!! index, fromLast = from_last)) %>%
     dplyr::pull(!! "zzz")
+}
+
+#' @rdname duplicated
+#' @export
+duplicates <- function(data, key = id(), index) {
+  key <- use_id(data, !! enquo(key))
+  index <- validate_index(data, enquo(index))
+
+  grouped_df(data, vars = key) %>%
+    filter(
+      duplicated.default(!! index) | 
+      duplicated.default(!! index, fromLast = TRUE)
+    ) %>% 
+    ungroup()
 }
 
 update_tsibble_attrs <- function(x, ...) {

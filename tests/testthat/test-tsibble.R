@@ -93,7 +93,9 @@ test_that("Duplicated time index", {
   expect_error(as_tsibble(dat_y, index = date_time), "A valid tsibble")
 
   y <- c(FALSE, TRUE, rep(FALSE, 3))
-  expect_identical(find_duplicates(dat_y, index = date_time), y)
+  expect_identical(is_duplicated(dat_y, index = date_time), TRUE)
+  expect_identical(are_duplicated(dat_y, index = date_time), y)
+  expect_identical(duplicates(dat_y, index = date_time), dat_x[c(1, 1), ])
 })
 
 test_that("POSIXt with an unrecognisable interval", {

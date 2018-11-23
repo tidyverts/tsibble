@@ -37,8 +37,8 @@
 
 <meta property="og:title" content="Deprecated functions — split_by" />
 
-<meta property="og:description" content="Deprecated functions
-A thin wrapper of dplyr::case_when() if there are NAs" />
+<meta property="og:description" content="A thin wrapper of dplyr::case_when() if there are NAs
+Find which row has duplicated key and index elements" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -148,8 +148,8 @@ A thin wrapper of dplyr::case_when() if there are NAs" />
 
     <div class="ref-description">
     
-    <p>Deprecated functions</p>
-<p>A thin wrapper of <code><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when()</a></code> if there are <code>NA</code>s</p>
+    <p>A thin wrapper of <code><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when()</a></code> if there are <code>NA</code>s</p>
+<p>Find which row has duplicated key and index elements</p>
     
     </div>
 
@@ -159,7 +159,9 @@ A thin wrapper of dplyr::case_when() if there are NAs" />
 
 <span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>find_duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>fromLast</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +179,30 @@ A thin wrapper of dplyr::case_when() if there are NAs" />
       <td><p>A two-sided formula. The LHS expects a vector containing <code>NA</code>,
 and the RHS gives the replacement value.</p></td>
     </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A <code>tbl_ts</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Structural variable(s) that define unique time indices, used with
+the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>index</th>
+      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>fromLast</th>
+      <td><p><code>TRUE</code> does the duplication check from the last of identical
+elements.</p></td>
+    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A logical vector of the same length as the row number of <code>data</code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -265,6 +290,8 @@ and the RHS gives the replacement value.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

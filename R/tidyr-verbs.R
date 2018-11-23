@@ -202,9 +202,9 @@ unnest.tbl_ts <- function(data, ..., key = id(),
 
 # used for unnest() to check if the tsibble holds
 unnest_tsibble <- function(data, key, index) {
-  tbl_dup <- duplicated_key_index(data, key, index)
-  if (any_not_equal_to_c(tbl_dup$zzz, 0)) {
-    header <- "Can't retain a valid tsibble.\n"
+  is_dup <- duplicated_key_index(data, key, index)
+  if (is_dup) {
+    header <- "The result is not a valid tsibble.\n"
     hint <- "Do you forget argument `key = id(...)` in `unnest()` to create the key?."
     abort(paste0(header, hint))
   }
