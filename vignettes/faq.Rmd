@@ -35,6 +35,8 @@ The interval depends on time representation. Class `yearmonth` is the accurate r
 tsibble(mth = yearmonth(mth), index = mth)
 ```
 
+---
+
 > *Does tsibble respect time zones?*
 
 Yes, tsibble respects time zones throughout the package. All index functions including `yearweek()`, `yearmonth()`, `yearquarter()`, and `time_in()` take care of time zones, and will NOT convert to "UTC". The interval obtained from the data also respects the time zone, by converting to seconds. The following example demonstrates how tsibble handles daylight savings.
@@ -50,6 +52,8 @@ tsbl2 <- tsibble(time = x + hours(c(0, 3, 6, 9)) , index = time) %>%
 ```
 
 I would say both are correct. The displayed interval may suggest the actual time is different from what you think it is.
+
+---
 
 > *I have multiple units measured at different time intervals. Can I put them into one tsibble?*
 
@@ -68,6 +72,8 @@ rbind(tsbl1, tsbl2)
 ```
 
 Certainly you can. But tsibble only reports one interval. If you want to analyse them differently, it is recommended to have separate tsibbles instead.
+
+---
 
 > *I have multiple units measured at the same time interval. But the tsibble interval doesn't look correct.*
 
