@@ -26,8 +26,8 @@ elements.}
 }
 \description{
 \itemize{
-\item \code{is_duplicated()}: a logical if the data exist duplicated observations.
-\item \code{are_duplicated()}: logicals of the same length as the row number of \code{data}.
+\item \code{is_duplicated()}: a logical scalar if the data exist duplicated observations.
+\item \code{are_duplicated()}: a logical vector, the same length as the row number of \code{data}.
 \item \code{duplicates()}: identical key-index data entries.
 }
 }

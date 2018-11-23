@@ -597,8 +597,8 @@ use_id <- function(x, key) {
 
 #' Test duplicated observations determined by key and index variables
 #'
-#' * `is_duplicated()`: a logical if the data exist duplicated observations.
-#' * `are_duplicated()`: logicals of the same length as the row number of `data`.
+#' * `is_duplicated()`: a logical scalar if the data exist duplicated observations.
+#' * `are_duplicated()`: a logical vector, the same length as the row number of `data`.
 #' * `duplicates()`: identical key-index data entries.
 #'
 #' @param data A data frame for creating a tsibble.
