@@ -86,7 +86,7 @@ tbl <- tibble(
 as_tsibble(tbl, index = time, key = id(station))
 ```
 
-Each station shares the same 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't make much difference to the analysis. If it does, please organise them in different tables.
+Each station shares the same 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't matter to the analysis. If it does, please organise them in different tables.
 
 ```{r}
 tbl %>% 
