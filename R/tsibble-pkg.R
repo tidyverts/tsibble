@@ -51,6 +51,10 @@
 #' * `POSIXct`: "hour", "minute", "second", "millisecond", "microsecond"
 #' * `nanotime`: "nanosecond"
 #'
+#' @section Time zone:
+#' Time zone corresponding to index will be displayed if index is `POSIXct`.
+#' `?` means that the obtained time zone is a zero-length character "".
+#'
 #' @section Print options:
 #' The tsibble package fully utilises the `print` method from the tibble. Please
 #' refer to [tibble::tibble-package] to change display options.

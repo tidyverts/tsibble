@@ -413,7 +413,7 @@ either "down" (the default) or "up".</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Sum over sensors ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 17,542 x 2 [1h]</span><span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt;    Date_Time           Total
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span>  </span><span style='text-decoration: underline;'>2</span><span>866

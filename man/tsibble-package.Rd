@@ -68,6 +68,12 @@ An interval is obtained based on the corresponding index representation:
 }
 }
 
+\section{Time zone}{
+
+Time zone corresponding to index will be displayed if index is \code{POSIXct}.
+\code{?} means that the obtained time zone is a zero-length character "".
+}
+
 \section{Print options}{
 
 The tsibble package fully utilises the \code{print} method from the tibble. Please

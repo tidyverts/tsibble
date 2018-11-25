@@ -53,7 +53,7 @@ yearweek <- function(x) {
 }
 
 as_yearweek <- function(x) {
-  structure(x, class = c("yearweek", "Date"))
+  structure(x, tzone = NULL, class = c("yearweek", "Date"))
 }
 
 #' @export
@@ -205,7 +205,7 @@ yearmonth <- function(x) {
 }
 
 as_yearmonth <- function(x) {
-  structure(x, class = c("yearmonth", "Date"))
+  structure(x, tz = NULL, class = c("yearmonth", "Date"))
 }
 
 #' @export
@@ -324,7 +324,7 @@ yearquarter <- function(x) {
 }
 
 as_yearquarter <- function(x) {
-  structure(x, class = c("yearquarter", "Date"))
+  structure(x, tz = NULL, class = c("yearquarter", "Date"))
 }
 
 #' @export

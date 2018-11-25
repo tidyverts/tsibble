@@ -77,7 +77,8 @@ Note that the tsibble handles regularly-spaced temporal data well, from seconds 
 
 ```{r flights}
 flights <- nycflights13::flights %>%
-  mutate(sched_dep_datetime = make_datetime(year, month, day, hour, minute))
+  mutate(sched_dep_datetime = 
+    make_datetime(year, month, day, hour, minute, tz = "America/New_York"))
 ```
 
 The key contains columns `carrier` and `flight` to identify observational units over time, from a passenger's point of view. With `regular = FALSE`, it turns to an irregularly-spaced tsibble, where `[!]` highlights the irregularity.

@@ -26,13 +26,11 @@ reference:
 
 - title: Create/coerce and append to a tsibble
   desc: >
-    `tsibble()` creates a `tbl_ts`; `as_tsibble()` coerces other objects to `tbl_ts`;
-    `build_tsibble()` is the powerhouse of `as_tsibble()`.
+    `tsibble()` creates a `tbl_ts`; `as_tsibble()` coerces other objects to `tbl_ts`.
   contents:
     - tsibble
     - as_tsibble
     - is_tsibble
-    - build_tsibble
     - new_data
     - is_duplicated
 
@@ -89,10 +87,12 @@ reference:
 - title: Extend tsibble
   desc: >
     Add **tsibble** support for custom index class with `index_valid()` & `pull_interval()`.
-    Create a subclass of a tsibble with `new_tsibble()`.
+    `build_tsibble()` provides low-level construction for tsibble. Create a 
+    subclass of a tsibble with `new_tsibble()`. 
   contents:
     - index_valid
     - pull_interval
+    - build_tsibble
     - new_tsibble
 
 - title: Coerce to other objects

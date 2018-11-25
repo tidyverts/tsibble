@@ -430,7 +430,7 @@ build_tsibble_meta <- function(
 #' Create a subclass of a tsibble
 #'
 #' @param x A `tbl_ts`, required.
-#' @param ... Attributes passed on to [structure()].
+#' @param ... Name-value pairs defining attributes.
 #' @param class Subclasses to assign to the new object, default: none.
 #'
 #' @export

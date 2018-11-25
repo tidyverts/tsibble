@@ -140,7 +140,7 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># base arithmetic respect tz</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">tsbl1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>, <span class="dt">index =</span> time) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 1 [3h]
+<pre><code>#&gt; # A tsibble: 4 x 1 [3h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             
 #&gt; 1 2015-04-05 01:00:00
@@ -150,7 +150,7 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># lubridate arithmetic doesn't respect tz</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">tsbl2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) , <span class="dt">index =</span> time) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 1 [1h]
+<pre><code>#&gt; # A tsibble: 4 x 1 [1h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             
 #&gt; 1 2015-04-05 01:00:00
@@ -167,7 +167,7 @@
 <a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">station =</span> <span class="st">"A"</span>,</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="dt">index =</span> time, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(station)</a>
 <a class="sourceLine" id="cb10-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 2 [1h]
+<pre><code>#&gt; # A tsibble: 4 x 2 [1h] &lt;UTC&gt;
 #&gt; # Key:       station [1]
 #&gt;   time                station
 #&gt;   &lt;dttm&gt;              &lt;chr&gt;  
@@ -180,7 +180,7 @@
 <a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="dt">station =</span> <span class="st">"B"</span>,</a>
 <a class="sourceLine" id="cb12-4" data-line-number="4">  <span class="dt">index =</span> time, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(station)</a>
 <a class="sourceLine" id="cb12-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 2 [30m]
+<pre><code>#&gt; # A tsibble: 4 x 2 [30m] &lt;UTC&gt;
 #&gt; # Key:       station [1]
 #&gt;   time                station
 #&gt;   &lt;dttm&gt;              &lt;chr&gt;  
@@ -189,7 +189,7 @@
 #&gt; 3 2018-01-01 01:00:00 B      
 #&gt; 4 2018-01-01 01:30:00 B</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(tsbl1, tsbl2)</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 8 x 2 [30m]
+<pre><code>#&gt; # A tsibble: 8 x 2 [30m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station
 #&gt;   &lt;dttm&gt;              &lt;chr&gt;  
@@ -212,7 +212,7 @@
 <a class="sourceLine" id="cb16-4" data-line-number="4">  <span class="dt">station =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb16-5" data-line-number="5">)</a>
 <a class="sourceLine" id="cb16-6" data-line-number="6"><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(tbl, <span class="dt">index =</span> time, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(station))</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 2 [1m]
+<pre><code>#&gt; # A tsibble: 4 x 2 [1m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station
 #&gt;   &lt;dttm&gt;              &lt;chr&gt;  
@@ -220,11 +220,11 @@
 #&gt; 2 2018-01-01 00:15:00 A      
 #&gt; 3 2018-01-01 00:01:00 B      
 #&gt; 4 2018-01-01 00:16:00 B</code></pre>
-<p>Each station shares the same 15-minute interval, but the date-times don’t align. Rounding them is a quick way to fix it, if binning time doesn’t make much difference to the analysis. If it does, please organise them in different tables.</p>
+<p>Each station shares the same 15-minute interval, but the date-times don’t align. Rounding them is a quick way to fix it, if binning time doesn’t matter to the analysis. If it does, please organise them in different tables.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">tbl <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">time =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(time, <span class="dt">unit =</span> <span class="st">"15 mins"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(<span class="dt">index =</span> time, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(station))</a></code></pre></div>
-<pre><code>#&gt; # A tsibble: 4 x 2 [15m]
+<pre><code>#&gt; # A tsibble: 4 x 2 [15m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station
 #&gt;   &lt;dttm&gt;              &lt;chr&gt;  

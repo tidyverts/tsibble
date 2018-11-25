@@ -46,3 +46,12 @@ is_latex_output <- function() {
   if (!("knitr" %in% loadedNamespaces())) return(FALSE)
   get("is_latex_output", asNamespace("knitr"))()
 }
+
+format_tz <- function(x) {
+  tz <- attr(x, "tzone")[[1]]
+  if (is_null(tz) || is.character(tz) && !nzchar(tz)) {
+    "?"
+  } else {
+    tz
+  }
+}

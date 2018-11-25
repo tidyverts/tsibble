@@ -9,7 +9,7 @@ new_tsibble(x, ..., class = NULL)
 \arguments{
 \item{x}{A \code{tbl_ts}, required.}
 
-\item{...}{Attributes passed on to \code{\link[=structure]{structure()}}.}
+\item{...}{Name-value pairs defining attributes.}
 
 \item{class}{Subclasses to assign to the new object, default: none.}
 }

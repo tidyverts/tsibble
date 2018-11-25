@@ -167,7 +167,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-create-coerce-and-append-to-a-tsibble" class="hasAnchor"><a href="#section-create-coerce-and-append-to-a-tsibble" class="anchor"></a>Create/coerce and append to a tsibble</h2>
-          <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>; <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> is the powerhouse of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</p></p>
+          <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>.</p></p>
         </th>
       </tr>
       <tr>
@@ -188,12 +188,6 @@
           <p><code><a href="is-tsibble.html">is_tsibble()</a></code> <code><a href="is-tsibble.html">is_grouped_ts()</a></code> </p>
         </td>
         <td><p>If the object is a tsibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
-        </td>
-        <td><p>Low-level constructor for a tsibble object</p></td>
       </tr><tr>
         
         <td>
@@ -428,7 +422,7 @@ checks if a tsibble is ordered by key and index.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
-          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index class with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/pull-interval.html">pull_interval()</a></code>. Create a subclass of a tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
+          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index class with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/pull-interval.html">pull_interval()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of a tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
         </th>
       </tr>
       <tr>
@@ -443,6 +437,12 @@ checks if a tsibble is ordered by key and index.</p></td>
           <p><code><a href="pull-interval.html">pull_interval()</a></code> </p>
         </td>
         <td><p>Pull time interval from a vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
+        </td>
+        <td><p>Low-level constructor for a tsibble object</p></td>
       </tr><tr>
         
         <td>

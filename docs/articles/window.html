@@ -125,7 +125,7 @@
 <a class="sourceLine" id="cb1-3" data-line-number="3">pedestrian_full &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">pedestrian_full</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 5 [1h]</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span></a>
@@ -144,7 +144,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center-left"</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">  ))</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h]</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h] &lt;Australia/Melbourne&gt;</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; # Groups:    Sensor [4]</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count Daily_MA</span></a>

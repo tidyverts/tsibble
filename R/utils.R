@@ -36,3 +36,12 @@ list_is_named <- function(x) {
   nms <- names(x)
   map_lgl(nms, ~ . != "")
 }
+
+has_tz <- function(x) {
+  tz <- attr(x, "tzone")[[1]]
+  if (is_null(tz) && !inherits(x, "POSIXct")) {
+    FALSE
+  } else {
+    TRUE
+  }
+}
