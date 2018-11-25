@@ -478,7 +478,7 @@ validate_index <- function(data, index) {
     }
   }
   if (anyNA(data[[chr_index]])) {
-    abort(sprintf("Column `%s` (the index) must not contain `NA`.", chr_index))
+    abort(sprintf("Column `%s` (index) must not contain `NA`.", chr_index))
   }
   sym(chr_index)
 }
