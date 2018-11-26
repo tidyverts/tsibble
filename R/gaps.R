@@ -269,8 +269,8 @@ gaps <- function(x, y) {
 }
 
 seq_generator <- function(x, interval = NULL) {
-  min_x <- min0(x)
-  max_x <- max0(x)
+  min_x <- min(x)
+  max_x <- max(x)
   if (is_null(interval)) {
     interval <- pull_interval(x)
   }
@@ -283,7 +283,7 @@ seq_generator <- function(x, interval = NULL) {
   )
   if (!is_null(res)) return(res)
   # no seq.* available
-  tryCatch(
+  res2 <- tryCatch(
     min_x + seq.int(0, as.double(max_x - min_x), tunit),
     error = function(e) {
       e$call <- NULL
@@ -291,4 +291,8 @@ seq_generator <- function(x, interval = NULL) {
       stop(e)
     }
   )
+  if (inherits(x, "hms")) { # workaround for hms
+    res2 <- hms::as.hms(res2)
+  }
+  res2
 }

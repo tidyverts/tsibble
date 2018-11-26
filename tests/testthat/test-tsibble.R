@@ -228,6 +228,7 @@ test_that("Difftime with 1 minute interval", {
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1m")
+  expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
 
 idx_time <- factor(c(1, 3, 5), levels = 1:5, ordered = TRUE)
@@ -238,6 +239,7 @@ test_that("ordered factor with 2 unit interval", {
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "2")
+  expect_identical(fill_gaps(tsbl), tsbl)
 })
 
 context("as_tsibble() with a single key for data of long form")

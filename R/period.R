@@ -512,6 +512,15 @@ seq.yearquarter <- function(
   ))
 }
 
+seq.ordered <- function(from, to, by, ...) {
+  bad_by(by)
+  lvls <- levels(from)
+  idx_from <- which(lvls %in% from)
+  idx_to <- which(lvls %in% to)
+  idx <- seq.int(idx_from, idx_to, by = by)
+  ordered(lvls[idx], levels = lvls)
+}
+
 #' @export
 `[.yearweek` <- function(x, ..., drop = FALSE) {
   yearweek(NextMethod())

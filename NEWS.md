@@ -21,6 +21,7 @@ This release simplifies the "key" structure. The nesting and crossing definition
 * Renamed `fill_na()` to `fill_gaps()`, for more expressive function name and consistency to `has_gaps()` and `count_gaps()`. Soft-deprecated `fill_na()`. (#71)
 * Added `is_duplicated()`, `are_duplicated()` and `duplicates()`.
 * If `POSIXct`, time zone will be displayed in the header via `print()`.
+* Added index support for ordered factors.
 
 ## Bug fixes
 
