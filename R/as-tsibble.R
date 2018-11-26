@@ -492,7 +492,7 @@ duplicated_key_index <- function(data, key, index) {
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   res <- grouped_df(data, vars = key) %>%
     summarise(!! "zzz" := anyDuplicated.default(!! index)) %>% 
-    dplyr::pull(zzz)
+    dplyr::pull(!! "zzz")
   any_not_equal_to_c(res, 0)
 }
 
