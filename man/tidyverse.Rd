@@ -199,7 +199,7 @@ be issued.
 the index variable cannot be dropped for a tsibble. If any key variable
 is changed, it will validate whether it's a tsibble internally. Use \code{as_tibble()}
 to leave off the time context.
-\item \code{unnest()} requires argument \code{key = id()} to get back to a tsibbl.
+\item \code{unnest()} requires argument \code{key = id()} to get back to a tsibble.
 }
 }
 \examples{

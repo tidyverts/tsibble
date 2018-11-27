@@ -12,7 +12,7 @@
 #' the index variable cannot be dropped for a tsibble. If any key variable
 #' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
 #' to leave off the time context.
-#' * `unnest()` requires argument `key = id()` to get back to a tsibbl.
+#' * `unnest()` requires argument `key = id()` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... same arguments accepted as its dplyr generic.

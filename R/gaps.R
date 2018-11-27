@@ -9,7 +9,7 @@ globalVariables(".")
 #' * empty: filled with default `NA`.
 #' * filled by values or functions.
 #'
-#' @family implict gaps handling
+#' @family implicit gaps handling
 #' @seealso [tidyr::fill], [tidyr::replace_na] for handling missing values `NA`.
 #' @rdname fill-gaps
 #' @export
@@ -140,7 +140,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' @param .data A `tbl_ts`.
 #' @param ... Other arguments passed on to individual methods.
 #'
-#' @family implict gaps handling
+#' @family implicit gaps handling
 #' @rdname count-gaps
 #' @export
 #' @return
@@ -193,7 +193,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @inheritParams count_gaps
 #' @export
-#' @family implict gaps handling
+#' @family implicit gaps handling
 #' @rdname has-gaps
 #' @return A tibble contains "key" variables and new column `.gaps` of `TRUE`/`FALSE`.
 #' @examples
