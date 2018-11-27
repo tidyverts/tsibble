@@ -7,7 +7,7 @@
 #' @rdname new-data
 #' @export
 new_data <- function(.data, n = 1L, ...) {
-  if (!is_integerish(n, 1) && n > 0) {
+  if (!is_integerish(n, 1) && any(n > 0)) {
     abort("Argument `n` must be a positive integer.")
   }
 

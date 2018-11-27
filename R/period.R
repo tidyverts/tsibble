@@ -169,7 +169,7 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
 #' is_53weeks(2015:2016)
 is_53weeks <- function(year) {
   if (is_empty(year)) return(FALSE)
-  if (!is_integerish(year) || year < 1) {
+  if (!is_integerish(year) || any(year < 1)) {
     abort("Argument `year` must be positive integers.")
   }
   pre_year <- year - 1
