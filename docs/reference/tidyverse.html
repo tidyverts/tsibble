@@ -497,25 +497,26 @@ either "down" (the default) or "up".</p></td>
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span> X     2009-01-10  0.391
 #&gt; </span><span style='color: #949494;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stock_qtl</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>day3</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span>(<span class='no'>time</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"3 day"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>price</span>)),
     <span class='kw'>qtl</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"0%"</span>, <span class='st'>"25%"</span>, <span class='st'>"50%"</span>, <span class='st'>"75%"</span>, <span class='st'>"100%"</span>))
   )
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>stock_qtl</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>qtl</span>))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 150 x 4 [1D]</span><span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>stock_qtl</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>qtl</span>))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 60 x 4 [3D]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       stock, qtl [15]</span><span>
-#&gt;    stock time        value qtl  
+#&gt;    stock day3        value qtl  
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> X     2009-01-01  0.642 0%   
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> X     2009-01-01  0.642 25%  
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> X     2009-01-01  0.642 50%  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> X     2009-01-01  0.642 75%  
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> X     2009-01-01 -</span><span style='color: #BB0000;'>1.22</span><span>  0%   
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> X     2009-01-01 -</span><span style='color: #BB0000;'>0.817</span><span> 25%  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> X     2009-01-01 -</span><span style='color: #BB0000;'>0.417</span><span> 50%  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> X     2009-01-01  0.112 75%  
 #&gt; </span><span style='color: #BCBCBC;'> 5</span><span> X     2009-01-01  0.642 100% 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> X     2009-01-02 -</span><span style='color: #BB0000;'>0.417</span><span> 0%   
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> X     2009-01-02 -</span><span style='color: #BB0000;'>0.417</span><span> 25%  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> X     2009-01-02 -</span><span style='color: #BB0000;'>0.417</span><span> 50%  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> X     2009-01-02 -</span><span style='color: #BB0000;'>0.417</span><span> 75%  
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> X     2009-01-02 -</span><span style='color: #BB0000;'>0.417</span><span> 100% 
-#&gt; </span><span style='color: #949494;'># … with 140 more rows</span><span></div></span></pre>
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> X     2009-01-04 -</span><span style='color: #BB0000;'>1.09</span><span>  0%   
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> X     2009-01-04 -</span><span style='color: #BB0000;'>0.486</span><span> 25%  
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> X     2009-01-04  0.116 50%  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> X     2009-01-04  1.12  75%  
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> X     2009-01-04  2.13  100% 
+#&gt; </span><span style='color: #949494;'># … with 50 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

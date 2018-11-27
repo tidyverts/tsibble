@@ -134,8 +134,8 @@ unnest.lst_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   key <- use_id(data, !! enquo(key))
-  preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
-  exprs <- enexprs(...)
+  preserve <- tidyselect::vars_select(names(data), !! enquo(.preserve))
+  exprs <- enquos(...)
   if (is_empty(exprs)) {
     list_cols <- names(data)[purrr::map_lgl(data, is_list)]
     list_cols <- setdiff(list_cols, preserve)
@@ -176,6 +176,7 @@ unnest.lst_ts <- function(data, ..., key = id(),
 #' @examples
 #' stock_qtl <- stocksm %>% 
 #'   group_by(stock) %>% 
+#'   index_by(day3 = lubridate::floor_date(time, unit = "3 day")) %>% 
 #'   summarise(
 #'     value = list(quantile(price)), 
 #'     qtl = list(c("0%", "25%", "50%", "75%", "100%"))

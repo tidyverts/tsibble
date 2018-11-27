@@ -236,6 +236,7 @@ nested_stock \%>\%
   unnest(key = id(stock))
 stock_qtl <- stocksm \%>\% 
   group_by(stock) \%>\% 
+  index_by(day3 = lubridate::floor_date(time, unit = "3 day")) \%>\% 
   summarise(
     value = list(quantile(price)), 
     qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
