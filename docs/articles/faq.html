@@ -122,7 +122,7 @@
 #&gt; 2 2018-02-01
 #&gt; 3 2018-03-01
 #&gt; 4 2018-04-01</code></pre>
-<p>The interval depends on time representation. Class <code>yearmonth</code> is the accurate representation for monthly data. It is unclear to to tell if it’s daily data with implicit missingness or it’s monthly data. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc.</p>
+<p>The interval depends on time representation. It is unclear for this case to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">mth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(mth), <span class="dt">index =</span> mth)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1M]
 #&gt;        mth

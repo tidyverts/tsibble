@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter-index.R
 \name{filter_index}
 \alias{filter_index}
-\title{A shorthand for filtering for time index}
+\title{A shorthand for filtering time index for a tsibble}
 \usage{
 filter_index(.data, ...)
 }

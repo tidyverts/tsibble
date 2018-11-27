@@ -1,4 +1,4 @@
-#' A shorthand for filtering for time index
+#' A shorthand for filtering time index for a tsibble
 #'
 #' This shorthand respects time zone and encourages compact expressions.
 #'
