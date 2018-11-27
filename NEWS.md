@@ -1,3 +1,5 @@
+# tsibble 0.6.0.9000
+
 # tsibble 0.6.0
 
 This release simplifies the "key" structure. The nesting and crossing definition has been removed from the "key" specification. One or more variables forming the "key", are required to identify observational units over time, but no longer assume the relationship between these variables. The nesting and crossing structure will be dealt with visualisation and forecasting reconciliation in downstream packages.
