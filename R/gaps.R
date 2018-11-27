@@ -113,14 +113,14 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
       anti_join(.data, by = c(key_vars(.data), idx_chr))
     by_name <- intersect(names(filled_data), names(replaced_df))
 
-    if (NROW(replaced_df) > NROW(filled_data)) {
+    if (is_empty(by_name)) { # by value
+      filled_data <- filled_data %>%
+        mutate(!!! replaced_df)
+    } else if (NROW(replaced_df) > NROW(filled_data)) {
       abort(sprintf(
         "Replacement has length %s, not 1 or %s.", 
         NROW(replaced_df), NROW(filled_data)
       ))
-    } else if (is_empty(by_name)) { # by value
-      filled_data <- filled_data %>% 
-        mutate(!!! replaced_df)
     } else { # by function
       filled_data <- filled_data %>% 
         left_join(replaced_df, by = by_name)

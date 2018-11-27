@@ -26,7 +26,7 @@ test_that("an irregular tbl_ts", {
 
 test_that("a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
-  expect_identical(fill_gaps(tsbl), tsbl)
+  expect_identical(fill_gaps(tsbl, value = 0), tsbl)
   ref_tbl <- tibble(.from = NA, .to = NA, .n = 0L)
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
