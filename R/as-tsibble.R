@@ -211,8 +211,11 @@ index2_var <- function(x) {
   as_string(index2(x))
 }
 
-#' `is_regular` checks if a tsibble is spaced at regular time or not; `is_ordered`
-#' checks if a tsibble is ordered by key and index.
+#' Meta-information of a tsibble
+#'
+#' * `interval()` returns an interval of a tsibble.
+#' * `is_regular` checks if a tsibble is spaced at regular time or not.
+#' * `is_ordered` checks if a tsibble is ordered by key and index.
 #'
 #' @param x A tsibble object.
 #' @rdname regular

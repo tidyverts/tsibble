@@ -4,8 +4,7 @@
 \alias{interval}
 \alias{is_regular}
 \alias{is_ordered}
-\title{\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
-checks if a tsibble is ordered by key and index.}
+\title{Meta-information of a tsibble}
 \usage{
 interval(x)
 
@@ -17,8 +16,11 @@ is_ordered(x)
 \item{x}{A tsibble object.}
 }
 \description{
-\code{is_regular} checks if a tsibble is spaced at regular time or not; \code{is_ordered}
-checks if a tsibble is ordered by key and index.
+\itemize{
+\item \code{interval()} returns an interval of a tsibble.
+\item \code{is_regular} checks if a tsibble is spaced at regular time or not.
+\item \code{is_ordered} checks if a tsibble is ordered by key and index.
+}
 }
 \examples{
 interval(pedestrian)
