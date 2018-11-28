@@ -78,18 +78,15 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   keyed_tbl <- grped_df_by_key(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
-    ref_data <- keyed_tbl %>% 
-      summarise(!! idx_chr := list2(!! idx_chr := idx_full)) %>% 
-      tidyr::unnest(!! idx) %>% 
-      ungroup()
+    sum_data <- keyed_tbl %>% 
+      summarise(keyed_tbl, !! idx_chr := list2(!! idx_chr := idx_full))
   } else {
-    ref_data <- keyed_tbl %>% 
+    sum_data <- keyed_tbl %>% 
       summarise(
         !! idx_chr := list2(!! idx_chr := seq_generator(!! idx, int))
-      ) %>% 
-      unnest(!! idx) %>% 
-      ungroup()
+      )
   }
+  ref_data <- ungroup(unnest(sum_data, !! idx))
 
   lst_exprs <- enquos(..., .named = TRUE)
   if (NROW(ref_data) == NROW(.data)) {
