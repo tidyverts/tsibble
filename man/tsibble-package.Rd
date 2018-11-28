@@ -60,7 +60,7 @@ An interval is obtained based on the corresponding index representation:
 \itemize{
 \item integer/numeric: either "unit" or "year"
 \item \code{yearquarter}/\code{yearqtr}: "quarter"
-\item \code{yearmonth}/\code{yearmth}: "month"
+\item \code{yearmonth}/\code{yearmon}: "month"
 \item \code{yearweek}: "week"
 \item \code{Date}: "day"
 \item \code{POSIXct}: "hour", "minute", "second", "millisecond", "microsecond"

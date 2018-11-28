@@ -47,7 +47,7 @@ An interval is automatically obtained based on the corresponding time representa
 
 * `integer`/`numeric`: either "unit" or "year" (`Y`)
 * `yearquarter`/`yearqtr`: "quarter" (`Q`)
-* `yearmonth`/`yearmth`: "month" (`M`)
+* `yearmonth`/`yearmon`: "month" (`M`)
 * `yearweek`: "week" (`W`)
 * `Date`: "day" (`D`)
 * `POSIXct`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)

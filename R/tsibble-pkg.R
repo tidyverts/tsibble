@@ -45,7 +45,7 @@
 #' An interval is obtained based on the corresponding index representation:
 #' * integer/numeric: either "unit" or "year"
 #' * `yearquarter`/`yearqtr`: "quarter"
-#' * `yearmonth`/`yearmth`: "month"
+#' * `yearmonth`/`yearmon`: "month"
 #' * `yearweek`: "week"
 #' * `Date`: "day"
 #' * `POSIXct`: "hour", "minute", "second", "millisecond", "microsecond"
