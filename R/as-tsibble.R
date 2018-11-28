@@ -2,8 +2,8 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Variable(s) that define unique time indices, used in conjunction 
-#' with the helper [id()]. If a univariate time series (without an explicit key), 
+#' @param key Variable(s) that define unique time indices, used in conjunction
+#' with the helper [id()]. If a univariate time series (without an explicit key),
 #' simply call `id()`.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
@@ -51,7 +51,7 @@ tsibble <- function(..., key = id(), index, regular = TRUE) {
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
 #' @param validate `TRUE` suggests to verify that each key or each combination
-#' of key variables leads to unique time indices (i.e. a valid tsibble). If you 
+#' of key variables leads to unique time indices (i.e. a valid tsibble). If you
 #' are sure that it's a valid input, specify `FALSE` to skip the checks.
 #' @param ... Other arguments passed on to individual methods.
 #'
@@ -424,7 +424,7 @@ build_tsibble_meta <- function(
   }
   tbl <- update_tsibble_attrs(
     tbl, "key" = key, "index" = index, "index2" = index2,
-    "interval" = structure(interval, class = "interval"), 
+    "interval" = structure(interval, class = "interval"),
     "regular" = regular, "ordered" = ordered
   )
   set_grped_tsibble_class(tbl)
@@ -494,7 +494,7 @@ duplicated_key_index <- function(data, key, index) {
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   res <- grouped_df(data, vars = key) %>%
-    summarise(!! "zzz" := anyDuplicated.default(!! index)) %>% 
+    summarise(!! "zzz" := anyDuplicated.default(!! index)) %>%
     dplyr::pull(!! "zzz")
   any_not_equal_to_c(res, 0)
 }
@@ -648,9 +648,9 @@ duplicates <- function(data, key = id(), index) {
 
   grouped_df(data, vars = key) %>%
     filter(
-      duplicated.default(!! index) | 
+      duplicated.default(!! index) |
       duplicated.default(!! index, fromLast = TRUE)
-    ) %>% 
+    ) %>%
     ungroup()
 }
 

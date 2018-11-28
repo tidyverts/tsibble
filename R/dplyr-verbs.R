@@ -22,7 +22,7 @@
 #' @rdname tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  exprs <- enexprs(...)
+  exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! exprs)
 
@@ -33,7 +33,7 @@ arrange.tbl_ts <- function(.data, ...) {
 #' @rdname tidyverse
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
-  exprs <- enexprs(...)
+  exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! exprs, .by_group = .by_group)
 
@@ -42,12 +42,12 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
 }
 
 ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
-  vars <- exprs <- enexprs(...)
+  vars <- exprs <- enquos(...)
   if (.by_group) {
     grps <- groups(.data)
-    vars <- exprs <- c(grps, vars)
+    vars <- exprs <- c(as_quosures(grps, env = caller_env()), vars)
   }
-  call_pos <- map_lgl(exprs, is_call)
+  call_pos <- map_lgl(exprs, quo_is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
   val_vars <- tidyselect::vars_select(names(.data), !!! vars)
   idx <- index_var(.data)
@@ -58,14 +58,14 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
     mvars <- measured_vars(.data)
     # if there's any measured variable in the ..., the time order will change.
     !any(mvars %in% val_vars)
-  } else if (is_call(idx_is_call)) { # desc(index)
+  } else if (quo_is_call(idx_is_call)) { # desc(index)
     fn <- call_name(idx_is_call)
     fn != "desc"
   } else {
     exp_vars <- c(key, idx)
     exp_idx <- which(val_vars %in% exp_vars)
-    n_keys(.data) < 2 || 
-      all(exp_idx == seq_along(exp_idx)) && 
+    n_keys(.data) < 2 ||
+      all(exp_idx == seq_along(exp_idx)) &&
       has_length(exp_idx, length(exp_vars)) &&
       is_false(idx_pos[1])
   }
@@ -99,7 +99,7 @@ row_validate <- function(x) {
 }
 
 #' @param .drop Deprecated, please use `as_tibble()` for `.drop = TRUE` instead.
-#' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and 
+#' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and
 #' returns a tibble.
 #'
 #' @rdname tidyverse
@@ -116,7 +116,7 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
   rm_index <- sym(paste0("-", idx_chr))
   if (any(map_lgl(lst_exprs, function(x) x == rm_index))) {
     abort(sprintf(
-      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
+      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?",
       idx_chr
     ))
   }
@@ -145,7 +145,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
     abort(sprintf(
-      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?", 
+      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?",
       idx_chr
     ))
   }
@@ -195,7 +195,7 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #'   summarise(Total = sum(Count))
 #' # Back to tibble
 #' pedestrian %>%
-#'   as_tibble() %>% 
+#'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
 summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   if (.drop) {
@@ -217,7 +217,7 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   grps <- groups(grped_data)
   len_grps <- length(grps)
   sum_data <- grped_data %>%
-    summarise(!!! nonkey_quos) %>% 
+    summarise(!!! nonkey_quos) %>%
     group_by(!!! grps[-((len_grps - 1):len_grps)]) # remove index2 and last grp
   if (identical(idx, idx2)) {
     int <- interval(.data)
@@ -246,7 +246,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(
     grped_tbl, key = key(.data), index = !! index(.data),
-    index2 = !! index2(.data), regular = is_regular(.data), 
+    index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data)
   )
 }
@@ -268,7 +268,7 @@ group_by_key <- function(.data, ...) {
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
-    tbl, key = key(x), index = !! index(x), regular = is_regular(x), 
+    tbl, key = key(x), index = !! index(x), regular = is_regular(x),
     ordered = is_ordered(x), interval = interval(x)
   )
 }
