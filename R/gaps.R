@@ -79,7 +79,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     sum_data <- keyed_tbl %>% 
-      summarise(keyed_tbl, !! idx_chr := list2(!! idx_chr := idx_full))
+      summarise(!! idx_chr := list2(!! idx_chr := idx_full))
   } else {
     sum_data <- keyed_tbl %>% 
       summarise(
