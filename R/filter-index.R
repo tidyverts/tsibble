@@ -129,7 +129,6 @@ time_in.yearqtr <- time_in.POSIXct
 time_in.numeric <- time_in.POSIXct
 
 #' @importFrom stats start end
-#' @importFrom lubridate tz<-
 start.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
@@ -175,7 +174,7 @@ start.Date <- function(x, y = NULL, ...) {
     abort_not_chr(y, class = "Date")
     anytime::assertDate(y)
     y <- anytime::utcdate(y, tz = "UTC")
-    tz(y) <- lubridate::tz(x)
+    attr(y, "tzone") <- NULL
     y
   }
 }
@@ -190,7 +189,7 @@ end.Date <- function(x, y = NULL, ...) {
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- anytime::utcdate(y, tz = "UTC")
-    tz(y) <- lubridate::tz(x)
+    attr(y, "tzone") <- NULL
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
         y[lgl_yrmth] + lubridate::period(1, "month"), 
@@ -213,8 +212,7 @@ start.POSIXct <- function(x, y = NULL, ...) {
     abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
     y <- anytime::utctime(y, tz = "UTC")
-    tz(y) <- lubridate::tz(x)
-    y
+    lubridate::force_tz(y, lubridate::tz(x), roll = TRUE)
   }
 }
 
@@ -229,7 +227,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- anytime::utctime(y, tz = "UTC")
-    tz(y) <- lubridate::tz(x)
+    y <- lubridate::force_tz(y, lubridate::tz(x), roll = TRUE)
     if (any(lgl_date)) {
       y[lgl_date] <- y[lgl_date] + lubridate::period(1, "day")
     }

@@ -422,12 +422,8 @@ yearquarter.numeric <- function(x) {
 yearquarter.yearqtr <- yearquarter.numeric
 
 #' @importFrom lubridate as_date
-#' @importFrom lubridate tz
-#' @importFrom lubridate tz<-
 as_date.yearquarter <- function(x, ...) {
-  tz_x <- tz(x)
   class(x) <- "Date"
-  tz(x) <- tz_x
   x
 }
 
