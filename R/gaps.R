@@ -91,8 +91,15 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
       ungroup()
   }
 
-  cn <- names(.data)
   lst_exprs <- enquos(..., .named = TRUE)
+  if (NROW(ref_data) == NROW(.data)) {
+    if (!is_empty(lst_exprs)) {
+      warn("`.data` is a complete tsibble. Values passed to `...` are ignored.")
+    }
+    return(.data)
+  }
+
+  cn <- names(.data)
   if (is_empty(lst_exprs)) { # no replacement
     ord <- TRUE
     full_data <- ref_data %>% 
