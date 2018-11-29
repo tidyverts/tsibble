@@ -10,8 +10,6 @@
 #' Supported index type: `POSIXct` (to seconds), `Date`, `yearweek`, `yearmonth`/`yearmon`,
 #' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
 #'
-#' @details
-#' NOTE: there might be time zone issues specific to some OSs, e.g. Fedora.
 #' @seealso [time_in] for a vector of time index
 #' @export
 #' @examples

@@ -21,9 +21,6 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 \description{
 This shorthand respects time zone and encourages compact expressions.
 }
-\details{
-NOTE: there might be time zone issues specific to some OSs, e.g. Fedora.
-}
 \examples{
 # from the starting time to the end of Feb, 2015
 pedestrian \%>\%
