@@ -208,7 +208,7 @@ pedestrian \%>\%
   summarise(Total = sum(Count))
 # Back to tibble
 pedestrian \%>\%
-  as_tibble() \%>\% 
+  as_tibble() \%>\%
   summarise(Total = sum(Count))
 # example from tidyr
 stocks <- tsibble(
