@@ -137,6 +137,11 @@ guess_frequency <- function(x) {
 }
 
 #' @export
+guess_frequency.numeric <- function(x) {
+  sum(squash_dbl(y))
+}
+
+#' @export
 guess_frequency.yearweek <- function(x) {
   52 / pull_interval(x)$month
 }
@@ -147,9 +152,15 @@ guess_frequency.yearmonth <- function(x) {
 }
 
 #' @export
+guess_frequency.yearmon <- guess_frequency.yearmonth
+
+#' @export
 guess_frequency.yearquarter <- function(x) {
   4 / pull_interval(x)$quarter
 }
+
+#' @export
+guess_frequency.yearqtr <- guess_frequency.yearquarter
 
 #' @export
 guess_frequency.Date <- function(x) {
