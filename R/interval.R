@@ -26,6 +26,11 @@ pull_interval <- function(x) {
 }
 
 #' @export
+pull_interval.default <- function(x) {
+  init_interval()
+}
+
+#' @export
 # Assume date is regularly spaced
 pull_interval.POSIXt <- function(x) {
   fmt6 <- substring(format(x[1], "%OS6"), first = 4)
@@ -93,7 +98,7 @@ pull_interval.yearmonth <- function(x) {
 }
 
 #' @export
-pull_interval.yearmth <- function(x) {
+pull_interval.yearmon <- function(x) {
   pull_interval(yearmonth(x))
 }
 
@@ -112,7 +117,7 @@ pull_interval.yearqtr <- function(x) {
 #' @export
 pull_interval.numeric <- function(x) {
   nunits <- gcd_interval(x)
-  # "place our origin at 1582 if we are historically in- clined or at 1900 if 
+  # "place our origin at 1582 if we are historically inclined or at 1900 if 
   # we are more financially motivated." (p98, the grammar of graphics v2)
   if (min0(x) > 1581 && max0(x) < 2500) {
     init_interval(year = nunits)
@@ -123,7 +128,7 @@ pull_interval.numeric <- function(x) {
 
 #' @export
 pull_interval.ordered <- function(x) {
-  pull_interval.numeric(as.integer(x))
+  pull_interval(as.integer(x))
 }
 
 #' @export
