@@ -219,7 +219,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
     anytime::assertTime(y)
     
     lgl_date <- nchar(y) > 7 & nchar(y) < 11
-    lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
+    lgl_yrmth <- nchar(y) < 9 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- anytime::utctime(y, tz = "UTC")
     y <- lubridate::force_tz(y, lubridate::tz(x), roll = TRUE)

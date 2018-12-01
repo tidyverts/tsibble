@@ -83,6 +83,12 @@ test_that("filter_index()", {
   )
   expect_identical(
     pedestrian %>%
+      filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
+    pedestrian %>%
+      filter_index(~ "2015-Feb", "2015-Aug" ~ "2015-Sep", "2015-Dec" ~ .)
+  )
+  expect_identical(
+    pedestrian %>%
       filter_index("2015-03-23 10" ~ "2015-10-31 12"),
     pedestrian %>%
       filter(
