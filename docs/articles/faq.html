@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.9000</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
 #&gt; 2 2018-02-01
 #&gt; 3 2018-03-01
 #&gt; 4 2018-04-01</code></pre>
-<p>The interval depends on time representation. It is unclear for this case to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc.</p>
+<p>The interval depends on time representation. It is unclear for this case to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">mth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(mth), <span class="dt">index =</span> mth)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1M]
 #&gt;        mth
@@ -138,8 +138,7 @@
 <p>Yes, tsibble respects time zones throughout the package. All index functions including <code><a href="../reference/period.html">yearweek()</a></code>, <code><a href="../reference/period.html">yearmonth()</a></code>, <code><a href="../reference/period.html">yearquarter()</a></code>, and <code><a href="../reference/time_in.html">time_in()</a></code> take care of time zones, and will NOT convert to “UTC”. The interval obtained from the data also respects the time zone, by converting to seconds. The following example demonstrates how tsibble handles daylight savings.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_h</a></span>(<span class="st">"2015-04-05 01"</span>, <span class="dt">tz =</span> <span class="st">"Australia/Melbourne"</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># base arithmetic respect tz</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">tsbl1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>, <span class="dt">index =</span> time) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>, <span class="dt">index =</span> time)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [3h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             
@@ -148,8 +147,7 @@
 #&gt; 3 2015-04-05 06:00:00
 #&gt; 4 2015-04-05 09:00:00</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># lubridate arithmetic doesn't respect tz</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">tsbl2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) , <span class="dt">index =</span> time) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">time =</span> x <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)) , <span class="dt">index =</span> time)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             

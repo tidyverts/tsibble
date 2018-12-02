@@ -44,11 +44,9 @@ Yes, tsibble respects time zones throughout the package. All index functions inc
 ```{r}
 x <- ymd_h("2015-04-05 01", tz = "Australia/Melbourne")
 # base arithmetic respect tz
-tsbl1 <- tsibble(time = x + (c(0, 3, 6, 9)) * 60 * 60, index = time) %>% 
-  print()
+tsibble(time = x + (c(0, 3, 6, 9)) * 60 * 60, index = time)
 # lubridate arithmetic doesn't respect tz
-tsbl2 <- tsibble(time = x + hours(c(0, 3, 6, 9)) , index = time) %>% 
-  print()
+tsibble(time = x + hours(c(0, 3, 6, 9)) , index = time)
 ```
 
 I would say both are correct. The displayed interval may suggest the actual time is different from what you think it is.

@@ -45,8 +45,8 @@ reference:
     - has_gaps
     - count_gaps
     - fill_gaps
-    - filter_index
     - index_by
+    - filter_index
     - group_by_key
 
 - title: A family of window functions
