@@ -138,7 +138,7 @@ guess_frequency <- function(x) {
 
 #' @export
 guess_frequency.numeric <- function(x) {
-  sum(squash_dbl(y))
+  gcd_interval(x)
 }
 
 #' @export

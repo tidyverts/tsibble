@@ -12,5 +12,4 @@
 
 I have run R CMD check on the 3 downstream dependencies. 
 
-* The `nullabor` & `tsbox` packages that I could install passed the checks.
-* One unit test failed in the **sugrrants** package. As the maintainer of **sugrrants**, it will be on CRAN, following **tsibble**.
+* All packages that I could install passed the checks.
