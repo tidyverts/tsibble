@@ -52,10 +52,10 @@
   if (!missing(j)) {
     chr_j <- tidyselect::vars_select(names(x), j)
     lgl_j <- has_index(chr_j, x) && (n_keys(x) < 2 || has_any_key(chr_j, x))
-    if (is_false(lgl_j)) {
-      return(NextMethod())
-    }
     result <- .subset(x, j)
+    if (is_false(lgl_j)) {
+      return(as_tibble(result))
+    }
     x <- remove_key(x, chr_j)
   } else {
     result <- x
@@ -64,10 +64,10 @@
   ordered <- is_ordered(x)
   if (!missing(i)) {
     # ordered <- row_validate(i)
-    if (any(i > NROW(x))) {
-      return(as_tibble(NextMethod()))
-    }
     result <- purrr::map(result, `[`, i)
+    if (any(i > NROW(x))) {
+      return(as_tibble(result))
+    }
     nr <- length(result[[1]])
   }
 
