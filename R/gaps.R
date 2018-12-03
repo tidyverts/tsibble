@@ -183,11 +183,11 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     out <- grped_tbl %>% 
-      summarise(gaps = list(gaps(!! idx, idx_full))) %>% 
+      summarise(gaps = list2(gaps(!! idx, idx_full))) %>% 
       unnest(gaps)
   } else {
     out <- grped_tbl %>% 
-      summarise(gaps = list(gaps(!! idx, seq_generator(!! idx, int)))) %>% 
+      summarise(gaps = list2(gaps(!! idx, seq_generator(!! idx, int)))) %>% 
       unnest(gaps)
   }
   tibble(!!! out)
@@ -244,6 +244,9 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' @examples
 #' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 gaps <- function(x, y) {
+  if (is_empty(x) && is_empty(y)) {
+    return(tibble(.from = x, .to = y, .n = integer()))
+  }
   len_x <- length(x)
   len_y <- length(y)
   if (len_y < len_x) {
@@ -255,8 +258,8 @@ gaps <- function(x, y) {
   }
   gap_vec <- logical(length = len_y)
   gap_vec[-match(x, y)] <- TRUE
-  gap_rle <- rle_lgl(gap_vec)
-  lgl_rle <- gap_rle$values
+  gap_rle <- rle(gap_vec)
+  lgl_rle <- as.logical(gap_rle$values)
   gap_idx <- gap_rle$lengths
   to <- cumsum(gap_idx)
   from <- c(1, to[-length(to)] + 1)
@@ -273,6 +276,8 @@ gaps <- function(x, y) {
 }
 
 seq_generator <- function(x, interval = NULL) {
+  if (is_empty(x)) return(x)
+
   min_x <- min(x)
   max_x <- max(x)
   if (is_null(interval)) {
