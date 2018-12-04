@@ -37,9 +37,8 @@
 #' pedestrian %>% 
 #'   filter_index("2015-03-23 10" ~ "2015-10-31 12")
 filter_index <- function(.data, ...) {
-  index <- eval_tidy(index(.data), data = .data)
-  lgl <- time_in(index, ...)
-  filter(.data, lgl)
+  idx <- index(.data)
+  filter(.data, time_in(!! idx, ...))
 }
 
 #' If time falls in the ranges using compact expressions

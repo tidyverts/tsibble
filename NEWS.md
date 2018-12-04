@@ -2,6 +2,7 @@
 
 * Fixed check errors on Fedora.
 * If `.data` is a complete tsibble, `fill_gaps()` gives a warning instead of an error when name-value pairs are supplied.
+* `filter_index()` works for a grouped tsibble.
 
 # tsibble 0.6.0
 
