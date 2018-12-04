@@ -390,7 +390,7 @@ build_tsibble_meta <- function(
 
   if (is_false(regular)) {
     interval <- irregular()
-  } else if (regular && is.null(interval)) {
+  } else if (regular && is_null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
     interval <- pull_interval(eval_idx)
   } else if (is_false(inherits(interval, "interval"))) {
@@ -424,8 +424,7 @@ build_tsibble_meta <- function(
   }
   tbl <- update_tsibble_attrs(
     tbl, "key" = key, "index" = index, "index2" = index2,
-    "interval" = structure(interval, class = "interval"),
-    "regular" = regular, "ordered" = ordered
+    "interval" = interval, "regular" = regular, "ordered" = ordered
   )
   set_grped_tsibble_class(tbl)
 }
