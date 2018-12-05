@@ -1,4 +1,4 @@
-# tsibble 0.6.0.9000
+# tsibble 0.6.1
 
 * Fixed check errors on Fedora.
 * If `.data` is a complete tsibble, `fill_gaps()` gives a warning instead of an error when name-value pairs are supplied.
