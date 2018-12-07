@@ -1,5 +1,9 @@
 # tsibble 0.6.1.9000
 
+## Bug fixes
+
+* Regression bug (since tsibble v0.6.0) for subsetting tsibble using `[.tbl_ts`. (#76)
+
 # tsibble 0.6.1
 
 * Fixed check errors on Fedora.

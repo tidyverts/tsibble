@@ -32,7 +32,7 @@
       result <- .subset(x, i)
       x <- remove_key(x, i)
       if (is_false(lgl_i)) {
-        return(as_tibble(result))
+        return(as_tibble(NextMethod()))
       } else {
         return(build_tsibble_meta(
           result, key = key(x), index = !! index(x), index2 = !! index2(x),
@@ -54,7 +54,7 @@
     lgl_j <- has_index(chr_j, x) && (n_keys(x) < 2 || has_any_key(chr_j, x))
     result <- .subset(x, j)
     if (is_false(lgl_j)) {
-      return(as_tibble(result))
+      return(as_tibble(NextMethod()))
     }
     x <- remove_key(x, chr_j)
   } else {
@@ -66,7 +66,7 @@
     # ordered <- row_validate(i)
     result <- purrr::map(result, `[`, i)
     if (any(i > NROW(x))) {
-      return(as_tibble(result))
+      return(as_tibble(NextMethod()))
     }
     nr <- length(result[[1]])
   }

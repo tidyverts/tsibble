@@ -23,6 +23,8 @@ test_that("if it's a tibble", {
   expect_is(tsbl[, "date"], "tbl_df")
   expect_is(tsbl[, "date"], "tbl_df")
   expect_is(tsbl[1, "group"], "tbl_df")
+  expect_equal(NROW(tsbl[1, "group"]), 1)
+  expect_equal(NROW(tsbl[1:11, "group"]), 11)
   expect_is(tsbl[1, c("group", "date")], "tbl_ts")
   expect_is(tsbl[, 1], "tbl_df")
   expect_is(tsbl[, 2], "tbl_df")
