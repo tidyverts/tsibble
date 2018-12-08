@@ -4,6 +4,10 @@
 
 * Regression bug (since tsibble v0.6.0) for subsetting tsibble using `[.tbl_ts`. (#76)
 
+## Misc
+
+* Defunct `split_by()` and `case_na()`.
+
 # tsibble 0.6.1
 
 * Fixed check errors on Fedora.
