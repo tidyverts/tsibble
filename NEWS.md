@@ -7,6 +7,7 @@
 ## Bug fixes
 
 * Regression bug (since tsibble v0.6.0) for subsetting tsibble using `[.tbl_ts`. (#76)
+* Issue a warning when a system time zone is "Europe/London" for `time_in()` and `filter_index()`.
 
 ## Misc
 

@@ -3,7 +3,7 @@
 \name{scan_gaps}
 \alias{scan_gaps}
 \alias{scan_gaps.tbl_ts}
-\title{Scan implicit gaps}
+\title{Scan a tsibble for implicit missing observations}
 \usage{
 scan_gaps(.data, ...)
 
@@ -18,7 +18,7 @@ scan_gaps(.data, ...)
 to find gaps over the entire time span of the data.}
 }
 \description{
-Scan implicit gaps
+Scan a tsibble for implicit missing observations
 }
 \examples{
 scan_gaps(pedestrian)

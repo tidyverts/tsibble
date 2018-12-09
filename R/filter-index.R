@@ -16,8 +16,8 @@
 #' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()` 
 #' to check if the system time zone is "Europe/London". I would recommend to
 #' change the global environment "TZ" to other equivalent names: GB, GB-Eire, 
-#' Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey, using
-#' `Sys.setenv(TZ)` before running `filter_index()` and `time_in()`.
+#' Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey as
+#' documented in `?Sys.timezone()`, using `Sys.setenv(TZ)`.
 #'
 #' @seealso [time_in] for a vector of time index
 #' @export

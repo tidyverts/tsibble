@@ -80,7 +80,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   }
 
   cn <- names(.data)
-  if (!is_empty(lst_exprs)) { # no replacement
+  if (!is_empty(lst_exprs)) { # any replacement
     tidyselect::vars_select(cn, !!! names(lst_exprs)) # error handling
     replaced_df <- as_grouped_df(.data) %>% 
       summarise(!!! lst_exprs) %>% 
@@ -105,7 +105,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   update_tsibble(full_data, .data, ordered = NULL, interval = interval(.data))
 }
 
-#' Scan implicit gaps
+#' Scan a tsibble for implicit missing observations
 #'
 #' @inheritParams count_gaps
 #' @family implicit gaps handling
