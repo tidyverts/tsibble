@@ -68,7 +68,7 @@ test_that("a tbl_ts of 4 day interval with value replacement", {
 })
 
 test_that("a tbl_ts of 4 day interval with bad names", {
-  expect_error(fill_gaps(tsbl, value1 = value), "Can't find column")
+  expect_error(fill_gaps(tsbl, value1 = value), "Unknown column")
 })
 
 test_that("a tbl_ts of 4 day interval with function replacement", {

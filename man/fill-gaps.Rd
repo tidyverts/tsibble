@@ -72,6 +72,6 @@ pedestrian \%>\%
 \link[tidyr:fill]{tidyr::fill}, \link[tidyr:replace_na]{tidyr::replace_na} for handling missing values \code{NA}.
 
 Other implicit gaps handling: \code{\link{count_gaps}},
-  \code{\link{has_gaps}}
+  \code{\link{has_gaps}}, \code{\link{scan_gaps}}
 }
 \concept{implicit gaps handling}

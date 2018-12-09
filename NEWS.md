@@ -1,5 +1,9 @@
 # tsibble 0.6.1.9000
 
+## New features
+
+* `scan_gaps()` joins the family of implicit missing values handlers.
+
 ## Bug fixes
 
 * Regression bug (since tsibble v0.6.0) for subsetting tsibble using `[.tbl_ts`. (#76)
@@ -8,6 +12,7 @@
 
 * Defunct `split_by()` and `case_na()`.
 * Deprecated `find_duplicates()`.
+* Continue with soft-deprecation of `fill_na()`.
 
 # tsibble 0.6.1
 

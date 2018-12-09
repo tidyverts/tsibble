@@ -37,12 +37,13 @@ reference:
 - title: Time-based verbs
   desc: >
     Verbs that manipulate data in time-based context. Inspect implicit time
-    gaps with `has_gaps()`, `count_gaps()` and `fill_gaps()`. `filter_index()` is a
-    shorthand for filtering time index. `index_by()` and `group_by_key()`
-    create a grouped tsibble, or `grouped_ts`, but how the data looks remains
-    unchanged. Both requires to work with other `tidyverse` verbs.
+    gaps with `has_gaps()`, `scan_gaps()`, `count_gaps()` and `fill_gaps()`. 
+    `filter_index()` is a shorthand for filtering time index. `index_by()` and 
+    `group_by_key()` create a grouped tsibble, or `grouped_ts`, but how the data 
+    looks remains unchanged. Both requires to work with other `tidyverse` verbs.
   contents:
     - has_gaps
+    - scan_gaps
     - count_gaps
     - fill_gaps
     - index_by

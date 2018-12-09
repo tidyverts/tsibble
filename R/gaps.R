@@ -70,6 +70,56 @@ fill_gaps.data.frame <- function(.data, ...) {
 #'   fill_gaps(Count = as.integer(median(Count)))
 #' @export
 fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
+  gap_data <- scan_gaps(.data, .full = .full)
+  lst_exprs <- enquos(..., .named = TRUE)
+  if (NROW(gap_data) == 0) {
+    if (!is_empty(lst_exprs)) {
+      warn("`.data` is a complete tsibble. Values passed to `...` are ignored.")
+    }
+    return(.data)
+  }
+
+  cn <- names(.data)
+  if (!is_empty(lst_exprs)) { # no replacement
+    tidyselect::vars_select(cn, !!! names(lst_exprs)) # error handling
+    replaced_df <- as_grouped_df(.data) %>% 
+      summarise(!!! lst_exprs) %>% 
+      ungroup()
+    by_name <- intersect(names(gap_data), names(replaced_df))
+
+    if (NROW(replaced_df) > NROW(gap_data)) {
+      abort(sprintf(
+        "Replacement has length %s, not 1 or %s.", 
+        NROW(replaced_df), NROW(gap_data)
+      ))
+    } else if (is_empty(by_name)) { # by value
+      gap_data <- mutate(gap_data, !!! replaced_df)
+    } else { # by function
+      gap_data <- left_join(gap_data, replaced_df, by = by_name)
+    }
+  }
+  full_data <- dplyr::bind_rows(as_tibble(gap_data), .data)
+  if (!identical(cn, names(full_data))) {
+    full_data <- select(full_data, !!! syms(cn)) # keep the original order
+  }
+  update_tsibble(full_data, .data, ordered = NULL, interval = interval(.data))
+}
+
+#' Scan implicit gaps
+#'
+#' @inheritParams count_gaps
+#' @family implicit gaps handling
+#' @rdname scan-gaps
+#' @export
+scan_gaps <- function(.data, ...) {
+  UseMethod("scan_gaps")
+}
+
+#' @rdname scan-gaps
+#' @export
+#' @examples
+#' scan_gaps(pedestrian)
+scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
@@ -87,56 +137,12 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
       )
   }
   ref_data <- ungroup(unnest(sum_data, !! idx))
-
-  lst_exprs <- enquos(..., .named = TRUE)
   if (NROW(ref_data) == NROW(.data)) {
-    if (!is_empty(lst_exprs)) {
-      warn("`.data` is a complete tsibble. Values passed to `...` are ignored.")
-    }
-    return(.data)
+    return(.data[0L, c(key_vars(.data), idx_chr)])
   }
 
-  cn <- names(.data)
-  if (is_empty(lst_exprs)) { # no replacement
-    ord <- TRUE
-    full_data <- ref_data %>% 
-      left_join(.data, by = c(key_vars(.data), idx_chr))
-  } else {
-    lhs <- names(lst_exprs)
-    check_names <- lhs %in% cn
-    if (is_false(all(check_names))) {
-      bad_names <- paste_comma(lhs[which(!check_names)])
-      abort(sprintf("Can't find column `%s` in `.data`.", bad_names))
-    }
-
-    ord <- NULL
-    replaced_df <- as_grouped_df(.data) %>% 
-      summarise(!!! lst_exprs) %>% 
-      ungroup()
-    filled_data <- ref_data %>% 
-      anti_join(.data, by = c(key_vars(.data), idx_chr))
-    by_name <- intersect(names(filled_data), names(replaced_df))
-
-    if (NROW(replaced_df) > NROW(filled_data)) {
-      abort(sprintf(
-        "Replacement has length %s, not 1 or %s.", 
-        NROW(replaced_df), NROW(filled_data)
-      ))
-    } else if (is_empty(by_name)) { # by value
-      filled_data <- filled_data %>% 
-        mutate(!!! replaced_df)
-    } else { # by function
-      filled_data <- filled_data %>% 
-        left_join(replaced_df, by = by_name)
-    }
-    full_data <- filled_data %>% 
-      dplyr::bind_rows(.data)
-  }
-  if (!identical(cn, names(full_data))) {
-    full_data <- full_data %>%
-      select(!!! syms(cn)) # keep the original order
-  }
-  update_tsibble(full_data, .data, ordered = ord, interval = interval(.data))
+  gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
+  update_tsibble(gap_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Count implicit gaps
