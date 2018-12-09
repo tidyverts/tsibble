@@ -406,14 +406,13 @@ build_tsibble_meta <- function(
       arrange(!!! key, !! index)
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
-    msg_header <- "Unexpected temporal order. Please sort by %s."
+    msg_header <- "Unexpected temporal ordering. Please sort by %s."
     idx_txt <- expr_text(index)
     if (is_empty(key)) {
-      msg <- sprintf(msg_header, idx_txt)
+      warn(sprintf(msg_header, idx_txt))
     } else {
-      msg <- sprintf(msg_header, paste_comma(c(key, idx_txt)))
+      warn(sprintf(msg_header, paste_comma(c(key, idx_txt))))
     }
-    warn(msg)
   } # true do nothing
 
   idx_lgl <- identical(index, index2)

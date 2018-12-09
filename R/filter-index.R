@@ -10,11 +10,11 @@
 #' Supported index type: `POSIXct` (to seconds), `Date`, `yearweek`, `yearmonth`/`yearmon`,
 #' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
 #'
-#' @section Local Time Zone ("Europe/London"): 
+#' @section System Time Zone ("Europe/London"): 
 #' There is a known issue of an extra hour gained for a machine setting time 
 #' zone to "Europe/London", regardless of the time zone associated with
 #' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()` 
-#' to check if the local time zone is "Europe/London". I would recommend to
+#' to check if the system time zone is "Europe/London". I would recommend to
 #' change the global environment "TZ" using `Sys.setenv(TZ = "UTC")` before
 #' running `filter_index()` and `time_in()`.
 #'
@@ -91,6 +91,11 @@ time_in.POSIXct <- function(x, ...) {
   formulas <- list2(...)
   n <- length(formulas)
   if (n == 0) return(!logical(length(x)))
+
+  local_tz <- Sys.timezone()
+  if ("Europe/London" %in% local_tz) {
+    warn("System time zone: \"Europe/London\".\nIt may yield an unexpected output.")
+  }
 
   lgl <- lhs <- rhs <- vector("list", n)
   for (i in seq_len(n)) {
