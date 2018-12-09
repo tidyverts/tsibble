@@ -15,8 +15,9 @@
 #' zone to "Europe/London", regardless of the time zone associated with
 #' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()` 
 #' to check if the system time zone is "Europe/London". I would recommend to
-#' change the global environment "TZ" using `Sys.setenv(TZ = "UTC")` before
-#' running `filter_index()` and `time_in()`.
+#' change the global environment "TZ" to other equivalent names: GB, GB-Eire, 
+#' Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey, using
+#' `Sys.setenv(TZ)` before running `filter_index()` and `time_in()`.
 #'
 #' @seealso [time_in] for a vector of time index
 #' @export
@@ -57,7 +58,7 @@ filter_index <- function(.data, ...) {
 #' `yearmonth`, `yearquarter`, `hms`/`difftime`, and `numeric`.
 #' @inheritParams filter_index
 #'
-#' @inheritSection filter_index Local Time Zone ("Europe/London")
+#' @inheritSection filter_index System Time Zone ("Europe/London")
 #' @return logical vector
 #' @seealso [filter_index] for filtering tsibble
 #' @export
@@ -94,7 +95,7 @@ time_in.POSIXct <- function(x, ...) {
 
   local_tz <- Sys.timezone()
   if ("Europe/London" %in% local_tz) {
-    warn("System time zone: \"Europe/London\".\nIt may yield an unexpected output.")
+    warn("System time zone: \"Europe/London\".\nIt may yield an unexpected output. Please see `?filter_index` for details.")
   }
 
   lgl <- lhs <- rhs <- vector("list", n)
