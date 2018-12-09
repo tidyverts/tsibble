@@ -25,6 +25,16 @@ logical vector
 \description{
 This function respects time zone and encourages compact expressions.
 }
+\section{Local Time Zone ("Europe/London")}{
+
+There is a known issue of an extra hour gained for a machine setting time
+zone to "Europe/London", regardless of the time zone associated with
+the POSIXct inputs. It relates to \emph{anytime} and \emph{Boost}. Use \code{Sys.timezone()}
+to check if the local time zone is "Europe/London". I would recommend to
+change the global environment "TZ" using \code{Sys.setenv(TZ = "UTC")} before
+running \code{filter_index()} and \code{time_in()}.
+}
+
 \examples{
 x <- unique(pedestrian$Date_Time)
 lgl <- time_in(x, ~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")

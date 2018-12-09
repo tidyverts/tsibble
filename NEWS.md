@@ -7,6 +7,7 @@
 ## Misc
 
 * Defunct `split_by()` and `case_na()`.
+* Deprecated `find_duplicates()`.
 
 # tsibble 0.6.1
 

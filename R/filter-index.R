@@ -10,6 +10,14 @@
 #' Supported index type: `POSIXct` (to seconds), `Date`, `yearweek`, `yearmonth`/`yearmon`,
 #' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
 #'
+#' @section Local Time Zone ("Europe/London"): 
+#' There is a known issue of an extra hour gained for a machine setting time 
+#' zone to "Europe/London", regardless of the time zone associated with
+#' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()` 
+#' to check if the local time zone is "Europe/London". I would recommend to
+#' change the global environment "TZ" using `Sys.setenv(TZ = "UTC")` before
+#' running `filter_index()` and `time_in()`.
+#'
 #' @seealso [time_in] for a vector of time index
 #' @export
 #' @examples
@@ -49,6 +57,7 @@ filter_index <- function(.data, ...) {
 #' `yearmonth`, `yearquarter`, `hms`/`difftime`, and `numeric`.
 #' @inheritParams filter_index
 #'
+#' @inheritSection filter_index Local Time Zone ("Europe/London")
 #' @return logical vector
 #' @seealso [filter_index] for filtering tsibble
 #' @export
