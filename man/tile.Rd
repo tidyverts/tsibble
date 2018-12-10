@@ -65,6 +65,7 @@ tile(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
+\item \link{future_tile} for tiling window in parallel
 \item \link{slide} for sliding window with overlapping observations
 \item \link{stretch} for expanding more observations
 }

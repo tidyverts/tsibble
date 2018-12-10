@@ -4,10 +4,10 @@
 \alias{future_stretch}
 \title{Stretching window in parrallel}
 \description{
-Multiprocessing equivalents of \code{slide()}, \code{tile()}, \code{stretch()} with \code{future_} prefixed to them.
+Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]{tile()}}, \code{\link[=stretch]{stretch()}} prefixed by \code{future_}.
 \itemize{
-\item \code{future_*_lgl()}, \code{future_*_int()}, \code{future_*_dbl()}, \code{future_*_chr()},
-\code{future_*_dfr()}, \code{future_*_dfc()}.
+\item Variants for corresponding types: \code{future_*_lgl()}, \code{future_*_int()},
+\code{future_*_dbl()}, \code{future_*_chr()}, \code{future_*_dfr()}, \code{future_*_dfc()}.
 \item Extra arguments \code{.progress} and \code{.options} for enabling progress bar and the
 future specific options to use with the workers.
 }

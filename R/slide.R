@@ -462,8 +462,11 @@ pad_slide <- function(
 bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
   abs_size <- abs(.size)
   if (abs_size < 2) {
-    if (byrow) return(dplyr::bind_rows(x, .id = .id))
-    return(dplyr::bind_cols(x))
+    if (byrow) {
+      return(dplyr::bind_rows(x, .id = .id))
+    } else {
+      return(dplyr::bind_cols(x))
+    }
   }
   lst <- new_list_along(x[[abs_size]])
   lst[] <- .fill
@@ -480,9 +483,9 @@ slider_msg <- function() {
 
 #' Sliding window in parrallel
 #'
-#' Multiprocessing equivalents of `slide()`, `tile()`, `stretch()` with `future_` prefixed to them.
-#' * `future_*_lgl()`, `future_*_int()`, `future_*_dbl()`, `future_*_chr()`, 
-#' `future_*_dfr()`, `future_*_dfc()`.
+#' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
+#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 
+#' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
 #' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
 #' future specific options to use with the workers. 
 #'

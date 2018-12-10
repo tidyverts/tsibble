@@ -53,8 +53,7 @@ reference:
 - title: A family of window functions
   desc: >
     Map and roll over a list of elements. It features `purrr`-like interface and
-    functional programming. Functions with `future_` prefixed will enable parallel
-    processing.
+    `furrr`-style parallel processing. 
   contents:
     - starts_with("slide")
     - starts_with("partial")

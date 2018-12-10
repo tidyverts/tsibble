@@ -12,6 +12,7 @@
 #' @export
 #' @family tiling window functions
 #' @seealso
+#' * [future_tile] for tiling window in parallel
 #' * [slide] for sliding window with overlapping observations
 #' * [stretch] for expanding more observations
 #'
@@ -177,9 +178,9 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 
 #' Tiling window in parrallel
 #'
-#' Multiprocessing equivalents of `slide()`, `tile()`, `stretch()` with `future_` prefixed to them.
-#' * `future_*_lgl()`, `future_*_int()`, `future_*_dbl()`, `future_*_chr()`, 
-#' `future_*_dfr()`, `future_*_dfc()`.
+#' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
+#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 
+#' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
 #' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
 #' future specific options to use with the workers. 
 #'
