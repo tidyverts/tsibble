@@ -41,7 +41,7 @@
 slide() always returns a list.
 slide_lgl(), slide_int(), slide_dbl(), slide_chr() use the same
 arguments as slide(), but return vectors of the corresponding type.
-slide_dfr() slide_dfc() return data frames using row-binding &amp;amp; column-binding.
+slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp; column-binding.
 " />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
@@ -85,7 +85,7 @@ slide_dfr() slide_dfc() return data frames using row-binding &amp;amp; column-bi
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@ slide_dfr() slide_dfc() return data frames using row-binding &amp;amp; column-bi
 <li><p><code>slide()</code> always returns a list.</p></li>
 <li><p><code>slide_lgl()</code>, <code>slide_int()</code>, <code>slide_dbl()</code>, <code>slide_chr()</code> use the same
 arguments as <code>slide()</code>, but return vectors of the corresponding type.</p></li>
-<li><p><code>slide_dfr()</code> <code>slide_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
+<li><p><code>slide_dfr()</code> &amp; <code>slide_dfc()</code> return data frames using row-binding &amp; column-binding.</p></li>
 </ul>
     
     </div>
@@ -248,6 +248,7 @@ Window contains observations outside of the vector will return the value <code>.
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
+<li><p>future_slide for parallel processing</p></li>
 <li><p><a href='tile.html'>tile</a> for tiling window without overlapping observations</p></li>
 <li><p><a href='stretch.html'>stretch</a> for expanding more observations</p></li>
 </ul></div>

@@ -37,6 +37,15 @@
     <loc>https://pkg.earo.me/tsibble/reference/filter_index.html</loc>
   </url>
   <url>
+    <loc>https://pkg.earo.me/tsibble/reference/future-slide.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/future-stretch.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/future-tile.html</loc>
+  </url>
+  <url>
     <loc>https://pkg.earo.me/tsibble/reference/gaps.html</loc>
   </url>
   <url>
@@ -104,6 +113,9 @@
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/regular.html</loc>
+  </url>
+  <url>
+    <loc>https://pkg.earo.me/tsibble/reference/scan-gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/slide.html</loc>

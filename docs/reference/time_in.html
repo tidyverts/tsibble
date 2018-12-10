@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -177,6 +177,17 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 
     <p>logical vector</p>
     
+    <h2 class="hasAnchor" id="system-time-zone-europe-london-"><a class="anchor" href="#system-time-zone-europe-london-"></a>System Time Zone ("Europe/London")</h2>
+
+    
+    <p>There is a known issue of an extra hour gained for a machine setting time
+zone to "Europe/London", regardless of the time zone associated with
+the POSIXct inputs. It relates to <em>anytime</em> and <em>Boost</em>. Use <code><a href='https://www.rdocumentation.org/packages/base/topics/timezones'>Sys.timezone()</a></code>
+to check if the system time zone is "Europe/London". It would be recommended to
+change the global environment "TZ" to other equivalent names: GB, GB-Eire,
+Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey as
+documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdocumentation.org/packages/base/topics/Sys.setenv'>Sys.setenv(TZ = "GB")</a></code> for example.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='filter_index.html'>filter_index</a> for filtering tsibble</p></div>
@@ -230,6 +241,8 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#system-time-zone-europe-london-">System Time Zone ("Europe/London")</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

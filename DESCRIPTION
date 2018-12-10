@@ -51,7 +51,8 @@ Suggests:
     rmarkdown,
     testthat,
     timeDate,
-    spelling
+    spelling,
+    furrr
 LinkingTo: 
     Rcpp (>= 0.12.0)
 VignetteBuilder: 

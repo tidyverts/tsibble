@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -216,7 +216,13 @@
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4]&gt; &lt;tibble [145,321 × 2…</span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a></code></pre></div>
-<p>Why <code><a href="../reference/slide.html">slide()</a></code> not working for this case? It is intended to work with list (i.e. column-wise data frame). However, when we perform a row-wise sliding over data frame, <code><a href="../reference/slide2.html">pslide()</a></code> does the job.</p>
+<p>Why <code><a href="../reference/slide.html">slide()</a></code> not working for this case? It is intended to work with a list, i.e. column-by-column for a data frame. However, here we perform a row-wise sliding over multiple columns of a data frame at one, <code><a href="../reference/slide2.html">pslide()</a></code> does the job for handling multiple lists. This example running a bit longer? Time to kick <a href="https://davisvaughan.github.io/furrr/"><strong>furrr</strong></a> in for parallel processing. Their multiprocessing counterparts are all prefixed with <code>future_</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(furrr)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">plan</span>(multiprocess)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">pedestrian <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/filter_index.html">filter_index</a></span>(<span class="op">~</span><span class="st"> "2015-03"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>(<span class="op">-</span>Sensor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/furrr/topics/future_map">future_map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/future-slide.html">future_pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a></code></pre></div>
 </div>
 <div id="other-features" class="section level2">
 <h2 class="hasAnchor">

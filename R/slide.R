@@ -1,13 +1,16 @@
 # nocov start
-replace_fn_names <- function(fn, replace = list()) {
+replace_fn_names <- function(fn, replace = list(), ns = NULL) {
   rec_fn <- function(cl) {
-    if (!rlang::is_call(cl)) {
+    if (!is_call(cl)) {
       return(cl)
     }
-    if (any(repl_fn <- names(replace) %in% rlang::call_name(cl))) {
+    args_lst <- lapply(as.list(cl[-1]), rec_fn)
+    if (any(repl_fn <- names(replace) %in% call_name(cl))) {
       cl[[1]] <- replace[[repl_fn]]
+      cl <- call2(cl[[1]], !!! args_lst, .ns = ns)
+    } else {
+      cl <- call2(cl[[1]], !!! args_lst)
     }
-    as.call(append(cl[[1]], map(as.list(cl[-1]), rec_fn)))
   }
   body(fn) <- rec_fn(body(fn))
   fn
@@ -20,7 +23,7 @@ replace_fn_names <- function(fn, replace = list()) {
 #' * `slide()` always returns a list.
 #' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` use the same
 #' arguments as `slide()`, but return vectors of the corresponding type.
-#' * `slide_dfr()` `slide_dfc()` return data frames using row-binding & column-binding.
+#' * `slide_dfr()` & `slide_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @param .x An object to slide over.
 #' @inheritParams purrr::map
@@ -39,6 +42,7 @@ replace_fn_names <- function(fn, replace = list()) {
 #' @export
 #' @family sliding window functions
 #' @seealso
+#' * [future_slide] for parallel processing
 #' * [tile] for tiling window without overlapping observations
 #' * [stretch] for expanding more observations
 #' @details The `slide()` function attempts to tackle more general problems using
@@ -86,7 +90,7 @@ slide <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide_", type),
-    replace_fn_names(slide, list(map = rlang::sym(paste0("map_", type))))
+    replace_fn_names(slide, list(map = paste0("map_", type)))
   )
 }
 
@@ -196,7 +200,7 @@ slide2 <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("slide2_", type),
-    replace_fn_names(slide2, list(map2 = rlang::sym(paste0("map2_", type))))
+    replace_fn_names(slide2, list(map2 = paste0("map2_", type)))
   )
 }
 
@@ -257,7 +261,7 @@ pslide <- function(
 for(type in c("lgl", "chr", "int", "dbl")){
   assign(
     paste0("pslide_", type),
-    replace_fn_names(pslide, list(pmap = rlang::sym(paste0("pmap_", type))))
+    replace_fn_names(pslide, list(pmap = paste0("pmap_", type)))
   )
 }
 
@@ -473,3 +477,60 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
 slider_msg <- function() {
   "`abs(.size)` (%s) must not be larger than the length (%s) of the input."
 }
+
+#' Sliding window in parrallel
+#'
+#' Multiprocessing equivalents of `slide()`, `tile()`, `stretch()` with `future_` prefixed to them.
+#' * `future_*_lgl()`, `future_*_int()`, `future_*_dbl()`, `future_*_chr()`, 
+#' `future_*_dfr()`, `future_*_dfc()`.
+#' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
+#' future specific options to use with the workers. 
+#'
+#' @details 
+#' It requires the package **furrr** to be installed. Please refer to 
+#' https://davisvaughan.github.io/furrr/ for performance and detailed usage.
+#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("slide", "slide2", "pslide"), '}'), paste0('\\alias{future_slide_', suffix, '}'), paste0('\\alias{future_slide2_', suffix, '}'), paste0('\\alias{future_pslide_', suffix, '}'))}
+#' @name future_slide
+#' @rdname future-slide
+#' @exportPattern ^future_
+#' @examples
+#' if (!requireNamespace("furrr", quietly = TRUE)) {
+#'   stop("Please install the furrr package to run these following examples.")
+#' }
+#' \dontrun{
+#' library(furrr)
+#' plan(multiprocess)
+#' my_diag <- function(...) {
+#'   data <- list(...)
+#'   fit <- lm(Count ~ Time, data = data)
+#'   tibble(fitted = fitted(fit), resid = residuals(fit))
+#' }
+#' pedestrian %>%
+#'   nest(-Sensor) %>%
+#'   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
+#' }
+# nocov start
+assign("future_slide", replace_fn_names(slide, list(map = "future_map"), ns = "furrr"))
+assign("future_slide2", replace_fn_names(slide2, list(map2 = "future_map2"), ns = "furrr"))
+assign("future_pslide", replace_fn_names(pslide, list(pmap = "future_pmap"), ns = "furrr"))
+assign("future_slide_dfr", replace_fn_names(slide_dfr, list(slide = "future_slide")))
+assign("future_slide2_dfr", replace_fn_names(slide2_dfr, list(slide2 = "future_slide2")))
+assign("future_pslide_dfr", replace_fn_names(pslide_dfr, list(pslide = "future_pslide")))
+assign("future_slide_dfc", replace_fn_names(slide_dfc, list(slide = "future_slide")))
+assign("future_slide2_dfc", replace_fn_names(slide2_dfc, list(slide2 = "future_slide2")))
+assign("future_pslide_dfc", replace_fn_names(pslide_dfc, list(pslide = "future_pslide")))
+for (type in c("lgl", "chr", "int", "dbl")) {
+  assign(
+    paste0("future_slide_", type),
+    replace_fn_names(slide, list(map = paste0("future_map_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_slide2_", type),
+    replace_fn_names(slide2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_pslide_", type),
+    replace_fn_names(pslide, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
+  )
+}
+# nocov end

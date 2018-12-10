@@ -34,7 +34,7 @@ stretch <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("stretch_", type),
-    replace_fn_names(stretch, list(map = rlang::sym(paste0("map_", type))))
+    replace_fn_names(stretch, list(map = paste0("map_", type)))
   )
 }
 
@@ -112,7 +112,7 @@ stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("stretch2_", type),
-    replace_fn_names(stretch2, list(map2 = rlang::sym(paste0("map2_", type))))
+    replace_fn_names(stretch2, list(map2 = paste0("map2_", type)))
   )
 }
 
@@ -154,7 +154,7 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("pstretch_", type),
-    replace_fn_names(pstretch, list(pmap = rlang::sym(paste0("pmap_", type))))
+    replace_fn_names(pstretch, list(pmap = paste0("pmap_", type)))
   )
 }
 
@@ -228,3 +228,41 @@ incr <- function(init, size) {
     init
   }
 }
+
+#' Stretching window in parrallel
+#'
+#' Multiprocessing equivalents of `slide()`, `tile()`, `stretch()` with `future_` prefixed to them.
+#' * `future_*_lgl()`, `future_*_int()`, `future_*_dbl()`, `future_*_chr()`, 
+#' `future_*_dfr()`, `future_*_dfc()`.
+#' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
+#' future specific options to use with the workers. 
+#'
+#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("stretch", "stretch2", "pstretch"), '}'), paste0('\\alias{future_stretch_', suffix, '}'), paste0('\\alias{future_stretch2_', suffix, '}'), paste0('\\alias{future_pstretch_', suffix, '}'))}
+#' @name future_stretch
+#' @rdname future-stretch
+#' @exportPattern ^future_
+# nocov start
+assign("future_stretch", replace_fn_names(stretch, list(map = "future_map"), ns = "furrr"))
+assign("future_stretch2", replace_fn_names(stretch2, list(map2 = "future_map2"), ns = "furrr"))
+assign("future_pstretch", replace_fn_names(pstretch, list(pmap = "future_pmap"), ns = "furrr"))
+assign("future_stretch_dfr", replace_fn_names(stretch_dfr, list(stretch = "future_stretch")))
+assign("future_stretch2_dfr", replace_fn_names(stretch2_dfr, list(stretch2 = "future_stretch2")))
+assign("future_pstretch_dfr", replace_fn_names(pstretch_dfr, list(pstretch = "future_pstretch")))
+assign("future_stretch_dfc", replace_fn_names(stretch_dfc, list(stretch = "future_stretch")))
+assign("future_stretch2_dfc", replace_fn_names(stretch2_dfc, list(stretch2 = "future_stretch2")))
+assign("future_pstretch_dfc", replace_fn_names(pstretch_dfc, list(pstretch = "future_pstretch")))
+for (type in c("lgl", "chr", "int", "dbl")) {
+  assign(
+    paste0("future_stretch_", type),
+    replace_fn_names(stretch, list(map = paste0("future_map_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_stretch2_", type),
+    replace_fn_names(stretch2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_pstretch_", type),
+    replace_fn_names(pstretch, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
+  )
+}
+# nocov end

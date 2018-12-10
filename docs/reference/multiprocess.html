@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Australian domestic overnight trips — tourism • tsibble</title>
+<title>Rolling window in parrallel — future_slide • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -35,10 +35,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Australian domestic overnight trips — tourism" />
+<meta property="og:title" content="Rolling window in parrallel — future_slide" />
 
-<meta property="og:description" content="A dataset containing the quarterly overnight trips from 1998 Q1 to 2016 Q4
-across Australia." />
+<meta property="og:description" content="Multiprocessing equivalents of slide(), tile(), stretch() with future_ prefixed to them.
+future_*_lgl(), future_*_int(), future_*_dbl(), future_*_chr(),
+future_*_dfr(), future_*_dfc().
+Extra arguments .progress and .options for enabling progress bar and the
+future specific options to use with the workers.
+" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -141,72 +145,53 @@ across Australia." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Australian domestic overnight trips</h1>
+    <h1>Rolling window in parrallel</h1>
     
-    <div class="hidden name"><code>tourism.Rd</code></div>
+    <div class="hidden name"><code>multiprocess.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A dataset containing the quarterly overnight trips from 1998 Q1 to 2016 Q4
-across Australia.</p>
+    <p>Multiprocessing equivalents of <code><a href='slide.html'>slide()</a></code>, <code><a href='tile.html'>tile()</a></code>, <code><a href='stretch.html'>stretch()</a></code> with <code>future_</code> prefixed to them.</p><ul>
+<li><p><code>future_*_lgl()</code>, <code>future_*_int()</code>, <code>future_*_dbl()</code>, <code>future_*_chr()</code>,
+<code>future_*_dfr()</code>, <code>future_*_dfc()</code>.</p></li>
+<li><p>Extra arguments <code>.progress</code> and <code>.options</code> for enabling progress bar and the
+future specific options to use with the workers.</p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='no'>tourism</span></pre>
         
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A tsibble with 23,408 rows and 5 variables:</p><ul>
-<li><p><strong>Quarter</strong>: Year quarter (index)</p></li>
-<li><p><strong>Region</strong>: The tourism regions are formed through the aggregation of
-Statistical Local Areas (SLAs) which are defined by the various State and
-Territory tourism authorities according to their research and marketing
-needs</p></li>
-<li><p><strong>State</strong>: States and territories of Australia</p></li>
-<li><p><strong>Purpose</strong>: Stopover purpose of visit:</p><ul>
-<li><p>"Holiday"</p></li>
-<li><p>"Visiting friends and relatives"</p></li>
-<li><p>"Business"</p></li>
-<li><p>"Other reason"</p></li>
-</ul></li>
-<li><p><strong>Trips</strong>: Overnight trips in thousands</p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://www.tra.gov.au'>Tourism Research Australia</a></p>
+    <p>It requires the package <strong>furrr</strong> to be installed. Please refer to
+https://davisvaughan.github.io/furrr/ for performance and detailed usage.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>tourism</span>)
-<span class='co'># Total trips over geographical regions</span>
-<span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Trips</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 5,852 x 4 [1Q]</span><span>
-#&gt; </span><span style='color: #949494;'># Key:       Region, State [77]</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:    Region [77]</span><span>
-#&gt;    Region   State           Quarter Total_Trips
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;qtr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Adelaide South Australia 1998 Q1        659.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Adelaide South Australia 1998 Q2        450.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Adelaide South Australia 1998 Q3        593.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Adelaide South Australia 1998 Q4        524.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Adelaide South Australia 1999 Q1        548.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Adelaide South Australia 1999 Q2        569.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Adelaide South Australia 1999 Q3        538.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Adelaide South Australia 1999 Q4        562.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Adelaide South Australia 2000 Q1        646.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Adelaide South Australia 2000 Q2        563.
-#&gt; </span><span style='color: #949494;'># … with 5,842 more rows</span><span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>furrr</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: future</span></div><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
+  <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>...</span>)
+  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
+}
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span><span>
+#&gt;   Sensor                        data                   diag                  
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                 </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Birrarung Marr                </span><span style='color: #949494;'>&lt;tsibble [14,566 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [696,913 × 2]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Bourke Street Mall (North)    </span><span style='color: #949494;'>&lt;tsibble [16,414 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [785,617 × 2]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> QV Market-Elizabeth St (West) </span><span style='color: #949494;'>&lt;tsibble [17,518 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [838,609 × 2]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Southern Cross Station        </span><span style='color: #949494;'>&lt;tsibble [17,539 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [839,617 × 2]&gt;</span><span></div><div class='input'>#   user  system elapsed 
+# 47.080   1.015  26.962 
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#references">References</a></li>
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

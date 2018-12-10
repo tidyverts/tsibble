@@ -65,7 +65,7 @@ Rolling window with overlapping observations:
 \item \code{slide()} always returns a list.
 \item \code{slide_lgl()}, \code{slide_int()}, \code{slide_dbl()}, \code{slide_chr()} use the same
 arguments as \code{slide()}, but return vectors of the corresponding type.
-\item \code{slide_dfr()} \code{slide_dfc()} return data frames using row-binding & column-binding.
+\item \code{slide_dfr()} & \code{slide_dfc()} return data frames using row-binding & column-binding.
 }
 }
 \details{
@@ -92,6 +92,7 @@ slide(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
+\item \link{future_slide} for parallel processing
 \item \link{tile} for tiling window without overlapping observations
 \item \link{stretch} for expanding more observations
 }

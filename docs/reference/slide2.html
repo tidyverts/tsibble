@@ -85,7 +85,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -365,23 +365,23 @@ names will be used if present.</p></td>
 <span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/purrr/topics/map'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>()</div><div class='output co'>#&gt;    group      slope x         y       date
-#&gt; 1      a         NA 1  1.249515 2016-06-01
-#&gt; 2      a  2.3539456 2  3.603461 2016-06-02
-#&gt; 3      a  0.4700147 3  4.073475 2016-06-03
-#&gt; 4      a  1.7206210 4  5.794096 2016-06-04
-#&gt; 5      a  5.6381321 5 11.432228 2016-06-05
-#&gt; 6      a  0.3280427 6 11.760271 2016-06-06
-#&gt; 7      a  2.2103687 7 13.970640 2016-06-07
-#&gt; 8      a -0.7806716 8 13.189968 2016-06-08
-#&gt; 9      b         NA 8 15.305841 2016-06-01
-#&gt; 10     b  1.1743192 7 14.131522 2016-06-02
-#&gt; 11     b  1.8037706 6 12.327751 2016-06-03
-#&gt; 12     b  0.8915998 5 11.436152 2016-06-04
-#&gt; 13     b  4.7648739 4  6.671278 2016-06-05
-#&gt; 14     b  0.4955641 3  6.175714 2016-06-06
-#&gt; 15     b  1.6491044 2  4.526609 2016-06-07
-#&gt; 16     b  2.6991088 1  1.827500 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>()</div><div class='output co'>#&gt;    group       slope x         y       date
+#&gt; 1      a          NA 1  1.295180 2016-06-01
+#&gt; 2      a  2.71332998 2  4.008510 2016-06-02
+#&gt; 3      a  4.02567957 3  8.034190 2016-06-03
+#&gt; 4      a -1.37587595 4  6.658314 2016-06-04
+#&gt; 5      a  4.50066525 5 11.158979 2016-06-05
+#&gt; 6      a  0.63781186 6 11.796791 2016-06-06
+#&gt; 7      a  1.82518040 7 13.621971 2016-06-07
+#&gt; 8      a  4.11413960 8 17.736111 2016-06-08
+#&gt; 9      b          NA 8 15.154752 2016-06-01
+#&gt; 10     b  2.11632368 7 13.038429 2016-06-02
+#&gt; 11     b  0.02093745 6 13.017491 2016-06-03
+#&gt; 12     b  4.51354479 5  8.503946 2016-06-04
+#&gt; 13     b  1.68876499 4  6.815181 2016-06-05
+#&gt; 14     b  0.18494690 3  6.630234 2016-06-06
+#&gt; 15     b  0.52898186 2  6.101253 2016-06-07
+#&gt; 16     b  4.71498932 1  1.386263 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>

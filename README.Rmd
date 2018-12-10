@@ -103,7 +103,7 @@ full_weather %>%
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
-More examples can be found at [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
+Looking for rolling in parallel? Their multiprocessing equivalents are prefixed with `future_`. More examples can be found at [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
 
 ## More around tsibble
 

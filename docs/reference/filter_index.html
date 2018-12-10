@@ -37,7 +37,7 @@
 
 <meta property="og:title" content="A shorthand for filtering time index for a tsibble — filter_index" />
 
-<meta property="og:description" content="This shorthand respects time zone and encourages compact expressions." />
+<meta property="og:description" content="This shorthand respects time zones and encourages compact expressions." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
 
     <div class="ref-description">
     
-    <p>This shorthand respects time zone and encourages compact expressions.</p>
+    <p>This shorthand respects time zones and encourages compact expressions.</p>
     
     </div>
 
@@ -171,6 +171,17 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 </ul></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="system-time-zone-europe-london-"><a class="anchor" href="#system-time-zone-europe-london-"></a>System Time Zone ("Europe/London")</h2>
+
+    
+    <p>There is a known issue of an extra hour gained for a machine setting time
+zone to "Europe/London", regardless of the time zone associated with
+the POSIXct inputs. It relates to <em>anytime</em> and <em>Boost</em>. Use <code><a href='https://www.rdocumentation.org/packages/base/topics/timezones'>Sys.timezone()</a></code>
+to check if the system time zone is "Europe/London". It would be recommended to
+change the global environment "TZ" to other equivalent names: GB, GB-Eire,
+Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey as
+documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdocumentation.org/packages/base/topics/Sys.setenv'>Sys.setenv(TZ = "GB")</a></code> for example.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -231,7 +242,7 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
 #&gt; </span><span style='color: #949494;'># … with 18,998 more rows</span><span></div><div class='input'>
 <span class='co'># entire 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~ <span class='st'>"2015"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
@@ -299,6 +310,8 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#system-time-zone-europe-london-">System Time Zone ("Europe/London")</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

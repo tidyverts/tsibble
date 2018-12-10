@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — split_by • tsibble</title>
+<title>Deprecated functions — as.tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -35,10 +35,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Deprecated functions — split_by" />
+<meta property="og:title" content="Deprecated functions — as.tsibble" />
 
-<meta property="og:description" content="A thin wrapper of dplyr::case_when() if there are NAs
-Find which row has duplicated key and index elements" />
+<meta property="og:description" content="Find which row has duplicated key and index elements" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -81,7 +80,7 @@ Find which row has duplicated key and index elements" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -148,16 +147,11 @@ Find which row has duplicated key and index elements" />
 
     <div class="ref-description">
     
-    <p>A thin wrapper of <code><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when()</a></code> if there are <code>NA</code>s</p>
-<p>Find which row has duplicated key and index elements</p>
+    <p>Find which row has duplicated key and index elements</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>split_by</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>case_na</span>(<span class='no'>formula</span>)
-
-<span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -168,16 +162,7 @@ Find which row has duplicated key and index elements" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>A list of unquoted variables, separated by commas, to split a dataset.</p></td>
-    </tr>
-    <tr>
-      <th>formula</th>
-      <td><p>A two-sided formula. The LHS expects a vector containing <code>NA</code>,
-and the RHS gives the replacement value.</p></td>
+      <td><p>Other objects.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -204,86 +189,7 @@ elements.</p></td>
 
     <p>A logical vector of the same length as the row number of <code>data</code></p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://dplyr.tidyverse.org/reference/case_when.html'>dplyr::case_when</a></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>split_by</span>(<span class='no'>Sensor</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span>
-#&gt; <span class='warning'>Please use `split()` instead.</span></div><div class='output co'>#&gt; [[1]]
-#&gt; <span style='color: #949494;'># A tsibble: 14,566 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># Key:       Sensor [1]</span><span>
-#&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>01:00:00</span><span> 2015-01-01     1   826
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>02:00:00</span><span> 2015-01-01     2   567
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>03:00:00</span><span> 2015-01-01     3   264
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>04:00:00</span><span> 2015-01-01     4   139
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>05:00:00</span><span> 2015-01-01     5    77
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>06:00:00</span><span> 2015-01-01     6    44
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>07:00:00</span><span> 2015-01-01     7    56
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>08:00:00</span><span> 2015-01-01     8   113
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>09:00:00</span><span> 2015-01-01     9   166
-#&gt; </span><span style='color: #949494;'># … with 14,556 more rows</span><span>
-#&gt; 
-#&gt; [[2]]
-#&gt; </span><span style='color: #949494;'># A tsibble: 16,414 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># Key:       Sensor [1]</span><span>
-#&gt;    Sensor                     Date_Time           Date        Time Count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                      </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>00:00:00</span><span> 2015-02-17     0    61
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>01:00:00</span><span> 2015-02-17     1    16
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>02:00:00</span><span> 2015-02-17     2    15
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>03:00:00</span><span> 2015-02-17     3    17
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>04:00:00</span><span> 2015-02-17     4     9
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>05:00:00</span><span> 2015-02-17     5    25
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>06:00:00</span><span> 2015-02-17     6    88
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>07:00:00</span><span> 2015-02-17     7   279
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>08:00:00</span><span> 2015-02-17     8   770
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Bourke Street Mall (North) 2015-02-17 </span><span style='color: #949494;'>09:00:00</span><span> 2015-02-17     9   722
-#&gt; </span><span style='color: #949494;'># … with 16,404 more rows</span><span>
-#&gt; 
-#&gt; [[3]]
-#&gt; </span><span style='color: #949494;'># A tsibble: 17,518 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># Key:       Sensor [1]</span><span>
-#&gt;    Sensor                        Date_Time           Date        Time Count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span> 2015-01-01     0   490
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>01:00:00</span><span> 2015-01-01     1   397
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>02:00:00</span><span> 2015-01-01     2   247
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>03:00:00</span><span> 2015-01-01     3   172
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>04:00:00</span><span> 2015-01-01     4   128
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>05:00:00</span><span> 2015-01-01     5    66
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>06:00:00</span><span> 2015-01-01     6    72
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>07:00:00</span><span> 2015-01-01     7    69
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>08:00:00</span><span> 2015-01-01     8   106
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> QV Market-Elizabeth St (West) 2015-01-01 </span><span style='color: #949494;'>09:00:00</span><span> 2015-01-01     9   217
-#&gt; </span><span style='color: #949494;'># … with 17,508 more rows</span><span>
-#&gt; 
-#&gt; [[4]]
-#&gt; </span><span style='color: #949494;'># A tsibble: 17,539 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># Key:       Sensor [1]</span><span>
-#&gt;    Sensor                 Date_Time           Date        Time Count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                  </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span> 2015-01-01     0   746
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>01:00:00</span><span> 2015-01-01     1   312
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>02:00:00</span><span> 2015-01-01     2   180
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>03:00:00</span><span> 2015-01-01     3   133
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>04:00:00</span><span> 2015-01-01     4    44
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>05:00:00</span><span> 2015-01-01     5    16
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>06:00:00</span><span> 2015-01-01     6    13
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>07:00:00</span><span> 2015-01-01     7    21
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>08:00:00</span><span> 2015-01-01     8    39
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Southern Cross Station 2015-01-01 </span><span style='color: #949494;'>09:00:00</span><span> 2015-01-01     9    36
-#&gt; </span><span style='color: #949494;'># … with 17,529 more rows</span><span>
-#&gt; </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>)
-<span class='no'>x</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>7</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA_real_</span>
-<span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.2343379  2.0866886 10.0000000 -1.3928471 -1.1422908  1.7046087
-#&gt;  [7] 10.0000000 -0.4372812 -0.1192151  0.7864629</div><div class='input'><span class='fu'>case_na</span>(<span class='no'>x</span> ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: This function will be defunct soon.</span></div><div class='output co'>#&gt;  [1] -0.2343379  2.0866886  0.1564735 -1.3928471 -1.1422908  1.7046087
-#&gt;  [7]  0.1564735 -0.4372812 -0.1192151  0.7864629</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -291,11 +197,7 @@ elements.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

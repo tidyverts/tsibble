@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -142,6 +142,37 @@
       
     </div>
 
+    <div id="tsibble-0-6-1-9000" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-6-1-9000" class="anchor"></a>tsibble 0.6.1.9000<small> Unreleased </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<code><a href="../reference/scan-gaps.html">scan_gaps()</a></code> joins the family of implicit missing values handlers.</li>
+<li>The rolling window family gains parallel processing capabilities, functions with <code>future_</code> prefixed. (#66)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Regression bug (since tsibble v0.6.0) for subsetting tsibble using <code>[.tbl_ts</code>. (#76)</li>
+<li>Issue a warning when a system time zone is “Europe/London” for <code><a href="../reference/time_in.html">time_in()</a></code> and <code><a href="../reference/filter_index.html">filter_index()</a></code>.</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h2>
+<ul>
+<li>Defunct <code>split_by()</code> and <code>case_na()</code>.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">find_duplicates()</a></code>.</li>
+<li>Continue with soft-deprecation of <code><a href="../reference/deprecated.html">fill_na()</a></code>.</li>
+</ul>
+</div>
+</div>
     <div id="tsibble-0-6-1" class="section level1">
 <h1 class="page-header">
 <a href="#tsibble-0-6-1" class="anchor"></a>tsibble 0.6.1<small> 2018-12-05 </small>
@@ -170,9 +201,9 @@
 <li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> requires a grouped df.</li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added S3 generic <code><a href="../reference/has-gaps.html">has_gaps()</a></code> to quickly check if there are implicit time gaps for each key in a tsibble.</li>
 <li>Added S3 generic <code><a href="../reference/new-data.html">new_data()</a></code> to produce the future of a tsibble.</li>
@@ -188,9 +219,9 @@
 <li>Added index support for ordered factors.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed unexpected error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
 <li>Fixed <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code>, <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> &amp; <code>fill_na.tbl_ts()</code> scoping issue (#67).</li>
@@ -202,14 +233,14 @@
 <code><a href="https://tidyr.tidyverse.org/reference/fill.html">tidyr::fill()</a></code> gained support for class “grouped_ts”, and it is re-exported again. (#73)</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
+<div id="misc-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h2>
+<a href="#misc-1" class="anchor"></a>Misc</h2>
 <ul>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>, in favour of <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>.</li>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">find_duplicates()</a></code>, in favour of <code><a href="../reference/duplicated.html">are_duplicated()</a></code>.</li>
-<li>Deprecated <code><a href="../reference/deprecated.html">case_na()</a></code>, and will be defunct in next release.</li>
-<li>Deprecated <code><a href="../reference/deprecated.html">split_by()</a></code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
+<li>Deprecated <code>case_na()</code>, and will be defunct in next release.</li>
+<li>Deprecated <code>split_by()</code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
 <li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
 <li>Deprecated <code>.drop</code> argument in column-wise verbs, and suggested to use <code><a href="https://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble()</a></code>.</li>
 <li>If <code><a href="http://dplyr.tidyverse.org/reference/select.html">select()</a></code> doesn’t select index, it will inform users and automatically select it.</li>
@@ -220,17 +251,17 @@
 <h1 class="page-header">
 <a href="#tsibble-0-5-3" class="anchor"></a>tsibble 0.5.3<small> 2018-10-10 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>Added <code><a href="../reference/new-data.html">append_row()</a></code> for easily appending new observations to a tsibble. (#59)</li>
 <li>Nesting structure can be specified using <code>/</code>, consistent with <code>lm</code>. (#64)</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed warning in <code><a href="../reference/deprecated.html">fill_na()</a></code> for multiple replacements when using with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, introduced in v0.5.1.</li>
 <li>
@@ -238,11 +269,11 @@
 <li>Preserve the ordering of key specification in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code>. (#63)</li>
 </ul>
 </div>
-<div id="misc-1" class="section level2">
+<div id="misc-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>Misc</h2>
+<a href="#misc-2" class="anchor"></a>Misc</h2>
 <ul>
-<li>Soft-deprecated <code><a href="../reference/deprecated.html">case_na()</a></code> &amp; <code><a href="../reference/deprecated.html">split_by()</a></code>.</li>
+<li>Soft-deprecated <code>case_na()</code> &amp; <code>split_by()</code>.</li>
 </ul>
 </div>
 </div>
@@ -250,14 +281,14 @@
 <h1 class="page-header">
 <a href="#tsibble-0-5-2" class="anchor"></a>tsibble 0.5.2<small> 2018-09-11 </small>
 </h1>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code>unnest.lst_ts</code> respects the ordering of “key” values. (#56)</li>
 <li>
-<code><a href="../reference/deprecated.html">split_by()</a></code> and <code><a href="../reference/tidyverse.html">nest.tbl_ts()</a></code> respect the appearance ordering of input variables. (#57)</li>
+<code>split_by()</code> and <code><a href="../reference/tidyverse.html">nest.tbl_ts()</a></code> respect the appearance ordering of input variables. (#57)</li>
 <li>
 <code>group_indices.tbl_ts()</code> and <code><a href="../reference/key-size.html">key_indices()</a></code> return consistent formats as its generic.</li>
 <li>Argument <code>key</code> no longer accepted character.</li>
@@ -286,9 +317,9 @@
 <h1 class="page-header">
 <a href="#tsibble-0-5-1" class="anchor"></a>tsibble 0.5.1<small> 2018-08-20 </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
@@ -305,9 +336,9 @@
 <li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code>[</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed key updating via <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. (#47)</li>
 <li>Respected the ordering of input variables while creating the key.</li>
@@ -316,9 +347,9 @@
 <li>Avoided warnings when character input for key and value in <code><a href="../reference/tidyverse.html">gather.tbl_ts()</a></code>. (#54)</li>
 </ul>
 </div>
-<div id="misc-2" class="section level2">
+<div id="misc-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>Misc</h2>
+<a href="#misc-3" class="anchor"></a>Misc</h2>
 <ul>
 <li>
 <code><a href="../reference/slide.html">slide()</a></code> &amp; <code><a href="../reference/stretch.html">stretch()</a></code> use the same coercion rules as <code><a href="http://dplyr.tidyverse.org/reference/bind.html">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
@@ -332,9 +363,9 @@
 <a href="#tsibble-0-5-0" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
 </h1>
 <p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/pull-interval.html">pull_interval()</a></code> need to be defined now.</p>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
@@ -364,9 +395,9 @@
 <code><a href="../reference/time_unit.html">time_unit()</a></code> is a function instead of S3 generic, and made index extension a bit easier.</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed warning in <code>format.yearweek()</code>.</li>
 <li>Fixed <code>group_by.lst_ts()</code> for dropping the grouping information.</li>
@@ -375,9 +406,9 @@
 <li>Fixed bug in <code>.fill = NULL</code> for <code><a href="../reference/slide.html">slide()</a></code>.</li>
 </ul>
 </div>
-<div id="misc-3" class="section level2">
+<div id="misc-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>Misc</h2>
+<a href="#misc-4" class="anchor"></a>Misc</h2>
 <ul>
 <li>Moved package “timeDate” from Imports to Suggests.</li>
 <li>Added “anytime” to Imports for better parsing characters.</li>
@@ -408,9 +439,9 @@
 <code><a href="../reference/slider.html">pslider()</a></code>, <code><a href="../reference/tiler.html">ptiler()</a></code>, <code><a href="../reference/stretcher.html">pstretcher()</a></code> support multiple inputs now, and split them in parallel.</li>
 </ul>
 </div>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>New features</h2>
+<a href="#new-features-5" class="anchor"></a>New features</h2>
 <ul>
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
 <li>Defined <code><a href="https://www.rdocumentation.org/packages/base/topics/diff">diff()</a></code> for year-week, year-month, and year-quarter.</li>
@@ -439,9 +470,9 @@
 <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> now preserved index.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring the <code>value</code> argument when the key is empty.</li>
 <li>Fixed bug in <code>[.tbl_ts()</code> when subsetting columns by characters (#30).</li>
@@ -450,9 +481,9 @@
 <li>If a column passed as <code>index</code> contains <code>NA</code>, abort.</li>
 </ul>
 </div>
-<div id="misc-4" class="section level2">
+<div id="misc-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#misc-4" class="anchor"></a>Misc</h2>
+<a href="#misc-5" class="anchor"></a>Misc</h2>
 <ul>
 <li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li>
 </ul>
@@ -550,9 +581,9 @@
 <li>Slightly improved the speed of <code><a href="../reference/deprecated.html">fill_na()</a></code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-7" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/tidyverse.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
 <li>Fixed bug in <code><a href="../reference/tidyverse.html">select.tbl_ts()</a></code> and <code><a href="../reference/tidyverse.html">rename.tbl_ts()</a></code> for not preserving grouped variables (#12).</li>
@@ -596,15 +627,15 @@
 </ul>
 </li>
 <li>
-<code><a href="../reference/deprecated.html">split_by()</a></code> to split a tsibble into a list of data by unquoted variables.</li>
+<code>split_by()</code> to split a tsibble into a list of data by unquoted variables.</li>
 <li>
 <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> allows users to gain more control over a tsibble construction.</li>
 <li>Added <code>as_tsibble.msts()</code> for multiple seasonality time series defined in the forecast package.</li>
 </ul>
 </div>
-<div id="bug-fixes-7" class="section level2">
+<div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-8" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> for daily time series (when frequency = 7).</li>
 <li>
@@ -642,9 +673,9 @@
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
-<div id="bug-fixes-8" class="section level2">
+<div id="bug-fixes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-9" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed the error message in <code>glimpse.tbl_ts()</code>
 </li>
@@ -675,9 +706,9 @@
 <code>inform_duplicates()</code> informs which row has duplicated elements of key and index variables.</li>
 </ul>
 </div>
-<div id="bug-fixes-9" class="section level2">
+<div id="bug-fixes-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-10" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix bug in <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="http://dplyr.tidyverse.org/reference/n.html">dplyr::n()</a></code>.</li>
 <li>In <code><a href="../reference/tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
@@ -720,6 +751,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tsibble-0-6-1-9000">0.6.1.9000</a></li>
         <li><a href="#tsibble-0-6-1">0.6.1</a></li>
         <li><a href="#tsibble-0-6-0">0.6.0</a></li>
         <li><a href="#tsibble-0-5-3">0.5.3</a></li>

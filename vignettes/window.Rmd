@@ -92,7 +92,17 @@ pedestrian %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 
-Why `slide()` not working for this case? It is intended to work with list (i.e. column-wise data frame). However, when we perform a row-wise sliding over data frame, `pslide()` does the job.
+Why `slide()` not working for this case? It is intended to work with a list, i.e. column-by-column for a data frame. However, here we perform a row-wise sliding over multiple columns of a data frame at one, `pslide()` does the job for handling multiple lists. This example running a bit longer? Time to kick [**furrr**](https://davisvaughan.github.io/furrr/) in for parallel processing. Their multiprocessing counterparts are all prefixed with `future_`.
+
+```{r furrr, eval = FALSE}
+library(furrr)
+plan(multiprocess)
+pedestrian %>%
+  filter_index(~ "2015-03") %>%
+  nest(-Sensor) %>%
+  mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 24 * 7)))
+```
+
 
 ## Other features 
 

@@ -177,7 +177,8 @@ full_weather %>%
 #> # … with 2.618e+04 more rows
 ```
 
-More examples can be found at
+Looking for rolling in parallel? Their multiprocessing equivalents are
+prefixed with `future_`. More examples can be found at
 [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
 
 ## More around tsibble

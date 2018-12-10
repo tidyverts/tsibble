@@ -33,7 +33,7 @@ tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("tile_", type),
-    replace_fn_names(tile, list(map = rlang::sym(paste0("map_", type))))
+    replace_fn_names(tile, list(map = paste0("map_", type)))
   )
 }
 
@@ -89,7 +89,7 @@ tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("tile2_", type),
-    replace_fn_names(tile2, list(map2 = rlang::sym(paste0("map2_", type))))
+    replace_fn_names(tile2, list(map2 = paste0("map2_", type)))
   )
 }
 
@@ -121,7 +121,7 @@ ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 for(type in c("lgl", "chr", "dbl", "int")){
   assign(
     paste0("ptile_", type),
-    replace_fn_names(ptile, list(pmap = rlang::sym(paste0("pmap_", type))))
+    replace_fn_names(ptile, list(pmap = paste0("pmap_", type)))
   )
 }
 
@@ -174,3 +174,41 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
   lst <- recycle(list2(...))
   map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
 }
+
+#' Tiling window in parrallel
+#'
+#' Multiprocessing equivalents of `slide()`, `tile()`, `stretch()` with `future_` prefixed to them.
+#' * `future_*_lgl()`, `future_*_int()`, `future_*_dbl()`, `future_*_chr()`, 
+#' `future_*_dfr()`, `future_*_dfc()`.
+#' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
+#' future specific options to use with the workers. 
+#'
+#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("tile", "tile2", "ptile"), '}'), paste0('\\alias{future_tile_', suffix, '}'), paste0('\\alias{future_tile2_', suffix, '}'), paste0('\\alias{future_ptile_', suffix, '}'))}
+#' @name future_tile
+#' @rdname future-tile
+#' @exportPattern ^future_
+# nocov start
+assign("future_tile", replace_fn_names(tile, list(map = "future_map"), ns = "furrr"))
+assign("future_tile2", replace_fn_names(tile2, list(map2 = "future_map2"), ns = "furrr"))
+assign("future_ptile", replace_fn_names(ptile, list(pmap = "future_pmap"), ns = "furrr"))
+assign("future_tile_dfr", replace_fn_names(tile_dfr, list(tile = "future_tile")))
+assign("future_tile2_dfr", replace_fn_names(tile2_dfr, list(tile2 = "future_tile2")))
+assign("future_ptile_dfr", replace_fn_names(ptile_dfr, list(ptile = "future_ptile")))
+assign("future_tile_dfc", replace_fn_names(tile_dfc, list(tile = "future_tile")))
+assign("future_tile2_dfc", replace_fn_names(tile2_dfc, list(tile2 = "future_tile2")))
+assign("future_ptile_dfc", replace_fn_names(ptile_dfc, list(ptile = "future_ptile")))
+for (type in c("lgl", "chr", "int", "dbl")) {
+  assign(
+    paste0("future_tile_", type),
+    replace_fn_names(tile, list(map = paste0("future_map_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_tile2_", type),
+    replace_fn_names(tile2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
+  )
+  assign(
+    paste0("future_ptile_", type),
+    replace_fn_names(ptile, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
+  )
+}
+# nocov end

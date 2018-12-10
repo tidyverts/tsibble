@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9000</span>
       </span>
     </div>
 
@@ -205,7 +205,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
-          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has-gaps.html">has_gaps()</a></code>, <code><a href="../reference/count-gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has-gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan-gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count-gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       <tr>
@@ -214,6 +214,12 @@
           <p><code><a href="has-gaps.html">has_gaps()</a></code> </p>
         </td>
         <td><p>Does a tsibble have implicit gaps in time?</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scan-gaps.html">scan_gaps()</a></code> </p>
+        </td>
+        <td><p>Scan a tsibble for implicit missing observations</p></td>
       </tr><tr>
         
         <td>
@@ -249,7 +255,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
-          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and functional programming.</p></p>
+          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and functional programming. Functions with <code>future_</code> prefixed will enable parallel processing.</p></p>
         </th>
       </tr>
       <tr>
@@ -312,6 +318,24 @@
           <p><code><a href="stretcher.html">stretcher()</a></code> <code><a href="stretcher.html">pstretcher()</a></code> </p>
         </td>
         <td><p>Split the input to a list according to the stretching window size.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="future-slide.html">future_slide</a></code> </p>
+        </td>
+        <td><p>Sliding window in parrallel</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="future-stretch.html">future_stretch</a></code> </p>
+        </td>
+        <td><p>Stretching window in parrallel</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="future-tile.html">future_tile</a></code> </p>
+        </td>
+        <td><p>Tiling window in parrallel</p></td>
       </tr>
     </tbody><tbody>
       <tr>
