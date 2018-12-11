@@ -1,3 +1,5 @@
+This submission fixes the system time zone issue for "Europe/London".
+
 ## Test environments
 
 * local OS X install, R 3.5.1
@@ -6,7 +8,7 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
 
 ## Reverse dependencies
 
