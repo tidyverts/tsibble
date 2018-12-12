@@ -1,4 +1,4 @@
-# tsibble 0.6.1.9000
+# tsibble 0.6.2
 
 ## New features
 
