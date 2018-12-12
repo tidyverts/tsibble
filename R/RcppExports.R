@@ -13,10 +13,6 @@ any_not_equal_to_c <- function(x, c) {
     .Call(`_tsibble_any_not_equal_to_c`, x, c)
 }
 
-is_descending <- function(x) {
-    .Call(`_tsibble_is_descending`, x)
-}
-
 is_ascending <- function(x) {
     .Call(`_tsibble_is_ascending`, x)
 }

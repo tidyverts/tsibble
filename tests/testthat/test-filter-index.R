@@ -125,6 +125,7 @@ test_that("filter_index()", {
       filter_index("2015-08" ~ "2015-02"),
     pedestrian[0L, ]
   )
+  expect_identical(filter_index(pedestrian), pedestrian)
   ped_yr <- pedestrian %>%
       group_by(Sensor) %>%
       index_by(year = as.integer(year(Date_Time))) %>%

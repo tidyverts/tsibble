@@ -17,16 +17,6 @@ unknown_interval <- function(x) {
   if (sum(no_zeros) == 0) abort("Can't proceed with tsibble of unknown interval.")
 }
 
-exceed_rows <- function(x, n = 1L) {
-  nr <- NROW(x)
-  if (n > nr) {
-    abort(sprintf(
-      "Must not exceed the number of rows (%i).\nDo you need `append_row()`?", 
-      nr
-    ))
-  }
-}
-
 not_regular <- function(x) {
   if (!is_regular(x)) {
     abort("Can't handle tsibble of irregular interval.")
