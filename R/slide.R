@@ -481,7 +481,7 @@ slider_msg <- function() {
   "`abs(.size)` (%s) must not be larger than the length (%s) of the input."
 }
 
-#' Sliding window in parrallel
+#' Sliding window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 
@@ -490,8 +490,7 @@ slider_msg <- function() {
 #' future specific options to use with the workers. 
 #'
 #' @details 
-#' It requires the package **furrr** to be installed. Please refer to 
-#' https://davisvaughan.github.io/furrr/ for performance and detailed usage.
+#' It requires the package **furrr** to be installed. Please refer to [furrr](https://davisvaughan.github.io/furrr/) for performance and detailed usage.
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("slide", "slide2", "pslide"), '}'), paste0('\\alias{future_slide_', suffix, '}'), paste0('\\alias{future_slide2_', suffix, '}'), paste0('\\alias{future_pslide_', suffix, '}'))}
 #' @name future_slide
 #' @rdname future-slide

@@ -13,7 +13,7 @@
 #' @export
 #' @family stretching window functions
 #' @seealso
-#' * [future_stretch] for stretching windown in parallel
+#' * [future_stretch] for stretching window in parallel
 #' * [slide] for sliding window with overlapping observations
 #' * [tile] for tiling window without overlapping observations
 #'
@@ -230,7 +230,7 @@ incr <- function(init, size) {
   }
 }
 
-#' Stretching window in parrallel
+#' Stretching window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 

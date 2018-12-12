@@ -2,7 +2,7 @@
 % Please edit documentation in R/stretch.R
 \name{future_stretch}
 \alias{future_stretch}
-\title{Stretching window in parrallel}
+\title{Stretching window in parallel}
 \description{
 Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]{tile()}}, \code{\link[=stretch]{stretch()}} prefixed by \code{future_}.
 \itemize{

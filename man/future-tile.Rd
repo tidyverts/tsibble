@@ -2,7 +2,7 @@
 % Please edit documentation in R/tile.R
 \name{future_tile}
 \alias{future_tile}
-\title{Tiling window in parrallel}
+\title{Tiling window in parallel}
 \description{
 Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]{tile()}}, \code{\link[=stretch]{stretch()}} prefixed by \code{future_}.
 \itemize{

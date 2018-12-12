@@ -3,7 +3,7 @@
 ## New features
 
 * `scan_gaps()` joins the family of implicit missing values handlers.
-* The rolling window family gains parallel processing capabilities, functions with `future_` prefixed. (#66)
+* The rolling window family gains parallel processing capabilities, prefixed by `future_`. It requires the **furrr** package to be installed. (#66)
 
 ## Bug fixes
 

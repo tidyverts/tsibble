@@ -176,7 +176,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
   map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
 }
 
-#' Tiling window in parrallel
+#' Tiling window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 

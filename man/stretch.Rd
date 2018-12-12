@@ -68,7 +68,7 @@ stretch(lst, ~ ., .size = 2)
 }
 \seealso{
 \itemize{
-\item \link{future_stretch} for stretching windown in parallel
+\item \link{future_stretch} for stretching window in parallel
 \item \link{slide} for sliding window with overlapping observations
 \item \link{tile} for tiling window without overlapping observations
 }

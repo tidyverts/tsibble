@@ -2,7 +2,7 @@
 % Please edit documentation in R/slide.R
 \name{future_slide}
 \alias{future_slide}
-\title{Sliding window in parrallel}
+\title{Sliding window in parallel}
 \description{
 Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]{tile()}}, \code{\link[=stretch]{stretch()}} prefixed by \code{future_}.
 \itemize{
@@ -13,8 +13,7 @@ future specific options to use with the workers.
 }
 }
 \details{
-It requires the package \strong{furrr} to be installed. Please refer to
-https://davisvaughan.github.io/furrr/ for performance and detailed usage.
+It requires the package \strong{furrr} to be installed. Please refer to \href{https://davisvaughan.github.io/furrr/}{furrr} for performance and detailed usage.
 }
 \examples{
 if (!requireNamespace("furrr", quietly = TRUE)) {
