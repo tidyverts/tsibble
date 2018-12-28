@@ -16,6 +16,15 @@ test_that("rbind()", {
   expect_is(rbind(tsbl, tsbl2), "tbl_ts")
 })
 
+test_that("rbind() for custom index class #78", {
+  vic <- tourism %>% 
+    filter(State == "Victoria")
+  nsw <- tourism %>% 
+    filter(State == "New South Wales")
+  res <- rbind(vic, nsw)
+  expect_is(res$Quarter, "yearquarter")
+})
+
 test_that("cbind()", {
   expect_is(cbind(tsbl, tsbl), "tbl_ts")
 })
