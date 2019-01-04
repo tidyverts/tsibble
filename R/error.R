@@ -24,7 +24,7 @@ not_regular <- function(x) {
 }
 
 suggest_key <- function(x) {
-  sprintf("Key must be created via `id()`.\nDid you mean `key = id(%s)`?", x)
+  sprintf("Key can only be created via `id()`.\nDid you mean `key = id(%s)`?", x)
 }
 
 not_tsibble <- function(x) {
@@ -36,7 +36,7 @@ not_tsibble <- function(x) {
 check_valid_window <- function(.size, .align) {
   if (is_even(.size) && .align %in% c("c", "centre", "center")) {
     abort(sprintf(
-      "Can't use `.align = %s` for even window `.size`.\nPlease use `.align = 'center-left'` or `.align = 'center-right'`.",
+      "Can't use `.align = %s` for even window `.size`.\nPlease specify `.align = 'center-left'` or `.align = 'center-right'`.",
       .align
     ))
   }

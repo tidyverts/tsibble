@@ -2,7 +2,9 @@
 # ref: tibble:::big_mark
 big_mark <- function(x, ...) {
   mark <- if (identical(getOption("OutDec"), ",")) "." else ","
-  formatC(x, big.mark = mark, ...)
+  ret <- formatC(x, big.mark = mark, ...)
+  ret[is.na(x)] <- "??"
+  ret
 }
 
 # ref: tibble:::cat_line

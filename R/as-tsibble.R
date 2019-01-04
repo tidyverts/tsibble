@@ -460,11 +460,11 @@ validate_index <- function(data, index) {
   }
   if (quo_is_missing(index)) {
     if (sum(val_idx, na.rm = TRUE) != 1) {
-      abort("Can't determine the index and please specify argument `index`.")
+      abort("Can't determine index and please specify argument `index`.")
     }
     chr_index <- names(data)[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
-    inform(sprintf("Column `%s` is the index.", chr_index))
+    inform(sprintf("Using `%s` as index variable.", chr_index))
   } else {
     chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
@@ -679,12 +679,4 @@ remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
   x
-}
-
-#' @export
-`row.names<-.tbl_ts` <- function(x, value) {
-  if (!is_null(value)) {
-    warn("Setting row names on a tsibble is deprecated.")
-  }
-  NextMethod()
 }

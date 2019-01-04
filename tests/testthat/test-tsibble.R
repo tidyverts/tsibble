@@ -11,7 +11,7 @@ dat_x <- tibble(
 )
 
 test_that("A tsibble cannot be NULL or without index", {
-  expect_error(tsibble(), "Can't determine the index")
+  expect_error(tsibble(), "Can't determine index")
   expect_error(as_tsibble(), "NULL")
 })
 
@@ -253,7 +253,7 @@ dat_x <- tibble(
 
 test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date), "A valid tsibble")
-  expect_error(as_tsibble(dat_x, key = "group", index = date), "Key must be created")
+  expect_error(as_tsibble(dat_x, key = "group", index = date), "Key can only be created")
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
   expect_identical(format(groups(tsbl)), "NULL")
@@ -324,7 +324,7 @@ test_that("build_tsibble()", {
   ), "Argument `interval` must be class interval,")
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = Date_Time),
-    "Key must be created"
+    "Key can only be created"
   )
   expect_error(
     build_tsibble(pedestrian, key = dplyr::vars(Sensor), index = Date_Time),
