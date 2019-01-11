@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 </h1></div>
 <p><em>/ˈt͡sɪbəl/</em></p>
 <p><a href="https://travis-ci.org/tidyverts/tsibble"><img src="https://travis-ci.org/tidyverts/tsibble.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/github/tidyverts/tsibble?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverts/tsibble/master.svg" alt="Coverage Status"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://www.r-pkg.org/badges/version/tsibble" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=tsibble"><img src="http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen" alt="Downloads"></a></p>
-<p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to represent tidy temporal data. A <em>tsibble</em> consists of a time index, key and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
+<p>The <strong>tsibble</strong> package provides a data class of <code>tbl_ts</code> to represent tidy time series data. A <em>tsibble</em> consists of a time index, key and other measured variables in a data-centric format, which is built on top of the <em>tibble</em>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -133,7 +133,7 @@
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> is used as an example to illustrate. The “index” variable is the <code>time_hour</code> containing the date-times, and the “key” is the <code>origin</code> as weather stations created via <code><a href="reference/id.html">id()</a></code>. <strong>The key together with the index uniquely identifies each observation</strong>, which gives a valid <em>tsibble</em>. Other columns can be considered as measured variables.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tsibble)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="reference/id.html">id</a></span>(origin), <span class="dt">index =</span> time_hour)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">weather_tsbl</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,115 x 5 [1h] &lt;America/New_York&gt;</span></a>
@@ -147,15 +147,15 @@
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # … with 2.611e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> is comprised of one or more variables. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://pkg.earo.me/tsibble/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
-<p>The <em>tsibble</em> internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code>/<code>yearmon</code> to monthly, <code>yearquarter</code>/<code>yearqtr</code> to quarterly, and etc.</p>
+<p><em>Tsibble</em> internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond, from numerics to ordered factors. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code> to monthly, <code>yearquarter</code> to quarterly, and etc.</p>
 </div>
 <div id="fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-gaps.html">fill_gaps()</a></code> to turn implicit missing values into explicit missing values</h3>
-<p>Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using <code><a href="reference/fill-gaps.html">fill_gaps()</a></code>, filling gaps in precipitation (<code>precip</code>) with 0 in the meanwhile. It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="https://tidyr.tidyverse.org/reference/fill.html">fill()</a></code> from <em>tidyr</em>.</p>
+<p>Often there are implicit missing cases in time series. If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using <code><a href="reference/fill-gaps.html">fill_gaps()</a></code>, filling gaps in precipitation (<code>precip</code>) with 0 in the meanwhile. It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="https://tidyr.tidyverse.org/reference/fill.html">fill()</a></code> from <em>tidyr</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 26,190 x 5 [1h] &lt;America/New_York&gt;</span></a>
@@ -169,16 +169,16 @@
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # … with 2.618e+04 more rows</span></a></code></pre></div>
-<p><code><a href="reference/fill-gaps.html">fill_gaps()</a></code> also handles filling time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out <a href="http://pkg.earo.me/tsibble/articles/implicit-na.html"><code><a href="articles/implicit-na.html">vignette("implicit-na")</a></code></a>.</p>
+<p><code><a href="reference/fill-gaps.html">fill_gaps()</a></code> also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out <a href="http://pkg.earo.me/tsibble/articles/implicit-na.html"><code><a href="articles/implicit-na.html">vignette("implicit-na")</a></code></a>.</p>
 </div>
 <div id="index_by-summarise-to-aggregate-over-calendar-periods" class="section level3">
 <h3 class="hasAnchor">
-<a href="#index_by-summarise-to-aggregate-over-calendar-periods" class="anchor"></a><code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> to aggregate over calendar periods</h3>
-<p><code><a href="reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it groups the index only. In conjunction with <code><a href="reference/index-by.html">index_by()</a></code>, <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and its scoped variants aggregate interested variables over calendar periods. <code><a href="reference/index-by.html">index_by()</a></code> goes hand in hand with the index functions including <code><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date()</a></code>, <code><a href="reference/period.html">yearweek()</a></code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <em>lubridate</em>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the hourly time index.</p>
+<a href="#index_by-summarise-to-aggregate-over-calendar-periods" class="anchor"></a><code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> to aggregate over calendar periods</h3>
+<p><code><a href="reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it groups the index only. In conjunction with <code><a href="reference/index-by.html">index_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and its scoped variants aggregate interested variables over calendar periods. <code><a href="reference/index-by.html">index_by()</a></code> goes hand in hand with the index functions including <code><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date()</a></code>, <code><a href="reference/period.html">yearweek()</a></code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <em>lubridate</em>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the hourly time index.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">full_weather <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/index-by.html">index_by</a></span>(<span class="dt">year_month =</span> <span class="kw"><a href="reference/period.html">yearmonth</a></span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># monthly aggregates</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
@@ -192,13 +192,13 @@
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 4 EWR      2013 Apr     53.0       1.47</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 5 EWR      2013 May     63.3       5.44</span></a>
 <a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; # … with 31 more rows</span></a></code></pre></div>
-<p>While collapsing rows (like <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>), <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="reference/index-by.html">index_by()</a></code> will take care of updating the key and index respectively. This <code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> combo can help with regularising a tsibble of irregular time space too.</p>
+<p>While collapsing rows (like <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>), <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="reference/index-by.html">index_by()</a></code> will take care of updating the key and index respectively. This <code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> combo can help with regularising a tsibble of irregular time space too.</p>
 </div>
 <div id="a-family-of-window-functions-slide-tile-stretch" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-family-of-window-functions-slide-tile-stretch" class="anchor"></a>A family of window functions: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
 </h3>
-<p>Temporal data often involves moving window calculations. Several functions in <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
+<p>Time series often involves moving window calculations. Several functions in <em>tsibble</em> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
 <li>
 <code><a href="reference/slide.html">slide()</a></code>/<code><a href="reference/slide2.html">slide2()</a></code>/<code><a href="reference/slide2.html">pslide()</a></code>: sliding window with overlapping observations.</li>
@@ -209,8 +209,8 @@
 </ul>
 <p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide_dbl</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide_dbl</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,190 x 6 [1h] &lt;America/New_York&gt;</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
@@ -228,7 +228,7 @@
 <div id="more-around-tsibble" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-around-tsibble" class="anchor"></a>More around tsibble</h2>
-<p>Tsibble also serves a natural input to forecasting and many other downstream analytical tasks. Stay tuned for <a href="http://tidyverts.org">tidyverts.org</a>.</p>
+<p>Tsibble also serves as a natural input for forecasting and many other downstream analytical tasks. Stay tuned for <a href="http://tidyverts.org">tidyverts.org</a>.</p>
 <hr>
 <p>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>

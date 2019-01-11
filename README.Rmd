@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-The **tsibble** package provides a data class of `tbl_ts` to represent tidy temporal data. A *tsibble* consists of a time index, key and other measured variables in a data-centric format, which is built on top of the *tibble*.
+The **tsibble** package provides a data class of `tbl_ts` to represent tidy time series data. A *tsibble* consists of a time index, key and other measured variables in a data-centric format, which is built on top of the *tibble*.
 
 ## Installation
 
@@ -55,11 +55,11 @@ weather_tsbl
 
 The **key** is comprised of one or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
 
-The *tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth`/`yearmon` to monthly, `yearquarter`/`yearqtr` to quarterly, and etc.
+*Tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond, from numerics to ordered factors. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth` to monthly, `yearquarter` to quarterly, and etc.
 
 ### `fill_gaps()` to turn implicit missing values into explicit missing values
 
-Often there are implicit missing cases in temporal data. If the observations are made at regular time interval, we could turn these implicit missings to be explicit simply using `fill_gaps()`, filling gaps in precipitation (`precip`) with 0 in the meanwhile. It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
+Often there are implicit missing cases in time series. If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using `fill_gaps()`, filling gaps in precipitation (`precip`) with 0 in the meanwhile. It is quite common to replaces `NA`s with its previous observation for each origin in time series analysis, which is easily done using `fill()` from *tidyr*.
 
 ```{r fill-na}
 full_weather <- weather_tsbl %>%
@@ -69,7 +69,7 @@ full_weather <- weather_tsbl %>%
 full_weather
 ```
 
-`fill_gaps()` also handles filling time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
+`fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -89,7 +89,7 @@ While collapsing rows (like `summarise()`), `group_by()` and `index_by()` will t
 
 ### A family of window functions: `slide()`, `tile()`, `stretch()`
 
-Temporal data often involves moving window calculations. Several functions in *tsibble* allow for different variations of moving windows using purrr-like syntax:
+Time series often involves moving window calculations. Several functions in *tsibble* allow for different variations of moving windows using purrr-like syntax:
 
 * `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
 * `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
@@ -107,7 +107,7 @@ Looking for rolling in parallel? Their multiprocessing equivalents are prefixed 
 
 ## More around tsibble
 
-Tsibble also serves a natural input to forecasting and many other downstream analytical tasks. Stay tuned for [tidyverts.org](http://tidyverts.org).
+Tsibble also serves as a natural input for forecasting and many other downstream analytical tasks. Stay tuned for [tidyverts.org](http://tidyverts.org).
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
