@@ -5,7 +5,7 @@
 \alias{is_53weeks}
 \alias{yearmonth}
 \alias{yearquarter}
-\title{Represent year-week (ISO), year-month or year-quarter objects}
+\title{Represent year-week (ISO) starting on Monday, year-month or year-quarter objects}
 \usage{
 yearweek(x)
 
