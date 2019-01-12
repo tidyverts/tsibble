@@ -9,7 +9,7 @@ new_tsibble(x, ..., class = NULL)
 \arguments{
 \item{x}{A \code{tbl_ts}, required.}
 
-\item{...}{Name-value pairs defining attributes.}
+\item{...}{Name-value pairs defining new attributes other than a tsibble.}
 
 \item{class}{Subclasses to assign to the new object, default: none.}
 }

@@ -375,7 +375,7 @@ build_tsibble_meta <- function(
   }
   tbl <- as_tibble(x)
 
-  if (NROW(x) == 0) {
+  if (fast_nrow(x) == 0) {
     if (is_false(regular)) {
       interval <- irregular()
     } else {
@@ -385,7 +385,7 @@ build_tsibble_meta <- function(
       tbl, "key" = key, "index" = index, "index2" = index2,
       "interval" = interval, "regular" = regular, "ordered" = TRUE
     )
-    return(set_grped_tsibble_class(tbl))
+    return(add_grouped_ts(tbl))
   }
 
   if (is_false(regular)) {
@@ -425,20 +425,20 @@ build_tsibble_meta <- function(
     tbl, "key" = key, "index" = index, "index2" = index2,
     "interval" = interval, "regular" = regular, "ordered" = ordered
   )
-  set_grped_tsibble_class(tbl)
+  add_grouped_ts(tbl)
 }
 
 #' Create a subclass of a tsibble
 #'
 #' @param x A `tbl_ts`, required.
-#' @param ... Name-value pairs defining attributes.
+#' @param ... Name-value pairs defining new attributes other than a tsibble.
 #' @param class Subclasses to assign to the new object, default: none.
 #'
 #' @export
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
   x <- update_tsibble_attrs(x, ...)
-  set_tsibble_class(x, class = class)
+  new_tsibble_class(x, class = class)
 }
 
 #' Identifiers used for creating key
@@ -661,17 +661,18 @@ update_tsibble_attrs <- function(x, ...) {
   x
 }
 
-set_tsibble_class <- function(x, class = NULL) {
-  attr(x, "row.names") <- .set_row_names(NROW(x))
-  class(x) <- c(class, "tbl_ts", "tbl_df", "tbl", "data.frame")
+new_tsibble_class <- function(x, class = NULL) {
+  base_cls <- c("tbl_df", "tbl", "data.frame")
+  attr(x, "row.names") <- .set_row_names(fast_nrow(x))
+  class(x) <- c(class, "tbl_ts", base_cls)
   x
 }
 
-set_grped_tsibble_class <- function(x) {
+add_grouped_ts <- function(x) {
   if (is_empty(groups(x))) {
-    set_tsibble_class(x)
+    new_tsibble_class(x)
   } else {
-    set_tsibble_class(x, class = "grouped_ts")
+    new_tsibble_class(x, class = "grouped_ts")
   }
 }
 
