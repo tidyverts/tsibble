@@ -1,7 +1,3 @@
-fast_nrow <- function(x) {
-  .row_names_info(x, 2L)
-}
-
 split_period <- function(x) {
   output <- lubridate::seconds_to_period(x)
   list(

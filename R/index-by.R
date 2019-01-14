@@ -80,7 +80,8 @@ index_by.tbl_ts <- function(.data, ...) {
   }
   # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs) %>% 
-    group_by(!!! groups(.data))
+    group_by(!!! groups(.data)) %>% 
+    new_tsibble_class("grouped_ts")
   idx2 <- sym(expr_name)
   build_tsibble(
     tbl, key = key(.data), index = !! idx, index2 = !! idx2,

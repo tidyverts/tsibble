@@ -37,7 +37,7 @@ Imports:
     purrr (>= 0.2.3),
     Rcpp (>= 0.12.3),
     rlang (>= 0.2.0),
-    tibble (>= 1.4.1),
+    tibble (>= 2.0.1),
     tidyr,
     tidyselect
 Suggests: 

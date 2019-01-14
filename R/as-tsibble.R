@@ -373,19 +373,24 @@ build_tsibble_meta <- function(
   } else {
     index2 <- get_expr(index2)
   }
+  is_grped <- dplyr::is_grouped_df(x) || is_grouped_ts(x)
   tbl <- as_tibble(x)
 
-  if (fast_nrow(x) == 0) {
+  if (NROW(x) == 0) {
     if (is_false(regular)) {
       interval <- irregular()
     } else {
       interval <- init_interval()
     }
-    tbl <- update_tsibble_attrs(
+    tbl <- new_tibble(
       tbl, "key" = key, "index" = index, "index2" = index2,
-      "interval" = interval, "regular" = regular, "ordered" = TRUE
+      "interval" = interval, "regular" = regular, "ordered" = TRUE,
+      nrow = 0L, class = "tbl_ts"
     )
-    return(add_grouped_ts(tbl))
+    if (is_grped) {
+      tbl <- new_tsibble_class(tbl, class = "grouped_ts")
+    }
+    return(tbl)
   }
 
   if (is_false(regular)) {
@@ -421,11 +426,15 @@ build_tsibble_meta <- function(
   if (!idx_lgl) {
     tbl <- tbl %>% group_by(!! index2, add = TRUE)
   }
-  tbl <- update_tsibble_attrs(
+  tbl <- new_tibble(
     tbl, "key" = key, "index" = index, "index2" = index2,
-    "interval" = interval, "regular" = regular, "ordered" = ordered
+    "interval" = interval, "regular" = regular, "ordered" = ordered,
+    nrow = NROW(tbl), class = "tbl_ts"
   )
-  add_grouped_ts(tbl)
+  if (is_grped) {
+    tbl <- new_tsibble_class(tbl, class = "grouped_ts")
+  }
+  tbl
 }
 
 #' Create a subclass of a tsibble
@@ -437,7 +446,7 @@ build_tsibble_meta <- function(
 #' @export
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
-  x <- update_tsibble_attrs(x, ...)
+  x <- new_tibble(x, ..., class = "tbl_ts")
   new_tsibble_class(x, class = class)
 }
 
@@ -473,9 +482,7 @@ validate_index <- function(data, index) {
       return(sym(chr_index))
     } else if (!val_idx[idx_pos]) {
       cls_idx <- map_chr(data, ~ class(.)[1])
-      abort(sprintf(
-        "Unsupported index type: %s", cls_idx[idx_pos])
-      )
+      abort(sprintf("Unsupported index type: %s", cls_idx[idx_pos]))
     }
   }
   if (anyNA(data[[chr_index]])) {
@@ -652,28 +659,11 @@ duplicates <- function(data, key = id(), index) {
     ungroup()
 }
 
-update_tsibble_attrs <- function(x, ...) {
-  # Can't use structure() here because it breaks the row.names attribute
-  attribs <- list2(...)
-  if (has_length(attribs)) {
-    attributes(x)[names(attribs)] <- attribs
-  }
-  x
-}
-
 new_tsibble_class <- function(x, class = NULL) {
   base_cls <- c("tbl_df", "tbl", "data.frame")
-  attr(x, "row.names") <- .set_row_names(fast_nrow(x))
+  attr(x, "row.names") <- .set_row_names(NROW(x))
   class(x) <- c(class, "tbl_ts", base_cls)
   x
-}
-
-add_grouped_ts <- function(x) {
-  if (is_empty(groups(x))) {
-    new_tsibble_class(x)
-  } else {
-    new_tsibble_class(x, class = "grouped_ts")
-  }
 }
 
 remove_tsibble_attrs <- function(x) {
