@@ -78,11 +78,10 @@ index_by.tbl_ts <- function(.data, ...) {
   if (identical(idx_chr, expr_name)) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx_chr))
   }
+  idx2 <- sym(expr_name)
   # ungroup() protect the index class
   tbl <- mutate(ungroup(.data), !!! exprs) %>% 
-    group_by(!!! groups(.data)) %>% 
-    new_tsibble_class("grouped_ts")
-  idx2 <- sym(expr_name)
+    group_by(!!! groups(.data), !! idx2)
   build_tsibble(
     tbl, key = key(.data), index = !! idx, index2 = !! idx2,
     regular = is_regular(.data), validate = FALSE,

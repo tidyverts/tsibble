@@ -64,7 +64,7 @@ test_that("nanotime with 1 nanoseconds interval", {
 
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
-  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_message(tsbl <- as_tsibble(dat_x), "Using `date_time` as index variable.")
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1s\\]")
   expect_error(as_tsibble(dat_x, key = id(date_time)))
   expect_is(tsbl, "tbl_ts")

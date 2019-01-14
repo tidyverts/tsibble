@@ -56,11 +56,12 @@ key_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(...)
   key <- validate_key(.data, exprs)
   validate <- !all(is.element(key(.data), key))
+  idx <- index(.data)
   if (validate) {
-    .data <- retain_tsibble(.data, key, index(.data))
+    .data <- retain_tsibble(.data, key, idx)
   }
   build_tsibble_meta(
-    .data, key = key, index = !! index(.data), index2 = !! index2(.data),
+    .data, key = key, index = !! idx, index2 = !! index2(.data),
     regular = is_regular(.data), ordered = is_ordered(.data), 
     interval = interval(.data)
   )
@@ -118,7 +119,7 @@ key_indices <- function(x) {
 #' @export
 key_indices.tbl_ts <- function(x) {
   key_vars <- key_vars(x)
-  grped_key <- grouped_df(x, key_vars)
+  grped_key <- grouped_df(as_tibble(x), key_vars)
   group_indices(grped_key)
 }
 

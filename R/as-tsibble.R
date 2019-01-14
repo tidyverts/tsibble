@@ -498,7 +498,7 @@ duplicated_key_index <- function(data, key, index) {
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  res <- grouped_df(data, vars = key) %>%
+  res <- grouped_df(as_tibble(data), key) %>%
     summarise(!! "zzz" := anyDuplicated.default(!! index)) %>%
     dplyr::pull(!! "zzz")
   any_not_equal_to_c(res, 0)
