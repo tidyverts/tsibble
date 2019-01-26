@@ -187,6 +187,11 @@ irregular <- function() {
   structure(list(), class = "interval")
 }
 
+unknown_interval <- function(x) {
+  no_zeros <- !map_lgl(x, function(x) x == 0)
+  sum(no_zeros) == 0
+}
+
 #' Extract time unit from a vector
 #'
 #' @param x An interval.

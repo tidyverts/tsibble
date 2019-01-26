@@ -24,7 +24,7 @@ new_data <- function(.data, n = 1L, ...) {
 #' new_data(pedestrian, n = 3)
 new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   not_regular(.data)
-  unknown_interval(int <- interval(.data))
+  abort_unknown_interval(int <- interval(.data))
 
   idx <- index(.data)
   tunit <- time_unit(int)

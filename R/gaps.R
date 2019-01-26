@@ -124,6 +124,8 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   int <- interval(.data)
   idx <- index(.data)
   idx_chr <- as_string(idx)
+  if (unknown_interval(int)) return(.data[0L, c(key_vars(.data), idx_chr)])
+
   key <- key(.data)
   keyed_tbl <- grped_df_by_key(.data)
   if (.full) {
@@ -183,19 +185,27 @@ count_gaps <- function(.data, ...) {
 count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
-
   idx <- index(.data)
+  if (unknown_interval(int)) {
+    data_key <- .data[0L, key_vars(.data)] 
+    data_key[[".to"]] <- data_key[[".from"]] <- .data[[as_string(idx)]][0L]
+    data_key[[".n"]] <- integer()
+    return(data_key)
+  }
+
   grped_tbl <- grped_df_by_key(.data)
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
-    out <- grped_tbl %>% 
-      summarise(gaps = list2(gaps(!! idx, idx_full))) %>% 
-      unnest(gaps)
+    lst_out <- summarise(grped_tbl, gaps = list2(gaps(!! idx, idx_full)))
   } else {
-    out <- grped_tbl %>% 
-      summarise(gaps = list2(gaps(!! idx, seq_generator(!! idx, int)))) %>% 
-      unnest(gaps)
+    lst_out <- summarise(
+      grped_tbl, 
+      gaps = list2(gaps(!! idx, seq_generator(!! idx, int)))
+    )
   }
+  idx_type <- class(lst_out[["gaps"]][[1]][[".from"]])
+  out <- unnest(lst_out, gaps)
+  class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
   tibble(!!! out)
 }
 
@@ -245,8 +255,6 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
 #' @return A tibble of columns `.from`, `.to` and `.n`.
-#' @keywords internal
-#' @export
 #' @examples
 #' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 gaps <- function(x, y) {
@@ -271,7 +279,7 @@ gaps <- function(x, y) {
   from <- c(1, to[-length(to)] + 1)
   nobs <- gap_idx[lgl_rle]
   if (is_empty(nobs)) {
-    tibble(.from = NA, .to = NA, .n = 0L)
+    tibble(.from = y[0], .to = y[0], .n = integer())
   } else {
     tibble(
       .from = y[from][lgl_rle],

@@ -166,7 +166,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
   }
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data),
+    mut_data, key = key_data(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data),
     validate = FALSE

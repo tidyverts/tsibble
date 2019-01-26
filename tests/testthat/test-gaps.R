@@ -13,7 +13,7 @@ test_that("a tbl_df/data.frame", {
 test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
   expect_identical(fill_gaps(tsbl), tsbl)
-  expect_equal(count_gaps(tsbl)$.n, 0)
+  expect_equal(count_gaps(tsbl)$.n, integer(0))
   expect_equal(has_gaps(tsbl), tibble(".gaps" = FALSE))
 })
 
@@ -27,7 +27,10 @@ test_that("an irregular tbl_ts", {
 test_that("a tbl_ts without implicit missing values", {
   tsbl <- as_tsibble(dat_x, index = date)
   expect_identical(fill_gaps(tsbl), tsbl)
-  ref_tbl <- tibble(.from = NA, .to = NA, .n = 0L)
+  ref_tbl <- tibble(
+    .from = as.Date(character(0)), .to = as.Date(character(0)),
+    .n = integer(0)
+  )
   expect_identical(count_gaps(tsbl), ref_tbl)
 })
 
@@ -166,14 +169,13 @@ test_that("count_gaps.tbl_ts(.full = TRUE)", {
 
 test_that("count_gaps.tbl_ts(.full = FALSE)", {
   full_tbl <- tsbl %>% count_gaps()
-  a <- tibble(group = "a", .from = NA, .to = NA, .n = 0L)
   b <- tibble(
     group = "b",
     .from = ymd("2017-01-13"),
     .to = ymd("2017-01-13"),
     .n = 1L
   )
-  expect_equal(full_tbl, dplyr::bind_rows(a, b))
+  expect_equal(full_tbl, b)
 })
 
 harvest <- tsibble(

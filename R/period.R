@@ -9,9 +9,6 @@
 #'
 #' @return Year-week (`yearweek`), year-month (`yearmonth`) or year-quarter
 #' (`yearquarter`) objects.
-#' @details It's a known issue that these attributes will be dropped when using
-#' [group_by] and [mutate] together. It is recommended to [ungroup] first, and
-#' then use [mutate].
 #'
 #' @section Index functions:
 #' The tsibble `yearmonth()` and `yearquarter()` function respects time zones of
@@ -123,6 +120,8 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
+  if (is_empty(x)) return(as_yearweek(x))
+
   anytime::assertDate(x)
   as_yearweek(anytime::anydate(x))
 }
@@ -275,6 +274,8 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
+  if (is_empty(x)) return(as_yearmonth(x))
+
   anytime::assertDate(x)
   as_yearmonth(anytime::anydate(x))
 }
@@ -394,6 +395,8 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
+  if (is_empty(x)) return(as_yearquarter(x))
+
   anytime::assertDate(x)
   as_yearquarter(anytime::anydate(x))
 }
@@ -518,17 +521,17 @@ seq.ordered <- function(from, to, by, ...) {
 }
 
 #' @export
-`[.yearweek` <- function(x, ..., drop = FALSE) {
+`[.yearweek` <- function(x, ..., drop = TRUE) {
   yearweek(NextMethod())
 }
 
 #' @export
-`[.yearmonth` <- function(x, ..., drop = FALSE) {
+`[.yearmonth` <- function(x, ..., drop = TRUE) {
   yearmonth(NextMethod())
 }
 
 #' @export
-`[.yearquarter` <- function(x, ..., drop = FALSE) {
+`[.yearquarter` <- function(x, ..., drop = TRUE) {
   yearquarter(NextMethod())
 }
 

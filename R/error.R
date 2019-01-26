@@ -12,9 +12,9 @@ dont_know <- function(x, FUN) {
   abort(msg)
 }
 
-unknown_interval <- function(x) {
-  no_zeros <- !map_lgl(x, function(x) x == 0)
-  if (sum(no_zeros) == 0) abort("Can't proceed with tsibble of unknown interval.")
+abort_unknown_interval <- function(x) {
+  if (unknown_interval(x)) 
+    abort("Can't proceed with tsibble of unknown interval.")
 }
 
 not_regular <- function(x) {

@@ -8,7 +8,7 @@ test_that("create an empty tsibble", {
   )
 })
 
-ped_null <- pedestrian %>% 
+ped_null <- pedestrian %>%
   filter(Sensor == 0)
 
 test_that("dplyr verbs", {

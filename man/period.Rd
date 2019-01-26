@@ -29,11 +29,6 @@ Year-week (\code{yearweek}), year-month (\code{yearmonth}) or year-quarter
 \description{
 Create or coerce using \code{yearweek()}, \code{yearmonth()}, or \code{yearquarter()}
 }
-\details{
-It's a known issue that these attributes will be dropped when using
-\link{group_by} and \link{mutate} together. It is recommended to \link{ungroup} first, and
-then use \link{mutate}.
-}
 \section{Index functions}{
 
 The tsibble \code{yearmonth()} and \code{yearquarter()} function respects time zones of
