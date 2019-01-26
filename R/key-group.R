@@ -23,7 +23,7 @@ key.default <- function(x) {
 
 #' @export
 key.tbl_ts <- function(x) {
-  attr(x, "key")
+  syms(key_vars(x))
 }
 
 #' @rdname key
@@ -34,7 +34,20 @@ key_vars <- function(x) {
 
 #' @export
 key_vars.tbl_ts <- function(x) {
-  map_chr(key(x), as_string)
+  keys <- key_data(x)
+  head(names(keys), -1L)
+}
+
+key_data <- function(.data) {
+  UseMethod("key_data")
+}
+
+key_data.tbl_ts <- function(.data) {
+  attr(.data, "key")
+}
+
+key_rows <- function(.data) {
+  key_data(.data)[[".rows"]]
 }
 
 #' Change key variables for a given `tbl_ts`
@@ -67,68 +80,17 @@ key_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' Compute sizes of key variables
-#'
-#' @param x A data frame.
-#'
-#' @keywords internal
-#' @rdname key-size
-#' @export
-#' @examples
-#' key_size(pedestrian)
-#' n_keys(pedestrian)
-key_size <- function(x) {
-  UseMethod("key_size")
-}
-
-#' @export
-key_size.tbl_ts <- function(x) {
-  idx <- key_indices(x)
-  out <- as.integer(rowsum.default(rep_len(1L, length(idx)), idx, reorder = FALSE))
-  if (has_length(out, 1)) {
-    NROW(x)
-  } else {
-    out
-  }
-}
-
-#' @rdname key-size
-#' @keywords internal
-#' @export
 n_keys <- function(x) {
-  UseMethod("n_keys")
-}
-
-#' @export
-n_keys.tbl_ts <- function(x) {
-  key <- key_vars(x)
-  if (is_empty(key)) {
-    1L
-  } else {
-    NROW(distinct(ungroup(as_tibble(x)), !!! syms(key)))
-  }
-}
-
-#' @rdname key-size
-#' @keywords internal
-#' @export
-key_indices <- function(x) {
-  UseMethod("key_indices")
-}
-
-#' @export
-key_indices.tbl_ts <- function(x) {
-  key_vars <- key_vars(x)
-  grped_key <- grouped_df(as_tibble(x), key_vars)
-  group_indices(grped_key)
+  NROW(key_data(x))
 }
 
 validate_key <- function(.data, .vars) {
-  syms(tidyselect::vars_select(names(.data), !!! .vars))
+  syms(unname(tidyselect::vars_select(names(.data), !!! .vars)))
 }
 
 remove_key <- function(.data, .vars) {
-  attr(.data, "key") <- syms(.vars[.vars %in% key_vars(.data)])
+  sel_key <- c(.vars[.vars %in% key_vars(.data)], ".rows")
+  attr(.data, "key") <- key_data(.data)[sel_key]
   .data
 }
 
@@ -137,13 +99,13 @@ rename_key <- function(.data, .vars) {
 
   old_key_vars <- key_vars(.data)
   if (is_empty(old_key_vars)) {
-    attr(.data, "key") <- id()
+    names(attr(.data, "key")) <- ".rows"
     return(.data)
   }
   names <- names(.vars)
   idx <- .vars %in% old_key_vars
   names(.data)[idx] <- new_key_vars <- names[idx]
-  attr(.data, "key") <- syms(new_key_vars)
+  names(attr(.data, "key")) <- c(new_key_vars, ".rows")
   .data
 }
 
@@ -161,6 +123,11 @@ groups.grouped_ts <- function(x) {
 #' @export
 group_vars.tbl_ts <- function(x) {
   character(0L)
+}
+
+group_data.grouped_ts <- function(.data) {
+  res <- as_grouped_df(.data)
+  group_data(res)
 }
 
 #' @export

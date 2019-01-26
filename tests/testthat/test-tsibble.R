@@ -76,7 +76,7 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(format(interval(tsbl)), "1s")
   expect_output(print(interval(tsbl)), "1s")
   expect_true(is_regular(tsbl))
-  expect_equal(key_size(tsbl), 5)
+  # expect_equal(key_size(tsbl), 5)
   expect_equal(n_keys(tsbl), 1)
   expect_equal(group_size(tsbl), 5)
 })
@@ -257,7 +257,7 @@ test_that("A single key", {
   tsbl <- as_tsibble(dat_x, key = id(group), index = date)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
   expect_identical(format(groups(tsbl)), "NULL")
-  expect_equal(key_size(tsbl), c(5, 5))
+  # expect_equal(key_size(tsbl), c(5, 5))
   expect_equal(n_keys(tsbl), 2)
 })
 

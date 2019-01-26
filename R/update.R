@@ -71,7 +71,7 @@ rename_tsibble <- function(.data, ...) {
   names(res) <- names(val_vars)
 
   build_tsibble_meta(
-    res, key = key(res), index = !! index(res), index2 = !! index2(res),
+    res, key = key_data(res), index = !! index(res), index2 = !! index2(res),
     regular = is_regular(res), ordered = is_ordered(res), 
     interval = interval(res)
   )

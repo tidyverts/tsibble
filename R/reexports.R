@@ -18,6 +18,10 @@ dplyr::group_vars
 #' @export
 dplyr::groups
 
+#' @importFrom dplyr group_data
+#' @export
+dplyr::group_data
+
 #' @importFrom dplyr ungroup
 #' @export
 dplyr::ungroup

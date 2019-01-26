@@ -3,14 +3,14 @@ library(tidyverse)
 library(lubridate)
 
 # Melbourne pedestrian sensor data ----
-pedestrian <- rwalkr::run_melb(
+pedestrian <- rwalkr::melb_walk_fast(
   year = 2015:2016,
   sensor = c(
     "Birrarung Marr",
     "Southern Cross Station",
     "Bourke Street Mall (North)",
     "QV Market-Elizabeth St (West)"
-  ), na.rm = TRUE, tz = "Australia/Melbourne")
+  ), na.rm = TRUE)
 
 pedestrian <- as_tsibble(
   pedestrian, key = id(Sensor), index = Date_Time

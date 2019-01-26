@@ -245,7 +245,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(
-    grped_tbl, key = key(.data), index = !! index(.data),
+    grped_tbl, key = key_data(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data)
   )
@@ -268,7 +268,7 @@ group_by_key <- function(.data, ...) {
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
-    tbl, key = key(x), index = !! index(x), regular = is_regular(x),
+    tbl, key = key_data(x), index = !! index(x), regular = is_regular(x),
     ordered = is_ordered(x), interval = interval(x)
   )
 }

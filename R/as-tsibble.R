@@ -314,9 +314,15 @@ build_tsibble <- function(
   validate = TRUE
 ) {
   # if key is quosures
-  key <- use_id(x, !! enquo(key))
+  key_sym <- use_id(x, !! enquo(key))
+  is_key_data <- is.data.frame(key_sym)
+  if (is_key_data) {
+    key_data <- key_sym
+    key_sym <- head(names(key_data), -1L)
+  }
 
-  if (dplyr::is_grouped_df(x)) {
+  is_grped <- dplyr::is_grouped_df(x) || is_grouped_ts(x)
+  if (is_grped) {
     tbl <- x
   } else {
     tbl <- as_tibble(x)
@@ -335,7 +341,7 @@ build_tsibble <- function(
     index2 <- validate_index(tbl, index2)
   }
   # (1) validate and process key vars (from expr to a list of syms)
-  key_vars <- validate_key(tbl, key)
+  key_vars <- validate_key(tbl, key_sym)
   # (2) index cannot be part of the keys
   idx_chr <- c(as_string(index), as_string(index2))
   is_index_in_keys <- intersect(idx_chr, key_vars)
@@ -343,11 +349,14 @@ build_tsibble <- function(
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # validate tbl_ts
+  if (!is_key_data) {
+    key_data <- group_data(group_by(tbl, !!! key_vars))
+  }
   if (validate) {
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
   }
   build_tsibble_meta(
-    tbl, key = key_vars, index = !! index, index2 = !! index2,
+    tbl, key = key_data, index = !! index, index2 = !! index2,
     regular = regular, ordered = ordered, interval = interval
   )
 }
@@ -365,7 +374,6 @@ build_tsibble_meta <- function(
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
-  key <- unname(eval_tidy(enquo(key)))
   index <- get_expr(enquo(index))
   index2 <- enquo(index2)
   if (quo_is_missing(index2)) {
@@ -405,8 +413,16 @@ build_tsibble_meta <- function(
     ))
   }
 
+  is_key_data <- is.data.frame(key)
+  is_ordered_null <- is.null(ordered)
+  if (is_key_data && is_ordered_null) {
+    key_data <- key
+    key <- syms(head(names(key), -1L))
+  } else if (is_key_data) {
+    key_data <- key
+  }
   # arrange in time order (by key and index)
-  if (is.null(ordered)) { # first time to create a tsibble
+  if (is_ordered_null) { # first time to create a tsibble
     tbl <- tbl %>%
       arrange(!!! key, !! index)
     ordered <- TRUE
@@ -419,6 +435,10 @@ build_tsibble_meta <- function(
       warn(sprintf(msg_header, paste_comma(c(key, idx_txt))))
     }
   } # true do nothing
+  if (is_bare_list(key) || is_ordered_null) {
+    key <- unname(key)
+    key_data <- group_data(group_by(tbl, !!! key))
+  }
 
   idx_lgl <- identical(index, index2)
   # convert grouped_df to tsibble:
@@ -427,7 +447,7 @@ build_tsibble_meta <- function(
     tbl <- tbl %>% group_by(!! index2, add = TRUE)
   }
   tbl <- new_tibble(
-    tbl, "key" = key, "index" = index, "index2" = index2,
+    tbl, "key" = key_data, "index" = index, "index2" = index2,
     "interval" = interval, "regular" = regular, "ordered" = ordered,
     nrow = NROW(tbl), class = "tbl_ts"
   )
@@ -588,17 +608,21 @@ use_id <- function(x, key) {
   key_expr <- get_expr(key)
   if (is_string(key_expr)) {
     abort(suggest_key(key_expr))
-  }
+  } 
   safe_key <- purrr::safely(eval_tidy)(
     key_expr,
     env = child_env(get_env(key), id = id)
   )
-  if (is_null(safe_key$error)) {
+  res <- safe_key$result
+  if (is.data.frame(res)) {
+    # ToDo: check if column .row exists
+    return(res)
+  } else if (is_null(safe_key$error)) {
     fn <- function(x) {
       if (is_list(x)) all(map_lgl(x, fn)) else is_expression(x)
     }
-    lgl <- fn(safe_key$result)
-    if (lgl) return(safe_key$result)
+    lgl <- fn(res)
+    if (lgl) return(res)
   }
   abort(suggest_key(as_string(key_expr)))
 }
