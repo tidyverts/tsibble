@@ -255,8 +255,6 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
 #' @return A tibble of columns `.from`, `.to` and `.n`.
-#' @examples
-#' gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
 gaps <- function(x, y) {
   if (is_empty(x) && is_empty(y)) {
     return(tibble(.from = x, .to = y, .n = integer()))

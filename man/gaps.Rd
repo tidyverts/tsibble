@@ -15,6 +15,3 @@ A tibble of columns \code{.from}, \code{.to} and \code{.n}.
 \description{
 Find missing elements in \code{x} with respect to \code{y}
 }
-\examples{
-gaps(x = c(1:3, 5:6, 9:10), y = 1:10)
-}
