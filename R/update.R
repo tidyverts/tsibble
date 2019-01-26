@@ -1,7 +1,12 @@
-by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...) {
+by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ..., 
+  .preserve = FALSE) {
   FUN <- match.fun(FUN, descend = FALSE)
-  tbl <- FUN(as_tibble(.data), ...)
-  update_tsibble(tbl, .data, ordered = ordered, interval = interval)
+  tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
+  if (.preserve) {
+    update_tsibble2(tbl, .data, ordered = ordered, interval = interval)
+  } else {
+    update_tsibble(tbl, .data, ordered = ordered, interval = interval)
+  }
 }
 
 # put new data with existing attributes
@@ -10,6 +15,17 @@ update_tsibble <- function(
 ) {
   restore_index_class(build_tsibble(
     new, key = key(old), index = !! index(old), index2 = !! index2(old),
+    regular = is_regular(old), ordered = ordered, interval = interval, 
+    validate = validate
+  ), old)
+}
+
+# preserve key data
+update_tsibble2 <- function(
+  new, old, ordered = TRUE, interval = NULL, validate = FALSE
+) {
+  restore_index_class(build_tsibble(
+    new, key = key_data(old), index = !! index(old), index2 = !! index2(old),
     regular = is_regular(old), ordered = ordered, interval = interval, 
     validate = validate
   ), old)

@@ -73,20 +73,23 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
 
 #' @rdname tidyverse
 #' @export
-filter.tbl_ts <- function(.data, ...) {
-  by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...)
+filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
+  by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...,
+    .preserve = .preserve
+  )
 }
 
 #' @rdname tidyverse
 #' @export
-slice.tbl_ts <- function(.data, ...) {
+slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   pos <- enquos(...)
   if (length(pos) > 1) {
     abort("`slice()` only accepts one expression.")
   }
   pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
   ascending <- row_validate(pos_eval)
-  by_row(slice, .data, ordered = ascending, interval = NULL, ...)
+  by_row(slice, .data, ordered = ascending, interval = NULL, ..., 
+    .preserve = .preserve)
 }
 
 row_validate <- function(x) {

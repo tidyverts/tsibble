@@ -32,9 +32,9 @@
 
 \method{arrange}{grouped_ts}(.data, ..., .by_group = FALSE)
 
-\method{filter}{tbl_ts}(.data, ...)
+\method{filter}{tbl_ts}(.data, ..., .preserve = FALSE)
 
-\method{slice}{tbl_ts}(.data, ...)
+\method{slice}{tbl_ts}(.data, ..., .preserve = FALSE)
 
 \method{select}{tbl_ts}(.data, ..., .drop = FALSE)
 
@@ -91,6 +91,11 @@
 
 \item{.by_group}{If \code{TRUE}, will sort first by grouping variable. Applies to
 grouped data frames only.}
+
+\item{.preserve}{Optionally, list-columns to preserve in the output. These
+will be duplicated in the same way as atomic vectors. This has
+\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
+\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
 \item{.drop}{Deprecated, please use \code{as_tibble()} for \code{.drop = TRUE} instead.
 \code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a tsibble and
@@ -176,11 +181,6 @@ the list column is named.}
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
 will combine the name of the original list-col with the names from
 nested data frame, separated by \code{.sep}.}
-
-\item{.preserve}{Optionally, list-columns to preserve in the output. These
-will be duplicated in the same way as atomic vectors. This has
-\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
-\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
 either "down" (the default) or "up".}

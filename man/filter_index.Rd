@@ -4,7 +4,7 @@
 \alias{filter_index}
 \title{A shorthand for filtering time index for a tsibble}
 \usage{
-filter_index(.data, ...)
+filter_index(.data, ..., .preserve = FALSE)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -17,6 +17,9 @@ filter_index(.data, ...)
 Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek}, \code{yearmonth}/\code{yearmon},
 \code{yearquarter}/\code{yearqtr}, \code{hms}/\code{difftime} & \code{numeric}.
 }}
+
+\item{.preserve}{when \code{FALSE} (the default), the grouping structure
+is recalculated based on the resulting data, otherwise it is kept as is.}
 }
 \description{
 This shorthand respects time zones and encourages compact expressions.

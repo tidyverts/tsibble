@@ -9,6 +9,7 @@
 #' * `start ~ .`: from a specified beginning to the very end of the data.
 #' Supported index type: `POSIXct` (to seconds), `Date`, `yearweek`, `yearmonth`/`yearmon`,
 #' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
+#' @inheritParams dplyr::filter
 #'
 #' @section System Time Zone ("Europe/London"): 
 #' There is a known issue of an extra hour gained for a machine setting time 
@@ -45,9 +46,9 @@
 #'   filter_index("2015-03-23" ~ "2015-10-31")
 #' pedestrian %>% 
 #'   filter_index("2015-03-23 10" ~ "2015-10-31 12")
-filter_index <- function(.data, ...) {
+filter_index <- function(.data, ..., .preserve = FALSE) {
   idx <- index(.data)
-  filter(.data, time_in(!! idx, ...))
+  filter(.data, time_in(!! idx, ...), .preserve = .preserve)
 }
 
 #' If time falls in the ranges using compact expressions

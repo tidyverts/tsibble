@@ -423,8 +423,7 @@ build_tsibble_meta <- function(
   }
   # arrange in time order (by key and index)
   if (is_ordered_null) { # first time to create a tsibble
-    tbl <- tbl %>%
-      arrange(!!! key, !! index)
+    tbl <- arrange(tbl, !!! key, !! index)
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
     msg_header <- "Unexpected temporal ordering. Please sort by %s."
@@ -444,7 +443,7 @@ build_tsibble_meta <- function(
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (!idx_lgl) {
-    tbl <- tbl %>% group_by(!! index2, add = TRUE)
+    tbl <- group_by(tbl, !! index2, add = TRUE)
   }
   tbl <- new_tibble(
     tbl, "key" = key_data, "index" = index, "index2" = index2,
