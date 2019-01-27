@@ -4,7 +4,7 @@
 \alias{build_tsibble}
 \title{Low-level constructor for a tsibble object}
 \usage{
-build_tsibble(x, key, index, index2, regular = TRUE, ordered = NULL,
+build_tsibble(x, key, index, index2, ordered = NULL, regular = TRUE,
   interval = NULL, validate = TRUE)
 }
 \arguments{
@@ -19,12 +19,12 @@ simply call \code{id()}.}
 \item{index2}{A candidate of \code{index} to update the index to a new one when
 \link{index_by}. By default, it's identical to \code{index}.}
 
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
-interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
-
 \item{ordered}{The default of \code{NULL} arranges the key variable(s) first and
 then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
 the correct order. \code{FALSE} also skips the ordering but gives a warning instead.}
+
+\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
+interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
 
 \item{interval}{\code{NULL} computes the interval. Use the specified interval via
 \code{\link[=new_interval]{new_interval()}} as is, if an class of \code{interval} is supplied.}

@@ -47,7 +47,7 @@ test_that("if it's a tsibble", {
   expect_identical(tsbl[1:11, ], as_tibble(tsbl)[1:11, ])
   expect_equal(tsbl[], tsbl)
   expect_is(tsbl[, c(1, 2)], "tbl_ts")
-  expect_warning(tsbl[c("group", "date"), drop = TRUE], "`drop` is ignored.")
+  expect_warning(tsbl[c("group", "date"), drop = TRUE], "drop ignored")
   expect_identical(tsbl[FALSE, ], tsbl[0, ])
   expect_identical(tsbl[TRUE, ], tsbl)
   tsbl2 <- tsbl[1, ]
