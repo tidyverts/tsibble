@@ -150,9 +150,3 @@ has_all_key <- function(j, x) {
   key_vars <- key_vars(x)
   all(key_vars %in% j)
 }
-
-assign_index_null <- function(j, x) {
-  is_index_null(x)
-  index <- c(index_var(x), index2_var(x))
-  any(index %in% j)
-}

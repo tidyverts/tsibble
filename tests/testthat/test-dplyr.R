@@ -131,6 +131,16 @@ test_that("filter() and slice()", {
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
 })
 
+test_that("filter() and slice() with .preserve = TRUE", {
+  ped_fil1 <- pedestrian %>% filter_index("2015-01", .preserve = TRUE)
+  ped_fil2 <- pedestrian %>% 
+    group_by_key() %>% 
+    filter_index("2015-01", .preserve = TRUE) %>% 
+    as_tibble()
+  expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
+  expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
+})
+
 test_that("select() and rename()", {
   expect_error(select(tourism, -Quarter), "can't be removed.")
   expect_error(select(tourism, Quarter), "is not a valid tsibble.")

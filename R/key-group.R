@@ -143,12 +143,6 @@ group_data.grouped_ts <- function(.data) {
 }
 
 #' @export
-group_rows.grouped_ts <- function(.data) {
-  res <- as_grouped_df(.data)
-  group_rows(res)
-}
-
-#' @export
 group_vars.grouped_ts <- function(x) {
   res <- as_grouped_df(x)
   group_vars(res)

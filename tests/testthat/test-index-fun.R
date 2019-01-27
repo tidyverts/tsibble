@@ -4,6 +4,12 @@ yw <- seq(yearweek(as.Date("1970-01-01")), length.out = 3, by = 1)
 ym <- seq(yearmonth(1970 + 0 / 12), length.out = 3, by = 1)
 yq <- seq(yearquarter(1970 + 0 / 4), length.out = 3, by = 1)
 
+test_that("subset by 0", {
+  expect_is(yw[0], "yearweek")
+  expect_is(ym[0], "yearmonth")
+  expect_is(yq[0], "yearquarter")
+})
+
 test_that("is_53weeks()", {
   expect_equal(is_53weeks(2015:2016), c(TRUE, FALSE))
   expect_error(is_53weeks("2015"), "positive integers.")

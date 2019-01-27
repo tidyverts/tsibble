@@ -14,6 +14,7 @@ test_that("unknown interval", {
   tsbl <- as_tsibble(dat_x[1, ], index = date)
   expect_identical(fill_gaps(tsbl), tsbl)
   expect_equal(count_gaps(tsbl)$.n, integer(0))
+  expect_identical(scan_gaps(pedestrian[0L, ]), pedestrian[0L, 1:2])
   expect_equal(has_gaps(tsbl), tibble(".gaps" = FALSE))
 })
 
