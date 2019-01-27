@@ -10,7 +10,7 @@ key(x)
 key_vars(x)
 }
 \arguments{
-\item{x}{A data frame.}
+\item{x}{A tsibble.}
 }
 \description{
 \code{key()} returns a list of symbols; \code{key_vars()} gives a character vector.

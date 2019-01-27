@@ -2,7 +2,7 @@
 #'
 #' `key()` returns a list of symbols; `key_vars()` gives a character vector.
 #'
-#' @param x A data frame.
+#' @param x A tsibble.
 #'
 #' @rdname key
 #' @examples
@@ -38,14 +38,25 @@ key_vars.tbl_ts <- function(x) {
   head(names(keys), -1L)
 }
 
+#' Keying data
+#'
+#' @param .data A tsibble
+#' @rdname key-data
+#' @export
+#' @examples
+#' key_data(pedestrian)
+#' key_rows(pedestrian)
 key_data <- function(.data) {
   UseMethod("key_data")
 }
 
+#' @export
 key_data.tbl_ts <- function(.data) {
   attr(.data, "key")
 }
 
+#' @rdname key-data
+#' @export
 key_rows <- function(.data) {
   key_data(.data)[[".rows"]]
 }
@@ -125,9 +136,16 @@ group_vars.tbl_ts <- function(x) {
   character(0L)
 }
 
+#' @export
 group_data.grouped_ts <- function(.data) {
   res <- as_grouped_df(.data)
   group_data(res)
+}
+
+#' @export
+group_rows.grouped_ts <- function(.data) {
+  res <- as_grouped_df(.data)
+  group_rows(res)
 }
 
 #' @export

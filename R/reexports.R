@@ -22,6 +22,10 @@ dplyr::groups
 #' @export
 dplyr::group_data
 
+#' @importFrom dplyr group_rows
+#' @export
+dplyr::group_rows
+
 #' @importFrom dplyr ungroup
 #' @export
 dplyr::ungroup
