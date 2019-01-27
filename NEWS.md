@@ -1,3 +1,17 @@
+# tsibble 0.6.2.9000 (to be released as v0.7.0)
+
+## Bug fixes
+
+* Fixed `rbind()` for dropping custom index class. (#78)
+* Fixed `count_gaps()` for dropping custom index class.
+* `count_gaps()` now only summarises keys with gaps instead of all the keys.
+
+## Misc
+
+* Defunct `find_duplicates()`.
+* Deprecated `fill_na()` in favour of `fill_gaps()`.
+* Defunct argument `.drop` in column-wise dplyr verbs.
+
 # tsibble 0.6.2
 
 ## New features

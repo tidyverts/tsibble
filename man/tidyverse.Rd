@@ -97,7 +97,7 @@ will be duplicated in the same way as atomic vectors. This has
 \link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
-\item{.drop}{Deprecated, please use \code{as_tibble()} for \code{.drop = TRUE} instead.
+\item{.drop}{Defunct, please use \code{as_tibble()} for \code{.drop = TRUE} instead.
 \code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a tsibble and
 returns a tibble.}
 

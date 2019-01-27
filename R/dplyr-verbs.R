@@ -101,17 +101,14 @@ row_validate <- function(x) {
   is_ascending(x)
 }
 
-#' @param .drop Deprecated, please use `as_tibble()` for `.drop = TRUE` instead.
+#' @param .drop Defunct, please use `as_tibble()` for `.drop = TRUE` instead.
 #' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and
 #' returns a tibble.
 #'
 #' @rdname tidyverse
 #' @export
 select.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  if (.drop) {
-    warn_drop()
-    return(select(as_tibble(.data), ...))
-  }
+  if (.drop) abort_drop()
 
   lst_quos <- enquos(...)
   lst_exprs <- map(lst_quos, quo_get_expr)
@@ -141,10 +138,8 @@ rename.tbl_ts <- function(.data, ...) {
 #' @export
 mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   mut_data <- mutate(as_tibble(.data), ...)
-  if (.drop) {
-    warn_drop()
-    return(mut_data)
-  }
+  if (.drop) abort_drop()
+
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
     abort(sprintf(
@@ -179,10 +174,8 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #' @rdname tidyverse
 #' @export
 transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  if (.drop) {
-    warn_drop()
-    return(transmute(as_tibble(.data), ...))
-  }
+  if (.drop) abort_drop()
+
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
   idx_key <- c(index_var(.data), key_vars(.data))
@@ -201,10 +194,8 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
 summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  if (.drop) {
-    warn_drop()
-    return(summarise(as_tibble(.data), ...))
-  }
+  if (.drop) abort_drop()
+
   idx <- index(.data)
   idx2 <- index2(.data)
 
@@ -287,6 +278,6 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
 }
 
-warn_drop <- function() {
-  warn("Argument `.drop` is deprecated. Please use `as_tibble()` instead.")
+abort_drop <- function() {
+  abort("Argument `.drop` is defunct. Please use `as_tibble()` instead.")
 }

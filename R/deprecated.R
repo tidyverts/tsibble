@@ -12,7 +12,10 @@ as.tsibble <- function(x, ...) {
 #' @export
 #' @keywords internal
 #' @include gaps.R
-fill_na <- fill_gaps.tbl_ts
+fill_na <- function(.data, ..., .full = FALSE) {
+  .Deprecated("fill_na()")
+  fill_gaps(.data, ..., .full = .full)
+}
 
 #' @description
 #' Find which row has duplicated key and index elements
@@ -29,11 +32,5 @@ fill_na <- fill_gaps.tbl_ts
 #' @return A logical vector of the same length as the row number of `data`
 #' @export
 find_duplicates <- function(data, key = id(), index, fromLast = FALSE) {
-  .Deprecated("duplicates()")
-  key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, enquo(index))
-
-  grouped_df(data, vars = key) %>%
-    mutate(!! "zzz" := duplicated.default(!! index, fromLast = fromLast)) %>%
-    dplyr::pull(!! "zzz")
+  .Defunct("duplicates()")
 }
