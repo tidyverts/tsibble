@@ -28,10 +28,10 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
     as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
-  build_tsibble_meta(
+  build_tsibble(
     tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
     regular = is_regular(data), ordered = is_ordered(data), 
-    interval = interval(data)
+    interval = interval(data), validate = FALSE
   )
 }
 
@@ -69,10 +69,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   vars <- names(tbl)
   data <- mutate_index2(data, vars)
 
-  build_tsibble_meta(
+  build_tsibble(
     tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
     regular = is_regular(data), ordered = is_ordered(data), 
-    interval = interval(data)
+    interval = interval(data), validate = FALSE
   )
 }
 
@@ -164,10 +164,10 @@ unnest.lst_ts <- function(data, ..., key = id(),
   idx_chr <- as_string(idx)
   # restore the index class, as it's dropped by NextMethod()
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
-  build_tsibble_meta(
+  build_tsibble(
     out, key = key, index = !! idx, index2 = !! index2(tsbl),
     ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
-    interval = interval(tsbl)
+    interval = interval(tsbl), validate = FALSE
   )
 }
 
@@ -194,10 +194,10 @@ unnest.tbl_ts <- function(data, ..., key = id(),
 
   idx_chr <- as_string(idx)
   class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
-  build_tsibble_meta(
+  build_tsibble(
     tbl, key = key, index = !! idx, index2 = !! index2(data), 
     ordered = is_ordered(data), regular = is_regular(data), 
-    interval = interval(data)
+    interval = interval(data), validate = FALSE
   )
 }
 

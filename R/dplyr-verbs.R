@@ -231,9 +231,9 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   }
   grps <- syms(setdiff(group_vars(.data), as_string(idx2)))
 
-  build_tsibble_meta(
-    sum_data, key = grps, index = !! idx2,
-    regular = reg, ordered = TRUE, interval = int
+  build_tsibble(
+    sum_data, key = grps, index = !! idx2, regular = reg, ordered = TRUE, 
+    interval = int, validate = FALSE
   )
 }
 

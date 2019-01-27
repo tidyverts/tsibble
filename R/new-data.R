@@ -46,7 +46,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
     cn <- setdiff(names(.data), measured_vars(.data))
     out <- select(out, !!! cn)
   }
-  update_tsibble(out, .data, ordered = TRUE, interval = interval(.data))
+  update_tsibble2(out, .data, ordered = TRUE, interval = interval(.data))
 }
 
 #' @description
@@ -75,7 +75,7 @@ append_row.tbl_ts <- function(.data, n = 1L, ...) {
   out <- dplyr::bind_rows(.data, new_data)
   ord <- is_ordered(.data)
   if (ord) ord <- NULL # re-order
-  update_tsibble(out, .data, ordered = ord, interval = interval(.data))
+  update_tsibble2(out, .data, ordered = ord, interval = interval(.data))
 }
 
 #' @export

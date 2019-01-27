@@ -310,7 +310,7 @@ is.grouped_ts <- is_grouped_ts
 #'     key = key(.), index = !! index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, index, index2, regular = TRUE, ordered = NULL, interval = NULL,
+  x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL,
   validate = TRUE
 ) {
   # if key is quosures
@@ -348,8 +348,22 @@ build_tsibble <- function(
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
+  # arrange in time order (by key and index)
+  if (is.null(ordered)) { # first time to create a tsibble
+    tbl <- arrange(tbl, !!! key_vars, !! index)
+    ordered <- TRUE
+  } else if (is_false(ordered)) { # false returns a warning
+    msg_header <- "Unexpected temporal ordering. Please sort by %s."
+    idx_txt <- expr_text(index)
+    if (is_empty(key)) {
+      warn(sprintf(msg_header, idx_txt))
+    } else {
+      warn(sprintf(msg_header, paste_comma(c(key_vars, idx_txt))))
+    }
+  } # true do nothing
   # validate tbl_ts
   if (!is_key_data) {
+    key_vars <- unname(key_vars)
     key_data <- group_data(group_by(tbl, !!! key_vars))
   }
   if (validate) {
@@ -361,16 +375,8 @@ build_tsibble <- function(
   )
 }
 
-#' Low-level constructor to a tsibble object
-#'
-#' `build_tsibble_meta()` assigns the attributes to an object, assuming this
-#' object is a valid tsibble.
-#'
-#' @inheritParams build_tsibble
-#' @keywords internal
-#' @export
 build_tsibble_meta <- function(
-  x, key, index, index2, regular = TRUE, ordered = NULL, interval = NULL
+  x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
@@ -413,32 +419,6 @@ build_tsibble_meta <- function(
     ))
   }
 
-  is_key_data <- is.data.frame(key)
-  is_ordered_null <- is.null(ordered)
-  if (is_key_data && is_ordered_null) {
-    key_data <- key
-    key <- syms(head(names(key), -1L))
-  } else if (is_key_data) {
-    key_data <- key
-  }
-  # arrange in time order (by key and index)
-  if (is_ordered_null) { # first time to create a tsibble
-    tbl <- arrange(tbl, !!! key, !! index)
-    ordered <- TRUE
-  } else if (is_false(ordered)) { # false returns a warning
-    msg_header <- "Unexpected temporal ordering. Please sort by %s."
-    idx_txt <- expr_text(index)
-    if (is_empty(key)) {
-      warn(sprintf(msg_header, idx_txt))
-    } else {
-      warn(sprintf(msg_header, paste_comma(c(key, idx_txt))))
-    }
-  } # true do nothing
-  if (is_bare_list(key) || is_ordered_null) {
-    key <- unname(key)
-    key_data <- group_data(group_by(tbl, !!! key))
-  }
-
   idx_lgl <- identical(index, index2)
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
@@ -446,7 +426,7 @@ build_tsibble_meta <- function(
     tbl <- group_by(tbl, !! index2, add = TRUE)
   }
   tbl <- new_tibble(
-    tbl, "key" = key_data, "index" = index, "index2" = index2,
+    tbl, "key" = key, "index" = index, "index2" = index2,
     "interval" = interval, "regular" = regular, "ordered" = ordered,
     nrow = NROW(tbl), class = "tbl_ts"
   )

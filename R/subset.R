@@ -34,16 +34,17 @@
       if (is_false(lgl_i)) {
         return(as_tibble(NextMethod()))
       } else {
-        return(build_tsibble_meta(
+        return(build_tsibble(
           result, key = key(x), index = !! index(x), index2 = !! index2(x),
-          regular = is_regular(x), ordered = ordered
+          regular = is_regular(x), ordered = ordered, validate = FALSE
         ))
       }
     } else { # e.g. x[]
       result <- x
-      return(build_tsibble_meta(
+      return(build_tsibble(
         result, key = key(x), index = !! index(x), index2 = !! index2(x),
-        regular = is_regular(x), ordered = ordered, interval = interval(x)
+        regular = is_regular(x), ordered = ordered, interval = interval(x),
+        validate = FALSE
       ))
     }
   }
@@ -79,9 +80,10 @@
     }
   }
 
-  build_tsibble_meta(
+  build_tsibble(
     result, key = key(x), index = !! index(x), index2 = !! index2(x),
-    regular = is_regular(x), ordered = ordered, interval = NULL
+    regular = is_regular(x), ordered = ordered, interval = NULL,
+    validate = FALSE
   )
 }
 

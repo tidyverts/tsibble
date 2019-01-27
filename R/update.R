@@ -24,8 +24,18 @@ update_tsibble <- function(
 update_tsibble2 <- function(
   new, old, ordered = TRUE, interval = NULL, validate = FALSE
 ) {
+  old_key <- select(key_data(old), !!! key(old))
+  if (is_empty(old_key)) {
+    return(update_tsibble(
+      new, old, ordered = ordered, interval = interval, validate = validate
+    ))
+  }
+  new_key <- group_data(grouped_df(new, key_vars(old))) %>% 
+    right_join(old_key, by = key_vars(old))
+  null_lgl <- map_lgl(new_key[[".rows"]], is.null)
+  new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(
-    new, key = key_data(old), index = !! index(old), index2 = !! index2(old),
+    new, key = new_key, index = !! index(old), index2 = !! index2(old),
     regular = is_regular(old), ordered = ordered, interval = interval, 
     validate = validate
   ), old)
@@ -86,10 +96,10 @@ rename_tsibble <- function(.data, ...) {
     rename_group(val_vars)
   names(res) <- names(val_vars)
 
-  build_tsibble_meta(
+  build_tsibble(
     res, key = key_data(res), index = !! index(res), index2 = !! index2(res),
     regular = is_regular(res), ordered = is_ordered(res), 
-    interval = interval(res)
+    interval = interval(res), validate = FALSE
   )
 }
 
@@ -118,10 +128,10 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
     sel_data <- retain_tsibble(sel_data, key_vars, index(.data))
   }
   
-  build_tsibble_meta(
+  build_tsibble(
     sel_data, key = key_vars, index = !! index(.data), index2 = !! index2(.data),
     regular = is_regular(.data), ordered = is_ordered(.data), 
-    interval = interval(.data)
+    interval = interval(.data), validate = FALSE
   )
 }
 

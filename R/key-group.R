@@ -73,10 +73,10 @@ key_by.tbl_ts <- function(.data, ...) {
   if (validate) {
     .data <- retain_tsibble(.data, key, idx)
   }
-  build_tsibble_meta(
+  build_tsibble(
     .data, key = key, index = !! idx, index2 = !! index2(.data),
     regular = is_regular(.data), ordered = is_ordered(.data), 
-    interval = interval(.data)
+    interval = interval(.data), validate = FALSE
   )
 }
 
