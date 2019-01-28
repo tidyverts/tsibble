@@ -91,6 +91,8 @@ key_by.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @rdname key
+#' @export
 n_keys <- function(x) {
   NROW(key_data(x))
 }

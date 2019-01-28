@@ -27,7 +27,7 @@ is needed.}
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
 
-\item{...}{Additional arguments passed on to \code{.f}.}
+\item{...}{Additional arguments passed on to the mapped function.}
 }
 \description{
 Partially splits the input to a list according to the rolling window size.

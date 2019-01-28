@@ -3,11 +3,14 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
+\alias{n_keys}
 \title{Return key variables}
 \usage{
 key(x)
 
 key_vars(x)
+
+n_keys(x)
 }
 \arguments{
 \item{x}{A tsibble.}

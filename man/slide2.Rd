@@ -30,7 +30,7 @@ pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
 
-\item{.f}{A function, formula, or atomic vector.
+\item{.f}{A function, formula, or vector (not necessarily atomic).
 
 If a \strong{function}, it is used as is.
 
@@ -44,14 +44,13 @@ are three ways to refer to the arguments:
 
 This syntax allows you to create very compact anonymous functions.
 
-If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
-to extract named attributes. If a component is not present, the value of
-\code{.default} will be returned.}
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it is
+converted to an extractor function. Character vectors index by
+name and numeric vectors index by position; use a list to index
+by position and name at different levels. If a component is not
+present, the value of \code{.default} will be returned.}
 
-\item{...}{Additional arguments passed on to \code{.f}.}
+\item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
@@ -68,11 +67,15 @@ is needed.}
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created
-giving either the name or the index of the data frame.}
+\item{.id}{Either a string or \code{NULL}. If a string, the output will contain
+a variable with that name, storing either the name (if \code{.x} is named) or
+the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, no
+variable will be created.
 
-\item{.l}{A list of lists. The length of \code{.l} determines the
-number of arguments that \code{.f} will be called with. List
+Only applies to \code{_dfr} variant.}
+
+\item{.l}{A list of vectors, such as a data frame. The length of \code{.l}
+determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
