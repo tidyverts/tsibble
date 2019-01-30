@@ -25,6 +25,7 @@
 \alias{nest.tbl_ts}
 \alias{unnest.lst_ts}
 \alias{unnest.tbl_ts}
+\alias{fill.tbl_ts}
 \alias{fill.grouped_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
@@ -81,6 +82,8 @@
 
 \method{unnest}{tbl_ts}(data, ..., key = id(), .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
+
+\method{fill}{tbl_ts}(data, ..., .direction = c("down", "up"))
 
 \method{fill}{grouped_ts}(data, ..., .direction = c("down", "up"))
 }

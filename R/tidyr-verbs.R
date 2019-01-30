@@ -215,10 +215,18 @@ unnest_tsibble <- function(data, key, index) {
 #' @inheritParams tidyr::fill
 #' @rdname tidyverse
 #' @export
+fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
+  res <- fill(as_tibble(data), ..., .direction = .direction)
+  update_tsibble2(res, data, ordered = is_ordered(data), 
+    interval = interval(data))
+}
+
+#' @inheritParams tidyr::fill
+#' @rdname tidyverse
+#' @export
 fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
-  grped_df <- as_grouped_df(data)
-  res <- fill(grped_df, ..., .direction = .direction)
-  update_tsibble(res, data, ordered = is_ordered(data), 
+  res <- fill(as_grouped_df(data), ..., .direction = .direction)
+  update_tsibble2(res, data, ordered = is_ordered(data), 
     interval = interval(data))
 }
 
