@@ -6,7 +6,7 @@
 #' be issued.
 #' * `select()`: keeps the variables you mention as well as the index.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
-#' * `summarise()` will not collapse on the index variable.
+#' * `summarise()` reduces a sequence of values over time instead of a single summary.
 #' * Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
 #' `mutate()` & `transmute()`, keep the time context hanging around. That is,
 #' the index variable cannot be dropped for a tsibble. If any key variable
@@ -194,6 +194,9 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
 summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
+  # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for 
+  # empty groups. Bc the index is an implicit grouping data, empty groups have
+  # been dropped.
   if (.drop) abort_drop()
 
   idx <- index(.data)

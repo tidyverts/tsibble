@@ -9,7 +9,7 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...,
   }
 }
 
-# put new data with existing attributes
+# put new data with existing attributes (update key)
 update_tsibble <- function(
   new, old, ordered = TRUE, interval = NULL, validate = FALSE
 ) {
@@ -43,10 +43,9 @@ update_tsibble2 <- function(
 
 # needed when grouping by index2 (e.g. summarise)
 group_by_index2 <- function(x) {
-  grps <- groups(x)
   idx2 <- index2(x)
   x <- as_tibble(x)
-  group_by(x, !!! flatten(c(grps, idx2)))
+  group_by(x, !! idx2, add = TRUE)
 }
 
 as_grouped_df <- function(x) {

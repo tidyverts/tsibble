@@ -196,7 +196,7 @@ likely to be issued.
 be issued.
 \item \code{select()}: keeps the variables you mention as well as the index.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
-\item \code{summarise()} will not collapse on the index variable.
+\item \code{summarise()} reduces a sequence of values over time instead of a single summary.
 \item Column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
 \code{mutate()} & \code{transmute()}, keep the time context hanging around. That is,
 the index variable cannot be dropped for a tsibble. If any key variable
