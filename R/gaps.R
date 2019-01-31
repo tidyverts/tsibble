@@ -102,7 +102,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!identical(cn, names(full_data))) {
     full_data <- select(full_data, !!! syms(cn)) # keep the original order
   }
-  update_tsibble2(full_data, .data, ordered = NULL, interval = interval(.data))
+  update_tsibble(full_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Scan a tsibble for implicit missing observations
@@ -127,7 +127,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   if (unknown_interval(int)) return(.data[0L, c(key_vars(.data), idx_chr)])
 
   key <- key(.data)
-  keyed_tbl <- grped_df_by_key(.data)
+  keyed_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     sum_data <- keyed_tbl %>% 
@@ -144,7 +144,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   }
 
   gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
-  update_tsibble2(gap_data, .data, ordered = NULL, interval = interval(.data))
+  update_tsibble(gap_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Count implicit gaps
@@ -193,7 +193,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     return(data_key)
   }
 
-  grped_tbl <- grped_df_by_key(.data)
+  grped_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     lst_out <- summarise(grped_tbl, gaps = list2(gaps(!! idx, idx_full)))
@@ -237,7 +237,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
-  grped_tbl <- grped_df_by_key(.data)
+  grped_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     res <- grped_tbl %>% 

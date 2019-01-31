@@ -258,7 +258,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' tourism %>%
 #'   group_by_key()
 group_by_key <- function(.data, ...) {
-  dplyr::group_by(.data, !!! key(.data))
+  # group_by(.data, !!! key(.data))
+  new_tsibble(.data, "groups" = key_data(.data), class = "grouped_ts")
 }
 
 #' @rdname tidyverse

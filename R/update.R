@@ -54,16 +54,6 @@ as_grouped_df <- function(x) {
   x
 }
 
-grped_df_by_key <- function(.data) {
-  grp <- group_vars(.data)
-  key <- key_vars(.data)
-  if (all(is.element(key, grp))) {
-    as_grouped_df(.data)
-  } else {
-    grouped_df(as_tibble(.data), key)
-  }
-}
-
 restore_index_class <- function(new, old) {
   old_idx <- index2(old)
   new_idx <- index2(new)

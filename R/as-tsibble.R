@@ -396,13 +396,14 @@ build_tsibble_meta <- function(
     } else {
       interval <- init_interval()
     }
+    grp_data <- group_data(tbl)
     tbl <- new_tibble(
       tbl, "key" = key, "index" = index, "index2" = index2,
       "interval" = interval, "regular" = regular, "ordered" = TRUE,
-      nrow = 0L, class = "tbl_ts"
+      "groups" = NULL, nrow = 0L, class = "tbl_ts"
     )
     if (is_grped) {
-      tbl <- new_tsibble_class(tbl, class = "grouped_ts")
+      tbl <- new_tsibble(tbl, "groups" = grp_data, class = "grouped_ts")
     }
     return(tbl)
   }
@@ -425,13 +426,14 @@ build_tsibble_meta <- function(
   if (!idx_lgl) {
     tbl <- group_by(tbl, !! index2, add = TRUE)
   }
+  grp_data <- group_data(tbl)
   tbl <- new_tibble(
     tbl, "key" = key, "index" = index, "index2" = index2,
     "interval" = interval, "regular" = regular, "ordered" = ordered,
-    nrow = NROW(tbl), class = "tbl_ts"
+    "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
   if (is_grped) {
-    tbl <- new_tsibble_class(tbl, class = "grouped_ts")
+    tbl <- new_tsibble(tbl, "groups" = grp_data, class = "grouped_ts")
   }
   tbl
 }
@@ -446,7 +448,9 @@ build_tsibble_meta <- function(
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
   x <- new_tibble(x, ..., class = "tbl_ts")
-  new_tsibble_class(x, class = class)
+  attr(x, "row.names") <- .set_row_names(NROW(x))
+  class(x) <- c(class, class(x))
+  x
 }
 
 #' Identifiers used for creating key
@@ -660,13 +664,6 @@ duplicates <- function(data, key = id(), index) {
       duplicated.default(!! index, fromLast = TRUE)
     ) %>%
     ungroup()
-}
-
-new_tsibble_class <- function(x, class = NULL) {
-  base_cls <- c("tbl_df", "tbl", "data.frame")
-  attr(x, "row.names") <- .set_row_names(NROW(x))
-  class(x) <- c(class, "tbl_ts", base_cls)
-  x
 }
 
 remove_tsibble_attrs <- function(x) {
