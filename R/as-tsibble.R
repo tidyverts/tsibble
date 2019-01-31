@@ -349,7 +349,7 @@ build_tsibble <- function(
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange in time order (by key and index)
-  if (is.null(ordered)) { # first time to create a tsibble
+  if (is_null(ordered)) { # first time to create a tsibble
     tbl <- arrange(tbl, !!! key_vars, !! index)
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning

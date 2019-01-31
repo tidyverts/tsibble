@@ -145,4 +145,11 @@ test_that("fill()", {
       group_by(fruit) %>% 
       fill(kilo, .direction = "down")
   )
+  expect_equal(
+    harvest_fill %>%
+      fill(kilo, .direction = "down"),
+    harvest_fill %>% 
+      as_tibble() %>% 
+      fill(kilo, .direction = "down")
+  )
 })
