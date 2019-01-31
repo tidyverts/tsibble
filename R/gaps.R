@@ -14,7 +14,6 @@ globalVariables(".")
 #' @rdname fill-gaps
 #' @export
 fill_gaps <- function(.data, ...) {
-  if (NROW(.data) == 0L || NROW(.data) == 1L) return(.data)
   UseMethod("fill_gaps")
 }
 
@@ -70,6 +69,8 @@ fill_gaps.data.frame <- function(.data, ...) {
 #'   fill_gaps(Count = as.integer(median(Count)))
 #' @export
 fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
+  if (NROW(.data) == 0L || NROW(.data) == 1L) return(.data)
+
   gap_data <- scan_gaps(.data, .full = .full)
   lst_exprs <- enquos(..., .named = TRUE)
   if (NROW(gap_data) == 0) {
@@ -81,7 +82,8 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 
   cn <- names(.data)
   if (!is_empty(lst_exprs)) { # any replacement
-    tidyselect::vars_select(cn, !!! names(lst_exprs)) # error handling
+    # error handling
+    tidyselect::vars_select(measured_vars(.data), !!! names(lst_exprs))
     replaced_df <- as_grouped_df(.data) %>% 
       summarise(!!! lst_exprs) %>% 
       ungroup()
@@ -130,11 +132,15 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   keyed_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
-    sum_data <- keyed_tbl %>% 
-      summarise(!! idx_chr := list2(!! idx_chr := idx_full))
-  } else {
-    sum_data <- keyed_tbl %>% 
+    sum_data <- 
       summarise(
+        keyed_tbl, 
+        !! idx_chr := list2(!! idx_chr := idx_full)
+      )
+  } else {
+    sum_data <- 
+      summarise(
+        keyed_tbl,
         !! idx_chr := list2(!! idx_chr := seq_generator(!! idx, int))
       )
   }
@@ -226,25 +232,29 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' has_gaps(harvest)
 #' has_gaps(harvest, .full = TRUE)
 has_gaps <- function(.data, ...) {
-  if (NROW(.data) == 0L) return(tibble(!! ".gaps" := FALSE))
-    
   UseMethod("has_gaps")
 }
 
 #' @rdname has-gaps
 #' @export
 has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
+  if (NROW(.data) == 0L) return(tibble(!! ".gaps" := FALSE))
+
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
   grped_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
-    res <- grped_tbl %>% 
-      summarise(!! ".gaps" := (length(idx_full) - length(!! idx)) > 0)
-  } else {
-    res <- grped_tbl %>% 
+    res <- 
       summarise(
+        grped_tbl,
+        !! ".gaps" := (length(idx_full) - length(!! idx)) > 0
+      )
+  } else {
+    res <- 
+      summarise(
+        grped_tbl,
         !! ".gaps" := (length(seq_generator(!! idx, int)) - length(!! idx)) > 0
       )
   }

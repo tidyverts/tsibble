@@ -241,6 +241,17 @@ summarize.tbl_ts <- summarise.tbl_ts
 #' @rdname tidyverse
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
+  lst_quos <- enquos(..., .named = TRUE)
+  grp_vars <- names(lst_quos)
+  if (add) {
+    grp_vars <- union(grp_vars, group_vars(.data))
+  }
+  key_vars <- key_vars(.data)
+  if (all(is.element(key_vars, grp_vars)) && 
+    has_length(key_vars, length(grp_vars))) {
+    return(group_by_key(.data))
+  }
+
   grped_tbl <- group_by(as_tibble(.data), ..., add = add)
   build_tsibble_meta(
     grped_tbl, key = key_data(.data), index = !! index(.data),
@@ -258,8 +269,16 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' tourism %>%
 #'   group_by_key()
 group_by_key <- function(.data, ...) {
-  # group_by(.data, !!! key(.data))
-  new_tsibble(.data, "groups" = key_data(.data), class = "grouped_ts")
+  if (identical(index_var(.data), index2_var(.data))) {
+    new_tsibble(.data, "groups" = key_data(.data), class = "grouped_ts")
+  } else {
+    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data))
+    build_tsibble_meta(
+      grped_tbl, key = key_data(.data), index = !! index(.data),
+      index2 = !! index2(.data), regular = is_regular(.data),
+      ordered = is_ordered(.data), interval = interval(.data)
+    )
+  }
 }
 
 #' @rdname tidyverse
