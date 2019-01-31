@@ -7,16 +7,17 @@
 #' * `select()`: keeps the variables you mention as well as the index.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` reduces a sequence of values over time instead of a single summary.
-#' * Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
-#' `mutate()` & `transmute()`, keep the time context hanging around. That is,
-#' the index variable cannot be dropped for a tsibble. If any key variable
-#' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
-#' to leave off the time context.
 #' * `unnest()` requires argument `key = id()` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... same arguments accepted as its dplyr generic.
 #' @inheritParams dplyr::arrange
+#' @details
+#' Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
+#' `mutate()` & `transmute()`, keep the time context hanging around. That is,
+#' the index variable cannot be dropped for a tsibble. If any key variable
+#' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
+#' to leave off the time context.
 #'
 #' @name tidyverse
 #' @rdname tidyverse
@@ -164,7 +165,7 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
     mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
   }
   build_tsibble(
-    mut_data, key = key_data(.data), index = !! index(.data),
+    mut_data, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval(.data),
     validate = FALSE
@@ -195,8 +196,8 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
 #'   summarise(Total = sum(Count))
 summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for 
-  # empty groups. Bc the index is an implicit grouping data, empty groups have
-  # been dropped.
+  # empty groups. Bc information is unavailable over the time range for empty
+  # groups.
   if (.drop) abort_drop()
 
   idx <- index(.data)

@@ -197,13 +197,15 @@ be issued.
 \item \code{select()}: keeps the variables you mention as well as the index.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} reduces a sequence of values over time instead of a single summary.
-\item Column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
+\item \code{unnest()} requires argument \code{key = id()} to get back to a tsibble.
+}
+}
+\details{
+Column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
 \code{mutate()} & \code{transmute()}, keep the time context hanging around. That is,
 the index variable cannot be dropped for a tsibble. If any key variable
 is changed, it will validate whether it's a tsibble internally. Use \code{as_tibble()}
 to leave off the time context.
-\item \code{unnest()} requires argument \code{key = id()} to get back to a tsibble.
-}
 }
 \examples{
 # Sum over sensors ----
