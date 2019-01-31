@@ -214,9 +214,11 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   grped_data <- group_by_index2(.data)
   grps <- groups(grped_data)
   len_grps <- length(grps)
-  sum_data <- grped_data %>%
-    summarise(!!! nonkey_quos) %>%
-    group_by(!!! grps[-((len_grps - 1):len_grps)]) # remove index2 and last grp
+  sum_data <- 
+    group_by(
+      summarise(grped_data, !!! nonkey_quos),
+      !!! grps[-((len_grps - 1):len_grps)] # remove index2 and last grp
+    )
   if (identical(idx, idx2)) {
     int <- interval(.data)
     reg <- is_regular(.data)

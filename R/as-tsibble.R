@@ -501,10 +501,12 @@ duplicated_key_index <- function(data, key, index) {
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  res <- grouped_df(as_tibble(data), key) %>%
-    summarise(!! "zzz" := anyDuplicated.default(!! index)) %>%
-    dplyr::pull(!! "zzz")
-  any_not_equal_to_c(res, 0)
+  res <- 
+    summarise(
+      grouped_df(as_tibble(data), key),
+      !! "zzz" := anyDuplicated.default(!! index)
+    )
+  any_not_equal_to_c(res$zzz, 0)
 }
 
 # check if a comb of key vars result in a unique data entry
@@ -647,9 +649,12 @@ are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, enquo(index))
 
-  grouped_df(data, vars = key) %>%
-    mutate(!! "zzz" := duplicated.default(!! index, fromLast = from_last)) %>%
-    dplyr::pull(!! "zzz")
+  res <- 
+    mutate(
+      grouped_df(data, vars = key), 
+      !! "zzz" := duplicated.default(!! index, fromLast = from_last)
+    )
+  res$zzz
 }
 
 #' @rdname duplicated
@@ -658,12 +663,13 @@ duplicates <- function(data, key = id(), index) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, enquo(index))
 
-  grouped_df(data, vars = key) %>%
+  ungroup(
     filter(
+      grouped_df(data, vars = key),
       duplicated.default(!! index) |
       duplicated.default(!! index, fromLast = TRUE)
-    ) %>%
-    ungroup()
+    )
+  )
 }
 
 remove_tsibble_attrs <- function(x) {

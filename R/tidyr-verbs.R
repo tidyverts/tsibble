@@ -146,7 +146,7 @@ unnest.lst_ts <- function(data, ..., key = id(),
   nested <- transmute(ungroup(data), !!! exprs)
 
   # checking if the nested columns has `tbl_ts` class (only for the first row)
-  first_nested <- slice(nested, 1)
+  first_nested <- nested[1L, ]
   eval_df <- purrr::imap(first_nested, dplyr::first)
   is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
   if (is_false(any(is_tsbl))) return(NextMethod())
@@ -154,8 +154,11 @@ unnest.lst_ts <- function(data, ..., key = id(),
   if (sum(is_tsbl) > 1) {
     abort("Only accepts a list-column of `tbl_ts` to be unnested.")
   }
-  out <- as_tibble(data) %>% 
-    unnest(!!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+  out <- 
+    unnest(
+      as_tibble(data), 
+      !!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
+    )
   tsbl <- eval_df[is_tsbl][[1L]]
   idx <- index(tsbl)
   key <- c(key(tsbl), key)
@@ -186,8 +189,11 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   key <- use_id(data, !! enquo(key))
-  tbl <- as_tibble(data) %>% 
-    unnest(..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+  tbl <- 
+    unnest(
+      as_tibble(data), 
+      ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
+    )
   key <- c(key(data), key)
   idx <- index(data)
   tbl <- unnest_tsibble(tbl, key, idx)

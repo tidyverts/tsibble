@@ -84,9 +84,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!is_empty(lst_exprs)) { # any replacement
     # error handling
     tidyselect::vars_select(measured_vars(.data), !!! names(lst_exprs))
-    replaced_df <- as_grouped_df(.data) %>% 
-      summarise(!!! lst_exprs) %>% 
-      ungroup()
+    replaced_df <- ungroup(summarise(as_grouped_df(.data), !!! lst_exprs))
     by_name <- intersect(names(gap_data), names(replaced_df))
 
     if (NROW(replaced_df) > NROW(gap_data)) {
