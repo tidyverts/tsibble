@@ -30,7 +30,7 @@ difference <- function(x, lag = 1, differences = 1, default = NA,
   if (lag < 1 || differences < 1) {
     abort("`lag` and `differences` must be positive integers.");
   }
-  if (!is.null(order_by)) {
+  if (!is_null(order_by)) {
     return(dplyr::with_order(order_by, diff_cpp, x, 
       lag = lag, differences = differences, fill = default
     ))

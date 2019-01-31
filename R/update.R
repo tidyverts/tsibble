@@ -32,7 +32,7 @@ update_tsibble2 <- function(
   }
   new_key <- group_data(grouped_df(new, key_vars(old))) %>% 
     right_join(old_key, by = key_vars(old))
-  null_lgl <- map_lgl(new_key[[".rows"]], is.null)
+  null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(
     new, key = new_key, index = !! index(old), index2 = !! index2(old),
