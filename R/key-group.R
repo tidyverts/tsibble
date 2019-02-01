@@ -123,14 +123,19 @@ rename_key <- function(.data, .vars) {
   .data
 }
 
+group_tsibble <- function(FUN, x, ...) {
+  res <- as_grouped_df(x)
+  FUN <- match.fun(FUN, descend = FALSE)
+  FUN(res, ...)
+}
+
 #' @importFrom dplyr groups
 #' @export
 dplyr::groups
 
 #' @export
 groups.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  groups(res)
+  group_tsibble(groups, x)
 }
 
 #' @importFrom dplyr group_vars
@@ -139,8 +144,7 @@ dplyr::group_vars
 
 #' @export
 group_vars.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  group_vars(res)
+  group_tsibble(group_vars, x)
 }
 
 #' @importFrom dplyr group_data
@@ -149,14 +153,19 @@ dplyr::group_data
 
 #' @export
 group_data.grouped_ts <- function(.data) {
-  res <- as_grouped_df(.data)
-  group_data(res)
+  group_tsibble(group_data, .data)
+}
+
+#' @importFrom dplyr group_keys
+#' @export
+dplyr::group_keys
+
+#' @export
+group_keys.grouped_ts <- function(.tbl, ...) {
+  group_tsibble(group_keys, .tbl)
 }
 
 #' @importFrom dplyr group_rows
-#' @export
-dplyr::group_rows
-
 #' @export
 dplyr::group_rows
 

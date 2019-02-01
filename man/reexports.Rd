@@ -29,6 +29,7 @@
 \alias{groups}
 \alias{group_vars}
 \alias{group_data}
+\alias{group_keys}
 \alias{group_rows}
 \alias{group_size}
 \alias{n_groups}
@@ -54,7 +55,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_split}}, \code{\link[dplyr]{group_trim}}, \code{\link[dplyr]{group_map}}, \code{\link[dplyr]{group_walk}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{transmute}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{left_join}}, \code{\link[dplyr]{right_join}}, \code{\link[dplyr]{inner_join}}, \code{\link[dplyr]{full_join}}, \code{\link[dplyr]{semi_join}}, \code{\link[dplyr]{anti_join}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr]{group_rows}}, \code{\link[dplyr]{group_rows}}, \code{\link[dplyr]{group_size}}, \code{\link[dplyr]{n_groups}}, \code{\link[dplyr]{group_indices}}, \code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr]{group_split}}, \code{\link[dplyr]{group_trim}}, \code{\link[dplyr]{group_map}}, \code{\link[dplyr]{group_walk}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{transmute}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{left_join}}, \code{\link[dplyr]{right_join}}, \code{\link[dplyr]{inner_join}}, \code{\link[dplyr]{full_join}}, \code{\link[dplyr]{semi_join}}, \code{\link[dplyr]{anti_join}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr]{group_keys}}, \code{\link[dplyr]{group_rows}}, \code{\link[dplyr]{group_size}}, \code{\link[dplyr]{n_groups}}, \code{\link[dplyr]{group_indices}}, \code{\link[dplyr]{\%>\%}}}
 
   \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 
