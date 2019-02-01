@@ -3,11 +3,14 @@
 \name{key_data}
 \alias{key_data}
 \alias{key_rows}
+\alias{n_keys}
 \title{Keying data}
 \usage{
 key_data(.data)
 
 key_rows(.data)
+
+n_keys(x)
 }
 \arguments{
 \item{.data}{A tsibble}
@@ -19,3 +22,4 @@ Keying data
 key_data(pedestrian)
 key_rows(pedestrian)
 }
+\keyword{internal}

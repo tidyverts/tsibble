@@ -1,3 +1,7 @@
+#' @importFrom tibble type_sum
+#' @export
+tibble::type_sum
+
 #' @export
 type_sum.tbl_ts <- function(x) {
   "tsibble"
@@ -17,6 +21,10 @@ type_sum.yearmonth <- function(x) {
 type_sum.yearquarter <- function(x) {
   "qtr"
 }
+
+#' @importFrom tibble tbl_sum
+#' @export
+tibble::tbl_sum
 
 #' @export
 tbl_sum.tbl_ts <- function(x) {

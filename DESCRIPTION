@@ -73,6 +73,7 @@ Collate:
     'data.R'
     'gaps.R'
     'deprecated.R'
+    'dplyr-groups.R'
     'dplyr-verbs.R'
     'dplyr-join.R'
     'error.R'

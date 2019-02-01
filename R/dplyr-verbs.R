@@ -1,3 +1,7 @@
+#' @importFrom dplyr arrange
+#' @export
+dplyr::arrange
+
 #' Tidyverse methods for tsibble
 #'
 #' * `arrange()`: if not arranging key and index in past-to-future order, a warning is
@@ -72,6 +76,10 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   }
 }
 
+#' @importFrom dplyr filter
+#' @export
+dplyr::filter
+
 #' @rdname tidyverse
 #' @export
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
@@ -79,6 +87,10 @@ filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
     .preserve = .preserve
   )
 }
+
+#' @importFrom dplyr slice
+#' @export
+dplyr::slice
 
 #' @rdname tidyverse
 #' @export
@@ -101,6 +113,10 @@ row_validate <- function(x) {
   }
   is_ascending(x)
 }
+
+#' @importFrom dplyr select
+#' @export
+dplyr::select
 
 #' @param .drop Defunct, please use `as_tibble()` for `.drop = TRUE` instead.
 #' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and
@@ -129,11 +145,19 @@ select.tbl_ts <- function(.data, ..., .drop = FALSE) {
   select_tsibble(.data, !!! lst_quos)
 }
 
+#' @importFrom dplyr rename
+#' @export
+dplyr::rename
+
 #' @rdname tidyverse
 #' @export
 rename.tbl_ts <- function(.data, ...) {
   rename_tsibble(.data, ...)
 }
+
+#' @importFrom dplyr mutate
+#' @export
+dplyr::mutate
 
 #' @rdname tidyverse
 #' @export
@@ -172,6 +196,10 @@ mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
   )
 }
 
+#' @importFrom dplyr transmute
+#' @export
+dplyr::transmute
+
 #' @rdname tidyverse
 #' @export
 transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
@@ -183,6 +211,11 @@ transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, !!! vec_names)
 }
+
+
+#' @importFrom dplyr summarise
+#' @export
+dplyr::summarise
 
 #' @rdname tidyverse
 #' @export
@@ -234,12 +267,19 @@ summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
   )
 }
 
+#' @importFrom dplyr summarize
+#' @export
+dplyr::summarize
+
 #' @rdname tidyverse
 #' @export
 summarize.tbl_ts <- summarise.tbl_ts
 
+#' @importFrom dplyr group_by grouped_df
+#' @export
+dplyr::group_by
+
 #' @inheritParams dplyr::group_by
-#' @importFrom dplyr grouped_df
 #' @rdname tidyverse
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE) {
@@ -283,6 +323,10 @@ group_by_key <- function(.data, ...) {
   }
 }
 
+#' @importFrom dplyr ungroup
+#' @export
+dplyr::ungroup
+
 #' @rdname tidyverse
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
@@ -298,6 +342,10 @@ ungroup.tbl_ts <- function(x, ...) {
   attr(x, "index2") <- index(x)
   x
 }
+
+#' @importFrom dplyr distinct
+#' @export
+dplyr::distinct
 
 #' @export
 distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {

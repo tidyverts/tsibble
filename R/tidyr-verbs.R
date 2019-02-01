@@ -1,3 +1,7 @@
+#' @importFrom tidyr gather
+#' @export
+tidyr::gather
+
 #' @inheritParams tidyr::gather
 #'
 #' @rdname tidyverse
@@ -34,6 +38,10 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
     interval = interval(data), validate = FALSE
   )
 }
+
+#' @importFrom tidyr spread
+#' @export
+tidyr::spread
 
 #' @inheritParams tidyr::spread
 #' @rdname tidyverse
@@ -75,6 +83,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     interval = interval(data), validate = FALSE
   )
 }
+
+#' @importFrom tidyr nest
+#' @export
+tidyr::nest
 
 #' @inheritParams tidyr::nest
 #' @rdname tidyverse
@@ -121,6 +133,10 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   out[[key_var]] <- unname(split(tsb_sel, idx))[unique(idx)]
   as_lst_ts(out)
 }
+
+#' @importFrom tidyr unnest
+#' @export
+tidyr::unnest
 
 #' @param key Unquoted variables to create the key (via [id]) after unnesting.
 #' @inheritParams tidyr::unnest
@@ -217,6 +233,10 @@ unnest_tsibble <- function(data, key, index) {
   }
   data
 }
+
+#' @importFrom tidyr fill
+#' @export
+tidyr::fill
 
 #' @inheritParams tidyr::fill
 #' @rdname tidyverse

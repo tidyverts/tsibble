@@ -91,7 +91,8 @@ key_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @rdname key
+#' @rdname key-data
+#' @keywords internal
 #' @export
 n_keys <- function(x) {
   NROW(key_data(x))
@@ -122,10 +123,9 @@ rename_key <- function(.data, .vars) {
   .data
 }
 
+#' @importFrom dplyr groups
 #' @export
-groups.tbl_ts <- function(x) {
-  NULL
-}
+dplyr::groups
 
 #' @export
 groups.grouped_ts <- function(x) {
@@ -133,16 +133,9 @@ groups.grouped_ts <- function(x) {
   groups(res)
 }
 
+#' @importFrom dplyr group_vars
 #' @export
-group_vars.tbl_ts <- function(x) {
-  character(0L)
-}
-
-#' @export
-group_data.grouped_ts <- function(.data) {
-  res <- as_grouped_df(.data)
-  group_data(res)
-}
+dplyr::group_vars
 
 #' @export
 group_vars.grouped_ts <- function(x) {
@@ -150,17 +143,46 @@ group_vars.grouped_ts <- function(x) {
   group_vars(res)
 }
 
+#' @importFrom dplyr group_data
+#' @export
+dplyr::group_data
+
+#' @export
+group_data.grouped_ts <- function(.data) {
+  res <- as_grouped_df(.data)
+  group_data(res)
+}
+
+#' @importFrom dplyr group_rows
+#' @export
+dplyr::group_rows
+
+#' @export
+dplyr::group_rows
+
+#' @importFrom dplyr group_size
+#' @export
+dplyr::group_size
+
 #' @export
 group_size.grouped_ts <- function(x) {
   res <- as_grouped_df(x)
   group_size(res)
 }
 
+#' @importFrom dplyr n_groups
+#' @export
+dplyr::n_groups
+
 #' @export
 n_groups.tbl_ts <- function(x) {
   res <- as_grouped_df(x)
   n_groups(res)
 }
+
+#' @importFrom dplyr group_indices
+#' @export
+dplyr::group_indices
 
 #' @export
 group_indices.grouped_ts <- function(.data, ...) {
