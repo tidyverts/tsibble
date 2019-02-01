@@ -93,17 +93,18 @@ rename_tsibble <- function(.data, ...) {
 }
 
 select_tsibble <- function(.data, ..., validate = TRUE) {
-  quos <- enquos(...)
-  sel_vars <- tidyselect::vars_select(names(.data), !!! quos)
+  sel_data <- select(as_tibble(.data), ...)
+
+  sel_vars <- names(sel_data)
   idx_chr <- index_var(.data)
   sel_idx <- idx_chr %in% sel_vars
   if (!sel_idx) { # index isn't selected
     inform(sprintf("Selecting index: \"%s\"", idx_chr))
+    sel_data[[idx_chr]] <- .data[[idx_chr]]
     val_vars <- c(sel_vars, idx_chr)
   } else {
     val_vars <- sel_vars
   }
-  sel_data <- select(as_tibble(.data), !!! val_vars)
   
   # key (key of the reduced size (bf & af) but also different names)
   key_vars <- syms(val_vars[val_vars %in% key_vars(.data)])
