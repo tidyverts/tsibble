@@ -22,7 +22,7 @@ Authors@R:
 Description: Provides a 'tbl_ts' class (the 'tsibble') to store
     and manage temporal data in a data-centric format, which is built on
     top of the 'tibble'. The 'tsibble' aims at easily manipulating and
-    analysing temporal data, including counting and filling time gaps,
+    analysing temporal data, including counting and filling in time gaps,
     aggregate over calendar periods, performing rolling window
     calculations, and etc.
 License: GPL-3

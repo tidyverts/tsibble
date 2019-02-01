@@ -1,0 +1,9 @@
+citHeader("To cite tsibble in publications, please use:")
+
+citEntry(entry = "misc",
+  author = "Earo Wang and Dianne Cook and Rob J Hyndman",
+  title = "A new tidy data structure to support exploration and modeling of temporal data",
+  year = "2019",
+  eprint = "arXiv:1901.10257",
+  textVersion = "Wang, E, D Cook, and RJ Hyndman (2019). A new tidy data structure to support exploration and modeling of temporal data. eprint: arXiv:1901.10257."
+)
