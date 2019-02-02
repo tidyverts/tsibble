@@ -175,7 +175,7 @@ measured_vars <- function(x) {
 measured_vars.tbl_ts <- function(x) {
   all_vars <- dplyr::tbl_vars(x)
   key_vars <- key_vars(x)
-  idx_var <- as_string(index(x))
+  idx_var <- index_var(x)
   setdiff(all_vars, c(key_vars, idx_var))
 }
 
@@ -189,7 +189,7 @@ measured_vars.tbl_ts <- function(x) {
 #' @export
 index <- function(x) {
   not_tsibble(x)
-  attr(x, "index")
+  x %@% index
 }
 
 #' @rdname index-rd
@@ -202,7 +202,7 @@ index_var <- function(x) {
 #' @export
 index2 <- function(x) {
   not_tsibble(x)
-  attr(x, "index2")
+  x %@% index2
 }
 
 #' @rdname index-rd
@@ -224,7 +224,7 @@ index2_var <- function(x) {
 #' @export
 interval <- function(x) {
   not_tsibble(x)
-  attr(x, "interval")
+  x %@% interval
 }
 
 #' @rdname regular
@@ -234,14 +234,14 @@ interval <- function(x) {
 #' @export
 is_regular <- function(x) {
   not_tsibble(x)
-  attr(x, "regular")
+  x %@% regular
 }
 
 #' @rdname regular
 #' @export
 is_ordered <- function(x) {
   not_tsibble(x)
-  attr(x, "ordered")
+  x %@% ordered
 }
 
 #' If the object is a tsibble
@@ -448,6 +448,7 @@ build_tsibble_meta <- function(
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
   x <- new_tibble(x, ..., class = "tbl_ts")
+  assert_key_data(x %@% key)
   attr(x, "row.names") <- .set_row_names(NROW(x))
   class(x) <- c(class, class(x))
   x
@@ -600,7 +601,7 @@ use_id <- function(x, key) {
   )
   res <- safe_key$result
   if (is.data.frame(res)) {
-    # ToDo: check if column .row exists
+    assert_key_data(res)
     return(res)
   } else if (is_null(safe_key$error)) {
     fn <- function(x) {
@@ -676,4 +677,15 @@ remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
   attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
   x
+}
+
+assert_key_data <- function(x) {
+  if(is_false(
+    is.data.frame(x) &&
+    NCOL(x) > 0 &&
+    is.list(x[[NCOL(x)]]) &&
+    tail(names(x), 1L) == ".rows"
+  )) {
+    abort("The `key` attribute must be a data frame with its last column called `.rows`.")
+  }
 }
