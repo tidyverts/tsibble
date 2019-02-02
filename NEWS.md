@@ -1,5 +1,7 @@
 # tsibble 0.6.2.9000 (to be released as v0.7.0)
 
+Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
+
 ## Bug fixes
 
 * Fixed `rbind()` for dropping custom index class. (#78)
