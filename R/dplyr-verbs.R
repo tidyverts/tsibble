@@ -311,7 +311,10 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
 #' tourism %>%
 #'   group_by_key()
 group_by_key <- function(.data, ...) {
-  if (identical(index_var(.data), index2_var(.data))) {
+  is_idx_idx2 <- identical(index_var(.data), index2_var(.data))
+  if (is_empty(key_vars(.data)) && is_idx_idx2) {
+    .data
+  } else if (is_idx_idx2) {
     new_tsibble(.data, "groups" = key_data(.data), class = "grouped_ts")
   } else {
     grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data))

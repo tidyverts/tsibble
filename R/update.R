@@ -75,8 +75,10 @@ join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, validate = FALSE,
 
 rename_tsibble <- function(.data, ...) {
   names_dat <- names(.data)
-  val_vars <- tidyselect::vars_rename(names_dat, ...)
+  lst_quos <- enquos(...)
+  if (is_empty(lst_quos)) return(.data)
 
+  val_vars <- tidyselect::vars_rename(names_dat, !!! lst_quos)
   # index
   res <- .data %>% 
     rename_index(val_vars) %>% 

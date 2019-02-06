@@ -202,7 +202,10 @@ group_indices.grouped_ts <- function(.data, ...) {
 rename_group <- function(.data, .vars) {
   names <- names(.vars)
   old_grp_chr <- group_vars(.data)
+  if (is_empty(old_grp_chr)) return(.data)
+
   idx <- .vars %in% old_grp_chr
   names(.data)[idx] <- new_grp_chr <- names[idx]
-  group_by(.data, !!! syms(new_grp_chr))
+  names(attr(.data, "groups")) <- c(new_grp_chr, ".rows")
+  .data
 }
