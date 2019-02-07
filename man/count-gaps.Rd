@@ -23,7 +23,7 @@ A tibble contains:
 \item the "key" of the \code{tbl_ts}
 \item ".from": the starting time point of the gap
 \item ".to": the ending time point of the gap
-\item ".n": the implicit missing observations during the time period
+\item ".n": the number of implicit missing observations during the time period
 }
 }
 \description{

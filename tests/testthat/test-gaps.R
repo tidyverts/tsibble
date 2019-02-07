@@ -192,7 +192,7 @@ test_that("has_gaps()", {
 })
 
 test_that("Error in gaps()", {
-  expect_error(gaps(x = 1:4, y = 1:3), "must not be greater than")
+  expect_error(tbl_gaps(x = 1:4, y = 1:3), "must not be greater than")
 })
 
 test_that("seq_generator()", {

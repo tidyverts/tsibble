@@ -164,7 +164,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' * the "key" of the `tbl_ts`
 #' * ".from": the starting time point of the gap
 #' * ".to": the ending time point of the gap
-#' * ".n": the implicit missing observations during the time period
+#' * ".n": the number of implicit missing observations during the time period
 count_gaps <- function(.data, ...) {
   UseMethod("count_gaps")
 }
@@ -200,11 +200,11 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   grped_tbl <- as_grouped_df(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
-    lst_out <- summarise(grped_tbl, gaps = list2(gaps(!! idx, idx_full)))
+    lst_out <- summarise(grped_tbl, gaps = list2(tbl_gaps(!! idx, idx_full)))
   } else {
     lst_out <- summarise(
       grped_tbl, 
-      gaps = list2(gaps(!! idx, seq_generator(!! idx, int)))
+      gaps = list2(tbl_gaps(!! idx, seq_generator(!! idx, int)))
     )
   }
   idx_type <- class(lst_out[["gaps"]][[1]][[".from"]])
@@ -263,7 +263,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'
 #' @param x,y Atomic vectors. The length of `y` must be greater than the length of `x`.
 #' @return A tibble of columns `.from`, `.to` and `.n`.
-gaps <- function(x, y) {
+tbl_gaps <- function(x, y) {
   len_x <- length(x)
   len_y <- length(y)
   if (len_y < len_x) {
