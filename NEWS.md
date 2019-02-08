@@ -2,10 +2,6 @@
 
 Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
 
-## New features
-
-* `scan_gaps()` & `count_gaps()` gained a new argument `.common = FALSE` to specify common time gaps shared by each series.
-
 ## Bug fixes
 
 * Fixed `rbind()` for dropping custom index class. (#78)

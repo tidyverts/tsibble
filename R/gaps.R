@@ -109,12 +109,12 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' @export
 #' @examples
 #' scan_gaps(pedestrian)
-scan_gaps <- function(.data, .full = FALSE, .common = FALSE, ...) {
+scan_gaps <- function(.data, .full = FALSE, ...) {
   UseMethod("scan_gaps")
 }
 
 #' @export
-scan_gaps.tbl_ts <- function(.data, .full = FALSE, .common = FALSE, ...) {
+scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
@@ -143,12 +143,6 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .common = FALSE, ...) {
   }
 
   gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
-  if (.common) {
-    gap_data <- filter(
-      gap_data, 
-      duplicated(!! idx) | duplicated(!! idx, fromLast = TRUE)
-    )
-  }
   update_tsibble(gap_data, .data, ordered = NULL, interval = interval(.data))
 }
 
@@ -157,7 +151,6 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .common = FALSE, ...) {
 #' @param .data A `tbl_ts`.
 #' @param .full `FALSE` to find gaps for each series within its own period. 
 #' `TRUE` to find gaps over the entire time span of the data.
-#' @param .common If `TRUE`, find common time gaps shared by each series.
 #' @param ... Other arguments passed on to individual methods.
 #'
 #' @family implicit gaps handling
@@ -172,13 +165,10 @@ count_gaps <- function(.data, ...) {
   UseMethod("count_gaps")
 }
 
-#' @rdname count-gaps
 #' @param .full `FALSE` to find gaps for each group within its own period. `TRUE`
 #' to find gaps over the entire time span of the data.
 #' @export
 #' @examples
-#' pedestrian %>% 
-#'   count_gaps(.full = TRUE, .common = TRUE)
 #' ped_gaps <- pedestrian %>% 
 #'   count_gaps(.full = TRUE)
 #' if (!requireNamespace("ggplot2", quietly = TRUE)) {
@@ -191,17 +181,17 @@ count_gaps <- function(.data, ...) {
 #'   geom_point(aes(y = .to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
-count_gaps <- function(.data, .full = FALSE, .common = FALSE, ...) {
+count_gaps <- function(.data, .full = FALSE, ...) {
   UseMethod("count_gaps")
 }
 
 #' @export
-count_gaps.tbl_ts <- function(.data, .full = FALSE, .common = FALSE, ...) {
+count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
 
-  gap_data <- scan_gaps(.data, .full = .full, .common = .common, ...)
+  gap_data <- scan_gaps(.data, .full = .full, ...)
   if (unknown_interval(int) || NROW(gap_data) == 0L) {
     data_key <- .data[0L, key_vars(.data)] 
     data_key[[".to"]] <- data_key[[".from"]] <- .data[[as_string(idx)]][0L]
