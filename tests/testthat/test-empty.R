@@ -30,14 +30,14 @@ test_that("tsibble verbs empty tsibble", {
   expect_equal(NROW(count_gaps(ped_null)), 0)
 })
 
-ped_tsbl <- pedestrian %>% 
-  mutate(Sensor = as.factor(Sensor)) %>% 
+ped_tsbl <- pedestrian %>%
+  mutate(Sensor = as.factor(Sensor)) %>%
   filter_index("2015-01")
 
-ped_grped <- pedestrian %>% 
-  mutate(Sensor = as.factor(Sensor)) %>% 
-  group_by_key() %>% 
-  filter_index("2015-01") %>% 
+ped_grped <- pedestrian %>%
+  mutate(Sensor = as.factor(Sensor)) %>%
+  group_by_key() %>%
+  filter_index("2015-01") %>%
   as_tibble()
 
 test_that("dplyr verbs for empty groups (factors)", {
@@ -45,22 +45,22 @@ test_that("dplyr verbs for empty groups (factors)", {
     key_data(ped_tsbl %>% mutate(x = 1L)),
     group_data(ped_grped %>% mutate(x = 1L))
   )
-  expect_identical(
-    key_data(ped_tsbl %>% group_by_key() %>% slice(1:2)),
-    group_data(ped_grped %>% slice(1:2))
-  )
+  k <- key_data(ped_tsbl %>% group_by_key() %>% slice(1:2))
+  g <- group_data(ped_grped %>% slice(1:2))
+  expect_identical(k$Sensor, g$Sensor)
+  expect_identical(k$.rows, g$.rows)
   expect_identical(
     key_data(ped_tsbl %>% arrange(Sensor, Date_Time)),
     group_data(ped_grped %>% arrange(Sensor, Date_Time))
   )
 })
 
-ped_tsbl <- pedestrian %>% 
+ped_tsbl <- pedestrian %>%
   filter_index("2015-01", .preserve = TRUE)
 
-ped_grped <- pedestrian %>% 
-  group_by_key() %>% 
-  filter_index("2015-01", .preserve = TRUE) %>% 
+ped_grped <- pedestrian %>%
+  group_by_key() %>%
+  filter_index("2015-01", .preserve = TRUE) %>%
   as_tibble()
 
 test_that("dplyr verbs for empty groups (characters)", {
@@ -68,10 +68,10 @@ test_that("dplyr verbs for empty groups (characters)", {
     key_data(ped_tsbl %>% mutate(x = 1L)),
     group_data(ped_grped %>% mutate(x = 1L))
   )
-  expect_identical(
-    key_data(ped_tsbl %>% group_by_key() %>% slice(1:2)),
-    group_data(ped_grped %>% slice(1:2))
-  )
+  k1 <- key_data(ped_tsbl %>% group_by_key() %>% slice(1:2))
+  g1 <- group_data(ped_grped %>% slice(1:2))
+  expect_identical(k1$Sensor, g1$Sensor)
+  expect_identical(k1$.rows, g1$.rows)
   expect_identical(
     key_data(ped_tsbl %>% arrange(Sensor, Date_Time)),
     group_data(ped_grped %>% arrange(Sensor, Date_Time))

@@ -25,8 +25,8 @@ group_split.tbl_ts <- function(.tbl, ..., keep = TRUE) {
 dplyr::group_trim
 
 #' @export
-group_trim.tbl_ts <- function(.tbl) {
-  res <- group_trim(as_grouped_df(.tbl))
+group_trim.tbl_ts <- function(.tbl, .drop = TRUE) {
+  res <- group_trim(as_grouped_df(.tbl), .drop = TRUE)
   update_tsibble(res, .tbl, ordered = is_ordered(.tbl), interval = interval(.tbl))
 }
 

@@ -118,15 +118,9 @@ row_validate <- function(x) {
 #' @export
 dplyr::select
 
-#' @param .drop Defunct, please use `as_tibble()` for `.drop = TRUE` instead.
-#' `FALSE` returns a tsibble object as the input. `TRUE` drops a tsibble and
-#' returns a tibble.
-#'
 #' @rdname tidyverse
 #' @export
-select.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  if (.drop) abort_drop()
-
+select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
   lst_exprs <- map(lst_quos, quo_get_expr)
   idx_chr <- index_var(.data)
@@ -161,9 +155,8 @@ dplyr::mutate
 
 #' @rdname tidyverse
 #' @export
-mutate.tbl_ts <- function(.data, ..., .drop = FALSE) {
+mutate.tbl_ts <- function(.data, ...) {
   mut_data <- mutate(as_tibble(.data), ...)
-  if (.drop) abort_drop()
 
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
@@ -202,9 +195,7 @@ dplyr::transmute
 
 #' @rdname tidyverse
 #' @export
-transmute.tbl_ts <- function(.data, ..., .drop = FALSE) {
-  if (.drop) abort_drop()
-
+transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
   idx_key <- c(index_var(.data), key_vars(.data))
@@ -227,12 +218,10 @@ dplyr::summarise
 #' pedestrian %>%
 #'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
-summarise.tbl_ts <- function(.data, ..., .drop = FALSE) {
+summarise.tbl_ts <- function(.data, ...) {
   # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for 
   # empty groups. Bc information is unavailable over the time range for empty
   # groups.
-  if (.drop) abort_drop()
-
   idx <- index(.data)
   idx2 <- index2(.data)
 
@@ -282,7 +271,7 @@ dplyr::group_by
 #' @inheritParams dplyr::group_by
 #' @rdname tidyverse
 #' @export
-group_by.tbl_ts <- function(.data, ..., add = FALSE) {
+group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) {
@@ -294,12 +283,21 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE) {
     return(group_by_key(.data))
   }
 
-  grped_tbl <- group_by(as_tibble(.data), ..., add = add)
-  build_tsibble_meta(
-    grped_tbl, key = key_data(.data), index = !! index(.data),
-    index2 = !! index2(.data), regular = is_regular(.data),
-    ordered = is_ordered(.data), interval = interval(.data)
-  )
+  grped_tbl <- group_by(as_tibble(.data), ..., add = add, .drop = .drop)
+  if (.drop) { # needs to drop key too
+    build_tsibble(
+      grped_tbl, key = key(.data), index = !! index(.data),
+      index2 = !! index2(.data), regular = is_regular(.data),
+      ordered = is_ordered(.data), interval = interval(.data),
+      validate = FALSE
+    )
+  } else {
+    build_tsibble_meta(
+      grped_tbl, key = key_data(.data), index = !! index(.data),
+      index2 = !! index2(.data), regular = is_regular(.data),
+      ordered = is_ordered(.data), interval = interval(.data)
+    )
+  }
 }
 
 #' Group by key variables

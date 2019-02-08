@@ -37,19 +37,19 @@
 
 \method{slice}{tbl_ts}(.data, ..., .preserve = FALSE)
 
-\method{select}{tbl_ts}(.data, ..., .drop = FALSE)
+\method{select}{tbl_ts}(.data, ...)
 
 \method{rename}{tbl_ts}(.data, ...)
 
-\method{mutate}{tbl_ts}(.data, ..., .drop = FALSE)
+\method{mutate}{tbl_ts}(.data, ...)
 
-\method{transmute}{tbl_ts}(.data, ..., .drop = FALSE)
+\method{transmute}{tbl_ts}(.data, ...)
 
-\method{summarise}{tbl_ts}(.data, ..., .drop = FALSE)
+\method{summarise}{tbl_ts}(.data, ...)
 
-\method{summarize}{tbl_ts}(.data, ..., .drop = FALSE)
+\method{summarize}{tbl_ts}(.data, ...)
 
-\method{group_by}{tbl_ts}(.data, ..., add = FALSE)
+\method{group_by}{tbl_ts}(.data, ..., add = FALSE, .drop = FALSE)
 
 \method{ungroup}{grouped_ts}(x, ...)
 
@@ -100,13 +100,11 @@ will be duplicated in the same way as atomic vectors. This has
 \link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
-\item{.drop}{Defunct, please use \code{as_tibble()} for \code{.drop = TRUE} instead.
-\code{FALSE} returns a tsibble object as the input. \code{TRUE} drops a tsibble and
-returns a tibble.}
-
 \item{add}{When \code{add = FALSE}, the default, \code{group_by()} will
 override existing groups. To add to the existing groups, use
 \code{add = TRUE}.}
+
+\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped.}
 
 \item{x}{A \code{\link[=tbl]{tbl()}}}
 
