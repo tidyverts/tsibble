@@ -28,22 +28,6 @@ A tibble contains:
 \description{
 Count implicit gaps
 }
-\examples{
-pedestrian \%>\% 
-  count_gaps(.full = TRUE, .common = TRUE)
-ped_gaps <- pedestrian \%>\% 
-  count_gaps(.full = TRUE)
-if (!requireNamespace("ggplot2", quietly = TRUE)) {
-  stop("Please install the ggplot2 package to run these following examples.")
-}
-library(ggplot2)
-ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
-  geom_linerange(aes(ymin = .from, ymax = .to)) +
-  geom_point(aes(y = .from)) +
-  geom_point(aes(y = .to)) +
-  coord_flip() +
-  theme(legend.position = "bottom")
-}
 \seealso{
 Other implicit gaps handling: \code{\link{fill_gaps}},
   \code{\link{has_gaps}}, \code{\link{scan_gaps}}
