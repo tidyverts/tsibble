@@ -83,7 +83,7 @@ append_case() is an alias of append_row()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -221,31 +221,31 @@ and key, otherwise only index and key.</p></td>
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>3</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>6</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 8 x 3 [1D]</span><span>
+)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 8 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       group [2]</span><span>
-#&gt;   date       group   value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2017-01-01 a       0.931
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2017-01-02 a       0.337
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2017-01-03 a       0.934
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2017-01-04 a      </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2017-01-01 b      -</span><span style='color: #BB0000;'>0.685</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2017-01-02 b      -</span><span style='color: #BB0000;'>0.412</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 2017-01-03 b       1.84 
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> 2017-01-04 b      </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 10 x 3 [1D]</span><span>
+#&gt;   date       group  value
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2017-01-01 a      0.931
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2017-01-02 a      0.337
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2017-01-03 a      0.934
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2017-01-04 a     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2017-01-01 b     -</span><span style='color: #BB0000;'>0.685</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2017-01-02 b     -</span><span style='color: #BB0000;'>0.412</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 2017-01-03 b      1.84 
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> 2017-01-04 b     </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 10 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       group [2]</span><span>
-#&gt;    date       group   value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2017-01-01 a       0.931
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2017-01-02 a       0.337
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2017-01-03 a       0.934
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2017-01-04 a      </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2017-01-05 a      </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2017-01-01 b      -</span><span style='color: #BB0000;'>0.685</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2017-01-02 b      -</span><span style='color: #BB0000;'>0.412</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2017-01-03 b       1.84 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2017-01-04 b      </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2017-01-05 b      </span><span style='color: #BB0000;'>NA</span><span>    </div></span></pre>
+#&gt;    date       group  value
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2017-01-01 a      0.931
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2017-01-02 a      0.337
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2017-01-03 a      0.934
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2017-01-04 a     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2017-01-05 a     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2017-01-01 b     -</span><span style='color: #BB0000;'>0.685</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2017-01-02 b     -</span><span style='color: #BB0000;'>0.412</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2017-01-03 b      1.84 
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2017-01-04 b     </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2017-01-05 b     </span><span style='color: #BB0000;'>NA</span><span>    </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

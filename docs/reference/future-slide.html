@@ -86,7 +86,7 @@ future specific options to use with the workers.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -175,11 +175,11 @@ future specific options to use with the workers.</p></li>
 <span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>...</span>)
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span><span>
 #&gt;   Sensor                        data                   diag                  
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                 </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span> Birrarung Marr                </span><span style='color: #949494;'>&lt;tsibble [14,566 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [696,913 × 2]&gt;</span><span>

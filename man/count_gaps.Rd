@@ -5,8 +5,6 @@
 \title{Count implicit gaps}
 \usage{
 count_gaps(.data, .full = FALSE, ...)
-
-count_gaps(.data, .full = FALSE, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}

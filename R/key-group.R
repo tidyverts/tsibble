@@ -62,6 +62,7 @@ key_rows <- function(.data) {
 }
 
 #' @rdname key-data
+#' @usage NULL
 #' @keywords internal
 #' @export
 n_keys <- function(x) {

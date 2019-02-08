@@ -16,10 +16,7 @@
     <loc>https://pkg.earo.me/tsibble/reference/build_tsibble.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/build_tsibble_meta.html</loc>
-  </url>
-  <url>
-    <loc>https://pkg.earo.me/tsibble/reference/count-gaps.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/count_gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/deprecated.html</loc>
@@ -28,10 +25,10 @@
     <loc>https://pkg.earo.me/tsibble/reference/difference.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/duplicated.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/duplicates.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/fill-gaps.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/fill_gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/filter_index.html</loc>
@@ -46,16 +43,13 @@
     <loc>https://pkg.earo.me/tsibble/reference/future-tile.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/gaps.html</loc>
-  </url>
-  <url>
     <loc>https://pkg.earo.me/tsibble/reference/group_by_key.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/guess_frequency.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/has-gaps.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/has_gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/holiday_aus.html</loc>
@@ -76,13 +70,10 @@
     <loc>https://pkg.earo.me/tsibble/reference/is-tsibble.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/key-size.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/key-data.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/key.html</loc>
-  </url>
-  <url>
-    <loc>https://pkg.earo.me/tsibble/reference/key_by.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/measured-vars.html</loc>
@@ -115,7 +106,7 @@
     <loc>https://pkg.earo.me/tsibble/reference/regular.html</loc>
   </url>
   <url>
-    <loc>https://pkg.earo.me/tsibble/reference/scan-gaps.html</loc>
+    <loc>https://pkg.earo.me/tsibble/reference/scan_gaps.html</loc>
   </url>
   <url>
     <loc>https://pkg.earo.me/tsibble/reference/slide.html</loc>

@@ -15,7 +15,7 @@
 <meta property="og:description" content="Provides a 'tbl_ts' class (the 'tsibble') to store
     and manage temporal data in a data-centric format, which is built on
     top of the 'tibble'. The 'tsibble' aims at easily manipulating and
-    analysing temporal data, including counting and filling time gaps,
+    analysing temporal data, including counting and filling in time gaps,
     aggregate over calendar periods, performing rolling window
     calculations, and etc.">
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png">
@@ -151,10 +151,10 @@
 </div>
 <div id="fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill-gaps.html">fill_gaps()</a></code> to turn implicit missing values into explicit missing values</h3>
-<p>Often there are implicit missing cases in time series. If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using <code><a href="reference/fill-gaps.html">fill_gaps()</a></code>, filling gaps in precipitation (<code>precip</code>) with 0 in the meanwhile. It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="https://tidyr.tidyverse.org/reference/fill.html">fill()</a></code> from <em>tidyr</em>.</p>
+<a href="#fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill_gaps.html">fill_gaps()</a></code> to turn implicit missing values into explicit missing values</h3>
+<p>Often there are implicit missing cases in time series. If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using <code><a href="reference/fill_gaps.html">fill_gaps()</a></code>, filling gaps in precipitation (<code>precip</code>) with 0 in the meanwhile. It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code><a href="https://tidyr.tidyverse.org/reference/fill.html">fill()</a></code> from <em>tidyr</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill-gaps.html">fill_gaps</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill_gaps.html">fill_gaps</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span>(temp, humid, <span class="dt">.direction =</span> <span class="st">"down"</span>)</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">full_weather</a>
@@ -169,7 +169,7 @@
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; # … with 2.618e+04 more rows</span></a></code></pre></div>
-<p><code><a href="reference/fill-gaps.html">fill_gaps()</a></code> also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out <a href="http://pkg.earo.me/tsibble/articles/implicit-na.html"><code><a href="articles/implicit-na.html">vignette("implicit-na")</a></code></a>.</p>
+<p><code><a href="reference/fill_gaps.html">fill_gaps()</a></code> also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out <a href="http://pkg.earo.me/tsibble/articles/implicit-na.html"><code><a href="articles/implicit-na.html">vignette("implicit-na")</a></code></a>.</p>
 </div>
 <div id="index_by-summarise-to-aggregate-over-calendar-periods" class="section level3">
 <h3 class="hasAnchor">
@@ -250,6 +250,12 @@
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing tsibble</a></li>
 </ul>
 </div>
 <div class="developers">

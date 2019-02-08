@@ -83,7 +83,7 @@ determine if the time needs ordering and the interval needs calculating." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@ determine if the time needs ordering and the interval needs calculating.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -182,15 +182,15 @@ simply call <code><a href='id.html'>id()</a></code>.</p></td>
 <a href='index-by.html'>index_by</a>. By default, it's identical to <code>index</code>.</p></td>
     </tr>
     <tr>
-      <th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
-interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
       <th>ordered</th>
       <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
 then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
 the correct order. <code>FALSE</code> also skips the ordering but gives a warning instead.</p></td>
+    </tr>
+    <tr>
+      <th>regular</th>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>interval</th>
@@ -213,7 +213,6 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       Sensor [4]</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:    @ Date [731]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630

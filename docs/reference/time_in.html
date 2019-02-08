@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdo
 <span class='no'>lgl2</span> <span class='kw'>&lt;-</span> <span class='fu'>time_in</span>(<span class='no'>x</span>, <span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)
 <span class='no'>lgl2</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</div><div class='input'>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
@@ -216,8 +216,8 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdo
 #&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #949494;'>18:00:00</span><span> 2015-03-23    18   546
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #949494;'>19:00:00</span><span> 2015-03-23    19   276
 #&gt; </span><span style='color: #949494;'># … with 20,097 more rows</span><span></div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015"</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Season</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Season</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(
     <span class='fu'>time_in</span>(<span class='no'>Date_Time</span>, <span class='st'>"2015-03"</span> ~ <span class='st'>"2015-08"</span>),
     <span class='st'>"Autumn-Winter"</span>, <span class='st'>"Spring-Summer"</span>
   ))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 32,276 x 6 [1h] &lt;Australia/Melbourne&gt;</span><span>

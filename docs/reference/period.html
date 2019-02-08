@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Represent year-week (ISO), year-month or year-quarter objects — yearweek • tsibble</title>
+<title>Represent year-week (ISO) starting on Monday, year-month or year-quarter objects — yearweek • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Represent year-week (ISO), year-month or year-quarter objects — yearweek" />
+<meta property="og:title" content="Represent year-week (ISO) starting on Monday, year-month or year-quarter objects — yearweek" />
 
 <meta property="og:description" content="Create or coerce using yearweek(), yearmonth(), or yearquarter()" />
 
@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Represent year-week (ISO), year-month or year-quarter objects</h1>
+    <h1>Represent year-week (ISO) starting on Monday, year-month or year-quarter objects</h1>
     
     <div class="hidden name"><code>period.Rd</code></div>
     </div>
@@ -178,12 +178,6 @@
     <p>Year-week (<code>yearweek</code>), year-month (<code>yearmonth</code>) or year-quarter
 (<code>yearquarter</code>) objects.</p>
 <p><code>TRUE</code>/<code>FALSE</code> if the year has 53 ISO weeks.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>It's a known issue that these attributes will be dropped when using
-<a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a> and <a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a> together. It is recommended to <a href='http://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a> first, and
-then use <a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a>.</p>
     
     <h2 class="hasAnchor" id="index-functions"><a class="anchor" href="#index-functions"></a>Index functions</h2>
 
@@ -227,8 +221,6 @@ the input <code>x</code>, contrasting to their zoo counterparts.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
 
       <li><a href="#index-functions">Index functions</a></li>
 

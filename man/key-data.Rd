@@ -9,8 +9,6 @@
 key_data(.data)
 
 key_rows(.data)
-
-n_keys(x)
 }
 \arguments{
 \item{.data}{A tsibble}

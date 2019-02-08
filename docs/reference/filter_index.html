@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>filter_index</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>filter_index</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +170,11 @@
 Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <code>yearweek</code>, <code>yearmonth</code>/<code>yearmon</code>,
 <code>yearquarter</code>/<code>yearqtr</code>, <code>hms</code>/<code>difftime</code> &amp; <code>numeric</code>.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>.preserve</th>
+      <td><p>when <code>FALSE</code> (the default), the grouping structure
+is recalculated based on the resulting data, otherwise it is kept as is.</p></td>
     </tr>
     </table>
     

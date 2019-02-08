@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -158,12 +158,12 @@
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for tbl_ts</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>regular</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for list</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -229,11 +229,11 @@ daily.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># coerce tibble to tsibble w/o a key ----</span>
-<span class='no'>tbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+<span class='no'>tbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Column `date` is the index.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 10 x 2 [1D]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
@@ -261,12 +261,12 @@ daily.</p></td>
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'>
 <span class='co'># coerce tibble to tsibble with one key ----</span>
 <span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
-<span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+<span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>mth</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='st'>"2017-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>30</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Column `mth` is the index.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 30 x 3 [1M]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 30 x 3 [1M]</span><span>
 #&gt; </span><span style='color: #949494;'># Key:       group [3]</span><span>
 #&gt;         mth group   value
 #&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>

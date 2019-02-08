@@ -86,7 +86,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -189,7 +189,7 @@ arguments as <code>slide2()</code>, but return vectors of the corresponding type
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>A function, formula, or atomic vector.</p>
+      <td><p>A function, formula, or vector (not necessarily atomic).</p>
 <p>If a <strong>function</strong>, it is used as is.</p>
 <p>If a <strong>formula</strong>, e.g. <code>~ .x + 2</code>, it is converted to a function. There
 are three ways to refer to the arguments:</p><ul>
@@ -199,16 +199,15 @@ are three ways to refer to the arguments:</p><ul>
 </ul>
 
 <p>This syntax allows you to create very compact anonymous functions.</p>
-<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in <code>get-attr()</code>
-to extract named attributes. If a component is not present, the value of
-<code>.default</code> will be returned.</p></td>
+<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it is
+converted to an extractor function. Character vectors index by
+name and numeric vectors index by position; use a list to index
+by position and name at different levels. If a component is not
+present, the value of <code>.default</code> will be returned.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed on to <code>.f</code>.</p></td>
+      <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
       <th>.size</th>
@@ -237,13 +236,16 @@ If <code>.x</code> is a list of data frames, row binding is carried out.</p></td
     </tr>
     <tr>
       <th>.id</th>
-      <td><p>If not <code>NULL</code> a variable with this name will be created
-giving either the name or the index of the data frame.</p></td>
+      <td><p>Either a string or <code>NULL</code>. If a string, the output will contain
+a variable with that name, storing either the name (if <code>.x</code> is named) or
+the index (if <code>.x</code> is unnamed) of the input. If <code>NULL</code>, the default, no
+variable will be created.</p>
+<p>Only applies to <code>_dfr</code> variant.</p></td>
     </tr>
     <tr>
       <th>.l</th>
-      <td><p>A list of lists. The length of <code>.l</code> determines the
-number of arguments that <code>.f</code> will be called with. List
+      <td><p>A list of vectors, such as a data frame. The length of <code>.l</code>
+determines the number of arguments that <code>.f</code> will be called with. List
 names will be used if present.</p></td>
     </tr>
     </table>
@@ -365,7 +367,7 @@ names will be used if present.</p></td>
 
 <span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>()</div><div class='output co'>#&gt;    group       slope x         y       date
 #&gt; 1      a          NA 1  1.295180 2016-06-01
 #&gt; 2      a  2.71332998 2  4.008510 2016-06-02
@@ -384,10 +386,10 @@ names will be used if present.</p></td>
 #&gt; 15     b  0.52898186 2  6.101253 2016-06-07
 #&gt; 16     b  4.71498932 1  1.386263 2016-06-08</div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 3</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 3</span><span>
 #&gt;       yrmth data                   ma
 #&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2015 Jan </span><span style='color: #949494;'>&lt;tsibble [744 × 5]&gt;</span><span>   </span><span style='color: #BB0000;'>NA</span><span> 
@@ -404,12 +406,12 @@ names will be used if present.</p></td>
 </div></span><div class='input'><span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>...</span>)
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='filter_index.html'>filter_index</a></span>(<span class='st'>"2015-01"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span><span>
 #&gt;   Sensor                        data                diag                 
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>               
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span> Birrarung Marr                </span><span style='color: #949494;'>&lt;tsibble [744 × 4]&gt;</span><span> </span><span style='color: #949494;'>&lt;tibble [33,457 × 2]&gt;</span><span>

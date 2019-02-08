@@ -161,11 +161,6 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' * ".from": the starting time point of the gap
 #' * ".to": the ending time point of the gap
 #' * ".n": the number of implicit missing observations during the time period
-count_gaps <- function(.data, ...) {
-  UseMethod("count_gaps")
-}
-
-#' @export
 #' @examples
 #' ped_gaps <- pedestrian %>% 
 #'   count_gaps(.full = TRUE)

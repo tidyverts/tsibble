@@ -86,7 +86,7 @@ tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-bind
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -177,7 +177,7 @@ arguments as <code>tile()</code>, but return vectors of the corresponding type.<
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>A function, formula, or atomic vector.</p>
+      <td><p>A function, formula, or vector (not necessarily atomic).</p>
 <p>If a <strong>function</strong>, it is used as is.</p>
 <p>If a <strong>formula</strong>, e.g. <code>~ .x + 2</code>, it is converted to a function. There
 are three ways to refer to the arguments:</p><ul>
@@ -187,16 +187,15 @@ are three ways to refer to the arguments:</p><ul>
 </ul>
 
 <p>This syntax allows you to create very compact anonymous functions.</p>
-<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in <code>get-attr()</code>
-to extract named attributes. If a component is not present, the value of
-<code>.default</code> will be returned.</p></td>
+<p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it is
+converted to an extractor function. Character vectors index by
+name and numeric vectors index by position; use a list to index
+by position and name at different levels. If a component is not
+present, the value of <code>.default</code> will be returned.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed on to <code>.f</code>.</p></td>
+      <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
       <th>.size</th>
@@ -210,8 +209,11 @@ If <code>.x</code> is a list of data frames, row binding is carried out.</p></td
     </tr>
     <tr>
       <th>.id</th>
-      <td><p>If not <code>NULL</code> a variable with this name will be created
-giving either the name or the index of the data frame.</p></td>
+      <td><p>Either a string or <code>NULL</code>. If a string, the output will contain
+a variable with that name, storing either the name (if <code>.x</code> is named) or
+the index (if <code>.x</code> is unnamed) of the input. If <code>NULL</code>, the default, no
+variable will be created.</p>
+<p>Only applies to <code>_dfr</code> variant.</p></td>
     </tr>
     </table>
     

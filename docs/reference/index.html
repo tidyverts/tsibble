@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -198,7 +198,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="duplicated.html">is_duplicated()</a></code> <code><a href="duplicated.html">are_duplicated()</a></code> <code><a href="duplicated.html">duplicates()</a></code> </p>
+          <p><code><a href="duplicates.html">is_duplicated()</a></code> <code><a href="duplicates.html">are_duplicated()</a></code> <code><a href="duplicates.html">duplicates()</a></code> </p>
         </td>
         <td><p>Test duplicated observations determined by key and index variables</p></td>
       </tr>
@@ -206,31 +206,31 @@
       <tr>
         <th colspan="2">
           <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
-          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has-gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan-gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count-gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill-gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="has-gaps.html">has_gaps()</a></code> </p>
+          <p><code><a href="has_gaps.html">has_gaps()</a></code> </p>
         </td>
         <td><p>Does a tsibble have implicit gaps in time?</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="scan-gaps.html">scan_gaps()</a></code> </p>
+          <p><code><a href="scan_gaps.html">scan_gaps()</a></code> </p>
         </td>
         <td><p>Scan a tsibble for implicit missing observations</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="count-gaps.html">count_gaps()</a></code> </p>
+          <p><code><a href="count_gaps.html">count_gaps()</a></code> </p>
         </td>
         <td><p>Count implicit gaps</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="fill-gaps.html">fill_gaps()</a></code> </p>
+          <p><code><a href="fill_gaps.html">fill_gaps()</a></code> </p>
         </td>
         <td><p>Turn implicit missing values into explicit missing values</p></td>
       </tr><tr>
@@ -370,7 +370,7 @@
         <td>
           <p><code><a href="period.html">yearweek()</a></code> <code><a href="period.html">is_53weeks()</a></code> <code><a href="period.html">yearmonth()</a></code> <code><a href="period.html">yearquarter()</a></code> </p>
         </td>
-        <td><p>Represent year-week (ISO), year-month or year-quarter objects</p></td>
+        <td><p>Represent year-week (ISO) starting on Monday, year-month or year-quarter objects</p></td>
       </tr><tr>
         
         <td>
@@ -414,9 +414,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="key_by.html">key_by()</a></code> </p>
+          <p><code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> </p>
         </td>
-        <td><p>Change key variables for a given <code>tbl_ts</code></p></td>
+        <td><p>Keying data</p></td>
       </tr><tr>
         
         <td>
@@ -524,7 +524,7 @@
       <tr>
         
         <td>
-          <p><code><a href="tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">left_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">right_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">inner_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">full_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">semi_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">anti_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">fill(<i>&lt;grouped_ts&gt;</i>)</a></code> </p>
+          <p><code><a href="tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">left_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">right_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">inner_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">full_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">semi_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">anti_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">fill(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">fill(<i>&lt;grouped_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Tidyverse methods for tsibble</p></td>
       </tr>
