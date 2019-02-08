@@ -2,20 +2,19 @@
 % Please edit documentation in R/gaps.R
 \name{count_gaps}
 \alias{count_gaps}
-\alias{count_gaps.tbl_ts}
 \title{Count implicit gaps}
 \usage{
-count_gaps(.data, ...)
-
-\method{count_gaps}{tbl_ts}(.data, .full = FALSE, ...)
+count_gaps(.data, .full = FALSE, .common = FALSE, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{Other arguments passed on to individual methods.}
+\item{.full}{\code{FALSE} to find gaps for each series within its own period.
+\code{TRUE} to find gaps over the entire time span of the data.}
 
-\item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
-to find gaps over the entire time span of the data.}
+\item{.common}{If \code{TRUE}, find common time gaps shared by each series.}
+
+\item{...}{Other arguments passed on to individual methods.}
 }
 \value{
 A tibble contains:
@@ -30,6 +29,8 @@ A tibble contains:
 Count implicit gaps
 }
 \examples{
+pedestrian \%>\% 
+  count_gaps(.full = TRUE, .common = TRUE)
 ped_gaps <- pedestrian \%>\% 
   count_gaps(.full = TRUE)
 if (!requireNamespace("ggplot2", quietly = TRUE)) {

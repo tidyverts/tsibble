@@ -2,20 +2,19 @@
 % Please edit documentation in R/gaps.R
 \name{scan_gaps}
 \alias{scan_gaps}
-\alias{scan_gaps.tbl_ts}
 \title{Scan a tsibble for implicit missing observations}
 \usage{
-scan_gaps(.data, ...)
-
-\method{scan_gaps}{tbl_ts}(.data, .full = FALSE, ...)
+scan_gaps(.data, .full = FALSE, .common = FALSE, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{Other arguments passed on to individual methods.}
+\item{.full}{\code{FALSE} to find gaps for each series within its own period.
+\code{TRUE} to find gaps over the entire time span of the data.}
 
-\item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
-to find gaps over the entire time span of the data.}
+\item{.common}{If \code{TRUE}, find common time gaps shared by each series.}
+
+\item{...}{Other arguments passed on to individual methods.}
 }
 \description{
 Scan a tsibble for implicit missing observations

@@ -2,12 +2,9 @@
 % Please edit documentation in R/gaps.R
 \name{fill_gaps}
 \alias{fill_gaps}
-\alias{fill_gaps.tbl_ts}
 \title{Turn implicit missing values into explicit missing values}
 \usage{
-fill_gaps(.data, ...)
-
-\method{fill_gaps}{tbl_ts}(.data, ..., .full = FALSE)
+fill_gaps(.data, ..., .full = FALSE)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -20,7 +17,7 @@ existing \code{NA} untouched.
 \item filled by values or functions.
 }}
 
-\item{.full}{\code{FALSE} to insert \code{NA} for each key within its own period. \code{TRUE}
+\item{.full}{\code{FALSE} to insert \code{NA} for each series within its own period. \code{TRUE}
 to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
 }
 \description{

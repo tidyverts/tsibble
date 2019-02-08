@@ -622,7 +622,7 @@ use_id <- function(x, key) {
 #' @param data A data frame for creating a tsibble.
 #' @inheritParams tsibble
 #'
-#' @rdname duplicated
+#' @rdname duplicates
 #' @export
 #' @examples
 #' harvest <- tibble(
@@ -644,7 +644,7 @@ is_duplicated <- function(data, key = id(), index) {
 #' @param from_last `TRUE` does the duplication check from the last of identical
 #' elements.
 #'
-#' @rdname duplicated
+#' @rdname duplicates
 #' @export
 are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
@@ -658,7 +658,7 @@ are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
   res$zzz
 }
 
-#' @rdname duplicated
+#' @rdname duplicates
 #' @export
 duplicates <- function(data, key = id(), index) {
   key <- use_id(data, !! enquo(key))

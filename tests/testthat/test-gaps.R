@@ -168,6 +168,18 @@ test_that("count_gaps.tbl_ts(.full = TRUE)", {
   )
 })
 
+harvest <- tsibble(
+  year = c(2010, 2011, 2012, 2011, 2012, 2014),
+  fruit = rep(c("kiwi", "cherry"), each = 3),
+  kilo = sample(1:10, size = 6),
+  key = id(fruit), index = year
+)
+
+test_that("count_gaps.tbl_ts(.full = TRUE, .common = TRUE)", {
+  expect_equal(NROW(count_gaps(harvest, .common = TRUE)), 0)
+  expect_equal(NROW(count_gaps(harvest, .common = TRUE, .full = TRUE)), 2)
+})
+
 test_that("count_gaps.tbl_ts(.full = FALSE)", {
   full_tbl <- tsbl %>% count_gaps()
   b <- tibble(
