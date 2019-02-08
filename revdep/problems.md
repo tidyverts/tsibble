@@ -13,37 +13,78 @@ Version: 0.3.5
 
 # sugrrants
 
-Version: 0.2.0
+Version: 0.2.2
 
 ## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > 
+    > library(dplyr)
+    
+    Attaching package: ‘dplyr’
+    
+    The following objects are masked from ‘package:stats’:
+    
+        filter, lag
+    
+    The following objects are masked from ‘package:base’:
+    
+        intersect, setdiff, setequal, union
+    
+    > # compute the calendar layout for the data frame
+    > calendar_df <- pedestrian %>%
+    +   filter(Sensor_ID == 13, Year == 2016) %>%
+    +   frame_calendar(x = Time, y = Hourly_Counts, date = Date, nrow = 4)
+    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      namespace ‘dplyr’ 0.7.8 is already loaded, but >= 0.8.0 is required
+    Calls: %>% ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+    Execution halted
+    ```
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-                 ordered = tsibble::is_ordered(data))
-      15: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-      16: eval(quote(`_fseq`(`_lhs`)), env, env)
-      17: eval(quote(`_fseq`(`_lhs`)), env, env)
-      18: `_fseq`(`_lhs`)
-      19: freduce(value, `_function_list`)
-      20: withVisible(function_list[[k]](value))
-      21: function_list[[k]](value)
-      
-      ══ testthat results  ═══════════════════════════════════════════════
-      OK: 38 SKIPPED: 0 FAILED: 1
-      1. Error: The tsibble data (@test-calendar.R#126) 
+      ══ testthat results  ════════════════════════════════════════════
+      OK: 8 SKIPPED: 0 FAILED: 15
+      1. Error: Multiple y's and NA's (@test-calendar.R#11) 
+      2. Error: Variable scoping (@test-calendar.R#30) 
+      3. Failure: Some column names of data are used in the function (@test-calendar.R#38) 
+      4. Failure: Some column names of data are used in the function (@test-calendar.R#43) 
+      5. Failure: Some column names of data are used in the function (@test-calendar.R#48) 
+      6. Failure: Some column names of data are used in the function (@test-calendar.R#53) 
+      7. Error: Some column names of data are used in the function (@test-calendar.R#58) 
+      8. Error: The argument calendar (@test-calendar.R#83) 
+      9. Error: The tsibble data (@test-calendar.R#124) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-## In both
-
-*   checking dependencies in R code ... NOTE
+*   checking re-building of vignette outputs ... WARNING
     ```
-    Namespace in Imports field not imported from: ‘gtable’
-      All declared Imports should be used.
+    Error in re-building vignettes:
+      ...
+    
+    Attaching package: 'dplyr'
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
+    
+    Loading required package: viridisLite
+    Loading required package: ggplot2
+    Quitting from lines 42-47 (frame-calendar.Rmd) 
+    Error: processing vignette 'frame-calendar.Rmd' failed with diagnostics:
+    namespace 'dplyr' 0.7.8 is already loaded, but >= 0.8.0 is required
+    Execution halted
     ```
 
