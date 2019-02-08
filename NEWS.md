@@ -13,6 +13,7 @@ Following the changes in dplyr grouped data frames, tsibble allows for empty key
 * Defunct `find_duplicates()`.
 * Deprecated `fill_na()` in favour of `fill_gaps()`.
 * Defunct argument `.drop` in column-wise dplyr verbs.
+* Defunct `key_by()` (no idea why it's there).
 
 # tsibble 0.6.2
 

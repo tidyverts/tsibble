@@ -100,9 +100,9 @@ as_tsibble.tbl_df <- function(
 #' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
-#' @keywords internal
+#' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_ts <- function(x, key, index, regular, ...) {
+as_tsibble.tbl_ts <- function(x, key, index, regular, validate = TRUE, ...) {
   key <- enquo(key)
   if (quo_is_missing(key)) {
     key <- key_data(x)
@@ -115,8 +115,8 @@ as_tsibble.tbl_ts <- function(x, key, index, regular, ...) {
     regular <- is_regular(x)
   }
   build_tsibble(
-    x, key = !! key, index = !! idx, regular = regular, 
-    validate = FALSE
+    x, key = !! key, index = !! idx, index2 = !! index2(x), regular = regular, 
+    validate = validate
   )
 }
 

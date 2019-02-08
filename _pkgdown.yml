@@ -79,7 +79,6 @@ reference:
 - title: Metadata
   contents:
     - key
-    - key_by
     - index
     - measures
     - interval

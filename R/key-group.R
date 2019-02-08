@@ -61,36 +61,6 @@ key_rows <- function(.data) {
   key_data(.data)[[".rows"]]
 }
 
-#' Change key variables for a given `tbl_ts`
-#'
-#' @param .data A `tbl_ts`.
-#' @param ... Variables to construct the key.
-#'
-#' @export
-#' @examples
-#' # By removing `State` from key, it is a valid tsibble too.
-#' tourism %>%
-#'   key_by(Region, Purpose)
-key_by <- function(.data, ...) {
-  UseMethod("key_by")
-}
-
-#' @export
-key_by.tbl_ts <- function(.data, ...) {
-  exprs <- enexprs(...)
-  key <- validate_key(.data, exprs)
-  validate <- !all(is.element(key(.data), key))
-  idx <- index(.data)
-  if (validate) {
-    .data <- retain_tsibble(.data, key, idx)
-  }
-  build_tsibble(
-    .data, key = key, index = !! idx, index2 = !! index2(.data),
-    regular = is_regular(.data), ordered = is_ordered(.data), 
-    interval = interval(.data), validate = FALSE
-  )
-}
-
 #' @rdname key-data
 #' @keywords internal
 #' @export
