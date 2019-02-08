@@ -165,8 +165,6 @@ count_gaps <- function(.data, ...) {
   UseMethod("count_gaps")
 }
 
-#' @param .full `FALSE` to find gaps for each group within its own period. `TRUE`
-#' to find gaps over the entire time span of the data.
 #' @export
 #' @examples
 #' ped_gaps <- pedestrian %>% 
@@ -204,11 +202,11 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   lst_out <- 
     summarise(
       grped_tbl, 
-      gaps = list2(tbl_gaps(unique(!! idx), idx_full))
+      !! ".gaps" := list2(tbl_gaps(unique(!! idx), idx_full))
     )
 
-  idx_type <- class(lst_out[["gaps"]][[1]][[".from"]])
-  out <- unnest(lst_out, gaps)
+  idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
+  out <- unnest(lst_out, .gaps)
   class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
   tibble(!!! out)
 }

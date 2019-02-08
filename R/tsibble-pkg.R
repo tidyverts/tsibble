@@ -62,7 +62,7 @@
 #' @aliases NULL tsibble-package
 #' @useDynLib tsibble, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @importFrom utils head
+#' @importFrom utils head tail
 #' @importFrom purrr map map_dbl map_int map_chr map_lgl
 #' @importFrom purrr map2 map2_dbl map2_int map2_chr map2_lgl
 #' @importFrom purrr pmap pmap_dbl pmap_int pmap_chr pmap_lgl

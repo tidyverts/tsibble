@@ -15,9 +15,6 @@ count_gaps(.data, .full = FALSE, ...)
 \code{TRUE} to find gaps over the entire time span of the data.}
 
 \item{...}{Other arguments passed on to individual methods.}
-
-\item{.full}{\code{FALSE} to find gaps for each group within its own period. \code{TRUE}
-to find gaps over the entire time span of the data.}
 }
 \value{
 A tibble contains:
