@@ -98,13 +98,27 @@ as_tsibble.tbl_df <- function(
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_ts <- function(x, ...) {
-  x
-}
-
-#' @rdname as-tsibble
-#' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
+
+#' @keywords internal
+#' @export
+as_tsibble.tbl_ts <- function(x, key, index, regular, ...) {
+  key <- enquo(key)
+  if (quo_is_missing(key)) {
+    key <- key_data(x)
+  }
+  idx <- enquo(index)
+  if (quo_is_missing(idx)) {
+    idx <- x %@% index
+  }
+  if (is_missing(regular)) {
+    regular <- is_regular(x)
+  }
+  build_tsibble(
+    x, key = !! key, index = !! idx, regular = regular, 
+    validate = FALSE
+  )
+}
 
 #' @keywords internal
 #' @export
@@ -128,9 +142,7 @@ as_tsibble.grouped_df <- function(
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_ts <- function(x, ...) {
-  ungroup(x)
-}
+as_tsibble.grouped_ts <- as_tsibble.tbl_ts
 
 #' @keywords internal
 #' @export

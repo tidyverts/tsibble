@@ -3,7 +3,6 @@
 \name{as_tsibble}
 \alias{as_tsibble}
 \alias{as_tsibble.tbl_df}
-\alias{as_tsibble.tbl_ts}
 \alias{as_tsibble.data.frame}
 \alias{as_tsibble.list}
 \alias{as_tsibble.ts}
@@ -15,8 +14,6 @@ as_tsibble(x, ...)
 
 \method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
   validate = TRUE, ...)
-
-\method{as_tsibble}{tbl_ts}(x, ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
   validate = TRUE, ...)
