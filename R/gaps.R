@@ -197,12 +197,12 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     return(data_key)
   }
 
-  idx_full <- seq_generator(eval_tidy(idx, data = gap_data), int)
+  idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
   grped_tbl <- as_grouped_df(group_by_key(gap_data))
   lst_out <- 
     summarise(
-      grped_tbl, 
-      !! ".gaps" := list2(tbl_gaps(unique(!! idx), idx_full))
+      grped_tbl,
+      !! ".gaps" := list2(tbl_gaps(!! idx, idx_full))
     )
 
   idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
