@@ -147,7 +147,14 @@
 <h1 class="page-header">
 <a href="#tsibble-0-6-2-9000-to-be-released-as-v0-7-0" class="anchor"></a>tsibble 0.6.2.9000 (to be released as v0.7.0)<small> Unreleased </small>
 </h1>
-<p>Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.</p>
+<div id="changes-in-tsibble-data-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-in-tsibble-data-structure" class="anchor"></a>Changes in tsibble data structure</h2>
+<ol>
+<li>Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.</li>
+<li>Grouped ts (<code>grouped_ts</code>) is a subclassing of <code>grouped_df</code>.</li>
+</ol>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>

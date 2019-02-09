@@ -18,6 +18,5 @@ Keying data
 }
 \examples{
 key_data(pedestrian)
-key_rows(pedestrian)
 }
 \keyword{internal}

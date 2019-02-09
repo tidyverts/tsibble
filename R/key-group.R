@@ -45,7 +45,6 @@ key_vars.tbl_ts <- function(x) {
 #' @export
 #' @examples
 #' key_data(pedestrian)
-#' key_rows(pedestrian)
 key_data <- function(.data) {
   UseMethod("key_data")
 }

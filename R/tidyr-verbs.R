@@ -126,7 +126,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   grp <- syms(grp_vars)
 
   out <- select(ungroup(tbl), !!! grp)
-  idx <- group_indices(data, !!! grp)
+  idx <- dplyr::group_indices(data, !!! grp)
   representatives <- which(!duplicated(idx))
   out <- slice(out, representatives)
   tsb_sel <- select_tsibble(data, !!! nest_vars, validate = FALSE)
