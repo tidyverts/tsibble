@@ -31,8 +31,4 @@ Coerce to a tibble or data frame
 }
 \examples{
 as_tibble(pedestrian)
-
-# a grouped tbl_ts -----
-grped_ped <- pedestrian \%>\% group_by(Sensor)
-as_tibble(grped_ped)
 }

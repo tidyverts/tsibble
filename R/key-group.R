@@ -52,7 +52,7 @@ key_data <- function(.data) {
 
 #' @export
 key_data.tbl_ts <- function(.data) {
-  attr(.data, "key")
+  .data %@% key
 }
 
 #' @rdname key-data
@@ -92,82 +92,6 @@ rename_key <- function(.data, .vars) {
   names(.data)[idx] <- new_key_vars <- names[idx]
   names(attr(.data, "key")) <- c(new_key_vars, ".rows")
   .data
-}
-
-group_tsibble <- function(FUN, x, ...) {
-  res <- as_grouped_df(x)
-  FUN <- match.fun(FUN, descend = FALSE)
-  FUN(res, ...)
-}
-
-#' @importFrom dplyr groups
-#' @export
-dplyr::groups
-
-#' @export
-groups.grouped_ts <- function(x) {
-  group_tsibble(groups, x)
-}
-
-#' @importFrom dplyr group_vars
-#' @export
-dplyr::group_vars
-
-#' @export
-group_vars.grouped_ts <- function(x) {
-  group_tsibble(group_vars, x)
-}
-
-#' @importFrom dplyr group_data
-#' @export
-dplyr::group_data
-
-#' @export
-group_data.grouped_ts <- function(.data) {
-  group_tsibble(group_data, .data)
-}
-
-#' @importFrom dplyr group_keys
-#' @export
-dplyr::group_keys
-
-#' @export
-group_keys.grouped_ts <- function(.tbl, ...) {
-  group_tsibble(group_keys, .tbl)
-}
-
-#' @importFrom dplyr group_rows
-#' @export
-dplyr::group_rows
-
-#' @importFrom dplyr group_size
-#' @export
-dplyr::group_size
-
-#' @export
-group_size.grouped_ts <- function(x) {
-  res <- as_grouped_df(x)
-  group_size(res)
-}
-
-#' @importFrom dplyr n_groups
-#' @export
-dplyr::n_groups
-
-#' @export
-n_groups.tbl_ts <- function(x) {
-  res <- as_grouped_df(x)
-  n_groups(res)
-}
-
-#' @importFrom dplyr group_indices
-#' @export
-dplyr::group_indices
-
-#' @export
-group_indices.grouped_ts <- function(.data, ...) {
-  res <- as_grouped_df(.data)
-  group_indices(res)
 }
 
 rename_group <- function(.data, .vars) {

@@ -31,7 +31,7 @@ arrange.tbl_ts <- function(.data, ...) {
   if (is_empty(exprs)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! exprs)
 
-  arr_data <- arrange(as_tibble(.data), !!! exprs)
+  arr_data <- NextMethod()
   update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
@@ -42,7 +42,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   if (is_empty(exprs)) return(.data)
   ordered <- ordered_by_arrange(.data, !!! exprs, .by_group = .by_group)
 
-  arr_data <- arrange(as_tibble(.data), !!! exprs, .by_group = .by_group)
+  arr_data <- NextMethod()
   update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
@@ -139,6 +139,10 @@ select.tbl_ts <- function(.data, ...) {
   select_tsibble(.data, !!! lst_quos)
 }
 
+#' @rdname tidyverse
+#' @export
+select.grouped_ts <- select.tbl_ts
+
 #' @importFrom dplyr rename
 #' @export
 dplyr::rename
@@ -148,6 +152,10 @@ dplyr::rename
 rename.tbl_ts <- function(.data, ...) {
   rename_tsibble(.data, ...)
 }
+
+#' @rdname tidyverse
+#' @export
+rename.grouped_ts <- rename.tbl_ts
 
 #' @importFrom dplyr mutate
 #' @export
@@ -202,7 +210,6 @@ transmute.tbl_ts <- function(.data, ...) {
   vec_names <- union(idx_key, names(lst_quos))
   select(mut_data, !!! vec_names)
 }
-
 
 #' @importFrom dplyr summarise
 #' @export
@@ -283,7 +290,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
     return(group_by_key(.data))
   }
 
-  grped_tbl <- group_by(as_tibble(.data), ..., add = add, .drop = .drop)
+  grped_tbl <- NextMethod()
   if (.drop) { # needs to drop key too
     build_tsibble(
       grped_tbl, key = key(.data), index = !! index(.data),
@@ -304,16 +311,26 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
 #'
 #' @param .data A `tbl_ts` object.
 #' @param ... Ignored.
+#' @inheritParams dplyr::group_by
 #' @export
 #' @examples
 #' tourism %>%
 #'   group_by_key()
-group_by_key <- function(.data, ...) {
+group_by_key <- function(.data, ..., .drop = FALSE) {
   is_idx_idx2 <- identical(index_var(.data), index2_var(.data))
   if (is_empty(key_vars(.data)) && is_idx_idx2) {
     .data
-  } else if (is_idx_idx2) {
-    new_tsibble(.data, "groups" = key_data(.data), class = "grouped_ts")
+  } else if (!.drop && is_idx_idx2) {
+    cls <- c("grouped_ts", "grouped_df")
+    new_tsibble(.data, "groups" = key_data(.data), class = cls)
+  } else if (.drop && is_idx_idx2) {
+    grped_tbl <- group_by(as_tibble(.data), !!! key(.data))
+    build_tsibble(
+      grped_tbl, key = key(.data), index = !! index(.data),
+      index2 = !! index2(.data), regular = is_regular(.data),
+      ordered = is_ordered(.data), interval = interval(.data),
+      validate = FALSE
+    )
   } else {
     grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data))
     build_tsibble_meta(

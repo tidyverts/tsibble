@@ -7,7 +7,9 @@
 \alias{filter.tbl_ts}
 \alias{slice.tbl_ts}
 \alias{select.tbl_ts}
+\alias{select.grouped_ts}
 \alias{rename.tbl_ts}
+\alias{rename.grouped_ts}
 \alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
@@ -25,7 +27,6 @@
 \alias{nest.tbl_ts}
 \alias{unnest.lst_ts}
 \alias{unnest.tbl_ts}
-\alias{fill.tbl_ts}
 \alias{fill.grouped_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
@@ -39,7 +40,11 @@
 
 \method{select}{tbl_ts}(.data, ...)
 
+\method{select}{grouped_ts}(.data, ...)
+
 \method{rename}{tbl_ts}(.data, ...)
+
+\method{rename}{grouped_ts}(.data, ...)
 
 \method{mutate}{tbl_ts}(.data, ...)
 
@@ -82,8 +87,6 @@
 
 \method{unnest}{tbl_ts}(data, ..., key = id(), .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
-
-\method{fill}{tbl_ts}(data, ..., .direction = c("down", "up"))
 
 \method{fill}{grouped_ts}(data, ..., .direction = c("down", "up"))
 }

@@ -48,7 +48,7 @@ tbl_sum.tbl_ts <- function(x) {
 
 #' @export
 tbl_sum.grouped_ts <- function(x) {
-  n_grps <- big_mark(n_groups(x))
+  n_grps <- big_mark(length(group_rows(x)))
   if (n_grps == 0) {
     n_grps <- "?"
   }
@@ -56,7 +56,8 @@ tbl_sum.grouped_ts <- function(x) {
   idx2 <- quo_name(index2(x))
   grp_var <- setdiff(grps, idx2)
   idx_suffix <- paste("@", idx2)
-  res <- NextMethod()
+  res_grps <- NextMethod()
+  res <- res_grps[head(names(res_grps), -1L)] # rm "Groups"
   n_grps <- surround(n_grps, "[")
   if (is_empty(grp_var)) {
     c(res, "Groups" = paste(idx_suffix, n_grps))

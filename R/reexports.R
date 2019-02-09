@@ -2,6 +2,26 @@
 #' @export
 dplyr::`%>%`
 
+#' @importFrom dplyr groups
+#' @export
+dplyr::groups
+
+#' @importFrom dplyr group_vars
+#' @export
+dplyr::group_vars
+
+#' @importFrom dplyr group_data
+#' @export
+dplyr::group_data
+
+#' @importFrom dplyr group_keys
+#' @export
+dplyr::group_keys
+
+#' @importFrom dplyr group_rows
+#' @export
+dplyr::group_rows
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

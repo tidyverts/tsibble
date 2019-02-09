@@ -50,7 +50,7 @@ group_by_index2 <- function(x) {
 
 as_grouped_df <- function(x) {
   class(x) <- class(x)[-match("tbl_ts", class(x))] # remove "tbl_ts"
-  class(x)[match("grouped_ts", class(x))] <- "grouped_df"
+  class(x) <- class(x)[class(x) != "grouped_ts"]
   x
 }
 
@@ -62,15 +62,6 @@ restore_index_class <- function(new, old) {
     attr(new, "interval") <- pull_interval(new[[new_idx]])
   }
   new
-}
-
-join_tsibble <- function(FUN, x, y, by = NULL, copy = FALSE, validate = FALSE, 
-  ...) {
-  FUN <- match.fun(FUN, descend = FALSE)
-  tbl_x <- as_tibble(x)
-  tbl_y <- as_tibble(y)
-  tbl <- FUN(x = tbl_x, y = tbl_y, by = by, copy = copy, ...)
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = validate)
 }
 
 rename_tsibble <- function(.data, ...) {

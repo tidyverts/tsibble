@@ -4,12 +4,14 @@
 \alias{group_by_key}
 \title{Group by key variables}
 \usage{
-group_by_key(.data, ...)
+group_by_key(.data, ..., .drop = FALSE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts} object.}
 
 \item{...}{Ignored.}
+
+\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped.}
 }
 \description{
 Group by key variables

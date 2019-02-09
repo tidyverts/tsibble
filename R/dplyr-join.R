@@ -10,7 +10,8 @@ dplyr::left_join
 left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(left_join, x, y, by = by, copy = copy, suffix = suffix, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }
 
 #' @importFrom dplyr right_join
@@ -22,8 +23,8 @@ dplyr::right_join
 right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(right_join, x, y, by = by, copy = copy, suffix = suffix, 
-    validate = TRUE, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr inner_join
@@ -35,8 +36,8 @@ dplyr::inner_join
 inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(inner_join, x, y, by = by, copy = copy, suffix = suffix, 
-    validate = TRUE, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr full_join
@@ -48,8 +49,8 @@ dplyr::full_join
 full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
-  join_tsibble(full_join, x, y, by = by, copy = copy, suffix = suffix, 
-    validate = TRUE, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr semi_join
@@ -59,7 +60,8 @@ dplyr::semi_join
 #' @rdname tidyverse
 #' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  join_tsibble(semi_join, x, y, by = by, copy = copy, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }
 
 #' @importFrom dplyr anti_join
@@ -69,5 +71,6 @@ dplyr::anti_join
 #' @rdname tidyverse
 #' @export
 anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  join_tsibble(anti_join, x, y, by = by, copy = copy, ...)
+  tbl <- NextMethod()
+  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }

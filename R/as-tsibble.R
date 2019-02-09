@@ -333,7 +333,7 @@ build_tsibble <- function(
     key_sym <- head(names(key_data), -1L)
   }
 
-  is_grped <- dplyr::is_grouped_df(x) || is_grouped_ts(x)
+  is_grped <- dplyr::is_grouped_df(x)
   if (is_grped) {
     tbl <- x
   } else {
@@ -399,7 +399,7 @@ build_tsibble_meta <- function(
   } else {
     index2 <- get_expr(index2)
   }
-  is_grped <- dplyr::is_grouped_df(x) || is_grouped_ts(x)
+  is_grped <- dplyr::is_grouped_df(x)
   tbl <- as_tibble(x)
 
   if (NROW(x) == 0) {
@@ -415,7 +415,8 @@ build_tsibble_meta <- function(
       "groups" = NULL, nrow = 0L, class = "tbl_ts"
     )
     if (is_grped) {
-      tbl <- new_tsibble(tbl, "groups" = grp_data, class = "grouped_ts")
+      cls <- c("grouped_ts", "grouped_df")
+      tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
     }
     return(tbl)
   }
@@ -445,7 +446,8 @@ build_tsibble_meta <- function(
     "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
   if (is_grped) {
-    tbl <- new_tsibble(tbl, "groups" = grp_data, class = "grouped_ts")
+    cls <- c("grouped_ts", "grouped_df")
+    tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
   }
   tbl
 }
@@ -555,10 +557,6 @@ retain_tsibble <- function(data, key, index) {
 #' @export
 #' @examples
 #' as_tibble(pedestrian)
-#'
-#' # a grouped tbl_ts -----
-#' grped_ped <- pedestrian %>% group_by(Sensor)
-#' as_tibble(grped_ped)
 as_tibble.tbl_ts <- function(x, ...) {
   x <- remove_tsibble_attrs(x)
   class(x) <- c("tbl_df", "tbl", "data.frame")

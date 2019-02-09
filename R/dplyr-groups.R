@@ -3,8 +3,8 @@
 dplyr::group_split
 
 #' @export
-group_split.tbl_ts <- function(.tbl, ..., keep = TRUE) {
-  lst <- group_split(as_grouped_df(.tbl), ..., keep = keep)
+group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
+  lst <- NextMethod()
   if (keep) {
     lapply(lst, update_tsibble, .tbl, ordered = is_ordered(.tbl))
   } else {
@@ -25,25 +25,7 @@ group_split.tbl_ts <- function(.tbl, ..., keep = TRUE) {
 dplyr::group_trim
 
 #' @export
-group_trim.tbl_ts <- function(.tbl, .drop = TRUE) {
-  res <- group_trim(as_grouped_df(.tbl), .drop = TRUE)
+group_trim.grouped_ts <- function(.tbl, .drop = TRUE) {
+  res <- group_trim(as_grouped_df(.tbl), .drop = .drop)
   update_tsibble(res, .tbl, ordered = is_ordered(.tbl), interval = interval(.tbl))
-}
-
-#' @importFrom dplyr group_map
-#' @export
-dplyr::group_map
-
-#' @export
-group_map.tbl_ts <- function(.tbl, .f, ...) {
-  group_map(as_grouped_df(.tbl), .f, ...)
-}
-
-#' @importFrom dplyr group_walk
-#' @export
-dplyr::group_walk
-
-#' @export
-group_walk.tbl_ts <- function(.tbl, .f, ...) {
-  group_walk(as_grouped_df(.tbl), .f, ...)
 }

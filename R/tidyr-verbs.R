@@ -241,17 +241,8 @@ tidyr::fill
 #' @inheritParams tidyr::fill
 #' @rdname tidyverse
 #' @export
-fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
-  res <- fill(as_tibble(data), ..., .direction = .direction)
-  update_tsibble2(res, data, ordered = is_ordered(data), 
-    interval = interval(data))
-}
-
-#' @inheritParams tidyr::fill
-#' @rdname tidyverse
-#' @export
 fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
-  res <- fill(as_grouped_df(data), ..., .direction = .direction)
+  res <- NextMethod()
   update_tsibble2(res, data, ordered = is_ordered(data), 
     interval = interval(data))
 }
