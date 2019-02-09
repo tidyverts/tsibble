@@ -369,7 +369,3 @@ dplyr::distinct
 distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   distinct(as_tibble(.data), ...)
 }
-
-abort_drop <- function() {
-  abort("Argument `.drop` is defunct. Please use `as_tibble()` instead.")
-}
