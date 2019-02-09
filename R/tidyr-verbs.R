@@ -29,7 +29,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   vars <- tidyselect::vars_select(names(data), !!! exprs)
   data <- mutate_index2(data, vars)
   tbl <- gather(
-    as_tibble(data), key = !! key, value = !! value, !!! exprs,
+    as_grouped_df(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble(
@@ -71,7 +71,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   new_key <- key(remove_key(data, .vars = key_left))
 
   tbl <- spread(
-    as_tibble(data), key = !! key, value = !! value, fill = fill, 
+    as_grouped_df(data), key = !! key, value = !! value, fill = fill, 
     convert = convert, drop = drop, sep = sep
   )
   vars <- names(tbl)
@@ -112,7 +112,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
       index_var(data)
     ))
   }
-  tbl <- as_tibble(data)
+  tbl <- as_grouped_df(data)
   if (is_grouped_ts(data)) {
     grp_vars <- group_vars(tbl)
   } else {
@@ -207,7 +207,7 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   key <- use_id(data, !! enquo(key))
   tbl <- 
     unnest(
-      as_tibble(data), 
+      as_grouped_df(data), 
       ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
     )
   key <- c(key(data), key)
@@ -241,11 +241,15 @@ tidyr::fill
 #' @inheritParams tidyr::fill
 #' @rdname tidyverse
 #' @export
-fill.grouped_ts <- function(data, ..., .direction = c("down", "up")) {
+fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
   update_tsibble2(res, data, ordered = is_ordered(data), 
     interval = interval(data))
 }
+
+#' @rdname tidyverse
+#' @export
+fill.grouped_ts <- fill.tbl_ts
 
 #' @export
 mutate.lst_ts <- function(.data, ...) {

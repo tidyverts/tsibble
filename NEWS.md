@@ -10,6 +10,7 @@
 * Fixed `rbind()` for dropping custom index class. (#78)
 * Fixed `count_gaps()` for dropping custom index class.
 * `count_gaps()` now only summarises keys with gaps instead of all the keys.
+* Fixed `guess_frequency.yearweek()` returning `Inf`. (@jeffzi, #84)
 
 ## Misc
 
