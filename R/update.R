@@ -3,14 +3,14 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...,
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
   if (.preserve) {
-    update_tsibble2(tbl, .data, ordered = ordered, interval = interval)
+    update_meta2(tbl, .data, ordered = ordered, interval = interval)
   } else {
-    update_tsibble(tbl, .data, ordered = ordered, interval = interval)
+    update_meta(tbl, .data, ordered = ordered, interval = interval)
   }
 }
 
 # put new data with existing attributes (update key)
-update_tsibble <- function(
+update_meta <- function(
   new, old, ordered = TRUE, interval = NULL, validate = FALSE
 ) {
   restore_index_class(build_tsibble(
@@ -21,12 +21,12 @@ update_tsibble <- function(
 }
 
 # preserve key data
-update_tsibble2 <- function(
+update_meta2 <- function(
   new, old, ordered = TRUE, interval = NULL, validate = FALSE
 ) {
   old_key <- select(key_data(old), !!! key(old))
   if (is_empty(old_key)) {
-    return(update_tsibble(
+    return(update_meta(
       new, old, ordered = ordered, interval = interval, validate = validate
     ))
   }

@@ -100,24 +100,10 @@ as_tsibble.tbl_df <- function(
 #' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
-#' @rdname as-tsibble
+#' @keywords internal
 #' @export
-as_tsibble.tbl_ts <- function(x, key, index, regular, validate = TRUE, ...) {
-  key <- enquo(key)
-  if (quo_is_missing(key)) {
-    key <- key_data(x)
-  }
-  idx <- enquo(index)
-  if (quo_is_missing(idx)) {
-    idx <- x %@% index
-  }
-  if (is_missing(regular)) {
-    regular <- is_regular(x)
-  }
-  build_tsibble(
-    x, key = !! key, index = !! idx, index2 = !! index2(x), regular = regular, 
-    validate = validate
-  )
+as_tsibble.tbl_ts <- function(x, ...) {
+  x
 }
 
 #' @keywords internal
@@ -154,6 +140,45 @@ as_tsibble.default <- function(x, ...) {
 #' @export
 as_tsibble.NULL <- function(x, ...) {
   abort("A tsibble must not be NULL.")
+}
+
+#' Update key and index for a tsibble
+#'
+#' @param x A tsibble.
+#' @inheritParams as_tsibble
+#' @details
+#' Missing arguments inherits from `x`.
+#' @export
+#' @examples
+#' pedestrian %>% 
+#'   group_by_key() %>% 
+#'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 
+#'   update_tsibble(index = Hour_Since)
+update_tsibble <- function(x, key, index, regular, validate = TRUE) {
+  key <- enquo(key)
+  if (quo_is_missing(key)) {
+    key <- key_data(x)
+  }
+  idx <- enquo(index)
+  if (quo_is_missing(idx)) {
+    idx <- x %@% index
+  }
+  if (is_missing(regular)) {
+    regular <- is_regular(x)
+  }
+
+  is_idx_idx2 <- identical(x %@% index, index2(x))
+  if (is_idx_idx2) {
+    build_tsibble(
+      as_grouped_df(x), key = !! key, index = !! idx,
+      regular = regular, validate = validate
+    )
+  } else {
+    build_tsibble(
+      as_grouped_df(x), key = !! key, index = !! idx, index2 = !! index2(x),
+      regular = regular, validate = validate
+    )
+  }
 }
 
 #' Return measured variables

@@ -32,7 +32,7 @@ arrange.tbl_ts <- function(.data, ...) {
   ordered <- ordered_by_arrange(.data, !!! exprs)
 
   arr_data <- NextMethod()
-  update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
+  update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 #' @rdname tidyverse
@@ -43,7 +43,7 @@ arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   ordered <- ordered_by_arrange(.data, !!! exprs, .by_group = .by_group)
 
   arr_data <- NextMethod()
-  update_tsibble(arr_data, .data, ordered = ordered, interval = interval(.data))
+  update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
 ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {

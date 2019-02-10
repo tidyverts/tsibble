@@ -11,7 +11,7 @@ left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }
 
 #' @importFrom dplyr right_join
@@ -24,7 +24,7 @@ right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr inner_join
@@ -37,7 +37,7 @@ inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr full_join
@@ -50,7 +50,7 @@ full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = TRUE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
 }
 
 #' @importFrom dplyr semi_join
@@ -61,7 +61,7 @@ dplyr::semi_join
 #' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }
 
 #' @importFrom dplyr anti_join
@@ -72,5 +72,5 @@ dplyr::anti_join
 #' @export
 anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
-  update_tsibble(tbl, x, ordered = is_ordered(x), validate = FALSE)
+  update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }

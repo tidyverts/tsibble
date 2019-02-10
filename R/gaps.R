@@ -99,7 +99,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!identical(cn, names(full_data))) {
     full_data <- select(full_data, !!! syms(cn)) # keep the original order
   }
-  update_tsibble(full_data, .data, ordered = NULL, interval = interval(.data))
+  update_meta(full_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Scan a tsibble for implicit missing observations
@@ -143,7 +143,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   }
 
   gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
-  update_tsibble(gap_data, .data, ordered = NULL, interval = interval(.data))
+  update_meta(gap_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Count implicit gaps

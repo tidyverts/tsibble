@@ -4,7 +4,7 @@ rbind.tbl_ts <- function(...) {
   data <- list2(...)[[1]]
   x <- dplyr::bind_rows(...)
   x <- retain_tsibble(x, key(data), index(data))
-  update_tsibble(x, data, ordered = NULL)
+  update_meta(x, data, ordered = NULL)
 }
 
 #' @method cbind tbl_ts

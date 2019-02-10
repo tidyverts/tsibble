@@ -243,7 +243,7 @@ tidyr::fill
 #' @export
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
-  update_tsibble2(res, data, ordered = is_ordered(data), 
+  update_meta2(res, data, ordered = is_ordered(data), 
     interval = interval(data))
 }
 
