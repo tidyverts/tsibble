@@ -3,7 +3,7 @@ context("key for tsibble")
 test_that("rename_tsibble()", {
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr") %>%
-    as_tsibble(key = id())
+    update_tsibble(key = id())
   key_bm <- rename_tsibble(bm, "sensor" = "Sensor")
   expect_equal(key_vars(key_bm), character(0))
   expect_true("sensor" %in% names(key_bm))
