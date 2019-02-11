@@ -33,9 +33,8 @@ pull_interval.default <- function(x) {
 #' @export
 # Assume date is regularly spaced
 pull_interval.POSIXt <- function(x) {
-  fmt6 <- substring(format(x[1], "%OS6"), first = 4)
   dttm <- as.double(x)
-  if (fmt6 == "000000") { # second
+  if (all((dttm %% 1 == 0))) { # second
     nhms <- gcd_interval(dttm)
     period <- split_period(nhms)
     init_interval(
@@ -43,7 +42,7 @@ pull_interval.POSIXt <- function(x) {
       minute = period$minute, 
       second = period$second
     )
-  } else if (substring(fmt6, 4) %in% c("000", "999")) { # millisecond
+  } else if (all(dttm * 1e+3 %% 1 == 0)) { # millisecond
     dttm <- round(dttm * 1e+3)
     nhms <- gcd_interval(dttm)
     init_interval(millisecond = nhms)
