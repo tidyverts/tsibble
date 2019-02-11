@@ -2,7 +2,7 @@ document:
 	Rscript -e "devtools::document()"
 
 readme:
-	Rscript -e "rmarkdown::render('README.Rmd'); pkgdown::build_home()"
+	Rscript -e "rmarkdown::render('README.Rmd')"
 
 build:
 	Rscript -e "devtools::build()"
