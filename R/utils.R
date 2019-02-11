@@ -18,7 +18,7 @@ gcd_interval <- function(x) {
   } else if (is_integerish(x)) {
     gcd_vector(x)
   } else {
-    gcd_vector_r(abs(diff(x)))
+    gcd_vector_r(unique(abs(diff(x))))
   }
 }
 
@@ -26,7 +26,7 @@ gcd2 <- function(a, b) {
   if (isTRUE(all.equal(b, 0))) a else gcd2(b, a %% b)
 }
 
-gcd_vector_r <- function(...) Reduce(gcd2, c(...))
+gcd_vector_r <- function(x) Reduce(gcd2, x)
 
 min0 <- function(...) {
   min(..., na.rm = TRUE)
