@@ -15,10 +15,18 @@ first_arg <- function(x) {
 gcd_interval <- function(x) {
   if (has_length(x, 1)) { # only one time index
     NA_real_
-  } else {
+  } else if (is_integerish(x)) {
     gcd_vector(x)
+  } else {
+    gcd_vector_r(abs(diff(x)))
   }
 }
+
+gcd2 <- function(a, b) {
+  if (isTRUE(all.equal(b, 0))) a else gcd2(b, a %% b)
+}
+
+gcd_vector_r <- function(...) Reduce(gcd2, c(...))
 
 min0 <- function(...) {
   min(..., na.rm = TRUE)

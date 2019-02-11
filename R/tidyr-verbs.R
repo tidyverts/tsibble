@@ -14,7 +14,8 @@ tidyr::gather
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
 #' )
-#' stocks %>% gather(stock, price, -time)
+#' (stocksm <- stocks %>% gather(stock, price, -time))
+#' stocksm %>% spread(stock, price)
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- sym(enexpr(key))
@@ -46,16 +47,6 @@ tidyr::spread
 #' @inheritParams tidyr::spread
 #' @rdname tidyverse
 #' @export
-#' @examples
-#' # example from tidyr
-#' stocks <- tsibble(
-#'   time = as.Date('2009-01-01') + 0:9,
-#'   X = rnorm(10, 0, 1),
-#'   Y = rnorm(10, 0, 2),
-#'   Z = rnorm(10, 0, 4)
-#' )
-#' stocksm <- stocks %>% gather(stock, price, -time)
-#' stocksm %>% spread(stock, price)
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
   key <- enexpr(key)

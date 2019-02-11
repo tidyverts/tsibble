@@ -14,7 +14,6 @@ int gcd_vector(NumericVector x) {
   return std::accumulate(abs_diff.begin(), abs_diff.end(), abs_diff[0], gcd);
 }
 
-
 // Equivalent to any(x != c)
 
 // [[Rcpp::export]]

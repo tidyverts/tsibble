@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count implicit gaps — count_gaps • tsibble</title>
+<title>Update key and index for a tsibble — update_tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Count implicit gaps — count_gaps" />
+<meta property="og:title" content="Update key and index for a tsibble — update_tsibble" />
 
-<meta property="og:description" content="Count implicit gaps" />
+<meta property="og:description" content="Update key and index for a tsibble" />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -141,75 +141,81 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Count implicit gaps</h1>
+    <h1>Update key and index for a tsibble</h1>
     
-    <div class="hidden name"><code>count_gaps.Rd</code></div>
+    <div class="hidden name"><code>update_tsibble.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Count implicit gaps</p>
+    <p>Update key and index for a tsibble</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>count_gaps</span>(<span class='no'>.data</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>update_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>regular</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
+      <th>x</th>
+      <td><p>A tsibble.</p></td>
     </tr>
     <tr>
-      <th>.full</th>
-      <td><p><code>FALSE</code> to find gaps for each series within its own period.
-<code>TRUE</code> to find gaps over the entire time span of the data.</p></td>
+      <th>key</th>
+      <td><p>Variable(s) that define unique time indices, used in conjunction
+with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
+simply call <code><a href='id.html'>id()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments passed on to individual methods.</p></td>
+      <th>index</th>
+      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
+    </tr>
+    <tr>
+      <th>regular</th>
+      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>validate</th>
+      <td><p><code>TRUE</code> suggests to verify that each key or each combination
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A tibble contains:</p><ul>
-<li><p>the "key" of the <code>tbl_ts</code></p></li>
-<li><p>".from": the starting time point of the gap</p></li>
-<li><p>".to": the ending time point of the gap</p></li>
-<li><p>".n": the number of implicit missing observations during the time period</p></li>
-</ul>
-
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other implicit gaps handling: <code><a href='fill_gaps.html'>fill_gaps</a></code>,
-  <code><a href='has_gaps.html'>has_gaps</a></code>, <code><a href='scan_gaps.html'>scan_gaps</a></code></p></div>
+    <p>Missing arguments inherits from <code>x</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ped_gaps</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>count_gaps</span>(<span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='kw'>if</span> (!<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stop'>stop</a></span>(<span class='st'>"Please install the ggplot2 package to run these following examples."</span>)
-}
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>ped_gaps</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sensor</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Sensor</span>)) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_linerange'>geom_linerange</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>.from</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.from</span>)) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/coord_flip'>coord_flip</a></span>() +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/theme'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count_gaps-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 66,037 x 6 [1h]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       Sensor [4]</span><span>
+#&gt; </span><span style='color: #949494;'># Groups:    Sensor [4]</span><span>
+#&gt;    Sensor         Date_Time           Date        Time Count Hour_Since
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;time&gt;</span><span>    
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630     0 secs
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>01:00:00</span><span> 2015-01-01     1   826  3600 secs
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>02:00:00</span><span> 2015-01-01     2   567  7200 secs
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>03:00:00</span><span> 2015-01-01     3   264 10800 secs
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>04:00:00</span><span> 2015-01-01     4   139 14400 secs
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>05:00:00</span><span> 2015-01-01     5    77 18000 secs
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>06:00:00</span><span> 2015-01-01     6    44 21600 secs
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>07:00:00</span><span> 2015-01-01     7    56 25200 secs
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>08:00:00</span><span> 2015-01-01     8   113 28800 secs
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #949494;'>09:00:00</span><span> 2015-01-01     9   166 32400 secs
+#&gt; </span><span style='color: #949494;'># … with 66,027 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

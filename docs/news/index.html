@@ -163,6 +163,8 @@
 <li>Fixed <code><a href="../reference/count_gaps.html">count_gaps()</a></code> for dropping custom index class.</li>
 <li>
 <code><a href="../reference/count_gaps.html">count_gaps()</a></code> now only summarises keys with gaps instead of all the keys.</li>
+<li>Fixed <code>guess_frequency.yearweek()</code> returning <code>Inf</code>. (<a href='https://github.com/jeffzi'>@jeffzi</a>, #84)</li>
+<li>Fixed incorrect interval computation for fractional doubles.</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
@@ -497,7 +499,7 @@
 <li>More informative error message when a data frame is passed to <code><a href="../reference/tsibble.html">tsibble()</a></code>.</li>
 <li>More informative error message for <code><a href="../reference/deprecated.html">fill_na()</a></code> and <code>count_gaps</code> when a tsibble of unknown interval.</li>
 <li>
-<code><a href="../reference/as-tsibble.html">as_tsibble.tbl_ts()</a></code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (#34).</li>
+<code>as_tsibble.tbl_ts()</code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (#34).</li>
 <li>
 <code><a href="../reference/id.html">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
 <li>

@@ -11,6 +11,7 @@
 * Fixed `count_gaps()` for dropping custom index class.
 * `count_gaps()` now only summarises keys with gaps instead of all the keys.
 * Fixed `guess_frequency.yearweek()` returning `Inf`. (@jeffzi, #84)
+* Fixed incorrect interval computation for fractional doubles.
 
 ## Misc
 
