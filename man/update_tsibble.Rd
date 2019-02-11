@@ -4,7 +4,8 @@
 \alias{update_tsibble}
 \title{Update key and index for a tsibble}
 \usage{
-update_tsibble(x, key, index, regular, validate = TRUE)
+update_tsibble(x, key = NULL, index = NULL, regular = NULL,
+  validate = TRUE)
 }
 \arguments{
 \item{x}{A tsibble.}
@@ -26,7 +27,7 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 Update key and index for a tsibble
 }
 \details{
-Missing arguments inherits from \code{x}.
+Default \code{NULL} inherits attributes from \code{x}.
 }
 \examples{
 pedestrian \%>\% 

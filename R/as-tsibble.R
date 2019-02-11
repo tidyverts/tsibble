@@ -147,23 +147,24 @@ as_tsibble.NULL <- function(x, ...) {
 #' @param x A tsibble.
 #' @inheritParams as_tsibble
 #' @details
-#' Missing arguments inherits from `x`.
+#' Default `NULL` inherits attributes from `x`.
 #' @export
 #' @examples
 #' pedestrian %>% 
 #'   group_by_key() %>% 
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 
 #'   update_tsibble(index = Hour_Since)
-update_tsibble <- function(x, key, index, regular, validate = TRUE) {
+update_tsibble <- function(x, key = NULL, index = NULL, regular = NULL, 
+  validate = TRUE) {
   key <- enquo(key)
-  if (quo_is_missing(key)) {
+  if (quo_is_null(key)) {
     key <- key_data(x)
   }
   idx <- enquo(index)
-  if (quo_is_missing(idx)) {
+  if (quo_is_null(idx)) {
     idx <- x %@% index
   }
-  if (is_missing(regular)) {
+  if (is_null(regular)) {
     regular <- is_regular(x)
   }
 

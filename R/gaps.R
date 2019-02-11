@@ -1,4 +1,4 @@
-globalVariables(".")
+globalVariables(c(".", ".gaps"))
 
 #' Turn implicit missing values into explicit missing values
 #'
@@ -201,7 +201,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     )
 
   idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
-  out <- unnest(lst_out, ".gaps")
+  out <- unnest(lst_out, .gaps)
   class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
   tibble(!!! out)
 }
