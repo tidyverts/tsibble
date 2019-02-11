@@ -36,6 +36,18 @@ test_that("Coerce to tbl_df and data.frame", {
   expect_identical(as.data.frame(tsbl), as.data.frame(dat_x))
 })
 
+stocks <- tsibble(
+  time = seq(0, 1e-11, 1e-12)[1:10],
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4),
+  index = time
+)
+
+test_that("numeric with fractional intervals", {
+  expect_output(print(stocks), "A tsibble: 10 x 4 \\[1e-12\\]")
+})
+
 start <- as.POSIXct("2010-01-15 13:55:23.975", tz = "UTC")
 x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 5))
 df <- data.frame(time = x, value = rnorm(length(x)))
