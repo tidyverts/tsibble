@@ -18,14 +18,7 @@ int gcd_vector(NumericVector x) {
 
 // [[Rcpp::export]]
 bool any_not_equal_to_c(NumericVector x, double c) {
-  NumericVector::iterator it;
-
-  for (it = x.begin(); it != x.end(); ++it) {
-    if (*it != c) {
-      return true;
-    }
-  };
-  return false;
+  return is_true(any(x != c));
 }
 
 // If the input x is in ascending order

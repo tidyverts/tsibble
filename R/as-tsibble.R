@@ -162,13 +162,13 @@ update_tsibble <- function(x, key = NULL, index = NULL, regular = NULL,
   }
   idx <- enquo(index)
   if (quo_is_null(idx)) {
-    idx <- x %@% index
+    idx <- x %@% "index"
   }
   if (is_null(regular)) {
     regular <- is_regular(x)
   }
 
-  is_idx_idx2 <- identical(x %@% index, index2(x))
+  is_idx_idx2 <- identical(x %@% "index", index2(x))
   if (is_idx_idx2) {
     build_tsibble(
       as_grouped_df(x), key = !! key, index = !! idx,
@@ -227,7 +227,7 @@ measured_vars.tbl_ts <- function(x) {
 #' @export
 index <- function(x) {
   not_tsibble(x)
-  x %@% index
+  x %@% "index"
 }
 
 #' @rdname index-rd
@@ -240,7 +240,7 @@ index_var <- function(x) {
 #' @export
 index2 <- function(x) {
   not_tsibble(x)
-  x %@% index2
+  x %@% "index2"
 }
 
 #' @rdname index-rd
@@ -262,7 +262,7 @@ index2_var <- function(x) {
 #' @export
 interval <- function(x) {
   not_tsibble(x)
-  x %@% interval
+  x %@% "interval"
 }
 
 #' @rdname regular
@@ -272,14 +272,14 @@ interval <- function(x) {
 #' @export
 is_regular <- function(x) {
   not_tsibble(x)
-  x %@% regular
+  x %@% "regular"
 }
 
 #' @rdname regular
 #' @export
 is_ordered <- function(x) {
   not_tsibble(x)
-  x %@% ordered
+  x %@% "ordered"
 }
 
 #' If the object is a tsibble
