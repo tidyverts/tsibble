@@ -1,3 +1,4 @@
+^tic\.R$
 ^CRAN-RELEASE$
 ^.*\.Rproj$
 ^\.Rproj\.user$
