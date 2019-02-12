@@ -23,6 +23,11 @@
 
   cn <- names(res)
   new_key <- syms(cn[cn %in% key_vars(x)])
+
+  if (!missing(i)) {
+    if (any_not_equal_to_c(anyDuplicated.default(i), 0)) return(as_tibble(res))
+  }
+
   not_tsibble <- !(index_var(x) %in% cn) || NROW(res) > NROW(x)
   maybe_tsibble <- n_keys(x) > 1 && !all(is.element(key(x), new_key))
   if (not_tsibble || maybe_tsibble) {
