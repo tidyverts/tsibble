@@ -206,14 +206,20 @@ dplyr::transmute
 transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
-  idx_key <- c(index_var(.data), key_vars(.data))
+  idx_key <- c(key_vars(.data), index_var(.data))
   vec_names <- union(idx_key, names(lst_quos))
-  select(mut_data, !!! vec_names)
+  select_tsibble(mut_data, !!! vec_names, validate = FALSE)
 }
 
 #' @rdname tidyverse
 #' @export
-transmute.grouped_ts <- transmute.tbl_ts
+transmute.grouped_ts <- function(.data, ...) {
+  res <- NextMethod()
+  # keeping index and key
+  idx_key <- c(key_vars(.data), index_var(.data))
+  tsbl <- select_tsibble(ungroup(.data), !!! idx_key, validate = FALSE)
+  dplyr::bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
+}
 
 #' @importFrom dplyr summarise
 #' @export

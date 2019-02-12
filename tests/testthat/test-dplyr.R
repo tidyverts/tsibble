@@ -133,9 +133,9 @@ test_that("filter() and slice()", {
 
 test_that("filter() and slice() with .preserve = TRUE", {
   ped_fil1 <- pedestrian %>% filter_index("2015-01", .preserve = TRUE)
-  ped_fil2 <- pedestrian %>% 
-    group_by_key() %>% 
-    filter_index("2015-01", .preserve = TRUE) %>% 
+  ped_fil2 <- pedestrian %>%
+    group_by_key() %>%
+    filter_index("2015-01", .preserve = TRUE) %>%
     as_tibble()
   expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
   expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
@@ -231,7 +231,14 @@ test_that("transmute()", {
   out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
   trans_tsbl <- tsbl %>% transmute(z = a / b)
-  expect_equal(colnames(trans_tsbl), c("qtr", "group", "z"))
+  expect_equal(colnames(trans_tsbl), c("group", "qtr", "z"))
+})
+
+test_that("transmute.grouped_ts()", {
+  out <- pedestrian %>% group_by(Time) %>% transmute()
+  expect_equal(ncol(out), 3)
+  out2 <- pedestrian %>% group_by_key() %>% transmute()
+  expect_named(out2, c("Sensor", "Date_Time"))
 })
 
 test_that("distinct()", {
