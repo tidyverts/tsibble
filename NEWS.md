@@ -2,8 +2,8 @@
 
 ## Changes in tsibble data structure
 
-1. Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
-2. Grouped ts (`grouped_ts`) is a subclassing of `grouped_df`.
+1. Following the changes in dplyr `v0.8.0` grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
+2. Grouped tsibble (`grouped_ts`) is a subclassing of `grouped_df`.
 
 ## New features
 

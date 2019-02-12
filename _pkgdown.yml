@@ -51,7 +51,7 @@ reference:
   desc: >
     Map and roll over a list of elements. It features `purrr`-like interface and
     `furrr`-style parallel processing. `slide_tsibble()`, `tile_tsibble()`,
-    `stretch_tsibble()` performs fast subsetting tsibble by rolling rows.
+    `stretch_tsibble()` perform fast subsetting a tsibble by rolling rows.
   contents:
     - slide_tsibble
     - tile_tsibble
