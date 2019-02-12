@@ -1,4 +1,4 @@
-# tsibble 0.6.2.9000 (to be released as v0.7.0)
+# tsibble 0.7.0
 
 ## Changes in tsibble data structure
 
@@ -7,7 +7,7 @@
 
 ## New features
 
-* `slide_tsibble()`, `tile_tsibble()`, `stretch_tsibble()` provide shorthand and fast subsetting tsibble by rolling rows.
+* `slide_tsibble()`, `tile_tsibble()`, `stretch_tsibble()` provide fast and shorthand subsetting tsibble by rolling rows.
 
 ## Bug fixes
 
