@@ -418,7 +418,7 @@ slide_tsibble <- function(.x, .size = 1, .id = ".id") {
 }
 
 roll_tsibble <- function(.x, indices, .id = ".id") {
-  tbl <- as_tibble(.x)
+  tbl <- as_tibble(ungroup(.x))
   row_indices <- unlist(indices, use.names = FALSE)
   id_indices <- 
     unlist(map(
