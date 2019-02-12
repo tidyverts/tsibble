@@ -11,18 +11,18 @@ test_that("slide_tsibble()", {
   res <- slide_tsibble(harvest, .size = 2)
   expect_equal(NROW(res), NROW(harvest) + 2L)
   expect_named(res, c(names(harvest), ".id"))
-  expect_equal(res$.id, c(1, 1, 2, 2, 1, 1, 2, 2))
+  expect_equal(res$.id, c(rep(1:2, each = 4)))
 })
 
 test_that("tile_tsibble()", {
   res <- tile_tsibble(harvest, .size = 2, .id = "tile_id")
   expect_equal(NROW(res), NROW(harvest))
   expect_named(res, c(names(harvest), "tile_id"))
-  expect_equal(res$tile_id, c(1, 1, 2, 1, 1, 2))
+  expect_equal(res$tile_id, c(rep(1, 4), rep(2, 2)))
 })
 
 test_that("stretch_tsibble()", {
   res <- stretch_tsibble(harvest)
   expect_equal(NROW(res), NROW(harvest) * 2)
-  expect_equal(res$.id, c(1, 2, 2, 3, 3, 3, 1, 2, 2, 3, 3, 3))
+  expect_equal(res$.id, c(rep(1, 2), rep(2, 4), rep(3, 6)))
 })
