@@ -12,6 +12,7 @@
 \alias{rename.grouped_ts}
 \alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
+\alias{transmute.grouped_ts}
 \alias{summarise.tbl_ts}
 \alias{summarize.tbl_ts}
 \alias{group_by.tbl_ts}
@@ -50,6 +51,8 @@
 \method{mutate}{tbl_ts}(.data, ...)
 
 \method{transmute}{tbl_ts}(.data, ...)
+
+\method{transmute}{grouped_ts}(.data, ...)
 
 \method{summarise}{tbl_ts}(.data, ...)
 

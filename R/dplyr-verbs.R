@@ -211,6 +211,10 @@ transmute.tbl_ts <- function(.data, ...) {
   select(mut_data, !!! vec_names)
 }
 
+#' @rdname tidyverse
+#' @export
+transmute.grouped_ts <- transmute.tbl_ts
+
 #' @importFrom dplyr summarise
 #' @export
 dplyr::summarise
