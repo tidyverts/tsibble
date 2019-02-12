@@ -201,6 +201,9 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
   abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
+  if (len_x <= .init) {
+    abort(sprintf("`.init` must be less than %s.", len_x))
+  }
   abs_size <- abs(.size)
   counter <- incr(init = .init, size = abs_size)
   if (sign(.size) < 0) .x <- rev(.x)
