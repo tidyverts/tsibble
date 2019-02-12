@@ -176,6 +176,30 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
   map(lst, function(x) tiler(x, .size = .size, .bind = .bind))
 }
 
+#' Perform tiling windows on a tsibble by row
+#'
+#' @param .x A tsibble.
+#' @param .size A positive integer for window size.
+#' @inheritParams tile
+#' @param .id A character naming the new column `.id` containing the partition.
+#'
+#' @return A tsibble
+#' @family rolling tsibble
+#' @export
+#' @examples
+#' harvest <- tsibble(
+#'   year = rep(2010:2012, 2),
+#'   fruit = rep(c("kiwi", "cherry"), each = 3),
+#'   kilo = sample(1:10, size = 6),
+#'   key = id(fruit), index = year
+#' )
+#' harvest %>% 
+#'   tile_tsibble(.size = 2)
+tile_tsibble <- function(.x, .size = 1, .id = ".id") {
+  lst_indices <- map(key_rows(.x), tiler, .size = .size)
+  roll_tsibble(.x, indices = lst_indices, .id = .id)
+}
+
 #' Tiling window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
@@ -185,7 +209,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' future specific options to use with the workers. 
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("tile", "tile2", "ptile"), '}'), paste0('\\alias{future_tile_', suffix, '}'), paste0('\\alias{future_tile2_', suffix, '}'), paste0('\\alias{future_ptile_', suffix, '}'))}
-#' @name future_tile
+#' @name future_tile()
 #' @rdname future-tile
 #' @exportPattern ^future_
 # nocov start

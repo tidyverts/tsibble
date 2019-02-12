@@ -54,8 +54,12 @@ reference:
 - title: A family of window functions
   desc: >
     Map and roll over a list of elements. It features `purrr`-like interface and
-    `furrr`-style parallel processing. 
+    `furrr`-style parallel processing. `slide_tsibble()`, `tile_tsibble()`,
+    `stretch_tsibble()` performs fast subsetting tsibble by rolling rows.
   contents:
+    - slide_tsibble
+    - tile_tsibble
+    - stretch_tsibble
     - starts_with("slide")
     - starts_with("partial")
     - starts_with("tile")

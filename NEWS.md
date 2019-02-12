@@ -5,6 +5,10 @@
 1. Following the changes in dplyr grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
 2. Grouped ts (`grouped_ts`) is a subclassing of `grouped_df`.
 
+## New features
+
+* `slide_tsibble()`, `tile_tsibble()`, `stretch_tsibble()` provide shorthand and fast subsetting tsibble by rolling rows.
+
 ## Bug fixes
 
 * Fixed `rbind()` for dropping custom index class. (#78)

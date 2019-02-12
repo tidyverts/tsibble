@@ -393,6 +393,47 @@ partial_pslider <- function(
   map(lst, function(x) partial_slider(x, .size, .fill, .align, .bind))
 }
 
+#' Perform sliding windows on a tsibble by row
+#'
+#' @param .x A tsibble.
+#' @param .size A positive integer for window size.
+#' @inheritParams slide
+#' @param .id A character naming the new column `.id` containing the partition.
+#'
+#' @return A tsibble
+#' @family rolling tsibble
+#' @export
+#' @examples
+#' harvest <- tsibble(
+#'   year = rep(2010:2012, 2),
+#'   fruit = rep(c("kiwi", "cherry"), each = 3),
+#'   kilo = sample(1:10, size = 6),
+#'   key = id(fruit), index = year
+#' )
+#' harvest %>% 
+#'   slide_tsibble(.size = 2)
+slide_tsibble <- function(.x, .size = 1, .id = ".id") {
+  lst_indices <- map(key_rows(.x), slider, .size = .size)
+  roll_tsibble(.x, indices = lst_indices, .id = .id)
+}
+
+roll_tsibble <- function(.x, indices, .id = ".id") {
+  tbl <- as_tibble(.x)
+  row_indices <- unlist(indices, use.names = FALSE)
+  id_indices <- 
+    unlist(map(
+      indices, 
+      ~ purrr::imap(.x, ~ rep.int(.y, length(.x)))
+    ), use.names = FALSE)
+  res <- mutate(tbl[row_indices, ], !! .id := id_indices)
+  new_key <- c(key(.x), sym(.id))
+  build_tsibble(
+    res, key = new_key, index = !! index(.x), index2 = !! index2(.x),
+    regular = is_regular(.x), ordered = is_ordered(.x), interval = interval(.x), 
+    validate = FALSE
+  )
+}
+
 check_slider_input <- function(.x, .size = 1, .bind = FALSE) {
   bad_window_function(.size)
   abort_not_lst(.x, .bind = .bind)
@@ -492,7 +533,7 @@ slider_msg <- function() {
 #' @details 
 #' It requires the package **furrr** to be installed. Please refer to [furrr](https://davisvaughan.github.io/furrr/) for performance and detailed usage.
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("slide", "slide2", "pslide"), '}'), paste0('\\alias{future_slide_', suffix, '}'), paste0('\\alias{future_slide2_', suffix, '}'), paste0('\\alias{future_pslide_', suffix, '}'))}
-#' @name future_slide
+#' @name future_slide()
 #' @rdname future-slide
 #' @exportPattern ^future_
 #' @examples

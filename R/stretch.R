@@ -222,6 +222,30 @@ pstretcher <- function(..., .size = 1, .init = 1, .bind = FALSE) { # parallel sl
   map(lst, function(x) stretcher(x, .size, .init, .bind))
 }
 
+#' Perform stretching windows on a tsibble by row
+#'
+#' @param .x A tsibble.
+#' @param .size A positive integer for window size.
+#' @inheritParams stretch
+#' @param .id A character naming the new column `.id` containing the partition.
+#'
+#' @return A tsibble
+#' @family rolling tsibble
+#' @export
+#' @examples
+#' harvest <- tsibble(
+#'   year = rep(2010:2012, 2),
+#'   fruit = rep(c("kiwi", "cherry"), each = 3),
+#'   kilo = sample(1:10, size = 6),
+#'   key = id(fruit), index = year
+#' )
+#' harvest %>% 
+#'   stretch_tsibble()
+stretch_tsibble <- function(.x, .size = 1, .init = 1, .id = ".id") {
+  lst_indices <- map(key_rows(.x), stretcher, .size = .size, .init = .init)
+  roll_tsibble(.x, indices = lst_indices, .id = .id)
+}
+
 incr <- function(init, size) {
   init
   function() {
@@ -239,7 +263,7 @@ incr <- function(init, size) {
 #' future specific options to use with the workers. 
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("stretch", "stretch2", "pstretch"), '}'), paste0('\\alias{future_stretch_', suffix, '}'), paste0('\\alias{future_stretch2_', suffix, '}'), paste0('\\alias{future_pstretch_', suffix, '}'))}
-#' @name future_stretch
+#' @name future_stretch()
 #' @rdname future-stretch
 #' @exportPattern ^future_
 # nocov start
