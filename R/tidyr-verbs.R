@@ -65,9 +65,10 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     as_grouped_df(data), key = !! key, value = !! value, fill = fill, 
     convert = convert, drop = drop, sep = sep
   )
+  tbl <- retain_tsibble(tbl, new_key, index(data))
+
   vars <- names(tbl)
   data <- mutate_index2(data, vars)
-
   build_tsibble(
     tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
     regular = is_regular(data), ordered = is_ordered(data), 
