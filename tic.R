@@ -1,8 +1,5 @@
 add_package_checks()
 
-get_stage("install") %>%
-  add_code_step(remotes::install_github("r-lib/pkgbuild"))
-
 if (Sys.getenv("id_rsa") != "") {
   # pkgdown documentation can be built optionally. Other example criteria:
   # - `inherits(ci(), "TravisCI")`: Only for Travis CI
@@ -13,7 +10,11 @@ if (Sys.getenv("id_rsa") != "") {
     add_step(step_setup_ssh())
 
   get_stage("deploy") %>%
-    add_code_step(pkgbuild::compile_dll()) %>% 
+    add_code_step(
+      pkgbuild::compile_dll(),
+      prepare_call = remotes::install_github("r-lib/pkgbuild")
+    ) %>% 
     add_step(step_build_pkgdown(run_dont_run = TRUE)) %>%
-    add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
+    add_code_step(system('echo "tsibble.tidyverts.org" > docs/CNAME')) %>% 
+    add_step(step_push_deploy(path = "docs/", branch = "gh-pages"))
 }
