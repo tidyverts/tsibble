@@ -7,6 +7,13 @@ harvest <- tsibble(
   key = id(fruit), index = year
 )
 
+test_that("error for existing `.id`", {
+  expect_error(
+    slide_tsibble(harvest, .size = 2, .id = "kilo"),
+    "Can't overwrite existing column `kilo`."
+  )
+})
+
 test_that("slide_tsibble()", {
   res <- slide_tsibble(harvest, .size = 2)
   expect_equal(NROW(res), NROW(harvest) + 2L)
