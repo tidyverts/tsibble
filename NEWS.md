@@ -17,6 +17,7 @@
 * Fixed `guess_frequency.yearweek()` returning `Inf`. (@jeffzi, #84)
 * Fixed incorrect interval computation for fractional doubles.
 * More appropriately handles sub-second intervals.
+* If grouped tsibble, `fill_gaps()` returns a grouped tsibble too.
 
 ## Misc
 

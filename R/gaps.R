@@ -95,7 +95,8 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
       gap_data <- left_join(gap_data, replaced_df, by = by_name)
     }
   }
-  full_data <- dplyr::bind_rows(as_tibble(gap_data), .data)
+  grps <- groups(.data)
+  full_data <- group_by(dplyr::bind_rows(as_tibble(gap_data), .data), !!! grps)
   if (!identical(cn, names(full_data))) {
     full_data <- select(full_data, !!! syms(cn)) # keep the original order
   }

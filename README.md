@@ -13,6 +13,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?bra
 Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 The **tsibble** package provides a data class of `tbl_ts` to represent
 tidy time series data. A *tsibble* consists of a time index, key and
