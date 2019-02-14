@@ -98,7 +98,7 @@ tsibble(
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://pkg.earo.me/tsibble}
+  \item \url{https://tsibble.tidyverts.org}
   \item Report bugs at \url{https://github.com/tidyverts/tsibble/issues}
 }
 

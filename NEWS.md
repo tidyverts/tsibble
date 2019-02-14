@@ -1,9 +1,10 @@
 # tsibble 0.7.0
 
-## Changes in tsibble data structure
+## Breaking changes
 
-1. Following the changes in dplyr `v0.8.0` grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
-2. Grouped tsibble (`grouped_ts`) is a subclassing of `grouped_df`.
+* Following the changes in dplyr `v0.8.0` grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
+* Grouped tsibble (`grouped_ts`) is a subclassing of `grouped_df`.
+* The argument `.size` is retired in `stretch()` in favour of `.step`.
 
 ## New features
 
@@ -19,7 +20,7 @@
 * More appropriately handles sub-second intervals.
 * If grouped tsibble, `fill_gaps()` returns a grouped tsibble too.
 
-## Misc
+## Defunct & deprecated functions
 
 * Defunct `find_duplicates()`.
 * Deprecated `fill_na()` in favour of `fill_gaps()`.

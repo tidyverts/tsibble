@@ -5,15 +5,14 @@
 \alias{pstretcher}
 \title{Split the input to a list according to the stretching window size.}
 \usage{
-stretcher(.x, .size = 1, .init = 1, .bind = FALSE)
+stretcher(.x, .step = 1, .init = 1, .bind = FALSE)
 
-pstretcher(..., .size = 1, .init = 1, .bind = FALSE)
+pstretcher(..., .step = 1, .init = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An objects to be split.}
 
-\item{.size}{An integer for window size. If positive, moving forward from left
-to right; if negative, moving backward (from right to left).}
+\item{.step}{An integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 
@@ -32,8 +31,8 @@ z <- 11:15
 lst <- list(x = x, y = y, z = z)
 df <- as.data.frame(lst)
 
-stretcher(x, .size = 2)
-stretcher(lst, .size = 2)
-stretcher(df, .size = 2)
-pstretcher(df, df, .size = 2)
+stretcher(x, .step = 2)
+stretcher(lst, .step = 2)
+stretcher(df, .step = 2)
+pstretcher(df, df, .step = 2)
 }

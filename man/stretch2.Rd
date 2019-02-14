@@ -9,19 +9,19 @@
 \alias{pstretch_dfc}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+stretch2(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 
-stretch2_dfr(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE,
+stretch2_dfr(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE,
   .id = NULL)
 
-stretch2_dfc(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+stretch2_dfc(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 
-pstretch(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+pstretch(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 
-pstretch_dfr(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE,
+pstretch_dfr(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE,
   .id = NULL)
 
-pstretch_dfc(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -50,7 +50,9 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.size, .init}{An integer for moving and initial window size.}
+\item{.step}{An integer for incremental step.}
+
+\item{.init}{A positive integer for an initial window size.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
@@ -81,11 +83,11 @@ y <- 6:10
 z <- 11:15
 lst <- list(x = x, y = y, z = z)
 df <- as.data.frame(lst)
-stretch2(x, y, sum, .size = 2)
-stretch2(lst, lst, ~ ., .size = 2)
-stretch2(df, df, ~ ., .size = 2)
-pstretch(lst, sum, .size = 1)
-pstretch(list(lst, lst), ~ ., .size = 2)
+stretch2(x, y, sum, .step = 2)
+stretch2(lst, lst, ~ ., .step = 2)
+stretch2(df, df, ~ ., .step = 2)
+pstretch(lst, sum, .step = 1)
+pstretch(list(lst, lst), ~ ., .step = 2)
 
 ###
 # row-wise stretching over data frame

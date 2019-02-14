@@ -6,12 +6,12 @@
 \alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
-stretch(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+stretch(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 
-stretch_dfr(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE,
+stretch_dfr(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE,
   .id = NULL)
 
-stretch_dfc(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE)
+stretch_dfc(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -38,8 +38,7 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.size}{An integer for window size. If positive, moving forward from left
-to right; if negative, moving backward (from right to left).}
+\item{.step}{An integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 
@@ -65,9 +64,9 @@ arguments as \code{stretch()}, but return vectors of the corresponding type.
 \examples{
 x <- 1:5
 lst <- list(x = x, y = 6:10, z = 11:15)
-stretch_dbl(x, mean, .size = 2)
-stretch_lgl(x, ~ mean(.) > 2, .size = 2)
-stretch(lst, ~ ., .size = 2)
+stretch_dbl(x, mean, .step = 2)
+stretch_lgl(x, ~ mean(.) > 2, .step = 2)
+stretch(lst, ~ ., .step = 2)
 }
 \seealso{
 \itemize{

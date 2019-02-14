@@ -8,6 +8,7 @@
 #'
 #' @inheritParams slide
 #' @param .init A positive integer for an initial window size.
+#' @param .step An integer for incremental step.
 #'
 #' @rdname stretch
 #' @export
@@ -20,11 +21,11 @@
 #' @examples
 #' x <- 1:5
 #' lst <- list(x = x, y = 6:10, z = 11:15)
-#' stretch_dbl(x, mean, .size = 2)
-#' stretch_lgl(x, ~ mean(.) > 2, .size = 2)
-#' stretch(lst, ~ ., .size = 2)
-stretch <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
-  lst_x <- stretcher(.x, .size = .size, .init = .init, .bind)
+#' stretch_dbl(x, mean, .step = 2)
+#' stretch_lgl(x, ~ mean(.) > 2, .step = 2)
+#' stretch(lst, ~ ., .step = 2)
+stretch <- function(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+  lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   map(lst_x, .f, ...)
 }
 
@@ -32,7 +33,7 @@ stretch <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' @name stretch
 #' @rdname stretch
 #' @exportPattern ^stretch_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("stretch_", type),
     replace_fn_names(stretch, list(map = paste0("map_", type)))
@@ -42,10 +43,10 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch
 #' @export
 stretch_dfr <- function(
-  .x, .f, ..., .size = 1, .init = 1, .bind = FALSE, .id = NULL
+  .x, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
 ) {
   out <- stretch(
-    .x, .f = .f, ..., .size = .size, .init = .init, 
+    .x, .f = .f, ..., .step = .step, .init = .init, 
     .bind = .bind
   )
   dplyr::bind_rows(!!! out, .id = .id)
@@ -53,9 +54,9 @@ stretch_dfr <- function(
 
 #' @rdname stretch
 #' @export
-stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
+stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
   out <- stretch(
-    .x, .f = .f, ..., .size = .size, .init = .init,
+    .x, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
   dplyr::bind_cols(!!! out)
@@ -70,7 +71,7 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' * `stretch2_dfr()` `stretch2_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide2
-#' @param .size,.init An integer for moving and initial window size.
+#' @inheritParams stretch
 #'
 #' @rdname stretch2
 #' @export
@@ -85,11 +86,11 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' z <- 11:15
 #' lst <- list(x = x, y = y, z = z)
 #' df <- as.data.frame(lst)
-#' stretch2(x, y, sum, .size = 2)
-#' stretch2(lst, lst, ~ ., .size = 2)
-#' stretch2(df, df, ~ ., .size = 2)
-#' pstretch(lst, sum, .size = 1)
-#' pstretch(list(lst, lst), ~ ., .size = 2)
+#' stretch2(x, y, sum, .step = 2)
+#' stretch2(lst, lst, ~ ., .step = 2)
+#' stretch2(df, df, ~ ., .step = 2)
+#' pstretch(lst, sum, .step = 1)
+#' pstretch(list(lst, lst), ~ ., .step = 2)
 #'
 #' ###
 #' # row-wise stretching over data frame
@@ -101,8 +102,8 @@ stretch_dfc <- function(.x, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' tibble(
 #'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
 #' )
-stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
-  lst <- pstretcher(.x, .y, .size = .size, .init = .init, .bind = .bind)
+stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+  lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
   map2(lst[[1]], lst[[2]], .f, ...)
 }
 
@@ -110,7 +111,7 @@ stretch2 <- function(.x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' @name stretch2
 #' @rdname stretch2
 #' @exportPattern ^stretch2_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("stretch2_", type),
     replace_fn_names(stretch2, list(map2 = paste0("map2_", type)))
@@ -120,10 +121,10 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch2
 #' @export
 stretch2_dfr <- function(
-  .x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE, .id = NULL
+  .x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
 ) {
   out <- stretch2(
-    .x, .y, .f = .f, ..., .size = .size, .init = .init,
+    .x, .y, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
   dplyr::bind_rows(!!! out, .id = .id)
@@ -132,10 +133,10 @@ stretch2_dfr <- function(
 #' @rdname stretch2
 #' @export
 stretch2_dfc <- function(
-  .x, .y, .f, ..., .size = 1, .init = 1, .bind = FALSE
+  .x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE
 ) {
   out <- stretch2(
-    .x, .y, .f = .f, ..., .size = .size, .init = .init,
+    .x, .y, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
   dplyr::bind_cols(!!! out)
@@ -143,8 +144,9 @@ stretch2_dfc <- function(
 
 #' @rdname stretch2
 #' @export
-pstretch <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
-  lst <- pstretcher(!!! .l, .size = .size, .init = .init, .bind = .bind)
+pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+  lst <- pstretcher(!!! .l, .step = .step, .init = .init,
+    .bind = .bind)
   pmap(lst, .f, ...)
 }
 
@@ -152,7 +154,7 @@ pstretch <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' @name pstretch
 #' @rdname stretch2
 #' @exportPattern ^pstretch_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("pstretch_", type),
     replace_fn_names(pstretch, list(pmap = paste0("pmap_", type)))
@@ -162,16 +164,16 @@ for(type in c("lgl", "chr", "dbl", "int")){
 #' @rdname stretch2
 #' @export
 pstretch_dfr <- function(
-  .l, .f, ..., .size = 1, .init = 1, .bind = FALSE, .id = NULL
+  .l, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
 ) {
-  out <- pstretch(.l, .f, ..., .size = .size, .init = .init, .bind = .bind)
+  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
   dplyr::bind_rows(!!! out, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
-pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
-  out <- pstretch(.l, .f, ..., .size = .size, .init = .init, .bind = .bind)
+pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
   dplyr::bind_cols(!!! out)
 }
 
@@ -189,12 +191,12 @@ pstretch_dfc <- function(.l, .f, ..., .size = 1, .init = 1, .bind = FALSE) {
 #' lst <- list(x = x, y = y, z = z)
 #' df <- as.data.frame(lst)
 #'
-#' stretcher(x, .size = 2)
-#' stretcher(lst, .size = 2)
-#' stretcher(df, .size = 2)
-#' pstretcher(df, df, .size = 2)
-stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
-  bad_window_function(.size)
+#' stretcher(x, .step = 2)
+#' stretcher(lst, .step = 2)
+#' stretcher(df, .step = 2)
+#' pstretcher(df, df, .step = 2)
+stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
+  bad_window_function(.step)
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
   }
@@ -204,9 +206,9 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
   if (len_x <= .init) {
     abort(sprintf("`.init` must be less than %s.", len_x))
   }
-  abs_size <- abs(.size)
-  counter <- incr(init = .init, size = abs_size)
-  if (sign(.size) < 0) .x <- rev(.x)
+  abs_size <- abs(.step)
+  counter <- incr(.init = .init, .step = abs_size)
+  if (sign(.step) < 0) .x <- rev(.x)
   ncall <- seq_len(ceiling((len_x - .init) / abs_size) - 1)
   incr_lst <- c(
     list(seq_len(.init)),
@@ -220,15 +222,15 @@ stretcher <- function(.x, .size = 1, .init = 1, .bind = FALSE) {
 
 #' @rdname stretcher
 #' @export
-pstretcher <- function(..., .size = 1, .init = 1, .bind = FALSE) { # parallel sliding
+pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sliding
   lst <- recycle(list2(...))
-  map(lst, function(x) stretcher(x, .size, .init, .bind))
+  map(lst, function(x) stretcher(x, .step, .init, .bind))
 }
 
 #' Perform stretching windows on a tsibble by row
 #'
 #' @param .x A tsibble.
-#' @param .size A positive integer for window size.
+#' @param .step A positive integer for incremental step.
 #' @inheritParams stretch
 #' @param .id A character naming the new column `.id` containing the partition.
 #'
@@ -244,16 +246,16 @@ pstretcher <- function(..., .size = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' )
 #' harvest %>% 
 #'   stretch_tsibble()
-stretch_tsibble <- function(.x, .size = 1, .init = 1, .id = ".id") {
-  lst_indices <- map(key_rows(.x), stretcher, .size = .size, .init = .init)
+stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
+  lst_indices <- map(key_rows(.x), stretcher, .step = .step, .init = .init)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
-incr <- function(init, size) {
-  init
+incr <- function(.init, .step) {
+  .init
   function() {
-    init <<- init + size
-    init
+    .init <<- .init + .step
+    .init
   }
 }
 

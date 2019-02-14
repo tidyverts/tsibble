@@ -260,7 +260,7 @@ holiday_aus_wa <- function(year) {
 holiday_aus_national <- function(year) {
   year_length <- length(year)
   public_holidays <- vector(mode = "list", length = 6)
-  counter <- incr(init = 1, size = 1)
+  counter <- incr(.init = 1, .step = 1)
 
   new_year <- lubridate::make_date(year) # new year's day
   new_year_wday <- lubridate::wday(new_year)

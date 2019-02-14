@@ -4,12 +4,12 @@
 \alias{stretch_tsibble}
 \title{Perform stretching windows on a tsibble by row}
 \usage{
-stretch_tsibble(.x, .size = 1, .init = 1, .id = ".id")
+stretch_tsibble(.x, .step = 1, .init = 1, .id = ".id")
 }
 \arguments{
 \item{.x}{A tsibble.}
 
-\item{.size}{A positive integer for window size.}
+\item{.step}{A positive integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 
