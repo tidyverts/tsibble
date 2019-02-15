@@ -6,12 +6,14 @@
 \alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
-stretch(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+stretch(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 
-stretch_dfr(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE,
-  .id = NULL)
+stretch_dfr(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE, .id = NULL)
 
-stretch_dfc(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+stretch_dfc(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -42,6 +44,9 @@ present, the value of \code{.default} will be returned.}
 
 \item{.init}{A positive integer for an initial window size.}
 
+\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
+\code{NULL} means no filling.}
+
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
 
@@ -63,9 +68,9 @@ arguments as \code{stretch()}, but return vectors of the corresponding type.
 }
 \examples{
 x <- 1:5
-lst <- list(x = x, y = 6:10, z = 11:15)
 stretch_dbl(x, mean, .step = 2)
 stretch_lgl(x, ~ mean(.) > 2, .step = 2)
+lst <- list(x = x, y = 6:10, z = 11:15)
 stretch(lst, ~ ., .step = 2)
 }
 \seealso{

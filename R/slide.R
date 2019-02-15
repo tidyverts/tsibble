@@ -510,9 +510,9 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
   abs_size <- abs(.size)
   if (abs_size < 2) {
     if (byrow) {
-      return(dplyr::bind_rows(x, .id = .id))
+      return(dplyr::bind_rows(!!! x, .id = .id))
     } else {
-      return(dplyr::bind_cols(x))
+      return(dplyr::bind_cols(!!! x))
     }
   }
   lst <- new_list_along(x[[abs_size]])

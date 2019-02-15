@@ -9,17 +9,20 @@
 \alias{pstretch_dfc}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+stretch2(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 
-stretch2_dfr(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE,
-  .id = NULL)
+stretch2_dfr(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE, .id = NULL)
 
-stretch2_dfc(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+stretch2_dfc(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 
-pstretch(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+pstretch(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 
-pstretch_dfr(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE,
-  .id = NULL)
+pstretch_dfr(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE, .id = NULL)
 
 pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE)
 }
@@ -53,6 +56,9 @@ present, the value of \code{.default} will be returned.}
 \item{.step}{An integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
+
+\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
+\code{NULL} means no filling.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}

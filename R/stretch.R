@@ -20,13 +20,15 @@
 #'
 #' @examples
 #' x <- 1:5
-#' lst <- list(x = x, y = 6:10, z = 11:15)
 #' stretch_dbl(x, mean, .step = 2)
 #' stretch_lgl(x, ~ mean(.) > 2, .step = 2)
+#' lst <- list(x = x, y = 6:10, z = 11:15)
 #' stretch(lst, ~ ., .step = 2)
-stretch <- function(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE) {
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
-  map(lst_x, .f, ...)
+  out <- map(lst_x, .f, ...)
+  pad_slide(out, .size = .init, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -43,23 +45,24 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @rdname stretch
 #' @export
 stretch_dfr <- function(
-  .x, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
+  .x, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
-  out <- stretch(
-    .x, .f = .f, ..., .step = .step, .init = .init, 
-    .bind = .bind
-  )
-  dplyr::bind_rows(!!! out, .id = .id)
-}
-
-#' @rdname stretch
-#' @export
-stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
   out <- stretch(
     .x, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
-  dplyr::bind_cols(!!! out)
+  bind_df(out, .size = .init, .fill = .fill, .id = .id)
+}
+
+#' @rdname stretch
+#' @export
+stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE) {
+  out <- stretch(
+    .x, .f = .f, ..., .step = .step, .init = .init,
+    .bind = .bind
+  )
+  bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
 }
 
 #' Stretching window calculation over multiple simultaneously
@@ -102,9 +105,11 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
 #' tibble(
 #'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
 #' )
-stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, 
+  .bind = FALSE) {
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
-  map2(lst[[1]], lst[[2]], .f, ...)
+  out <- map2(lst[[1]], lst[[2]], .f, ...)
+  pad_slide(out, .size = .init, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
@@ -121,33 +126,35 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @rdname stretch2
 #' @export
 stretch2_dfr <- function(
-  .x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
+  .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
   out <- stretch2(
     .x, .y, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
-  dplyr::bind_rows(!!! out, .id = .id)
+  bind_df(out, .size = .init, .fill = .fill, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
 stretch2_dfc <- function(
-  .x, .y, .f, ..., .step = 1, .init = 1, .bind = FALSE
+  .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE
 ) {
   out <- stretch2(
     .x, .y, .f = .f, ..., .step = .step, .init = .init,
     .bind = .bind
   )
-  dplyr::bind_cols(!!! out)
+  bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
 }
 
 #' @rdname stretch2
 #' @export
-pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
+pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE) {
   lst <- pstretcher(!!! .l, .step = .step, .init = .init,
     .bind = .bind)
-  pmap(lst, .f, ...)
+  out <- pmap(lst, .f, ...)
+  pad_slide(out, .size = .init, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -164,17 +171,17 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @rdname stretch2
 #' @export
 pstretch_dfr <- function(
-  .l, .f, ..., .step = 1, .init = 1, .bind = FALSE, .id = NULL
+  .l, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
   out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
-  dplyr::bind_rows(!!! out, .id = .id)
+  bind_df(out, .size = .init, .fill = .fill, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
 pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
   out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
-  dplyr::bind_cols(!!! out)
+  bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
 }
 
 #' Split the input to a list according to the stretching window size.
