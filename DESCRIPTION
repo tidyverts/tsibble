@@ -55,8 +55,6 @@ Suggests:
     timeDate
 LinkingTo: 
     Rcpp (>= 0.12.0)
-Remotes:
-    tidyverse/dplyr@rc_0.8.0
 VignetteBuilder: 
     knitr
 ByteCompile: true
