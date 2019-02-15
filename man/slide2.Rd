@@ -9,23 +9,23 @@
 \alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+slide2(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 
-slide2_dfr(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE, .id = NULL)
+slide2_dfr(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
 
-slide2_dfc(.x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+slide2_dfc(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 
-pslide(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+pslide(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 
-pslide_dfr(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE, .id = NULL)
+pslide_dfr(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
 
-pslide_dfc(.l, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+pslide_dfc(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -54,6 +54,8 @@ present, the value of \code{.default} will be returned.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
+
+\item{.step}{A positive integer for incremental step.}
 
 \item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
 \code{NULL} means no filling.}

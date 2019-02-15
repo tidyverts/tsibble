@@ -6,14 +6,14 @@
 \alias{slide_dfc}
 \title{Sliding window calculation}
 \usage{
-slide(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+slide(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 
-slide_dfr(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE, .id = NULL)
+slide_dfr(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
 
-slide_dfc(.x, .f, ..., .size = 1, .fill = NA, .partial = FALSE,
-  .align = "right", .bind = FALSE)
+slide_dfc(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+  .partial = FALSE, .align = "right", .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -42,6 +42,8 @@ present, the value of \code{.default} will be returned.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
+
+\item{.step}{A positive integer for incremental step.}
 
 \item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
 \code{NULL} means no filling.}

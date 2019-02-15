@@ -24,7 +24,8 @@ pstretch(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
 pstretch_dfr(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE, .id = NULL)
 
-pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE)
+pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -53,7 +54,7 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.step}{An integer for incremental step.}
+\item{.step}{A positive integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 

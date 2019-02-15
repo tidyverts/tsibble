@@ -43,12 +43,16 @@ test_that("stretcher() & pstretcher()", {
 
 test_that("stretch() and its variants", {
   expect_equal(
-    stretch_dbl(x, mean, .step = 2),
+    stretch_dbl(x, mean, .step = 2, .fill = NULL),
     purrr::map_dbl(stretcher(x, 2), mean)
   )
   expect_equal(
-    stretch(lst, ~ ., .step = 2),
-    list(list(x = x), list(x = x, y = y, z = z))
+    stretch_dbl(x, mean, .step = 2),
+    c(1, NA, 2, NA, 3)
+  )
+  expect_equal(
+    stretch(lst, ~ ., .step = 2, .fill = NA),
+    list(list(x = x), NA, list(x = x, y = y, z = z))
   )
   expect_equal(
     stretch_dfr(x, ~ data.frame(x = mean(.)), .step = 1),
@@ -59,18 +63,18 @@ test_that("stretch() and its variants", {
     data.frame(x = 1, x1 = 1.5, x2 = 2, x3 = 2.5, x4 = 3)
   )
   expect_equal(
-    stretch_dfr(x, quantile, 0.5, .step = 2),
-    tibble::tibble(`50%` = stretch_dbl(x, quantile, 0.5, .step = 2))
+    stretch_dfr(x, quantile, 0.5, .step = 2, .fill = NULL),
+    tibble::tibble(`50%` = stretch_dbl(x, quantile, 0.5, .step = 2, .fill = NULL))
   )
 })
 
 test_that("stretch2() and its variants", {
   expect_equal(
     stretch2_int(x, y, sum, .step = 2),
-    c(7L, 27L, 55L)
+    c(7L, NA, 27L, NA, 55L)
   )
   expect_equal(
-    stretch2(lst, lst, ~ ., .step = 2),
+    stretch2(lst, lst, ~ ., .step = 2, .fill = NULL),
     list(list(x = x), list(x = x, y = y, z = z))
   )
   expect_equal(
@@ -78,13 +82,13 @@ test_that("stretch2() and its variants", {
     stretch2(lst, lst, ~ ., .step = 2)
   )
   expect_equal(
-    stretch2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .step = 2, .bind = TRUE)[1, 1, drop  = TRUE],
+    stretch2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .step = 2, .fill = NULL, .bind = TRUE)[1, 1, drop  = TRUE],
     sum(df[, 1]) * 2
   )
-  expect_equal(
-    stretch2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .step = 2, .bind = TRUE)[1, 1, drop  = TRUE],
-    sum(df[, 1]) * 2
-  )
+  # expect_equal(
+  #   stretch2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .step = 2, .fill = NULL, bind = TRUE)[1, 1, drop  = TRUE],
+  #   sum(df[, 1]) * 2
+  # )
 })
 
 test_that("pstretch() and its variants", {
@@ -93,7 +97,7 @@ test_that("pstretch() and its variants", {
     pstretch_int(lst, ~ sum(..1, ..2), step = 1) > 10
   )
   expect_equal(
-    pstretch(list(lst, lst), ~ ..1, .step = 2),
+    pstretch(list(lst, lst), ~ ..1, .step = 2, .fill = NULL),
     list(list(x = x), list(x = x, y = y, z = z))
   )
   my_sum2 <- function(...) {
@@ -101,11 +105,11 @@ test_that("pstretch() and its variants", {
     data.frame(x = sum(data$x))
   }
   expect_equal(
-    pstretch_dfr(df, my_sum2, .step = 2),
+    pstretch_dfr(df, my_sum2, .step = 2, .fill = NULL),
     data.frame(x = c(1L, 6L, 15L))
   )
   expect_equal(
-    pstretch_dfc(df, my_sum2, .step = 2),
+    pstretch_dfc(df, my_sum2, .step = 2, .fill = NULL),
     data.frame(x = 1L, x1 = 6L, x2 = 15L)
   )
 })

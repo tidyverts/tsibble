@@ -5,17 +5,19 @@
 \alias{partial_pslider}
 \title{Partially splits the input to a list according to the rolling window size.}
 \usage{
-partial_slider(.x, .size = 1, .fill = NA, .align = "right",
-  .bind = FALSE)
+partial_slider(.x, .size = 1, .step = 1, .fill = NA,
+  .align = "right", .bind = FALSE)
 
-partial_pslider(..., .size = 1, .fill = NA, .align = "right",
-  .bind = FALSE)
+partial_pslider(..., .size = 1, .step = 1, .fill = NA,
+  .align = "right", .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
+
+\item{.step}{A positive integer for incremental step.}
 
 \item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
 \code{NULL} means no filling.}

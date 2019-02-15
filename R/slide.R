@@ -29,6 +29,7 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' @inheritParams purrr::map
 #' @param .size An integer for window size. If positive, moving forward from left
 #' to right; if negative, moving backward (from right to left).
+#' @param .step A positive integer for incremental step.
 #' @param .fill A value to fill at the left of the data range (`NA` by default).
 #' `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
@@ -65,21 +66,22 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' slide_lgl(x, ~ mean(.) > 2, .size = 2)
 #' slide(lst, ~ ., .size = 2)
 slide <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   if (.partial) {
     lst_x <- partial_slider(
-      .x, .size = .size, .fill = .fill, .align = .align, .bind = .bind
+      .x, .size = .size, .step = .step, .fill = .fill,
+      .align = .align, .bind = .bind
     )
   } else {
-    lst_x <- slider(.x, .size = .size, .bind = .bind)
+    lst_x <- slider(.x, .size = .size, .step = .step, .bind = .bind)
   }
   out <- map(lst_x, .f, ...)
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .fill, .align)
+    pad_slide(out, .size, .step = .step, .fill, .align)
   }
 }
 
@@ -87,7 +89,7 @@ slide <- function(
 #' @name slide
 #' @rdname slide
 #' @exportPattern ^slide_
-for(type in c("lgl", "chr", "int", "dbl")){
+for (type in c("lgl", "chr", "int", "dbl")) {
   assign(
     paste0("slide_", type),
     replace_fn_names(slide, list(map = paste0("map_", type)))
@@ -97,12 +99,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide
 #' @export
 slide_dfr <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right", 
-  .bind = FALSE, .id = NULL
+  .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
+  .align = "right", .bind = FALSE, .id = NULL
 ) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, .id = .id)
@@ -111,12 +113,12 @@ slide_dfr <- function(
 #' @rdname slide
 #' @export
 slide_dfc <- function(
-  .x, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   out <- slide(
     .x, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, byrow = FALSE)
@@ -175,21 +177,22 @@ slide_dfc <- function(
 #'   mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) %>% 
 #'   unnest()
 slide2 <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   if (.partial) {
     lst <- partial_pslider(
-      .x, .y, .size = .size, .fill = .fill, .align = .align, .bind = .bind
+      .x, .y, .size = .size, .step = .step, .fill = .fill,
+      .align = .align, .bind = .bind
     )
   } else {
-    lst <- pslider(.x, .y, .size = .size, .bind = .bind)
+    lst <- pslider(.x, .y, .size = .size, .step = .step, .bind = .bind)
   }
   out <- map2(lst[[1]], lst[[2]], .f = .f, ...)
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .fill, .align)
+    pad_slide(out, .size, .step, .fill, .align)
   }
 }
 
@@ -197,7 +200,7 @@ slide2 <- function(
 #' @name slide2
 #' @rdname slide2
 #' @exportPattern ^slide2_
-for(type in c("lgl", "chr", "int", "dbl")){
+for (type in c("lgl", "chr", "int", "dbl")) {
   assign(
     paste0("slide2_", type),
     replace_fn_names(slide2, list(map2 = paste0("map2_", type)))
@@ -207,12 +210,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide2
 #' @export
 slide2_dfr <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .bind = FALSE, .id = NULL
+  .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
+  .align = "right", .bind = FALSE, .id = NULL
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, .id = .id)
@@ -221,12 +224,12 @@ slide2_dfr <- function(
 #' @rdname slide2
 #' @export
 slide2_dfc <- function(
-  .x, .y, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   out <- slide2(
     .x, .y, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, byrow = FALSE)
@@ -236,21 +239,22 @@ slide2_dfc <- function(
 #' @inheritParams purrr::pmap
 #' @export
 pslide <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   if (.partial) {
     lst <- partial_pslider(
-      !!! .l, .size = .size, .fill = .fill, .align = .align, .bind = .bind
+      !!! .l, .size = .size, .step = .step, .fill = .fill,
+      .align = .align, .bind = .bind
     )
   } else {
-    lst <- pslider(!!! .l, .size = .size, .bind = .bind)
+    lst <- pslider(!!! .l, .size = .size, .step = .step, .bind = .bind)
   }
   out <- pmap(lst, .f, ...)
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .fill, .align)
+    pad_slide(out, .size, .step, .fill, .align)
   }
 }
 
@@ -258,7 +262,7 @@ pslide <- function(
 #' @name pslide
 #' @rdname slide2
 #' @exportPattern ^pslide_
-for(type in c("lgl", "chr", "int", "dbl")){
+for (type in c("lgl", "chr", "int", "dbl")) {
   assign(
     paste0("pslide_", type),
     replace_fn_names(pslide, list(pmap = paste0("pmap_", type)))
@@ -268,12 +272,12 @@ for(type in c("lgl", "chr", "int", "dbl")){
 #' @rdname slide2
 #' @export
 pslide_dfr <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, .align = "right",
-  .bind = FALSE, .id = NULL
+  .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
+  .align = "right", .bind = FALSE, .id = NULL
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, .id = .id)
@@ -301,12 +305,12 @@ pslide_dfr <- function(
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
 pslide_dfc <- function(
-  .l, .f, ..., .size = 1, .fill = NA, .partial = FALSE, 
+  .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
 ) {
   out <- pslide(
     .l, .f = .f, ..., 
-    .size = .size, .fill = .fill, .partial = .partial, 
+    .size = .size, .step = .step, .fill = .fill, .partial = .partial, 
     .align = .align, .bind = .bind
   )
   bind_df(out, .size, .fill, byrow = FALSE)
@@ -334,15 +338,15 @@ pslide_dfc <- function(
 #' pslider(list(x, y), list(y))
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
-slider <- function(.x, .size = 1, .bind = FALSE) {
-  .x <- check_slider_input(.x, .size = .size, .bind = .bind)
+slider <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
+  .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
     abort(sprintf(slider_msg(), abs_size, len_x))
   }
   sign <- sign(.size)
-  lst_idx <- seq_len(len_x - abs_size + 1)
+  lst_idx <- seq.int(1L, len_x - abs_size + 1, by = .step)
   if (sign < 0) lst_idx <- rev(lst_idx) + 1
   out <- map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
   if (.bind) bind_lst(out) else out
@@ -350,9 +354,10 @@ slider <- function(.x, .size = 1, .bind = FALSE) {
 
 #' @rdname slider
 #' @export
-pslider <- function(..., .size = 1, .bind = FALSE) { # parallel sliding
+pslider <- function(..., .size = 1, .step = 1, .bind = FALSE) {
+  # parallel sliding
   lst <- recycle(list2(...))
-  map(lst, function(x) slider(x, .size, .bind))
+  map(lst, function(x) slider(x, .size = .size, .step = .step, .bind))
 }
 
 #' Partially splits the input to a list according to the rolling window size.
@@ -364,33 +369,30 @@ pslider <- function(..., .size = 1, .bind = FALSE) { # parallel sliding
 #' x <- c(1, NA_integer_, 3:5)
 #' slider(x, .size = 3)
 #' partial_slider(x, .size = 3)
-partial_slider <- function(.x, .size = 1, .fill = NA, .align = "right", 
-  .bind = FALSE) {
+partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
+  .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
-  .x <- check_slider_input(.x, .size = .size, .bind = .bind)
+  .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
+  .y <- pad_slide(.x, .size = .size, .fill = .fill, .align = .align)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
     abort(sprintf(slider_msg(), abs_size, len_x))
   }
   sign <- sign(.size)
-  lst_idx <- seq_len(len_x) - sign * (abs_size - 1)
-  if (sign < 0) lst_idx <- rev(lst_idx)
-  out <- map(lst_idx, function(idx) {
-    idx <- idx:(idx + sign * (abs_size - 1))
-    size <- sum(idx <= 0 | idx > len_x) + 1
-    pad_slide(.x[idx[idx > 0 & idx <= len_x]], size, .fill, .align, TRUE)
-  })
+  lst_idx <- seq.int(1L, len_x, by = .step)
+  if (sign < 0) lst_idx <- rev(lst_idx) + abs_size - 1
+  out <- map(lst_idx, function(idx) .y[idx:(idx + sign * (abs_size - 1))])
   if (.bind) bind_lst(out) else out
 }
 
 #' @rdname partial-slider
 #' @export
 partial_pslider <- function(
-  ..., .size = 1, .fill = NA, .align = "right", .bind = FALSE
+  ..., .size = 1, .step = 1, .fill = NA, .align = "right", .bind = FALSE
 ) {
   lst <- recycle(list2(...))
-  map(lst, function(x) partial_slider(x, .size, .fill, .align, .bind))
+  map(lst, function(x) partial_slider(x, .size, .step, .fill, .align, .bind))
 }
 
 #' Perform sliding windows on a tsibble by row
@@ -440,8 +442,9 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
   )
 }
 
-check_slider_input <- function(.x, .size = 1, .bind = FALSE) {
+check_slider_input <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
   bad_window_function(.size)
+  bad_step_function(.step)
   abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   .x
@@ -475,34 +478,73 @@ recycle <- function(x) {
   x
 }
 
-pad_slide <- function(
-  x, .size = 1, .fill = NA, .align = "right", .partial = FALSE
-) {
+pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right") {
   .align <- match.arg(.align,
     c("right", "c", "center", "centre", "left",
       "cr", "center-right", "centre-right", 
       "cl", "center-left", "centre-left"
     )
   )
-  if (is_false(.partial)) { # skip for `.partial = TRUE`
-    check_valid_window(.size, .align)
-  }
+  check_valid_window(.size, .align)
   if (is_null(.fill)) return(x) 
-  fill_size <- abs(.size) - 1
   cl <- c("c", "center", "centre", "cl", "center-left", "centre-left")
   cr <- c("cr", "center-right", "centre-right")
-  if (.partial && abs(.size) == 1) return(x)
 
-  if (.align == "right") {
-    c(rep(.fill, fill_size), x)
-  } else if (.align %in% cl) {
-    lsize <- floor(fill_size / 2)
-    c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
-  } else if (.align %in% cr) {
-    lsize <- ceiling(fill_size / 2)
-    c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
+  len_x <- length(x)
+  if (.step == 1) {
+    fill_size <- abs(.size) - 1
+    if (.align == "right") {
+      c(rep(.fill, fill_size), x)
+    } else if (.align == "left") {
+      c(x, rep(.fill, fill_size))
+    } else {
+      if (.align %in% cl) {
+        lsize <- floor(fill_size / 2)
+      } else {
+        lsize <- ceiling(fill_size / 2)
+      }
+      c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
+    }
   } else {
-    c(x, rep(.fill, fill_size)) # "left"
+    fill_size <- abs(.size) - .step
+    seq_x <- seq_len(len_x)
+    rep_idx <- rep.int(len_x + 1, len_x * (.step - 1))
+    null_idx <- matrix(rep_idx, nrow = .step - 1)
+    if (.align == "right") {
+      idx <- as.integer(rbind(null_idx, seq_x, deparse.level = 0))
+      res <- x[idx]
+      res[!(idx %in% seq_x)] <- .fill
+      c(rep(.fill, fill_size), res)
+    } else if (.align == "left") {
+      idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
+      res <- x[idx]
+      res[!(idx %in% seq_x)] <- .fill
+      c(res, rep(.fill, fill_size))
+    } else if (.align %in% cl) {
+      lsize <- floor(fill_size / 2)
+      idx <- 
+        as.integer(rbind(
+          null_idx[1:lsize, ],
+          seq_x, 
+          null_idx[ifelse(lsize == .step - 1, 0L, (lsize + 1):(.step - 1)), ], 
+          deparse.level = 0
+        ))
+      res <- x[idx]
+      res[!(idx %in% seq_x)] <- .fill
+      c(rep(.fill, lsize), res, rep(.fill, fill_size - lsize))
+    } else {
+      lsize <- ceiling(fill_size / 2)
+      idx <- 
+        as.integer(rbind(
+          null_idx[1:lsize, ],
+          seq_x, 
+          null_idx[ifelse(lsize == .step - 1, 0L, (lsize + 1):(.step - 1)), ], 
+          deparse.level = 0
+        ))
+      res <- x[idx]
+      res[!(idx %in% seq_x)] <- .fill
+      c(rep(.fill, lsize - 1), res, rep(.fill, fill_size - lsize + 1))
+    }
   }
 }
 

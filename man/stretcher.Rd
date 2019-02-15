@@ -12,7 +12,7 @@ pstretcher(..., .step = 1, .init = 1, .bind = FALSE)
 \arguments{
 \item{.x}{An objects to be split.}
 
-\item{.step}{An integer for incremental step.}
+\item{.step}{A positive integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 

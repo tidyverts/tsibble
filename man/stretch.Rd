@@ -40,7 +40,7 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.step}{An integer for incremental step.}
+\item{.step}{A positive integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
 

@@ -8,7 +8,7 @@
 #'
 #' @inheritParams slide
 #' @param .init A positive integer for an initial window size.
-#' @param .step An integer for incremental step.
+#' @param .step A positive integer for incremental step.
 #'
 #' @rdname stretch
 #' @export
@@ -28,7 +28,7 @@ stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   out <- map(lst_x, .f, ...)
-  pad_slide(out, .size = .init, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -48,7 +48,7 @@ stretch_dfr <- function(
   .x, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
   out <- stretch(
-    .x, .f = .f, ..., .step = .step, .init = .init,
+    .x, .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
     .bind = .bind
   )
   bind_df(out, .size = .init, .fill = .fill, .id = .id)
@@ -59,7 +59,7 @@ stretch_dfr <- function(
 stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
   out <- stretch(
-    .x, .f = .f, ..., .step = .step, .init = .init,
+    .x, .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
     .bind = .bind
   )
   bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
@@ -101,15 +101,15 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #'
 #' x <- as.Date("2017-01-01") + 0:364
 #' df <- data.frame(x = x, y = seq_along(x))
-#' 
+#'
 #' tibble(
 #'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
 #' )
-stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, 
+stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
   out <- map2(lst[[1]], lst[[2]], .f, ...)
-  pad_slide(out, .size = .init, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
@@ -129,7 +129,7 @@ stretch2_dfr <- function(
   .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
   out <- stretch2(
-    .x, .y, .f = .f, ..., .step = .step, .init = .init,
+    .x, .y, .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
     .bind = .bind
   )
   bind_df(out, .size = .init, .fill = .fill, .id = .id)
@@ -141,7 +141,7 @@ stretch2_dfc <- function(
   .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE
 ) {
   out <- stretch2(
-    .x, .y, .f = .f, ..., .step = .step, .init = .init,
+    .x, .y, .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
     .bind = .bind
   )
   bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
@@ -154,7 +154,7 @@ pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
   lst <- pstretcher(!!! .l, .step = .step, .init = .init,
     .bind = .bind)
   out <- pmap(lst, .f, ...)
-  pad_slide(out, .size = .init, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
 }
 
 #' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -173,14 +173,17 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 pstretch_dfr <- function(
   .l, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL
 ) {
-  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
+  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .fill = .fill,
+    .bind = .bind)
   bind_df(out, .size = .init, .fill = .fill, .id = .id)
 }
 
 #' @rdname stretch2
 #' @export
-pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .bind = FALSE) {
-  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .bind = .bind)
+pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+  .bind = FALSE) {
+  out <- pstretch(.l, .f, ..., .step = .step, .init = .init, .fill = .fill,
+    .bind = .bind)
   bind_df(out, .size = .init, .fill = .fill, byrow = FALSE)
 }
 
@@ -251,7 +254,7 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #'   kilo = sample(1:10, size = 6),
 #'   key = id(fruit), index = year
 #' )
-#' harvest %>% 
+#' harvest %>%
 #'   stretch_tsibble()
 stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
   lst_indices <- map(key_rows(.x), stretcher, .step = .step, .init = .init)
@@ -266,13 +269,35 @@ incr <- function(.init, .step) {
   }
 }
 
+pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA) {
+  if (is_null(.fill)) return(x)
+
+  len_x <- length(x)
+  fill_size <- abs(.init - .step)
+  if (.step == 1) {
+    c(rep(.fill, fill_size), x)
+  } else {
+    seq_x <- seq_len(len_x)
+    rep_idx <- rep.int(len_x + 1, len_x * fill_size)
+    null_idx <- matrix(rep_idx, nrow = fill_size)
+    idx <- as.integer(rbind(null_idx, seq_x, deparse.level = 0))
+    res <- x[idx]
+    res[!(idx %in% seq_x)] <- .fill
+    if ((.init - .step) > 0) {
+      c(rep(.fill, fill_size), res)
+    } else {
+      res[-fill_size]
+    }
+  }
+}
+
 #' Stretching window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
-#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 
+#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
 #' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
-#' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
-#' future specific options to use with the workers. 
+#' * Extra arguments `.progress` and `.options` for enabling progress bar and the
+#' future specific options to use with the workers.
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("stretch", "stretch2", "pstretch"), '}'), paste0('\\alias{future_stretch_', suffix, '}'), paste0('\\alias{future_stretch2_', suffix, '}'), paste0('\\alias{future_pstretch_', suffix, '}'))}
 #' @name future_stretch()

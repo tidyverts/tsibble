@@ -5,15 +5,17 @@
 \alias{pslider}
 \title{Splits the input to a list according to the rolling window size.}
 \usage{
-slider(.x, .size = 1, .bind = FALSE)
+slider(.x, .size = 1, .step = 1, .bind = FALSE)
 
-pslider(..., .size = 1, .bind = FALSE)
+pslider(..., .size = 1, .step = 1, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An objects to be split.}
 
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
+
+\item{.step}{A positive integer for incremental step.}
 
 \item{.bind}{If \code{.x} is a list or data frame, the input will be flattened
 to a list of data frames.}

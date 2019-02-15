@@ -57,3 +57,8 @@ bad_window_function <- function(.size) {
   }
 }
 
+bad_step_function <- function(.step) {
+  if (.step <= 0 || !is_integerish(.step, n = 1)) {
+    abort("`.step` must be a positive integer.")
+  }
+}
