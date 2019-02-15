@@ -15,7 +15,8 @@ pslider(..., .size = 1, .step = 1, .bind = FALSE)
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{.step}{A positive integer for incremental step.}
+\item{.step}{A positive integer for calculating at every specified step
+instead of every single step.}
 
 \item{.bind}{If \code{.x} is a list or data frame, the input will be flattened
 to a list of data frames.}

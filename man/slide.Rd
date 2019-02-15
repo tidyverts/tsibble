@@ -43,7 +43,8 @@ present, the value of \code{.default} will be returned.}
 \item{.size}{An integer for window size. If positive, moving forward from left
 to right; if negative, moving backward (from right to left).}
 
-\item{.step}{A positive integer for incremental step.}
+\item{.step}{A positive integer for calculating at every specified step
+instead of every single step.}
 
 \item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
 \code{NULL} means no filling.}
