@@ -1,3 +1,10 @@
+abort_stretch_size <- function(...) {
+  dots <- dots_list(...)
+  if (".size" %in% names(dots)) {
+    abort("Argument `.size` is retired. Please use `.step`.")
+  }
+}
+
 #' Stretching window calculation
 #'
 #' Fixing an initial window and expanding more observations:
@@ -26,6 +33,7 @@
 #' stretch(lst, ~ ., .step = 2)
 stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
+  abort_stretch_size(...)
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   out <- map(lst_x, .f, ...)
   pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
@@ -107,6 +115,7 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' )
 stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
+  abort_stretch_size(...)
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
   out <- map2(lst[[1]], lst[[2]], .f, ...)
   pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
@@ -151,6 +160,7 @@ stretch2_dfc <- function(
 #' @export
 pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
+  abort_stretch_size(...)
   lst <- pstretcher(!!! .l, .step = .step, .init = .init,
     .bind = .bind)
   out <- pmap(lst, .f, ...)
@@ -233,6 +243,7 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
 #' @rdname stretcher
 #' @export
 pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sliding
+  abort_stretch_size(...)
   lst <- recycle(list2(...))
   map(lst, function(x) stretcher(x, .step, .init, .bind))
 }
