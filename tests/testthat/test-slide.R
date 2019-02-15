@@ -101,6 +101,10 @@ test_that("slide() and its variants", {
     c(NA, purrr::map_dbl(slider(x, 2), mean))
   )
   expect_equal(
+    slide_dbl(x, mean, .size = 2, .step = 2),
+    c(NA, 1.5, NA, 3.5)
+  )
+  expect_equal(
     slide(lst, ~ ., .size = 2, .partial = TRUE),
     list(list(NA, x = x), list(x = x, y = y), list(y = y, z = z))
   )
@@ -201,4 +205,43 @@ test_that("recycle()", {
   expect_error(recycle(x1), "Element 3 has length 2, not 1 or 3.")
   expect_equal(recycle(x2), list(1:3, rep(1, 3)))
   expect_equal(recycle(x3), x3)
+})
+
+test_that("pad_slide()", {
+  expect_equal(
+    pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r")[1:4],
+    c(rep(NA_real_, 3), 4)
+  )
+  expect_equal(
+    length(pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r")),
+    7
+  )
+  expect_equal(
+    pad_slide(c(4, 7), .size = 4, .step = 3, .align = "l")[4:7],
+    c(7, rep(NA_real_, 3))
+  )
+  expect_equal(
+    pad_slide(c(3, 6), .size = 6, .step = 3, .align = "cl")[1:3],
+    c(rep(NA_real_, 2), 3)
+  )
+  expect_equal(
+    pad_slide(c(4, 7), .size = 6, .step = 3, .align = "cr")[1:4],
+    c(rep(NA_real_, 3), 4)
+  )
+  expect_equal(
+    pad_slide(3:6, .size = 6, .align = "cl")[1:3],
+    c(rep(NA_real_, 2), 3)
+  )
+  expect_equal(
+    pad_slide(3:6, .size = 6, .align = "cl")[3:6],
+    3:6
+  )
+  expect_equal(
+    pad_slide(4:7, .size = 6, .align = "cr")[1:4],
+    c(rep(NA_real_, 3), 4)
+  )
+  expect_equal(
+    pad_slide(4:7, .size = 6, .align = "cr")[4:7],
+    4:7
+  )
 })

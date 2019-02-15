@@ -28,7 +28,7 @@ harvest <- tsibble(
   kilo = sample(1:10, size = 6),
   key = id(fruit), index = year
 )
-harvest \%>\% 
+harvest \%>\%
   stretch_tsibble()
 }
 \seealso{

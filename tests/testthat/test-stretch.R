@@ -93,8 +93,8 @@ test_that("stretch2() and its variants", {
 
 test_that("pstretch() and its variants", {
   expect_equal(
-    pstretch_lgl(lst, ~ sum(..1, ..2) > 10, step = 1),
-    pstretch_int(lst, ~ sum(..1, ..2), step = 1) > 10
+    pstretch_lgl(lst, ~ sum(..1, ..2) > 10, .step = 1),
+    pstretch_int(lst, ~ sum(..1, ..2), .step = 1) > 10
   )
   expect_equal(
     pstretch(list(lst, lst), ~ ..1, .step = 2, .fill = NULL),
