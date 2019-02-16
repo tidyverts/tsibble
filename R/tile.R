@@ -31,7 +31,7 @@ tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @name tile
 #' @rdname tile
 #' @exportPattern ^tile_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("tile_", type),
     replace_fn_names(tile, list(map = paste0("map_", type)))
@@ -87,7 +87,7 @@ tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
 #' @name tile2
 #' @rdname tile2
 #' @exportPattern ^tile2_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("tile2_", type),
     replace_fn_names(tile2, list(map2 = paste0("map2_", type)))
@@ -119,7 +119,7 @@ ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 #' @name ptile
 #' @rdname tile2
 #' @exportPattern ^ptile_
-for(type in c("lgl", "chr", "dbl", "int")){
+for (type in c("lgl", "chr", "dbl", "int")) {
   assign(
     paste0("ptile_", type),
     replace_fn_names(ptile, list(pmap = paste0("pmap_", type)))
@@ -183,7 +183,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' @inheritParams tile
 #' @param .id A character naming the new column `.id` containing the partition.
 #'
-#' @return A tsibble
+#' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
 #' @export
 #' @examples

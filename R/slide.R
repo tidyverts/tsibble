@@ -407,7 +407,16 @@ partial_pslider <- function(
 #' @inheritParams slide
 #' @param .id A character naming the new column `.id` containing the partition.
 #'
-#' @return A tsibble
+#' @section Rolling tsibble:
+#' `slide_tsibble()`, `tile_tsibble()`, and `stretch_tsibble()` provide fast
+#' and shorthand for rolling over a tsibble by observations. That said, if the 
+#' supplied tsibble has time gaps, these rolling helpers will ignore those gaps
+#' and proceed.
+#'
+#' They are useful for preparing the tsibble for time series cross validation.
+#' They all return a tsibble including new column `.id` as part of the key. The
+#' output dimension will increase considerably with `slide_tsibble()` and
+#' `stretch_tsibble()`.
 #' @family rolling tsibble
 #' @export
 #' @examples
@@ -494,7 +503,7 @@ recycle <- function(x) {
 }
 
 pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right",
-  expect_length) {
+  expect_length = NULL) {
   .align <- match.arg(.align,
     c("right", "c", "center", "centre", "left",
       "cr", "center-right", "centre-right", 

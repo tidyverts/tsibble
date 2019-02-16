@@ -240,11 +240,6 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   if (sign(.step) < 0) .x <- rev(.x)
   ncall <- seq_len(floor((len_x - .init) / abs_size))
   incr_lst <- c(list(seq_len(.init)), map(ncall, ~ seq_len(counter())))
-  # incr_lst <- c(
-  #   list(seq_len(.init)),
-  #   map(ncall, ~ seq_len(counter())),
-  #   list(seq_len(len_x))
-  # )
   out <- map(incr_lst, function(idx) .x[idx])
   if (.bind) bind_lst(out) else out
 }
@@ -265,7 +260,7 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' @inheritParams stretch
 #' @param .id A character naming the new column `.id` containing the partition.
 #'
-#' @return A tsibble
+#' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
 #' @export
 #' @examples
@@ -290,7 +285,8 @@ incr <- function(.init, .step) {
   }
 }
 
-pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA, expect_length) {
+pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA,
+  expect_length = NULL) {
   if (is_null(.fill)) return(x)
 
   len_x <- length(x)

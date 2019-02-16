@@ -13,12 +13,22 @@ tile_tsibble(.x, .size = 1, .id = ".id")
 
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
-\value{
-A tsibble
-}
 \description{
 Perform tiling windows on a tsibble by row
 }
+\section{Rolling tsibble}{
+
+\code{slide_tsibble()}, \code{tile_tsibble()}, and \code{stretch_tsibble()} provide fast
+and shorthand for rolling over a tsibble by observations. That said, if the
+supplied tsibble has time gaps, these rolling helpers will ignore those gaps
+and proceed.
+
+They are useful for preparing the tsibble for time series cross validation.
+They all return a tsibble including new column \code{.id} as part of the key. The
+output dimension will increase considerably with \code{slide_tsibble()} and
+\code{stretch_tsibble()}.
+}
+
 \examples{
 harvest <- tsibble(
   year = rep(2010:2012, 2),
