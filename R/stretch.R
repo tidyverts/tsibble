@@ -30,7 +30,7 @@ abort_stretch_size <- function(...) {
 #' stretch_dbl(x, mean, .step = 2)
 #' stretch_lgl(x, ~ mean(.) > 2, .step = 2)
 #' lst <- list(x = x, y = 6:10, z = 11:15)
-#' stretch(lst, ~ ., .step = 2)
+#' stretch(lst, ~ ., .step = 2, .fill = NULL)
 stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE) {
   abort_stretch_size(...)

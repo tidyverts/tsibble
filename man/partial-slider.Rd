@@ -20,8 +20,8 @@ to right; if negative, moving backward (from right to left).}
 \item{.step}{A positive integer for calculating at every specified step
 instead of every single step.}
 
-\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
-\code{NULL} means no filling.}
+\item{.fill}{A value to fill at the left/center/right of the data range depending
+on \code{.align} (\code{NA} by default).  \code{NULL} means no filling.}
 
 \item{.align}{Align index at the "\strong{r}ight", "\strong{c}entre"/"center", or "\strong{l}eft"
 of the window. If \code{.size} is even for center alignment, "centre-right" & "centre-left"

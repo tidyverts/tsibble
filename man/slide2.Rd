@@ -58,8 +58,8 @@ to right; if negative, moving backward (from right to left).}
 \item{.step}{A positive integer for calculating at every specified step
 instead of every single step.}
 
-\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
-\code{NULL} means no filling.}
+\item{.fill}{A value to fill at the left/center/right of the data range depending
+on \code{.align} (\code{NA} by default).  \code{NULL} means no filling.}
 
 \item{.partial}{if \code{TRUE}, partial sliding.}
 

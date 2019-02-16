@@ -31,8 +31,8 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' to right; if negative, moving backward (from right to left).
 #' @param .step A positive integer for calculating at every specified step 
 #' instead of every single step.
-#' @param .fill A value to fill at the left of the data range (`NA` by default).
-#' `NULL` means no filling.
+#' @param .fill A value to fill at the left/center/right of the data range depending
+#' on `.align` (`NA` by default).  `NULL` means no filling.
 #' @param .partial if `TRUE`, partial sliding.
 #' @param .align Align index at the "**r**ight", "**c**entre"/"center", or "**l**eft"
 #' of the window. If `.size` is even for center alignment, "centre-right" & "centre-left"

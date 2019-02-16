@@ -59,8 +59,8 @@ instead of every single step.}
 
 \item{.init}{A positive integer for an initial window size.}
 
-\item{.fill}{A value to fill at the left of the data range (\code{NA} by default).
-\code{NULL} means no filling.}
+\item{.fill}{A value to fill at the left/center/right of the data range depending
+on \code{.align} (\code{NA} by default).  \code{NULL} means no filling.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
