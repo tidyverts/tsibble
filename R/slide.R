@@ -415,10 +415,20 @@ partial_pslider <- function(
 #' )
 #' harvest %>% 
 #'   slide_tsibble(.size = 2)
-slide_tsibble <- function(.x, .size = 1, .id = ".id") {
-  lst_indices <- map(key_rows(.x), slider, .size = .size)
+slide_tsibble <- function(.x, .size = 1, .step = 1, .id = ".id") {
+  lst_indices <- map(key_rows(.x), slider, .size = .size, .step = .step)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
+
+# fast_slider <- function(.x, .size = 1, .step = 1) {
+#   len_x <- NROW(.x)
+#   lst_idx <- seq.int(1L, len_x - .size + 1, by = .step)
+#   len_idx <- length(lst_idx)
+#   idx <- kronecker(lst_idx, matrix(seq_len(.size) - 1, ncol = .size), "+")
+#   .x[idx, ]
+#   # id_indices <- rep.int(seq_len(len_idx), .size)
+#   # list(indices = .x[idx], id_indices = id_indices)
+# }
 
 roll_tsibble <- function(.x, indices, .id = ".id") {
   if (.id %in% names(.x)) {

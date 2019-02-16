@@ -4,12 +4,15 @@
 \alias{slide_tsibble}
 \title{Perform sliding windows on a tsibble by row}
 \usage{
-slide_tsibble(.x, .size = 1, .id = ".id")
+slide_tsibble(.x, .size = 1, .step = 1, .id = ".id")
 }
 \arguments{
 \item{.x}{A tsibble.}
 
 \item{.size}{A positive integer for window size.}
+
+\item{.step}{A positive integer for calculating at every specified step
+instead of every single step.}
 
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
