@@ -66,6 +66,9 @@ arguments as \code{stretch()}, but return vectors of the corresponding type.
 \item \code{stretch_dfr()} \code{stretch_dfc()} return data frames using row-binding & column-binding.
 }
 }
+\details{
+if \code{.fill != NULL}, it always returns the same length as input.
+}
 \examples{
 x <- 1:5
 stretch_dbl(x, mean, .step = 2)

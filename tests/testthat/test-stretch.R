@@ -41,6 +41,17 @@ test_that("stretcher() & pstretcher()", {
   )
 })
 
+test_that("stretch() always returns the same length as input", {
+  x1 <- stretch_dbl(1:10, mean, .step = 3, .init = 2)
+  expect_length(x1, 10)
+  x2 <- stretch_dbl(1:10, mean, .step = 2)
+  expect_length(x2, 10)
+  x3 <- stretch_dbl(1:10, mean, .step = 3)
+  expect_length(x3, 10)
+  x4 <- stretch_dbl(1:12, mean, .step = 3)
+  expect_length(x4, 12)
+})
+
 test_that("stretch() and its variants", {
   expect_equal(
     stretch_dbl(x, mean, .step = 2, .fill = NULL),

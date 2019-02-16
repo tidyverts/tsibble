@@ -7,7 +7,7 @@ The tsibble's data structure and API reach to the lifecycle of stability.
 * Following the changes in dplyr `v0.8.0` grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.
 * Grouped tsibble (`grouped_ts`) is a subclassing of `grouped_df`.
 * The argument `.size` is retired in `stretch()` in favour of `.step`.
-* `stretch()` gained a new `.fill = NA` argument, which returns the same length as the input (not always though). To restore the previous behaviour, please use `.fill = NULL`. (#88)
+* `stretch()` gained a new `.fill = NA` argument, which returns the same length as the input. To restore the previous behaviour, please use `.fill = NULL`. (#88)
 
 ## New features
 

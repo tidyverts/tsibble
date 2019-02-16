@@ -5,6 +5,11 @@ abort_stretch_size <- function(...) {
   }
 }
 
+nrow2 <- function(.x) {
+  if (is.data.frame(.x)) .x <- as.list(.x)
+  NROW(.x)
+}
+
 #' Stretching window calculation
 #'
 #' Fixing an initial window and expanding more observations:
@@ -24,6 +29,8 @@ abort_stretch_size <- function(...) {
 #' * [future_stretch] for stretching window in parallel
 #' * [slide] for sliding window with overlapping observations
 #' * [tile] for tiling window without overlapping observations
+#' @details
+#' if `.fill != NULL`, it always returns the same length as input.
 #'
 #' @examples
 #' x <- 1:5
@@ -36,7 +43,8 @@ stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   abort_stretch_size(...)
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   out <- map(lst_x, .f, ...)
-  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill,
+    expect_length = nrow2(.x))
 }
 
 #' @evalRd paste0('\\alias{stretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -118,7 +126,8 @@ stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
   abort_stretch_size(...)
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
   out <- map2(lst[[1]], lst[[2]], .f, ...)
-  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill,
+    expect_length = nrow2(recycle(list(.x, .y))[[1]]))
 }
 
 #' @evalRd paste0('\\alias{stretch2_', c("lgl", "chr", "dbl", "int"), '}')
@@ -164,7 +173,8 @@ pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
   lst <- pstretcher(!!! .l, .step = .step, .init = .init,
     .bind = .bind)
   out <- pmap(lst, .f, ...)
-  pad_stretch(out, .init = .init, .step = .step, .fill = .fill)
+  pad_stretch(out, .init = .init, .step = .step, .fill = .fill,
+    expect_length = nrow2(recycle(.l)[[1]]))
 }
 
 #' @evalRd paste0('\\alias{pstretch_', c("lgl", "chr", "dbl", "int"), '}')
@@ -281,7 +291,7 @@ incr <- function(.init, .step) {
   }
 }
 
-pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA) {
+pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA, expect_length) {
   if (is_null(.fill)) return(x)
 
   len_x <- length(x)
@@ -290,12 +300,18 @@ pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA) {
     c(rep(.fill, fill_size), x)
   } else {
     seq_x <- seq_len(len_x)
-    rep_idx <- rep.int(len_x + 1, len_x * fill_size)
-    null_idx <- matrix(rep_idx, nrow = fill_size)
+    rep_idx <- rep.int(len_x + 1, len_x * (.step - 1))
+    null_idx <- matrix(rep_idx, nrow = .step - 1)
     idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
-    idx <- idx[-((length(idx) - fill_size + 1):length(idx))]
     res <- x[idx]
-    res[!(idx %in% seq_x)] <- .fill
+    n_fill <- expect_length %/% abs(.step)
+    if (NCOL(null_idx) > n_fill) {
+      deduction <- ifelse(n_fill == 1, n_fill, n_fill - 1)
+      res <- res[seq_idx <- seq_len(length(res) - deduction)]
+      res[!(idx[seq_idx] %in% seq_x)] <- .fill
+    } else {
+      res[!(idx %in% seq_x)] <- .fill
+    }
     if (.init > 1) {
       c(rep(.fill, .init - 1), res)
     } else {
