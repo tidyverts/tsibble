@@ -229,12 +229,13 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   abs_size <- abs(.step)
   counter <- incr(.init = .init, .step = abs_size)
   if (sign(.step) < 0) .x <- rev(.x)
-  ncall <- seq_len(ceiling((len_x - .init) / abs_size) - 1)
-  incr_lst <- c(
-    list(seq_len(.init)),
-    map(ncall, ~ seq_len(counter())),
-    list(seq_len(len_x))
-  )
+  ncall <- seq_len(floor((len_x - .init) / abs_size))
+  incr_lst <- c(list(seq_len(.init)), map(ncall, ~ seq_len(counter())))
+  # incr_lst <- c(
+  #   list(seq_len(.init)),
+  #   map(ncall, ~ seq_len(counter())),
+  #   list(seq_len(len_x))
+  # )
   out <- map(incr_lst, function(idx) .x[idx])
   if (.bind) bind_lst(out) else out
 }
@@ -291,13 +292,14 @@ pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA) {
     seq_x <- seq_len(len_x)
     rep_idx <- rep.int(len_x + 1, len_x * fill_size)
     null_idx <- matrix(rep_idx, nrow = fill_size)
-    idx <- as.integer(rbind(null_idx, seq_x, deparse.level = 0))
+    idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
+    idx <- idx[-((length(idx) - fill_size + 1):length(idx))]
     res <- x[idx]
     res[!(idx %in% seq_x)] <- .fill
-    if ((.init - .step) > 0) {
-      c(rep(.fill, fill_size), res)
+    if (.init > 1) {
+      c(rep(.fill, .init - 1), res)
     } else {
-      res[-fill_size]
+      res
     }
   }
 }

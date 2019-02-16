@@ -16,7 +16,7 @@ test_that("stretcher() & pstretcher()", {
     list(list(x = x), list(x = x, y = y, z = z))
   )
   expect_equal(
-    stretcher(list(x, y), .step = 2),
+    stretcher(list(x, y), .step = 1),
     list(list(x), list(x, y))
   )
   expect_equal(
