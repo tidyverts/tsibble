@@ -40,6 +40,7 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' @param .bind If `.x` is a list, should `.x` be combined before applying `.f`?
 #' If `.x` is a list of data frames, row binding is carried out.
 #'
+#' @return if `.fill != NULL`, it always returns the same length as input.
 #' @rdname slide
 #' @export
 #' @family sliding window functions
@@ -82,7 +83,8 @@ slide <- function(
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .step = .step, .fill, .align)
+    pad_slide(out, .size, .step = .step, .fill, .align,
+      expect_length = nrow2(.x))
   }
 }
 
@@ -193,7 +195,8 @@ slide2 <- function(
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .step, .fill, .align)
+    pad_slide(out, .size, .step, .fill, .align,
+      expect_length = nrow2(recycle(list(.x, .y))[[1]]))
   }
 }
 
@@ -255,7 +258,8 @@ pslide <- function(
   if (.partial) {
     out
   } else {
-    pad_slide(out, .size, .step, .fill, .align)
+    pad_slide(out, .size, .step, .fill, .align,
+      expect_length = nrow2(recycle(.l)[[1]]))
   }
 }
 
@@ -489,7 +493,8 @@ recycle <- function(x) {
   x
 }
 
-pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right") {
+pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right",
+  expect_length) {
   .align <- match.arg(.align,
     c("right", "c", "center", "centre", "left",
       "cr", "center-right", "centre-right", 
@@ -502,60 +507,38 @@ pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right") {
   cr <- c("cr", "center-right", "centre-right")
 
   len_x <- length(x)
+  fill_size <- abs(.size) - 1
   if (.step == 1) {
-    fill_size <- abs(.size) - 1
     if (.align == "right") {
       c(rep(.fill, fill_size), x)
     } else if (.align == "left") {
       c(x, rep(.fill, fill_size))
+    } else if (.align %in% cl) {
+      lsize <- floor(fill_size / 2)
+      c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
     } else {
-      if (.align %in% cl) {
-        lsize <- floor(fill_size / 2)
-      } else {
-        lsize <- ceiling(fill_size / 2)
-      }
+      lsize <- ceiling(fill_size / 2)
       c(rep(.fill, lsize), x, rep(.fill, fill_size - lsize))
     }
   } else {
-    fill_size <- abs(.size) - .step
     seq_x <- seq_len(len_x)
     rep_idx <- rep.int(len_x + 1, len_x * (.step - 1))
     null_idx <- matrix(rep_idx, nrow = .step - 1)
+    idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
+    res <- x[idx]
+    res[!(idx %in% seq_x)] <- .fill
     if (.align == "right") {
-      idx <- as.integer(rbind(null_idx, seq_x, deparse.level = 0))
-      res <- x[idx]
-      res[!(idx %in% seq_x)] <- .fill
-      c(rep(.fill, fill_size), res)
+      res <- c(rep(.fill, fill_size), res)
     } else if (.align == "left") {
-      idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
-      res <- x[idx]
-      res[!(idx %in% seq_x)] <- .fill
-      c(res, rep(.fill, fill_size))
+      res <- c(res, rep(.fill, fill_size))
     } else if (.align %in% cl) {
       lsize <- floor(fill_size / 2)
-      idx <- 
-        as.integer(rbind(
-          null_idx[1:lsize, ],
-          seq_x, 
-          null_idx[ifelse(lsize == .step - 1, 0L, (lsize + 1):(.step - 1)), ], 
-          deparse.level = 0
-        ))
-      res <- x[idx]
-      res[!(idx %in% seq_x)] <- .fill
-      c(rep(.fill, lsize), res, rep(.fill, fill_size - lsize))
+      res <- c(rep(.fill, lsize), res, rep(.fill, fill_size - lsize))
     } else {
       lsize <- ceiling(fill_size / 2)
-      idx <- 
-        as.integer(rbind(
-          null_idx[1:lsize, ],
-          seq_x, 
-          null_idx[ifelse(lsize == .step - 1, 0L, (lsize + 1):(.step - 1)), ], 
-          deparse.level = 0
-        ))
-      res <- x[idx]
-      res[!(idx %in% seq_x)] <- .fill
-      c(rep(.fill, lsize - 1), res, rep(.fill, fill_size - lsize + 1))
+      res <- c(rep(.fill, lsize), res, rep(.fill, fill_size - lsize))
     }
+    res[seq_len(expect_length)]
   }
 }
 

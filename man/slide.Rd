@@ -65,6 +65,9 @@ variable will be created.
 
 Only applies to \code{_dfr} variant.}
 }
+\value{
+if \code{.fill != NULL}, it always returns the same length as input.
+}
 \description{
 Rolling window with overlapping observations:
 \itemize{

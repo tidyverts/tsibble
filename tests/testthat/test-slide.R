@@ -102,7 +102,7 @@ test_that("slide() and its variants", {
   )
   expect_equal(
     slide_dbl(x, mean, .size = 2, .step = 2),
-    c(NA, 1.5, NA, 3.5)
+    c(NA, 1.5, NA, 3.5, NA)
   )
   expect_equal(
     slide(lst, ~ ., .size = 2, .partial = TRUE),
@@ -209,23 +209,23 @@ test_that("recycle()", {
 
 test_that("pad_slide()", {
   expect_equal(
-    pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r")[1:4],
+    pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r", expect_length = 7)[1:4],
     c(rep(NA_real_, 3), 4)
   )
   expect_equal(
-    length(pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r")),
+    length(pad_slide(c(4, 7), .size = 4, .step = 3, .align = "r", expect_length = 7)),
     7
   )
   expect_equal(
-    pad_slide(c(4, 7), .size = 4, .step = 3, .align = "l")[4:7],
-    c(7, rep(NA_real_, 3))
+    pad_slide(c(1, 4), .size = 4, .step = 3, .align = "l", expect_length = 7)[4:7],
+    c(4, rep(NA_real_, 3))
   )
   expect_equal(
-    pad_slide(c(3, 6), .size = 6, .step = 3, .align = "cl")[1:3],
+    pad_slide(c(3, 6), .size = 6, .step = 3, .align = "cl", expect_length = 9)[1:3],
     c(rep(NA_real_, 2), 3)
   )
   expect_equal(
-    pad_slide(c(4, 7), .size = 6, .step = 3, .align = "cr")[1:4],
+    pad_slide(c(4, 7), .size = 6, .step = 3, .align = "cr", expect_length = 9)[1:4],
     c(rep(NA_real_, 3), 4)
   )
   expect_equal(

@@ -22,6 +22,7 @@ nrow2 <- function(.x) {
 #' @param .init A positive integer for an initial window size.
 #' @param .step A positive integer for incremental step.
 #'
+#' @return if `.fill != NULL`, it always returns the same length as input.
 #' @rdname stretch
 #' @export
 #' @family stretching window functions
@@ -29,8 +30,6 @@ nrow2 <- function(.x) {
 #' * [future_stretch] for stretching window in parallel
 #' * [slide] for sliding window with overlapping observations
 #' * [tile] for tiling window without overlapping observations
-#' @details
-#' if `.fill != NULL`, it always returns the same length as input.
 #'
 #' @examples
 #' x <- 1:5
@@ -304,19 +303,11 @@ pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA, expect_length) {
     null_idx <- matrix(rep_idx, nrow = .step - 1)
     idx <- as.integer(rbind(seq_x, null_idx, deparse.level = 0))
     res <- x[idx]
-    n_fill <- expect_length %/% abs(.step)
-    if (NCOL(null_idx) > n_fill) {
-      deduction <- ifelse(n_fill == 1, n_fill, n_fill - 1)
-      res <- res[seq_idx <- seq_len(length(res) - deduction)]
-      res[!(idx[seq_idx] %in% seq_x)] <- .fill
-    } else {
-      res[!(idx %in% seq_x)] <- .fill
-    }
+    res[!(idx %in% seq_x)] <- .fill
     if (.init > 1) {
-      c(rep(.fill, .init - 1), res)
-    } else {
-      res
+      res <- c(rep(.fill, .init - 1), res)
     }
+    res[seq_len(expect_length)]
   }
 }
 

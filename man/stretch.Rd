@@ -57,6 +57,9 @@ variable will be created.
 
 Only applies to \code{_dfr} variant.}
 }
+\value{
+if \code{.fill != NULL}, it always returns the same length as input.
+}
 \description{
 Fixing an initial window and expanding more observations:
 \itemize{
@@ -65,9 +68,6 @@ Fixing an initial window and expanding more observations:
 arguments as \code{stretch()}, but return vectors of the corresponding type.
 \item \code{stretch_dfr()} \code{stretch_dfc()} return data frames using row-binding & column-binding.
 }
-}
-\details{
-if \code{.fill != NULL}, it always returns the same length as input.
 }
 \examples{
 x <- 1:5
