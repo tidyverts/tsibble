@@ -109,6 +109,10 @@ test_that("slide() and its variants", {
     c(NA, purrr::map_dbl(slider(x, 2), mean))
   )
   expect_equal(
+    slide_dbl(x, mean, .size = 2),
+    rev(slide_dbl(x, mean, .size = -2))
+  )
+  expect_equal(
     slide_dbl(x, mean, .size = 2, .step = 2),
     c(NA, 1.5, NA, 3.5, NA)
   )

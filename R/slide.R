@@ -371,7 +371,7 @@ partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
   .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
   .x <- pad_slide(.x, .size = .size, .step = 1L, .fill = .fill,
-    .align = .align, expect_length = NROW(x) + abs(.size) - 1L)
+    .align = .align, expect_length = NROW(x) + abs(.size) - 1L, .partial = TRUE)
   slider(.x, .size = .size, .step = .step, .bind = .bind)
 }
 
@@ -487,7 +487,7 @@ recycle <- function(x) {
 }
 
 pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right",
-  expect_length = NULL) {
+  expect_length = NULL, .partial = FALSE) {
   .align <- match.arg(.align,
     c("right", "c", "center", "centre", "left",
       "cr", "center-right", "centre-right", 
@@ -498,6 +498,17 @@ pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right",
   if (is_null(.fill)) return(x) 
   cl <- c("c", "center", "centre", "cl", "center-left", "centre-left")
   cr <- c("cr", "center-right", "centre-right")
+  if (!.partial && .size < 0) {
+    if (.align == "right") {
+      .align <- "left"
+    } else if (.align == "left") {
+      .align <- "right"
+    } else if (.align %in% cl) {
+      .align <- cr
+    } else {
+      .align <- cl
+    }
+  }
 
   len_x <- length(x)
   fill_size <- abs(.size) - 1
