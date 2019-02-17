@@ -341,8 +341,11 @@ slider <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
     abort(sprintf(slider_msg(), abs_size, len_x))
   }
   sign <- sign(.size)
-  lst_idx <- seq.int(1L, len_x - abs_size + 1, by = .step)
-  if (sign < 0) lst_idx <- rev(lst_idx) + 1
+  if (sign > 0) {
+    lst_idx <- seq.int(1L, len_x - abs_size + 1, by = .step)
+  } else {
+    lst_idx <- seq.int(len_x, abs_size, by = sign * .step)
+  }
   out <- map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
   if (.bind) bind_lst(out) else out
 }
@@ -367,20 +370,9 @@ pslider <- function(..., .size = 1, .step = 1, .bind = FALSE) {
 partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
   .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
-  .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
-  len_x <- NROW(.x)
-  abs_size <- abs(.size)
-
-  .y <- pad_slide(.x, .size = .size, .step = 1L, .fill = .fill,
-    .align = .align, expect_length = len_x + abs_size - 1L)
-  if (abs_size > len_x) {
-    abort(sprintf(slider_msg(), abs_size, len_x))
-  }
-  sign <- sign(.size)
-  lst_idx <- seq.int(1L, len_x, by = .step)
-  if (sign < 0) lst_idx <- rev(lst_idx) + abs_size - 1
-  out <- map(lst_idx, function(idx) .y[idx:(idx + sign * (abs_size - 1))])
-  if (.bind) bind_lst(out) else out
+  .x <- pad_slide(.x, .size = .size, .step = 1L, .fill = .fill,
+    .align = .align, expect_length = NROW(x) + abs(.size) - 1L)
+  slider(.x, .size = .size, .step = .step, .bind = .bind)
 }
 
 #' @rdname partial-slider
