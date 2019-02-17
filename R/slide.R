@@ -371,7 +371,8 @@ partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
   .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
   .x <- pad_slide(.x, .size = .size, .step = 1L, .fill = .fill,
-    .align = .align, expect_length = NROW(x) + abs(.size) - 1L, .partial = TRUE)
+    .align = .align, expect_length = NROW(.x) + abs(.size) - 1L,
+    .partial = TRUE)
   slider(.x, .size = .size, .step = .step, .bind = .bind)
 }
 
