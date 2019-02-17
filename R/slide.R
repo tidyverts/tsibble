@@ -76,16 +76,12 @@ slide <- function(
       .x, .size = .size, .step = .step, .fill = .fill,
       .align = .align, .bind = .bind
     )
+    .size <- 1L
   } else {
     lst_x <- slider(.x, .size = .size, .step = .step, .bind = .bind)
   }
   out <- map(lst_x, .f, ...)
-  if (.partial) {
-    out
-  } else {
-    pad_slide(out, .size, .step = .step, .fill, .align,
-      expect_length = nrow2(.x))
-  }
+  pad_slide(out, .size, .step = .step, .fill, .align, expect_length = nrow2(.x))
 }
 
 #' @evalRd paste0('\\alias{slide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -188,16 +184,13 @@ slide2 <- function(
       .x, .y, .size = .size, .step = .step, .fill = .fill,
       .align = .align, .bind = .bind
     )
+    .size <- 1L
   } else {
     lst <- pslider(.x, .y, .size = .size, .step = .step, .bind = .bind)
   }
   out <- map2(lst[[1]], lst[[2]], .f = .f, ...)
-  if (.partial) {
-    out
-  } else {
-    pad_slide(out, .size, .step, .fill, .align,
-      expect_length = nrow2(recycle(list(.x, .y))[[1]]))
-  }
+  pad_slide(out, .size, .step, .fill, .align,
+    expect_length = nrow2(recycle(list(.x, .y))[[1]]))
 }
 
 #' @evalRd paste0('\\alias{slide2_', c("lgl", "chr", "int", "dbl"), '}')
@@ -251,16 +244,13 @@ pslide <- function(
       !!! .l, .size = .size, .step = .step, .fill = .fill,
       .align = .align, .bind = .bind
     )
+    .size <- 1L
   } else {
     lst <- pslider(!!! .l, .size = .size, .step = .step, .bind = .bind)
   }
   out <- pmap(lst, .f, ...)
-  if (.partial) {
-    out
-  } else {
-    pad_slide(out, .size, .step, .fill, .align,
-      expect_length = nrow2(recycle(.l)[[1]]))
-  }
+  pad_slide(out, .size, .step, .fill, .align,
+    expect_length = nrow2(recycle(.l)[[1]]))
 }
 
 #' @evalRd paste0('\\alias{pslide_', c("lgl", "chr", "int", "dbl"), '}')
@@ -378,9 +368,11 @@ partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
   .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
   .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
-  .y <- pad_slide(.x, .size = .size, .fill = .fill, .align = .align)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
+
+  .y <- pad_slide(.x, .size = .size, .step = 1L, .fill = .fill,
+    .align = .align, expect_length = len_x + abs_size - 1L)
   if (abs_size > len_x) {
     abort(sprintf(slider_msg(), abs_size, len_x))
   }
