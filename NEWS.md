@@ -1,3 +1,9 @@
+# tsibble 0.7.0.9000
+
+## Bug fixes
+
+* Fixed bugs in `as_tsibble.ts()` for monthly series that not start at January. (#89)
+
 # tsibble 0.7.0
 
 The tsibble's data structure and API reach to the lifecycle of stability.

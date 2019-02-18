@@ -70,7 +70,7 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((as_date(x) - as_date("1969-12-29")) / 7, 
+  out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
     lag = lag, differences = differences)
   structure(out, class = "difftime", units = "weeks")
 }
@@ -224,7 +224,7 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x), 
+  out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x),
     lag = lag, differences = differences)
   structure(out, class = "difftime", units = "month")
 }
@@ -291,7 +291,7 @@ yearmonth.yearmonth <- function(x) {
 #' @export
 yearmonth.numeric <- function(x) {
   year <- trunc(x)
-  month <- formatC((x %% 1) * 12 + 1, flag = 0, width = 2)
+  month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
   result <- lubridate::make_date(year, month, 1)
   as_yearmonth(result)
 }

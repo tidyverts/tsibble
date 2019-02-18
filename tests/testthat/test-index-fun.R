@@ -96,3 +96,11 @@ test_that("character", {
   expect_equal(format(yearmonth("201801")), "2018 Jan")
   expect_equal(format(yearquarter(as.character(xx))), "2018 Q1")
 })
+
+test_that("yearmonth() #89", {
+  expect_false(
+    anyNA(yearmonth(as.numeric(time(
+      ts(rnorm(139), frequency = 12, start = c(1978, 2))
+    ))))
+  )
+})
