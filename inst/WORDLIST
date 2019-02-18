@@ -15,6 +15,7 @@ ggplot
 Github
 integerOneIndex
 JFK
+lifecycle
 lst
 lubridate
 nanotime
@@ -47,6 +48,7 @@ Tidyverse
 tidyverts
 timeDate
 ts
+tsibble's
 tsibbles
 TZ
 unnested

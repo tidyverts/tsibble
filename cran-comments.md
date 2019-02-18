@@ -1,15 +1,14 @@
-This submission fixes issues when system time zone is set to "Europe/London".
+This release is to be compatible with dplyr v0.8.0.
 
 ## Test environments
 
-* local OS X install, R 3.5.1
+* local OS X install, R 3.5.2
 * ubuntu 16.04 (on travis-ci), R oldrel, release, devel
 * win-builder (devel)
-* fedora (on rhub)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 note
 
 ## Reverse dependencies
 
