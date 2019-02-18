@@ -305,14 +305,15 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
     build_tsibble(
       grped_tbl, key = key(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
-      ordered = is_ordered(.data), interval = interval(.data),
+      ordered = is_ordered(.data), interval = NULL,
       validate = FALSE
     )
   } else {
-    build_tsibble_meta(
+    build_tsibble(
       grped_tbl, key = key_data(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
-      ordered = is_ordered(.data), interval = interval(.data)
+      ordered = is_ordered(.data), interval = NULL,
+      validate = FALSE
     )
   }
 }
