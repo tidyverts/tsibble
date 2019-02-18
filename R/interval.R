@@ -215,13 +215,16 @@ time_to_date <- function(x, ...) {
 time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- as.numeric(stats::time(x))
+  if (freq == 52) {
+    warn("Expected frequency of weekly data: 365.25 / 7 (\U2248 52.18), not  52.")
+  }
   if (freq == 7) { # daily
     start_year <- trunc(time_x[1])
     as.Date(lubridate::round_date(
       lubridate::date_decimal(start_year + (time_x - start_year) * 7 / 365),
       unit = "day"
     ))
-  } else if (freq == 52) { # weekly
+  } else if (round(freq, 2) ==  52.18) { # weekly
     yearweek(lubridate::date_decimal(time_x))
   } else if (freq > 4 && freq <= 12) { # monthly
     yearmonth(time_x)

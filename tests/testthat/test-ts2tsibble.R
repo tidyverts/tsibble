@@ -19,8 +19,10 @@ test_that("a ts with different frequnecy", {
   tsbl5 <- as_tsibble(x5)
   expect_identical(format(interval(tsbl5)), "1D")
   x6 <- ts(1:10, start = c(2000, 1), frequency = 52)
-  tsbl6 <- as_tsibble(x6)
-  expect_identical(format(interval(tsbl6)), "1W")
+  expect_warning(tsbl6 <- as_tsibble(x6), "Expected frequency")
+  x7 <- ts(1:10, start = c(2000, 1), frequency = 52.18)
+  tsbl7 <- as_tsibble(x7)
+  expect_identical(format(interval(tsbl7)), "1W")
 })
 
 test_that("a mts", {
