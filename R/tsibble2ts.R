@@ -144,7 +144,7 @@ guess_frequency.numeric <- function(x) {
 
 #' @export
 guess_frequency.yearweek <- function(x) {
-  52 / pull_interval(x)$week
+  round(365.25 / 7 / pull_interval(x)$week, 2)
 }
 
 #' @export

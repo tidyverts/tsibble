@@ -3,6 +3,7 @@
 ## Bug fixes
 
 * Fixed bugs in `as_tsibble.ts()` for monthly series that not start at January. (#89)
+* `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 
 # tsibble 0.7.0
 
