@@ -259,17 +259,15 @@ summarise.tbl_ts <- function(.data, ...) {
       !!! grps[-((len_grps - 1):len_grps)] # remove index2 and last grp
     )
   if (identical(idx, idx2)) {
-    int <- interval(.data)
     reg <- is_regular(.data)
   } else {
-    int <- NULL
     reg <- TRUE
   }
   grps <- syms(setdiff(group_vars(.data), as_string(idx2)))
 
   build_tsibble(
     sum_data, key = grps, index = !! idx2, regular = reg, ordered = TRUE, 
-    interval = int, validate = FALSE
+    interval = NULL, validate = FALSE
   )
 }
 
@@ -297,7 +295,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
   key_vars <- key_vars(.data)
   if (all(is.element(key_vars, grp_vars)) && 
     has_length(key_vars, length(grp_vars))) {
-    return(group_by_key(.data))
+    return(group_by_key(.data, .drop = .drop))
   }
 
   grped_tbl <- NextMethod()
@@ -344,10 +342,11 @@ group_by_key <- function(.data, ..., .drop = FALSE) {
     )
   } else {
     grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data))
-    build_tsibble_meta(
+    build_tsibble(
       grped_tbl, key = key_data(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
-      ordered = is_ordered(.data), interval = interval(.data)
+      ordered = is_ordered(.data), interval = interval(.data),
+      validate = FALSE
     )
   }
 }
