@@ -286,7 +286,7 @@ dplyr::group_by
 #' @inheritParams dplyr::group_by
 #' @rdname tidyverse
 #' @export
-group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
+group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = TRUE) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) {
@@ -325,7 +325,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE, .drop = FALSE) {
 #' @examples
 #' tourism %>%
 #'   group_by_key()
-group_by_key <- function(.data, ..., .drop = FALSE) {
+group_by_key <- function(.data, ..., .drop = TRUE) {
   is_idx_idx2 <- identical(index_var(.data), index2_var(.data))
   if (is_empty(key_vars(.data)) && is_idx_idx2) {
     .data

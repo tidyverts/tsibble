@@ -4,7 +4,7 @@
 \alias{group_by_key}
 \title{Group by key variables}
 \usage{
-group_by_key(.data, ..., .drop = FALSE)
+group_by_key(.data, ..., .drop = TRUE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts} object.}

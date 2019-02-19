@@ -82,7 +82,7 @@ index_by.tbl_ts <- function(.data, ...) {
   tbl <- 
     group_by(
       mutate(ungroup(.data), !!! exprs),
-      !!! groups(.data), !! idx2
+      !!! groups(.data), !! idx2, .drop = FALSE
     )
   build_tsibble(
     tbl, key = key_data(.data), index = !! idx, index2 = !! idx2,

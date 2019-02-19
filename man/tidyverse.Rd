@@ -58,7 +58,7 @@
 
 \method{summarize}{tbl_ts}(.data, ...)
 
-\method{group_by}{tbl_ts}(.data, ..., add = FALSE, .drop = FALSE)
+\method{group_by}{tbl_ts}(.data, ..., add = FALSE, .drop = TRUE)
 
 \method{ungroup}{grouped_ts}(x, ...)
 
