@@ -25,6 +25,7 @@
 \alias{semi_join}
 \alias{anti_join}
 \alias{\%>\%}
+\alias{vars}
 \alias{groups}
 \alias{group_vars}
 \alias{group_data}
@@ -50,7 +51,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_split}}, \code{\link[dplyr]{group_trim}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{transmute}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{left_join}}, \code{\link[dplyr]{right_join}}, \code{\link[dplyr]{inner_join}}, \code{\link[dplyr]{full_join}}, \code{\link[dplyr]{semi_join}}, \code{\link[dplyr]{anti_join}}, \code{\link[dplyr]{\%>\%}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr]{group_keys}}, \code{\link[dplyr]{group_rows}}}
+  \item{dplyr}{\code{\link[dplyr]{group_split}}, \code{\link[dplyr]{group_trim}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{transmute}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr]{summarize}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{ungroup}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{left_join}}, \code{\link[dplyr]{right_join}}, \code{\link[dplyr]{inner_join}}, \code{\link[dplyr]{full_join}}, \code{\link[dplyr]{semi_join}}, \code{\link[dplyr]{anti_join}}, \code{\link[dplyr]{\%>\%}}, \code{\link[dplyr]{vars}}, \code{\link[dplyr]{groups}}, \code{\link[dplyr]{group_vars}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr]{group_keys}}, \code{\link[dplyr]{group_rows}}}
 
   \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 
