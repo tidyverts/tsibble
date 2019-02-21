@@ -6,6 +6,14 @@ dplyr::`%>%`
 #' @export
 dplyr::vars
 
+#' @importFrom dplyr lead
+#' @export
+dplyr::lead
+
+#' @importFrom dplyr lag
+#' @export
+dplyr::lag
+
 #' @importFrom dplyr groups
 #' @export
 dplyr::groups
