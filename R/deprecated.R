@@ -13,7 +13,7 @@ as.tsibble <- function(x, ...) {
 #' @keywords internal
 #' @include gaps.R
 fill_na <- function(.data, ..., .full = FALSE) {
-  .Deprecated("fill_na()")
+  .Deprecated("fill_gaps()")
   fill_gaps(.data, ..., .full = .full)
 }
 
