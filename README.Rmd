@@ -19,7 +19,7 @@ output:
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE, comment = "#>", fig.path = "man/figure/"
+  collapse = TRUE, comment = "#>", fig.path = "man/figures/"
 )
 options(tibble.print_min = 5)
 ```
