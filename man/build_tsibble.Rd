@@ -42,6 +42,6 @@ determine if the time needs ordering and the interval needs calculating.
 # Prepare `pedestrian` to use a new index `Date` ----
 pedestrian \%>\%
   build_tsibble(
-    key = key(.), index = !! index(.), index2 = Date, interval = interval(.)
+    key = key(.), index = index(.), index2 = Date, interval = interval(.)
   )
 }

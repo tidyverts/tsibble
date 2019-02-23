@@ -147,24 +147,23 @@ as_tsibble.NULL <- function(x, ...) {
 #' @param x A tsibble.
 #' @inheritParams as_tsibble
 #' @details
-#' Default `NULL` inherits attributes from `x`.
+#' Unspecified arguments will inherit the attributes from `x`.
 #' @export
 #' @examples
 #' pedestrian %>% 
 #'   group_by_key() %>% 
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 
 #'   update_tsibble(index = Hour_Since)
-update_tsibble <- function(x, key = NULL, index = NULL, regular = NULL, 
-  validate = TRUE) {
+update_tsibble <- function(x, key, index, regular, validate = TRUE) {
   key <- enquo(key)
-  if (quo_is_null(key)) {
+  if (quo_is_missing(key)) {
     key <- key_data(x)
   }
   idx <- enquo(index)
-  if (quo_is_null(idx)) {
+  if (quo_is_missing(idx)) {
     idx <- x %@% "index"
   }
-  if (is_null(regular)) {
+  if (is_missing(regular)) {
     regular <- is_regular(x)
   }
 
@@ -345,7 +344,7 @@ is.grouped_ts <- is_grouped_ts
 #' # Prepare `pedestrian` to use a new index `Date` ----
 #' pedestrian %>%
 #'   build_tsibble(
-#'     key = key(.), index = !! index(.), index2 = Date, interval = interval(.)
+#'     key = key(.), index = index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
   x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL,
@@ -368,7 +367,7 @@ build_tsibble <- function(
 
   # extract or pass the index var
   qindex <- enquo(index)
-  index <- validate_index(tbl, qindex)
+  index <- validate_index(tbl, !! qindex)
   # if index2 not specified
   index2 <- enquo(index2)
   if (quo_is_missing(index2)) {
@@ -376,7 +375,7 @@ build_tsibble <- function(
   } else if (identical(qindex, index2)) {
     index2 <- get_expr(index2)
   } else {
-    index2 <- validate_index(tbl, index2)
+    index2 <- validate_index(tbl, !! index2)
   }
   # (1) validate and process key vars (from expr to a list of syms)
   key_vars <- validate_key(tbl, key_sym)
@@ -508,16 +507,22 @@ id <- function(...) {
 ## objects, it would fail when tsibble contain multiple time objects.
 validate_index <- function(data, index) {
   val_idx <- map_lgl(data, index_valid)
+  index <- enquo(index)
   if (quo_is_null(index)) {
     abort("Argument `index` must not be `NULL`.")
-  }
-  if (quo_is_missing(index)) {
+  } else if (quo_is_missing(index)) {
     if (sum(val_idx, na.rm = TRUE) != 1) {
       abort("Can't determine index and please specify argument `index`.")
     }
     chr_index <- names(data)[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("Using `%s` as index variable.", chr_index))
+  } else if (quo_is_call(index)) {
+    call_fn <- call_name(index)
+    if (call_fn == "index") {
+      index <- eval_tidy(index)
+      chr_index <- tidyselect::vars_pull(names(data), !! index)
+    }
   } else {
     chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
@@ -672,7 +677,7 @@ use_id <- function(x, key) {
 #' duplicates(harvest, key = id(fruit), index = year)
 is_duplicated <- function(data, key = id(), index) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, enquo(index))
+  index <- validate_index(data, !! enquo(index))
 
   duplicated_key_index(data, key = key, index = index)
 }
@@ -684,7 +689,7 @@ is_duplicated <- function(data, key = id(), index) {
 #' @export
 are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, enquo(index))
+  index <- validate_index(data, !! enquo(index))
 
   res <- 
     mutate(
@@ -698,7 +703,7 @@ are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
 #' @export
 duplicates <- function(data, key = id(), index) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, enquo(index))
+  index <- validate_index(data, !! enquo(index))
 
   ungroup(
     filter(
