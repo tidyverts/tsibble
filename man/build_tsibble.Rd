@@ -5,7 +5,7 @@
 \title{Low-level constructor for a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, ordered = NULL, regular = TRUE,
-  interval = NULL, validate = TRUE)
+  interval = NULL, validate = TRUE, .drop = TRUE)
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
@@ -32,6 +32,8 @@ interval is determined by the greatest common divisor of index column, if \code{
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
+
+\item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 }
 \description{
 \code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful

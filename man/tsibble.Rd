@@ -4,7 +4,7 @@
 \alias{tsibble}
 \title{Create a tsibble object}
 \usage{
-tsibble(..., key = id(), index, regular = TRUE)
+tsibble(..., key = id(), index, regular = TRUE, .drop = TRUE)
 }
 \arguments{
 \item{...}{A set of name-value pairs. The names of "key" and "index" should
@@ -18,6 +18,8 @@ simply call \code{id()}.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
 interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
+
+\item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 }
 \value{
 A tsibble object.

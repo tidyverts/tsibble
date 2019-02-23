@@ -8,6 +8,7 @@
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
+#' @param .drop If `TRUE`, empty key groups are dropped.
 #'
 #' @inheritSection tsibble-package Index
 #'
@@ -36,14 +37,15 @@
 #' )
 #'
 #' @export
-tsibble <- function(..., key = id(), index, regular = TRUE) {
+tsibble <- function(..., key = id(), index, regular = TRUE, .drop = TRUE) {
   dots <- list2(...)
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
   }
   tbl <- tibble(!!! dots)
   index <- enquo(index)
-  build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular)
+  build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular,
+    .drop = .drop)
 }
 
 #' Coerce to a tsibble object
@@ -87,12 +89,12 @@ as_tsibble <- function(x, ...) {
 #' @rdname as-tsibble
 #' @export
 as_tsibble.tbl_df <- function(
-  x, key = id(), index, regular = TRUE, validate = TRUE, ...
+  x, key = id(), index, regular = TRUE, validate = TRUE, .drop = TRUE, ...
 ) {
   index <- enquo(index)
   build_tsibble(
     x, key = !! enquo(key), index = !! index, regular = regular,
-    validate = validate
+    validate = validate, .drop = .drop
   )
 }
 
@@ -117,12 +119,12 @@ as_tsibble.list <- as_tsibble.tbl_df
 #' @keywords internal
 #' @export
 as_tsibble.grouped_df <- function(
-  x, key = id(), index, regular = TRUE, validate = TRUE, ...
+  x, key = id(), index, regular = TRUE, validate = TRUE, .drop = TRUE, ...
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = !! enquo(key), index = !! index,
-    regular = regular, validate = validate
+    x, key = !! enquo(key), index = !! index, regular = regular, 
+    validate = validate, .drop = .drop
   )
 }
 
@@ -154,10 +156,10 @@ as_tsibble.NULL <- function(x, ...) {
 #'   group_by_key() %>% 
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 
 #'   update_tsibble(index = Hour_Since)
-update_tsibble <- function(x, key, index, regular, validate = TRUE) {
+update_tsibble <- function(x, key, index, regular, validate = TRUE, .drop) {
   key <- enquo(key)
   if (quo_is_missing(key)) {
-    key <- key_data(x)
+    key <- key(x)
   }
   idx <- enquo(index)
   if (quo_is_missing(idx)) {
@@ -166,17 +168,20 @@ update_tsibble <- function(x, key, index, regular, validate = TRUE) {
   if (is_missing(regular)) {
     regular <- is_regular(x)
   }
+  if (is_missing(.drop)) {
+    .drop <- key_drops(x)
+  }
 
   is_idx_idx2 <- identical(x %@% "index", index2(x))
   if (is_idx_idx2) {
     build_tsibble(
       as_grouped_df(x), key = !! key, index = !! idx,
-      regular = regular, validate = validate
+      regular = regular, validate = validate, .drop = .drop
     )
   } else {
     build_tsibble(
       as_grouped_df(x), key = !! key, index = !! idx, index2 = !! index2(x),
-      regular = regular, validate = validate
+      regular = regular, validate = validate, .drop = .drop
     )
   }
 }
@@ -210,7 +215,7 @@ measured_vars <- function(x) {
 
 #' @export
 measured_vars.tbl_ts <- function(x) {
-  all_vars <- dplyr::tbl_vars(x)
+  all_vars <- names(x)
   key_vars <- key_vars(x)
   idx_var <- index_var(x)
   setdiff(all_vars, c(key_vars, idx_var))
@@ -348,7 +353,7 @@ is.grouped_ts <- is_grouped_ts
 #'   )
 build_tsibble <- function(
   x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL,
-  validate = TRUE
+  validate = TRUE, .drop = TRUE
 ) {
   # if key is quosures
   key_sym <- use_id(x, !! enquo(key))
@@ -401,7 +406,7 @@ build_tsibble <- function(
   # validate tbl_ts
   if (!is_key_data) {
     key_vars <- unname(key_vars)
-    key_data <- group_data(group_by(tbl, !!! key_vars))
+    key_data <- group_data(group_by(tbl, !!! key_vars, .drop = .drop))
   }
   if (validate) {
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)

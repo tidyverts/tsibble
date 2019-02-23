@@ -93,6 +93,10 @@ rename_key <- function(.data, .vars) {
   .data
 }
 
+key_drops <- function(x) {
+  !is_tsibble(x) || !identical(key_data(x) %@% ".drop", FALSE)
+}
+
 rename_group <- function(.data, .vars) {
   names <- names(.vars)
   old_grp_chr <- group_vars(.data)

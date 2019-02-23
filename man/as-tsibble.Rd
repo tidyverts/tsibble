@@ -13,13 +13,13 @@
 as_tsibble(x, ...)
 
 \method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, ...)
+  validate = TRUE, .drop = TRUE, ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, ...)
+  validate = TRUE, .drop = TRUE, ...)
 
 \method{as_tsibble}{list}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, ...)
+  validate = TRUE, .drop = TRUE, ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
@@ -42,6 +42,8 @@ interval is determined by the greatest common divisor of index column, if \code{
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
+
+\item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
 daily.}
