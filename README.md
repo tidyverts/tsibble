@@ -66,7 +66,7 @@ weather_tsbl
 
 The **key** is comprised of one or more variables. See `package?tsibble`
 and
-[`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html)
+[`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html)
 for details.
 
 *Tsibble* internally computes the interval for given time indices based
@@ -108,7 +108,7 @@ full_weather
 `fill_gaps()` also handles filling in time gaps by values or functions,
 and respects time zones for date-times. Wanna a quick overview of
 implicit missing values? Check out
-[`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
+[`vignette("implicit-na")`](http://tsibble.tidyverts.org/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -182,7 +182,7 @@ full_weather %>%
 
 Looking for rolling in parallel? Their multiprocessing equivalents are
 prefixed with `future_`. More examples can be found at
-[`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
+[`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
 
 ## More around tsibble
 
