@@ -55,7 +55,7 @@ weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
 weather_tsbl
 ```
 
-The **key** is comprised of one or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://pkg.earo.me/tsibble/articles/intro-tsibble.html) for details.
+The **key** is comprised of one or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html) for details.
 
 *Tsibble* internally computes the interval for given time indices based on the time representation, ranging from year to nanosecond, from numerics to ordered factors. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth` to monthly, `yearquarter` to quarterly, and etc.
 
@@ -71,7 +71,7 @@ full_weather <- weather_tsbl %>%
 full_weather
 ```
 
-`fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://pkg.earo.me/tsibble/articles/implicit-na.html).
+`fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://tsibble.tidyverts.org/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -105,7 +105,7 @@ full_weather %>%
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
-Looking for rolling in parallel? Their multiprocessing equivalents are prefixed with `future_`. More examples can be found at [`vignette("window")`](https://pkg.earo.me/tsibble/articles/window.html).
+Looking for rolling in parallel? Their multiprocessing equivalents are prefixed with `future_`. More examples can be found at [`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
 
 ## More around tsibble
 
