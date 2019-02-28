@@ -193,7 +193,7 @@ mutate.tbl_ts <- function(.data, ...) {
     mut_data, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = NULL, # index gets overwritten
-    validate = FALSE
+    validate = FALSE, .drop = key_group_drops(.data)
   )
 }
 

@@ -107,3 +107,17 @@ rename_group <- function(.data, .vars) {
   names(attr(.data, "groups")) <- c(new_grp_chr, ".rows")
   .data
 }
+
+#' @importFrom dplyr is_grouped_df
+group_drops2 <- function(x) { # will be removed when dplyr exports group_drops()
+  !is_grouped_df(x) || is_null(attr(x, "groups")) || 
+    !identical(attr(group_data(x), ".drop"), FALSE)
+}
+
+key_group_drops <- function(x) {
+  if (!is_grouped_ts(x)) {
+    key_drops(x)
+  } else {
+    group_drops2(x)
+  }
+}
