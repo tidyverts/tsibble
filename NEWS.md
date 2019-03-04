@@ -5,6 +5,10 @@
 * Fixed bugs in `as_tsibble.ts()` for monthly series that not start at January. (#89)
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 
+## Misc
+
+* Added "Tasmania" to `data(tourism)` and 2017 data.
+
 # tsibble 0.7.0
 
 The tsibble's data structure and API reach to the lifecycle of stability.
