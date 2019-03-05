@@ -396,11 +396,12 @@ build_tsibble <- function(
     ordered <- TRUE
   } else if (is_false(ordered)) { # false returns a warning
     msg_header <- "Unexpected temporal ordering. Please sort by %s."
-    idx_txt <- expr_text(index)
+    idx_txt <- expr_label(index)
     if (is_empty(key)) {
       warn(sprintf(msg_header, idx_txt))
     } else {
-      warn(sprintf(msg_header, paste_comma(c(key_vars, idx_txt))))
+      key_txt <- map(key_vars, expr_label)
+      warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt))))
     }
   } # true do nothing
   # validate tbl_ts

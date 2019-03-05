@@ -114,10 +114,12 @@ group_drops2 <- function(x) { # will be removed when dplyr exports group_drops()
     !identical(attr(group_data(x), ".drop"), FALSE)
 }
 
-key_group_drops <- function(x) {
+is_key_dropped <- function(x) {
   if (!is_grouped_ts(x)) {
     key_drops(x)
   } else {
-    group_drops2(x)
+    key_vars <- key_vars(x)
+    grp_vars <- group_vars(x)
+    group_drops2(x) && any(is.element(key_vars, grp_vars))
   }
 }

@@ -153,7 +153,7 @@ symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
 \item{na.rm}{If \code{TRUE}, will remove rows from output where the
-value column in \code{NA}.}
+value column is \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
@@ -203,7 +203,8 @@ likely to be issued.
 be issued.
 \item \code{select()}: keeps the variables you mention as well as the index.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
-\item \code{summarise()} reduces a sequence of values over time instead of a single summary.
+\item \code{summarise()} reduces a sequence of values over time instead of a single summary,
+as well as dropping empty keys/groups.
 \item \code{unnest()} requires argument \code{key = id()} to get back to a tsibble.
 }
 }

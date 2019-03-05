@@ -10,7 +10,8 @@ dplyr::arrange
 #' be issued.
 #' * `select()`: keeps the variables you mention as well as the index.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
-#' * `summarise()` reduces a sequence of values over time instead of a single summary.
+#' * `summarise()` reduces a sequence of values over time instead of a single summary,
+#' as well as dropping empty keys/groups.
 #' * `unnest()` requires argument `key = id()` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
@@ -193,7 +194,7 @@ mutate.tbl_ts <- function(.data, ...) {
     mut_data, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = NULL, # index gets overwritten
-    validate = FALSE, .drop = key_group_drops(.data)
+    validate = FALSE, .drop = is_key_dropped(.data)
   )
 }
 
