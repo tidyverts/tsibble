@@ -105,7 +105,7 @@ as_tsibble.data.frame <- as_tsibble.tbl_df
 #' @keywords internal
 #' @export
 as_tsibble.tbl_ts <- function(x, ...) {
-  x
+  update_tsibble(x, ...)
 }
 
 #' @keywords internal
