@@ -18,20 +18,21 @@ pedestrian <- as_tsibble(
 usethis::use_data(pedestrian, overwrite = TRUE, compress = "xz")
 
 # Australia: Domestic Overnight Trips ('000) ----
-domestic_trips <- readxl::read_excel(
-  "data-raw/domestic-trips.xlsx", skip = 12,
+domestic_trips <- read_csv(
+  "data-raw/domestic-trips.csv", skip = 11,
   col_names = c("Quarter", "Region", "Holiday", "Visiting", "Business", "Other"),
-  n_max = 6384
+  n_max = 6804
 )
 
 # fill NA in "Quarter" using the last obs
 fill_na <- domestic_trips %>%
-  fill(Quarter, .direction = "down")
+  fill(Quarter, .direction = "down") %>% 
+  filter(Quarter != "Total")
 
 # separate State from "Region"
 state <- c(
   "New South Wales", "Victoria", "Queensland", "South Australia",
-  "Western Australia", "Northern Territory", "ACT"
+  "Western Australia", "Tasmania", "Northern Territory", "ACT"
 )
 state_na <- fill_na %>%
   mutate(State = if_else(Region %in% state, Region, NA_character_)) %>%
@@ -44,8 +45,10 @@ long_data <- state_na %>%
 
 # maniputate Quarter
 qtr_data <- long_data %>%
-  mutate(Quarter = paste(gsub(" quarter", "", Quarter), "01")) %>%
-  mutate(Quarter = yearquarter(myd(Quarter)))
+  mutate(
+    Quarter = paste(gsub(" quarter", "", Quarter), "01"),
+    Quarter = yearquarter(myd(Quarter))
+  )
 
 # convert to tsibble
 tourism <- qtr_data %>%

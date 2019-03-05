@@ -24,7 +24,7 @@ test_that("spread()", {
   out3 <- tourism %>%
     spread(key = State, value = Trips)
   expect_equal(key_vars(out3), c("Region", "Purpose"))
-  expect_equal(ncol(out3), 10)
+  expect_equal(ncol(out3), 8 + 3)
   expect_error(tsbl %>% spread(qtr, value = value), "can't be spread.")
   out4 <- tourism %>%
     group_by(Purpose) %>%
@@ -94,8 +94,8 @@ test_that("unnest.lst_ts()", {
   )
 })
 
-nest2_t <- tourism %>% 
-  group_by_key() %>% 
+nest2_t <- tourism %>%
+  group_by_key() %>%
   summarise(
     value = list(quantile(Trips, c(0.3, 0.5, 0.7))),
     qtl = list(c(3, 5, 7))
@@ -140,16 +140,16 @@ test_that("fill()", {
     harvest_fill %>%
       group_by_key() %>%
       fill(kilo, .direction = "down"),
-    harvest_fill %>% 
-      as_tibble() %>% 
-      group_by(fruit) %>% 
+    harvest_fill %>%
+      as_tibble() %>%
+      group_by(fruit) %>%
       fill(kilo, .direction = "down")
   )
   expect_equal(
     harvest_fill %>%
       fill(kilo, .direction = "down"),
-    harvest_fill %>% 
-      as_tibble() %>% 
+    harvest_fill %>%
+      as_tibble() %>%
       fill(kilo, .direction = "down")
   )
 })
