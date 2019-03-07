@@ -141,6 +141,7 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   mth_wk <- strftime(x, format = "%m_%V")
   yrs <- yr
   yrs[mth_wk == "01_53"] <- yr[mth_wk == "01_53"] - 1
+  yrs[mth_wk == "12_01"] <- yr[mth_wk == "12_01"] + 1
   if (format == "%Y W%V") {
     return(paste(yrs, strftime(x, format = "W%V")))
   }
