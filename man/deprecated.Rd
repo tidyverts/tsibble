@@ -3,33 +3,16 @@
 \name{as.tsibble}
 \alias{as.tsibble}
 \alias{fill_na}
-\alias{find_duplicates}
 \title{Deprecated functions}
 \usage{
 as.tsibble(x, ...)
 
 fill_na(.data, ..., .full = FALSE)
-
-find_duplicates(data, key = id(), index, fromLast = FALSE)
 }
 \arguments{
 \item{x}{Other objects.}
-
-\item{data}{A \code{tbl_ts} object.}
-
-\item{key}{Structural variable(s) that define unique time indices, used with
-the helper \link{id}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
-
-\item{index}{A bare (or unquoted) variable to specify the time index variable.}
-
-\item{fromLast}{\code{TRUE} does the duplication check from the last of identical
-elements.}
-}
-\value{
-A logical vector of the same length as the row number of \code{data}
 }
 \description{
-Find which row has duplicated key and index elements
+Deprecated functions
 }
 \keyword{internal}
