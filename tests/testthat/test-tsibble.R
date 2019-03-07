@@ -231,15 +231,36 @@ test_that("Year with 10 years interval", {
   expect_identical(time_unit(pull_interval(tsbl$year)), 10)
 })
 
+
+test_that("Difftime with 2 days interval", {
+  idx_time <- as.difftime(as.Date("2019-03-01") - as.Date("2019-02-28")) + c(0, 2, 4, 6, 8)
+  dat_x <- tibble(time = idx_time, value = rnorm(5))
+  expect_identical(index_valid(dat_x$time), TRUE)
+  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "2D")
+  expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
+})
+
 library(hms)
-idx_time <- hms(hour = rep(0, 5), minutes = 1:5, second = rep(0, 5))
-dat_x <- tibble(time = idx_time, value = rnorm(5))
 
 test_that("Difftime with 1 minute interval", {
+  idx_time <- hms(hour = rep(0, 5), minutes = 1:5, second = rep(0, 5))
+  dat_x <- tibble(time = idx_time, value = rnorm(5))
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1m")
+  expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
+})
+
+test_that("Difftime with 1 day interval", {
+  idx_time <- hms(days = 1:5)
+  dat_x <- tibble(time = idx_time, value = rnorm(5))
+  expect_identical(index_valid(dat_x$time), TRUE)
+  expect_message(tsbl <- as_tsibble(dat_x))
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "24h")
   expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
 

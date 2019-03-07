@@ -62,10 +62,11 @@ pull_interval.nanotime <- function(x) {
 
 #' @export
 pull_interval.difftime <- function(x) {
-  dttm <- as.double(x)
+  dttm <- as.double(x, units = "secs")
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
   init_interval(
+    day = period$day,
     hour = period$hour, 
     minute = period$minute, 
     second = period$second
@@ -73,7 +74,16 @@ pull_interval.difftime <- function(x) {
 }
 
 #' @export
-pull_interval.hms <- pull_interval.difftime # for hms package
+pull_interval.hms <- function(x) { # for hms package
+  dttm <- as.double(x)
+  nhms <- gcd_interval(dttm)
+  period <- split_period(nhms)
+  init_interval(
+    hour = period$hour + period$day * 24, 
+    minute = period$minute, 
+    second = period$second
+  )
+}
 
 #' @export
 pull_interval.Date <- function(x) {
