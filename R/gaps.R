@@ -81,7 +81,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   if (!is_empty(lst_exprs)) { # any replacement
     # error handling
     tidyselect::vars_select(measured_vars(.data), !!! names(lst_exprs))
-    replaced_df <- ungroup(summarise(as_grouped_df(.data), !!! lst_exprs))
+    replaced_df <- ungroup(summarise(as_tibble(.data), !!! lst_exprs))
     by_name <- intersect(names(gap_data), names(replaced_df))
 
     if (NROW(replaced_df) > NROW(gap_data)) {
@@ -123,7 +123,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   if (unknown_interval(int)) return(.data[0L, c(key_vars(.data), idx_chr)])
 
   key <- key(.data)
-  keyed_tbl <- as_grouped_df(group_by_key(.data))
+  keyed_tbl <- as_tibble(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
     sum_data <- 
@@ -194,7 +194,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   }
 
   idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
-  grped_tbl <- as_grouped_df(group_by_key(gap_data))
+  grped_tbl <- as_tibble(group_by_key(gap_data))
   lst_out <- 
     summarise(
       grped_tbl,
@@ -233,7 +233,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
-  grped_tbl <- as_grouped_df(group_by_key(.data))
+  grped_tbl <- as_tibble(group_by_key(.data))
   if (.full) {
     idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
     res <- 

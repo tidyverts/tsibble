@@ -30,7 +30,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   vars <- tidyselect::vars_select(names(data), !!! exprs)
   data <- mutate_index2(data, vars)
   tbl <- gather(
-    as_grouped_df(data), key = !! key, value = !! value, !!! exprs,
+    as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble(
@@ -62,7 +62,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   new_key <- key(remove_key(data, .vars = key_left))
 
   tbl <- spread(
-    as_grouped_df(data), key = !! key, value = !! value, fill = fill, 
+    as_tibble(data), key = !! key, value = !! value, fill = fill, 
     convert = convert, drop = drop, sep = sep
   )
   tbl <- retain_tsibble(tbl, new_key, index(data))
@@ -104,7 +104,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
       index_var(data)
     ))
   }
-  tbl <- as_grouped_df(data)
+  tbl <- as_tibble(data)
   if (is_grouped_ts(data)) {
     grp_vars <- group_vars(tbl)
   } else {
@@ -199,7 +199,7 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   key <- use_id(data, !! enquo(key))
   tbl <- 
     unnest(
-      as_grouped_df(data), 
+      as_tibble(data), 
       ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
     )
   key <- c(key(data), key)

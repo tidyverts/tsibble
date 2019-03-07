@@ -26,6 +26,6 @@ dplyr::group_trim
 
 #' @export
 group_trim.grouped_ts <- function(.tbl, .drop = TRUE) {
-  res <- group_trim(as_grouped_df(.tbl), .drop = .drop)
+  res <- group_trim(as_tibble(.tbl), .drop = .drop)
   update_meta(res, .tbl, ordered = is_ordered(.tbl), interval = interval(.tbl))
 }

@@ -48,12 +48,6 @@ group_by_index2 <- function(x) {
   group_by(x, !! idx2, add = TRUE, .drop = TRUE)
 }
 
-as_grouped_df <- function(x) {
-  class(x) <- class(x)[-match("tbl_ts", class(x))] # remove "tbl_ts"
-  class(x) <- class(x)[class(x) != "grouped_ts"]
-  x
-}
-
 restore_index_class <- function(new, old) {
   old_idx <- index2(old)
   new_idx <- index2(new)

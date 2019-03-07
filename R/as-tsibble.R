@@ -175,12 +175,12 @@ update_tsibble <- function(x, key, index, regular, validate = TRUE, .drop) {
   is_idx_idx2 <- identical(x %@% "index", index2(x))
   if (is_idx_idx2) {
     build_tsibble(
-      as_grouped_df(x), key = !! key, index = !! idx,
+      as_tibble(x), key = !! key, index = !! idx,
       regular = regular, validate = validate, .drop = .drop
     )
   } else {
     build_tsibble(
-      as_grouped_df(x), key = !! key, index = !! idx, index2 = !! index2(x),
+      as_tibble(x), key = !! key, index = !! idx, index2 = !! index2(x),
       regular = regular, validate = validate, .drop = .drop
     )
   }
@@ -601,7 +601,9 @@ as_tibble.tbl_ts <- function(x, ...) {
 }
 
 as_tibble.grouped_ts <- function(x, ...) {
-  as_grouped_df(x)
+  x <- remove_tsibble_attrs(x)
+  class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
+  as_tibble(x, ...)
 }
 
 as_tibble.grouped_df <- function(x, ...) {

@@ -29,7 +29,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   idx <- index(.data)
   tunit <- time_unit(int)
 
-  grped_df <- as_grouped_df(group_by_key(.data))
+  grped_df <- as_tibble(group_by_key(.data))
   last_entry <- summarise(grped_df, !! idx := max(!! idx))
 
   nc <- NCOL(last_entry)
