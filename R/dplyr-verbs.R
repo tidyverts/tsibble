@@ -100,9 +100,9 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   if (length(pos) > 1) {
     abort("`slice()` only accepts one expression.")
   }
-  pos_eval <- eval_tidy(expr(!! dplyr::first(pos)))
-  ascending <- row_validate(pos_eval)
-  by_row(slice, .data, ordered = ascending, interval = NULL, ..., 
+  pos_eval <- summarise(as_tibble(.data), .pos_eval = list(!!pos[[1]]))
+  ascending <- all(map_lgl(pos_eval[[".pos_eval"]], row_validate))
+  by_row(slice, .data, ordered = ascending, interval = NULL, ...,
     .preserve = .preserve)
 }
 
