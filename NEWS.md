@@ -6,7 +6,7 @@
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 * `n()` now can be called in `slice.tbl_ts()`. (#95)
 * Compute interval of "day" for `difftime`.
-* Fixed interval of "day" for `hms`.
+* Fixed interval of "day", "millisecond", and "microsecond" for `hms`.
 
 ## Misc
 

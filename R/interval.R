@@ -78,11 +78,19 @@ pull_interval.hms <- function(x) { # for hms package
   dttm <- as.double(x)
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
-  init_interval(
-    hour = period$hour + period$day * 24, 
-    minute = period$minute, 
-    second = period$second
-  )
+  secs <- period$second
+  frac <- secs %% 1
+  if (frac == 0) {
+    init_interval(
+      hour = period$hour + period$day * 24, 
+      minute = period$minute, 
+      second = secs
+    )
+  } else if (frac < 1e-2) {
+    init_interval(millisecond = round(frac * 1e+3))
+  } else {
+    init_interval(microsecond = frac * 1e+6)
+  }
 }
 
 #' @export
