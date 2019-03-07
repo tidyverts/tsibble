@@ -3,11 +3,11 @@
 #' Assuming regularly spaced time, the `pull_interval()` returns a list of time
 #' components as the "interval" class.
 #'
-#' @param x A vector of `POSIXt`, `Date`, `yearmonth`, `yearquarter`, `difftime`,
-#' `hms`, `ordered`, `integer`, `numeric`.
+#' @param x A vector of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`,
+#' `difftime`/`hms`, `ordered`, `integer`, `numeric`, and `nanotime`.
 #'
-#' @details `index_valid()` and `pull_interval()` make a tsibble extensible to 
-#' support custom time index.
+#' @details Extend tsibble to support custom time indexes by defining S3 generics
+#' `index_valid()` and `pull_interval()` for them. 
 #' @return an "interval" class (a list) includes "year", 
 #' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 #' "microsecond", "nanosecond", "unit".

@@ -7,8 +7,8 @@
 pull_interval(x)
 }
 \arguments{
-\item{x}{A vector of \code{POSIXt}, \code{Date}, \code{yearmonth}, \code{yearquarter}, \code{difftime},
-\code{hms}, \code{ordered}, \code{integer}, \code{numeric}.}
+\item{x}{A vector of \code{POSIXct}, \code{Date}, \code{yearweek}, \code{yearmonth}, \code{yearquarter},
+\code{difftime}/\code{hms}, \code{ordered}, \code{integer}, \code{numeric}, and \code{nanotime}.}
 }
 \value{
 an "interval" class (a list) includes "year",
@@ -20,8 +20,8 @@ Assuming regularly spaced time, the \code{pull_interval()} returns a list of tim
 components as the "interval" class.
 }
 \details{
-\code{index_valid()} and \code{pull_interval()} make a tsibble extensible to
-support custom time index.
+Extend tsibble to support custom time indexes by defining S3 generics
+\code{index_valid()} and \code{pull_interval()} for them.
 }
 \examples{
 x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
