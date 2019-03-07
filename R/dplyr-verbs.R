@@ -165,7 +165,8 @@ dplyr::mutate
 #' @rdname tidyverse
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
-  mut_data <- mutate(as_grouped_df(.data), ...)
+  # mutate returns lst_ts without attributes, coerce to tbl_df first
+  mut_data <- mutate(as_tibble(.data), ...)
 
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
