@@ -123,7 +123,7 @@ yearweek.character <- function(x) {
   if (is_empty(x)) return(as_yearweek(x))
 
   anytime::assertDate(x)
-  as_yearweek(anytime::anydate(x))
+  yearweek(anytime::anydate(x))
 }
 
 #' @export
