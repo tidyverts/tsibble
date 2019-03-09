@@ -32,23 +32,24 @@ A tsibble is sorted by its key first and index.
 }
 \section{Index}{
 
-The time indices are preserved as the essential data component of the tsibble,
-instead of implicit attribute (for example, the \code{tsp} attribute in a \code{ts} object). A
-few index classes, such as \code{Date}, \code{POSIXct}, and \code{difftime}, forms the basis of
-the tsibble, with new additions \link{yearweek}, \link{yearmonth}, and \link{yearquarter}
-representing year-week, year-month, and year-quarter respectively. Any arbitrary
-index class are also supported, including \code{zoo::yearmon}, \code{zoo::yearqtr}, and
-\code{nanotime}.
-For a \code{tbl_ts} of regular interval,
-a choice of index representation has to be made. For example, a monthly data
-should correspond to time index created by \link{yearmonth} or \code{zoo::yearmon},
-instead of \code{Date} or \code{POSIXct}. Because months in a year ensures the regularity,
-12 months every year. However, if using \code{Date}, a month contains days ranging
-from 28 to 31 days, which results in irregular time space. This is also applicable
-to year-week and year-quarter.
+An extensive range of indices are supported by tsibble: R's native time classes
+(such as \code{Date}, \code{POSIXct}, and \code{difftime}) and tsibble's new additions
+(such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}). Some commonly-used classes
+have built-in support too, including \code{ordered}, \code{hms::hms``, }zoo::yearmon\code{, }zoo::yearqtr\code{, and }nanotime`.
+
+For a \code{tbl_ts} of regular interval, a choice of index representation has to
+be made. For example, a monthly data should correspond to time index created
+by \link{yearmonth} or \code{zoo::yearmon}, instead of \code{Date} or \code{POSIXct}. Because
+months in a year ensures the regularity, 12 months every year. However, if
+using \code{Date}, a month containing days ranges from 28 to 31 days, which results
+in irregular time space. This is also applicable to year-week and year-quarter.
 
 Since the \strong{tibble} that underlies the \strong{tsibble} only accepts a 1d atomic
-vector or a list, a \code{tbl_ts} doesn't accept \code{POSIXlt} and \code{timeDate} columns.
+vector or a list, the tsibble doesn't accept types of \code{POSIXlt} and \code{timeDate}.
+
+Tsibble supports arbitrary index classes, as long as they can be ordered from
+past to future. To support a custom class, one needs to define \code{\link[=index_valid]{index_valid()}}
+for the class and calculate the interval through \code{\link[=pull_interval]{pull_interval()}}.
 }
 
 \section{Key}{

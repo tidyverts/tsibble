@@ -2,27 +2,29 @@
 #'
 #' \if{html}{\figure{logo.png}{options: align='right'}}
 #' The **tsibble** package provides a data class of `tbl_ts` to represent tidy 
-#' temporal data. A tsibble consists of a time index, key, and other measured 
+#' time series data. A tsibble consists of a time index, key, and other measured 
 #' variables in a data-centric format, which is built on top of the tibble. 
 #'
 #' @section Index:
-#' The time indices are preserved as the essential data component of the tsibble,
-#' instead of implicit attribute (for example, the `tsp` attribute in a `ts` object). A 
-#' few index classes, such as `Date`, `POSIXct`, and `difftime`, forms the basis of 
-#' the tsibble, with new additions [yearweek], [yearmonth], and [yearquarter] 
-#' representing year-week, year-month, and year-quarter respectively. Any arbitrary
-#' index class are also supported, including `zoo::yearmon`, `zoo::yearqtr`, and
-#' `nanotime`. 
-#' For a `tbl_ts` of regular interval,
-#' a choice of index representation has to be made. For example, a monthly data 
-#' should correspond to time index created by [yearmonth] or `zoo::yearmon`, 
-#' instead of `Date` or `POSIXct`. Because months in a year ensures the regularity,
-#' 12 months every year. However, if using `Date`, a month contains days ranging
-#' from 28 to 31 days, which results in irregular time space. This is also applicable
-#' to year-week and year-quarter.
+#' An extensive range of indices are supported by tsibble: R's native time classes
+#' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions 
+#' (such as [yearweek], [yearmonth], and [yearquarter]). Some commonly-used classes
+#' have built-in support too, including `ordered`, `hms::hms``, `zoo::yearmon`,
+#' `zoo::yearqtr`, and `nanotime`. 
+#'
+#' For a `tbl_ts` of regular interval, a choice of index representation has to 
+#' be made. For example, a monthly data should correspond to time index created
+#' by [yearmonth] or `zoo::yearmon`, instead of `Date` or `POSIXct`. Because 
+#' months in a year ensures the regularity, 12 months every year. However, if 
+#' using `Date`, a month containing days ranges from 28 to 31 days, which results
+#' in irregular time space. This is also applicable to year-week and year-quarter.
 #'
 #' Since the **tibble** that underlies the **tsibble** only accepts a 1d atomic 
-#' vector or a list, a `tbl_ts` doesn't accept `POSIXlt` and `timeDate` columns.
+#' vector or a list, the tsibble doesn't accept types of `POSIXlt` and `timeDate`.
+#'
+#' Tsibble supports arbitrary index classes, as long as they can be ordered from
+#' past to future. To support a custom class, one needs to define [index_valid()]
+#' for the class and calculate the interval through [pull_interval()].
 #'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record, which 

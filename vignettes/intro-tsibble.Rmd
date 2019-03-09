@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principles [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing temporal data and getting analysis done in a fluent and fluid workflow.
+The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to temporal data. Built on top of the [tibble](http://tibble.tidyverse.org), a tsibble (or `tbl_ts`) is a data-centric format, following the tidy data principles [@wickham2014tidy]. Compared to the conventional time series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a "key" comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing time series data and getting analysis done in a fluent workflow.
 
 ## Contextual semantics: index and key
 
@@ -45,15 +45,16 @@ weather_tsbl
 
 An interval is automatically obtained based on the corresponding time representation:
 
-* `integer`/`numeric`: either "unit" or "year" (`Y`)
+* `integer`/`numeric`/`ordered`: either "unit" or "year" (`Y`)
 * `yearquarter`/`yearqtr`: "quarter" (`Q`)
 * `yearmonth`/`yearmon`: "month" (`M`)
 * `yearweek`: "week" (`W`)
 * `Date`: "day" (`D`)
-* `POSIXct`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
+* `difftime`: "day" (D), OR "hour" (`h`), "minute" (`m`), "second" (`s`)
+* `POSIXct`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 * `nanotime`: "nanosecond" (`ns`)
 
-That is, a tsibble of monthly intervals expects the `yearmonth`/`yearmth` class in the index column. Neither `Date` nor `POSIXct` gives a monthly tsibble.
+That is, a tsibble of monthly intervals expects the `yearmonth`/`yearmon` class in the index column. Neither `Date` nor `POSIXct` gives a monthly tsibble.
 
 The print display is data-oriented and contextually informative, such as data dimension, time interval, and the number of time-based units. Above displays the `weather_tsbl` its one-hour interval (`[1h]`) and the `origin [3]` as the key along with three time series in the table.
 
