@@ -2,9 +2,10 @@
 
 ## Improvements
 
-* Support the interval of "day" for `difftime`.
+* Support the interval of "quarter", "month", "week" & "day" for `difftime`.
 * Support the interval of "millisecond" & "microsecond" for `hms`.
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
+* Binary `-` operator between yearweeks, yearmonths, and yearquarters returns class `difftime`.
 
 ## Bug fixes
 
@@ -12,9 +13,6 @@
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 * `n()` now can be called in `slice.tbl_ts()`. (#95)
 * Fixed `*_join()` for not finding key or index when `by` is specified. (#102)
-
-## Misc
-
 * Added "Tasmania" to `data(tourism)` and 2017 data.
 
 # tsibble 0.7.0
