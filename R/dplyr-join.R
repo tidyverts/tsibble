@@ -8,9 +8,8 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
     names <- paste0(common_names, suffix[1])
     names(common_names) <- names
     val_names <- tidyselect::vars_rename(names(x), !!! common_names)
-    x <- rename_index(x, val_names) %>% 
-      rename_index2(val_names) %>% 
-      rename_key(val_names)
+    x <- rename_index2(rename_index(x, val_names), val_names)
+    x <- rename_key(x, val_names)
   }
   x
 }

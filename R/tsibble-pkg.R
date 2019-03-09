@@ -9,7 +9,7 @@
 #' An extensive range of indices are supported by tsibble: R's native time classes
 #' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions 
 #' (such as [yearweek], [yearmonth], and [yearquarter]). Some commonly-used classes
-#' have built-in support too, including `ordered`, `hms::hms``, `zoo::yearmon`,
+#' have built-in support too, including `ordered`, `hms::hms`, `zoo::yearmon`,
 #' `zoo::yearqtr`, and `nanotime`. 
 #'
 #' For a `tbl_ts` of regular interval, a choice of index representation has to 

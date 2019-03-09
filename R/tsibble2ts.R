@@ -5,7 +5,7 @@
 #' multiple measures.
 #' @param frequency A smart frequency with the default `NULL`. If set, the 
 #' preferred frequency is passed to `ts()`.
-#' @param fill A value replaces missing values.
+#' @param fill A value to replace missing values.
 #' @param ... Ignored for the function.
 #'
 #' @return A `ts` object.
@@ -39,15 +39,16 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
   }
   idx <- index(x)
-  tsbl_sel <- x %>% 
-    arrange(!!! key_vars, !! idx) %>% 
-    select_tsibble(!! idx, !!! key_vars, !! value_var, validate = FALSE) %>% 
-    as_tibble()
+  tsbl_sort <- arrange(x, !!! key_vars, !! idx)
+  tsbl_sel <-
+    as_tibble(select_tsibble(
+      tsbl_sort, !! idx, !!! key_vars, !! value_var, validate = FALSE
+    ))
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
   } else {
-    mat_ts <- tsbl_sel %>% 
-      spread(key = !! key_vars[[1]], value = !! value_var, fill = fill)
+    mat_ts <- spread(tsbl_sel, key = !! key_vars[[1]], value = !! value_var,
+      fill = fill)
     finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
 }

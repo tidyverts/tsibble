@@ -15,7 +15,7 @@ multiple measures.}
 \item{frequency}{A smart frequency with the default \code{NULL}. If set, the
 preferred frequency is passed to \code{ts()}.}
 
-\item{fill}{A value replaces missing values.}
+\item{fill}{A value to replace missing values.}
 
 \item{...}{Ignored for the function.}
 }

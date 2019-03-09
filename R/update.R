@@ -69,11 +69,8 @@ rename_tsibble <- function(.data, ...) {
 
   val_vars <- tidyselect::vars_rename(names_dat, !!! lst_quos)
   # index
-  res <- .data %>% 
-    rename_index(val_vars) %>% 
-    rename_index2(val_vars) %>% 
-    rename_key(val_vars) %>% 
-    rename_group(val_vars)
+  res <- rename_index2(rename_index(.data, val_vars), val_vars)
+  res <- rename_group(rename_key(res, val_vars), val_vars)
   names(res) <- names(val_vars)
 
   build_tsibble(

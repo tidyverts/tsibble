@@ -35,7 +35,8 @@ A tsibble is sorted by its key first and index.
 An extensive range of indices are supported by tsibble: R's native time classes
 (such as \code{Date}, \code{POSIXct}, and \code{difftime}) and tsibble's new additions
 (such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}). Some commonly-used classes
-have built-in support too, including \code{ordered}, \code{hms::hms``, }zoo::yearmon\code{, }zoo::yearqtr\code{, and }nanotime`.
+have built-in support too, including \code{ordered}, \code{hms::hms}, \code{zoo::yearmon},
+\code{zoo::yearqtr}, and \code{nanotime}.
 
 For a \code{tbl_ts} of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
