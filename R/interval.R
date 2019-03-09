@@ -62,15 +62,27 @@ pull_interval.nanotime <- function(x) {
 
 #' @export
 pull_interval.difftime <- function(x) {
-  dttm <- as.double(x, units = "secs")
-  nhms <- gcd_interval(dttm)
-  period <- split_period(nhms)
-  init_interval(
-    day = period$day,
-    hour = period$hour, 
-    minute = period$minute, 
-    second = period$second
-  )
+  t_units <- units(x)
+  if (t_units == "weeks") {
+    nweeks <- gcd_interval(unclass(x))
+    init_interval(week = nweeks)
+  } else if (t_units == "months") {
+    nmths <- gcd_interval(unclass(x))
+    init_interval(month = nmths)
+  } else if (t_units == "quarters") {
+    nqtrs <- gcd_interval(unclass(x))
+    init_interval(quarter = nqtrs)
+  } else {
+    dttm <- as.double(x, units = "secs")
+    nhms <- gcd_interval(dttm)
+    period <- split_period(nhms)
+    init_interval(
+      day = period$day,
+      hour = period$hour, 
+      minute = period$minute, 
+      second = period$second
+    )
+  }
 }
 
 #' @export
