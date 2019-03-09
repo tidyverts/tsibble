@@ -1,8 +1,5 @@
 add_package_checks()
 
-get_stage("install") %>%
-  add_code_step(install.packages(c("gganimate", "forcats")))
-
 if (Sys.getenv("id_rsa") != "") {
   # pkgdown documentation can be built optionally. Other example criteria:
   # - `inherits(ci(), "TravisCI")`: Only for Travis CI

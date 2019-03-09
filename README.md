@@ -159,10 +159,9 @@ purrr-like syntax:
 
 <details>
 
-<summary>Rolling window
-animation</summary>
+<summary>Rolling window animation</summary>
 
-<img src="man/figures/animate-1.gif" style="display: block; margin: auto;" />
+<img src="man/figures/animate-1.gif" align="center" />
 
 </details>
 

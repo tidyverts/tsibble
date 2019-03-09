@@ -96,7 +96,7 @@ Time series often involves moving window calculations. Several functions in *tsi
 
 <details><summary>Rolling window animation</summary>
 
-```{r animate, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 6, fig.align = "center"}
+```{r animate, echo = FALSE, warning = FALSE, message = FALSE, eval = FALSE}
 library(tidyverse)
 library(gganimate)
 reveal_group <- function(data, group){
@@ -170,6 +170,8 @@ ggplot() +
   theme_bw() +
   transition_manual(group)
 ```
+
+<img src="man/figures/animate-1.gif" align="center" />
 
 </details>
 
