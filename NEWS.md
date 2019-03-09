@@ -2,8 +2,8 @@
 
 ## Improvements
 
-* Support the "day" interval for `difftime`.
-* Support the "millisecond" & "microsecond" for `hms`.
+* Support the interval of "day" for `difftime`.
+* Support the interval of "millisecond" & "microsecond" for `hms`.
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
 
 ## Bug fixes

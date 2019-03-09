@@ -3,8 +3,6 @@
 
 # tsibble <img src="man/figures/logo.png" align="right" />
 
-*/ˈt͡sɪbəl/*
-
 [![Travis-CI Build
 Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
 [![AppVeyor Build
@@ -13,7 +11,6 @@ Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?bra
 Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 The **tsibble** package provides a data class of `tbl_ts` to represent
 tidy time series data. A *tsibble* consists of a time index, key and
@@ -159,6 +156,15 @@ purrr-like syntax:
     observations.
   - `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and
     expanding to include more observations.
+
+<details>
+
+<summary>Rolling window
+animation</summary>
+
+<img src="man/figures/animate-1.gif" style="display: block; margin: auto;" />
+
+</details>
 
 For example, a moving average of window size 3 is carried out on hourly
 temperatures for each group (*origin*).

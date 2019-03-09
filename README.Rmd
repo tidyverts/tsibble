@@ -8,14 +8,11 @@ output:
 
 # tsibble <img src="man/figures/logo.png" align="right" />
 
-*/ˈt͡sɪbəl/*
-
 [![Travis-CI Build Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/tsibble)
 [![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -96,6 +93,85 @@ Time series often involves moving window calculations. Several functions in *tsi
 * `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
 * `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
 * `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
+
+<details><summary>Rolling window animation</summary>
+
+```{r animate, echo = FALSE, warning = FALSE, message = FALSE, fig.height = 6, fig.align = "center"}
+library(tidyverse)
+library(gganimate)
+reveal_group <- function(data, group){
+  group <- enquo(group)
+  data <- as_tibble(data)
+  data <- transmute(
+    data, !! group,
+    .dt = map(map(!! group, seq_len), function(groups, data) {
+      data <- filter(data, !! group %in% groups)
+      select(data, !! expr(-!! group))
+    }, data
+  ))
+  unnest(data, .dt)
+}
+tourism_melb <- tourism %>% 
+  filter(Region == "Melbourne", Purpose == "Holiday")
+types <- forcats::fct_inorder(c("Slide", "Tile", "Stretch"))
+slide_window <- slider(tourism_melb$Quarter, .size = 4) %>%
+  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
+  mutate(ymin = -Inf, ymax = Inf, group = row_number(), type = types[1])
+slide_mean <- tourism_melb %>%
+  mutate(ma = slide_dbl(Trips, ~ mean(.x), .size = 4, .align = "r")) %>%
+  mutate(group = pmax(0, row_number() - 3), type = types[1])
+slide_revealed <- slide_mean %>%
+  reveal_group(group)
+
+tile_window <- tiler(tourism_melb$Quarter, .size = 4) %>%
+  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
+  mutate(ymin = -Inf, ymax = Inf, type = types[2])
+tile_window <- tile_window[c(rep(1:20, each = 4)), ] %>% 
+  mutate(group = row_number())
+tile_mean <- tibble(
+    Quarter = do.call("c", tile(tourism_melb$Quarter, ~ .x[2], .size = 4)),
+    ma = tile_dbl(tourism_melb$Trips, ~ mean(.x), .size = 4),
+    type = types[2]
+  )
+tile_mean <- tile_mean[c(rep(1:20, each = 4)), ] %>% 
+  mutate(group = row_number())
+tile_revealed <- tile_mean %>%
+  reveal_group(group)
+
+stretch_window <- stretcher(tourism_melb$Quarter, .init = 4) %>%
+  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
+  mutate(ymin = -Inf, ymax = Inf, group = row_number(), type = types[3])
+stretch_mean <- tourism_melb %>%
+  mutate(
+    ma = stretch_dbl(Trips, ~ mean(.x), .init = 4),
+    group = pmax(0, row_number() - 3),
+    type = types[3]
+  )
+stretch_revealed <- stretch_mean %>%
+  reveal_group(group)
+
+window <- bind_rows(slide_window, tile_window, stretch_window)
+mean <- bind_rows(slide_mean, tile_mean, stretch_mean)
+revealed <- bind_rows(slide_revealed, tile_revealed, stretch_revealed)
+
+ggplot() +
+  geom_line(aes(x = Quarter, y = Trips), data = tourism_melb, colour = "grey", size = 1.2) +
+  geom_rect(aes(
+    xmin = xmin, xmax = xmax,
+    ymin = ymin, ymax = ymax,
+    group = group
+  ), data = window, 
+  fill = "#9ecae1", colour = "#9ecae1", size = 1.5, alpha = 0.6) +
+  geom_point(aes(x = Quarter, y = ma), data = mean, size = 2, colour = "#de2d26") +
+  geom_line(aes(x = Quarter, y = ma), data = revealed, size = 1.2, colour = "#de2d26") +
+  xlab("Quarter") +
+  ylab("Trips") +
+  facet_wrap(~ type, ncol = 1) +
+  theme_bw() +
+  transition_manual(group)
+```
+
+</details>
 
 For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
 
