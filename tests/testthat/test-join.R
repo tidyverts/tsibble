@@ -62,3 +62,11 @@ test_that("anti_join()", {
   expect_identical(index(x), index(anti))
   expect_identical(x %>% anti_join(z), x[0, ])
 })
+
+test_that("mutual key and index #102", {
+  xx <- x[1:2, ]
+  yy <- x[c(1, 3), ]
+  expect_identical(left_join(x, xx), x)
+  expect_named(left_join(x, xx, by = "year"), c("year", "grp.x", "grp.y"))
+  expect_named(left_join(x, yy, by = "grp"), c("year.x", "grp", "year.y"))
+})
