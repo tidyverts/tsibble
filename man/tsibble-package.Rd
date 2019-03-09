@@ -60,13 +60,14 @@ cannot be determined (\code{?}).
 
 An interval is obtained based on the corresponding index representation:
 \itemize{
-\item integer/numeric: either "unit" or "year"
-\item \code{yearquarter}/\code{yearqtr}: "quarter"
-\item \code{yearmonth}/\code{yearmon}: "month"
-\item \code{yearweek}: "week"
-\item \code{Date}: "day"
-\item \code{POSIXct}: "hour", "minute", "second", "millisecond", "microsecond"
-\item \code{nanotime}: "nanosecond"
+\item \code{integer}/\code{numeric}/\code{ordered}: either "unit" or "year" (\code{Y})
+\item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
+\item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
+\item \code{yearweek}: "week" (\code{W})
+\item \code{Date}: "day" (\code{D})
+\item \code{difftime}: "day" (D), OR "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})
+\item \code{POSIXct}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
+\item \code{nanotime}: "nanosecond" (\code{ns})
 }
 }
 

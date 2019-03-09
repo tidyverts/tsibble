@@ -45,13 +45,14 @@
 #' cannot be determined (`?`).
 #'
 #' An interval is obtained based on the corresponding index representation:
-#' * integer/numeric: either "unit" or "year"
-#' * `yearquarter`/`yearqtr`: "quarter"
-#' * `yearmonth`/`yearmon`: "month"
-#' * `yearweek`: "week"
-#' * `Date`: "day"
-#' * `POSIXct`: "hour", "minute", "second", "millisecond", "microsecond"
-#' * `nanotime`: "nanosecond"
+#' * `integer`/`numeric`/`ordered`: either "unit" or "year" (`Y`)
+#' * `yearquarter`/`yearqtr`: "quarter" (`Q`)
+#' * `yearmonth`/`yearmon`: "month" (`M`)
+#' * `yearweek`: "week" (`W`)
+#' * `Date`: "day" (`D`)
+#' * `difftime`: "day" (D), OR "hour" (`h`), "minute" (`m`), "second" (`s`)
+#' * `POSIXct`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
+#' * `nanotime`: "nanosecond" (`ns`)
 #'
 #' @section Time zone:
 #' Time zone corresponding to index will be displayed if index is `POSIXct`.
