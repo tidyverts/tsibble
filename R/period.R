@@ -96,9 +96,11 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
   e1_yrwk <- is_yearweek(e1)
   e2_yrwk <- is_yearweek(e2)
   if (e1_yrwk && e2_yrwk) {
-    abort("Binary `-` is not defined for class yearweek.")
+    res <- units_since(e1) - units_since(e2)
+    structure(res, class = "difftime", units = "weeks")
+  } else {
+    yearweek(as_date(e1) - e2 * 7)
   }
-  yearweek(as_date(e1) - e2 * 7)
 }
 
 is_yearweek <- function(x) {
@@ -225,7 +227,7 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x),
     lag = lag, differences = differences)
-  structure(out, class = "difftime", units = "month")
+  structure(out, class = "difftime", units = "months")
 }
 
 #' @export
@@ -249,9 +251,11 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
-    abort("Binary `-` is not defined for class yearmonth.")
+    res <- units_since(e1) - units_since(e2)
+    structure(res, class = "difftime", units = "months")
+  } else {
+    yearmonth(as_date(e1) - lubridate::period(months = e2, units = "month"))
   }
-  yearmonth(as_date(e1) - lubridate::period(months = e2, units = "month"))
 }
 
 is_yearmonth <- function(x) {
@@ -346,7 +350,7 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   out <- diff((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x),
     lag = lag, differences = differences)
-  structure(out, class = "difftime", units = "quarter")
+  structure(out, class = "difftime", units = "quarters")
 }
 
 #' @export
@@ -370,9 +374,11 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
-    abort("Binary `-` is not defined for class yearquarter.")
+    res <- units_since(e1) - units_since(e2)
+    structure(res, class = "difftime", units = "quarters")
+  } else {
+    yearquarter(as_date(e1) - lubridate::period(months = e2 * 3))
   }
-  yearquarter(as_date(e1) - lubridate::period(months = e2 * 3))
 }
 
 is_yearquarter <- function(x) {
