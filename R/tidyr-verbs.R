@@ -71,8 +71,8 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   data <- mutate_index2(data, vars)
   build_tsibble(
     tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
-    regular = is_regular(data), ordered = is_ordered(data), 
-    interval = interval(data), validate = FALSE
+    regular = is_regular(data), ordered = is_ordered(data), interval = NULL, 
+    validate = FALSE
   )
 }
 
@@ -178,7 +178,7 @@ unnest.lst_ts <- function(data, ..., key = id(),
   build_tsibble(
     out, key = key, index = !! idx, index2 = !! index2(tsbl),
     ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
-    interval = interval(tsbl), validate = FALSE
+    interval = NULL, validate = FALSE
   )
 }
 
@@ -211,7 +211,7 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   build_tsibble(
     tbl, key = key, index = !! idx, index2 = !! index2(data), 
     ordered = is_ordered(data), regular = is_regular(data), 
-    interval = interval(data), validate = FALSE
+    interval = NULL, validate = FALSE
   )
 }
 
@@ -235,8 +235,7 @@ tidyr::fill
 #' @export
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
-  update_meta2(res, data, ordered = is_ordered(data), 
-    interval = interval(data))
+  update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
 }
 
 #' @rdname tidyverse
