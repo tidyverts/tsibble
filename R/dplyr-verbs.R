@@ -183,6 +183,11 @@ mutate.tbl_ts <- function(.data, ...) {
   # validate = TRUE to check if tsibble still holds
   val_idx <- has_index(vec_names, .data)
   val_key <- has_any_key(vec_names, .data)
+  if (val_idx) {
+    interval <- NULL
+  } else {
+    interval <- interval(.data)
+  }
   if (val_key) {
     key_vars <- setdiff(names(mut_data), measured_vars(.data))
     .data <- remove_key(.data, key_vars)
@@ -194,7 +199,7 @@ mutate.tbl_ts <- function(.data, ...) {
   build_tsibble(
     mut_data, key = key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
-    ordered = is_ordered(.data), interval = NULL, # index gets overwritten
+    ordered = is_ordered(.data), interval = interval,
     validate = FALSE, .drop = is_key_dropped(.data)
   )
 }

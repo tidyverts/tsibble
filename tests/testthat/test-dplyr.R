@@ -188,6 +188,14 @@ test_that("mutate()", {
   expect_error(mutate(tourism, Region = State), "is not a valid tsibble.")
   expect_identical(ncol(mutate(tourism, New = 1)), ncol(tourism) + 1L)
   expect_equal(ncol(mutate(tourism, State = NULL)), 4)
+  expect_equal(
+    interval(tourism %>% mutate(Quarter = as.Date(Quarter))),
+    new_interval(day = 1)
+  )
+  expect_equal(
+    interval(new_data(tourism) %>% mutate(Trips2 = 1)),
+    new_interval(quarter = 1)
+  )
   tsbl <- tourism %>%
     group_by(Region, State, Purpose) %>%
     mutate(New = 1:n())
