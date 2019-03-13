@@ -14,6 +14,10 @@ if (Sys.getenv("id_rsa") != "") {
       pkgbuild::compile_dll(),
       prepare_call = remotes::install_github("r-lib/pkgbuild")
     ) %>%
+    add_code_step(
+      pkgdown::build_favicon(),
+      prepare_call = install.packages("magick")
+    ) %>%
     add_step(step_build_pkgdown(run_dont_run = TRUE)) %>%
     add_code_step(system('echo "tsibble.tidyverts.org" > docs/CNAME')) %>%
     add_step(step_push_deploy(path = "docs/", branch = "gh-pages"))
