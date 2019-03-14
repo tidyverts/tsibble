@@ -18,7 +18,8 @@ Authors@R:
              comment = c(ORCID = "0000-0002-2140-5352")),
       person(given = "Mitchell",
              family = "O'Hara-Wild",
-             role = "ctb"))
+             role = "aut",
+             comment = c(ORCID = "0000-0001-6729-7695")))
 Description: Provides a 'tbl_ts' class (the 'tsibble') to store
     and manage temporal data in a data-centric format, which is built on
     top of the 'tibble'. The 'tsibble' aims at easily manipulating and
