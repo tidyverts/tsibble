@@ -82,14 +82,16 @@ tsibble <- function(..., key = id(), index, regular = TRUE, .drop = TRUE) {
 #' as_tsibble(tbl2, key = id(group), index = mth)
 #'
 #' @export
-as_tsibble <- function(x, ...) {
+as_tsibble <- function(x, key = id(), index, regular = TRUE, validate = TRUE, 
+  .drop = key_drop_default(x), ...
+) {
   UseMethod("as_tsibble")
 }
 
 #' @rdname as-tsibble
 #' @export
-as_tsibble.tbl_df <- function(
-  x, key = id(), index, regular = TRUE, validate = TRUE, .drop = TRUE, ...
+as_tsibble.tbl_df <- function(x, key = id(), index, regular = TRUE, 
+  validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   index <- enquo(index)
   build_tsibble(
@@ -118,8 +120,8 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_df <- function(
-  x, key = id(), index, regular = TRUE, validate = TRUE, .drop = TRUE, ...
+as_tsibble.grouped_df <- function(x, key = id(), index, regular = TRUE, 
+  validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   index <- enquo(index)
   build_tsibble(
@@ -156,7 +158,8 @@ as_tsibble.NULL <- function(x, ...) {
 #'   group_by_key() %>% 
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 
 #'   update_tsibble(index = Hour_Since)
-update_tsibble <- function(x, key, index, regular, validate = TRUE, .drop) {
+update_tsibble <- function(x, key, index, regular = is_regular(x), 
+  validate = TRUE, .drop = key_drop_default(x)) {
   key <- enquo(key)
   if (quo_is_missing(key)) {
     key <- key(x)
@@ -164,12 +167,6 @@ update_tsibble <- function(x, key, index, regular, validate = TRUE, .drop) {
   idx <- enquo(index)
   if (quo_is_missing(idx)) {
     idx <- x %@% "index"
-  }
-  if (is_missing(regular)) {
-    regular <- is_regular(x)
-  }
-  if (is_missing(.drop)) {
-    .drop <- key_drops(x)
   }
 
   is_idx_idx2 <- identical(x %@% "index", index2(x))
@@ -353,7 +350,7 @@ is.grouped_ts <- is_grouped_ts
 #'   )
 build_tsibble <- function(
   x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL,
-  validate = TRUE, .drop = TRUE
+  validate = TRUE, .drop = key_drop_default(x)
 ) {
   # if key is quosures
   key_sym <- use_id(x, !! enquo(key))

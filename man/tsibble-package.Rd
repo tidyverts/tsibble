@@ -114,11 +114,7 @@ Authors:
 \itemize{
   \item Di Cook (0000-0002-3813-7155) [thesis advisor]
   \item Rob Hyndman (0000-0002-2140-5352) [thesis advisor]
-}
-
-Other contributors:
-\itemize{
-  \item Mitchell O'Hara-Wild [contributor]
+  \item Mitchell O'Hara-Wild (0000-0001-6729-7695)
 }
 
 }

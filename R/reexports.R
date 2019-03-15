@@ -34,6 +34,10 @@ dplyr::group_keys
 #' @export
 dplyr::group_rows
 
+#' @importFrom dplyr group_by_drop_default
+#' @export
+dplyr::group_by_drop_default
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse

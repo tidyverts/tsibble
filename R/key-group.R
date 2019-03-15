@@ -68,6 +68,25 @@ n_keys <- function(x) {
   NROW(key_data(x))
 }
 
+#' Default value for .drop argument for key
+#'
+#' @param .tbl A data frame
+#' @keywords internal
+#' @export
+key_drop_default <- function(.tbl) {
+  UseMethod("key_drop_default")
+}
+
+#' @export
+key_drop_default.default <- function(.tbl) {
+  TRUE
+}
+
+#' @export
+key_drop_default.tbl_ts <- function(.tbl) {
+  !identical(key_data(.tbl) %@% ".drop", FALSE)
+}
+
 validate_key <- function(.data, .vars) {
   syms(unname(tidyselect::vars_select(names(.data), !!! .vars)))
 }
@@ -93,10 +112,6 @@ rename_key <- function(.data, .vars) {
   .data
 }
 
-key_drops <- function(x) {
-  !is_tsibble(x) || !identical(key_data(x) %@% ".drop", FALSE)
-}
-
 rename_group <- function(.data, .vars) {
   names <- names(.vars)
   old_grp_chr <- group_vars(.data)
@@ -108,18 +123,12 @@ rename_group <- function(.data, .vars) {
   .data
 }
 
-#' @importFrom dplyr is_grouped_df
-group_drops2 <- function(x) { # will be removed when dplyr exports group_drops()
-  !is_grouped_df(x) || is_null(attr(x, "groups")) || 
-    !identical(attr(group_data(x), ".drop"), FALSE)
-}
-
 is_key_dropped <- function(x) {
   if (!is_grouped_ts(x)) {
-    key_drops(x)
+    key_drop_default(x)
   } else {
     key_vars <- key_vars(x)
     grp_vars <- group_vars(x)
-    group_drops2(x) && any(is.element(key_vars, grp_vars))
+    group_by_drop_default(x) && any(is.element(key_vars, grp_vars))
   }
 }

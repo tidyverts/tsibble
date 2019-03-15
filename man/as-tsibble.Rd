@@ -10,16 +10,17 @@
 \alias{as_tsibble.hts}
 \title{Coerce to a tsibble object}
 \usage{
-as_tsibble(x, ...)
+as_tsibble(x, key = id(), index, regular = TRUE, validate = TRUE,
+  .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, .drop = TRUE, ...)
+  validate = TRUE, .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, .drop = TRUE, ...)
+  validate = TRUE, .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{list}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, .drop = TRUE, ...)
+  validate = TRUE, .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{ts}(x, tz = "UTC", ...)
 
@@ -27,8 +28,6 @@ as_tsibble(x, ...)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
-
-\item{...}{Other arguments passed on to individual methods.}
 
 \item{key}{Variable(s) that define unique time indices, used in conjunction
 with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
@@ -44,6 +43,8 @@ of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 
 \item{.drop}{If \code{TRUE}, empty key groups are dropped.}
+
+\item{...}{Other arguments passed on to individual methods.}
 
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
 daily.}

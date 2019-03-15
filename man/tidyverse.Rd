@@ -58,7 +58,8 @@
 
 \method{summarize}{tbl_ts}(.data, ...)
 
-\method{group_by}{tbl_ts}(.data, ..., add = FALSE, .drop = TRUE)
+\method{group_by}{tbl_ts}(.data, ..., add = FALSE,
+  .drop = group_by_drop_default(.data))
 
 \method{ungroup}{grouped_ts}(x, ...)
 
@@ -113,7 +114,8 @@ will be duplicated in the same way as atomic vectors. This has
 override existing groups. To add to the existing groups, use
 \code{add = TRUE}.}
 
-\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped.}
+\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped. See \code{\link[=group_by_drop_default]{group_by_drop_default()}} for
+what the default value is for this argument.}
 
 \item{x}{A \code{\link[=tbl]{tbl()}}}
 

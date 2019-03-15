@@ -1,5 +1,7 @@
 # tsibble 0.7.0.9000
 
+This release is made to be consistent with dplyr `group_by()` drop behaviour.
+
 ## Improvements
 
 * Support the interval of "quarter", "month", "week" & "day" for `difftime`.
@@ -9,7 +11,7 @@
 
 ## Bug fixes
 
-* Fixed bugs in `as_tsibble.ts()` for monthly series that not start at January. (#89)
+* Fixed bugs in `as_tsibble.ts()` for monthly series starting at other months than January. (#89)
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 * `n()` now can be called in `slice.tbl_ts()`. (#95)
 * Fixed `*_join()` for not finding key or index when `by` is specified. (#102)

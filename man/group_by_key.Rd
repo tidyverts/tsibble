@@ -4,14 +4,15 @@
 \alias{group_by_key}
 \title{Group by key variables}
 \usage{
-group_by_key(.data, ..., .drop = TRUE)
+group_by_key(.data, ..., .drop = key_drop_default(.data))
 }
 \arguments{
 \item{.data}{A \code{tbl_ts} object.}
 
 \item{...}{Ignored.}
 
-\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped.}
+\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped. See \code{\link[=group_by_drop_default]{group_by_drop_default()}} for
+what the default value is for this argument.}
 }
 \description{
 Group by key variables

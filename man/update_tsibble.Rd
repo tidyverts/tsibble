@@ -4,7 +4,8 @@
 \alias{update_tsibble}
 \title{Update key and index for a tsibble}
 \usage{
-update_tsibble(x, key, index, regular, validate = TRUE, .drop)
+update_tsibble(x, key, index, regular = is_regular(x), validate = TRUE,
+  .drop = key_drop_default(x))
 }
 \arguments{
 \item{x}{A tsibble.}

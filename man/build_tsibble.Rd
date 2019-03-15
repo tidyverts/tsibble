@@ -5,7 +5,7 @@
 \title{Low-level constructor for a tsibble object}
 \usage{
 build_tsibble(x, key, index, index2, ordered = NULL, regular = TRUE,
-  interval = NULL, validate = TRUE, .drop = TRUE)
+  interval = NULL, validate = TRUE, .drop = key_drop_default(x))
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
