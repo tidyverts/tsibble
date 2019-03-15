@@ -1,13 +1,13 @@
 # tsibble 0.7.0.9000
 
-This release is made to be consistent with dplyr `group_by()` drop behaviour.
+This release is made to be consistent with dplyr `group_by()` .drop behaviour.
 
 ## Improvements
 
 * Support the interval of "quarter", "month", "week" & "day" for `difftime`.
 * Support the interval of "millisecond" & "microsecond" for `hms`.
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
-* Binary `-` operator between yearweeks, yearmonths, and yearquarters returns class `difftime`.
+* Binary `-` operator between yearweek, yearmonth, and yearquarter returns class `difftime`.
 
 ## Bug fixes
 
