@@ -22,9 +22,9 @@ as_tsibble(x, key = id(), index, regular = TRUE, validate = TRUE,
 \method{as_tsibble}{list}(x, key = id(), index, regular = TRUE,
   validate = TRUE, .drop = key_drop_default(x), ...)
 
-\method{as_tsibble}{ts}(x, tz = "UTC", ...)
+\method{as_tsibble}{ts}(x, ..., tz = "UTC")
 
-\method{as_tsibble}{mts}(x, tz = "UTC", gather = TRUE, ...)
+\method{as_tsibble}{mts}(x, ..., tz = "UTC", gather = TRUE)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}

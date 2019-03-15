@@ -10,7 +10,7 @@
 #' as_tsibble(austres)
 #'
 #' @export
-as_tsibble.ts <- function(x, tz = "UTC", ...) {
+as_tsibble.ts <- function(x, ..., tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   value <- as.numeric(x) # rm its ts class
   tbl <- tibble(index = idx, value = value)
@@ -29,7 +29,7 @@ as_tsibble.ts <- function(x, tz = "UTC", ...) {
 #' as_tsibble(z, gather = FALSE)
 #'
 #' @export
-as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
+as_tsibble.mts <- function(x, ..., tz = "UTC", gather = TRUE) {
   if (gather) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(
@@ -45,7 +45,7 @@ as_tsibble.mts <- function(x, tz = "UTC", gather = TRUE, ...) {
 
 #' @keywords internal
 #' @export
-as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
+as_tsibble.msts <- function(x, ..., tz = "UTC", gather = TRUE) {
   if (NCOL(x) == 1) {
     as_tsibble.ts(x, tz = tz)
   } else {
@@ -56,7 +56,7 @@ as_tsibble.msts <- function(x, tz = "UTC", gather = TRUE, ...) {
 #' @rdname as-tsibble
 #' @usage NULL
 #' @export
-as_tsibble.hts <- function(x, tz = "UTC", ...) {
+as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
   tbl <- gather_ts(x, tz = tz) %>% 
     dplyr::select(index, "value")

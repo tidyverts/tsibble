@@ -82,8 +82,8 @@ tsibble <- function(..., key = id(), index, regular = TRUE, .drop = TRUE) {
 #' as_tsibble(tbl2, key = id(group), index = mth)
 #'
 #' @export
-as_tsibble <- function(x, key = id(), index, regular = TRUE, validate = TRUE, 
-  .drop = key_drop_default(x), ...
+as_tsibble <- function(x, key = id(), index, regular = TRUE, 
+  validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   UseMethod("as_tsibble")
 }

@@ -300,11 +300,6 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   if (add) {
     grp_vars <- union(grp_vars, group_vars(.data))
   }
-  key_vars <- key_vars(.data)
-  if (all(is.element(key_vars, grp_vars)) && 
-    has_length(key_vars, length(grp_vars))) {
-    return(group_by_key(.data, .drop = .drop))
-  }
 
   grped_tbl <- NextMethod()
   if (.drop) { # needs to drop key too
@@ -337,11 +332,8 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
   is_idx_idx2 <- identical(index_var(.data), index2_var(.data))
   if (is_empty(key_vars(.data)) && is_idx_idx2) {
     .data
-  } else if (!.drop && is_idx_idx2) {
-    cls <- c("grouped_ts", "grouped_df")
-    new_tsibble(.data, "groups" = key_data(.data), class = cls)
-  } else if (.drop && is_idx_idx2) {
-    grped_tbl <- group_by(as_tibble(.data), !!! key(.data))
+  } else if (is_idx_idx2) {
+    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), .drop = .drop)
     build_tsibble(
       grped_tbl, key = key(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
@@ -349,7 +341,8 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
       validate = FALSE
     )
   } else {
-    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data))
+    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data),
+      .drop = .drop)
     build_tsibble(
       grped_tbl, key = key_data(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),

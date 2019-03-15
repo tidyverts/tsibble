@@ -77,3 +77,19 @@ test_that("dplyr verbs for empty groups (characters)", {
     group_data(ped_grped %>% arrange(Sensor, Date_Time))
   )
 })
+
+x <- tibble(
+  groups = rep(factor("a", levels = letters[1:2]), 10),
+  index = as.Date("2019-01-01") + 0:9
+)
+
+test_that("dplyr verbs for empty groups (factors)", {
+  y <- as_tsibble(x, key = id(groups), .drop = FALSE)
+  expect_equal(n_keys(y), 2L)
+  expect_false(key_drop_default(y))
+  expect_equal(n_keys(y %>% mutate(a = 1)), 2L)
+  expect_equal(n_keys(y %>% mutate(groups = groups)), 2L)
+  expect_equal(n_keys(y %>% mutate(groups = 1L)), 1L)
+  expect_equal(n_keys(y %>% select(index, groups)), 2L)
+  expect_equal(n_keys(y %>% rename(index2 = index, groups2 = groups)), 2L)
+})
