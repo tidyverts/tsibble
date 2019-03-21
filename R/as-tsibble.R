@@ -88,7 +88,7 @@ as_tsibble <- function(x, key = id(), index, regular = TRUE,
   UseMethod("as_tsibble")
 }
 
-#' @rdname as-tsibble
+#' @keywords internal
 #' @export
 as_tsibble.tbl_df <- function(x, key = id(), index, regular = TRUE, 
   validate = TRUE, .drop = key_drop_default(x), ...

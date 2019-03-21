@@ -2,7 +2,6 @@
 % Please edit documentation in R/as-tsibble.R, R/ts2tsibble.R
 \name{as_tsibble}
 \alias{as_tsibble}
-\alias{as_tsibble.tbl_df}
 \alias{as_tsibble.data.frame}
 \alias{as_tsibble.list}
 \alias{as_tsibble.ts}
@@ -12,9 +11,6 @@
 \usage{
 as_tsibble(x, key = id(), index, regular = TRUE, validate = TRUE,
   .drop = key_drop_default(x), ...)
-
-\method{as_tsibble}{tbl_df}(x, key = id(), index, regular = TRUE,
-  validate = TRUE, .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
   validate = TRUE, .drop = key_drop_default(x), ...)
