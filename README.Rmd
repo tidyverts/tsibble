@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-The **tsibble** package provides a data class of `tbl_ts` to represent tidy time series data. A *tsibble* consists of a time index, key and other measured variables in a data-centric format, which is built on top of the *tibble*.
+The **tsibble** package provides a data class of `tbl_ts` to represent tidy temporal data. A *tsibble* consists of a time index, key and other measured variables in a data-centric format, which is built on top of the *tibble*.
 
 ## Installation
 
@@ -187,7 +187,7 @@ Looking for rolling in parallel? Their multiprocessing equivalents are prefixed 
 
 ## More around tsibble
 
-Tsibble also serves as a natural input for forecasting and many other downstream analytical tasks. Stay tuned for [tidyverts.org](http://tidyverts.org).
+Tsibble also serves as a natural input for forecasting and many other downstream analytical tasks, for example the [fable](http://fable.tidyverts.org) package.
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).

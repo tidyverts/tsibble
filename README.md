@@ -13,9 +13,9 @@ Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data class of `tbl_ts` to represent
-tidy time series data. A *tsibble* consists of a time index, key and
-other measured variables in a data-centric format, which is built on top
-of the *tibble*.
+tidy temporal data. A *tsibble* consists of a time index, key and other
+measured variables in a data-centric format, which is built on top of
+the *tibble*.
 
 ## Installation
 
@@ -192,8 +192,8 @@ prefixed with `future_`. More examples can be found at
 ## More around tsibble
 
 Tsibble also serves as a natural input for forecasting and many other
-downstream analytical tasks. Stay tuned for
-[tidyverts.org](http://tidyverts.org).
+downstream analytical tasks, for example the
+[fable](http://fable.tidyverts.org) package.
 
 -----
 
