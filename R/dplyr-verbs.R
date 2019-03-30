@@ -361,7 +361,7 @@ dplyr::ungroup
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
-    tbl, key = key_data(x), index = !! index(x), regular = is_regular(x),
+    tbl, key_data = key_data(x), index = !! index(x), regular = is_regular(x),
     ordered = is_ordered(x), interval = interval(x)
   )
 }

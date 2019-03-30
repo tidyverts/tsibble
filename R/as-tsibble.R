@@ -410,13 +410,13 @@ build_tsibble <- function(
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
   }
   build_tsibble_meta(
-    tbl, key = key_data, index = !! index, index2 = !! index2,
+    tbl, key_data = key_data, index = !! index, index2 = !! index2,
     regular = regular, ordered = ordered, interval = interval
   )
 }
 
 build_tsibble_meta <- function(
-  x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL
+  x, key_data, index, index2, ordered = NULL, regular = TRUE, interval = NULL
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
@@ -438,7 +438,7 @@ build_tsibble_meta <- function(
     }
     grp_data <- group_data(tbl)
     tbl <- new_tibble(
-      tbl, "key" = key, "index" = index, "index2" = index2,
+      tbl, "key" = key_data, "index" = index, "index2" = index2,
       "interval" = interval, "regular" = regular, "ordered" = TRUE,
       "groups" = NULL, nrow = 0L, class = "tbl_ts"
     )
@@ -469,7 +469,7 @@ build_tsibble_meta <- function(
   }
   grp_data <- group_data(tbl)
   tbl <- new_tibble(
-    tbl, "key" = key, "index" = index, "index2" = index2,
+    tbl, "key" = key_data, "index" = index, "index2" = index2,
     "interval" = interval, "regular" = regular, "ordered" = ordered,
     "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
