@@ -95,6 +95,7 @@ Collate:
     'tile.R'
     'time-wise.R'
     'ts2tsibble.R'
+    'tsibble-meta.R'
     'tsibble-pkg.R'
     'tsibble2ts.R'
     'type-sum.R'
