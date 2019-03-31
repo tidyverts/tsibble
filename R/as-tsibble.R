@@ -207,7 +207,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #' # Prepare `pedestrian` to use a new index `Date` ----
 #' pedestrian %>%
 #'   build_tsibble(
-#'     key = !! key(.), index = index(.), index2 = Date, interval = interval(.)
+#'     key = !! key(.), index = !! index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
   x, key, key_data = NULL, index, index2, ordered = NULL, regular = TRUE, 
@@ -372,12 +372,6 @@ validate_index <- function(data, index) {
     chr_index <- names(data)[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("Using `%s` as index variable.", chr_index))
-  } else if (quo_is_call(index)) {
-    call_fn <- call_name(index)
-    if (call_fn == "index") {
-      index <- eval_tidy(index)
-      chr_index <- tidyselect::vars_pull(names(data), !! index)
-    }
   } else {
     chr_index <- tidyselect::vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
