@@ -311,7 +311,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
     )
   } else {
     build_tsibble(
-      grped_tbl, key = key_data(.data), index = !! index(.data),
+      grped_tbl, key_data = key_data(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
       ordered = is_ordered(.data), interval = NULL,
       validate = FALSE
@@ -344,7 +344,7 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
     grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data),
       .drop = .drop)
     build_tsibble(
-      grped_tbl, key = key_data(.data), index = !! index(.data),
+      grped_tbl, key_data = key_data(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
       ordered = is_ordered(.data), interval = interval(.data),
       validate = FALSE

@@ -39,7 +39,7 @@ update_meta2 <- function(
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(
-    new, key = new_key, index = !! index(old), index2 = !! index2(old),
+    new, key_data = new_key, index = !! index(old), index2 = !! index2(old),
     regular = is_regular(old), ordered = ordered, interval = interval, 
     validate = validate
   ), old)
@@ -74,7 +74,8 @@ rename_tsibble <- function(.data, ...) {
   names(res) <- names(val_vars)
 
   build_tsibble(
-    res, key = key_data(res), index = !! index(res), index2 = !! index2(res),
+    res, key_data = key_data(res),
+    index = !! index(res), index2 = !! index2(res),
     regular = is_regular(res), ordered = is_ordered(res), 
     interval = interval(res), validate = FALSE
   )

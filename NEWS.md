@@ -8,6 +8,7 @@ This release is made to be consistent with dplyr `group_by()` .drop behaviour.
 * Support the interval of "millisecond" & "microsecond" for `hms`.
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
 * Binary `-` operator between yearweek, yearmonth, and yearquarter returns class `difftime`.
+* Added new argument `key_data` to `build_tsibble()` for the easy-to-reason purpose.
 
 ## Bug fixes
 

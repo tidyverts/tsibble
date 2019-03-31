@@ -4,8 +4,9 @@
 \alias{build_tsibble}
 \title{Low-level constructor for a tsibble object}
 \usage{
-build_tsibble(x, key, index, index2, ordered = NULL, regular = TRUE,
-  interval = NULL, validate = TRUE, .drop = key_drop_default(x))
+build_tsibble(x, key, key_data = NULL, index, index2, ordered = NULL,
+  regular = TRUE, interval = NULL, validate = TRUE,
+  .drop = key_drop_default(x))
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
@@ -13,6 +14,9 @@ build_tsibble(x, key, index, index2, ordered = NULL, regular = TRUE,
 \item{key}{Variable(s) that define unique time indices, used in conjunction
 with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
 simply call \code{id()}.}
+
+\item{key_data}{A data frame containing key variables and \code{.rows}. When a data
+frame is supplied, the argument \code{key} will be ignored.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

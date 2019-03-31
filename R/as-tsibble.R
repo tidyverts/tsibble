@@ -333,6 +333,8 @@ is.grouped_ts <- is_grouped_ts
 #'
 #' @param x A `data.frame`, `tbl_df`, `tbl_ts`, or other tabular objects.
 #' @inheritParams as_tsibble
+#' @param key_data A data frame containing key variables and `.rows`. When a data
+#' frame is supplied, the argument `key` will be ignored.
 #' @param index2 A candidate of `index` to update the index to a new one when
 #' [index_by]. By default, it's identical to `index`.
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
@@ -349,15 +351,15 @@ is.grouped_ts <- is_grouped_ts
 #'     key = key(.), index = index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, index, index2, ordered = NULL, regular = TRUE, interval = NULL,
-  validate = TRUE, .drop = key_drop_default(x)
+  x, key, key_data = NULL, index, index2, ordered = NULL, regular = TRUE, 
+  interval = NULL, validate = TRUE, .drop = key_drop_default(x)
 ) {
-  # if key is quosures
-  key_sym <- use_id(x, !! enquo(key))
-  is_key_data <- is.data.frame(key_sym)
+  is_key_data <- !is_null(key_data)
   if (is_key_data) {
-    key_data <- key_sym
+    assert_key_data(key_data)
     key_sym <- head(names(key_data), -1L)
+  } else {
+    key_sym <- use_id(x, !! enquo(key))
   }
 
   is_grped <- dplyr::is_grouped_df(x)
@@ -416,7 +418,8 @@ build_tsibble <- function(
 }
 
 build_tsibble_meta <- function(
-  x, key_data, index, index2, ordered = NULL, regular = TRUE, interval = NULL
+  x, key_data = NULL, index, index2, ordered = NULL, regular = TRUE,
+  interval = NULL
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
