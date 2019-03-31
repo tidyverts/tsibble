@@ -10,9 +10,7 @@ update_tsibble(x, key, index, regular = is_regular(x), validate = TRUE,
 \arguments{
 \item{x}{A tsibble.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjunction
-with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

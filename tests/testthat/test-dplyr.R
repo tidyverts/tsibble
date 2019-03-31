@@ -232,7 +232,7 @@ tsbl <- tsibble(
   a = rnorm(30),
   b = rnorm(30),
   c = rnorm(30),
-  key = id(group), index = qtr
+  key = group, index = qtr
 )
 
 test_that("transmute()", {

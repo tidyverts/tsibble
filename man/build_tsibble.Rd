@@ -11,9 +11,7 @@ build_tsibble(x, key, key_data = NULL, index, index2, ordered = NULL,
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjunction
-with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
 
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}
@@ -48,6 +46,6 @@ determine if the time needs ordering and the interval needs calculating.
 # Prepare `pedestrian` to use a new index `Date` ----
 pedestrian \%>\%
   build_tsibble(
-    key = key(.), index = index(.), index2 = Date, interval = interval(.)
+    key = !! key(.), index = index(.), index2 = Date, interval = interval(.)
   )
 }

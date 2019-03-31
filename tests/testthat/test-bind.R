@@ -7,7 +7,7 @@ dat_x <- tibble(
   value = rnorm(10)
 )
 
-tsbl <- as_tsibble(dat_x, key = id(group), index = date)
+tsbl <- as_tsibble(dat_x, key = group, index = date)
 tsbl2 <- mutate(tsbl, date = date + rep(5:9, each = 2), value2 = 2)
 
 test_that("rbind()", {
@@ -17,9 +17,9 @@ test_that("rbind()", {
 })
 
 test_that("rbind() for custom index class #78", {
-  vic <- tourism %>% 
+  vic <- tourism %>%
     filter(State == "Victoria")
-  nsw <- tourism %>% 
+  nsw <- tourism %>%
     filter(State == "New South Wales")
   res <- rbind(vic, nsw)
   expect_is(res$Quarter, "yearquarter")

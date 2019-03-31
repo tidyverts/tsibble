@@ -84,7 +84,7 @@ x <- tibble(
 )
 
 test_that("dplyr verbs for empty groups (factors)", {
-  y <- as_tsibble(x, key = id(groups), .drop = FALSE)
+  y <- as_tsibble(x, key = groups, .drop = FALSE)
   expect_equal(n_keys(y), 2L)
   expect_false(key_drop_default(y))
   expect_equal(n_keys(y %>% mutate(a = 1)), 2L)

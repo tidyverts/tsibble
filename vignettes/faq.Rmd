@@ -59,12 +59,12 @@ I would say both are correct. The displayed interval may suggest the actual time
 tsbl1 <- tsibble(
   time = make_datetime(2018) + hours(0:3),
   station = "A",
-  index = time, key = id(station)
+  index = time, key = station
 ) %>% print()
 tsbl2 <- tsibble(
   time = make_datetime(2018) + minutes(seq(0, 90, by = 30)),
   station = "B",
-  index = time, key = id(station)
+  index = time, key = station
 ) %>% print()
 rbind(tsbl1, tsbl2)
 ```
@@ -81,7 +81,7 @@ tbl <- tibble(
   time = c(x, x + minutes(15)),
   station = rep(c("A", "B"), 2)
 )
-as_tsibble(tbl, index = time, key = id(station))
+as_tsibble(tbl, index = time, key = station)
 ```
 
 Each station shares the same 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't matter to the analysis. If it does, please organise them in different tables.
@@ -89,7 +89,7 @@ Each station shares the same 15-minute interval, but the date-times don't align.
 ```{r}
 tbl %>% 
   mutate(time = floor_date(time, unit = "15 mins")) %>% 
-  as_tsibble(index = time, key = id(station))
+  as_tsibble(index = time, key = station)
 ```
 
 If it's event data, each event couples with a precise timestamp, and most likely you need `regular = FALSE` for irregular-spaced tsibble.

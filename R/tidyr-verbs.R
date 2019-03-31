@@ -34,7 +34,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble(
-    tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
+    tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
     regular = is_regular(data), ordered = is_ordered(data), 
     interval = interval(data), validate = FALSE
   )
@@ -70,7 +70,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   vars <- names(tbl)
   data <- mutate_index2(data, vars)
   build_tsibble(
-    tbl, key = new_key, index = !! index(data), index2 = !! index2(data), 
+    tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
     regular = is_regular(data), ordered = is_ordered(data), interval = NULL, 
     validate = FALSE
   )
@@ -137,8 +137,8 @@ tidyr::unnest
 #' @export
 #' @examples
 #' nested_stock %>% 
-#'   unnest(key = id(stock))
-unnest.lst_ts <- function(data, ..., key = id(),
+#'   unnest(key = stock)
+unnest.lst_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   key <- use_id(data, !! enquo(key))
@@ -176,7 +176,7 @@ unnest.lst_ts <- function(data, ..., key = id(),
   # restore the index class, as it's dropped by NextMethod()
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
-    out, key = key, index = !! idx, index2 = !! index2(tsbl),
+    out, key = !! key, index = !! idx, index2 = !! index2(tsbl),
     ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
     interval = NULL, validate = FALSE
   )
@@ -192,8 +192,8 @@ unnest.lst_ts <- function(data, ..., key = id(),
 #'     value = list(quantile(price)), 
 #'     qtl = list(c("0%", "25%", "50%", "75%", "100%"))
 #'   )
-#' unnest(stock_qtl, key = id(qtl))
-unnest.tbl_ts <- function(data, ..., key = id(),
+#' unnest(stock_qtl, key = qtl)
+unnest.tbl_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   key <- use_id(data, !! enquo(key))
@@ -209,7 +209,7 @@ unnest.tbl_ts <- function(data, ..., key = id(),
   idx_chr <- as_string(idx)
   class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
   build_tsibble(
-    tbl, key = key, index = !! idx, index2 = !! index2(data), 
+    tbl, key = !! key, index = !! idx, index2 = !! index2(data), 
     ordered = is_ordered(data), regular = is_regular(data), 
     interval = NULL, validate = FALSE
   )
@@ -220,7 +220,7 @@ unnest_tsibble <- function(data, key, index) {
   is_dup <- duplicated_key_index(data, key, index)
   if (is_dup) {
     header <- "The result is not a valid tsibble.\n"
-    hint <- "Do you forget argument `key = id(...)` in `unnest()` to create the key?."
+    hint <- "Do you forget argument `key` in `unnest()` to create the key?."
     abort(paste0(header, hint))
   }
   data

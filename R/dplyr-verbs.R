@@ -12,7 +12,7 @@ dplyr::arrange
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` reduces a sequence of values over time instead of a single summary,
 #' as well as dropping empty keys/groups.
-#' * `unnest()` requires argument `key = id()` to get back to a tsibble.
+#' * `unnest()` requires argument `key = NULL` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
 #' @param ... same arguments accepted as its dplyr generic.
@@ -197,7 +197,7 @@ mutate.tbl_ts <- function(.data, ...) {
     mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
   }
   build_tsibble(
-    mut_data, key = key(.data), index = !! index(.data),
+    mut_data, key = !! key(.data), index = !! index(.data),
     index2 = !! index2(.data), regular = is_regular(.data),
     ordered = is_ordered(.data), interval = interval,
     validate = FALSE, .drop = is_key_dropped(.data)
@@ -273,7 +273,7 @@ summarise.tbl_ts <- function(.data, ...) {
   grps <- syms(setdiff(group_vars(.data), as_string(idx2)))
 
   build_tsibble(
-    sum_data, key = grps, index = !! idx2, regular = reg, ordered = TRUE, 
+    sum_data, key = !! grps, index = !! idx2, regular = reg, ordered = TRUE, 
     interval = NULL, validate = FALSE
   )
 }
@@ -304,7 +304,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   grped_tbl <- NextMethod()
   if (.drop) { # needs to drop key too
     build_tsibble(
-      grped_tbl, key = key(.data), index = !! index(.data),
+      grped_tbl, key = !! key(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
       ordered = is_ordered(.data), interval = NULL,
       validate = FALSE
@@ -335,7 +335,7 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
   } else if (is_idx_idx2) {
     grped_tbl <- group_by(as_tibble(.data), !!! key(.data), .drop = .drop)
     build_tsibble(
-      grped_tbl, key = key(.data), index = !! index(.data),
+      grped_tbl, key = !! key(.data), index = !! index(.data),
       index2 = !! index2(.data), regular = is_regular(.data),
       ordered = is_ordered(.data), interval = interval(.data),
       validate = FALSE

@@ -87,10 +87,10 @@
 
 \method{nest}{tbl_ts}(data, ..., .key = "data")
 
-\method{unnest}{lst_ts}(data, ..., key = id(), .drop = NA,
+\method{unnest}{lst_ts}(data, ..., key = NULL, .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
 
-\method{unnest}{tbl_ts}(data, ..., key = id(), .drop = NA,
+\method{unnest}{tbl_ts}(data, ..., key = NULL, .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
 
 \method{fill}{tbl_ts}(data, ..., .direction = c("down", "up"))
@@ -207,7 +207,7 @@ be issued.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.
-\item \code{unnest()} requires argument \code{key = id()} to get back to a tsibble.
+\item \code{unnest()} requires argument \code{key = NULL} to get back to a tsibble.
 }
 }
 \details{
@@ -240,7 +240,7 @@ stocksm \%>\%
   group_by(stock) \%>\% 
   nest()
 nested_stock \%>\% 
-  unnest(key = id(stock))
+  unnest(key = stock)
 stock_qtl <- stocksm \%>\% 
   group_by(stock) \%>\% 
   index_by(day3 = lubridate::floor_date(time, unit = "3 day")) \%>\% 
@@ -248,5 +248,5 @@ stock_qtl <- stocksm \%>\%
     value = list(quantile(price)), 
     qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
   )
-unnest(stock_qtl, key = id(qtl))
+unnest(stock_qtl, key = qtl)
 }

@@ -89,7 +89,7 @@ dat_x <- tibble(
   value = rep(1:2, each = 5)
 )
 dat_y <- dat_x[c(2:8, 10), ]
-tsbl <- as_tsibble(dat_y, key = id(group), index = date)
+tsbl <- as_tsibble(dat_y, key = group, index = date)
 
 test_that("fill_gaps() for corner case", {
   expect_identical(fill_gaps(tsbl[1:5, ]), tsbl[1:5, ])
@@ -195,7 +195,7 @@ harvest <- tsibble(
   year = c(2010, 2011, 2013, 2011, 2012, 2013),
   fruit = rep(c("kiwi", "cherry"), each = 3),
   kilo = sample(1:10, size = 6),
-  key = id(fruit), index = year
+  key = fruit, index = year
 )
 
 test_that("has_gaps()", {

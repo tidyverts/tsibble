@@ -39,15 +39,15 @@ remotes::install_github("tidyverts/tsibble")
 The `weather` data included in the package `nycflights13` is used as an
 example to illustrate. The “index” variable is the `time_hour`
 containing the date-times, and the “key” is the `origin` as weather
-stations created via `id()`. **The key together with the index uniquely
-identifies each observation**, which gives a valid *tsibble*. Other
-columns can be considered as measured variables.
+stations. **The key together with the index uniquely identifies each
+observation**, which gives a valid *tsibble*. Other columns can be
+considered as measured variables.
 
 ``` r
 library(tsibble)
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
-weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
+weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
 weather_tsbl
 #> # A tsibble: 26,115 x 5 [1h] <America/New_York>
 #> # Key:       origin [3]
@@ -192,8 +192,8 @@ prefixed with `future_`. More examples can be found at
 ## More around tsibble
 
 Tsibble also serves as a natural input for forecasting and many other
-downstream analytical tasks, for example the
-[fable](http://fable.tidyverts.org) package.
+downstream analytical tasks. Stay tuned for
+[tidyverts.org](https://tidyverts.org).
 
 -----
 

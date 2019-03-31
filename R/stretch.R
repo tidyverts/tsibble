@@ -268,7 +268,7 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #'   year = rep(2010:2012, 2),
 #'   fruit = rep(c("kiwi", "cherry"), each = 3),
 #'   kilo = sample(1:10, size = 6),
-#'   key = id(fruit), index = year
+#'   key = fruit, index = year
 #' )
 #' harvest %>%
 #'   stretch_tsibble()

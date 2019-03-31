@@ -35,13 +35,14 @@ for the class and calculate the interval through \code{\link[=pull_interval]{pul
 
 \section{Key}{
 
-Key variable(s) together with the index uniquely identifies each record, which
-can be created via the \link{id} function as identifiers:
+Key variable(s) together with the index uniquely identifies each record:
 \itemize{
-\item Empty: an implicit variable \code{id()} resulting in a univariate time series.
-\item One or more variables: explicit variables. For example, \code{data(pedestrian)}
-and \code{data(tourism)} use the \code{id(Sensor)} & \code{id(Region, State, Purpose)} as
-the key respectively.
+\item Empty: an implicit variable. \code{NULL} resulting in a univariate time series.
+\item A single variable: For example, \code{data(pedestrian)} use the bare \code{Sensor} as
+the key.
+\item Multiple variables: For example, Declare \code{key = c(Region, State, Purpose)}
+for \code{data(tourism)}.
+Key can be created in conjunction with tidy selectors like \code{starts_with()}.
 }
 }
 
@@ -96,7 +97,7 @@ tsibble(
   qtr = rep(yearquarter("2010-01") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
-  key = id(group)
+  key = group
 )
 }
 \seealso{

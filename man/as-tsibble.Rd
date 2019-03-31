@@ -9,13 +9,13 @@
 \alias{as_tsibble.hts}
 \title{Coerce to a tsibble object}
 \usage{
-as_tsibble(x, key = id(), index, regular = TRUE, validate = TRUE,
+as_tsibble(x, key = NULL, index, regular = TRUE, validate = TRUE,
   .drop = key_drop_default(x), ...)
 
-\method{as_tsibble}{data.frame}(x, key = id(), index, regular = TRUE,
+\method{as_tsibble}{data.frame}(x, key = NULL, index, regular = TRUE,
   validate = TRUE, .drop = key_drop_default(x), ...)
 
-\method{as_tsibble}{list}(x, key = id(), index, regular = TRUE,
+\method{as_tsibble}{list}(x, key = NULL, index, regular = TRUE,
   validate = TRUE, .drop = key_drop_default(x), ...)
 
 \method{as_tsibble}{ts}(x, ..., tz = "UTC")
@@ -25,9 +25,7 @@ as_tsibble(x, key = id(), index, regular = TRUE, validate = TRUE,
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
 
-\item{key}{Variable(s) that define unique time indices, used in conjunction
-with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -70,8 +68,8 @@ tbl2 <- tibble(
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 )
-as_tsibble(tbl2, key = id(group))
-as_tsibble(tbl2, key = id(group), index = mth)
+as_tsibble(tbl2, key = group)
+as_tsibble(tbl2, key = group, index = mth)
 
 # coerce ts to tsibble
 as_tsibble(AirPassengers)

@@ -61,7 +61,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 #'   date = rep(as.Date("2017-01-01") + 0:2, each = 2), 
 #'   group = rep(letters[1:2], 3),
 #'   value = rnorm(6),
-#'   key = id(group)
+#'   key = group
 #' )
 #' append_row(tsbl)
 #' append_row(tsbl, n = 2)

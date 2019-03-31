@@ -6,18 +6,16 @@
 \alias{duplicates}
 \title{Test duplicated observations determined by key and index variables}
 \usage{
-is_duplicated(data, key = id(), index)
+is_duplicated(data, key = NULL, index)
 
-are_duplicated(data, key = id(), index, from_last = FALSE)
+are_duplicated(data, key = NULL, index, from_last = FALSE)
 
-duplicates(data, key = id(), index)
+duplicates(data, key = NULL, index)
 }
 \arguments{
 \item{data}{A data frame for creating a tsibble.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjunction
-with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -37,8 +35,8 @@ harvest <- tibble(
   fruit = c(rep(c("kiwi", "cherry"), each = 3), "cherry"),
   kilo = sample(1:10, size = 7)
 )
-is_duplicated(harvest, key = id(fruit), index = year)
-are_duplicated(harvest, key = id(fruit), index = year)
-are_duplicated(harvest, key = id(fruit), index = year, from_last = TRUE)
-duplicates(harvest, key = id(fruit), index = year)
+is_duplicated(harvest, key = fruit, index = year)
+are_duplicated(harvest, key = fruit, index = year)
+are_duplicated(harvest, key = fruit, index = year, from_last = TRUE)
+duplicates(harvest, key = fruit, index = year)
 }

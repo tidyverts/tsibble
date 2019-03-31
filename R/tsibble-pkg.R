@@ -27,12 +27,13 @@
 #' for the class and calculate the interval through [pull_interval()].
 #'
 #' @section Key:
-#' Key variable(s) together with the index uniquely identifies each record, which 
-#' can be created via the [id] function as identifiers:
-#' * Empty: an implicit variable `id()` resulting in a univariate time series.
-#' * One or more variables: explicit variables. For example, `data(pedestrian)`
-#' and `data(tourism)` use the `id(Sensor)` & `id(Region, State, Purpose)` as 
-#' the key respectively.
+#' Key variable(s) together with the index uniquely identifies each record:
+#' * Empty: an implicit variable. `NULL` resulting in a univariate time series.
+#' * A single variable: For example, `data(pedestrian)` use the bare `Sensor` as 
+#' the key.
+#' * Multiple variables: For example, Declare `key = c(Region, State, Purpose)`
+#' for `data(tourism)`.
+#' Key can be created in conjunction with tidy selectors like `starts_with()`.
 #'
 #' @section Interval:
 #' The [interval] function returns the interval associated with the tsibble.
@@ -70,7 +71,7 @@
 #' @importFrom purrr map map_dbl map_int map_chr map_lgl
 #' @importFrom purrr map2 map2_dbl map2_int map2_chr map2_lgl
 #' @importFrom purrr pmap pmap_dbl pmap_int pmap_chr pmap_lgl
-#' @import rlang
+#' @import rlang tidyselect
 #' @examples
 #' # create a tsibble w/o a key ----
 #' tsibble(
@@ -83,7 +84,7 @@
 #'   qtr = rep(yearquarter("2010-01") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30),
-#'   key = id(group)
+#'   key = group
 #' )
 "_PACKAGE"
 

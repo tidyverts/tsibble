@@ -18,7 +18,7 @@ update_meta <- function(
   }
   validate <- TRUE || validate
   restore_index_class(build_tsibble(
-    new, key = key(old), index = !! index(old), index2 = !! index2(old),
+    new, key = !! key(old), index = !! index(old), index2 = !! index2(old),
     regular = is_regular(old), ordered = ordered, interval = interval, 
     validate = validate, .drop = is_key_dropped(old)
   ), old)
@@ -108,7 +108,8 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
   }
   
   build_tsibble(
-    sel_data, key = key_vars, index = !! index(.data), index2 = !! index2(.data),
+    sel_data,
+    key = !! key_vars, index = !! index(.data), index2 = !! index2(.data),
     regular = is_regular(.data), ordered = is_ordered(.data), 
     interval = interval(.data), validate = FALSE, .drop = is_key_dropped(.data)
   )

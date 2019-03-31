@@ -96,7 +96,7 @@ dat_x <- tibble(
   group = rep(letters[1:2], each = 5),
   value = rep(1:2, each = 5)
 )
-tsbl3 <- as_tsibble(dat_x, key = id(group), index = date)
+tsbl3 <- as_tsibble(dat_x, key = group, index = date)
 
 test_that("index_by() with group_by()", {
   res1 <- tsbl3 %>%
@@ -120,7 +120,7 @@ tsbl4 <- tsibble(
   value1 = rep(1:2, each = 5),
   value2 = rnorm(10),
   value3 = rnorm(10),
-  key = id(group), index = date
+  key = group, index = date
 )
 
 test_that("summarise scoped variants", {

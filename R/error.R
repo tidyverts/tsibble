@@ -23,10 +23,6 @@ not_regular <- function(x) {
   }
 }
 
-suggest_key <- function(x) {
-  sprintf("Key can only be created via `id()`.\nDid you mean `key = id(%s)`?", x)
-}
-
 not_tsibble <- function(x) {
   if (is_false(is_tsibble(x) || inherits(x, "lst_ts"))) {
     abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))

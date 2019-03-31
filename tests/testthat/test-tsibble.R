@@ -78,7 +78,7 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x), "Using `date_time` as index variable.")
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1s\\]")
-  expect_error(as_tsibble(dat_x, key = id(date_time)))
+  expect_error(as_tsibble(dat_x, key = date_time))
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "name")
   expect_identical(quo_text(index(tsbl)), "date_time")
@@ -294,8 +294,8 @@ dat_x <- tibble(
 
 test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date), "A valid tsibble")
-  expect_error(as_tsibble(dat_x, key = "group", index = date), "Key can only be created")
-  tsbl <- as_tsibble(dat_x, key = id(group), index = date)
+  tsbl <- as_tsibble(dat_x, key = group, index = date)
+  expect_identical(as_tsibble(dat_x, key = "group", index = date), tsbl)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
   expect_identical(format(groups(tsbl)), "NULL")
   # expect_equal(key_size(tsbl), c(5, 5))
@@ -304,17 +304,17 @@ test_that("A single key", {
 
 test_that("Duplicated identifier: index", {
   dat_y <- dat_x[c(1, 2, 1, 4:10), ]
-  expect_error(as_tsibble(dat_y, key = id(group), index = date))
+  expect_error(as_tsibble(dat_y, key = group, index = date))
 })
 
 test_that("Duplicated identifier: key", {
   dat_x$group <- rep(letters[1:2], c(6, 4))
-  expect_error(as_tsibble(dat_x, key = id(group), index = date))
+  expect_error(as_tsibble(dat_x, key = group, index = date))
 })
 
 test_that("validate = FALSE", {
   dat_x$group <- rep(letters[1:2], c(6, 4))
-  tsbl <- as_tsibble(dat_x, key = id(group), index = date, validate = FALSE)
+  tsbl <- as_tsibble(dat_x, key = group, index = date, validate = FALSE)
   expect_is(tsbl, "tbl_ts")
 })
 
@@ -329,16 +329,16 @@ dat_x <- tribble(
 )
 
 test_that("multiple variables", {
-  expect_error(as_tsibble(dat_x, key = id(group1), index = date))
-  expect_error(as_tsibble(dat_x, key = id(group2), index = date))
-  tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
+  expect_error(as_tsibble(dat_x, key = group1, index = date))
+  expect_error(as_tsibble(dat_x, key = group2, index = date))
+  tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date)
   expect_identical(length(key(tsbl)), 2L)
 })
 
 test_that("Use '-' and ':' in key vars", {
-  tsbl1 <- as_tsibble(dat_x, key = id(-date, -value), index = date)
+  tsbl1 <- as_tsibble(dat_x, key = c(-date, -value), index = date)
   expect_identical(length(key(tsbl1)), 2L)
-  tsbl2 <- as_tsibble(dat_x, key = id(group1:group2), index = date)
+  tsbl2 <- as_tsibble(dat_x, key = group1:group2, index = date)
   expect_identical(length(key(tsbl2)), 2L)
 })
 
@@ -354,26 +354,22 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
   expect_identical(ped, pedestrian)
   grped_ped <- pedestrian %>% group_by(Date)
   expect_equal(as_tsibble(grped_ped), grped_ped)
-  expect_is(as_tsibble(tbl, key = id(group), index = mth), "tbl_ts")
-  expect_is(as_tsibble(tbl, key = id(group), index = mth), "grouped_ts")
+  expect_is(as_tsibble(tbl, key = group, index = mth), "tbl_ts")
+  expect_is(as_tsibble(tbl, key = group, index = mth), "grouped_ts")
 })
 
 test_that("build_tsibble()", {
   expect_error(build_tsibble(
-    pedestrian, key = id(Sensor), index = Date_Time,
+    pedestrian, key = Sensor, index = Date_Time,
     interval = list(hour = 1)
   ), "Argument `interval` must be class interval,")
-  expect_error(
-    build_tsibble(pedestrian, key = Sensor, index = Date_Time),
-    "Key can only be created"
-  )
-  expect_error(
-    build_tsibble(pedestrian, key = dplyr::vars(Sensor), index = Date_Time),
-    "Please use"
+  expect_identical(
+    build_tsibble(pedestrian, key = !! dplyr::vars(Sensor), index = Date_Time),
+    pedestrian
   )
 
   tsbl <- build_tsibble(
-    pedestrian, key = id(Sensor), index = Date_Time,
+    pedestrian, key = Sensor, index = Date_Time,
     index2 = Date
   )
   idx2 <- index2(tsbl)
@@ -383,7 +379,7 @@ test_that("build_tsibble()", {
   expect_error(print(idx_drop), "dropped somehow")
 
   expect_error(
-    build_tsibble(pedestrian, key = id(Sensor), index = NULL), "NULL."
+    build_tsibble(pedestrian, key = Sensor, index = NULL), "NULL."
   )
 
   expect_error(pedestrian %>%

@@ -1,6 +1,11 @@
 # tsibble 0.7.0.9000
 
-This release is made to be consistent with dplyr `group_by()` .drop behaviour.
+This release is made to be consistent with dplyr `group_by()` `.drop` behaviour.
+
+## Defunct & deprecated functions
+
+* Deprecate `id()` for creating key, and will be defunct until end of September, 2019.
+* Continue with deprecation of `fill_na()` in favour of `fill_gaps()`, and will be defunct in the next release.
 
 ## Improvements
 
@@ -19,8 +24,6 @@ This release is made to be consistent with dplyr `group_by()` .drop behaviour.
 * Added "Tasmania" to `data(tourism)` and 2017 data.
 
 # tsibble 0.7.0
-
-The tsibble's data structure and API reach to the lifecycle of stability.
 
 ## Breaking changes
 

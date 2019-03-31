@@ -22,13 +22,13 @@ test_that("pillar S3 methods", {
 tbl1 <- tsibble(
   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
   value = rnorm(10),
-  key = id(), index = date
+  index = date
 )
 tbl2 <- tsibble(
   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
-  key = id(group), index = qtr
+  key = group, index = qtr
 )
 
 test_that("tbl_sum.tbl_ts()", {

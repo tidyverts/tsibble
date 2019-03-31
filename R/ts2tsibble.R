@@ -15,7 +15,7 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
   value <- as.numeric(x) # rm its ts class
   tbl <- tibble(index = idx, value = value)
   build_tsibble(
-    tbl, key = id(), index = index, ordered = TRUE, validate = FALSE
+    tbl, key = NULL, index = index, ordered = TRUE, validate = FALSE
   )
 }
 
@@ -33,12 +33,12 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", gather = TRUE) {
   if (gather) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(
-      long_tbl, key = id(key), index = index, ordered = TRUE, validate = FALSE
+      long_tbl, key = key, index = index, ordered = TRUE, validate = FALSE
     )
   } else {
     wide_tbl <- bind_time(x, tz = tz)
     build_tsibble(
-      wide_tbl, key = id(), index = index, ordered = TRUE, validate = FALSE
+      wide_tbl, key = NULL, index = index, ordered = TRUE, validate = FALSE
     )
   }
 }

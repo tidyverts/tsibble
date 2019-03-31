@@ -4,15 +4,13 @@
 \alias{tsibble}
 \title{Create a tsibble object}
 \usage{
-tsibble(..., key = id(), index, regular = TRUE, .drop = TRUE)
+tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 }
 \arguments{
 \item{...}{A set of name-value pairs. The names of "key" and "index" should
 be avoided as they are used as the arguments.}
 
-\item{key}{Variable(s) that define unique time indices, used in conjunction
-with the helper \code{\link[=id]{id()}}. If a univariate time series (without an explicit key),
-simply call \code{id()}.}
+\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -55,13 +53,14 @@ for the class and calculate the interval through \code{\link[=pull_interval]{pul
 
 \section{Key}{
 
-Key variable(s) together with the index uniquely identifies each record, which
-can be created via the \link{id} function as identifiers:
+Key variable(s) together with the index uniquely identifies each record:
 \itemize{
-\item Empty: an implicit variable \code{id()} resulting in a univariate time series.
-\item One or more variables: explicit variables. For example, \code{data(pedestrian)}
-and \code{data(tourism)} use the \code{id(Sensor)} & \code{id(Region, State, Purpose)} as
-the key respectively.
+\item Empty: an implicit variable. \code{NULL} resulting in a univariate time series.
+\item A single variable: For example, \code{data(pedestrian)} use the bare \code{Sensor} as
+the key.
+\item Multiple variables: For example, Declare \code{key = c(Region, State, Purpose)}
+for \code{data(tourism)}.
+Key can be created in conjunction with tidy selectors like \code{starts_with()}.
 }
 }
 
@@ -104,7 +103,7 @@ tsibble(
   qtr = rep(yearquarter("201001") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
-  key = id(group)
+  key = group
 )
 
 }

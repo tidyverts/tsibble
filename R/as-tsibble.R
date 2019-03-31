@@ -2,9 +2,7 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Variable(s) that define unique time indices, used in conjunction
-#' with the helper [id()]. If a univariate time series (without an explicit key),
-#' simply call `id()`.
+#' @param key Variable(s) that define unique time indices. `NULL` for empty key.
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
@@ -33,11 +31,11 @@
 #'   qtr = rep(yearquarter("201001") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30),
-#'   key = id(group)
+#'   key = group
 #' )
 #'
 #' @export
-tsibble <- function(..., key = id(), index, regular = TRUE, .drop = TRUE) {
+tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
   dots <- list2(...)
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
@@ -78,11 +76,11 @@ tsibble <- function(..., key = id(), index, regular = TRUE, .drop = TRUE) {
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30)
 #' )
-#' as_tsibble(tbl2, key = id(group))
-#' as_tsibble(tbl2, key = id(group), index = mth)
+#' as_tsibble(tbl2, key = group)
+#' as_tsibble(tbl2, key = group, index = mth)
 #'
 #' @export
-as_tsibble <- function(x, key = id(), index, regular = TRUE, 
+as_tsibble <- function(x, key = NULL, index, regular = TRUE, 
   validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   UseMethod("as_tsibble")
@@ -90,7 +88,7 @@ as_tsibble <- function(x, key = id(), index, regular = TRUE,
 
 #' @keywords internal
 #' @export
-as_tsibble.tbl_df <- function(x, key = id(), index, regular = TRUE, 
+as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE, 
   validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   index <- enquo(index)
@@ -120,7 +118,7 @@ as_tsibble.list <- as_tsibble.tbl_df
 
 #' @keywords internal
 #' @export
-as_tsibble.grouped_df <- function(x, key = id(), index, regular = TRUE, 
+as_tsibble.grouped_df <- function(x, key = NULL, index, regular = TRUE, 
   validate = TRUE, .drop = key_drop_default(x), ...
 ) {
   index <- enquo(index)
@@ -348,7 +346,7 @@ is.grouped_ts <- is_grouped_ts
 #' # Prepare `pedestrian` to use a new index `Date` ----
 #' pedestrian %>%
 #'   build_tsibble(
-#'     key = key(.), index = index(.), index2 = Date, interval = interval(.)
+#'     key = !! key(.), index = index(.), index2 = Date, interval = interval(.)
 #'   )
 build_tsibble <- function(
   x, key, key_data = NULL, index, index2, ordered = NULL, regular = TRUE, 
@@ -396,7 +394,7 @@ build_tsibble <- function(
   } else if (is_false(ordered)) { # false returns a warning
     msg_header <- "Unexpected temporal ordering. Please sort by %s."
     idx_txt <- expr_label(index)
-    if (is_empty(key)) {
+    if (is_empty(key_sym)) {
       warn(sprintf(msg_header, idx_txt))
     } else {
       key_txt <- map(key_vars, expr_label)
@@ -497,16 +495,6 @@ new_tsibble <- function(x, ..., class = NULL) {
   attr(x, "row.names") <- .set_row_names(NROW(x))
   class(x) <- c(class, class(x))
   x
-}
-
-#' Identifiers used for creating key
-#'
-#' @param ... Variables passed to tsibble()/as_tsibble().
-#'
-#' @keywords internal
-#' @export
-id <- function(...) {
-  unname(enexprs(...))
 }
 
 ## Although the "index" arg is possible to automate the detection of time
@@ -631,37 +619,6 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
   NextMethod()
 }
 
-use_id <- function(x, key) {
-  key <- enquo(key)
-  if (quo_is_call(key)) {
-    call_fn <- call_name(key)
-    if (call_fn %in% c("key", "key_data")) return(eval_tidy(key)) # key(x)
-    if (call_fn != "id") {
-      abort(sprintf("Please use `key = id(...)`, not `%s(...)`.", call_fn))
-    } # vars(x)
-  }
-  key_expr <- get_expr(key)
-  if (is_string(key_expr)) {
-    abort(suggest_key(key_expr))
-  } 
-  safe_key <- purrr::safely(eval_tidy)(
-    key_expr,
-    env = child_env(get_env(key), id = id)
-  )
-  res <- safe_key$result
-  if (is.data.frame(res)) {
-    assert_key_data(res)
-    return(res)
-  } else if (is_null(safe_key$error)) {
-    fn <- function(x) {
-      if (is_list(x)) all(map_lgl(x, fn)) else is_expression(x)
-    }
-    lgl <- fn(res)
-    if (lgl) return(res)
-  }
-  abort(suggest_key(as_string(key_expr)))
-}
-
 #' Test duplicated observations determined by key and index variables
 #'
 #' * `is_duplicated()`: a logical scalar if the data exist duplicated observations.
@@ -679,11 +636,11 @@ use_id <- function(x, key) {
 #'   fruit = c(rep(c("kiwi", "cherry"), each = 3), "cherry"),
 #'   kilo = sample(1:10, size = 7)
 #' )
-#' is_duplicated(harvest, key = id(fruit), index = year)
-#' are_duplicated(harvest, key = id(fruit), index = year)
-#' are_duplicated(harvest, key = id(fruit), index = year, from_last = TRUE)
-#' duplicates(harvest, key = id(fruit), index = year)
-is_duplicated <- function(data, key = id(), index) {
+#' is_duplicated(harvest, key = fruit, index = year)
+#' are_duplicated(harvest, key = fruit, index = year)
+#' are_duplicated(harvest, key = fruit, index = year, from_last = TRUE)
+#' duplicates(harvest, key = fruit, index = year)
+is_duplicated <- function(data, key = NULL, index) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, !! enquo(index))
 
@@ -695,7 +652,7 @@ is_duplicated <- function(data, key = id(), index) {
 #'
 #' @rdname duplicates
 #' @export
-are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
+are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, !! enquo(index))
 
@@ -709,7 +666,7 @@ are_duplicated <- function(data, key = id(), index, from_last = FALSE) {
 
 #' @rdname duplicates
 #' @export
-duplicates <- function(data, key = id(), index) {
+duplicates <- function(data, key = NULL, index) {
   key <- use_id(data, !! enquo(key))
   index <- validate_index(data, !! enquo(index))
 

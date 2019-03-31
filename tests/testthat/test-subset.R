@@ -7,7 +7,7 @@ dat_x <- tibble(
   value = rnorm(10)
 )
 
-tsbl <- as_tsibble(dat_x, key = id(group), index = date)
+tsbl <- as_tsibble(dat_x, key = group, index = date)
 
 test_that("if it's an atomic vector", {
   expect_is(tsbl$date, "Date")
@@ -66,7 +66,7 @@ dat_x <- tibble::tribble(
   ymd("2017-10-02"), "b", "y", 2
 )
 
-tsbl <- as_tsibble(dat_x, key = id(group1, group2), index = date)
+tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date)
 
 test_that("subset 2 variables in a tsibble", {
   expect_is(tsbl[, c(1, 2, 4)], "tbl_df")

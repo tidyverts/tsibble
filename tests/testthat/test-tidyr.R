@@ -4,7 +4,7 @@ tsbl <- tsibble(
   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
-  key = id(group), index = qtr
+  key = group, index = qtr
 )
 
 test_that("spread()", {
@@ -82,14 +82,13 @@ nest_t <- tourism %>%
   nest(-Region, -State)
 
 test_that("unnest.lst_ts()", {
-  expect_error(nest_t %>% unnest(key = Region), "Key can only be created")
   expect_error(nest_t %>% unnest(), "is not a valid tsibble.")
-  expect_is(nest_t %>% unnest(key = id(Region, State)), "tbl_ts")
-  expect_equal(nest_t %>% unnest(key = id(Region, State)), tourism)
+  expect_is(nest_t %>% unnest(key = c(Region, State)), "tbl_ts")
+  expect_equal(nest_t %>% unnest(key = c(Region, State)), tourism)
   expect_is(
     nest_t %>%
       mutate(data2 = lapply(data, as_tibble)) %>%
-      unnest(key = id(Region, State)),
+      unnest(key = c(Region, State)),
     "tbl_ts"
   )
 })
@@ -102,10 +101,9 @@ nest2_t <- tourism %>%
   )
 
 test_that("unnest.tbl_ts()", {
-  expect_error(nest2_t %>% unnest(key = qtl), "Key can only be created")
   expect_error(nest2_t %>% unnest(), "is not a valid tsibble.")
-  expect_is(nest2_t %>% unnest(key = id(qtl)), "tbl_ts")
-  expect_equal(nest2_t %>% unnest(key = id(qtl)) %>% NCOL, 6)
+  expect_is(nest2_t %>% unnest(key = qtl), "tbl_ts")
+  expect_equal(nest2_t %>% unnest(key = qtl) %>% NCOL, 6)
 })
 
 test_that("dplyr verbs for lst_ts", {
@@ -114,7 +112,7 @@ test_that("dplyr verbs for lst_ts", {
     "accepts a list-column of `tbl_ts` to be unnested."
   )
   expect_named(
-    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = id(Region, State)),
+    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = c(Region, State)),
     c("Region", "State", "Quarter", "Purpose", "Trips")
   )
   expect_is(unnest(nest_t %>% mutate(data = 1)), "tbl_df")
@@ -130,7 +128,7 @@ harvest <- tsibble(
   year = c(2011, 2013, 2014, 2010, 2012, 2014),
   fruit = rep(c("kiwi", "cherry"), each = 3),
   kilo = sample(1:10, size = 6),
-  key = id(fruit), index = year
+  key = fruit, index = year
 )
 
 harvest_fill <- fill_gaps(harvest, .full = TRUE)

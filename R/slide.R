@@ -409,7 +409,7 @@ partial_pslider <- function(
 #'   year = rep(2010:2012, 2),
 #'   fruit = rep(c("kiwi", "cherry"), each = 3),
 #'   kilo = sample(1:10, size = 6),
-#'   key = id(fruit), index = year
+#'   key = fruit, index = year
 #' )
 #' harvest %>% 
 #'   slide_tsibble(.size = 2)
@@ -446,7 +446,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
     )
   new_key <- c(sym(.id), key(.x))
   build_tsibble(
-    res, key = new_key, index = !! index(.x), index2 = !! index2(.x),
+    res, key = !! new_key, index = !! index(.x), index2 = !! index2(.x),
     regular = is_regular(.x), interval = interval(.x), validate = FALSE
   )
 }
