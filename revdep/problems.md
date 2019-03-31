@@ -48,7 +48,7 @@ Version: 0.2.3
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════
+      ══ testthat results  ══════════════════════════════════
       OK: 8 SKIPPED: 0 FAILED: 15
       1. Error: Multiple y's and NA's (@test-calendar.R#11) 
       2. Error: Variable scoping (@test-calendar.R#30) 

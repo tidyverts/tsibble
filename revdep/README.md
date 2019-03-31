@@ -3,14 +3,14 @@
 |field    |value                        |
 |:--------|:----------------------------|
 |version  |R version 3.5.3 (2019-03-11) |
-|os       |macOS Mojave 10.14.3         |
+|os       |macOS Mojave 10.14.4         |
 |system   |x86_64, darwin15.6.0         |
 |ui       |RStudio                      |
 |language |(EN)                         |
 |collate  |en_AU.UTF-8                  |
 |ctype    |en_AU.UTF-8                  |
 |tz       |Australia/Melbourne          |
-|date     |2019-03-17                   |
+|date     |2019-03-31                   |
 
 # Dependencies
 
