@@ -33,7 +33,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
     value_var <- mvars
   } else {
-    value_var <- tidyselect::vars_pull(names(x), !! value)
+    value_var <- vars_pull(names(x), !! value)
     if (is_false(value_var %in% mvars)) {
       abort(sprintf("Column `value` must be one of them: %s.", str_val))
     }

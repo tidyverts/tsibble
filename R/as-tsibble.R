@@ -373,7 +373,7 @@ validate_index <- function(data, index) {
     chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("Using `%s` as index variable.", chr_index))
   } else {
-    chr_index <- tidyselect::vars_pull(names(data), !! index)
+    chr_index <- vars_pull(names(data), !! index)
     idx_pos <- names(data) %in% chr_index
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {

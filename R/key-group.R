@@ -88,7 +88,7 @@ key_drop_default.tbl_ts <- function(.tbl) {
 }
 
 validate_key <- function(.data, .vars) {
-  syms(unname(tidyselect::vars_select(names(.data), !!! .vars)))
+  syms(unname(vars_select(names(.data), !!! .vars)))
 }
 
 remove_key <- function(.data, .vars) {

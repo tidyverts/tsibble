@@ -55,7 +55,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   }
   call_pos <- map_lgl(exprs, quo_is_call)
   vars[call_pos] <- first_arg(vars[call_pos])
-  val_vars <- tidyselect::vars_select(names(.data), !!! vars)
+  val_vars <- vars_select(names(.data), !!! vars)
   idx <- index_var(.data)
   idx_pos <- val_vars %in% idx
   idx_is_call <- dplyr::first(exprs[idx_pos])

@@ -27,7 +27,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
       c(quo_name(key), quo_name(value), quo_name(index(data)))
     )
   }
-  vars <- tidyselect::vars_select(names(data), !!! exprs)
+  vars <- vars_select(names(data), !!! exprs)
   data <- mutate_index2(data, vars)
   tbl <- gather(
     as_tibble(data), key = !! key, value = !! value, !!! exprs,
@@ -51,7 +51,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
   key <- enexpr(key)
   value <- enexpr(value)
-  key_var <- tidyselect::vars_pull(names(data), !! key)
+  key_var <- vars_pull(names(data), !! key)
   if (has_index(key_var, data)) {
     abort(sprintf(
       "Column `%s` (index) can't be spread.\nPlease use `as_tibble()` to coerce.", 
@@ -96,7 +96,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   if (is_empty(nest_exprs)) {
     nest_vars <- cn
   } else {
-    nest_vars <- tidyselect::vars_select(cn, !!! nest_exprs)
+    nest_vars <- vars_select(cn, !!! nest_exprs)
   }
   if (is_false(has_index(nest_vars, data))) {
     abort(sprintf(
@@ -142,7 +142,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
   key <- use_id(data, !! enquo(key))
-  preserve <- tidyselect::vars_select(names(data), !! enquo(.preserve))
+  preserve <- vars_select(names(data), !! enquo(.preserve))
   exprs <- enquos(...)
   if (is_empty(exprs)) {
     list_cols <- names(data)[purrr::map_lgl(data, is_list)]
