@@ -47,6 +47,5 @@ use_id <- function(x, key) {
       return(res)
     }
   }
-  key_expr <- get_expr(key_quo)
-  syms(vars_select(names(x), !!! key_expr))
+  vars_select(names(x), !! key_quo)
 }

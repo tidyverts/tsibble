@@ -22,7 +22,7 @@
   if (!is.data.frame(res)) return(res)
 
   cn <- names(res)
-  new_key <- syms(cn[cn %in% key_vars(x)])
+  new_key <- cn[cn %in% key_vars(x)]
 
   if (!missing(i)) {
     if (any_not_equal_to_c(anyDuplicated.default(i), 0)) return(as_tibble(res))

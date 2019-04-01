@@ -18,7 +18,7 @@ update_meta <- function(
   }
   validate <- TRUE || validate
   restore_index_class(build_tsibble(
-    new, key = !! key(old), index = !! index(old), index2 = !! index2(old),
+    new, key = !! key_vars(old), index = !! index(old), index2 = !! index2(old),
     regular = is_regular(old), ordered = ordered, interval = interval, 
     validate = validate, .drop = is_key_dropped(old)
   ), old)
@@ -96,7 +96,7 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
   }
   
   # key (key of the reduced size (bf & af) but also different names)
-  key_vars <- syms(val_vars[val_vars %in% key_vars(.data)])
+  key_vars <- val_vars[val_vars %in% key_vars(.data)]
   
   if (validate) {
     vec_names <- names(val_vars)

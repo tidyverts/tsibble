@@ -62,8 +62,8 @@ as_tsibble.hts <- function(x, ..., tz = "UTC") {
     dplyr::select(index, "value")
   tbl_hts <- dplyr::bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
-  key <- syms(colnames(tbl_hts)[3:ncol(tbl_hts)])
-  build_tsibble(tbl_hts, key = key, index = index, ordered = TRUE,
+  key <- colnames(tbl_hts)[3:ncol(tbl_hts)]
+  build_tsibble(tbl_hts, key = !! key, index = index, ordered = TRUE,
     validate = FALSE)
 }
 

@@ -18,8 +18,8 @@ tidyr::gather
 #' stocksm %>% spread(stock, price)
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  key <- sym(enexpr(key))
-  new_key <- c(key(data), key)
+  key <- as_string(enexpr(key))
+  new_key <- c(key_vars(data), key)
   value <- enexpr(value)
   exprs <- enexprs(...)
   if (is_empty(exprs)) {
@@ -59,7 +59,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
     ))
   }
   key_left <- setdiff(key_vars(data), key_var)
-  new_key <- key(remove_key(data, .vars = key_left))
+  new_key <- key_vars(remove_key(data, .vars = key_left))
 
   tbl <- spread(
     as_tibble(data), key = !! key, value = !! value, fill = fill, 
@@ -169,7 +169,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
     )
   tsbl <- eval_df[is_tsbl][[1L]]
   idx <- index(tsbl)
-  key <- c(key(tsbl), key)
+  key <- c(key_vars(tsbl), key)
   out <- unnest_tsibble(out, key, idx)
 
   idx_chr <- as_string(idx)
@@ -202,7 +202,7 @@ unnest.tbl_ts <- function(data, ..., key = NULL,
       as_tibble(data), 
       ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
     )
-  key <- c(key(data), key)
+  key <- c(key_vars(data), key)
   idx <- index(data)
   tbl <- unnest_tsibble(tbl, key, idx)
 

@@ -161,7 +161,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   validate = TRUE, .drop = key_drop_default(x)) {
   key <- enquo(key)
   if (quo_is_missing(key)) {
-    key <- key(x)
+    key <- key_vars(x)
   }
   idx <- enquo(index)
   if (quo_is_missing(idx)) {

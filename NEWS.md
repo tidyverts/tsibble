@@ -1,6 +1,6 @@
 # tsibble 0.7.0.9000
 
-This release is made to be consistent with dplyr `group_by()` `.drop` behaviour.
+This release starts deprecating `id()` for creating key for the consistence of tidy selector. IT is also made to be consistent with dplyr `group_by()` `.drop` behaviour.
 
 ## Defunct & deprecated functions
 

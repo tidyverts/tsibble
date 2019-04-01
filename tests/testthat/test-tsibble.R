@@ -363,11 +363,6 @@ test_that("build_tsibble()", {
     pedestrian, key = Sensor, index = Date_Time,
     interval = list(hour = 1)
   ), "Argument `interval` must be class interval,")
-  expect_identical(
-    build_tsibble(pedestrian, key = !! dplyr::vars(Sensor), index = Date_Time),
-    pedestrian
-  )
-
   tsbl <- build_tsibble(
     pedestrian, key = Sensor, index = Date_Time,
     index2 = Date
