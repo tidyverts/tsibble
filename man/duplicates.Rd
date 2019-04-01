@@ -15,7 +15,8 @@ duplicates(data, key = NULL, index)
 \arguments{
 \item{data}{A data frame for creating a tsibble.}
 
-\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
+\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+empty key, and works with tidy selector (e.g. \code{starts_with()}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

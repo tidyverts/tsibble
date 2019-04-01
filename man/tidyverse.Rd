@@ -195,7 +195,8 @@ will combine the name of the original list-col with the names from
 nested data frame, separated by \code{.sep}.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default) or "up".}
+either "down" (the default), "up", "downup" (i.e. first down and then up)
+or "updown" (first up and then down).}
 }
 \description{
 \itemize{

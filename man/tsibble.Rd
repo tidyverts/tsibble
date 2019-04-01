@@ -10,7 +10,8 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 \item{...}{A set of name-value pairs. The names of "key" and "index" should
 be avoided as they are used as the arguments.}
 
-\item{key}{Variable(s) that define unique time indices. \code{NULL} for empty key.}
+\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+empty key, and works with tidy selector (e.g. \code{starts_with()}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

@@ -2,7 +2,8 @@
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
-#' @param key Variable(s) that define unique time indices. `NULL` for empty key.
+#' @param key Unquoted variable(s) that uniquely determine time indices. `NULL` for
+#' empty key, and works with tidy selector (e.g. `starts_with()`).
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
@@ -236,7 +237,7 @@ build_tsibble <- function(
   if (quo_is_missing(index2)) {
     index2 <- index
   } else if (identical(qindex, index2)) {
-    index2 <- get_expr(index2)
+    index2 <- quo_get_expr(index2)
   } else {
     index2 <- validate_index(tbl, !! index2)
   }
