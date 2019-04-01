@@ -208,7 +208,8 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #' # Prepare `pedestrian` to use a new index `Date` ----
 #' pedestrian %>%
 #'   build_tsibble(
-#'     key = !! key(.), index = !! index(.), index2 = Date, interval = interval(.)
+#'     key = !! key_vars(.), index = !! index(.), index2 = Date,
+#'     interval = interval(.)
 #'   )
 build_tsibble <- function(
   x, key, key_data = NULL, index, index2, ordered = NULL, regular = TRUE, 
