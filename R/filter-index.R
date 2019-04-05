@@ -226,21 +226,51 @@ end.POSIXct <- function(x, y = NULL, ...) {
 
 start.yearweek <- function(x, y = NULL, ...) {
   x <- as_date(x)
-  NextMethod()
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearweek(y)))
+  }
+  start(x = x, y = y)
 }
 
 end.yearweek <- function(x, y = NULL, ...) {
   x <- as_date(x)
-  NextMethod()
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearweek(y)))
+  }
+  end(x = x, y = y)
 }
 
-start.yearmonth <- start.yearweek
+start.yearmonth <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearmonth(y)))
+  }
+  start(x = x, y = y)
+}
 
-end.yearmonth <- end.yearweek
+end.yearmonth <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearmonth(y)))
+  }
+  end(x = x, y = y)
+}
 
-start.yearquarter <- start.yearweek
+start.yearquarter <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearquarter(y)))
+  }
+  start(x = x, y = y)
+}
 
-end.yearquarter <- end.yearweek
+end.yearquarter <- function(x, y = NULL, ...) {
+  x <- as_date(x)
+  if (!is_null(y)) {
+    y <- as.character(as_date(yearquarter(y)))
+  }
+  end(x = x, y = y)
+}
 
 start.yearmon <- function(x, y = NULL, ...) {
   x <- yearmonth(x)

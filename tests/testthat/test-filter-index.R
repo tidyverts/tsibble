@@ -18,11 +18,11 @@ test_that("class: Date", {
 
 test_that("class: year*", {
   yrwk <- as_yearweek(unique(pedestrian$Date))
-  expect_error(start(yrwk, 2017), "Must be")
+  expect_error(start(yrwk, 2017), "how to handle the numeric class")
   expect_equal(start(yrwk), as.Date("2015-01-01"))
   expect_equal(
     start(yrwk, x),
-    as.Date(c("2016-01-01", "2016-10-01", "2016-12-09"))
+    as.Date(c("2015-12-28", "2016-09-26", "2016-12-05"))
   )
   expect_equal(end(pedestrian$Date), as.Date("2017-01-01"))
   expect_equal(
