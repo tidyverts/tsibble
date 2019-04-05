@@ -14,6 +14,7 @@ This release starts deprecating `id()` for creating key for the consistence of t
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
 * Binary `-` operator between yearweek, yearmonth, and yearquarter returns class `difftime`.
 * Added new argument `key_data` to `build_tsibble()` for the easy-to-reason purpose.
+* `yearquarter()` better supports strings that contains "Q". (#107)
 
 ## Bug fixes
 

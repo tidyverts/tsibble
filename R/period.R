@@ -402,8 +402,26 @@ yearquarter.Date <- yearquarter.POSIXt
 yearquarter.character <- function(x) {
   if (is_empty(x)) return(as_yearquarter(x))
 
-  anytime::assertDate(x)
-  as_yearquarter(anytime::anydate(x))
+  # exact matching with q, qtr, or quarter
+  key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
+  if (all(grepl("^(q|qtr|quarter)$", key_words, ignore.case = TRUE))) {
+    yr_qtr <- regmatches(x, gregexpr("[[:digit:]]+", x))
+    digits_lgl <- map_lgl(yr_qtr, ~ !has_length(.x, 2))
+    digits_len <- map_int(yr_qtr, ~ sum(nchar(.x)))
+    if (any(digits_lgl) || any_not_equal_to_c(digits_len, 5)) {
+      abort("Character strings are not in a standard unambiguous format.")
+    }
+    yr_lgl <- map(yr_qtr, ~ grepl("[[:digit:]]{4}", .x))
+    yr <- as.integer(map2_chr(yr_qtr, yr_lgl, ~ .x[.y]))
+    qtr <- as.integer(map2_chr(yr_qtr, yr_lgl, ~ .x[!.y]))
+    if (any(qtr > 4)) {
+      abort("Quarters can't be greater than 4.")
+    }
+    as_yearquarter(lubridate::make_date(yr, qtr * 3))
+  } else {
+    anytime::assertDate(x)
+    as_yearquarter(anytime::anydate(x))
+  }
 }
 
 #' @export
