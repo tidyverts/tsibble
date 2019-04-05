@@ -138,8 +138,7 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   x <- as_date(x)
   yr <- lubridate::year(x)
   ord <- lubridate::make_date(yr, 1)
-  wday <- lubridate::wday(x) - 1
-  wday[wday == 0] <- 7
+  wday <- lubridate::wday(x, week_start = 1)
   mth_wk <- strftime(x, format = "%m_%V")
   yrs <- yr
   yrs[mth_wk == "01_53"] <- yr[mth_wk == "01_53"] - 1
