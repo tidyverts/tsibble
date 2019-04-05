@@ -81,6 +81,9 @@ test_that("some S3 methods for yearweek, yearmonth & yearquarter", {
   expect_is(unique(y2), "yearquarter")
   expect_identical(yearquarter(y), y)
   expect_is(y[1:2], "yearquarter")
+  expect_equal(yearquarter("2010 Q1"), y[1])
+  expect_equal(yearquarter("Qtr    1 2010"), y[1])
+  expect_equal(yearquarter(c("QuArTeR 1    2010", "q22010")), y[1:2])
 })
 
 test_that("unsupported class for index functions", {

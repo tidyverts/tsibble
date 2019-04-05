@@ -402,8 +402,18 @@ yearquarter.Date <- yearquarter.POSIXt
 yearquarter.character <- function(x) {
   if (is_empty(x)) return(as_yearquarter(x))
 
-  anytime::assertDate(x)
-  as_yearquarter(anytime::anydate(x))
+  qtr_regex <- "(?i)(q|qtr|quarter)(?-i) *"
+  if(all(grepl(paste0("\\d{4} *", qtr_regex, "\\d|", qtr_regex, "\\d *\\d{4}"), x, perl = TRUE))){
+    qtr <- regmatches(x, regexpr(paste0(qtr_regex, " *\\d"), x))
+    qtr <- sub(qtr_regex, "", qtr)
+    mth <- as.numeric(qtr)*3
+    yr <- sub(paste0(qtr_regex, " *\\d"), "", x)
+    yr <- as.numeric(regmatches(yr, regexpr("\\d{4}", yr)))
+    yearquarter(lubridate::make_date(yr, mth))
+  } else{
+    anytime::assertDate(x)
+    as_yearquarter(anytime::anydate(x))
+  }
 }
 
 #' @export
