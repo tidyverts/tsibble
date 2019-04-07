@@ -24,7 +24,7 @@
 #'
 #' Tsibble supports arbitrary index classes, as long as they can be ordered from
 #' past to future. To support a custom class, one needs to define [index_valid()]
-#' for the class and calculate the interval through [pull_interval()].
+#' for the class and calculate the interval through [interval_pull()].
 #'
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record:

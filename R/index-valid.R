@@ -6,7 +6,7 @@
 #'
 #' @details This method is primarily used for adding an index type support in 
 #' [as_tsibble].
-#' @seealso [pull_interval] for obtaining interval for regularly spaced time.
+#' @seealso [interval_pull] for obtaining interval for regularly spaced time.
 #' @return `TRUE`/`FALSE` or `NA` (unsure)
 #' @export
 #' @examples

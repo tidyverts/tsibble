@@ -30,7 +30,7 @@ vector or a list, the tsibble doesn't accept types of \code{POSIXlt} and \code{t
 
 Tsibble supports arbitrary index classes, as long as they can be ordered from
 past to future. To support a custom class, one needs to define \code{\link[=index_valid]{index_valid()}}
-for the class and calculate the interval through \code{\link[=pull_interval]{pull_interval()}}.
+for the class and calculate the interval through \code{\link[=interval_pull]{interval_pull()}}.
 }
 
 \section{Key}{

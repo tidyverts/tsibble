@@ -1,38 +1,38 @@
 #' Pull time interval from a vector
 #'
-#' Assuming regularly spaced time, the `pull_interval()` returns a list of time
+#' Assuming regularly spaced time, the `interval_pull()` returns a list of time
 #' components as the "interval" class.
 #'
 #' @param x A vector of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`,
 #' `difftime`/`hms`, `ordered`, `integer`, `numeric`, and `nanotime`.
 #'
 #' @details Extend tsibble to support custom time indexes by defining S3 generics
-#' `index_valid()` and `pull_interval()` for them. 
+#' `index_valid()` and `interval_pull()` for them. 
 #' @return an "interval" class (a list) includes "year", 
 #' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 #' "microsecond", "nanosecond", "unit".
 #'
-#' @rdname pull-interval
+#' @rdname interval-pull
 #' @export
 #'
 #' @examples
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
-#' pull_interval(x)
-pull_interval <- function(x) {
+#' interval_pull(x)
+interval_pull <- function(x) {
   if (has_length(x, 1L) || has_length(x, 0L)) {
     return(init_interval())
   }
-  UseMethod("pull_interval")
+  UseMethod("interval_pull")
 }
 
 #' @export
-pull_interval.default <- function(x) {
+interval_pull.default <- function(x) {
   init_interval()
 }
 
 #' @export
 # Assume date is regularly spaced
-pull_interval.POSIXt <- function(x) {
+interval_pull.POSIXt <- function(x) {
   dttm <- as.double(x)
   if (all((dttm %% 1 == 0))) { # second
     nhms <- gcd_interval(dttm)
@@ -54,14 +54,14 @@ pull_interval.POSIXt <- function(x) {
 }
 
 #' @export
-pull_interval.nanotime <- function(x) {
+interval_pull.nanotime <- function(x) {
   nano <- as.numeric(x)
   int <- gcd_interval(nano) # num of nanoseconds
   init_interval(nanosecond = int)
 }
 
 #' @export
-pull_interval.difftime <- function(x) {
+interval_pull.difftime <- function(x) {
   t_units <- units(x)
   if (t_units == "weeks") {
     nweeks <- gcd_interval(unclass(x))
@@ -86,7 +86,7 @@ pull_interval.difftime <- function(x) {
 }
 
 #' @export
-pull_interval.hms <- function(x) { # for hms package
+interval_pull.hms <- function(x) { # for hms package
   dttm <- as.double(x)
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
@@ -106,45 +106,45 @@ pull_interval.hms <- function(x) { # for hms package
 }
 
 #' @export
-pull_interval.Date <- function(x) {
+interval_pull.Date <- function(x) {
   dttm <- as.numeric(x)
   ndays <- gcd_interval(dttm) # num of seconds
   init_interval(day = ndays)
 }
 
 #' @export
-pull_interval.yearweek <- function(x) {
+interval_pull.yearweek <- function(x) {
   wk <- units_since(x)
   nweeks <- gcd_interval(wk)
   init_interval(week = nweeks)
 }
 
 #' @export
-pull_interval.yearmonth <- function(x) {
+interval_pull.yearmonth <- function(x) {
   mon <- units_since(x)
   nmonths <- gcd_interval(mon)
   init_interval(month = nmonths)
 }
 
 #' @export
-pull_interval.yearmon <- function(x) {
-  pull_interval(yearmonth(x))
+interval_pull.yearmon <- function(x) {
+  interval_pull(yearmonth(x))
 }
 
 #' @export
-pull_interval.yearquarter <- function(x) {
+interval_pull.yearquarter <- function(x) {
   qtr <- units_since(x)
   nqtrs <- gcd_interval(qtr)
   init_interval(quarter = nqtrs)
 }
 
 #' @export
-pull_interval.yearqtr <- function(x) {
-  pull_interval(yearquarter(x))
+interval_pull.yearqtr <- function(x) {
+  interval_pull(yearquarter(x))
 }
 
 #' @export
-pull_interval.numeric <- function(x) {
+interval_pull.numeric <- function(x) {
   nunits <- gcd_interval(x)
   # "place our origin at 1582 if we are historically inclined or at 1900 if 
   # we are more financially motivated." (p98, the grammar of graphics v2)
@@ -156,8 +156,8 @@ pull_interval.numeric <- function(x) {
 }
 
 #' @export
-pull_interval.ordered <- function(x) {
-  pull_interval(as.integer(x))
+interval_pull.ordered <- function(x) {
+  interval_pull(as.integer(x))
 }
 
 #' @export

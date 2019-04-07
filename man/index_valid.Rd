@@ -23,5 +23,5 @@ This method is primarily used for adding an index type support in
 index_valid(seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1))
 }
 \seealso{
-\link{pull_interval} for obtaining interval for regularly spaced time.
+\link{interval_pull} for obtaining interval for regularly spaced time.
 }

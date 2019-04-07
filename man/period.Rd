@@ -65,5 +65,5 @@ format(yearquarter(mth), format = "\%y Qtr\%q")
 is_53weeks(2015:2016)
 }
 \seealso{
-\link{pull_interval}
+\link{interval_pull}
 }

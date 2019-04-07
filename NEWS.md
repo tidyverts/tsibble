@@ -4,8 +4,9 @@ This release starts deprecating `id()` for creating key for the consistence of t
 
 ## Defunct & deprecated functions
 
-* Deprecate `id()` for creating key, and will be defunct until end of September, 2019.
+* Deprecate `id()` for creating key, and will be defunct until end of October, 2019.
 * Continue with deprecation of `fill_na()` in favour of `fill_gaps()`, and will be defunct in the next release.
+* Start with soft deprecation of `pull_interval()` in favour of `interval_pull()`, and will issue an warning in the next release.
 
 ## Improvements
 

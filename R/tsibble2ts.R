@@ -145,12 +145,12 @@ guess_frequency.numeric <- function(x) {
 
 #' @export
 guess_frequency.yearweek <- function(x) {
-  round(365.25 / 7 / pull_interval(x)$week, 2)
+  round(365.25 / 7 / interval_pull(x)$week, 2)
 }
 
 #' @export
 guess_frequency.yearmonth <- function(x) {
-  12 / pull_interval(x)$month
+  12 / interval_pull(x)$month
 }
 
 #' @export
@@ -158,7 +158,7 @@ guess_frequency.yearmon <- guess_frequency.yearmonth
 
 #' @export
 guess_frequency.yearquarter <- function(x) {
-  4 / pull_interval(x)$quarter
+  4 / interval_pull(x)$quarter
 }
 
 #' @export
@@ -166,12 +166,12 @@ guess_frequency.yearqtr <- guess_frequency.yearquarter
 
 #' @export
 guess_frequency.Date <- function(x) {
-  7 / pull_interval(x)$day
+  7 / interval_pull(x)$day
 }
 
 #' @export
 guess_frequency.POSIXt <- function(x) {
-  int <- pull_interval(x)
+  int <- interval_pull(x)
   number <- int$hour + int$minute / 60 + int$second / 3600
   if (number > 1 / 60) {
     24 / number

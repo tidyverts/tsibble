@@ -317,7 +317,7 @@ build_tsibble_meta <- function(
     interval <- irregular()
   } else if (regular && is_null(interval)) {
     eval_idx <- eval_tidy(index, data = tbl)
-    interval <- pull_interval(eval_idx)
+    interval <- interval_pull(eval_idx)
   } else if (is_false(inherits(interval, "interval"))) {
     abort(sprintf(
       "Argument `interval` must be class interval, not %s.",

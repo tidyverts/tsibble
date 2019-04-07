@@ -49,8 +49,8 @@ reference:
     - count_gaps
     - fill_gaps
     - index_by
-    - filter_index
     - group_by_key
+    - filter_index
 
 - title: A family of window functions
   desc: >
@@ -94,14 +94,14 @@ reference:
 
 - title: Extend tsibble
   desc: >
-    Add **tsibble** support for custom index class with `index_valid()` & `pull_interval()`.
+    Add **tsibble** support for custom index class with `index_valid()` & `interval_pull()`.
     `build_tsibble()` provides low-level construction for tsibble. Create a 
     subclass of a tsibble with `new_tsibble()`. 
   contents:
     - index_valid
     - pull_interval
-    - build_tsibble
     - new_tsibble
+    - build_tsibble
 
 - title: Coerce to other objects
   contents:

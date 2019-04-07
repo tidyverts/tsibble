@@ -57,7 +57,7 @@ restore_index_class <- function(new, old) {
   new_idx <- index2(new)
   class(new[[new_idx]]) <- class(old[[old_idx]])
   if (!identical(interval(new), interval(old))) {
-    attr(new, "interval") <- pull_interval(new[[new_idx]])
+    attr(new, "interval") <- interval_pull(new[[new_idx]])
   }
   new
 }

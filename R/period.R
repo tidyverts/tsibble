@@ -16,7 +16,7 @@
 #'
 #' @export
 #' @rdname period
-#' @seealso [pull_interval]
+#' @seealso [interval_pull]
 #'
 #' @examples
 #' # coerce POSIXct/Dates to yearweek, yearmonth, yearquarter

@@ -286,7 +286,7 @@ seq_generator <- function(x, interval = NULL) {
   min_x <- min(x)
   max_x <- max(x)
   if (is_null(interval)) {
-    interval <- pull_interval(x)
+    interval <- interval_pull(x)
   }
   tunit <- time_unit(interval)
   if (tunit == 0) return(x)

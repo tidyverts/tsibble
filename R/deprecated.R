@@ -11,6 +11,14 @@ as.tsibble <- function(x, ...) {
 #' @rdname deprecated
 #' @export
 #' @keywords internal
+pull_interval <- function(x) {
+  # .Deprecated("interval_pull()")
+  interval_pull(x)
+}
+
+#' @rdname deprecated
+#' @export
+#' @keywords internal
 #' @include gaps.R
 fill_na <- function(.data, ..., .full = FALSE) {
   .Deprecated("fill_gaps()")
