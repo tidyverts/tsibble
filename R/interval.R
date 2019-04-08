@@ -19,6 +19,9 @@
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 #' interval_pull(x)
 interval_pull <- function(x) {
+  if (!is_atomic(x)) {
+    abort("`x` must be an atomic vector, not a list.")
+  }
   if (has_length(x, 1L) || has_length(x, 0L)) {
     return(init_interval())
   }
