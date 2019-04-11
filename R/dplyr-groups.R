@@ -1,8 +1,3 @@
-#' @importFrom dplyr group_split
-#' @export
-dplyr::group_split
-
-#' @export
 group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
   lst <- NextMethod()
   if (keep) {
@@ -20,11 +15,6 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
   }
 }
 
-#' @importFrom dplyr group_trim
-#' @export
-dplyr::group_trim
-
-#' @export
 group_trim.grouped_ts <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
   res <- group_trim(as_tibble(.tbl), .drop = .drop)
   update_meta(res, .tbl, ordered = is_ordered(.tbl), interval = interval(.tbl))

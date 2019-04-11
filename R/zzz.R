@@ -12,6 +12,8 @@
   register_s3_method("pillar", "obj_sum", "yearmonth")
   register_s3_method("pillar", "obj_sum", "yearquarter")
 
+  register_s3_method("dplyr", "group_split", "grouped_ts")
+  register_s3_method("dplyr", "group_trim", "grouped_ts")
   invisible()
 }
 
