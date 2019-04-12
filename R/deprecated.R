@@ -12,8 +12,8 @@ as.tsibble <- function(x, ...) {
 #' @export
 #' @keywords internal
 pull_interval <- function(x) {
-  # .Deprecated("interval_pull()")
-  interval_pull(x)
+  .Deprecated("interval_pull()")
+  UseMethod("interval_pull")
 }
 
 #' @rdname deprecated
