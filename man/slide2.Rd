@@ -106,6 +106,7 @@ pslide(list(lst, lst), ~ ., .size = 2)
 # row-wise sliding over data frame
 ###
 
+library(tidyr)
 my_df <- data.frame(
   group = rep(letters[1:2], each = 8),
   x = c(1:8, 8:1),
