@@ -16,6 +16,6 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
 }
 
 group_trim.grouped_ts <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
-  res <- group_trim(as_tibble(.tbl), .drop = .drop)
+  res <- dplyr::group_trim(as_tibble(.tbl), .drop = .drop)
   update_meta(res, .tbl, ordered = is_ordered(.tbl), interval = interval(.tbl))
 }

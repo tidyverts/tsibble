@@ -25,7 +25,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   }
   vars <- vars_select(names(data), !!! exprs)
   data <- mutate_index2(data, vars)
-  tbl <- gather(
+  tbl <- tidyr::gather(
     as_tibble(data), key = !! key, value = !! value, !!! exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
@@ -52,7 +52,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key_vars(remove_key(data, .vars = key_left))
 
-  tbl <- spread(
+  tbl <- tidyr::spread(
     as_tibble(data), key = !! key, value = !! value, fill = fill, 
     convert = convert, drop = drop, sep = sep
   )
@@ -144,7 +144,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
     abort("Only accepts a list-column of `tbl_ts` to be unnested.")
   }
   out <- 
-    unnest(
+    tidyr::unnest(
       as_tibble(data), 
       !!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
     )
@@ -178,7 +178,7 @@ unnest.tbl_ts <- function(data, ..., key = NULL,
 ) {
   key <- use_id(data, !! enquo(key))
   tbl <- 
-    unnest(
+    tidyr::unnest(
       as_tibble(data), 
       ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
     )
