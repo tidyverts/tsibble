@@ -24,8 +24,8 @@ dplyr::arrange
 #' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
 #' to leave off the time context.
 #'
-#' @name tidyverse
-#' @rdname tidyverse
+#' @name tsibble-tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
   exprs <- enquos(...)
@@ -36,7 +36,7 @@ arrange.tbl_ts <- function(.data, ...) {
   update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   exprs <- enquos(...)
@@ -81,7 +81,7 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
 #' @export
 dplyr::filter
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...,
@@ -93,7 +93,7 @@ filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
 #' @export
 dplyr::slice
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   pos <- enquos(...)
@@ -119,7 +119,7 @@ row_validate <- function(x) {
 #' @export
 dplyr::select
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
@@ -140,7 +140,7 @@ select.tbl_ts <- function(.data, ...) {
   select_tsibble(.data, !!! lst_quos)
 }
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 select.grouped_ts <- select.tbl_ts
 
@@ -148,13 +148,13 @@ select.grouped_ts <- select.tbl_ts
 #' @export
 dplyr::rename
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 rename.tbl_ts <- function(.data, ...) {
   rename_tsibble(.data, ...)
 }
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 rename.grouped_ts <- rename.tbl_ts
 
@@ -162,7 +162,7 @@ rename.grouped_ts <- rename.tbl_ts
 #' @export
 dplyr::mutate
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
   # mutate returns lst_ts without attributes, coerce to tbl_df first
@@ -208,7 +208,7 @@ mutate.tbl_ts <- function(.data, ...) {
 #' @export
 dplyr::transmute
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
@@ -218,7 +218,7 @@ transmute.tbl_ts <- function(.data, ...) {
   select_tsibble(mut_data, !!! vec_names, validate = FALSE)
 }
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 transmute.grouped_ts <- function(.data, ...) {
   res <- NextMethod()
@@ -232,7 +232,7 @@ transmute.grouped_ts <- function(.data, ...) {
 #' @export
 dplyr::summarise
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 #' @examples
 #' # Sum over sensors ----
@@ -282,7 +282,7 @@ summarise.tbl_ts <- function(.data, ...) {
 #' @export
 dplyr::summarize
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 summarize.tbl_ts <- summarise.tbl_ts
 
@@ -291,7 +291,7 @@ summarize.tbl_ts <- summarise.tbl_ts
 dplyr::group_by
 
 #' @inheritParams dplyr::group_by
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
   .drop = group_by_drop_default(.data)) {
@@ -356,7 +356,7 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
 #' @export
 dplyr::ungroup
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))

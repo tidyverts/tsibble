@@ -106,7 +106,7 @@ bind_time <- function(x, tz = "UTC") {
 
 gather_ts <- function(x, tz = "UTC") {
   tbl <- bind_time(x, tz = tz)
-  gather(tbl, key = "key", value = "value", -index)
+  tidyr::gather(tbl, key = "key", value = "value", -index)
 }
 
 # recursive function to repeat nodes for hts

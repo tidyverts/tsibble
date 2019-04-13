@@ -64,7 +64,7 @@ Often there are implicit missing cases in time series. If the observations are m
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
   group_by(origin) %>% 
-  fill(temp, humid, .direction = "down")
+  tidyr::fill(temp, humid, .direction = "down")
 full_weather
 ```
 

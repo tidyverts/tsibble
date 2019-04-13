@@ -118,7 +118,7 @@ reference:
     Dplyr and tidyr verbs that support manipulating and reshaping `tbl_ts` in
     time-based context.
   contents:
-    - tidyverse
+    - tsibble-tidyverse
 
 navbar:
   type: default

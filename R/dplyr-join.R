@@ -19,8 +19,7 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
 dplyr::left_join
 
 #' @inheritParams dplyr::left_join
-#' @name tidyverse
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @include dplyr-verbs.R
 #' @export
 left_join.tbl_ts <- function(
@@ -35,7 +34,7 @@ left_join.tbl_ts <- function(
 #' @export
 dplyr::right_join
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -49,7 +48,7 @@ right_join.tbl_ts <- function(
 #' @export
 dplyr::inner_join
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -63,7 +62,7 @@ inner_join.tbl_ts <- function(
 #' @export
 dplyr::full_join
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
@@ -77,7 +76,7 @@ full_join.tbl_ts <- function(
 #' @export
 dplyr::semi_join
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
@@ -88,7 +87,7 @@ semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
 #' @export
 dplyr::anti_join
 
-#' @rdname tidyverse
+#' @rdname tsibble-tidyverse
 #' @export
 anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()

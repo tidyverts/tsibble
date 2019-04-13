@@ -47,8 +47,8 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
   } else {
-    mat_ts <- spread(tsbl_sel, key = !! key_vars[[1]], value = !! value_var,
-      fill = fill)
+    mat_ts <- tidyr::spread(tsbl_sel, key = !! key_vars[[1]], 
+      value = !! value_var, fill = fill)
     finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
 }

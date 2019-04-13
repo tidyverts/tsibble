@@ -138,7 +138,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
         !! idx_chr := list2(!! idx_chr := seq_generator(!! idx, int))
       )
   }
-  ref_data <- ungroup(unnest(sum_data, !! idx))
+  ref_data <- ungroup(tidyr::unnest(sum_data, !! idx))
   if (NROW(ref_data) == NROW(.data)) {
     return(.data[0L, c(key_vars(.data), idx_chr)])
   }
@@ -202,7 +202,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     )
 
   idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
-  out <- unnest(lst_out, .gaps)
+  out <- tidyr::unnest(lst_out, .gaps)
   class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
   tibble(!!! out)
 }

@@ -82,7 +82,7 @@ test_that("POSIXt with 1 second interval", {
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "name")
   expect_identical(quo_text(index(tsbl)), "date_time")
-  expect_identical(time_unit(pull_interval(tsbl$date_time)), 1)
+  expect_identical(time_unit(interval_pull(tsbl$date_time)), 1)
   expect_identical(key(tsbl), list())
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1s")
@@ -137,7 +137,7 @@ dat_x <- tibble(
 test_that("POSIXt with 2 minutes interval", {
   tsbl <- as_tsibble(dat_x)
   expect_identical(format(interval(tsbl)), "2m")
-  expect_identical(time_unit(pull_interval(tsbl$date_time)), 120)
+  expect_identical(time_unit(interval_pull(tsbl$date_time)), 120)
 })
 
 idx_hour <- seq.POSIXt(
@@ -152,7 +152,7 @@ dat_x <- tibble(
 test_that("POSIXt with 3 hours interval", {
   tsbl <- as_tsibble(dat_x)
   expect_identical(format(interval(tsbl)), "3h")
-  expect_identical(time_unit(pull_interval(tsbl$date_time)), 3 * 60 * 60)
+  expect_identical(time_unit(interval_pull(tsbl$date_time)), 3 * 60 * 60)
 })
 
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
@@ -167,7 +167,7 @@ test_that("Date with 4 days interval", {
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "4D")
-  expect_identical(time_unit(pull_interval(tsbl$date)), 4)
+  expect_identical(time_unit(interval_pull(tsbl$date)), 4)
 })
 
 idx_week <- seq(yearweek(ymd("2017-02-01")), length.out = 5, by = 1)
@@ -179,7 +179,7 @@ test_that("Year week with 1 week interval", {
   expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1W\\]")
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1W")
-  expect_identical(time_unit(pull_interval(tsbl$yrwk)), 1)
+  expect_identical(time_unit(interval_pull(tsbl$yrwk)), 1)
 })
 
 idx_month <- seq(
@@ -197,7 +197,7 @@ test_that("Year month with 1 month interval", {
   expect_is(tsbl, "tbl_ts")
   expect_is(as_tsibble(tsbl, validate = TRUE), "tbl_ts")
   expect_identical(format(interval(tsbl)), "1M")
-  expect_identical(time_unit(pull_interval(tsbl$yrmth)), 1)
+  expect_identical(time_unit(interval_pull(tsbl$yrmth)), 1)
 })
 
 idx_qtr <- seq(
@@ -213,7 +213,7 @@ test_that("Year quarter with 1 quarter interval", {
   expect_message(tsbl <- as_tsibble(dat_x))
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1Q")
-  expect_identical(time_unit(pull_interval(tsbl$yrqtr)), 1)
+  expect_identical(time_unit(interval_pull(tsbl$yrqtr)), 1)
 })
 
 idx_year <- seq.int(1970, 2010, by = 10)
@@ -228,7 +228,7 @@ test_that("Year with 10 years interval", {
   tsbl <- as_tsibble(dat_x, index = year)
   expect_is(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "10Y")
-  expect_identical(time_unit(pull_interval(tsbl$year)), 10)
+  expect_identical(time_unit(interval_pull(tsbl$year)), 10)
 })
 
 

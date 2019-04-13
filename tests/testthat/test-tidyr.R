@@ -1,4 +1,5 @@
 context("tidyr verbs for tsibble")
+library(tidyr)
 
 tsbl <- tsibble(
   qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),

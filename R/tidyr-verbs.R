@@ -1,12 +1,8 @@
-#' @importFrom tidyr gather
-#' @export
-tidyr::gather
-
 #' @inheritParams tidyr::gather
 #'
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 #' @examples
+#' library(tidyr)
 #' # example from tidyr
 #' stocks <- tsibble(
 #'   time = as.Date('2009-01-01') + 0:9,
@@ -40,13 +36,8 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   )
 }
 
-#' @importFrom tidyr spread
-#' @export
-tidyr::spread
-
 #' @inheritParams tidyr::spread
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
   key <- enexpr(key)
@@ -76,13 +67,8 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   )
 }
 
-#' @importFrom tidyr nest
-#' @export
-tidyr::nest
-
 #' @inheritParams tidyr::nest
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 #' @examples
 #' nested_stock <- stocksm %>% 
 #'   nest(-stock)
@@ -126,15 +112,10 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   as_lst_ts(out)
 }
 
-#' @importFrom tidyr unnest
-#' @export
-tidyr::unnest
-
 #' @param key Unquoted variables to create the key (via [id]) after unnesting.
 #' @inheritParams tidyr::unnest
 #'
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 #' @examples
 #' nested_stock %>% 
 #'   unnest(key = stock)
@@ -182,8 +163,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
   )
 }
 
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 #' @examples
 #' stock_qtl <- stocksm %>% 
 #'   group_by(stock) %>% 
@@ -226,70 +206,50 @@ unnest_tsibble <- function(data, key, index) {
   data
 }
 
-#' @importFrom tidyr fill
-#' @export
-tidyr::fill
-
 #' @inheritParams tidyr::fill
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
   update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
 }
 
-#' @rdname tidyverse
-#' @export
+#' @rdname tsibble-tidyverse
 fill.grouped_ts <- fill.tbl_ts
 
-#' @export
 mutate.lst_ts <- function(.data, ...) {
   as_lst_ts(NextMethod())
 }
 
-#' @export
 transmute.lst_ts <- mutate.lst_ts
 
-#' @export
 select.lst_ts <- mutate.lst_ts
 
-#' @export
 rename.lst_ts <- mutate.lst_ts
 
-#' @export
 arrange.lst_ts <- mutate.lst_ts
 
-#' @export
 filter.lst_ts <- mutate.lst_ts
 
-#' @export
 slice.lst_ts <- mutate.lst_ts
 
-#' @export
 group_by.lst_ts <- mutate.lst_ts
 
-#' @export
 left_join.lst_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   as_lst_ts(NextMethod())
 }
 
-#' @export
 right_join.lst_ts <- left_join.lst_ts
 
-#' @export
 full_join.lst_ts <- left_join.lst_ts
 
-#' @export
 inner_join.lst_ts <- left_join.lst_ts
 
-#' @export
 anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   as_lst_ts(NextMethod())
 }
 
-#' @export
 semi_join.lst_ts <- anti_join.lst_ts
 
 as_lst_ts <- function(x) {
