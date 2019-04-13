@@ -29,8 +29,9 @@ In spirit of `purrr::map()`, `slide()` accepts one input, `slide2()` two inputs,
 The `pedestrian` dataset includes hourly pedestrian counts in the city of Melbourne, with `Sensor` as key and `Date_Time` as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using `fill_gaps()`, and `.full = TRUE` warrants the equal time length of each sensor. This prepares the data inputs in the expected order.
 
 ```{r full-data, message = FALSE}
-library(tsibble)
 library(dplyr)
+library(tidyr)
+library(tsibble)
 pedestrian_full <- pedestrian %>% 
   fill_gaps(.full = TRUE)
 pedestrian_full
