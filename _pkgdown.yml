@@ -99,7 +99,7 @@ reference:
     subclass of a tsibble with `new_tsibble()`. 
   contents:
     - index_valid
-    - pull_interval
+    - interval_pull
     - new_tsibble
     - build_tsibble
 
