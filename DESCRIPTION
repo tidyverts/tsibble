@@ -54,8 +54,6 @@ Suggests:
     spelling,
     testthat,
     timeDate
-Remotes:
-    tidyverse/dplyr
 LinkingTo: 
     Rcpp (>= 0.12.0)
 VignetteBuilder: 
