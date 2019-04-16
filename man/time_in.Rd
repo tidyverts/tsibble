@@ -44,6 +44,7 @@ lgl[1:10]
 lgl2 <- time_in(x, "2015-03-23 10" ~ "2015-10-31 12")
 lgl2[1:10]
 
+library(dplyr)
 pedestrian \%>\% 
   filter(time_in(Date_Time, "2015-03-23 10" ~ "2015-10-31 12"))
 pedestrian \%>\% 

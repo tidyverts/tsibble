@@ -24,6 +24,7 @@ to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced p
 Turn implicit missing values into explicit missing values
 }
 \examples{
+library(dplyr)
 harvest <- tsibble(
   year = c(2010, 2011, 2013, 2011, 2012, 2014),
   fruit = rep(c("kiwi", "cherry"), each = 3),

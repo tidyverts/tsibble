@@ -14,6 +14,7 @@
 #' @name pedestrian
 #' @usage pedestrian
 #' @examples
+#' library(dplyr)
 #' data(pedestrian)
 #' # make implicit missingness to be explicit ----
 #' pedestrian %>% fill_gaps()
@@ -47,6 +48,7 @@
 #' @name tourism
 #' @usage tourism
 #' @examples
+#' library(dplyr)
 #' data(tourism)
 #' # Total trips over geographical regions
 #' tourism %>% 

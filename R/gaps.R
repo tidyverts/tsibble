@@ -15,6 +15,7 @@ globalVariables(c(".", ".gaps"))
 #' @seealso [tidyr::fill], [tidyr::replace_na] for handling missing values `NA`.
 #' @export
 #' @examples
+#' library(dplyr)
 #' harvest <- tsibble(
 #'   year = c(2010, 2011, 2013, 2011, 2012, 2014),
 #'   fruit = rep(c("kiwi", "cherry"), each = 3),

@@ -27,8 +27,9 @@ The **tsibble** package extends the [tidyverse](https://www.tidyverse.org) to te
 `tsibble()` creates a tsibble object, and `as_tsibble()` is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as `ts` and `mts`, can be automated to a tsibble using `as_tsibble()` without any specification. If it is a tibble or data frame, `as_tsibble()` requires a little more setup in order to identify the index and key variables.
 
 ```{r weather}
-library(tsibble)
+library(dplyr)
 library(lubridate)
+library(tsibble)
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
 weather

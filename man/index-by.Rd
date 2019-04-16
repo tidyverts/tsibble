@@ -39,6 +39,7 @@ displaying on the screen.
 }
 \examples{
 # Monthly counts across sensors ----
+library(dplyr)
 monthly_ped <- pedestrian \%>\% 
   group_by(Sensor) \%>\% 
   index_by(Year_Month = yearmonth(Date_Time)) \%>\%

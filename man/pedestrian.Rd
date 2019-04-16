@@ -20,6 +20,7 @@ A dataset containing the hourly pedestrian counts from 2015-01-01 to
 2016-12-31 at 4 sensors in the city of Melbourne.
 }
 \examples{
+library(dplyr)
 data(pedestrian)
 # make implicit missingness to be explicit ----
 pedestrian \%>\% fill_gaps()

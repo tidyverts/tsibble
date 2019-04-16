@@ -1,7 +1,3 @@
-#' @importFrom dplyr arrange
-#' @export
-dplyr::arrange
-
 #' Tidyverse methods for tsibble
 #'
 #' * `arrange()`: if not arranging key and index in past-to-future order, a warning is
@@ -26,7 +22,6 @@ dplyr::arrange
 #'
 #' @name tsibble-tidyverse
 #' @rdname tsibble-tidyverse
-#' @export
 arrange.tbl_ts <- function(.data, ...) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
@@ -36,8 +31,6 @@ arrange.tbl_ts <- function(.data, ...) {
   update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
-#' @rdname tsibble-tidyverse
-#' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
@@ -77,24 +70,14 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
   }
 }
 
-#' @importFrom dplyr filter
-#' @export
-dplyr::filter
-
 #' @rdname tsibble-tidyverse
-#' @export
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   by_row(filter, .data, ordered = is_ordered(.data), interval = NULL, ...,
     .preserve = .preserve
   )
 }
 
-#' @importFrom dplyr slice
-#' @export
-dplyr::slice
-
 #' @rdname tsibble-tidyverse
-#' @export
 slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   pos <- enquos(...)
   if (length(pos) > 1) {
@@ -115,12 +98,7 @@ row_validate <- function(x) {
   is_ascending(x)
 }
 
-#' @importFrom dplyr select
-#' @export
-dplyr::select
-
 #' @rdname tsibble-tidyverse
-#' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
   lst_exprs <- map(lst_quos, quo_get_expr)
@@ -140,30 +118,16 @@ select.tbl_ts <- function(.data, ...) {
   select_tsibble(.data, !!! lst_quos)
 }
 
-#' @rdname tsibble-tidyverse
-#' @export
 select.grouped_ts <- select.tbl_ts
 
-#' @importFrom dplyr rename
-#' @export
-dplyr::rename
-
 #' @rdname tsibble-tidyverse
-#' @export
 rename.tbl_ts <- function(.data, ...) {
   rename_tsibble(.data, ...)
 }
 
-#' @rdname tsibble-tidyverse
-#' @export
 rename.grouped_ts <- rename.tbl_ts
 
-#' @importFrom dplyr mutate
-#' @export
-dplyr::mutate
-
 #' @rdname tsibble-tidyverse
-#' @export
 mutate.tbl_ts <- function(.data, ...) {
   # mutate returns lst_ts without attributes, coerce to tbl_df first
   mut_data <- mutate(as_tibble(.data), ...)
@@ -204,12 +168,7 @@ mutate.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @importFrom dplyr transmute
-#' @export
-dplyr::transmute
-
 #' @rdname tsibble-tidyverse
-#' @export
 transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
@@ -218,8 +177,6 @@ transmute.tbl_ts <- function(.data, ...) {
   select_tsibble(mut_data, !!! vec_names, validate = FALSE)
 }
 
-#' @rdname tsibble-tidyverse
-#' @export
 transmute.grouped_ts <- function(.data, ...) {
   res <- NextMethod()
   # keeping index and key
@@ -228,13 +185,9 @@ transmute.grouped_ts <- function(.data, ...) {
   dplyr::bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
 }
 
-#' @importFrom dplyr summarise
-#' @export
-dplyr::summarise
-
 #' @rdname tsibble-tidyverse
-#' @export
 #' @examples
+#' library(dplyr)
 #' # Sum over sensors ----
 #' pedestrian %>%
 #'   summarise(Total = sum(Count))
@@ -278,21 +231,8 @@ summarise.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @importFrom dplyr summarize
-#' @export
-dplyr::summarize
-
-#' @rdname tsibble-tidyverse
-#' @export
-summarize.tbl_ts <- summarise.tbl_ts
-
-#' @importFrom dplyr group_by grouped_df
-#' @export
-dplyr::group_by
-
 #' @inheritParams dplyr::group_by
 #' @rdname tsibble-tidyverse
-#' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
   .drop = group_by_drop_default(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
@@ -352,12 +292,7 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
   }
 }
 
-#' @importFrom dplyr ungroup
-#' @export
-dplyr::ungroup
-
 #' @rdname tsibble-tidyverse
-#' @export
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
@@ -366,17 +301,19 @@ ungroup.grouped_ts <- function(x, ...) {
   )
 }
 
-#' @export
 ungroup.tbl_ts <- function(x, ...) {
   attr(x, "index2") <- index(x)
   x
 }
 
-#' @importFrom dplyr distinct
-#' @export
-dplyr::distinct
-
-#' @export
 distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
-  distinct(as_tibble(.data), ...)
+  dplyr::distinct(as_tibble(.data), ...)
+}
+
+group_by_drop_default <- function(.tbl) {
+  if (utils::packageVersion("dplyr") > "0.8.0.1") {
+    dplyr::group_by_drop_default(.tbl)
+  } else {
+    TRUE
+  }
 }

@@ -29,6 +29,7 @@ A dataset containing the quarterly overnight trips from 1998 Q1 to 2016 Q4
 across Australia.
 }
 \examples{
+library(dplyr)
 data(tourism)
 # Total trips over geographical regions
 tourism \%>\% 

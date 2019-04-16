@@ -45,6 +45,7 @@ considered as measured variables.
 
 ``` r
 library(tsibble)
+library(dplyr)
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
 weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
@@ -87,7 +88,7 @@ in time series analysis, which is easily done using `fill()` from
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
   group_by(origin) %>% 
-  fill(temp, humid, .direction = "down")
+  tidyr::fill(temp, humid, .direction = "down")
 full_weather
 #> # A tsibble: 26,190 x 5 [1h] <America/New_York>
 #> # Key:       origin [3]

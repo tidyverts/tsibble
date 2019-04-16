@@ -31,6 +31,7 @@ Update key and index for a tsibble
 Unspecified arguments will inherit the attributes from \code{x}.
 }
 \examples{
+library(dplyr)
 pedestrian \%>\% 
   group_by_key() \%>\% 
   mutate(Hour_Since = Date_Time - min(Date_Time)) \%>\% 

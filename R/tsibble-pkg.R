@@ -71,6 +71,10 @@
 #' @importFrom purrr map map_dbl map_int map_chr map_lgl
 #' @importFrom purrr map2 map2_dbl map2_int map2_chr map2_lgl
 #' @importFrom purrr pmap pmap_dbl pmap_int pmap_chr pmap_lgl
+#' @importFrom dplyr arrange filter slice select mutate transmute summarise
+#' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
+#' @importFrom dplyr group_rows groups
+#' @importFrom dplyr anti_join left_join right_join
 #' @import rlang tidyselect
 #' @examples
 #' # create a tsibble w/o a key ----

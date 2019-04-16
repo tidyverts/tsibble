@@ -3,18 +3,13 @@
 \name{tsibble-tidyverse}
 \alias{tsibble-tidyverse}
 \alias{arrange.tbl_ts}
-\alias{arrange.grouped_ts}
 \alias{filter.tbl_ts}
 \alias{slice.tbl_ts}
 \alias{select.tbl_ts}
-\alias{select.grouped_ts}
 \alias{rename.tbl_ts}
-\alias{rename.grouped_ts}
 \alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
-\alias{transmute.grouped_ts}
 \alias{summarise.tbl_ts}
-\alias{summarize.tbl_ts}
 \alias{group_by.tbl_ts}
 \alias{ungroup.grouped_ts}
 \alias{left_join.tbl_ts}
@@ -34,29 +29,19 @@
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
 
-\method{arrange}{grouped_ts}(.data, ..., .by_group = FALSE)
-
 \method{filter}{tbl_ts}(.data, ..., .preserve = FALSE)
 
 \method{slice}{tbl_ts}(.data, ..., .preserve = FALSE)
 
 \method{select}{tbl_ts}(.data, ...)
 
-\method{select}{grouped_ts}(.data, ...)
-
-\method{rename}{tbl_ts}(.data, ...)
-
-\method{rename}{grouped_ts}(.data, ...)
+rename.tbl_ts(.data, ...)
 
 \method{mutate}{tbl_ts}(.data, ...)
 
 \method{transmute}{tbl_ts}(.data, ...)
 
-\method{transmute}{grouped_ts}(.data, ...)
-
 \method{summarise}{tbl_ts}(.data, ...)
-
-\method{summarize}{tbl_ts}(.data, ...)
 
 \method{group_by}{tbl_ts}(.data, ..., add = FALSE,
   .drop = group_by_drop_default(.data))
@@ -69,13 +54,13 @@
 \method{right_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
   suffix = c(".x", ".y"), ...)
 
-\method{inner_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
-  suffix = c(".x", ".y"), ...)
+inner_join.tbl_ts(x, y, by = NULL, copy = FALSE, suffix = c(".x",
+  ".y"), ...)
 
-\method{full_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
-  suffix = c(".x", ".y"), ...)
+full_join.tbl_ts(x, y, by = NULL, copy = FALSE, suffix = c(".x",
+  ".y"), ...)
 
-\method{semi_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
+semi_join.tbl_ts(x, y, by = NULL, copy = FALSE, ...)
 
 \method{anti_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
 
@@ -101,9 +86,6 @@ fill.grouped_ts(data, ..., .direction = c("down", "up"))
 \item{.data}{A \code{tbl_ts}.}
 
 \item{...}{same arguments accepted as its dplyr generic.}
-
-\item{.by_group}{If \code{TRUE}, will sort first by grouping variable. Applies to
-grouped data frames only.}
 
 \item{.preserve}{Optionally, list-columns to preserve in the output. These
 will be duplicated in the same way as atomic vectors. This has
@@ -219,6 +201,7 @@ is changed, it will validate whether it's a tsibble internally. Use \code{as_tib
 to leave off the time context.
 }
 \examples{
+library(dplyr)
 # Sum over sensors ----
 pedestrian \%>\%
   summarise(Total = sum(Count))

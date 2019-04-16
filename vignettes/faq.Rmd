@@ -18,6 +18,7 @@ options(tibble.print_min = 5)
 ```
 
 ```{r load}
+library(dplyr)
 library(tsibble)
 library(lubridate)
 ```

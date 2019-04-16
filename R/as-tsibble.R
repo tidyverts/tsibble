@@ -153,6 +153,7 @@ as_tsibble.NULL <- function(x, ...) {
 #' Unspecified arguments will inherit the attributes from `x`.
 #' @export
 #' @examples
+#' library(dplyr)
 #' pedestrian %>% 
 #'   group_by_key() %>% 
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>% 

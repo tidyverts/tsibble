@@ -159,6 +159,7 @@ slide_dfc <- function(
 #' ###
 #'
 #' library(tidyr)
+#' library(dplyr)
 #' my_df <- data.frame(
 #'   group = rep(letters[1:2], each = 8),
 #'   x = c(1:8, 8:1),
