@@ -1,5 +1,10 @@
+group_split.tbl_ts <- function(.tbl, ..., keep = TRUE) {
+  grped_ts <- group_by(.tbl, ...)
+  group_split.grouped_ts(grped_ts, keep = keep)
+}
+
 group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
-  lst <- NextMethod()
+  lst <- dplyr::group_split(as_tibble(.tbl), ..., keep = keep)
   if (keep) {
     lapply(lst, update_meta, .tbl, ordered = is_ordered(.tbl))
   } else {

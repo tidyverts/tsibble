@@ -59,6 +59,7 @@
   register_s3_method("dplyr", "anti_join", "lst_ts")
   register_s3_method("dplyr", "semi_join", "lst_ts")
 
+  register_s3_method("dplyr", "group_split", "tbl_ts")
   register_s3_method("dplyr", "group_split", "grouped_ts")
   register_s3_method("dplyr", "group_trim", "grouped_ts")
   invisible()
