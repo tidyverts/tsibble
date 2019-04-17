@@ -1,3 +1,4 @@
+# nocov start
 warn_deprecated <- function(msg, id = msg) {
   if (rlang::is_true(rlang::peek_option("lifecycle_disable_warnings"))) {
     return(invisible(NULL))
@@ -88,3 +89,4 @@ use_id <- function(x, key) {
   }
   vars_select(names(x), !! key_quo)
 }
+# nocov end
