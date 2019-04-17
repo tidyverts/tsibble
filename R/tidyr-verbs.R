@@ -12,6 +12,7 @@
 #' )
 #' (stocksm <- stocks %>% gather(stock, price, -time))
 #' stocksm %>% spread(stock, price)
+#' @export
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))
@@ -38,6 +39,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 
 #' @inheritParams tidyr::spread
 #' @rdname tsibble-tidyverse
+#' @export
 spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL) {
   key <- enexpr(key)
@@ -75,6 +77,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
 #' stocksm %>% 
 #'   group_by(stock) %>% 
 #'   nest()
+#' @export
 nest.tbl_ts <- function(data, ..., .key = "data") {
   nest_exprs <- enexprs(...)
   key_var <- expr_name(enexpr(.key))
@@ -119,6 +122,7 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
 #' @examples
 #' nested_stock %>% 
 #'   unnest(key = stock)
+#' @export
 unnest.lst_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
@@ -173,6 +177,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
 #'     qtl = list(c("0%", "25%", "50%", "75%", "100%"))
 #'   )
 #' unnest(stock_qtl, key = qtl)
+#' @export
 unnest.tbl_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
@@ -208,48 +213,63 @@ unnest_tsibble <- function(data, key, index) {
 
 #' @inheritParams tidyr::fill
 #' @rdname tsibble-tidyverse
+#' @export
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
   update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 fill.grouped_ts <- fill.tbl_ts
 
+#' @export
 mutate.lst_ts <- function(.data, ...) {
   as_lst_ts(NextMethod())
 }
 
+#' @export
 transmute.lst_ts <- mutate.lst_ts
 
+#' @export
 select.lst_ts <- mutate.lst_ts
 
+#' @export
 rename.lst_ts <- mutate.lst_ts
 
+#' @export
 arrange.lst_ts <- mutate.lst_ts
 
 filter.lst_ts <- mutate.lst_ts
 
+#' @export
 slice.lst_ts <- mutate.lst_ts
 
+#' @export
 group_by.lst_ts <- mutate.lst_ts
 
+#' @export
 left_join.lst_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
   as_lst_ts(NextMethod())
 }
 
+#' @export
 right_join.lst_ts <- left_join.lst_ts
 
+#' @export
 full_join.lst_ts <- left_join.lst_ts
 
+#' @export
 inner_join.lst_ts <- left_join.lst_ts
 
+#' @export
 anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   as_lst_ts(NextMethod())
 }
 
+#' @export
 semi_join.lst_ts <- anti_join.lst_ts
 
 as_lst_ts <- function(x) {

@@ -35,7 +35,7 @@
 
 \method{select}{tbl_ts}(.data, ...)
 
-rename.tbl_ts(.data, ...)
+\method{rename}{tbl_ts}(.data, ...)
 
 \method{mutate}{tbl_ts}(.data, ...)
 
@@ -54,13 +54,13 @@ rename.tbl_ts(.data, ...)
 \method{right_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
   suffix = c(".x", ".y"), ...)
 
-inner_join.tbl_ts(x, y, by = NULL, copy = FALSE, suffix = c(".x",
-  ".y"), ...)
+\method{inner_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
+  suffix = c(".x", ".y"), ...)
 
-full_join.tbl_ts(x, y, by = NULL, copy = FALSE, suffix = c(".x",
-  ".y"), ...)
+\method{full_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
+  suffix = c(".x", ".y"), ...)
 
-semi_join.tbl_ts(x, y, by = NULL, copy = FALSE, ...)
+\method{semi_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
 
 \method{anti_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
 

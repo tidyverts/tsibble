@@ -17,6 +17,7 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
 #' @inheritParams dplyr::left_join
 #' @rdname tsibble-tidyverse
 #' @include dplyr-verbs.R
+#' @export
 left_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
@@ -26,6 +27,7 @@ left_join.tbl_ts <- function(
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 right_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
@@ -35,6 +37,7 @@ right_join.tbl_ts <- function(
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 inner_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
@@ -44,6 +47,7 @@ inner_join.tbl_ts <- function(
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 full_join.tbl_ts <- function(
   x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
 ) {
@@ -53,12 +57,14 @@ full_join.tbl_ts <- function(
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
   update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
   update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)

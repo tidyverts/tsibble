@@ -22,6 +22,7 @@
 #'
 #' @name tsibble-tidyverse
 #' @rdname tsibble-tidyverse
+#' @export
 arrange.tbl_ts <- function(.data, ...) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
@@ -31,6 +32,7 @@ arrange.tbl_ts <- function(.data, ...) {
   update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
 }
 
+#' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
@@ -78,6 +80,7 @@ filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   pos <- enquos(...)
   if (length(pos) > 1) {
@@ -99,6 +102,7 @@ row_validate <- function(x) {
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
   lst_exprs <- map(lst_quos, quo_get_expr)
@@ -118,16 +122,20 @@ select.tbl_ts <- function(.data, ...) {
   select_tsibble(.data, !!! lst_quos)
 }
 
+#' @export
 select.grouped_ts <- select.tbl_ts
 
 #' @rdname tsibble-tidyverse
+#' @export
 rename.tbl_ts <- function(.data, ...) {
   rename_tsibble(.data, ...)
 }
 
+#' @export
 rename.grouped_ts <- rename.tbl_ts
 
 #' @rdname tsibble-tidyverse
+#' @export
 mutate.tbl_ts <- function(.data, ...) {
   # mutate returns lst_ts without attributes, coerce to tbl_df first
   mut_data <- mutate(as_tibble(.data), ...)
@@ -169,6 +177,7 @@ mutate.tbl_ts <- function(.data, ...) {
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!! lst_quos)
@@ -177,6 +186,7 @@ transmute.tbl_ts <- function(.data, ...) {
   select_tsibble(mut_data, !!! vec_names, validate = FALSE)
 }
 
+#' @export
 transmute.grouped_ts <- function(.data, ...) {
   res <- NextMethod()
   # keeping index and key
@@ -195,8 +205,9 @@ transmute.grouped_ts <- function(.data, ...) {
 #' pedestrian %>%
 #'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
+#' @export
 summarise.tbl_ts <- function(.data, ...) {
-  # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for 
+  # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for
   # empty groups. Bc information is unavailable over the time range for empty
   # groups.
   idx <- index(.data)
@@ -213,7 +224,7 @@ summarise.tbl_ts <- function(.data, ...) {
   grped_data <- group_by_index2(.data)
   grps <- groups(grped_data)
   len_grps <- length(grps)
-  sum_data <- 
+  sum_data <-
     group_by(
       summarise(grped_data, !!! nonkey_quos),
       !!! grps[-((len_grps - 1):len_grps)] # remove index2 and last grp
@@ -226,13 +237,14 @@ summarise.tbl_ts <- function(.data, ...) {
   grps <- setdiff(group_vars(.data), as_string(idx2))
 
   build_tsibble(
-    sum_data, key = !! grps, index = !! idx2, regular = reg, ordered = TRUE, 
+    sum_data, key = !! grps, index = !! idx2, regular = reg, ordered = TRUE,
     interval = NULL, validate = FALSE
   )
 }
 
 #' @inheritParams dplyr::group_by
 #' @rdname tsibble-tidyverse
+#' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
   .drop = group_by_drop_default(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
@@ -293,6 +305,7 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
 }
 
 #' @rdname tsibble-tidyverse
+#' @export
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
   build_tsibble_meta(
@@ -301,6 +314,7 @@ ungroup.grouped_ts <- function(x, ...) {
   )
 }
 
+#' @export
 ungroup.tbl_ts <- function(x, ...) {
   attr(x, "index2") <- index(x)
   x
