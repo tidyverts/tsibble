@@ -28,33 +28,15 @@ left_join.tbl_ts <- function(
 
 #' @rdname tsibble-tidyverse
 #' @export
-right_join.tbl_ts <- function(
-  x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
-) {
-  tbl <- NextMethod()
-  x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
-  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
-}
+right_join.tbl_ts <- left_join.tbl_ts
 
 #' @rdname tsibble-tidyverse
 #' @export
-inner_join.tbl_ts <- function(
-  x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
-) {
-  tbl <- NextMethod()
-  x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
-  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
-}
+inner_join.tbl_ts <- left_join.tbl_ts
 
 #' @rdname tsibble-tidyverse
 #' @export
-full_join.tbl_ts <- function(
-  x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
-) {
-  tbl <- NextMethod()
-  x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
-  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
-}
+full_join.tbl_ts <- left_join.tbl_ts
 
 #' @rdname tsibble-tidyverse
 #' @export
@@ -65,7 +47,4 @@ semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
 
 #' @rdname tsibble-tidyverse
 #' @export
-anti_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  tbl <- NextMethod()
-  update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
-}
+anti_join.tbl_ts <- semi_join.tbl_ts
