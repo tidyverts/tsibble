@@ -10,10 +10,6 @@ tibble::as_tibble
 #' @export
 tibble::tibble
 
-#' @importFrom tibble new_tibble
-#' @export
-tibble::new_tibble
-
 #' @importFrom rlang !!
 #' @export
 rlang::`!!`

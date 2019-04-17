@@ -6,7 +6,6 @@
 \alias{\%>\%}
 \alias{as_tibble}
 \alias{tibble}
-\alias{new_tibble}
 \alias{!!}
 \alias{!!!}
 \alias{type_sum}
@@ -22,6 +21,6 @@ below to see their documentation.
 
   \item{rlang}{\code{\link[rlang]{!!}}, \code{\link[rlang]{!!!}}}
 
-  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}, \code{\link[tibble]{new_tibble}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{tbl_sum}}}
+  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}, \code{\link[tibble]{type_sum}}, \code{\link[tibble]{tbl_sum}}}
 }}
 
