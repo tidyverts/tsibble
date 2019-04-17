@@ -82,7 +82,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #'
 #' @export
 as_tsibble <- function(x, key = NULL, index, regular = TRUE, 
-  validate = TRUE, .drop = key_drop_default(x), ...
+  validate = TRUE, .drop = TRUE, ...
 ) {
   UseMethod("as_tsibble")
 }
@@ -90,7 +90,7 @@ as_tsibble <- function(x, key = NULL, index, regular = TRUE,
 #' @keywords internal
 #' @export
 as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE, 
-  validate = TRUE, .drop = key_drop_default(x), ...
+  validate = TRUE, .drop = TRUE, ...
 ) {
   index <- enquo(index)
   build_tsibble(

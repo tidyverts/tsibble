@@ -84,7 +84,7 @@ use_id <- function(x, key) {
         res_vars <- paste_comma(map(res, as_string))
         warn(sprintf("%sPlease use `key = c(%s)`.", header, res_vars))
       }
-      return(res)
+      return(res_vars)
     }
   }
   vars_select(names(x), !! key_quo)

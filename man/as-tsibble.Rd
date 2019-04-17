@@ -10,13 +10,13 @@
 \title{Coerce to a tsibble object}
 \usage{
 as_tsibble(x, key = NULL, index, regular = TRUE, validate = TRUE,
-  .drop = key_drop_default(x), ...)
+  .drop = TRUE, ...)
 
 \method{as_tsibble}{data.frame}(x, key = NULL, index, regular = TRUE,
-  validate = TRUE, .drop = key_drop_default(x), ...)
+  validate = TRUE, .drop = TRUE, ...)
 
 \method{as_tsibble}{list}(x, key = NULL, index, regular = TRUE,
-  validate = TRUE, .drop = key_drop_default(x), ...)
+  validate = TRUE, .drop = TRUE, ...)
 
 \method{as_tsibble}{ts}(x, ..., tz = "UTC")
 
