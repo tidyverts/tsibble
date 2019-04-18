@@ -76,6 +76,7 @@ use_id <- function(x, key) {
       res <- eval_tidy(key_quo, env = child_env(get_env(key_quo), id = id))
       header <- "`id()` is deprecated for creating key.\n"
       if (is_empty(res)) {
+        res_vars <- NULL
         warn(sprintf("%sPlease use `key = NULL`.", header))
       } else if (has_length(res, 1)) {
         res_vars <- as_string(res[[1]])
