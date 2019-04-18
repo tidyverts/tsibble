@@ -242,11 +242,9 @@ summarise.tbl_ts <- function(.data, ...) {
   )
 }
 
-#' @inheritParams dplyr::group_by
-#' @rdname tsibble-tidyverse
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
-  .drop = group_by_drop_default(.data)) {
+  .drop = group_by_drop_default2(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) {
@@ -304,7 +302,6 @@ group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
   }
 }
 
-#' @rdname tsibble-tidyverse
 #' @export
 ungroup.grouped_ts <- function(x, ...) {
   tbl <- ungroup(as_tibble(x))
@@ -324,7 +321,7 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   dplyr::distinct(as_tibble(.data), ...)
 }
 
-group_by_drop_default <- function(.tbl) {
+group_by_drop_default2 <- function(.tbl) {
   if (utils::packageVersion("dplyr") > "0.8.0.1") {
     dplyr::group_by_drop_default(.tbl)
   } else {

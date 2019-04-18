@@ -10,8 +10,6 @@
 \alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
-\alias{group_by.tbl_ts}
-\alias{ungroup.grouped_ts}
 \alias{left_join.tbl_ts}
 \alias{right_join.tbl_ts}
 \alias{inner_join.tbl_ts}
@@ -21,10 +19,7 @@
 \alias{gather.tbl_ts}
 \alias{spread.tbl_ts}
 \alias{nest.tbl_ts}
-\alias{unnest.lst_ts}
 \alias{unnest.tbl_ts}
-\alias{fill.tbl_ts}
-\alias{fill.grouped_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -42,11 +37,6 @@
 \method{transmute}{tbl_ts}(.data, ...)
 
 \method{summarise}{tbl_ts}(.data, ...)
-
-\method{group_by}{tbl_ts}(.data, ..., add = FALSE,
-  .drop = group_by_drop_default(.data))
-
-\method{ungroup}{grouped_ts}(x, ...)
 
 \method{left_join}{tbl_ts}(x, y, by = NULL, copy = FALSE,
   suffix = c(".x", ".y"), ...)
@@ -72,15 +62,8 @@ spread.tbl_ts(data, key, value, fill = NA, convert = FALSE,
 
 nest.tbl_ts(data, ..., .key = "data")
 
-unnest.lst_ts(data, ..., key = NULL, .drop = NA, .id = NULL,
-  .sep = NULL, .preserve = NULL)
-
 unnest.tbl_ts(data, ..., key = NULL, .drop = NA, .id = NULL,
   .sep = NULL, .preserve = NULL)
-
-fill.tbl_ts(data, ..., .direction = c("down", "up"))
-
-fill.grouped_ts(data, ..., .direction = c("down", "up"))
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -92,14 +75,7 @@ will be duplicated in the same way as atomic vectors. This has
 \link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
-\item{add}{When \code{add = FALSE}, the default, \code{group_by()} will
-override existing groups. To add to the existing groups, use
-\code{add = TRUE}.}
-
-\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped. See \code{\link[=group_by_drop_default]{group_by_drop_default()}} for
-what the default value is for this argument.}
-
-\item{x}{A \code{\link[=tbl]{tbl()}}}
+\item{x}{tbls to join}
 
 \item{y}{tbls to join}
 
@@ -124,7 +100,7 @@ Should be a character vector of length 2.}
 
 \item{data}{A data frame.}
 
-\item{key}{Unquoted variables to create the key (via \link{id}) after unnesting.}
+\item{key}{Unquoted variables to create the key after unnesting.}
 
 \item{value}{Names of new key and value columns, as strings or
 symbols.
@@ -168,6 +144,10 @@ and symbols). The name is captured from the expression with
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
+\item{.drop}{Should additional list columns be dropped? By default,
+\code{unnest} will drop them if unnesting the specified columns requires
+the rows to be duplicated.}
+
 \item{.id}{Data frame identifier - if supplied, will create a new column
 with name \code{.id}, giving a unique identifier. This is most useful if
 the list column is named.}
@@ -175,10 +155,6 @@ the list column is named.}
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
 will combine the name of the original list-col with the names from
 nested data frame, separated by \code{.sep}.}
-
-\item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default), "up", "downup" (i.e. first down and then up)
-or "updown" (first up and then down).}
 }
 \description{
 \itemize{

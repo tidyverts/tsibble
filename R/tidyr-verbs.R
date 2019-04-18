@@ -115,13 +115,6 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   as_lst_ts(out)
 }
 
-#' @param key Unquoted variables to create the key (via [id]) after unnesting.
-#' @inheritParams tidyr::unnest
-#'
-#' @rdname tsibble-tidyverse
-#' @examples
-#' nested_stock %>% 
-#'   unnest(key = stock)
 #' @export
 unnest.lst_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
@@ -167,8 +160,12 @@ unnest.lst_ts <- function(data, ..., key = NULL,
   )
 }
 
+#' @param key Unquoted variables to create the key after unnesting.
+#' @inheritParams tidyr::unnest
 #' @rdname tsibble-tidyverse
 #' @examples
+#' nested_stock %>% 
+#'   unnest(key = stock)
 #' stock_qtl <- stocksm %>% 
 #'   group_by(stock) %>% 
 #'   index_by(day3 = lubridate::floor_date(time, unit = "3 day")) %>% 
@@ -211,15 +208,12 @@ unnest_tsibble <- function(data, key, index) {
   data
 }
 
-#' @inheritParams tidyr::fill
-#' @rdname tsibble-tidyverse
 #' @export
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
   update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
 }
 
-#' @rdname tsibble-tidyverse
 #' @export
 fill.grouped_ts <- fill.tbl_ts
 
