@@ -115,7 +115,6 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   as_lst_ts(out)
 }
 
-#' @export
 unnest.lst_ts <- function(data, ..., key = NULL,
   .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
 ) {
@@ -208,13 +207,11 @@ unnest_tsibble <- function(data, key, index) {
   data
 }
 
-#' @export
 fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
   res <- NextMethod()
   update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
 }
 
-#' @export
 fill.grouped_ts <- fill.tbl_ts
 
 #' @export

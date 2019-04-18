@@ -18,6 +18,11 @@
   register_s3_method("dplyr", "group_split", "tbl_ts")
   register_s3_method("dplyr", "group_split", "grouped_ts")
   register_s3_method("dplyr", "group_trim", "grouped_ts")
+
+  register_s3_method("tidyr", "fill", "grouped_ts")
+  register_s3_method("tidyr", "fill", "tbl_ts")
+  register_s3_method("tidyr", "unnest", "lst_ts")
+
   invisible()
 }
 
