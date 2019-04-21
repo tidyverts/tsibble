@@ -73,7 +73,7 @@ use_id <- function(x, key) {
   if (quo_is_call(key_quo)) {
     call_fn <- call_name(key_quo)
     if (call_fn == "id") {
-      res <- eval_tidy(key_quo, env = child_env(get_env(key_quo), id = id))
+      res <- eval_tidy(get_expr(key_quo), env = child_env(get_env(key_quo), id = id))
       header <- "`id()` is deprecated for creating key.\n"
       if (is_empty(res)) {
         res_vars <- NULL
