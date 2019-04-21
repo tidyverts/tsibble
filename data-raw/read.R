@@ -13,7 +13,7 @@ pedestrian <- rwalkr::melb_walk_fast(
   ), na.rm = TRUE)
 
 pedestrian <- as_tsibble(
-  pedestrian, key = id(Sensor), index = Date_Time
+  pedestrian, key = Sensor, index = Date_Time
 )
 usethis::use_data(pedestrian, overwrite = TRUE, compress = "xz")
 
@@ -52,7 +52,7 @@ qtr_data <- long_data %>%
 
 # convert to tsibble
 tourism <- qtr_data %>%
-  as_tsibble(key = id(Region, State, Purpose), index = Quarter)
+  as_tsibble(key = c(Region, State, Purpose), index = Quarter)
 usethis::use_data(tourism, overwrite = TRUE, compress = "xz")
 
 # hms data ----
