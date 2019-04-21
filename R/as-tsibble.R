@@ -236,10 +236,8 @@ build_tsibble <- function(
   index <- validate_index(tbl, !! qindex)
   # if index2 not specified
   index2 <- enquo(index2)
-  if (quo_is_missing(index2)) {
+  if (quo_is_missing(index2) || identical(qindex, index2)) {
     index2 <- index
-  } else if (identical(qindex, index2)) {
-    index2 <- quo_get_expr(index2)
   } else {
     index2 <- validate_index(tbl, !! index2)
   }
@@ -285,45 +283,29 @@ build_tsibble_meta <- function(
 ) {
   if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
 
-  index <- get_expr(enquo(index))
-  index2 <- enquo(index2)
-  if (quo_is_missing(index2)) {
-    index2 <- index
-  } else {
-    index2 <- get_expr(index2)
-  }
-  is_grped <- dplyr::is_grouped_df(x)
+  index <- enexpr(index)
+  index2 <- enexpr(index2)
   tbl <- as_tibble(x)
 
-  if (NROW(x) == 0) {
+  if (NROW(tbl) == 0) {
+    ordered <- TRUE
     if (is_false(regular)) {
       interval <- irregular()
     } else {
       interval <- init_interval()
     }
-    grp_data <- group_data(tbl)
-    tbl <- new_tibble(
-      tbl, "key" = key_data, "index" = index, "index2" = index2,
-      "interval" = interval, "regular" = regular, "ordered" = TRUE,
-      "groups" = NULL, nrow = 0L, class = "tbl_ts"
-    )
-    if (is_grped) {
-      cls <- c("grouped_ts", "grouped_df")
-      tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
+  } else {
+    if (is_false(regular)) {
+      interval <- irregular()
+    } else if (regular && is_null(interval)) {
+      eval_idx <- eval_tidy(index, data = tbl)
+      interval <- interval_pull(eval_idx)
+    } else if (is_false(inherits(interval, "interval"))) {
+      abort(sprintf(
+        "Argument `interval` must be class interval, not %s.",
+        class(interval)[1]
+      ))
     }
-    return(tbl)
-  }
-
-  if (is_false(regular)) {
-    interval <- irregular()
-  } else if (regular && is_null(interval)) {
-    eval_idx <- eval_tidy(index, data = tbl)
-    interval <- interval_pull(eval_idx)
-  } else if (is_false(inherits(interval, "interval"))) {
-    abort(sprintf(
-      "Argument `interval` must be class interval, not %s.",
-      class(interval)[1]
-    ))
   }
 
   idx_lgl <- identical(index, index2)
@@ -338,6 +320,7 @@ build_tsibble_meta <- function(
     "interval" = interval, "regular" = regular, "ordered" = ordered,
     "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
+  is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
   if (is_grped) {
     cls <- c("grouped_ts", "grouped_df")
     tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)

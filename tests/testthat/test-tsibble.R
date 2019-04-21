@@ -367,8 +367,9 @@ test_that("build_tsibble()", {
     pedestrian, key = Sensor, index = Date_Time,
     index2 = Date
   )
-  idx2 <- index2(tsbl)
-  expect_is(idx2, "name")
+  idx2 <- index2_var(tsbl)
+  expect_equal(idx2, "Date")
+  expect_is(tsbl, "grouped_ts")
 
   idx_drop <- dplyr::bind_rows(tsbl, tsbl)
   expect_error(print(idx_drop), "dropped somehow")
