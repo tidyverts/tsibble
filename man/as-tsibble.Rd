@@ -20,7 +20,7 @@ as_tsibble(x, key = NULL, index, regular = TRUE, validate = TRUE,
 
 \method{as_tsibble}{ts}(x, ..., tz = "UTC")
 
-\method{as_tsibble}{mts}(x, ..., tz = "UTC", gather = TRUE)
+\method{as_tsibble}{mts}(x, ..., tz = "UTC", pivot_longer = TRUE)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
@@ -44,7 +44,7 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 \item{tz}{Time zone. May be useful when a \code{ts} object is more frequent than
 daily.}
 
-\item{gather}{TRUE gives a "long" data form, otherwise as "wide" as \code{x}.}
+\item{pivot_longer}{TRUE gives a "longer" form of the data, otherwise as is.}
 }
 \value{
 A tsibble object.
@@ -77,12 +77,10 @@ as_tsibble(AirPassengers)
 as_tsibble(sunspot.year)
 as_tsibble(sunspot.month)
 as_tsibble(austres)
-
 # coerce mts to tsibble
 z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)
-as_tsibble(z, gather = FALSE)
-
+as_tsibble(z, pivot_longer = FALSE)
 }
 \seealso{
 \link{tsibble}

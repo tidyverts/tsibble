@@ -8,7 +8,6 @@
 #' as_tsibble(sunspot.year)
 #' as_tsibble(sunspot.month)
 #' as_tsibble(austres)
-#'
 #' @export
 as_tsibble.ts <- function(x, ..., tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
@@ -20,17 +19,17 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
 }
 
 #' @rdname as-tsibble
-#' @param gather TRUE gives a "long" data form, otherwise as "wide" as `x`.
+#' @param pivot_longer TRUE gives a "longer" form of the data, otherwise as is.
 #'
 #' @examples
 #' # coerce mts to tsibble
 #' z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 #' as_tsibble(z)
-#' as_tsibble(z, gather = FALSE)
-#'
+#' as_tsibble(z, pivot_longer = FALSE)
 #' @export
-as_tsibble.mts <- function(x, ..., tz = "UTC", gather = TRUE) {
-  if (gather) {
+as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
+  pivot_longer <- warn_gather(..., pivot_longer = pivot_longer)
+  if (pivot_longer) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(
       long_tbl, key = key, index = index, ordered = TRUE, validate = FALSE
@@ -43,13 +42,24 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", gather = TRUE) {
   }
 }
 
+warn_gather <- function(..., pivot_longer = TRUE) {
+  dots <- dots_list(...)
+  if ("gather" %in% names(dots)) {
+    warn("Argument `gather` is deprecated, please use `pivot_longer` instead.")
+    dots$gather
+  } else {
+    pivot_longer
+  }
+}
+
+
 #' @keywords internal
 #' @export
-as_tsibble.msts <- function(x, ..., tz = "UTC", gather = TRUE) {
+as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
   if (NCOL(x) == 1) {
-    as_tsibble.ts(x, tz = tz)
+    as_tsibble.ts(x, ..., tz = tz)
   } else {
-    as_tsibble.mts(x, tz = tz, gather = gather)
+    as_tsibble.mts(x, ..., tz = tz, pivot_longer = pivot_longer)
   }
 }
 

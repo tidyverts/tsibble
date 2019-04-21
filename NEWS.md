@@ -4,12 +4,13 @@
 
 * The **dplyr** and **tidyr** generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load the `library(tidyverse)` in front.
 
-## Defunct & deprecated functions
+## Defunct & deprecated functions/arguments
 
 * Deprecate `id()` for creating key for the consistence of tidy selectors, and will be defunct until end of October, 2019.
-* Continue with deprecation of `fill_na()` in favour of `fill_gaps()`, and will be defunct in the next release.
-* Start with deprecation of `pull_interval()` in favour of `interval_pull()`, and will issue an error in the next release.
+* Deprecate of `pull_interval()` in favour of `interval_pull()`.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`. The warning is displayed once per session.
+* Deprecate `gather = TRUE` in `as_tsibble.ts()` in favour of `pivot_longer = TRUE`.
+* Continue with deprecation of `fill_na()` in favour of `fill_gaps()`, and will be defunct in the next release.
 
 ## Improvements
 
