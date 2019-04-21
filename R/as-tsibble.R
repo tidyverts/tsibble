@@ -219,10 +219,10 @@ build_tsibble <- function(
   is_key_data <- !is_null(key_data)
   if (is_key_data) {
     assert_key_data(key_data)
-    key_sym <- head(names(key_data), -1L)
-  } else {
-    key_sym <- use_id(x, !! enquo(key))
+    key <- head(names(key_data), -1L)
   }
+  key_sym <- use_id(x, !! enquo(key))
+  key_vars <- syms(key_sym)
 
   is_grped <- dplyr::is_grouped_df(x)
   if (is_grped) {
@@ -241,9 +241,7 @@ build_tsibble <- function(
   } else {
     index2 <- validate_index(tbl, !! index2)
   }
-  # (1) validate and process key vars (from expr to a list of syms)
-  key_vars <- validate_key(tbl, key_sym)
-  # (2) index cannot be part of the keys
+  # index cannot be part of the keys
   idx_chr <- c(as_string(index), as_string(index2))
   is_index_in_keys <- intersect(idx_chr, key_vars)
   if (is_false(is_empty(is_index_in_keys))) {

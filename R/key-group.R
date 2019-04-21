@@ -87,10 +87,6 @@ key_drop_default.tbl_ts <- function(.tbl) {
   !identical(key_data(.tbl) %@% ".drop", FALSE)
 }
 
-validate_key <- function(.data, .vars) {
-  syms(unname(vars_select(names(.data), !!! .vars)))
-}
-
 remove_key <- function(.data, .vars) {
   sel_key <- c(.vars[.vars %in% key_vars(.data)], ".rows")
   attr(.data, "key") <- key_data(.data)[sel_key]
