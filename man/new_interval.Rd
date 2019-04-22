@@ -19,4 +19,6 @@ an "interval" class
 }
 \examples{
 new_interval(hour = 1, minute = 30)
+new_interval(NULL) # irregular interval
+new_interval() # unknown interval
 }

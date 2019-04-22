@@ -16,13 +16,24 @@ test_that("rbind()", {
   expect_is(rbind(tsbl, tsbl2), "tbl_ts")
 })
 
+vic <- tourism %>%
+  filter(State == "Victoria")
+nsw <- tourism %>%
+  filter(State == "New South Wales")
+
 test_that("rbind() for custom index class #78", {
-  vic <- tourism %>%
-    filter(State == "Victoria")
-  nsw <- tourism %>%
-    filter(State == "New South Wales")
   res <- rbind(vic, nsw)
   expect_is(res$Quarter, "yearquarter")
+})
+
+test_that("rbind() for mixed intervals", {
+  res <- rbind(update_tsibble(vic, regular = FALSE), nsw)
+  expect_identical(interval(res), interval(nsw))
+  res2 <- rbind(
+    update_tsibble(vic, regular = FALSE), 
+    update_tsibble(nsw, regular = FALSE)
+  )
+  expect_identical(format(interval(res2)), "!")
 })
 
 test_that("cbind()", {

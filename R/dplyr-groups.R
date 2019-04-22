@@ -6,7 +6,8 @@ group_split.tbl_ts <- function(.tbl, ..., keep = TRUE) {
 group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
   lst <- dplyr::group_split(as_tibble(.tbl), ..., keep = keep)
   if (keep) {
-    lapply(lst, update_meta, .tbl, ordered = is_ordered(.tbl))
+    lapply(lst, update_meta, .tbl, ordered = is_ordered(.tbl),
+      interval = is_regular(.tbl))
   } else {
     first_data <- lst[[1]]
     left_over <- names(first_data)
@@ -16,7 +17,8 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
         update_meta(first_data, new_tsbl, ordered = is_ordered(.tbl)),
         left_over
       )
-    lapply(lst, update_meta, first_tsbl, ordered = is_ordered(first_tsbl))
+    lapply(lst, update_meta, first_tsbl, ordered = is_ordered(first_tsbl),
+      interval = is_regular(first_tsbl))
   }
 }
 

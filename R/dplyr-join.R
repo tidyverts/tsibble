@@ -23,7 +23,8 @@ left_join.tbl_ts <- function(
 ) {
   tbl <- NextMethod()
   x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
-  update_meta(tbl, x, ordered = is_ordered(x), validate = TRUE)
+  update_meta(tbl, x, ordered = is_ordered(x), interval = is_regular(x),
+    validate = TRUE)
 }
 
 #' @rdname tsibble-tidyverse
@@ -42,7 +43,8 @@ full_join.tbl_ts <- left_join.tbl_ts
 #' @export
 semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
   tbl <- NextMethod()
-  update_meta(tbl, x, ordered = is_ordered(x), validate = FALSE)
+  update_meta(tbl, x, ordered = is_ordered(x), interval = is_regular(x),
+    validate = FALSE)
 }
 
 #' @rdname tsibble-tidyverse

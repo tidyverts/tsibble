@@ -74,8 +74,8 @@ ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
 
 #' @rdname tsibble-tidyverse
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  by_row(filter, .data, ordered = is_ordered(.data), interval = TRUE, ...,
-    .preserve = .preserve
+  by_row(filter, .data, ordered = is_ordered(.data),
+    interval = is_regular(.data), ..., .preserve = .preserve
   )
 }
 
@@ -88,7 +88,7 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   }
   pos_eval <- summarise(as_tibble(.data), .pos_eval = list(!! pos[[1]]))
   ascending <- all(map_lgl(pos_eval[[".pos_eval"]], row_validate))
-  by_row(slice, .data, ordered = ascending, interval = TRUE, ...,
+  by_row(slice, .data, ordered = ascending, interval = is_regular(.data), ...,
     .preserve = .preserve)
 }
 
