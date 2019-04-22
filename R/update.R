@@ -1,4 +1,4 @@
-by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ..., 
+by_row <- function(FUN, .data, ordered = TRUE, interval = TRUE, ..., 
   .preserve = FALSE) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
@@ -11,7 +11,7 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = NULL, ...,
 
 # put new data with existing attributes (update key)
 update_meta <- function(
-  new, old, ordered = TRUE, interval = NULL, validate = FALSE
+  new, old, ordered = TRUE, interval = TRUE, validate = FALSE
 ) {
   if (validate) {
     retain_tsibble(new, key = key(old), index = index(old))
@@ -19,14 +19,14 @@ update_meta <- function(
   validate <- TRUE || validate
   restore_index_class(build_tsibble(
     new, key = !! key_vars(old), index = !! index(old), index2 = !! index2(old),
-    regular = is_regular(old), ordered = ordered, interval = interval, 
-    validate = validate, .drop = is_key_dropped(old)
+    ordered = ordered, interval = interval, validate = validate,
+    .drop = is_key_dropped(old)
   ), old)
 }
 
 # preserve key data
 update_meta2 <- function(
-  new, old, ordered = TRUE, interval = NULL, validate = FALSE
+  new, old, ordered = TRUE, interval = TRUE, validate = FALSE
 ) {
   old_key <- select(key_data(old), !!! key(old))
   if (is_empty(old_key)) {
@@ -40,8 +40,7 @@ update_meta2 <- function(
   new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(
     new, key_data = new_key, index = !! index(old), index2 = !! index2(old),
-    regular = is_regular(old), ordered = ordered, interval = interval, 
-    validate = validate
+    ordered = ordered, interval = interval, validate = validate
   ), old)
 }
 
@@ -76,8 +75,7 @@ rename_tsibble <- function(.data, ...) {
   build_tsibble(
     res, key_data = key_data(res),
     index = !! index(res), index2 = !! index2(res),
-    regular = is_regular(res), ordered = is_ordered(res), 
-    interval = interval(res), validate = FALSE
+    ordered = is_ordered(res), interval = interval(res), validate = FALSE
   )
 }
 
@@ -110,8 +108,8 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
   build_tsibble(
     sel_data,
     key = !! key_vars, index = !! index(.data), index2 = !! index2(.data),
-    regular = is_regular(.data), ordered = is_ordered(.data), 
-    interval = interval(.data), validate = FALSE, .drop = is_key_dropped(.data)
+    ordered = is_ordered(.data), interval = interval(.data),
+    validate = FALSE, .drop = is_key_dropped(.data)
   )
 }
 

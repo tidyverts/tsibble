@@ -34,7 +34,6 @@
 #'   value = rnorm(30),
 #'   key = group
 #' )
-#'
 #' @export
 tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
   dots <- list2(...)
@@ -43,7 +42,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
   }
   tbl <- tibble(!!! dots)
   index <- enquo(index)
-  build_tsibble(tbl, key = !! enquo(key), index = !! index, regular = regular,
+  build_tsibble(tbl, key = !! enquo(key), index = !! index, interval = regular,
     .drop = .drop)
 }
 
@@ -79,7 +78,6 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' )
 #' as_tsibble(tbl2, key = group)
 #' as_tsibble(tbl2, key = group, index = mth)
-#'
 #' @export
 as_tsibble <- function(x, key = NULL, index, regular = TRUE, 
   validate = TRUE, .drop = TRUE, ...
@@ -94,7 +92,7 @@ as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE,
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = !! enquo(key), index = !! index, regular = regular,
+    x, key = !! enquo(key), index = !! index, interval = regular,
     validate = validate, .drop = .drop
   )
 }
@@ -124,7 +122,7 @@ as_tsibble.grouped_df <- function(x, key = NULL, index, regular = TRUE,
 ) {
   index <- enquo(index)
   build_tsibble(
-    x, key = !! enquo(key), index = !! index, regular = regular, 
+    x, key = !! enquo(key), index = !! index, interval = regular, 
     validate = validate, .drop = .drop
   )
 }
@@ -173,12 +171,12 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   if (is_idx_idx2) {
     build_tsibble(
       as_tibble(x), key = !! key, index = !! idx,
-      regular = regular, validate = validate, .drop = .drop
+      interval = regular, validate = validate, .drop = .drop
     )
   } else {
     build_tsibble(
       as_tibble(x), key = !! key, index = !! idx, index2 = !! index2(x),
-      regular = regular, validate = validate, .drop = .drop
+      interval = regular, validate = validate, .drop = .drop
     )
   }
 }
@@ -201,8 +199,8 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
 #' then index from past to future. `TRUE` suggests to skip the ordering as `x` in
 #' the correct order. `FALSE` also skips the ordering but gives a warning instead.
-#' @param interval `NULL` computes the interval. Use the specified interval via
-#' [new_interval()] as is, if an class of `interval` is supplied.
+#' @param interval `TRUE` automatically calculates the interval, and `FALSE` for
+#' irregular interval. Use the specified interval via [new_interval()] as is.
 #'
 #' @export
 #' @examples
@@ -213,8 +211,8 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #'     interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, key_data = NULL, index, index2, ordered = NULL, regular = TRUE, 
-  interval = NULL, validate = TRUE, .drop = key_drop_default(x)
+  x, key, key_data = NULL, index, index2, ordered = NULL, interval = TRUE,
+  validate = TRUE, .drop = key_drop_default(x)
 ) {
   is_key_data <- !is_null(key_data)
   if (is_key_data) {
@@ -271,31 +269,28 @@ build_tsibble <- function(
   }
   build_tsibble_meta(
     tbl, key_data = key_data, index = !! index, index2 = !! index2,
-    regular = regular, ordered = ordered, interval = interval
+    ordered = ordered, interval = interval
   )
 }
 
 build_tsibble_meta <- function(
-  x, key_data = NULL, index, index2, ordered = NULL, regular = TRUE,
-  interval = NULL
+  x, key_data = NULL, index, index2, ordered = NULL, interval = TRUE
 ) {
-  if (is_null(regular)) abort("Argument `regular` must not be `NULL`.")
-
   index <- enexpr(index)
   index2 <- enexpr(index2)
   tbl <- as_tibble(x)
 
   if (NROW(tbl) == 0) {
     ordered <- TRUE
-    if (is_false(regular)) {
+    if (is_false(interval)) {
       interval <- irregular()
     } else {
       interval <- init_interval()
     }
   } else {
-    if (is_false(regular)) {
+    if (is_false(interval)) {
       interval <- irregular()
-    } else if (regular && is_null(interval)) {
+    } else if (is_true(interval)) {
       eval_idx <- eval_tidy(index, data = tbl)
       interval <- interval_pull(eval_idx)
     } else if (is_false(inherits(interval, "interval"))) {
@@ -315,8 +310,8 @@ build_tsibble_meta <- function(
   grp_data <- group_data(tbl)
   tbl <- new_tibble(
     tbl, "key" = key_data, "index" = index, "index2" = index2,
-    "interval" = interval, "regular" = regular, "ordered" = ordered,
-    "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
+    "interval" = interval, "ordered" = ordered, "groups" = NULL,
+    nrow = NROW(tbl), class = "tbl_ts"
   )
   is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
   if (is_grped) {
@@ -520,7 +515,7 @@ duplicates <- function(data, key = NULL, index) {
 
 remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- attr(x, "regular") <- attr(x, "ordered") <- NULL
+  attr(x, "interval") <- attr(x, "ordered") <- NULL
   x
 }
 

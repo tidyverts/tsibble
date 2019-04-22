@@ -449,7 +449,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
   new_key <- c(.id, key_vars(.x))
   build_tsibble(
     res, key = !! new_key, index = !! index(.x), index2 = !! index2(.x),
-    regular = is_regular(.x), interval = interval(.x), validate = FALSE
+    interval = interval(.x), validate = FALSE
   )
 }
 

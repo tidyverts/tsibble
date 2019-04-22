@@ -71,7 +71,6 @@ tbl2 <- tibble(
 )
 as_tsibble(tbl2, key = group)
 as_tsibble(tbl2, key = group, index = mth)
-
 # coerce ts to tsibble
 as_tsibble(AirPassengers)
 as_tsibble(sunspot.year)

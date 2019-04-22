@@ -5,8 +5,7 @@
 \title{Low-level constructor for a tsibble object}
 \usage{
 build_tsibble(x, key, key_data = NULL, index, index2, ordered = NULL,
-  regular = TRUE, interval = NULL, validate = TRUE,
-  .drop = key_drop_default(x))
+  interval = TRUE, validate = TRUE, .drop = key_drop_default(x))
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
@@ -26,11 +25,8 @@ frame is supplied, the argument \code{key} will be ignored.}
 then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
 the correct order. \code{FALSE} also skips the ordering but gives a warning instead.}
 
-\item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
-interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
-
-\item{interval}{\code{NULL} computes the interval. Use the specified interval via
-\code{\link[=new_interval]{new_interval()}} as is, if an class of \code{interval} is supplied.}
+\item{interval}{\code{TRUE} automatically calculates the interval, and \code{FALSE} for
+irregular interval. Use the specified interval via \code{\link[=new_interval]{new_interval()}} as is.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you

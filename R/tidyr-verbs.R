@@ -32,8 +32,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   )
   build_tsibble(
     tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
-    regular = is_regular(data), ordered = is_ordered(data), 
-    interval = interval(data), validate = FALSE
+    ordered = is_ordered(data), interval = interval(data), validate = FALSE
   )
 }
 
@@ -64,7 +63,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   data <- mutate_index2(data, vars)
   build_tsibble(
     tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
-    regular = is_regular(data), ordered = is_ordered(data), interval = NULL, 
+    ordered = is_ordered(data), interval = is_regular(data), 
     validate = FALSE
   )
 }
@@ -154,8 +153,7 @@ unnest.lst_ts <- function(data, ..., key = NULL,
   class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
     out, key = !! key, index = !! idx, index2 = !! index2(tsbl),
-    ordered = is_ordered(tsbl), regular = is_regular(tsbl), 
-    interval = NULL, validate = FALSE
+    ordered = is_ordered(tsbl), interval = is_regular(tsbl), validate = FALSE
   )
 }
 
@@ -191,8 +189,7 @@ unnest.tbl_ts <- function(data, ..., key = NULL,
   class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
   build_tsibble(
     tbl, key = !! key, index = !! idx, index2 = !! index2(data), 
-    ordered = is_ordered(data), regular = is_regular(data), 
-    interval = NULL, validate = FALSE
+    ordered = is_ordered(data), interval = is_regular(data), validate = FALSE
   )
 }
 

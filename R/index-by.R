@@ -87,8 +87,8 @@ index_by.tbl_ts <- function(.data, ...) {
     )
   build_tsibble(
     tbl, key_data = key_data(.data), index = !! idx, index2 = !! idx2,
-    regular = is_regular(.data), validate = FALSE,
-    ordered = is_ordered(.data), interval = interval(.data)
+    ordered = is_ordered(.data), interval = interval(.data),
+    validate = FALSE
   )
 }
 

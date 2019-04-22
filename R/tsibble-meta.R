@@ -88,8 +88,7 @@ interval <- function(x) {
 #' is_ordered(pedestrian)
 #' @export
 is_regular <- function(x) {
-  not_tsibble(x)
-  x %@% "regular"
+  !is_empty(interval(x))
 }
 
 #' @rdname regular

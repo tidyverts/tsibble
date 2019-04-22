@@ -106,7 +106,6 @@ tsibble(
   value = rnorm(30),
   key = group
 )
-
 }
 \seealso{
 \link{build_tsibble}
