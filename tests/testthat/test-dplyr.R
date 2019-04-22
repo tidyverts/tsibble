@@ -129,6 +129,8 @@ test_that("filter() and slice()", {
   expect_warning(slice(pedestrian, 3:1), "Unexpected temporal order.")
   expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
+  expect_identical(slice(pedestrian, -(1:10)), pedestrian[-(1:10), ])
+  expect_identical(slice(pedestrian, -(10:1)), slice(pedestrian, -(1:10)))
 })
 
 test_that("filter() and slice() with .preserve = TRUE", {

@@ -55,7 +55,7 @@ bool any_not_equal_to_c(NumericVector x, double c) {
 
 // [[Rcpp::export]]
 bool is_ascending(IntegerVector x) {
-  IntegerVector y = wrap(na_omit(x));
+  IntegerVector y = wrap(x);
   int prev = y[0];
 
   IntegerVector::iterator it;
