@@ -228,15 +228,9 @@ build_tsibble <- function(
     key <- head(names(key_data), -1L)
   }
   key_sym <- use_id(x, !! enquo(key))
-  key_vars <- syms(key_sym)
+  key_vars <- syms(unname(key_sym))
 
-  is_grped <- dplyr::is_grouped_df(x)
-  if (is_grped) {
-    tbl <- x
-  } else {
-    tbl <- as_tibble(x)
-  }
-
+  tbl <- as_tibble(x)
   # extract or pass the index var
   qindex <- enquo(index)
   index <- validate_index(tbl, !! qindex)
@@ -269,7 +263,6 @@ build_tsibble <- function(
   } # true do nothing
   # validate tbl_ts
   if (!is_key_data) {
-    key_vars <- unname(key_vars)
     key_data <- group_data(group_by(tbl, !!! key_vars, .drop = .drop))
   }
   if (validate) {
