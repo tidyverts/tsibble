@@ -21,6 +21,15 @@ test_that("A tsibble must not contain missing values in index", {
     "must not contain `NA`.")
 })
 
+test_that("Argument regular is not logical", {
+  expect_error(
+    tsibble(
+      idx = ymd_h("2017-10-01 0", tz = "Australia/Melbourne") + hours(1:3),
+      regular = new_interval()
+    ),
+    "not TRUE")
+})
+
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
   expect_error(key(dat_x), "Can't find the attribute key")

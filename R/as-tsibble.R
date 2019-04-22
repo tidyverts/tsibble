@@ -36,6 +36,7 @@
 #' )
 #' @export
 tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
+  stopifnot(is_logical(regular, n = 1))
   dots <- list2(...)
   if (has_length(dots, 1) && is.data.frame(dots[[1]])) {
     abort("Must not be a data frame, do you want `as_tsibble()`?")
@@ -82,6 +83,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 as_tsibble <- function(x, key = NULL, index, regular = TRUE, 
   validate = TRUE, .drop = TRUE, ...
 ) {
+  stopifnot(is_logical(regular, n = 1))
   UseMethod("as_tsibble")
 }
 
@@ -166,17 +168,23 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   if (quo_is_missing(idx)) {
     idx <- x %@% "index"
   }
+  stopifnot(is_logical(regular, n = 1))
+  if (is_true(regular)) {
+    int <- interval(x)
+  } else {
+    int <- FALSE
+  }
 
   is_idx_idx2 <- identical(x %@% "index", index2(x))
   if (is_idx_idx2) {
     build_tsibble(
       as_tibble(x), key = !! key, index = !! idx,
-      interval = regular, validate = validate, .drop = .drop
+      interval = int, validate = validate, .drop = .drop
     )
   } else {
     build_tsibble(
       as_tibble(x), key = !! key, index = !! idx, index2 = !! index2(x),
-      interval = regular, validate = validate, .drop = .drop
+      interval = int, validate = validate, .drop = .drop
     )
   }
 }
@@ -288,7 +296,7 @@ build_tsibble_meta <- function(
       interval <- init_interval()
     }
   } else {
-    if (is_false(interval)) {
+    if (is_false(interval) || is_null(interval)) {
       interval <- irregular()
     } else if (is_true(interval)) {
       eval_idx <- eval_tidy(index, data = tbl)
