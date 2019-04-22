@@ -182,10 +182,14 @@ interval_pull.ordered <- function(x) {
 #' @export
 #' @examples
 #' new_interval(hour = 1, minute = 30)
+#' new_interval(NULL) # irregular interval
+#' new_interval() # unknown interval
 new_interval <- function(...) {
   args <- list2(...)
+  if (has_length(args, 1) && is_null(args[[1]])) return(irregular())
+
   if (is_false(all(map_lgl(args, ~ has_length(., 1))))) {
-    abort("Only accepts one input for each unit, not `NULL` or multiple.")
+    abort("Only accepts one input for each unit, not multiple.")
   }
   names_args <- names(args)
   names_unit <- fn_fmls_names(init_interval)
