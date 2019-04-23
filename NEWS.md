@@ -2,11 +2,11 @@
 
 ## Breaking changes
 
-* The **dplyr** and **tidyr** generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load the `library(tidyverse)` in front.
+* The **dplyr** and **tidyr** generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load `library(tidyverse)` in front.
 
 ## Defunct & deprecated functions/arguments
 
-* Deprecate `id()` for creating key for the consistence of tidy selectors, and will be defunct until end of October, 2019.
+* Deprecate `id()` for creating key for the consistence of tidy selectors, and will be defunct until August 2019.
 * Deprecate of `pull_interval()` in favour of `interval_pull()`.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`. The warning is displayed once per session.
 * Deprecate `gather = TRUE` in `as_tsibble.ts()` in favour of `pivot_longer = TRUE`.
@@ -19,13 +19,14 @@
 * Added new argument `.drop` for dropping empty factor or not in `as_tsibble()` and `build_tsibble()`.
 * Binary `-` operator between yearweek, yearmonth, and yearquarter returns class `difftime`.
 * Added new argument `key_data` to `build_tsibble()` for the easy-to-reason purpose.
-* `yearquarter()` better supports strings that contains "Q". (#107)
+* `yearquarter()` better supports strings that contains "Q"/"Qtr"/"Quarter". (#107)
 
 ## Bug fixes
 
 * Fixed bugs in `as_tsibble.ts()` for monthly series starting at other months than January. (#89)
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 * `n()` now can be called in `slice.tbl_ts()`. (#95)
+* Fixed false warnings for negative indices in `slice.tbl_ts()`.
 * Fixed `*_join()` for not finding key or index when `by` is specified. (#102)
 * Added "Tasmania" to `data(tourism)` and 2017 data.
 
