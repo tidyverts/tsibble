@@ -254,6 +254,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   if (add) {
     grp_vars <- union(grp_vars, group_vars(.data))
   }
+  if (is_empty(grp_vars)) return(.data)
 
   grped_tbl <- NextMethod()
   if (.drop) { # needs to drop key too
