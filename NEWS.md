@@ -27,6 +27,7 @@
 * `guess_frequency.yearweek()` returns 52.18 for more accurate weekly representation, instead of 52.
 * `n()` now can be called in `slice.tbl_ts()`. (#95)
 * Fixed false warnings for negative indices in `slice.tbl_ts()`.
+* Fixed false warnings for a few cases in `arrange.tbl_ts()`.
 * Fixed `*_join()` for not finding key or index when `by` is specified. (#102)
 * Added "Tasmania" to `data(tourism)` and 2017 data.
 

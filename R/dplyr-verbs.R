@@ -26,50 +26,18 @@
 arrange.tbl_ts <- function(.data, ...) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
-  ordered <- ordered_by_arrange(.data, !!! exprs)
 
   arr_data <- NextMethod()
-  update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
+  update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }
 
 #' @export
 arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
   exprs <- enquos(...)
   if (is_empty(exprs)) return(.data)
-  ordered <- ordered_by_arrange(.data, !!! exprs, .by_group = .by_group)
 
   arr_data <- NextMethod()
-  update_meta(arr_data, .data, ordered = ordered, interval = interval(.data))
-}
-
-ordered_by_arrange <- function(.data, ..., .by_group = FALSE) {
-  vars <- exprs <- enquos(...)
-  if (.by_group) {
-    grps <- groups(.data)
-    vars <- exprs <- c(as_quosures(grps, env = caller_env()), vars)
-  }
-  call_pos <- map_lgl(exprs, quo_is_call)
-  vars[call_pos] <- first_arg(vars[call_pos])
-  val_vars <- vars_select(names(.data), !!! vars)
-  idx <- index_var(.data)
-  idx_pos <- val_vars %in% idx
-  idx_is_call <- dplyr::first(exprs[idx_pos])
-  key <- key(.data)
-  if (is_false(any(idx_pos))) { # no index presented in the ...
-    mvars <- measured_vars(.data)
-    # if there's any measured variable in the ..., the time order will change.
-    !any(mvars %in% val_vars)
-  } else if (quo_is_call(idx_is_call)) { # desc(index)
-    fn <- call_name(idx_is_call)
-    fn != "desc"
-  } else {
-    exp_vars <- c(key, idx)
-    exp_idx <- which(val_vars %in% exp_vars)
-    n_keys(.data) < 2 ||
-      all(exp_idx == seq_along(exp_idx)) &&
-      has_length(exp_idx, length(exp_vars)) &&
-      is_false(idx_pos[1])
-  }
+  update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }
 
 #' @rdname tsibble-tidyverse

@@ -207,7 +207,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #' [index_by]. By default, it's identical to `index`.
 #' @param ordered The default of `NULL` arranges the key variable(s) first and
 #' then index from past to future. `TRUE` suggests to skip the ordering as `x` in
-#' the correct order. `FALSE` also skips the ordering but gives a warning instead.
+#' the correct order. `FALSE` checks the ordering and may give a warning.
 #' @param interval `TRUE` automatically calculates the interval, and `FALSE` for
 #' irregular interval. Use the specified interval via [new_interval()] as is.
 #'
@@ -248,24 +248,32 @@ build_tsibble <- function(
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
-  # arrange in time order (by key and index)
+  # arrange index from past to future for each key value
   if (is_null(ordered)) { # first time to create a tsibble
     tbl <- arrange(tbl, !!! key_vars, !! index)
     ordered <- TRUE
-  } else if (is_false(ordered)) { # false returns a warning
-    msg_header <- "Unexpected temporal ordering. Please sort by %s."
-    idx_txt <- expr_label(index)
-    if (is_empty(key_sym)) {
-      warn(sprintf(msg_header, idx_txt))
-    } else {
-      key_txt <- map(key_vars, expr_label)
-      warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt))))
-    }
-  } # true do nothing
-  # validate tbl_ts
+  }
   if (!is_key_data) {
     key_data <- group_data(group_by(tbl, !!! key_vars, .drop = .drop))
   }
+  if (is_false(ordered)) { # false returns a warning
+    key_rows <- key_data[[".rows"]]
+    indices <- eval_tidy(index, tbl)
+    idx_rows <- lapply(key_rows, function(x) indices[x])
+    actually_ordered <- all(map_lgl(idx_rows, is_ascending))
+    if (is_false(actually_ordered)) {
+      msg_header <- "Unknown temporal ordering, and suggest to sort by %s."
+      idx_txt <- expr_label(index)
+      if (is_empty(key_sym)) {
+        warn(sprintf(msg_header, idx_txt))
+      } else {
+        key_txt <- map(key_vars, expr_label)
+        warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt))))
+      }
+    }
+    ordered <- actually_ordered
+  }
+  # validate tbl_ts
   if (validate) {
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
   }
