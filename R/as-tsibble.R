@@ -160,6 +160,7 @@ as_tsibble.NULL <- function(x, ...) {
 #'   update_tsibble(index = Hour_Since)
 update_tsibble <- function(x, key, index, regular = is_regular(x), 
   validate = TRUE, .drop = key_drop_default(x)) {
+  not_tsibble(x)
   key <- enquo(key)
   if (quo_is_missing(key)) {
     key <- key_vars(x)

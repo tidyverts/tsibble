@@ -13,12 +13,10 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
     left_over <- names(first_data)
     new_tsbl <- remove_key(.tbl, left_over)
     first_tsbl <- 
-      remove_key(
-        update_meta(first_data, new_tsbl, ordered = is_ordered(.tbl)),
-        left_over
-      )
-    lapply(lst, update_meta, first_tsbl, ordered = is_ordered(first_tsbl),
-      interval = is_regular(first_tsbl))
+      remove_key(update_meta(first_data, new_tsbl, ordered = is_ordered(.tbl),
+        interval = is_regular(.tbl)), left_over)
+    lapply(lst, update_meta, first_tsbl, ordered = is_ordered(.tbl),
+      interval = is_regular(.tbl))
   }
 }
 

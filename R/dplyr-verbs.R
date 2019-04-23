@@ -86,7 +86,7 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   if (length(pos) > 1) {
     abort("`slice()` only accepts one expression.")
   }
-  pos_df <- summarise(as_tibble(.data), .pos_col := list2(!! pos[[1]]))
+  pos_df <- summarise(as_tibble(.data), !! ".pos_col" := list2(!! pos[[1]]))
   ascending <- all(map_lgl(pos_df[[".pos_col"]], row_validate))
   by_row(slice, .data, ordered = ascending, interval = is_regular(.data), ...,
     .preserve = .preserve)
@@ -98,7 +98,7 @@ row_validate <- function(x) {
   if (any_not_equal_to_c(pos_dup, 0)) {
     abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
   }
-  x <- na.omit(x)
+  x <- stats::na.omit(x)
   if (any(sign(x) < 0)) {
     TRUE
   } else {
