@@ -125,6 +125,6 @@ is_key_dropped <- function(x) {
   } else {
     key_vars <- key_vars(x)
     grp_vars <- group_vars(x)
-    group_by_drop_default2(x) && any(is.element(key_vars, grp_vars))
+    group_by_drop_default(x) && any(is.element(key_vars, grp_vars))
   }
 }

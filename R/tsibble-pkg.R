@@ -75,6 +75,7 @@
 #' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
 #' @importFrom dplyr group_rows groups
 #' @importFrom dplyr anti_join left_join right_join full_join semi_join inner_join
+#' @importFrom tidyr gather spread nest unnest
 #' @importFrom tibble new_tibble
 #' @import rlang tidyselect
 #' @examples

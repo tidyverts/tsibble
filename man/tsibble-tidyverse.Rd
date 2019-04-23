@@ -54,16 +54,16 @@
 
 \method{anti_join}{tbl_ts}(x, y, by = NULL, copy = FALSE, ...)
 
-gather.tbl_ts(data, key = "key", value = "value", ..., na.rm = FALSE,
-  convert = FALSE, factor_key = FALSE)
+\method{gather}{tbl_ts}(data, key = "key", value = "value", ...,
+  na.rm = FALSE, convert = FALSE, factor_key = FALSE)
 
-spread.tbl_ts(data, key, value, fill = NA, convert = FALSE,
+\method{spread}{tbl_ts}(data, key, value, fill = NA, convert = FALSE,
   drop = TRUE, sep = NULL)
 
-nest.tbl_ts(data, ..., .key = "data")
+\method{nest}{tbl_ts}(data, ..., .key = "data")
 
-unnest.tbl_ts(data, ..., key = NULL, .drop = NA, .id = NULL,
-  .sep = NULL, .preserve = NULL)
+\method{unnest}{tbl_ts}(data, ..., key = NULL, .drop = NA,
+  .id = NULL, .sep = NULL, .preserve = NULL)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}

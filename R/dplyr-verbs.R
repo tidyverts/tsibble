@@ -248,7 +248,7 @@ summarise.tbl_ts <- function(.data, ...) {
 
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
-  .drop = group_by_drop_default2(.data)) {
+  .drop = group_by_drop_default(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) {
@@ -322,10 +322,10 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
   dplyr::distinct(as_tibble(.data), ...)
 }
 
-group_by_drop_default2 <- function(.tbl) {
-  if (utils::packageVersion("dplyr") > "0.8.0.1") {
-    dplyr::group_by_drop_default(.tbl)
-  } else {
+group_by_drop_default <- function(.tbl) {
+  tryCatch({
+    !identical(attr(group_data(.tbl), ".drop"), FALSE)
+  }, error = function(e){
     TRUE
-  }
+  })
 }
