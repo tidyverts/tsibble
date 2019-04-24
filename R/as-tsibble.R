@@ -243,23 +243,22 @@ build_tsibble <- function(
     index2 <- validate_index(tbl, !! index2)
   }
   # index cannot be part of the keys
-  idx_chr <- c(as_string(index), as_string(index2))
+  idx_chr <- c(index, index2)
   is_index_in_keys <- intersect(idx_chr, key_vars)
   if (is_false(is_empty(is_index_in_keys))) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange index from past to future for each key value
   if (is_null(ordered)) { # first time to create a tsibble
-    tbl <- arrange(tbl, !!! key_vars, !! index)
+    tbl <- arrange(tbl, !!! key_vars, !! sym(index))
     ordered <- TRUE
   }
   if (!is_key_data) {
     key_data <- group_data(group_by(tbl, !!! key_vars, .drop = .drop))
   }
   if (is_false(ordered)) { # false returns a warning
-    key_rows <- key_data[[".rows"]]
-    indices <- eval_tidy(index, tbl)
-    idx_rows <- lapply(key_rows, function(x) indices[x])
+    indices <- tbl[[index]]
+    idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
     actually_ordered <- all(map_lgl(idx_rows, is_ascending))
     if (is_false(actually_ordered)) {
       msg_header <- "Unknown temporal ordering, and suggest to sort by %s."
@@ -301,8 +300,7 @@ build_tsibble_meta <- function(
     if (is_false(interval) || is_null(interval)) {
       interval <- irregular()
     } else if (is_true(interval)) {
-      eval_idx <- eval_tidy(index, data = tbl)
-      interval <- interval_pull(eval_idx)
+      interval <- interval_pull(tbl[[index]])
     } else if (is_false(inherits(interval, "interval"))) {
       abort(sprintf(
         "Argument `interval` must be class interval, not %s.",
@@ -315,7 +313,7 @@ build_tsibble_meta <- function(
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (!idx_lgl) {
-    tbl <- group_by(tbl, !! index2, add = TRUE)
+    tbl <- group_by(tbl, !! sym(index2), add = TRUE)
   }
   grp_data <- group_data(tbl)
   tbl <- new_tibble(
@@ -366,7 +364,7 @@ validate_index <- function(data, index) {
     idx_pos <- names(data) %in% chr_index
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {
-      return(sym(chr_index))
+      return(chr_index)
     } else if (!val_idx[idx_pos]) {
       cls_idx <- map_chr(data, ~ class(.)[1])
       abort(sprintf("Unsupported index type: %s", cls_idx[idx_pos]))
@@ -375,22 +373,7 @@ validate_index <- function(data, index) {
   if (anyNA(data[[chr_index]])) {
     abort(sprintf("Column `%s` (index) must not contain `NA`.", chr_index))
   }
-  sym(chr_index)
-}
-
-duplicated_key_index <- function(data, key, index) {
-  # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
-  # identifiers <- c(key, idx)
-  # below calls anyDuplicated.data.frame():
-  # time zone associated with the index will be dropped,
-  # e.g. nycflights13::weather, thus result in duplicates.
-  # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  res <- 
-    summarise(
-      grouped_df(as_tibble(data), key),
-      !! "zzz" := anyDuplicated.default(!! index)
-    )
-  any_not_equal_to_c(res$zzz, 0)
+  chr_index
 }
 
 # check if a comb of key vars result in a unique data entry
@@ -486,7 +469,7 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 #' duplicates(harvest, key = fruit, index = year)
 is_duplicated <- function(data, key = NULL, index) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, !! enquo(index))
+  index <- sym(validate_index(data, !! enquo(index)))
 
   duplicated_key_index(data, key = key, index = index)
 }
@@ -498,7 +481,7 @@ is_duplicated <- function(data, key = NULL, index) {
 #' @export
 are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, !! enquo(index))
+  index <- sym(validate_index(data, !! enquo(index)))
 
   res <- 
     mutate(
@@ -512,7 +495,7 @@ are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
 #' @export
 duplicates <- function(data, key = NULL, index) {
   key <- use_id(data, !! enquo(key))
-  index <- validate_index(data, !! enquo(index))
+  index <- sym(validate_index(data, !! enquo(index)))
 
   ungroup(
     filter(
@@ -521,6 +504,21 @@ duplicates <- function(data, key = NULL, index) {
       duplicated.default(!! index, fromLast = TRUE)
     )
   )
+}
+
+duplicated_key_index <- function(data, key, index) {
+  # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
+  # identifiers <- c(key, idx)
+  # below calls anyDuplicated.data.frame():
+  # time zone associated with the index will be dropped,
+  # e.g. nycflights13::weather, thus result in duplicates.
+  # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
+  res <- 
+    summarise(
+      grouped_df(as_tibble(data), key),
+      !! "zzz" := anyDuplicated.default(!! sym(index))
+    )
+  any_not_equal_to_c(res$zzz, 0)
 }
 
 remove_tsibble_attrs <- function(x) {

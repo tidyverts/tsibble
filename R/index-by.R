@@ -67,17 +67,16 @@ index_by <- function(.data, ...) {
 index_by.tbl_ts <- function(.data, ...) {
   exprs <- enexprs(..., .named = TRUE)
   if (is_empty(exprs)) {
-    attr(.data, "index2") <- index(.data)
+    attr(.data, "index2") <- index_var(.data)
     return(.data)
   }
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
   expr_name <- names(exprs)[1]
-  idx <- index(.data)
-  idx_chr <- as_string(idx)
-  if (identical(idx_chr, expr_name)) {
-    abort(sprintf("Column `%s` (index) can't be overwritten.", idx_chr))
+  idx <- index_var(.data)
+  if (identical(idx, expr_name)) {
+    abort(sprintf("Column `%s` (index) can't be overwritten.", idx))
   }
   idx2 <- sym(expr_name)
   tbl <- 
@@ -98,8 +97,7 @@ rename_index <- function(.data, .vars) {
   idx <- idx_chr == .vars
   if (sum(idx) == 0) return(.data)
 
-  names(.data)[idx] <- new_idx_chr <- names[idx]
-  attr(.data, "index") <- sym(new_idx_chr)
+  attr(.data, "index") <- names(.data)[idx] <- new_idx_chr <- names[idx]
   .data
 }
 
@@ -109,17 +107,16 @@ rename_index2 <- function(.data, .vars) {
   idx <- idx2_chr == .vars
   if (sum(idx) == 0) return(.data)
 
-  names(.data)[idx] <- new_idx2_chr <- names[idx]
-  attr(.data, "index2") <- sym(new_idx2_chr)
+  attr(.data, "index2") <- names(.data)[idx] <- new_idx2_chr <- names[idx]
   .data
 }
 
 mutate_index2 <- function(.data, .vars) {
   chr <- intersect(index2_var(.data), .vars)
-  if (is_empty(chr)) {
-    attr(.data, "index2") <- index(.data)
+  if (!is_empty(chr)) {
+    attr(.data, "index2") <- chr
   } else {
-    attr(.data, "index2") <- sym(chr)
+    attr(.data, "index2") <- index_var(.data)
   }
   .data
 }

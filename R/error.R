@@ -1,5 +1,5 @@
 is_index_null <- function(x) {
-  if (is.null(index(x))) {
+  if (is_null(x %@% "index")) {
     abort("The `index` has been dropped somehow. Please reconstruct tsibble.")
   }
 }

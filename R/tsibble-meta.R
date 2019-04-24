@@ -43,27 +43,27 @@ measured_vars.tbl_ts <- function(x) {
 #' index_var(pedestrian)
 #' @export
 index <- function(x) {
+  sym(index_var(x))
+}
+
+#' @rdname index-rd
+#' @export
+index_var <- function(x) {
   not_tsibble(x)
   x %@% "index"
 }
 
 #' @rdname index-rd
 #' @export
-index_var <- function(x) {
-  as_string(index(x))
-}
-
-#' @rdname index-rd
-#' @export
 index2 <- function(x) {
-  not_tsibble(x)
-  x %@% "index2"
+  sym(index2_var(x))
 }
 
 #' @rdname index-rd
 #' @export
 index2_var <- function(x) {
-  as_string(index2(x))
+  not_tsibble(x)
+  x %@% "index2"
 }
 
 #' Meta-information of a tsibble
