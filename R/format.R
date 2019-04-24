@@ -1,8 +1,8 @@
 #' @export
 format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   is_index_null(x)
-  if (!is_null(x %@% "regular")) {
-    warn("`.data`. is a corrupt tsibble object, please reconstruct.")
+  if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
+    warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
   }
   format(tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }

@@ -28,6 +28,7 @@ warn_deprecated <- function(msg, id = msg) {
 }
 
 deprecation_env <- new.env(parent = emptyenv())
+# nocov end
 
 #' Deprecated functions
 #'
@@ -90,4 +91,3 @@ use_id <- function(x, key) {
   }
   vars_select(names(x), !! key_quo)
 }
-# nocov end
