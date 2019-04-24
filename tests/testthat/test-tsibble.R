@@ -392,3 +392,13 @@ test_that("build_tsibble()", {
     "Unsupported index"
   )
 })
+
+test_that("update_tsibble() #112", {
+  tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date, regular = FALSE)
+  expect_true(is_regular(update_tsibble(tsbl, regular = TRUE)))
+})
+
+test_that("update_tsibble() for unknown interval", {
+  tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date)[1L, ]
+  expect_true(unknown_interval(interval(update_tsibble(tsbl))))
+})

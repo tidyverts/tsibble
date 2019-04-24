@@ -172,6 +172,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   stopifnot(is_logical(regular, n = 1))
   if (is_true(regular)) {
     int <- interval(x)
+    int <- if (unknown_interval(int)) int else TRUE
   } else {
     int <- FALSE
   }
