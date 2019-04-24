@@ -522,7 +522,8 @@ duplicated_key_index <- function(data, key, index) {
 
 remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- NULL
+  # attr(x, "interval") <- NULL
+  attr(x, "interval") <- attr(x, "ordered") <- attr(x, "regular") <- NULL # will be removed
   x
 }
 
