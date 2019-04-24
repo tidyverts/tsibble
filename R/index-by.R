@@ -65,7 +65,7 @@ index_by <- function(.data, ...) {
 
 #' @export
 index_by.tbl_ts <- function(.data, ...) {
-  exprs <- enexprs(..., .named = TRUE)
+  exprs <- enquos(..., .named = TRUE)
   if (is_empty(exprs)) {
     attr(.data, "index2") <- index_var(.data)
     return(.data)

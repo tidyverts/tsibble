@@ -293,7 +293,7 @@ distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
 group_by_drop_default <- function(.tbl) {
   tryCatch({
     !identical(attr(group_data(.tbl), ".drop"), FALSE)
-  }, error = function(e){
+  }, error = function(e) {
     TRUE
   })
 }

@@ -84,7 +84,11 @@ key_drop_default.default <- function(.tbl) {
 
 #' @export
 key_drop_default.tbl_ts <- function(.tbl) {
-  !identical(key_data(.tbl) %@% ".drop", FALSE)
+  tryCatch({
+    !identical(attr(key_data(.tbl), ".drop"), FALSE)
+  }, error = function(e) {
+    TRUE
+  })
 }
 
 remove_key <- function(.data, .vars) {
