@@ -2,6 +2,7 @@
 
 ## Breaking changes
 
+* This release has undergone an overhaul to clean tsibble's meta data: (1) attribute `regular` integrated to `interval`, (2) attribute `ordered` integrated to `index`. A previously stored tsibble data may receive the error "corrupted tsibble data".
 * The **dplyr** and **tidyr** generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load `library(tidyverse)` in front.
 
 ## Defunct & deprecated functions/arguments

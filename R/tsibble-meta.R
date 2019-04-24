@@ -50,7 +50,7 @@ index <- function(x) {
 #' @export
 index_var <- function(x) {
   not_tsibble(x)
-  x %@% "index"
+  as_string(x %@% "index")
 }
 
 #' @rdname index-rd
@@ -95,7 +95,7 @@ is_regular <- function(x) {
 #' @export
 is_ordered <- function(x) {
   not_tsibble(x)
-  x %@% "ordered"
+  attr(x %@% "index", "ordered")
 }
 
 #' If the object is a tsibble

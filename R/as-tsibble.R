@@ -176,7 +176,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
     int <- FALSE
   }
 
-  is_idx_idx2 <- identical(x %@% "index", index2(x))
+  is_idx_idx2 <- identical(index_var(x), index2_var(x))
   if (is_idx_idx2) {
     build_tsibble(
       as_tibble(x), key = !! key, index = !! idx,
@@ -249,7 +249,7 @@ build_tsibble <- function(
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange index from past to future for each key value
-  if (is_null(ordered)) { # first time to create a tsibble
+  if (NROW(tbl) == 0 || is_null(ordered)) { # first time to create a tsibble
     tbl <- arrange(tbl, !!! key_vars, !! sym(index))
     ordered <- TRUE
   }
@@ -261,7 +261,7 @@ build_tsibble <- function(
     idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
     actually_ordered <- all(map_lgl(idx_rows, is_ascending))
     if (is_false(actually_ordered)) {
-      msg_header <- "Unknown temporal ordering, and suggest to sort by %s."
+      msg_header <- "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first."
       idx_txt <- expr_label(index)
       if (is_empty(key_sym)) {
         warn(sprintf(msg_header, idx_txt))
@@ -277,7 +277,7 @@ build_tsibble <- function(
     tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
   }
   build_tsibble_meta(
-    tbl, key_data = key_data, index = !! index, index2 = !! index2,
+    tbl, key_data = key_data, index = index, index2 = index2,
     ordered = ordered, interval = interval
   )
 }
@@ -285,12 +285,12 @@ build_tsibble <- function(
 build_tsibble_meta <- function(
   x, key_data = NULL, index, index2, ordered = NULL, interval = TRUE
 ) {
-  index <- enexpr(index)
-  index2 <- enexpr(index2)
+  stopifnot(is_string(index) && is_string(index2))
+  stopifnot(!is_null(ordered))
   tbl <- as_tibble(x)
+  attr(index, "ordered") <- ordered
 
   if (NROW(tbl) == 0) {
-    ordered <- TRUE
     if (is_false(interval)) {
       interval <- irregular()
     } else {
@@ -309,7 +309,7 @@ build_tsibble_meta <- function(
     }
   }
 
-  idx_lgl <- identical(index, index2)
+  idx_lgl <- index == index2
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (!idx_lgl) {
@@ -318,8 +318,7 @@ build_tsibble_meta <- function(
   grp_data <- group_data(tbl)
   tbl <- new_tibble(
     tbl, "key" = key_data, "index" = index, "index2" = index2,
-    "interval" = interval, "ordered" = ordered, "groups" = NULL,
-    nrow = NROW(tbl), class = "tbl_ts"
+    "interval" = interval, "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
   is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
   if (is_grped) {
@@ -523,7 +522,7 @@ duplicated_key_index <- function(data, key, index) {
 
 remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- attr(x, "ordered") <- NULL
+  attr(x, "interval") <- NULL
   x
 }
 
