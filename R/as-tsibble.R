@@ -263,13 +263,9 @@ build_tsibble <- function(
     actually_ordered <- all(map_lgl(idx_rows, is_ascending))
     if (is_false(actually_ordered)) {
       msg_header <- "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first."
-      idx_txt <- expr_label(index)
-      if (is_empty(key_sym)) {
-        warn(sprintf(msg_header, idx_txt))
-      } else {
-        key_txt <- map(key_vars, expr_label)
-        warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt))))
-      }
+      idx_txt <- surround(index, "`")
+      key_txt <- map(key_vars, expr_label)
+      warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt), sep = "")))
     }
     ordered <- actually_ordered
   }
