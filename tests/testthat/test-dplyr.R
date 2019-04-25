@@ -13,6 +13,8 @@ tourism <- tourism %>%
   ungroup()
 
 test_that("group_by()", {
+  expect_error(group_by(pedestrian, Date_Time), "a grouping variable.")
+  expect_error(group_by(pedestrian, Date_Time, Sensor), "a grouping variable.")
   grped_df <- pedestrian %>%
     group_by(Date) %>%
     group_by(Sensor, add = TRUE)

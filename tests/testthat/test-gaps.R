@@ -111,7 +111,7 @@ test_that("fill_gaps() for a grouped_ts", {
     group_by(group) %>%
     fill_gaps(value = sum(value), .full = TRUE)
   expect_warning(
-    tourism %>% group_by(Quarter) %>% fill_gaps(Trips = sum(Trips)),
+    tourism %>% group_by(Region) %>% fill_gaps(Trips = sum(Trips)),
     "`.data` is a complete tsibble."
   )
   expect_identical(dim(full_tsbl), c(10L, 3L))

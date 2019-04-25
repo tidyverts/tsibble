@@ -262,10 +262,12 @@ build_tsibble <- function(
     idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
     actually_ordered <- all(map_lgl(idx_rows, is_ascending))
     if (is_false(actually_ordered)) {
-      msg_header <- "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first."
       idx_txt <- surround(index, "`")
       key_txt <- map(key_vars, expr_label)
-      warn(sprintf(msg_header, paste_comma(c(key_txt, idx_txt), sep = "")))
+      warn(sprintf(
+        "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
+        paste_comma(c(key_txt, idx_txt), sep = ""))
+      )
     }
     ordered <- actually_ordered
   }
@@ -319,6 +321,10 @@ build_tsibble_meta <- function(
   )
   is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
   if (is_grped) {
+    grp_vars <- head(names(grp_data), -1L)
+    if (index %in% grp_vars) {
+      abort(sprintf("Column `%s` (index) can't be a grouping variable.", index))
+    }
     cls <- c("grouped_ts", "grouped_df")
     tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
   }
