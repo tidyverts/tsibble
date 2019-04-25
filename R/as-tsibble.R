@@ -262,11 +262,11 @@ build_tsibble <- function(
     idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
     actually_ordered <- all(map_lgl(idx_rows, is_ascending))
     if (is_false(actually_ordered)) {
-      idx_txt <- surround(index, "`")
+      idx_txt <- backticks(index)
       key_txt <- map(key_vars, expr_label)
       warn(sprintf(
         "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
-        paste_comma(c(key_txt, idx_txt), sep = ""))
+        comma(c(key_txt, idx_txt), sep = ""))
       )
     }
     ordered <- actually_ordered

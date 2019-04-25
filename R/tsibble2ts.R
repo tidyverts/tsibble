@@ -26,7 +26,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     abort("Can't proceed with the key of multiple variables.")
   }
   mvars <- measured_vars(x)
-  str_val <- paste_comma(surround(mvars, "`"))
+  str_val <- comma(backticks(mvars))
   if (quo_is_missing(value)) {
     if (is_false(has_length(mvars, 1) || is_empty(key_vars))) {
       abort(sprintf("Can't determine column `value`: %s.", str_val))

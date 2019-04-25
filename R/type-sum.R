@@ -26,16 +26,16 @@ tbl_sum.tbl_ts <- function(x) {
   fnt_int <- format(int_x)
   idx <- x[[index_var(x)]]
   if (has_tz(idx)) {
-    tz <- surround(format_tz(idx), "<")
-    first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(fnt_int, "["), tz))
+    tz <- angle_brackets(format_tz(idx))
+    first <- c("A tsibble" = paste(dim_tbl_ts(x), brackets(fnt_int), tz))
   } else {
-    first <- c("A tsibble" = paste(dim_tbl_ts(x), surround(fnt_int, "[")))
+    first <- c("A tsibble" = paste(dim_tbl_ts(x), brackets(fnt_int)))
   }
   if (is_empty(key(x))) {
     first
   } else {
     n_keys <- big_mark(n_keys(x))
-    key_sum <- c("Key" = paste(paste_comma(key_vars(x)), surround(n_keys, "[")))
+    key_sum <- c("Key" = paste(comma(key_vars(x)), brackets(n_keys)))
     c(first, key_sum)
   }
 }
@@ -52,12 +52,12 @@ tbl_sum.grouped_ts <- function(x) {
   idx_suffix <- paste("@", idx2)
   res_grps <- NextMethod()
   res <- res_grps[head(names(res_grps), -1L)] # rm "Groups"
-  n_grps <- surround(n_grps, "[")
+  n_grps <- brackets(n_grps)
   if (is_empty(grp_var)) {
     c(res, "Groups" = paste(idx_suffix, n_grps))
   } else if (has_length(grps, length(grp_var))) {
-    c(res, "Groups" = paste(paste_comma(grp_var), n_grps))
+    c(res, "Groups" = paste(comma(grp_var), n_grps))
   } else {
-    c(res, "Groups" = paste(paste_comma(grp_var), idx_suffix, n_grps))
+    c(res, "Groups" = paste(comma(grp_var), idx_suffix, n_grps))
   }
 }

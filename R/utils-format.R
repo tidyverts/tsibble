@@ -18,20 +18,20 @@ dim_tbl_ts <- function(x) {
   paste(format_dim, collapse = " x ")
 }
 
-paste_comma <- function(...) {
+comma <- function(...) {
   paste(..., collapse = ", ")
 }
 
-surround <- function(x, bracket = "(") {
-  if (bracket == "(") {
-    paste0("(", x, ")")
-  } else if (bracket == "[") {
-    paste0("[", x, "]")
-  } else if (bracket == "<") {
-    paste0("<", x, ">")
-  } else {
-    paste0("`", x, "`")
-  }
+backticks <- function(x) {
+  paste0("`", x, "`")
+}
+
+brackets <- function(x) {
+  paste0("[", x, "]")
+}
+
+angle_brackets <- function(x) {
+  paste0("<", x, ">")
 }
 
 # inlined from https://github.com/r-lib/cli/blob/master/R/utf8.R

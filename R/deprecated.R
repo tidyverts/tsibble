@@ -84,7 +84,7 @@ use_id <- function(x, key) {
         warn(sprintf("%sPlease use `key = %s`.", header, res_vars))
       } else {
         res_vars <- map(res, as_string)
-        warn(sprintf("%sPlease use `key = c(%s)`.", header, paste_comma(res_vars)))
+        warn(sprintf("%sPlease use `key = c(%s)`.", header, comma(res_vars)))
       }
       return(res_vars)
     }
