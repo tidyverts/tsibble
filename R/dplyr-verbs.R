@@ -282,7 +282,7 @@ ungroup.grouped_ts <- function(x, ...) {
 
 #' @export
 ungroup.tbl_ts <- function(x, ...) {
-  attr(x, "index2") <- index(x)
+  attr(x, "index2") <- index_var(x)
   x
 }
 
