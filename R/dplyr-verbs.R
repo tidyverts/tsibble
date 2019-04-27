@@ -85,7 +85,8 @@ select.tbl_ts <- function(.data, ...) {
   named <- list_is_named(lst_quos)
   .data <- rename_tsibble(.data, !!! lst_quos[named])
 
-  lst_quos[named] <- names(lst_quos)[named]
+  lst_env <- map(lst_quos, quo_get_env)[named]
+  lst_quos[named] <- as_quosures(names(lst_quos)[named], env = lst_env)
   select_tsibble(.data, !!! lst_quos)
 }
 
@@ -280,7 +281,7 @@ ungroup.tbl_ts <- function(x, ...) {
   x
 }
 
-distinct.tbl_ts <- function(.data, ..., .keep_all = FALSE) {
+distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
 }
 

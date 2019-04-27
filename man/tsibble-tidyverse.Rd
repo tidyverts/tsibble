@@ -57,8 +57,7 @@
 \method{gather}{tbl_ts}(data, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE)
 
-\method{spread}{tbl_ts}(data, key, value, fill = NA, convert = FALSE,
-  drop = TRUE, sep = NULL)
+\method{spread}{tbl_ts}(data, key, value, ...)
 
 \method{nest}{tbl_ts}(data, ..., .key = "data")
 
@@ -122,18 +121,6 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
-
-\item{fill}{If set, missing values will be replaced with this value. Note
-that there are two types of missingness in the input: explicit missing
-values (i.e. \code{NA}), and implicit missings, rows that simply aren't
-present. Both types of missing value will be replaced by \code{fill}.}
-
-\item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
-data, filling in missing combinations with \code{fill}.}
-
-\item{sep}{If \code{NULL}, the column names will be taken from the values of
-\code{key} variable. If non-\code{NULL}, the column names will be given
-by "<key_name><sep><key_value>".}
 
 \item{.key}{The name of the new column, as a string or symbol.
 

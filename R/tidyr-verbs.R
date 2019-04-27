@@ -39,8 +39,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 #' @inheritParams tidyr::spread
 #' @rdname tsibble-tidyverse
 #' @export
-spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
-  drop = TRUE, sep = NULL) {
+spread.tbl_ts <- function(data, key, value, ...) {
   key <- enexpr(key)
   value <- enexpr(value)
   key_var <- vars_pull(names(data), !! key)
@@ -53,10 +52,7 @@ spread.tbl_ts <- function(data, key, value, fill = NA, convert = FALSE,
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key_vars(remove_key(data, .vars = key_left))
 
-  tbl <- spread(
-    as_tibble(data), key = !! key, value = !! value, fill = fill, 
-    convert = convert, drop = drop, sep = sep
-  )
+  tbl <- spread(as_tibble(data), key = !! key, value = !! value, ...)
   tbl <- retain_tsibble(tbl, new_key, index(data))
 
   vars <- names(tbl)

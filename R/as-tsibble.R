@@ -265,7 +265,7 @@ build_tsibble <- function(
       idx_txt <- backticks(index)
       key_txt <- map(key_vars, expr_label)
       warn(sprintf(
-        "Unknown temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
+        "Unspecified temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
         comma(c(key_txt, idx_txt), sep = ""))
       )
     }

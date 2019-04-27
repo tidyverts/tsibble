@@ -67,21 +67,21 @@ idx_year <- seq.int(1970, 2010, by = 10)
 dat_x <- tsibble(year = idx_year, value = rnorm(5), index = year)
 
 test_that("warnings for arrange a univariate time series", {
-  expect_warning(arrange(dat_x, value), "Unknown temporal order.")
+  expect_warning(arrange(dat_x, value), "Unspecified temporal order.")
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {
   expect_is(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
-  expect_warning(pedestrian %>% arrange(Time), "Unknown temporal order.")
-  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "Unknown temporal order.")
-  expect_warning(pedestrian %>% arrange(desc(Date_Time)), "Unknown temporal order.")
-  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "Unknown temporal order.")
-  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "Unknown temporal order.")
+  expect_warning(pedestrian %>% arrange(Time), "Unspecified temporal order.")
+  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "Unspecified temporal order.")
+  expect_warning(pedestrian %>% arrange(desc(Date_Time)), "Unspecified temporal order.")
+  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "Unspecified temporal order.")
+  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "Unspecified temporal order.")
   tbl <- pedestrian %>% arrange(Date_Time, Sensor)
   expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr")
-  expect_warning(bm %>% arrange(desc(Date_Time)), "Unknown temporal order.")
+  expect_warning(bm %>% arrange(desc(Date_Time)), "Unspecified temporal order.")
 })
 
 test_that("arrange.grouped_ts()", {
@@ -122,7 +122,7 @@ test_that("filter() and slice()", {
   expect_identical(slice(pedestrian, NA), slice(pedestrian, 0L))
   expect_identical(slice(pedestrian, c(1, NA)), slice(pedestrian, 1L))
   expect_identical(slice(pedestrian, c(1, NA, 100000)), slice(pedestrian, 1L))
-  expect_warning(slice(pedestrian, 3:1), "Unknown temporal order.")
+  expect_warning(slice(pedestrian, 3:1), "Unspecified temporal order.")
   expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
   expect_identical(slice(pedestrian, -(1:10)), pedestrian[-(1:10), ])
@@ -150,9 +150,9 @@ test_that("select() and rename()", {
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
     "Index"
   )
-  expect_equal(
-    quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
-    "Index"
+  expect_named(
+    select(tourism, Index = Quarter, Trip = Trips, Region:Purpose),
+    c("Index", "Trip", "Region", "State", "Purpose")
   )
   expect_identical(rename(tourism), tourism)
 })
