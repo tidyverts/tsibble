@@ -190,11 +190,14 @@ Looking for rolling in parallel? Their multiprocessing equivalents are
 prefixed with `future_`. More examples can be found at
 [`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
 
-## More around tsibble
+## More about tsibble
 
-Tsibble also serves as a natural input for forecasting and many other
-downstream analytical tasks. Stay tuned for
-[tidyverts.org](https://tidyverts.org).
+  - Tsibble also serves as a natural input for forecasting and many
+    other downstream analytical tasks. Stay tuned for
+    [tidyverts.org](https://tidyverts.org).
+  - The [short
+    article](https://less.earo.me/posts/2019-04-tsibble-design/)
+    describes the overall philosophy and design of **tsibble**.
 
 -----
 

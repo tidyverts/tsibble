@@ -6,7 +6,7 @@
 #' variables in a data-centric format, which is built on top of the tibble. 
 #'
 #' @section Index:
-#' An extensive range of indices are supported by tsibble: R's native time classes
+#' An extensive range of indices are supported by tsibble: native time classes in R
 #' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions 
 #' (such as [yearweek], [yearmonth], and [yearquarter]). Some commonly-used classes
 #' have built-in support too, including `ordered`, `hms::hms`, `zoo::yearmon`,

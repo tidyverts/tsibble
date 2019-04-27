@@ -31,7 +31,7 @@ A tsibble is sorted by its key first and index.
 }
 \section{Index}{
 
-An extensive range of indices are supported by tsibble: R's native time classes
+An extensive range of indices are supported by tsibble: native time classes in R
 (such as \code{Date}, \code{POSIXct}, and \code{difftime}) and tsibble's new additions
 (such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}). Some commonly-used classes
 have built-in support too, including \code{ordered}, \code{hms::hms}, \code{zoo::yearmon},

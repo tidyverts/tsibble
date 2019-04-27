@@ -401,9 +401,11 @@ partial_pslider <- function(
 #' and proceed.
 #'
 #' They are useful for preparing the tsibble for time series cross validation.
-#' They all return a tsibble including new column `.id` as part of the key. The
+#' They all return a tsibble including a new column `.id` as part of the key. The
 #' output dimension will increase considerably with `slide_tsibble()` and
-#' `stretch_tsibble()`.
+#' `stretch_tsibble()`, which is likely to run out of memory when the data is
+#' large. Alternatively, you could construct cross validation using `pslide()`
+#' and `pstretch()` to avoid the memory issue.
 #' @family rolling tsibble
 #' @export
 #' @examples
