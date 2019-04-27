@@ -24,18 +24,12 @@
 #' @rdname tsibble-tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  exprs <- enquos(...)
-  if (is_empty(exprs)) return(.data)
-
   arr_data <- NextMethod()
   update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }
 
 #' @export
-arrange.grouped_ts <- function(.data, ..., .by_group = FALSE) {
-  exprs <- enquos(...)
-  if (is_empty(exprs)) return(.data)
-
+arrange.grouped_ts <- function(.data, ...) {
   arr_data <- NextMethod()
   update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }

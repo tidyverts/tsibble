@@ -340,7 +340,7 @@ build_tsibble_meta <- function(
 #' @export
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
-  x <- new_tibble(x, ..., class = "tbl_ts")
+  x <- new_tibble(x, ..., nrow = NROW(x), class = "tbl_ts")
   assert_key_data(x %@% key)
   attr(x, "row.names") <- .set_row_names(NROW(x))
   class(x) <- c(class, class(x))

@@ -560,8 +560,7 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
       return(dplyr::bind_cols(!!! x))
     }
   }
-  lst <- new_list_along(x[[abs_size]])
-  lst[] <- .fill
+  lst <- rep_named(names(x[[abs_size]]), list(.fill))
   if (byrow) {
     dplyr::bind_rows(lst, !!! x[-seq_len(abs_size - 1)], .id = .id)
   } else {
