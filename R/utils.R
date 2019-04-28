@@ -9,8 +9,8 @@ split_period <- function(x) {
 # regular time interval is obtained from the greatest common divisor of positive
 # time distances.
 gcd_interval <- function(x) {
-  if (has_length(x, 1)) { # only one time index
-    NA_real_
+  if (has_length(x, 1L) || has_length(x, 0L)) { # only one time index
+    0
   } else if (is_integerish(x)) {
     gcd_vector(x)
   } else {

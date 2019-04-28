@@ -19,15 +19,12 @@
 #' x <- seq(as.Date("2017-10-01"), as.Date("2017-10-31"), by = 3)
 #' interval_pull(x)
 interval_pull <- function(x) {
-  if (has_length(x, 1L) || has_length(x, 0L)) {
-    return(init_interval())
-  }
   UseMethod("interval_pull")
 }
 
 #' @export
 interval_pull.default <- function(x) {
-  init_interval()
+  dont_know(x, "interval_pull()")
 }
 
 #' @export
@@ -150,7 +147,9 @@ interval_pull.numeric <- function(x) {
   nunits <- gcd_interval(x)
   # "place our origin at 1582 if we are historically inclined or at 1900 if 
   # we are more financially motivated." (p98, the grammar of graphics v2)
-  if (min0(x) > 1581 && max0(x) < 2500) {
+  if (is_empty(x)) {
+    init_interval(unit = nunits)
+  } else if (min0(x) > 1581 && max0(x) < 2500) {
     init_interval(year = nunits)
   } else {
     init_interval(unit = nunits)
