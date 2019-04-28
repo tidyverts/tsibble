@@ -17,7 +17,7 @@
 #' * [yearweek]: weekly aggregation
 #' * [as.Date] or [lubridate::as_date]: daily aggregation
 #' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]: 
-#' sub-daily aggregation
+#' fine-resolution aggregation
 #' * other index functions from other packages
 #'
 #' @details
@@ -27,8 +27,8 @@
 #' @rdname index-by
 #' @export
 #' @examples
-#' # Monthly counts across sensors ----
-#' library(dplyr)
+#' # Monthly counts across sensors
+#' library(dplyr, warn.conflicts = FALSE)
 #' monthly_ped <- pedestrian %>% 
 #'   group_by(Sensor) %>% 
 #'   index_by(Year_Month = yearmonth(Date_Time)) %>%
@@ -39,7 +39,7 @@
 #' monthly_ped
 #' index(monthly_ped)
 #' 
-#' # Using existing variable ----
+#' # Using existing variable
 #' pedestrian %>% 
 #'   group_by(Sensor) %>% 
 #'   index_by(Date) %>%
@@ -54,7 +54,7 @@
 #'   index_by(Date_Time4 = lubridate::floor_date(Date_Time, "4 hour")) %>%
 #'   summarise(Total_Count = sum(Count))
 #'
-#' # Annual trips by Region and State ----
+#' # Annual trips by Region and State
 #' tourism %>% 
 #'   index_by(Year = lubridate::year(Quarter)) %>% 
 #'   group_by(Region, State) %>% 

@@ -17,7 +17,7 @@
 #' difference(x, lag = 2)
 #' difference(x, differences = 2)
 #' # Use order_by if data not already ordered (example from dplyr)
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #' tsbl <- tsibble(year = 2000:2005, value = (0:5) ^ 2, index = year)
 #' scrambled <- tsbl %>% slice(sample(nrow(tsbl)))
 #' 

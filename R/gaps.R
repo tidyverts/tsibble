@@ -23,7 +23,7 @@ globalVariables(c(".", ".gaps"))
 #'   key = fruit, index = year
 #' )
 #'
-#' # gaps as default `NA` ----
+#' # gaps as default `NA`
 #' fill_gaps(harvest, .full = TRUE)
 #' full_harvest <- fill_gaps(harvest, .full = FALSE)
 #' full_harvest
@@ -33,26 +33,26 @@ globalVariables(c(".", ".gaps"))
 #'   group_by(fruit) %>% 
 #'   tidyr::fill(kilo, .direction = "down")
 #'
-#' # replace gaps with a specific value ----
+#' # replace gaps with a specific value
 #' harvest %>%
 #'   fill_gaps(kilo = 0L)
 #'
-#' # replace gaps using a function by variable ----
+#' # replace gaps using a function by variable
 #' harvest %>%
 #'   fill_gaps(kilo = sum(kilo))
 #'
-#' # replace gaps using a function for each group ----
+#' # replace gaps using a function for each group
 #' harvest %>%
 #'   group_by(fruit) %>%
 #'   fill_gaps(kilo = sum(kilo))
 #'
-#' # leaves existing `NA` untouched ----
+#' # leaves existing `NA` untouched
 #' harvest[2, 3] <- NA
 #' harvest %>%
 #'   group_by(fruit) %>%
 #'   fill_gaps(kilo = sum(kilo, na.rm = TRUE))
 #'
-#' # replace NA ----
+#' # replace NA
 #' pedestrian %>%
 #'   group_by(Sensor) %>%
 #'   fill_gaps(Count = as.integer(median(Count)))
@@ -160,6 +160,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' @examples
 #' ped_gaps <- pedestrian %>% 
 #'   count_gaps(.full = TRUE)
+#' ped_gaps
 #' if (!requireNamespace("ggplot2", quietly = TRUE)) {
 #'   stop("Please install the ggplot2 package to run these following examples.")
 #' }

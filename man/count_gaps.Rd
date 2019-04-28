@@ -29,6 +29,7 @@ Count implicit gaps
 \examples{
 ped_gaps <- pedestrian \%>\% 
   count_gaps(.full = TRUE)
+ped_gaps
 if (!requireNamespace("ggplot2", quietly = TRUE)) {
   stop("Please install the ggplot2 package to run these following examples.")
 }

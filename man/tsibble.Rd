@@ -93,13 +93,13 @@ An interval is obtained based on the corresponding index representation:
 }
 
 \examples{
-# create a tsibble w/o a key ----
+# create a tsibble w/o a key
 tsibble(
   date = as.Date("2017-01-01") + 0:9,
   value = rnorm(10)
 )
 
-# create a tsibble with one key ----
+# create a tsibble with one key
 tsibble(
   qtr = rep(yearquarter("201001") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),

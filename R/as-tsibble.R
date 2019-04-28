@@ -21,13 +21,13 @@
 #' @seealso [build_tsibble]
 #'
 #' @examples
-#' # create a tsibble w/o a key ----
+#' # create a tsibble w/o a key
 #' tsibble(
 #'   date = as.Date("2017-01-01") + 0:9,
 #'   value = rnorm(10)
 #' )
 #'
-#' # create a tsibble with one key ----
+#' # create a tsibble with one key
 #' tsibble(
 #'   qtr = rep(yearquarter("201001") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
@@ -61,16 +61,16 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' @seealso [tsibble]
 #'
 #' @examples
-#' # coerce tibble to tsibble w/o a key ----
+#' # coerce tibble to tsibble w/o a key
 #' tbl1 <- tibble(
 #'   date = as.Date("2017-01-01") + 0:9,
 #'   value = rnorm(10)
 #' )
 #' as_tsibble(tbl1)
-#' # specify the index var
+#' # supply the index to suppress the message
 #' as_tsibble(tbl1, index = date)
 #'
-#' # coerce tibble to tsibble with one key ----
+#' # coerce tibble to tsibble with one key
 #' # "date" is automatically considered as the index var, and "group" is the key
 #' tbl2 <- tibble(
 #'   mth = rep(yearmonth("2017-01") + 0:9, 3),

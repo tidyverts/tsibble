@@ -67,7 +67,7 @@
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{same arguments accepted as its dplyr generic.}
+\item{...}{Same arguments accepted as its dplyr generic.}
 
 \item{.preserve}{Optionally, list-columns to preserve in the output. These
 will be duplicated in the same way as atomic vectors. This has
@@ -164,7 +164,7 @@ is changed, it will validate whether it's a tsibble internally. Use \code{as_tib
 to leave off the time context.
 }
 \examples{
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 # Sum over sensors ----
 pedestrian \%>\%
   summarise(Total = sum(Count))

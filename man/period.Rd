@@ -41,19 +41,22 @@ x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
 yearweek(x)
 yearmonth(x)
 yearmonth(yearweek(x))
-yearmonth("2018-07")
 yearquarter(x)
 
 # coerce yearmonths to yearquarter
 y <- yearmonth(x)
 yearquarter(y)
 
+# parse characters
+yearmonth(c("2018 Jan", "2018-01", "2018 January"))
+yearquarter(c("2018 Q1", "2018 Qtr1", "2018 Quarter 1"))
+
 # seq() and binary operaters
 wk1 <- yearweek("2017-11-01")
 wk2 <- yearweek("2018-04-29")
 seq(from = wk1, to = wk2, by = 2) # by two weeks
 wk1 + 0:9
-mth <- yearmonth("2017-11-01")
+mth <- yearmonth("2017-11")
 seq(mth, length.out = 5, by = 1) # by 1 month
 mth + 0:9
 seq(yearquarter(mth), length.out = 5, by = 1) # by 1 quarter

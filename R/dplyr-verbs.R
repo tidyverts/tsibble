@@ -11,7 +11,7 @@
 #' * `unnest()` requires argument `key = NULL` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
-#' @param ... same arguments accepted as its dplyr generic.
+#' @param ... Same arguments accepted as its dplyr generic.
 #' @inheritParams dplyr::arrange
 #' @details
 #' Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
@@ -164,7 +164,7 @@ transmute.grouped_ts <- function(.data, ...) {
 
 #' @rdname tsibble-tidyverse
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #' # Sum over sensors ----
 #' pedestrian %>%
 #'   summarise(Total = sum(Count))
