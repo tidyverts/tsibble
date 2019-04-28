@@ -31,7 +31,7 @@ interval_pull.default <- function(x) {
 # Assume date is regularly spaced
 interval_pull.POSIXt <- function(x) {
   dttm <- as.double(x)
-  if (all((dttm %% 1 == 0))) { # second
+  if (is_integerish(dttm)) { # second
     nhms <- gcd_interval(dttm)
     period <- split_period(nhms)
     init_interval(
