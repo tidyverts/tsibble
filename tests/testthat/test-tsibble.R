@@ -76,9 +76,8 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df, index = time)
 
 test_that("POSIXct with 1 microseconds interval", {
-  expect_identical(
-    tbl_sum(tsbl), c("A tsibble" = "10 x 2 [1\U00B5s] <?>")
-  )
+  res <- if (is_utf8_output()) "10 x 2 [1\U00B5s] <?>" else "10 x 2 [1us] <?>"
+  expect_identical(tbl_sum(tsbl), c("A tsibble" = res))
 })
 
 library(nanotime)
@@ -87,7 +86,7 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df)
 
 test_that("nanotime with 1 nanoseconds interval", {
-  expect_output(print(tsbl), "A tsibble: 10 x 2 \\[1ns\\]")
+  expect_identical(tbl_sum(tsbl), c("A tsibble" = "10 x 2 [1ns]"))
 })
 
 test_that("POSIXt with 1 second interval", {
