@@ -10,9 +10,10 @@ dat_x <- tibble(
   value = rnorm(5)
 )
 
-test_that("A tsibble cannot be NULL or without index", {
+test_that("A tsibble cannot be NULL, without index, or unknown class", {
   expect_error(tsibble(), "Can't determine index")
   expect_error(as_tsibble(), "NULL")
+  expect_error(as_tsibble(as.matrix(AirPassengers)), "handle the matrix class")
 })
 
 test_that("A tsibble must not contain missing values in index", {
@@ -46,7 +47,7 @@ test_that("Coerce to tbl_df and data.frame", {
 })
 
 stocks <- tsibble(
-  time = seq(0, 1e-11, 1e-12)[1:10],
+  time = seq(0, 1e-5, 1e-6)[1:10],
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4),
@@ -54,7 +55,9 @@ stocks <- tsibble(
 )
 
 test_that("numeric with fractional intervals", {
-  expect_output(print(stocks), "A tsibble: 10 x 4 \\[1e-12\\]")
+  expect_identical(
+    tbl_sum(stocks), c("A tsibble" = "10 x 4 [1e-06]")
+  )
 })
 
 start <- as.POSIXct("2010-01-15 13:55:23.975", tz = "UTC")
@@ -62,8 +65,10 @@ x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 5))
 df <- data.frame(time = x, value = rnorm(length(x)))
 tsbl <- as_tsibble(df, index = time)
 
-test_that("POSIXct with 10 milliseconds interval", {
-  expect_output(print(tsbl), "A tsibble: 20 x 2 \\[5ms\\] <UTC>")
+test_that("POSIXct with 5 milliseconds interval", {
+  expect_identical(
+    tbl_sum(tsbl), c("A tsibble" = "20 x 2 [5ms] <UTC>")
+  )
 })
 
 x <- ISOdatetime(2011,8,2,0,0,0) + c(34201881660:34201881669)*1e-6
@@ -71,7 +76,9 @@ df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df, index = time)
 
 test_that("POSIXct with 1 microseconds interval", {
-  expect_output(print(tsbl), cat("A tsibble: 10 x 2 [10\U00B5s] <?>"))
+  expect_identical(
+    tbl_sum(tsbl), c("A tsibble" = "10 x 2 [1\U00B5s] <?>")
+  )
 })
 
 library(nanotime)
@@ -86,7 +93,7 @@ test_that("nanotime with 1 nanoseconds interval", {
 test_that("POSIXt with 1 second interval", {
   expect_identical(index_valid(dat_x$date_time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x), "Using `date_time` as index variable.")
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1s\\]")
+  expect_identical(tbl_sum(tsbl), c("A tsibble" = "5 x 2 [1s] <UTC>"))
   expect_error(as_tsibble(dat_x, key = date_time))
   expect_is(tsbl, "tbl_ts")
   expect_is(index(tsbl), "name")
@@ -95,7 +102,6 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(key(tsbl), list())
   expect_identical(format(groups(tsbl)), "NULL")
   expect_identical(format(interval(tsbl)), "1s")
-  expect_output(print(interval(tsbl)), "1s")
   expect_true(is_regular(tsbl))
   # expect_equal(key_size(tsbl), 5)
   expect_equal(n_keys(tsbl), 1)
@@ -393,6 +399,19 @@ test_that("build_tsibble()", {
   )
 })
 
+test_that("build_tsibble() for empty data frame", {
+  ped_null <- pedestrian[0, ]
+  expect_error(build_tsibble(
+    ped_null, key = Sensor, index = Date_Time,
+    interval = list(hour = 1)
+  ), "Argument `interval` must be class interval,")
+  expect_identical(interval(build_tsibble(
+    ped_null, key = Sensor, index = Date_Time,
+    interval = new_interval(hour = 1))),
+    new_interval(hour = 1)
+  )
+})
+
 test_that("update_tsibble() #112", {
   tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date, regular = FALSE)
   expect_true(is_regular(update_tsibble(tsbl, regular = TRUE)))
@@ -401,4 +420,14 @@ test_that("update_tsibble() #112", {
 test_that("update_tsibble() for unknown interval", {
   tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date)[1L, ]
   expect_true(unknown_interval(interval(update_tsibble(tsbl))))
+})
+
+test_that("update_tsibble() for different index and index2", {
+  ped2 <- pedestrian %>%
+    mutate(Hour_Since = Date_Time - min(Date_Time)) %>%
+    index_by(Date)
+  expect_identical(
+    index2_var(update_tsibble(ped2, index = Hour_Since)),
+    "Date"
+  )
 })

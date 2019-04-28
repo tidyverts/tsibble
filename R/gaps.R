@@ -84,13 +84,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
     vars_select(measured_vars(.data), !!! names(lst_exprs))
     replaced_df <- ungroup(summarise(as_tibble(.data), !!! lst_exprs))
     by_name <- intersect(names(gap_data), names(replaced_df))
-
-    if (NROW(replaced_df) > NROW(gap_data)) {
-      abort(sprintf(
-        "Replacement has length %s, not 1 or %s.", 
-        NROW(replaced_df), NROW(gap_data)
-      ))
-    } else if (is_empty(by_name)) { # by value
+    if (is_empty(by_name)) { # by value
       gap_data <- mutate(gap_data, !!! replaced_df)
     } else { # by function
       gap_data <- left_join(gap_data, replaced_df, by = by_name)
@@ -267,12 +261,12 @@ tbl_gaps <- function(x, y) {
   gap_rle <- rle_lgl(gap_vec)
   lgl_rle <- gap_rle$values
   gap_idx <- gap_rle$lengths
-  to <- cumsum(gap_idx)
-  from <- c(1, to[-length(to)] + 1)
-  nobs <- gap_idx[lgl_rle]
-  if (is_empty(nobs)) {
+  if (has_length(gap_idx, 1)) {
     tibble(.from = y[0], .to = y[0], .n = integer())
   } else {
+    to <- cumsum(gap_idx)
+    from <- c(1, to[-length(to)] + 1)
+    nobs <- gap_idx[lgl_rle]
     tibble(
       .from = y[from][lgl_rle],
       .to = y[to][lgl_rle],

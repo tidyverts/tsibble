@@ -614,6 +614,13 @@ units_since.POSIXct <- function(x) {
   as.numeric(x)
 }
 
+bad_by <- function(by) {
+  if (!is_bare_numeric(by, n = 1)) {
+    abort("`by` only takes a numeric.")
+  }
+}
+
+# nocov start
 seq_date <- function(
   from, to, by, length.out = NULL, along.with = NULL,
   ...) {
@@ -713,9 +720,4 @@ seq_date <- function(
   }
   res
 }
-
-bad_by <- function(by) {
-  if (!is_bare_numeric(by, n = 1)) {
-    abort("`by` only takes a numeric.")
-  }
-}
+# nocov end

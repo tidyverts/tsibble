@@ -14,7 +14,7 @@ gcd_interval <- function(x) {
   } else if (is_integerish(x)) {
     gcd_vector(x)
   } else {
-    gcd_vector_r(unique(abs(diff(x))))
+    gcd_vector_r(unique(round(abs(diff(x)), digits = 6)))
   }
 }
 

@@ -33,12 +33,19 @@ test_that("group_by()", {
     group_vars(pedestrian %>% index_by(yearmonth(Date))),
     "yearmonth(Date)"
   )
+})
 
+test_that("group_by_key()", {
   grped_t <- tourism %>%
     group_by(Purpose) %>%
     group_by(Region, State, add = TRUE)
   expect_length(group_vars(grped_t), 3)
   expect_equal(group_by_key(tourism), grped_t)
+
+  expect_identical(
+    pedestrian %>% index_by(Date) %>% group_by_key() %>% index2_var(),
+    "Date"
+  )
 })
 
 test_that("ungroup()", {
@@ -79,8 +86,7 @@ test_that("expect warnings from arrange.tbl_ts()", {
   expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "Unspecified temporal order.")
   tbl <- pedestrian %>% arrange(Date_Time, Sensor)
   expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
-  bm <- pedestrian %>%
-    filter(Sensor == "Birrarung Marr")
+  bm <- pedestrian %>% filter(Sensor == "Birrarung Marr")
   expect_warning(bm %>% arrange(desc(Date_Time)), "Unspecified temporal order.")
 })
 
@@ -137,6 +143,9 @@ test_that("filter() and slice() with .preserve = TRUE", {
     as_tibble()
   expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
   expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
+  res <- as_tsibble(AirPassengers) %>% 
+    filter_index(~ "1949 Mar", .preserve = TRUE)
+  expect_false(identical(key_rows(res), key_rows(as_tsibble(AirPassengers))))
 })
 
 test_that("select() and rename()", {

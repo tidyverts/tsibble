@@ -42,14 +42,13 @@ interval_pull.POSIXt <- function(x) {
       minute = period$minute, 
       second = period$second
     )
-  } else if (all(dttm * 1e+3 %% 1 == 0)) { # millisecond
-    dttm <- round(dttm * 1e+3)
+  } else {
     nhms <- gcd_interval(dttm)
-    init_interval(millisecond = nhms)
-  } else { # microsecond
-    dttm <- dttm * 1e+6
-    nhms <- gcd_interval(dttm)
-    init_interval(microsecond = nhms)
+    init_interval(
+      second = nhms %/% 1, 
+      millisecond = nhms %/% 1e-3, 
+      microsecond = nhms %/% 1e-6 %% 1e+3
+    )
   }
 }
 
@@ -98,10 +97,13 @@ interval_pull.hms <- function(x) { # for hms package
       minute = period$minute, 
       second = secs
     )
-  } else if (frac < 1e-2) {
-    init_interval(millisecond = round(frac * 1e+3))
   } else {
-    init_interval(microsecond = frac * 1e+6)
+    nhms <- gcd_interval(dttm)
+    init_interval(
+      second = nhms %/% 1, 
+      millisecond = nhms %/% 1e-3, 
+      microsecond = nhms %/% 1e-6 %% 1e+3
+    )
   }
 }
 

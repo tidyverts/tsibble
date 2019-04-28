@@ -31,6 +31,7 @@
 * Fixed false warnings for a few cases in `arrange.tbl_ts()`.
 * Fixed `*_join()` for not finding key or index when `by` is specified. (#102)
 * Added "Tasmania" to `data(tourism)` and 2017 data.
+* More robustly handles sub-second intervals.
 
 # tsibble 0.7.0
 
