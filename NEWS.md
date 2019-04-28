@@ -1,4 +1,4 @@
-# tsibble 0.7.9.9000
+# tsibble 0.8.0
 
 ## Breaking changes
 
