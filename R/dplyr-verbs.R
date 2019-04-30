@@ -245,25 +245,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
 #' tourism %>%
 #'   group_by_key()
 group_by_key <- function(.data, ..., .drop = key_drop_default(.data)) {
-  is_idx_idx2 <- identical(index_var(.data), index2_var(.data))
-  if (is_empty(key_vars(.data)) && is_idx_idx2) {
-    .data
-  } else if (is_idx_idx2) {
-    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), .drop = .drop)
-    build_tsibble(
-      grped_tbl, key = !! key_vars(.data), index = !! index(.data),
-      index2 = !! index2(.data), ordered = is_ordered(.data),
-      interval = interval(.data), validate = FALSE
-    )
-  } else {
-    grped_tbl <- group_by(as_tibble(.data), !!! key(.data), !! index2(.data),
-      .drop = .drop)
-    build_tsibble(
-      grped_tbl, key_data = key_data(.data), index = !! index(.data),
-      index2 = !! index2(.data), ordered = is_ordered(.data),
-      interval = interval(.data), validate = FALSE
-    )
-  }
+  group_by(.data, !!! key(.data), .drop = .drop)
 }
 
 #' @export
