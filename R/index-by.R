@@ -91,26 +91,6 @@ index_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-rename_index <- function(.data, .vars) {
-  names <- names(.vars)
-  idx_chr <- index_var(.data)
-  idx <- idx_chr == .vars
-  if (sum(idx) == 0) return(.data)
-
-  attr(.data, "index") <- names(.data)[idx] <- new_idx_chr <- names[idx]
-  .data
-}
-
-rename_index2 <- function(.data, .vars) {
-  names <- names(.vars)
-  idx2_chr <- index2_var(.data)
-  idx <- idx2_chr == .vars
-  if (sum(idx) == 0) return(.data)
-
-  attr(.data, "index2") <- names(.data)[idx] <- new_idx2_chr <- names[idx]
-  .data
-}
-
 mutate_index2 <- function(.data, .vars) {
   chr <- intersect(index2_var(.data), .vars)
   if (!is_empty(chr)) {
