@@ -64,19 +64,20 @@ tourism <- tourism %>%
   ungroup()
 
 test_that("nest()", {
- expect_error(pedestrian %>% nest(-Date_Time), "must be nested")
- expect_error(pedestrian %>% nest(Sensor), "must be nested")
- expect_named(pedestrian %>% nest(), "data")
- expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
- expect_named(
-   pedestrian %>% group_by(Sensor) %>% nest(),
-   names(pedestrian %>% nest(-Sensor))
+  expect_is(pedestrian %>% nest(-Date_Time), "tbl_df")
+  expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", ".key"))
+  expect_is(pedestrian %>% nest(Date, Count), "tbl_ts")
+  expect_named(pedestrian %>% nest(), "data")
+  expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
+  expect_named(
+    pedestrian %>% group_by(Sensor) %>% nest(),
+    names(pedestrian %>% nest(-Sensor))
   )
- expect_named(pedestrian %>% nest(-Sensor, .key = "ts"), c("Sensor", "ts"))
- nested_ped <- pedestrian %>%
-   nest(-Sensor)
- expect_is(nested_ped, "lst_ts")
- expect_equal(key_vars(nested_ped$data[[1]]), character(0))
+  expect_named(pedestrian %>% nest(-Sensor, .key = "ts"), c("Sensor", "ts"))
+  nested_ped <- pedestrian %>%
+    nest(-Sensor)
+  expect_is(nested_ped, "lst_ts")
+  expect_equal(key_vars(nested_ped$data[[1]]), character(0))
 })
 
 nest_t <- tourism %>%

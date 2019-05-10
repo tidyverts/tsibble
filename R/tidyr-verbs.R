@@ -82,32 +82,32 @@ nest.tbl_ts <- function(data, ..., .key = "data") {
   } else {
     nest_vars <- vars_select(cn, !!! nest_exprs)
   }
-  if (is_false(has_index(nest_vars, data))) {
-    abort(sprintf(
-      "Column `%s` (index) must be nested in the list-column", 
-      index_var(data)
-    ))
-  }
-  tbl <- as_tibble(data)
-  if (is_grouped_ts(data)) {
-    grp_vars <- group_vars(tbl)
+  if (!has_all_key(nest_vars, data) && !has_index(nest_vars, data)) {
+    tbl_nest <- nest(as_tibble(data), ..., .key = .key)
+    update_meta(tbl_nest, data)
+  } else if (!has_index(nest_vars, data)) {
+    nest(as_tibble(data), ..., .key = .key)
   } else {
-    grp_vars <- setdiff(cn, nest_vars)
-  }
-  data <- ungroup(data)
-  if (is_empty(grp_vars)) {
-    return(as_lst_ts(tibble(!! key_var := list(data))))
-  }
-  nest_vars <- setdiff(nest_vars, grp_vars)
-  grp <- syms(grp_vars)
+    tbl <- as_tibble(data)
+    if (is_grouped_ts(data)) {
+      grp_vars <- group_vars(tbl)
+    } else {
+      grp_vars <- setdiff(cn, nest_vars)
+    }
+    data <- ungroup(data)
+    if (is_empty(grp_vars)) return(as_lst_ts(tibble(!! key_var := list(data))))
 
-  out <- select(ungroup(tbl), !!! grp)
-  idx <- dplyr::group_indices(data, !!! grp, .drop = TRUE)
-  representatives <- which(!duplicated(idx))
-  out <- slice(out, representatives)
-  tsb_sel <- select_tsibble(data, !!! nest_vars, validate = FALSE)
-  out[[key_var]] <- unname(split(tsb_sel, idx))[unique(idx)]
-  as_lst_ts(out)
+    nest_vars <- setdiff(nest_vars, grp_vars)
+    grp <- syms(grp_vars)
+
+    out <- select(ungroup(tbl), !!! grp)
+    idx <- dplyr::group_indices(data, !!! grp, .drop = TRUE)
+    representatives <- which(!duplicated(idx))
+    out <- slice(out, representatives)
+    tsb_sel <- select_tsibble(data, !!! nest_vars, validate = FALSE)
+    out[[key_var]] <- unname(split(tsb_sel, idx))[unique(idx)]
+    as_lst_ts(out)
+  }
 }
 
 unnest.lst_ts <- function(data, ..., key = NULL,

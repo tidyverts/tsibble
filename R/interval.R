@@ -31,22 +31,15 @@ interval_pull.default <- function(x) {
 # Assume date is regularly spaced
 interval_pull.POSIXt <- function(x) {
   dttm <- as.double(x)
-  if (all((dttm %% 1 == 0))) { # second
-    nhms <- gcd_interval(dttm)
-    period <- split_period(nhms)
-    init_interval(
-      hour = period$hour, 
-      minute = period$minute, 
-      second = period$second
-    )
-  } else {
-    nhms <- gcd_interval(dttm)
-    init_interval(
-      second = nhms %/% 1, 
-      millisecond = nhms %/% 1e-3, 
-      microsecond = nhms %/% 1e-6 %% 1e+3
-    )
-  }
+  nhms <- gcd_interval(dttm)
+  period <- split_period(nhms)
+  init_interval(
+    hour = period$hour, 
+    minute = period$minute, 
+    second = period$second %/% 1,
+    millisecond = period$second %% 1 %/% 1e-3,
+    microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
+  )
 }
 
 #' @export
@@ -86,22 +79,13 @@ interval_pull.hms <- function(x) { # for hms package
   dttm <- as.double(x)
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
-  secs <- period$second
-  frac <- secs %% 1
-  if (frac == 0) {
-    init_interval(
-      hour = period$hour + period$day * 24, 
-      minute = period$minute, 
-      second = secs
-    )
-  } else {
-    nhms <- gcd_interval(dttm)
-    init_interval(
-      second = nhms %/% 1, 
-      millisecond = nhms %/% 1e-3, 
-      microsecond = nhms %/% 1e-6 %% 1e+3
-    )
-  }
+  init_interval(
+    hour = period$hour + period$day * 24, 
+    minute = period$minute, 
+    second = period$second %/% 1,
+    millisecond = period$second %% 1 %/% 1e-3,
+    microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
+  )
 }
 
 #' @export

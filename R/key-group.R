@@ -97,32 +97,6 @@ remove_key <- function(.data, .vars) {
   .data
 }
 
-rename_key <- function(.data, .vars) {
-  if (is_empty(.vars)) return(.data)
-
-  old_key_vars <- key_vars(.data)
-  if (is_empty(old_key_vars)) {
-    names(attr(.data, "key")) <- ".rows"
-    return(.data)
-  }
-  names <- names(.vars)
-  idx <- .vars %in% old_key_vars
-  names(.data)[idx] <- new_key_vars <- names[idx]
-  names(attr(.data, "key")) <- c(new_key_vars, ".rows")
-  .data
-}
-
-rename_group <- function(.data, .vars) {
-  names <- names(.vars)
-  old_grp_chr <- group_vars(.data)
-  if (is_empty(old_grp_chr)) return(.data)
-
-  idx <- .vars %in% old_grp_chr
-  names(.data)[idx] <- new_grp_chr <- names[idx]
-  names(attr(.data, "groups")) <- c(new_grp_chr, ".rows")
-  .data
-}
-
 is_key_dropped <- function(x) {
   if (!is_grouped_ts(x)) {
     key_drop_default(x)

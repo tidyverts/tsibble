@@ -52,8 +52,8 @@ group_by_index2 <- function(x) {
 }
 
 restore_index_class <- function(new, old) {
-  old_idx <- index2(old)
-  new_idx <- index2(new)
+  old_idx <- index2_var(old)
+  new_idx <- index2_var(new)
   class(new[[new_idx]]) <- class(old[[old_idx]])
   if (!identical(interval(new), interval(old))) {
     attr(new, "interval") <- interval_pull(new[[new_idx]])
@@ -67,16 +67,25 @@ rename_tsibble <- function(.data, ...) {
   if (is_empty(lst_quos)) return(.data)
 
   val_vars <- vars_rename(names_dat, !!! lst_quos)
-  # index
-  res <- rename_index2(rename_index(.data, val_vars), val_vars)
-  res <- rename_group(rename_key(res, val_vars), val_vars)
-  names(res) <- names(val_vars)
 
-  build_tsibble(
-    res, key_data = key_data(res),
-    index = !! index(res), index2 = !! index2(res),
-    ordered = is_ordered(res), interval = interval(res), validate = FALSE
-  )
+  old_idx <- index_var(.data)
+  old_idx2 <- index2_var(.data)
+  old_key <- key_vars(.data)
+  old_grp <- group_vars(.data)
+
+  new_names <- names(val_vars)
+  new_idx <- new_names[old_idx == val_vars]
+  new_idx2 <- new_names[old_idx2 == val_vars]
+  new_key <- new_names[val_vars %in% old_key]
+  new_grp <- new_names[val_vars %in% old_grp]
+  attr(.data, "index") <- new_idx
+  attr(.data, "index2") <- new_idx2
+  names(attr(.data, "key")) <- c(new_key, ".rows")
+  if (!is_empty(old_grp)) {
+    names(attr(.data, "groups")) <- c(new_grp, ".rows")
+  }
+  names(.data) <- new_names
+  .data
 }
 
 select_tsibble <- function(.data, ..., validate = TRUE) {
