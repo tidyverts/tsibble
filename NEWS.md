@@ -1,3 +1,7 @@
+# tsibble dev
+
+* `index_by()` allows for grouping index variable; and `group_by()` will throw out an error for grouping index.
+
 # tsibble 0.8.0
 
 ## Breaking changes
