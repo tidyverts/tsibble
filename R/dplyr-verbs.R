@@ -218,6 +218,12 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
     grp_vars <- union(grp_vars, group_vars(.data))
   }
   if (is_empty(grp_vars)) return(.data)
+  index <- index_var(.data)
+  if (index %in% grp_vars) {
+    err <- sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.\n", index)
+    hint <- "Did you mean `index_by()`?"
+    abort(paste0(err, hint))
+  }
 
   grped_tbl <- NextMethod()
   if (.drop) { # needs to drop key too

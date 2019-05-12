@@ -65,7 +65,7 @@ index_by <- function(.data, ...) {
 
 #' @export
 index_by.tbl_ts <- function(.data, ...) {
-  exprs <- enquos(..., .named = TRUE)
+  exprs <- enquos(...)
   if (is_empty(exprs)) {
     attr(.data, "index2") <- index_var(.data)
     return(.data)
@@ -73,15 +73,14 @@ index_by.tbl_ts <- function(.data, ...) {
   if (is_false(has_length(exprs, 1))) {
     abort("`index_by()` only accepts one expression.")
   }
-  expr_name <- names(exprs)[1]
   idx <- index_var(.data)
-  if (identical(idx, expr_name)) {
+  if (identical(idx, names(exprs))) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx))
   }
-  idx2 <- sym(expr_name)
+  idx2 <- sym(names(quos_auto_name(exprs)))
   tbl <- 
     group_by(
-      mutate(ungroup(.data), !!! exprs),
+      mutate(ungroup(as_tibble(.data)), !!! exprs),
       !!! groups(.data), !! idx2, .drop = FALSE
     )
   build_tsibble(

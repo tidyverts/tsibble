@@ -322,10 +322,6 @@ build_tsibble_meta <- function(
   )
   is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
   if (is_grped) {
-    grp_vars <- head(names(grp_data), -1L)
-    if (index %in% grp_vars) {
-      abort(sprintf("Column `%s` (index) can't be a grouping variable.", index))
-    }
     cls <- c("grouped_ts", "grouped_df")
     tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
   }
