@@ -65,7 +65,7 @@ tourism <- tourism %>%
 
 test_that("nest()", {
   expect_is(pedestrian %>% nest(-Date_Time), "tbl_df")
-  expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", ".key"))
+  expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", "data"))
   expect_is(pedestrian %>% nest(Date, Count), "tbl_ts")
   expect_named(pedestrian %>% nest(), "data")
   expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))

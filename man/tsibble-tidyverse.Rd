@@ -59,7 +59,7 @@
 
 \method{spread}{tbl_ts}(data, key, value, ...)
 
-\method{nest}{tbl_ts}(data, ..., .key = "data")
+\method{nest}{tbl_ts}(data, ...)
 
 \method{unnest}{tbl_ts}(data, ..., key = NULL, .drop = NA,
   .id = NULL, .sep = NULL, .preserve = NULL)
@@ -121,15 +121,6 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
-
-\item{.key}{The name of the new column, as a string or symbol.
-
-This argument is passed by expression and supports
-\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
-and symbols). The name is captured from the expression with
-\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).}
 
 \item{.drop}{Should additional list columns be dropped? By default,
 \code{unnest} will drop them if unnesting the specified columns requires
