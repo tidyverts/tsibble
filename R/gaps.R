@@ -71,10 +71,8 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 
   gap_data <- scan_gaps(.data, .full = .full)
   lst_exprs <- enquos(..., .named = TRUE)
-  if (NROW(gap_data) == 0) {
-    if (!is_empty(lst_exprs)) {
-      warn("`.data` is a complete tsibble. Values passed to `...` are ignored.")
-    }
+  if (NROW(gap_data) == 0 && !is_empty(lst_exprs)) {
+    warn("`.data` is a complete tsibble. Values passed to `...` are ignored.")
     return(.data)
   }
 
