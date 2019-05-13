@@ -91,45 +91,28 @@ nest.tbl_ts <- function(data, ...) {
   }
 }
 
-unnest.lst_ts <- function(data, ..., key = NULL,
-  .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
-) {
-  key <- use_id(data, !! enquo(key))
-  preserve <- vars_select(names(data), !! enquo(.preserve))
-  exprs <- enquos(...)
-  if (is_empty(exprs)) {
-    list_cols <- names(data)[purrr::map_lgl(data, is_list)]
-    list_cols <- setdiff(list_cols, preserve)
-    exprs <- syms(list_cols)
-  }
-  if (length(exprs) == 0) return(data)
+unnest.lst_ts <- function(data, ..., key = NULL) {
+  unnested_data <- unnest(as_tibble(data), ...)
 
-  nested <- transmute(ungroup(data), !!! exprs)
+  key <- use_id(data, !! enquo(key))
+  lst_cols <- setdiff(names(data), names(unnested_data))
 
   # checking if the nested columns has `tbl_ts` class (only for the first row)
-  first_nested <- nested[1L, ]
-  eval_df <- purrr::imap(first_nested, dplyr::first)
-  is_tsbl <- purrr::map_lgl(eval_df, is_tsibble)
-  if (is_false(any(is_tsbl))) return(NextMethod())
+  first_nested <- data[lst_cols][1L, ]
+  eval_col <- purrr::imap(first_nested, dplyr::first)
+  tsbl_col <- map_lgl(eval_col, is_tsibble)
+  if (sum(tsbl_col) == 0) return(unnested_data)
 
-  if (sum(is_tsbl) > 1) {
-    abort("Only accepts a list-column of `tbl_ts` to be unnested.")
-  }
-  out <- 
-    unnest(
-      as_tibble(data), 
-      !!! exprs, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
-    )
-  tsbl <- eval_df[is_tsbl][[1L]]
+  tsbl <- eval_col[tsbl_col][[1L]]
   idx <- index(tsbl)
   key <- c(key_vars(tsbl), key)
-  out <- unnest_tsibble(out, key, idx)
+  unnested_data <- unnest_tsibble(unnested_data, key, idx)
 
   idx_chr <- as_string(idx)
   # restore the index class, as it's dropped by NextMethod()
-  class(out[[idx_chr]]) <- class(tsbl[[idx_chr]])
+  class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
-    out, key = !! key, index = !! idx, index2 = !! index2(tsbl),
+    unnested_data, key = !! key, index = !! idx, index2 = !! index2(tsbl),
     ordered = is_ordered(tsbl), interval = is_regular(tsbl), validate = FALSE
   )
 }
@@ -149,23 +132,18 @@ unnest.lst_ts <- function(data, ..., key = NULL,
 #'   )
 #' unnest(stock_qtl, key = qtl)
 #' @export
-unnest.tbl_ts <- function(data, ..., key = NULL,
-  .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL
-) {
+unnest.tbl_ts <- function(data, ..., key = NULL) {
+  unnested_data <- unnest(as_tibble(data), ...)
+
   key <- use_id(data, !! enquo(key))
-  tbl <- 
-    unnest(
-      as_tibble(data), 
-      ..., .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve
-    )
   key <- c(key_vars(data), key)
   idx <- index(data)
-  tbl <- unnest_tsibble(tbl, key, idx)
+  unnested_data <- unnest_tsibble(unnested_data, key, idx)
 
   idx_chr <- as_string(idx)
-  class(tbl[[idx_chr]]) <- class(data[[idx_chr]])
+  class(unnested_data[[idx_chr]]) <- class(data[[idx_chr]])
   build_tsibble(
-    tbl, key = !! key, index = !! idx, index2 = !! index2(data), 
+    unnested_data, key = !! key, index = !! idx, index2 = !! index2(data), 
     ordered = is_ordered(data), interval = is_regular(data), validate = FALSE
   )
 }

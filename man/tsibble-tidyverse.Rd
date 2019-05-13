@@ -61,8 +61,7 @@
 
 \method{nest}{tbl_ts}(data, ...)
 
-\method{unnest}{tbl_ts}(data, ..., key = NULL, .drop = NA,
-  .id = NULL, .sep = NULL, .preserve = NULL)
+\method{unnest}{tbl_ts}(data, ..., key = NULL)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -121,18 +120,6 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
-
-\item{.drop}{Should additional list columns be dropped? By default,
-\code{unnest} will drop them if unnesting the specified columns requires
-the rows to be duplicated.}
-
-\item{.id}{Data frame identifier - if supplied, will create a new column
-with name \code{.id}, giving a unique identifier. This is most useful if
-the list column is named.}
-
-\item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
-will combine the name of the original list-col with the names from
-nested data frame, separated by \code{.sep}.}
 }
 \description{
 \itemize{

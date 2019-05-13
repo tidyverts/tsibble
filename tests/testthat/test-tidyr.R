@@ -109,9 +109,9 @@ test_that("unnest.tbl_ts()", {
 })
 
 test_that("dplyr verbs for lst_ts", {
-  expect_error(
-    nest_t %>% mutate(data2 = data) %>% unnest(),
-    "accepts a list-column of `tbl_ts` to be unnested."
+  expect_named(
+    nest_t %>% mutate(data2 = data) %>% unnest(key = c(Region, State)),
+    c("Region", "State", "Quarter", "Purpose", "Trips", "Quarter1", "Purpose1", "Trips1")
   )
   expect_named(
     nest_t %>% mutate(data2 = data) %>% unnest(data2, key = c(Region, State)),
