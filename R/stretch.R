@@ -1,10 +1,3 @@
-abort_stretch_size <- function(...) {
-  dots <- dots_list(...)
-  if (".size" %in% names(dots)) {
-    abort("Argument `.size` is retired. Please use `.step`.")
-  }
-}
-
 nrow2 <- function(.x) {
   if (is.data.frame(.x)) .x <- as.list(.x)
   NROW(.x)

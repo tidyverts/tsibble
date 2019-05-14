@@ -37,7 +37,7 @@ deprecation_env <- new.env(parent = emptyenv())
 #' @export
 #' @keywords internal
 as.tsibble <- function(x, ...) {
-  warn_deprecated("as.tsibble() is deprecated, please use as_tsibble().")
+  .Deprecated("as_tsibble()")
   as_tsibble(x, ...)
 }
 
@@ -54,8 +54,7 @@ pull_interval <- function(x) {
 #' @keywords internal
 #' @include gaps.R
 fill_na <- function(.data, ..., .full = FALSE) {
-  .Deprecated("fill_gaps()")
-  fill_gaps(.data, ..., .full = .full)
+  .Defunct("fill_gaps()")
 }
 
 #' Identifiers used for creating key
@@ -90,4 +89,21 @@ use_id <- function(x, key) {
     }
   }
   vars_select(names(x), !! key_quo)
+}
+
+abort_stretch_size <- function(...) {
+  dots <- dots_list(...)
+  if (".size" %in% names(dots)) {
+    abort("Argument `.size` is retired. Please use `.step`.")
+  }
+}
+
+warn_gather <- function(..., pivot_longer = TRUE) {
+  dots <- dots_list(...)
+  if ("gather" %in% names(dots)) {
+    warn("Argument `gather` is deprecated, please use `pivot_longer` instead.")
+    dots$gather
+  } else {
+    pivot_longer
+  }
 }

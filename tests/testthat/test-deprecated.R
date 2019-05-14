@@ -15,10 +15,6 @@ test_that("pull_interval()", {
   expect_warning(pull_interval(as_tsibble(AirPassengers)[["index"]]), "interval_pull()")
 })
 
-test_that("fill_na()", {
-  expect_warning(fill_na(pedestrian), "fill_gaps()")
-})
-
 test_that("id()", {
   expect_warning(
     as_tsibble(AirPassengers) %>% update_tsibble(key = id()),

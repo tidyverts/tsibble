@@ -42,17 +42,6 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
   }
 }
 
-warn_gather <- function(..., pivot_longer = TRUE) {
-  dots <- dots_list(...)
-  if ("gather" %in% names(dots)) {
-    warn("Argument `gather` is deprecated, please use `pivot_longer` instead.")
-    dots$gather
-  } else {
-    pivot_longer
-  }
-}
-
-
 #' @keywords internal
 #' @export
 as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
