@@ -29,10 +29,7 @@ arrange.tbl_ts <- function(.data, ...) {
 }
 
 #' @export
-arrange.grouped_ts <- function(.data, ...) {
-  arr_data <- NextMethod()
-  update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
-}
+arrange.grouped_ts <- arrange.tbl_ts
 
 #' @rdname tsibble-tidyverse
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
