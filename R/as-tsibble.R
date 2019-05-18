@@ -291,22 +291,12 @@ build_tsibble_meta <- function(
 
   is_interval <- inherits(interval, "interval")
   msg_interval <- "Argument `interval` must be class interval, not %s."
-  if (NROW(tbl) == 0) {
-    if (is_false(interval)) {
-      interval <- irregular()
-    } else if (is_true(interval)) {
-      interval <- init_interval()
-    } else if (!is_interval) {
-      abort(sprintf(msg_interval, class(interval)[1]))
-    }
-  } else {
-    if (is_false(interval) || is_null(interval)) {
-      interval <- irregular()
-    } else if (is_true(interval)) {
-      interval <- interval_pull(tbl[[index]])
-    } else if (!is_interval) {
-      abort(sprintf(msg_interval, class(interval)[1]))
-    }
+  if (is_false(interval) || is_null(interval)) {
+    interval <- irregular()
+  } else if (is_true(interval)) {
+    interval <- interval_pull(tbl[[index]])
+  } else if (!is_interval) {
+    abort(sprintf(msg_interval, class(interval)[1]))
   }
   if (unknown_interval(interval) && (NROW(tbl) > NROW(key_data))) {
     warn("Can't obtain the interval, please learn more about \"Interval\" from `?tsibble`.")
