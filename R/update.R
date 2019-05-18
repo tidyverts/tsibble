@@ -34,8 +34,8 @@ update_meta2 <- function(
       new, old, ordered = ordered, interval = interval, validate = validate
     ))
   }
-  new_key <- group_data(grouped_df(new, key_vars(old))) %>% 
-    right_join(old_key, by = key_vars(old))
+  new_key <- right_join(group_data(grouped_df(new, key_vars(old))), old_key, 
+    by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(
@@ -114,11 +114,9 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
     sel_data <- retain_tsibble(sel_data, key_vars, index(.data))
   }
   
-  build_tsibble(
-    sel_data,
-    key = !! key_vars, index = !! index(.data), index2 = !! index2(.data),
-    ordered = is_ordered(.data), interval = interval(.data),
-    validate = FALSE, .drop = is_key_dropped(.data)
+  build_tsibble(sel_data, key = !! key_vars, index = !! index(.data),
+    index2 = !! index2(.data), ordered = is_ordered(.data), 
+    interval = interval(.data), validate = FALSE, .drop = is_key_dropped(.data)
   )
 }
 

@@ -72,7 +72,7 @@ select.tbl_ts <- function(.data, ...) {
   lst_exprs <- map(lst_quos, quo_get_expr)
   idx_chr <- index_var(.data)
   rm_index <- sym(paste0("-", idx_chr))
-  if (any(map_lgl(lst_exprs, function(x) x == rm_index))) {
+  if (any(lst_exprs == rm_index)) {
     abort(sprintf(
       "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?",
       idx_chr
