@@ -122,16 +122,16 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     sum_data <- 
       summarise(
         keyed_tbl, 
-        !! idx_chr := list2(!! idx_chr := idx_full)
+        !! idx_chr := list2(tibble(!! idx_chr := idx_full))
       )
   } else {
     sum_data <- 
       summarise(
         keyed_tbl,
-        !! idx_chr := list2(!! idx_chr := seq_generator(!! idx, int))
+        !! idx_chr := list2(tibble(!! idx_chr := seq_generator(!! idx, int)))
       )
   }
-  ref_data <- ungroup(tidyr::unnest(sum_data, !! idx))
+  ref_data <- unwrap(sum_data, !! idx)
   if (NROW(ref_data) == NROW(.data)) {
     return(.data[0L, c(key_vars(.data), idx_chr)])
   }
@@ -196,7 +196,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     )
 
   idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
-  out <- tidyr::unnest(lst_out, .gaps)
+  out <- unwrap(lst_out, .gaps)
   class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
   tibble(!!! out)
 }
@@ -303,4 +303,13 @@ seq_generator <- function(x, interval = NULL) {
     res2 <- hms::as.hms(res2)
   }
   res2
+}
+
+unwrap <- function(.data, .col) {
+  lst_col <- vars_pull(names(.data), !! enquo(.col))
+  res <- .data
+  row_indices <- rep.int(seq_len(NROW(.data)), 
+    vapply(.data[[lst_col]], NROW, integer(1)))
+  res <- res[row_indices, setdiff(names(.data), lst_col)]
+  dplyr::bind_cols(res, dplyr::bind_rows(!!! .data[[lst_col]]))
 }
