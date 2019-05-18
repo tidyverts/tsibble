@@ -308,6 +308,9 @@ build_tsibble_meta <- function(
       abort(sprintf(msg_interval, class(interval)[1]))
     }
   }
+  if (unknown_interval(interval) && (NROW(tbl) > NROW(key_data))) {
+    warn("Can't obtain the interval, please learn more about \"Interval\" from `?tsibble`.")
+  }
 
   idx_lgl <- index == index2
   # convert grouped_df to tsibble:

@@ -206,9 +206,7 @@ irregular <- function() {
 }
 
 unknown_interval <- function(x) {
-  if (is_empty(x)) return(FALSE)
-  no_zeros <- !map_lgl(x, function(x) x == 0)
-  sum(no_zeros) == 0
+  if (is_empty(x)) FALSE else sum(x != 0) == 0
 }
 
 #' Extract time unit from a vector

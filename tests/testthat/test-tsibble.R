@@ -22,6 +22,13 @@ test_that("A tsibble must not contain missing values in index", {
     "must not contain `NA`.")
 })
 
+test_that("A tsibble with unknown interval due to unexpected index class", {
+  expect_warning(
+    tsibble(date = as.POSIXct(Sys.Date() + 0:9)),
+    "Can't obtain the interval"
+  )
+})
+
 test_that("Argument regular is not logical", {
   expect_error(
     tsibble(
