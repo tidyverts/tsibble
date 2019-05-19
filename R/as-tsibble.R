@@ -161,6 +161,8 @@ as_tsibble.NULL <- function(x, ...) {
 update_tsibble <- function(x, key, index, regular = is_regular(x), 
   validate = TRUE, .drop = key_drop_default(x)) {
   not_tsibble(x)
+  stopifnot(is_logical(regular, n = 1))
+
   key <- enquo(key)
   if (quo_is_missing(key)) {
     key <- key_vars(x)
@@ -169,7 +171,6 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   if (quo_is_missing(idx)) {
     idx <- index_var(x)
   }
-  stopifnot(is_logical(regular, n = 1))
   if (is_true(regular)) {
     int <- interval(x)
     int <- if (unknown_interval(int)) int else TRUE
@@ -260,7 +261,7 @@ build_tsibble <- function(
   if (is_false(ordered)) { # false returns a warning
     indices <- tbl[[index]]
     idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
-    actually_ordered <- all(map_lgl(idx_rows, is_ascending))
+    actually_ordered <- all(map_lgl(idx_rows, validate_order))
     if (is_false(actually_ordered)) {
       idx_txt <- backticks(index)
       key_txt <- map(key_vars, expr_label)
@@ -342,9 +343,9 @@ new_tsibble <- function(x, ..., class = NULL) {
 validate_index <- function(data, index) {
   val_idx <- map_lgl(data, index_valid)
   index <- enquo(index)
-  if (quo_is_null(index)) {
-    abort("Argument `index` must not be `NULL`.")
-  } else if (quo_is_missing(index)) {
+  if (quo_is_null(index)) abort("Argument `index` must not be `NULL`.")
+
+  if (quo_is_missing(index)) {
     if (sum(val_idx, na.rm = TRUE) != 1) {
       abort("Can't determine index and please specify argument `index`.")
     }
@@ -366,6 +367,21 @@ validate_index <- function(data, index) {
     abort(sprintf("Column `%s` (index) must not contain `NA`.", chr_index))
   }
   chr_index
+}
+
+validate_order <- function(x) {
+  if (is_bare_logical(x)) {
+    x
+  } else if (is_bare_numeric(x)) {
+    pos_dup <- anyDuplicated.default(x)
+    if (any_not_equal_to_c(pos_dup, 0)) {
+      abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
+    }
+    x <- stats::na.omit(x)
+    if (any(sign(x) < 0)) TRUE else is_ascending(x)
+  } else {
+    is_ascending(x)
+  }
 }
 
 # check if a comb of key vars result in a unique data entry
