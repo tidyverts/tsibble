@@ -3,6 +3,7 @@
 * `index_by()` allows for grouping index variable; and `group_by()` will throw out an error for grouping index.
 * Defunct `fill_na()` in favour of `fill_gaps()`.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`.
+* When creating a tsibble, a warning will be issued for mismatch between interval and index representation.
 
 # tsibble 0.8.0
 
