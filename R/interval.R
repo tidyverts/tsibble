@@ -234,7 +234,7 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
   time_x <- as.numeric(stats::time(x))
   if (freq == 52) {
-    warn("Expected frequency of weekly data: 365.25 / 7 (\U2248 52.18), not  52.")
+    warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
   }
   if (freq == 7) { # daily
     start_year <- trunc(time_x[1])
