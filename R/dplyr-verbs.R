@@ -164,11 +164,9 @@ summarise.tbl_ts <- function(.data, ...) {
   idx2 <- index2(.data)
 
   lst_quos <- enquos(..., .named = TRUE)
+  idx_chr <- as_string(idx)
   idx2_chr <- as_string(idx2)
-  nonkey <- setdiff(
-    names(lst_quos),
-    squash(c(key(.data), as_string(idx), idx2_chr))
-  )
+  nonkey <- setdiff(names(lst_quos), c(key_vars(.data), idx_chr, idx2_chr))
   nonkey_quos <- lst_quos[nonkey]
 
   grped_data <- group_by_index2(.data)
