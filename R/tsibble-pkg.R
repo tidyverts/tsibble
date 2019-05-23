@@ -46,7 +46,7 @@
 #' cannot be determined (`?`).
 #'
 #' An interval is obtained based on the corresponding index representation:
-#' * `integer`/`numeric`/`ordered`: either "unit" or "year" (`Y`)
+#' * `integer`/`numeric`/`ordered` (ordered factor): either "unit" or "year" (`Y`)
 #' * `yearquarter`/`yearqtr`: "quarter" (`Q`)
 #' * `yearmonth`/`yearmon`: "month" (`M`)
 #' * `yearweek`: "week" (`W`)

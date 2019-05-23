@@ -11,7 +11,7 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 be avoided as they are used as the arguments.}
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and works with tidy selector (e.g. \code{starts_with()}).}
+empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -80,7 +80,7 @@ cannot be determined (\code{?}).
 
 An interval is obtained based on the corresponding index representation:
 \itemize{
-\item \code{integer}/\code{numeric}/\code{ordered}: either "unit" or "year" (\code{Y})
+\item \code{integer}/\code{numeric}/\code{ordered} (ordered factor): either "unit" or "year" (\code{Y})
 \item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
 \item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
 \item \code{yearweek}: "week" (\code{W})

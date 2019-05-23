@@ -77,7 +77,6 @@ Collate:
     'dplyr-join.R'
     'error.R'
     'filter-index.R'
-    'format.R'
     'holiday.R'
     'index-by.R'
     'index-valid.R'

@@ -3,7 +3,7 @@
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
 #' @param key Unquoted variable(s) that uniquely determine time indices. `NULL` for
-#' empty key, and works with tidy selector (e.g. `starts_with()`).
+#' empty key, and works with tidy selector (e.g. [dplyr::starts_with()]).
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
@@ -405,6 +405,15 @@ retain_tsibble <- function(data, key, index) {
     abort(paste0(header, hint))
   }
   data
+}
+
+#' @export
+format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
+  is_index_null(x)
+  if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
+    warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
+  }
+  format(tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }
 
 #' Coerce to a tibble or data frame

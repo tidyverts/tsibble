@@ -61,7 +61,7 @@ cannot be determined (\code{?}).
 
 An interval is obtained based on the corresponding index representation:
 \itemize{
-\item \code{integer}/\code{numeric}/\code{ordered}: either "unit" or "year" (\code{Y})
+\item \code{integer}/\code{numeric}/\code{ordered} (ordered factor): either "unit" or "year" (\code{Y})
 \item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
 \item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
 \item \code{yearweek}: "week" (\code{W})
