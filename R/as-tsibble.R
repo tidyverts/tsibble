@@ -261,10 +261,10 @@ build_tsibble <- function(
   if (is_false(ordered)) { # false returns a warning
     indices <- tbl[[index]]
     idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
-    actually_ordered <- all(map_lgl(idx_rows, validate_order))
+    actually_ordered <- all(vapply(idx_rows, validate_order, logical(1)))
     if (is_false(actually_ordered)) {
       idx_txt <- backticks(index)
-      key_txt <- map(key_vars, expr_label)
+      key_txt <- lapply(key_vars, expr_label)
       warn(sprintf(
         "Unspecified temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
         comma(c(key_txt, idx_txt), sep = ""))
@@ -341,7 +341,7 @@ new_tsibble <- function(x, ..., class = NULL) {
 ## Although the "index" arg is possible to automate the detection of time
 ## objects, it would fail when tsibble contain multiple time objects.
 validate_index <- function(data, index) {
-  val_idx <- map_lgl(data, index_valid)
+  val_idx <- vapply(data, index_valid, logical(1))
   index <- enquo(index)
   if (quo_is_null(index)) abort("Argument `index` must not be `NULL`.")
 
@@ -359,7 +359,7 @@ validate_index <- function(data, index) {
     if (is.na(val_lgl)) {
       return(chr_index)
     } else if (!val_idx[idx_pos]) {
-      cls_idx <- map_chr(data, ~ class(.)[1])
+      cls_idx <- vapply(data, function(x) class(x)[1], character(1))
       abort(sprintf("Unsupported index type: %s", cls_idx[idx_pos]))
     }
   }
