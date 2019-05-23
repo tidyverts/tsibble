@@ -97,6 +97,5 @@ Collate:
     'tsibble2ts.R'
     'type-sum.R'
     'update.R'
-    'utils-format.R'
     'utils.R'
     'zzz.R'
