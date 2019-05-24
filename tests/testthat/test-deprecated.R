@@ -11,10 +11,6 @@ test_that("as.tsibble()", {
   expect_warning(as.tsibble(AirPassengers), "as_tsibble()")
 })
 
-test_that("pull_interval()", {
-  expect_warning(pull_interval(as_tsibble(AirPassengers)[["index"]]), "interval_pull()")
-})
-
 test_that("id()", {
   expect_warning(
     as_tsibble(AirPassengers) %>% update_tsibble(key = id()),

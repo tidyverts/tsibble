@@ -1,9 +1,10 @@
 # tsibble dev
 
 * `index_by()` allows for grouping index variable; and `group_by()` will throw out an error for grouping index.
-* Defunct `fill_na()` in favour of `fill_gaps()`.
+* When creating a tsibble, a warning might be issued for mismatch between interval and index representation.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`.
-* When creating a tsibble, a warning will be issued for mismatch between interval and index representation.
+* Defunct `fill_na()` in favour of `fill_gaps()`.
+* Defunct `pull_interval()` in favour of `interval_pull()`.
 
 # tsibble 0.8.0
 
