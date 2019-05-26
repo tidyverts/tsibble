@@ -1,4 +1,4 @@
-by_row <- function(FUN, .data, ordered = TRUE, interval = TRUE, ..., 
+by_row <- function(FUN, .data, ordered = TRUE, interval = TRUE, ...,
   .preserve = FALSE) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
@@ -34,7 +34,7 @@ update_meta2 <- function(
       new, old, ordered = ordered, interval = interval, validate = validate
     ))
   }
-  new_key <- right_join(group_data(grouped_df(new, key_vars(old))), old_key, 
+  new_key <- right_join(group_data(grouped_df(new, key_vars(old))), old_key,
     by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
@@ -94,10 +94,11 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
   } else {
     val_vars <- sel_vars
   }
-  
-  # key (key of the reduced size (bf & af) but also different names)
+
+  # key of the reduced size (bf & af) but also different names
   key_vars <- val_vars[val_vars %in% key_vars(.data)]
-  
+  key_nochange <- all(is.element(key_vars(.data), key_vars))
+
   if (validate) {
     vec_names <- names(val_vars)
     validate <- !has_all_key(vec_names, .data)
@@ -106,10 +107,12 @@ select_tsibble <- function(.data, ..., validate = TRUE) {
   if (validate) {
     sel_data <- retain_tsibble(sel_data, key_vars, index(.data))
   }
-  
-  build_tsibble(sel_data, key = !! key_vars, index = !! index(.data),
-    index2 = !! index2(.data), ordered = is_ordered(.data), 
-    interval = interval(.data), validate = FALSE, .drop = is_key_dropped(.data)
+
+  build_tsibble(sel_data, key = !! key_vars,
+    key_data = if (key_nochange) key_data(.data) else NULL,
+    index = !! index(.data), index2 = !! index2(.data),
+    ordered = is_ordered(.data), interval = interval(.data), validate = FALSE,
+    .drop = is_key_dropped(.data)
   )
 }
 

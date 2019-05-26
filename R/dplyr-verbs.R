@@ -88,7 +88,6 @@ rename.grouped_ts <- rename.tbl_ts
 #' @rdname tsibble-tidyverse
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
-  # mutate returns lst_ts without attributes, coerce to tbl_df first
   mut_data <- mutate(as_tibble(.data), ...)
 
   idx_chr <- index_var(.data)
@@ -105,22 +104,21 @@ mutate.tbl_ts <- function(.data, ...) {
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
   val_idx <- has_index(vec_names, .data)
+  if (val_idx) interval <- TRUE else interval <- interval(.data)
+
   val_key <- has_any_key(vec_names, .data)
-  if (val_idx) {
-    interval <- TRUE
-  } else {
-    interval <- interval(.data)
-  }
   if (val_key) {
     key_vars <- setdiff(names(mut_data), measured_vars(.data))
     .data <- remove_key(.data, key_vars)
   }
+
   validate <- val_idx || val_key
   if (validate) {
     mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
   }
   build_tsibble(
-    mut_data, key = !! key_vars(.data), index = !! index(.data),
+    mut_data, key = !! key_vars(.data),
+    key_data = if (val_key) NULL else key_data(.data), index = !! index(.data),
     index2 = !! index2(.data), ordered = is_ordered(.data), interval = interval,
     validate = FALSE, .drop = is_key_dropped(.data)
   )
@@ -195,9 +193,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   .drop = group_by_drop_default(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
-  if (add) {
-    grp_vars <- union(group_vars(.data), grp_vars)
-  }
+  if (add) grp_vars <- union(group_vars(.data), grp_vars)
   if (is_empty(grp_vars)) return(.data)
   index <- index_var(.data)
   if (index %in% grp_vars) {
@@ -215,7 +211,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   }
   build_tsibble(
     grped_tbl, key = !! key_vars(.data), 
-    key_data = if (.drop) NULL else key_data(.data),
+    key_data = if (grp_key) key_data(.data) else NULL,
     index = !! index(.data), index2 = !! index2(.data),
     ordered = is_ordered(.data), interval = interval(.data), validate = FALSE
   )
