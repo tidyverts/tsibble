@@ -1,5 +1,6 @@
 # tsibble dev
 
+* Speed improvement for `*_gaps()` and `group_by_key()`.
 * `index_by()` allows for grouping index variable; and `group_by()` will throw out an error for grouping index.
 * When creating a tsibble, a warning might be issued for mismatch between interval and index representation.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`.
