@@ -44,13 +44,6 @@ update_meta2 <- function(
   ), old)
 }
 
-# needed when grouping by index2, dropping empty groups (e.g. summarise)
-group_by_index2 <- function(x) {
-  idx2 <- index2(x)
-  x <- as_tibble(x)
-  group_by(x, !! idx2, add = TRUE, .drop = TRUE)
-}
-
 restore_index_class <- function(new, old) {
   old_idx <- index2_var(old)
   new_idx <- index2_var(new)

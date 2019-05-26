@@ -98,7 +98,11 @@ to leave off the time context.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
-# Sum over sensors ----
+# Sum over sensors
+pedestrian \%>\%
+  index_by() \%>\% 
+  summarise(Total = sum(Count))
+# shortcut
 pedestrian \%>\%
   summarise(Total = sum(Count))
 # Back to tibble

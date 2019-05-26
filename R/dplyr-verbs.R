@@ -148,7 +148,11 @@ transmute.grouped_ts <- function(.data, ...) {
 #' @rdname tsibble-tidyverse
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
-#' # Sum over sensors ----
+#' # Sum over sensors
+#' pedestrian %>%
+#'   index_by() %>% 
+#'   summarise(Total = sum(Count))
+#' # shortcut
 #' pedestrian %>%
 #'   summarise(Total = sum(Count))
 #' # Back to tibble
@@ -163,26 +167,21 @@ summarise.tbl_ts <- function(.data, ...) {
   idx <- index(.data)
   idx2 <- index2(.data)
 
+  # workaround for scoped variants
   lst_quos <- enquos(..., .named = TRUE)
   idx_chr <- as_string(idx)
   idx2_chr <- as_string(idx2)
   nonkey <- setdiff(names(lst_quos), c(key_vars(.data), idx_chr, idx2_chr))
   nonkey_quos <- lst_quos[nonkey]
 
-  grped_data <- group_by_index2(.data)
-  grps <- groups(grped_data)
-  len_grps <- length(grps)
+  grped_data <- as_tibble(index_by(.data, !! idx2))
   sum_data <-
     group_by(
       summarise(grped_data, !!! nonkey_quos),
-      !!! grps[-((len_grps - 1):len_grps)] # remove index2 and last grp
+      !!! head(groups(grped_data), -2) # remove index2 and last grp
     )
-  if (identical(idx, idx2)) {
-    int <- is_regular(.data)
-  } else {
-    int <- TRUE
-  }
-  grps <- setdiff(group_vars(.data), as_string(idx2))
+  if (identical(idx, idx2)) int <- is_regular(.data) else int <- TRUE
+  grps <- setdiff(group_vars(.data), idx2_chr)
 
   build_tsibble(
     sum_data, key = !! grps, index = !! idx2, ordered = TRUE, interval = int,
