@@ -30,7 +30,7 @@ globalVariables(c(".", ".gaps"))
 #'
 #' # use fill() to fill `NA` by previous/next entry
 #' full_harvest %>% 
-#'   group_by(fruit) %>% 
+#'   group_by_key() %>% 
 #'   tidyr::fill(kilo, .direction = "down")
 #'
 #' # replace gaps with a specific value
@@ -43,18 +43,18 @@ globalVariables(c(".", ".gaps"))
 #'
 #' # replace gaps using a function for each group
 #' harvest %>%
-#'   group_by(fruit) %>%
+#'   group_by_key() %>%
 #'   fill_gaps(kilo = sum(kilo))
 #'
 #' # leaves existing `NA` untouched
 #' harvest[2, 3] <- NA
 #' harvest %>%
-#'   group_by(fruit) %>%
+#'   group_by_key() %>%
 #'   fill_gaps(kilo = sum(kilo, na.rm = TRUE))
 #'
 #' # replace NA
 #' pedestrian %>%
-#'   group_by(Sensor) %>%
+#'   group_by_key() %>%
 #'   fill_gaps(Count = as.integer(median(Count)))
 fill_gaps <- function(.data, ..., .full = FALSE) {
   UseMethod("fill_gaps")

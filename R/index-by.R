@@ -30,7 +30,7 @@
 #' # Monthly counts across sensors
 #' library(dplyr, warn.conflicts = FALSE)
 #' monthly_ped <- pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#'   group_by_key() %>% 
 #'   index_by(Year_Month = yearmonth(Date_Time)) %>%
 #'   summarise(
 #'     Max_Count = max(Count),
@@ -41,7 +41,7 @@
 #' 
 #' # Using existing variable
 #' pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#'   group_by_key() %>% 
 #'   index_by(Date) %>%
 #'   summarise(
 #'     Max_Count = max(Count),
@@ -50,7 +50,7 @@
 #'
 #' # Attempt to aggregate to 4-hour interval, with the effects of DST
 #' pedestrian %>% 
-#'   group_by(Sensor) %>% 
+#'   group_by_key() %>% 
 #'   index_by(Date_Time4 = lubridate::floor_date(Date_Time, "4 hour")) %>%
 #'   summarise(Total_Count = sum(Count))
 #'
