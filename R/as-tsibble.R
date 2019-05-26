@@ -179,17 +179,11 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   }
 
   is_idx_idx2 <- identical(index_var(x), index2_var(x))
-  if (is_idx_idx2) {
-    build_tsibble(
-      as_tibble(x), key = !! key, index = !! idx,
-      interval = int, validate = validate, .drop = .drop
-    )
-  } else {
-    build_tsibble(
-      as_tibble(x), key = !! key, index = !! idx, index2 = !! index2(x),
-      interval = int, validate = validate, .drop = .drop
-    )
-  }
+  build_tsibble(
+    as_tibble(x), key = !! key, index = !! idx,
+    index2 = if (is_idx_idx2) !! idx else !! index2(x),
+    interval = int, validate = validate, .drop = .drop
+  )
 }
 
 ## tsibble is a special class of tibble that handles temporal data. It
@@ -222,8 +216,8 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #'     interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, key_data = NULL, index, index2, ordered = NULL, interval = TRUE,
-  validate = TRUE, .drop = key_drop_default(x)
+  x, key, key_data = NULL, index, index2 = index, ordered = NULL,
+  interval = TRUE, validate = TRUE, .drop = key_drop_default(x)
 ) {
   is_key_data <- !is_null(key_data)
   if (is_key_data) {
@@ -239,7 +233,7 @@ build_tsibble <- function(
   index <- validate_index(tbl, !! qindex)
   # if index2 not specified
   index2 <- enquo(index2)
-  if (quo_is_missing(index2) || identical(qindex, index2)) {
+  if (identical(qindex, index2)) {
     index2 <- index
   } else {
     index2 <- validate_index(tbl, !! index2)

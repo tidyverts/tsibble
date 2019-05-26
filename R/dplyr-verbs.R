@@ -197,7 +197,7 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) {
-    grp_vars <- union(grp_vars, group_vars(.data))
+    grp_vars <- union(group_vars(.data), grp_vars)
   }
   if (is_empty(grp_vars)) return(.data)
   index <- index_var(.data)
@@ -207,20 +207,19 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
     abort(paste0(err, hint))
   }
 
-  grped_tbl <- NextMethod()
-  if (.drop) { # needs to drop key too
-    build_tsibble(
-      grped_tbl, key = !! key_vars(.data), index = !! index(.data),
-      index2 = !! index2(.data), ordered = is_ordered(.data),
-      interval = interval(.data), validate = FALSE
-    )
+  grp_key <- identical(grp_vars, key_vars(.data)) && 
+    identical(.drop, key_drop_default(.data))
+  if (grp_key) {
+    grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
   } else {
-    build_tsibble(
-      grped_tbl, key_data = key_data(.data), index = !! index(.data),
-      index2 = !! index2(.data), ordered = is_ordered(.data),
-      interval = interval(.data), validate = FALSE
-    )
+    grped_tbl <- NextMethod()
   }
+  build_tsibble(
+    grped_tbl, key = !! key_vars(.data), 
+    key_data = if (.drop) NULL else key_data(.data),
+    index = !! index(.data), index2 = !! index2(.data),
+    ordered = is_ordered(.data), interval = interval(.data), validate = FALSE
+  )
 }
 
 #' Group by key variables
