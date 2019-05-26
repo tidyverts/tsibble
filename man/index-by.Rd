@@ -2,15 +2,15 @@
 % Please edit documentation in R/index-by.R
 \name{index_by}
 \alias{index_by}
-\title{Group and collapse by time index}
+\title{Group by time index and collapse with \code{summarise()}}
 \usage{
 index_by(.data, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{A single name-value pair of expression: a new index on LHS and the
-current index on RHS. Or an existing variable to be used as index.
+\item{...}{If empty, grouping the current index. Or a single expression contains
+an existing variable or a name-value pair.
 The index functions that can be used, but not limited:
 \itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
@@ -25,11 +25,10 @@ fine-resolution aggregation
 }
 \description{
 \code{index_by()} is the counterpart of \code{group_by()} in temporal context, but it
-only groups the time index. It adds a new column and then group it. The
-following operation is applied to each group of the index, similar to
-\code{group_by()} but dealing with index only. \code{index_by()} + \code{summarise()} will
-update the grouping index variable to be the new index. Use \code{ungroup()} or
-\code{index_by()} with no arguments to remove the index grouping vars.
+only groups the time index. The following operation is applied to each partition
+of the index, similar to \code{group_by()} but dealing with index only.
+\code{index_by()} + \code{summarise()} will update the grouping index variable to be
+the new index. Use \code{ungroup()} to remove the index grouping vars.
 }
 \details{
 \itemize{
@@ -38,6 +37,7 @@ displaying on the screen.
 }
 }
 \examples{
+pedestrian \%>\% index_by()
 # Monthly counts across sensors
 library(dplyr, warn.conflicts = FALSE)
 monthly_ped <- pedestrian \%>\% 

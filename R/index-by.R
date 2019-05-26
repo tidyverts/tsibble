@@ -1,15 +1,14 @@
-#' Group and collapse by time index
+#' Group by time index and collapse with `summarise()`
 #'
 #' `index_by()` is the counterpart of `group_by()` in temporal context, but it
-#' only groups the time index. It adds a new column and then group it. The 
-#' following operation is applied to each group of the index, similar to 
-#' `group_by()` but dealing with index only. `index_by()` + `summarise()` will
-#' update the grouping index variable to be the new index. Use `ungroup()` or 
-#' `index_by()` with no arguments to remove the index grouping vars.
+#' only groups the time index. The following operation is applied to each partition
+#' of the index, similar to `group_by()` but dealing with index only. 
+#' `index_by()` + `summarise()` will update the grouping index variable to be 
+#' the new index. Use `ungroup()` to remove the index grouping vars.
 #'
 #' @param .data A `tbl_ts`.
-#' @param ... A single name-value pair of expression: a new index on LHS and the 
-#' current index on RHS. Or an existing variable to be used as index.
+#' @param ... If empty, grouping the current index. Or a single expression contains
+#' an existing variable or a name-value pair.
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
@@ -27,6 +26,7 @@
 #' @rdname index-by
 #' @export
 #' @examples
+#' pedestrian %>% index_by()
 #' # Monthly counts across sensors
 #' library(dplyr, warn.conflicts = FALSE)
 #' monthly_ped <- pedestrian %>% 
@@ -66,18 +66,19 @@ index_by <- function(.data, ...) {
 #' @export
 index_by.tbl_ts <- function(.data, ...) {
   exprs <- enquos(...)
-  if (is_empty(exprs)) {
-    attr(.data, "index2") <- index_var(.data)
-    return(.data)
+  if (length(exprs) > 1) {
+    abort("`index_by()` only accepts one expression or empty.")
   }
-  if (is_false(has_length(exprs, 1))) {
-    abort("`index_by()` only accepts one expression.")
-  }
+
   idx <- index_var(.data)
   if (identical(idx, names(exprs))) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx))
   }
-  idx2 <- sym(names(quos_auto_name(exprs)))
+  if (is_empty(exprs)) {
+    idx2 <- index(.data)
+  } else {
+    idx2 <- sym(names(quos_auto_name(exprs)))
+  }
   tbl <- 
     group_by(
       mutate(ungroup(as_tibble(.data)), !!! exprs),
