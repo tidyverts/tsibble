@@ -11,8 +11,8 @@
 #' * `unnest()` requires argument `key = NULL` to get back to a tsibble.
 #'
 #' @param .data A `tbl_ts`.
-#' @param ... Same arguments accepted as its dplyr generic.
-#' @inheritParams dplyr::arrange
+#' @param ... Same arguments accepted as its tidyverse generic.
+#' @inheritParams dplyr::filter
 #' @details
 #' Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
 #' `mutate()` & `transmute()`, keep the time context hanging around. That is,

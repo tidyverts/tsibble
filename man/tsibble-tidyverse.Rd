@@ -44,12 +44,10 @@
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{Same arguments accepted as its dplyr generic.}
+\item{...}{Same arguments accepted as its tidyverse generic.}
 
-\item{.preserve}{Optionally, list-columns to preserve in the output. These
-will be duplicated in the same way as atomic vectors. This has
-\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
-\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
+\item{.preserve}{when \code{FALSE} (the default), the grouping structure
+is recalculated based on the resulting data, otherwise it is kept as is.}
 
 \item{data}{A data frame.}
 
