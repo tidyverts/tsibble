@@ -274,7 +274,8 @@ build_tsibble <- function(
   }
   # validate tbl_ts
   if (validate) {
-    tbl <- validate_tsibble(data = tbl, key = key_vars, index = index)
+    tbl <- validate_tsibble(data = tbl, key = key_vars, key_data = key_data,
+      index = index)
   }
   build_tsibble_meta(
     tbl, key_data = key_data, index = index, index2 = index2,
@@ -386,8 +387,8 @@ validate_order <- function(x) {
 
 # check if a comb of key vars result in a unique data entry
 # if TRUE return the data, otherwise raise an error
-validate_tsibble <- function(data, key, index) {
-  is_dup <- duplicated_key_index(data, key, index)
+validate_tsibble <- function(data, key, index, key_data = NULL) {
+  is_dup <- duplicated_key_index(data, key, index, key_data)
   if (is_dup) {
     header <- "A valid tsibble must have distinct rows identified by key and index.\n"
     hint <- "Please use `duplicates()` to check the duplicated rows."
@@ -429,13 +430,13 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 as_tibble.tbl_ts <- function(x, ...) {
   x <- remove_tsibble_attrs(x)
   class(x) <- c("tbl_df", "tbl", "data.frame")
-  as_tibble(x, ...)
+  x
 }
 
 as_tibble.grouped_ts <- function(x, ...) {
   x <- remove_tsibble_attrs(x)
   class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
-  as_tibble(x, ...)
+  x
 }
 
 as_tibble.grouped_df <- function(x, ...) {
@@ -523,18 +524,19 @@ duplicates <- function(data, key = NULL, index) {
   )
 }
 
-duplicated_key_index <- function(data, key, index) {
+duplicated_key_index <- function(data, key, index, key_data = NULL) {
   # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
   # identifiers <- c(key, idx)
   # below calls anyDuplicated.data.frame():
   # time zone associated with the index will be dropped,
   # e.g. nycflights13::weather, thus result in duplicates.
   # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
-  res <- 
-    summarise(
-      grouped_df(as_tibble(data), key),
-      !! "zzz" := anyDuplicated.default(!! sym(index))
-    )
+  if (is_null(key_data)) {
+    keyed_data <- grouped_df(as_tibble(data), key)
+  } else {
+    keyed_data <- new_grouped_df(data, groups = key_data)
+  }
+  res <- summarise(keyed_data, !! "zzz" := anyDuplicated.default(!! sym(index)))
   any_not_equal_to_c(res$zzz, 0)
 }
 
