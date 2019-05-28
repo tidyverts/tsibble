@@ -16,7 +16,6 @@ update_meta <- function(
   if (validate) {
     retain_tsibble(new, key = key(old), index = index(old))
   }
-  validate <- TRUE || validate
   restore_index_class(build_tsibble(
     new, key = !! key_vars(old), index = !! index(old), index2 = !! index2(old),
     ordered = ordered, interval = interval, validate = validate,
