@@ -87,7 +87,7 @@ in time series analysis, which is easily done using `fill()` from
 ``` r
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
-  group_by(origin) %>% 
+  group_by_key() %>% 
   tidyr::fill(temp, humid, .direction = "down")
 full_weather
 #> # A tsibble: 26,190 x 5 [1h] <America/New_York>
@@ -122,7 +122,7 @@ index.
 
 ``` r
 full_weather %>%
-  group_by(origin) %>%
+  group_by_key() %>%
   index_by(year_month = yearmonth(time_hour)) %>% # monthly aggregates
   summarise(
     avg_temp = mean(temp, na.rm = TRUE),
@@ -171,7 +171,7 @@ temperatures for each group (*origin*).
 
 ``` r
 full_weather %>% 
-  group_by(origin) %>% 
+  group_by_key() %>% 
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 #> # A tsibble: 26,190 x 6 [1h] <America/New_York>
 #> # Key:       origin [3]

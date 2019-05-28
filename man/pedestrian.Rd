@@ -26,7 +26,7 @@ data(pedestrian)
 pedestrian \%>\% fill_gaps()
 # compute daily maximum counts across sensors ----
 pedestrian \%>\% 
-  group_by(Sensor) \%>\% 
+  group_by_key() \%>\% 
   index_by(Date) \%>\% # group by Date and use it as new index
   summarise(MaxC = max(Count))
 }

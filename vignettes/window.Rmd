@@ -43,7 +43,7 @@ Moving average is one of the common techniques to smooth time series. We can app
 
 ```{r daily-mv}
 pedestrian_full %>% 
-  group_by(Sensor) %>% 
+  group_by_key() %>% 
   mutate(Daily_MA = slide_dbl(Count, 
     mean, na.rm = TRUE, .size = 24, .align = "center-left"
   ))
@@ -66,7 +66,7 @@ Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it beh
 
 ```{r monthly-mv}
 pedestrian_mth %>% 
-  group_by(Sensor) %>% 
+  group_by_key() %>% 
   # (1)
   # mutate(Monthly_MA = slide_dbl(data, 
   #   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"

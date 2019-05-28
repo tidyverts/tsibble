@@ -64,7 +64,7 @@ Often there are implicit missing cases in time series. If the observations are m
 ```{r fill-na}
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
-  group_by(origin) %>% 
+  group_by_key() %>% 
   tidyr::fill(temp, humid, .direction = "down")
 full_weather
 ```
@@ -77,7 +77,7 @@ full_weather
 
 ```{r tsummarise}
 full_weather %>%
-  group_by(origin) %>%
+  group_by_key() %>%
   index_by(year_month = yearmonth(time_hour)) %>% # monthly aggregates
   summarise(
     avg_temp = mean(temp, na.rm = TRUE),
@@ -180,7 +180,7 @@ For example, a moving average of window size 3 is carried out on hourly temperat
 
 ```{r slide}
 full_weather %>% 
-  group_by(origin) %>% 
+  group_by_key() %>% 
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
 ```
 
