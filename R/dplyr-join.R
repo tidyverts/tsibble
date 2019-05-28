@@ -18,7 +18,7 @@ left_join.tbl_ts <- function(
   tbl <- NextMethod()
   x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
   update_meta(tbl, x, ordered = is_ordered(x), interval = is_regular(x),
-    validate = TRUE)
+    validate = if (NROW(tbl) > NROW(x)) TRUE else FALSE)
 }
 
 #' @export
@@ -31,11 +31,7 @@ inner_join.tbl_ts <- left_join.tbl_ts
 full_join.tbl_ts <- left_join.tbl_ts
 
 #' @export
-semi_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  tbl <- NextMethod()
-  update_meta(tbl, x, ordered = is_ordered(x), interval = is_regular(x),
-    validate = FALSE)
-}
+semi_join.tbl_ts <- left_join.tbl_ts
 
 #' @export
-anti_join.tbl_ts <- semi_join.tbl_ts
+anti_join.tbl_ts <- left_join.tbl_ts
