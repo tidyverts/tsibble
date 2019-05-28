@@ -248,3 +248,11 @@ ungroup.tbl_ts <- function(x, ...) {
 distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
 }
+
+group_by_drop_default <- function(.tbl) {
+  tryCatch({
+    !identical(attr(group_data(.tbl), ".drop"), FALSE)
+  }, error = function(e) {
+    TRUE
+  })
+}
