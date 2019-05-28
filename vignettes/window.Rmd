@@ -66,7 +66,7 @@ Now it's ready to (rock and) roll. When setting `.size = 1` in `slide()`, it beh
 
 ```{r monthly-mv}
 pedestrian_mth %>% 
-  group_by_key() %>% 
+  group_by(Sensor) %>% 
   # (1)
   # mutate(Monthly_MA = slide_dbl(data, 
   #   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"
