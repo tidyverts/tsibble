@@ -73,9 +73,9 @@ spread.tbl_ts <- function(data, key, value, ...) {
 #'   group_by(stock) %>% 
 #'   nest()
 #' @export
-nest.tbl_ts <- function(data, ...) {
-  data_cp <- ungroup(data)
-  data <- as_tibble(data)
+nest.tbl_ts <- function(.data, ...) {
+  data_cp <- ungroup(.data)
+  data <- as_tibble(.data)
   tbl_nest <- NextMethod()
   nest_vars <- setdiff(names(data), names(tbl_nest))
   if (!has_all_key(nest_vars, data_cp) && !has_index(nest_vars, data_cp)) {

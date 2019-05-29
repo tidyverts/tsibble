@@ -64,27 +64,28 @@ tourism <- tourism %>%
   ungroup()
 
 test_that("nest()", {
-  expect_is(pedestrian %>% nest(-Date_Time), "tbl_df")
-  expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", "data"))
-  expect_is(pedestrian %>% nest(Date, Count), "tbl_ts")
+  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_df")
+  expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
+  expect_is(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
   expect_named(pedestrian %>% nest(), "data")
-  expect_named(pedestrian %>% nest(-Sensor), c("Sensor", "data"))
+  expect_named(pedestrian %>% nest(data = -Sensor), c("Sensor", "data"))
   expect_named(
     pedestrian %>% group_by(Sensor) %>% nest(),
-    names(pedestrian %>% nest(-Sensor))
+    names(pedestrian %>% nest(data = -Sensor))
   )
-  expect_named(pedestrian %>% nest(-Sensor, .key = "ts"), c("Sensor", "ts"))
+  expect_named(pedestrian %>% nest(ts = -Sensor), c("Sensor", "ts"))
   nested_ped <- pedestrian %>%
-    nest(-Sensor)
+    nest(data = -Sensor)
   expect_is(nested_ped, "lst_ts")
   expect_equal(key_vars(nested_ped$data[[1]]), character(0))
 })
 
-nest_t <- tourism %>%
-  nest(-Region, -State)
-
 test_that("unnest.lst_ts()", {
-  expect_error(nest_t %>% unnest(), "is not a valid tsibble.")
+  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  nest_t <- tourism %>%
+    nest(data = c(-Region, -State))
+  expect_error(nest_t %>% unnest(cols = data), "is not a valid tsibble.")
   expect_is(nest_t %>% unnest(key = c(Region, State)), "tbl_ts")
   expect_equal(nest_t %>% unnest(key = c(Region, State)), tourism)
   expect_is(
@@ -103,12 +104,15 @@ nest2_t <- tourism %>%
   )
 
 test_that("unnest.tbl_ts()", {
-  expect_error(nest2_t %>% unnest(), "is not a valid tsibble.")
+  expect_error(nest2_t %>% unnest(cols = c(value, qtl)), "is not a valid tsibble.")
   expect_is(nest2_t %>% unnest(key = qtl), "tbl_ts")
   expect_equal(nest2_t %>% unnest(key = qtl) %>% NCOL, 6)
 })
 
 test_that("dplyr verbs for lst_ts", {
+  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  nest_t <- tourism %>%
+    nest(data = c(-Region, -State))
   expect_named(
     nest_t %>% mutate(data2 = data) %>% unnest(key = c(Region, State)),
     c("Region", "State", "Quarter", "Purpose", "Trips", "Quarter1", "Purpose1", "Trips1")

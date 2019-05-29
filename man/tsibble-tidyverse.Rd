@@ -37,7 +37,7 @@
 
 \method{spread}{tbl_ts}(data, key, value, ...)
 
-\method{nest}{tbl_ts}(data, ...)
+\method{nest}{tbl_ts}(.data, ...)
 
 \method{unnest}{tbl_ts}(data, ..., key = NULL)
 }

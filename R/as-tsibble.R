@@ -295,7 +295,7 @@ build_tsibble_meta <- function(
     abort(sprintf(msg_interval, class(interval)[1]))
   }
   if (unknown_interval(interval) && (NROW(tbl) > NROW(key_data))) {
-    warn("Can't obtain the interval, please learn more about \"Interval\" from `?tsibble`.")
+    warn("Can't obtain the interval, please see `?tsibble` for details.")
   }
 
   idx_lgl <- index == index2
