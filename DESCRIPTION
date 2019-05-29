@@ -62,8 +62,7 @@ ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
-Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate',
-    'namespace'))
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Collate: 
     'RcppExports.R'
