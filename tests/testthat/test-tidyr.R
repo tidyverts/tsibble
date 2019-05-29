@@ -64,7 +64,7 @@ tourism <- tourism %>%
   ungroup()
 
 test_that("nest()", {
-  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  skip_if(packageVersion("tidyr") <= "0.8.3")
   expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_df")
   expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
   expect_is(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
@@ -82,7 +82,7 @@ test_that("nest()", {
 })
 
 test_that("unnest.lst_ts()", {
-  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  skip_if(packageVersion("tidyr") <= "0.8.3")
   nest_t <- tourism %>%
     nest(data = c(-Region, -State))
   expect_error(nest_t %>% unnest(cols = data), "is not a valid tsibble.")
@@ -110,7 +110,7 @@ test_that("unnest.tbl_ts()", {
 })
 
 test_that("dplyr verbs for lst_ts", {
-  skip_if_not(packageVersion("tidyr") >= "0.8.3")
+  skip_if(packageVersion("tidyr") <= "0.8.3")
   nest_t <- tourism %>%
     nest(data = c(-Region, -State))
   expect_named(
