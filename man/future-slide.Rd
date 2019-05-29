@@ -28,7 +28,8 @@ my_diag <- function(...) {
   tibble(fitted = fitted(fit), resid = residuals(fit))
 }
 pedestrian \%>\%
-  nest(-Sensor) \%>\%
+  group_by_key() \%>\%
+  nest() \%>\%
   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
 }
 }

@@ -81,17 +81,23 @@ test_that("nest()", {
   expect_equal(key_vars(nested_ped$data[[1]]), character(0))
 })
 
-test_that("unnest.lst_ts()", {
+test_that("unnest_tsibble() for lst_ts", {
   skip_if(packageVersion("tidyr") <= "0.8.3")
   nest_t <- tourism %>%
     nest(data = c(-Region, -State))
-  expect_error(nest_t %>% unnest(cols = data), "is not a valid tsibble.")
-  expect_is(nest_t %>% unnest(key = c(Region, State)), "tbl_ts")
-  expect_equal(nest_t %>% unnest(key = c(Region, State)), tourism)
+  expect_error(nest_t %>% unnest_tsibble(cols = data), "A valid tsibble")
+  expect_is(
+    nest_t %>% unnest_tsibble(cols = data, key = c(Region, State, Purpose)),
+    "tbl_ts"
+  )
+  expect_equal(
+    nest_t %>% unnest_tsibble(cols = data, key = c(Region, State, Purpose)),
+    tourism
+  )
   expect_is(
     nest_t %>%
       mutate(data2 = lapply(data, as_tibble)) %>%
-      unnest(key = c(Region, State)),
+      unnest_tsibble(cols = c(data), key = c(Region, State, Purpose)),
     "tbl_ts"
   )
 })
@@ -104,24 +110,36 @@ nest2_t <- tourism %>%
   )
 
 test_that("unnest.tbl_ts()", {
-  expect_error(nest2_t %>% unnest(cols = c(value, qtl)), "is not a valid tsibble.")
-  expect_is(nest2_t %>% unnest(key = qtl), "tbl_ts")
-  expect_equal(nest2_t %>% unnest(key = qtl) %>% NCOL, 6)
+  expect_error(nest2_t %>% unnest_tsibble(cols = c(value, qtl)), "A valid tsibble.")
+  expect_is(
+    nest2_t %>%
+      unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)),
+    "tbl_ts"
+  )
+  expect_equal(
+    nest2_t %>%
+      unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)) %>%
+      NCOL,
+    6
+  )
 })
 
 test_that("dplyr verbs for lst_ts", {
   skip_if(packageVersion("tidyr") <= "0.8.3")
   nest_t <- tourism %>%
     nest(data = c(-Region, -State))
-  expect_named(
-    nest_t %>% mutate(data2 = data) %>% unnest(key = c(Region, State)),
-    c("Region", "State", "Quarter", "Purpose", "Trips", "Quarter1", "Purpose1", "Trips1")
+  # expect_named(
+  #   nest_t %>% mutate(data2 = data) %>% unnest(key = c(Region, State)),
+  #   c("Region", "State", "Quarter", "Purpose", "Trips", "Quarter1", "Purpose1", "Trips1")
+  # )
+  # expect_named(
+  #   nest_t %>% mutate(data2 = data) %>% unnest(data2, key = c(Region, State)),
+  #   c("Region", "State", "Quarter", "Purpose", "Trips")
+  # )
+  expect_error(
+    unnest_tsibble(nest_t %>% mutate(data = 1), cols = data),
+    "contain no tsibble object."
   )
-  expect_named(
-    nest_t %>% mutate(data2 = data) %>% unnest(data2, key = c(Region, State)),
-    c("Region", "State", "Quarter", "Purpose", "Trips")
-  )
-  expect_is(unnest(nest_t %>% mutate(data = 1)), "tbl_df")
   expect_is(nest_t %>% select(data2 = data), "lst_ts")
   expect_is(nest_t %>% group_by(State), "grouped_df")
   expect_equal(

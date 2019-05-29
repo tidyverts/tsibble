@@ -13,7 +13,7 @@
 \alias{gather.tbl_ts}
 \alias{spread.tbl_ts}
 \alias{nest.tbl_ts}
-\alias{unnest.tbl_ts}
+\alias{unnest_tsibble}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -39,7 +39,7 @@
 
 \method{nest}{tbl_ts}(.data, ...)
 
-\method{unnest}{tbl_ts}(data, ..., key = NULL)
+unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -49,9 +49,17 @@
 \item{.preserve}{when \code{FALSE} (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.}
 
-\item{data}{A data frame.}
+\item{data}{A tsibble or a data frame contains tsibble in the list-columns.}
 
-\item{key}{Unquoted variables to create the key after unnesting.}
+\item{key}{Names of new key and value columns, as strings or
+symbols.
+
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
 
 \item{value}{Names of new key and value columns, as strings or
 symbols.
@@ -73,6 +81,12 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
+
+\item{cols}{Names of columns to unnest.}
+
+\item{validate}{\code{TRUE} suggests to verify that each key or each combination
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{
 \itemize{
@@ -84,7 +98,6 @@ be issued.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.
-\item \code{unnest()} requires argument \code{key = NULL} to get back to a tsibble.
 }
 }
 \details{
@@ -118,15 +131,17 @@ stocks <- tsibble(
 (stocksm <- stocks \%>\% gather(stock, price, -time))
 stocksm \%>\% spread(stock, price)
 if (packageVersion("tidyr") <= "0.8.3") {
-  stop("Please update the tidyr package to run these following examples.")
-}
+nested_stock <- stocksm \%>\% 
+  nest(-stock)
+} else {
 nested_stock <- stocksm \%>\% 
   nest(data = -stock)
+}
 stocksm \%>\% 
   group_by(stock) \%>\% 
   nest()
 nested_stock \%>\% 
-  unnest(key = stock)
+  unnest_tsibble(cols = data, key = stock)
 stock_qtl <- stocksm \%>\% 
   group_by(stock) \%>\% 
   index_by(day3 = lubridate::floor_date(time, unit = "3 day")) \%>\% 
@@ -134,5 +149,5 @@ stock_qtl <- stocksm \%>\%
     value = list(quantile(price)), 
     qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
   )
-unnest(stock_qtl, key = qtl)
+unnest_tsibble(stock_qtl, cols = c(value, qtl), key = c(stock, qtl))
 }

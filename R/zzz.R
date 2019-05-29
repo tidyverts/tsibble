@@ -22,6 +22,7 @@
   register_s3_method("tidyr", "fill", "grouped_ts")
   register_s3_method("tidyr", "fill", "tbl_ts")
   register_s3_method("tidyr", "unnest", "lst_ts")
+  register_s3_method("tidyr", "unnest", "tbl_ts")
 
   invisible()
 }

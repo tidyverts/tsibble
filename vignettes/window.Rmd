@@ -89,7 +89,8 @@ my_diag <- function(...) {
 }
 pedestrian %>%
   filter_index(~ "2015-03") %>%
-  nest(-Sensor) %>%
+  group_by_key() %>% 
+  nest() %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 
@@ -100,7 +101,8 @@ library(furrr)
 plan(multiprocess)
 pedestrian %>%
   filter_index(~ "2015-03") %>%
-  nest(-Sensor) %>%
+  group_by_key() %>% 
+  nest() %>%
   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 24 * 7)))
 ```
 

@@ -174,9 +174,10 @@ slide_dfc <- function(
 #' }
 #' 
 #' my_df %>% 
-#'   nest(-group) %>% 
+#'   group_by(group) %>% 
+#'   nest() %>% 
 #'   mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) %>% 
-#'   unnest()
+#'   unnest(slope)
 slide2 <- function(
   .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE, 
   .align = "right", .bind = FALSE
@@ -287,7 +288,7 @@ pslide_dfr <- function(
 #' pedestrian %>% 
 #'   filter(Sensor == "Southern Cross Station") %>% 
 #'   index_by(yrmth = yearmonth(Date_Time)) %>% 
-#'   nest(-yrmth) %>% 
+#'   nest() %>% 
 #'   mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
 #' # row-oriented workflow
 #' \dontrun{
@@ -298,7 +299,8 @@ pslide_dfr <- function(
 #' }
 #' pedestrian %>%
 #'   filter_index("2015-01") %>%
-#'   nest(-Sensor) %>%
+#'   group_by_key() %>% 
+#'   nest() %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
 pslide_dfc <- function(
@@ -599,7 +601,8 @@ slider_msg <- function() {
 #'   tibble(fitted = fitted(fit), resid = residuals(fit))
 #' }
 #' pedestrian %>%
-#'   nest(-Sensor) %>%
+#'   group_by_key() %>%
+#'   nest() %>%
 #'   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
 #' }
 # nocov start
