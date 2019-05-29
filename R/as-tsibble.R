@@ -259,9 +259,10 @@ build_tsibble <- function(
     if (is_false(actually_ordered)) {
       idx_txt <- backticks(index)
       key_txt <- lapply(key_vars, expr_label)
-      warn(sprintf(
-        "Unspecified temporal ordering may yield unexpected results.\nSuggest to sort by %s first.",
-        comma(c(key_txt, idx_txt), sep = ""))
+      warn(sprintf(paste_inline(
+        "Unspecified temporal ordering may yield unexpected results.",
+        "Suggest to sort by %s first."
+      ), comma(c(key_txt, idx_txt), sep = ""))
       )
     }
     ordered <- actually_ordered
@@ -384,9 +385,9 @@ validate_order <- function(x) {
 validate_tsibble <- function(data, key, index, key_data = NULL) {
   is_dup <- duplicated_key_index(data, key, index, key_data)
   if (is_dup) {
-    header <- "A valid tsibble must have distinct rows identified by key and index.\n"
+    header <- "A valid tsibble must have distinct rows identified by key and index."
     hint <- "Please use `duplicates()` to check the duplicated rows."
-    abort(paste0(header, hint))
+    abort(paste_inline(header, hint))
   }
   data
 }
@@ -395,9 +396,9 @@ validate_tsibble <- function(data, key, index, key_data = NULL) {
 retain_tsibble <- function(data, key, index) {
   is_dup <- duplicated_key_index(data, key, index)
   if (is_dup) {
-    header <- "The result is not a valid tsibble.\n"
+    header <- "The result is not a valid tsibble."
     hint <- "Do you need `as_tibble()` to work with data frame?"
-    abort(paste0(header, hint))
+    abort(paste_inline(header, hint))
   }
   data
 }

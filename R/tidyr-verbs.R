@@ -44,9 +44,9 @@ spread.tbl_ts <- function(data, key, value, ...) {
   value <- enexpr(value)
   key_var <- vars_pull(names(data), !! key)
   if (has_index(key_var, data)) {
-    abort(sprintf(
-      "Column `%s` (index) can't be spread.\nPlease use `as_tibble()` to coerce.", 
-      key_var
+    abort(paste_inline(
+      sprintf("Column `%s` (index) can't be spread.", key_var),
+      "Please use `as_tibble()` to coerce."
     ))
   }
   key_left <- setdiff(key_vars(data), key_var)
@@ -96,7 +96,10 @@ nest.tbl_ts <- function(.data, ...) {
 
 unnest.lst_ts <- function(data, ..., key = NULL) {
   if (utils::packageVersion("tidyr") > "0.8.3") {
-    abort("Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.\nPlease use `unnest_tsibble()` instead.")
+    abort(paste_inline(
+      "Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.",
+      "Please use `unnest_tsibble()` instead."
+    ))
   }
   unnested_data <- unnest(as_tibble(data), ...)
 
@@ -125,7 +128,10 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
 
 unnest.tbl_ts <- function(data, ..., key = NULL) {
   if (utils::packageVersion("tidyr") > "0.8.3") {
-    abort("Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.\nPlease use `unnest_tsibble()` instead.")
+    abort(paste_inline(
+      "Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.",
+      "Please use `unnest_tsibble()` instead."
+    ))
   }
   unnested_data <- unnest(as_tibble(data), ...)
 

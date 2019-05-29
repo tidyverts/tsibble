@@ -58,10 +58,10 @@ select.tbl_ts <- function(.data, ...) {
   idx_chr <- index_var(.data)
   rm_index <- sym(paste0("-", idx_chr))
   if (any(lst_exprs == rm_index)) {
-    abort(sprintf(
-      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?",
-      idx_chr
-    ))
+    abort(sprintf(paste_inline(
+      "Column `%s` (index) can't be removed.",
+      "Do you need `as_tibble()` to work with data frame?"
+    ), idx_chr))
   }
 
   named <- list_is_named(lst_quos)
@@ -91,10 +91,10 @@ mutate.tbl_ts <- function(.data, ...) {
 
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
-    abort(sprintf(
-      "Column `%s` (index) can't be removed.\nDo you need `as_tibble()` to work with data frame?",
-      idx_chr
-    ))
+    abort(sprintf(paste_inline(
+      "Column `%s` (index) can't be removed.",
+      "Do you need `as_tibble()` to work with data frame?"
+    ), idx_chr))
   }
 
   lst_quos <- enquos(..., .named = TRUE)
@@ -196,9 +196,9 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   if (is_empty(grp_vars)) return(.data)
   index <- index_var(.data)
   if (index %in% grp_vars) {
-    err <- sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.\n", index)
+    err <- sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index)
     hint <- "Did you mean `index_by()`?"
-    abort(paste0(err, hint))
+    abort(paste_inline(err, hint))
   }
 
   grp_key <- identical(grp_vars, key_vars(.data)) && 
