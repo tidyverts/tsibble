@@ -82,8 +82,7 @@ nest.tbl_ts <- function(.data, ...) {
   tbl_nest <- tidyr::nest(as_tibble(.data), ...)
   nest_vars <- setdiff(names(.data), names(tbl_nest))
   if (!has_all_key(nest_vars, .data) && !has_index(nest_vars, .data)) {
-    build_tsibble(tbl_nest, 
-      key = setdiff(intersect(names(.data), names(tbl_nest)), index_var(.data)),
+    build_tsibble(tbl_nest, key = setdiff(key_vars(.data), nest_vars),
       index = !! index(.data), validate = FALSE)
   } else if (!has_index(nest_vars, .data)) {
     build_tsibble(tbl_nest, index = !! index(.data), validate = FALSE)
