@@ -63,7 +63,7 @@ tourism <- tourism %>%
   slice(1:10) %>%
   ungroup()
 
-test_that("nest()", {
+test_that("nest() under tidyr 0.8.3", {
   skip_if(packageVersion("tidyr") > "0.8.3")
   expect_is(pedestrian %>% nest(-Date_Time), "tbl_ts")
   expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", "data"))
@@ -77,7 +77,9 @@ test_that("nest()", {
   nested_ped <- pedestrian %>% nest(-Sensor)
   expect_is(nested_ped, "lst_ts")
   expect_equal(key_vars(nested_ped$data[[1]]), character(0))
+})
 
+test_that("nest()", {
   skip_if(packageVersion("tidyr") <= "0.8.3")
   expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_ts")
   expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
@@ -93,6 +95,27 @@ test_that("nest()", {
     nest(data = -Sensor)
   expect_is(nested_ped, "lst_ts")
   expect_equal(key_vars(nested_ped$data[[1]]), character(0))
+})
+
+test_that("unnest.lst_ts()", {
+  skip_if(packageVersion("tidyr") > "0.8.3")
+  nest_t <- tourism %>%
+    nest(-Region, -State)
+  expect_error(nest_t %>% unnest(data), "a valid tsibble")
+  expect_is(
+    nest_t %>% unnest(data, key = c(Region, State)),
+    "tbl_ts"
+  )
+  expect_equal(
+    nest_t %>% unnest(data, key = c(Region, State)),
+    tourism
+  )
+  expect_is(
+    nest_t %>%
+      mutate(data2 = lapply(data, as_tibble)) %>%
+      unnest(data, key = c(Region, State)),
+    "tbl_ts"
+  )
 })
 
 test_that("unnest_tsibble() for lst_ts", {

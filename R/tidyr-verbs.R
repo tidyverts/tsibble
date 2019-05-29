@@ -67,13 +67,8 @@ spread.tbl_ts <- function(data, key, value, ...) {
 #' @inheritParams tidyr::nest
 #' @rdname tsibble-tidyverse
 #' @examples
-#' if (packageVersion("tidyr") <= "0.8.3") {
 #' nested_stock <- stocksm %>% 
 #'   nest(-stock)
-#' } else {
-#' nested_stock <- stocksm %>% 
-#'   nest(data = -stock)
-#' }
 #' stocksm %>% 
 #'   group_by(stock) %>% 
 #'   nest()

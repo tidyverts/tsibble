@@ -130,13 +130,8 @@ stocks <- tsibble(
 )
 (stocksm <- stocks \%>\% gather(stock, price, -time))
 stocksm \%>\% spread(stock, price)
-if (packageVersion("tidyr") <= "0.8.3") {
 nested_stock <- stocksm \%>\% 
   nest(-stock)
-} else {
-nested_stock <- stocksm \%>\% 
-  nest(data = -stock)
-}
 stocksm \%>\% 
   group_by(stock) \%>\% 
   nest()
