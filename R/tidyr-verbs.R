@@ -239,9 +239,7 @@ slice.lst_ts <- mutate.lst_ts
 group_by.lst_ts <- mutate.lst_ts
 
 #' @export
-left_join.lst_ts <- function(
-  x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...
-) {
+left_join.lst_ts <- function(x, ...) {
   as_lst_ts(NextMethod())
 }
 
@@ -255,12 +253,10 @@ full_join.lst_ts <- left_join.lst_ts
 inner_join.lst_ts <- left_join.lst_ts
 
 #' @export
-anti_join.lst_ts <- function(x, y, by = NULL, copy = FALSE, ...) {
-  as_lst_ts(NextMethod())
-}
+anti_join.lst_ts <- left_join.lst_ts
 
 #' @export
-semi_join.lst_ts <- anti_join.lst_ts
+semi_join.lst_ts <- left_join.lst_ts
 
 as_lst_ts <- function(x) {
   cls <- c("tbl_df", "tbl", "data.frame")
