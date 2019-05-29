@@ -1,7 +1,7 @@
 Type: Package
 Package: tsibble
 Title: Tidy Temporal Data Frames and Tools
-Version: 0.8.0.9000
+Version: 0.8.0.9100
 Authors@R: 
     c(person(given = "Earo",
              family = "Wang",
