@@ -216,7 +216,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #'     interval = interval(.)
 #'   )
 build_tsibble <- function(
-  x, key, key_data = NULL, index, index2 = index, ordered = NULL,
+  x, key = NULL, key_data = NULL, index, index2 = index, ordered = NULL,
   interval = TRUE, validate = TRUE, .drop = key_drop_default(x)
 ) {
   is_key_data <- !is_null(key_data)

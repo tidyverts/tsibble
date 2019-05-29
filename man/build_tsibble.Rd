@@ -4,7 +4,7 @@
 \alias{build_tsibble}
 \title{Low-level constructor for a tsibble object}
 \usage{
-build_tsibble(x, key, key_data = NULL, index, index2 = index,
+build_tsibble(x, key = NULL, key_data = NULL, index, index2 = index,
   ordered = NULL, interval = TRUE, validate = TRUE,
   .drop = key_drop_default(x))
 }
