@@ -72,7 +72,7 @@ test_that("arrange.tbl_ts()", {
 })
 
 idx_year <- seq.int(1970, 2010, by = 10)
-dat_x <- tsibble(year = idx_year, value = 1:5, index = year)
+dat_x <- tsibble(year = idx_year, value = 5:1, index = year)
 
 test_that("warnings for arrange a univariate time series", {
   expect_warning(arrange(dat_x, value), "Unspecified temporal order.")
