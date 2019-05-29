@@ -51,7 +51,6 @@ pull_interval <- function(x) {
 #' @rdname deprecated
 #' @export
 #' @keywords internal
-#' @include gaps.R
 fill_na <- function(.data, ..., .full = FALSE) {
   .Defunct("fill_gaps()")
 }
