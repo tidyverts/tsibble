@@ -97,6 +97,10 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
       "Please use `unnest_tsibble()` instead."
     ))
   }
+  inform(paste_inline(
+    "`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.",
+    "Please use `unnest_tsibble()` instead."
+  ))
   unnested_data <- unnest(as_tibble(data), ...)
 
   key <- use_id(data, !! enquo(key))
@@ -129,6 +133,10 @@ unnest.tbl_ts <- function(data, ..., key = NULL) {
       "Please use `unnest_tsibble()` instead."
     ))
   }
+  inform(paste_inline(
+    "`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.",
+    "Please use `unnest_tsibble()` instead."
+  ))
   unnested_data <- unnest(as_tibble(data), ...)
 
   key <- use_id(data, !! enquo(key))
