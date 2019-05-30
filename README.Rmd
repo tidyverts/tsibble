@@ -192,5 +192,5 @@ Looking for rolling in parallel? Their multiprocessing equivalents are prefixed 
 * The [short article](https://less.earo.me/posts/2019-04-tsibble-design/) describes the overall philosophy and design of **tsibble**.
 
 ---
-Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/tidyverts/tsibble/blob/master/.github/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.

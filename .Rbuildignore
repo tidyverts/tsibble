@@ -14,3 +14,4 @@
 ^\.github$
 ^revdep$
 ^LICENSE\.md$
+^tags$
