@@ -4,6 +4,7 @@
 * Added new `unnest_tsibble()` to minimise the impact from the upcoming API changes in `tidyr::unnest()`.
 * `index_by()` allows for grouping index variable; and `group_by()` will throw out an error for grouping index.
 * When creating a tsibble, a warning might be issued for mismatch between interval and index representation.
+* Fixed bugs in `semi_join.tbl_ts()` and `anti_join.tbl_ts()` without suffix (#122).
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`.
 * Defunct `fill_na()` in favour of `fill_gaps()`.
 * Defunct `pull_interval()` in favour of `interval_pull()`.

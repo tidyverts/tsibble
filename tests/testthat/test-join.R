@@ -54,6 +54,15 @@ test_that("semi_join()", {
   expect_identical(index(x), index(semi))
 })
 
+test_that("semi_join() #122", {
+  semi <- pedestrian %>% 
+    semi_join(
+      tibble(Sensor = "Birrarung Marr", Date_Time = Sys.time()),
+      by = "Sensor"
+    )
+  expect_identical(semi, pedestrian %>% filter(Sensor == "Birrarung Marr"))
+})
+
 test_that("anti_join()", {
   anti <- x %>% anti_join(y_key)
   expect_is(anti, "tbl_ts")
