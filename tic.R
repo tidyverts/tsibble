@@ -1,6 +1,11 @@
 do_package_checks()
 
-if (Sys.getenv("id_rsa") != "") {
+if (Sys.getenv("DEV_VERSIONS") != "") {
+  get_stage("install") %>%
+    add_step(step_install_github(c("r-lib/rlang", "tidyverse/dplyr")))
+}
+
+if (Sys.getenv("BUILD_PKGDOWN") != "" && ci()$is_tag()) {
   # pkgdown documentation can be built optionally. Other example criteria:
   # - `inherits(ci(), "TravisCI")`: Only for Travis CI
   # - `ci()$is_tag()`: Only for tags, not for branches

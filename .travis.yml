@@ -15,20 +15,31 @@ deploy:
   provider: script
   script: R -q -e 'tic::deploy()'
   on:
-    tags: true
-    branch: master
+    all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE
 
 # Custom parts:
+#jobs
+jobs:
+  include:
+  - r: devel
+    env:
+    - DEV_VERSIONS=true
+  - r: 3.2
+  - stage: full
+    os: osx
+  - r: release
+    env:
+    - BUILD_PKGDOWN=true
+  - r: 3.5
+  - r: 3.4
+  - r: 3.3
+  fast_finish: true
 
 # Header
 language: r
-r:
-  - oldrel
-  - release
-  - devel
 sudo: false
 dist: trusty
 cache: packages
