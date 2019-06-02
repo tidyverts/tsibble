@@ -98,7 +98,7 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
     ))
   }
   inform(paste_inline(
-    "`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.",
+    "`unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.",
     "Please use `unnest_tsibble()` instead."
   ))
   unnested_data <- unnest(as_tibble(data), ...)
@@ -134,7 +134,7 @@ unnest.tbl_ts <- function(data, ..., key = NULL) {
     ))
   }
   inform(paste_inline(
-    "`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.",
+    "`unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.",
     "Please use `unnest_tsibble()` instead."
   ))
   unnested_data <- unnest(as_tibble(data), ...)
@@ -182,6 +182,9 @@ unnest_check_tsibble <- function(data, key, index) {
 unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
   if (is_false(inherits(data, "lst_ts") || is_tsibble(data))) {
     abort("`data` contains no tsibble object.")
+  }
+  if (missing(cols)) {
+    abort("Argument `cols` is required.")
   }
   if (utils::packageVersion("tidyr") > "0.8.3") {
     unnested_data <- unnest(as_tibble(data), cols = !! enquo(cols))
