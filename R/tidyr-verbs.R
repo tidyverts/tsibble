@@ -184,7 +184,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
     abort("`data` contains no tsibble object.")
   }
   if (missing(cols)) {
-    abort("Argument `cols` is required.")
+    abort("Argument `cols` for columns to unnest is required.")
   }
   if (utils::packageVersion("tidyr") > "0.8.3") {
     unnested_data <- unnest(as_tibble(data), cols = !! enquo(cols))
