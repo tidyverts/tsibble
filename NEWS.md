@@ -1,4 +1,4 @@
-# tsibble dev
+# tsibble 0.8.1
 
 * **Breaking change**: `index_by(.data, <empty>)` by default groups the index variable rather than previously `ungroup()`.
 * Added new `unnest_tsibble()` to minimise the impact from the upcoming API changes in `tidyr::unnest()`.
