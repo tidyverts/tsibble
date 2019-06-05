@@ -12,11 +12,11 @@
 #' @export
 #'
 #' @examples
-#' # a monthly series ----
+#' # a monthly series
 #' x1 <- as_tsibble(AirPassengers)
 #' as.ts(x1)
 #' 
-#' # equally spaced over trading days, not smart enough to guess frequency ----
+#' # equally spaced over trading days, not smart enough to guess frequency
 #' x2 <- as_tsibble(EuStockMarkets)
 #' head(as.ts(x2, frequency = 260))
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
@@ -140,17 +140,29 @@ guess_frequency <- function(x) {
 
 #' @export
 guess_frequency.numeric <- function(x) {
-  gcd_interval(x)
+  if (has_length(x, 1)) {
+    1
+  } else {
+    gcd_interval(x)
+  }
 }
 
 #' @export
 guess_frequency.yearweek <- function(x) {
-  round(365.25 / 7 / interval_pull(x)$week, 2)
+  if (has_length(x, 1)) {
+    52.18
+  } else {
+    round(365.25 / 7 / interval_pull(x)$week, 2)
+  }
 }
 
 #' @export
 guess_frequency.yearmonth <- function(x) {
-  12 / interval_pull(x)$month
+  if (has_length(x, 1)) {
+    12
+  } else {
+    12 / interval_pull(x)$month
+  }
 }
 
 #' @export
@@ -158,7 +170,11 @@ guess_frequency.yearmon <- guess_frequency.yearmonth
 
 #' @export
 guess_frequency.yearquarter <- function(x) {
-  4 / interval_pull(x)$quarter
+  if (has_length(x, 1)) {
+    4
+  } else {
+    4 / interval_pull(x)$quarter
+  }
 }
 
 #' @export
@@ -166,14 +182,20 @@ guess_frequency.yearqtr <- guess_frequency.yearquarter
 
 #' @export
 guess_frequency.Date <- function(x) {
-  7 / interval_pull(x)$day
+  if (has_length(x, 1)) {
+    7
+  } else {
+    7 / interval_pull(x)$day
+  }
 }
 
 #' @export
 guess_frequency.POSIXt <- function(x) {
   int <- interval_pull(x)
   number <- int$hour + int$minute / 60 + int$second / 3600
-  if (number > 1 / 60) {
+  if (has_length(x, 1)) {
+    1
+  } else if (number > 1 / 60) {
     24 / number
   } else if (number > 1 / 3600 && number <= 1 / 60) {
     3600 * number

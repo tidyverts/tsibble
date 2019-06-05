@@ -66,3 +66,11 @@ test_that("time.* and guess_frequency.*", {
  )
  expect_equal(guess_frequency(dat_sec), 60)
 })
+
+test_that("guess_frequency() for one observation #124", {
+  expect_identical(guess_frequency(as.Date("2017-01-01")), 7)
+  expect_identical(guess_frequency(yearmonth(as.Date("2017-01-01"))), 12)
+  one_obs <- tsibble(date = as.Date("2017-01-01"), gdp = 5)
+  expect_identical(frequency(as.ts(one_obs)), 7)
+  expect_identical(frequency(as.ts(one_obs, frequency = 12)), 12)
+})

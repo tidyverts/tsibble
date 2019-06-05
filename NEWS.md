@@ -1,6 +1,7 @@
 # tsibble dev
 
-* Fixed bugs of losing the "ordered" attribute when renaming a tsibble, introduced in v0.8.1 (#126).
+* Fixed bugs for losing the "ordered" attribute when renaming a tsibble, introduced in v0.8.1 (#126).
+* Fixed bug in `as.ts.tbl_ts()` for handling a tsibble of one row (#124).
 
 # tsibble 0.8.1
 
