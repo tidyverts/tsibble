@@ -1,3 +1,7 @@
+# tsibble dev
+
+* Fixed bugs of losing the "ordered" attribute when renaming a tsibble, introduced in v0.8.1 (#126).
+
 # tsibble 0.8.1
 
 * **Breaking change**: `index_by(.data, <empty>)` by default groups the index variable rather than previously `ungroup()`.

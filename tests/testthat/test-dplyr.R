@@ -167,6 +167,14 @@ test_that("select() and rename()", {
   expect_identical(rename(tourism), tourism)
 })
 
+test_that("rename tsibble with 'ordered' #126", {
+  foo <- tsibble(date = as.Date("2017-01-01") + 0:2, x = 1:3)
+  expect_identical(
+    attr(attr(foo %>% rename(the_date = date), "index"), "ordered"),
+    is_ordered(foo)
+  )
+})
+
 test_that("select() with group_by()", {
   # grouped by "key"
   grped_ped <- pedestrian %>% group_by(Sensor)

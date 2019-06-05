@@ -68,6 +68,7 @@ rename_tsibble <- function(.data, ...) {
 
   new_names <- names(val_vars)
   new_idx <- new_names[old_idx == val_vars]
+  attr(new_idx, "ordered") <- is_ordered(.data)
   new_idx2 <- new_names[old_idx2 == val_vars]
   new_key <- new_names[val_vars %in% old_key]
   new_grp <- new_names[val_vars %in% old_grp]
