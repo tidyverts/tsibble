@@ -283,7 +283,8 @@ build_tsibble_meta <- function(
 ) {
   stopifnot(is_string(index) && is_string(index2))
   stopifnot(!is_null(ordered))
-  tbl <- as_tibble(x)
+  stopifnot(is.data.frame(x))
+  tbl <- x
   attr(index, "ordered") <- ordered
 
   is_interval <- inherits(interval, "interval")
