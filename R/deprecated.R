@@ -68,7 +68,7 @@ id <- function(...) {
 
 use_id <- function(x, key) {
   key_quo <- enquo(key)
-  if(quo_is_null(key_quo)){
+  if (quo_is_null(key_quo)) {
     return(character())
   }
   if (quo_is_call(key_quo)) {
