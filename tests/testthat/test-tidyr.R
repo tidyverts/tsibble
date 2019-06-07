@@ -84,6 +84,7 @@ test_that("nest() under tidyr 0.8.3", {
 test_that("nest()", {
   skip_if(packageVersion("tidyr") <= "0.8.3")
   expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_ts")
+  expect_named(tourism %>% nest(Trips = -Purpose), c("Purpose", "Trips"))
   expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
   expect_is(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
   expect_named(pedestrian %>% nest(), "data")
@@ -164,6 +165,16 @@ test_that("unnest_tsibble()", {
       unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)) %>%
       NCOL,
     6
+  )
+})
+
+test_that("unnest_tsibble() #123 for names", {
+  skip_if(packageVersion("tidyr") > "0.8.3")
+  nested_t <- tourism %>% nest(-Purpose, .key = "Trips")
+  expect_equal(
+    nested_t %>% 
+      unnest_tsibble(Trips, key = c(Purpose, Region, Trips)),
+    tourism
   )
 })
 

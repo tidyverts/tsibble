@@ -13,7 +13,6 @@
 \alias{gather.tbl_ts}
 \alias{spread.tbl_ts}
 \alias{nest.tbl_ts}
-\alias{unnest_tsibble}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -38,8 +37,6 @@
 \method{spread}{tbl_ts}(data, key, value, ...)
 
 \method{nest}{tbl_ts}(.data, ...)
-
-unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -49,7 +46,7 @@ unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 \item{.preserve}{when \code{FALSE} (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.}
 
-\item{data}{A tsibble or a data frame contains tsibble in the list-columns.}
+\item{data}{A data frame.}
 
 \item{key}{Names of new key and value columns, as strings or
 symbols.
@@ -81,12 +78,6 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
-
-\item{cols}{Names of columns to unnest.}
-
-\item{validate}{\code{TRUE} suggests to verify that each key or each combination
-of key variables leads to unique time indices (i.e. a valid tsibble). If you
-are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{
 \itemize{
@@ -135,14 +126,4 @@ nested_stock <- stocksm \%>\%
 stocksm \%>\% 
   group_by(stock) \%>\% 
   nest()
-nested_stock \%>\% 
-  unnest_tsibble(cols = data, key = stock)
-stock_qtl <- stocksm \%>\% 
-  group_by(stock) \%>\% 
-  index_by(day3 = lubridate::floor_date(time, unit = "3 day")) \%>\% 
-  summarise(
-    value = list(quantile(price)), 
-    qtl = list(c("0\%", "25\%", "50\%", "75\%", "100\%"))
-  )
-unnest_tsibble(stock_qtl, cols = c(value, qtl), key = c(stock, qtl))
 }
