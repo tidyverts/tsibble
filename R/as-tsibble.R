@@ -278,6 +278,16 @@ build_tsibble <- function(
   )
 }
 
+#' Low-level & high-performance constructor for a tsibble object
+#'
+#' `build_tsibble_meta()` does much less checks than `build_tsibble()` for
+#' high performance.
+#'
+#' @inheritParams build_tsibble
+#' @param index,index2 Strings for variable name.
+#'
+#' @keywords internal
+#' @export
 build_tsibble_meta <- function(
   x, key_data = NULL, index, index2, ordered = NULL, interval = TRUE
 ) {
