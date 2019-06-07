@@ -75,14 +75,18 @@ spread.tbl_ts <- function(data, key, value, ...) {
 #' @export
 nest.tbl_ts <- function(.data, ...) {
   tbl_nest <- tidyr::nest(as_tibble(.data), ...)
-  nest_vars <- setdiff(names(.data), names(tbl_nest))
+  data_names <- names(.data)
+  nest_names <- names(tbl_nest)
+  nest_vars <- setdiff(data_names, nest_names)
   if (!has_all_key(nest_vars, .data) && !has_index(nest_vars, .data)) {
     build_tsibble(tbl_nest, key = setdiff(key_vars(.data), nest_vars),
       index = !! index(.data), validate = FALSE)
   } else if (!has_index(nest_vars, .data)) {
     build_tsibble(tbl_nest, index = !! index(.data), validate = FALSE)
   } else {
-    lst_vars <- setdiff(names(tbl_nest), names(.data))
+    new_lst <- nest_names[map_lgl(tbl_nest, is_list)]
+    old_lst <- data_names[map_lgl(data_names, is_list)]
+    lst_vars <- setdiff(new_lst, old_lst)
     .data <- select_tsibble(ungroup(.data), !!! nest_vars, validate = FALSE)
     tbl_nest[[lst_vars]] <- lapply(tbl_nest[[lst_vars]],
       function(x) update_meta(x, .data))

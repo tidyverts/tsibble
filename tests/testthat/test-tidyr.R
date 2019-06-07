@@ -65,6 +65,8 @@ tourism <- tourism %>%
 
 test_that("nest() under tidyr 0.8.3", {
   skip_if(packageVersion("tidyr") > "0.8.3")
+  # 123
+  expect_named(tourism %>% nest(-Purpose, .key = "Trips"), c("Purpose", "Trips"))
   expect_is(pedestrian %>% nest(-Date_Time), "tbl_ts")
   expect_named(pedestrian %>% nest(-Date_Time), c("Date_Time", "data"))
   expect_is(pedestrian %>% nest(c(Date, Count)), "tbl_ts")
