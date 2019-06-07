@@ -281,9 +281,7 @@ build_tsibble <- function(
 build_tsibble_meta <- function(
   x, key_data = NULL, index, index2, ordered = NULL, interval = TRUE
 ) {
-  stopifnot(is_string(index) && is_string(index2))
   stopifnot(!is_null(ordered))
-  stopifnot(is.data.frame(x))
   tbl <- x
   attr(index, "ordered") <- ordered
 
@@ -306,7 +304,7 @@ build_tsibble_meta <- function(
   if (!idx_lgl) {
     tbl <- group_by(tbl, !! sym(index2), add = TRUE)
   }
-  grp_data <- group_data(tbl)
+  grp_data <- tbl %@% "groups"
   tbl <- new_tibble(
     tbl, "key" = key_data, "index" = index, "index2" = index2,
     "interval" = interval, "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
