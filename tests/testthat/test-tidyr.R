@@ -196,7 +196,7 @@ test_that("dplyr verbs for lst_ts", {
   # )
   expect_error(
     unnest_tsibble(nest_t %>% mutate(data = 1), cols = data),
-    "contain no tsibble object."
+    "contain no tsibble columns."
   )
   expect_is(nest_t %>% select(data2 = data), "lst_ts")
   expect_is(nest_t %>% group_by(State), "grouped_df")
