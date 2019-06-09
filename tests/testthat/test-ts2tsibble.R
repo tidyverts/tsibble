@@ -36,3 +36,8 @@ test_that("a mts", {
   expect_identical(key_vars(tsbl2), character(0))
   expect_identical(colnames(tsbl2), c("index", "Series 1", "Series 2"))
 })
+
+test_that("time floating #128", {
+  x <- ts(1:134, start = c(1960, 11), frequency = 12)
+  expect_true(anyDuplicated(as_tsibble(x)$index) == 0)
+})

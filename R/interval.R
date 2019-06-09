@@ -260,7 +260,7 @@ time_to_date <- function(x, ...) {
 
 time_to_date.ts <- function(x, tz = "UTC", ...) {
   freq <- stats::frequency(x)
-  time_x <- as.numeric(stats::time(x))
+  time_x <- round(as.numeric(stats::time(x)), digits = 6) # floating
   if (freq == 52) {
     warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
   }
