@@ -1,4 +1,4 @@
-# tsibble dev
+# tsibble 0.8.2
 
 This is a patch release.
 

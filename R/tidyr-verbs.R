@@ -169,6 +169,8 @@ unnest_check_tsibble <- function(data, key, index) {
 
 #' Unnest a data frame consisting of tsibbles to a tsibble
 #'
+#' This function has the lifecyle of questioning
+#'
 #' @param data A data frame contains homogenous tsibbles in the list-columns.
 #' @param cols Names of columns to unnest.
 #' @inheritParams as_tsibble
