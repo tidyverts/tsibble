@@ -15,12 +15,19 @@ deploy:
   provider: script
   script: R -q -e 'tic::deploy()'
   on:
-    tags: true
+    all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE
 
 # Custom parts:
+
+#stages: test, full
+stages:
+  - name: test
+  - name: full
+    if: branch = master
+
 #jobs
 jobs:
   include:
