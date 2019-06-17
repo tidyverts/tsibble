@@ -209,3 +209,10 @@ test_that("index_by() with pedestrian", {
     summarise(ttl_prop = sum(prop))
   expect_equal(format(interval(ped_sum3)), "1D")
 })
+
+test_that("index_by() with lambda expression", {
+  expect_identical(
+    pedestrian %>% index_by(yrmth = ~ yearmonth(.)),
+    pedestrian %>% index_by(yrmth = yearmonth(Date_Time))
+  )
+})

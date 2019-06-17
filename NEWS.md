@@ -1,3 +1,7 @@
+# tsibble 0.8.2.9000
+
+* `index_by()` supports lambda expression (#91).
+
 # tsibble 0.8.2
 
 This is a patch release.

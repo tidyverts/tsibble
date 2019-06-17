@@ -9,8 +9,10 @@ index_by(.data, ...)
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{...}{If empty, grouping the current index. Or a single expression contains
-an existing variable or a name-value pair.
+\item{...}{If empty, grouping the current index. If not empty, a single
+expression is required for either an existing variable or a name-value pair.
+A lambda expression is supported, for example \code{~ as.Date(.)} where \code{.} refers
+to the index variable.
 The index functions that can be used, but not limited:
 \itemize{
 \item \link[lubridate:year]{lubridate::year}: yearly aggregation
@@ -42,7 +44,7 @@ pedestrian \%>\% index_by()
 library(dplyr, warn.conflicts = FALSE)
 monthly_ped <- pedestrian \%>\% 
   group_by_key() \%>\% 
-  index_by(Year_Month = yearmonth(Date_Time)) \%>\%
+  index_by(Year_Month = ~ yearmonth(.)) \%>\%
   summarise(
     Max_Count = max(Count),
     Min_Count = min(Count)
@@ -62,12 +64,12 @@ pedestrian \%>\%
 # Attempt to aggregate to 4-hour interval, with the effects of DST
 pedestrian \%>\% 
   group_by_key() \%>\% 
-  index_by(Date_Time4 = lubridate::floor_date(Date_Time, "4 hour")) \%>\%
+  index_by(Date_Time4 = ~ lubridate::floor_date(., "4 hour")) \%>\%
   summarise(Total_Count = sum(Count))
 
 # Annual trips by Region and State
 tourism \%>\% 
-  index_by(Year = lubridate::year(Quarter)) \%>\% 
+  index_by(Year = ~ lubridate::year(.)) \%>\% 
   group_by(Region, State) \%>\% 
   summarise(Total = sum(Trips))
 }

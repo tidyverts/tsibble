@@ -7,8 +7,10 @@
 #' the new index. Use `ungroup()` to remove the index grouping vars.
 #'
 #' @param .data A `tbl_ts`.
-#' @param ... If empty, grouping the current index. Or a single expression contains
-#' an existing variable or a name-value pair.
+#' @param ... If empty, grouping the current index. If not empty, a single 
+#' expression is required for either an existing variable or a name-value pair.
+#' A lambda expression is supported, for example `~ as.Date(.)` where `.` refers
+#' to the index variable.
 #' The index functions that can be used, but not limited:
 #' * [lubridate::year]: yearly aggregation
 #' * [yearquarter]: quarterly aggregation
@@ -31,7 +33,7 @@
 #' library(dplyr, warn.conflicts = FALSE)
 #' monthly_ped <- pedestrian %>% 
 #'   group_by_key() %>% 
-#'   index_by(Year_Month = yearmonth(Date_Time)) %>%
+#'   index_by(Year_Month = ~ yearmonth(.)) %>%
 #'   summarise(
 #'     Max_Count = max(Count),
 #'     Min_Count = min(Count)
@@ -51,12 +53,12 @@
 #' # Attempt to aggregate to 4-hour interval, with the effects of DST
 #' pedestrian %>% 
 #'   group_by_key() %>% 
-#'   index_by(Date_Time4 = lubridate::floor_date(Date_Time, "4 hour")) %>%
+#'   index_by(Date_Time4 = ~ lubridate::floor_date(., "4 hour")) %>%
 #'   summarise(Total_Count = sum(Count))
 #'
 #' # Annual trips by Region and State
 #' tourism %>% 
-#'   index_by(Year = lubridate::year(Quarter)) %>% 
+#'   index_by(Year = ~ lubridate::year(.)) %>% 
 #'   group_by(Region, State) %>% 
 #'   summarise(Total = sum(Trips))
 index_by <- function(.data, ...) {
@@ -74,16 +76,21 @@ index_by.tbl_ts <- function(.data, ...) {
   if (identical(idx, names(exprs))) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx))
   }
+  idx2_data <- ungrp <- ungroup(as_tibble(.data))
   if (is_empty(exprs)) {
     idx2 <- index(.data)
   } else {
     idx2 <- sym(names(quos_auto_name(exprs)))
+    expr <- exprs[[1]]
+    expr_f <- quo_get_expr(expr)
+    if (is_formula(expr_f)) { # lambda expression
+      f <- as_function(eval_bare(expr_f), env = quo_get_env(expr))
+      idx2_data <- mutate(ungrp, !! idx2 := f(!! sym(idx)))
+    } else {
+      idx2_data <- mutate(ungrp, !! idx2 := !! expr)
+    }
   }
-  tbl <- 
-    group_by(
-      mutate(ungroup(as_tibble(.data)), !!! exprs),
-      !!! groups(.data), !! idx2, .drop = FALSE
-    )
+  tbl <- group_by(idx2_data, !!! groups(.data), !! idx2, .drop = FALSE)
   build_tsibble(
     tbl, key_data = key_data(.data), index = !! idx, index2 = !! idx2,
     ordered = is_ordered(.data), interval = interval(.data),
