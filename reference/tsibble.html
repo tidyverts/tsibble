@@ -8,6 +8,16 @@
 
 <title>Create a tsibble object — tsibble • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -40,7 +50,11 @@
 
 <meta property="og:description" content="Create a tsibble object" />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -56,13 +70,21 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -81,7 +103,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -152,7 +178,11 @@
     
     </div>
 
+<<<<<<< HEAD
     <pre class="usage"><span class='fu'>tsibble</span>(<span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+=======
+    <pre class="usage"><span class='fu'>tsibble</span>(<span class='no'>...</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,9 +194,14 @@ be avoided as they are used as the arguments.</p></td>
     </tr>
     <tr>
       <th>key</th>
+<<<<<<< HEAD
       <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
+=======
+      <td><p>Unquoted variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and works with tidy selector (e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>index</th>
@@ -177,6 +212,13 @@ simply call <code><a href='id.html'>id()</a></code>.</p></td>
       <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
 interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></td>
     </tr>
+<<<<<<< HEAD
+=======
+    <tr>
+      <th>.drop</th>
+      <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
+    </tr>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -190,6 +232,7 @@ interval is determined by the greatest common divisor of index column, if <code>
     <h2 class="hasAnchor" id="index"><a class="anchor" href="#index"></a>Index</h2>
 
     
+<<<<<<< HEAD
     <p>The time indices are preserved as the essential data component of the tsibble,
 instead of implicit attribute (for example, the <code>tsp</code> attribute in a <code>ts</code> object). A
 few index classes, such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>, forms the basis of
@@ -206,16 +249,44 @@ from 28 to 31 days, which results in irregular time space. This is also applicab
 to year-week and year-quarter.</p>
 <p>Since the <strong>tibble</strong> that underlies the <strong>tsibble</strong> only accepts a 1d atomic
 vector or a list, a <code>tbl_ts</code> doesn't accept <code>POSIXlt</code> and <code>timeDate</code> columns.</p>
+=======
+    <p>An extensive range of indices are supported by tsibble: native time classes in R
+(such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>) and tsibble's new additions
+(such as <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>). Some commonly-used classes
+have built-in support too, including <code>ordered</code>, <code><a href='https://www.rdocumentation.org/packages/hms/topics/hms'>hms::hms</a></code>, <code><a href='https://www.rdocumentation.org/packages/zoo/topics/yearmon'>zoo::yearmon</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>, and <code>nanotime</code>.</p>
+<p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
+be made. For example, a monthly data should correspond to time index created
+by <a href='period.html'>yearmonth</a> or <code><a href='https://www.rdocumentation.org/packages/zoo/topics/yearmon'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
+months in a year ensures the regularity, 12 months every year. However, if
+using <code>Date</code>, a month containing days ranges from 28 to 31 days, which results
+in irregular time space. This is also applicable to year-week and year-quarter.</p>
+<p>Since the <strong>tibble</strong> that underlies the <strong>tsibble</strong> only accepts a 1d atomic
+vector or a list, the tsibble doesn't accept types of <code>POSIXlt</code> and <code>timeDate</code>.</p>
+<p>Tsibble supports arbitrary index classes, as long as they can be ordered from
+past to future. To support a custom class, one needs to define <code><a href='index_valid.html'>index_valid()</a></code>
+for the class and calculate the interval through <code><a href='interval-pull.html'>interval_pull()</a></code>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
     
+<<<<<<< HEAD
     <p>Key variable(s) together with the index uniquely identifies each record, which
 can be created via the <a href='id.html'>id</a> function as identifiers:</p><ul>
 <li><p>Empty: an implicit variable <code><a href='id.html'>id()</a></code> resulting in a univariate time series.</p></li>
 <li><p>One or more variables: explicit variables. For example, <code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data(pedestrian)</a></code>
 and <code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data(tourism)</a></code> use the <code><a href='id.html'>id(Sensor)</a></code> &amp; <code><a href='id.html'>id(Region, State, Purpose)</a></code> as
 the key respectively.</p></li>
+=======
+    <p>Key variable(s) together with the index uniquely identifies each record:</p><ul>
+<li><p>Empty: an implicit variable. <code>NULL</code> resulting in a univariate time series.</p></li>
+<li><p>A single variable: For example, <code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data(pedestrian)</a></code> use the bare <code>Sensor</code> as
+the key.</p></li>
+<li><p>Multiple variables: For example, Declare <code>key = c(Region, State, Purpose)</code>
+for <code><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data(tourism)</a></code>.
+Key can be created in conjunction with tidy selectors like <code>starts_with()</code>.</p></li>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </ul>
     
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
@@ -231,6 +302,7 @@ marked with <code>!</code>.</p></li>
 cannot be determined (<code>?</code>).</p></li>
 </ul>
     <p>An interval is obtained based on the corresponding index representation:</p><ul>
+<<<<<<< HEAD
 <li><p>integer/numeric: either "unit" or "year"</p></li>
 <li><p><code>yearquarter</code>/<code>yearqtr</code>: "quarter"</p></li>
 <li><p><code>yearmonth</code>/<code>yearmon</code>: "month"</p></li>
@@ -238,6 +310,17 @@ cannot be determined (<code>?</code>).</p></li>
 <li><p><code>Date</code>: "day"</p></li>
 <li><p><code>POSIXct</code>: "hour", "minute", "second", "millisecond", "microsecond"</p></li>
 <li><p><code>nanotime</code>: "nanosecond"</p></li>
+=======
+<li><p><code>integer</code>/<code>numeric</code>/<code>ordered</code> (ordered factor): either "unit" or "year" (<code>Y</code>)</p></li>
+<li><p><code>yearquarter</code>/<code>yearqtr</code>: "quarter" (<code>Q</code>)</p></li>
+<li><p><code>yearmonth</code>/<code>yearmon</code>: "month" (<code>M</code>)</p></li>
+<li><p><code>yearweek</code>: "week" (<code>W</code>)</p></li>
+<li><p><code>Date</code>: "day" (<code>D</code>)</p></li>
+<li><p><code>difftime</code>: "quarter" (<code>Q</code>), "month" (<code>M</code>), "week" (<code>W</code>), "day" (D),
+"hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>)</p></li>
+<li><p><code>POSIXct</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
+<li><p><code>nanotime</code>: "nanosecond" (<code>ns</code>)</p></li>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -246,11 +329,16 @@ cannot be determined (<code>?</code>).</p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<<<<<<< HEAD
     <pre class="examples"><div class='input'><span class='co'># create a tsibble w/o a key ----</span>
+=======
+    <pre class="examples"><div class='input'><span class='co'># create a tsibble w/o a key</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='fu'>tsibble</span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>)
 )</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+<<<<<<< HEAD
 #&gt;    date        value
 #&gt;    &lt;date&gt;      &lt;dbl&gt;
 #&gt;  1 2017-01-01 -1.33 
@@ -264,15 +352,35 @@ cannot be determined (<code>?</code>).</p></li>
 #&gt;  9 2017-01-09  0.747
 #&gt; 10 2017-01-10  1.90 </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
+=======
+#&gt;    date         value
+#&gt;    &lt;date&gt;       &lt;dbl&gt;
+#&gt;  1 2017-01-01  2.52  
+#&gt;  2 2017-01-02 -0.420 
+#&gt;  3 2017-01-03  1.34  
+#&gt;  4 2017-01-04 -0.223 
+#&gt;  5 2017-01-05  0.593 
+#&gt;  6 2017-01-06 -0.0653
+#&gt;  7 2017-01-07 -0.701 
+#&gt;  8 2017-01-08 -0.529 
+#&gt;  9 2017-01-09  0.170 
+#&gt; 10 2017-01-10  0.114 </div><div class='input'>
+<span class='co'># create a tsibble with one key</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='fu'>tsibble</span>(
   <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>30</span>),
+<<<<<<< HEAD
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>)
+=======
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 )</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
 #&gt; # Key:       group [3]
 #&gt;        qtr group   value
 #&gt;      &lt;qtr&gt; &lt;chr&gt;   &lt;dbl&gt;
+<<<<<<< HEAD
 #&gt;  1 2010 Q1 x     -2.06  
 #&gt;  2 2010 Q2 x      0.0645
 #&gt;  3 2010 Q3 x     -0.265 
@@ -285,6 +393,19 @@ cannot be determined (<code>?</code>).</p></li>
 #&gt; 10 2012 Q2 x     -0.336 
 #&gt; # … with 20 more rows</div><div class='input'>
 </div></pre>
+=======
+#&gt;  1 2010 Q1 x     -0.796 
+#&gt;  2 2010 Q2 x     -0.236 
+#&gt;  3 2010 Q3 x      1.19  
+#&gt;  4 2010 Q4 x      0.188 
+#&gt;  5 2011 Q1 x      1.04  
+#&gt;  6 2011 Q2 x     -0.450 
+#&gt;  7 2011 Q3 x     -0.709 
+#&gt;  8 2011 Q4 x      0.0304
+#&gt;  9 2012 Q1 x     -0.450 
+#&gt; 10 2012 Q2 x      0.671 
+#&gt; # … with 20 more rows</div></pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -311,7 +432,11 @@ cannot be determined (<code>?</code>).</p></li>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

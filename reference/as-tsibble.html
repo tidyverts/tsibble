@@ -8,6 +8,16 @@
 
 <title>Coerce to a tsibble object — as_tsibble • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -40,7 +50,11 @@
 
 <meta property="og:description" content="Coerce to a tsibble object" />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -56,13 +70,21 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -81,7 +103,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -152,6 +178,7 @@
     
     </div>
 
+<<<<<<< HEAD
     <pre class="usage"><span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_df</span>
@@ -171,6 +198,24 @@
 
 <span class='co'># S3 method for mts</span>
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+=======
+    <pre class="usage"><span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ts</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+
+<span class='co'># S3 method for mts</span>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,6 +225,7 @@
       <td><p>Other objects to be coerced to a tsibble (<code>tbl_ts</code>).</p></td>
     </tr>
     <tr>
+<<<<<<< HEAD
       <th>...</th>
       <td><p>Other arguments passed on to individual methods.</p></td>
     </tr>
@@ -188,6 +234,11 @@
       <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
+=======
+      <th>key</th>
+      <td><p>Unquoted variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and works with tidy selector (e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>index</th>
@@ -205,13 +256,29 @@ of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     </tr>
     <tr>
+<<<<<<< HEAD
+=======
+      <th>.drop</th>
+      <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments passed on to individual methods.</p></td>
+    </tr>
+    <tr>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       <th>tz</th>
       <td><p>Time zone. May be useful when a <code>ts</code> object is more frequent than
 daily.</p></td>
     </tr>
     <tr>
+<<<<<<< HEAD
       <th>gather</th>
       <td><p>TRUE gives a "long" data form, otherwise as "wide" as <code>x</code>.</p></td>
+=======
+      <th>pivot_longer</th>
+      <td><p>TRUE gives a "longer" form of the data, otherwise as is.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     </table>
     
@@ -225,7 +292,11 @@ daily.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<<<<<<< HEAD
     <pre class="examples"><div class='input'><span class='co'># coerce tibble to tsibble w/o a key ----</span>
+=======
+    <pre class="examples"><div class='input'><span class='co'># coerce tibble to tsibble w/o a key</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>tbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>)
@@ -242,7 +313,11 @@ daily.</p></td>
 #&gt;  7 2017-01-07 -1.82   
 #&gt;  8 2017-01-08 -0.247  
 #&gt;  9 2017-01-09 -0.244  
+<<<<<<< HEAD
 #&gt; 10 2017-01-10 -0.283  </div><div class='input'><span class='co'># specify the index var</span>
+=======
+#&gt; 10 2017-01-10 -0.283  </div><div class='input'><span class='co'># supply the index to suppress the message</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
 #&gt;    date          value
 #&gt;    &lt;date&gt;        &lt;dbl&gt;
@@ -256,14 +331,22 @@ daily.</p></td>
 #&gt;  8 2017-01-08 -0.247  
 #&gt;  9 2017-01-09 -0.244  
 #&gt; 10 2017-01-10 -0.283  </div><div class='input'>
+<<<<<<< HEAD
 <span class='co'># coerce tibble to tsibble with one key ----</span>
+=======
+<span class='co'># coerce tibble to tsibble with one key</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='co'># "date" is automatically considered as the index var, and "group" is the key</span>
 <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>mth</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='st'>"2017-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>30</span>)
 )
+<<<<<<< HEAD
 <span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
+=======
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>)</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; # Key:       group [3]
 #&gt;         mth group   value
 #&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
@@ -277,7 +360,11 @@ daily.</p></td>
 #&gt;  8 2017 Aug x     -0.0526
 #&gt;  9 2017 Sep x      0.543 
 #&gt; 10 2017 Oct x     -0.914 
+<<<<<<< HEAD
 #&gt; # … with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(<span class='no'>group</span>), <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
+=======
+#&gt; # … with 20 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>mth</span>)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1M]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; # Key:       group [3]
 #&gt;         mth group   value
 #&gt;       &lt;mth&gt; &lt;chr&gt;   &lt;dbl&gt;
@@ -291,8 +378,12 @@ daily.</p></td>
 #&gt;  8 2017 Aug x     -0.0526
 #&gt;  9 2017 Sep x      0.543 
 #&gt; 10 2017 Oct x     -0.914 
+<<<<<<< HEAD
 #&gt; # … with 20 more rows</div><div class='input'>
 <span class='co'># coerce ts to tsibble</span>
+=======
+#&gt; # … with 20 more rows</div><div class='input'><span class='co'># coerce ts to tsibble</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; # A tsibble: 144 x 2 [1M]
 #&gt;       index value
 #&gt;       &lt;mth&gt; &lt;dbl&gt;
@@ -345,8 +436,12 @@ daily.</p></td>
 #&gt;  8 1973 Q1 13459.
 #&gt;  9 1973 Q2 13504.
 #&gt; 10 1973 Q3 13553.
+<<<<<<< HEAD
 #&gt; # … with 79 more rows</div><div class='input'>
 <span class='co'># coerce mts to tsibble</span>
+=======
+#&gt; # … with 79 more rows</div><div class='input'><span class='co'># coerce mts to tsibble</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ts'>ts</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
 <span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; # A tsibble: 300 x 3 [1M]
 #&gt; # Key:       key [3]
@@ -362,7 +457,11 @@ daily.</p></td>
 #&gt;  8 1961 Aug Series 1  0.578 
 #&gt;  9 1961 Sep Series 1  0.118 
 #&gt; 10 1961 Oct Series 1 -1.91  
+<<<<<<< HEAD
 #&gt; # … with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1M]
+=======
+#&gt; # … with 290 more rows</div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tsibble: 100 x 4 [1M]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;       index `Series 1` `Series 2` `Series 3`
 #&gt;       &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 #&gt;  1 1961 Jan     0.0700     -0.163   -0.903  
@@ -375,8 +474,12 @@ daily.</p></td>
 #&gt;  8 1961 Aug     0.578       0.515   -0.0779 
 #&gt;  9 1961 Sep     0.118      -1.51     0.441  
 #&gt; 10 1961 Oct    -1.91        1.53     0.129  
+<<<<<<< HEAD
 #&gt; # … with 90 more rows</div><div class='input'>
 </div></pre>
+=======
+#&gt; # … with 90 more rows</div></pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -395,7 +498,11 @@ daily.</p></td>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

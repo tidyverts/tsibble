@@ -8,6 +8,16 @@
 
 <title>Stretching window calculation over multiple simultaneously — stretch2 • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -45,7 +55,11 @@ arguments as stretch2(), but return vectors of the corresponding type.
 stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; column-binding.
 " />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,13 +75,21 @@ stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; col
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -86,7 +108,11 @@ stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; col
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -162,6 +188,7 @@ arguments as <code>stretch2()</code>, but return vectors of the corresponding ty
     
     </div>
 
+<<<<<<< HEAD
     <pre class="usage"><span class='fu'>stretch2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>stretch2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -175,6 +202,25 @@ arguments as <code>stretch2()</code>, but return vectors of the corresponding ty
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pstretch_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+=======
+    <pre class="usage"><span class='fu'>stretch2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>stretch2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>stretch2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>pstretch</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>pstretch_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>pstretch_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,8 +256,23 @@ present, the value of <code>.default</code> will be returned.</p></td>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
+<<<<<<< HEAD
       <th>.size, .init</th>
       <td><p>An integer for moving and initial window size.</p></td>
+=======
+      <th>.step</th>
+      <td><p>A positive integer for calculating at every specified step
+instead of every single step.</p></td>
+    </tr>
+    <tr>
+      <th>.init</th>
+      <td><p>A positive integer for an initial window size.</p></td>
+    </tr>
+    <tr>
+      <th>.fill</th>
+      <td><p>A value to fill at the left/center/right of the data range depending
+on <code>.align</code> (<code>NA</code> by default).  <code>NULL</code> means no filling.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>.bind</th>
@@ -249,6 +310,7 @@ names will be used if present.</p></td>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
 <span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>)
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a></span>(<span class='no'>lst</span>)
+<<<<<<< HEAD
 <span class='fu'>stretch2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 7
 #&gt; 
@@ -258,11 +320,29 @@ names will be used if present.</p></td>
 #&gt; [[3]]
 #&gt; [1] 55
 #&gt; </div><div class='input'><span class='fu'>stretch2</span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+=======
+<span class='fu'>stretch2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 7
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] NA
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 27
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] NA
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 55
+#&gt; </div><div class='input'><span class='fu'>stretch2</span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
 #&gt; 
 #&gt; [[2]]
+<<<<<<< HEAD
 #&gt; [[2]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
@@ -273,11 +353,27 @@ names will be used if present.</p></td>
 #&gt; [1] 11 12 13 14 15
 #&gt; 
 #&gt; </div><div class='input'><span class='fu'>stretch2</span>(<span class='no'>df</span>, <span class='no'>df</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+=======
+#&gt; [1] NA
+#&gt; 
+#&gt; [[3]]
+#&gt; [[3]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[3]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[3]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>stretch2</span>(<span class='no'>df</span>, <span class='no'>df</span>, ~ <span class='no'>.</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
 #&gt; 
 #&gt; [[2]]
+<<<<<<< HEAD
 #&gt; [[2]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
@@ -288,6 +384,21 @@ names will be used if present.</p></td>
 #&gt; [1] 11 12 13 14 15
 #&gt; 
 #&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='no'>lst</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+=======
+#&gt; [1] NA
+#&gt; 
+#&gt; [[3]]
+#&gt; [[3]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[3]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[3]]$z
+#&gt; [1] 11 12 13 14 15
+#&gt; 
+#&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='no'>lst</span>, <span class='no'>sum</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; [1] 18
 #&gt; 
 #&gt; [[2]]
@@ -301,12 +412,17 @@ names will be used if present.</p></td>
 #&gt; 
 #&gt; [[5]]
 #&gt; [1] 120
+<<<<<<< HEAD
 #&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>lst</span>, <span class='no'>lst</span>), ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+=======
+#&gt; </div><div class='input'><span class='fu'>pstretch</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>lst</span>, <span class='no'>lst</span>), ~ <span class='no'>.</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
 #&gt; 
 #&gt; [[2]]
+<<<<<<< HEAD
 #&gt; [[2]]$x
 #&gt; [1] 1 2 3 4 5
 #&gt; 
@@ -314,6 +430,18 @@ names will be used if present.</p></td>
 #&gt; [1]  6  7  8  9 10
 #&gt; 
 #&gt; [[2]]$z
+=======
+#&gt; [1] NA
+#&gt; 
+#&gt; [[3]]
+#&gt; [[3]]$x
+#&gt; [1] 1 2 3 4 5
+#&gt; 
+#&gt; [[3]]$y
+#&gt; [1]  6  7  8  9 10
+#&gt; 
+#&gt; [[3]]$z
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; [1] 11 12 13 14 15
 #&gt; 
 #&gt; </div><div class='input'>
@@ -326,6 +454,7 @@ names will be used if present.</p></td>
 
 <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>pstretch</span>(<span class='no'>df</span>, <span class='kw'>function</span>(<span class='no'>...</span>) <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>...</span>)), <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<<<<<<< HEAD
 )</div><div class='output co'>#&gt; # A tibble: 356 x 1
 #&gt;    data             
 #&gt;    &lt;list&gt;           
@@ -340,6 +469,22 @@ names will be used if present.</p></td>
 #&gt;  9 &lt;tibble [18 × 2]&gt;
 #&gt; 10 &lt;tibble [19 × 2]&gt;
 #&gt; # … with 346 more rows</div></pre>
+=======
+)</div><div class='output co'>#&gt; # A tibble: 365 x 1
+#&gt;    data             
+#&gt;    &lt;list&gt;           
+#&gt;  1 &lt;lgl [1]&gt;        
+#&gt;  2 &lt;lgl [1]&gt;        
+#&gt;  3 &lt;lgl [1]&gt;        
+#&gt;  4 &lt;lgl [1]&gt;        
+#&gt;  5 &lt;lgl [1]&gt;        
+#&gt;  6 &lt;lgl [1]&gt;        
+#&gt;  7 &lt;lgl [1]&gt;        
+#&gt;  8 &lt;lgl [1]&gt;        
+#&gt;  9 &lt;lgl [1]&gt;        
+#&gt; 10 &lt;tibble [10 × 2]&gt;
+#&gt; # … with 355 more rows</div></pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -356,7 +501,11 @@ names will be used if present.</p></td>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

@@ -6,8 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
 <title>Sliding window in parallel — future_slide • tsibble</title>
 
+=======
+<title>Sliding window in parallel — future_slide() • tsibble</title>
+
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -36,7 +48,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+<<<<<<< HEAD
 <meta property="og:title" content="Sliding window in parallel — future_slide" />
+=======
+<meta property="og:title" content="Sliding window in parallel — future_slide()" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 
 <meta property="og:description" content="Multiprocessing equivalents of slide(), tile(), stretch() prefixed by future_.
 Variants for corresponding types: future_*_lgl(), future_*_int(),
@@ -45,7 +61,11 @@ Extra arguments .progress and .options for enabling progress bar and the
 future specific options to use with the workers.
 " />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,13 +81,21 @@ future specific options to use with the workers.
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -86,7 +114,11 @@ future specific options to use with the workers.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -178,6 +210,7 @@ future specific options to use with the workers.</p></li>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+<<<<<<< HEAD
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   Sensor                        data                   diag                  
@@ -186,6 +219,11 @@ future specific options to use with the workers.</p></li>
 #&gt; 2 Bourke Street Mall (North)    &lt;tsibble [16,414 × 4]&gt; &lt;tibble [785,617 × 2]&gt;
 #&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [17,518 × 4]&gt; &lt;tibble [838,609 × 2]&gt;
 #&gt; 4 Southern Cross Station        &lt;tsibble [17,539 × 4]&gt; &lt;tibble [839,617 × 2]&gt;</div></pre>
+=======
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>mutate</span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in nest(.): could not find function "nest"</span></div></pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -201,7 +239,11 @@ future specific options to use with the workers.</p></li>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

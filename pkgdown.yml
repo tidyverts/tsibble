@@ -7,6 +7,11 @@ articles:
   intro-tsibble: intro-tsibble.html
   window: window.html
 urls:
+<<<<<<< HEAD
   reference: https://pkg.earo.me/tsibble/reference
   article: https://pkg.earo.me/tsibble/articles
+=======
+  reference: https://tsibble.tidyverts.org/reference
+  article: https://tsibble.tidyverts.org/articles
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 

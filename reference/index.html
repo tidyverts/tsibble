@@ -8,6 +8,16 @@
 
 <title>Function reference • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -38,7 +48,11 @@
 
 <meta property="og:title" content="Function reference" />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -54,13 +68,21 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -79,7 +101,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -244,6 +270,7 @@
         <td>
           <p><code><a href="index-by.html">index_by()</a></code> </p>
         </td>
+<<<<<<< HEAD
         <td><p>Group and collapse by time index</p></td>
       </tr><tr>
         
@@ -257,17 +284,57 @@
           <p><code><a href="group_by_key.html">group_by_key()</a></code> </p>
         </td>
         <td><p>Group by key variables</p></td>
+=======
+        <td><p>Group by time index and collapse with <code>summarise()</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="group_by_key.html">group_by_key()</a></code> </p>
+        </td>
+        <td><p>Group by key variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_index.html">filter_index()</a></code> </p>
+        </td>
+        <td><p>A shorthand for filtering time index for a tsibble</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
+<<<<<<< HEAD
           <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and <code>furrr</code>-style parallel processing.</p></p>
+=======
+          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and <code>furrr</code>-style parallel processing. <code><a href="../reference/slide_tsibble.html">slide_tsibble()</a></code>, <code><a href="../reference/tile_tsibble.html">tile_tsibble()</a></code>, <code><a href="../reference/stretch_tsibble.html">stretch_tsibble()</a></code> perform fast subsetting a tsibble by rolling rows.</p></p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </th>
       </tr>
       <tr>
         
         <td>
+<<<<<<< HEAD
+=======
+          <p><code><a href="slide_tsibble.html">slide_tsibble()</a></code> </p>
+        </td>
+        <td><p>Perform sliding windows on a tsibble by row</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tile_tsibble.html">tile_tsibble()</a></code> </p>
+        </td>
+        <td><p>Perform tiling windows on a tsibble by row</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stretch_tsibble.html">stretch_tsibble()</a></code> </p>
+        </td>
+        <td><p>Perform stretching windows on a tsibble by row</p></td>
+      </tr><tr>
+        
+        <td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
           <p><code><a href="slide.html">slide()</a></code> <code><a href="slide.html">slide_dfr()</a></code> <code><a href="slide.html">slide_dfc()</a></code> </p>
         </td>
         <td><p>Sliding window calculation</p></td>
@@ -328,19 +395,31 @@
       </tr><tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="future-slide.html">future_slide</a></code> </p>
+=======
+          <p><code><a href="future-slide.html">future_slide()</a></code> </p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </td>
         <td><p>Sliding window in parallel</p></td>
       </tr><tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="future-stretch.html">future_stretch</a></code> </p>
+=======
+          <p><code><a href="future-stretch.html">future_stretch()</a></code> </p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </td>
         <td><p>Stretching window in parallel</p></td>
       </tr><tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="future-tile.html">future_tile</a></code> </p>
+=======
+          <p><code><a href="future-tile.html">future_tile()</a></code> </p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </td>
         <td><p>Tiling window in parallel</p></td>
       </tr>
@@ -452,7 +531,11 @@
       <tr>
         <th colspan="2">
           <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
+<<<<<<< HEAD
           <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index class with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/pull-interval.html">pull_interval()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of a tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
+=======
+          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index class with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval-pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of a tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </th>
       </tr>
       <tr>
@@ -464,12 +547,17 @@
       </tr><tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="pull-interval.html">pull_interval()</a></code> </p>
+=======
+          <p><code><a href="interval-pull.html">interval_pull()</a></code> </p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </td>
         <td><p>Pull time interval from a vector</p></td>
       </tr><tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
         </td>
         <td><p>Low-level constructor for a tsibble object</p></td>
@@ -479,6 +567,17 @@
           <p><code><a href="new_tsibble.html">new_tsibble()</a></code> </p>
         </td>
         <td><p>Create a subclass of a tsibble</p></td>
+=======
+          <p><code><a href="new_tsibble.html">new_tsibble()</a></code> </p>
+        </td>
+        <td><p>Create a subclass of a tsibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
+        </td>
+        <td><p>Low-level constructor for a tsibble object</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </tr>
     </tbody><tbody>
       <tr>
@@ -530,7 +629,11 @@
       <tr>
         
         <td>
+<<<<<<< HEAD
           <p><code><a href="tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">arrange(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">rename(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">summarize(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">group_by(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">ungroup(<i>&lt;grouped_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">left_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">right_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">inner_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">full_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">semi_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">anti_join(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;lst_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">unnest(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">fill(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tidyverse.html">fill(<i>&lt;grouped_ts&gt;</i>)</a></code> </p>
+=======
+          <p><code><a href="tsibble-tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">gather(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">spread(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">nest(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
         </td>
         <td><p>Tidyverse methods for tsibble</p></td>
       </tr>
@@ -559,7 +662,11 @@
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

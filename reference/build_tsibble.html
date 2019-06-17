@@ -8,6 +8,16 @@
 
 <title>Low-level constructor for a tsibble object — build_tsibble • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -42,7 +52,11 @@
 for creating a tbl_ts internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating." />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -58,13 +72,21 @@ determine if the time needs ordering and the interval needs calculating." />
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -83,7 +105,11 @@ determine if the time needs ordering and the interval needs calculating." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -156,8 +182,14 @@ determine if the time needs ordering and the interval needs calculating.</p>
     
     </div>
 
+<<<<<<< HEAD
     <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='no'>index2</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+=======
+    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>index</span>,
+  <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>))</pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,9 +200,19 @@ determine if the time needs ordering and the interval needs calculating.</p>
     </tr>
     <tr>
       <th>key</th>
+<<<<<<< HEAD
       <td><p>Variable(s) that define unique time indices, used in conjunction
 with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
 simply call <code><a href='id.html'>id()</a></code>.</p></td>
+=======
+      <td><p>Unquoted variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and works with tidy selector (e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>key_data</th>
+      <td><p>A data frame containing key variables and <code>.rows</code>. When a data
+frame is supplied, the argument <code>key</code> will be ignored.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>index</th>
@@ -185,6 +227,7 @@ simply call <code><a href='id.html'>id()</a></code>.</p></td>
       <th>ordered</th>
       <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
 then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
+<<<<<<< HEAD
 the correct order. <code>FALSE</code> also skips the ordering but gives a warning instead.</p></td>
     </tr>
     <tr>
@@ -196,6 +239,14 @@ interval is determined by the greatest common divisor of index column, if <code>
       <th>interval</th>
       <td><p><code>NULL</code> computes the interval. Use the specified interval via
 <code><a href='new_interval.html'>new_interval()</a></code> as is, if an class of <code>interval</code> is supplied.</p></td>
+=======
+the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
+irregular interval. Use the specified interval via <code><a href='new_interval.html'>new_interval()</a></code> as is.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>validate</th>
@@ -203,6 +254,13 @@ interval is determined by the greatest common divisor of index column, if <code>
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     </tr>
+<<<<<<< HEAD
+=======
+    <tr>
+      <th>.drop</th>
+      <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
+    </tr>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </table>
     
 
@@ -210,9 +268,17 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
+<<<<<<< HEAD
     <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='key.html'>key</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
+=======
+    <span class='kw'>key</span> <span class='kw'>=</span> !! <span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+    <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
+  )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
+#&gt; # Key:       Sensor [4]
+#&gt; # Groups:    @ Date [731]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
@@ -240,7 +306,11 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

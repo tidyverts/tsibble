@@ -8,6 +8,16 @@
 
 <title>Sliding window calculation over multiple inputs simultaneously — slide2 • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -45,7 +55,11 @@ arguments as slide2(), but return vectors of the corresponding type.
 slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-binding.
 " />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,13 +75,21 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -86,7 +108,11 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -162,6 +188,7 @@ arguments as <code>slide2()</code>, but return vectors of the corresponding type
     
     </div>
 
+<<<<<<< HEAD
     <pre class="usage"><span class='fu'>slide2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -179,6 +206,25 @@ arguments as <code>slide2()</code>, but return vectors of the corresponding type
 
 <span class='fu'>pslide_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+=======
+    <pre class="usage"><span class='fu'>slide2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>slide2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>slide2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>pslide</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>pslide_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>pslide_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,9 +261,20 @@ present, the value of <code>.default</code> will be returned.</p></td>
 to right; if negative, moving backward (from right to left).</p></td>
     </tr>
     <tr>
+<<<<<<< HEAD
       <th>.fill</th>
       <td><p>A value to fill at the left of the data range (<code>NA</code> by default).
 <code>NULL</code> means no filling.</p></td>
+=======
+      <th>.step</th>
+      <td><p>A positive integer for calculating at every specified step
+instead of every single step.</p></td>
+    </tr>
+    <tr>
+      <th>.fill</th>
+      <td><p>A value to fill at the left/center/right of the data range depending
+on <code>.align</code> (<code>NA</code> by default).  <code>NULL</code> means no filling.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>.partial</th>
@@ -352,6 +409,11 @@ names will be used if present.</p></td>
 <span class='co'># row-wise sliding over data frame</span>
 <span class='co'>###</span>
 
+<<<<<<< HEAD
+=======
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>tidyr</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>my_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>8</span>),
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fl'>8</span>:<span class='fl'>1</span>),
@@ -366,6 +428,7 @@ names will be used if present.</p></td>
 }
 
 <span class='no'>my_df</span> <span class='kw'>%&gt;%</span>
+<<<<<<< HEAD
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>()</div><div class='output co'>#&gt;    group       slope x         y       date
@@ -389,6 +452,34 @@ names will be used if present.</p></td>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
+=======
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 2
+#&gt;    group  slope
+#&gt;    &lt;fct&gt;  &lt;dbl&gt;
+#&gt;  1 a     NA    
+#&gt;  2 a      0.638
+#&gt;  3 a      1.83 
+#&gt;  4 a      4.11 
+#&gt;  5 a     -0.581
+#&gt;  6 a      1.88 
+#&gt;  7 a      3.98 
+#&gt;  8 a     -0.514
+#&gt;  9 b     NA    
+#&gt; 10 b      0.185
+#&gt; 11 b      0.529
+#&gt; 12 b      4.71 
+#&gt; 13 b      3.02 
+#&gt; 14 b      0.376
+#&gt; 15 b      2.65 
+#&gt; 16 b      2.01 </div><div class='input'><span class='co'>## window over 2 months</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='kw'>%&gt;%</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
 #&gt;       yrmth data                   ma
 #&gt;       &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
@@ -410,7 +501,12 @@ names will be used if present.</p></td>
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='filter_index.html'>filter_index</a></span>(<span class='st'>"2015-01"</span>) <span class='kw'>%&gt;%</span>
+<<<<<<< HEAD
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+=======
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='kw'>%&gt;%</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;   Sensor                        data                diag                 
 #&gt;   &lt;chr&gt;                         &lt;list&gt;              &lt;list&gt;               
@@ -433,7 +529,11 @@ names will be used if present.</p></td>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

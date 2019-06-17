@@ -8,6 +8,16 @@
 
 <title>Turn implicit missing values into explicit missing values — fill_gaps • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -40,7 +50,11 @@
 
 <meta property="og:description" content="Turn implicit missing values into explicit missing values" />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -56,13 +70,21 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -81,7 +103,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -185,6 +211,7 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<<<<<<< HEAD
     <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2011</span>, <span class='fl'>2013</span>, <span class='fl'>2011</span>, <span class='fl'>2012</span>, <span class='fl'>2014</span>),
   <span class='kw'>fruit</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>),
@@ -193,11 +220,23 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 )
 
 <span class='co'># gaps as default `NA` ----</span>
+=======
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2011</span>, <span class='fl'>2013</span>, <span class='fl'>2011</span>, <span class='fl'>2012</span>, <span class='fl'>2014</span>),
+  <span class='kw'>fruit</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+  <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>6</span>),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
+)
+
+<span class='co'># gaps as default `NA`</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt;     year fruit   kilo
 #&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt;  1  2010 cherry    NA
+<<<<<<< HEAD
 #&gt;  2  2011 cherry     4
 #&gt;  3  2012 cherry     5
 #&gt;  4  2013 cherry    NA
@@ -206,11 +245,22 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;  7  2011 kiwi       3
 #&gt;  8  2012 kiwi      NA
 #&gt;  9  2013 kiwi       6
+=======
+#&gt;  2  2011 cherry     7
+#&gt;  3  2012 cherry     8
+#&gt;  4  2013 cherry    NA
+#&gt;  5  2014 cherry     5
+#&gt;  6  2010 kiwi       3
+#&gt;  7  2011 kiwi       4
+#&gt;  8  2012 kiwi      NA
+#&gt;  9  2013 kiwi       1
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; 10  2014 kiwi      NA</div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>full_harvest</span></div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+<<<<<<< HEAD
 #&gt; 1  2011 cherry     4
 #&gt; 2  2012 cherry     5
 #&gt; 3  2013 cherry    NA
@@ -223,10 +273,25 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 <span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fruit</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
+=======
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry     8
+#&gt; 3  2013 cherry    NA
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi      NA
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># use fill() to fill `NA` by previous/next entry</span>
+<span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt; # Key:       fruit [2]
 #&gt; # Groups:    fruit [2]
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+<<<<<<< HEAD
 #&gt; 1  2011 cherry     4
 #&gt; 2  2012 cherry     5
 #&gt; 3  2013 cherry     5
@@ -236,11 +301,23 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 7  2012 kiwi       3
 #&gt; 8  2013 kiwi       6</div><div class='input'>
 <span class='co'># replace gaps with a specific value ----</span>
+=======
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry     8
+#&gt; 3  2013 cherry     8
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi       4
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># replace gaps with a specific value</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+<<<<<<< HEAD
 #&gt; 1  2011 cherry     4
 #&gt; 2  2012 cherry     5
 #&gt; 3  2013 cherry     0
@@ -250,11 +327,23 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 7  2012 kiwi       0
 #&gt; 8  2013 kiwi       6</div><div class='input'>
 <span class='co'># replace gaps using a function by variable ----</span>
+=======
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry     8
+#&gt; 3  2013 cherry     0
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi       0
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># replace gaps using a function by variable</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+<<<<<<< HEAD
 #&gt; 1  2011 cherry     4
 #&gt; 2  2012 cherry     5
 #&gt; 3  2013 cherry    27
@@ -299,6 +388,55 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
+=======
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry     8
+#&gt; 3  2013 cherry    28
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi      28
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># replace gaps using a function for each group</span>
+<span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
+#&gt; # Key:       fruit [2]
+#&gt; # Groups:    fruit [2]
+#&gt;    year fruit   kilo
+#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry     8
+#&gt; 3  2013 cherry    20
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi       8
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># leaves existing `NA` untouched</span>
+<span class='no'>harvest</span>[<span class='fl'>2</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
+#&gt; # Key:       fruit [2]
+#&gt; # Groups:    fruit [2]
+#&gt;    year fruit   kilo
+#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+#&gt; 1  2011 cherry     7
+#&gt; 2  2012 cherry    NA
+#&gt; 3  2013 cherry    12
+#&gt; 4  2014 cherry     5
+#&gt; 5  2010 kiwi       3
+#&gt; 6  2011 kiwi       4
+#&gt; 7  2012 kiwi       8
+#&gt; 8  2013 kiwi       1</div><div class='input'>
+<span class='co'># replace NA</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;
+#&gt; # Key:       Sensor [4]
+#&gt; # Groups:    Sensor [4]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
@@ -328,7 +466,11 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

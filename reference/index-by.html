@@ -6,8 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
 <title>Group and collapse by time index — index_by • tsibble</title>
 
+=======
+<title>Group by time index and collapse with <code>summarise()</code> — index_by • tsibble</title>
+
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -36,6 +48,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+<<<<<<< HEAD
 <meta property="og:title" content="Group and collapse by time index — index_by" />
 
 <meta property="og:description" content="index_by() is the counterpart of group_by() in temporal context, but it
@@ -46,6 +59,17 @@ update the grouping index variable to be the new index. Use ungroup() or
 index_by() with no arguments to remove the index grouping vars." />
 
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:title" content="Group by time index and collapse with <code>summarise()</code> — index_by" />
+
+<meta property="og:description" content="index_by() is the counterpart of group_by() in temporal context, but it
+only groups the time index. The following operation is applied to each partition
+of the index, similar to group_by() but dealing with index only.
+index_by() + summarise() will update the grouping index variable to be
+the new index. Use ungroup() to remove the index grouping vars." />
+
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,13 +85,21 @@ index_by() with no arguments to remove the index grouping vars." />
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -86,7 +118,11 @@ index_by() with no arguments to remove the index grouping vars." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -146,19 +182,31 @@ index_by() with no arguments to remove the index grouping vars." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
+<<<<<<< HEAD
     <h1>Group and collapse by time index</h1>
+=======
+    <h1>Group by time index and collapse with <code>summarise()</code></h1>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <div class="hidden name"><code>index-by.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
+<<<<<<< HEAD
     <p><code>index_by()</code> is the counterpart of <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> in temporal context, but it
 only groups the time index. It adds a new column and then group it. The
 following operation is applied to each group of the index, similar to
 <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> but dealing with index only. <code>index_by()</code> + <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code> will
 update the grouping index variable to be the new index. Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup()</a></code> or
 <code>index_by()</code> with no arguments to remove the index grouping vars.</p>
+=======
+    <p><code>index_by()</code> is the counterpart of <code>group_by()</code> in temporal context, but it
+only groups the time index. The following operation is applied to each partition
+of the index, similar to <code>group_by()</code> but dealing with index only.
+<code>index_by()</code> + <code>summarise()</code> will update the grouping index variable to be
+the new index. Use <code>ungroup()</code> to remove the index grouping vars.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     </div>
 
@@ -173,8 +221,13 @@ update the grouping index variable to be the new index. Use <code><a href='https
     </tr>
     <tr>
       <th>...</th>
+<<<<<<< HEAD
       <td><p>A single name-value pair of expression: a new index on LHS and the
 current index on RHS. Or an existing variable to be used as index.
+=======
+      <td><p>If empty, grouping the current index. Or a single expression contains
+an existing variable or a name-value pair.
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 The index functions that can be used, but not limited:</p><ul>
 <li><p><a href='http://lubridate.tidyverse.org/reference/year.html'>lubridate::year</a>: yearly aggregation</p></li>
 <li><p><a href='period.html'>yearquarter</a>: quarterly aggregation</p></li>
@@ -182,7 +235,11 @@ The index functions that can be used, but not limited:</p><ul>
 <li><p><a href='period.html'>yearweek</a>: weekly aggregation</p></li>
 <li><p><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a> or <a href='http://lubridate.tidyverse.org/reference/as_date.html'>lubridate::as_date</a>: daily aggregation</p></li>
 <li><p><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date</a>, <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date</a>, or <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a>:
+<<<<<<< HEAD
 sub-daily aggregation</p></li>
+=======
+fine-resolution aggregation</p></li>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <li><p>other index functions from other packages</p></li>
 </ul></td>
     </tr>
@@ -197,9 +254,31 @@ displaying on the screen.</p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<<<<<<< HEAD
     <pre class="examples"><div class='input'><span class='co'># Monthly counts across sensors ----</span>
 <span class='no'>monthly_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+=======
+    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'>index_by</span>()</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
+#&gt; # Key:       Sensor [4]
+#&gt; # Groups:    @ Date_Time [17,542]
+#&gt;    Sensor         Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
+#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
+#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
+#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
+#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
+#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
+#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
+#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
+#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
+#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
+#&gt; # … with 66,027 more rows</div><div class='input'><span class='co'># Monthly counts across sensors</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>monthly_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'>index_by</span>(<span class='kw'>Year_Month</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>Count</span>),
@@ -208,7 +287,11 @@ displaying on the screen.</p></li>
 <span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1M]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Year_Month Max_Count Min_Count
+<<<<<<< HEAD
 #&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+=======
+#&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;int&gt;     &lt;int&gt;
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;  1 Birrarung Marr   2015 Jan      5524         1
 #&gt;  2 Birrarung Marr   2015 Feb     10121         1
 #&gt;  3 Birrarung Marr   2015 Mar      9858         1
@@ -220,9 +303,15 @@ displaying on the screen.</p></li>
 #&gt;  9 Birrarung Marr   2015 Sep      7757         0
 #&gt; 10 Birrarung Marr   2015 Oct      7085         1
 #&gt; # … with 85 more rows</div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; Year_Month</div><div class='input'>
+<<<<<<< HEAD
 <span class='co'># Using existing variable ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+=======
+<span class='co'># Using existing variable</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'>index_by</span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>Count</span>),
@@ -230,7 +319,11 @@ displaying on the screen.</p></li>
   )</div><div class='output co'>#&gt; # A tsibble: 2,752 x 4 [1D]
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date       Max_Count Min_Count
+<<<<<<< HEAD
 #&gt;    &lt;chr&gt;          &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+=======
+#&gt;    &lt;chr&gt;          &lt;date&gt;         &lt;int&gt;     &lt;int&gt;
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;  1 Birrarung Marr 2015-01-01      1630        44
 #&gt;  2 Birrarung Marr 2015-01-02       352         1
 #&gt;  3 Birrarung Marr 2015-01-03       226         3
@@ -244,7 +337,11 @@ displaying on the screen.</p></li>
 #&gt; # … with 2,742 more rows</div><div class='input'>
 <span class='co'># Attempt to aggregate to 4-hour interval, with the effects of DST</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+<<<<<<< HEAD
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Sensor</span>) <span class='kw'>%&gt;%</span>
+=======
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'>index_by</span>(<span class='kw'>Date_Time4</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span>(<span class='no'>Date_Time</span>, <span class='st'>"4 hour"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 16,528 x 3 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
@@ -261,6 +358,7 @@ displaying on the screen.</p></li>
 #&gt;  9 Birrarung Marr 2015-01-02 08:00:00        1193
 #&gt; 10 Birrarung Marr 2015-01-02 12:00:00         822
 #&gt; # … with 16,518 more rows</div><div class='input'>
+<<<<<<< HEAD
 <span class='co'># Annual trips by Region and State ----</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>Quarter</span>)) <span class='kw'>%&gt;%</span>
@@ -268,6 +366,15 @@ displaying on the screen.</p></li>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,463 x 4 [1Y]
 #&gt; # Key:       Region, State [77]
 #&gt; # Groups:    Region [77]
+=======
+<span class='co'># Annual trips by Region and State</span>
+<span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>Quarter</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,520 x 4 [1Y]
+#&gt; # Key:       Region, State [76]
+#&gt; # Groups:    Region [76]
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;    Region   State            Year Total
 #&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
 #&gt;  1 Adelaide South Australia  1998 2226.
@@ -280,7 +387,11 @@ displaying on the screen.</p></li>
 #&gt;  8 Adelaide South Australia  2005 2034.
 #&gt;  9 Adelaide South Australia  2006 2225.
 #&gt; 10 Adelaide South Australia  2007 2317.
+<<<<<<< HEAD
 #&gt; # … with 1,453 more rows</div></pre>
+=======
+#&gt; # … with 1,510 more rows</div></pre>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -297,7 +408,11 @@ displaying on the screen.</p></li>
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

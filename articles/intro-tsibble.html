@@ -6,6 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to tsibble • tsibble</title>
+<<<<<<< HEAD
+=======
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -13,17 +22,29 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Introduction to tsibble">
 <meta property="og:description" content="">
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png">
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png">
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<<<<<<< HEAD
 <![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script><script>
+=======
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script><script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 </head>
 <body>
@@ -39,7 +60,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -109,16 +134,29 @@
 
     
     
+<<<<<<< HEAD
 <p>The <strong>tsibble</strong> package extends the <a href="https://www.tidyverse.org">tidyverse</a> to temporal data. Built on top of the <a href="http://tibble.tidyverse.org">tibble</a>, a tsibble (or <code>tbl_ts</code>) is a data-centric format, following the tidy data principles <span class="citation">(Wickham <a href="#ref-wickham2014tidy">2014</a>)</span>. Compared to the conventional time series objects in R, for example <code>ts</code>, <code>zoo</code>, and <code>xts</code>, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a “key” comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing temporal data and getting analysis done in a fluent and fluid workflow.</p>
+=======
+<p>The <strong>tsibble</strong> package extends the <a href="https://www.tidyverse.org">tidyverse</a> to temporal data. Built on top of the <a href="http://tibble.tidyverse.org">tibble</a>, a tsibble (or <code>tbl_ts</code>) is a data-centric format, following the tidy data principles <span class="citation">(Wickham <a href="#ref-wickham2014tidy">2014</a>)</span>. Compared to the conventional time series objects in R, for example <code>ts</code>, <code>zoo</code>, and <code>xts</code>, the tsibble preserves time indices as the essential data column and makes heterogeneous data structures possible. Beyond the tibble-like representation, a “key” comprised of single or multiple variables is introduced to uniquely identify observational units over time. The tsibble package aims at managing time series data and getting analysis done in a fluent workflow.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <div id="contextual-semantics-index-and-key" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contextual-semantics-index-and-key" class="anchor"></a>Contextual semantics: index and key</h2>
 <p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a tsibble object, and <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as <code>ts</code> and <code>mts</code>, can be automated to a tsibble using <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> without any specification. If it is a tibble or data frame, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> requires a little more setup in order to identify the index and key variables.</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tsibble)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lubridate)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">weather</a></code></pre></div>
+=======
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lubridate)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tsibble)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">weather</a></code></pre></div>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <pre><code>#&gt; # A tibble: 26,115 x 5
 #&gt;   origin time_hour            temp humid precip
 #&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -129,8 +167,13 @@
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
 #&gt; # … with 2.611e+04 more rows</code></pre>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only column involving the timestamps, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> defaults it to the index variable; alternatively, it would be more verbose to specify the argument <code>index = time_hour</code>.</p>
+<<<<<<< HEAD
 <p>Except for index, a tsibble requires “key”, which defines subjects or individuals tracked over time. In this example, the <code>origin</code> variable is the identifier using <code><a href="../reference/id.html">id()</a></code>, which is passed to the argument <code>key</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Therefore, <strong>the composition of index and key uniquely identifies each observation</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. While creating a tsibble, it is sorted by time index. If a key is explicitly declared, the key will be sorted first, and followed by arranging time from past to recent.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(origin))</a></code></pre></div>
+=======
+<p>Except for index, a tsibble requires “key”, which defines subjects or individuals tracked over time. In this example, the <code>origin</code> variable is the identifier, which is passed to the argument <code>key</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Therefore, <strong>the composition of index and key uniquely identifies each observation</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. While creating a tsibble, it is sorted by time index. If a key is explicitly declared, the key will be sorted first, and followed by arranging time from past to recent.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> origin)</a></code></pre></div>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <pre><code>#&gt; Using `time_hour` as index variable.</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">weather_tsbl</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 26,115 x 5 [1h] &lt;America/New_York&gt;
@@ -146,7 +189,11 @@
 <p>An interval is automatically obtained based on the corresponding time representation:</p>
 <ul>
 <li>
+<<<<<<< HEAD
 <code>integer</code>/<code>numeric</code>: either “unit” or “year” (<code>Y</code>)</li>
+=======
+<code>integer</code>/<code>numeric</code>/<code>ordered</code>: either “unit” or “year” (<code>Y</code>)</li>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <li>
 <code>yearquarter</code>/<code>yearqtr</code>: “quarter” (<code>Q</code>)</li>
 <li>
@@ -156,11 +203,21 @@
 <li>
 <code>Date</code>: “day” (<code>D</code>)</li>
 <li>
+<<<<<<< HEAD
 <code>POSIXct</code>: “hour” (<code>h</code>), “minute” (<code>m</code>), “second” (<code>s</code>), “millisecond” (<code>us</code>), “microsecond” (<code>ms</code>)</li>
 <li>
 <code>nanotime</code>: “nanosecond” (<code>ns</code>)</li>
 </ul>
 <p>That is, a tsibble of monthly intervals expects the <code>yearmonth</code>/<code>yearmth</code> class in the index column. Neither <code>Date</code> nor <code>POSIXct</code> gives a monthly tsibble.</p>
+=======
+<code>difftime</code>: “quarter” (<code>Q</code>), “month” (<code>M</code>), “week” (<code>W</code>), “day” (D), “hour” (<code>h</code>), “minute” (<code>m</code>), “second” (<code>s</code>)</li>
+<li>
+<code>POSIXct</code>/<code>hms</code>: “hour” (<code>h</code>), “minute” (<code>m</code>), “second” (<code>s</code>), “millisecond” (<code>us</code>), “microsecond” (<code>ms</code>)</li>
+<li>
+<code>nanotime</code>: “nanosecond” (<code>ns</code>)</li>
+</ul>
+<p>That is, a tsibble of monthly intervals expects the <code>yearmonth</code>/<code>yearmon</code> class in the index column. Neither <code>Date</code> nor <code>POSIXct</code> gives a monthly tsibble.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <p>The print display is data-oriented and contextually informative, such as data dimension, time interval, and the number of time-based units. Above displays the <code>weather_tsbl</code> its one-hour interval (<code>[1h]</code>) and the <code>origin [3]</code> as the key along with three time series in the table.</p>
 </div>
 <div id="data-pipeline" class="section level2">
@@ -168,7 +225,11 @@
 <a href="#data-pipeline" class="anchor"></a>Data pipeline</h2>
 <p>This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common time series analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">weather_tsbl <span class="op">%&gt;%</span></a>
+<<<<<<< HEAD
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin) <span class="op">%&gt;%</span></a>
+=======
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span></a>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/index-by.html">index_by</a></span>(<span class="dt">date =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span>(time_hour)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">temp_high =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
@@ -195,7 +256,11 @@
 <p>The key contains columns <code>carrier</code> and <code>flight</code> to identify observational units over time, from a passenger’s point of view. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">flights_tsbl &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(</a>
+<<<<<<< HEAD
 <a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="../reference/id.html">id</a></span>(carrier, flight), </a>
+=======
+<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">key =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(carrier, flight), </a>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="dt">index =</span> sched_dep_datetime, </a>
 <a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="dt">regular =</span> <span class="ot">FALSE</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6">  )</a>
@@ -243,7 +308,11 @@
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href="https://earo.me">Earo Wang</a>, <a href="http://dicook.org">Di Cook</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href="https://earo.me">Earo Wang</a>, <a href="http://dicook.org">Di Cook</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>, <a href="http://mitchelloharawild.com">Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

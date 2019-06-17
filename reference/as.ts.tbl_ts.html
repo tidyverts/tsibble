@@ -8,6 +8,16 @@
 
 <title>Coerce a tsibble to a time series — as.ts.tbl_ts • tsibble</title>
 
+<<<<<<< HEAD
+=======
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -40,7 +50,11 @@
 
 <meta property="og:description" content="Coerce a tsibble to a time series" />
 
+<<<<<<< HEAD
 <meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
+=======
+<meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -56,13 +70,21 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<<<<<<< HEAD
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
+=======
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+<<<<<<< HEAD
   gtag('config', 'UA-83007123-3');
+=======
+  gtag('config', 'UA-83007123-4');
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -81,7 +103,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       </span>
     </div>
 
@@ -174,7 +200,11 @@ preferred frequency is passed to <code><a href='https://www.rdocumentation.org/p
     </tr>
     <tr>
       <th>fill</th>
+<<<<<<< HEAD
       <td><p>A value replaces missing values.</p></td>
+=======
+      <td><p>A value to replace missing values.</p></td>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>...</th>
@@ -188,7 +218,11 @@ preferred frequency is passed to <code><a href='https://www.rdocumentation.org/p
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<<<<<<< HEAD
     <pre class="examples"><div class='input'><span class='co'># a monthly series ----</span>
+=======
+    <pre class="examples"><div class='input'><span class='co'># a monthly series</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>AirPassengers</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ts'>as.ts</a></span>(<span class='no'>x1</span>)</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
@@ -203,7 +237,11 @@ preferred frequency is passed to <code><a href='https://www.rdocumentation.org/p
 #&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
 #&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
 #&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div><div class='input'>
+<<<<<<< HEAD
 <span class='co'># equally spaced over trading days, not smart enough to guess frequency ----</span>
+=======
+<span class='co'># equally spaced over trading days, not smart enough to guess frequency</span>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>EuStockMarkets</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ts'>as.ts</a></span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt;         CAC     DAX   FTSE    SMI
 #&gt; [1,] 1772.8 1628.75 2443.6 1678.1
@@ -228,7 +266,11 @@ preferred frequency is passed to <code><a href='https://www.rdocumentation.org/p
 
       <footer>
       <div class="copyright">
+<<<<<<< HEAD
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
+=======
+  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

@@ -2,21 +2,33 @@
   "index_name": "tsibble",
   "start_urls": [
     {
+<<<<<<< HEAD
       "url": "https://pkg.earo.me/tsibble/index.html",
+=======
+      "url": "https://tsibble.tidyverts.org/index.html",
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
+<<<<<<< HEAD
       "url": "https://pkg.earo.me/tsibble/reference",
+=======
+      "url": "https://tsibble.tidyverts.org/reference",
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
+<<<<<<< HEAD
       "url": "https://pkg.earo.me/tsibble/articles",
+=======
+      "url": "https://tsibble.tidyverts.org/articles",
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +42,11 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
+<<<<<<< HEAD
     "https://pkg.earo.me/tsibble/sitemap.xml"
+=======
+    "https://tsibble.tidyverts.org/sitemap.xml"
+>>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   ],
   "selectors": {
     "homepage": {
