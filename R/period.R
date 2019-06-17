@@ -419,7 +419,7 @@ yearquarter.character <- function(x) {
     if (any(qtr > 4)) {
       abort("Quarters can't be greater than 4.")
     }
-    as_yearquarter(lubridate::make_date(yr, qtr * 3))
+    as_yearquarter(lubridate::make_date(yr, qtr * 3 - 2))
   } else {
     anytime::assertDate(x)
     as_yearquarter(anytime::anydate(x))
