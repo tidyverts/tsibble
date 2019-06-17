@@ -126,3 +126,7 @@ test_that("yearquarter() for characters #107", {
     rep(yearquarter("2013 Q3"), 3)
   )
 })
+
+test_that("yearquarter.character() underlying dates #129", {
+  expect_equal(as.Date(yearquarter("2017 Q1")), as.Date("2017-01-01"))
+})
