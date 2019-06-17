@@ -1,0 +1,12 @@
+pandoc: '2.2'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  faq: faq.html
+  implicit-na: implicit-na.html
+  intro-tsibble: intro-tsibble.html
+  window: window.html
+urls:
+  reference: https://tsibble.tidyverts.org/reference
+  article: https://tsibble.tidyverts.org/articles
+
