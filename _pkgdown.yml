@@ -8,6 +8,10 @@ template:
       api_key: b7cf533da009fba6bd7a07d530e0824e
       index_name: tsibble
 
+
+development:
+  mode: auto
+
 authors:
   Earo Wang:
     href: https://earo.me
