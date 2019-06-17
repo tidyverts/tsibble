@@ -8,16 +8,6 @@
 
 <title>Deprecated functions — as.tsibble • tsibble</title>
 
-<<<<<<< HEAD
-=======
-<!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -48,16 +38,10 @@
 
 <meta property="og:title" content="Deprecated functions — as.tsibble" />
 
-<<<<<<< HEAD
-<meta property="og:description" content="Find which row has duplicated key and index elements" />
-
-<meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
-=======
 <meta property="og:description" content="Deprecated functions
 Identifiers used for creating key" />
 
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -73,21 +57,13 @@ Identifiers used for creating key" />
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<<<<<<< HEAD
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
-=======
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-<<<<<<< HEAD
-  gtag('config', 'UA-83007123-3');
-=======
   gtag('config', 'UA-83007123-4');
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -106,11 +82,7 @@ Identifiers used for creating key" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -177,28 +149,18 @@ Identifiers used for creating key" />
 
     <div class="ref-description">
     
-<<<<<<< HEAD
-    <p>Find which row has duplicated key and index elements</p>
-=======
     <p>Deprecated functions</p>
 <p>Identifiers used for creating key</p>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     </div>
 
     <pre class="usage"><span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<<<<<<< HEAD
-<span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>find_duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='id.html'>id</a></span>(), <span class='no'>index</span>, <span class='kw'>fromLast</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-=======
 <span class='fu'>pull_interval</span>(<span class='no'>x</span>)
 
 <span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>id</span>(<span class='no'>...</span>)</pre>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,62 +170,25 @@ Identifiers used for creating key" />
       <td><p>Other objects.</p></td>
     </tr>
     <tr>
-<<<<<<< HEAD
-      <th>data</th>
-      <td><p>A <code>tbl_ts</code> object.</p></td>
-    </tr>
-    <tr>
-      <th>key</th>
-      <td><p>Structural variable(s) that define unique time indices, used with
-the helper <a href='id.html'>id</a>. If a univariate time series (without an explicit key),
-simply call <code><a href='id.html'>id()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>index</th>
-      <td><p>A bare (or unquoted) variable to specify the time index variable.</p></td>
-    </tr>
-    <tr>
-      <th>fromLast</th>
-      <td><p><code>TRUE</code> does the duplication check from the last of identical
-elements.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A logical vector of the same length as the row number of <code>data</code></p>
-    
-=======
       <th>...</th>
       <td><p>Variables passed to tsibble()/as_tsibble().</p></td>
     </tr>
     </table>
     
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-<<<<<<< HEAD
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
-=======
                 </ul>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-<<<<<<< HEAD
-  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
-=======
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

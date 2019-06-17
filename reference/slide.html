@@ -8,16 +8,6 @@
 
 <title>Sliding window calculation — slide • tsibble</title>
 
-<<<<<<< HEAD
-=======
-<!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -55,11 +45,7 @@ arguments as slide(), but return vectors of the corresponding type.
 slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp; column-binding.
 " />
 
-<<<<<<< HEAD
-<meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
-=======
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -75,21 +61,13 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<<<<<<< HEAD
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
-=======
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-<<<<<<< HEAD
-  gtag('config', 'UA-83007123-3');
-=======
   gtag('config', 'UA-83007123-4');
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -108,11 +86,7 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -188,16 +162,6 @@ arguments as <code>slide()</code>, but return vectors of the corresponding type.
     
     </div>
 
-<<<<<<< HEAD
-    <pre class="usage"><span class='fu'>slide</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>slide_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>slide_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-=======
     <pre class="usage"><span class='fu'>slide</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -206,7 +170,6 @@ arguments as <code>slide()</code>, but return vectors of the corresponding type.
 
 <span class='fu'>slide_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,11 +206,6 @@ present, the value of <code>.default</code> will be returned.</p></td>
 to right; if negative, moving backward (from right to left).</p></td>
     </tr>
     <tr>
-<<<<<<< HEAD
-      <th>.fill</th>
-      <td><p>A value to fill at the left of the data range (<code>NA</code> by default).
-<code>NULL</code> means no filling.</p></td>
-=======
       <th>.step</th>
       <td><p>A positive integer for calculating at every specified step
 instead of every single step.</p></td>
@@ -256,7 +214,6 @@ instead of every single step.</p></td>
       <th>.fill</th>
       <td><p>A value to fill at the left/center/right of the data range depending
 on <code>.align</code> (<code>NA</code> by default).  <code>NULL</code> means no filling.</p></td>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>.partial</th>
@@ -283,13 +240,10 @@ variable will be created.</p>
     </tr>
     </table>
     
-<<<<<<< HEAD
-=======
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>if <code>.fill != NULL</code>, it always returns the same length as input.</p>
     
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>slide()</code> function attempts to tackle more general problems using
@@ -306,11 +260,7 @@ Window contains observations outside of the vector will return the value <code>.
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<<<<<<< HEAD
-<li><p>future_slide for parallel processing</p></li>
-=======
 <li><p><a href='future-slide.html'>future_slide</a> for parallel processing</p></li>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <li><p><a href='tile.html'>tile</a> for tiling window without overlapping observations</p></li>
 <li><p><a href='stretch.html'>stretch</a> for expanding more observations</p></li>
 </ul></div>
@@ -345,11 +295,8 @@ Window contains observations outside of the vector will return the value <code>.
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-<<<<<<< HEAD
-=======
       <li><a href="#value">Value</a></li>
 
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -362,11 +309,7 @@ Window contains observations outside of the vector will return the value <code>.
 
       <footer>
       <div class="copyright">
-<<<<<<< HEAD
-  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
-=======
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">

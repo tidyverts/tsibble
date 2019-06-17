@@ -8,16 +8,6 @@
 
 <title>Update key and index for a tsibble — update_tsibble • tsibble</title>
 
-<<<<<<< HEAD
-=======
-<!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -50,11 +40,7 @@
 
 <meta property="og:description" content="Update key and index for a tsibble" />
 
-<<<<<<< HEAD
-<meta property="og:image" content="https://pkg.earo.me/tsibble/logo.png" />
-=======
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,21 +56,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<<<<<<< HEAD
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-3"></script>
-=======
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83007123-4"></script>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-<<<<<<< HEAD
-  gtag('config', 'UA-83007123-3');
-=======
   gtag('config', 'UA-83007123-4');
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </script>
 
   </head>
@@ -103,11 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -178,13 +152,8 @@
     
     </div>
 
-<<<<<<< HEAD
-    <pre class="usage"><span class='fu'>update_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-=======
     <pre class="usage"><span class='fu'>update_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>is_regular</a></span>(<span class='no'>x</span>), <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>))</pre>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,14 +164,8 @@
     </tr>
     <tr>
       <th>key</th>
-<<<<<<< HEAD
-      <td><p>Variable(s) that define unique time indices, used in conjunction
-with the helper <code><a href='id.html'>id()</a></code>. If a univariate time series (without an explicit key),
-simply call <code><a href='id.html'>id()</a></code>.</p></td>
-=======
       <td><p>Unquoted variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and works with tidy selector (e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </tr>
     <tr>
       <th>index</th>
@@ -219,42 +182,27 @@ interval is determined by the greatest common divisor of index column, if <code>
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
     </tr>
-<<<<<<< HEAD
-=======
     <tr>
       <th>.drop</th>
       <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
     </tr>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-<<<<<<< HEAD
-    <p>Default <code>NULL</code> inherits attributes from <code>x</code>.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-=======
     <p>Unspecified arguments will inherit the attributes from <code>x</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; # A tsibble: 66,037 x 6 [1h]
 #&gt; # Key:       Sensor [4]
 #&gt; # Groups:    Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count Hour_Since
-<<<<<<< HEAD
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;time&gt;    
-=======
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;drtn&gt;    
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 #&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630     0 secs
 #&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826  3600 secs
 #&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567  7200 secs
@@ -282,11 +230,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 
       <footer>
       <div class="copyright">
-<<<<<<< HEAD
-  <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>.</p>
-=======
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
->>>>>>> 1acf3859749ceb61f22a7933b0fe557e9d6ca4ce
 </div>
 
 <div class="pkgdown">
