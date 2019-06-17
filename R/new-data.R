@@ -35,7 +35,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   nc <- NCOL(last_entry)
   new_lst <- new_list(NROW(last_entry))
   for (i in seq_len(NROW(last_entry))) {
-    lst_i <- new_lst[[i]] <- as_list(last_entry[i, ])
+    lst_i <- new_lst[[i]] <- as.list(last_entry[i, ])
     new_lst[[i]][[nc]] <- seq(lst_i[[nc]], by = tunit, length.out = n + 1)[-1]
     new_lst[[i]] <- as_tibble(new_lst[[i]])
   }
