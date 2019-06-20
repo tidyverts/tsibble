@@ -42,9 +42,5 @@ difference <- function(x, lag = 1, differences = 1, default = NA,
 
 diff_impl <- function(x, lag = 1, differences = 1, fill = NA) {
   diff_x <- diff(x, lag = lag, differences = differences)
-  if (is_empty(fill)) {
-    diff_x
-  } else {
-    c(rep(fill, lag * differences), diff_x)
-  }
+  c(rep(fill, lag * differences), diff_x)
 }
