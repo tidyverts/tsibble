@@ -377,15 +377,12 @@ validate_index <- function(data, index) {
 validate_order <- function(x) {
   if (is_bare_logical(x)) {
     x
-  } else if (is_bare_numeric(x)) {
-    pos_dup <- anyDuplicated.default(x)
-    if (any_not_equal_to_c(pos_dup, 0)) {
-      abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
-    }
-    x <- stats::na.omit(x)
-    if (any(sign(x) < 0)) TRUE else is_ascending(x)
+  } else if (all(x < 0)) {
+    TRUE
+  } else if ((pos_dup <- anyDuplicated.default(x)) != 0) {
+    abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
   } else {
-    is_ascending(x)
+    is_ascending(x, na.rm = TRUE, strictly = TRUE)
   }
 }
 
@@ -541,7 +538,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
     keyed_data <- new_grouped_df(data, groups = key_data)
   }
   res <- summarise(keyed_data, !! "zzz" := anyDuplicated.default(!! sym(index)))
-  any_not_equal_to_c(res$zzz, 0)
+  any(res$zzz != 0)
 }
 
 remove_tsibble_attrs <- function(x) {

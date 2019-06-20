@@ -43,28 +43,3 @@ int gcd_vector(NumericVector x) {
 
   return std::accumulate(abs_diff.begin(), abs_diff.end(), abs_diff[0], gcd);
 }
-
-// Equivalent to any(x != c)
-
-// [[Rcpp::export]]
-bool any_not_equal_to_c(NumericVector x, double c) {
-  return is_true(any(x != c));
-}
-
-// If the input x is in ascending order
-
-// [[Rcpp::export]]
-bool is_ascending(IntegerVector x) {
-  IntegerVector y = wrap(x);
-  int prev = y[0];
-
-  IntegerVector::iterator it;
-  for (it = y.begin() + 1; it != y.end(); ++it) {
-    if (prev < *it) {
-      prev = *it;
-    } else {
-      return false;
-    }
-  };
-  return true;
-}

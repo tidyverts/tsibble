@@ -1,4 +1,5 @@
 ## helpers
+is_ascending <- Negate(is.unsorted)
 
 min0 <- function(...) {
   min(..., na.rm = TRUE)
