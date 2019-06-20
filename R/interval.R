@@ -295,20 +295,19 @@ time_to_date.gts <- function(x, tz = "UTC", ...) {
 # regular time interval is obtained from the greatest common divisor of positive
 # time distances.
 gcd_interval <- function(x) {
-  if (has_length(x, 1L) || has_length(x, 0L)) { # only one time index
+  if (length(x) < 2) { # only one time index
     0
-  } else if (is_integerish(x)) {
-    gcd_vector(x)
   } else {
-    gcd_vector_r(unique(round(abs(diff(x)), digits = 6)))
+    unique_x <- unique(round(abs(diff(x)), digits = 6))
+    gcd_vector(unique_x)
   }
 }
 
-gcd2 <- function(a, b) {
-  if (isTRUE(all.equal(b, 0))) a else gcd2(b, a %% b)
+gcd <- function(a, b) {
+  if (isTRUE(all.equal(b, 0))) a else gcd(b, a %% b)
 }
 
-gcd_vector_r <- function(x) Reduce(gcd2, x)
+gcd_vector <- function(x) Reduce(gcd, x)
 
 split_period <- function(x) {
   output <- lubridate::seconds_to_period(x)

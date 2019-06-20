@@ -25,7 +25,7 @@
   new_key <- cn[cn %in% key_vars(x)]
 
   if (!missing(i)) {
-    if (anyDuplicated.default(i) != 0) return(as_tibble(res))
+    if (anyDuplicated.default(i) > 0) return(as_tibble(res))
   }
 
   not_tsibble <- !(index_var(x) %in% cn) || NROW(res) > NROW(x)

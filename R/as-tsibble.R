@@ -379,7 +379,7 @@ validate_order <- function(x) {
     x
   } else if (all(x < 0)) {
     TRUE
-  } else if ((pos_dup <- anyDuplicated.default(x)) != 0) {
+  } else if ((pos_dup <- anyDuplicated.default(x)) > 0) {
     abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
   } else {
     is_ascending(x, na.rm = TRUE, strictly = TRUE)
@@ -538,7 +538,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
     keyed_data <- new_grouped_df(data, groups = key_data)
   }
   res <- summarise(keyed_data, !! "zzz" := anyDuplicated.default(!! sym(index)))
-  any(res$zzz != 0)
+  any(res$zzz > 0)
 }
 
 remove_tsibble_attrs <- function(x) {

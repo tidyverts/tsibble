@@ -31,15 +31,3 @@ List rle_lgl(NumericVector x) {
 
   return List::create(_["lengths"] = lengths, _["values"] = values);
 }
-
-int gcd(int x, int y) {
-  return y == 0 ? x : gcd(y, x % y);
-}
-
-// Find the greatest common divisor for a vector of numerics
-// [[Rcpp::export]]
-int gcd_vector(NumericVector x) {
-  NumericVector abs_diff = unique(abs(diff(x)));
-
-  return std::accumulate(abs_diff.begin(), abs_diff.end(), abs_diff[0], gcd);
-}

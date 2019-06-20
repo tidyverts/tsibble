@@ -9,11 +9,3 @@ rle_lgl <- function(x) {
     .Call(`_tsibble_rle_lgl`, x)
 }
 
-gcd_vector <- function(x) {
-    .Call(`_tsibble_gcd_vector`, x)
-}
-
-any_not_equal_to_c <- function(x, c) {
-    .Call(`_tsibble_any_not_equal_to_c`, x, c)
-}
-
