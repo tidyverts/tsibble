@@ -32,10 +32,19 @@ difference <- function(x, lag = 1, differences = 1, default = NA,
     abort("`lag` and `differences` must be positive integers.");
   }
   if (is_null(order_by)) {
-    diff_cpp(x, lag = lag, differences = differences, fill = default)
+    diff_impl(x, lag = lag, differences = differences, fill = default)
   } else {
-    dplyr::with_order(order_by, diff_cpp, x, 
+    dplyr::with_order(order_by, diff_impl, x, 
       lag = lag, differences = differences, fill = default
     )
+  }
+}
+
+diff_impl <- function(x, lag = 1, differences = 1, fill = NA) {
+  diff_x <- diff(x, lag = lag, differences = differences)
+  if (is_empty(fill)) {
+    diff_x
+  } else {
+    c(rep(fill, lag * differences), diff_x)
   }
 }

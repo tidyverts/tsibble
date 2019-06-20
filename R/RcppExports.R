@@ -5,7 +5,3 @@ diff_cpp <- function(x, lag, differences, fill) {
     .Call(`_tsibble_diff_cpp`, x, lag, differences, fill)
 }
 
-rle_lgl <- function(x) {
-    .Call(`_tsibble_rle_lgl`, x)
-}
-
