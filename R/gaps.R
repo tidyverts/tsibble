@@ -248,8 +248,8 @@ tbl_gaps <- function(x, y) {
   }
   gap_vec <- logical(length = len_y)
   gap_vec[match(x, y)] <- TRUE
-  gap_rle <- rle_lgl(gap_vec)
-  lgl_rle <- gap_rle$values
+  gap_rle <- rle(gap_vec)
+  lgl_rle <- as.logical(gap_rle$values)
   gap_idx <- gap_rle$lengths
   if (has_length(gap_idx, 1)) {
     tibble(.from = y[0], .to = y[0], .n = integer())
