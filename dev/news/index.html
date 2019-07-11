@@ -150,6 +150,7 @@
 <ul>
 <li>
 <code><a href="../reference/index-by.html">index_by()</a></code> supports lambda expression (#91).</li>
+<li>Defunct argument <code>gather</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.mts()</a></code> in favour of <code>pivot_longer</code>.</li>
 </ul>
 </div>
     <div id="tsibble-0-8-2" class="section level1">
@@ -178,7 +179,7 @@
 <li>Fixed bugs in <code>semi_join.tbl_ts()</code> and <code>anti_join.tbl_ts()</code> without suffix (#122).</li>
 <li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
 <li>Defunct <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
-<li>Defunct <code><a href="../reference/deprecated.html">pull_interval()</a></code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
+<li>Defunct <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 </ul>
 </div>
     <div id="tsibble-0-8-0" class="section level1">
@@ -198,7 +199,7 @@
 <a href="#defunct-deprecated-functionsarguments" class="anchor"></a>Defunct &amp; deprecated functions/arguments</h2>
 <ul>
 <li>Deprecate <code><a href="../reference/deprecated.html">id()</a></code> for creating key for the consistence of tidy selectors, and will be defunct until August 2019.</li>
-<li>Deprecate of <code><a href="../reference/deprecated.html">pull_interval()</a></code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
+<li>Deprecate of <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 <li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
 <li>Deprecate <code>gather = TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> in favour of <code>pivot_longer = TRUE</code>.</li>
 <li>Continue with deprecation of <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and will be defunct in the next release.</li>
@@ -506,7 +507,7 @@
 <h1 class="page-header">
 <a href="#tsibble-0-5-0" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
 </h1>
-<p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code><a href="../reference/deprecated.html">pull_interval()</a></code> need to be defined now.</p>
+<p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code>pull_interval()</code> need to be defined now.</p>
 <div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-5" class="anchor"></a>New features</h2>
@@ -712,7 +713,7 @@
 <li>
 <code>fill_na.tbl_ts()</code> gained a new argument of <code>.full = FALSE</code>. <code>.full = FALSE</code> (the default) inserts <code>NA</code> for each key within its time period, <code>TRUE</code> for the entire time span. This affects the results of <code>fill_na.tbl_ts()</code> as it only took <code>TRUE</code> into account previously. (#15)</li>
 <li>Renamed the <code>drop</code> argument to <code>.drop</code> in column-wise dplyr verbs.</li>
-<li>Dropped the <code>duplicated</code> argument in <code><a href="../reference/deprecated.html">pull_interval()</a></code>.</li>
+<li>Dropped the <code>duplicated</code> argument in <code>pull_interval()</code>.</li>
 <li>
 <code>group_by.tbl_ts()</code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code>group_by()</code> thinks.</li>
 </ul>
