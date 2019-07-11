@@ -117,13 +117,13 @@ over calendar periods. `index_by()` goes hand in hand with the index
 functions including `as.Date()`, `yearweek()`, `yearmonth()`, and
 `yearquarter()`, as well as other friends from *lubridate*. For example,
 it would be of interest in computing average temperature and total
-precipitation per month, by applying `yearmonth()` to the hourly time
-index.
+precipitation per month, by applying `yearmonth()` to the index variable
+(referred as `.`).
 
 ``` r
 full_weather %>%
   group_by_key() %>%
-  index_by(year_month = yearmonth(time_hour)) %>% # monthly aggregates
+  index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates
   summarise(
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
