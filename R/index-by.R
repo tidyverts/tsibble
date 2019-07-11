@@ -19,6 +19,7 @@
 #' * [as.Date] or [lubridate::as_date]: daily aggregation
 #' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]: 
 #' fine-resolution aggregation
+#' * Extract time components functions, such as [lubridate::hour()] & [lubridate::day()]
 #' * other index functions from other packages
 #'
 #' @details

@@ -22,6 +22,7 @@ The index functions that can be used, but not limited:
 \item \link{as.Date} or \link[lubridate:as_date]{lubridate::as_date}: daily aggregation
 \item \link[lubridate:ceiling_date]{lubridate::ceiling_date}, \link[lubridate:floor_date]{lubridate::floor_date}, or \link[lubridate:round_date]{lubridate::round_date}:
 fine-resolution aggregation
+\item Extract time components functions, such as \code{\link[lubridate:hour]{lubridate::hour()}} & \code{\link[lubridate:day]{lubridate::day()}}
 \item other index functions from other packages
 }}
 }
