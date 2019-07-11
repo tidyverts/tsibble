@@ -2,14 +2,11 @@
 % Please edit documentation in R/deprecated.R
 \name{as.tsibble}
 \alias{as.tsibble}
-\alias{pull_interval}
 \alias{fill_na}
 \alias{id}
 \title{Deprecated functions}
 \usage{
 as.tsibble(x, ...)
-
-pull_interval(x)
 
 fill_na(.data, ..., .full = FALSE)
 

@@ -1,6 +1,7 @@
 # tsibble 0.8.2.9000
 
 * `index_by()` supports lambda expression (#91).
+* Defunct argument `gather` in `as_tsibble.mts()` in favour of `pivot_longer`.
 
 # tsibble 0.8.2
 

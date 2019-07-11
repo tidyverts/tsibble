@@ -44,13 +44,6 @@ as.tsibble <- function(x, ...) {
 #' @rdname deprecated
 #' @export
 #' @keywords internal
-pull_interval <- function(x) {
-  .Defunct("interval_pull()")
-}
-
-#' @rdname deprecated
-#' @export
-#' @keywords internal
 fill_na <- function(.data, ..., .full = FALSE) {
   .Defunct("fill_gaps()")
 }
@@ -70,8 +63,7 @@ use_id <- function(x, key) {
   key_quo <- enquo(key)
   if (quo_is_null(key_quo)) {
     return(character())
-  }
-  if (quo_is_call(key_quo)) {
+  } else if (quo_is_call(key_quo)) {
     call_fn <- call_name(key_quo)
     if (call_fn == "id") {
       res <- eval_tidy(get_expr(key_quo), env = child_env(get_env(key_quo), id = id))
@@ -99,11 +91,10 @@ abort_stretch_size <- function(...) {
   }
 }
 
-warn_gather <- function(..., pivot_longer = TRUE) {
+abort_gather <- function(..., pivot_longer = TRUE) {
   dots <- dots_list(...)
   if ("gather" %in% names(dots)) {
-    warn("Argument `gather` is deprecated, please use `pivot_longer` instead.")
-    dots$gather
+    abort("Argument `gather` is defunct, please use `pivot_longer` instead.")
   } else {
     pivot_longer
   }

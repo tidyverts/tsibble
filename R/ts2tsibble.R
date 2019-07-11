@@ -28,7 +28,7 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
 #' as_tsibble(z, pivot_longer = FALSE)
 #' @export
 as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
-  pivot_longer <- warn_gather(..., pivot_longer = pivot_longer)
+  pivot_longer <- abort_gather(..., pivot_longer = pivot_longer)
   if (pivot_longer) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(
