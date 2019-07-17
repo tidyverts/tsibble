@@ -27,7 +27,7 @@ A tibble contains:
 Count implicit gaps
 }
 \examples{
-ped_gaps <- pedestrian \%>\% 
+ped_gaps <- pedestrian \%>\%
   count_gaps(.full = TRUE)
 ped_gaps
 if (!requireNamespace("ggplot2", quietly = TRUE)) {

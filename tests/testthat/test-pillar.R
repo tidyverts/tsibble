@@ -69,5 +69,3 @@ test_that("tbl_sum.grouped_ts()", {
     )
   )
 })
-
-

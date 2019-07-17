@@ -41,7 +41,7 @@ test_that("tile() and its variants", {
     purrr::map_dbl(tiler(x, 2), mean)
   )
   expect_equal(
-    tile(lst, ~ ., .size = 2),
+    tile(lst, ~., .size = 2),
     list(list(x = x, y = y), list(z = z))
   )
   expect_equal(
@@ -64,15 +64,15 @@ test_that("tile2() and its variants", {
     c(16L, 24L, 15L)
   )
   expect_equal(
-    tile2(lst, lst, ~ ., .size = 2),
+    tile2(lst, lst, ~., .size = 2),
     list(list(x = x, y = y), list(z = z))
   )
   expect_equal(
-    tile2_dfr(x, y, ~ tibble::tibble(x = .x + .y), .size = 1)[1, 1, drop  = TRUE],
+    tile2_dfr(x, y, ~ tibble::tibble(x = .x + .y), .size = 1)[1, 1, drop = TRUE],
     7
   )
   expect_equal(
-    tile2_dfc(x, y, ~ tibble::tibble(x = .x + .y), .size = 1)[1, 1, drop  = TRUE],
+    tile2_dfc(x, y, ~ tibble::tibble(x = .x + .y), .size = 1)[1, 1, drop = TRUE],
     7
   )
 })
@@ -83,7 +83,7 @@ test_that("ptile() and its variants", {
     ptile_int(lst, ~ sum(..1, ..2), size = 1) > 10
   )
   expect_equal(
-    ptile(list(lst, lst), ~ ..1, .size = 2),
+    ptile(list(lst, lst), ~..1, .size = 2),
     list(list(x = x, y = y), list(z = z))
   )
   expect_equal(

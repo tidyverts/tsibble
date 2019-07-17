@@ -57,7 +57,7 @@ test_that("if it's a tsibble", {
 })
 
 dat_x <- tibble::tribble(
-  ~ date, ~ group1, ~ group2, ~ value,
+  ~date, ~group1, ~group2, ~value,
   ymd("2017-10-01"), "a", "x", 1,
   ymd("2017-10-02"), "a", "x", 1,
   ymd("2017-10-01"), "a", "y", 3,

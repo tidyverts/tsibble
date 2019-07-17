@@ -19,7 +19,8 @@ test_that("A tsibble cannot be NULL, without index, or unknown class", {
 test_that("A tsibble must not contain missing values in index", {
   expect_error(
     tsibble(idx = ymd_h("2017-10-01 0", tz = "Australia/Melbourne") + hours(1:3)),
-    "must not contain `NA`.")
+    "must not contain `NA`."
+  )
 })
 
 test_that("A tsibble with unknown interval due to unexpected index class", {
@@ -35,7 +36,8 @@ test_that("Argument regular is not logical", {
       idx = ymd_h("2017-10-01 0", tz = "Australia/Melbourne") + hours(1:3),
       regular = new_interval()
     ),
-    "not TRUE")
+    "not TRUE"
+  )
 })
 
 test_that("A tibble is not tsibble", {
@@ -68,7 +70,7 @@ test_that("numeric with fractional intervals", {
 })
 
 start <- as.POSIXct("2010-01-15 13:55:23.975", tz = "UTC")
-x <-  start + lubridate::milliseconds(x = seq(0, 99, by = 5))
+x <- start + lubridate::milliseconds(x = seq(0, 99, by = 5))
 df <- data.frame(time = x, value = rnorm(length(x)))
 tsbl <- as_tsibble(df, index = time)
 
@@ -78,7 +80,7 @@ test_that("POSIXct with 5 milliseconds interval", {
   )
 })
 
-x <- ISOdatetime(2011,8,2,0,0,0) + c(34201881660:34201881669)*1e-6
+x <- ISOdatetime(2011, 8, 2, 0, 0, 0) + c(34201881660:34201881669) * 1e-6
 df <- data.frame(time = x, value = rnorm(10))
 tsbl <- as_tsibble(df, index = time)
 
@@ -118,7 +120,6 @@ test_that("Space in index variable", {
   tbl <- rename(dat_x, `Date Time` = date_time)
   tsbl <- as_tsibble(tbl)
   expect_identical(as_string(index(tsbl)), "Date Time")
-
 })
 
 test_that("Duplicated time index", {
@@ -162,7 +163,8 @@ test_that("POSIXt with 2 minutes interval", {
 })
 
 idx_hour <- seq.POSIXt(
-  ymd_h("2017-01-01 0"), ymd_h("2017-01-01 12"), by = "3 hour"
+  ymd_h("2017-01-01 0"), ymd_h("2017-01-01 12"),
+  by = "3 hour"
 )
 
 dat_x <- tibble(
@@ -204,7 +206,8 @@ test_that("Year week with 1 week interval", {
 })
 
 idx_month <- seq(
-  yearmonth(ymd("2017-01-01")), yearmonth(ymd("2017-05-01")), by = 1
+  yearmonth(ymd("2017-01-01")), yearmonth(ymd("2017-05-01")),
+  by = 1
 )
 dat_x <- tibble(
   yrmth = idx_month,
@@ -222,11 +225,12 @@ test_that("Year month with 1 month interval", {
 })
 
 idx_qtr <- seq(
-  yearquarter(ymd("2016-01-01")), yearquarter(ymd("2017-01-01")), by = 1
+  yearquarter(ymd("2016-01-01")), yearquarter(ymd("2017-01-01")),
+  by = 1
 )
 dat_x <- tibble(
- yrqtr = idx_qtr,
- value = rnorm(5)
+  yrqtr = idx_qtr,
+  value = rnorm(5)
 )
 
 test_that("Year quarter with 1 quarter interval", {
@@ -239,8 +243,8 @@ test_that("Year quarter with 1 quarter interval", {
 
 idx_year <- seq.int(1970, 2010, by = 10)
 dat_x <- tibble(
- year = idx_year,
- value = rnorm(5)
+  year = idx_year,
+  value = rnorm(5)
 )
 
 test_that("Year with 10 years interval", {
@@ -340,7 +344,7 @@ test_that("validate = FALSE", {
 })
 
 dat_x <- tribble(
-  ~ date, ~ group1, ~ group2, ~ value,
+  ~date, ~group1, ~group2, ~value,
   ymd("2017-10-01"), "a", "x", 1,
   ymd("2017-10-02"), "a", "x", 1,
   ymd("2017-10-01"), "a", "y", 3,
@@ -364,10 +368,10 @@ test_that("Use '-' and ':' in key vars", {
 })
 
 tbl <- tibble::tibble(
-    mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
-    group = rep(c("x", "y", "z"), each = 10),
-    value = rnorm(30)
-  ) %>%
+  mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
+  group = rep(c("x", "y", "z"), each = 10),
+  value = rnorm(30)
+) %>%
   group_by(group)
 
 test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
@@ -381,11 +385,13 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
 
 test_that("build_tsibble()", {
   expect_error(build_tsibble(
-    pedestrian, key = Sensor, index = Date_Time,
+    pedestrian,
+    key = Sensor, index = Date_Time,
     interval = list(hour = 1)
   ), "Argument `interval` must be class interval,")
   tsbl <- build_tsibble(
-    pedestrian, key = Sensor, index = Date_Time,
+    pedestrian,
+    key = Sensor, index = Date_Time,
     index2 = Date
   )
   idx2 <- index2_var(tsbl)
@@ -399,8 +405,9 @@ test_that("build_tsibble()", {
     build_tsibble(pedestrian, key = Sensor, index = NULL), "NULL."
   )
 
-  expect_error(pedestrian %>%
-    mutate(Date_Time = as.character(Date_Time)),
+  expect_error(
+    pedestrian %>%
+      mutate(Date_Time = as.character(Date_Time)),
     "Unsupported index"
   )
 })
@@ -408,12 +415,16 @@ test_that("build_tsibble()", {
 test_that("build_tsibble() for empty data frame", {
   ped_null <- pedestrian[0, ]
   expect_error(build_tsibble(
-    ped_null, key = Sensor, index = Date_Time,
+    ped_null,
+    key = Sensor, index = Date_Time,
     interval = list(hour = 1)
   ), "Argument `interval` must be class interval,")
-  expect_identical(interval(build_tsibble(
-    ped_null, key = Sensor, index = Date_Time,
-    interval = new_interval(hour = 1))),
+  expect_identical(
+    interval(build_tsibble(
+      ped_null,
+      key = Sensor, index = Date_Time,
+      interval = new_interval(hour = 1)
+    )),
     new_interval(hour = 1)
   )
 })

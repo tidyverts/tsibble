@@ -102,7 +102,7 @@ to leave off the time context.
 library(dplyr, warn.conflicts = FALSE)
 # Sum over sensors
 pedestrian \%>\%
-  index_by() \%>\% 
+  index_by() \%>\%
   summarise(Total = sum(Count))
 # shortcut
 pedestrian \%>\%
@@ -114,16 +114,16 @@ pedestrian \%>\%
 library(tidyr)
 # example from tidyr
 stocks <- tsibble(
-  time = as.Date('2009-01-01') + 0:9,
+  time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
 )
 (stocksm <- stocks \%>\% gather(stock, price, -time))
 stocksm \%>\% spread(stock, price)
-nested_stock <- stocksm \%>\% 
+nested_stock <- stocksm \%>\%
   nest(-stock)
-stocksm \%>\% 
-  group_by(stock) \%>\% 
+stocksm \%>\%
+  group_by(stock) \%>\%
   nest()
 }

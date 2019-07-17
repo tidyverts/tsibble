@@ -43,8 +43,8 @@ displaying on the screen.
 pedestrian \%>\% index_by()
 # Monthly counts across sensors
 library(dplyr, warn.conflicts = FALSE)
-monthly_ped <- pedestrian \%>\% 
-  group_by_key() \%>\% 
+monthly_ped <- pedestrian \%>\%
+  group_by_key() \%>\%
   index_by(Year_Month = ~ yearmonth(.)) \%>\%
   summarise(
     Max_Count = max(Count),
@@ -54,8 +54,8 @@ monthly_ped
 index(monthly_ped)
 
 # Using existing variable
-pedestrian \%>\% 
-  group_by_key() \%>\% 
+pedestrian \%>\%
+  group_by_key() \%>\%
   index_by(Date) \%>\%
   summarise(
     Max_Count = max(Count),
@@ -63,14 +63,14 @@ pedestrian \%>\%
   )
 
 # Attempt to aggregate to 4-hour interval, with the effects of DST
-pedestrian \%>\% 
-  group_by_key() \%>\% 
+pedestrian \%>\%
+  group_by_key() \%>\%
   index_by(Date_Time4 = ~ lubridate::floor_date(., "4 hour")) \%>\%
   summarise(Total_Count = sum(Count))
 
 # Annual trips by Region and State
-tourism \%>\% 
-  index_by(Year = ~ lubridate::year(.)) \%>\% 
-  group_by(Region, State) \%>\% 
+tourism \%>\%
+  index_by(Year = ~ lubridate::year(.)) \%>\%
+  group_by(Region, State) \%>\%
   summarise(Total = sum(Trips))
 }

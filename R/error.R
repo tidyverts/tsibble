@@ -13,8 +13,9 @@ dont_know <- function(x, FUN) {
 }
 
 abort_unknown_interval <- function(x) {
-  if (unknown_interval(x)) 
+  if (unknown_interval(x)) {
     abort("Can't proceed with tsibble of unknown interval.")
+  }
 }
 
 not_regular <- function(x) {
@@ -38,7 +39,7 @@ check_valid_window <- function(.size, .align) {
   }
 }
 
-abort_not_lst <- function (.x, .bind = FALSE) {
+abort_not_lst <- function(.x, .bind = FALSE) {
   if (!is.list(.x) && .bind) {
     abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
   }

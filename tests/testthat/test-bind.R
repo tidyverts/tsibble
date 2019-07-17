@@ -30,7 +30,7 @@ test_that("rbind() for mixed intervals", {
   res <- rbind(update_tsibble(vic, regular = FALSE), nsw)
   expect_identical(interval(res), interval(nsw))
   res2 <- rbind(
-    update_tsibble(vic, regular = FALSE), 
+    update_tsibble(vic, regular = FALSE),
     update_tsibble(nsw, regular = FALSE)
   )
   expect_identical(format(interval(res2)), "!")

@@ -74,7 +74,7 @@ x <- 1:5
 stretch_dbl(x, mean, .step = 2)
 stretch_lgl(x, ~ mean(.) > 2, .step = 2)
 lst <- list(x = x, y = 6:10, z = 11:15)
-stretch(lst, ~ ., .step = 2, .fill = NULL)
+stretch(lst, ~., .step = 2, .fill = NULL)
 }
 \seealso{
 \itemize{

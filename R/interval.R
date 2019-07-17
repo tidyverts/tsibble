@@ -7,8 +7,8 @@
 #' `difftime`/`hms`, `ordered`, `integer`, `numeric`, and `nanotime`.
 #'
 #' @details Extend tsibble to support custom time indexes by defining S3 generics
-#' `index_valid()` and `interval_pull()` for them. 
-#' @return an "interval" class (a list) includes "year", 
+#' `index_valid()` and `interval_pull()` for them.
+#' @return an "interval" class (a list) includes "year",
 #' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 #' "microsecond", "nanosecond", "unit".
 #'
@@ -34,8 +34,8 @@ interval_pull.POSIXt <- function(x) {
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
   init_interval(
-    hour = period$hour, 
-    minute = period$minute, 
+    hour = period$hour,
+    minute = period$minute,
     second = period$second %/% 1,
     millisecond = period$second %% 1 %/% 1e-3,
     microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
@@ -67,8 +67,8 @@ interval_pull.difftime <- function(x) {
     period <- split_period(nhms)
     init_interval(
       day = period$day,
-      hour = period$hour, 
-      minute = period$minute, 
+      hour = period$hour,
+      minute = period$minute,
       second = period$second
     )
   }
@@ -80,8 +80,8 @@ interval_pull.hms <- function(x) { # for hms package
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
   init_interval(
-    hour = period$hour + period$day * 24, 
-    minute = period$minute, 
+    hour = period$hour + period$day * 24,
+    minute = period$minute,
     second = period$second %/% 1,
     millisecond = period$second %% 1 %/% 1e-3,
     microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
@@ -129,7 +129,7 @@ interval_pull.yearqtr <- function(x) {
 #' @export
 interval_pull.numeric <- function(x) {
   nunits <- gcd_interval(x)
-  # "place our origin at 1582 if we are historically inclined or at 1900 if 
+  # "place our origin at 1582 if we are historically inclined or at 1900 if
   # we are more financially motivated." (p98, the grammar of graphics v2)
   if (is_empty(x)) {
     init_interval(unit = nunits)
@@ -160,7 +160,7 @@ interval_pull.ordered <- function(x) {
 #' `new_interval()` creates an interval object with the specified values.
 #'
 #' @param ... A list of time units to be included in the interval and their
-#' amounts. "year", "quarter", "month", "week", "day", "hour", "minute", "second", 
+#' amounts. "year", "quarter", "month", "week", "day", "hour", "minute", "second",
 #' "millisecond", "microsecond", "nanosecond", "unit" are supported.
 #'
 #' @return an "interval" class
@@ -171,7 +171,9 @@ interval_pull.ordered <- function(x) {
 #' new_interval() # unknown interval
 new_interval <- function(...) {
   args <- list2(...)
-  if (has_length(args, 1) && is_null(args[[1]])) return(irregular())
+  if (has_length(args, 1) && is_null(args[[1]])) {
+    return(irregular())
+  }
 
   if (is_false(all(map_lgl(args, ~ has_length(., 1))))) {
     abort("Only accepts one input for each unit, not multiple.")
@@ -184,19 +186,18 @@ new_interval <- function(...) {
     abort(sprintf("Invalid unit name: %s.", x_units))
   }
   # names(args) <- names_unit[pidx]
-  eval_tidy(call2("init_interval", !!! args))
+  eval_tidy(call2("init_interval", !!!args))
 }
 
 init_interval <- function(
-  year = 0, quarter = 0, month = 0, week = 0, 
-  day = 0, hour = 0, minute = 0, second = 0, 
-  millisecond = 0, microsecond = 0, nanosecond = 0, 
-  unit = 0
-) {
+                          year = 0, quarter = 0, month = 0, week = 0,
+                          day = 0, hour = 0, minute = 0, second = 0,
+                          millisecond = 0, microsecond = 0, nanosecond = 0,
+                          unit = 0) {
   structure(list(
     year = year, quarter = quarter, month = month, week = week,
     day = day, hour = hour, minute = minute, second = second,
-    millisecond = millisecond, microsecond = microsecond, 
+    millisecond = millisecond, microsecond = microsecond,
     nanosecond = nanosecond, unit = unit
   ), class = "interval")
 }
@@ -217,10 +218,14 @@ print.interval <- function(x, digits = NULL, ...) {
 
 #' @export
 format.interval <- function(x, digits = NULL, ...) {
-  if (is_empty(x)) return("!")
+  if (is_empty(x)) {
+    return("!")
+  }
   not_zero <- !map_lgl(x, function(x) x == 0)
   # if output contains all the zeros
-  if (sum(not_zero) == 0) return("?")
+  if (sum(not_zero) == 0) {
+    return("?")
+  }
   x <- translate_interval(x)
   output <- x[not_zero]
   paste0(output, names(output), collapse = " ")
@@ -229,9 +234,9 @@ format.interval <- function(x, digits = NULL, ...) {
 translate_interval <- function(x) {
   names_unit <- fn_fmls_names(init_interval)
   set_names(
-    x[names_unit], 
+    x[names_unit],
     c(
-      "Y", "Q", "M", "W", "D", "h", "m", "s", "ms", 
+      "Y", "Q", "M", "W", "D", "h", "m", "s", "ms",
       ifelse(is_utf8_output(), "\U00B5s", "us"), "ns", ""
     )
   )
@@ -246,7 +251,7 @@ time_unit <- function(x) {
   if (is_false(inherits(x, "interval"))) {
     abort("Must be class interval.")
   }
-  x[["microsecond"]]  <- x[["microsecond"]] * 1e-6
+  x[["microsecond"]] <- x[["microsecond"]] * 1e-6
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
   x[["hour"]] <- x[["hour"]] * 3600
@@ -270,7 +275,7 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
       lubridate::date_decimal(start_year + (time_x - start_year) * 7 / 365),
       unit = "day"
     ))
-  } else if (round(freq, 2) ==  52.18) { # weekly
+  } else if (round(freq, 2) == 52.18) { # weekly
     yearweek(lubridate::date_decimal(time_x))
   } else if (freq > 4 && freq <= 12) { # monthly
     yearmonth(time_x)

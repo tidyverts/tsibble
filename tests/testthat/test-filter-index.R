@@ -30,8 +30,8 @@ test_that("class: year*", {
     as.Date(c("2017-01-01", "2016-11-01", "2016-12-10"))
   )
   x <- yearquarter(c("2013 Q3", "2013 Qtr 3", "Quarter 4 2015"))
-  expect_equal(time_in(x, ~ "2014 Q1"), c(TRUE, TRUE, FALSE))
-  expect_equal(time_in(yearmonth(x), ~ "2014 March"), c(TRUE, TRUE, FALSE))
+  expect_equal(time_in(x, ~"2014 Q1"), c(TRUE, TRUE, FALSE))
+  expect_equal(time_in(yearmonth(x), ~"2014 March"), c(TRUE, TRUE, FALSE))
   expect_equal(time_in(x, "2014 Q1" ~ .), c(FALSE, FALSE, TRUE))
   expect_equal(time_in(yearmonth(x), "2014 March" ~ .), c(FALSE, FALSE, TRUE))
 })
@@ -78,20 +78,20 @@ test_that("filter_index()", {
   skip_if(is_london)
   expect_identical(
     pedestrian %>%
-      filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
+      filter_index(~"2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
     pedestrian %>%
       filter(
         Date_Time >= ymd_h("2015-08-01 00", tz = tz) &
-        Date_Time < ymd_h("2015-10-01 00", tz = tz) |
-        Date_Time <= ymd_h("2015-02-28 23", tz = tz) |
-        Date_Time >= ymd_h("2015-12-01 00", tz = tz)
+          Date_Time < ymd_h("2015-10-01 00", tz = tz) |
+          Date_Time <= ymd_h("2015-02-28 23", tz = tz) |
+          Date_Time >= ymd_h("2015-12-01 00", tz = tz)
       )
   )
   expect_identical(
     pedestrian %>%
-      filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
+      filter_index(~"2015-02", "2015-08" ~ "2015-09", "2015-12" ~ .),
     pedestrian %>%
-      filter_index(~ "2015-Feb", "2015-Aug" ~ "2015-Sep", "2015-Dec" ~ .)
+      filter_index(~"2015-Feb", "2015-Aug" ~ "2015-Sep", "2015-Dec" ~ .)
   )
   expect_identical(
     pedestrian %>%
@@ -110,13 +110,13 @@ test_that("filter_index()", {
   )
   expect_identical(
     pedestrian %>%
-      filter_index(~ "2015-02"),
+      filter_index(~"2015-02"),
     pedestrian %>%
       filter_index(. ~ "2015-02")
   )
   expect_identical(
     pedestrian %>%
-      filter_index(~ "2015"),
+      filter_index(~"2015"),
     pedestrian %>%
       filter(year(Date_Time) == 2015)
   )

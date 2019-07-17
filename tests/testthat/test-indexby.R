@@ -86,7 +86,7 @@ test_that("From Date to year-week, year-month, year-quarter and year", {
     summarise(value = sum(value))
   expect_equal(res2, res4)
   res5 <- res2 %>%
-    index_by(yr= year(yrqtr)) %>%
+    index_by(yr = year(yrqtr)) %>%
     summarise(value = sum(value))
   expect_equal(res3, res5)
 })

@@ -38,8 +38,8 @@ full_harvest <- fill_gaps(harvest, .full = FALSE)
 full_harvest
 
 # use fill() to fill `NA` by previous/next entry
-full_harvest \%>\% 
-  group_by_key() \%>\% 
+full_harvest \%>\%
+  group_by_key() \%>\%
   tidyr::fill(kilo, .direction = "down")
 
 # replace gaps with a specific value

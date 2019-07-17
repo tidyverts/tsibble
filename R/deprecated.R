@@ -81,7 +81,7 @@ use_id <- function(x, key) {
       return(res_vars)
     }
   }
-  vars_select(names(x), !! key_quo)
+  vars_select(names(x), !!key_quo)
 }
 
 abort_stretch_size <- function(...) {

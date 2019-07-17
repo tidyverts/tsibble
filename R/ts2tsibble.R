@@ -1,7 +1,7 @@
 #' @rdname as-tsibble
 #' @param tz Time zone. May be useful when a `ts` object is more frequent than
 #' daily.
-#' 
+#'
 #' @examples
 #' # coerce ts to tsibble
 #' as_tsibble(AirPassengers)
@@ -14,7 +14,8 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
   value <- as.numeric(x) # rm its ts class
   tbl <- tibble(index = idx, value = value)
   build_tsibble(
-    tbl, key = NULL, index = index, ordered = TRUE, validate = FALSE
+    tbl,
+    key = NULL, index = index, ordered = TRUE, validate = FALSE
   )
 }
 
@@ -32,12 +33,14 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
   if (pivot_longer) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(
-      long_tbl, key = key, index = index, ordered = TRUE, validate = FALSE
+      long_tbl,
+      key = key, index = index, ordered = TRUE, validate = FALSE
     )
   } else {
     wide_tbl <- bind_time(x, tz = tz)
     build_tsibble(
-      wide_tbl, key = NULL, index = index, ordered = TRUE, validate = FALSE
+      wide_tbl,
+      key = NULL, index = index, ordered = TRUE, validate = FALSE
     )
   }
 }
@@ -57,13 +60,15 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
 #' @export
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
-  tbl <- gather_ts(x, tz = tz) %>% 
+  tbl <- gather_ts(x, tz = tz) %>%
     dplyr::select(index, "value")
   tbl_hts <- dplyr::bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
   key <- colnames(tbl_hts)[3:ncol(tbl_hts)]
-  build_tsibble(tbl_hts, key = !! key, index = index, ordered = TRUE,
-    validate = FALSE)
+  build_tsibble(tbl_hts,
+    key = !!key, index = index, ordered = TRUE,
+    validate = FALSE
+  )
 }
 
 # as_tsibble.gts <- function(x, tz = "UTC", ...) {
@@ -86,7 +91,7 @@ as_tsibble.hts <- function(x, ..., tz = "UTC") {
 #   full_labs <- map(chr_labs, ~ rep(., each = nr))
 #   names(full_labs) <- names(labels)
 #
-#   tbl <- gather_ts(bts, tz = tz) %>% 
+#   tbl <- gather_ts(bts, tz = tz) %>%
 #     dplyr::select(time, value)
 #   colnames(tbl)[2] <- deparse(substitute(x))
 #   out_hts <- dplyr::bind_cols(tbl, full_labs)

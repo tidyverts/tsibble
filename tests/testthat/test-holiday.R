@@ -1,10 +1,14 @@
 context("Australian national and state based public holiday")
 
 nat_2018 <- tibble::tibble(
-  holiday = c("New Year's Day", "Australia Day", "Good Friday", "Easter Monday", 
-    "ANZAC Day", "Christmas Day", "Boxing Day"),
-  date = as.Date(c("2018-01-01", "2018-01-26", "2018-03-30", "2018-04-02",
-    "2018-04-25", "2018-12-25", "2018-12-26"))
+  holiday = c(
+    "New Year's Day", "Australia Day", "Good Friday", "Easter Monday",
+    "ANZAC Day", "Christmas Day", "Boxing Day"
+  ),
+  date = as.Date(c(
+    "2018-01-01", "2018-01-26", "2018-03-30", "2018-04-02",
+    "2018-04-25", "2018-12-25", "2018-12-26"
+  ))
 )
 
 test_that("National holidays", {
@@ -63,56 +67,56 @@ nsw_2018 <- tibble::tibble(
 
 test_that("State-based holidays", {
   expect_equal(
-    holiday_aus(2018, "ACT") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "ACT") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     act_2018
   )
   expect_equal(
-    holiday_aus(2018, "NT") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "NT") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     nt_2018
   )
   expect_equal(
-    holiday_aus(2018, "QLD") %>% 
-      anti_join(nat_2018) %>% 
+    holiday_aus(2018, "QLD") %>%
+      anti_join(nat_2018) %>%
       anti_join(easter_2018),
     qld_2018
   )
   expect_equal(
-    holiday_aus(2018, "SA") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "SA") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     sa_2018
   )
   expect_equal(
-    holiday_aus(2018, "TAS") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "TAS") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     tas_2018
   )
   expect_equal(
-    holiday_aus(2018, "VIC") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "VIC") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     vic_2018
   )
   expect_equal(
-    holiday_aus(2018, "WA") %>% 
-      anti_join(nat_2018) %>% 
+    holiday_aus(2018, "WA") %>%
+      anti_join(nat_2018) %>%
       anti_join(easter_2018),
     wa_2018
   )
   expect_equal(
-    holiday_aus(2018, "NSW") %>% 
-      anti_join(nat_2018) %>% 
-      anti_join(easter_2018) %>% 
+    holiday_aus(2018, "NSW") %>%
+      anti_join(nat_2018) %>%
+      anti_join(easter_2018) %>%
       anti_join(queens_2018),
     nsw_2018
   )

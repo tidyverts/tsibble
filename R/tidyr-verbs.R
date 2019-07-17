@@ -5,7 +5,7 @@
 #' library(tidyr)
 #' # example from tidyr
 #' stocks <- tsibble(
-#'   time = as.Date('2009-01-01') + 0:9,
+#'   time = as.Date("2009-01-01") + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
@@ -14,24 +14,27 @@
 #' stocksm %>% spread(stock, price)
 #' @export
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
-  na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+                          na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))
   new_key <- c(key_vars(data), key)
   value <- enexpr(value)
   exprs <- enexprs(...)
   if (is_empty(exprs)) {
-    exprs <- setdiff(names(data), 
+    exprs <- setdiff(
+      names(data),
       c(quo_name(key), quo_name(value), quo_name(index(data)))
     )
   }
-  vars <- vars_select(names(data), !!! exprs)
+  vars <- vars_select(names(data), !!!exprs)
   data <- mutate_index2(data, vars)
   tbl <- gather(
-    as_tibble(data), key = !! key, value = !! value, !!! exprs,
+    as_tibble(data),
+    key = !!key, value = !!value, !!!exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
   build_tsibble(
-    tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
+    tbl,
+    key = !!new_key, index = !!index(data), index2 = !!index2(data),
     ordered = is_ordered(data), interval = interval(data), validate = FALSE
   )
 }
@@ -42,7 +45,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
 spread.tbl_ts <- function(data, key, value, ...) {
   key <- enexpr(key)
   value <- enexpr(value)
-  key_var <- vars_pull(names(data), !! key)
+  key_var <- vars_pull(names(data), !!key)
   if (has_index(key_var, data)) {
     abort(paste_inline(
       sprintf("Column `%s` (index) can't be spread.", key_var),
@@ -52,14 +55,15 @@ spread.tbl_ts <- function(data, key, value, ...) {
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key_vars(remove_key(data, .vars = key_left))
 
-  tbl <- spread(as_tibble(data), key = !! key, value = !! value, ...)
+  tbl <- spread(as_tibble(data), key = !!key, value = !!value, ...)
   tbl <- retain_tsibble(tbl, new_key, index(data))
 
   vars <- names(tbl)
   data <- mutate_index2(data, vars)
   build_tsibble(
-    tbl, key = !! new_key, index = !! index(data), index2 = !! index2(data), 
-    ordered = is_ordered(data), interval = is_regular(data), 
+    tbl,
+    key = !!new_key, index = !!index(data), index2 = !!index2(data),
+    ordered = is_ordered(data), interval = is_regular(data),
     validate = FALSE
   )
 }
@@ -67,10 +71,10 @@ spread.tbl_ts <- function(data, key, value, ...) {
 #' @inheritParams tidyr::nest
 #' @rdname tsibble-tidyverse
 #' @examples
-#' nested_stock <- stocksm %>% 
+#' nested_stock <- stocksm %>%
 #'   nest(-stock)
-#' stocksm %>% 
-#'   group_by(stock) %>% 
+#' stocksm %>%
+#'   group_by(stock) %>%
 #'   nest()
 #' @export
 nest.tbl_ts <- function(.data, ...) {
@@ -79,17 +83,21 @@ nest.tbl_ts <- function(.data, ...) {
   nest_names <- names(tbl_nest)
   nest_vars <- setdiff(data_names, nest_names)
   if (!has_all_key(nest_vars, .data) && !has_index(nest_vars, .data)) {
-    build_tsibble(tbl_nest, key = setdiff(key_vars(.data), nest_vars),
-      index = !! index(.data), validate = FALSE)
+    build_tsibble(tbl_nest,
+      key = setdiff(key_vars(.data), nest_vars),
+      index = !!index(.data), validate = FALSE
+    )
   } else if (!has_index(nest_vars, .data)) {
-    build_tsibble(tbl_nest, index = !! index(.data), validate = FALSE)
+    build_tsibble(tbl_nest, index = !!index(.data), validate = FALSE)
   } else {
     new_lst <- nest_names[map_lgl(tbl_nest, is_list)]
     old_lst <- data_names[map_lgl(.data, is_list)]
     lst_vars <- setdiff(new_lst, old_lst)
-    .data <- select_tsibble(ungroup(.data), !!! nest_vars, validate = FALSE)
-    tbl_nest[[lst_vars]] <- lapply(tbl_nest[[lst_vars]],
-      function(x) update_meta(x, .data))
+    .data <- select_tsibble(ungroup(.data), !!!nest_vars, validate = FALSE)
+    tbl_nest[[lst_vars]] <- lapply(
+      tbl_nest[[lst_vars]],
+      function(x) update_meta(x, .data)
+    )
     as_lst_ts(tbl_nest)
   }
 }
@@ -107,14 +115,16 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
   ))
   unnested_data <- unnest(as_tibble(data), ...)
 
-  key <- use_id(data, !! enquo(key))
+  key <- use_id(data, !!enquo(key))
   lst_cols <- setdiff(names(data), names(unnested_data))
 
   # checking if the nested columns has `tbl_ts` class (only for the first row)
   first_nested <- data[lst_cols][1L, ]
   eval_col <- purrr::imap(first_nested, dplyr::first)
   tsbl_col <- map_lgl(eval_col, is_tsibble)
-  if (sum(tsbl_col) == 0) return(unnested_data)
+  if (sum(tsbl_col) == 0) {
+    return(unnested_data)
+  }
 
   tsbl <- eval_col[tsbl_col][[1L]]
   idx <- index(tsbl)
@@ -125,7 +135,8 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
   # restore the index class, as it's dropped by NextMethod()
   class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
-    unnested_data, key = !! key, index = !! idx, index2 = !! index2(tsbl),
+    unnested_data,
+    key = !!key, index = !!idx, index2 = !!index2(tsbl),
     ordered = is_ordered(tsbl), interval = is_regular(tsbl), validate = FALSE
   )
 }
@@ -143,7 +154,7 @@ unnest.tbl_ts <- function(data, ..., key = NULL) {
   ))
   unnested_data <- unnest(as_tibble(data), ...)
 
-  key <- use_id(data, !! enquo(key))
+  key <- use_id(data, !!enquo(key))
   key <- c(key_vars(data), key)
   idx <- index(data)
   unnested_data <- unnest_check_tsibble(unnested_data, key, idx)
@@ -151,7 +162,8 @@ unnest.tbl_ts <- function(data, ..., key = NULL) {
   idx_chr <- as_string(idx)
   class(unnested_data[[idx_chr]]) <- class(data[[idx_chr]])
   build_tsibble(
-    unnested_data, key = !! key, index = !! idx, index2 = !! index2(data), 
+    unnested_data,
+    key = !!key, index = !!idx, index2 = !!index2(data),
     ordered = is_ordered(data), interval = is_regular(data), validate = FALSE
   )
 }
@@ -181,10 +193,10 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
     abort("Argument `cols` for columns to unnest is required.")
   }
   if (utils::packageVersion("tidyr") > "0.8.3") {
-    unnested_data <- unnest(as_tibble(data), cols = !! enquo(cols))
+    unnested_data <- unnest(as_tibble(data), cols = !!enquo(cols))
   } else {
-    cols_lst <- syms(vars_select(names(data), !! enquo(cols)))
-    unnested_data <- unnest(as_tibble(data), !!! cols_lst)
+    cols_lst <- syms(vars_select(names(data), !!enquo(cols)))
+    unnested_data <- unnest(as_tibble(data), !!!cols_lst)
   }
 
   if (is_tsibble(data)) {
@@ -208,11 +220,12 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
     idx <- index(tsbl)
   }
 
-  key <- use_id(unnested_data, !! enquo(key))
+  key <- use_id(unnested_data, !!enquo(key))
   idx_chr <- as_string(idx)
   class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(
-    unnested_data, key = !! key, index = !! idx, index2 = !! index2(tsbl), 
+    unnested_data,
+    key = !!key, index = !!idx, index2 = !!index2(tsbl),
     ordered = is_ordered(tsbl), interval = is_regular(tsbl), validate = validate
   )
 }

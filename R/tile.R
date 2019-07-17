@@ -21,7 +21,7 @@
 #' lst <- list(x = x, y = 6:10, z = 11:15)
 #' tile_dbl(x, mean, .size = 2)
 #' tile_lgl(x, ~ mean(.) > 2, .size = 2)
-#' tile(lst, ~ ., .size = 2)
+#' tile(lst, ~., .size = 2)
 tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
   lst_x <- tiler(.x, .size = .size, .bind = .bind)
   map(lst_x, .f, ...)
@@ -42,14 +42,14 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 tile_dfr <- function(.x, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!! out, .id = .id)
+  dplyr::bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile
 #' @export
 tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
   out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!! out)
+  dplyr::bind_cols(!!!out)
 }
 
 #' Tiling window calculation over multiple inputs simultaneously
@@ -74,10 +74,10 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' lst <- list(x = x, y = y, z = z)
 #' df <- as.data.frame(lst)
 #' tile2(x, y, sum, .size = 2)
-#' tile2(lst, lst, ~ ., .size = 2)
-#' tile2(df, df, ~ ., .size = 2)
+#' tile2(lst, lst, ~., .size = 2)
+#' tile2(df, df, ~., .size = 2)
 #' ptile(lst, sum, .size = 1)
-#' ptile(list(lst, lst), ~ ., .size = 2)
+#' ptile(list(lst, lst), ~., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
   lst <- ptiler(.x, .y, .size = .size, .bind = .bind)
   map2(lst[[1]], lst[[2]], .f, ...)
@@ -98,20 +98,20 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!! out, .id = .id)
+  dplyr::bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
 tile2_dfc <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
   out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!! out)
+  dplyr::bind_cols(!!!out)
 }
 
 #' @rdname tile2
 #' @export
 ptile <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
-  lst <- ptiler(!!! .l, .size = .size, .bind = .bind)
+  lst <- ptiler(!!!.l, .size = .size, .bind = .bind)
   pmap(lst, .f, ...)
 }
 
@@ -130,14 +130,14 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 ptile_dfr <- function(.l, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!! out, .id = .id)
+  dplyr::bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
 ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
   out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!! out)
+  dplyr::bind_cols(!!!out)
 }
 
 #' Splits the input to a list according to the tiling window size.
@@ -151,7 +151,7 @@ ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 #' z <- 11:15
 #' lst <- list(x = x, y = y, z = z)
 #' df <- as.data.frame(lst)
-#' 
+#'
 #' tiler(x, .size = 2)
 #' tiler(lst, .size = 2)
 #' ptiler(lst, .size = 2)
@@ -193,7 +193,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #'   kilo = sample(1:10, size = 6),
 #'   key = fruit, index = year
 #' )
-#' harvest %>% 
+#' harvest %>%
 #'   tile_tsibble(.size = 2)
 tile_tsibble <- function(.x, .size = 1, .id = ".id") {
   lst_indices <- map(key_rows(.x), tiler, .size = .size)
@@ -203,10 +203,10 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
 #' Tiling window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
-#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`, 
+#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
 #' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
-#' * Extra arguments `.progress` and `.options` for enabling progress bar and the 
-#' future specific options to use with the workers. 
+#' * Extra arguments `.progress` and `.options` for enabling progress bar and the
+#' future specific options to use with the workers.
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("tile", "tile2", "ptile"), '}'), paste0('\\alias{future_tile_', suffix, '}'), paste0('\\alias{future_tile2_', suffix, '}'), paste0('\\alias{future_ptile_', suffix, '}'))}
 #' @name future_tile()

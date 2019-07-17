@@ -44,7 +44,8 @@ test_that("ordered?", {
   expect_warning(new_t <- append_row(unord_t))
   expect_equal(
     new_t[["Trips"]][(NROW(tourism) + 1):NROW(new_t)],
-    rep(NA_real_, n_keys(tourism)))
+    rep(NA_real_, n_keys(tourism))
+  )
 })
 
 test_that("`keep_all = TRUE", {

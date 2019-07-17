@@ -152,7 +152,7 @@ test_that("fill.tbl_ts(.full = FALSE)", {
 })
 
 test_that("count_gaps.tbl_ts(.full = TRUE)", {
-  full_tbl <- tsbl  %>% count_gaps(.full = TRUE)
+  full_tbl <- tsbl %>% count_gaps(.full = TRUE)
   expect_equal(
     full_tbl,
     tibble(
@@ -207,6 +207,8 @@ test_that("seq_generator()", {
   x <- nanotime::nanotime("1970-01-01T00:00:00.000000001+00:00") + c(0:3, 5:9)
   expect_length(seq_generator(x), 10)
   y <- structure(c("x", "y"), class = "xxx")
-  interval_pull.xxx <- function(x) {init_interval(unit = 1)}
+  interval_pull.xxx <- function(x) {
+    init_interval(unit = 1)
+  }
   expect_error(seq_generator(y, interval_pull(y)), "defined")
 })

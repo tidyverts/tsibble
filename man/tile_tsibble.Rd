@@ -38,7 +38,7 @@ harvest <- tsibble(
   kilo = sample(1:10, size = 6),
   key = fruit, index = year
 )
-harvest \%>\% 
+harvest \%>\%
   tile_tsibble(.size = 2)
 }
 \seealso{

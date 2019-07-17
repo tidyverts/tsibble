@@ -92,16 +92,18 @@ test_that("expect warnings from arrange.tbl_ts()", {
 })
 
 test_that("arrange.grouped_ts()", {
-  tsbl2 <- tourism %>% group_by(Region, State) %>% arrange(Quarter)
+  tsbl2 <- tourism %>%
+    group_by(Region, State) %>%
+    arrange(Quarter)
   expect_equal(tsbl2, tourism)
   expect_identical(key(tsbl2), key(tourism))
-  expect_identical(group_vars(tsbl2), c("Region",  "State"))
+  expect_identical(group_vars(tsbl2), c("Region", "State"))
   tsbl3 <- tourism %>%
     group_by(Region, State) %>%
     arrange(Quarter, .by_group = TRUE)
   expect_equal(tsbl3, tourism)
   expect_identical(key(tsbl3), key(tourism))
-  expect_identical(group_vars(tsbl3), c("Region",  "State"))
+  expect_identical(group_vars(tsbl3), c("Region", "State"))
   tsbl4 <- tourism %>%
     group_by(Region, State) %>%
     arrange(Purpose, Quarter, .by_group = TRUE)
@@ -144,8 +146,8 @@ test_that("filter() and slice() with .preserve = TRUE", {
     as_tibble()
   expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
   expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
-  res <- as_tsibble(AirPassengers) %>% 
-    filter_index(~ "1949 Mar", .preserve = TRUE)
+  res <- as_tsibble(AirPassengers) %>%
+    filter_index(~"1949 Mar", .preserve = TRUE)
   expect_false(identical(key_rows(res), key_rows(as_tsibble(AirPassengers))))
 })
 
@@ -259,9 +261,13 @@ test_that("transmute()", {
 })
 
 test_that("transmute.grouped_ts()", {
-  out <- pedestrian %>% group_by(Time) %>% transmute()
+  out <- pedestrian %>%
+    group_by(Time) %>%
+    transmute()
   expect_equal(ncol(out), 3)
-  out2 <- pedestrian %>% group_by_key() %>% transmute()
+  out2 <- pedestrian %>%
+    group_by_key() %>%
+    transmute()
   expect_named(out2, c("Sensor", "Date_Time"))
 })
 

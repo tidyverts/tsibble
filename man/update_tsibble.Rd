@@ -32,8 +32,8 @@ Unspecified arguments will inherit the attributes from \code{x}.
 }
 \examples{
 library(dplyr)
-pedestrian \%>\% 
-  group_by_key() \%>\% 
-  mutate(Hour_Since = Date_Time - min(Date_Time)) \%>\% 
+pedestrian \%>\%
+  group_by_key() \%>\%
+  mutate(Hour_Since = Date_Time - min(Date_Time)) \%>\%
   update_tsibble(index = Hour_Since)
 }

@@ -10,23 +10,26 @@ pedestrian <- rwalkr::melb_walk_fast(
     "Southern Cross Station",
     "Bourke Street Mall (North)",
     "QV Market-Elizabeth St (West)"
-  ), na.rm = TRUE)
+  ), na.rm = TRUE
+)
 
 pedestrian <- as_tsibble(
-  pedestrian, key = Sensor, index = Date_Time
+  pedestrian,
+  key = Sensor, index = Date_Time
 )
 usethis::use_data(pedestrian, overwrite = TRUE, compress = "xz")
 
 # Australia: Domestic Overnight Trips ('000) ----
 domestic_trips <- read_csv(
-  "data-raw/domestic-trips.csv", skip = 11,
+  "data-raw/domestic-trips.csv",
+  skip = 11,
   col_names = c("Quarter", "Region", "Holiday", "Visiting", "Business", "Other"),
   n_max = 6804
 )
 
 # fill NA in "Quarter" using the last obs
 fill_na <- domestic_trips %>%
-  fill(Quarter, .direction = "down") %>% 
+  fill(Quarter, .direction = "down") %>%
   filter(Quarter != "Total")
 
 # separate State from "Region"

@@ -41,7 +41,7 @@ harvest <- tsibble(
   kilo = sample(1:10, size = 6),
   key = fruit, index = year
 )
-harvest \%>\% 
+harvest \%>\%
   slide_tsibble(.size = 2)
 }
 \seealso{

@@ -1,6 +1,6 @@
 #' Pedestrian counts in the city of Melbourne
 #'
-#' A dataset containing the hourly pedestrian counts from 2015-01-01 to 
+#' A dataset containing the hourly pedestrian counts from 2015-01-01 to
 #' 2016-12-31 at 4 sensors in the city of Melbourne.
 #'
 #' @format A tsibble with 66,071 rows and 5 variables:
@@ -19,8 +19,8 @@
 #' # make implicit missingness to be explicit ----
 #' pedestrian %>% fill_gaps()
 #' # compute daily maximum counts across sensors ----
-#' pedestrian %>% 
-#'   group_by_key() %>% 
+#' pedestrian %>%
+#'   group_by_key() %>%
 #'   index_by(Date) %>% # group by Date and use it as new index
 #'   summarise(MaxC = max(Count))
 "pedestrian"
@@ -32,15 +32,15 @@
 #'
 #' @format A tsibble with 23,408 rows and 5 variables:
 #' * **Quarter**: Year quarter (index)
-#' * **Region**: The tourism regions are formed through the aggregation of 
-#' Statistical Local Areas (SLAs) which are defined by the various State and 
-#' Territory tourism authorities according to their research and marketing 
+#' * **Region**: The tourism regions are formed through the aggregation of
+#' Statistical Local Areas (SLAs) which are defined by the various State and
+#' Territory tourism authorities according to their research and marketing
 #' needs
 #' * **State**: States and territories of Australia
-#' * **Purpose**: Stopover purpose of visit: 
+#' * **Purpose**: Stopover purpose of visit:
 #'   - "Holiday"
-#'   - "Visiting friends and relatives" 
-#'   - "Business" 
+#'   - "Visiting friends and relatives"
+#'   - "Business"
 #'   - "Other reason"
 #' * **Trips**: Overnight trips in thousands
 #' @references [Tourism Research Australia](https://www.tra.gov.au)
@@ -51,7 +51,7 @@
 #' library(dplyr)
 #' data(tourism)
 #' # Total trips over geographical regions
-#' tourism %>% 
-#'   group_by(Region, State) %>% 
+#' tourism %>%
+#'   group_by(Region, State) %>%
 #'   summarise(Total_Trips = sum(Trips))
 "tourism"

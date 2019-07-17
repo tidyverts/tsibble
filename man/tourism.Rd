@@ -32,8 +32,8 @@ across Australia.
 library(dplyr)
 data(tourism)
 # Total trips over geographical regions
-tourism \%>\% 
-  group_by(Region, State) \%>\% 
+tourism \%>\%
+  group_by(Region, State) \%>\%
   summarise(Total_Trips = sum(Trips))
 }
 \references{

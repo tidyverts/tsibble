@@ -16,13 +16,13 @@ test_that("Invalid input", {
 })
 
 test_that("check .align", {
-  expect_error(slide(x, ~ ., .size = 2, .align = "center"), "even")
+  expect_error(slide(x, ~., .size = 2, .align = "center"), "even")
   expect_equal(
-    slide(x, ~ ., .size = 4, .align = "center-right")[1:2],
+    slide(x, ~., .size = 4, .align = "center-right")[1:2],
     list(NA, NA)
   )
   expect_equal(
-    slide(x, ~ ., .size = 3, .align = "center", .fill = NULL),
+    slide(x, ~., .size = 3, .align = "center", .fill = NULL),
     list(1:3, 2:4, 3:5)
   )
 })
@@ -117,11 +117,11 @@ test_that("slide() and its variants", {
     c(NA, 1.5, NA, 3.5, NA)
   )
   expect_equal(
-    slide(lst, ~ ., .size = 2, .partial = TRUE),
+    slide(lst, ~., .size = 2, .partial = TRUE),
     list(list(NA, x = x), list(x = x, y = y), list(y = y, z = z))
   )
   expect_equal(
-    slide(lst, ~ ., .size = 2),
+    slide(lst, ~., .size = 2),
     list(NA, list(x = x, y = y), list(y = y, z = z))
   )
   expect_equal(
@@ -152,15 +152,15 @@ test_that("slide2() and its variants", {
     list(NA_real_, 110, 210)
   )
   expect_equal(
-    slide2(df, df, ~ ., .size = 2),
-    slide2(lst, lst, ~ ., .size = 2)
+    slide2(df, df, ~., .size = 2),
+    slide2(lst, lst, ~., .size = 2)
   )
   expect_equal(
-    slide2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[2, 1, drop  = TRUE],
+    slide2_dfr(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[2, 1, drop = TRUE],
     sum(df[, 1:2]) * 2
   )
   expect_equal(
-    slide2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[1, 2, drop  = TRUE],
+    slide2_dfc(df, df, ~ tibble::tibble(x = sum(.x, .y)), .size = 2, .bind = TRUE)[1, 2, drop = TRUE],
     sum(df[, 1:2]) * 2
   )
 })
@@ -175,7 +175,7 @@ test_that("pslide() and its variants", {
     as.list(pslide_int(lst, ~ sum(..1, ..2), size = 1) > 10)
   )
   expect_equal(
-    pslide(list(lst, lst), ~ ..1, .size = 2),
+    pslide(list(lst, lst), ~..1, .size = 2),
     list(NA, list(x = x, y = y), list(y = y, z = z))
   )
   expect_equal(

@@ -32,6 +32,7 @@ pedestrian \%>\%
   nest() \%>\%
   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
 }
+# nocov start
 }
 \alias{future_slide}
 \alias{future_slide2}

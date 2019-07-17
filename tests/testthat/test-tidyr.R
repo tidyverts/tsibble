@@ -163,7 +163,7 @@ test_that("unnest_tsibble()", {
   expect_equal(
     nest2_t %>%
       unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)) %>%
-      NCOL,
+      NCOL(),
     6
   )
 })
@@ -172,7 +172,7 @@ test_that("unnest_tsibble() #123 for names", {
   skip_if(packageVersion("tidyr") > "0.8.3")
   nested_t <- tourism %>% nest(-Purpose, .key = "Trips")
   expect_equal(
-    nested_t %>% 
+    nested_t %>%
       unnest_tsibble(Trips, key = c(Purpose, Region, Trips)),
     tourism
   )

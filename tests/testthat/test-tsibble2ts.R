@@ -24,7 +24,7 @@ test_that("a tsibble with different frequnecy", {
   expect_equal(x4, y4)
   expect_equal(frequency(y4), 12)
   expect_equal(start(y4), c(2000, 1))
-  tsbl5 <- tsbl4 %>% 
+  tsbl5 <- tsbl4 %>%
     mutate(value2 = rnorm(10))
   expect_equal(ncol(as.ts(tsbl5)), 2)
   expect_is(as.ts(tsbl5), "mts")
@@ -50,21 +50,21 @@ test_that("a tsibble with more than one measured vars", {
 })
 
 test_that("time.* and guess_frequency.*", {
- dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
- y <- time(dat)
- expect_is(y, "ts")
- expect_equal(frequency(y), 7)
- expect_equal(guess_frequency(dat), 7)
- dat_min <- seq(
-   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
-   by = "1 min"
- )
- expect_equal(guess_frequency(dat_min), 60)
- dat_sec <- seq(
-   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
-   by = 1
- )
- expect_equal(guess_frequency(dat_sec), 60)
+  dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
+  y <- time(dat)
+  expect_is(y, "ts")
+  expect_equal(frequency(y), 7)
+  expect_equal(guess_frequency(dat), 7)
+  dat_min <- seq(
+    as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
+    by = "1 min"
+  )
+  expect_equal(guess_frequency(dat_min), 60)
+  dat_sec <- seq(
+    as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
+    by = 1
+  )
+  expect_equal(guess_frequency(dat_sec), 60)
 })
 
 test_that("guess_frequency() for one observation #124", {

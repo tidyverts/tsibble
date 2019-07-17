@@ -30,8 +30,10 @@ holiday_aus <- function(year, state = "national") {
   if (!is_integerish(year)) {
     abort("Argument `year` must be integers.")
   }
-  state <- match.arg(state,
-    c("national", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
+  state <- match.arg(
+    state,
+    c("national", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA")
+  )
   nat <- holiday_aus_national(year)
   if (state == "VIC") {
     nat <- dplyr::bind_rows(nat, holiday_aus_vic(year))
@@ -97,8 +99,8 @@ holiday_aus_nt <- function(year) {
   tibble(
     holiday = rep(c("May Day", "Picnic Day"), each = year_length),
     date = c(may_day, picnic)
-  )  %>%
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+  ) %>%
+    dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_qld <- function(year) {
@@ -118,8 +120,8 @@ holiday_aus_qld <- function(year) {
   tibble(
     holiday = rep(c("Labour Day", "Queen's Birthday"), each = year_length),
     date = c(may_day, queens)
-  )  %>%
-  dplyr::bind_rows(easter_break(year))
+  ) %>%
+    dplyr::bind_rows(easter_break(year))
 }
 
 holiday_aus_sa <- function(year) {
@@ -146,7 +148,8 @@ holiday_aus_sa <- function(year) {
 
   out <- tibble(
     holiday = rep(
-      c(rep("Adelaide Cup Day", 2), "Labour Day"), each = year_length
+      c(rep("Adelaide Cup Day", 2), "Labour Day"),
+      each = year_length
     ),
     date = c(mar_cup, may_cup, labour)
   )
@@ -180,7 +183,7 @@ holiday_aus_nsw <- function(year) {
     holiday = rep("Labour Day", each = year_length),
     date = labour
   ) %>%
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_tas <- function(year) {
@@ -198,7 +201,7 @@ holiday_aus_tas <- function(year) {
     holiday = rep("Eight Hours Day", each = year_length),
     date = labour
   ) %>%
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_vic <- function(year) {
@@ -231,7 +234,7 @@ holiday_aus_vic <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, melb_cup)
   ) %>%
-  dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    dplyr::bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_wa <- function(year) {
@@ -254,7 +257,7 @@ holiday_aus_wa <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, western)
   ) %>%
-  dplyr::bind_rows(easter_break(year))
+    dplyr::bind_rows(easter_break(year))
 }
 
 holiday_aus_national <- function(year) {
@@ -288,7 +291,8 @@ holiday_aus_national <- function(year) {
   australia <- as_date(ifelse(
     australia_wday == 7, # Saturday
     australia + lubridate::days(2), # shift to next Monday
-    australia))
+    australia
+  ))
   public_holidays[[counter()]] <- australia
 
   good_friday <- as_date(timeDate::GoodFriday(year))

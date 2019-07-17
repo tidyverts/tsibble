@@ -3,7 +3,7 @@
 #' @param x A `tbl_ts` object.
 #' @param value A measured variable of interest to be spread over columns, if
 #' multiple measures.
-#' @param frequency A smart frequency with the default `NULL`. If set, the 
+#' @param frequency A smart frequency with the default `NULL`. If set, the
 #' preferred frequency is passed to `ts()`.
 #' @param fill A value to replace missing values.
 #' @param ... Ignored for the function.
@@ -15,7 +15,7 @@
 #' # a monthly series
 #' x1 <- as_tsibble(AirPassengers)
 #' as.ts(x1)
-#' 
+#'
 #' # equally spaced over trading days, not smart enough to guess frequency
 #' x2 <- as_tsibble(EuStockMarkets)
 #' head(as.ts(x2, frequency = 260))
@@ -33,29 +33,32 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
     value_var <- mvars
   } else {
-    value_var <- vars_pull(names(x), !! value)
+    value_var <- vars_pull(names(x), !!value)
     if (is_false(value_var %in% mvars)) {
       abort(sprintf("Column `value` must be one of them: %s.", str_val))
     }
   }
   idx <- index(x)
-  tsbl_sort <- arrange(x, !!! key_vars, !! idx)
+  tsbl_sort <- arrange(x, !!!key_vars, !!idx)
   tsbl_sel <-
     as_tibble(select_tsibble(
-      tsbl_sort, !! idx, !!! key_vars, !! value_var, validate = FALSE
+      tsbl_sort, !!idx, !!!key_vars, !!value_var,
+      validate = FALSE
     ))
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
   } else {
-    mat_ts <- tidyr::spread(tsbl_sel, key = !! key_vars[[1]], 
-      value = !! value_var, fill = fill)
+    mat_ts <- tidyr::spread(tsbl_sel,
+      key = !!key_vars[[1]],
+      value = !!value_var, fill = fill
+    )
     finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {
-  idx_time <- time(dplyr::pull(data, !! index))
-  out <- select(as_tibble(data), - !! index)
+  idx_time <- time(dplyr::pull(data, !!index))
+  out <- select(as_tibble(data), -!!index)
   if (NCOL(out) == 1) {
     out <- out[[1]]
   }
@@ -116,9 +119,9 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #'
 #' @param x An index object including "yearmonth", "yearquarter", "Date" and others.
 #'
-#' @details If a series of observations are collected more frequently than 
+#' @details If a series of observations are collected more frequently than
 #' weekly, it is more likely to have multiple seasonalities. This function
-#' returns a frequency value at its nearest ceiling time resolution. For example, 
+#' returns a frequency value at its nearest ceiling time resolution. For example,
 #' hourly data would have daily, weekly and annual frequencies of 24, 168 and 8766
 #' respectively, and hence it gives 24.
 #'
@@ -131,7 +134,7 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' guess_frequency(yearmonth(seq(2016, 2018, by = 1 / 12)))
 #' guess_frequency(seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1))
 #' guess_frequency(seq(
-#'   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"), 
+#'   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),
 #'   by = "1 hour"
 #' ))
 guess_frequency <- function(x) {

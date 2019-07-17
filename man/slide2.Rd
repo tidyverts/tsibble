@@ -97,10 +97,10 @@ z <- 11:15
 lst <- list(x = x, y = y, z = z)
 df <- as.data.frame(lst)
 slide2(x, y, sum, .size = 2)
-slide2(lst, lst, ~ ., .size = 2)
-slide2(df, df, ~ ., .size = 2)
-pslide(lst, ~ ., .size = 1)
-pslide(list(lst, lst), ~ ., .size = 2)
+slide2(lst, lst, ~., .size = 2)
+slide2(df, df, ~., .size = 2)
+pslide(lst, ~., .size = 1)
+pslide(list(lst, lst), ~., .size = 2)
 
 ###
 # row-wise sliding over data frame
@@ -121,16 +121,16 @@ slope <- function(...) {
   coef(fm)[[2]]
 }
 
-my_df \%>\% 
-  group_by(group) \%>\% 
-  nest() \%>\% 
-  mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) \%>\% 
+my_df \%>\%
+  group_by(group) \%>\%
+  nest() \%>\%
+  mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) \%>\%
   unnest(slope)
 ## window over 2 months
-pedestrian \%>\% 
-  filter(Sensor == "Southern Cross Station") \%>\% 
-  index_by(yrmth = yearmonth(Date_Time)) \%>\% 
-  nest() \%>\% 
+pedestrian \%>\%
+  filter(Sensor == "Southern Cross Station") \%>\%
+  index_by(yrmth = yearmonth(Date_Time)) \%>\%
+  nest() \%>\%
   mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
 # row-oriented workflow
 \dontrun{
@@ -141,7 +141,7 @@ my_diag <- function(...) {
 }
 pedestrian \%>\%
   filter_index("2015-01") \%>\%
-  group_by_key() \%>\% 
+  group_by_key() \%>\%
   nest() \%>\%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }

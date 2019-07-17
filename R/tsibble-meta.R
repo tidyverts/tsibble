@@ -136,4 +136,3 @@ is_grouped_ts <- function(x) {
 #' @usage NULL
 #' @export
 is.grouped_ts <- is_grouped_ts
-

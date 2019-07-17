@@ -34,7 +34,7 @@ test_that("diff()", {
 })
 
 test_that("Arit", {
-  expect_equal(format(+ yw), format(yw))
+  expect_equal(format(+yw), format(yw))
   expect_equal(format(yw + 1), c("1970 W02", "1970 W03", "1970 W04"))
   expect_equal(format(1 + yw), format(yw + 1))
   expect_equal(format(yw - 1), c("1969 W52", "1970 W01", "1970 W02"))
@@ -42,7 +42,7 @@ test_that("Arit", {
   expect_equal(as.integer(yw - yw), rep(0, 3))
   expect_equal(as.integer(yw[2] - yw[1]), 1)
   expect_equal(as.integer(yw[1] - yw[2]), -1)
-  expect_equal(format(+ ym), format(ym))
+  expect_equal(format(+ym), format(ym))
   expect_equal(format(ym + 1), c("1970 Feb", "1970 Mar", "1970 Apr"))
   expect_equal(format(1 + ym), format(ym + 1))
   expect_equal(format(ym - 1), c("1969 Dec", "1970 Jan", "1970 Feb"))
@@ -50,7 +50,7 @@ test_that("Arit", {
   expect_equal(as.integer(ym - ym), rep(0, 3))
   expect_equal(as.integer(ym[2] - ym[1]), 1)
   expect_equal(as.integer(ym[1] - ym[2]), -1)
-  expect_equal(format(+ yq), format(yq))
+  expect_equal(format(+yq), format(yq))
   expect_equal(format(yq + 1), c("1970 Q2", "1970 Q3", "1970 Q4"))
   expect_equal(format(1 + yq), format(yq + 1))
   expect_equal(format(yq - 1), c("1969 Q4", "1970 Q1", "1970 Q2"))

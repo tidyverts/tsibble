@@ -74,13 +74,16 @@ unique.yearweek <- function(x, incomparables = FALSE, ...) {
 #' @export
 diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
   out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
-    lag = lag, differences = differences)
+    lag = lag, differences = differences
+  )
   structure(out, class = "difftime", units = "weeks")
 }
 
 #' @export
 `+.yearweek` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrwk <- is_yearweek(e1)
   e2_yrwk <- is_yearweek(e2)
   if (e1_yrwk && e2_yrwk) {
@@ -95,7 +98,9 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `-.yearweek` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrwk <- is_yearweek(e1)
   e2_yrwk <- is_yearweek(e2)
   if (e1_yrwk && e2_yrwk) {
@@ -125,7 +130,9 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
-  if (is_empty(x)) return(as_yearweek(x))
+  if (is_empty(x)) {
+    return(as_yearweek(x))
+  }
 
   anytime::assertDate(x)
   yearweek(anytime::anydate(x))
@@ -170,7 +177,9 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
 #' @examples
 #' is_53weeks(2015:2016)
 is_53weeks <- function(year) {
-  if (is_empty(year)) return(FALSE)
+  if (is_empty(year)) {
+    return(FALSE)
+  }
   if (!is_integerish(year) || any(year < 1)) {
     abort("Argument `year` must be positive integers.")
   }
@@ -228,13 +237,16 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 #' @export
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x),
-    lag = lag, differences = differences)
+    lag = lag, differences = differences
+  )
   structure(out, class = "difftime", units = "months")
 }
 
 #' @export
 `+.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
@@ -249,7 +261,9 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `-.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
@@ -279,7 +293,9 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
-  if (is_empty(x)) return(as_yearmonth(x))
+  if (is_empty(x)) {
+    return(as_yearmonth(x))
+  }
 
   anytime::assertDate(x)
   as_yearmonth(anytime::anydate(x))
@@ -351,13 +367,16 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 #' @export
 diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   out <- diff((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x),
-    lag = lag, differences = differences)
+    lag = lag, differences = differences
+  )
   structure(out, class = "difftime", units = "quarters")
 }
 
 #' @export
 `+.yearquarter` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
@@ -372,7 +391,9 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `-.yearquarter` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
+  if (nargs() == 1L) {
+    return(e1)
+  }
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
@@ -402,7 +423,9 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
-  if (is_empty(x)) return(as_yearquarter(x))
+  if (is_empty(x)) {
+    return(as_yearquarter(x))
+  }
 
   # exact matching with q, qtr, or quarter
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
@@ -502,8 +525,8 @@ pillar_shaft.yearquarter <- pillar_shaft.yearweek
 
 #' @export
 seq.yearweek <- function(
-  from, to, by, length.out = NULL, along.with = NULL,
-  ...) {
+                         from, to, by, length.out = NULL, along.with = NULL,
+                         ...) {
   bad_by(by)
   by_wk <- paste(by, "week")
   yearweek(seq_date(
@@ -514,8 +537,8 @@ seq.yearweek <- function(
 
 #' @export
 seq.yearmonth <- function(
-  from, to, by, length.out = NULL, along.with = NULL,
-  ...) {
+                          from, to, by, length.out = NULL, along.with = NULL,
+                          ...) {
   bad_by(by)
   by_mth <- paste(by, "month")
   yearmonth(seq_date(
@@ -526,8 +549,8 @@ seq.yearmonth <- function(
 
 #' @export
 seq.yearquarter <- function(
-  from, to, by, length.out = NULL, along.with = NULL,
-  ...) {
+                            from, to, by, length.out = NULL, along.with = NULL,
+                            ...) {
   bad_by(by)
   by_qtr <- paste(by, "quarter")
   yearquarter(seq_date(
@@ -625,66 +648,86 @@ bad_by <- function(by) {
 
 # nocov start
 seq_date <- function(
-  from, to, by, length.out = NULL, along.with = NULL,
-  ...) {
-  if (missing(from))
+                     from, to, by, length.out = NULL, along.with = NULL,
+                     ...) {
+  if (missing(from)) {
     stop("'from' must be specified")
-  if (!inherits(from, "Date"))
+  }
+  if (!inherits(from, "Date")) {
     stop("'from' must be a \"Date\" object")
-  if (length(as.Date(from)) != 1L)
+  }
+  if (length(as.Date(from)) != 1L) {
     stop("'from' must be of length 1")
+  }
   if (!missing(to)) {
-    if (!inherits(to, "Date"))
+    if (!inherits(to, "Date")) {
       stop("'to' must be a \"Date\" object")
-    if (length(as.Date(to)) != 1L)
+    }
+    if (length(as.Date(to)) != 1L) {
       stop("'to' must be of length 1")
+    }
   }
   if (!is.null(along.with)) { # !missing(along.with) in seq.Date
     length.out <- length(along.with)
   } else if (!is.null(length.out)) {
-    if (length(length.out) != 1L)
+    if (length(length.out) != 1L) {
       stop("'length.out' must be of length 1")
+    }
     length.out <- ceiling(length.out)
   }
   status <- c(!missing(to), !missing(by), !is.null(length.out))
-  if (sum(status) != 2L)
+  if (sum(status) != 2L) {
     stop("exactly two of 'to', 'by' and 'length.out' / 'along.with' must be specified")
+  }
   if (missing(by)) {
     from <- unclass(as.Date(from))
     to <- unclass(as.Date(to))
     res <- seq.int(from, to, length.out = length.out)
     return(structure(res, class = "Date"))
   }
-  if (length(by) != 1L)
+  if (length(by) != 1L) {
     stop("'by' must be of length 1")
+  }
   valid <- 0L
   if (inherits(by, "difftime")) {
-    by <- switch(attr(by, "units"), secs = 1/86400, mins = 1/1440,
-        hours = 1/24, days = 1, weeks = 7) * unclass(by)
+    by <- switch(attr(by, "units"), secs = 1 / 86400, mins = 1 / 1440,
+      hours = 1 / 24, days = 1, weeks = 7
+    ) * unclass(by)
   } else if (is.character(by)) {
     by2 <- strsplit(by, " ", fixed = TRUE)[[1L]]
-    if (length(by2) > 2L || length(by2) < 1L)
+    if (length(by2) > 2L || length(by2) < 1L) {
       stop("invalid 'by' string")
-    valid <- pmatch(by2[length(by2)], c("days", "weeks",
-      "months", "quarters", "years"))
-    if (is.na(valid))
+    }
+    valid <- pmatch(by2[length(by2)], c(
+      "days", "weeks",
+      "months", "quarters", "years"
+    ))
+    if (is.na(valid)) {
       stop("invalid string for 'by'")
+    }
     if (valid <= 2L) {
       by <- c(1, 7)[valid]
-      if (length(by2) == 2L)
+      if (length(by2) == 2L) {
         by <- by * as.integer(by2[1L])
-    } else by <- if (length(by2) == 2L)
-      as.integer(by2[1L])
-    else 1
-  } else if (!is.numeric(by))
+      }
+    } else {
+      by <- if (length(by2) == 2L) {
+        as.integer(by2[1L])
+      } else {
+        1
+      }
+    }
+  } else if (!is.numeric(by)) {
     stop("invalid mode for 'by'")
-  if (is.na(by))
+  }
+  if (is.na(by)) {
     stop("'by' is NA")
+  }
   if (valid <= 2L) {
     from <- unclass(as.Date(from))
-    if (!is.null(length.out))
+    if (!is.null(length.out)) {
       res <- seq.int(from, by = by, length.out = length.out)
-    else {
+    } else {
       to0 <- unclass(as.Date(to))
       res <- seq.int(0, to0 - from, by) + from
     }
@@ -701,8 +744,9 @@ seq_date <- function(
       r1$year <- yr
       res <- as.Date(r1)
     } else {
-      if (valid == 4L)
+      if (valid == 4L) {
         by <- by * 3
+      }
       if (missing(to)) {
         mon <- seq.int(r1$mon, by = by, length.out = length.out)
       }
@@ -717,9 +761,11 @@ seq_date <- function(
   }
   if (!missing(to)) {
     to <- as.Date(to)
-    res <- if (by > 0)
+    res <- if (by > 0) {
       res[res <= to]
-    else res[res >= to]
+    } else {
+      res[res >= to]
+    }
   }
   res
 }

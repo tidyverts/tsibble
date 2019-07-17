@@ -1,25 +1,25 @@
 #' tsibble: tidy temporal data frames and tools
 #'
 #' \if{html}{\figure{logo.png}{options: align='right'}}
-#' The **tsibble** package provides a data class of `tbl_ts` to represent tidy 
-#' time series data. A tsibble consists of a time index, key, and other measured 
-#' variables in a data-centric format, which is built on top of the tibble. 
+#' The **tsibble** package provides a data class of `tbl_ts` to represent tidy
+#' time series data. A tsibble consists of a time index, key, and other measured
+#' variables in a data-centric format, which is built on top of the tibble.
 #'
 #' @section Index:
 #' An extensive range of indices are supported by tsibble: native time classes in R
-#' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions 
+#' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions
 #' (such as [yearweek], [yearmonth], and [yearquarter]). Some commonly-used classes
 #' have built-in support too, including `ordered`, `hms::hms`, `zoo::yearmon`,
-#' `zoo::yearqtr`, and `nanotime`. 
+#' `zoo::yearqtr`, and `nanotime`.
 #'
-#' For a `tbl_ts` of regular interval, a choice of index representation has to 
+#' For a `tbl_ts` of regular interval, a choice of index representation has to
 #' be made. For example, a monthly data should correspond to time index created
-#' by [yearmonth] or `zoo::yearmon`, instead of `Date` or `POSIXct`. Because 
-#' months in a year ensures the regularity, 12 months every year. However, if 
+#' by [yearmonth] or `zoo::yearmon`, instead of `Date` or `POSIXct`. Because
+#' months in a year ensures the regularity, 12 months every year. However, if
 #' using `Date`, a month containing days ranges from 28 to 31 days, which results
 #' in irregular time space. This is also applicable to year-week and year-quarter.
 #'
-#' Since the **tibble** that underlies the **tsibble** only accepts a 1d atomic 
+#' Since the **tibble** that underlies the **tsibble** only accepts a 1d atomic
 #' vector or a list, the tsibble doesn't accept types of `POSIXlt` and `timeDate`.
 #'
 #' Tsibble supports arbitrary index classes, as long as they can be ordered from
@@ -29,7 +29,7 @@
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record:
 #' * Empty: an implicit variable. `NULL` resulting in a univariate time series.
-#' * A single variable: For example, `data(pedestrian)` use the bare `Sensor` as 
+#' * A single variable: For example, `data(pedestrian)` use the bare `Sensor` as
 #' the key.
 #' * Multiple variables: For example, Declare `key = c(Region, State, Purpose)`
 #' for `data(tourism)`.
@@ -38,7 +38,7 @@
 #' @section Interval:
 #' The [interval] function returns the interval associated with the tsibble.
 #' * Regular: the value and its time unit including "nanosecond", "microsecond",
-#' "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter", 
+#' "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
 #' "year". An unrecognisable time interval is labelled as "unit".
 #' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
 #' marked with `!`.
@@ -91,4 +91,3 @@
 #'   key = group
 #' )
 "_PACKAGE"
-

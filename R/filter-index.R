@@ -11,12 +11,12 @@
 #' `yearquarter`/`yearqtr`, `hms`/`difftime` & `numeric`.
 #' @inheritParams dplyr::filter
 #'
-#' @section System Time Zone ("Europe/London"): 
-#' There is a known issue of an extra hour gained for a machine setting time 
+#' @section System Time Zone ("Europe/London"):
+#' There is a known issue of an extra hour gained for a machine setting time
 #' zone to "Europe/London", regardless of the time zone associated with
-#' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()` 
+#' the POSIXct inputs. It relates to *anytime* and *Boost*. Use `Sys.timezone()`
 #' to check if the system time zone is "Europe/London". It would be recommended to
-#' change the global environment "TZ" to other equivalent names: GB, GB-Eire, 
+#' change the global environment "TZ" to other equivalent names: GB, GB-Eire,
 #' Europe/Belfast, Europe/Guernsey, Europe/Isle_of_Man and Europe/Jersey as
 #' documented in `?Sys.timezone()`, using `Sys.setenv(TZ = "GB")` for example.
 #'
@@ -25,7 +25,7 @@
 #' @examples
 #' # from the starting time to the end of Feb, 2015
 #' pedestrian %>%
-#'   filter_index(~ "2015-02")
+#'   filter_index(~"2015-02")
 #'
 #' # entire Feb 2015, & from the beginning of Aug 2016 to the end
 #' pedestrian %>%
@@ -33,29 +33,29 @@
 #'
 #' # multiple time windows
 #' pedestrian %>%
-#'   filter_index(~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
+#'   filter_index(~"2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
 #'
 #' # entire 2015
 #' pedestrian %>%
 #'   filter_index("2015")
 #'
 #' # specific
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   filter_index("2015-03-23" ~ "2015-10")
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   filter_index("2015-03-23" ~ "2015-10-31")
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   filter_index("2015-03-23 10" ~ "2015-10-31 12")
 filter_index <- function(.data, ..., .preserve = FALSE) {
   idx <- index(.data)
-  filter(.data, time_in(!! idx, ...), .preserve = .preserve)
+  filter(.data, time_in(!!idx, ...), .preserve = .preserve)
 }
 
 #' If time falls in the ranges using compact expressions
 #'
 #' This function respects time zone and encourages compact expressions.
 #'
-#' @param x A vector of time index, such as classes `POSIXct`, `Date`, `yearweek`, 
+#' @param x A vector of time index, such as classes `POSIXct`, `Date`, `yearweek`,
 #' `yearmonth`, `yearquarter`, `hms`/`difftime`, and `numeric`.
 #' @inheritParams filter_index
 #'
@@ -65,17 +65,17 @@ filter_index <- function(.data, ..., .preserve = FALSE) {
 #' @export
 #' @examples
 #' x <- unique(pedestrian$Date_Time)
-#' lgl <- time_in(x, ~ "2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
+#' lgl <- time_in(x, ~"2015-02", "2015-08" ~ "2015-09", "2015-12" ~ "2016-02")
 #' lgl[1:10]
 #' # more specific
 #' lgl2 <- time_in(x, "2015-03-23 10" ~ "2015-10-31 12")
 #' lgl2[1:10]
 #'
 #' library(dplyr)
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   filter(time_in(Date_Time, "2015-03-23 10" ~ "2015-10-31 12"))
-#' pedestrian %>% 
-#'   filter(time_in(Date_Time, "2015")) %>% 
+#' pedestrian %>%
+#'   filter(time_in(Date_Time, "2015")) %>%
 #'   mutate(Season = ifelse(
 #'     time_in(Date_Time, "2015-03" ~ "2015-08"),
 #'     "Autumn-Winter", "Spring-Summer"
@@ -83,7 +83,9 @@ filter_index <- function(.data, ..., .preserve = FALSE) {
 time_in <- function(x, ...) {
   formulas <- list2(...)
   n <- length(formulas)
-  if (n == 0) return(!logical(length(x)))
+  if (n == 0) {
+    return(!logical(length(x)))
+  }
 
   if (lubridate::is.POSIXct(x)) {
     local_tz <- Sys.timezone()
@@ -164,14 +166,14 @@ end.Date <- function(x, y = NULL, ...) {
   } else {
     abort_not_chr(y, class = "Date")
     anytime::assertDate(y)
-    
+
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- anytime::utcdate(y, tz = "UTC")
     attr(y, "tzone") <- NULL
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
-        y[lgl_yrmth] + lubridate::period(1, "month"), 
+        y[lgl_yrmth] + lubridate::period(1, "month"),
         roll_to_first = TRUE
       )
     }
@@ -201,7 +203,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
   } else {
     abort_not_chr(y, class = "POSIXct")
     anytime::assertTime(y)
-    
+
     lgl_date <- nchar(y) > 7 & nchar(y) < 11
     lgl_yrmth <- nchar(y) < 9 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
@@ -212,7 +214,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
     }
     if (any(lgl_yrmth)) {
       y[lgl_yrmth] <- lubridate::rollback(
-        y[lgl_yrmth] + lubridate::period(1, "month"), 
+        y[lgl_yrmth] + lubridate::period(1, "month"),
         roll_to_first = TRUE
       )
     }
