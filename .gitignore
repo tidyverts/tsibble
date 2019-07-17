@@ -3,7 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
-.pre-commit-config.yaml
 data-raw/domestic-trips.xlsx
 inst/doc
 docs/
