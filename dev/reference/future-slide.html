@@ -180,7 +180,8 @@ future specific options to use with the workers.</p></li>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>mutate</span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in nest(.): could not find function "nest"</span></div></pre>
+  <span class='fu'>mutate</span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in nest(.): could not find function "nest"</span></div><div class='input'># nocov start
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

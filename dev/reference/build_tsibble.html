@@ -214,7 +214,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> !! <span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+    <span class='kw'>key</span> <span class='kw'>=</span> !!<span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !!<span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
     <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
