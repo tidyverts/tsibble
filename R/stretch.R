@@ -54,8 +54,8 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 
 #' @rdname stretch
 #' @export
-stretch_dfr <- function(
-                        .x, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL) {
+stretch_dfr <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
+                        .bind = FALSE, .id = NULL) {
   out <- stretch(
     .x,
     .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
@@ -140,8 +140,8 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 
 #' @rdname stretch2
 #' @export
-stretch2_dfr <- function(
-                         .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL) {
+stretch2_dfr <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
+                         .bind = FALSE, .id = NULL) {
   out <- stretch2(
     .x, .y,
     .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
@@ -152,8 +152,8 @@ stretch2_dfr <- function(
 
 #' @rdname stretch2
 #' @export
-stretch2_dfc <- function(
-                         .x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE) {
+stretch2_dfc <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
+                         .bind = FALSE) {
   out <- stretch2(
     .x, .y,
     .f = .f, ..., .step = .step, .init = .init, .fill = .fill,
@@ -191,8 +191,8 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 
 #' @rdname stretch2
 #' @export
-pstretch_dfr <- function(
-                         .l, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE, .id = NULL) {
+pstretch_dfr <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
+                         .bind = FALSE, .id = NULL) {
   out <- pstretch(.l, .f, ...,
     .step = .step, .init = .init, .fill = .fill,
     .bind = .bind

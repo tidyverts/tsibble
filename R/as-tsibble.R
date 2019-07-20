@@ -121,7 +121,8 @@ as_tsibble.list <- as_tsibble.tbl_df
 #' @keywords internal
 #' @export
 as_tsibble.grouped_df <- function(x, key = NULL, index, regular = TRUE,
-                                  validate = TRUE, .drop = key_drop_default(x), ...) {
+                                  validate = TRUE, .drop = key_drop_default(x),
+                                  ...) {
   index <- enquo(index)
   build_tsibble(
     x,
@@ -217,9 +218,9 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #'     key = !!key_vars(.), index = !!index(.), index2 = Date,
 #'     interval = interval(.)
 #'   )
-build_tsibble <- function(
-                          x, key = NULL, key_data = NULL, index, index2 = index, ordered = NULL,
-                          interval = TRUE, validate = TRUE, .drop = key_drop_default(x)) {
+build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
+                          ordered = NULL, interval = TRUE, validate = TRUE,
+                          .drop = key_drop_default(x)) {
   is_key_data <- !is_null(key_data)
   if (is_key_data) {
     assert_key_data(key_data)
@@ -291,8 +292,8 @@ build_tsibble <- function(
 #'
 #' @keywords internal
 #' @export
-build_tsibble_meta <- function(
-                               x, key_data = NULL, index, index2, ordered = NULL, interval = TRUE) {
+build_tsibble_meta <- function(x, key_data = NULL, index, index2,
+                               ordered = NULL, interval = TRUE) {
   stopifnot(!is_null(ordered))
   tbl <- x
   attr(index, "ordered") <- ordered

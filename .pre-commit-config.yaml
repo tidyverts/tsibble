@@ -2,7 +2,7 @@ repos:
 -   repo: https://github.com/lorenzwalthert/pre-commit-hooks
     rev: v0.0.0.9008
     hooks: 
-    -   id: style-files
+    # -   id: style-files
     -   id: parsable-R
     -   id: no-browser-statement
     -   id: readme-rmd-rendered

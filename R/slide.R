@@ -67,9 +67,8 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' slide_dbl(x, mean, .size = 2, align = "center")
 #' slide_lgl(x, ~ mean(.) > 2, .size = 2)
 #' slide(lst, ~., .size = 2)
-slide <- function(
-                  .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                  .align = "right", .bind = FALSE) {
+slide <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+                  .partial = FALSE, .align = "right", .bind = FALSE) {
   if (.partial) {
     lst_x <- partial_slider(
       .x,
@@ -97,9 +96,9 @@ for (type in c("lgl", "chr", "int", "dbl")) {
 
 #' @rdname slide
 #' @export
-slide_dfr <- function(
-                      .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                      .align = "right", .bind = FALSE, .id = NULL) {
+slide_dfr <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+                      .partial = FALSE, .align = "right", .bind = FALSE,
+                      .id = NULL) {
   out <- slide(
     .x,
     .f = .f, ...,
@@ -111,9 +110,8 @@ slide_dfr <- function(
 
 #' @rdname slide
 #' @export
-slide_dfc <- function(
-                      .x, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                      .align = "right", .bind = FALSE) {
+slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
+                      .partial = FALSE, .align = "right", .bind = FALSE) {
   out <- slide(
     .x,
     .f = .f, ...,
@@ -178,9 +176,8 @@ slide_dfc <- function(
 #'   nest() %>%
 #'   mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) %>%
 #'   unnest(slope)
-slide2 <- function(
-                   .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                   .align = "right", .bind = FALSE) {
+slide2 <- function(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+                   .partial = FALSE, .align = "right", .bind = FALSE) {
   if (.partial) {
     lst <- partial_pslider(
       .x, .y,
@@ -210,9 +207,9 @@ for (type in c("lgl", "chr", "int", "dbl")) {
 
 #' @rdname slide2
 #' @export
-slide2_dfr <- function(
-                       .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                       .align = "right", .bind = FALSE, .id = NULL) {
+slide2_dfr <- function(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+                       .partial = FALSE, .align = "right", .bind = FALSE,
+                       .id = NULL) {
   out <- slide2(
     .x, .y,
     .f = .f, ...,
@@ -224,9 +221,8 @@ slide2_dfr <- function(
 
 #' @rdname slide2
 #' @export
-slide2_dfc <- function(
-                       .x, .y, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                       .align = "right", .bind = FALSE) {
+slide2_dfc <- function(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
+                       .partial = FALSE, .align = "right", .bind = FALSE) {
   out <- slide2(
     .x, .y,
     .f = .f, ...,
@@ -239,9 +235,8 @@ slide2_dfc <- function(
 #' @rdname slide2
 #' @inheritParams purrr::pmap
 #' @export
-pslide <- function(
-                   .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                   .align = "right", .bind = FALSE) {
+pslide <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+                   .partial = FALSE, .align = "right", .bind = FALSE) {
   if (.partial) {
     lst <- partial_pslider(
       !!!.l,
@@ -271,9 +266,9 @@ for (type in c("lgl", "chr", "int", "dbl")) {
 
 #' @rdname slide2
 #' @export
-pslide_dfr <- function(
-                       .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                       .align = "right", .bind = FALSE, .id = NULL) {
+pslide_dfr <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+                       .partial = FALSE, .align = "right", .bind = FALSE,
+                       .id = NULL) {
   out <- pslide(
     .l,
     .f = .f, ...,
@@ -305,9 +300,8 @@ pslide_dfr <- function(
 #'   nest() %>%
 #'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 #' }
-pslide_dfc <- function(
-                       .l, .f, ..., .size = 1, .step = 1, .fill = NA, .partial = FALSE,
-                       .align = "right", .bind = FALSE) {
+pslide_dfc <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
+                       .partial = FALSE, .align = "right", .bind = FALSE) {
   out <- pslide(
     .l,
     .f = .f, ...,
@@ -386,8 +380,8 @@ partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
 
 #' @rdname partial-slider
 #' @export
-partial_pslider <- function(
-                            ..., .size = 1, .step = 1, .fill = NA, .align = "right", .bind = FALSE) {
+partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
+                            .align = "right", .bind = FALSE) {
   lst <- recycle(list2(...))
   map(lst, function(x) partial_slider(x, .size, .step, .fill, .align, .bind))
 }
@@ -515,6 +509,7 @@ pad_slide <- function(x, .size = 1, .step = 1, .fill = NA, .align = "right",
   if (is_null(.fill)) {
     return(x)
   }
+
   cl <- c("c", "center", "centre", "cl", "center-left", "centre-left")
   cr <- c("cr", "center-right", "centre-right")
   if (!.partial && .size < 0) {

@@ -189,8 +189,7 @@ new_interval <- function(...) {
   eval_tidy(call2("init_interval", !!!args))
 }
 
-init_interval <- function(
-                          year = 0, quarter = 0, month = 0, week = 0,
+init_interval <- function(year = 0, quarter = 0, month = 0, week = 0,
                           day = 0, hour = 0, minute = 0, second = 0,
                           millisecond = 0, microsecond = 0, nanosecond = 0,
                           unit = 0) {
