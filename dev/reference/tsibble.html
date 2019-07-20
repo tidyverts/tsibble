@@ -235,7 +235,8 @@ marked with <code>!</code>.</p></li>
 cannot be determined (<code>?</code>).</p></li>
 </ul>
     <p>An interval is obtained based on the corresponding index representation:</p><ul>
-<li><p><code>integer</code>/<code>numeric</code>/<code>ordered</code> (ordered factor): either "unit" or "year" (<code>Y</code>)</p></li>
+<li><p>integerish numerics between 1582 and 2499: "year" (<code>Y</code>). Note the year of
+1582 saw the beginning of the Gregorian Calendar switch.</p></li>
 <li><p><code>yearquarter</code>/<code>yearqtr</code>: "quarter" (<code>Q</code>)</p></li>
 <li><p><code>yearmonth</code>/<code>yearmon</code>: "month" (<code>M</code>)</p></li>
 <li><p><code>yearweek</code>: "week" (<code>W</code>)</p></li>
@@ -244,6 +245,7 @@ cannot be determined (<code>?</code>).</p></li>
 "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>)</p></li>
 <li><p><code>POSIXct</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
 <li><p><code>nanotime</code>: "nanosecond" (<code>ns</code>)</p></li>
+<li><p>other numerics &amp;<code>ordered</code> (ordered factor): "unit"</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
