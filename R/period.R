@@ -52,23 +52,23 @@ yearweek <- function(x) {
   UseMethod("yearweek")
 }
 
-as_yearweek <- function(x) {
+new_yearweek <- function(x) {
   structure(x, tzone = NULL, class = c("yearweek", "Date"))
 }
 
 #' @export
 c.yearweek <- function(..., recursive = FALSE) {
-  as_yearweek(NextMethod())
+  new_yearweek(NextMethod())
 }
 
 #' @export
 rep.yearweek <- function(x, ...) {
-  as_yearweek(NextMethod())
+  new_yearweek(NextMethod())
 }
 
 #' @export
 unique.yearweek <- function(x, incomparables = FALSE, ...) {
-  as_yearweek(NextMethod())
+  new_yearweek(NextMethod())
 }
 
 #' @export
@@ -122,7 +122,7 @@ yearweek.default <- function(x) {
 
 #' @export
 yearweek.POSIXt <- function(x) {
-  as_yearweek(as_date(lubridate::floor_date(x, unit = "weeks", week_start = 1)))
+  new_yearweek(as_date(lubridate::floor_date(x, unit = "weeks", week_start = 1)))
 }
 
 #' @export
@@ -130,9 +130,7 @@ yearweek.Date <- yearweek.POSIXt
 
 #' @export
 yearweek.character <- function(x) {
-  if (is_empty(x)) {
-    return(as_yearweek(x))
-  }
+  if (is_empty(x)) return(new_yearweek(x))
 
   anytime::assertDate(x)
   yearweek(anytime::anydate(x))
@@ -140,7 +138,7 @@ yearweek.character <- function(x) {
 
 #' @export
 yearweek.yearweek <- function(x) {
-  as_yearweek(x)
+  new_yearweek(x)
 }
 
 #' @export
@@ -215,23 +213,23 @@ yearmonth <- function(x) {
   UseMethod("yearmonth")
 }
 
-as_yearmonth <- function(x) {
+new_yearmonth <- function(x) {
   structure(x, tz = NULL, class = c("yearmonth", "Date"))
 }
 
 #' @export
 c.yearmonth <- function(..., recursive = FALSE) {
-  as_yearmonth(NextMethod())
+  new_yearmonth(NextMethod())
 }
 
 #' @export
 rep.yearmonth <- function(x, ...) {
-  as_yearmonth(NextMethod())
+  new_yearmonth(NextMethod())
 }
 
 #' @export
 unique.yearmonth <- function(x, incomparables = FALSE, ...) {
-  as_yearmonth(NextMethod())
+  new_yearmonth(NextMethod())
 }
 
 #' @export
@@ -244,9 +242,8 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `+.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) {
-    return(e1)
-  }
+  if (nargs() == 1L) return(e1)
+
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
@@ -261,9 +258,8 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `-.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) {
-    return(e1)
-  }
+  if (nargs() == 1L) return(e1)
+
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
@@ -285,7 +281,7 @@ yearmonth.default <- function(x) {
 
 #' @export
 yearmonth.POSIXt <- function(x) {
-  as_yearmonth(as_date(lubridate::floor_date(x, unit = "months")))
+  new_yearmonth(as_date(lubridate::floor_date(x, unit = "months")))
 }
 
 #' @export
@@ -293,12 +289,10 @@ yearmonth.Date <- yearmonth.POSIXt
 
 #' @export
 yearmonth.character <- function(x) {
-  if (is_empty(x)) {
-    return(as_yearmonth(x))
-  }
+  if (is_empty(x)) return(new_yearmonth(x))
 
   anytime::assertDate(x)
-  as_yearmonth(anytime::anydate(x))
+  new_yearmonth(anytime::anydate(x))
 }
 
 #' @export
@@ -306,7 +300,7 @@ yearmonth.yearweek <- yearmonth.POSIXt
 
 #' @export
 yearmonth.yearmonth <- function(x) {
-  as_yearmonth(x)
+  new_yearmonth(x)
 }
 
 #' @export
@@ -314,7 +308,7 @@ yearmonth.numeric <- function(x) {
   year <- trunc(x)
   month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
   result <- lubridate::make_date(year, month, 1)
-  as_yearmonth(result)
+  new_yearmonth(result)
 }
 
 #' @export
@@ -345,23 +339,23 @@ yearquarter <- function(x) {
   UseMethod("yearquarter")
 }
 
-as_yearquarter <- function(x) {
+new_yearquarter <- function(x) {
   structure(x, tz = NULL, class = c("yearquarter", "Date"))
 }
 
 #' @export
 c.yearquarter <- function(..., recursive = FALSE) {
-  as_yearquarter(NextMethod())
+  new_yearquarter(NextMethod())
 }
 
 #' @export
 rep.yearquarter <- function(x, ...) {
-  as_yearquarter(NextMethod())
+  new_yearquarter(NextMethod())
 }
 
 #' @export
 unique.yearquarter <- function(x, incomparables = FALSE, ...) {
-  as_yearquarter(NextMethod())
+  new_yearquarter(NextMethod())
 }
 
 #' @export
@@ -391,9 +385,8 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
 
 #' @export
 `-.yearquarter` <- function(e1, e2) {
-  if (nargs() == 1L) {
-    return(e1)
-  }
+  if (nargs() == 1L) return(e1)
+
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
@@ -415,7 +408,7 @@ yearquarter.default <- function(x) {
 
 #' @export
 yearquarter.POSIXt <- function(x) {
-  as_yearquarter(as_date(lubridate::floor_date(x, unit = "quarters")))
+  new_yearquarter(as_date(lubridate::floor_date(x, unit = "quarters")))
 }
 
 #' @export
@@ -423,9 +416,7 @@ yearquarter.Date <- yearquarter.POSIXt
 
 #' @export
 yearquarter.character <- function(x) {
-  if (is_empty(x)) {
-    return(as_yearquarter(x))
-  }
+  if (is_empty(x)) return(new_yearquarter(x))
 
   # exact matching with q, qtr, or quarter
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
@@ -442,10 +433,10 @@ yearquarter.character <- function(x) {
     if (any(qtr > 4)) {
       abort("Quarters can't be greater than 4.")
     }
-    as_yearquarter(lubridate::make_date(yr, qtr * 3 - 2))
+    new_yearquarter(lubridate::make_date(yr, qtr * 3 - 2))
   } else {
     anytime::assertDate(x)
-    as_yearquarter(anytime::anydate(x))
+    new_yearquarter(anytime::anydate(x))
   }
 }
 
@@ -457,7 +448,7 @@ yearquarter.yearmonth <- yearquarter.POSIXt
 
 #' @export
 yearquarter.yearquarter <- function(x) {
-  as_yearquarter(x)
+  new_yearquarter(x)
 }
 
 #' @export
@@ -466,7 +457,7 @@ yearquarter.numeric <- function(x) {
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- formatC(last_month - 2, flag = 0, width = 2)
   result <- lubridate::make_date(year, first_month, 1)
-  as_yearquarter(result)
+  new_yearquarter(result)
 }
 
 #' @export
@@ -524,8 +515,7 @@ is_vector_s3.yearquarter <- is_vector_s3.yearweek
 pillar_shaft.yearquarter <- pillar_shaft.yearweek
 
 #' @export
-seq.yearweek <- function(
-                         from, to, by, length.out = NULL, along.with = NULL,
+seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
                          ...) {
   bad_by(by)
   by_wk <- paste(by, "week")
@@ -536,8 +526,7 @@ seq.yearweek <- function(
 }
 
 #' @export
-seq.yearmonth <- function(
-                          from, to, by, length.out = NULL, along.with = NULL,
+seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
                           ...) {
   bad_by(by)
   by_mth <- paste(by, "month")
@@ -548,8 +537,7 @@ seq.yearmonth <- function(
 }
 
 #' @export
-seq.yearquarter <- function(
-                            from, to, by, length.out = NULL, along.with = NULL,
+seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
   bad_by(by)
   by_qtr <- paste(by, "quarter")
