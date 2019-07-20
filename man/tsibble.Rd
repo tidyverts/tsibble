@@ -80,7 +80,8 @@ cannot be determined (\code{?}).
 
 An interval is obtained based on the corresponding index representation:
 \itemize{
-\item \code{integer}/\code{numeric}/\code{ordered} (ordered factor): either "unit" or "year" (\code{Y})
+\item integerish numerics between 1582 and 2499: "year" (\code{Y}). Note the year of
+1582 saw the beginning of the Gregorian Calendar switch.
 \item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
 \item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
 \item \code{yearweek}: "week" (\code{W})
@@ -89,6 +90,7 @@ An interval is obtained based on the corresponding index representation:
 "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})
 \item \code{POSIXct}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
 \item \code{nanotime}: "nanosecond" (\code{ns})
+\item other numerics &\code{ordered} (ordered factor): "unit"
 }
 }
 

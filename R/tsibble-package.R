@@ -46,7 +46,8 @@
 #' cannot be determined (`?`).
 #'
 #' An interval is obtained based on the corresponding index representation:
-#' * `integer`/`numeric`/`ordered` (ordered factor): either "unit" or "year" (`Y`)
+#' * integerish numerics between 1582 and 2499: "year" (`Y`). Note the year of
+#' 1582 saw the beginning of the Gregorian Calendar switch.
 #' * `yearquarter`/`yearqtr`: "quarter" (`Q`)
 #' * `yearmonth`/`yearmon`: "month" (`M`)
 #' * `yearweek`: "week" (`W`)
@@ -55,6 +56,7 @@
 #' "hour" (`h`), "minute" (`m`), "second" (`s`)
 #' * `POSIXct`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 #' * `nanotime`: "nanosecond" (`ns`)
+#' * other numerics &`ordered` (ordered factor): "unit"
 #'
 #' @section Time zone:
 #' Time zone corresponding to index will be displayed if index is `POSIXct`.
