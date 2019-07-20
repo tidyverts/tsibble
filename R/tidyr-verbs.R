@@ -98,7 +98,11 @@ nest.tbl_ts <- function(.data, ...) {
       tbl_nest[[lst_vars]],
       function(x) update_meta(x, .data)
     )
-    as_lst_ts(tbl_nest)
+    if (utils::packageVersion("tidyr") > "0.8.3") {
+      tbl_nest
+    } else {
+      as_lst_ts(tbl_nest)
+    }
   }
 }
 

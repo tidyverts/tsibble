@@ -10,8 +10,8 @@ by_row <- function(FUN, .data, ordered = TRUE, interval = TRUE, ...,
 }
 
 # put new data with existing attributes (update key)
-update_meta <- function(
-                        new, old, ordered = TRUE, interval = TRUE, validate = FALSE) {
+update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
+                        validate = FALSE) {
   if (validate) {
     retain_tsibble(new, key = key(old), index = index(old))
     validate <- FALSE
@@ -25,8 +25,8 @@ update_meta <- function(
 }
 
 # preserve key data
-update_meta2 <- function(
-                         new, old, ordered = TRUE, interval = TRUE, validate = FALSE) {
+update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
+                         validate = FALSE) {
   old_key <- select(key_data(old), !!!key(old))
   if (is_empty(old_key)) {
     return(update_meta(

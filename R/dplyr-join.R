@@ -4,9 +4,7 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
     by <- intersect_names
   }
   common_names <- setdiff(intersect_names, by)
-  if (!has_length(common_names)) {
-    return(x)
-  }
+  if (!has_length(common_names)) return(x)
 
   names <- paste0(common_names, suffix[1])
   names(common_names) <- names
@@ -14,13 +12,13 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
 }
 
 #' @export
-left_join.tbl_ts <- function(
-                             x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
+left_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE,
+                             suffix = c(".x", ".y"), ...) {
   tbl <- NextMethod()
   x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
   update_meta(tbl, x,
     ordered = is_ordered(x), interval = is_regular(x),
-    validate = if (NROW(tbl) > NROW(x)) TRUE else FALSE
+    validate = NROW(tbl) > NROW(x)
   )
 }
 

@@ -219,9 +219,7 @@ has_gaps <- function(.data, .full = FALSE, ...) {
 
 #' @export
 has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
-  if (NROW(.data) == 0L) {
-    return(tibble(!!".gaps" := FALSE))
-  }
+  if (NROW(.data) == 0L) return(tibble(!!".gaps" := FALSE))
 
   not_regular(.data)
   int <- interval(.data)
@@ -274,9 +272,7 @@ tbl_gaps <- function(x, y) {
 }
 
 seq_generator <- function(x, interval = NULL) {
-  if (is_empty(x)) {
-    return(x)
-  }
+  if (is_empty(x)) return(x)
 
   min_x <- min(x)
   max_x <- max(x)
@@ -284,17 +280,15 @@ seq_generator <- function(x, interval = NULL) {
     interval <- interval_pull(x)
   }
   tunit <- time_unit(interval)
-  if (tunit == 0) {
-    return(x)
-  }
+  if (tunit == 0) return(x)
+
   res <- tryCatch(
     seq(min_x, max_x, tunit),
     error = function(e) NULL,
     warning = function(w) NULL
   )
-  if (!is_null(res)) {
-    return(res)
-  }
+  if (!is_null(res)) return(res)
+
   # no seq.* available
   res2 <- tryCatch(
     min_x + seq.int(0, as.double(max_x - min_x), tunit),

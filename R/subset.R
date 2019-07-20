@@ -19,17 +19,13 @@
 #' @export
 `[.tbl_ts` <- function(x, i, j, drop = FALSE) {
   res <- NextMethod()
-  if (!is.data.frame(res)) {
-    return(res)
-  }
+  if (!is.data.frame(res)) return(res)
 
   cn <- names(res)
   new_key <- cn[cn %in% key_vars(x)]
 
   if (!missing(i)) {
-    if (anyDuplicated.default(i) > 0) {
-      return(as_tibble(res))
-    }
+    if (anyDuplicated.default(i) > 0) return(as_tibble(res))
   }
 
   not_tsibble <- !(index_var(x) %in% cn) || NROW(res) > NROW(x)
