@@ -31,6 +31,7 @@
 #' yearquarter(y)
 #'
 #' # parse characters
+#' yearweek(c("2018 W01", "2018 Wk01", "2018 Week 1"))
 #' yearmonth(c("2018 Jan", "2018-01", "2018 January"))
 #' yearquarter(c("2018 Q1", "2018 Qtr1", "2018 Quarter 1"))
 #'
@@ -132,8 +133,30 @@ yearweek.Date <- yearweek.POSIXt
 yearweek.character <- function(x) {
   if (is_empty(x)) return(new_yearweek(x))
 
-  anytime::assertDate(x)
-  yearweek(anytime::anydate(x))
+  key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
+  if (all(grepl("^(w|wk|week)$", key_words, ignore.case = TRUE))) {
+    yr_week <- regmatches(x, gregexpr("[[:digit:]]+", x))
+    digits_lgl <- map_lgl(yr_week, ~ !has_length(.x, 2))
+    digits_len <- map_int(yr_week, ~ sum(nchar(.x)))
+    if (any(digits_lgl) || any(digits_len < 5)) {
+      abort("Character strings are not in a standard unambiguous format.")
+    }
+    yr_lgl <- map(yr_week, ~ grepl("[[:digit:]]{4}", .x))
+    yr <- as.integer(map2_chr(yr_week, yr_lgl, ~ .x[.y]))
+    week <- as.integer(map2_chr(yr_week, yr_lgl, ~ .x[!.y]))
+    if (any(week > 53)) {
+      abort("Weeks can't be greater than 53.")
+    }
+    check_53 <- !is_53weeks(yr) & (week > 52)
+    if (any(check_53)) {
+      abort(sprintf("Year %s can't be 53 weeks.", comma(yr[check_53])))
+    }
+    wks <- round((yr - 1970) * 52.18) + week - 1
+    yearweek(wks * 7 + as_date("1969-12-29"))
+  } else {
+    anytime::assertDate(x)
+    yearweek(anytime::anydate(x))
+  }
 }
 
 #' @export
