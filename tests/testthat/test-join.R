@@ -82,3 +82,12 @@ test_that("mutual key and index #102", {
   expect_named(left_join(x, yy, by = "grp"), c("year.x", "grp", "year.y"))
   expect_error(left_join(x, yy, by = "year"), "valid")
 })
+
+test_that("mutating joins abort for duplicates", {
+  x <- tsibble(id = c("x", "y"), time = rep(Sys.Date(), 2), key = id)
+  y <- tibble(id = rep("x", 2), time = rep(Sys.Date(), 2))
+  expect_error(left_join(x, y), "valid")
+  expect_error(right_join(x, y), "valid")
+  expect_error(inner_join(x, y), "valid")
+  expect_error(full_join(x, y), "valid")
+})

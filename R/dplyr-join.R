@@ -14,11 +14,11 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
 #' @export
 left_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE,
                              suffix = c(".x", ".y"), ...) {
-  tbl <- NextMethod()
+  res <- NextMethod()
   x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
-  update_meta(tbl, x,
+  update_meta(res, x,
     ordered = is_ordered(x), interval = is_regular(x),
-    validate = NROW(tbl) > NROW(x)
+    validate = (NROW(res) > NROW(x)) || !is_tsibble(y)
   )
 }
 
@@ -34,8 +34,7 @@ full_join.tbl_ts <- left_join.tbl_ts
 #' @export
 semi_join.tbl_ts <- function(x, ...) {
   update_meta(NextMethod(), x,
-    ordered = is_ordered(x),
-    interval = is_regular(x), validate = FALSE
+    ordered = is_ordered(x), interval = is_regular(x), validate = FALSE
   )
 }
 
