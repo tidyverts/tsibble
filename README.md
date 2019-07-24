@@ -12,10 +12,17 @@ Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
 
-The **tsibble** package provides a data class of `tbl_ts` to represent
-tidy temporal data. A *tsibble* consists of a time index, key and other
-measured variables in a data-centric format, which is built on top of
-the *tibble*.
+The **tsibble** package provides a data infrastructure for tidy temporal
+data with wrangling tools. Adhering to the [tidy data
+principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
+*tsibble* is a data- and model-oriented object. In *tsibble*:
+
+1.  Index is a variable with inherent ordering from past to present.
+2.  Key is a set of variables that define observational units over time.
+3.  Each observation should be uniquely identified by **index** and
+    **key**.
+4.  Each observational unit should be measured at a common **interval**,
+    if regularly spaced.
 
 ## Installation
 
@@ -36,12 +43,11 @@ remotes::install_github("tidyverts/tsibble")
 
 ### Coerce to a tsibble with `as_tsibble()`
 
-The `weather` data included in the package `nycflights13` is used as an
-example to illustrate. The “index” variable is the `time_hour`
-containing the date-times, and the “key” is the `origin` as weather
-stations. **The key together with the index uniquely identifies each
-observation**, which gives a valid *tsibble*. Other columns can be
-considered as measured variables.
+To coerce a data frame to *tsibble*, we need to declare key and index.
+For example, in the `weather` data from the package `nycflights13`, the
+`time_hour` containing the date-times should be declared as **index**,
+and the `origin` as **key**. Other columns can be considered as measured
+variables.
 
 ``` r
 library(dplyr)
@@ -62,16 +68,16 @@ weather_tsbl
 #> # … with 2.611e+04 more rows
 ```
 
-The **key** is comprised of one or more variables. See `package?tsibble`
-and
+The **key** can be comprised of empty, one, or more variables. See
+`package?tsibble` and
 [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html)
 for details.
 
-*Tsibble* internally computes the interval for given time indices based
-on the time representation, ranging from year to nanosecond, from
-numerics to ordered factors. The `POSIXct` corresponds to sub-daily
-series, `Date` to daily, `yearweek` to weekly, `yearmonth` to monthly,
-`yearquarter` to quarterly, and
+Given time indices, the interval is obtained based on their time
+representation, ranging from year to nanosecond, from numerics to
+ordered factors. The `POSIXct` corresponds to sub-daily series, `Date`
+to daily, `yearweek` to weekly, `yearmonth` to monthly, `yearquarter` to
+quarterly, and
 etc.
 
 ### `fill_gaps()` to turn implicit missing values into explicit missing values
@@ -82,7 +88,7 @@ implicit missingness to be explicit simply using `fill_gaps()`, filling
 gaps in precipitation (`precip`) with 0 in the meanwhile. It is quite
 common to replaces `NA`s with its previous observation for each origin
 in time series analysis, which is easily done using `fill()` from
-*tidyr*.
+**tidyr**.
 
 ``` r
 full_weather <- weather_tsbl %>%
@@ -115,10 +121,10 @@ it groups the index only. In conjunction with `index_by()`,
 `summarise()` and its scoped variants aggregate interested variables
 over calendar periods. `index_by()` goes hand in hand with the index
 functions including `as.Date()`, `yearweek()`, `yearmonth()`, and
-`yearquarter()`, as well as other friends from *lubridate*. For example,
-it would be of interest in computing average temperature and total
-precipitation per month, by applying `yearmonth()` to the index variable
-(referred as `.`).
+`yearquarter()`, as well as other friends from **lubridate**. For
+example, it would be of interest in computing average temperature and
+total precipitation per month, by applying `yearmonth()` to the index
+variable (referred to as `.`).
 
 ``` r
 full_weather %>%
@@ -143,13 +149,14 @@ full_weather %>%
 While collapsing rows (like `summarise()`), `group_by()` and
 `index_by()` will take care of updating the key and index respectively.
 This `index_by()` + `summarise()` combo can help with regularising a
-tsibble of irregular time space too.
+tsibble of irregular time space
+too.
 
-### A family of window functions: `slide()`, `tile()`, `stretch()`
+### Rolling with functional programming: `slide()`, `tile()`, `stretch()`
 
-Time series often involves moving window calculations. Several functions
-in *tsibble* allow for different variations of moving windows using
-purrr-like syntax:
+Temporal data often involves moving window calculations. Several
+functions in **tsibble** allow for different variations of moving
+windows using purrr-like syntax:
 
   - `slide()`/`slide2()`/`pslide()`: sliding window with overlapping
     observations.
@@ -189,15 +196,6 @@ full_weather %>%
 Looking for rolling in parallel? Their multiprocessing equivalents are
 prefixed with `future_`. More examples can be found at
 [`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
-
-## More about tsibble
-
-  - Tsibble also serves as a natural input for forecasting and many
-    other downstream analytical tasks. Stay tuned for
-    [tidyverts.org](https://tidyverts.org).
-  - The [short
-    article](https://less.earo.me/posts/2019-04-tsibble-design/)
-    describes the overall philosophy and design of **tsibble**.
 
 -----
 
