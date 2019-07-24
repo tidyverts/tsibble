@@ -4,14 +4,12 @@
 \alias{tile_tsibble}
 \title{Perform tiling windows on a tsibble by row}
 \usage{
-tile_tsibble(.x, .size = 1, .id = ".id")
+tile_tsibble(.x, .size = 1)
 }
 \arguments{
 \item{.x}{A tsibble.}
 
 \item{.size}{A positive integer for window size.}
-
-\item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
 Perform tiling windows on a tsibble by row
@@ -24,8 +22,7 @@ supplied tsibble has time gaps, these rolling helpers will ignore those gaps
 and proceed.
 
 They are useful for preparing the tsibble for time series cross validation.
-They all return a tsibble including a new column \code{.id} as part of the key. The
-output dimension will increase considerably with \code{slide_tsibble()} and
+The output dimension will increase considerably with \code{slide_tsibble()} and
 \code{stretch_tsibble()}, which is likely to run out of memory when the data is
 large. Alternatively, you could construct cross validation using \code{pslide()}
 and \code{pstretch()} to avoid the memory issue.

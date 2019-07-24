@@ -4,7 +4,7 @@
 \alias{stretch_tsibble}
 \title{Perform stretching windows on a tsibble by row}
 \usage{
-stretch_tsibble(.x, .step = 1, .init = 1, .id = ".id")
+stretch_tsibble(.x, .step = 1, .init = 1)
 }
 \arguments{
 \item{.x}{A tsibble.}
@@ -12,8 +12,6 @@ stretch_tsibble(.x, .step = 1, .init = 1, .id = ".id")
 \item{.step}{A positive integer for incremental step.}
 
 \item{.init}{A positive integer for an initial window size.}
-
-\item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
 Perform stretching windows on a tsibble by row
@@ -26,8 +24,7 @@ supplied tsibble has time gaps, these rolling helpers will ignore those gaps
 and proceed.
 
 They are useful for preparing the tsibble for time series cross validation.
-They all return a tsibble including a new column \code{.id} as part of the key. The
-output dimension will increase considerably with \code{slide_tsibble()} and
+The output dimension will increase considerably with \code{slide_tsibble()} and
 \code{stretch_tsibble()}, which is likely to run out of memory when the data is
 large. Alternatively, you could construct cross validation using \code{pslide()}
 and \code{pstretch()} to avoid the memory issue.

@@ -263,7 +263,6 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' @param .x A tsibble.
 #' @param .step A positive integer for incremental step.
 #' @inheritParams stretch
-#' @param .id A character naming the new column `.id` containing the partition.
 #'
 #' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
@@ -277,9 +276,9 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' )
 #' harvest %>%
 #'   stretch_tsibble()
-stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
+stretch_tsibble <- function(.x, .step = 1, .init = 1) {
   lst_indices <- map(key_rows(.x), stretcher, .step = .step, .init = .init)
-  roll_tsibble(.x, indices = lst_indices, .id = .id)
+  roll_tsibble(.x, indices = lst_indices)
 }
 
 incr <- function(.init, .step) {
