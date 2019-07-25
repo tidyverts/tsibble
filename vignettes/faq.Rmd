@@ -70,7 +70,7 @@ tsbl2 <- tsibble(
 rbind(tsbl1, tsbl2)
 ```
 
-Certainly you can. But tsibble only reports one interval. If you want to analyse them differently, it is recommended to have separate tsibbles instead.
+Certainly you can. But tsibble only allows for one interval, because station `A` is thought of as time gaps involved. If you want to analyse them differently, it is recommended to have separate tsibbles instead.
 
 ---
 
@@ -85,7 +85,7 @@ tbl <- tibble(
 as_tsibble(tbl, index = time, key = station)
 ```
 
-Each station shares the same 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't matter to the analysis. If it does, please organise them in different tables.
+Each station shares the common 15-minute interval, but the date-times don't align. Rounding them is a quick way to fix it, if binning time doesn't matter to the analysis. If it does, please organise them in different tables.
 
 ```{r}
 tbl %>% 
@@ -93,4 +93,4 @@ tbl %>%
   as_tsibble(index = time, key = station)
 ```
 
-If it's event data, each event couples with a precise timestamp, and most likely you need `regular = FALSE` for irregular-spaced tsibble.
+If it's event data, each event couples with a precise timestamp, and most likely you need `regular = FALSE` for an irregularly-spaced tsibble.
