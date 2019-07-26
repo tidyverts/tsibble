@@ -391,6 +391,7 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
 #' @inheritParams slide
+#' @param .id A character naming the new column `.id` containing the partition.
 #'
 #' @section Rolling tsibble:
 #' `slide_tsibble()`, `tile_tsibble()`, and `stretch_tsibble()` provide fast
@@ -399,7 +400,8 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' and proceed.
 #'
 #' They are useful for preparing the tsibble for time series cross validation.
-#' The output dimension will increase considerably with `slide_tsibble()` and
+#' They all return a tsibble including a new column `.id` as part of the key. The
+#' output dimension will increase considerably with `slide_tsibble()` and
 #' `stretch_tsibble()`, which is likely to run out of memory when the data is
 #' large. Alternatively, you could construct cross validation using `pslide()`
 #' and `pstretch()` to avoid the memory issue.
@@ -414,9 +416,9 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' )
 #' harvest %>%
 #'   slide_tsibble(.size = 2)
-slide_tsibble <- function(.x, .size = 1, .step = 1) {
+slide_tsibble <- function(.x, .size = 1, .step = 1, .id = ".id") {
   lst_indices <- map(key_rows(.x), slider, .size = .size, .step = .step)
-  roll_tsibble(.x, indices = lst_indices)
+  roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
 # fast_slider <- function(.x, .size = 1, .step = 1) {
@@ -429,7 +431,10 @@ slide_tsibble <- function(.x, .size = 1, .step = 1) {
 #   # list(indices = .x[idx], id_indices = id_indices)
 # }
 
-roll_tsibble <- function(.x, indices) {
+roll_tsibble <- function(.x, indices, .id = ".id") {
+  if (.id %in% names(.x)) {
+    abort(sprintf("Can't overwrite existing column `%s`.", .id))
+  }
   tbl <- as_tibble(ungroup(.x))
   row_indices <- unlist(indices, use.names = FALSE)
   id_indices <-
@@ -437,10 +442,16 @@ roll_tsibble <- function(.x, indices) {
       indices,
       ~ purrr::imap(.x, ~ rep.int(.y, length(.x)))
     ), use.names = FALSE)
-  res <- unname(split(tbl[row_indices, ], id_indices))
-  lapply(res, update_meta, .x, 
-    ordered = is_ordered(.x), 
-    interval = interval(.x)
+  res <-
+    group_by(
+      mutate(tbl[row_indices, ], !!.id := id_indices),
+      !!!groups(.x)
+    )
+  new_key <- c(.id, key_vars(.x))
+  build_tsibble(
+    res,
+    key = !!new_key, index = !!index(.x), index2 = !!index2(.x),
+    interval = interval(.x), validate = FALSE
   )
 }
 

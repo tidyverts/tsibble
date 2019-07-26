@@ -1,31 +1,35 @@
 context("rolling tsibble")
 
 harvest <- tsibble(
-  year = c(rep(2010:2012, 2), 2013),
-  fruit = c(rep(c("kiwi", "cherry"), each = 3), "kiwi"),
-  kilo = sample(1:10, size = 7),
+  year = rep(2010:2012, 2),
+  fruit = rep(c("kiwi", "cherry"), each = 3),
+  kilo = sample(1:10, size = 6),
   key = fruit, index = year
 )
 
+test_that("error for existing `.id`", {
+  expect_error(
+    slide_tsibble(harvest, .size = 2, .id = "kilo"),
+    "Can't overwrite existing column `kilo`."
+  )
+})
+
 test_that("slide_tsibble()", {
   res <- slide_tsibble(harvest, .size = 2)
-  expect_is(res, "list")
-  expect_is(res[[1]], "tbl_ts")
-  expect_length(res, 3)
-  expect_equal(NROW(res[[1]]), 2 * 2)
-  expect_equal(NROW(res[[3]]), 2)
+  expect_equal(NROW(res), NROW(harvest) + 2L)
+  expect_named(res, c(names(harvest), ".id"))
+  expect_equal(res$.id, c(rep(1:2, each = 4)))
 })
 
 test_that("tile_tsibble()", {
-  res <- tile_tsibble(harvest, .size = 2)
-  expect_length(res, 2)
-  expect_equal(NROW(res[[1]]), 2 * 2)
-  expect_equal(NROW(res[[2]]), 2 + 1)
+  res <- tile_tsibble(harvest, .size = 2, .id = "tile_id")
+  expect_equal(NROW(res), NROW(harvest))
+  expect_named(res, c(names(harvest), "tile_id"))
+  expect_equal(res$tile_id, c(rep(1, 4), rep(2, 2)))
 })
 
 test_that("stretch_tsibble()", {
   res <- stretch_tsibble(harvest)
-  expect_length(res, 4)
-  expect_equal(NROW(res[[1]]), 2)
-  expect_equal(NROW(res[[4]]), 4)
+  expect_equal(NROW(res), NROW(harvest) * 2)
+  expect_equal(res$.id, c(rep(1, 2), rep(2, 4), rep(3, 6)))
 })

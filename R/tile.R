@@ -181,6 +181,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
 #' @inheritParams tile
+#' @param .id A character naming the new column `.id` containing the partition.
 #'
 #' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
@@ -194,9 +195,9 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' )
 #' harvest %>%
 #'   tile_tsibble(.size = 2)
-tile_tsibble <- function(.x, .size = 1) {
+tile_tsibble <- function(.x, .size = 1, .id = ".id") {
   lst_indices <- map(key_rows(.x), tiler, .size = .size)
-  roll_tsibble(.x, indices = lst_indices)
+  roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
 #' Tiling window in parallel

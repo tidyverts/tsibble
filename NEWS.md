@@ -1,6 +1,5 @@
 # tsibble 0.8.2.9000
 
-* **Breaking change**: `slide_tsibble()`, `tile_tsibble()`, `stretch_tsibble()` return a list of tsibbles instead of a tsibble with new `.id` column.
 * `index_by()` supports lambda expression (#91).
 * Defunct argument `gather` in `as_tsibble.mts()` in favour of `pivot_longer`.
 * `yearweek()` handles characters containing keywords "W"/"Wk"/"Week", for example `yearweek("2019 W03")`.
