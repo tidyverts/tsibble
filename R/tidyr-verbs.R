@@ -147,10 +147,12 @@ unnest.lst_ts <- function(data, ..., key = NULL) {
 
 unnest.tbl_ts <- function(data, ..., key = NULL) {
   if (utils::packageVersion("tidyr") > "0.8.3") {
-    abort(paste_inline(
+    warn(paste_inline(
       "Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.",
       "Please use `unnest_tsibble()` instead."
     ))
+    data <- as_tibble(data)
+    return(NextMethod())
   }
   inform(paste_inline(
     "`unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.",
