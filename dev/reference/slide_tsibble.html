@@ -152,7 +152,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>slide_tsibble</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>slide_tsibble</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='st'>".id"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +170,10 @@
       <td><p>A positive integer for calculating at every specified step
 instead of every single step.</p></td>
     </tr>
+    <tr>
+      <th>.id</th>
+      <td><p>A character naming the new column <code>.id</code> containing the partition.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="rolling-tsibble"><a class="anchor" href="#rolling-tsibble"></a>Rolling tsibble</h2>
@@ -180,7 +184,8 @@ and shorthand for rolling over a tsibble by observations. That said, if the
 supplied tsibble has time gaps, these rolling helpers will ignore those gaps
 and proceed.</p>
 <p>They are useful for preparing the tsibble for time series cross validation.
-The output dimension will increase considerably with <code>slide_tsibble()</code> and
+They all return a tsibble including a new column <code>.id</code> as part of the key. The
+output dimension will increase considerably with <code>slide_tsibble()</code> and
 <code><a href='stretch_tsibble.html'>stretch_tsibble()</a></code>, which is likely to run out of memory when the data is
 large. Alternatively, you could construct cross validation using <code><a href='slide2.html'>pslide()</a></code>
 and <code><a href='stretch2.html'>pstretch()</a></code> to avoid the memory issue.</p>
@@ -199,26 +204,18 @@ and <code><a href='stretch2.html'>pstretch()</a></code> to avoid the memory issu
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
 )
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>slide_tsibble</span>(<span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; # A tsibble: 4 x 3 [1Y]
-#&gt; # Key:       fruit [2]
-#&gt;    year fruit   kilo
-#&gt;   &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2010 cherry    10
-#&gt; 2  2011 cherry     8
-#&gt; 3  2010 kiwi       1
-#&gt; 4  2011 kiwi       6
-#&gt; 
-#&gt; [[2]]
-#&gt; # A tsibble: 4 x 3 [1Y]
-#&gt; # Key:       fruit [2]
-#&gt;    year fruit   kilo
-#&gt;   &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     8
-#&gt; 2  2012 cherry     4
-#&gt; 3  2011 kiwi       6
-#&gt; 4  2012 kiwi       2
-#&gt; </div></pre>
+  <span class='fu'>slide_tsibble</span>(<span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 4 [1Y]
+#&gt; # Key:       .id, fruit [4]
+#&gt;    year fruit   kilo   .id
+#&gt;   &lt;int&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;
+#&gt; 1  2010 cherry    10     1
+#&gt; 2  2011 cherry     8     1
+#&gt; 3  2010 kiwi       1     1
+#&gt; 4  2011 kiwi       6     1
+#&gt; 5  2011 cherry     8     2
+#&gt; 6  2012 cherry     4     2
+#&gt; 7  2011 kiwi       6     2
+#&gt; 8  2012 kiwi       2     2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
