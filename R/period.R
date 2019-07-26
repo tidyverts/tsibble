@@ -151,8 +151,8 @@ yearweek.character <- function(x) {
     if (any(check_53)) {
       abort(sprintf("Year %s can't be 53 weeks.", comma(yr[check_53])))
     }
-    wks <- round((yr - 1970) * 52.18) + week - 1
-    yearweek(wks * 7 + as_date("1969-12-29"))
+    last_mon_last_year <- make_date(yr, 1, 5) - wday(make_date(yr, 1, 3)) - 7
+    yearweek(last_mon_last_year + week * 7)
   } else {
     anytime::assertDate(x)
     yearweek(anytime::anydate(x))
