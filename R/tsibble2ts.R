@@ -48,7 +48,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
   } else {
-    mat_ts <- tidyr::spread(tsbl_sel,
+    mat_ts <- spread(tsbl_sel,
       key = !!key_vars[[1]],
       value = !!value_var, fill = fill
     )
@@ -57,42 +57,41 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {
-  idx_time <- time(dplyr::pull(data, !!index))
+  idx_time <- time(pull(data, !!index))
   out <- select(as_tibble(data), -!!index)
   if (NCOL(out) == 1) {
     out <- out[[1]]
   }
   if (is_null(frequency)) {
-    frequency <- stats::frequency(idx_time)
+    frequency <- frequency(idx_time)
   }
-  stats::ts(out, stats::start(idx_time), frequency = frequency)
+  ts(out, start(idx_time), frequency = frequency)
 }
 
-#' @importFrom stats as.ts tsp<- time frequency
 #' @export
 time.yearweek <- function(x, ...) {
   freq <- guess_frequency(x)
-  y <- lubridate::decimal_date(x)
-  stats::ts(y, start = min0(y), frequency = freq)
+  y <- decimal_date(x)
+  ts(y, start = min0(y), frequency = freq)
 }
 
 #' @export
 time.yearmonth <- function(x, ...) {
   freq <- guess_frequency(x)
-  y <- lubridate::year(x) + (lubridate::month(x) - 1) / freq
-  stats::ts(y, start = min0(y), frequency = freq)
+  y <- year(x) + (month(x) - 1) / freq
+  ts(y, start = min0(y), frequency = freq)
 }
 
 #' @export
 time.yearquarter <- function(x, ...) {
   freq <- guess_frequency(x)
-  y <- lubridate::year(x) + (lubridate::quarter(x) - 1) / freq
-  stats::ts(y, start = min0(y), frequency = freq)
+  y <- year(x) + (quarter(x) - 1) / freq
+  ts(y, start = min0(y), frequency = freq)
 }
 
 #' @export
 time.numeric <- function(x, ...) {
-  stats::ts(x, start = min0(x), frequency = 1)
+  ts(x, start = min0(x), frequency = 1)
 }
 
 #' @export
@@ -100,8 +99,8 @@ time.Date <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)
   }
-  y <- lubridate::decimal_date(x)
-  stats::ts(x, start = min0(y), frequency = frequency)
+  y <- decimal_date(x)
+  ts(x, start = min0(y), frequency = frequency)
 }
 
 #' @export
@@ -109,8 +108,8 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)
   }
-  y <- lubridate::decimal_date(x)
-  stats::ts(x, start = min0(y), frequency = frequency)
+  y <- decimal_date(x)
+  ts(x, start = min0(y), frequency = frequency)
 }
 
 #' Guess a time frequency from other index objects

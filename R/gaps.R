@@ -90,7 +90,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
     }
   }
   grps <- groups(.data)
-  full_data <- group_by(dplyr::bind_rows(as_tibble(gap_data), .data), !!!grps)
+  full_data <- group_by(bind_rows(as_tibble(gap_data), .data), !!!grps)
   if (!identical(cn, names(full_data))) {
     full_data <- select(full_data, !!!syms(cn)) # keep the original order
   }
@@ -312,5 +312,5 @@ unwrap <- function(.data, .col) {
     vapply(.data[[lst_col]], NROW, integer(1))
   )
   res <- res[row_indices, setdiff(names(.data), lst_col)]
-  dplyr::bind_cols(res, dplyr::bind_rows(!!!.data[[lst_col]]))
+  bind_cols(res, bind_rows(!!!.data[[lst_col]]))
 }

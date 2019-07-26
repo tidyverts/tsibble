@@ -143,7 +143,7 @@ transmute.grouped_ts <- function(.data, ...) {
   # keeping index and key
   idx_key <- c(key_vars(.data), index_var(.data))
   tsbl <- select_tsibble(ungroup(.data), !!!idx_key, validate = FALSE)
-  dplyr::bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
+  bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
 }
 
 #' @rdname tsibble-tidyverse

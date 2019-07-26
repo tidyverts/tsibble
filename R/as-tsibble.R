@@ -323,7 +323,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
     "key" = key_data, "index" = index, "index2" = index2,
     "interval" = interval, "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
-  is_grped <- dplyr::is_grouped_df(x) || !idx_lgl
+  is_grped <- is_grouped_df(x) || !idx_lgl
   if (is_grped) {
     cls <- c("grouped_ts", "grouped_df")
     tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
@@ -419,7 +419,7 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
     warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
   }
-  format(tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra))
+  format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }
 
 #' Coerce to a tibble or data frame

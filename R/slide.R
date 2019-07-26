@@ -440,7 +440,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
   id_indices <-
     unlist(map(
       indices,
-      ~ purrr::imap(.x, ~ rep.int(.y, length(.x)))
+      ~ imap(.x, ~ rep.int(.y, length(.x)))
     ), use.names = FALSE)
   res <-
     group_by(
@@ -466,9 +466,9 @@ check_slider_input <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
 bind_lst <- function(x) {
   type_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ typeof(.)[1]))
   if (all(type_elements == "list")) {
-    lapply(x, dplyr::bind_rows)
+    lapply(x, bind_rows)
   } else {
-    lapply(x, dplyr::combine)
+    lapply(x, combine)
   }
 }
 
@@ -564,16 +564,16 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
   abs_size <- abs(.size)
   if (abs_size < 2) {
     if (byrow) {
-      return(dplyr::bind_rows(!!!x, .id = .id))
+      return(bind_rows(!!!x, .id = .id))
     } else {
-      return(dplyr::bind_cols(!!!x))
+      return(bind_cols(!!!x))
     }
   }
   lst <- rep_named(names(x[[abs_size]]), list(.fill))
   if (byrow) {
-    dplyr::bind_rows(lst, !!!x[-seq_len(abs_size - 1)], .id = .id)
+    bind_rows(lst, !!!x[-seq_len(abs_size - 1)], .id = .id)
   } else {
-    dplyr::bind_cols(lst, !!!x[-seq_len(abs_size - 1)])
+    bind_cols(lst, !!!x[-seq_len(abs_size - 1)])
   }
 }
 

@@ -42,14 +42,14 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 tile_dfr <- function(.x, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!!out, .id = .id)
+  bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile
 #' @export
 tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
   out <- tile(.x = .x, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!!out)
+  bind_cols(!!!out)
 }
 
 #' Tiling window calculation over multiple inputs simultaneously
@@ -98,14 +98,14 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 tile2_dfr <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!!out, .id = .id)
+  bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
 tile2_dfc <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
   out <- tile2(.x, .y, .f = .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!!out)
+  bind_cols(!!!out)
 }
 
 #' @rdname tile2
@@ -130,14 +130,14 @@ for (type in c("lgl", "chr", "dbl", "int")) {
 #' @export
 ptile_dfr <- function(.l, .f, ..., .size = 1, .bind = FALSE, .id = NULL) {
   out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_rows(!!!out, .id = .id)
+  bind_rows(!!!out, .id = .id)
 }
 
 #' @rdname tile2
 #' @export
 ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
   out <- ptile(.l, .f, ..., .size = .size, .bind = .bind)
-  dplyr::bind_cols(!!!out)
+  bind_cols(!!!out)
 }
 
 #' Splits the input to a list according to the tiling window size.

@@ -254,7 +254,7 @@ time_unit <- function(x) {
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
   x[["hour"]] <- x[["hour"]] * 3600
-  purrr::reduce(x, `+`)
+  reduce(x, `+`)
 }
 
 # from ts time to dates
@@ -263,19 +263,19 @@ time_to_date <- function(x, ...) {
 }
 
 time_to_date.ts <- function(x, tz = "UTC", ...) {
-  freq <- stats::frequency(x)
-  time_x <- round(as.numeric(stats::time(x)), digits = 6) # floating
+  freq <- frequency(x)
+  time_x <- round(as.numeric(time(x)), digits = 6) # floating
   if (freq == 52) {
     warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
   }
   if (freq == 7) { # daily
     start_year <- trunc(time_x[1])
-    as.Date(lubridate::round_date(
-      lubridate::date_decimal(start_year + (time_x - start_year) * 7 / 365),
+    as.Date(round_date(
+      date_decimal(start_year + (time_x - start_year) * 7 / 365),
       unit = "day"
     ))
   } else if (round(freq, 2) == 52.18) { # weekly
-    yearweek(lubridate::date_decimal(time_x))
+    yearweek(date_decimal(time_x))
   } else if (freq > 4 && freq <= 12) { # monthly
     yearmonth(time_x)
   } else if (freq > 1 && freq <= 4) { # quarterly
@@ -283,9 +283,9 @@ time_to_date.ts <- function(x, tz = "UTC", ...) {
   } else if (freq == 1) { # yearly
     time_x
   } else {
-    if (stats::end(x)[1] > 1581) {
-      date_x <- lubridate::date_decimal(time_x, tz = tz)
-      lubridate::round_date(date_x, unit = "seconds")
+    if (end(x)[1] > 1581) {
+      date_x <- date_decimal(time_x, tz = tz)
+      round_date(date_x, unit = "seconds")
     } else {
       time_x
     }
@@ -314,7 +314,7 @@ gcd <- function(a, b) {
 gcd_vector <- function(x) Reduce(gcd, x)
 
 split_period <- function(x) {
-  output <- lubridate::seconds_to_period(x)
+  output <- seconds_to_period(x)
   list(
     year = output$year, month = output$month, day = output$day,
     hour = output$hour, minute = output$minute, second = output$second

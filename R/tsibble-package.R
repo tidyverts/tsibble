@@ -68,15 +68,22 @@
 #'
 #' @aliases NULL tsibble-package
 #' @importFrom utils head tail
-#' @importFrom purrr map map_dbl map_int map_chr map_lgl
+#' @importFrom stats frequency start end time ts as.ts tsp<-
+#' @importFrom anytime assertTime assertDate utcdate utctime anydate
+#' @importFrom lubridate make_date wday floor_date year month period
+#' @importFrom lubridate quarter is.POSIXct rollback force_tz tz
+#' @importFrom lubridate decimal_date date_decimal round_date
+#' @importFrom lubridate seconds_to_period month<- weeks days as_date
+#' @importFrom purrr map map_dbl map_int map_chr map_lgl reduce imap
 #' @importFrom purrr map2 map2_dbl map2_int map2_chr map2_lgl
 #' @importFrom purrr pmap pmap_dbl pmap_int pmap_chr pmap_lgl
 #' @importFrom dplyr arrange filter slice select mutate transmute summarise rename
 #' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
-#' @importFrom dplyr group_rows groups new_grouped_df
+#' @importFrom dplyr group_rows groups new_grouped_df is_grouped_df
 #' @importFrom dplyr anti_join left_join right_join full_join semi_join inner_join
+#' @importFrom dplyr bind_rows bind_cols combine with_order pull
 #' @importFrom tidyr gather spread nest unnest
-#' @importFrom tibble new_tibble
+#' @importFrom tibble new_tibble trunc_mat
 #' @import rlang tidyselect
 #' @examples
 #' # create a tsibble w/o a key ----

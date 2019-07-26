@@ -87,7 +87,7 @@ time_in <- function(x, ...) {
     return(!logical(length(x)))
   }
 
-  if (lubridate::is.POSIXct(x)) {
+  if (is.POSIXct(x)) {
     local_tz <- Sys.timezone()
     if ("Europe/London" %in% local_tz) {
       warn("System time zone: \"Europe/London\".\nIt may yield an unexpected output. Please see `?filter_index` for details.")
@@ -106,10 +106,9 @@ time_in <- function(x, ...) {
     lgl[[i]] <- eval_bare(x >= lhs[[i]] & x < rhs[[i]])
   }
 
-  purrr::reduce(lgl, `|`)
+  reduce(lgl, `|`)
 }
 
-#' @importFrom stats start end
 start.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
@@ -153,8 +152,8 @@ start.Date <- function(x, y = NULL, ...) {
     min(x)
   } else {
     abort_not_chr(y, class = "Date")
-    anytime::assertDate(y)
-    y <- anytime::utcdate(y, tz = "UTC")
+    assertDate(y)
+    y <- utcdate(y, tz = "UTC")
     attr(y, "tzone") <- NULL
     y
   }
@@ -162,26 +161,26 @@ start.Date <- function(x, y = NULL, ...) {
 
 end.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
-    max(x) + lubridate::period(1, "day")
+    max(x) + period(1, "day")
   } else {
     abort_not_chr(y, class = "Date")
-    anytime::assertDate(y)
+    assertDate(y)
 
     lgl_yrmth <- nchar(y) < 8 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
-    y <- anytime::utcdate(y, tz = "UTC")
+    y <- utcdate(y, tz = "UTC")
     attr(y, "tzone") <- NULL
     if (any(lgl_yrmth)) {
-      y[lgl_yrmth] <- lubridate::rollback(
-        y[lgl_yrmth] + lubridate::period(1, "month"),
+      y[lgl_yrmth] <- rollback(
+        y[lgl_yrmth] + period(1, "month"),
         roll_to_first = TRUE
       )
     }
     if (any(lgl_yr)) {
-      y[lgl_yr] <- y[lgl_yr] + lubridate::period(1, "year")
+      y[lgl_yr] <- y[lgl_yr] + period(1, "year")
     }
     lgl_date <- !(lgl_yrmth | lgl_yr)
-    y[lgl_date] <- y[lgl_date] + lubridate::period(1, "day")
+    y[lgl_date] <- y[lgl_date] + period(1, "day")
     y
   }
 }
@@ -191,35 +190,35 @@ start.POSIXct <- function(x, y = NULL, ...) {
     min(x)
   } else {
     abort_not_chr(y, class = "POSIXct")
-    anytime::assertTime(y)
-    y <- anytime::utctime(y, tz = "UTC")
-    lubridate::force_tz(y, lubridate::tz(x), roll = TRUE)
+    assertTime(y)
+    y <- utctime(y, tz = "UTC")
+    force_tz(y, tz(x), roll = TRUE)
   }
 }
 
 end.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
-    max(x) + lubridate::period(1, "second")
+    max(x) + period(1, "second")
   } else {
     abort_not_chr(y, class = "POSIXct")
-    anytime::assertTime(y)
+    assertTime(y)
 
     lgl_date <- nchar(y) > 7 & nchar(y) < 11
     lgl_yrmth <- nchar(y) < 9 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
-    y <- anytime::utctime(y, tz = "UTC")
-    y <- lubridate::force_tz(y, lubridate::tz(x), roll = TRUE)
+    y <- utctime(y, tz = "UTC")
+    y <- force_tz(y, tz(x), roll = TRUE)
     if (any(lgl_date)) {
-      y[lgl_date] <- y[lgl_date] + lubridate::period(1, "day")
+      y[lgl_date] <- y[lgl_date] + period(1, "day")
     }
     if (any(lgl_yrmth)) {
-      y[lgl_yrmth] <- lubridate::rollback(
-        y[lgl_yrmth] + lubridate::period(1, "month"),
+      y[lgl_yrmth] <- rollback(
+        y[lgl_yrmth] + period(1, "month"),
         roll_to_first = TRUE
       )
     }
     if (any(lgl_yr)) {
-      y[lgl_yr] <- y[lgl_yr] + lubridate::period(1, "year")
+      y[lgl_yr] <- y[lgl_yr] + period(1, "year")
     }
     lgl_time <- !(lgl_date | lgl_yrmth | lgl_yr)
     y[lgl_time] <- y[lgl_time] + 1

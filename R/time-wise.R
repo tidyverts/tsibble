@@ -34,7 +34,7 @@ difference <- function(x, lag = 1, differences = 1, default = NA,
   if (is_null(order_by)) {
     diff_impl(x, lag = lag, differences = differences, fill = default)
   } else {
-    dplyr::with_order(order_by, diff_impl, x,
+    with_order(order_by, diff_impl, x,
       lag = lag, differences = differences, fill = default
     )
   }

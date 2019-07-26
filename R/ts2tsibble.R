@@ -61,8 +61,8 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
   tbl <- gather_ts(x, tz = tz) %>%
-    dplyr::select(index, "value")
-  tbl_hts <- dplyr::bind_cols(tbl, full_labs)
+    select(index, "value")
+  tbl_hts <- bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
   key <- colnames(tbl_hts)[3:ncol(tbl_hts)]
   build_tsibble(tbl_hts,
@@ -105,12 +105,12 @@ as_tibble.gts <- function(x, ...) {
 }
 
 bind_time <- function(x, tz = "UTC") {
-  dplyr::bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
+  bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
 }
 
 gather_ts <- function(x, tz = "UTC") {
   tbl <- bind_time(x, tz = tz)
-  tidyr::gather(tbl, key = "key", value = "value", -index)
+  gather(tbl, key = "key", value = "value", -index)
 }
 
 # recursive function to repeat nodes for hts

@@ -123,7 +123,7 @@ yearweek.default <- function(x) {
 
 #' @export
 yearweek.POSIXt <- function(x) {
-  new_yearweek(as_date(lubridate::floor_date(x, unit = "weeks", week_start = 1)))
+  new_yearweek(as_date(floor_date(x, unit = "weeks", week_start = 1)))
 }
 
 #' @export
@@ -154,8 +154,8 @@ yearweek.character <- function(x) {
     last_mon_last_year <- make_date(yr, 1, 5) - wday(make_date(yr, 1, 3)) - 7
     yearweek(last_mon_last_year + week * 7)
   } else {
-    anytime::assertDate(x)
-    yearweek(anytime::anydate(x))
+    assertDate(x)
+    yearweek(anydate(x))
   }
 }
 
@@ -167,9 +167,9 @@ yearweek.yearweek <- function(x) {
 #' @export
 format.yearweek <- function(x, format = "%Y W%V", ...) {
   x <- as_date(x)
-  yr <- lubridate::year(x)
-  ord <- lubridate::make_date(yr, 1)
-  wday <- lubridate::wday(x, week_start = 1)
+  yr <- year(x)
+  ord <- make_date(yr, 1)
+  wday <- wday(x, week_start = 1)
   mth_wk <- strftime(x, format = "%m_%V")
   yrs <- yr
   yrs[mth_wk == "01_53"] <- yr[mth_wk == "01_53"] - 1
@@ -257,7 +257,7 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((lubridate::year(x) - 1970) * 12 + lubridate::month(x),
+  out <- diff((year(x) - 1970) * 12 + month(x),
     lag = lag, differences = differences
   )
   structure(out, class = "difftime", units = "months")
@@ -273,9 +273,9 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
     abort("Binary `+` is not defined for class yearmonth.")
   }
   if (e1_yrmth) {
-    yearmonth(as_date(e1) + lubridate::period(months = e2))
+    yearmonth(as_date(e1) + period(months = e2))
   } else {
-    yearmonth(lubridate::period(months = e1) + as_date(e2))
+    yearmonth(period(months = e1) + as_date(e2))
   }
 }
 
@@ -289,7 +289,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
     res <- units_since(e1) - units_since(e2)
     structure(res, class = "difftime", units = "months")
   } else {
-    yearmonth(as_date(e1) - lubridate::period(months = e2, units = "month"))
+    yearmonth(as_date(e1) - period(months = e2, units = "month"))
   }
 }
 
@@ -304,7 +304,7 @@ yearmonth.default <- function(x) {
 
 #' @export
 yearmonth.POSIXt <- function(x) {
-  new_yearmonth(as_date(lubridate::floor_date(x, unit = "months")))
+  new_yearmonth(as_date(floor_date(x, unit = "months")))
 }
 
 #' @export
@@ -314,8 +314,8 @@ yearmonth.Date <- yearmonth.POSIXt
 yearmonth.character <- function(x) {
   if (is_empty(x)) return(new_yearmonth(x))
 
-  anytime::assertDate(x)
-  new_yearmonth(anytime::anydate(x))
+  assertDate(x)
+  new_yearmonth(anydate(x))
 }
 
 #' @export
@@ -330,7 +330,7 @@ yearmonth.yearmonth <- function(x) {
 yearmonth.numeric <- function(x) {
   year <- trunc(x)
   month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
-  result <- lubridate::make_date(year, month, 1)
+  result <- make_date(year, month, 1)
   new_yearmonth(result)
 }
 
@@ -383,7 +383,7 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
 
 #' @export
 diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x),
+  out <- diff((year(x) - 1970) * 4 + quarter(x),
     lag = lag, differences = differences
   )
   structure(out, class = "difftime", units = "quarters")
@@ -400,9 +400,9 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
     abort("Binary `+` is not defined for class yearquarter.")
   }
   if (e1_yrqtr) {
-    yearquarter(as_date(e1) + lubridate::period(months = e2 * 3))
+    yearquarter(as_date(e1) + period(months = e2 * 3))
   } else {
-    yearquarter(lubridate::period(months = e1 * 3) + as_date(e2))
+    yearquarter(period(months = e1 * 3) + as_date(e2))
   }
 }
 
@@ -416,7 +416,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
     res <- units_since(e1) - units_since(e2)
     structure(res, class = "difftime", units = "quarters")
   } else {
-    yearquarter(as_date(e1) - lubridate::period(months = e2 * 3))
+    yearquarter(as_date(e1) - period(months = e2 * 3))
   }
 }
 
@@ -431,7 +431,7 @@ yearquarter.default <- function(x) {
 
 #' @export
 yearquarter.POSIXt <- function(x) {
-  new_yearquarter(as_date(lubridate::floor_date(x, unit = "quarters")))
+  new_yearquarter(as_date(floor_date(x, unit = "quarters")))
 }
 
 #' @export
@@ -456,10 +456,10 @@ yearquarter.character <- function(x) {
     if (any(qtr > 4)) {
       abort("Quarters can't be greater than 4.")
     }
-    new_yearquarter(lubridate::make_date(yr, qtr * 3 - 2))
+    new_yearquarter(make_date(yr, qtr * 3 - 2))
   } else {
-    anytime::assertDate(x)
-    new_yearquarter(anytime::anydate(x))
+    assertDate(x)
+    new_yearquarter(anydate(x))
   }
 }
 
@@ -479,14 +479,13 @@ yearquarter.numeric <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- formatC(last_month - 2, flag = 0, width = 2)
-  result <- lubridate::make_date(year, first_month, 1)
+  result <- make_date(year, first_month, 1)
   new_yearquarter(result)
 }
 
 #' @export
 yearquarter.yearqtr <- yearquarter.numeric
 
-#' @importFrom lubridate as_date
 as_date.yearquarter <- function(x, ...) {
   class(x) <- "Date"
   x
@@ -508,7 +507,7 @@ as.Date.yearweek <- as_date.yearweek
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   x <- as_date(x)
-  year <- lubridate::year(x)
+  year <- year(x)
   year_sym <- "%Y"
   if (grepl("%y", format)) {
     year <- sprintf("%02d", year %% 100)
@@ -517,7 +516,7 @@ format.yearquarter <- function(x, format = "%Y Q%q", ...) {
     year <- year %/% 100
     year_sym <- "%C"
   }
-  qtr <- lubridate::quarter(x)
+  qtr <- quarter(x)
   qtr_sub <- map_chr(qtr, ~ gsub("%q", ., x = format))
   year_sub <- map2_chr(year, qtr_sub, ~ gsub(year_sym, .x, x = .y))
   year_sub
@@ -633,12 +632,12 @@ units_since.yearweek <- function(x) {
 
 #' @export
 units_since.yearmonth <- function(x) {
-  as.numeric((lubridate::year(x) - 1970) * 12 + lubridate::month(x) - 1)
+  as.numeric((year(x) - 1970) * 12 + month(x) - 1)
 }
 
 #' @export
 units_since.yearquarter <- function(x) {
-  as.numeric((lubridate::year(x) - 1970) * 4 + lubridate::quarter(x) - 1)
+  as.numeric((year(x) - 1970) * 4 + quarter(x) - 1)
 }
 
 #' @export

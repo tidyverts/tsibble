@@ -36,41 +36,40 @@ holiday_aus <- function(year, state = "national") {
   )
   nat <- holiday_aus_national(year)
   if (state == "VIC") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_vic(year))
+    nat <- bind_rows(nat, holiday_aus_vic(year))
   } else if (state == "NSW") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_nsw(year))
+    nat <- bind_rows(nat, holiday_aus_nsw(year))
   } else if (state == "ACT") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_act(year))
+    nat <- bind_rows(nat, holiday_aus_act(year))
   } else if (state == "NT") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_nt(year))
+    nat <- bind_rows(nat, holiday_aus_nt(year))
   } else if (state == "QLD") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_qld(year))
+    nat <- bind_rows(nat, holiday_aus_qld(year))
   } else if (state == "SA") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_sa(year)) %>%
+    nat <- bind_rows(nat, holiday_aus_sa(year)) %>%
       mutate(holiday = ifelse(
         holiday == "Boxing Day", "Proclamation Day", holiday
       ))
   } else if (state == "TAS") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_tas(year))
+    nat <- bind_rows(nat, holiday_aus_tas(year))
   } else if (state == "WA") {
-    nat <- dplyr::bind_rows(nat, holiday_aus_wa(year))
+    nat <- bind_rows(nat, holiday_aus_wa(year))
   }
   arrange(nat, date)
 }
 
-#' @importFrom lubridate month<-
 holiday_aus_act <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 3) # Mar
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 3) # Mar
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   march_1mon <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
   # Find the second Monday in March (Canberra day)
-  canb <- march_1mon + lubridate::weeks(1)
+  canb <- march_1mon + weeks(1)
 
-  recon <- lubridate::make_date(year, 5, 27)
-  diff_mon <- 2 - lubridate::wday(recon)
+  recon <- make_date(year, 5, 27)
+  diff_mon <- 2 - wday(recon)
   recon <- recon + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
   out <- tibble(
@@ -78,42 +77,42 @@ holiday_aus_act <- function(year) {
     date = c(canb, recon)
   )
   recon_rm <- out %>%
-    filter(holiday == "Reconciliation Day", lubridate::year(date) < 2018)
+    filter(holiday == "Reconciliation Day", year(date) < 2018)
   out %>%
     anti_join(recon_rm, by = c("holiday", "date")) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_nt <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 5) # May
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 5) # May
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in May
   may_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
-  picnic <- lubridate::make_date(year, 8)
-  diff_mon <- 2 - lubridate::wday(picnic)
+  picnic <- make_date(year, 8)
+  diff_mon <- 2 - wday(picnic)
   picnic <- picnic + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
   tibble(
     holiday = rep(c("May Day", "Picnic Day"), each = year_length),
     date = c(may_day, picnic)
   ) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_qld <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 5) # May
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 5) # May
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in May
   may_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
   # Find the first Monday in October
   month(starting) <- 10
-  starting_wday <- lubridate::wday(starting)
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   queens <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
@@ -121,27 +120,27 @@ holiday_aus_qld <- function(year) {
     holiday = rep(c("Labour Day", "Queen's Birthday"), each = year_length),
     date = c(may_day, queens)
   ) %>%
-    dplyr::bind_rows(easter_break(year))
+    bind_rows(easter_break(year))
 }
 
 holiday_aus_sa <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 3) # March
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 3) # March
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   mar_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
-  mar_cup <- mar_day + lubridate::weeks(1)
+  mar_cup <- mar_day + weeks(1)
 
   month(starting) <- 5 # May
-  starting_wday <- lubridate::wday(starting)
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   may_day <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
-  may_cup <- may_day + lubridate::weeks(2)
+  may_cup <- may_day + weeks(2)
 
   month(starting) <- 10
-  starting_wday <- lubridate::wday(starting)
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
@@ -156,25 +155,25 @@ holiday_aus_sa <- function(year) {
   mar_cup_rm <- out %>%
     filter(
       holiday == "Adelaide Cup Day",
-      lubridate::month(date) == 3,
-      lubridate::year(date) < 2006 | lubridate::year(date) > 2019
+      month(date) == 3,
+      year(date) < 2006 | year(date) > 2019
     )
   may_cup_rm <- out %>%
     filter(
       holiday == "Adelaide Cup Day",
-      lubridate::month(date) == 5,
-      lubridate::year(date) > 2005, lubridate::year(date) < 2020
+      month(date) == 5,
+      year(date) > 2005, year(date) < 2020
     )
   out %>%
     anti_join(mar_cup_rm, by = c("holiday", "date")) %>%
     anti_join(may_cup_rm, by = c("holiday", "date")) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_nsw <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 10) # Oct
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 10) # Oct
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in Oct
   labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
@@ -183,36 +182,36 @@ holiday_aus_nsw <- function(year) {
     holiday = rep("Labour Day", each = year_length),
     date = labour
   ) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_tas <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 3) # Mar
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 3) # Mar
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   march_1mon <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
   # Find the second Monday in March (labour day)
-  labour <- march_1mon + lubridate::weeks(1) # VIC and Tas
+  labour <- march_1mon + weeks(1) # VIC and Tas
 
   # Holiday labels
   tibble(
     holiday = rep("Eight Hours Day", each = year_length),
     date = labour
   ) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_vic <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 3) # Mar
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 3) # Mar
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   march_1mon <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
   # Find the second Monday in March (labour day)
-  labour <- march_1mon + lubridate::weeks(1) # VIC and Tas
+  labour <- march_1mon + weeks(1) # VIC and Tas
 
   # AFL grand final day has become Public holiday in VIC since 2015
   # if (any(year == 2015)) {
@@ -223,7 +222,7 @@ holiday_aus_vic <- function(year) {
   # }
 
   month(starting) <- 11 # switch to Nov
-  starting_wday <- lubridate::wday(starting)
+  starting_wday <- wday(starting)
   diff_tue <- 3 - starting_wday
   # Find the first Tuesday in Nov (Melbourne cup)
   melb_cup <- starting + ifelse(diff_tue >= 0, diff_tue, diff_tue + 7)
@@ -234,19 +233,19 @@ holiday_aus_vic <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, melb_cup)
   ) %>%
-    dplyr::bind_rows(easter_break(year), queens_birthday(year))
+    bind_rows(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_wa <- function(year) {
   year_length <- length(year)
-  starting <- lubridate::make_date(year, 3) # Mar
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 3) # Mar
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in March
   labour <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
 
   month(starting) <- 6 # switch to June
-  starting_wday <- lubridate::wday(starting)
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in June
   western <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
@@ -257,7 +256,7 @@ holiday_aus_wa <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, western)
   ) %>%
-    dplyr::bind_rows(easter_break(year))
+    bind_rows(easter_break(year))
 }
 
 holiday_aus_national <- function(year) {
@@ -265,70 +264,70 @@ holiday_aus_national <- function(year) {
   public_holidays <- vector(mode = "list", length = 6)
   counter <- incr(.init = 1, .step = 1)
 
-  new_year <- lubridate::make_date(year) # new year's day
-  new_year_wday <- lubridate::wday(new_year)
+  new_year <- make_date(year) # new year's day
+  new_year_wday <- wday(new_year)
   # new_year day observed
   new_year <- as_date(ifelse(
     new_year_wday == 1, # Sunday
-    new_year + lubridate::days(1), # shift to next Monday
+    new_year + days(1), # shift to next Monday
     new_year
   ))
   new_year <- as_date(ifelse(
     new_year_wday == 7, # Saturday
-    new_year + lubridate::days(2), # shift to next Monday
+    new_year + days(2), # shift to next Monday
     new_year
   ))
   public_holidays[[counter()]] <- new_year
 
-  australia <- lubridate::make_date(year, 1, 26) # australia day
-  australia_wday <- lubridate::wday(australia)
+  australia <- make_date(year, 1, 26) # australia day
+  australia_wday <- wday(australia)
   # australia day observed
   australia <- as_date(ifelse(
     australia_wday == 1, # Sunday
-    australia + lubridate::days(1), # shift to next Monday
+    australia + days(1), # shift to next Monday
     australia
   ))
   australia <- as_date(ifelse(
     australia_wday == 7, # Saturday
-    australia + lubridate::days(2), # shift to next Monday
+    australia + days(2), # shift to next Monday
     australia
   ))
   public_holidays[[counter()]] <- australia
 
   good_friday <- as_date(timeDate::GoodFriday(year))
   public_holidays[[counter()]] <- good_friday
-  easter_mon <- as_date(timeDate::Easter(year)) + lubridate::days(1)
+  easter_mon <- as_date(timeDate::Easter(year)) + days(1)
   public_holidays[[counter()]] <- easter_mon
 
-  anzac <- lubridate::make_date(year, 4, 25) # regardless of weekday
+  anzac <- make_date(year, 4, 25) # regardless of weekday
   public_holidays[[counter()]] <- anzac
 
-  christmas <- lubridate::make_date(year, 12, 25)
-  christmas_wday <- lubridate::wday(christmas)
+  christmas <- make_date(year, 12, 25)
+  christmas_wday <- wday(christmas)
   # Substitute for Sat/Sun 25 Dec
   christmas <- as_date(ifelse(
     christmas_wday == 1, # Sunday
-    christmas + lubridate::days(2), # shift to next Tuesday
+    christmas + days(2), # shift to next Tuesday
     christmas
   ))
   christmas <- as_date(ifelse(
     christmas_wday == 7, # Saturday
-    christmas + lubridate::days(2), # shift to next Monday
+    christmas + days(2), # shift to next Monday
     christmas
   ))
   public_holidays[[counter()]] <- christmas
 
-  boxing <- lubridate::make_date(year, 12, 26)
-  boxing_wday <- lubridate::wday(boxing)
+  boxing <- make_date(year, 12, 26)
+  boxing_wday <- wday(boxing)
   # Substitute for Sat/Sun 26 Dec
   boxing <- as_date(ifelse(
     boxing_wday == 1, # Sunday
-    boxing + lubridate::days(1), # shift to next Monday
+    boxing + days(1), # shift to next Monday
     boxing
   ))
   boxing <- as_date(ifelse(
     boxing_wday == 7, # Saturday
-    boxing + lubridate::days(2), # shift to next Monday
+    boxing + days(2), # shift to next Monday
     boxing
   ))
   public_holidays[[counter()]] <- boxing
@@ -349,7 +348,7 @@ holiday_aus_national <- function(year) {
 # Easter break: excluding Good Friday & Easter Monday
 easter_break <- function(year) {
   easter_sun <- as_date(timeDate::Easter(year))
-  easter_sat <- easter_sun - lubridate::days(1)
+  easter_sat <- easter_sun - days(1)
 
   # Holiday labels
   hdays_labels <- c("Easter Saturday", "Easter Sunday")
@@ -360,13 +359,13 @@ easter_break <- function(year) {
 }
 
 queens_birthday <- function(year) {
-  starting <- lubridate::make_date(year, 6)
-  starting_wday <- lubridate::wday(starting)
+  starting <- make_date(year, 6)
+  starting_wday <- wday(starting)
   diff_mon <- 2 - starting_wday
   # Find the first Monday in June
   june_1mon <- starting + ifelse(diff_mon >= 0, diff_mon, diff_mon + 7)
   # Find the second Monday in June (Queen's birthday)
-  queens <- june_1mon + lubridate::weeks(1) # except QLD, WA
+  queens <- june_1mon + weeks(1) # except QLD, WA
   tibble(
     holiday = rep("Queen's Birthday", each = length(year)),
     date = queens
