@@ -10,13 +10,13 @@
 |collate  |en_AU.UTF-8                  |
 |ctype    |en_AU.UTF-8                  |
 |tz       |Australia/Melbourne          |
-|date     |2019-05-28                   |
+|date     |2019-07-26                   |
 
 # Dependencies
 
 |package |old   |new        |Δ  |
 |:-------|:-----|:----------|:--|
-|tsibble |0.8.0 |0.8.0.9000 |*  |
+|tsibble |0.8.2 |0.8.2.9000 |*  |
 
 # Revdeps
 
