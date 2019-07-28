@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5)
 ```
 
-The **tsibble** package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the [tidy data principles](https://tidyr.tidyverse.org/articles/tidy-data.html), *tsibble* is a data- and model-oriented object. In *tsibble*:
+The **tsibble** package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the [tidy data principles](https://tidyr.tidyverse.org/articles/tidy-data.html), *tsibble* is an explicit data- and model-oriented object. In *tsibble*:
 
 1. Index is a variable with inherent ordering from past to present.
 2. Key is a set of variables that define observational units over time.

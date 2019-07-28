@@ -15,7 +15,7 @@ Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adhering to the [tidy data
 principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
-*tsibble* is a data- and model-oriented object. In *tsibble*:
+*tsibble* is an explicit data- and model-oriented object. In *tsibble*:
 
 1.  Index is a variable with inherent ordering from past to present.
 2.  Key is a set of variables that define observational units over time.
