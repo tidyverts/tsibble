@@ -38,6 +38,8 @@
 
 <meta property="og:title" content="Group by time index and collapse with <code>summarise()</code> — index_by" />
 
+<meta property="og:description" content="" />
+
 <meta property="og:description" content="index_by() is the counterpart of group_by() in temporal context, but it
 only groups the time index. The following operation is applied to each partition
 of the index, similar to group_by() but dealing with index only.
@@ -152,7 +154,9 @@ the new index. Use ungroup() to remove the index grouping vars." />
 
     <div class="ref-description">
     
-    <p><code>index_by()</code> is the counterpart of <code>group_by()</code> in temporal context, but it
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+    <code>index_by()</code> is the counterpart of <code>group_by()</code> in temporal context, but it
 only groups the time index. The following operation is applied to each partition
 of the index, similar to <code>group_by()</code> but dealing with index only.
 <code>index_by()</code> + <code>summarise()</code> will update the grouping index variable to be
