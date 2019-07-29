@@ -58,3 +58,6 @@ vars
 yearmonth
 yearquarter
 yearweek
+lifecycle
+integerish
+Wk
