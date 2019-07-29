@@ -18,7 +18,7 @@ is_grouped_ts(x)
 TRUE if the object inherits from the tbl_ts class.
 }
 \description{
-If the object is a tsibble
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 }
 \examples{
 # A tibble is not a tsibble ----

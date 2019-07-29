@@ -24,7 +24,7 @@ interval is determined by the greatest common divisor of index column, if \code{
 A tsibble object.
 }
 \description{
-Create a tsibble object
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 }
 \details{
 A tsibble is sorted by its key first and index.

@@ -36,6 +36,8 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 \item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+
 \code{build_tsibble()} creates a \code{tbl_ts} object with more controls. It is useful
 for creating a \code{tbl_ts} internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating.

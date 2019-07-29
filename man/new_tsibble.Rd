@@ -14,5 +14,5 @@ new_tsibble(x, ..., class = NULL)
 \item{class}{Subclasses to assign to the new object, default: none.}
 }
 \description{
-Create a subclass of a tsibble
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 }

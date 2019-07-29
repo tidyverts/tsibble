@@ -603,6 +603,9 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 
 #' Time units since Unix Epoch
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#'
 #' @param x An object of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`.
 #'
 #' @details

@@ -53,8 +53,6 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 }
 
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
-#'
 #' `append_row()`: add new rows to the end of a tsibble by filling a key-index
 #' pair and `NA` for measured variables.
 #'

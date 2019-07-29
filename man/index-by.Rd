@@ -28,6 +28,7 @@ fine-resolution aggregation
 }
 \description{
 \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+
 \code{index_by()} is the counterpart of \code{group_by()} in temporal context, but it
 only groups the time index. The following operation is applied to each partition
 of the index, similar to \code{group_by()} but dealing with index only.

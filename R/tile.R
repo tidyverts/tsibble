@@ -1,5 +1,8 @@
 #' Tiling window calculation
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
 #' * `tile_lgl()`, `tile_int()`, `tile_dbl()`, `tile_chr()` use the same
@@ -53,6 +56,9 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 }
 
 #' Tiling window calculation over multiple inputs simultaneously
+#'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.

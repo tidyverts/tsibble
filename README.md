@@ -10,7 +10,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?bra
 [![Coverage
 Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
-[![Downloads](http://cranlogs.r-pkg.org/badges/tsibble?color=brightgreen)](https://cran.r-project.org/package=tsibble)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adhering to the [tidy data

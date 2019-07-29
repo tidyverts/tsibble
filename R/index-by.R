@@ -2,6 +2,7 @@
 #'
 #' @description
 #' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' `index_by()` is the counterpart of `group_by()` in temporal context, but it
 #' only groups the time index. The following operation is applied to each partition
 #' of the index, similar to `group_by()` but dealing with index only.

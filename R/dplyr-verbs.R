@@ -226,6 +226,9 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
 
 #' Group by key variables
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' @param .data A `tbl_ts` object.
 #' @param ... Ignored.
 #' @inheritParams dplyr::group_by

@@ -23,6 +23,8 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 logical vector
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+
 This function respects time zone and encourages compact expressions.
 }
 \section{System Time Zone ("Europe/London")}{

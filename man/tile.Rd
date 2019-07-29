@@ -51,6 +51,8 @@ variable will be created.
 Only applies to \code{_dfr} variant.}
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+
 Tiling window without overlapping observations:
 \itemize{
 \item \code{tile()} always returns a list.

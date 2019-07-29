@@ -66,6 +66,8 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+
 Tiling window without overlapping observations:
 \itemize{
 \item \code{tile2()} and \code{ptile()} always returns a list.

@@ -19,6 +19,9 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 
 #' Sliding window calculation
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
 #' * `slide_lgl()`, `slide_int()`, `slide_dbl()`, `slide_chr()` use the same
@@ -122,6 +125,9 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 }
 
 #' Sliding window calculation over multiple inputs simultaneously
+#'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.

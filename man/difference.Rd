@@ -22,7 +22,7 @@ difference(x, lag = 1, differences = 1, default = NA,
 A numeric vector of the same length as \code{x}.
 }
 \description{
-Lagged differences
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 }
 \examples{
 # examples from base

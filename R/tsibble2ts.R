@@ -114,6 +114,9 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 
 #' Guess a time frequency from other index objects
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' A possible frequency passed to the `ts()` function
 #'
 #' @param x An index object including "yearmonth", "yearquarter", "Date" and others.

@@ -13,6 +13,8 @@ index_valid(x)
 \code{TRUE}/\code{FALSE} or \code{NA} (unsure)
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+
 S3 method to add an index type support for a tsibble.
 }
 \details{
