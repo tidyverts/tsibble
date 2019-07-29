@@ -38,7 +38,8 @@
 
 <meta property="og:title" content="Low-level constructor for a tsibble object — build_tsibble" />
 
-<meta property="og:description" content="build_tsibble() creates a tbl_ts object with more controls. It is useful
+<meta property="og:description" content="
+build_tsibble() creates a tbl_ts object with more controls. It is useful
 for creating a tbl_ts internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating." />
 
@@ -83,7 +84,7 @@ determine if the time needs ordering and the interval needs calculating." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -150,7 +151,8 @@ determine if the time needs ordering and the interval needs calculating." />
 
     <div class="ref-description">
     
-    <p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more controls. It is useful
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more controls. It is useful
 for creating a <code>tbl_ts</code> internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating.</p>
     
@@ -214,7 +216,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> !! <span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !! <span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+    <span class='kw'>key</span> <span class='kw'>=</span> !!<span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !!<span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
     <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
   )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]

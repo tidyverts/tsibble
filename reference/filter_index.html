@@ -38,7 +38,8 @@
 
 <meta property="og:title" content="A shorthand for filtering time index for a tsibble — filter_index" />
 
-<meta property="og:description" content="This shorthand respects time zones and encourages compact expressions." />
+<meta property="og:description" content="
+This shorthand respects time zones and encourages compact expressions." />
 
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -81,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -148,7 +149,8 @@
 
     <div class="ref-description">
     
-    <p>This shorthand respects time zones and encourages compact expressions.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>This shorthand respects time zones and encourages compact expressions.</p>
     
     </div>
 
@@ -197,7 +199,7 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdo
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># from the starting time to the end of Feb, 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
@@ -231,7 +233,7 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://www.rdo
 #&gt; # … with 16,234 more rows</div><div class='input'>
 <span class='co'># multiple time windows</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;

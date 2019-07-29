@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="Lagged differences — difference" />
 
-<meta property="og:description" content="Lagged differences" />
+<meta property="og:description" content="" />
 
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
 
     <div class="ref-description">
     
-    <p>Lagged differences</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
     
     </div>
 
@@ -194,7 +194,7 @@
 <span class='fu'>difference</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  2  2  2  2  2  2  2  2</div><div class='input'><span class='fu'>difference</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA NA NA  0  0  0  0  0  0</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>))
 <span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1]  NA  NA   9  16  25  36  49  64  81 100</div><div class='input'><span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  3  4  5  6  7  8  9 10</div><div class='input'><span class='co'># Use order_by if data not already ordered (example from dplyr)</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>tsbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>value</span> <span class='kw'>=</span> (<span class='fl'>0</span>:<span class='fl'>5</span>) ^ <span class='fl'>2</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)
+<span class='no'>tsbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>value</span> <span class='kw'>=</span> (<span class='fl'>0</span>:<span class='fl'>5</span>)^<span class='fl'>2</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)
 <span class='no'>scrambled</span> <span class='kw'>&lt;-</span> <span class='no'>tsbl</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>tsbl</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unspecified temporal ordering may yield unexpected results.</span>
 #&gt; <span class='warning'>Suggest to sort by `year` first.</span></div><div class='input'>
 <span class='no'>wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Unspecified temporal ordering may yield unexpected results.</span>

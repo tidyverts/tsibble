@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@
 #&gt; 6 2018-01-01 00:30:00 B      
 #&gt; 7 2018-01-01 01:00:00 B      
 #&gt; 8 2018-01-01 01:30:00 B</code></pre>
-<p>Certainly you can. But tsibble only reports one interval. If you want to analyse them differently, it is recommended to have separate tsibbles instead.</p>
+<p>Certainly you can. But tsibble only allows for one interval, because station <code>A</code> is thought of as time gaps involved. If you want to analyse them differently, it is recommended to have separate tsibbles instead.</p>
 <hr>
 <blockquote>
 <p><em>I have multiple units measured at the same time interval. But the tsibble interval doesn’t look correct.</em></p>
@@ -220,7 +220,7 @@
 #&gt; 2 2018-01-01 00:15:00 A      
 #&gt; 3 2018-01-01 00:01:00 B      
 #&gt; 4 2018-01-01 00:16:00 B</code></pre>
-<p>Each station shares the same 15-minute interval, but the date-times don’t align. Rounding them is a quick way to fix it, if binning time doesn’t matter to the analysis. If it does, please organise them in different tables.</p>
+<p>Each station shares the common 15-minute interval, but the date-times don’t align. Rounding them is a quick way to fix it, if binning time doesn’t matter to the analysis. If it does, please organise them in different tables.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">tbl <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">time =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(time, <span class="dt">unit =</span> <span class="st">"15 mins"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(<span class="dt">index =</span> time, <span class="dt">key =</span> station)</a></code></pre></div>
@@ -232,7 +232,7 @@
 #&gt; 2 2018-01-01 00:15:00 A      
 #&gt; 3 2018-01-01 00:00:00 B      
 #&gt; 4 2018-01-01 00:15:00 B</code></pre>
-<p>If it’s event data, each event couples with a precise timestamp, and most likely you need <code>regular = FALSE</code> for irregular-spaced tsibble.</p>
+<p>If it’s event data, each event couples with a precise timestamp, and most likely you need <code>regular = FALSE</code> for an irregularly-spaced tsibble.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

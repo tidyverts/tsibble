@@ -38,7 +38,8 @@
 
 <meta property="og:title" content="Sliding window calculation — slide" />
 
-<meta property="og:description" content="Rolling window with overlapping observations:
+<meta property="og:description" content="
+Rolling window with overlapping observations:
 slide() always returns a list.
 slide_lgl(), slide_int(), slide_dbl(), slide_chr() use the same
 arguments as slide(), but return vectors of the corresponding type.
@@ -86,7 +87,7 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -153,7 +154,8 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
 
     <div class="ref-description">
     
-    <p>Rolling window with overlapping observations:</p><ul>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+<p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide()</code> always returns a list.</p></li>
 <li><p><code>slide_lgl()</code>, <code>slide_int()</code>, <code>slide_dbl()</code>, <code>slide_chr()</code> use the same
 arguments as <code>slide()</code>, but return vectors of the corresponding type.</p></li>
@@ -270,7 +272,7 @@ Window contains observations outside of the vector will return the value <code>.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
 <span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
-<span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_lgl</span>(<span class='no'>x</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]    NA FALSE  TRUE  TRUE  TRUE</div><div class='input'><span class='fu'>slide</span>(<span class='no'>lst</span>, ~ <span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_lgl</span>(<span class='no'>x</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]    NA FALSE  TRUE  TRUE  TRUE</div><div class='input'><span class='fu'>slide</span>(<span class='no'>lst</span>, ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] NA
 #&gt; 
 #&gt; [[2]]
