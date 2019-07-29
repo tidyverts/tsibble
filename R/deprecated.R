@@ -1,35 +1,3 @@
-# nocov start
-warn_deprecated <- function(msg, id = msg) {
-  if (rlang::is_true(rlang::peek_option("lifecycle_disable_warnings"))) {
-    return(invisible(NULL))
-  }
-
-  if (!rlang::is_true(rlang::peek_option("lifecycle_repeat_warnings"))) {
-    if (rlang::env_has(deprecation_env, id)) {
-      return(invisible(NULL))
-    }
-
-    msg <- paste0(
-      msg,
-      "\n",
-      "This warning is displayed once per session."
-    )
-  }
-
-  rlang::env_poke(deprecation_env, id, TRUE)
-
-  if (rlang::is_true(rlang::peek_option("lifecycle_warnings_as_errors"))) {
-    signal <- .Defunct
-  } else {
-    signal <- .Deprecated
-  }
-
-  signal(msg = msg)
-}
-
-deprecation_env <- new.env(parent = emptyenv())
-# nocov end
-
 #' Deprecated functions
 #'
 #' @param x Other objects.
