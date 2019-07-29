@@ -260,6 +260,9 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 
 #' Perform stretching windows on a tsibble by row
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#'
 #' @param .x A tsibble.
 #' @param .step A positive integer for incremental step.
 #' @inheritParams stretch

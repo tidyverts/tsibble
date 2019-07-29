@@ -22,6 +22,8 @@ Supported index type: \code{POSIXct} (to seconds), \code{Date}, \code{yearweek},
 is recalculated based on the resulting data, otherwise it is kept as is.}
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+
 This shorthand respects time zones and encourages compact expressions.
 }
 \section{System Time Zone ("Europe/London")}{

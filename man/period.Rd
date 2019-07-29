@@ -27,6 +27,8 @@ Year-week (\code{yearweek}), year-month (\code{yearmonth}) or year-quarter
 \code{TRUE}/\code{FALSE} if the year has 53 ISO weeks.
 }
 \description{
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+
 Create or coerce using \code{yearweek()}, \code{yearmonth()}, or \code{yearquarter()}
 }
 \section{Index functions}{

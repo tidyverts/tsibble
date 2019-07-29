@@ -16,7 +16,7 @@ stretch_tsibble(.x, .step = 1, .init = 1, .id = ".id")
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
-Perform stretching windows on a tsibble by row
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
 }
 \section{Rolling tsibble}{
 

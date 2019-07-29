@@ -1,5 +1,8 @@
 #' A shorthand for filtering time index for a tsibble
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+#'
 #' This shorthand respects time zones and encourages compact expressions.
 #'
 #' @param .data A tsibble.

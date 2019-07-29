@@ -51,6 +51,9 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 
 #' Coerce to a tsibble object
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
 #' @param validate `TRUE` suggests to verify that each key or each combination

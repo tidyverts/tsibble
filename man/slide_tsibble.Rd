@@ -17,7 +17,7 @@ instead of every single step.}
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
-Perform sliding windows on a tsibble by row
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
 }
 \section{Rolling tsibble}{
 

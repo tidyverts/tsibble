@@ -24,7 +24,7 @@ A tibble contains:
 }
 }
 \description{
-Count implicit gaps
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 }
 \examples{
 ped_gaps <- pedestrian \%>\%

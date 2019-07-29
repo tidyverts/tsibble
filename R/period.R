@@ -3,6 +3,9 @@
 
 #' Represent year-week (ISO) starting on Monday, year-month or year-quarter objects
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' Create or coerce using `yearweek()`, `yearmonth()`, or `yearquarter()`
 #'
 #' @param x Other object.

@@ -388,6 +388,9 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 
 #' Perform sliding windows on a tsibble by row
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
 #' @inheritParams slide

@@ -50,7 +50,7 @@ daily.}
 A tsibble object.
 }
 \description{
-Coerce to a tsibble object
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 }
 \examples{
 # coerce tibble to tsibble w/o a key

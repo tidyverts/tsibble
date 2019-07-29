@@ -2,6 +2,9 @@ globalVariables(c(".", ".gaps"))
 
 #' Turn implicit missing values into explicit missing values
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' @param .data A tsibble.
 #' @param ... A set of name-value pairs. The values provided will only replace
 #' missing values that were marked as "implicit", and will leave previously
@@ -99,6 +102,9 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 
 #' Scan a tsibble for implicit missing observations
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+#'
 #' @inheritParams count_gaps
 #' @family implicit gaps handling
 #' @export
@@ -141,6 +147,9 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 }
 
 #' Count implicit gaps
+#'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 #'
 #' @param .data A `tbl_ts`.
 #' @param .full `FALSE` to find gaps for each series within its own period.
@@ -199,6 +208,9 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 }
 
 #' Does a tsibble have implicit gaps in time?
+#'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 #'
 #' @inheritParams count_gaps
 #' @export

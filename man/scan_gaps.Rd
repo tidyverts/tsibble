@@ -15,7 +15,7 @@ scan_gaps(.data, .full = FALSE, ...)
 \item{...}{Other arguments passed on to individual methods.}
 }
 \description{
-Scan a tsibble for implicit missing observations
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 }
 \examples{
 scan_gaps(pedestrian)

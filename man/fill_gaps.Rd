@@ -21,7 +21,7 @@ existing \code{NA} untouched.
 to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
 }
 \description{
-Turn implicit missing values into explicit missing values
+\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
 }
 \examples{
 library(dplyr)

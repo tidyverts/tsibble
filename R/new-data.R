@@ -1,5 +1,8 @@
 #' New tsibble data and append new observations to a tsibble
 #'
+#' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#'
 #' @param .data A `tbl_ts`.
 #' @param n An integer indicates the number of key-index pair to append.
 #' @param ... Passed to individual S3 method.
@@ -50,6 +53,8 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 }
 
 #' @description
+#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+#'
 #' `append_row()`: add new rows to the end of a tsibble by filling a key-index
 #' pair and `NA` for measured variables.
 #'
