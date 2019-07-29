@@ -1,4 +1,4 @@
-# tsibble 0.8.2.9000
+# tsibble 0.8.3
 
 * Added lifecycle badges to functions.
 * `index_by()` supports lambda expression (#91).
