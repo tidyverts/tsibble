@@ -10,6 +10,6 @@
 
 ## Reverse dependencies
 
-I have run R CMD check on the 3 downstream dependencies. 
+I have run R CMD check on the 5 downstream dependencies. 
 
 * All packages that I could install passed the checks.
