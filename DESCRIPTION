@@ -46,7 +46,6 @@ Suggests:
     ggplot2 (>= 2.2.0),
     hms,
     knitr,
-    methods,
     nanotime,
     nycflights13 (>= 1.0.0),
     pillar (>= 1.0.1),

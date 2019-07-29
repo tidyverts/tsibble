@@ -34,7 +34,6 @@ jobs:
   - r: devel
     env:
     - DEV_VERSIONS=true
-  - r: 3.2
   - stage: full
     os: osx
   - r: release
