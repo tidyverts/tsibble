@@ -1,7 +1,7 @@
 #' Pull time interval from a vector
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Assuming regularly spaced time, the `interval_pull()` returns a list of time
 #' components as the "interval" class.

@@ -69,7 +69,7 @@ Only applies to \code{_dfr} variant.}
 if \code{.fill != NULL}, it always returns the same length as input.
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 
 Rolling window with overlapping observations:
 \itemize{

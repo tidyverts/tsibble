@@ -101,8 +101,7 @@ is_ordered <- function(x) {
 #' If the object is a tsibble
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
-#'
+#' \lifecycle{stable}
 #'
 #' @param x An object.
 #'

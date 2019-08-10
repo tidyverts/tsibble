@@ -23,7 +23,7 @@ preferred frequency is passed to \code{ts()}.}
 A \code{ts} object.
 }
 \description{
-Coerce a tsibble to a time series
+\lifecycle{stable}
 }
 \examples{
 # a monthly series

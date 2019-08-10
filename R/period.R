@@ -4,7 +4,7 @@
 #' Represent year-week (ISO) starting on Monday, year-month or year-quarter objects
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Create or coerce using `yearweek()`, `yearmonth()`, or `yearquarter()`
 #'
@@ -604,7 +604,7 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 #' Time units since Unix Epoch
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#' \lifecycle{questioning}
 #'
 #' @param x An object of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`.
 #'

@@ -6,7 +6,7 @@ nrow2 <- function(.x) {
 #' Stretching window calculation
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
@@ -82,7 +82,8 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' Stretching window calculation over multiple simultaneously
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
+#'
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.
@@ -267,7 +268,7 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' Perform stretching windows on a tsibble by row
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.
 #' @param .step A positive integer for incremental step.

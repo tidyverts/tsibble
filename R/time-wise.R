@@ -1,7 +1,7 @@
 #' Lagged differences
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' @param x A numeric vector.
 #' @param lag An positive integer indicating which lag to use.

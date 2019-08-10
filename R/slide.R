@@ -20,7 +20,7 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' Sliding window calculation
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
@@ -127,7 +127,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' Sliding window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.
@@ -395,7 +395,7 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' Perform sliding windows on a tsibble by row
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.

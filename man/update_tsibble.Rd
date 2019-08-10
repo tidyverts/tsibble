@@ -25,7 +25,7 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 \item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+Update key and index for a tsibble
 }
 \details{
 Unspecified arguments will inherit the attributes from \code{x}.

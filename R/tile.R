@@ -1,7 +1,7 @@
 #' Tiling window calculation
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
@@ -58,7 +58,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' Tiling window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.
@@ -185,7 +185,7 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' Perform tiling windows on a tsibble by row
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+#' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.

@@ -1,5 +1,8 @@
 #' Coerce a tsibble to a time series
 #'
+#' @description
+#' \lifecycle{stable}
+#'
 #' @param x A `tbl_ts` object.
 #' @param value A measured variable of interest to be spread over columns, if
 #' multiple measures.
@@ -115,7 +118,7 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' Guess a time frequency from other index objects
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' A possible frequency passed to the `ts()` function
 #'

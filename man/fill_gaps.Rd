@@ -21,7 +21,7 @@ existing \code{NA} untouched.
 to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 }
 \examples{
 library(dplyr)

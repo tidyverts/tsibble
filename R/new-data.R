@@ -1,7 +1,7 @@
 #' New tsibble data and append new observations to a tsibble
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' @param .data A `tbl_ts`.
 #' @param n An integer indicates the number of key-index pair to append.

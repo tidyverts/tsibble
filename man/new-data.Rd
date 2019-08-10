@@ -24,7 +24,7 @@ append_row(.data, n = 1L, ...)
 and key, otherwise only index and key.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 
 \code{append_row()}: add new rows to the end of a tsibble by filling a key-index
 pair and \code{NA} for measured variables.

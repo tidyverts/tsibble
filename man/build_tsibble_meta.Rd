@@ -23,7 +23,7 @@ the correct order. \code{FALSE} checks the ordering and may give a warning.}
 irregular interval. Use the specified interval via \code{\link[=new_interval]{new_interval()}} as is.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("experimental")}
+\lifecycle{experimental}
 
 \code{build_tsibble_meta()} does much less checks than \code{build_tsibble()} for
 high performance.

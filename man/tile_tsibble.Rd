@@ -14,7 +14,7 @@ tile_tsibble(.x, .size = 1, .id = ".id")
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+\lifecycle{questioning}
 }
 \section{Rolling tsibble}{
 

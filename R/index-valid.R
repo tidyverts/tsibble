@@ -1,7 +1,7 @@
 #' Add custom index support for a tsibble
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+#' \lifecycle{stable}
 #'
 #' S3 method to add an index type support for a tsibble.
 #'

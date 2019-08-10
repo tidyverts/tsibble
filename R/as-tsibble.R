@@ -1,7 +1,7 @@
 #' Create a tsibble object
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
 #' be avoided as they are used as the arguments.
@@ -55,7 +55,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' Coerce to a tsibble object
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
@@ -155,9 +155,6 @@ as_tsibble.NULL <- function(x, ...) {
 
 #' Update key and index for a tsibble
 #'
-#' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
-#'
 #' @param x A tsibble.
 #' @inheritParams as_tsibble
 #' @details
@@ -204,8 +201,6 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
 #' Low-level constructor for a tsibble object
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
-#'
 #' `build_tsibble()` creates a `tbl_ts` object with more controls. It is useful
 #' for creating a `tbl_ts` internally inside a function, and it allows developers to
 #' determine if the time needs ordering and the interval needs calculating.
@@ -297,7 +292,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
 #' Low-level & high-performance constructor for a tsibble object
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("experimental")}
+#' \lifecycle{experimental}
 #'
 #' `build_tsibble_meta()` does much less checks than `build_tsibble()` for
 #' high performance.
@@ -347,9 +342,6 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
 }
 
 #' Create a subclass of a tsibble
-#'
-#' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
 #'
 #' @param x A `tbl_ts`, required.
 #' @param ... Name-value pairs defining new attributes other than a tsibble.
@@ -490,7 +482,7 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 #' Test duplicated observations determined by key and index variables
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+#' \lifecycle{stable}
 #'
 #' * `is_duplicated()`: a logical scalar if the data exist duplicated observations.
 #' * `are_duplicated()`: a logical vector, the same length as the row number of `data`.

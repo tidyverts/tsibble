@@ -10,7 +10,7 @@ guess_frequency(x)
 \item{x}{An index object including "yearmonth", "yearquarter", "Date" and others.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 
 A possible frequency passed to the \code{ts()} function
 }

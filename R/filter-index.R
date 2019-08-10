@@ -1,8 +1,6 @@
 #' A shorthand for filtering time index for a tsibble
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
-#'
 #' This shorthand respects time zones and encourages compact expressions.
 #'
 #' @param .data A tsibble.
@@ -57,8 +55,6 @@ filter_index <- function(.data, ..., .preserve = FALSE) {
 #' If time falls in the ranges using compact expressions
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
-#'
 #' This function respects time zone and encourages compact expressions.
 #'
 #' @param x A vector of time index, such as classes `POSIXct`, `Date`, `yearweek`,

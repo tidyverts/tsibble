@@ -24,7 +24,7 @@ empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dpl
 elements.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 \itemize{
 \item \code{is_duplicated()}: a logical scalar if the data exist duplicated observations.
 \item \code{are_duplicated()}: a logical vector, the same length as the row number of \code{data}.

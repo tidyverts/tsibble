@@ -18,7 +18,7 @@ has_gaps(.data, .full = FALSE, ...)
 A tibble contains "key" variables and new column \code{.gaps} of \code{TRUE}/\code{FALSE}.
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("maturing")}
+Does a tsibble have implicit gaps in time?
 }
 \examples{
 harvest <- tsibble(

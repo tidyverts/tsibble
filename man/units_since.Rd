@@ -10,7 +10,7 @@ units_since(x)
 \item{x}{An object of \code{POSIXct}, \code{Date}, \code{yearweek}, \code{yearmonth}, \code{yearquarter}.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("questioning")}
+\lifecycle{questioning}
 }
 \details{
 origin:

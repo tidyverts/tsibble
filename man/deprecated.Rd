@@ -18,8 +18,6 @@ id(...)
 \item{...}{Variables passed to tsibble()/as_tsibble().}
 }
 \description{
-Deprecated functions
-
-Identifiers used for creating key
+\lifecycle{deprecated}
 }
 \keyword{internal}

@@ -16,7 +16,7 @@ an "interval" class (a list) includes "year",
 "microsecond", "nanosecond", "unit".
 }
 \description{
-\Sexpr[results=rd, stage=render]{tsibble:::lifecycle("stable")}
+\lifecycle{stable}
 
 Assuming regularly spaced time, the \code{interval_pull()} returns a list of time
 components as the "interval" class.
