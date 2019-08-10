@@ -106,6 +106,9 @@ nest.tbl_ts <- function(.data, ...) {
   }
 }
 
+#' @export
+nest.grouped_ts <- nest.tbl_ts
+
 unnest.lst_ts <- function(data, ..., key = NULL) {
   if (utils::packageVersion("tidyr") > "0.8.3") {
     abort(paste_inline(
