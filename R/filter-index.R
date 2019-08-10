@@ -136,7 +136,7 @@ start.difftime <- function(x, y = NULL, ...) {
     abort("Package `hms` required.\nPlease install and try again.")
   }
   if (is_null(y)) {
-    hms::as.hms(min(x))
+    hms::as_hms(min(x))
   } else {
     abort_not_chr(y, class = "hms/difftime")
     assert_difftime(y)
@@ -145,11 +145,11 @@ start.difftime <- function(x, y = NULL, ...) {
 
 end.difftime <- function(x, y = NULL, ...) {
   if (is_null(y)) {
-    hms::as.hms(max(x) + 1)
+    hms::as_hms(max(x) + 1)
   } else {
     abort_not_chr(y, class = "hms/difftime")
     y <- assert_difftime(y)
-    hms::as.hms(y + 1)
+    hms::as_hms(y + 1)
   }
 }
 
@@ -317,7 +317,7 @@ abort_not_chr <- function(x, class) {
 }
 
 assert_difftime <- function(x) {
-  res <- hms::as.hms(x)
+  res <- hms::as_hms(x)
   if (is.na(res)) {
     abort(sprintf("Input data '%s' cannot be expressed as difftime type.", x))
   }

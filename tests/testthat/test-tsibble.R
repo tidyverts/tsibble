@@ -279,12 +279,12 @@ test_that("Difftime with 1 minute interval", {
   expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
 
-test_that("Difftime with 3 millisecond interval", {
-  idx_time <- hms(seconds = c(1.001, 1.004, 1.007, 1.010, 1.013))
+test_that("Difftime with 5 millisecond interval", {
+  idx_time <- hms(seconds = seq(1.001, 1.021, by = 0.005))
   dat_x <- tibble(time = idx_time, value = rnorm(5))
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_identical(format(interval(tsbl)), "3ms")
-  # expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
+  expect_identical(format(interval(tsbl)), "5ms")
+  expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
 
 test_that("Difftime with 1 day interval", {

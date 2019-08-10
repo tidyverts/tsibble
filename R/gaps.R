@@ -311,7 +311,7 @@ seq_generator <- function(x, interval = NULL) {
     }
   )
   if (inherits(x, "hms")) { # workaround for hms
-    res2 <- hms::as.hms(res2)
+    res2 <- hms::as_hms(res2)
   }
   res2
 }
