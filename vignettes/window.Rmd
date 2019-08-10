@@ -58,7 +58,7 @@ What if the time period we'd like to slide over happens not to be a fixed window
 ```{r monthly-mv-pre}
 pedestrian_mth <- pedestrian_full %>% 
   mutate(YrMth = yearmonth(Date_Time)) %>% 
-  nest(-Sensor, -YrMth)
+  nest(data = c(-Sensor, -YrMth))
 pedestrian_mth
 ```
 

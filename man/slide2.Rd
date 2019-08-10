@@ -133,6 +133,7 @@ pedestrian \%>\%
   filter(Sensor == "Southern Cross Station") \%>\%
   index_by(yrmth = yearmonth(Date_Time)) \%>\%
   nest() \%>\%
+  ungroup() \%>\% 
   mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
 # row-oriented workflow
 \dontrun{
