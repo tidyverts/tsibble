@@ -291,7 +291,7 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' pedestrian %>%
 #'   filter(Sensor == "Southern Cross Station") %>%
 #'   index_by(yrmth = yearmonth(Date_Time)) %>%
-#'   nest() %>%
+#'   nest(data = -yrmth) %>%
 #'   ungroup() %>% 
 #'   mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
 #' # row-oriented workflow
