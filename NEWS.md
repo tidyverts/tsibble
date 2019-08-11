@@ -1,3 +1,8 @@
+# tsibble 0.8.4
+
+* This release requires the minimal version of tidyr to be v1.0.0.
+* Soft deprecated `is.tsibble()`.
+
 # tsibble 0.8.3
 
 * Added lifecycle badges to functions.
@@ -34,7 +39,7 @@ This is a patch release.
 
 ## Defunct & deprecated functions/arguments
 
-* Deprecate `id()` for creating key for the consistence of tidy selectors, and will be defunct until August 2019.
+* Deprecate `id()` for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.
 * Deprecate of `pull_interval()` in favour of `interval_pull()`.
 * Deprecate `as.tsibble()` in favour of `as_tsibble()`. The warning is displayed once per session.
 * Deprecate `gather = TRUE` in `as_tsibble.ts()` in favour of `pivot_longer = TRUE`.
