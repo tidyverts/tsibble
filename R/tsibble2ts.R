@@ -1,6 +1,5 @@
 #' Coerce a tsibble to a time series
 #'
-#' @description
 #' \lifecycle{stable}
 #'
 #' @param x A `tbl_ts` object.

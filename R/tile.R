@@ -184,7 +184,6 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 
 #' Perform tiling windows on a tsibble by row
 #'
-#' @description
 #' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.

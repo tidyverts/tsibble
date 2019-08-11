@@ -603,7 +603,6 @@ as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
 
 #' Time units since Unix Epoch
 #'
-#' @description
 #' \lifecycle{questioning}
 #'
 #' @param x An object of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`.

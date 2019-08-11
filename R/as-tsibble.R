@@ -1,6 +1,5 @@
 #' Create a tsibble object
 #'
-#' @description
 #' \lifecycle{stable}
 #'
 #' @param ... A set of name-value pairs. The names of "key" and "index" should
@@ -54,7 +53,6 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 
 #' Coerce to a tsibble object
 #'
-#' @description
 #' \lifecycle{stable}
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).

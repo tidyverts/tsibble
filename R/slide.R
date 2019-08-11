@@ -395,7 +395,6 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 
 #' Perform sliding windows on a tsibble by row
 #'
-#' @description
 #' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.

@@ -1,6 +1,5 @@
 #' New tsibble data and append new observations to a tsibble
 #'
-#' @description
 #' \lifecycle{stable}
 #'
 #' @param .data A `tbl_ts`.

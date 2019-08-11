@@ -85,9 +85,7 @@ filter_index <- function(.data, ..., .preserve = FALSE) {
 time_in <- function(x, ...) {
   formulas <- list2(...)
   n <- length(formulas)
-  if (n == 0) {
-    return(!logical(length(x)))
-  }
+  if (n == 0) return(!logical(length(x)))
 
   if (is.POSIXct(x)) {
     local_tz <- Sys.timezone()

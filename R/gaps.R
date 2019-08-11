@@ -2,7 +2,6 @@ globalVariables(c(".", ".gaps"))
 
 #' Turn implicit missing values into explicit missing values
 #'
-#' @description
 #' \lifecycle{stable}
 #'
 #' @param .data A tsibble.

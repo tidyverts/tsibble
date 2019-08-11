@@ -1,6 +1,5 @@
 #' Deprecated functions
 #'
-#' @description
 #' \lifecycle{deprecated}
 #'
 #' @param x Other objects.

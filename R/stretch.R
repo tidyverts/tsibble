@@ -84,7 +84,6 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @description
 #' \lifecycle{stable}
 #'
-#'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.
 #' * `stretch2_lgl()`, `stretch2_int()`, `stretch2_dbl()`, `stretch2_chr()` use the same
@@ -267,7 +266,6 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 
 #' Perform stretching windows on a tsibble by row
 #'
-#' @description
 #' \lifecycle{questioning}
 #'
 #' @param .x A tsibble.
