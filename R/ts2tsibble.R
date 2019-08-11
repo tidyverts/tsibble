@@ -20,7 +20,8 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
 }
 
 #' @rdname as-tsibble
-#' @param pivot_longer TRUE gives a "longer" form of the data, otherwise as is.
+#' @param pivot_longer `TRUE` gives a "longer" form of the data, otherwise as is.
+#' @param gather \lifecycle{defunct} Please use `pivot_longer` instead.
 #'
 #' @examples
 #' # coerce mts to tsibble
@@ -28,8 +29,12 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
 #' as_tsibble(z)
 #' as_tsibble(z, pivot_longer = FALSE)
 #' @export
-as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
-  pivot_longer <- abort_gather(..., pivot_longer = pivot_longer)
+as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE, 
+                           gather = deprecated()) {
+  if (!is_missing(gather)) {
+    lifecycle::deprecate_stop("0.8.0", 
+      "as_tsibble(gather = )", "as_tsibble(pivot_longer = )")
+  }
   if (pivot_longer) {
     long_tbl <- gather_ts(x, tz = tz)
     build_tsibble(

@@ -17,6 +17,7 @@ nrow2 <- function(.x) {
 #' @inheritParams slide
 #' @param .init A positive integer for an initial window size.
 #' @param .step A positive integer for incremental step.
+#' @param .size \lifecycle{defunct} Please use `.step` instead.
 #'
 #' @return if `.fill != NULL`, it always returns the same length as input.
 #' @rdname stretch
@@ -34,8 +35,10 @@ nrow2 <- function(.x) {
 #' lst <- list(x = x, y = 6:10, z = 11:15)
 #' stretch(lst, ~., .step = 2, .fill = NULL)
 stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-                    .bind = FALSE) {
-  abort_stretch_size(...)
+                    .bind = FALSE, .size = deprecated()) {
+  if (!is_missing(.size)) {
+    lifecycle::deprecate_stop("0.8.0", "stretch(.size = )", "stretch(.step = )")
+  }
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   out <- map(lst_x, .f, ...)
   pad_stretch(out,
@@ -124,7 +127,6 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' )
 stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
                      .bind = FALSE) {
-  abort_stretch_size(...)
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
   out <- map2(lst[[1]], lst[[2]], .f, ...)
   pad_stretch(out,
@@ -172,7 +174,6 @@ stretch2_dfc <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @export
 pstretch <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
                      .bind = FALSE) {
-  abort_stretch_size(...)
   lst <- pstretcher(!!!.l,
     .step = .step, .init = .init,
     .bind = .bind
@@ -240,7 +241,6 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
   }
-  abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
   if (len_x <= .init) {
@@ -259,7 +259,6 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
 #' @rdname stretcher
 #' @export
 pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sliding
-  abort_stretch_size(...)
   lst <- recycle(list2(...))
   map(lst, function(x) stretcher(x, .step, .init, .bind))
 }

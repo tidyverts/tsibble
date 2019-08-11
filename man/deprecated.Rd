@@ -18,6 +18,10 @@ id(...)
 \item{...}{Variables passed to tsibble()/as_tsibble().}
 }
 \description{
-\lifecycle{deprecated}
+\itemize{
+\item \code{as.tsibble()} \lifecycle{deprecated}
+\item \code{id()} \lifecycle{deprecated}
+\item \code{fill_na()} \lifecycle{defunct}
+}
 }
 \keyword{internal}

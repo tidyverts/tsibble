@@ -7,7 +7,7 @@
 \title{Stretching window calculation}
 \usage{
 stretch(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+  .bind = FALSE, .size = deprecated())
 
 stretch_dfr(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
   .bind = FALSE, .id = NULL)
@@ -49,6 +49,8 @@ on \code{.align} (\code{NA} by default).  \code{NULL} means no filling.}
 
 \item{.bind}{If \code{.x} is a list, should \code{.x} be combined before applying \code{.f}?
 If \code{.x} is a list of data frames, row binding is carried out.}
+
+\item{.size}{\lifecycle{defunct} Please use \code{.step} instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
 a variable with that name, storing either the name (if \code{.x} is named) or

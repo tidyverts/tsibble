@@ -30,7 +30,6 @@ test_that("a mts", {
   tsbl1 <- as_tsibble(x)
   expect_identical(dim(tsbl1), c(length(x), 3L))
   expect_identical(key_vars(tsbl1)[[1L]], "key")
-  expect_error(tsbl2 <- as_tsibble(x, gather = FALSE), "defunct")
   tsbl2 <- as_tsibble(x, pivot_longer = FALSE)
   expect_identical(dim(tsbl2), c(nrow(x), 3L))
   expect_identical(key_vars(tsbl2), character(0))
