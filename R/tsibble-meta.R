@@ -125,11 +125,6 @@ is_tsibble <- function(x) {
 }
 
 #' @rdname is-tsibble
-#' @usage NULL
-#' @export
-is.tsibble <- is_tsibble
-
-#' @rdname is-tsibble
 #' @export
 is_grouped_ts <- function(x) {
   inherits(x, "grouped_ts")

@@ -1,17 +1,25 @@
 #' Deprecated functions
 #'
 #' @description
+#' * `is.tsibble()` \lifecycle{soft-deprecated}
 #' * `as.tsibble()` \lifecycle{deprecated}
 #' * `id()` \lifecycle{deprecated}
 #' * `fill_na()` \lifecycle{defunct}
 #'
 #' @param x Other objects.
-#' @rdname deprecated
 #' @export
 #' @keywords internal
 as.tsibble <- function(x, ...) {
   .Deprecated("as_tsibble()")
   as_tsibble(x, ...)
+}
+
+#' @rdname deprecated
+#' @export
+#' @keywords internal
+is.tsibble <- function(x) {
+  lifecycle::deprecate_soft("0.8.4", "is.tsibble()", "is_tsibble()")
+  is_tsibble(x)
 }
 
 #' @rdname deprecated
