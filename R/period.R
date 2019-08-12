@@ -544,10 +544,16 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
                          ...) {
   bad_by(by)
   by_wk <- paste(by, "week")
-  yearweek(seq_date(
-    from = from, to = to, by = by_wk, length.out = length.out,
-    along.with = along.with, ...
-  ))
+
+  if(!is.null(along.with)){
+    length.out <- length(along.with)
+  }
+
+  if(!missing(to)){
+    to <- as.Date(to)
+  }
+
+  new_yearweek(seq(as.Date(from), to, by = by_wk, length.out = length.out))
 }
 
 #' @export
@@ -555,10 +561,16 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
                           ...) {
   bad_by(by)
   by_mth <- paste(by, "month")
-  yearmonth(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
-    along.with = along.with, ...
-  ))
+
+  if(!is.null(along.with)){
+    length.out <- length(along.with)
+  }
+
+  if(!missing(to)){
+    to <- as.Date(to)
+  }
+
+  new_yearmonth(seq(as.Date(from), to, by = by_mth, length.out = length.out))
 }
 
 #' @export
@@ -566,10 +578,16 @@ seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
   bad_by(by)
   by_qtr <- paste(by, "quarter")
-  yearquarter(seq_date(
-    from = from, to = to, by = by_qtr, length.out = length.out,
-    along.with = along.with, ...
-  ))
+
+  if(!is.null(along.with)){
+    length.out <- length(along.with)
+  }
+
+  if(!missing(to)){
+    to <- as.Date(to)
+  }
+
+  new_yearquarter(seq(as.Date(from), to, by = by_qtr, length.out = length.out))
 }
 
 seq.ordered <- function(from, to, by, ...) {
