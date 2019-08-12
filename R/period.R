@@ -94,7 +94,7 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
     abort("Binary `+` is not defined for class yearweek.")
   }
   if (e1_yrwk) {
-    yearweek(as_date(e1) + e2 * 7)
+    new_yearweek(as_date(e1) + e2 * 7)
   } else {
     yearweek(e1 * 7 + as_date(e2))
   }
@@ -111,7 +111,7 @@ diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
     res <- units_since(e1) - units_since(e2)
     structure(res, class = "difftime", units = "weeks")
   } else {
-    yearweek(as_date(e1) - e2 * 7)
+    new_yearweek(as_date(e1) - e2 * 7)
   }
 }
 
@@ -155,7 +155,7 @@ yearweek.character <- function(x) {
       abort(sprintf("Year %s can't be 53 weeks.", comma(yr[check_53])))
     }
     last_mon_last_year <- make_date(yr, 1, 5) - wday(make_date(yr, 1, 3)) - 7
-    yearweek(last_mon_last_year + week * 7)
+    new_yearweek(last_mon_last_year + week * 7)
   } else {
     assertDate(x)
     yearweek(anydate(x))
@@ -201,9 +201,8 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
 #' @examples
 #' is_53weeks(2015:2016)
 is_53weeks <- function(year) {
-  if (is_empty(year)) {
-    return(FALSE)
-  }
+  if (is_empty(year)) return(FALSE)
+
   if (!is_integerish(year) || any(year < 1)) {
     abort("Argument `year` must be positive integers.")
   }
@@ -276,7 +275,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
     abort("Binary `+` is not defined for class yearmonth.")
   }
   if (e1_yrmth) {
-    yearmonth(as_date(e1) + period(months = e2))
+    new_yearmonth(as_date(e1) + period(months = e2))
   } else {
     yearmonth(period(months = e1) + as_date(e2))
   }
@@ -292,7 +291,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
     res <- units_since(e1) - units_since(e2)
     structure(res, class = "difftime", units = "months")
   } else {
-    yearmonth(as_date(e1) - period(months = e2, units = "month"))
+    new_yearmonth(as_date(e1) - period(months = e2, units = "month"))
   }
 }
 
@@ -403,7 +402,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
     abort("Binary `+` is not defined for class yearquarter.")
   }
   if (e1_yrqtr) {
-    yearquarter(as_date(e1) + period(months = e2 * 3))
+    new_yearquarter(as_date(e1) + period(months = e2 * 3))
   } else {
     yearquarter(period(months = e1 * 3) + as_date(e2))
   }
@@ -419,7 +418,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
     res <- units_since(e1) - units_since(e2)
     structure(res, class = "difftime", units = "quarters")
   } else {
-    yearquarter(as_date(e1) - period(months = e2 * 3))
+    new_yearquarter(as_date(e1) - period(months = e2 * 3))
   }
 }
 
@@ -544,7 +543,7 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
                          ...) {
   bad_by(by)
   by_wk <- paste(by, "week")
-  yearweek(seq_date(
+  new_yearweek(seq_date(
     from = from, to = to, by = by_wk, length.out = length.out,
     along.with = along.with, ...
   ))
@@ -555,7 +554,7 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
                           ...) {
   bad_by(by)
   by_mth <- paste(by, "month")
-  yearmonth(seq_date(
+  new_yearmonth(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
   ))
@@ -566,7 +565,7 @@ seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
   bad_by(by)
   by_qtr <- paste(by, "quarter")
-  yearquarter(seq_date(
+  new_yearquarter(seq_date(
     from = from, to = to, by = by_qtr, length.out = length.out,
     along.with = along.with, ...
   ))
