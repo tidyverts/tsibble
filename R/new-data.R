@@ -31,17 +31,16 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   idx <- index(.data)
   tunit <- time_unit(int)
 
-  grped_df <- new_grouped_df(.data, groups = key_data(.data))
+  key_data <- key_data(.data)
+  grped_df <- new_grouped_df(.data, groups = key_data)
   last_entry <- summarise(grped_df, !!idx := max(!!idx))
+  # meta_grps <- mutate(key_data, .rows = list2(!!!rep.int(1L, NROW(last_entry))))
+  # regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
+  regrped_df <- group_by(last_entry, !!! key(.data))
+  new_lst <- mutate(regrped_df, 
+    !!idx := list2(tibble(!!idx := seq(!!idx, by = tunit, length.out = n + 1)[-1])))
 
-  nc <- NCOL(last_entry)
-  new_lst <- new_list(NROW(last_entry))
-  for (i in seq_len(NROW(last_entry))) {
-    lst_i <- new_lst[[i]] <- as.list(last_entry[i, ])
-    new_lst[[i]][[nc]] <- seq(lst_i[[nc]], by = tunit, length.out = n + 1)[-1]
-    new_lst[[i]] <- as_tibble(new_lst[[i]])
-  }
-  out <- bind_rows(!!!new_lst)
+  out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {
     out <- bind_rows(.data[0L, ], out)
   } else { # reorder column names according to the data input
