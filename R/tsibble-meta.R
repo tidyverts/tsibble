@@ -107,7 +107,6 @@ is_ordered <- function(x) {
 #'
 #' @return TRUE if the object inherits from the tbl_ts class.
 #' @rdname is-tsibble
-#' @aliases is.tsibble
 #' @examples
 #' # A tibble is not a tsibble ----
 #' tbl <- tibble(
