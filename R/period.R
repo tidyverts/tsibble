@@ -310,7 +310,9 @@ yearmonth.POSIXt <- function(x) {
 }
 
 #' @export
-yearmonth.Date <- yearmonth.POSIXt
+yearmonth.Date <- function(x) {
+  new_yearmonth(floor_date(x, unit = "months"))
+}
 
 #' @export
 yearmonth.character <- function(x) {
@@ -582,17 +584,17 @@ seq.ordered <- function(from, to, by, ...) {
 
 #' @export
 `[.yearweek` <- function(x, ..., drop = TRUE) {
-  yearweek(NextMethod())
+  new_yearweek(NextMethod())
 }
 
 #' @export
 `[.yearmonth` <- function(x, ..., drop = TRUE) {
-  yearmonth(NextMethod())
+  new_yearmonth(NextMethod())
 }
 
 #' @export
 `[.yearquarter` <- function(x, ..., drop = TRUE) {
-  yearquarter(NextMethod())
+  new_yearquarter(NextMethod())
 }
 
 #' @export
@@ -661,9 +663,7 @@ bad_by <- function(by) {
 }
 
 # nocov start
-seq_date <- function(
-                     from, to, by, length.out = NULL, along.with = NULL,
-                     ...) {
+seq_date <- function(from, to, by, length.out = NULL, along.with = NULL, ...) {
   if (missing(from)) {
     stop("'from' must be specified")
   }
