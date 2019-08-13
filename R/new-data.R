@@ -34,9 +34,12 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   key_data <- key_data(.data)
   grped_df <- new_grouped_df(.data, groups = key_data)
   last_entry <- summarise(grped_df, !!idx := max(!!idx))
-  # meta_grps <- mutate(key_data, .rows = list2(!!!rep.int(1L, NROW(last_entry))))
-  # regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
-  regrped_df <- group_by(last_entry, !!! key(.data))
+  if (NCOL(key_data) == 1) { # no key
+    regrped_df <- last_entry
+  } else {
+    meta_grps <- mutate(key_data, .rows = list2(!!!seq_len(NROW(last_entry))))
+    regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
+  }
   new_lst <- mutate(regrped_df, 
     !!idx := list2(tibble(!!idx := seq(!!idx, by = tunit, length.out = n + 1)[-1])))
 
