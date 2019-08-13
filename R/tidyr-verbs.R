@@ -93,33 +93,9 @@ nest.tbl_ts <- function(.data, ...) {
 
 nest.grouped_ts <- nest.tbl_ts
 
-unnest.tbl_ts <- function(data, ..., key = NULL) {
-  if (utils::packageVersion("tidyr") > "0.8.3") {
-    warn(paste_inline(
-      "Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.",
-      "Please use `unnest_tsibble()` instead."
-    ))
-    data <- as_tibble(data)
-    return(NextMethod())
-  }
-  inform(paste_inline(
-    "`unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.",
-    "Please use `unnest_tsibble()` instead."
-  ))
-  unnested_data <- unnest(as_tibble(data), ...)
-
-  key <- use_id(data, !!enquo(key))
-  key <- c(key_vars(data), key)
-  idx <- index(data)
-  unnested_data <- unnest_check_tsibble(unnested_data, key, idx)
-
-  idx_chr <- as_string(idx)
-  class(unnested_data[[idx_chr]]) <- class(data[[idx_chr]])
-  build_tsibble(
-    unnested_data,
-    key = !!key, index = !!idx, index2 = !!index2(data),
-    ordered = is_ordered(data), interval = is_regular(data), validate = FALSE
-  )
+unnest.tbl_ts <- function(data, ...) {
+  data <- as_tibble(data)
+  NextMethod()
 }
 
 # used for unnest() to check if the tsibble holds
@@ -147,7 +123,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
   if (missing(cols)) {
     abort("Argument `cols` for columns to unnest is required.")
   }
-  unnested_data <- unnest(as_tibble(data), cols = !!enquo(cols))
+  unnested_data <- tidyr::unnest(as_tibble(data), cols = !!enquo(cols))
 
   if (is_tsibble(data)) {
     idx <- index(data)

@@ -531,13 +531,8 @@ duplicates <- function(data, key = NULL, index) {
   key <- use_id(data, !!enquo(key))
   index <- sym(validate_index(data, !!enquo(index)))
 
-  ungroup(
-    filter(
-      grouped_df(data, vars = key),
-      duplicated.default(!!index) |
-        duplicated.default(!!index, fromLast = TRUE)
-    )
-  )
+  ungroup(filter(grouped_df(data, vars = key),
+    duplicated.default(!!index) | duplicated.default(!!index, fromLast = TRUE)))
 }
 
 duplicated_key_index <- function(data, key, index, key_data = NULL) {
