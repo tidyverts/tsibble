@@ -123,7 +123,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   key <- key(.data)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))
   if (.full) {
-    idx_full <- seq_generator(eval_tidy(idx, data = keyed_tbl), int)
+    idx_full <- seq_generator(keyed_tbl[[idx_chr]], int)
     sum_data <-
       summarise(keyed_tbl, !!idx_chr := list2(tibble(!!idx_chr := idx_full)))
   } else {
@@ -186,7 +186,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     return(data_key)
   }
 
-  idx_full <- seq_generator(eval_tidy(idx, data = .data), int)
+  idx_full <- seq_generator(.data[[as_string(idx)]], int)
   grped_tbl <- new_grouped_df(gap_data, groups = key_data(gap_data))
   lst_out <-
     summarise(grped_tbl, !!".gaps" := list2(tbl_gaps(!!idx, idx_full)))
@@ -225,7 +225,7 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   idx <- index(.data)
   grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
   if (.full) {
-    idx_rng <- range(eval_tidy(idx, data = .data))
+    idx_rng <- range(.data[[as_string(idx)]])
     vec_gaps_full <- function(x) {
       length(unique(diff(x))) > 1 || !all(idx_rng == range(x))
     }
