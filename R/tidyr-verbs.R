@@ -68,15 +68,6 @@ spread.tbl_ts <- function(data, key, value, ...) {
   )
 }
 
-#' @inheritParams tidyr::nest
-#' @rdname tsibble-tidyverse
-#' @examples
-#' nested_stock <- stocksm %>%
-#'   nest(-stock)
-#' stocksm %>%
-#'   group_by(stock) %>%
-#'   nest()
-#' @export
 nest.tbl_ts <- function(.data, ...) {
   tbl_nest <- tidyr::nest(as_tibble(.data), ...)
   data_names <- names(.data)
@@ -94,59 +85,13 @@ nest.tbl_ts <- function(.data, ...) {
     old_lst <- data_names[map_lgl(.data, is_list)]
     lst_vars <- setdiff(new_lst, old_lst)
     .data <- select_tsibble(ungroup(.data), !!!nest_vars, validate = FALSE)
-    tbl_nest[[lst_vars]] <- lapply(
-      tbl_nest[[lst_vars]],
-      function(x) update_meta(x, .data)
-    )
-    if (utils::packageVersion("tidyr") > "0.8.3") {
-      tbl_nest
-    } else {
-      as_lst_ts(tbl_nest)
-    }
+    tbl_nest[[lst_vars]] <- lapply(tbl_nest[[lst_vars]],
+      function(x) update_meta(x, .data))
+    tbl_nest
   }
 }
 
-#' @export
 nest.grouped_ts <- nest.tbl_ts
-
-unnest.lst_ts <- function(data, ..., key = NULL) {
-  if (utils::packageVersion("tidyr") > "0.8.3") {
-    abort(paste_inline(
-      "Can't unnest to a tsibble due to the API changes in `tidyr::unnest()`.",
-      "Please use `unnest_tsibble()` instead."
-    ))
-  }
-  inform(paste_inline(
-    "`unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.",
-    "Please use `unnest_tsibble()` instead."
-  ))
-  unnested_data <- unnest(as_tibble(data), ...)
-
-  key <- use_id(data, !!enquo(key))
-  lst_cols <- setdiff(names(data), names(unnested_data))
-
-  # checking if the nested columns has `tbl_ts` class (only for the first row)
-  first_nested <- data[lst_cols][1L, ]
-  eval_col <- purrr::imap(first_nested, dplyr::first)
-  tsbl_col <- map_lgl(eval_col, is_tsibble)
-  if (sum(tsbl_col) == 0) {
-    return(unnested_data)
-  }
-
-  tsbl <- eval_col[tsbl_col][[1L]]
-  idx <- index(tsbl)
-  key <- c(key_vars(tsbl), key)
-  unnested_data <- unnest_check_tsibble(unnested_data, key, idx)
-
-  idx_chr <- as_string(idx)
-  # restore the index class, as it's dropped by NextMethod()
-  class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
-  build_tsibble(
-    unnested_data,
-    key = !!key, index = !!idx, index2 = !!index2(tsbl),
-    ordered = is_ordered(tsbl), interval = is_regular(tsbl), validate = FALSE
-  )
-}
 
 unnest.tbl_ts <- function(data, ..., key = NULL) {
   if (utils::packageVersion("tidyr") > "0.8.3") {
@@ -202,12 +147,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
   if (missing(cols)) {
     abort("Argument `cols` for columns to unnest is required.")
   }
-  if (utils::packageVersion("tidyr") > "0.8.3") {
-    unnested_data <- unnest(as_tibble(data), cols = !!enquo(cols))
-  } else {
-    cols_lst <- syms(vars_select(names(data), !!enquo(cols)))
-    unnested_data <- unnest(as_tibble(data), !!!cols_lst)
-  }
+  unnested_data <- unnest(as_tibble(data), cols = !!enquo(cols))
 
   if (is_tsibble(data)) {
     idx <- index(data)
@@ -224,7 +164,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
       abort("Unnested columns contain no tsibble columns.")
     }
     first_nested <- data[lst_cols][1L, ]
-    eval_col <- purrr::imap(first_nested, dplyr::first)
+    eval_col <- map(first_nested, first)
 
     tsbl <- eval_col[tsbl_col][[1L]]
     idx <- index(tsbl)
@@ -250,59 +190,3 @@ fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
 }
 
 fill.grouped_ts <- fill.tbl_ts
-
-#' @export
-mutate.lst_ts <- function(.data, ...) {
-  as_lst_ts(NextMethod())
-}
-
-#' @export
-transmute.lst_ts <- mutate.lst_ts
-
-#' @export
-select.lst_ts <- mutate.lst_ts
-
-#' @export
-rename.lst_ts <- mutate.lst_ts
-
-#' @export
-arrange.lst_ts <- mutate.lst_ts
-
-filter.lst_ts <- mutate.lst_ts
-
-#' @export
-slice.lst_ts <- mutate.lst_ts
-
-#' @export
-group_by.lst_ts <- mutate.lst_ts
-
-#' @export
-left_join.lst_ts <- function(x, ...) {
-  as_lst_ts(NextMethod())
-}
-
-#' @export
-right_join.lst_ts <- left_join.lst_ts
-
-#' @export
-full_join.lst_ts <- left_join.lst_ts
-
-#' @export
-inner_join.lst_ts <- left_join.lst_ts
-
-#' @export
-anti_join.lst_ts <- left_join.lst_ts
-
-#' @export
-semi_join.lst_ts <- left_join.lst_ts
-
-as_lst_ts <- function(x) {
-  cls <- c("tbl_df", "tbl", "data.frame")
-  grped_df <- dplyr::is_grouped_df(x)
-  if (grped_df) {
-    class(x) <- c("lst_ts", "grouped_df", cls)
-  } else {
-    class(x) <- c("lst_ts", cls)
-  }
-  x
-}

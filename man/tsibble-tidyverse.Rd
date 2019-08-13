@@ -12,7 +12,6 @@
 \alias{summarise.tbl_ts}
 \alias{gather.tbl_ts}
 \alias{spread.tbl_ts}
-\alias{nest.tbl_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
@@ -35,8 +34,6 @@
   na.rm = FALSE, convert = FALSE, factor_key = FALSE)
 
 \method{spread}{tbl_ts}(data, key, value, ...)
-
-\method{nest}{tbl_ts}(.data, ...)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -121,9 +118,4 @@ stocks <- tsibble(
 )
 (stocksm <- stocks \%>\% gather(stock, price, -time))
 stocksm \%>\% spread(stock, price)
-nested_stock <- stocksm \%>\%
-  nest(-stock)
-stocksm \%>\%
-  group_by(stock) \%>\%
-  nest()
 }
