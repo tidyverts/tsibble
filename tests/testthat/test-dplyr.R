@@ -74,21 +74,22 @@ test_that("arrange.tbl_ts()", {
 idx_year <- seq.int(1970, 2010, by = 10)
 dat_x <- tsibble(year = idx_year, value = 5:1, index = year)
 
+warn_msg <- "Unspecified temporal order."
 test_that("warnings for arrange a univariate time series", {
-  expect_warning(arrange(dat_x, value), "Unspecified temporal order.")
+  expect_warning(arrange(dat_x, value), warn_msg)
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {
   expect_is(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
-  expect_warning(pedestrian %>% arrange(Time), "Unspecified temporal order.")
-  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), "Unspecified temporal order.")
-  expect_warning(pedestrian %>% arrange(desc(Date_Time)), "Unspecified temporal order.")
-  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), "Unspecified temporal order.")
-  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), "Unspecified temporal order.")
+  expect_warning(pedestrian %>% arrange(Time), warn_msg)
+  expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), warn_msg)
+  expect_warning(pedestrian %>% arrange(desc(Date_Time)), warn_msg)
+  expect_warning(pedestrian %>% arrange(Count, Date_Time, Sensor), warn_msg)
+  expect_warning(pedestrian %>% arrange(Sensor, Count, Date_Time), warn_msg)
   tbl <- pedestrian %>% arrange(Date_Time, Sensor)
   expect_identical(tbl %>% arrange(Sensor, Date_Time), pedestrian)
   bm <- pedestrian %>% filter(Sensor == "Birrarung Marr")
-  expect_warning(bm %>% arrange(desc(Date_Time)), "Unspecified temporal order.")
+  expect_warning(bm %>% arrange(desc(Date_Time)), warn_msg)
 })
 
 test_that("arrange.grouped_ts()", {
@@ -131,7 +132,7 @@ test_that("filter() and slice()", {
   expect_identical(slice(pedestrian, NA), slice(pedestrian, 0L))
   expect_identical(slice(pedestrian, c(1, NA)), slice(pedestrian, 1L))
   expect_identical(slice(pedestrian, c(1, NA, 100000)), slice(pedestrian, 1L))
-  expect_warning(slice(pedestrian, 3:1), "Unspecified temporal order.")
+  expect_warning(slice(pedestrian, 3:1), warn_msg)
   expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
   expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
   expect_identical(slice(pedestrian, -(1:10)), pedestrian[-(1:10), ])
@@ -301,10 +302,9 @@ test_that("select() scoped variants", {
   expect_equal(names(select_if(tsbl, date_character)), if_names)
 })
 
-ref_tsbl <- tsbl %>%
-  mutate_if(is.numeric, function(x) x + 1)
-
 test_that("mutate() scoped variants", {
+  ref_tsbl <- tsbl %>%
+    mutate_if(is.numeric, function(x) x + 1)
   expect_equal(
     tsbl %>%
       mutate_if(is.numeric, function(x) x + 1),
@@ -317,11 +317,10 @@ test_that("mutate() scoped variants", {
   )
 })
 
-ref_tsbl <- tsbl %>%
-  group_by(group) %>%
-  summarise_if(is.numeric, sum)
-
 test_that("summarise() scoped variants", {
+  ref_tsbl <- tsbl %>%
+    group_by(group) %>%
+    summarise_if(is.numeric, sum)
   expect_equal(
     tsbl %>%
       group_by(group) %>%
