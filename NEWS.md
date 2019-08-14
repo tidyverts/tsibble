@@ -2,7 +2,7 @@
 
 This is a maintenance release due to the changes in the upstream package.
 
-* This release requires the minimal version of tidyr to be v1.0.0.
+* Removed strong dependency of tidyr to `Suggests`.
 * Soft deprecated `is.tsibble()`.
 * Improved the speed performance for `new_data()`/`append_row()`.
 

@@ -16,3 +16,4 @@
 ^LICENSE\.md$
 ^tags$
 ^.pre-commit-config.yaml$
+^\.covrignore$

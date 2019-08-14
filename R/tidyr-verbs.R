@@ -1,18 +1,3 @@
-#' @inheritParams tidyr::gather
-#'
-#' @rdname tsibble-tidyverse
-#' @examples
-#' library(tidyr)
-#' # example from tidyr
-#' stocks <- tsibble(
-#'   time = as.Date("2009-01-01") + 0:9,
-#'   X = rnorm(10, 0, 1),
-#'   Y = rnorm(10, 0, 2),
-#'   Z = rnorm(10, 0, 4)
-#' )
-#' (stocksm <- stocks %>% gather(stock, price, -time))
-#' stocksm %>% spread(stock, price)
-#' @export
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))
@@ -27,21 +12,17 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
   }
   vars <- vars_select(names(data), !!!exprs)
   data <- mutate_index2(data, vars)
-  tbl <- gather(
+  tbl <- tidyr::gather(
     as_tibble(data),
     key = !!key, value = !!value, !!!exprs,
     na.rm = na.rm, convert = convert, factor_key = factor_key
   )
-  build_tsibble(
-    tbl,
+  build_tsibble(tbl,
     key = !!new_key, index = !!index(data), index2 = !!index2(data),
     ordered = is_ordered(data), interval = interval(data), validate = FALSE
   )
 }
 
-#' @inheritParams tidyr::spread
-#' @rdname tsibble-tidyverse
-#' @export
 spread.tbl_ts <- function(data, key, value, ...) {
   key <- enexpr(key)
   value <- enexpr(value)
@@ -55,7 +36,7 @@ spread.tbl_ts <- function(data, key, value, ...) {
   key_left <- setdiff(key_vars(data), key_var)
   new_key <- key_vars(remove_key(data, .vars = key_left))
 
-  tbl <- spread(as_tibble(data), key = !!key, value = !!value, ...)
+  tbl <- tidyr::spread(as_tibble(data), key = !!key, value = !!value, ...)
   tbl <- retain_tsibble(tbl, new_key, index(data))
 
   vars <- names(tbl)
