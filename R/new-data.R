@@ -9,10 +9,6 @@
 #' @rdname new-data
 #' @export
 new_data <- function(.data, n = 1L, ...) {
-  if (!is_integerish(n, 1) && any(n > 0)) {
-    abort("Argument `n` must be a positive integer.")
-  }
-
   UseMethod("new_data")
 }
 
@@ -25,6 +21,9 @@ new_data <- function(.data, n = 1L, ...) {
 #' new_data(pedestrian, keep_all = TRUE)
 #' new_data(pedestrian, n = 3)
 new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
+  if (!is_integerish(n, 1) && any(n > 0)) {
+    abort("Argument `n` must be a positive integer.")
+  }
   not_regular(.data)
   abort_unknown_interval(int <- interval(.data))
 

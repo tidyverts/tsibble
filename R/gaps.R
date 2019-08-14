@@ -69,15 +69,11 @@ fill_gaps.data.frame <- function(.data, ...) {
 
 #' @export
 fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
-  if (NROW(.data) == 0L || NROW(.data) == 1L) {
-    return(.data)
-  }
+  if (NROW(.data) == 0L || NROW(.data) == 1L) return(.data)
 
   gap_data <- scan_gaps(.data, .full = .full)
   lst_exprs <- enquos(..., .named = TRUE)
-  if (NROW(gap_data) == 0 && !is_empty(lst_exprs)) {
-    return(.data)
-  }
+  if (NROW(gap_data) == 0 && !is_empty(lst_exprs)) return(.data)
 
   cn <- names(.data)
   if (!is_empty(lst_exprs)) { # any replacement

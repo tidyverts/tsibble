@@ -13,8 +13,7 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   value <- as.numeric(x) # rm its ts class
   tbl <- tibble(index = idx, value = value)
-  build_tsibble(
-    tbl,
+  build_tsibble(tbl,
     key = NULL, index = index, ordered = TRUE, validate = FALSE
   )
 }
@@ -36,7 +35,7 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE,
       "as_tsibble(gather = )", "as_tsibble(pivot_longer = )")
   }
   if (pivot_longer) {
-    long_tbl <- gather_ts(x, tz = tz)
+    long_tbl <- pivot_longer_tsibble(x, tz = tz)
     build_tsibble(
       long_tbl,
       key = key, index = index, ordered = TRUE, validate = FALSE
@@ -65,7 +64,7 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
 #' @export
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
-  tbl <- gather_ts(x, tz = tz) %>%
+  tbl <- pivot_longer_tsibble(x, tz = tz) %>%
     select(index, "value")
   tbl_hts <- bind_cols(tbl, full_labs)
   # this would work around the special character issue in headers for parse()
@@ -96,7 +95,7 @@ as_tsibble.hts <- function(x, ..., tz = "UTC") {
 #   full_labs <- map(chr_labs, ~ rep(., each = nr))
 #   names(full_labs) <- names(labels)
 #
-#   tbl <- gather_ts(bts, tz = tz) %>%
+#   tbl <- pivot_longer_tsibble(bts, tz = tz) %>%
 #     dplyr::select(time, value)
 #   colnames(tbl)[2] <- deparse(substitute(x))
 #   out_hts <- dplyr::bind_cols(tbl, full_labs)
@@ -113,9 +112,15 @@ bind_time <- function(x, tz = "UTC") {
   bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
 }
 
-gather_ts <- function(x, tz = "UTC") {
-  tbl <- bind_time(x, tz = tz)
-  gather(tbl, key = "key", value = "value", -index)
+pivot_longer_tsibble <- function(x, tz = "UTC") {
+  idx <- time_to_date(x)
+  key <- colnames(x)
+  res <- 
+    tibble(
+      "index" := rep(idx, NCOL(x)), 
+      "key" := rep(key, each = NROW(x))
+    )
+  mutate(res, "value" := c(x))
 }
 
 # recursive function to repeat nodes for hts
