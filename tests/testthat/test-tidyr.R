@@ -8,6 +8,16 @@ tsbl <- tsibble(
   key = group, index = qtr
 )
 
+pedestrian <- pedestrian %>%
+  group_by(Sensor) %>%
+  slice(1:10) %>%
+  ungroup()
+
+tourism <- tourism %>%
+  group_by_key() %>%
+  slice(1:10) %>%
+  ungroup()
+
 test_that("spread()", {
   out <- tsbl %>%
     spread(key = group, value = value)
@@ -53,16 +63,6 @@ test_that("gather()", {
   expect_identical(out, out2)
 })
 
-pedestrian <- pedestrian %>%
-  group_by(Sensor) %>%
-  slice(1:10) %>%
-  ungroup()
-
-tourism <- tourism %>%
-  group_by_key() %>%
-  slice(1:10) %>%
-  ungroup()
-
 test_that("nest()", {
   expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_ts")
   expect_named(tourism %>% nest(Trips = -Purpose), c("Purpose", "Trips"))
@@ -89,17 +89,10 @@ nest2_t <- tourism %>%
 
 test_that("unnest_tsibble()", {
   expect_error(nest2_t %>% unnest_tsibble(cols = c(value, qtl)), "A valid tsibble.")
-  expect_is(
-    nest2_t %>%
-      unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)),
-    "tbl_ts"
-  )
-  expect_equal(
-    nest2_t %>%
-      unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl)) %>%
-      NCOL(),
-    6
-  )
+  out <- nest2_t %>%
+    unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl))
+  expect_is(out, "tbl_ts")
+  expect_equal(NCOL(out), 6)
 })
 
 harvest <- tsibble(
