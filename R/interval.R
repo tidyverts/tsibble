@@ -257,7 +257,7 @@ time_unit <- function(x) {
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
   x[["hour"]] <- x[["hour"]] * 3600
-  reduce(x, `+`)
+  sum(as.numeric(x))
 }
 
 # from ts time to dates
