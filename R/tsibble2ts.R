@@ -56,7 +56,7 @@ pivot_wider_ts <- function(data, fill = NA) {
   stopifnot(!is_null(fill))
   index <- index_var(data)
   df_rows <- data[[index]]
-  rows <- unique(df_rows)
+  rows <- sort(unique(df_rows))
   row_idx <- match(df_rows, rows)
   key_rows <- key_rows(data)
   col_idx <- rep(seq_along(key_rows), times = map_int(key_rows, length))

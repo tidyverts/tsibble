@@ -46,6 +46,13 @@ harvest <- tsibble(
   key = fruit, index = year
 )
 
+test_that("as.ts.tbl_ts()", {
+  expected <- ts(matrix(fill_gaps(harvest, .full = TRUE)$kilo, ncol = 2),
+    start = 2010, frequency = 1)
+  colnames(expected) <- c("cherry", "kiwi")
+  expect_equal(as.matrix(as.ts(harvest, value = kilo)), expected)
+})
+
 test_that("a tsibble with more than one measured vars", {
   expect_error(as.ts(harvest), "Can't determine column `value`:")
   expect_error(as.ts(harvest, value = year), "`value` must be one of them:")
