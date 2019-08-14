@@ -113,14 +113,12 @@ bind_time <- function(x, tz = "UTC") {
 }
 
 pivot_longer_tsibble <- function(x, tz = "UTC") {
-  idx <- time_to_date(x)
-  key <- colnames(x)
-  res <- 
-    tibble(
-      "index" := rep(idx, NCOL(x)), 
-      "key" := rep(key, each = NROW(x))
-    )
-  mutate(res, "value" := c(x))
+  idx <- time_to_date(x, tz = tz)
+  tibble(
+    "index" := rep(idx, NCOL(x)), 
+    "key" := rep(colnames(x), each = NROW(x)),
+    "value" := c(x)
+  )
 }
 
 # recursive function to repeat nodes for hts
