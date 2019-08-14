@@ -87,7 +87,7 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.3.9000</span>
       </span>
     </div>
 
@@ -165,7 +165,7 @@ arguments as <code>stretch()</code>, but return vectors of the corresponding typ
     </div>
 
     <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Deprecated'>deprecated</a></span>())
 
 <span class='fu'>stretch_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -219,6 +219,11 @@ on <code>.align</code> (<code>NA</code> by default).  <code>NULL</code> means no
       <th>.bind</th>
       <td><p>If <code>.x</code> is a list, should <code>.x</code> be combined before applying <code>.f</code>?
 If <code>.x</code> is a list of data frames, row binding is carried out.</p></td>
+    </tr>
+    <tr>
+      <th>.size</th>
+      <td><p><img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' />
+ Please use <code>.step</code> instead.</p></td>
     </tr>
     <tr>
       <th>.id</th>

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.3.9000</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@
 <p>What if the time period we’d like to slide over happens not to be a fixed window size, for example sliding over three months. The preprocessing step is to wrap observations into monthly subsets (a list of tsibbles) using <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">pedestrian_mth &lt;-<span class="st"> </span>pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">YrMth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(Date_Time)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>(<span class="op">-</span>Sensor, <span class="op">-</span>YrMth)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span>Sensor, <span class="op">-</span>YrMth))</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">pedestrian_mth</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; # A tibble: 96 x 3</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   Sensor            YrMth data               </span></a>
@@ -214,12 +214,13 @@
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/slide2.html">pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   Sensor                        data                  diag                 </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;                         &lt;list&gt;                &lt;list&gt;               </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 1 Birrarung Marr                &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4]&gt; &lt;tibble [145,321 × 2…</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; # Groups:   Sensor [4]</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   Sensor                        data                  diag                 </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt;                         &lt;list&gt;                &lt;list&gt;               </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 1 Birrarung Marr                &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4]&gt; &lt;tibble [145,321 × 2…</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a></code></pre></div>
 <p>Why <code><a href="../reference/slide.html">slide()</a></code> not working for this case? It is intended to work with a list, i.e. column-by-column for a data frame. However, here we perform a row-wise sliding over multiple columns of a data frame at one, <code><a href="../reference/slide2.html">pslide()</a></code> does the job for handling multiple lists. This example running a bit longer? Time to kick <a href="https://davisvaughan.github.io/furrr/"><strong>furrr</strong></a> in for parallel processing. Their multiprocessing counterparts are all prefixed with <code>future_</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(furrr)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">plan</span>(multiprocess)</a>

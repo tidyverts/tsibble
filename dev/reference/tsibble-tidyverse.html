@@ -90,7 +90,7 @@ as well as dropping empty keys/groups.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.3.9000</span>
       </span>
     </div>
 
@@ -192,17 +192,7 @@ as well as dropping empty keys/groups.</p></li>
 <span class='fu'>transmute</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>summarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>gather</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"key"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>spread</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>summarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,49 +209,6 @@ as well as dropping empty keys/groups.</p></li>
       <th>.preserve</th>
       <td><p>when <code>FALSE</code> (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
-      <th>key</th>
-      <td><p>Names of new key and value columns, as strings or
-symbols.</p>
-<p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
-and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>Names of new key and value columns, as strings or
-symbols.</p>
-<p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
-and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).</p></td>
-    </tr>
-    <tr>
-      <th>na.rm</th>
-      <td><p>If <code>TRUE</code>, will remove rows from output where the
-value column is <code>NA</code>.</p></td>
-    </tr>
-    <tr>
-      <th>convert</th>
-      <td><p>If <code>TRUE</code> will automatically run
-<code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> on the key column. This is useful if the column
-types are actually numeric, integer, or logical.</p></td>
-    </tr>
-    <tr>
-      <th>factor_key</th>
-      <td><p>If <code>FALSE</code>, the default, the key values will be
-stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
-which preserves the original ordering of the columns.</p></td>
     </tr>
     </table>
     
@@ -313,49 +260,7 @@ to leave off the time context.</p>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
 #&gt;      &lt;int&gt;
-#&gt; 1 45483871</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>tidyr</span>)
-<span class='co'># example from tidyr</span>
-<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2009-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
-  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>))</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1D]
-#&gt; # Key:       stock [3]
-#&gt;    time       stock   price
-#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -1.22  
-#&gt;  2 2009-01-02 X      0.0849
-#&gt;  3 2009-01-03 X      0.581 
-#&gt;  4 2009-01-04 X      0.451 
-#&gt;  5 2009-01-05 X      0.497 
-#&gt;  6 2009-01-06 X      0.779 
-#&gt;  7 2009-01-07 X      1.51  
-#&gt;  8 2009-01-08 X     -1.82  
-#&gt;  9 2009-01-09 X      0.788 
-#&gt; 10 2009-01-10 X     -0.973 
-#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1D]
-#&gt;    time             X      Y      Z
-#&gt;    &lt;date&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 -1.22    1.79  -2.50 
-#&gt;  2 2009-01-02  0.0849  1.53  -3.50 
-#&gt;  3 2009-01-03  0.581   1.30   1.14 
-#&gt;  4 2009-01-04  0.451  -1.07   1.38 
-#&gt;  5 2009-01-05  0.497  -0.168 -3.74 
-#&gt;  6 2009-01-06  0.779  -4.02   1.17 
-#&gt;  7 2009-01-07  1.51   -1.03   0.191
-#&gt;  8 2009-01-08 -1.82    0.203  1.78 
-#&gt;  9 2009-01-09  0.788  -0.112  2.67 
-#&gt; 10 2009-01-10 -0.973  -4.86  -1.25 </div><div class='input'><span class='no'>nested_stock</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>stock</span>)
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>()</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   stock data              
-#&gt;   &lt;chr&gt; &lt;list&gt;            
-#&gt; 1 X     &lt;tsibble [10 × 2]&gt;
-#&gt; 2 Y     &lt;tsibble [10 × 2]&gt;
-#&gt; 3 Z     &lt;tsibble [10 × 2]&gt;</div></pre>
+#&gt; 1 45483871</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

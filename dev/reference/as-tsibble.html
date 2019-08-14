@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.3.9000</span>
       </span>
     </div>
 
@@ -167,7 +167,8 @@
 <span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
 
 <span class='co'># S3 method for mts</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>as_tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>gather</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Deprecated'>deprecated</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,7 +212,12 @@ daily.</p></td>
     </tr>
     <tr>
       <th>pivot_longer</th>
-      <td><p>TRUE gives a "longer" form of the data, otherwise as is.</p></td>
+      <td><p><code>TRUE</code> gives a "longer" form of the data, otherwise as is.</p></td>
+    </tr>
+    <tr>
+      <th>gather</th>
+      <td><p><img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' />
+ Please use <code>pivot_longer</code> instead.</p></td>
     </tr>
     </table>
     

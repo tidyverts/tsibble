@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return measured variables — measures • tsibble</title>
+<title>Deprecated functions — as.tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,9 +36,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Return measured variables — measures" />
+<meta property="og:title" content="Deprecated functions — as.tsibble" />
 
-<meta property="og:description" content="Return measured variables" />
+<meta property="og:description" content="
+is.tsibble() 
+as.tsibble() 
+id() 
+fill_na() 
+" />
 
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -141,52 +146,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return measured variables</h1>
+    <h1>Deprecated functions</h1>
     
-    <div class="hidden name"><code>measured-vars.Rd</code></div>
+    <div class="hidden name"><code>as.tsibble.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Return measured variables</p>
+    <ul>
+<li><p><code><a href='deprecated.html'>is.tsibble()</a></code> <img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p></li>
+<li><p><code>as.tsibble()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code><a href='deprecated.html'>id()</a></code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code><a href='deprecated.html'>fill_na()</a></code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>measures</span>(<span class='no'>x</span>)
-
-<span class='fu'>measured_vars</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
+      <td><p>Other objects.</p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>measures</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; Date
-#&gt; 
-#&gt; [[2]]
-#&gt; Time
-#&gt; 
-#&gt; [[3]]
-#&gt; Count
-#&gt; </div><div class='input'><span class='fu'>measures</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; Trips
-#&gt; </div><div class='input'>
-<span class='fu'>measured_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] "Date"  "Time"  "Count"</div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Trips"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

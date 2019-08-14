@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.3.9000</span>
       </span>
     </div>
 
@@ -143,9 +143,20 @@
       
     </div>
 
-    <div id="tsibble-0-8-2-9000" class="section level1">
+    <div id="tsibble-0-8-4" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-2-9000" class="anchor"></a>tsibble 0.8.2.9000<small> Unreleased </small>
+<a href="#tsibble-0-8-4" class="anchor"></a>tsibble 0.8.4<small> Unreleased </small>
+</h1>
+<p>This is a maintenance release due to the changes in the upstream package.</p>
+<ul>
+<li>Removed strong dependency of tidyr to <code>Suggests</code>.</li>
+<li>Soft deprecated <code><a href="../reference/deprecated.html">is.tsibble()</a></code>.</li>
+<li>Improved the speed performance for <code><a href="../reference/new-data.html">new_data()</a></code>/<code><a href="../reference/new-data.html">append_row()</a></code>.</li>
+</ul>
+</div>
+    <div id="tsibble-0-8-3" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-0-8-3" class="anchor"></a>tsibble 0.8.3<small> 2019-07-29 </small>
 </h1>
 <ul>
 <li>Added lifecycle badges to functions.</li>
@@ -164,7 +175,7 @@
 <ul>
 <li>Fixed bugs for losing the “ordered” attribute when renaming a tsibble, introduced in v0.8.1 (#126).</li>
 <li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for handling a tsibble of one row (#124).</li>
-<li>Fixed issue of <code><a href="../reference/tsibble-tidyverse.html">nest.tbl_ts()</a></code> for naming (#123).</li>
+<li>Fixed issue of <code>nest.tbl_ts()</code> for naming (#123).</li>
 <li>Fixed floating issues for duplicated indices in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> (#128).</li>
 </ul>
 </div>
@@ -175,12 +186,12 @@
 <ul>
 <li>
 <strong>Breaking change</strong>: <code>index_by(.data, &lt;empty&gt;)</code> by default groups the index variable rather than previously <code>ungroup()</code>.</li>
-<li>Added new <code><a href="../reference/unnest_tsibble.html">unnest_tsibble()</a></code> to minimise the impact from the upcoming API changes in <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">tidyr::unnest()</a></code>.</li>
+<li>Added new <code><a href="../reference/unnest_tsibble.html">unnest_tsibble()</a></code> to minimise the impact from the upcoming API changes in <code><a href="https://tidyr.tidyverse.org/reference/nest.html">tidyr::unnest()</a></code>.</li>
 <li>
 <code><a href="../reference/index-by.html">index_by()</a></code> allows for grouping index variable; and <code>group_by()</code> will throw out an error for grouping index.</li>
 <li>When creating a tsibble, a warning might be issued for mismatch between interval and index representation.</li>
 <li>Fixed bugs in <code>semi_join.tbl_ts()</code> and <code>anti_join.tbl_ts()</code> without suffix (#122).</li>
-<li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
+<li>Deprecate <code><a href="../reference/as.tsibble.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
 <li>Defunct <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
 <li>Defunct <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 </ul>
@@ -201,9 +212,9 @@
 <h2 class="hasAnchor">
 <a href="#defunct-deprecated-functionsarguments" class="anchor"></a>Defunct &amp; deprecated functions/arguments</h2>
 <ul>
-<li>Deprecate <code><a href="../reference/deprecated.html">id()</a></code> for creating key for the consistence of tidy selectors, and will be defunct until August 2019.</li>
+<li>Deprecate <code><a href="../reference/deprecated.html">id()</a></code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
 <li>Deprecate of <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
-<li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
+<li>Deprecate <code><a href="../reference/as.tsibble.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
 <li>Deprecate <code>gather = TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> in favour of <code>pivot_longer = TRUE</code>.</li>
 <li>Continue with deprecation of <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and will be defunct in the next release.</li>
 </ul>
@@ -389,7 +400,7 @@
 <li>Soft-deprecated <code>find_duplicates()</code>, in favour of <code><a href="../reference/duplicates.html">are_duplicated()</a></code>.</li>
 <li>Deprecated <code>case_na()</code>, and will be defunct in next release.</li>
 <li>Deprecated <code>split_by()</code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
-<li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
+<li>Soft-deprecated <code><a href="../reference/as.tsibble.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
 <li>Deprecated <code>.drop</code> argument in column-wise verbs, and suggested to use <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>.</li>
 <li>If <code>select()</code> doesn’t select index, it will inform users and automatically select it.</li>
 </ul>
@@ -436,7 +447,7 @@
 <li>
 <code>unnest.lst_ts</code> respects the ordering of “key” values. (#56)</li>
 <li>
-<code>split_by()</code> and <code><a href="../reference/tsibble-tidyverse.html">nest.tbl_ts()</a></code> respect the appearance ordering of input variables. (#57)</li>
+<code>split_by()</code> and <code>nest.tbl_ts()</code> respect the appearance ordering of input variables. (#57)</li>
 <li>
 <code>group_indices.tbl_ts()</code> and <code>key_indices()</code> return consistent formats as its generic.</li>
 <li>Argument <code>key</code> no longer accepted character.</li>
@@ -446,7 +457,7 @@
 <h2 class="hasAnchor">
 <a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Slightly faster <code><a href="../reference/tsibble-tidyverse.html">nest.tbl_ts()</a></code>.</li>
+<li>Slightly faster <code>nest.tbl_ts()</code>.</li>
 <li>
 <code><a href="../reference/index-by.html">index_by()</a></code> gives more informative error when LHS is named as index.</li>
 </ul>
@@ -492,7 +503,7 @@
 <li>Respected the ordering of input variables while creating the key.</li>
 <li>Fixed “attempt to select less than one element in integerOneIndex” error message in <code>unnest.lst_ts()</code>.</li>
 <li>Fixed incorrect interval when doing join operations for custom index class. (#52)</li>
-<li>Avoided warnings when character input for key and value in <code><a href="../reference/tsibble-tidyverse.html">gather.tbl_ts()</a></code>. (#54)</li>
+<li>Avoided warnings when character input for key and value in <code>gather.tbl_ts()</code>. (#54)</li>
 </ul>
 </div>
 <div id="misc-3" class="section level2">
@@ -899,7 +910,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tsibble-0-8-2-9000">0.8.2.9000</a></li>
+        <li><a href="#tsibble-0-8-4">0.8.4</a></li>
+        <li><a href="#tsibble-0-8-3">0.8.3</a></li>
         <li><a href="#tsibble-0-8-2">0.8.2</a></li>
         <li><a href="#tsibble-0-8-1">0.8.1</a></li>
         <li><a href="#tsibble-0-8-0">0.8.0</a></li>
