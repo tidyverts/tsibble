@@ -42,20 +42,36 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
   }
   idx <- index(x)
   tsbl_sort <- arrange(x, !!!key_vars, !!idx)
-  tsbl_sel <-
-    as_tibble(select_tsibble(
-      tsbl_sort, !!idx, !!!key_vars, !!value_var,
-      validate = FALSE
-    ))
+  tsbl_sel <- select_tsibble(tsbl_sort, !!idx, !!!key_vars, !!value_var,
+    validate = FALSE)
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
   } else {
-    mat_ts <- spread(tsbl_sel,
-      key = !!key_vars[[1]],
-      value = !!value_var, fill = fill
-    )
+    mat_ts <- pivot_wider_ts(tsbl_sel, fill = fill)
     finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
+}
+
+pivot_wider_ts <- function(data, fill = NA) {
+  stopifnot(!is_null(fill))
+  index <- index_var(data)
+  df_rows <- data[[index]]
+  rows <- unique(df_rows)
+  row_idx <- match(df_rows, rows)
+  key_rows <- key_rows(data)
+  col_idx <- rep(seq_along(key_rows), times = map_int(key_rows, length))
+  val_idx <- data.frame(row = row_idx, col = col_idx)
+  values <- data[[measured_vars(data)]]
+  nrow <- length(rows)
+  ncol <- length(key_rows)
+  vec <- vector(length = nrow * ncol)
+  vec[] <- fill
+  vec[val_idx$row + nrow * (val_idx$col - 1L)] <- values
+  res <- set_names(vector("list", ncol), key_data(data)[[1]])
+  for (i in 1:ncol) {
+    res[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
+  }
+  bind_cols(!!index := rows, !!!res)
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {

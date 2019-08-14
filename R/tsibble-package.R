@@ -82,7 +82,6 @@
 #' @importFrom dplyr group_rows groups new_grouped_df is_grouped_df
 #' @importFrom dplyr anti_join left_join right_join full_join semi_join inner_join
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first
-#' @importFrom tidyr gather spread
 #' @importFrom tibble new_tibble trunc_mat
 #' @importFrom lifecycle deprecated
 #' @import rlang tidyselect
