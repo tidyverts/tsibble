@@ -559,11 +559,12 @@ remove_tsibble_attrs <- function(x) {
 }
 
 assert_key_data <- function(x) {
+  nc <- length(x)
   if (is_false(
     is.data.frame(x) &&
-      NCOL(x) > 0 &&
-      is.list(x[[NCOL(x)]]) &&
-      tail(names(x), 1L) == ".rows"
+    nc > 0 &&
+    is.list(x[[nc]]) &&
+    names(x)[[nc]] == ".rows"
   )) {
     abort("The `key` attribute must be a data frame with its last column called `.rows`.")
   }
