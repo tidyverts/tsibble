@@ -349,8 +349,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
   x <- new_tibble(x, ..., nrow = NROW(x), class = "tbl_ts")
-  assert_key_data(x %@% key)
-  attr(x, "row.names") <- .set_row_names(NROW(x))
+  assert_key_data(attr(x, "key"))
   class(x) <- c(class, class(x))
   x
 }
