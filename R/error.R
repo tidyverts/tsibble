@@ -25,7 +25,7 @@ not_regular <- function(x) {
 }
 
 not_tsibble <- function(x) {
-  if (is_false(is_tsibble(x) || inherits(x, "lst_ts"))) {
+  if (is_false(is_tsibble(x))) {
     abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
   }
 }

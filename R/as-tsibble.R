@@ -455,20 +455,6 @@ as_tibble.grouped_df <- function(x, ...) {
   x
 }
 
-#' @keywords internal
-#' @export
-as_tibble.lst_ts <- function(x, ...) {
-  class(x) <- c("tbl_df", "tbl", "data.frame")
-  x
-}
-
-#' @keywords internal
-#' @export
-as.data.frame.lst_ts <- function(x, ...) {
-  class(x) <- "data.frame"
-  x
-}
-
 #' @rdname as-tibble
 #' @export
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
