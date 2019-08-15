@@ -205,13 +205,13 @@ preferred frequency is passed to <code><a href='https://www.rdocumentation.org/p
 #&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div><div class='input'>
 <span class='co'># equally spaced over trading days, not smart enough to guess frequency</span>
 <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>EuStockMarkets</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ts'>as.ts</a></span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt;         CAC     DAX   FTSE    SMI
-#&gt; [1,] 1772.8 1628.75 2443.6 1678.1
-#&gt; [2,] 1750.5 1613.63 2460.2 1688.5
-#&gt; [3,] 1718.0 1606.51 2448.2 1678.6
-#&gt; [4,] 1708.1 1621.04 2470.4 1684.1
-#&gt; [5,] 1723.1 1618.16 2484.7 1686.6
-#&gt; [6,] 1714.3 1610.61 2466.8 1671.6</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ts'>as.ts</a></span>(<span class='no'>x2</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>260</span>))</div><div class='output co'>#&gt;         CAC    DAX    FTSE    SMI
+#&gt; [1,] 1678.1 2443.6 1628.75 1772.8
+#&gt; [2,] 1688.5 2460.2 1613.63 1750.5
+#&gt; [3,] 1678.6 2448.2 1606.51 1718.0
+#&gt; [4,] 1684.1 2470.4 1621.04 1708.1
+#&gt; [5,] 1686.6 2484.7 1618.16 1723.1
+#&gt; [6,] 1671.6 2466.8 1610.61 1714.3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
