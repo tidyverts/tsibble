@@ -97,8 +97,7 @@ as_tsibble <- function(x, key = NULL, index, regular = TRUE,
 as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE,
                               validate = TRUE, .drop = TRUE, ...) {
   index <- enquo(index)
-  build_tsibble(
-    x,
+  build_tsibble(x,
     key = !!enquo(key), index = !!index, interval = regular,
     validate = validate, .drop = .drop
   )
@@ -128,8 +127,7 @@ as_tsibble.grouped_df <- function(x, key = NULL, index, regular = TRUE,
                                   validate = TRUE, .drop = key_drop_default(x),
                                   ...) {
   index <- enquo(index)
-  build_tsibble(
-    x,
+  build_tsibble(x,
     key = !!enquo(key), index = !!index, interval = regular,
     validate = validate, .drop = .drop
   )
@@ -261,8 +259,11 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   }
   if (is_false(ordered)) { # false returns a warning
     indices <- tbl[[index]]
-    idx_rows <- lapply(key_data[[".rows"]], function(x) indices[x])
-    actually_ordered <- all(vapply(idx_rows, validate_order, logical(1)))
+    validate_order_lst <- function(x, .rows) {
+      validate_order(x[.rows[[1]]])
+    }
+    actually_ordered <- summarise(key_data, 
+      ".rows" := any(validate_order_lst(indices, .rows)))[[".rows"]]
     if (is_false(actually_ordered)) {
       idx_txt <- backticks(index)
       key_txt <- lapply(key_vars, expr_label)
@@ -280,8 +281,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
       index = index
     )
   }
-  build_tsibble_meta(
-    tbl,
+  build_tsibble_meta(tbl,
     key_data = key_data, index = index, index2 = index2,
     ordered = ordered, interval = interval
   )
@@ -326,8 +326,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
     tbl <- group_by(tbl, !!sym(index2), add = TRUE)
   }
   grp_data <- tbl %@% "groups"
-  tbl <- new_tibble(
-    tbl,
+  tbl <- new_tibble(tbl,
     "key" = key_data, "index" = index, "index2" = index2,
     "interval" = interval, "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
   )
@@ -361,16 +360,17 @@ validate_index <- function(data, index) {
   index <- enquo(index)
   if (quo_is_null(index)) abort("Argument `index` must not be `NULL`.")
 
+  names <- names2(data)
   if (quo_is_missing(index)) {
     if (sum(val_idx, na.rm = TRUE) != 1) {
       abort("Can't determine index and please specify argument `index`.")
     }
-    chr_index <- names(data)[val_idx]
+    chr_index <- names[val_idx]
     chr_index <- chr_index[!is.na(chr_index)]
     inform(sprintf("Using `%s` as index variable.", chr_index))
   } else {
-    chr_index <- vars_pull(names(data), !!index)
-    idx_pos <- names(data) %in% chr_index
+    chr_index <- vars_pull(names, !!index)
+    idx_pos <- vec_in(names, chr_index)
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {
       return(chr_index)
@@ -390,8 +390,8 @@ validate_order <- function(x) {
     x
   } else if (all(x < 0)) {
     TRUE
-  } else if ((pos_dup <- anyDuplicated.default(x)) > 0) {
-    abort(sprintf("Duplicated integers occur to the position of %i.", pos_dup))
+  } else if ((vec_duplicate_any(x)) > 0) {
+    abort(sprintf("Duplicated indices: %s", comma(x[vec_duplicate_detect(x)])))
   } else {
     is_ascending(x, na.rm = TRUE, strictly = TRUE)
   }
@@ -489,7 +489,6 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 is_duplicated <- function(data, key = NULL, index) {
   key <- use_id(data, !!enquo(key))
   index <- sym(validate_index(data, !!enquo(index)))
-
   duplicated_key_index(data, key = key, index = index)
 }
 
@@ -501,7 +500,6 @@ is_duplicated <- function(data, key = NULL, index) {
 are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
   key <- use_id(data, !!enquo(key))
   index <- sym(validate_index(data, !!enquo(index)))
-
   res <-
     mutate(
       grouped_df(data, vars = key),
@@ -515,9 +513,7 @@ are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
 duplicates <- function(data, key = NULL, index) {
   key <- use_id(data, !!enquo(key))
   index <- sym(validate_index(data, !!enquo(index)))
-
-  ungroup(filter(grouped_df(data, vars = key),
-    duplicated.default(!!index) | duplicated.default(!!index, fromLast = TRUE)))
+  ungroup(filter(grouped_df(data, vars = key), vec_duplicate_detect(!!index)))
 }
 
 duplicated_key_index <- function(data, key, index, key_data = NULL) {
@@ -532,7 +528,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
   } else {
     keyed_data <- new_grouped_df(data, groups = key_data)
   }
-  res <- summarise(keyed_data, !!"zzz" := anyDuplicated.default(!!sym(index)))
+  res <- summarise(keyed_data, !!"zzz" := vec_duplicate_any(!!sym(index)))
   any(res$zzz > 0)
 }
 
@@ -544,7 +540,7 @@ remove_tsibble_attrs <- function(x) {
 }
 
 assert_key_data <- function(x) {
-  nc <- length(x)
+  nc <- NCOL(x)
   if (is_false(
     is.data.frame(x) &&
     nc > 0 &&

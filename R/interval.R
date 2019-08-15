@@ -174,9 +174,7 @@ interval_pull.ordered <- function(x) {
 #' new_interval() # unknown interval
 new_interval <- function(...) {
   args <- list2(...)
-  if (has_length(args, 1) && is_null(args[[1]])) {
-    return(irregular())
-  }
+  if (has_length(args, 1) && is_null(args[[1]])) return(irregular())
 
   if (is_false(all(map_lgl(args, ~ has_length(., 1))))) {
     abort("Only accepts one input for each unit, not multiple.")
@@ -220,14 +218,12 @@ print.interval <- function(x, digits = NULL, ...) {
 
 #' @export
 format.interval <- function(x, digits = NULL, ...) {
-  if (is_empty(x)) {
-    return("!")
-  }
+  if (is_empty(x)) return("!")
+
   not_zero <- !map_lgl(x, function(x) x == 0)
   # if output contains all the zeros
-  if (sum(not_zero) == 0) {
-    return("?")
-  }
+  if (sum(not_zero) == 0) return("?")
+
   x <- translate_interval(x)
   output <- x[not_zero]
   paste0(output, names(output), collapse = " ")
@@ -257,7 +253,7 @@ time_unit <- function(x) {
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
   x[["hour"]] <- x[["hour"]] * 3600
-  sum(as.numeric(x))
+  sum(vec_c(!!!x))
 }
 
 # from ts time to dates
@@ -305,7 +301,7 @@ gcd_interval <- function(x) {
   if (length(x) < 2) { # only one time index
     0
   } else {
-    unique_x <- unique(round(abs(diff(x)), digits = 6))
+    unique_x <- vec_unique(round(abs(diff(x)), digits = 6))
     gcd_vector(unique_x)
   }
 }
@@ -326,9 +322,5 @@ split_period <- function(x) {
 
 has_tz <- function(x) {
   tz <- attr(x, "tzone")[[1]]
-  if (is_null(tz) && !inherits(x, "POSIXct")) {
-    FALSE
-  } else {
-    TRUE
-  }
+  !(is_null(tz) && !inherits(x, "POSIXct"))
 }
