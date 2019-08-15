@@ -295,9 +295,7 @@ end.yearqtr <- function(x, y = NULL, ...) {
 }
 
 is_dot_null <- function(x) { # x is a sym
-  if (is_null(x)) {
-    NULL
-  } else if (x == sym(".")) {
+  if (is_null(x) || x == sym(".")) {
     NULL
   } else {
     x

@@ -69,11 +69,11 @@ fill_gaps.data.frame <- function(.data, ...) {
 
 #' @export
 fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
-  if (NROW(.data) == 0L || NROW(.data) == 1L) return(.data)
+  if (vec_size(.data) == 0L || vec_size(.data) == 1L) return(.data)
 
   gap_data <- scan_gaps(.data, .full = .full)
   lst_exprs <- enquos(..., .named = TRUE)
-  if (NROW(gap_data) == 0 && !is_empty(lst_exprs)) return(.data)
+  if (vec_size(gap_data) == 0 && !is_empty(lst_exprs)) return(.data)
 
   cn <- names(.data)
   if (!is_empty(lst_exprs)) { # any replacement
@@ -128,7 +128,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
     )
   }
   ref_data <- unwrap(sum_data, !!idx)
-  if (NROW(ref_data) == NROW(.data)) {
+  if (vec_size(ref_data) == vec_size(.data)) {
     return(.data[0L, c(key_vars(.data), idx_chr)])
   }
 
@@ -176,7 +176,7 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   idx <- index(.data)
 
   gap_data <- scan_gaps(.data, .full = .full, ...)
-  if (unknown_interval(int) || NROW(gap_data) == 0L) {
+  if (unknown_interval(int) || vec_size(gap_data) == 0L) {
     data_key <- .data[0L, key_vars(.data)]
     data_key[[".to"]] <- data_key[[".from"]] <- .data[[as_string(idx)]][0L]
     data_key[[".n"]] <- integer()
@@ -214,7 +214,7 @@ has_gaps <- function(.data, .full = FALSE, ...) {
 
 #' @export
 has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
-  if (NROW(.data) == 0L) return(tibble(!!".gaps" := FALSE))
+  if (vec_size(.data) == 0L) return(tibble(!!".gaps" := FALSE))
 
   not_regular(.data)
   int <- interval(.data)
@@ -298,9 +298,8 @@ unwrap <- function(.data, .col) {
   lst_col <- vars_pull(names(.data), !!enquo(.col))
   res <- .data
   row_indices <- rep.int(
-    seq_len(NROW(.data)),
-    vapply(.data[[lst_col]], NROW, integer(1))
+    vec_seq_along(.data), vapply(.data[[lst_col]], vec_size, integer(1))
   )
-  res <- res[row_indices, setdiff(names(.data), lst_col)]
-  bind_cols(res, bind_rows(!!!.data[[lst_col]]))
+  res <- vec_slice(res, row_indices)[setdiff(names(.data), lst_col)]
+  vec_cbind(res, bind_rows(!!!.data[[lst_col]]))
 }

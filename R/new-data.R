@@ -36,7 +36,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   if (NCOL(key_data) == 1) { # no key
     regrped_df <- last_entry
   } else {
-    meta_grps <- mutate(key_data, .rows = list2(!!!seq_len(NROW(last_entry))))
+    meta_grps <- mutate(key_data, .rows = list2(!!!vec_seq_along(last_entry)))
     regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
   }
   new_lst <- mutate(regrped_df, 

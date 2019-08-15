@@ -49,6 +49,21 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE,
   }
 }
 
+bind_time <- function(x, tz = "UTC") {
+  bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
+}
+
+pivot_longer_tsibble <- function(x, tz = "UTC") {
+  idx <- time_to_date(x, tz = tz)
+  tibble(
+    "index" := rep(idx, NCOL(x)), 
+    "key" := rep(colnames(x), each = NROW(x)),
+    "value" := c(x)
+  )
+}
+
+# nocov start
+
 #' @keywords internal
 #' @export
 as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
@@ -64,60 +79,13 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
 #' @export
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
-  tbl <- pivot_longer_tsibble(x, tz = tz) %>%
-    select(index, "value")
-  tbl_hts <- bind_cols(tbl, full_labs)
+  tbl <- pivot_longer_tsibble(x$bts, tz = tz)[c("index", "value")]
+  tbl_hts <- vec_cbind(tbl, !!!full_labs)
   # this would work around the special character issue in headers for parse()
   key <- colnames(tbl_hts)[3:ncol(tbl_hts)]
   build_tsibble(tbl_hts,
     key = !!key, index = index, ordered = TRUE,
     validate = FALSE
-  )
-}
-
-# as_tsibble.gts <- function(x, tz = "UTC", ...) {
-#   bts <- x$bts
-#   group <- x$group[-1, , drop = FALSE]
-#   group <- group[-nrow(group), , drop = FALSE]
-#   labels <- x$labels
-#   if (is_empty(labels)) {
-#     abort("I don't know how to handle a grouped time series with no group.")
-#   }
-#   seq_labs <- seq_along(labels)
-#   grp_label <- map(seq_labs, ~ labels[[.]][group[., ]])
-#   chr_labs <- vector(mode = "list", length = length(labels))
-#   for (i in seq_labs) {
-#     chr_labs[[i]] <- map_chr(
-#       strsplit(grp_label[[i]], split = "/", fixed = TRUE), ~ .[2]
-#     )
-#   }
-#   nr <- nrow(bts)
-#   full_labs <- map(chr_labs, ~ rep(., each = nr))
-#   names(full_labs) <- names(labels)
-#
-#   tbl <- pivot_longer_tsibble(bts, tz = tz) %>%
-#     dplyr::select(time, value)
-#   colnames(tbl)[2] <- deparse(substitute(x))
-#   out_hts <- dplyr::bind_cols(tbl, full_labs)
-#   # this would work around the special character issue in headers for parse()
-#   sym_key <- syms(colnames(out_hts)[c(3, ncol(out_hts))])
-#   as_tsibble(out_hts, index = time, sym_key)
-# }
-
-as_tibble.gts <- function(x, ...) {
-  as_tibble(x$bts)
-}
-
-bind_time <- function(x, tz = "UTC") {
-  bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
-}
-
-pivot_longer_tsibble <- function(x, tz = "UTC") {
-  idx <- time_to_date(x, tz = tz)
-  tibble(
-    "index" := rep(idx, NCOL(x)), 
-    "key" := rep(colnames(x), each = NROW(x)),
-    "value" := c(x)
   )
 }
 
@@ -135,10 +103,6 @@ rep_nodes <- function(x, level = 1L, index = seq_along(x[[level]])) {
 }
 
 extract_labels <- function(x) {
-  UseMethod("extract_labels")
-}
-
-extract_labels.hts <- function(x) {
   nodes <- x$nodes
   old_labels <- x$labels
   btm_labels <- old_labels[[length(old_labels)]]
@@ -152,3 +116,4 @@ extract_labels.hts <- function(x) {
   names(full_labs) <- names(old_labels[-1])
   full_labs
 }
+# nocov end

@@ -45,5 +45,5 @@ difference <- function(x, lag = 1, differences = 1, default = NA,
 
 diff_impl <- function(x, lag = 1, differences = 1, fill = NA) {
   diff_x <- diff(x, lag = lag, differences = differences)
-  c(rep(fill, lag * differences), diff_x)
+  vec_c(vec_repeat(fill, lag * differences), diff_x)
 }

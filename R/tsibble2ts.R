@@ -70,7 +70,6 @@ pivot_wider_ts <- function(data, fill = NA_real_) {
   vec <- vec_init(fill, n = nrow * ncol)
   vec[] <- fill
   vec_slice(vec, val_idx$row + nrow * (val_idx$col - 1L)) <- values
-  vec_slice(vec, val_idx$row + nrow * (val_idx$col - 1L)) <- values
   res <- set_names(vec_init(list(), ncol), key_data(data)[[1]])
   for (i in 1:ncol) {
     res[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]

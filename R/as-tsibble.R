@@ -250,7 +250,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange index from past to future for each key value
-  if (NROW(tbl) == 0 || is_null(ordered)) { # first time to create a tsibble
+  if (vec_size(tbl) == 0 || is_null(ordered)) { # first time to create a tsibble
     tbl <- arrange(tbl, !!!key_vars, !!sym(index))
     ordered <- TRUE
   }
@@ -315,7 +315,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
   } else if (!is_interval) {
     abort(sprintf(msg_interval, class(interval)[1]))
   }
-  if (unknown_interval(interval) && (NROW(tbl) > NROW(key_data))) {
+  if (unknown_interval(interval) && (vec_size(tbl) > vec_size(key_data))) {
     warn("Can't obtain the interval, please see `?tsibble` for details.")
   }
 
@@ -328,8 +328,8 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
   grp_data <- tbl %@% "groups"
   tbl <- new_tibble(tbl,
     "key" = key_data, "index" = index, "index2" = index2,
-    "interval" = interval, "groups" = NULL, nrow = NROW(tbl), class = "tbl_ts"
-  )
+    "interval" = interval, "groups" = NULL, nrow = vec_size(tbl),
+    class = "tbl_ts")
   is_grped <- is_grouped_df(x) || !idx_lgl
   if (is_grped) {
     cls <- c("grouped_ts", "grouped_df")
@@ -347,7 +347,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
 #' @export
 new_tsibble <- function(x, ..., class = NULL) {
   not_tsibble(x)
-  x <- new_tibble(x, ..., nrow = NROW(x), class = "tbl_ts")
+  x <- new_tibble(x, ..., nrow = vec_size(x), class = "tbl_ts")
   assert_key_data(attr(x, "key"))
   class(x) <- c(class, class(x))
   x
@@ -374,7 +374,7 @@ validate_index <- function(data, index) {
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {
       return(chr_index)
-    } else if (!val_idx[idx_pos]) {
+    } else if (!val_lgl) {
       cls_idx <- vapply(data, function(x) class(x)[1], character(1))
       abort(sprintf("Unsupported index type: %s", cls_idx[idx_pos]))
     }

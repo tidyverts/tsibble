@@ -16,8 +16,7 @@ update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
     retain_tsibble(new, key = key(old), index = index(old))
     validate <- FALSE
   }
-  restore_index_class(build_tsibble(
-    new,
+  restore_index_class(build_tsibble(new,
     key = !!key_vars(old), index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate,
     .drop = is_key_dropped(old)
@@ -38,9 +37,8 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
     by = key_vars(old)
   )
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
-  new_key[[".rows"]][null_lgl] <- list(integer())
-  restore_index_class(build_tsibble(
-    new,
+  new_key[[".rows"]][null_lgl] <- list_of(integer())
+  restore_index_class(build_tsibble(new,
     key_data = new_key, index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate
   ), old)
@@ -59,12 +57,9 @@ restore_index_class <- function(new, old) {
 rename_tsibble <- function(.data, ...) {
   names_dat <- names(.data)
   lst_quos <- enquos(...)
-  if (is_empty(lst_quos)) {
-    return(.data)
-  }
+  if (is_empty(lst_quos)) return(.data)
 
   val_vars <- vars_rename(names_dat, !!!lst_quos)
-
   old_idx <- index_var(.data)
   old_idx2 <- index2_var(.data)
   old_key <- key_vars(.data)
