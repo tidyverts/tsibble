@@ -1,3 +1,5 @@
+globalVariables(c(".rows"))
+
 #' Create a tsibble object
 #'
 #' \lifecycle{stable}
