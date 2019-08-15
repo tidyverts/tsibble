@@ -69,7 +69,8 @@ fill_gaps.data.frame <- function(.data, ...) {
 
 #' @export
 fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
-  if (vec_size(.data) == 0L || vec_size(.data) == 1L) return(.data)
+  nrows <- vec_size(.data)
+  if (nrows == 0L || nrows == 1L) return(.data)
 
   gap_data <- scan_gaps(.data, .full = .full)
   lst_exprs <- enquos(..., .named = TRUE)
@@ -112,9 +113,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   int <- interval(.data)
   idx <- index(.data)
   idx_chr <- as_string(idx)
-  if (unknown_interval(int)) {
-    return(.data[0L, c(key_vars(.data), idx_chr)])
-  }
+  if (unknown_interval(int)) return(.data[0L, c(key_vars(.data), idx_chr)])
 
   key <- key(.data)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))

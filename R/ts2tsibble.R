@@ -56,8 +56,8 @@ bind_time <- function(x, tz = "UTC") {
 pivot_longer_tsibble <- function(x, tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   tibble(
-    "index" := rep(idx, NCOL(x)), 
-    "key" := rep(colnames(x), each = NROW(x)),
+    "index" := vec_repeat(idx, times = NCOL(x)), 
+    "key" := vec_repeat(colnames(x), each = NROW(x)),
     "value" := c(x)
   )
 }

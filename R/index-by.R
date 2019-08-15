@@ -80,7 +80,7 @@ index_by.tbl_ts <- function(.data, ...) {
   if (identical(idx, names(exprs))) {
     abort(sprintf("Column `%s` (index) can't be overwritten.", idx))
   }
-  idx2_data <- ungrp <- ungroup(as_tibble(.data))
+  idx2_data <- ungrp <- new_data_frame(.data)
   if (is_empty(exprs)) {
     idx2 <- index(.data)
   } else {
@@ -95,8 +95,7 @@ index_by.tbl_ts <- function(.data, ...) {
     }
   }
   tbl <- group_by(idx2_data, !!!groups(.data), !!idx2, .drop = FALSE)
-  build_tsibble(
-    tbl,
+  build_tsibble(tbl,
     key_data = key_data(.data), index = !!idx, index2 = !!idx2,
     ordered = is_ordered(.data), interval = interval(.data),
     validate = FALSE

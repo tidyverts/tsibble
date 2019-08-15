@@ -37,7 +37,7 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
     by = key_vars(old)
   )
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
-  new_key[[".rows"]][null_lgl] <- list_of(integer())
+  new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(new,
     key_data = new_key, index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate
