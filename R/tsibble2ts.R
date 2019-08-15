@@ -21,7 +21,7 @@
 #' # equally spaced over trading days, not smart enough to guess frequency
 #' x2 <- as_tsibble(EuStockMarkets)
 #' head(as.ts(x2, frequency = 260))
-as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
+as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
   value <- enquo(value)
   key_vars <- key(x)
   if (length(key_vars) > 1) {
@@ -41,37 +41,41 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA, ...) {
     }
   }
   idx <- index(x)
-  tsbl_sort <- arrange(x, !!!key_vars, !!idx)
-  tsbl_sel <- select_tsibble(tsbl_sort, !!idx, !!!key_vars, !!value_var,
+  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var,
     validate = FALSE)
   if (is_empty(key_vars)) {
-    finalise_ts(tsbl_sel, index = index(x), frequency = frequency)
+    if (!is_ordered(x)) {
+      tsbl_sel <- arrange(tsbl_sel, !!idx)
+    }
+    finalise_ts(tsbl_sel, index = idx, frequency = frequency)
   } else {
     mat_ts <- pivot_wider_ts(tsbl_sel, fill = fill)
     finalise_ts(mat_ts, index = idx, frequency = frequency)
   }
 }
 
-pivot_wider_ts <- function(data, fill = NA) {
+pivot_wider_ts <- function(data, fill = NA_real_) {
   stopifnot(!is_null(fill))
   index <- index_var(data)
   df_rows <- data[[index]]
-  rows <- sort(unique(df_rows))
-  row_idx <- match(df_rows, rows)
+  rows <- vec_sort(vec_unique(df_rows))
+  row_idx <- vec_match(df_rows, rows)
   key_rows <- key_rows(data)
   col_idx <- rep(seq_along(key_rows), times = map_int(key_rows, length))
-  val_idx <- data.frame(row = row_idx, col = col_idx)
+  col_idx <- vec_slice(col_idx, vec_c(!!!key_rows))
+  val_idx <- new_data_frame(list(row = row_idx, col = col_idx))
   values <- data[[measured_vars(data)]]
-  nrow <- length(rows)
-  ncol <- length(key_rows)
-  vec <- vector(length = nrow * ncol)
+  nrow <- vec_size(rows)
+  ncol <- vec_size(key_rows)
+  vec <- vec_init(fill, n = nrow * ncol)
   vec[] <- fill
-  vec[val_idx$row + nrow * (val_idx$col - 1L)] <- values
-  res <- set_names(vector("list", ncol), key_data(data)[[1]])
+  vec_slice(vec, val_idx$row + nrow * (val_idx$col - 1L)) <- values
+  vec_slice(vec, val_idx$row + nrow * (val_idx$col - 1L)) <- values
+  res <- set_names(vec_init(list(), ncol), key_data(data)[[1]])
   for (i in 1:ncol) {
     res[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
   }
-  bind_cols(!!index := rows, !!!res)
+  vec_cbind(!!index := rows, !!!res)
 }
 
 finalise_ts <- function(data, index, frequency = NULL) {

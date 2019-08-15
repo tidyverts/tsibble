@@ -38,7 +38,8 @@ Imports:
     purrr (>= 0.2.3),
     rlang (>= 0.2.0),
     tibble (>= 2.0.1),
-    tidyselect
+    tidyselect,
+    vctrs (>= 0.2.0)
 Suggests: 
     covr,
     crayon,
