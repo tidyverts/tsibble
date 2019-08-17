@@ -1,3 +1,17 @@
+#' @rdname tsibble-tidyverse
+#' @usage NULL
+#' @examples
+#' library(tidyr)
+#' # reshaping examples from tidyr
+#' stocks <- tsibble(
+#'   time = as.Date("2009-01-01") + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
+#' )
+#' (stocksm <- stocks %>% gather(stock, price, -time))
+#' stocksm %>% spread(stock, price)
+
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))
