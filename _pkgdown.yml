@@ -140,8 +140,10 @@ navbar:
       href: articles/window.html
   - text: FAQ
     href: articles/faq.html
+  - text: Press
+    href: articles/press.html
+  right:
   - text: News
     href: news/index.html
-  right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverts/tsibble

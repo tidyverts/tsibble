@@ -17,3 +17,4 @@
 ^tags$
 ^.pre-commit-config.yaml$
 ^\.covrignore$
+vignettes/press.Rmd

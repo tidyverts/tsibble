@@ -1,0 +1,15 @@
+---
+title: "Press and testimonials"
+author: "Earo Wang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Press and testimonials}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+If you're new to tsibble, a good place to start is my `rstudio::conf(2019L)` talk [[slides](https://slides.earo.me/rstudioconf19); [video](https://resources.rstudio.com/rstudio-conf-2019/melt-the-clock-tidy-time-series-analysis)] featuring a full-circle analysis about energy consumption, from creating a tsibble to forecasting evaluation.
+
+If you're interested in design philosophies underlying tsibble, this [preprint](https://pdf.earo.me/tsibble.pdf) describes them in depth, and my [JSM presentation](https://slides.earo.me/jsm19) gives a succinct summary.
+
+If you'd like to learn more about forecasting tsibble, the online textbook [Forecasting: Principles and Practice](https:://otexts.com/fpp3) provides great teaching and learning resources.
