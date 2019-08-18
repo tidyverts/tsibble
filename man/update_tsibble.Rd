@@ -31,9 +31,14 @@ Update key and index for a tsibble
 Unspecified arguments will inherit the attributes from \code{x}.
 }
 \examples{
+# update index
 library(dplyr)
 pedestrian \%>\%
   group_by_key() \%>\%
   mutate(Hour_Since = Date_Time - min(Date_Time)) \%>\%
   update_tsibble(index = Hour_Since)
+
+# update key: drop the variable "State" from the key
+tourism \%>\% 
+  update_tsibble(key = c(Purpose, Region))
 }

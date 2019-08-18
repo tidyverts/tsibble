@@ -7,7 +7,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to represent tidy
-time series data. A tsibble consists of a time index, key, and other measured
+temporal data. A tsibble consists of a time index, key, and other measured
 variables in a data-centric format, which is built on top of the tibble.
 }
 \section{Index}{

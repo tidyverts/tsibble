@@ -159,11 +159,16 @@ as_tsibble.NULL <- function(x, ...) {
 #' Unspecified arguments will inherit the attributes from `x`.
 #' @export
 #' @examples
+#' # update index
 #' library(dplyr)
 #' pedestrian %>%
 #'   group_by_key() %>%
 #'   mutate(Hour_Since = Date_Time - min(Date_Time)) %>%
 #'   update_tsibble(index = Hour_Since)
+#'
+#' # update key: drop the variable "State" from the key
+#' tourism %>% 
+#'   update_tsibble(key = c(Purpose, Region))
 update_tsibble <- function(x, key, index, regular = is_regular(x),
                            validate = TRUE, .drop = key_drop_default(x)) {
   not_tsibble(x)
