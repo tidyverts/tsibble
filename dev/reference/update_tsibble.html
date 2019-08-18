@@ -197,7 +197,8 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='co'># update index</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
@@ -216,7 +217,24 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 #&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56 25200 secs
 #&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113 28800 secs
 #&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166 32400 secs
-#&gt; # … with 66,027 more rows</div></pre>
+#&gt; # … with 66,027 more rows</div><div class='input'>
+<span class='co'># update key: drop the variable "State" from the key</span>
+<span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; # A tsibble: 24,320 x 5 [1Q]
+#&gt; # Key:       Purpose, Region [304]
+#&gt;    Quarter Region   State           Purpose  Trips
+#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 1998 Q1 Adelaide South Australia Business  135.
+#&gt;  2 1998 Q2 Adelaide South Australia Business  110.
+#&gt;  3 1998 Q3 Adelaide South Australia Business  166.
+#&gt;  4 1998 Q4 Adelaide South Australia Business  127.
+#&gt;  5 1999 Q1 Adelaide South Australia Business  137.
+#&gt;  6 1999 Q2 Adelaide South Australia Business  200.
+#&gt;  7 1999 Q3 Adelaide South Australia Business  169.
+#&gt;  8 1999 Q4 Adelaide South Australia Business  134.
+#&gt;  9 2000 Q1 Adelaide South Australia Business  154.
+#&gt; 10 2000 Q2 Adelaide South Australia Business  169.
+#&gt; # … with 24,310 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
