@@ -144,9 +144,9 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #'
 #' @details If a series of observations are collected more frequently than
 #' weekly, it is more likely to have multiple seasonalities. This function
-#' returns a frequency value at its nearest ceiling time resolution. For example,
-#' hourly data would have daily, weekly and annual frequencies of 24, 168 and 8766
-#' respectively, and hence it gives 24.
+#' returns a frequency value at its smallest. For example, hourly data would
+#' have daily, weekly and annual frequencies of 24, 168 and 8766 respectively,
+#' and hence it gives 24.
 #'
 #' @references <https://robjhyndman.com/hyndsight/seasonal-periods/>
 #'
