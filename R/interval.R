@@ -207,7 +207,8 @@ irregular <- function() {
 }
 
 unknown_interval <- function(x) {
-  if (is_empty(x)) FALSE else sum(x != 0) == 0
+  for (y in x) if (y) return(FALSE)
+  !is_empty(x)
 }
 
 #' @export
