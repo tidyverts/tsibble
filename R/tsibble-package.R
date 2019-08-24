@@ -19,11 +19,8 @@
 #' using `Date`, a month containing days ranges from 28 to 31 days, which results
 #' in irregular time space. This is also applicable to year-week and year-quarter.
 #'
-#' Since the **tibble** that underlies the **tsibble** only accepts a 1d atomic
-#' vector or a list, the tsibble doesn't accept types of `POSIXlt` and `timeDate`.
-#'
 #' Tsibble supports arbitrary index classes, as long as they can be ordered from
-#' past to future. To support a custom class, one needs to define [index_valid()]
+#' past to future. To support a custom class, you need to define [index_valid()]
 #' for the class and calculate the interval through [interval_pull()].
 #'
 #' @section Key:

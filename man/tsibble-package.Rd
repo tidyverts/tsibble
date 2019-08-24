@@ -25,11 +25,8 @@ months in a year ensures the regularity, 12 months every year. However, if
 using \code{Date}, a month containing days ranges from 28 to 31 days, which results
 in irregular time space. This is also applicable to year-week and year-quarter.
 
-Since the \strong{tibble} that underlies the \strong{tsibble} only accepts a 1d atomic
-vector or a list, the tsibble doesn't accept types of \code{POSIXlt} and \code{timeDate}.
-
 Tsibble supports arbitrary index classes, as long as they can be ordered from
-past to future. To support a custom class, one needs to define \code{\link[=index_valid]{index_valid()}}
+past to future. To support a custom class, you need to define \code{\link[=index_valid]{index_valid()}}
 for the class and calculate the interval through \code{\link[=interval_pull]{interval_pull()}}.
 }
 
