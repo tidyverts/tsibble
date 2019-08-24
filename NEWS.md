@@ -5,6 +5,7 @@ This is a maintenance release due to the changes in the upstream package.
 * Removed strong dependency of tidyr to `Suggests`.
 * Soft deprecated `is.tsibble()`.
 * Improved the speed performance for `new_data()`/`append_row()`.
+* `has_gaps()` & `count_gaps()` gain a new argument `.name` for naming new columns.
 
 # tsibble 0.8.3
 

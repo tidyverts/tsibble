@@ -151,7 +151,7 @@ test_that("fill.tbl_ts(.full = FALSE)", {
   )
 })
 
-test_that("count_gaps.tbl_ts(.full = TRUE)", {
+test_that("count_gaps(.full = TRUE)", {
   full_tbl <- tsbl %>% count_gaps(.full = TRUE)
   expect_equal(
     full_tbl,
@@ -164,19 +164,7 @@ test_that("count_gaps.tbl_ts(.full = TRUE)", {
   )
 })
 
-# harvest <- tsibble(
-#   year = c(2010, 2011, 2012, 2011, 2012, 2014),
-#   fruit = rep(c("kiwi", "cherry"), each = 3),
-#   kilo = sample(1:10, size = 6),
-#   key = id(fruit), index = year
-# )
-#
-# test_that("count_gaps.tbl_ts(.full = TRUE, .common = TRUE)", {
-#   expect_equal(NROW(count_gaps(harvest, .common = TRUE)), 0)
-#   expect_equal(NROW(count_gaps(harvest, .common = TRUE, .full = TRUE)), 2)
-# })
-
-test_that("count_gaps.tbl_ts(.full = FALSE)", {
+test_that("count_gaps(.full = FALSE)", {
   full_tbl <- tsbl %>% count_gaps()
   b <- tibble(
     group = "b",
@@ -185,6 +173,12 @@ test_that("count_gaps.tbl_ts(.full = FALSE)", {
     .n = 1L
   )
   expect_equal(full_tbl, b)
+  expect_error(count_gaps(tsbl, .name = NULL), "not TRUE")
+  expect_error(count_gaps(tsbl, .name = 1:4), "not TRUE")
+  expect_named(
+    count_gaps(tsbl, .name = c("from", "to", "n")),
+    c("group", "from", "to", "n")
+  )
 })
 
 harvest <- tsibble(
@@ -195,6 +189,8 @@ harvest <- tsibble(
 )
 
 test_that("has_gaps()", {
+  expect_error(has_gaps(harvest, .name = NULL), "not TRUE")
+  expect_named(has_gaps(harvest, .name = "gap"), c("fruit", "gap"))
   expect_equal(has_gaps(harvest)$.gaps, c(FALSE, TRUE))
   expect_equal(has_gaps(harvest, .full = TRUE)$.gaps, c(TRUE, TRUE))
 })

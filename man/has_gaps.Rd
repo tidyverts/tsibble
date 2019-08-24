@@ -4,7 +4,7 @@
 \alias{has_gaps}
 \title{Does a tsibble have implicit gaps in time?}
 \usage{
-has_gaps(.data, .full = FALSE, ...)
+has_gaps(.data, .full = FALSE, .name = ".gaps")
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
@@ -12,7 +12,7 @@ has_gaps(.data, .full = FALSE, ...)
 \item{.full}{\code{FALSE} to find gaps for each series within its own period.
 \code{TRUE} to find gaps over the entire time span of the data.}
 
-\item{...}{Other arguments passed on to individual methods.}
+\item{.name}{Strings to name new columns.}
 }
 \value{
 A tibble contains "key" variables and new column \code{.gaps} of \code{TRUE}/\code{FALSE}.

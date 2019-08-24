@@ -4,15 +4,13 @@
 \alias{scan_gaps}
 \title{Scan a tsibble for implicit missing observations}
 \usage{
-scan_gaps(.data, .full = FALSE, ...)
+scan_gaps(.data, .full = FALSE)
 }
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
 \item{.full}{\code{FALSE} to find gaps for each series within its own period.
 \code{TRUE} to find gaps over the entire time span of the data.}
-
-\item{...}{Other arguments passed on to individual methods.}
 }
 \description{
 Scan a tsibble for implicit missing observations

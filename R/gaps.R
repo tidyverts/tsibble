@@ -76,7 +76,6 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   lst_exprs <- enquos(..., .named = TRUE)
   if (vec_size(gap_data) == 0 && !is_empty(lst_exprs)) return(.data)
 
-  cn <- names(.data)
   if (!is_empty(lst_exprs)) { # any replacement
     # error handling
     vars_select(measured_vars(.data), !!!names(lst_exprs))
@@ -90,9 +89,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
   }
   grps <- groups(.data)
   full_data <- group_by(bind_rows(as_tibble(gap_data), .data), !!!grps)
-  if (!identical(cn, names(full_data))) {
-    full_data <- select(full_data, !!!syms(cn)) # keep the original order
-  }
+  full_data <- full_data[names(.data)] # keep the original order
   update_meta(full_data, .data, ordered = NULL, interval = interval(.data))
 }
 
@@ -103,12 +100,12 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' @export
 #' @examples
 #' scan_gaps(pedestrian)
-scan_gaps <- function(.data, .full = FALSE, ...) {
+scan_gaps <- function(.data, .full = FALSE) {
   UseMethod("scan_gaps")
 }
 
 #' @export
-scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
+scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
@@ -140,7 +137,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' @param .data A `tbl_ts`.
 #' @param .full `FALSE` to find gaps for each series within its own period.
 #' `TRUE` to find gaps over the entire time span of the data.
-#' @param ... Other arguments passed on to individual methods.
+#' @param .name Strings to name new columns.
 #'
 #' @family implicit gaps handling
 #' @export
@@ -164,31 +161,27 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #'   geom_point(aes(y = .to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
-count_gaps <- function(.data, .full = FALSE, ...) {
-  UseMethod("count_gaps")
-}
-
-#' @export
-count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
+count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
   not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
 
-  gap_data <- scan_gaps(.data, .full = .full, ...)
+  gap_data <- scan_gaps(.data, .full = .full)
   if (unknown_interval(int) || vec_size(gap_data) == 0L) {
     data_key <- .data[0L, key_vars(.data)]
-    data_key[[".to"]] <- data_key[[".from"]] <- .data[[as_string(idx)]][0L]
-    data_key[[".n"]] <- integer()
-    return(data_key)
+    idx_vals <- .data[[as_string(idx)]][0L]
+    out <- vec_cbind(data_key, tbl_gaps(idx_vals, idx_vals, .name = .name))
+    return(out)
   }
 
   idx_full <- seq_generator(.data[[as_string(idx)]], int)
   grped_tbl <- new_grouped_df(gap_data, groups = key_data(gap_data))
-  lst_out <- summarise(grped_tbl, !!".gaps" := list2(tbl_gaps(!!idx, idx_full)))
+  lst_out <- summarise(grped_tbl,
+    !!".gaps" := list2(tbl_gaps(!!idx, idx_full, .name = .name)))
 
-  idx_type <- class(lst_out[[".gaps"]][[1]][[".from"]])
+  idx_type <- class(lst_out[[".gaps"]][[1]][[.name[1]]])
   out <- unwrap(lst_out, .gaps)
-  class(out[[".from"]]) <- class(out[[".to"]]) <- idx_type
+  class(out[[.name[1]]]) <- class(out[[.name[2]]]) <- idx_type
   tibble(!!!out)
 }
 
@@ -207,13 +200,9 @@ count_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
 #' )
 #' has_gaps(harvest)
 #' has_gaps(harvest, .full = TRUE)
-has_gaps <- function(.data, .full = FALSE, ...) {
-  UseMethod("has_gaps")
-}
-
-#' @export
-has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
-  if (vec_size(.data) == 0L) return(tibble(!!".gaps" := FALSE))
+has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
+  stopifnot(has_length(.name, 1))
+  if (vec_size(.data) == 0L) return(tibble(!!.name := FALSE))
 
   not_regular(.data)
   int <- interval(.data)
@@ -222,18 +211,19 @@ has_gaps.tbl_ts <- function(.data, .full = FALSE, ...) {
   if (.full) {
     idx_full <- seq_generator(.data[[as_string(idx)]], int)
     res <- summarise(grped_tbl,
-      !!".gaps" := (length(idx_full) - length(!!idx)) > 0)
+      !!.name := (length(idx_full) - length(!!idx)) > 0)
   } else {
     res <- summarise(grped_tbl,
-      !!".gaps" := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
+      !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
     )
   }
   tibble(!!!res)
 }
 
-tbl_gaps <- function(x, y) {
-  len_x <- length(x)
-  len_y <- length(y)
+tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
+  stopifnot(has_length(.name, 3))
+  len_x <- vec_size(x)
+  len_y <- vec_size(y)
   if (len_y < len_x) {
     msg <- sprintf(
       "`length(x)` (%d) must not be greater than `length(y)` (%d).",
@@ -242,22 +232,18 @@ tbl_gaps <- function(x, y) {
     abort(msg)
   }
   gap_vec <- logical(length = len_y)
-  gap_vec[match(x, y)] <- TRUE
+  gap_vec[vec_match(x, y)] <- TRUE
   gap_rle <- rle(gap_vec)
   lgl_rle <- as.logical(gap_rle$values)
   gap_idx <- gap_rle$lengths
-  if (has_length(gap_idx, 1)) {
-    tibble(.from = y[0], .to = y[0], .n = integer())
-  } else {
-    to <- cumsum(gap_idx)
-    from <- c(1, to[-length(to)] + 1)
-    nobs <- gap_idx[lgl_rle]
-    tibble(
-      .from = y[from][lgl_rle],
-      .to = y[to][lgl_rle],
-      .n = nobs
-    )
-  }
+  to <- cumsum(gap_idx)
+  from <- vec_c(1, to[-vec_size(to)] + 1)
+  nobs <- gap_idx[lgl_rle]
+  tibble(
+    !!.name[1] := y[from][lgl_rle],
+    !!.name[2] := y[to][lgl_rle],
+    !!.name[3] := nobs
+  )
 }
 
 seq_generator <- function(x, interval = NULL) {
