@@ -207,10 +207,8 @@ by <a href='period.html'>yearmonth</a> or <code><a href='https://www.rdocumentat
 months in a year ensures the regularity, 12 months every year. However, if
 using <code>Date</code>, a month containing days ranges from 28 to 31 days, which results
 in irregular time space. This is also applicable to year-week and year-quarter.</p>
-<p>Since the <strong>tibble</strong> that underlies the <strong>tsibble</strong> only accepts a 1d atomic
-vector or a list, the tsibble doesn't accept types of <code>POSIXlt</code> and <code>timeDate</code>.</p>
 <p>Tsibble supports arbitrary index classes, as long as they can be ordered from
-past to future. To support a custom class, one needs to define <code><a href='index_valid.html'>index_valid()</a></code>
+past to future. To support a custom class, you need to define <code><a href='index_valid.html'>index_valid()</a></code>
 for the class and calculate the interval through <code><a href='interval-pull.html'>interval_pull()</a></code>.</p>
     
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
