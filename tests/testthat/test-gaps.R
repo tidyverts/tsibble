@@ -204,7 +204,7 @@ test_that("seq_generator()", {
   expect_length(seq_generator(x), 10)
   y <- structure(c("x", "y"), class = "xxx")
   interval_pull.xxx <- function(x) {
-    init_interval(unit = 1)
+    new_interval(unit = 1)
   }
   expect_error(seq_generator(y, interval_pull(y)), "defined")
 })
