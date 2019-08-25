@@ -51,7 +51,7 @@
 #' * `Date`: "day" (`D`)
 #' * `difftime`: "quarter" (`Q`), "month" (`M`), "week" (`W`), "day" (D),
 #' "hour" (`h`), "minute" (`m`), "second" (`s`)
-#' * `POSIXct`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
+#' * `POSIXt`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 #' * `nanotime`: "nanosecond" (`ns`)
 #' * other numerics &`ordered` (ordered factor): "unit"
 #'

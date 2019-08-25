@@ -4,9 +4,10 @@ This is a maintenance release due to the changes in the upstream package.
 
 * Removed strong dependency of tidyr to `Suggests`.
 * Soft deprecated `is.tsibble()`.
-* `has_gaps()` & `count_gaps()` gain a new argument `.name` for naming new columns.
+* `has_gaps()` & `count_gaps()` gained a new argument `.name` for naming new columns.
 * Improved the speed performance for `new_data()`/`append_row()`.
-* Improved the speed performance for `as.ts.tbl_ts` for converting tsibble to `ts`.
+* Improved the speed performance for `as.ts.tbl_ts()` for converting tsibble to `ts`.
+* Added the support for `POSIXlt` as index.
 
 # tsibble 0.8.3
 

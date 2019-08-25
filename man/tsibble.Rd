@@ -85,7 +85,7 @@ An interval is obtained based on the corresponding index representation:
 \item \code{Date}: "day" (\code{D})
 \item \code{difftime}: "quarter" (\code{Q}), "month" (\code{M}), "week" (\code{W}), "day" (D),
 "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})
-\item \code{POSIXct}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
+\item \code{POSIXt}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
 \item \code{nanotime}: "nanosecond" (\code{ns})
 \item other numerics &\code{ordered} (ordered factor): "unit"
 }

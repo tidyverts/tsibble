@@ -19,36 +19,36 @@ index_valid <- function(x) {
 }
 
 #' @export
-index_valid.POSIXct <- function(x) {
+index_valid.POSIXt <- function(x) {
   TRUE
 }
 
 #' @export
-index_valid.difftime <- index_valid.POSIXct
+index_valid.difftime <- index_valid.POSIXt
 
 #' @export
-index_valid.Date <- index_valid.POSIXct
+index_valid.Date <- index_valid.POSIXt
 
 #' @export
-index_valid.yearweek <- index_valid.POSIXct
+index_valid.yearweek <- index_valid.POSIXt
 
 #' @export
-index_valid.yearmonth <- index_valid.POSIXct
+index_valid.yearmonth <- index_valid.POSIXt
 
 #' @export
 index_valid.yearmon <- index_valid.yearmonth
 
 #' @export
-index_valid.yearquarter <- index_valid.POSIXct
+index_valid.yearquarter <- index_valid.POSIXt
 
 #' @export
 index_valid.yearqtr <- index_valid.yearquarter
 
 #' @export
-index_valid.nanotime <- index_valid.POSIXct
+index_valid.nanotime <- index_valid.POSIXt
 
 #' @export
-index_valid.ordered <- index_valid.POSIXct
+index_valid.ordered <- index_valid.POSIXt
 
 #' @export
 index_valid.numeric <- function(x) {
