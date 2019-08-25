@@ -225,11 +225,10 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
   len_x <- vec_size(x)
   len_y <- vec_size(y)
   if (len_y < len_x) {
-    msg <- sprintf(
+    abort(sprintf(
       "`length(x)` (%d) must not be greater than `length(y)` (%d).",
       len_x, len_y
-    )
-    abort(msg)
+    ))
   }
   gap_vec <- logical(length = len_y)
   gap_vec[vec_match(x, y)] <- TRUE
