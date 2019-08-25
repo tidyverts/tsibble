@@ -115,10 +115,14 @@ unnest_check_tsibble <- function(data, key, index) {
 #' @keywords internal
 #' @export
 unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
-  if (missing(cols)) {
+  if (!is_installed("tidyr") && utils::packageVersion("tidyr") >= "0.9.0") {
+    abort("Package 'tidyr' (>= v1.0.0) required for `unnest_tsibble()`.")
+  }
+  cols <- enquo(cols)
+  if (quo_is_missing(cols)) {
     abort("Argument `cols` for columns to unnest is required.")
   }
-  unnested_data <- tidyr::unnest(as_tibble(data), cols = !!enquo(cols))
+  unnested_data <- tidyr::unnest(as_tibble(data), cols = !!cols)
 
   if (is_tsibble(data)) {
     idx <- index(data)

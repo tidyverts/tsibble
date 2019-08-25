@@ -125,11 +125,11 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   }
   ref_data <- unwrap(sum_data, !!idx)
   if (vec_size(ref_data) == vec_size(.data)) {
-    return(.data[0L, c(key_vars(.data), idx_chr)])
+    .data[0L, c(key_vars(.data), idx_chr)]
+  } else {
+    gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
+    update_meta(gap_data, .data, ordered = NULL, interval = interval(.data))
   }
-
-  gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
-  update_meta(gap_data, .data, ordered = NULL, interval = interval(.data))
 }
 
 #' Count implicit gaps

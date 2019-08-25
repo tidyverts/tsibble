@@ -198,9 +198,8 @@ group_by.tbl_ts <- function(.data, ..., add = FALSE,
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (add) grp_vars <- union(group_vars(.data), grp_vars)
-  if (is_empty(grp_vars)) {
-    return(.data)
-  }
+  if (is_empty(grp_vars)) return(.data)
+
   index <- index_var(.data)
   if (index %in% grp_vars) {
     err <- sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index)
