@@ -7,6 +7,10 @@
 #' * `fill_na()` \lifecycle{defunct}
 #'
 #' @param x Other objects.
+#' @param .data A tsibble.
+#' @param ... Variables passed to tsibble()/as_tsibble().
+#'
+#' @rdname deprecated
 #' @export
 #' @keywords internal
 as.tsibble <- function(x, ...) {
@@ -29,10 +33,6 @@ fill_na <- function(.data, ..., .full = FALSE) {
   lifecycle::deprecate_stop("0.8.1", "fill_na()", "fill_gaps()")
 }
 
-#' Identifiers used for creating key
-#'
-#' @param ... Variables passed to tsibble()/as_tsibble().
-#'
 #' @rdname deprecated
 #' @keywords internal
 #' @export
