@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identifiers used for creating key — is.tsibble • tsibble</title>
+<title>Deprecated functions — as.tsibble • tsibble</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,9 +36,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Identifiers used for creating key — is.tsibble" />
+<meta property="og:title" content="Deprecated functions — as.tsibble" />
 
-<meta property="og:description" content="Identifiers used for creating key" />
+<meta property="og:description" content="
+is.tsibble() 
+as.tsibble() 
+id() 
+fill_na() 
+" />
 
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -144,18 +149,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Identifiers used for creating key</h1>
+    <h1>Deprecated functions</h1>
     
     <div class="hidden name"><code>deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Identifiers used for creating key</p>
+    <ul>
+<li><p><code>is.tsibble()</code> <img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p></li>
+<li><p><code>as.tsibble()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>id()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>fill_na()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is.tsibble</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>is.tsibble</span>(<span class='no'>x</span>)
 
 <span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -165,8 +177,16 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>x</th>
+      <td><p>Other objects.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Variables passed to tsibble()/as_tsibble().</p></td>
+    </tr>
+    <tr>
+      <th>.data</th>
+      <td><p>A tsibble.</p></td>
     </tr>
     </table>
     
