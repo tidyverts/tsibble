@@ -241,14 +241,16 @@ translate_interval <- function(x) {
   )
 }
 
-#' Extract time unit from a vector
+#' Time units from tsibble's "interval" class used for `seq(by = )`
+#'
+#' \lifecycle{experimental}
 #'
 #' @param x An interval.
 #' @export
 #' @keywords internal
-time_unit <- function(x) {
+default_time_units <- function(x) {
   if (is_false(inherits(x, "interval"))) {
-    abort("Must be class interval.")
+    abort("`x` must be class 'interval'.")
   }
   x[["microsecond"]] <- x[["microsecond"]] * 1e-6
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3

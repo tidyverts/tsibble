@@ -3,6 +3,7 @@
 #' @description
 #' * `is.tsibble()` \lifecycle{soft-deprecated}
 #' * `as.tsibble()` \lifecycle{deprecated}
+#' * `time_unit()` \lifecycle{deprecated}
 #' * `id()` \lifecycle{deprecated}
 #' * `fill_na()` \lifecycle{defunct}
 #'
@@ -31,6 +32,14 @@ is.tsibble <- function(x) {
 #' @keywords internal
 fill_na <- function(.data, ..., .full = FALSE) {
   lifecycle::deprecate_stop("0.8.1", "fill_na()", "fill_gaps()")
+}
+
+#' @rdname deprecated
+#' @export
+#' @keywords internal
+time_unit <- function(x) {
+  lifecycle::deprecate_warn("0.9.0", "time_unit()", "default_time_units()")
+  default_time_units(x)
 }
 
 #' @rdname deprecated
