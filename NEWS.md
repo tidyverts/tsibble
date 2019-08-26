@@ -1,3 +1,8 @@
+# tsibble 0.8.9.9000
+
+* The "interval" class has been formally defined as a record type under the **vctrs** framework. `new_interval()` uses new interface to create the interval and support custom interval.
+* Deprecated `time_unit()` in favour of `default_time_units()`.
+
 # tsibble 0.8.4
 
 This is a maintenance release due to the changes in the upstream package.
