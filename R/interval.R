@@ -257,45 +257,6 @@ time_unit <- function(x) {
   sum(vec_c(!!!x))
 }
 
-# from ts time to dates
-time_to_date <- function(x, ...) {
-  UseMethod("time_to_date")
-}
-
-time_to_date.ts <- function(x, tz = "UTC", ...) {
-  freq <- frequency(x)
-  time_x <- round(as.numeric(time(x)), digits = 6) # floating
-  if (freq == 52) {
-    warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
-  }
-  if (freq == 7) { # daily
-    start_year <- trunc(time_x[1])
-    as.Date(round_date(
-      date_decimal(start_year + (time_x - start_year) * 7 / 365),
-      unit = "day"
-    ))
-  } else if (round(freq, 2) == 52.18) { # weekly
-    yearweek(date_decimal(time_x))
-  } else if (freq > 4 && freq <= 12) { # monthly
-    yearmonth(time_x)
-  } else if (freq > 1 && freq <= 4) { # quarterly
-    yearquarter(time_x)
-  } else if (freq == 1) { # yearly
-    time_x
-  } else {
-    if (end(x)[1] > 1581) {
-      date_x <- date_decimal(time_x, tz = tz)
-      round_date(date_x, unit = "seconds")
-    } else {
-      time_x
-    }
-  }
-}
-
-time_to_date.gts <- function(x, tz = "UTC", ...) {
-  time_to_date(x$bts, tz = tz, ...)
-}
-
 # regular time interval is obtained from the greatest common divisor of positive
 # time distances.
 gcd_interval <- function(x) {
