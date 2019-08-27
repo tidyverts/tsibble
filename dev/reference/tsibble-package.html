@@ -201,8 +201,8 @@ Key can be created in conjunction with tidy selectors like <code>starts_with()</
 "year". An unrecognisable time interval is labelled as "unit".</p></li>
 <li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
 marked with <code>!</code>.</p></li>
-<li><p>Unknown: if there is only one entry for each key variable, the interval
-cannot be determined (<code>?</code>).</p></li>
+<li><p>Unknown: Not determined (<code>?</code>), if there is only one entry for each key variable,
+or mismatched index formats (from the warning).</p></li>
 </ul>
     <p>An interval is obtained based on the corresponding index representation:</p><ul>
 <li><p>integerish numerics between 1582 and 2499: "year" (<code>Y</code>). Note the year of
