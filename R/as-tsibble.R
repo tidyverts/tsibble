@@ -261,22 +261,8 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   if (!is_key_data) {
     key_data <- group_data(group_by(tbl, !!!key_vars, .drop = .drop))
   }
-  if (is_false(ordered)) { # false returns a warning
-    indices <- tbl[[index]]
-    validate_order_lst <- function(x, .rows) {
-      validate_order(x[.rows[[1]]])
-    }
-    actually_ordered <- summarise(key_data, 
-      ".rows" := any(validate_order_lst(indices, .rows)))[[".rows"]]
-    if (is_false(actually_ordered)) {
-      idx_txt <- backticks(index)
-      key_txt <- lapply(key_vars, expr_label)
-      warn(sprintf(paste_inline(
-        "Unspecified temporal ordering may yield unexpected results.",
-        "Suggest to sort by %s first."
-      ), comma(c(key_txt, idx_txt), sep = "")))
-    }
-    ordered <- actually_ordered
+  if (is_false(ordered)) { # if false, double check
+    ordered <- validate_index_order(tbl, key_vars, key_data, index)
   }
   # validate tbl_ts
   if (validate) {
@@ -402,6 +388,24 @@ validate_order <- function(x) {
   } else {
     is_ascending(x, na.rm = TRUE, strictly = TRUE)
   }
+}
+
+validate_index_order <- function(data, key, key_data, index) {
+  indices <- data[[index]]
+  validate_order_lst <- function(x, .rows) {
+    validate_order(x[.rows[[1]]])
+  }
+  ordered <- summarise(key_data,
+    ".rows" := any(validate_order_lst(indices, .rows)))[[".rows"]]
+  if (is_false(ordered)) {
+    idx_txt <- backticks(index)
+    key_txt <- lapply(key, expr_label)
+    warn(sprintf(paste_inline(
+      "Unspecified temporal ordering may yield unexpected results.",
+      "Suggest to sort by %s first."
+    ), comma(c(key_txt, idx_txt), sep = "")))
+  }
+  ordered
 }
 
 # check if a comb of key vars result in a unique data entry
