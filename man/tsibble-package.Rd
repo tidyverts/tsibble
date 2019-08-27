@@ -52,8 +52,8 @@ The \link{interval} function returns the interval associated with the tsibble.
 "year". An unrecognisable time interval is labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
 marked with \code{!}.
-\item Unknown: if there is only one entry for each key variable, the interval
-cannot be determined (\code{?}).
+\item Unknown: Not determined (\code{?}), if there is only one entry for each key variable,
+or mismatched index formats (from the warning).
 }
 
 An interval is obtained based on the corresponding index representation:

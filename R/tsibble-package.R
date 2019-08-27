@@ -39,8 +39,8 @@
 #' "year". An unrecognisable time interval is labelled as "unit".
 #' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
 #' marked with `!`.
-#' * Unknown: if there is only one entry for each key variable, the interval
-#' cannot be determined (`?`).
+#' * Unknown: Not determined (`?`), if there is only one entry for each key variable,
+#' or mismatched index formats (from the warning).
 #'
 #' An interval is obtained based on the corresponding index representation:
 #' * integerish numerics between 1582 and 2499: "year" (`Y`). Note the year of
