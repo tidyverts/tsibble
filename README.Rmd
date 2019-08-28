@@ -60,7 +60,16 @@ weather_tsbl
 
 The **key** can be comprised of empty, one, or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html) for details.
 
-Given time indices, the interval is obtained based on their time representation, ranging from year to nanosecond, from numerics to ordered factors. The `POSIXct` corresponds to sub-daily series, `Date` to daily, `yearweek` to weekly, `yearmonth` to monthly, `yearquarter` to quarterly, and etc.
+Time interval is obtained based on index representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.
+
+| **Interval** | **Class**                 |
+|--------------|---------------------------|
+| Annual       | `integer`/`double`        |
+| Quarterly    | `yearquarter`             |
+| Monthly      | `yearmonth`               |
+| Weekly       | `yearweek`                |
+| Daily        | `Date`/`difftime`         |
+| Subdaily     | `POSIXt`/`difftime`/`hms` |
 
 ### `fill_gaps()` to turn implicit missing values into explicit missing values
 
