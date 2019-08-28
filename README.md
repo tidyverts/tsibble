@@ -14,7 +14,7 @@ Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 The **tsibble** package provides a data infrastructure for tidy temporal
-data with wrangling tools. Adhering to the [tidy data
+data with wrangling tools. Adapting the [tidy data
 principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
 *tsibble* is an explicit data- and model-oriented object. In *tsibble*:
 
@@ -74,7 +74,7 @@ The **key** can be comprised of empty, one, or more variables. See
 [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html)
 for details.
 
-Time interval is obtained based on index representation, ranging from
+The interval is obtained based on index representation, ranging from
 year to nanosecond, from numerics to ordered factors. The table below
 shows how tsibble interprets the common time formats.
 
