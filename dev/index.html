@@ -156,7 +156,45 @@
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; # … with 2.611e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> can be comprised of empty, one, or more variables. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://tsibble.tidyverts.org/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
-<p>Given time indices, the interval is obtained based on their time representation, ranging from year to nanosecond, from numerics to ordered factors. The <code>POSIXct</code> corresponds to sub-daily series, <code>Date</code> to daily, <code>yearweek</code> to weekly, <code>yearmonth</code> to monthly, <code>yearquarter</code> to quarterly, and etc.</p>
+<p>Time interval is obtained based on index representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.</p>
+<table class="table table">
+<thead><tr class="header">
+<th><strong>Interval</strong></th>
+<th><strong>Class</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Annual</td>
+<td>
+<code>integer</code>/<code>double</code>
+</td>
+</tr>
+<tr class="even">
+<td>Quarterly</td>
+<td><code>yearquarter</code></td>
+</tr>
+<tr class="odd">
+<td>Monthly</td>
+<td><code>yearmonth</code></td>
+</tr>
+<tr class="even">
+<td>Weekly</td>
+<td><code>yearweek</code></td>
+</tr>
+<tr class="odd">
+<td>Daily</td>
+<td>
+<code>Date</code>/<code>difftime</code>
+</td>
+</tr>
+<tr class="even">
+<td>Subdaily</td>
+<td>
+<code>POSIXt</code>/<code>difftime</code>/<code>hms</code>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
