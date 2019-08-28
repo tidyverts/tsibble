@@ -115,7 +115,7 @@
 <a href="#tsibble" class="anchor"></a>tsibble <img src="reference/figures/logo.png" align="right">
 </h1></div>
 
-<p>The <strong>tsibble</strong> package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">tidy data principles</a>, <em>tsibble</em> is an explicit data- and model-oriented object. In <em>tsibble</em>:</p>
+<p>The <strong>tsibble</strong> package provides a data infrastructure for tidy temporal data with wrangling tools. Adapting the <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">tidy data principles</a>, <em>tsibble</em> is an explicit data- and model-oriented object. In <em>tsibble</em>:</p>
 <ol style="list-style-type: decimal">
 <li>Index is a variable with inherent ordering from past to present.</li>
 <li>Key is a set of variables that define observational units over time.</li>
@@ -156,7 +156,7 @@
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; # … with 2.611e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> can be comprised of empty, one, or more variables. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://tsibble.tidyverts.org/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
-<p>Time interval is obtained based on index representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.</p>
+<p>The interval is obtained based on index representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.</p>
 <table class="table table">
 <thead><tr class="header">
 <th><strong>Interval</strong></th>
