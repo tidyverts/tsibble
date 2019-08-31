@@ -152,7 +152,8 @@ interval_pull.ordered <- function(x) {
 #'
 #' @description
 #' \lifecycle{stable}
-#' `new_interval()` creates an interval object.
+#' * `new_interval()` creates an interval object.
+#' * `is_regular_interval()` checks if the interval is regular.
 #'
 #' @param ... A set of name-value pairs to specify default interval units: "year",
 #' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
@@ -163,10 +164,11 @@ interval_pull.ordered <- function(x) {
 #' to allow custom interval.
 #'
 #' @return an "interval" class
+#' @rdname new-interval
 #' @export
 #' @examples
-#' new_interval(hour = 1, minute = 30)
-#' new_interval(.regular = FALSE) # irregular interval
+#' (x <- new_interval(hour = 1, minute = 30))
+#' (y <- new_interval(.regular = FALSE)) # irregular interval
 #' new_interval() # unknown interval
 #' new_interval(.others = list(semester = 1)) # custom interval
 new_interval <- function(..., .regular = TRUE, .others = list()) {
@@ -189,6 +191,17 @@ new_interval <- function(..., .regular = TRUE, .others = list()) {
   new_rcrd(fields = out, .regular = .regular, class = "interval")
 }
 
+#' @param x An interval.
+#' @rdname new-interval
+#' @export
+#' @examples
+#' is_regular_interval(x)
+#' is_regular_interval(y)
+is_regular_interval <- function(x) {
+  abort_not_interval(x)
+  x %@% ".regular"
+}
+
 default_interval <- function(year = 0, quarter = 0, month = 0, week = 0,
                              day = 0, hour = 0, minute = 0, second = 0,
                              millisecond = 0, microsecond = 0, nanosecond = 0,
@@ -206,7 +219,7 @@ irregular <- function() {
 }
 
 unknown_interval <- function(x) {
-  (x %@% ".regular") && sum(vec_c(!!!unclass(x))) == 0
+  is_regular_interval(x) && sum(vec_c(!!!unclass(x))) == 0
 }
 
 #' @export
@@ -219,7 +232,7 @@ unknown_interval <- function(x) {
 
 #' @export
 format.interval <- function(x, ...) {
-  if (is_false(x %@% ".regular")) return("!")
+  if (!is_regular_interval(x)) return("!")
   if (unknown_interval(x)) return("?")
 
   n <- n_fields(x)
@@ -240,15 +253,19 @@ format.interval <- function(x, ...) {
 #' @export
 #' @keywords internal
 default_time_units <- function(x) {
-  if (is_false(inherits(x, "interval"))) {
-    abort("`x` must be class 'interval'.")
-  }
+  abort_not_interval(x)
   x <- unclass(x)
   x[["microsecond"]] <- x[["microsecond"]] * 1e-6
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
   x[["hour"]] <- x[["hour"]] * 3600
   sum(vec_c(!!!x))
+}
+
+abort_not_interval <- function(x) {
+  if (is_false(inherits(x, "interval"))) {
+    abort("`x` must be class 'interval'.")
+  }
 }
 
 # regular time interval is obtained from the greatest common divisor of positive

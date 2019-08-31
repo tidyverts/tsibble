@@ -2,9 +2,12 @@
 % Please edit documentation in R/interval.R
 \name{new_interval}
 \alias{new_interval}
+\alias{is_regular_interval}
 \title{Interval constructor for a tsibble}
 \usage{
 new_interval(..., .regular = TRUE, .others = list())
+
+is_regular_interval(x)
 }
 \arguments{
 \item{...}{A set of name-value pairs to specify default interval units: "year",
@@ -16,17 +19,24 @@ the \code{...} argument.}
 
 \item{.others}{A list name-value pairs that are not included in the \code{...},
 to allow custom interval.}
+
+\item{x}{An interval.}
 }
 \value{
 an "interval" class
 }
 \description{
 \lifecycle{stable}
-\code{new_interval()} creates an interval object.
+\itemize{
+\item \code{new_interval()} creates an interval object.
+\item \code{is_regular_interval()} checks if the interval is regular.
+}
 }
 \examples{
-new_interval(hour = 1, minute = 30)
-new_interval(.regular = FALSE) # irregular interval
+(x <- new_interval(hour = 1, minute = 30))
+(y <- new_interval(.regular = FALSE)) # irregular interval
 new_interval() # unknown interval
 new_interval(.others = list(semester = 1)) # custom interval
+is_regular_interval(x)
+is_regular_interval(y)
 }
