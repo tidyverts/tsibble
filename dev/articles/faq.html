@@ -117,6 +117,9 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tsibble)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lubridate)</a></code></pre></div>
 <blockquote>
+<p><em>Warning: “Can’t obtain the interval due to mismatched index class.”</em></p>
+</blockquote>
+<blockquote>
 <p><em>I have monthly data and coerce it to a tsibble. Why does tsibble give one-day interval <code>[1D]</code> instead of one-month <code>[1M]</code>?</em></p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mth &lt;-<span class="st"> </span><span class="kw"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_date</a></span>(<span class="st">"2018"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a>
@@ -128,7 +131,7 @@
 #&gt; 2 2018-02-01
 #&gt; 3 2018-03-01
 #&gt; 4 2018-04-01</code></pre>
-<p>The obtained interval depends on the index class. It is unclear for this case to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc. If you encounter this warning “Can’t obtain the interval due to mismatched index class.”, it’s the same underlying issue.</p>
+<p>The interval depends on the index class. It is unclear for this case to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc. If you encounter this warning “Can’t obtain the interval due to mismatched index class.”, it’s the same underlying issue.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/tsibble.html">tsibble</a></span>(<span class="dt">mth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(mth), <span class="dt">index =</span> mth)</a></code></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1M]
 #&gt;        mth
