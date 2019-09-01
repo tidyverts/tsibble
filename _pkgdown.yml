@@ -93,8 +93,6 @@ reference:
     - index
     - measures
     - interval
-    - is_regular
-    - new_interval
 
 - title: Extend tsibble
   desc: >
@@ -104,6 +102,7 @@ reference:
   contents:
     - index_valid
     - interval_pull
+    - new_interval
     - new_tsibble
     - build_tsibble
 
@@ -141,8 +140,8 @@ navbar:
     href: articles/faq.html
   - text: Press
     href: articles/press.html
-  right:
-  - icon: fa-newspaper fa-lg
+  - text: News
     href: news/index.html
+  right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverts/tsibble
