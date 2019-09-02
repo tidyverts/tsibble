@@ -116,10 +116,6 @@ as_tsibble.tbl_ts <- function(x, ...) {
 #' @export
 as_tsibble.tbl <- as_tsibble.tbl_df
 
-#' @rdname as-tsibble
-#' @export
-as_tsibble.list <- as_tsibble.tbl_df
-
 #' @keywords internal
 #' @export
 as_tsibble.grouped_df <- function(x, key = NULL, index, regular = TRUE,
@@ -179,7 +175,7 @@ update_tsibble <- function(x, key, index, regular = is_regular(x),
   if (quo_is_missing(idx)) {
     idx <- index_var(x)
   }
-  if (is_true(regular)) {
+  if (regular) {
     int <- interval(x)
     int <- if (unknown_interval(int)) int else TRUE
   } else {
@@ -250,7 +246,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   # index cannot be part of the keys
   idx_chr <- c(index, index2)
   is_index_in_keys <- intersect(idx_chr, key_vars)
-  if (is_false(is_empty(is_index_in_keys))) {
+  if (!is_empty(is_index_in_keys)) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange index from past to future for each key value
@@ -261,8 +257,8 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   if (!is_key_data) {
     key_data <- group_data(group_by(tbl, !!!key_vars, .drop = .drop))
   }
-  if (is_false(ordered)) { # if false, double check
-    ordered <- validate_index_order(tbl, key_vars, key_data, index)
+  if (!ordered) { # if false, double check
+    ordered <- validate_index_order(tbl, key_data, index)
   }
   # validate tbl_ts
   if (validate) {
@@ -307,7 +303,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
   }
   if (unknown_interval(interval) && (vec_size(tbl) > vec_size(key_data))) {
     warn(paste_inline(
-      "Can't obtain the interval due to mismatched index class.",
+      "Can't obtain the interval due to the mismatched index class.",
       "Please see `vignette(\"FAQ\")` for details."
     ))
   }
@@ -390,18 +386,18 @@ validate_order <- function(x) {
   }
 }
 
-validate_index_order <- function(data, key, key_data, index) {
+validate_index_order <- function(data, key_data, index) {
   indices <- data[[index]]
   validate_order_lst <- function(x, .rows) {
     validate_order(x[.rows[[1]]])
   }
   ordered <- summarise(key_data,
     ".rows" := any(validate_order_lst(indices, .rows)))[[".rows"]]
-  if (is_false(ordered)) {
+  if (!ordered) {
     idx_txt <- backticks(index)
-    key_txt <- lapply(key, expr_label)
+    key_txt <- backticks(head(names(key_data), -1L))
     warn(sprintf(paste_inline(
-      "Unspecified temporal ordering may yield unexpected results.",
+      "Current temporal ordering may yield unexpected results.",
       "Suggest to sort by %s first."
     ), comma(c(key_txt, idx_txt), sep = "")))
   }

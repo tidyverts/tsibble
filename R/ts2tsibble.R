@@ -41,7 +41,7 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE,
       key = key, index = index, ordered = TRUE, validate = FALSE
     )
   } else {
-    wide_tbl <- bind_time(x, tz = tz)
+    wide_tbl <- make_index_explicit(x, tz = tz)
     build_tsibble(
       wide_tbl,
       key = NULL, index = index, ordered = TRUE, validate = FALSE
@@ -49,16 +49,16 @@ as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE,
   }
 }
 
-bind_time <- function(x, tz = "UTC") {
-  bind_cols(index = time_to_date(x, tz = tz), as_tibble(x))
+make_index_explicit <- function(x, tz = "UTC") {
+  vec_cbind(index = time_to_date(x, tz = tz), as_tibble(x))
 }
 
 pivot_longer_tsibble <- function(x, tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
-  tibble(
+  list2(
     "index" := vec_repeat(idx, times = NCOL(x)), 
-    "key" := vec_repeat(colnames(x), each = NROW(x)),
-    "value" := c(x)
+    "key" := vec_repeat(colnames(x), each = vec_size(x)),
+    "value" := vec_c(!!!unclass(x))
   )
 }
 
@@ -111,9 +111,9 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)
   tbl <- pivot_longer_tsibble(x$bts, tz = tz)[c("index", "value")]
-  tbl_hts <- vec_cbind(tbl, !!!full_labs)
+  tbl_hts <- vec_cbind(!!!full_labs, !!!tbl)
   # this would work around the special character issue in headers for parse()
-  key <- colnames(tbl_hts)[3:ncol(tbl_hts)]
+  key <- colnames(tbl_hts)[1:vec_size(full_labs)]
   build_tsibble(tbl_hts,
     key = !!key, index = index, ordered = TRUE,
     validate = FALSE

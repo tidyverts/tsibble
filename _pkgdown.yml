@@ -8,7 +8,6 @@ template:
       api_key: b7cf533da009fba6bd7a07d530e0824e
       index_name: tsibble
 
-
 development:
   mode: auto
 
@@ -94,17 +93,16 @@ reference:
     - index
     - measures
     - interval
-    - new_interval
-    - is_regular
 
 - title: Extend tsibble
   desc: >
-    Add **tsibble** support for custom index class with `index_valid()` & `interval_pull()`.
-    `build_tsibble()` provides low-level construction for tsibble. Create a 
-    subclass of a tsibble with `new_tsibble()`. 
+    Add **tsibble** support for custom index classes with `index_valid()` &
+    `interval_pull()`.  `build_tsibble()` provides low-level construction for
+    tsibble. Create a subclass of the tsibble with `new_tsibble()`. 
   contents:
     - index_valid
     - interval_pull
+    - new_interval
     - new_tsibble
     - build_tsibble
 
@@ -142,8 +140,8 @@ navbar:
     href: articles/faq.html
   - text: Press
     href: articles/press.html
-  right:
   - text: News
     href: news/index.html
+  right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverts/tsibble

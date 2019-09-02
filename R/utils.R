@@ -17,10 +17,11 @@ list_is_named <- function(x) {
   nms <- names(x)
   map_lgl(nms, ~ . != "")
 }
+
 # ref: tibble:::big_mark
 big_mark <- function(x, ...) {
   mark <- if (identical(getOption("OutDec"), ",")) "." else ","
-  ret <- formatC(x, big.mark = mark, ...)
+  ret <- formatC(x, big.mark = mark, format = "d", ...)
   ret[is.na(x)] <- "??"
   ret
 }

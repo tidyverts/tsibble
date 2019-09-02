@@ -74,9 +74,9 @@ The **key** can be comprised of empty, one, or more variables. See
 [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html)
 for details.
 
-The interval is obtained based on index representation, ranging from
-year to nanosecond, from numerics to ordered factors. The table below
-shows how tsibble interprets the common time formats.
+The **interval** is computed from index based on the representation,
+ranging from year to nanosecond, from numerics to ordered factors. The
+table below shows how tsibble interprets the common time formats.
 
 | **Interval** | **Class**                 |
 | ------------ | ------------------------- |
@@ -107,7 +107,7 @@ full_weather
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
-#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
