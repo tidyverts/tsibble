@@ -258,7 +258,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     key_data <- group_data(group_by(tbl, !!!key_vars, .drop = .drop))
   }
   if (!ordered) { # if false, double check
-    ordered <- validate_index_order(tbl, key_vars, key_data, index)
+    ordered <- validate_index_order(tbl, key_data, index)
   }
   # validate tbl_ts
   if (validate) {
@@ -386,7 +386,7 @@ validate_order <- function(x) {
   }
 }
 
-validate_index_order <- function(data, key, key_data, index) {
+validate_index_order <- function(data, key_data, index) {
   indices <- data[[index]]
   validate_order_lst <- function(x, .rows) {
     validate_order(x[.rows[[1]]])
@@ -395,9 +395,9 @@ validate_index_order <- function(data, key, key_data, index) {
     ".rows" := any(validate_order_lst(indices, .rows)))[[".rows"]]
   if (!ordered) {
     idx_txt <- backticks(index)
-    key_txt <- lapply(key, expr_label)
+    key_txt <- backticks(head(names(key_data), -1L))
     warn(sprintf(paste_inline(
-      "Unspecified temporal ordering may yield unexpected results.",
+      "Current temporal ordering may yield unexpected results.",
       "Suggest to sort by %s first."
     ), comma(c(key_txt, idx_txt), sep = "")))
   }
