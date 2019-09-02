@@ -23,7 +23,7 @@ library(tsibble)
 library(lubridate)
 ```
 
-> *Warning: "Can't obtain the interval due to mismatched index class."*
+> *Warning: "Can't obtain the interval due to the mismatched index class."*
 
 > *I have monthly data and coerce it to a tsibble. Why does tsibble give one-day interval `[1D]` instead of one-month `[1M]`?*
 
