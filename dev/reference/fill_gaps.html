@@ -223,22 +223,6 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt; 6  2011 kiwi       4
 #&gt; 7  2012 kiwi      NA
 #&gt; 8  2013 kiwi       1</div><div class='input'>
-<span class='co'># use fill() to fill `NA` by previous/next entry</span>
-<span class='no'>full_harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>kilo</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
-#&gt; # Key:       fruit [2]
-#&gt; # Groups:    fruit [2]
-#&gt;    year fruit   kilo
-#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
-#&gt; 1  2011 cherry     7
-#&gt; 2  2012 cherry     8
-#&gt; 3  2013 cherry     8
-#&gt; 4  2014 cherry     5
-#&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi       4
-#&gt; 8  2013 kiwi       1</div><div class='input'>
 <span class='co'># replace gaps with a specific value</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
@@ -304,6 +288,29 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;
+#&gt; # Key:       Sensor [4]
+#&gt; # Groups:    Sensor [4]
+#&gt;    Sensor         Date_Time           Date        Time Count
+#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
+#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
+#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
+#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
+#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
+#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
+#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
+#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
+#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
+#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
+#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
+#&gt; # … with 69,038 more rows</div><div class='input'>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"tidyr"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stop'>stop</a></span>(<span class='st'>"Please install the 'tidyr' package to run these following examples."</span>)
+}
+<span class='co'># use fill() to fill `NA` by previous/next entry</span>
+<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill_gaps</span>() <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>Count</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
 #&gt; # Groups:    Sensor [4]
 #&gt;    Sensor         Date_Time           Date        Time Count
