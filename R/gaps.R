@@ -30,11 +30,6 @@ globalVariables(c(".", ".gaps"))
 #' full_harvest <- fill_gaps(harvest, .full = FALSE)
 #' full_harvest
 #'
-#' # use fill() to fill `NA` by previous/next entry
-#' full_harvest %>%
-#'   group_by_key() %>%
-#'   tidyr::fill(kilo, .direction = "down")
-#'
 #' # replace gaps with a specific value
 #' harvest %>%
 #'   fill_gaps(kilo = 0L)
@@ -58,6 +53,15 @@ globalVariables(c(".", ".gaps"))
 #' pedestrian %>%
 #'   group_by_key() %>%
 #'   fill_gaps(Count = as.integer(median(Count)))
+#'
+#' if (!requireNamespace("tidyr", quietly = TRUE)) {
+#'   stop("Please install the 'tidyr' package to run these following examples.")
+#' }
+#' # use fill() to fill `NA` by previous/next entry
+#' pedestrian %>%
+#'   group_by_key() %>%
+#'   fill_gaps() %>% 
+#'   tidyr::fill(Count, .direction = "down")
 fill_gaps <- function(.data, ..., .full = FALSE) {
   UseMethod("fill_gaps")
 }

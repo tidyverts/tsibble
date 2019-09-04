@@ -108,6 +108,9 @@ pslide(list(lst, lst), ~., .size = 2)
 # row-wise sliding over data frame
 ###
 
+if (!requireNamespace("tidyr", quietly = TRUE)) {
+  stop("Please install the 'tidyr' package to run these following examples.")
+}
 library(tidyr)
 library(dplyr)
 my_df <- data.frame(

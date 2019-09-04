@@ -162,6 +162,9 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' # row-wise sliding over data frame
 #' ###
 #'
+#' if (!requireNamespace("tidyr", quietly = TRUE)) {
+#'   stop("Please install the 'tidyr' package to run these following examples.")
+#' }
 #' library(tidyr)
 #' library(dplyr)
 #' my_df <- data.frame(
