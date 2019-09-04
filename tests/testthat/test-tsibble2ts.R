@@ -51,6 +51,13 @@ test_that("as.ts.tbl_ts()", {
     start = 2010, frequency = 1)
   colnames(expected) <- c("cherry", "kiwi")
   expect_equal(as.matrix(as.ts(harvest, value = kilo)), expected)
+  freq <- frequency(EuStockMarkets)
+  x <- as.ts(head(EuStockMarkets), frequency = freq)
+  y <- as_tsibble(x)
+  expect_equal(
+    as.double(as.ts(y, frequency = freq)),
+    as.double(x[,c(3, 1, 4, 2)])
+  )
 })
 
 test_that("a tsibble with more than one measured vars", {

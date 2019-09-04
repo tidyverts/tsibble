@@ -43,10 +43,8 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
   idx <- index(x)
   tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var,
     validate = FALSE)
+  tsbl_sel <- arrange(tsbl_sel, !!!key_vars, !!idx)
   if (is_empty(key_vars)) {
-    if (!is_ordered(x)) {
-      tsbl_sel <- arrange(tsbl_sel, !!idx)
-    }
     finalise_ts(tsbl_sel, index = idx, frequency = frequency)
   } else {
     mat_ts <- pivot_wider_ts(tsbl_sel, fill = fill)
