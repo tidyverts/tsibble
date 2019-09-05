@@ -24,7 +24,7 @@ test_that("A tsibble must not contain missing values in index", {
 })
 
 test_that("A tsibble with unknown interval due to unexpected index class", {
-  expect_warning(
+  expect_error(
     tsibble(date = as.POSIXct(Sys.Date() + 0:9)),
     "Can't obtain the interval"
   )

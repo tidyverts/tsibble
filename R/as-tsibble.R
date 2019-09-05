@@ -302,7 +302,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
     abort(sprintf(msg_interval, class(interval)[1]))
   }
   if (unknown_interval(interval) && (vec_size(tbl) > vec_size(key_data))) {
-    warn(paste_inline(
+    abort(paste_inline(
       "Can't obtain the interval due to the mismatched index class.",
       "Please see `vignette(\"FAQ\")` for details."
     ))

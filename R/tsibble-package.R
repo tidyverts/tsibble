@@ -39,8 +39,7 @@
 #' "year". An unrecognisable time interval is labelled as "unit".
 #' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
 #' marked with `!`.
-#' * Unknown: Not determined (`?`), if there is only one entry for each key variable,
-#' or mismatched index formats (from the warning).
+#' * Unknown: Not determined (`?`), if there is only one entry for each key variable.
 #'
 #' An interval is obtained based on the corresponding index representation:
 #' * integerish numerics between 1582 and 2499: "year" (`Y`). Note the year of
@@ -54,6 +53,8 @@
 #' * `POSIXt`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 #' * `nanotime`: "nanosecond" (`ns`)
 #' * other numerics &`ordered` (ordered factor): "unit"
+#' When the interval cannot be obtained due to the mismatched index format, an
+#' error is issued.
 #'
 #' @section Time zone:
 #' Time zone corresponding to index will be displayed if index is `POSIXct`.
