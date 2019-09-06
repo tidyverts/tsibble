@@ -18,14 +18,14 @@ abort_unknown_interval <- function(x) {
   }
 }
 
-not_regular <- function(x) {
+abort_if_irregular <- function(x) {
   if (!is_regular(x)) {
     abort("Can't handle tsibble of irregular interval.")
   }
 }
 
 not_tsibble <- function(x) {
-  if (is_false(is_tsibble(x))) {
+  if (!is_tsibble(x)) {
     abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
   }
 }

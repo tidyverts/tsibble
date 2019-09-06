@@ -2,7 +2,7 @@ do_package_checks()
 
 if (Sys.getenv("DEV_VERSIONS") != "") {
   get_stage("install") %>%
-    add_step(step_install_github(c("r-lib/rlang", "tidyverse/dplyr")))
+    add_step(step_install_github(c("r-lib/rlang", "tidyverse/dplyr", "tidyverse/tibble", "r-lib/vctrs")))
 }
 
 if (Sys.getenv("BUILD_PKGDOWN") != "" && ci()$get_branch() == "master") {

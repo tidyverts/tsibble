@@ -230,6 +230,6 @@ guess_frequency.POSIXt <- function(x) {
 
 #' @export
 frequency.tbl_ts <- function(x, ...) {
-  not_regular(x)
+  abort_if_irregular(x)
   guess_frequency(x[[index_var(x)]])
 }

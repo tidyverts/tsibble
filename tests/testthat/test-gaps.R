@@ -20,9 +20,8 @@ test_that("unknown interval", {
 
 test_that("an irregular tbl_ts", {
   tsbl <- as_tsibble(dat_x, index = date, regular = FALSE)
-  expect_error(fill_gaps(tsbl), "irregular")
-  expect_error(count_gaps(tsbl), "irregular")
-  expect_error(has_gaps(tsbl), "irregular")
+  expect_identical(fill_gaps(tsbl), tsbl)
+  expect_identical(has_gaps(tsbl), tibble(.gaps = FALSE))
 })
 
 test_that("a tbl_ts without implicit missing values", {

@@ -110,11 +110,12 @@ scan_gaps <- function(.data, .full = FALSE) {
 
 #' @export
 scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
-  not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
   idx_chr <- as_string(idx)
-  if (unknown_interval(int)) return(.data[0L, c(key_vars(.data), idx_chr)])
+  if (unknown_interval(int) || !is_regular(.data)) {
+    return(.data[0L, c(key_vars(.data), idx_chr)])
+  }
 
   key <- key(.data)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))
@@ -166,12 +167,11 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
 count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
-  not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
 
   gap_data <- scan_gaps(.data, .full = .full)
-  if (unknown_interval(int) || vec_size(gap_data) == 0L) {
+  if (vec_size(gap_data) == 0L) {
     data_key <- .data[0L, key_vars(.data)]
     idx_vals <- .data[[as_string(idx)]][0L]
     out <- vec_cbind(data_key, tbl_gaps(idx_vals, idx_vals, .name = .name))
@@ -207,8 +207,11 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
 has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
   stopifnot(has_length(.name, 1))
   if (vec_size(.data) == 0L) return(tibble(!!.name := FALSE))
+  if (!is_regular(.data)) {
+    key_data <- key_data(.data)[key_vars(.data)]
+    return(tibble(!!!key_data, !!.name := FALSE))
+  }
 
-  not_regular(.data)
   int <- interval(.data)
   idx <- index(.data)
   grped_tbl <- new_grouped_df(.data, groups = key_data(.data))

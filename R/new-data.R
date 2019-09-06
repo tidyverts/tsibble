@@ -24,7 +24,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   if (!is_integerish(n, 1) && any(n > 0)) {
     abort("Argument `n` must be a positive integer.")
   }
-  not_regular(.data)
+  abort_if_irregular(.data)
   abort_unknown_interval(int <- interval(.data))
 
   idx <- index(.data)
