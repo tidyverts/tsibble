@@ -83,21 +83,21 @@ rename_tsibble <- function(.data, ...) {
 
 select_tsibble <- function(data, ..., validate = TRUE) {
   sel_data <- select(as_tibble(data), ...)
-
   sel_vars <- names(sel_data)
   idx_chr <- index_var(data)
-  sel_idx <- idx_chr %in% sel_vars
-  if (!sel_idx) { # index isn't selected
-    inform(sprintf("Selecting index: \"%s\"", idx_chr))
-    sel_data[[idx_chr]] <- data[[idx_chr]]
-    val_vars <- names(sel_data)
-  } else {
+  sel_idx <- vec_in(idx_chr, sel_vars)
+  if (sel_idx) {
     val_vars <- sel_vars
+  } else { # index isn't selected
+    inform(sprintf("Selecting index: \"%s\"", idx_chr))
+    sel_data <- vec_cbind(sel_data, !!idx_chr := data[[idx_chr]])
+    val_vars <- names(sel_data)
   }
 
   # key of the reduced size (bf & af) but also different names
-  key_vars <- val_vars[val_vars %in% key_vars(data)]
-  key_nochange <- all(is.element(key_vars(data), key_vars))
+  key_vars0 <- key_vars(data)
+  key_vars <- val_vars[vec_in(val_vars, key_vars0)]
+  key_nochange <- all(is.element(key_vars0, key_vars))
 
   if (validate) {
     vec_names <- names(val_vars)
