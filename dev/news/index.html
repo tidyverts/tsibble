@@ -8,21 +8,32 @@
 
 <title>Changelog • tsibble</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,10 +47,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -62,6 +74,7 @@
 
   gtag('config', 'UA-83007123-4');
 </script>
+
 
   </head>
 
@@ -116,7 +129,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
@@ -126,7 +138,7 @@
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -137,6 +149,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -213,7 +226,7 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>This release has undergone an overhaul to clean tsibble’s meta data: (1) attribute <code>regular</code> integrated to <code>interval</code>, (2) attribute <code>ordered</code> integrated to <code>index</code>. A previously stored tsibble object may receive a warning “corrupt tsibble object”.</li>
-<li>The <strong>dplyr</strong> and <strong>tidyr</strong> generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load <code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(tidyverse)</a></code> in front.</li>
+<li>The <strong>dplyr</strong> and <strong>tidyr</strong> generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load <code><a href="https://rdrr.io/r/base/library.html">library(tidyverse)</a></code> in front.</li>
 </ul>
 </div>
 <div id="defunct-deprecated-functionsarguments" class="section level2">
@@ -234,7 +247,7 @@
 <li>Support the interval of “quarter”, “month”, “week” &amp; “day” for <code>difftime</code>.</li>
 <li>Support the interval of “millisecond” &amp; “microsecond” for <code>hms</code>.</li>
 <li>Added new argument <code>.drop</code> for dropping empty factor or not in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> and <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>.</li>
-<li>Binary <code>-</code> operator between yearweek, yearmonth, and yearquarter returns class <code>difftime</code>.</li>
+<li>Binary <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> operator between yearweek, yearmonth, and yearquarter returns class <code>difftime</code>.</li>
 <li>Added new argument <code>key_data</code> to <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> for the easy-to-reason purpose.</li>
 <li>
 <code><a href="../reference/period.html">yearquarter()</a></code> better supports strings that contains “Q”/“Qtr”/“Quarter”. (#107)</li>
@@ -252,7 +265,7 @@
 <li>Fixed false warnings for negative indices in <code><a href="../reference/tsibble-tidyverse.html">slice.tbl_ts()</a></code>.</li>
 <li>Fixed false warnings for a few cases in <code><a href="../reference/tsibble-tidyverse.html">arrange.tbl_ts()</a></code>.</li>
 <li>Fixed <code>*_join()</code> for not finding key or index when <code>by</code> is specified. (#102)</li>
-<li>Added “Tasmania” to <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">data(tourism)</a></code> and 2017 data.</li>
+<li>Added “Tasmania” to <code><a href="https://rdrr.io/r/utils/data.html">data(tourism)</a></code> and 2017 data.</li>
 <li>More robustly handles sub-second intervals.</li>
 </ul>
 </div>
@@ -288,7 +301,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed <code><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind()</a></code> for dropping custom index class. (#78)</li>
+<li>Fixed <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> for dropping custom index class. (#78)</li>
 <li>Fixed <code><a href="../reference/count_gaps.html">count_gaps()</a></code> for dropping custom index class.</li>
 <li>
 <code><a href="../reference/count_gaps.html">count_gaps()</a></code> now only summarises keys with gaps instead of all the keys.</li>
@@ -382,7 +395,7 @@
 <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code> creates a subclass of a tsibble.</li>
 <li>Renamed <code><a href="../reference/deprecated.html">fill_na()</a></code> to <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, for more expressive function name and consistency to <code><a href="../reference/has_gaps.html">has_gaps()</a></code> and <code><a href="../reference/count_gaps.html">count_gaps()</a></code>. Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>. (#71)</li>
 <li>Added <code><a href="../reference/duplicates.html">is_duplicated()</a></code>, <code><a href="../reference/duplicates.html">are_duplicated()</a></code> and <code><a href="../reference/duplicates.html">duplicates()</a></code>.</li>
-<li>If <code>POSIXct</code>, time zone will be displayed in the header via <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code>.</li>
+<li>If <code>POSIXct</code>, time zone will be displayed in the header via <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>.</li>
 <li>Added index support for ordered factors.</li>
 </ul>
 </div>
@@ -423,7 +436,7 @@
 <a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>Added <code><a href="../reference/new-data.html">append_row()</a></code> for easily appending new observations to a tsibble. (#59)</li>
-<li>Nesting structure can be specified using <code>/</code>, consistent with <code>lm</code>. (#64)</li>
+<li>Nesting structure can be specified using <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code>, consistent with <code>lm</code>. (#64)</li>
 </ul>
 </div>
 <div id="bug-fixes-4" class="section level2">
@@ -490,7 +503,7 @@
 <ul>
 <li>
 <code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
-<li>Vectorised arithmetic operators (<code>+</code> &amp; <code>-</code>) for yearweek, yearmonth, and yearquarter.</li>
+<li>Vectorised arithmetic operators (<code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> &amp; <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
 <code><a href="../reference/new_interval.html">new_interval()</a></code> creates an “interval” object with the specified values.</li>
 </ul>
@@ -500,7 +513,7 @@
 <a href="#improvements-2" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Faster performance in <code><a href="../reference/deprecated.html">fill_na()</a></code> for replacing values when <code>group_by()</code>.</li>
-<li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code>[</code>.</li>
+<li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code>.</li>
 </ul>
 </div>
 <div id="bug-fixes-6" class="section level2">
@@ -538,7 +551,7 @@
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
 <li>
 <code><a href="../reference/slide.html">slide()</a></code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
-<li>Defined arithmetic operators (<code>+</code> &amp; <code>-</code>) for yearweek, yearmonth, and yearquarter.</li>
+<li>Defined arithmetic operators (<code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> &amp; <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
 <code><a href="../reference/slide.html">slide()</a></code> and <code><a href="../reference/stretch.html">stretch()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
 <li>A new vignette on window functions.</li>
@@ -611,7 +624,7 @@
 <a href="#new-features-6" class="anchor"></a>New features</h2>
 <ul>
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
-<li>Defined <code><a href="https://www.rdocumentation.org/packages/base/topics/diff">diff()</a></code> for year-week, year-month, and year-quarter.</li>
+<li>Defined <code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> for year-week, year-month, and year-quarter.</li>
 <li>
 <code><a href="../reference/period.html">yearweek()</a></code>, <code><a href="../reference/period.html">yearmonth()</a></code>, <code><a href="../reference/period.html">yearquarter()</a></code> supported for character.</li>
 <li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (#33).</li>
@@ -695,7 +708,7 @@
 <li>
 <code>index</code>: a variable represents time. This together the “key” uniquely identifies each observation in the data table.</li>
 <li>
-<code>index2</code>: why do we need the second index? It means re-indexing <strong>to</strong> a variable, not the second index. It is identical to the <code>index</code> most time, but start deviating when using <code><a href="../reference/index-by.html">index_by()</a></code>. <code><a href="../reference/index-by.html">index_by()</a></code> works similarly to <code>group_by()</code>, but groups the index only. The dplyr verbs, like <code><a href="https://www.rdocumentation.org/packages/stats/topics/filter">filter()</a></code>, <code>mutate()</code>, operates on each time group of the data defined by <code><a href="../reference/index-by.html">index_by()</a></code>. You may wonder why introducing a new function rather than using <code>group_by()</code> that users are most familiar with. It’s because time is indispensable to a tsibble, <code><a href="../reference/index-by.html">index_by()</a></code> provides a trace to understanding how the index changes. For this purpose, <code>group_by()</code> is just too general. For example, <code><a href="../reference/index-by.html">index_by()</a></code> + <code>summarise()</code> aggregates data to less granular time period, leading to the update in index, which is nicely and intuitively handled now.</li>
+<code>index2</code>: why do we need the second index? It means re-indexing <strong>to</strong> a variable, not the second index. It is identical to the <code>index</code> most time, but start deviating when using <code><a href="../reference/index-by.html">index_by()</a></code>. <code><a href="../reference/index-by.html">index_by()</a></code> works similarly to <code>group_by()</code>, but groups the index only. The dplyr verbs, like <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>, <code>mutate()</code>, operates on each time group of the data defined by <code><a href="../reference/index-by.html">index_by()</a></code>. You may wonder why introducing a new function rather than using <code>group_by()</code> that users are most familiar with. It’s because time is indispensable to a tsibble, <code><a href="../reference/index-by.html">index_by()</a></code> provides a trace to understanding how the index changes. For this purpose, <code>group_by()</code> is just too general. For example, <code><a href="../reference/index-by.html">index_by()</a></code> + <code>summarise()</code> aggregates data to less granular time period, leading to the update in index, which is nicely and intuitively handled now.</li>
 <li>
 <code>interval</code>: an <code>interval</code> class to save a list of time intervals. It computes the greatest common factor from the time difference of the <code>index</code> column, which should give a sensible interval for the almost all the cases, compared to minimal time distance. It also depends on the time representation. For example, if the data is monthly, the index is suggested to use a <code><a href="../reference/period.html">yearmonth()</a></code> format instead of <code>Date</code>, as <code>Date</code> only gives the number of days not the number of months.</li>
 <li>
@@ -764,7 +777,7 @@
 <li>A <code>tbl_ts</code> gains a new attribute <code>index2</code>, which is a candidate of new index (symbol) used by <code><a href="../reference/index-by.html">index_by()</a></code>.</li>
 <li>The time interval is obtained through the greatest common factor of positive time differences. This covers broader cases than the minimal value.</li>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr(grouped_ts, "vars")</a></code> stores characters instead of names, same as <code><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr(grouped_df, "vars")</a></code>.</li>
+<code><a href="https://rdrr.io/r/base/attr.html">attr(grouped_ts, "vars")</a></code> stores characters instead of names, same as <code><a href="https://rdrr.io/r/base/attr.html">attr(grouped_df, "vars")</a></code>.</li>
 </ul>
 </div>
 </div>
@@ -814,7 +827,7 @@
 <a href="#internal-changes-3" class="anchor"></a>Internal changes</h2>
 <ul>
 <li>No longer throw an error when grouping the index.</li>
-<li>An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like <code><a href="https://www.rdocumentation.org/packages/stats/topics/filter">filter()</a></code> and <code>slice()</code>). This avoids unnecessary re-computation for many function calls.</li>
+<li>An interval of regularly spaced tsibble is (re)computed when creating the tsibble and performing the row-wise operations (like <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> and <code>slice()</code>). This avoids unnecessary re-computation for many function calls.</li>
 </ul>
 </div>
 </div>
@@ -945,14 +958,16 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://earo.me'>Earo Wang</a>, <a href='http://dicook.org'>Di Cook</a>, <a href='http://robjhyndman.com'>Rob Hyndman</a>, <a href='http://mitchelloharawild.com'>Mitchell O'Hara-Wild</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
@@ -975,6 +990,8 @@
 </script>
 
 
+
   </body>
 </html>
+
 

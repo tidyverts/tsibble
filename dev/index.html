@@ -6,15 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tidy Temporal Data Frames and Tools • tsibble</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Tidy Temporal Data Frames and Tools">
-<meta property="og:description" content="Provides a 'tbl_ts' class (the 'tsibble') for
+<meta property="og:description" content="Provides a tbl_ts class (the tsibble) for
     temporal data in an explicit data- and model-oriented format. The
-    'tsibble' provides tools to easily manipulate and analyse temporal
+    tsibble provides tools to easily manipulate and analyse temporal
     data, such as filling in time gaps, aggregating over calendar periods,
     performing rolling window calculations, and etc.">
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png">
@@ -32,7 +39,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -89,7 +96,7 @@
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right" role="search">
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
@@ -103,20 +110,16 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="tsibble" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tsibble" class="anchor"></a>tsibble <img src="reference/figures/logo.png" align="right">
 </h1></div>
 
 <p>The <strong>tsibble</strong> package provides a data infrastructure for tidy temporal data with wrangling tools. Adapting the <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">tidy data principles</a>, <em>tsibble</em> is an explicit data- and model-oriented object. In <em>tsibble</em>:</p>
-<ol style="list-style-type: decimal">
+<ol>
 <li>Index is a variable with inherent ordering from past to present.</li>
 <li>Key is a set of variables that define observational units over time.</li>
 <li>Each observation should be uniquely identified by <strong>index</strong> and <strong>key</strong>.</li>
@@ -126,21 +129,21 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You could install the stable version on CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tsibble"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tsibble"</span>)</a></code></pre></div>
 <p>You could install the development version from Github using</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"tidyverts/tsibble"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"tidyverts/tsibble"</span>)</a></code></pre></div>
 </div>
 <div id="get-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-started" class="anchor"></a>Get started</h2>
 <div id="coerce-to-a-tsibble-with-as_tsibble" class="section level3">
 <h3 class="hasAnchor">
-<a href="#coerce-to-a-tsibble-with-as_tsibble" class="anchor"></a>Coerce to a tsibble with <code><a href="reference/as-tsibble.html">as_tsibble()</a></code>
+<a href="#coerce-to-a-tsibble-with-as_tsibble" class="anchor"></a>Coerce to a tsibble with <code>as_tsibble()</code>
 </h3>
 <p>To coerce a data frame to <em>tsibble</em>, we need to declare key and index. For example, in the <code>weather</code> data from the package <code>nycflights13</code>, the <code>time_hour</code> containing the date-times should be declared as <strong>index</strong>, and the <code>origin</code> as <strong>key</strong>. Other columns can be considered as measured variables.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tsibble)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tsibble)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">weather &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, time_hour, temp, humid, precip)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> origin, <span class="dt">index =</span> time_hour)</a>
@@ -157,7 +160,7 @@
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; # … with 2.611e+04 more rows</span></a></code></pre></div>
 <p>The <strong>key</strong> can be comprised of empty, one, or more variables. See <code><a href="reference/tsibble-package.html">package?tsibble</a></code> and <a href="http://tsibble.tidyverts.org/articles/intro-tsibble.html"><code><a href="articles/intro-tsibble.html">vignette("intro-tsibble")</a></code></a> for details.</p>
 <p>The <strong>interval</strong> is computed from index based on the representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.</p>
-<table class="table table">
+<table class="table">
 <thead><tr class="header">
 <th><strong>Interval</strong></th>
 <th><strong>Class</strong></th>
@@ -198,7 +201,7 @@
 </div>
 <div id="fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code><a href="reference/fill_gaps.html">fill_gaps()</a></code> to turn implicit missing values into explicit missing values</h3>
+<a href="#fill_gaps-to-turn-implicit-missing-values-into-explicit-missing-values" class="anchor"></a><code>fill_gaps()</code> to turn implicit missing values into explicit missing values</h3>
 <p>Often there are implicit missing cases in time series. If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using <code><a href="reference/fill_gaps.html">fill_gaps()</a></code>, filling gaps in precipitation (<code>precip</code>) with 0 in the meanwhile. It is quite common to replaces <code>NA</code>s with its previous observation for each origin in time series analysis, which is easily done using <code>fill()</code> from <strong>tidyr</strong>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">full_weather &lt;-<span class="st"> </span>weather_tsbl <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/fill_gaps.html">fill_gaps</a></span>(<span class="dt">precip =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -209,7 +212,7 @@
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; # Groups:    origin [3]</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;   origin time_hour            temp humid precip</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; * &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1 EWR    2013-01-01 01:00:00  39.0  59.4      0</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2 EWR    2013-01-01 02:00:00  39.0  61.6      0</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0</span></a>
@@ -220,14 +223,14 @@
 </div>
 <div id="index_by-summarise-to-aggregate-over-calendar-periods" class="section level3">
 <h3 class="hasAnchor">
-<a href="#index_by-summarise-to-aggregate-over-calendar-periods" class="anchor"></a><code><a href="reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> to aggregate over calendar periods</h3>
-<p><code><a href="reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it groups the index only. In conjunction with <code><a href="reference/index-by.html">index_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and its scoped variants aggregate interested variables over calendar periods. <code><a href="reference/index-by.html">index_by()</a></code> goes hand in hand with the index functions including <code><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date()</a></code>, <code><a href="reference/period.html">yearweek()</a></code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <strong>lubridate</strong>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the index variable (referred to as <code>.</code>).</p>
+<a href="#index_by-summarise-to-aggregate-over-calendar-periods" class="anchor"></a><code>index_by()</code> + <code>summarise()</code> to aggregate over calendar periods</h3>
+<p><code><a href="reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it groups the index only. In conjunction with <code><a href="reference/index-by.html">index_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> and its scoped variants aggregate interested variables over calendar periods. <code><a href="reference/index-by.html">index_by()</a></code> goes hand in hand with the index functions including <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code>, <code><a href="reference/period.html">yearweek()</a></code>, <code><a href="reference/period.html">yearmonth()</a></code>, and <code><a href="reference/period.html">yearquarter()</a></code>, as well as other friends from <strong>lubridate</strong>. For example, it would be of interest in computing average temperature and total precipitation per month, by applying <code><a href="reference/period.html">yearmonth()</a></code> to the index variable (referred to as <code>.</code>).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">full_weather <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/index-by.html">index_by</a></span>(<span class="dt">year_month =</span> <span class="op">~</span><span class="st"> </span><span class="kw"><a href="reference/period.html">yearmonth</a></span>(.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># monthly aggregates</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">avg_temp =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(temp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">ttl_precip =</span> <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(precip, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; # A tsibble: 36 x 4 [1M]</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # Key:       origin [3]</span></a>
@@ -243,7 +246,7 @@
 </div>
 <div id="rolling-with-functional-programming-slide-tile-stretch" class="section level3">
 <h3 class="hasAnchor">
-<a href="#rolling-with-functional-programming-slide-tile-stretch" class="anchor"></a>Rolling with functional programming: <code><a href="reference/slide.html">slide()</a></code>, <code><a href="reference/tile.html">tile()</a></code>, <code><a href="reference/stretch.html">stretch()</a></code>
+<a href="#rolling-with-functional-programming-slide-tile-stretch" class="anchor"></a>Rolling with functional programming: <code>slide()</code>, <code>tile()</code>, <code>stretch()</code>
 </h3>
 <p>Temporal data often involves moving window calculations. Several functions in <strong>tsibble</strong> allow for different variations of moving windows using purrr-like syntax:</p>
 <ul>
@@ -254,12 +257,10 @@
 <li>
 <code><a href="reference/stretch.html">stretch()</a></code>/<code><a href="reference/stretch2.html">stretch2()</a></code>/<code><a href="reference/stretch2.html">pstretch()</a></code>: fixing an initial window and expanding to include more observations.</li>
 </ul>
-<details><p><summary>Rolling window animation</summary></p>
-<p><img src="reference/figures/animate-1.gif" align="center"></p>
-</details><p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
+<details><summary>Rolling window animation</summary><img src="reference/figures/animate-1.gif" align="center"></details><p>For example, a moving average of window size 3 is carried out on hourly temperatures for each group (<em>origin</em>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">full_weather <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide_dbl</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">temp_ma =</span> <span class="kw"><a href="reference/slide.html">slide_dbl</a></span>(temp, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # A tsibble: 26,190 x 6 [1h] &lt;America/New_York&gt;</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; # Key:       origin [3]</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # Groups:    origin [3]</span></a>
@@ -296,6 +297,13 @@
 <li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 <div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
@@ -306,17 +314,17 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6448-5260" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="https://earo.me">Earo Wang</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6448-5260" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
-<a href="http://dicook.org">Di Cook</a> <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-3813-7155" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="http://dicook.org">Di Cook</a> <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-3813-7155" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
-<a href="http://robjhyndman.com">Rob Hyndman</a> <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-2140-5352" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="http://robjhyndman.com">Rob Hyndman</a> <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-2140-5352" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
-<a href="http://mitchelloharawild.com">Mitchell O'Hara-Wild</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6729-7695" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="http://mitchelloharawild.com">Mitchell O'Hara-Wild</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6729-7695" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/tidyverts/tsibble"><img src="https://travis-ci.org/tidyverts/tsibble.svg?branch=master" alt="Travis-CI Build Status"></a></li>
@@ -327,7 +335,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -336,8 +343,9 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
 </div>
 
