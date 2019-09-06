@@ -89,7 +89,7 @@ select_tsibble <- function(data, ..., validate = TRUE) {
   sel_idx <- idx_chr %in% sel_vars
   if (!sel_idx) { # index isn't selected
     inform(sprintf("Selecting index: \"%s\"", idx_chr))
-    sel_data <- tibble(!!!sel_data, !!idx_chr := data[[idx_chr]])
+    sel_data[[idx_chr]] <- data[[idx_chr]]
     val_vars <- names(sel_data)
   } else {
     val_vars <- sel_vars
