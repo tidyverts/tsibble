@@ -206,8 +206,7 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
 #' has_gaps(harvest, .full = TRUE)
 has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
   stopifnot(has_length(.name, 1))
-  if (vec_size(.data) == 0L) return(tibble(!!.name := FALSE))
-  if (!is_regular(.data)) {
+  if (!is_regular(.data) || vec_size(.data) == 0L) {
     key_data <- key_data(.data)[key_vars(.data)]
     return(tibble(!!!key_data, !!.name := FALSE))
   }
