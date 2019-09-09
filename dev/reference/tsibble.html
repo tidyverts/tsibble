@@ -172,8 +172,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>A set of name-value pairs. The names of "key" and "index" should
-be avoided as they are used as the arguments.</p></td>
+      <td><p>A set of name-value pairs.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -285,7 +284,7 @@ error is issued.</p></li>
 #&gt; 10 2017-01-10  0.114 </div><div class='input'>
 <span class='co'># create a tsibble with one key</span>
 <span class='fu'>tsibble</span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"201001"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"2010 Q1"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
@@ -303,6 +302,27 @@ error is issued.</p></li>
 #&gt;  8 2011 Q4 x      0.0304
 #&gt;  9 2012 Q1 x     -0.450 
 #&gt; 10 2012 Q2 x      0.671 
+#&gt; # … with 20 more rows</div><div class='input'>
+<span class='co'># create a tsibble containing "key" and "index" as column names</span>
+<span class='fu'>tsibble</span>(!!!<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+  <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"2010 Q1"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>)),
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>key</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>index</span>
+)</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
+#&gt; # Key:       key [3]
+#&gt;      index key    value
+#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
+#&gt;  1 2010 Q1 x     -1.46 
+#&gt;  2 2010 Q2 x     -0.481
+#&gt;  3 2010 Q3 x      0.897
+#&gt;  4 2010 Q4 x     -0.519
+#&gt;  5 2011 Q1 x     -0.903
+#&gt;  6 2011 Q2 x      1.06 
+#&gt;  7 2011 Q3 x      1.60 
+#&gt;  8 2011 Q4 x      0.960
+#&gt;  9 2012 Q1 x     -0.142
+#&gt; 10 2012 Q2 x     -0.985
 #&gt; # … with 20 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
