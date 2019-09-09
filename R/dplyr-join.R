@@ -18,7 +18,7 @@ left_join.tbl_ts <- function(x, y, by = NULL, copy = FALSE,
   x <- rename_join_tsibble(x, y, by = by, suffix = suffix)
   update_meta(res, x,
     ordered = is_ordered(x), interval = is_regular(x),
-    validate = (NROW(res) > NROW(x)) || !is_tsibble(y)
+    validate = (vec_size(res) > vec_size(x)) || !is_tsibble(y)
   )
 }
 

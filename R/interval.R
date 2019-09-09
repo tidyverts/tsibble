@@ -295,5 +295,5 @@ split_period <- function(x) {
 
 has_tz <- function(x) {
   tz <- attr(x, "tzone")[[1]]
-  !(is_null(tz) && !inherits(x, "POSIXct"))
+  !(is_null(tz) && !inherits(x, "POSIXt"))
 }
