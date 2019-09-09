@@ -234,134 +234,6 @@ pillar_shaft.yearweek <- function(x, ...) {
 
 #' @rdname period
 #' @export
-yearmonth <- function(x) {
-  UseMethod("yearmonth")
-}
-
-new_yearmonth <- function(x) {
-  structure(x, tz = NULL, class = c("yearmonth", "Date"))
-}
-
-#' @export
-c.yearmonth <- function(..., recursive = FALSE) {
-  new_yearmonth(NextMethod())
-}
-
-#' @export
-rep.yearmonth <- function(x, ...) {
-  new_yearmonth(NextMethod())
-}
-
-#' @export
-unique.yearmonth <- function(x, incomparables = FALSE, ...) {
-  new_yearmonth(NextMethod())
-}
-
-#' @export
-diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((year(x) - 1970) * 12 + month(x),
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "months")
-}
-
-#' @export
-`+.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
-
-  e1_yrmth <- is_yearmonth(e1)
-  e2_yrmth <- is_yearmonth(e2)
-  if (e1_yrmth && e2_yrmth) {
-    abort("Binary `+` is not defined for class yearmonth.")
-  }
-  if (e1_yrmth) {
-    new_yearmonth(as_date(e1) + period(months = e2))
-  } else {
-    yearmonth(period(months = e1) + as_date(e2))
-  }
-}
-
-#' @export
-`-.yearmonth` <- function(e1, e2) {
-  if (nargs() == 1L) return(e1)
-
-  e1_yrmth <- is_yearmonth(e1)
-  e2_yrmth <- is_yearmonth(e2)
-  if (e1_yrmth && e2_yrmth) {
-    res <- units_since(e1) - units_since(e2)
-    structure(res, class = "difftime", units = "months")
-  } else {
-    new_yearmonth(as_date(e1) - period(months = e2, units = "month"))
-  }
-}
-
-is_yearmonth <- function(x) {
-  inherits(x, "yearmonth")
-}
-
-#' @export
-yearmonth.default <- function(x) {
-  dont_know(x, "yearmonth")
-}
-
-#' @export
-yearmonth.POSIXt <- function(x) {
-  new_yearmonth(as_date(floor_date(x, unit = "months")))
-}
-
-#' @export
-yearmonth.Date <- function(x) {
-  new_yearmonth(floor_date(x, unit = "months"))
-}
-
-#' @export
-yearmonth.character <- function(x) {
-  if (is_empty(x)) return(new_yearmonth(x))
-
-  assertDate(x)
-  new_yearmonth(anydate(x))
-}
-
-#' @export
-yearmonth.yearweek <- yearmonth.POSIXt
-
-#' @export
-yearmonth.yearmonth <- function(x) {
-  new_yearmonth(x)
-}
-
-#' @export
-yearmonth.numeric <- function(x) {
-  year <- trunc(x)
-  month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
-  result <- make_date(year, month, 1)
-  new_yearmonth(result)
-}
-
-#' @export
-yearmonth.yearmon <- yearmonth.numeric
-
-#' @export
-format.yearmonth <- function(x, format = "%Y %b", ...) {
-  format.Date(x, format = format, ...)
-}
-
-#' @export
-print.yearmonth <- function(x, format = "%Y %b", ...) {
-  print(format(x, format = format, ...))
-  invisible(x)
-}
-
-obj_sum.yearmonth <- function(x) {
-  rep("mth", length(x))
-}
-
-is_vector_s3.yearmonth <- is_vector_s3.yearweek
-
-pillar_shaft.yearmonth <- pillar_shaft.yearweek
-
-#' @rdname period
-#' @export
 yearquarter <- function(x) {
   UseMethod("yearquarter")
 }
@@ -552,17 +424,6 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
 }
 
 #' @export
-seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
-                          ...) {
-  bad_by(by)
-  by_mth <- paste(by, "month")
-  new_yearmonth(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
-    along.with = along.with, ...
-  ))
-}
-
-#' @export
 seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
   bad_by(by)
@@ -585,11 +446,6 @@ seq.ordered <- function(from, to, by, ...) {
 #' @export
 `[.yearweek` <- function(x, ..., drop = TRUE) {
   new_yearweek(NextMethod())
-}
-
-#' @export
-`[.yearmonth` <- function(x, ..., drop = TRUE) {
-  new_yearmonth(NextMethod())
 }
 
 #' @export

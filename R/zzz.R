@@ -1,15 +1,12 @@
 # nocov start
 .onLoad <- function(...) {
   register_s3_method("pillar", "pillar_shaft", "yearweek")
-  register_s3_method("pillar", "pillar_shaft", "yearmonth")
   register_s3_method("pillar", "pillar_shaft", "yearquarter")
 
   register_s3_method("pillar", "is_vector_s3", "yearweek")
-  register_s3_method("pillar", "is_vector_s3", "yearmonth")
   register_s3_method("pillar", "is_vector_s3", "yearquarter")
 
   register_s3_method("pillar", "obj_sum", "yearweek")
-  register_s3_method("pillar", "obj_sum", "yearmonth")
   register_s3_method("pillar", "obj_sum", "yearquarter")
 
   register_s3_method("dplyr", "filter", "tbl_ts")
