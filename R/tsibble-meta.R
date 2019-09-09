@@ -196,7 +196,7 @@ interval <- function(x) {
 #' is_ordered(pedestrian)
 #' @export
 is_regular <- function(x) {
-  !is_empty(interval(x))
+  interval(x) %@% ".regular"
 }
 
 #' @rdname regular

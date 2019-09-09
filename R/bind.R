@@ -4,7 +4,7 @@ rbind.tbl_ts <- function(...) {
   data <- list2(...)[[1]]
   x <- bind_rows(...)
   x <- retain_tsibble(x, key(data), index(data))
-  int_int <- map_lgl(list2(...), ~ !is_empty(. %@% "interval"))
+  int_int <- map_lgl(list2(...), ~ (. %@% "interval") %@% ".regular")
   int <- reduce(int_int, `||`)
   update_meta(x, data, ordered = NULL, interval = int)
 }

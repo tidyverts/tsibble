@@ -62,6 +62,37 @@ pivot_longer_tsibble <- function(x, tz = "UTC") {
   )
 }
 
+# from ts time to dates
+time_to_date <- function(x, tz = "UTC", ...) {
+  freq <- frequency(x)
+  time_x <- round(as.numeric(time(x)), digits = 6) # floating
+  if (freq == 52) {
+    warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
+  }
+  if (freq == 7) { # daily
+    start_year <- trunc(time_x[1])
+    as.Date(round_date(
+      date_decimal(start_year + (time_x - start_year) * 7 / 365),
+      unit = "day"
+    ))
+  } else if (round(freq, 2) == 52.18) { # weekly
+    yearweek(date_decimal(time_x))
+  } else if (freq > 4 && freq <= 12) { # monthly
+    yearmonth(time_x)
+  } else if (freq > 1 && freq <= 4) { # quarterly
+    yearquarter(time_x)
+  } else if (freq == 1) { # yearly
+    time_x
+  } else {
+    if (end(x)[1] > 1581) {
+      date_x <- date_decimal(time_x, tz = tz)
+      round_date(date_x, unit = "seconds")
+    } else {
+      time_x
+    }
+  }
+}
+
 # nocov start
 
 #' @keywords internal

@@ -259,7 +259,7 @@ seq_generator <- function(x, interval = NULL) {
   if (is_null(interval)) {
     interval <- interval_pull(x)
   }
-  tunit <- time_unit(interval)
+  tunit <- default_time_units(interval)
   if (tunit == 0) return(x)
 
   res <- tryCatch(

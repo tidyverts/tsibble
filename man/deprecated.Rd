@@ -4,6 +4,7 @@
 \alias{as.tsibble}
 \alias{is.tsibble}
 \alias{fill_na}
+\alias{time_unit}
 \alias{id}
 \title{Deprecated functions}
 \usage{
@@ -12,6 +13,8 @@ as.tsibble(x, ...)
 is.tsibble(x)
 
 fill_na(.data, ..., .full = FALSE)
+
+time_unit(x)
 
 id(...)
 }
@@ -26,6 +29,7 @@ id(...)
 \itemize{
 \item \code{is.tsibble()} \lifecycle{soft-deprecated}
 \item \code{as.tsibble()} \lifecycle{deprecated}
+\item \code{time_unit()} \lifecycle{deprecated}
 \item \code{id()} \lifecycle{deprecated}
 \item \code{fill_na()} \lifecycle{defunct}
 }

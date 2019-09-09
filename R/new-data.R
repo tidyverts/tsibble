@@ -28,7 +28,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   abort_unknown_interval(int <- interval(.data))
 
   idx <- index(.data)
-  tunit <- time_unit(int)
+  tunit <- default_time_units(int)
 
   key_data <- key_data(.data)
   grped_df <- new_grouped_df(.data, groups = key_data)

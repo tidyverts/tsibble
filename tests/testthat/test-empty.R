@@ -1,7 +1,7 @@
 context("handle empty tsibble and empty groups")
 
 test_that("create an empty tsibble", {
-  expect_identical(interval(tsibble(datetime = Sys.time()[0])), init_interval())
+  expect_identical(interval(tsibble(datetime = Sys.time()[0])), new_interval())
   expect_identical(
     interval(tsibble(datetime = Sys.time()[0], regular = FALSE)),
     irregular()
