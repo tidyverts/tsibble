@@ -16,7 +16,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adapting the [tidy data
 principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
-*tsibble* is an explicit data- and model-oriented object. In *tsibble*:
+*tsibble* is a data- and model-oriented object. In *tsibble*:
 
 1.  Index is a variable with inherent ordering from past to present.
 2.  Key is a set of variables that define observational units over time.
@@ -107,7 +107,7 @@ full_weather
 #> # Key:       origin [3]
 #> # Groups:    origin [3]
 #>   origin time_hour            temp humid precip
-#> * <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
 #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
 #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0

@@ -4,8 +4,7 @@ globalVariables(c(".rows"))
 #'
 #' \lifecycle{stable}
 #'
-#' @param ... A set of name-value pairs. The names of "key" and "index" should
-#' be avoided as they are used as the arguments.
+#' @param ... A set of name-value pairs.
 #' @param key Unquoted variable(s) that uniquely determine time indices. `NULL` for
 #' empty key, and works with tidy selector (e.g. [dplyr::starts_with()]).
 #' @param index A bare (or unquoted) variable to specify the time index variable.
@@ -33,10 +32,18 @@ globalVariables(c(".rows"))
 #'
 #' # create a tsibble with one key
 #' tsibble(
-#'   qtr = rep(yearquarter("201001") + 0:9, 3),
+#'   qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30),
 #'   key = group
+#' )
+#'
+#' # create a tsibble containing "key" and "index" as column names
+#' tsibble(!!!list(
+#'   index = rep(yearquarter("2010 Q1") + 0:9, 3),
+#'   key = rep(c("x", "y", "z"), each = 10),
+#'   value = rnorm(30)),
+#'   key = key, index = index
 #' )
 #' @export
 tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
