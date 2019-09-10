@@ -1,28 +1,91 @@
-yearmonth <- function(x = character()) {
-  if (is_yearmonth(x)) return(x)
-  if (is.POSIXt(x)) {
-    out <- as_date(floor_date(x, unit = "months"))
-  } else if (is.Date(x)) {
-    out <- floor_date(x, unit = "months")
-  } else if (is.numeric(x)) {
-    stopifnot(x > 1581 && x < 2500)
-    year <- trunc(x)
-    month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
-    out <- make_date(year, month, 1)
-  } else if (is.character(x)) {
-    assertDate(x)
-    out <- anydate(x)
-  } else {
-    dont_know(x, "yearmonth")
-  }
-  new_yearmonth(out)
+#' Represent year-month
+#'
+#' @description
+#' \lifecycle{stable}
+#'
+#' Create or coerce using `yearmonth()`.
+#'
+#' @param x Other object.
+#'
+#' @return year-month (`yearmonth`) objects.
+#'
+#' @seealso [interval_pull], [units_since]
+#' @rdname year-month
+#' @export
+#' @examples
+#' # coerce POSIXct/Dates to yearmonth
+#' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")
+#' yearmonth(x)
+#'
+#' # parse characters
+#' yearmonth(c("2018 Jan", "2018-01", "2018 January"))
+#'
+#' # creat an empty yearmonth container
+#' yearmonth()
+#'
+#' # seq() and arithmetic
+#' mth <- yearmonth("2017-11")
+#' seq(mth, length.out = 10, by = 1) # by 1 month
+#' mth + 0:9
+#'
+#' # display formats
+#' format(mth, format = "%y %m")
+yearmonth <- function(x) {
+  UseMethod("yearmonth")
 }
+
+#' @export
+yearmonth.default <- function(x) {
+  dont_know(x, "yearmonth")
+}
+
+#' @export
+yearmonth.NULL <- function(x) {
+  new_yearmonth()
+}
+
+#' @export
+yearmonth.POSIXt <- function(x) {
+  new_yearmonth(as_date(floor_date(x, unit = "months")))
+}
+
+#' @export
+yearmonth.Date <- function(x) {
+  new_yearmonth(floor_date(x, unit = "months"))
+}
+
+#' @export
+yearmonth.character <- function(x) {
+  assertDate(x)
+  new_yearmonth(anydate(x))
+}
+
+#' @export
+yearmonth.yearweek <- yearmonth.Date
+
+#' @export
+yearmonth.yearmonth <- function(x) {
+  new_yearmonth(x)
+}
+
+#' @export
+yearmonth.numeric <- function(x) {
+  year <- trunc(x)
+  month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
+  result <- make_date(year, month, 1)
+  new_yearmonth(result)
+}
+
+#' @export
+yearmonth.yearmon <- yearmonth.numeric
 
 new_yearmonth <- function(x = double()) {
   # vec_assert(x, double())
   new_vctr(x, class = "yearmonth")
 }
 
+#' @rdname year-month
+#' @export
 is_yearmonth <- function(x) {
   inherits(x, "yearmonth")
 }
