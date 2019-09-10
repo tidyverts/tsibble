@@ -1,4 +1,4 @@
-yearmonth <- function(x = double()) {
+yearmonth <- function(x = character()) {
   if (is_yearmonth(x)) return(x)
   if (is.POSIXt(x)) {
     out <- as_date(floor_date(x, unit = "months"))
@@ -109,12 +109,6 @@ vec_ptype2.POSIXt.yearmonth <- function(x, y, ...) {
 #' @export
 vec_ptype2.yearmonth.Date <- function(x, y, ...) {
   new_date()
-}
-
-#' @method vec_ptype2.yearmonth double
-#' @export
-vec_ptype2.yearmonth.double <- function(x, y, ...) {
-  double()
 }
 
 #' @method vec_ptype2.yearmonth yearmonth

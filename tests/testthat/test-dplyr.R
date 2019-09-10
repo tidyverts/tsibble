@@ -148,7 +148,7 @@ test_that("filter() and slice() with .preserve = TRUE", {
   expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
   expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
   res <- as_tsibble(AirPassengers) %>%
-    filter_index(~"1949 Mar", .preserve = TRUE)
+    filter_index(~ "1949 Mar", .preserve = TRUE)
   expect_false(identical(key_rows(res), key_rows(as_tsibble(AirPassengers))))
 })
 

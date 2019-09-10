@@ -94,7 +94,7 @@ time_in <- function(x, ...) {
     }
   }
 
-  lgl <- lhs <- rhs <- vector("list", n)
+  lgl <- lhs <- rhs <- vec_init(list(), n)
   for (i in seq_len(n)) {
     f <- formulas[[i]]
     if (is_atomic(f)) {
@@ -247,7 +247,7 @@ start.yearmonth <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearmonth(y)))
   }
-  start(x = x, y = y)
+  new_yearmonth(start(x = x, y = y))
 }
 
 end.yearmonth <- function(x, y = NULL, ...) {
@@ -255,7 +255,7 @@ end.yearmonth <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearmonth(y)))
   }
-  end(x = x, y = y)
+  new_yearmonth(end(x = x, y = y))
 }
 
 start.yearquarter <- function(x, y = NULL, ...) {
