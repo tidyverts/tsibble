@@ -1,11 +1,10 @@
-by_row <- function(FUN, .data, ordered = TRUE, interval = TRUE, ...,
-                   .preserve = FALSE) {
+by_row <- function(FUN, .data, ordered = TRUE, ..., .preserve = FALSE) {
   FUN <- match.fun(FUN, descend = FALSE)
   tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
   if (.preserve) {
-    update_meta2(tbl, .data, ordered = ordered, interval = interval)
+    update_meta2(tbl, .data, ordered = ordered, interval = interval(.data))
   } else {
-    update_meta(tbl, .data, ordered = ordered, interval = interval)
+    update_meta(tbl, .data, ordered = ordered, interval = interval(.data))
   }
 }
 
