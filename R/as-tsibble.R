@@ -274,6 +274,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
       index = index
     )
   }
+  interval <- validate_interval(tbl, key_data, index, interval)
   build_tsibble_meta(tbl,
     key_data = key_data, index = index, index2 = index2,
     ordered = ordered, interval = interval
@@ -289,34 +290,16 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
 #' high performance.
 #'
 #' @inheritParams build_tsibble
-#' @param index,index2 Strings for variable name.
+#' @param index,index2 Quoted variable name.
 #'
 #' @keywords internal
 #' @export
 build_tsibble_meta <- function(x, key_data = NULL, index, index2,
-                               ordered = NULL, interval = TRUE) {
+                               ordered = NULL, interval = NULL) {
   stopifnot(!is_null(ordered))
+  stopifnot(inherits(interval, "interval"))
   tbl <- x
-  nrows <- vec_size(tbl)
   attr(index, "ordered") <- ordered
-
-  is_interval <- inherits(interval, "interval")
-  msg_interval <- "Argument `interval` must be class interval, not %s."
-  if (is_false(interval) || is_null(interval)) {
-    interval <- irregular()
-  } else if (nrows == 0) {
-    interval <- new_interval()
-  } else if (is_true(interval)) {
-    interval <- interval_pull(tbl[[index]])
-  } else if (!is_interval) {
-    abort(sprintf(msg_interval, class(interval)[1]))
-  }
-  if (unknown_interval(interval) && (nrows > vec_size(key_data))) {
-    abort(paste_inline(
-      "Can't obtain the interval due to the mismatched index class.",
-      "Please see `vignette(\"FAQ\")` for details."
-    ))
-  }
 
   idx_lgl <- index == index2
   # convert grouped_df to tsibble:
@@ -412,6 +395,28 @@ validate_index_order <- function(data, key_data, index) {
     ), comma(c(key_txt, idx_txt), sep = "")))
   }
   ordered
+}
+
+validate_interval <- function(data, key_data, index, interval) {
+  nrows <- vec_size(data)
+  is_interval <- inherits(interval, "interval")
+  msg_interval <- "Argument `interval` must be class interval, not %s."
+  if (is_false(interval) || is_null(interval)) {
+    interval <- irregular()
+  } else if (nrows == 0) {
+    interval <- new_interval()
+  } else if (is_true(interval)) {
+    interval <- interval_pull(data[[index]])
+  } else if (!is_interval) {
+    abort(sprintf(msg_interval, class(interval)[1]))
+  }
+  if (unknown_interval(interval) && (nrows > vec_size(key_data))) {
+    abort(paste_inline(
+      "Can't obtain the interval due to the mismatched index class.",
+      "Please see `vignette(\"FAQ\")` for details."
+    ))
+  }
+  interval
 }
 
 # check if a comb of key vars result in a unique data entry

@@ -5,7 +5,7 @@
 \title{Low-level & high-performance constructor for a tsibble object}
 \usage{
 build_tsibble_meta(x, key_data = NULL, index, index2, ordered = NULL,
-  interval = TRUE)
+  interval = NULL)
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
@@ -13,7 +13,7 @@ build_tsibble_meta(x, key_data = NULL, index, index2, ordered = NULL,
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}
 
-\item{index, index2}{Strings for variable name.}
+\item{index, index2}{Quoted variable name.}
 
 \item{ordered}{The default of \code{NULL} arranges the key variable(s) first and
 then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
