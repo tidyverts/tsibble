@@ -5,6 +5,7 @@
 \alias{vec_cast.yearmonth}
 \alias{vec_ptype2.yearmonth}
 \alias{vec_arith.yearmonth}
+\alias{obj_print_data.yearmonth}
 \title{vctrs compatibility functions}
 \usage{
 \method{vec_cast}{yearmonth}(x, to, ...)
@@ -12,6 +13,8 @@
 \method{vec_ptype2}{yearmonth}(x, y, ...)
 
 \method{vec_arith}{yearmonth}(op, x, y, ...)
+
+\method{obj_print_data}{yearmonth}(x, ...)
 }
 \arguments{
 \item{x}{Objects.}

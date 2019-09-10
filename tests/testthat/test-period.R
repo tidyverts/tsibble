@@ -46,8 +46,6 @@ test_that("Arithmetic", {
   expect_equal(format(ym + 1), c("1970 Feb", "1970 Mar", "1970 Apr"))
   expect_equal(format(1 + ym), format(ym + 1))
   expect_equal(format(ym - 1), c("1969 Dec", "1970 Jan", "1970 Feb"))
-  expect_error(ym + ym, "not defined")
-  expect_equal(as.integer(ym - ym), rep(0, 3))
   expect_equal(as.integer(ym[2] - ym[1]), 1)
   expect_equal(as.integer(ym[1] - ym[2]), -1)
   expect_equal(format(+yq), format(yq))

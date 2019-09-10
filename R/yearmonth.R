@@ -66,11 +66,11 @@ vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
   as.POSIXlt(new_date(x))
 }
 
-#' @method vec_cast.double yearmonth
-#' @export
-vec_cast.double.yearmonth <- function(x, to, ...) {
-  as.double(x)
-}
+# #' @method vec_cast.double yearmonth
+# #' @export
+# vec_cast.double.yearmonth <- function(x, to, ...) {
+#   double(x)
+# }
 
 #' @method vec_cast.yearmonth yearmonth
 #' @export
@@ -173,6 +173,16 @@ vec_arith.yearmonth.MISSING <- function(op, x, y, ...) {
 #' @export
 format.yearmonth <- function(x, format = "%Y %b", ...) {
   format.Date(new_date(x), format = format, ...)
+}
+
+#' @rdname vctrs-compat
+#' @keywords internal
+#' @method obj_print_data yearmonth
+#' @export
+#' @export obj_print_data.yearmonth
+obj_print_data.yearmonth <- function(x, ...) {
+  if (length(x) == 0) return()
+  print(format(x))
 }
 
 #' @export
