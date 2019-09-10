@@ -29,10 +29,8 @@ test_that("vec_compare() for yearmonth()", {
 })
 
 test_that("vec_cast() for yearmonth()", {
-  expect_identical(as.character(yearmonth(x)), x)
   expect_identical(as.Date(yearmonth(x)), dates)
-  expect_identical(as.double(yearmonth(x)), as.double(dates))
-  expect_identical(vec_cast(yearmonth(x), to = double()), as.double(dates))
+  expect_identical(vec_cast(yearmonth(x), to = double()), as.double(yearmonth(x)))
   expect_identical(vec_cast(yearmonth(x), to = new_date()), dates)
   # expect_identical(as.POSIXct(yearmonth(x)), dttm)
   expect_identical(as.POSIXlt(yearmonth(x)), as.POSIXlt(dttm))

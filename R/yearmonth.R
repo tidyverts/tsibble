@@ -30,6 +30,9 @@
 #'
 #' # display formats
 #' format(mth, format = "%y %m")
+#'
+#' # units since 1970 Jan
+#' as.double(yearmonth("1969 Jan") + 0:24)
 yearmonth <- function(x) {
   UseMethod("yearmonth")
 }
@@ -118,16 +121,10 @@ vec_cast.POSIXct.yearmonth <- function(x, to, ...) {
   as.POSIXct(new_date(x), ...)
 }
 
-#' @method vec_cast.character yearmonth
-#' @export
-vec_cast.character.yearmonth <- function(x, to, ...) {
-  format(x)
-}
-
 #' @method vec_cast.double yearmonth
 #' @export
 vec_cast.double.yearmonth <- function(x, to, ...) {
-  vec_data(x)
+  as.double((year(x) - 1970) * 12 + month(x) - 1)
 }
 
 #' @export
@@ -143,7 +140,7 @@ vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
 
 #' @method vec_cast.yearmonth yearmonth
 #' @export
-vec_cast.yearmonth.yearmonth <- function(x, y, ...) {
+vec_cast.yearmonth.yearmonth <- function(x, to, ...) {
   new_yearmonth(x)
 }
 

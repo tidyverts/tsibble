@@ -38,6 +38,9 @@ mth + 0:9
 
 # display formats
 format(mth, format = "\%y \%m")
+
+# units since 1970 Jan
+as.double(yearmonth("1969 Jan") + 0:24)
 }
 \seealso{
 \link{interval_pull}, \link{units_since}
