@@ -10,14 +10,20 @@
 |collate  |en_AU.UTF-8                  |
 |ctype    |en_AU.UTF-8                  |
 |tz       |Australia/Melbourne          |
-|date     |2019-09-01                   |
+|date     |2019-09-10                   |
 
 # Dependencies
 
 |package |old   |new        |Δ  |
 |:-------|:-----|:----------|:--|
 |tsibble |0.8.3 |0.8.3.9000 |*  |
-|anytime |NA    |0.3.6      |*  |
+|vctrs   |NA    |0.2.0.9002 |*  |
 
 # Revdeps
+
+## New problems (1)
+
+|package                              |version |error  |warning |note |
+|:------------------------------------|:-------|:------|:-------|:----|
+|[fabletools](problems.md#fabletools) |0.1.0   |__+2__ |        |     |
 
