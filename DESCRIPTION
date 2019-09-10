@@ -21,10 +21,9 @@ Authors@R:
              role = "aut",
              comment = c(ORCID = "0000-0001-6729-7695")))
 Description: Provides a 'tbl_ts' class (the 'tsibble') for
-    temporal data in an explicit data- and model-oriented format. The
-    'tsibble' provides tools to easily manipulate and analyse temporal
-    data, such as filling in time gaps, aggregating over calendar periods,
-    performing rolling window calculations, and etc.
+    temporal data in an data- and model-oriented format. The 'tsibble' provides
+    tools to easily manipulate and analyse temporal data, such as filling in 
+    time gaps, aggregating over calendar periods, and etc.
 License: GPL-3
 URL: https://tsibble.tidyverts.org
 BugReports: https://github.com/tidyverts/tsibble/issues

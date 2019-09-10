@@ -298,26 +298,25 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
                                ordered = NULL, interval = NULL) {
   stopifnot(!is_null(ordered))
   stopifnot(inherits(interval, "interval"))
-  tbl <- x
   attr(index, "ordered") <- ordered
+  idx_lgl <- index != index2
+  is_grped <- is_grouped_df(x) || idx_lgl
 
-  idx_lgl <- index == index2
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
-  if (!idx_lgl) {
-    tbl <- group_by(tbl, !!sym(index2), add = TRUE)
+  if (idx_lgl) {
+    x <- group_by(x, !!sym(index2), add = TRUE)
   }
-  grp_data <- tbl %@% "groups"
-  tbl <- new_tibble(tbl,
+  grp_data <- x %@% "groups"
+  x <- new_tibble(x,
     "key" = key_data, "index" = index, "index2" = index2,
-    "interval" = interval, "groups" = NULL, nrow = vec_size(tbl),
+    "interval" = interval, "groups" = NULL, nrow = vec_size(x),
     class = "tbl_ts")
-  is_grped <- is_grouped_df(x) || !idx_lgl
   if (is_grped) {
     cls <- c("grouped_ts", "grouped_df")
-    tbl <- new_tsibble(tbl, "groups" = grp_data, class = cls)
+    x <- new_tsibble(x, "groups" = grp_data, class = cls)
   }
-  tbl
+  x
 }
 
 #' Create a subclass of a tsibble
@@ -539,12 +538,6 @@ duplicates <- function(data, key = NULL, index) {
 }
 
 duplicated_key_index <- function(data, key, index, key_data = NULL) {
-  # NOTE: bug in anyDuplicated.data.frame() (fixed in R 3.5.0)
-  # identifiers <- c(key, idx)
-  # below calls anyDuplicated.data.frame():
-  # time zone associated with the index will be dropped,
-  # e.g. nycflights13::weather, thus result in duplicates.
-  # dup <- anyDuplicated(data[, identifiers, drop = FALSE])
   if (is_null(key_data)) {
     keyed_data <- grouped_df(as_tibble(data), key)
   } else {
