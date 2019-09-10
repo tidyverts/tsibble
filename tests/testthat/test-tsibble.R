@@ -411,23 +411,6 @@ test_that("build_tsibble()", {
   )
 })
 
-test_that("build_tsibble() for empty data frame", {
-  ped_null <- pedestrian[0, ]
-  expect_error(build_tsibble(
-    ped_null,
-    key = Sensor, index = Date_Time,
-    interval = list(hour = 1)
-  ), "Argument `interval` must be class interval,")
-  expect_identical(
-    interval(build_tsibble(
-      ped_null,
-      key = Sensor, index = Date_Time,
-      interval = new_interval(hour = 1)
-    )),
-    new_interval(hour = 1)
-  )
-})
-
 test_that("update_tsibble() #112", {
   tsbl <- as_tsibble(dat_x, key = c(group1, group2), index = date, regular = FALSE)
   expect_true(is_regular(update_tsibble(tsbl, regular = TRUE)))

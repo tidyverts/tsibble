@@ -9,6 +9,7 @@ This is a maintenance release due to the changes in the upstream package.
 * Improved the speed performance for `as.ts.tbl_ts()` for converting tsibble to `ts`.
 * Added the support for `POSIXlt` as index.
 * When the interval cannot be obtained due to the mismatched index class, an error is issued instead of a warning before.
+* The interval is invariant to subsetting, such as `filter()`, `slice()`, and `[.tbl_ts`.
 
 # tsibble 0.8.3
 

@@ -297,18 +297,21 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
                                ordered = NULL, interval = TRUE) {
   stopifnot(!is_null(ordered))
   tbl <- x
+  nrows <- vec_size(tbl)
   attr(index, "ordered") <- ordered
 
   is_interval <- inherits(interval, "interval")
   msg_interval <- "Argument `interval` must be class interval, not %s."
   if (is_false(interval) || is_null(interval)) {
     interval <- irregular()
+  } else if (nrows == 0) {
+    interval <- new_interval()
   } else if (is_true(interval)) {
     interval <- interval_pull(tbl[[index]])
   } else if (!is_interval) {
     abort(sprintf(msg_interval, class(interval)[1]))
   }
-  if (unknown_interval(interval) && (vec_size(tbl) > vec_size(key_data))) {
+  if (unknown_interval(interval) && (nrows > vec_size(key_data))) {
     abort(paste_inline(
       "Can't obtain the interval due to the mismatched index class.",
       "Please see `vignette(\"FAQ\")` for details."

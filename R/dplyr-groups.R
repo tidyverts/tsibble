@@ -8,7 +8,7 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
   if (keep) {
     lapply(lst, update_meta, .tbl,
       ordered = is_ordered(.tbl),
-      interval = is_regular(.tbl)
+      interval = interval(.tbl)
     )
   } else {
     first_data <- lst[[1]]
@@ -17,11 +17,11 @@ group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
     first_tsbl <-
       remove_key(update_meta(first_data, new_tsbl,
         ordered = is_ordered(.tbl),
-        interval = is_regular(.tbl)
+        interval = interval(.tbl)
       ), left_over)
     lapply(lst, update_meta, first_tsbl,
       ordered = is_ordered(.tbl),
-      interval = is_regular(.tbl)
+      interval = interval(.tbl)
     )
   }
 }

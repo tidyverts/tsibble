@@ -70,7 +70,8 @@ The \link{interval} function returns the interval associated with the tsibble.
 "year". An unrecognisable time interval is labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
 marked with \code{!}.
-\item Unknown: Not determined (\code{?}), if there is only one entry for each key variable.
+\item Unknown: Not determined (\code{?}), if it's an empty tsibble, or one entry for
+each key variable.
 }
 
 An interval is obtained based on the corresponding index representation:
@@ -89,6 +90,11 @@ An interval is obtained based on the corresponding index representation:
 When the interval cannot be obtained due to the mismatched index format, an
 error is issued.
 }
+
+The interval is invariant to subsetting, such as \code{filter()}, \code{slice()}, and \code{[.tbl_ts}.
+But if the result is an empty tsibble, the interval is always unknown.
+When joining a tsibble with other data sources and aggregating to different
+time scales, the interval gets re-calculated.
 }
 
 \examples{

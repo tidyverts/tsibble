@@ -32,10 +32,7 @@ arrange.grouped_ts <- arrange.tbl_ts
 
 #' @rdname tsibble-tidyverse
 filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  by_row(filter, .data,
-    ordered = is_ordered(.data),
-    interval = is_regular(.data), ..., .preserve = .preserve
-  )
+  by_row(filter, .data, ordered = is_ordered(.data), ..., .preserve = .preserve)
 }
 
 #' @rdname tsibble-tidyverse
@@ -47,10 +44,7 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
   }
   pos_df <- summarise(as_tibble(.data), !!".pos_col" := list2(!!pos[[1]]))
   ascending <- all(map_lgl(pos_df[[".pos_col"]], validate_order))
-  by_row(slice, .data,
-    ordered = ascending, interval = is_regular(.data), ...,
-    .preserve = .preserve
-  )
+  by_row(slice, .data, ordered = ascending, ..., .preserve = .preserve)
 }
 
 #' @rdname tsibble-tidyverse

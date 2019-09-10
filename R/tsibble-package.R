@@ -39,7 +39,8 @@
 #' "year". An unrecognisable time interval is labelled as "unit".
 #' * Irregular: `as_tsibble(regular = FALSE)` gives the irregular tsibble. It is
 #' marked with `!`.
-#' * Unknown: Not determined (`?`), if there is only one entry for each key variable.
+#' * Unknown: Not determined (`?`), if it's an empty tsibble, or one entry for
+#' each key variable.
 #'
 #' An interval is obtained based on the corresponding index representation:
 #' * integerish numerics between 1582 and 2499: "year" (`Y`). Note the year of
@@ -55,6 +56,11 @@
 #' * other numerics &`ordered` (ordered factor): "unit"
 #' When the interval cannot be obtained due to the mismatched index format, an
 #' error is issued.
+#'
+#' The interval is invariant to subsetting, such as `filter()`, `slice()`, and `[.tbl_ts`.
+#' But if the result is an empty tsibble, the interval is always unknown.
+#' When joining a tsibble with other data sources and aggregating to different
+#' time scales, the interval gets re-calculated.
 #'
 #' @section Time zone:
 #' Time zone corresponding to index will be displayed if index is `POSIXct`.
