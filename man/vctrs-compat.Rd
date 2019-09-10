@@ -2,17 +2,23 @@
 % Please edit documentation in R/compat-vctrs.R, R/yearmonth.R
 \name{vctrs-compat}
 \alias{vctrs-compat}
+\alias{vec_cast.yearmonth}
+\alias{vec_ptype2.yearmonth}
 \alias{vec_arith.yearmonth}
 \title{vctrs compatibility functions}
 \usage{
+\method{vec_cast}{yearmonth}(x, to, ...)
+
+\method{vec_ptype2}{yearmonth}(x, y, ...)
+
 \method{vec_arith}{yearmonth}(op, x, y, ...)
 }
 \arguments{
 \item{x}{Objects.}
 
-\item{...}{Used to pass along error message information.}
-
 \item{to}{Type to cast to.}
+
+\item{...}{Used to pass along error message information.}
 }
 \description{
 These functions are the extensions that allow mists objects to

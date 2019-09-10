@@ -34,20 +34,75 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   structure(out, class = "difftime", units = "months")
 }
 
+#' @rdname vctrs-compat
+#' @keywords internal
+#' @method vec_cast yearmonth
+#' @export
+#' @export vec_cast.yearmonth
 vec_cast.yearmonth <- function(x, to, ...) {
   UseMethod("vec_cast.yearmonth")
 }
 
-vec_cast.yearmonth.POSIXct <- function(x, to, ...) {
-  new_datetime(x)
+#' @method vec_cast.Date yearmonth
+#' @export
+vec_cast.Date.yearmonth <- function(x, to, ...) {
+  new_date(x)
 }
 
-vec_ptype2.yearmonth <- function(x, to, ...) {
-  UseMethod("vec_ptype2.yearmonth")
+#' @method vec_cast.POSIXct yearmonth
+#' @export
+vec_cast.POSIXct.yearmonth <- function(x, to, ...) {
+  as.POSIXct(new_date(x))
 }
 
-vec_ptype2.yearmonth.POSIXct <- function(x, to, ...) {
-  new_datetime(x)
+#' @export
+as.POSIXlt.yearmonth <- function(x, tz = "", ...) {
+  as.POSIXlt(new_date(x), tz = tz, ...)
+}
+
+#' @method vec_cast.POSIXlt yearmonth
+#' @export
+vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
+  as.POSIXlt(new_date(x))
+}
+
+#' @method vec_cast.double yearmonth
+#' @export
+vec_cast.double.yearmonth <- function(x, to, ...) {
+  as.double((year(x) - 1970) * 12 + month(x) - 1)
+}
+
+#' @rdname vctrs-compat
+#' @keywords internal
+#' @method vec_ptype2 yearmonth
+#' @export
+#' @export vec_ptype2.yearmonth
+vec_ptype2.yearmonth <- function(x, y, ...) {
+  UseMethod("vec_ptype2.yearmonth", y)
+}
+
+#' @method vec_ptype2.yearmonth POSIXt
+#' @export
+vec_ptype2.yearmonth.POSIXt <- function(x, y, ...) {
+  new_datetime()
+}
+
+#' @method vec_ptype2.POSIXt yearmonth
+#' @export
+vec_ptype2.POSIXt.yearmonth <- function(x, y, ...) {
+  new_datetime()
+}
+
+#' @method vec_ptype2.yearmonth Date
+#' @export
+vec_ptype2.yearmonth.Date <- function(x, y, ...) {
+  new_date()
+}
+
+#' @method vec_ptype2.Date yearmonth
+#' @export
+vec_ptype2.Date.yearmonth <- function(x, y, ...) {
+  new_date()
 }
 
 #' @rdname vctrs-compat
