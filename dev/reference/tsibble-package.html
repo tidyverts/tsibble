@@ -214,7 +214,8 @@ Key can be created in conjunction with tidy selectors like <code>starts_with()</
 "year". An unrecognisable time interval is labelled as "unit".</p></li>
 <li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
 marked with <code>!</code>.</p></li>
-<li><p>Unknown: Not determined (<code>?</code>), if there is only one entry for each key variable.</p></li>
+<li><p>Unknown: Not determined (<code>?</code>), if it's an empty tsibble, or one entry for
+each key variable.</p></li>
 </ul>
 
 <p>An interval is obtained based on the corresponding index representation:</p><ul>
@@ -233,6 +234,10 @@ When the interval cannot be obtained due to the mismatched index format, an
 error is issued.</p></li>
 </ul>
 
+<p>The interval is invariant to subsetting, such as <code><a href='https://rdrr.io/r/stats/filter.html'>filter()</a></code>, <code>slice()</code>, and <code>[.tbl_ts</code>.
+But if the result is an empty tsibble, the interval is always unknown.
+When joining a tsibble with other data sources and aggregating to different
+time scales, the interval gets re-calculated.</p>
     <h2 class="hasAnchor" id="time-zone"><a class="anchor" href="#time-zone"></a>Time zone</h2>
 
     
