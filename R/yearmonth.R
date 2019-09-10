@@ -69,7 +69,13 @@ vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
 #' @method vec_cast.double yearmonth
 #' @export
 vec_cast.double.yearmonth <- function(x, to, ...) {
-  as.double((year(x) - 1970) * 12 + month(x) - 1)
+  as.double(x)
+}
+
+#' @method vec_cast.yearmonth yearmonth
+#' @export
+vec_cast.yearmonth.yearmonth <- function(x, y, ...) {
+  new_yearmonth(x)
 }
 
 #' @rdname vctrs-compat
@@ -97,6 +103,18 @@ vec_ptype2.POSIXt.yearmonth <- function(x, y, ...) {
 #' @export
 vec_ptype2.yearmonth.Date <- function(x, y, ...) {
   new_date()
+}
+
+#' @method vec_ptype2.yearmonth double
+#' @export
+vec_ptype2.yearmonth.double <- function(x, y, ...) {
+  new_date()
+}
+
+#' @method vec_ptype2.yearmonth yearmonth
+#' @export
+vec_ptype2.yearmonth.yearmonth <- function(x, y, ...) {
+  new_yearmonth()
 }
 
 #' @method vec_ptype2.Date yearmonth
@@ -136,7 +154,7 @@ vec_arith.yearmonth.numeric <- function(op, x, y, ...) {
 #' @export
 vec_arith.numeric.yearmonth <- function(op, x, y, ...) {
   if (op == "+") {
-    yearmonth(period(months = e1) + as_date(e2))
+    yearmonth(period(months = x) + as_date(y))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -167,6 +185,10 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
                           ...) {
   bad_by(by)
   by_mth <- paste(by, "month")
+  from <- vec_cast(from, new_date())
+  if (!is_missing(to)) {
+    to <- vec_cast(to, new_date())
+  }
   new_yearmonth(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
