@@ -52,7 +52,19 @@ vec_cast.Date.yearmonth <- function(x, to, ...) {
 #' @method vec_cast.POSIXct yearmonth
 #' @export
 vec_cast.POSIXct.yearmonth <- function(x, to, ...) {
-  as.POSIXct(new_date(x))
+  as.POSIXct(new_date(x), ...)
+}
+
+#' @method vec_cast.character yearmonth
+#' @export
+vec_cast.character.yearmonth <- function(x, to, ...) {
+  format(x)
+}
+
+#' @method vec_cast.double yearmonth
+#' @export
+vec_cast.double.yearmonth <- function(x, to, ...) {
+  vec_data(x)
 }
 
 #' @export
@@ -63,14 +75,8 @@ as.POSIXlt.yearmonth <- function(x, tz = "", ...) {
 #' @method vec_cast.POSIXlt yearmonth
 #' @export
 vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
-  as.POSIXlt(new_date(x))
+  as.POSIXlt(new_date(x), ...)
 }
-
-# #' @method vec_cast.double yearmonth
-# #' @export
-# vec_cast.double.yearmonth <- function(x, to, ...) {
-#   double(x)
-# }
 
 #' @method vec_cast.yearmonth yearmonth
 #' @export
@@ -108,7 +114,7 @@ vec_ptype2.yearmonth.Date <- function(x, y, ...) {
 #' @method vec_ptype2.yearmonth double
 #' @export
 vec_ptype2.yearmonth.double <- function(x, y, ...) {
-  new_date()
+  double()
 }
 
 #' @method vec_ptype2.yearmonth yearmonth
