@@ -289,14 +289,6 @@ stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
-incr <- function(.init, .step) {
-  .init
-  function() {
-    .init <<- .init + .step
-    .init
-  }
-}
-
 pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA,
                         expect_length = NULL) {
   if (is_null(.fill)) {
