@@ -20,12 +20,32 @@ slide_by.tbl_rts <- function(.data, ...) {
   .data
 }
 
+collect.tbl_rts <- function(x, fold = integer(), ...) {
+  if (is_empty(fold))  return(as_tsibble(x, validate = FALSE))
+  if (!has_length(fold, 1)) {
+    abort("`fold` only accepts integer of length 1.")
+  }
+  max_folds <- nfolds(x)
+  if (fold > max_folds) {
+    abort(sprintf("The maximum `fold` is %s.", max_folds))
+  }
+  out_rows <- vec_c(!!!map(key_rows(x), fold))
+  as_tsibble(vec_slice(x, out_rows), validate = FALSE)
+}
+
 slider2 <- function(x, .size = 1, .step = 1) {
-  stopifnot(.size > 0 && .step > 0)
-  stopifnot(is_integerish(.size) && is_integerish(.step))
+  if (!(.size > 0 && .step > 0 && is_integerish(.size) && is_integerish(.step))) {
+    abort("`.size` & `.step` must be a positive integer.")
+  }
   len_x <- vec_size(x)
   lst_idx <- seq.int(1L, len_x - .size + 1, by = .step)
   as_list_of(map(lst_idx, function(idx) x[idx:(idx + .size - 1)]))
+}
+
+tbl_sum.tbl_rts <- function(x) {
+  n_folds <- brackets(big_mark(nfolds(x)))
+  res <- NextMethod()
+  c(res, "Folds" = n_folds)
 }
 
 new_rolling_tsibble <- function(.data, key_data, .nfolds = NULL) {
@@ -35,17 +55,4 @@ new_rolling_tsibble <- function(.data, key_data, .nfolds = NULL) {
 
 nfolds <- function(.data) {
   .data %@% .nfolds
-}
-
-tbl_sum.tbl_rts <- function(x) {
-  n_folds <- brackets(big_mark(nfolds(x)))
-  res <- NextMethod()
-  c(res, "Folds" = n_folds)
-}
-
-collect.tbl_rts <- function(x, fold = integer(), ...) {
-  stopifnot(!is_empty(fold))
-  stopifnot(fold <= nfolds(x))
-  out_rows <- vec_c(!!!map(key_rows(x), fold))
-  as_tsibble(vec_slice(x, out_rows), validate = FALSE)
 }
