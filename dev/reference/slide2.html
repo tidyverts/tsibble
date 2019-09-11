@@ -399,24 +399,24 @@ names will be used if present.</p></td>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 3
 #&gt; # Groups:   group [2]
-#&gt;    group           data  slope
-#&gt;    &lt;fct&gt; &lt;list&lt;df[,3]&gt;&gt;  &lt;dbl&gt;
-#&gt;  1 a            [8 × 3] NA    
-#&gt;  2 a            [8 × 3]  0.638
-#&gt;  3 a            [8 × 3]  1.83 
-#&gt;  4 a            [8 × 3]  4.11 
-#&gt;  5 a            [8 × 3] -0.581
-#&gt;  6 a            [8 × 3]  1.88 
-#&gt;  7 a            [8 × 3]  3.98 
-#&gt;  8 a            [8 × 3] -0.514
-#&gt;  9 b            [8 × 3] NA    
-#&gt; 10 b            [8 × 3]  0.185
-#&gt; 11 b            [8 × 3]  0.529
-#&gt; 12 b            [8 × 3]  4.71 
-#&gt; 13 b            [8 × 3]  3.02 
-#&gt; 14 b            [8 × 3]  0.376
-#&gt; 15 b            [8 × 3]  2.65 
-#&gt; 16 b            [8 × 3]  2.01 </div><div class='input'><span class='co'>## window over 2 months</span>
+#&gt;    group           data   slope
+#&gt;    &lt;fct&gt; &lt;list&lt;df[,3]&gt;&gt;   &lt;dbl&gt;
+#&gt;  1 a            [8 × 3] NA     
+#&gt;  2 a            [8 × 3] -0.0900
+#&gt;  3 a            [8 × 3]  2.86  
+#&gt;  4 a            [8 × 3]  1.45  
+#&gt;  5 a            [8 × 3]  2.04  
+#&gt;  6 a            [8 × 3]  3.03  
+#&gt;  7 a            [8 × 3]  1.88  
+#&gt;  8 a            [8 × 3]  1.14  
+#&gt;  9 b            [8 × 3] NA     
+#&gt; 10 b            [8 × 3]  0.401 
+#&gt; 11 b            [8 × 3]  4.74  
+#&gt; 12 b            [8 × 3]  0.745 
+#&gt; 13 b            [8 × 3]  1.84  
+#&gt; 14 b            [8 × 3]  2.64  
+#&gt; 15 b            [8 × 3]  0.959 
+#&gt; 16 b            [8 × 3]  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>

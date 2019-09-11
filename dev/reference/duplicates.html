@@ -191,7 +191,8 @@ duplicates(): identical key-index data entries.
     <tr>
       <th>key</th>
       <td><p>Unquoted variable(s) that uniquely determine time indices. <code>NULL</code> for
-empty key, and works with tidy selector (e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+empty key, and <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> for multiple variables. It works with tidy selector
+(e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
     </tr>
     <tr>
       <th>index</th>
@@ -215,7 +216,7 @@ elements.</p></td>
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2014 cherry     4
-#&gt; 2  2014 cherry     9</div></pre>
+#&gt; 2  2014 cherry     1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

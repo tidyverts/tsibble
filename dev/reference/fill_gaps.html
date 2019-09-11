@@ -212,26 +212,26 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt;  1  2010 cherry    NA
 #&gt;  2  2011 cherry     7
-#&gt;  3  2012 cherry     8
+#&gt;  3  2012 cherry    10
 #&gt;  4  2013 cherry    NA
-#&gt;  5  2014 cherry     5
+#&gt;  5  2014 cherry     8
 #&gt;  6  2010 kiwi       3
-#&gt;  7  2011 kiwi       4
+#&gt;  7  2011 kiwi       1
 #&gt;  8  2012 kiwi      NA
-#&gt;  9  2013 kiwi       1
+#&gt;  9  2013 kiwi       9
 #&gt; 10  2014 kiwi      NA</div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>full_harvest</span></div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
 #&gt; # Key:       fruit [2]
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2011 cherry     7
-#&gt; 2  2012 cherry     8
+#&gt; 2  2012 cherry    10
 #&gt; 3  2013 cherry    NA
-#&gt; 4  2014 cherry     5
+#&gt; 4  2014 cherry     8
 #&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
+#&gt; 6  2011 kiwi       1
 #&gt; 7  2012 kiwi      NA
-#&gt; 8  2013 kiwi       1</div><div class='input'>
+#&gt; 8  2013 kiwi       9</div><div class='input'>
 <span class='co'># replace gaps with a specific value</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
@@ -239,13 +239,13 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2011 cherry     7
-#&gt; 2  2012 cherry     8
+#&gt; 2  2012 cherry    10
 #&gt; 3  2013 cherry     0
-#&gt; 4  2014 cherry     5
+#&gt; 4  2014 cherry     8
 #&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
+#&gt; 6  2011 kiwi       1
 #&gt; 7  2012 kiwi       0
-#&gt; 8  2013 kiwi       1</div><div class='input'>
+#&gt; 8  2013 kiwi       9</div><div class='input'>
 <span class='co'># replace gaps using a function by variable</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; # A tsibble: 8 x 3 [1Y]
@@ -253,13 +253,13 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2011 cherry     7
-#&gt; 2  2012 cherry     8
-#&gt; 3  2013 cherry    28
-#&gt; 4  2014 cherry     5
+#&gt; 2  2012 cherry    10
+#&gt; 3  2013 cherry    38
+#&gt; 4  2014 cherry     8
 #&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi      28
-#&gt; 8  2013 kiwi       1</div><div class='input'>
+#&gt; 6  2011 kiwi       1
+#&gt; 7  2012 kiwi      38
+#&gt; 8  2013 kiwi       9</div><div class='input'>
 <span class='co'># replace gaps using a function for each group</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
@@ -269,13 +269,13 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;    year fruit   kilo
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2011 cherry     7
-#&gt; 2  2012 cherry     8
-#&gt; 3  2013 cherry    20
-#&gt; 4  2014 cherry     5
+#&gt; 2  2012 cherry    10
+#&gt; 3  2013 cherry    25
+#&gt; 4  2014 cherry     8
 #&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi       8
-#&gt; 8  2013 kiwi       1</div><div class='input'>
+#&gt; 6  2011 kiwi       1
+#&gt; 7  2012 kiwi      13
+#&gt; 8  2013 kiwi       9</div><div class='input'>
 <span class='co'># leaves existing `NA` untouched</span>
 <span class='no'>harvest</span>[<span class='fl'>2</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
@@ -287,12 +287,12 @@ to fill <code>NA</code> over the entire time span of the data (a.k.a. fully bala
 #&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
 #&gt; 1  2011 cherry     7
 #&gt; 2  2012 cherry    NA
-#&gt; 3  2013 cherry    12
-#&gt; 4  2014 cherry     5
+#&gt; 3  2013 cherry    15
+#&gt; 4  2014 cherry     8
 #&gt; 5  2010 kiwi       3
-#&gt; 6  2011 kiwi       4
-#&gt; 7  2012 kiwi       8
-#&gt; 8  2013 kiwi       1</div><div class='input'>
+#&gt; 6  2011 kiwi       1
+#&gt; 7  2012 kiwi      13
+#&gt; 8  2013 kiwi       9</div><div class='input'>
 <span class='co'># replace NA</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
