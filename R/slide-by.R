@@ -22,6 +22,7 @@ slide_by.tbl_rts <- function(.data, ...) {
 
 slider2 <- function(x, .size = 1, .step = 1) {
   stopifnot(.size > 0 && .step > 0)
+  stopifnot(is_integerish(.size) && is_integerish(.step))
   len_x <- vec_size(x)
   lst_idx <- seq.int(1L, len_x - .size + 1, by = .step)
   as_list_of(map(lst_idx, function(idx) x[idx:(idx + .size - 1)]))
@@ -40,4 +41,11 @@ tbl_sum.tbl_rts <- function(x) {
   n_folds <- brackets(big_mark(nfolds(x)))
   res <- NextMethod()
   c(res, "Folds" = n_folds)
+}
+
+collect.tbl_rts <- function(x, fold = integer(), ...) {
+  stopifnot(!is_empty(fold))
+  stopifnot(fold <= nfolds(x))
+  out_rows <- vec_c(!!!map(key_rows(x), fold))
+  as_tsibble(vec_slice(x, out_rows), validate = FALSE)
 }
