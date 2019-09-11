@@ -23,7 +23,8 @@ as_tsibble(x, key = NULL, index, regular = TRUE, validate = TRUE,
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
+empty key, and \code{c()} for multiple variables. It works with tidy selector
+(e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -61,7 +62,7 @@ as_tsibble(tbl1)
 # supply the index to suppress the message
 as_tsibble(tbl1, index = date)
 
-# coerce tibble to tsibble with one key
+# coerce tibble to tsibble with a single variable for key
 # "date" is automatically considered as the index var, and "group" is the key
 tbl2 <- tibble(
   mth = rep(yearmonth("2017-01") + 0:9, 3),
@@ -70,6 +71,15 @@ tbl2 <- tibble(
 )
 as_tsibble(tbl2, key = group)
 as_tsibble(tbl2, key = group, index = mth)
+
+# create a tsibble with multiple variables for key
+tbl3 <- tibble(
+  mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
+  xyz = rep(c("x", "y", "z"), each = 9),
+  abc = rep(letters[1:3], times = 9),
+  value = rnorm(27)
+)
+as_tsibble(tbl3, key = c(xyz, abc))
 # coerce ts to tsibble
 as_tsibble(AirPassengers)
 as_tsibble(sunspot.year)

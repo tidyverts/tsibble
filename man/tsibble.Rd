@@ -10,7 +10,8 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 \item{...}{A set of name-value pairs.}
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
+empty key, and \code{c()} for multiple variables. It works with tidy selector
+(e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 
@@ -104,12 +105,21 @@ tsibble(
   value = rnorm(10)
 )
 
-# create a tsibble with one key
+# create a tsibble with a single variable for key
 tsibble(
   qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
   key = group
+)
+
+# create a tsibble with multiple variables for key
+tsibble(
+  mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
+  xyz = rep(c("x", "y", "z"), each = 9),
+  abc = rep(letters[1:3], times = 9),
+  value = rnorm(27),
+  key = c(xyz, abc)
 )
 
 # create a tsibble containing "key" and "index" as column names
