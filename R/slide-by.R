@@ -27,7 +27,11 @@ slider_nfolds <- function(x, size = 1, step = 1) {
 }
 
 slider_anon <- function(x, size = 1, step = 1, fold) {
-  vec_slice(x, fold:(fold + size - 1))
+  len_x <- vec_size(x)
+  start_x <- if (fold == 1) 1 else fold * step
+  end_x <- if (fold == 1) size else (fold + size - 1) * step
+  max_x <- if (end_x > len_x) len_x else end_x
+  vec_slice(x, start_x:max_x)
 }
 
 roller <- function(data) {
@@ -86,7 +90,7 @@ stretcher_nfolds <- function(x, init = 1, step = 1) {
 
 stretcher_anon <- function(x, init = 1, step = 1, fold) {
   len_x <- vec_size(x)
-  end_x <- step * fold
+  end_x <- if (fold == 1) init else init + step * fold
   max_x <- if (end_x > len_x) len_x else end_x
   vec_slice(x, seq_len(max_x))
 }
