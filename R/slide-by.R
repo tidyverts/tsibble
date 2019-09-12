@@ -11,7 +11,7 @@ slide_by <- function(data, size = 1, step = 1) {
 slide_by.tbl_ts <- function(data, size = 1, step = 1) {
   key_rows <- key_rows(data)
   nfolds <- max(map_dbl(key_rows, function(x) slider_nfolds(x, size, step)))
-  new_rolling_tsibble(data, 
+  new_roll_tsibble(data, 
     .nfolds = nfolds,
     .roller = function(x, fold) slider_anon(x, size, step, fold)
   )
@@ -51,7 +51,7 @@ stretch_by <- function(data, init = 1, step = 1) {
 stretch_by.tbl_ts <- function(data, init = 1, step = 1) {
   key_rows <- key_rows(data)
   nfolds <- max(map_dbl(key_rows, function(x) stretcher_nfolds(x, init, step)))
-  new_rolling_tsibble(data, 
+  new_roll_tsibble(data, 
     .nfolds = nfolds,
     .roller = function(x, fold) stretcher_anon(x, init, step, fold)
   )
@@ -73,7 +73,7 @@ stretcher_anon <- function(x, init = 1, step = 1, fold) {
   vec_slice(x, seq_len(max_x))
 }
 
-collect.tbl_rts <- function(x, fold = integer()) {
+collect.tbl_roll_ts <- function(x, fold = integer()) {
   if (is_empty(fold))  return(as_tsibble(x))
   if (!has_length(fold, 1)) {
     abort("`fold` only accepts integer of length 1.")
@@ -87,16 +87,16 @@ collect.tbl_rts <- function(x, fold = integer()) {
   x[out_rows, ]
 }
 
-tbl_sum.tbl_rts <- function(x) {
+tbl_sum.tbl_roll_ts <- function(x) {
   c(NextMethod(), "Lazy" = paste(big_mark(nfolds(x)), "folds"))
 }
 
-as_tsibble.tbl_rts <- function(x) {
+as_tsibble.tbl_roll_ts <- function(x) {
   new_tsibble(x, ".nfolds" = NULL, ".roller" = NULL)
 }
 
-new_rolling_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
-  new_tsibble(data, .nfolds = .nfolds, .roller = .roller, class = "tbl_rts")
+new_roll_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
+  new_tsibble(data, .nfolds = .nfolds, .roller = .roller, class = "tbl_roll_ts")
 }
 
 nfolds <- function(data) {
