@@ -52,7 +52,8 @@ collect.tbl_rts <- function(x, fold = integer()) {
     abort(sprintf("The maximum `fold` is %s.", max_folds))
   }
   out_rows <- vec_c(!!!map(key_rows(x), function(z) roller(x)(z, fold = fold)))
-  as_tsibble(vec_slice(x, out_rows))
+  # as_tsibble(vec_slice(x, out_rows))
+  x[out_rows, ]
 }
 
 stretch_by <- function(data, init = 1, step = 1) {
