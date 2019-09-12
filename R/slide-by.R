@@ -88,7 +88,7 @@ collect.tbl_rts <- function(x, fold = integer()) {
 }
 
 tbl_sum.tbl_rts <- function(x) {
-  c(NextMethod(), "Folds" = brackets(big_mark(nfolds(x))))
+  c(NextMethod(), "Lazy" = paste(big_mark(nfolds(x)), "folds"))
 }
 
 as_tsibble.tbl_rts <- function(x) {
