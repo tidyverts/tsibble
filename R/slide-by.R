@@ -84,7 +84,7 @@ stretch_by.grouped_ts <- function(data, init = 1, step = 1) {
 }
 
 stretcher_nfolds <- function(x, init = 1, step = 1) {
-  floor((vec_size(x) - init) / step) + 1
+  floor((vec_size(x) - init) / step)
 }
 
 stretcher_anon <- function(x, init = 1, step = 1, fold) {
