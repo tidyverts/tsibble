@@ -28,32 +28,10 @@ slider_nfolds <- function(x, size = 1, step = 1) {
 
 slider_anon <- function(x, size = 1, step = 1, fold) {
   len_x <- vec_size(x)
-  start_x <- if (fold == 1) 1 else fold * step
-  end_x <- if (fold == 1) size else (fold + size - 1) * step
+  start_x <- 1 + (fold - 1) * step
+  end_x <- start_x + size - 1
   max_x <- if (end_x > len_x) len_x else end_x
   vec_slice(x, start_x:max_x)
-}
-
-roller <- function(data) {
-  data %@% ".roller"
-}
-
-as_tsibble.tbl_rts <- function(x) {
-  new_tsibble(x, ".nfolds" = NULL, ".roller" = NULL)
-}
-
-collect.tbl_rts <- function(x, fold = integer()) {
-  if (is_empty(fold))  return(as_tsibble(x))
-  if (!has_length(fold, 1)) {
-    abort("`fold` only accepts integer of length 1.")
-  }
-  max_folds <- nfolds(x)
-  if (fold > max_folds) {
-    abort(sprintf("The maximum `fold` is %s.", max_folds))
-  }
-  out_rows <- vec_c(!!!map(key_rows(x), function(z) roller(x)(z, fold = fold)))
-  # as_tsibble(vec_slice(x, out_rows))
-  x[out_rows, ]
 }
 
 stretch_by <- function(data, init = 1, step = 1) {
@@ -85,18 +63,36 @@ stretch_by.grouped_ts <- function(data, init = 1, step = 1) {
 }
 
 stretcher_nfolds <- function(x, init = 1, step = 1) {
-  floor((vec_size(x) - init) / step)
+  floor((vec_size(x) - init) / step) + 1
 }
 
 stretcher_anon <- function(x, init = 1, step = 1, fold) {
   len_x <- vec_size(x)
-  end_x <- if (fold == 1) init else init + step * fold
+  end_x <- init + (fold - 1) * step
   max_x <- if (end_x > len_x) len_x else end_x
   vec_slice(x, seq_len(max_x))
 }
 
+collect.tbl_rts <- function(x, fold = integer()) {
+  if (is_empty(fold))  return(as_tsibble(x))
+  if (!has_length(fold, 1)) {
+    abort("`fold` only accepts integer of length 1.")
+  }
+  max_folds <- nfolds(x)
+  if (fold > max_folds) {
+    abort(sprintf("The maximum `fold` is %s.", max_folds))
+  }
+  out_rows <- vec_c(!!!map(key_rows(x), function(z) roller(x)(z, fold = fold)))
+  # as_tsibble(vec_slice(x, out_rows))
+  x[out_rows, ]
+}
+
 tbl_sum.tbl_rts <- function(x) {
   c(NextMethod(), "Folds" = brackets(big_mark(nfolds(x))))
+}
+
+as_tsibble.tbl_rts <- function(x) {
+  new_tsibble(x, ".nfolds" = NULL, ".roller" = NULL)
 }
 
 new_rolling_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
@@ -104,5 +100,9 @@ new_rolling_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
 }
 
 nfolds <- function(data) {
-  data %@% .nfolds
+  data %@% ".nfolds"
+}
+
+roller <- function(data) {
+  data %@% ".roller"
 }
