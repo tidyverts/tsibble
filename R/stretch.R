@@ -6,7 +6,10 @@ nrow2 <- function(.x) {
 #' Stretching window calculation
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
@@ -85,7 +88,10 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' Stretching window calculation over multiple simultaneously
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.

@@ -1,7 +1,10 @@
 #' Tiling window calculation
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
@@ -58,7 +61,10 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' Tiling window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.

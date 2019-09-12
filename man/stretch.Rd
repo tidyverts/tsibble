@@ -63,7 +63,10 @@ Only applies to \code{_dfr} variant.}
 if \code{.fill != NULL}, it always returns the same length as input.
 }
 \description{
-\lifecycle{stable}
+\lifecycle{questioning}
+
+The rolling window family will be deprecated in the future. Please consider
+using the \href{https://davisvaughan.github.io/slide}{slide} package.
 
 Fixing an initial window and expanding more observations:
 \itemize{
