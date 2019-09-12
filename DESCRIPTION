@@ -52,14 +52,12 @@ Suggests:
     rmarkdown,
     spelling,
     testthat,
-    tidyr (>= 0.8.99.9000),
+    tidyr (>= 1.0.0),
     timeDate
 VignetteBuilder: 
     knitr
 RdMacros: 
     lifecycle
-Remotes:
-    tidyverse/tidyr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
