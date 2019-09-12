@@ -62,7 +62,7 @@ stretch_by <- function(data, init = 1, step = 1) {
   )) {
     abort("`init` & `step` must be a positive integer.")
   }
-  len_x <- vec_size(x)
+  len_x <- vec_size(data)
   if (len_x <= init) {
     abort(sprintf("`init` must be less than %s.", len_x))
   }
@@ -84,8 +84,7 @@ stretch_by.grouped_ts <- function(data, init = 1, step = 1) {
 }
 
 stretcher_nfolds <- function(x, init = 1, step = 1) {
-  len_x <- vec_size(x)
-  floor((len_x - init) / step) + 1
+  floor((vec_size(x) - init) / step) + 1
 }
 
 stretcher_anon <- function(x, init = 1, step = 1, fold) {
