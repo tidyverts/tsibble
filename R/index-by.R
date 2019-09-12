@@ -75,10 +75,6 @@
 #' tourism %>%
 #'   index_by(Year = ~ financial_year(.)) %>%
 #'   summarise(Total = sum(Trips))
-financial_year <- function(date) {
-  year <- year(date)
-  ifelse(quarter(date) <= 2, year, year + 1)
-}
 index_by <- function(.data, ...) {
   UseMethod("index_by")
 }
