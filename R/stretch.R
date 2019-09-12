@@ -313,6 +313,14 @@ pad_stretch <- function(x, .init = 1, .step = 1, .fill = NA,
   }
 }
 
+incr <- function(.init, .step) {
+  .init
+  function() {
+    .init <<- .init + .step
+    .init
+  }
+}
+
 #' Stretching window in parallel
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
