@@ -10,10 +10,10 @@ slide_by <- function(data, size = 1, step = 1) {
 
 slide_by.tbl_ts <- function(data, size = 1, step = 1) {
   key_rows <- key_rows(data)
-  nfolds <- max(map_dbl(key_rows, function(x) slider_nfolds(x, size, step)))
+  nfolds <- max(map_dbl(key_rows, function(x) slide_nfolds(x, size, step)))
   new_roll_tsibble(data, 
     .nfolds = nfolds,
-    .roller = function(x, fold) slider_anon(x, size, step, fold)
+    .roller = function(x, fold) slide_fn(x, size, step, fold)
   )
 }
 
@@ -22,11 +22,11 @@ slide_by.grouped_ts <- function(data, size = 1, step = 1) {
   slide_by.tbl_ts(data, size, step)
 }
 
-slider_nfolds <- function(x, size = 1, step = 1) {
+slide_nfolds <- function(x, size = 1, step = 1) {
   ceiling((vec_size(x) - size + 1) / step)
 }
 
-slider_anon <- function(x, size = 1, step = 1, fold) {
+slide_fn <- function(x, size = 1, step = 1, fold) {
   len_x <- vec_size(x)
   start_x <- 1 + (fold - 1) * step
   end_x <- start_x + size - 1
@@ -50,10 +50,10 @@ stretch_by <- function(data, init = 1, step = 1) {
 
 stretch_by.tbl_ts <- function(data, init = 1, step = 1) {
   key_rows <- key_rows(data)
-  nfolds <- max(map_dbl(key_rows, function(x) stretcher_nfolds(x, init, step)))
+  nfolds <- max(map_dbl(key_rows, function(x) stretch_nfolds(x, init, step)))
   new_roll_tsibble(data, 
     .nfolds = nfolds,
-    .roller = function(x, fold) stretcher_anon(x, init, step, fold)
+    .roller = function(x, fold) stretch_fn(x, init, step, fold)
   )
 }
 
@@ -62,11 +62,11 @@ stretch_by.grouped_ts <- function(data, init = 1, step = 1) {
   stretch_by.tbl_ts(data, init, step)
 }
 
-stretcher_nfolds <- function(x, init = 1, step = 1) {
+stretch_nfolds <- function(x, init = 1, step = 1) {
   floor((vec_size(x) - init) / step) + 1
 }
 
-stretcher_anon <- function(x, init = 1, step = 1, fold) {
+stretch_fn <- function(x, init = 1, step = 1, fold) {
   len_x <- vec_size(x)
   end_x <- init + (fold - 1) * step
   max_x <- if (end_x > len_x) len_x else end_x
