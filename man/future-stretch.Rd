@@ -4,6 +4,11 @@
 \alias{future_stretch()}
 \title{Stretching window in parallel}
 \description{
+\lifecycle{questioning}
+
+\strong{The rolling window family will be deprecated in the future. Please consider
+using the \href{https://davisvaughan.github.io/slide}{slide} package.}
+
 Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]{tile()}}, \code{\link[=stretch]{stretch()}} prefixed by \code{future_}.
 \itemize{
 \item Variants for corresponding types: \code{future_*_lgl()}, \code{future_*_int()},

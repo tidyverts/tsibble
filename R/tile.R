@@ -3,8 +3,8 @@
 #' @description
 #' \lifecycle{questioning}
 #'
-#' The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
@@ -63,8 +63,8 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @description
 #' \lifecycle{questioning}
 #'
-#' The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.
@@ -216,6 +216,11 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
 
 #' Tiling window in parallel
 #'
+#' @description
+#' \lifecycle{questioning}
+#'
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
 #' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.

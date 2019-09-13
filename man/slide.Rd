@@ -71,8 +71,8 @@ if \code{.fill != NULL}, it always returns the same length as input.
 \description{
 \lifecycle{questioning}
 
-The rolling window family will be deprecated in the future. Please consider
-using the \href{https://davisvaughan.github.io/slide}{slide} package.
+\strong{The rolling window family will be deprecated in the future. Please consider
+using the \href{https://davisvaughan.github.io/slide}{slide} package.}
 
 Rolling window with overlapping observations:
 \itemize{
