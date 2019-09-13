@@ -88,7 +88,8 @@ collect.tbl_roll_ts <- function(x, fold = integer()) {
 }
 
 tbl_sum.tbl_roll_ts <- function(x) {
-  c(NextMethod(), "Lazy" = paste(big_mark(nfolds(x)), "folds"))
+  nfolds <- nfolds(x)
+  c(NextMethod(), "Roll by" = paste(big_mark(nfolds(x)), "folds"))
 }
 
 as_tsibble.tbl_roll_ts <- function(x) {
