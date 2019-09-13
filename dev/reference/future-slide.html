@@ -49,7 +49,10 @@
 
 
 <meta property="og:title" content="Sliding window in parallel — future_slide()" />
-<meta property="og:description" content="Multiprocessing equivalents of slide(), tile(), stretch() prefixed by future_.
+<meta property="og:description" content="
+The rolling window family will be deprecated in the future. Please consider
+using the slide package.
+Multiprocessing equivalents of slide(), tile(), stretch() prefixed by future_.
 Variants for corresponding types: future_*_lgl(), future_*_int(),
 future_*_dbl(), future_*_chr(), future_*_dfr(), future_*_dfc().
 Extra arguments .progress and .options for enabling progress bar and the
@@ -168,7 +171,10 @@ future specific options to use with the workers.
     </div>
 
     <div class="ref-description">
-    <p>Multiprocessing equivalents of <code><a href='slide.html'>slide()</a></code>, <code><a href='tile.html'>tile()</a></code>, <code><a href='stretch.html'>stretch()</a></code> prefixed by <code>future_</code>.</p><ul>
+    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
+<p><strong>The rolling window family will be deprecated in the future. Please consider
+using the <a href='https://davisvaughan.github.io/slide'>slide</a> package.</strong></p>
+<p>Multiprocessing equivalents of <code><a href='slide.html'>slide()</a></code>, <code><a href='tile.html'>tile()</a></code>, <code><a href='stretch.html'>stretch()</a></code> prefixed by <code>future_</code>.</p><ul>
 <li><p>Variants for corresponding types: <code>future_*_lgl()</code>, <code>future_*_int()</code>,
 <code>future_*_dbl()</code>, <code>future_*_chr()</code>, <code>future_*_dfr()</code>, <code>future_*_dfc()</code>.</p></li>
 <li><p>Extra arguments <code>.progress</code> and <code>.options</code> for enabling progress bar and the
