@@ -20,7 +20,10 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' Sliding window calculation
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
@@ -127,7 +130,10 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' Sliding window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{stable}
+#' \lifecycle{questioning}
+#'
+#' The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.

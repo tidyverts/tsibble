@@ -11,7 +11,8 @@ update_tsibble(x, key, index, regular = is_regular(x), validate = TRUE,
 \item{x}{A tsibble.}
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
+empty key, and \code{c()} for multiple variables. It works with tidy selector
+(e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
 
 \item{index}{A bare (or unquoted) variable to specify the time index variable.}
 

@@ -28,7 +28,7 @@
     if (vec_duplicate_any(i) > 0) return(as_tibble(res))
   }
 
-  not_tsibble <- !(index_var(x) %in% cn) || NROW(res) > NROW(x)
+  not_tsibble <- !(index_var(x) %in% cn) || vec_size(res) > vec_size(x)
   maybe_tsibble <- n_keys(x) > 1 && !all(is.element(key(x), new_key))
   if (not_tsibble || maybe_tsibble) {
     as_tibble(res)

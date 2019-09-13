@@ -23,7 +23,7 @@
 #' * [lubridate::ceiling_date], [lubridate::floor_date], or [lubridate::round_date]:
 #' fine-resolution aggregation
 #' * Extract time components functions, such as [lubridate::hour()] & [lubridate::day()]
-#' * other index functions from other packages
+#' * other index functions from other packages or self-defined functions
 #'
 #' @details
 #' * A `index_by()`-ed tsibble is indicated by `@` in the "Groups" when
@@ -60,10 +60,20 @@
 #'   index_by(Date_Time4 = ~ lubridate::floor_date(., "4 hour")) %>%
 #'   summarise(Total_Count = sum(Count))
 #'
+#' library(lubridate, warn.conflicts = FALSE)
 #' # Annual trips by Region and State
 #' tourism %>%
-#'   index_by(Year = ~ lubridate::year(.)) %>%
+#'   index_by(Year = ~ year(.)) %>%
 #'   group_by(Region, State) %>%
+#'   summarise(Total = sum(Trips))
+#'
+#' # Rouding to financial year, using a custom function
+#' financial_year <- function(date) {
+#'   year <- year(date)
+#'   ifelse(quarter(date) <= 2, year, year + 1)
+#' }
+#' tourism %>%
+#'   index_by(Year = ~ financial_year(.)) %>%
 #'   summarise(Total = sum(Trips))
 index_by <- function(.data, ...) {
   UseMethod("index_by")

@@ -66,7 +66,10 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-\lifecycle{stable}
+\lifecycle{questioning}
+
+The rolling window family will be deprecated in the future. Please consider
+using the \href{https://davisvaughan.github.io/slide}{slide} package.
 
 Tiling window without overlapping observations:
 \itemize{

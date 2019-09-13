@@ -12,7 +12,8 @@ unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 \item{cols}{Names of columns to unnest.}
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and works with tidy selector (e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
+empty key, and \code{c()} for multiple variables. It works with tidy selector
+(e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you

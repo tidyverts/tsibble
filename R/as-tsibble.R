@@ -6,7 +6,8 @@ globalVariables(c(".rows"))
 #'
 #' @param ... A set of name-value pairs.
 #' @param key Unquoted variable(s) that uniquely determine time indices. `NULL` for
-#' empty key, and works with tidy selector (e.g. [dplyr::starts_with()]).
+#' empty key, and `c()` for multiple variables. It works with tidy selector
+#' (e.g. [dplyr::starts_with()]).
 #' @param index A bare (or unquoted) variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
@@ -30,12 +31,21 @@ globalVariables(c(".rows"))
 #'   value = rnorm(10)
 #' )
 #'
-#' # create a tsibble with one key
+#' # create a tsibble with a single variable for key
 #' tsibble(
 #'   qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30),
 #'   key = group
+#' )
+#'
+#' # create a tsibble with multiple variables for key
+#' tsibble(
+#'   mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
+#'   xyz = rep(c("x", "y", "z"), each = 9),
+#'   abc = rep(letters[1:3], times = 9),
+#'   value = rnorm(27),
+#'   key = c(xyz, abc)
 #' )
 #'
 #' # create a tsibble containing "key" and "index" as column names
@@ -82,7 +92,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' # supply the index to suppress the message
 #' as_tsibble(tbl1, index = date)
 #'
-#' # coerce tibble to tsibble with one key
+#' # coerce tibble to tsibble with a single variable for key
 #' # "date" is automatically considered as the index var, and "group" is the key
 #' tbl2 <- tibble(
 #'   mth = rep(yearmonth("2017-01") + 0:9, 3),
@@ -91,6 +101,15 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' )
 #' as_tsibble(tbl2, key = group)
 #' as_tsibble(tbl2, key = group, index = mth)
+#'
+#' # create a tsibble with multiple variables for key
+#' tbl3 <- tibble(
+#'   mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
+#'   xyz = rep(c("x", "y", "z"), each = 9),
+#'   abc = rep(letters[1:3], times = 9),
+#'   value = rnorm(27)
+#' )
+#' as_tsibble(tbl3, key = c(xyz, abc))
 #' @export
 as_tsibble <- function(x, key = NULL, index, regular = TRUE,
                        validate = TRUE, .drop = TRUE, ...) {
