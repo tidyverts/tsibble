@@ -9,6 +9,7 @@
 #'
 #' @return year-week (`yearweek`) objects.
 #'
+#' @family index functions
 #' @seealso [interval_pull], [units_since]
 #' @rdname year-week
 #' @export
@@ -118,6 +119,11 @@ vec_cast.yearweek <- function(x, to, ...) {
 #' @method vec_cast.Date yearweek
 #' @export
 vec_cast.Date.yearweek <- function(x, to, ...) {
+  new_date(x)
+}
+
+#' @export
+as.Date.yearweek <- function(x, ...) {
   new_date(x)
 }
 
@@ -289,7 +295,7 @@ vec_ptype_abbr.yearweek <- function(x, ...) {
 
 #' @export
 seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
-                          ...) {
+                         ...) {
   bad_by(by)
   by_mth <- paste(by, "week")
   from <- vec_cast(from, new_date())

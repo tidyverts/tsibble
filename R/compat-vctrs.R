@@ -1,6 +1,6 @@
 #' vctrs compatibility functions
 #'
-#' These functions are the extensions that allow mists objects to
+#' These functions are the extensions that allow tsibble objects to
 #' work with vctrs.
 #'
 #' @param x Objects.

@@ -231,7 +231,7 @@ start.yearweek <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearweek(y)))
   }
-  start(x = x, y = y)
+  new_yearweek(start(x = x, y = y))
 }
 
 end.yearweek <- function(x, y = NULL, ...) {
@@ -239,7 +239,7 @@ end.yearweek <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearweek(y)))
   }
-  end(x = x, y = y)
+  new_yearweek(end(x = x, y = y))
 }
 
 start.yearmonth <- function(x, y = NULL, ...) {
@@ -263,7 +263,7 @@ start.yearquarter <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearquarter(y)))
   }
-  start(x = x, y = y)
+  new_yearquarter(start(x = x, y = y))
 }
 
 end.yearquarter <- function(x, y = NULL, ...) {
@@ -271,7 +271,7 @@ end.yearquarter <- function(x, y = NULL, ...) {
   if (!is_null(y)) {
     y <- as.character(as_date(yearquarter(y)))
   }
-  end(x = x, y = y)
+  new_yearquarter(end(x = x, y = y))
 }
 
 start.yearmon <- function(x, y = NULL, ...) {

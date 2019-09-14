@@ -9,6 +9,7 @@
 #'
 #' @return year-month (`yearmonth`) objects.
 #'
+#' @family index functions
 #' @seealso [interval_pull], [units_since]
 #' @rdname year-month
 #' @export
@@ -108,6 +109,11 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
 #' @export vec_cast.yearmonth
 vec_cast.yearmonth <- function(x, to, ...) {
   UseMethod("vec_cast.yearmonth")
+}
+
+#' @export
+as.Date.yearmonth <- function(x, ...) {
+  new_date(x)
 }
 
 #' @method vec_cast.Date yearmonth
