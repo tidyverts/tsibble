@@ -48,7 +48,6 @@ Suggests:
     knitr,
     nanotime,
     nycflights13 (>= 1.0.0),
-    pillar (>= 1.0.1),
     rmarkdown,
     spelling,
     testthat,
