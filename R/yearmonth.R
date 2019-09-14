@@ -50,7 +50,7 @@ yearmonth.NULL <- function(x) {
 
 #' @export
 yearmonth.POSIXt <- function(x) {
-  new_yearmonth(as_date(floor_date(x, unit = "months")))
+  new_yearmonth(floor_date(as_date(x), unit = "months"))
 }
 
 #' @export
@@ -65,13 +65,11 @@ yearmonth.character <- function(x) {
 }
 
 #' @export
-yearmonth.yearweek <- function(x) {
-  new_yearmonth(floor_date(as_date(x), unit = "months"))
-}
+yearmonth.yearweek <- yearmonth.POSIXt
 
 #' @export
 yearmonth.yearmonth <- function(x) {
-  new_yearmonth(x)
+  x
 }
 
 #' @export
@@ -93,6 +91,11 @@ new_yearmonth <- function(x = double()) {
 #' @export
 is_yearmonth <- function(x) {
   inherits(x, "yearmonth")
+}
+
+#' @export
+is.numeric.yearmonth <- function(x) {
+  FALSE
 }
 
 diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {

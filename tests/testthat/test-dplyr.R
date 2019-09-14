@@ -289,7 +289,7 @@ test_that("rename() scoped variants", {
 })
 
 date_character <- function(x) {
-  is.Date(x) || is.character(x)
+  is_yearquarter(x) || is.character(x)
 }
 
 test_that("select() scoped variants", {

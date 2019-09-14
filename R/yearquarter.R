@@ -50,7 +50,7 @@ yearquarter.NULL <- function(x) {
 
 #' @export
 yearquarter.POSIXt <- function(x) {
-  new_yearquarter(as_date(floor_date(x, unit = "quarters")))
+  new_yearquarter(floor_date(as_date(x), unit = "quarters"))
 }
 
 #' @export
@@ -88,7 +88,7 @@ yearquarter.yearmonth <- yearquarter.POSIXt
 
 #' @export
 yearquarter.yearquarter <- function(x) {
-  new_yearquarter(x)
+  x
 }
 
 #' @export
@@ -111,6 +111,11 @@ new_yearquarter <- function(x = double()) {
 #' @export
 is_yearquarter <- function(x) {
   inherits(x, "yearquarter")
+}
+
+#' @export
+is.numeric.yearquarter <- function(x) {
+  FALSE
 }
 
 diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
@@ -291,7 +296,7 @@ obj_print_data.yearquarter <- function(x, ...) {
 
 #' @export
 vec_ptype_abbr.yearquarter <- function(x, ...) {
-  "mth"
+  "qtr"
 }
 
 #' @export

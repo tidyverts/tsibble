@@ -2,7 +2,7 @@
 #' @export
 rbind.tbl_ts <- function(...) {
   data <- list2(...)[[1]]
-  x <- bind_rows(...)
+  x <- vec_rbind(...)
   x <- retain_tsibble(x, key(data), index(data))
   int_int <- map_lgl(list2(...), ~ (. %@% "interval") %@% ".regular")
   int <- reduce(int_int, `||`)

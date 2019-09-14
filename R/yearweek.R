@@ -51,7 +51,7 @@ yearweek.NULL <- function(x) {
 
 #' @export
 yearweek.POSIXt <- function(x) {
-  new_yearweek(as_date(floor_date(x, unit = "weeks", week_start = 1)))
+  new_yearweek(floor_date(as_date(x), unit = "weeks", week_start = 1))
 }
 
 #' @export
@@ -87,7 +87,7 @@ yearweek.character <- function(x) {
 
 #' @export
 yearweek.yearweek <- function(x) {
-  new_yearweek(x)
+  x
 }
 
 new_yearweek <- function(x = double()) {
@@ -98,6 +98,11 @@ new_yearweek <- function(x = double()) {
 #' @export
 is_yearweek <- function(x) {
   inherits(x, "yearweek")
+}
+
+#' @export
+is.numeric.yearweek <- function(x) {
+  FALSE
 }
 
 diff.yearweek <- function(x, lag = 1, differences = 1, ...) {

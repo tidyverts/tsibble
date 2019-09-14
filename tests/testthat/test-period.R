@@ -46,10 +46,6 @@ test_that("Arithmetic", {
   expect_equal(format(yq + 1), c("1970 Q2", "1970 Q3", "1970 Q4"))
   expect_equal(format(1 + yq), format(yq + 1))
   expect_equal(format(yq - 1), c("1969 Q4", "1970 Q1", "1970 Q2"))
-  expect_error(yq + yq, "not defined")
-  expect_equal(as.integer(yq - yq), rep(0, 3))
-  expect_equal(as.integer(yq[2] - yq[1]), 1)
-  expect_equal(as.integer(yq[1] - yq[2]), -1)
 })
 
 a <- yearweek(seq(ymd("2017-02-01"), length.out = 12, by = "1 week"))
