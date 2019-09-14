@@ -96,8 +96,9 @@ as_tsibble.tbl_roll_ts <- function(x) {
   new_tsibble(x, ".nfolds" = NULL, ".roller" = NULL)
 }
 
-new_roll_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
-  new_tsibble(data, .nfolds = .nfolds, .roller = .roller, class = "tbl_roll_ts")
+new_roll_tsibble <- function(x, .nfolds = NULL, .roller = NULL) {
+  new_lazy_tsibble(x, .nfolds = .nfolds, .roller = .roller,
+    class = "tbl_roll_ts")
 }
 
 nfolds <- function(data) {
@@ -106,4 +107,10 @@ nfolds <- function(data) {
 
 roller <- function(data) {
   data %@% ".roller"
+}
+
+new_lazy_tsibble <- function(x, ..., class = NULL) {
+  x <- new_tsibble(x, ..., class = "tbl_lazy_ts")
+  class(x) <- c(class, class(x))
+  x
 }
