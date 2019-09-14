@@ -73,7 +73,7 @@ stretch_fn <- function(x, init = 1, step = 1, fold) {
   vec_slice(x, seq_len(max_x))
 }
 
-collect.tbl_roll_ts <- function(x, fold = integer()) {
+collect.tbl_roll_ts <- function(x, fold = integer(), ...) {
   if (is_empty(fold))  return(as_tsibble(x))
   if (!has_length(fold, 1)) {
     abort("`fold` only accepts integer of length 1.")

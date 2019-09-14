@@ -64,7 +64,9 @@ yearmonth.character <- function(x) {
 }
 
 #' @export
-yearmonth.yearweek <- yearmonth.Date
+yearmonth.yearweek <- function(x) {
+  new_yearmonth(floor_date(as_date(x), unit = "months"))
+}
 
 #' @export
 yearmonth.yearmonth <- function(x) {
@@ -83,7 +85,6 @@ yearmonth.numeric <- function(x) {
 yearmonth.yearmon <- yearmonth.numeric
 
 new_yearmonth <- function(x = double()) {
-  # vec_assert(x, double())
   new_vctr(x, class = "yearmonth")
 }
 
