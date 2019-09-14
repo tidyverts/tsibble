@@ -83,8 +83,8 @@ collect.tbl_roll_ts <- function(x, fold = integer()) {
     abort(sprintf("The maximum `fold` is %s.", max_folds))
   }
   out_rows <- vec_c(!!!map(key_rows(x), function(z) roller(x)(z, fold = fold)))
-  # as_tsibble(vec_slice(x, out_rows))
-  x[out_rows, ]
+  update_meta(vec_slice(x, out_rows), x, 
+    ordered = is_ordered(x), interval = interval(x))
 }
 
 tbl_sum.tbl_roll_ts <- function(x) {
