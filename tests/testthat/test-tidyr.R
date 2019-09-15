@@ -68,7 +68,7 @@ test_that("nest()", {
   expect_named(tourism %>% nest(Trips = -Purpose), c("Purpose", "Trips"))
   expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
   expect_is(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
-  expect_named(pedestrian %>% nest(), "data")
+  expect_named(pedestrian %>% nest(data = dplyr::everything()), "data")
   expect_named(pedestrian %>% nest(data = -Sensor), c("Sensor", "data"))
   expect_named(
     pedestrian %>% group_by(Sensor) %>% nest(),
