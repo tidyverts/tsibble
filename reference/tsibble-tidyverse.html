@@ -8,21 +8,32 @@
 
 <title>Tidyverse methods for tsibble — tsibble-tidyverse • tsibble</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,9 +47,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Tidyverse methods for tsibble — tsibble-tidyverse" />
 
+<meta property="og:title" content="Tidyverse methods for tsibble — tsibble-tidyverse" />
 <meta property="og:description" content="
+
 arrange(): if not arranging key and index in past-to-future order, a warning is
 likely to be issued.
 slice(): if row numbers are not in ascending order, a warning is likely to
@@ -47,10 +59,11 @@ select(): keeps the variables you mention as well as the index.
 transmute(): keeps the variable you operate on, as well as the index and key.
 summarise() reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.
-" />
 
+" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -74,6 +87,7 @@ as well as dropping empty keys/groups.
   gtag('config', 'UA-83007123-4');
 </script>
 
+
   </head>
 
   <body>
@@ -90,7 +104,7 @@ as well as dropping empty keys/groups.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -121,10 +135,12 @@ as well as dropping empty keys/groups.
   <a href="../articles/faq.html">FAQ</a>
 </li>
 <li>
+  <a href="../articles/press.html">Press</a>
+</li>
+<li>
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
@@ -134,7 +150,7 @@ as well as dropping empty keys/groups.
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -145,6 +161,7 @@ as well as dropping empty keys/groups.
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -157,7 +174,7 @@ as well as dropping empty keys/groups.
 
     <div class="ref-description">
     
-    <ul>
+<ul>
 <li><p><code>arrange()</code>: if not arranging key and index in past-to-future order, a warning is
 likely to be issued.</p></li>
 <li><p><code>slice()</code>: if row numbers are not in ascending order, a warning is likely to
@@ -167,14 +184,14 @@ be issued.</p></li>
 <li><p><code>summarise()</code> reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.</p></li>
 </ul>
-    
+
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
 <span class='fu'>arrange</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/filter'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
 <span class='fu'>slice</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -192,18 +209,8 @@ as well as dropping empty keys/groups.</p></li>
 <span class='fu'>transmute</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>summarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+<span class='fu'>summarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
 
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>gather</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"key"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>spread</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
-    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -220,51 +227,8 @@ as well as dropping empty keys/groups.</p></li>
       <td><p>when <code>FALSE</code> (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.</p></td>
     </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
-      <th>key</th>
-      <td><p>Names of new key and value columns, as strings or
-symbols.</p>
-<p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
-and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>Names of new key and value columns, as strings or
-symbols.</p>
-<p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
-and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).</p></td>
-    </tr>
-    <tr>
-      <th>na.rm</th>
-      <td><p>If <code>TRUE</code>, will remove rows from output where the
-value column is <code>NA</code>.</p></td>
-    </tr>
-    <tr>
-      <th>convert</th>
-      <td><p>If <code>TRUE</code> will automatically run
-<code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> on the key column. This is useful if the column
-types are actually numeric, integer, or logical.</p></td>
-    </tr>
-    <tr>
-      <th>factor_key</th>
-      <td><p>If <code>FALSE</code>, the default, the key values will be
-stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
-which preserves the original ordering of the columns.</p></td>
-    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Column-wise verbs, including <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>,
@@ -272,14 +236,13 @@ which preserves the original ordering of the columns.</p></td>
 the index variable cannot be dropped for a tsibble. If any key variable
 is changed, it will validate whether it's a tsibble internally. Use <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble()</a></code>
 to leave off the time context.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='co'># Sum over sensors</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
 #&gt;    Date_Time           Total
 #&gt;    &lt;dttm&gt;              &lt;int&gt;
 #&gt;  1 2015-01-01 00:00:00  2866
@@ -294,7 +257,7 @@ to leave off the time context.</p>
 #&gt; 10 2015-01-01 09:00:00   419
 #&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># shortcut</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
 #&gt;    Date_Time           Total
 #&gt;    &lt;dttm&gt;              &lt;int&gt;
 #&gt;  1 2015-01-01 00:00:00  2866
@@ -310,65 +273,55 @@ to leave off the time context.</p>
 #&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># Back to tibble</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
 #&gt;      Total
 #&gt;      &lt;int&gt;
-#&gt; 1 45483871</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>tidyr</span>)
-<span class='co'># example from tidyr</span>
+#&gt; 1 45483871</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
+<span class='co'># reshaping examples from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2009-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
-  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
+  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2009-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
+  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
+  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>))</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1D]
 #&gt; # Key:       stock [3]
 #&gt;    time       stock   price
 #&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -1.22  
-#&gt;  2 2009-01-02 X      0.0849
-#&gt;  3 2009-01-03 X      0.581 
-#&gt;  4 2009-01-04 X      0.451 
-#&gt;  5 2009-01-05 X      0.497 
-#&gt;  6 2009-01-06 X      0.779 
-#&gt;  7 2009-01-07 X      1.51  
-#&gt;  8 2009-01-08 X     -1.82  
-#&gt;  9 2009-01-09 X      0.788 
-#&gt; 10 2009-01-10 X     -0.973 
+#&gt;  1 2009-01-01 X      0.747 
+#&gt;  2 2009-01-02 X      1.90  
+#&gt;  3 2009-01-03 X     -2.06  
+#&gt;  4 2009-01-04 X      0.0645
+#&gt;  5 2009-01-05 X     -0.265 
+#&gt;  6 2009-01-06 X     -0.447 
+#&gt;  7 2009-01-07 X     -1.41  
+#&gt;  8 2009-01-08 X     -0.506 
+#&gt;  9 2009-01-09 X     -0.270 
+#&gt; 10 2009-01-10 X     -1.09  
 #&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1D]
-#&gt;    time             X      Y      Z
-#&gt;    &lt;date&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01 -1.22    1.79  -2.50 
-#&gt;  2 2009-01-02  0.0849  1.53  -3.50 
-#&gt;  3 2009-01-03  0.581   1.30   1.14 
-#&gt;  4 2009-01-04  0.451  -1.07   1.38 
-#&gt;  5 2009-01-05  0.497  -0.168 -3.74 
-#&gt;  6 2009-01-06  0.779  -4.02   1.17 
-#&gt;  7 2009-01-07  1.51   -1.03   0.191
-#&gt;  8 2009-01-08 -1.82    0.203  1.78 
-#&gt;  9 2009-01-09  0.788  -0.112  2.67 
-#&gt; 10 2009-01-10 -0.973  -4.86  -1.25 </div><div class='input'><span class='no'>nested_stock</span> <span class='kw'>&lt;-</span> <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(-<span class='no'>stock</span>)
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>stock</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>()</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   stock data              
-#&gt;   &lt;chr&gt; &lt;list&gt;            
-#&gt; 1 X     &lt;tsibble [10 × 2]&gt;
-#&gt; 2 Y     &lt;tsibble [10 × 2]&gt;
-#&gt; 3 Z     &lt;tsibble [10 × 2]&gt;</div></pre>
+#&gt;    time             X       Y      Z
+#&gt;    &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01  0.747   0.724   2.82 
+#&gt;  2 2009-01-02  1.90   -0.671   3.97 
+#&gt;  3 2009-01-03 -2.06    2.73    4.58 
+#&gt;  4 2009-01-04  0.0645 -1.42   -4.96 
+#&gt;  5 2009-01-05 -0.265   1.32   10.6  
+#&gt;  6 2009-01-06 -0.447   0.582  -0.628
+#&gt;  7 2009-01-07 -1.41    0.396  -1.69 
+#&gt;  8 2009-01-08 -0.506  -2.41   -0.794
+#&gt;  9 2009-01-09 -0.270  -0.0796 -3.58 
+#&gt; 10 2009-01-10 -1.09    1.37    3.62 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -376,8 +329,9 @@ to leave off the time context.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
@@ -400,6 +354,8 @@ to leave off the time context.</p>
 </script>
 
 
+
   </body>
 </html>
+
 

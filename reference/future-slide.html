@@ -8,21 +8,32 @@
 
 <title>Sliding window in parallel — future_slide() • tsibble</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,17 +47,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Sliding window in parallel — future_slide()" />
 
-<meta property="og:description" content="Multiprocessing equivalents of slide(), tile(), stretch() prefixed by future_.
+<meta property="og:title" content="Sliding window in parallel — future_slide()" />
+<meta property="og:description" content="
+The rolling window family will be deprecated in the future. Please consider
+using the slide package.
+Multiprocessing equivalents of slide(), tile(), stretch() prefixed by future_.
 Variants for corresponding types: future_*_lgl(), future_*_int(),
 future_*_dbl(), future_*_chr(), future_*_dfr(), future_*_dfc().
 Extra arguments .progress and .options for enabling progress bar and the
 future specific options to use with the workers.
-" />
 
+" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -70,6 +85,7 @@ future specific options to use with the workers.
   gtag('config', 'UA-83007123-4');
 </script>
 
+
   </head>
 
   <body>
@@ -86,7 +102,7 @@ future specific options to use with the workers.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -117,10 +133,12 @@ future specific options to use with the workers.
   <a href="../articles/faq.html">FAQ</a>
 </li>
 <li>
+  <a href="../articles/press.html">Press</a>
+</li>
+<li>
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
@@ -130,7 +148,7 @@ future specific options to use with the workers.
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -141,6 +159,7 @@ future specific options to use with the workers.
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -152,48 +171,52 @@ future specific options to use with the workers.
     </div>
 
     <div class="ref-description">
-    
-    <p>Multiprocessing equivalents of <code><a href='slide.html'>slide()</a></code>, <code><a href='tile.html'>tile()</a></code>, <code><a href='stretch.html'>stretch()</a></code> prefixed by <code>future_</code>.</p><ul>
+    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
+<p><strong>The rolling window family will be deprecated in the future. Please consider
+using the <a href='https://davisvaughan.github.io/slide'>slide</a> package.</strong></p>
+<p>Multiprocessing equivalents of <code><a href='slide.html'>slide()</a></code>, <code><a href='tile.html'>tile()</a></code>, <code><a href='stretch.html'>stretch()</a></code> prefixed by <code>future_</code>.</p><ul>
 <li><p>Variants for corresponding types: <code>future_*_lgl()</code>, <code>future_*_int()</code>,
 <code>future_*_dbl()</code>, <code>future_*_chr()</code>, <code>future_*_dfr()</code>, <code>future_*_dfc()</code>.</p></li>
 <li><p>Extra arguments <code>.progress</code> and <code>.options</code> for enabling progress bar and the
 future specific options to use with the workers.</p></li>
 </ul>
-    
+
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>It requires the package <strong>furrr</strong> to be installed. Please refer to <a href='https://davisvaughan.github.io/furrr/'>furrr</a> for performance and detailed usage.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"furrr"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stop'>stop</a></span>(<span class='st'>"Please install the furrr package to run these following examples."</span>)
-}</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>furrr</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: future</span></div><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"furrr"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span>(<span class='st'>"Please install the furrr package to run these following examples."</span>)
+}
+<span class='co'># \dontrun{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: future</span></div><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
 <span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
-  <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>...</span>)
-  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
-  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/fitted.values'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='no'>fit</span>))
+  <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>)
+  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>resid</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span>(<span class='no'>fit</span>))
 }
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>mutate</span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/furrr/topics/future_map'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in nest(.): could not find function "nest"</span></div><div class='input'># nocov start
+  <span class='fu'>mutate</span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>future_map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>future_pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in nest(.): could not find function "nest"</span></div><div class='input'># }
+# nocov start
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -201,8 +224,9 @@ future specific options to use with the workers.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
@@ -225,6 +249,8 @@ future specific options to use with the workers.</p></li>
 </script>
 
 
+
   </body>
 </html>
+
 
