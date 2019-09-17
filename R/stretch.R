@@ -8,8 +8,8 @@ nrow2 <- function(.x) {
 #' @description
 #' \lifecycle{questioning}
 #'
-#' The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
@@ -90,8 +90,8 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @description
 #' \lifecycle{questioning}
 #'
-#' The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.
@@ -328,6 +328,12 @@ incr <- function(.init, .step) {
 }
 
 #' Stretching window in parallel
+#'
+#' @description
+#' \lifecycle{questioning}
+#'
+#' **The rolling window family will be deprecated in the future. Please consider
+#' using the [slide](https://davisvaughan.github.io/slide) package.**
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,

@@ -15,7 +15,7 @@ This is a maintenance release due to the changes in the upstream package.
 * Added the support for `POSIXlt` as index.
 * When the interval cannot be obtained due to the mismatched index class, an error is issued instead of a warning before.
 * The interval is invariant to subsetting, such as `filter()`, `slice()`, and `[.tbl_ts`.
-* Rolling window functions, like `slide()`, are moved to the "questioning" lifecycle, in favour of the **slide** package. (#143)
+* Rolling window functions, like `slide()`, are slided into the "questioning" lifecycle, in favour of the **slide** package. (#143)
 
 # tsibble 0.8.3
 
