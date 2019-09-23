@@ -84,7 +84,7 @@ yearmonth.numeric <- function(x) {
 yearmonth.yearmon <- yearmonth.numeric
 
 new_yearmonth <- function(x = double()) {
-  new_vctr(x, class = "yearmonth")
+  new_vctr(x + 0, class = "yearmonth")
 }
 
 #' @rdname year-month
@@ -233,7 +233,7 @@ vec_arith.numeric.yearmonth <- function(op, x, y, ...) {
 #' @method vec_arith.yearmonth MISSING
 #' @export
 vec_arith.yearmonth.MISSING <- function(op, x, y, ...) {
-  switch(op, 
+  switch(op,
     `-` = x,
     `+` = x,
     stop_incompatible_op(op, x, y)

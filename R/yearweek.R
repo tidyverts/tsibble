@@ -91,7 +91,7 @@ yearweek.yearweek <- function(x) {
 }
 
 new_yearweek <- function(x = double()) {
-  new_vctr(x, class = "yearweek")
+  new_vctr(x + 0, class = "yearweek") # workaround for integer type
 }
 
 #' @rdname year-week
@@ -249,7 +249,7 @@ vec_arith.numeric.yearweek <- function(op, x, y, ...) {
 #' @method vec_arith.yearweek MISSING
 #' @export
 vec_arith.yearweek.MISSING <- function(op, x, y, ...) {
-  switch(op, 
+  switch(op,
     `-` = x,
     `+` = x,
     stop_incompatible_op(op, x, y)

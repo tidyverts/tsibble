@@ -104,7 +104,7 @@ yearquarter.numeric <- function(x) {
 yearquarter.yearqtr <- yearquarter.numeric
 
 new_yearquarter <- function(x = double()) {
-  new_vctr(x, class = "yearquarter")
+  new_vctr(x + 0, class = "yearquarter")
 }
 
 #' @rdname year-quarter
@@ -259,7 +259,7 @@ vec_arith.numeric.yearquarter <- function(op, x, y, ...) {
 #' @method vec_arith.yearquarter MISSING
 #' @export
 vec_arith.yearquarter.MISSING <- function(op, x, y, ...) {
-  switch(op, 
+  switch(op,
     `-` = x,
     `+` = x,
     stop_incompatible_op(op, x, y)
