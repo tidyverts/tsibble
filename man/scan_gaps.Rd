@@ -7,10 +7,11 @@
 scan_gaps(.data, .full = FALSE)
 }
 \arguments{
-\item{.data}{A \code{tbl_ts}.}
+\item{.data}{A tsibble.}
 
-\item{.full}{\code{FALSE} to find gaps for each series within its own period.
-\code{TRUE} to find gaps over the entire time span of the data.}
+\item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
+fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
+Other options: \code{start()} or \code{end()} at the same time.}
 }
 \description{
 Scan a tsibble for implicit missing observations

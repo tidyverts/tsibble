@@ -150,10 +150,10 @@ test_that("fill.tbl_ts(.full = FALSE)", {
   )
 })
 
-test_that("count_gaps(.full = TRUE)", {
-  full_tbl <- tsbl %>% count_gaps(.full = TRUE)
+test_that("count_gaps(.full = )", {
+  full_tbl_t <- tsbl %>% count_gaps(.full = TRUE)
   expect_equal(
-    full_tbl,
+    full_tbl_t,
     tibble(
       group = c("a", "b"),
       .from = c(ymd("2017-01-01"), ymd("2017-01-13")),
@@ -161,22 +161,27 @@ test_that("count_gaps(.full = TRUE)", {
       .n = c(1L, 1L)
     )
   )
-})
-
-test_that("count_gaps(.full = FALSE)", {
-  full_tbl <- tsbl %>% count_gaps()
+  full_tbl_f <- tsbl %>% count_gaps()
   b <- tibble(
     group = "b",
     .from = ymd("2017-01-13"),
     .to = ymd("2017-01-13"),
     .n = 1L
   )
-  expect_equal(full_tbl, b)
+  expect_equal(full_tbl_f, b)
   expect_error(count_gaps(tsbl, .name = NULL), "not TRUE")
   expect_error(count_gaps(tsbl, .name = 1:4), "not TRUE")
   expect_named(
     count_gaps(tsbl, .name = c("from", "to", "n")),
     c("group", "from", "to", "n")
+  )
+  expect_equal(
+    count_gaps(tsbl, .full = start())$.from,
+    tsbl$date[c(5, 3)]
+  )
+  expect_equal(
+    count_gaps(tsbl, .full = end())$.from,
+    tsbl$date[c(3)]
   )
 })
 
@@ -192,6 +197,8 @@ test_that("has_gaps()", {
   expect_named(has_gaps(harvest, .name = "gap"), c("fruit", "gap"))
   expect_equal(has_gaps(harvest)$.gaps, c(FALSE, TRUE))
   expect_equal(has_gaps(harvest, .full = TRUE)$.gaps, c(TRUE, TRUE))
+  expect_equal(has_gaps(harvest, .full = start())$.gaps, c(TRUE, TRUE))
+  expect_equal(has_gaps(harvest, .full = end())$.gaps, c(FALSE, TRUE))
 })
 
 test_that("Error in tbl_gaps()", {

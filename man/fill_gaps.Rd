@@ -17,14 +17,14 @@ existing \code{NA} untouched.
 \item filled by values or functions.
 }}
 
-\item{.full}{\code{FALSE} to insert \code{NA} for each series within its own period. \code{TRUE}
-to fill \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).}
+\item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
+fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
+Other options: \code{start()} or \code{end()} at the same time.}
 }
 \description{
 \lifecycle{stable}
 }
 \examples{
-library(dplyr)
 harvest <- tsibble(
   year = c(2010, 2011, 2013, 2011, 2012, 2014),
   fruit = rep(c("kiwi", "cherry"), each = 3),
@@ -34,6 +34,8 @@ harvest <- tsibble(
 
 # gaps as default `NA`
 fill_gaps(harvest, .full = TRUE)
+fill_gaps(harvest, .full = start())
+fill_gaps(harvest, .full = end())
 full_harvest <- fill_gaps(harvest, .full = FALSE)
 full_harvest
 

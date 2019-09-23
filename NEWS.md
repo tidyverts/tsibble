@@ -1,7 +1,13 @@
 # tsibble 0.8.9.9000
 
-* The "interval" class has been formally defined as a record type under the **vctrs** framework. `new_interval()` uses new interface to create the interval and support custom interval.
+## Breaking changes
+
+* The "interval" class has been formally defined as a record type under the **vctrs** framework. `new_interval()` uses new interface to create the interval and supports custom interval.
 * Deprecated `time_unit()` in favour of `default_time_units()`.
+
+## Improvements
+
+* The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding for the same starting or ending time. (#147)
 
 # tsibble 0.8.4
 
