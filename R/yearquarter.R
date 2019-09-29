@@ -269,19 +269,9 @@ vec_arith.yearquarter.MISSING <- function(op, x, y, ...) {
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   x <- as_date(x)
-  year <- year(x)
-  year_sym <- "%Y"
-  if (grepl("%y", format)) {
-    year <- sprintf("%02d", year %% 100)
-    year_sym <- "%y"
-  } else if (grepl("%C", format)) {
-    year <- year %/% 100
-    year_sym <- "%C"
-  }
   qtr <- quarter(x)
-  qtr_sub <- map_chr(qtr, ~ gsub("%q", ., x = format))
-  year_sub <- map2_chr(year, qtr_sub, ~ gsub(year_sym, .x, x = .y))
-  year_sub
+  qtr_sub <- map_chr(qtr, function(z) gsub("%q", z, x = format))
+  format.Date(x, format = qtr_sub)
 }
 
 #' @rdname vctrs-compat

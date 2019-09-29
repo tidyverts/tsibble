@@ -259,28 +259,13 @@ vec_arith.yearweek.MISSING <- function(op, x, y, ...) {
 #' @export
 format.yearweek <- function(x, format = "%Y W%V", ...) {
   x <- as_date(x)
-  yr <- year(x)
-  ord <- make_date(yr, 1)
-  wday <- wday(x, week_start = 1)
-  mth_wk <- strftime(x, format = "%m_%V")
-  yrs <- yr
-  yrs[mth_wk == "01_53"] <- yr[mth_wk == "01_53"] - 1
-  yrs[mth_wk == "12_01"] <- yr[mth_wk == "12_01"] + 1
-  if (format == "%Y W%V") {
-    return(paste(yrs, strftime(x, format = "W%V")))
-  }
-  year_sym <- "%Y"
-  if (grepl("%y", format)) {
-    yrs <- sprintf("%02d", yrs %% 100)
-    year_sym <- "%y"
-  } else if (grepl("%C", format)) {
-    yrs <- yrs %/% 100
-    year_sym <- "%C"
-  }
-  wk <- strftime(x, format = "%V")
+  mth <- month(x)
+  wk <- strftime(x, "%V")
+  shift_year <- period(1, units = "year")
+  x[mth == 1 & wk == "53"] <- x[mth == 1 & wk == "53"] - shift_year
+  x[mth == 12 & wk == "01"] <- x[mth == 12 & wk == "01"] + shift_year
   wk_sub <- map_chr(wk, ~ gsub("%V", ., x = format))
-  year_sub <- map2_chr(yrs, wk_sub, ~ gsub(year_sym, .x, x = .y))
-  year_sub
+  format.Date(x, format = wk_sub)
 }
 
 #' @rdname vctrs-compat
