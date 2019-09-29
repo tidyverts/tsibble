@@ -73,7 +73,7 @@ stretch_fn <- function(x, init = 1, step = 1, fold) {
   vec_slice(x, seq_len(max_x))
 }
 
-collect.tbl_roll_ts <- function(x, fold = integer()) {
+collect.tbl_roll_ts <- function(x, fold = integer(), ...) {
   if (is_empty(fold))  return(as_tsibble(x))
   if (!has_length(fold, 1)) {
     abort("`fold` only accepts integer of length 1.")
@@ -83,20 +83,22 @@ collect.tbl_roll_ts <- function(x, fold = integer()) {
     abort(sprintf("The maximum `fold` is %s.", max_folds))
   }
   out_rows <- vec_c(!!!map(key_rows(x), function(z) roller(x)(z, fold = fold)))
-  # as_tsibble(vec_slice(x, out_rows))
-  x[out_rows, ]
+  update_meta(vec_slice(x, out_rows), x, 
+    ordered = is_ordered(x), interval = interval(x))
 }
 
 tbl_sum.tbl_roll_ts <- function(x) {
-  c(NextMethod(), "Lazy" = paste(big_mark(nfolds(x)), "folds"))
+  nfolds <- nfolds(x)
+  c(NextMethod(), "Roll by" = paste(big_mark(nfolds(x)), "folds"))
 }
 
 as_tsibble.tbl_roll_ts <- function(x) {
   new_tsibble(x, ".nfolds" = NULL, ".roller" = NULL)
 }
 
-new_roll_tsibble <- function(data, .nfolds = NULL, .roller = NULL) {
-  new_tsibble(data, .nfolds = .nfolds, .roller = .roller, class = "tbl_roll_ts")
+new_roll_tsibble <- function(x, .nfolds = NULL, .roller = NULL) {
+  new_lazy_tsibble(x, .nfolds = .nfolds, .roller = .roller,
+    class = "tbl_roll_ts")
 }
 
 nfolds <- function(data) {
@@ -105,4 +107,10 @@ nfolds <- function(data) {
 
 roller <- function(data) {
   data %@% ".roller"
+}
+
+new_lazy_tsibble <- function(x, ..., class = NULL) {
+  x <- new_tsibble(x, ..., class = "tbl_lazy_ts")
+  class(x) <- c(class, class(x))
+  x
 }
