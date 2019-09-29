@@ -38,7 +38,7 @@ Imports:
     rlang (>= 0.2.0),
     tibble (>= 2.0.1),
     tidyselect,
-    vctrs (>= 0.2.0)
+    vctrs (>= 0.2.0.9003)
 Suggests: 
     covr,
     crayon,
@@ -53,6 +53,8 @@ Suggests:
     testthat,
     tidyr (>= 1.0.0),
     timeDate
+Remotes:
+    r-lib/vctrs
 VignetteBuilder: 
     knitr
 RdMacros: 
