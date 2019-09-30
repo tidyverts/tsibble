@@ -118,12 +118,12 @@ is.numeric.yearquarter <- function(x) {
   FALSE
 }
 
-diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((year(x) - 1970) * 4 + quarter(x),
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "quarters")
-}
+# diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
+#   out <- diff((year(x) - 1970) * 4 + quarter(x),
+#     lag = lag, differences = differences
+#   )
+#   structure(out, class = "difftime", units = "quarters")
+# }
 
 #' @rdname vctrs-compat
 #' @keywords internal

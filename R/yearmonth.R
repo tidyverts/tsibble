@@ -98,12 +98,12 @@ is.numeric.yearmonth <- function(x) {
   FALSE
 }
 
-diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((year(x) - 1970) * 12 + month(x),
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "months")
-}
+# diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
+#   out <- diff((year(x) - 1970) * 12 + month(x),
+#     lag = lag, differences = differences
+#   )
+#   structure(out, class = "difftime", units = "months")
+# }
 
 #' @rdname vctrs-compat
 #' @keywords internal
@@ -214,7 +214,7 @@ vec_arith.yearmonth.numeric <- function(op, x, y, ...) {
   if (op == "+") {
     new_yearmonth(as_date(x) + period(months = y))
   } else if (op == "-") {
-    new_yearmonth(as_date(x) - period(months = y, units = "month"))
+    new_yearmonth(as_date(x) - period(months = y))
   } else {
     stop_incompatible_op(op, x, y)
   }

@@ -51,7 +51,7 @@ An interval is automatically obtained based on the corresponding time representa
 * `yearmonth`/`yearmon`: "month" (`M`)
 * `yearweek`: "week" (`W`)
 * `Date`: "day" (`D`)
-* `difftime`: "quarter" (`Q`), "month" (`M`), "week" (`W`), "day" (D), "hour" (`h`), "minute" (`m`), "second" (`s`)
+* `difftime`: "week" (`W`), "day" (D), "hour" (`h`), "minute" (`m`), "second" (`s`)
 * `POSIXct`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 * `nanotime`: "nanosecond" (`ns`)
 

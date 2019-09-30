@@ -23,16 +23,6 @@ test_that("units_since()", {
   expect_equal(units_since(1:3), 1:3)
 })
 
-test_that("diff()", {
-  expect_is(diff(yw), "difftime")
-  expect_equal(as.numeric(diff(yw)), rep(1, 2))
-  expect_identical(interval_pull(diff(yw) + 0:1), new_interval(week = 1))
-  expect_equal(as.numeric(diff(ym)), rep(1, 2))
-  expect_identical(interval_pull(diff(ym) + c(2, 4)), new_interval(month = 2))
-  expect_equal(as.numeric(diff(yq)), rep(1, 2))
-  expect_identical(interval_pull(diff(yq) + c(3, 6)), new_interval(quarter = 3))
-})
-
 test_that("Arithmetic", {
   expect_equal(format(+yw), format(yw))
   expect_equal(format(yw + 1), c("1970 W02", "1970 W03", "1970 W04"))

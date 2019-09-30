@@ -105,12 +105,12 @@ is.numeric.yearweek <- function(x) {
   FALSE
 }
 
-diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "weeks")
-}
+# diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
+#   out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
+#     lag = lag, differences = differences
+#   )
+#   structure(out, class = "difftime", units = "weeks")
+# }
 
 #' @rdname vctrs-compat
 #' @keywords internal
