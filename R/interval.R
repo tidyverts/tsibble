@@ -100,14 +100,14 @@ interval_pull.Date <- function(x) {
 
 #' @export
 interval_pull.yearweek <- function(x) {
-  wk <- units_since(x)
+  wk <- as.double(x)
   nweeks <- gcd_interval(wk)
   new_interval(week = nweeks)
 }
 
 #' @export
 interval_pull.yearmonth <- function(x) {
-  mon <- units_since(x)
+  mon <- as.double(x)
   nmonths <- gcd_interval(mon)
   new_interval(month = nmonths)
 }
@@ -119,7 +119,7 @@ interval_pull.yearmon <- function(x) {
 
 #' @export
 interval_pull.yearquarter <- function(x) {
-  qtr <- units_since(x)
+  qtr <- as.double(x)
   nqtrs <- gcd_interval(qtr)
   new_interval(quarter = nqtrs)
 }
