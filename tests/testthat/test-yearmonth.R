@@ -44,3 +44,11 @@ test_that("vec_c() for yearmonth()", {
   # expect_identical(vec_c(yearmonth(x), dttm), rep(dttm, times = 2))
   expect_identical(vec_c(dates, yearmonth(x)), c(dates, yearmonth(x)))
 })
+
+test_that("yearmonth() #89", {
+  expect_false(
+    anyNA(yearmonth(as.numeric(time(
+      ts(rnorm(139), frequency = 12, start = c(1978, 2))
+    ))))
+  )
+})
