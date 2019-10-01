@@ -10,7 +10,6 @@
 #' @return year-week (`yearweek`) objects.
 #'
 #' @family index functions
-#' @seealso [interval_pull], [units_since]
 #' @rdname year-week
 #' @export
 #' @examples

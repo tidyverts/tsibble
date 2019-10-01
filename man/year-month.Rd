@@ -43,8 +43,6 @@ format(mth, format = "\%y \%m")
 as.double(yearmonth("1969 Jan") + 0:24)
 }
 \seealso{
-\link{interval_pull}, \link{units_since}
-
 Other index functions: \code{\link{yearquarter}},
   \code{\link{yearweek}}
 }

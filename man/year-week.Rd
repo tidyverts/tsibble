@@ -52,8 +52,6 @@ as.double(yearweek("1969 W41") + 0:24)
 is_53weeks(2015:2016)
 }
 \seealso{
-\link{interval_pull}, \link{units_since}
-
 Other index functions: \code{\link{yearmonth}},
   \code{\link{yearquarter}}
 }

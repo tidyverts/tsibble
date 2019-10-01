@@ -10,7 +10,6 @@
 #' @return year-quarter (`yearquarter`) objects.
 #'
 #' @family index functions
-#' @seealso [interval_pull], [units_since]
 #' @rdname year-quarter
 #' @export
 #' @examples
