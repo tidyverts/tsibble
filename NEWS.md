@@ -1,9 +1,13 @@
 # tsibble 0.8.9.9000
 
+This release marks the migration of tsibble's S3 vector classes, such as `yearquarter`, `yearmonth`, `yearweek` and `interval`, to the new **vctrs** framework. The advantage of using **vctrs** may not be obvious until **dplyr** v0.9.0. But you will not receive the warning like "custom class dropped" when performing `mutate()` or `bind_rows()`.
+
 ## Breaking changes
 
-* The "interval" class has been formally defined as a record type under the **vctrs** framework. `new_interval()` uses new interface to create the interval and supports custom interval.
+* The "interval" class has been formally defined as a record type under the **vctrs** framework. The `new_interval()` uses new interface to create the interval and supports custom interval. This also leads to the change in the tsibble object. Old tsibble objects will receive an error for "a corrupt tsibble".
 * Deprecated `time_unit()` in favour of `default_time_units()`.
+* Deprecated `units_since()` in favour of `as.double()`.
+* Defunct `id()` for creating the key.
 
 ## Improvements
 
