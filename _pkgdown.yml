@@ -56,21 +56,6 @@ reference:
     - group_by_key
     - filter_index
 
-- title: A family of window functions
-  desc: >
-    Map and roll over a list of elements. It features `purrr`-like interface and
-    `furrr`-style parallel processing. `slide_tsibble()`, `tile_tsibble()`,
-    `stretch_tsibble()` perform fast subsetting a tsibble by rolling rows.
-  contents:
-    - slide_tsibble
-    - tile_tsibble
-    - stretch_tsibble
-    - starts_with("slide")
-    - starts_with("partial")
-    - starts_with("tile")
-    - starts_with("stretch")
-    - starts_with("future")
-
 - title: Vector
   contents:
     - difference
@@ -79,7 +64,6 @@ reference:
   contents:
     - time_in
     - starts_with("year")
-    - units_since
     - guess_frequency
 
 - title: Calendar
@@ -122,6 +106,21 @@ reference:
     time-based context.
   contents:
     - tsibble-tidyverse
+
+- title: A family of window functions
+  desc: >
+    Map and roll over a list of elements. It features `purrr`-like interface and
+    `furrr`-style parallel processing. `slide_tsibble()`, `tile_tsibble()`,
+    `stretch_tsibble()` perform fast subsetting a tsibble by rolling rows.
+  contents:
+    - slide_tsibble
+    - tile_tsibble
+    - stretch_tsibble
+    - starts_with("slide")
+    - starts_with("partial")
+    - starts_with("tile")
+    - starts_with("stretch")
+    - starts_with("future")
 
 navbar:
   type: default
