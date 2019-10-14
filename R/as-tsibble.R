@@ -463,8 +463,8 @@ retain_tsibble <- function(data, key, index) {
 #' @export
 format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   is_index_null(x)
-  if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
-    warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
+  if (!inherits(interval(x), "vctrs_rcrd")) {
+    abort("Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.")
   }
   format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }
@@ -568,8 +568,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
 
 remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  # attr(x, "interval") <- NULL
-  attr(x, "interval") <- attr(x, "ordered") <- attr(x, "regular") <- NULL # will be removed
+  attr(x, "interval") <- NULL
   x
 }
 

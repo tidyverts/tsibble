@@ -11,7 +11,8 @@ scan_gaps(.data, .full = FALSE)
 
 \item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
 fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
-Other options: \code{start()} or \code{end()} at the same time.}
+Other options are \code{start()} and \code{end()}, suggesting to pad \code{NA} for the same
+\code{min(<index>)} or \code{max(<index>)} alignment time across the units.}
 }
 \description{
 Scan a tsibble for implicit missing observations
