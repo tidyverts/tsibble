@@ -463,8 +463,8 @@ retain_tsibble <- function(data, key, index) {
 #' @export
 format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   is_index_null(x)
-  if (!inherits(interval(x), "vctrs_rcrd")) {
-    abort("Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.")
+  if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
+    warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
   }
   format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }

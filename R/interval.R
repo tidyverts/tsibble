@@ -263,6 +263,9 @@ default_time_units <- function(x) {
 }
 
 abort_not_interval <- function(x) {
+  if (!inherits(x, "vctrs_rcrd")) {
+    abort("Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.")
+  }
   if (is_false(inherits(x, "interval"))) {
     abort("`x` must be class 'interval'.")
   }

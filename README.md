@@ -156,53 +156,22 @@ full_weather %>%
 While collapsing rows (like `summarise()`), `group_by()` and
 `index_by()` will take care of updating the key and index respectively.
 This `index_by()` + `summarise()` combo can help with regularising a
-tsibble of irregular time space
-too.
+tsibble of irregular time space too.
 
-### Rolling with functional programming: `slide()`, `tile()`, `stretch()`
+## Moving forward with tsibble
 
-Temporal data often involves moving window calculations. Several
-functions in **tsibble** allow for different variations of moving
-windows using purrr-like syntax:
+An ecosystem, [the tidyver*ts*](http://tidyverts.org), is built around
+the tsibble object for tidy time series analysis.
 
-  - `slide()`/`slide2()`/`pslide()`: sliding window with overlapping
-    observations.
-  - `tile()`/`tile2()`/`ptile()`: tiling window without overlapping
-    observations.
-  - `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and
-    expanding to include more observations.
-
-<details>
-
-<summary>Rolling window animation</summary>
-
-<img src="man/figures/animate-1.gif" align="center" />
-
-</details>
-
-For example, a moving average of window size 3 is carried out on hourly
-temperatures for each group (*origin*).
-
-``` r
-full_weather %>% 
-  group_by_key() %>% 
-  mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
-#> # A tsibble: 26,190 x 6 [1h] <America/New_York>
-#> # Key:       origin [3]
-#> # Groups:    origin [3]
-#>   origin time_hour            temp humid precip temp_ma
-#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>   <dbl>
-#> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0    NA  
-#> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0    NA  
-#> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0    39.0
-#> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0    39.3
-#> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0    39.3
-#> # … with 2.618e+04 more rows
-```
-
-Looking for rolling in parallel? Their multiprocessing equivalents are
-prefixed with `future_`. More examples can be found at
-[`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
+  - The [tsibbledata](https://tsibbledata.tidyverts.org) package curates
+    a range of tsibble data examples to poke around the tsibble object.
+  - The [feasts](https://feasts.tidyverts.org) package provides support
+    for visualising the data and extracting time series features.
+  - The [fable](https://fable.tidyverts.org) package provides common
+    forecasting methods for tsibble, such as ARIMA and ETS. The
+    [fabletools](https://fabletools.tidyverts.org) package, which is
+    **fable** built upon, lays the modelling infrastructure to ease the
+    programming with tsibble.
 
 -----
 
