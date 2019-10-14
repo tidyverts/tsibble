@@ -1,4 +1,4 @@
-globalVariables(c(".rows"))
+globalVariables(c(".rows", "id"))
 
 #' Create a tsibble object
 #'

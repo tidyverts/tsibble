@@ -83,7 +83,7 @@ yearmonth.numeric <- function(x) {
 yearmonth.yearmon <- yearmonth.numeric
 
 new_yearmonth <- function(x = double()) {
-  new_vctr(x + 0, class = "yearmonth")
+  new_vctr(x + 0, class = "yearmonth") # FIXME: remove + 0 when vec_rbind(<date>)
 }
 
 #' @rdname year-month

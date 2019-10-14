@@ -40,7 +40,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
     regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
   }
   new_lst <- mutate(regrped_df, 
-    !!idx := list2(tibble(!!idx := seq(!!idx, by = tunit, length.out = n + 1)[-1])))
+    !!idx := list2(tibble(!!idx := seq(!!idx, by = tunit, length.out = n + 1)[-1] + 0))) # FIXME: remove + 0 when vec_rbind(<date>)
 
   out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {
