@@ -34,7 +34,7 @@ test_that("vec_arith() for yearquarter()", {
   expect_identical(yearquarter(x) - 1, yearquarter(c("2019 Q2", "2017 Q4")))
   expect_identical(+ yearquarter(x), yearquarter(x))
   expect_identical(1 + yearquarter(x), yearquarter(x) + 1)
-  expect_error(yearquarter(x) - yearquarter(x), class = "vctrs_error_incompatible_op")
+  expect_equal(yearquarter(x) - yearquarter(x), rep(0, 2))
   expect_error(yearquarter(x) + yearquarter(x), class = "vctrs_error_incompatible_op")
 })
 

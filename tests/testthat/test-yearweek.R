@@ -39,7 +39,7 @@ test_that("vec_arith() for yearweek()", {
   expect_identical(x - 1, yearweek(c("1969 W52", "1970 W01", "1970 W02")))
   expect_identical(+ x, x)
   expect_identical(1 + x, x + 1)
-  expect_error(x - x, class = "vctrs_error_incompatible_op")
+  expect_identical(x - x, as.difftime(rep(0, 3), units = "weeks"))
   expect_error(x + x, class = "vctrs_error_incompatible_op")
 })
 

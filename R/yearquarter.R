@@ -245,6 +245,16 @@ vec_arith.yearquarter.numeric <- function(op, x, y, ...) {
   }
 }
 
+#' @method vec_arith.yearquarter yearquarter
+#' @export
+vec_arith.yearquarter.yearquarter <- function(op, x, y, ...) {
+  if (op == "-") {
+    as.double(x) - as.double(y)
+  } else {
+    stop_incompatible_op(op, x, y)
+  }
+}
+
 #' @method vec_arith.numeric yearquarter
 #' @export
 vec_arith.numeric.yearquarter <- function(op, x, y, ...) {

@@ -17,7 +17,7 @@ test_that("vec_arith() for yearmonth()", {
   expect_identical(yearmonth(x) - 1, yearmonth(c("2019 Aug", "2017 Dec")))
   expect_identical(+ yearmonth(x), yearmonth(x))
   expect_identical(1 + yearmonth(x), yearmonth(x) + 1)
-  expect_error(yearmonth(x) - yearmonth(x), class = "vctrs_error_incompatible_op")
+  expect_equal(yearmonth(x) - yearmonth(x), rep(0, 2))
   expect_error(yearmonth(x) + yearmonth(x), class = "vctrs_error_incompatible_op")
 })
 

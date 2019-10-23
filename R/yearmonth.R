@@ -219,6 +219,16 @@ vec_arith.yearmonth.numeric <- function(op, x, y, ...) {
   }
 }
 
+#' @method vec_arith.yearmonth yearmonth
+#' @export
+vec_arith.yearmonth.yearmonth <- function(op, x, y, ...) {
+  if (op == "-") {
+    as.double(x) - as.double(y)
+  } else {
+    stop_incompatible_op(op, x, y)
+  }
+}
+
 #' @method vec_arith.numeric yearmonth
 #' @export
 vec_arith.numeric.yearmonth <- function(op, x, y, ...) {

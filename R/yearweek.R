@@ -236,14 +236,16 @@ vec_arith.numeric.yearweek <- function(op, x, y, ...) {
   }
 }
 
-# vec_arith.yearweek.yearweek <- function(op, x, y, ...) {
-#   if (op == "-") {
-#     res <- as.double(e1) - as.double(e2)
-#     structure(res, class = "difftime", units = "weeks")
-#   } else {
-#     stop_incompatible_op(op, x, y)
-#   }
-# }
+#' @method vec_arith.yearweek yearweek
+#' @export
+vec_arith.yearweek.yearweek <- function(op, x, y, ...) {
+  if (op == "-") {
+    res <- as.double(x) - as.double(y)
+    structure(res, class = "difftime", units = "weeks")
+  } else {
+    stop_incompatible_op(op, x, y)
+  }
+}
 
 #' @method vec_arith.yearweek MISSING
 #' @export
