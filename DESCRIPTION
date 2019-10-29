@@ -49,6 +49,7 @@ Suggests:
     nanotime,
     nycflights13 (>= 1.0.0),
     rmarkdown,
+    scales,
     spelling,
     testthat,
     tidyr (>= 1.0.0),

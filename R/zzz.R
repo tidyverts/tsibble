@@ -13,5 +13,9 @@
   s3_register("tidyr::nest", "tbl_ts")
   s3_register("tidyr::nest", "grouped_ts")
   s3_register("tidyr::unnest", "tbl_ts")
+
+  s3_register("ggplot2::scale_type", "yearquarter")
+  s3_register("ggplot2::scale_type", "yearmonth")
+  s3_register("ggplot2::scale_type", "yearweek")
 }
 # nocov end
