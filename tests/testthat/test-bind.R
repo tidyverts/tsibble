@@ -26,14 +26,15 @@ test_that("rbind() for custom index class #78", {
   expect_is(res$Quarter, "yearquarter")
 })
 
-test_that("rbind() for mixed intervals", {
-  res <- rbind(update_tsibble(vic, regular = FALSE), nsw)
-  expect_equal(interval(res), interval(nsw))
+test_that("rbind() for mixed key properties", {
+  expect_error(rbind(update_tsibble(vic, regular = FALSE), nsw), "Can't")
   res2 <- rbind(
     update_tsibble(vic, regular = FALSE),
     update_tsibble(nsw, regular = FALSE)
   )
   expect_identical(format(interval(res2)), "!")
+  expect_error(rbind(rename(vic, State1 = State), nsw), "different keys")
+  expect_error(rbind(rename(vic, YrQtr = Quarter), nsw), "different indexes")
 })
 
 test_that("cbind()", {
