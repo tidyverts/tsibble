@@ -24,9 +24,7 @@ globalVariables("holiday")
 #' holiday_aus(2016, state = "VIC")
 #' holiday_aus(2013:2016, state = "ACT")
 holiday_aus <- function(year, state = "national") {
-  if (!requireNamespace("timeDate", quietly = TRUE)) {
-    abort("Package `timeDate` required for holiday_aus().\nPlease install and try again.")
-  }
+  pkg_not_available("timeDate")
   if (!is_integerish(year)) {
     abort("Argument `year` must be integers.")
   }

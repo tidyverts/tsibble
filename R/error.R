@@ -59,3 +59,9 @@ bad_step_function <- function(.step) {
     abort("`.step` must be a positive integer.")
   }
 }
+
+pkg_not_available <- function(pkg) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    abort(sprintf("Package `%s` required.\nPlease install and try again.", pkg))
+  }
+}

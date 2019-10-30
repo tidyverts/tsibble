@@ -1,8 +1,8 @@
 #' tsibble scales for ggplot2
 #'
-#' Defines ggplot2 scales for tsibble time structures.
+#' Defines ggplot2 scales for tsibble custom index: [yearweek], [yearmonth], and [yearquarter].
 #'
-#' @param ... Further arguments to be passed on to scale_x_date()
+#' @param ... Further arguments to be passed on to [`ggplot2::scale_x_date()`]
 #'
 #' @return A ggproto object inheriting from `Scale`
 #'
@@ -15,13 +15,13 @@ yearquarter_trans <- function() {
   scales::trans_new(
     "yearquarter",
     transform = function(x) {
-      scales::date_trans()$transform(as.Date(x))
+      scales::date_trans()$transform(as_date(x))
     },
     inverse = function(x) {
       yearquarter(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearquarter(scales::pretty_breaks()(as.Date(x)))
+      yearquarter(scales::pretty_breaks()(as_date(x)))
     }
   )
 }
@@ -30,6 +30,8 @@ yearquarter_trans <- function() {
 #' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearquarter <- function(...) {
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
     trans = yearquarter_trans())
 }
@@ -40,13 +42,13 @@ yearmonth_trans <- function() {
   scales::trans_new(
     "yearmonth",
     transform = function(x) {
-      scales::date_trans()$transform(as.Date(x))
+      scales::date_trans()$transform(as_date(x))
     },
     inverse = function(x) {
       yearmonth(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearmonth(scales::pretty_breaks()(as.Date(x)))
+      yearmonth(scales::pretty_breaks()(as_date(x)))
     }
   )
 }
@@ -55,13 +57,8 @@ yearmonth_trans <- function() {
 #' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearmonth <- function(...) {
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    abort("Package `ggplot2` required.\nPlease install and try again.")
-  }
-  if (!requireNamespace("scales", quietly = TRUE)) {
-    abort("Package `scales` required.\nPlease install and try again.")
-  }
-
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
     trans = yearmonth_trans())
 }
@@ -72,13 +69,13 @@ yearweek_trans <- function() {
   scales::trans_new(
     "yearweek",
     transform = function(x) {
-      scales::date_trans()$transform(as.Date(x))
+      scales::date_trans()$transform(as_date(x))
     },
     inverse = function(x) {
       yearweek(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearweek(scales::pretty_breaks()(as.Date(x)))
+      yearweek(scales::pretty_breaks()(as_date(x)))
     }
   )
 }
@@ -87,13 +84,8 @@ yearweek_trans <- function() {
 #' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearweek <- function(...) {
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    abort("Package `ggplot2` required.\nPlease install and try again.")
-  }
-  if (!requireNamespace("scales", quietly = TRUE)) {
-    abort("Package `scales` required.\nPlease install and try again.")
-  }
-
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales")
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
     trans = yearweek_trans())
 }

@@ -14,11 +14,11 @@ scale_x_yearmonth(...)
 scale_x_yearweek(...)
 }
 \arguments{
-\item{...}{Further arguments to be passed on to scale_x_date()}
+\item{...}{Further arguments to be passed on to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
 }
 \description{
-Defines ggplot2 scales for tsibble time structures.
+Defines ggplot2 scales for tsibble custom index: \link{yearweek}, \link{yearmonth}, and \link{yearquarter}.
 }
