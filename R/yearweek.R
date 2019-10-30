@@ -49,6 +49,11 @@ yearweek.NULL <- function(x) {
 }
 
 #' @export
+yearweek.numeric <- function(x) {
+  new_yearweek(-3) + x
+}
+
+#' @export
 yearweek.POSIXt <- function(x) {
   new_yearweek(floor_date(as_date(x), unit = "weeks", week_start = 1))
 }

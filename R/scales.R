@@ -11,36 +11,45 @@ NULL
 
 scale_type.yearquarter <- function(x) c("yearquarter", "date", "continuous")
 
+yearquarter_trans <- function() {
+  scales::trans_new(
+    "yearquarter",
+    transform = function(x) {
+      scales::date_trans()$transform(as.Date(x))
+    },
+    inverse = function(x) {
+      yearquarter(scales::date_trans()$inverse(x))
+    },
+    breaks = function(x) {
+      yearquarter(scales::pretty_breaks()(as.Date(x)))
+    }
+  )
+}
+
 #' @rdname tsibble-scales
 #' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearquarter <- function(...) {
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    abort("Package `ggplot2` required.\nPlease install and try again.")
-  }
-  if (!requireNamespace("scales", quietly = TRUE)) {
-    abort("Package `scales` required.\nPlease install and try again.")
-  }
-
-  yq_trans <- scales::trans_new(
-    "yearquarter",
-    transform = function(x){
-      # Transform to date, then use scales date transformation method
-      scales::date_trans()$transform(as.Date(x))
-    }, inverse = function(x){
-      # Invert to date, then convert to yearquarter
-      yearquarter(scales::date_trans()$inverse(x))
-    },
-    breaks = function(x){
-      # Use date breaks method, then convert to yearquarter
-      yearquarter(scales::pretty_breaks()(as.Date(x)))
-    }
-  )
-  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_x_date(...),
-                   trans = yq_trans)
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
+    trans = yearquarter_trans())
 }
 
 scale_type.yearmonth <- function(x) c("yearmonth", "date", "continuous")
+
+yearmonth_trans <- function() {
+  scales::trans_new(
+    "yearmonth",
+    transform = function(x) {
+      scales::date_trans()$transform(as.Date(x))
+    },
+    inverse = function(x) {
+      yearmonth(scales::date_trans()$inverse(x))
+    },
+    breaks = function(x) {
+      yearmonth(scales::pretty_breaks()(as.Date(x)))
+    }
+  )
+}
 
 #' @rdname tsibble-scales
 #' @inheritParams ggplot2::scale_x_datetime
@@ -53,25 +62,26 @@ scale_x_yearmonth <- function(...) {
     abort("Package `scales` required.\nPlease install and try again.")
   }
 
-  ym_trans <- scales::trans_new(
-    "yearmonth",
-    transform = function(x){
-      # Transform to date, then use scales date transformation method
-      scales::date_trans()$transform(as.Date(x))
-    }, inverse = function(x){
-      # Invert to date, then convert to yearmonth
-      yearmonth(scales::date_trans()$inverse(x))
-    },
-    breaks = function(x){
-      # Use date breaks method, then convert to yearmonth
-      yearmonth(scales::pretty_breaks()(as.Date(x)))
-    }
-  )
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
-                   trans = ym_trans)
+    trans = yearmonth_trans())
 }
 
 scale_type.yearweek <- function(x) c("yearweek", "date", "continuous")
+
+yearweek_trans <- function() {
+  scales::trans_new(
+    "yearweek",
+    transform = function(x) {
+      scales::date_trans()$transform(as.Date(x))
+    },
+    inverse = function(x) {
+      yearweek(scales::date_trans()$inverse(x))
+    },
+    breaks = function(x) {
+      yearweek(scales::pretty_breaks()(as.Date(x)))
+    }
+  )
+}
 
 #' @rdname tsibble-scales
 #' @inheritParams ggplot2::scale_x_datetime
@@ -84,21 +94,6 @@ scale_x_yearweek <- function(...) {
     abort("Package `scales` required.\nPlease install and try again.")
   }
 
-  yw_trans <- scales::trans_new(
-    "yearweek",
-    transform = function(x){
-      # Transform to date, then use scales date transformation method
-      scales::date_trans()$transform(as.Date(x))
-    }, inverse = function(x){
-      # Invert to date, then convert to yearweek
-      yearweek(scales::date_trans()$inverse(x))
-    },
-    breaks = function(x){
-      # Use date breaks method, then convert to yearweek
-      yearweek(scales::pretty_breaks()(as.Date(x)))
-    }
-  )
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
-                   trans = yw_trans)
-
+    trans = yearweek_trans())
 }

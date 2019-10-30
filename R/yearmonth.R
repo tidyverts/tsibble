@@ -73,14 +73,16 @@ yearmonth.yearmonth <- function(x) {
 
 #' @export
 yearmonth.numeric <- function(x) {
+  new_yearquarter(0) + x
+}
+
+#' @export
+yearmonth.yearmon <- function(x) {
   year <- trunc(x)
   month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
   result <- make_date(year, month, 1)
   new_yearmonth(result)
 }
-
-#' @export
-yearmonth.yearmon <- yearmonth.numeric
 
 new_yearmonth <- function(x = double()) {
   new_vctr(x + 0, class = "yearmonth") # FIXME: remove + 0 when vec_rbind(<date>)

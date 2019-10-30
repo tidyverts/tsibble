@@ -10,7 +10,7 @@ test_that("is_53weeks()", {
 })
 
 test_that("input types for yearweek()", {
-  expect_error(yearweek(seq(2010, 2012, by = 1 / 52)), "handle the numeric")
+  expect_identical(yearweek(1:3), yearweek("1970 W1") + 1:3)
   expect_identical(yearweek(dttm), x)
   expect_identical(yearweek(dates), x)
   expect_identical(yearweek(x), x)

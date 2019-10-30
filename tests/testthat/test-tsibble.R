@@ -367,7 +367,7 @@ test_that("Use '-' and ':' in key vars", {
 })
 
 tbl <- tibble::tibble(
-  mth = rep(yearmonth(seq(2017, 2017 + 9 / 12, by = 1 / 12)), 3),
+  mth = rep(yearmonth("2017 Jan") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 ) %>%

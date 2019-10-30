@@ -2,7 +2,7 @@ context("tidyr verbs for tsibble")
 library(tidyr)
 
 tsbl <- tsibble(
-  qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+  qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
   key = group, index = qtr

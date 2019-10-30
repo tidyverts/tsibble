@@ -92,15 +92,17 @@ yearquarter.yearquarter <- function(x) {
 
 #' @export
 yearquarter.numeric <- function(x) {
+  new_yearquarter(0) + x
+}
+
+#' @export
+yearquarter.yearqtr <- function(x) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
   first_month <- formatC(last_month - 2, flag = 0, width = 2)
   result <- make_date(year, first_month, 1)
   new_yearquarter(result)
 }
-
-#' @export
-yearquarter.yearqtr <- yearquarter.numeric
 
 new_yearquarter <- function(x = double()) {
   new_vctr(x + 0, class = "yearquarter")

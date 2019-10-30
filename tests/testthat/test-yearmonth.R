@@ -47,7 +47,7 @@ test_that("vec_c() for yearmonth()", {
 
 test_that("yearmonth() #89", {
   expect_false(
-    anyNA(yearmonth(as.numeric(time(
+    anyNA(yearmonth.yearmon(as.numeric(time(
       ts(rnorm(139), frequency = 12, start = c(1978, 2))
     ))))
   )
