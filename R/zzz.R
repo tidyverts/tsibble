@@ -2,9 +2,9 @@
 .onLoad <- function(...) {
   s3_register("dplyr::filter", "tbl_ts")
   s3_register("dplyr::distinct", "tbl_ts")
-  s3_register("dplyr::group_split", "tbl_ts")
-  s3_register("dplyr::group_split", "grouped_ts")
-  s3_register("dplyr::group_trim", "grouped_ts")
+  # s3_register("dplyr::group_split", "tbl_ts")
+  # s3_register("dplyr::group_split", "grouped_ts")
+  # s3_register("dplyr::group_trim", "grouped_ts")
 
   s3_register("tidyr::gather", "tbl_ts")
   s3_register("tidyr::spread", "tbl_ts")
