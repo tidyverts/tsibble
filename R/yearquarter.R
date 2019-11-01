@@ -105,7 +105,7 @@ yearquarter.yearqtr <- function(x) {
 }
 
 new_yearquarter <- function(x = double()) {
-  new_vctr(x + 0, class = "yearquarter")
+  new_vctr(x, class = "yearquarter")
 }
 
 #' @rdname year-quarter

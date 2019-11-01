@@ -95,7 +95,7 @@ yearweek.yearweek <- function(x) {
 }
 
 new_yearweek <- function(x = double()) {
-  new_vctr(x + 0, class = "yearweek") # workaround for integer type
+  new_vctr(x, class = "yearweek")
 }
 
 #' @rdname year-week
