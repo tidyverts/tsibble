@@ -236,6 +236,9 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
       len_x, len_y
     ))
   }
+  if (len_x == 0) {
+    return(tibble(!!.name[1] := y, !!.name[2] := y, !!.name[3] := integer()))
+  }
   gap_vec <- logical(length = len_y)
   gap_vec[vec_match(x, y)] <- TRUE
   gap_rle <- rle(gap_vec)
