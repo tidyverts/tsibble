@@ -1,3 +1,8 @@
+# tsibble 0.8.5
+
+This is a maintenance release for CRAN fixes.
+
+
 # tsibble 0.8.4
 
 This is a maintenance release due to the changes in the upstream package.
