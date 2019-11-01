@@ -58,12 +58,6 @@ interval_pull.difftime <- function(x) {
   if (t_units == "weeks") {
     nweeks <- gcd_interval(unclass(x))
     new_interval(week = nweeks)
-  } else if (t_units == "months") {
-    nmths <- gcd_interval(unclass(x))
-    new_interval(month = nmths)
-  } else if (t_units == "quarters") {
-    nqtrs <- gcd_interval(unclass(x))
-    new_interval(quarter = nqtrs)
   } else {
     dttm <- as.double(x, units = "secs")
     nhms <- gcd_interval(dttm)
@@ -219,7 +213,7 @@ irregular <- function() {
 }
 
 unknown_interval <- function(x) {
-  is_regular_interval(x) && sum(vec_c(!!!unclass(x))) == 0
+  is_regular_interval(x) && sum(vec_c(!!!vec_data(x))) == 0
 }
 
 #' @export
@@ -241,7 +235,7 @@ format.interval <- function(x, ...) {
   n_defaults <- vec_size(defaults)
   misc <- if (n > n_defaults) vec_slice(fields(x), (n_defaults + 1):n) else NULL
   fmt_names <- vec_c(defaults, misc)
-  val <- vec_c(!!!unclass(x))
+  val <- vec_c(!!!vec_data(x))
   paste0(val[val != 0], fmt_names[val != 0], collapse = " ")
 }
 
@@ -254,7 +248,7 @@ format.interval <- function(x, ...) {
 #' @keywords internal
 default_time_units <- function(x) {
   abort_not_interval(x)
-  x <- unclass(x)
+  x <- vec_data(x)
   x[["microsecond"]] <- x[["microsecond"]] * 1e-6
   x[["millisecond"]] <- x[["millisecond"]] * 1e-3
   x[["minute"]] <- x[["minute"]] * 60
