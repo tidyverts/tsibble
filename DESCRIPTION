@@ -38,7 +38,7 @@ Imports:
     rlang (>= 0.2.0),
     tibble (>= 2.0.1),
     tidyselect,
-    vctrs (>= 0.2.0)
+    vctrs (>= 0.2.0.9007)
 Suggests: 
     covr,
     crayon,
@@ -58,6 +58,8 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
+Remotes:
+    r-lib/vctrs
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
