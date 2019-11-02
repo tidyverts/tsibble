@@ -49,8 +49,7 @@
 #' * `yearmonth`/`yearmon`: "month" (`M`)
 #' * `yearweek`: "week" (`W`)
 #' * `Date`: "day" (`D`)
-#' * `difftime`: "quarter" (`Q`), "month" (`M`), "week" (`W`), "day" (D),
-#' "hour" (`h`), "minute" (`m`), "second" (`s`)
+#' * `difftime`: "week" (`W`), "day" (D), "hour" (`h`), "minute" (`m`), "second" (`s`)
 #' * `POSIXt`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 #' * `nanotime`: "nanosecond" (`ns`)
 #' * other numerics &`ordered` (ordered factor): "unit"

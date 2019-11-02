@@ -257,13 +257,13 @@ unique.yearmonth <- function(x, incomparables = FALSE, ...) {
   new_yearmonth(NextMethod())
 }
 
-#' @export
-diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((year(x) - 1970) * 12 + month(x),
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "months")
-}
+# #' @export
+# diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
+#   out <- diff((year(x) - 1970) * 12 + month(x),
+#     lag = lag, differences = differences
+#   )
+#   structure(out, class = "difftime", units = "months")
+# }
 
 #' @export
 `+.yearmonth` <- function(e1, e2) {
@@ -288,8 +288,7 @@ diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
   e1_yrmth <- is_yearmonth(e1)
   e2_yrmth <- is_yearmonth(e2)
   if (e1_yrmth && e2_yrmth) {
-    res <- units_since(e1) - units_since(e2)
-    structure(res, class = "difftime", units = "months")
+    units_since(e1) - units_since(e2)
   } else {
     new_yearmonth(as_date(e1) - period(months = e2, units = "month"))
   }
@@ -385,13 +384,13 @@ unique.yearquarter <- function(x, incomparables = FALSE, ...) {
   new_yearquarter(NextMethod())
 }
 
-#' @export
-diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
-  out <- diff((year(x) - 1970) * 4 + quarter(x),
-    lag = lag, differences = differences
-  )
-  structure(out, class = "difftime", units = "quarters")
-}
+# #' @export
+# diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
+#   out <- diff((year(x) - 1970) * 4 + quarter(x),
+#     lag = lag, differences = differences
+#   )
+#   structure(out, class = "difftime", units = "quarters")
+# }
 
 #' @export
 `+.yearquarter` <- function(e1, e2) {
@@ -417,8 +416,7 @@ diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
   e1_yrqtr <- is_yearquarter(e1)
   e2_yrqtr <- is_yearquarter(e2)
   if (e1_yrqtr && e2_yrqtr) {
-    res <- units_since(e1) - units_since(e2)
-    structure(res, class = "difftime", units = "quarters")
+    units_since(e1) - units_since(e2)
   } else {
     new_yearquarter(as_date(e1) - period(months = e2 * 3))
   }

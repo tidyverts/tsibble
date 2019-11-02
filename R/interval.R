@@ -58,12 +58,6 @@ interval_pull.difftime <- function(x) {
   if (t_units == "weeks") {
     nweeks <- gcd_interval(unclass(x))
     init_interval(week = nweeks)
-  } else if (t_units == "months") {
-    nmths <- gcd_interval(unclass(x))
-    init_interval(month = nmths)
-  } else if (t_units == "quarters") {
-    nqtrs <- gcd_interval(unclass(x))
-    init_interval(quarter = nqtrs)
   } else {
     dttm <- as.double(x, units = "secs")
     nhms <- gcd_interval(dttm)
