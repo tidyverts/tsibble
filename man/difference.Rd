@@ -4,8 +4,7 @@
 \alias{difference}
 \title{Lagged differences}
 \usage{
-difference(x, lag = 1, differences = 1, default = NA,
-  order_by = NULL)
+difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 }
 \arguments{
 \item{x}{A numeric vector.}

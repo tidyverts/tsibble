@@ -3,22 +3,32 @@
 \name{tsibble-scales}
 \alias{tsibble-scales}
 \alias{scale_x_yearquarter}
+\alias{scale_y_yearquarter}
 \alias{scale_x_yearmonth}
+\alias{scale_y_yearmonth}
 \alias{scale_x_yearweek}
+\alias{scale_y_yearweek}
 \title{tsibble scales for ggplot2}
 \usage{
 scale_x_yearquarter(...)
 
+scale_y_yearquarter(...)
+
 scale_x_yearmonth(...)
 
+scale_y_yearmonth(...)
+
 scale_x_yearweek(...)
+
+scale_y_yearweek(...)
 }
 \arguments{
-\item{...}{Further arguments to be passed on to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}}
+\item{...}{Arguments passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
 }
 \description{
-Defines ggplot2 scales for tsibble custom index: \link{yearweek}, \link{yearmonth}, and \link{yearquarter}.
+Defines ggplot2 scales for tsibble custom index: \link{yearweek}, \link{yearmonth},
+and \link{yearquarter}.
 }

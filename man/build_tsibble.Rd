@@ -4,9 +4,17 @@
 \alias{build_tsibble}
 \title{Low-level constructor for a tsibble object}
 \usage{
-build_tsibble(x, key = NULL, key_data = NULL, index, index2 = index,
-  ordered = NULL, interval = TRUE, validate = TRUE,
-  .drop = key_drop_default(x))
+build_tsibble(
+  x,
+  key = NULL,
+  key_data = NULL,
+  index,
+  index2 = index,
+  ordered = NULL,
+  interval = TRUE,
+  validate = TRUE,
+  .drop = key_drop_default(x)
+)
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}

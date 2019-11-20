@@ -52,7 +52,8 @@ as.double(yearweek("1969 W41") + 0:24)
 is_53weeks(2015:2016)
 }
 \seealso{
-Other index functions: \code{\link{yearmonth}},
-  \code{\link{yearquarter}}
+Other index functions: 
+\code{\link{yearmonth}()},
+\code{\link{yearquarter}()}
 }
 \concept{index functions}

@@ -44,7 +44,8 @@ harvest \%>\%
   stretch_tsibble()
 }
 \seealso{
-Other rolling tsibble: \code{\link{slide_tsibble}},
-  \code{\link{tile_tsibble}}
+Other rolling tsibble: 
+\code{\link{slide_tsibble}()},
+\code{\link{tile_tsibble}()}
 }
 \concept{rolling tsibble}

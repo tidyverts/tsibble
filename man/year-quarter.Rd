@@ -43,7 +43,8 @@ format(qtr, format = "\%y Qtr\%q")
 as.double(yearquarter("1969 Q1") + 0:8)
 }
 \seealso{
-Other index functions: \code{\link{yearmonth}},
-  \code{\link{yearweek}}
+Other index functions: 
+\code{\link{yearmonth}()},
+\code{\link{yearweek}()}
 }
 \concept{index functions}

@@ -1,8 +1,9 @@
 #' tsibble scales for ggplot2
 #'
-#' Defines ggplot2 scales for tsibble custom index: [yearweek], [yearmonth], and [yearquarter].
+#' Defines ggplot2 scales for tsibble custom index: [yearweek], [yearmonth],
+#' and [yearquarter].
 #'
-#' @param ... Further arguments to be passed on to [`ggplot2::scale_x_date()`]
+#' @param ... Arguments passed to [`ggplot2::scale_x_date()`].
 #'
 #' @return A ggproto object inheriting from `Scale`
 #'
@@ -21,18 +22,26 @@ yearquarter_trans <- function() {
       yearquarter(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearquarter(scales::pretty_breaks()(as_date(x)))
+      yearquarter(scales::breaks_pretty()(as_date(x)))
     }
   )
 }
 
 #' @rdname tsibble-scales
-#' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearquarter <- function(...) {
   pkg_not_available("ggplot2")
-  pkg_not_available("scales")
+  pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
+    trans = yearquarter_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_y_yearquarter <- function(...) {
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales", "1.1.0")
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
     trans = yearquarter_trans())
 }
 
@@ -48,18 +57,26 @@ yearmonth_trans <- function() {
       yearmonth(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearmonth(scales::pretty_breaks()(as_date(x)))
+      yearmonth(scales::breaks_pretty()(as_date(x)))
     }
   )
 }
 
 #' @rdname tsibble-scales
-#' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearmonth <- function(...) {
   pkg_not_available("ggplot2")
-  pkg_not_available("scales")
+  pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
+    trans = yearmonth_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_y_yearmonth <- function(...) {
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales", "1.1.0")
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
     trans = yearmonth_trans())
 }
 
@@ -75,17 +92,25 @@ yearweek_trans <- function() {
       yearweek(scales::date_trans()$inverse(x))
     },
     breaks = function(x) {
-      yearweek(scales::pretty_breaks()(as_date(x)))
+      yearweek(scales::breaks_pretty()(as_date(x)))
     }
   )
 }
 
 #' @rdname tsibble-scales
-#' @inheritParams ggplot2::scale_x_datetime
 #' @export
 scale_x_yearweek <- function(...) {
   pkg_not_available("ggplot2")
-  pkg_not_available("scales")
+  pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
+    trans = yearweek_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_y_yearweek <- function(...) {
+  pkg_not_available("ggplot2")
+  pkg_not_available("scales", "1.1.0")
+  ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_y_date(...),
     trans = yearweek_trans())
 }

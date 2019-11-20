@@ -60,8 +60,15 @@ bad_step_function <- function(.step) {
   }
 }
 
-pkg_not_available <- function(pkg) {
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    abort(sprintf("Package `%s` required.\nPlease install and try again.", pkg))
+pkg_not_available <- function(pkg, min_version = NULL) {
+  pkg_lgl <- requireNamespace(pkg, quietly = TRUE)
+  if (!pkg_lgl) {
+    if (is_null(min_version)) {
+      abort(sprintf("Package `%s` required.\nPlease install and try again.", pkg))
+    } else if (utils::packageVersion(pkg) >= min_version) {
+      abort(sprintf(
+        "Package `%s` (>= v%s) required.\nPlease install and try again.", 
+        pkg, min_version))
+    }
   }
 }

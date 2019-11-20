@@ -12,7 +12,7 @@ scan_gaps(.data, .full = FALSE)
 \item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
 fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
 Other options are \code{start()} and \code{end()}, suggesting to pad \code{NA} for the same
-\code{min(<index>)} or \code{max(<index>)} alignment time across the units.}
+\verb{min(<index>)} or \verb{max(<index>)} alignment time across the units.}
 }
 \description{
 Scan a tsibble for implicit missing observations
@@ -21,7 +21,9 @@ Scan a tsibble for implicit missing observations
 scan_gaps(pedestrian)
 }
 \seealso{
-Other implicit gaps handling: \code{\link{count_gaps}},
-  \code{\link{fill_gaps}}, \code{\link{has_gaps}}
+Other implicit gaps handling: 
+\code{\link{count_gaps}()},
+\code{\link{fill_gaps}()},
+\code{\link{has_gaps}()}
 }
 \concept{implicit gaps handling}
