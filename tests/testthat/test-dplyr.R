@@ -153,11 +153,7 @@ test_that("filter() and slice() with .preserve = TRUE", {
 })
 
 test_that("select() and rename()", {
-  expect_error(select(tourism, -Quarter), "can't be removed.")
-  expect_error(select(tourism, Quarter), "is not a valid tsibble.")
-  expect_error(select(tourism, Region), "is not a valid tsibble.")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
-  expect_message(select(tourism, Region:Purpose), "Selecting index:")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
@@ -258,7 +254,7 @@ test_that("transmute()", {
   out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
   trans_tsbl <- tsbl %>% transmute(z = a / b)
-  expect_equal(colnames(trans_tsbl), c("group", "qtr", "z"))
+  expect_equal(colnames(trans_tsbl), c("qtr", "group", "z"))
 })
 
 test_that("transmute.grouped_ts()", {
@@ -269,7 +265,7 @@ test_that("transmute.grouped_ts()", {
   out2 <- pedestrian %>%
     group_by_key() %>%
     transmute()
-  expect_named(out2, c("Sensor", "Date_Time"))
+  expect_named(out2, c("Date_Time", "Sensor"))
 })
 
 test_that("distinct()", {

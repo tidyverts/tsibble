@@ -80,40 +80,29 @@ rename_tsibble <- function(.data, ...) {
   .data
 }
 
-select_tsibble <- function(data, ..., validate = TRUE) {
-  sel_data <- select(as_tibble(data), ...)
-  sel_vars <- names(sel_data)
+select_tsibble <- function(data, ...) {
+  sel_vars <- vars_select(names(data), ...)
+
+  key_chr <- key_vars(data)
+  sel_key <- sel_vars[vec_in(sel_vars, key_chr)]
+  all_key <- all(is.element(key_chr, sel_key))
+  if (!all_key) {
+    sel_vars <- c(setdiff(key_chr, sel_key), sel_vars)
+  }
+
   idx_chr <- index_var(data)
   sel_idx <- vec_in(idx_chr, sel_vars)
-  if (sel_idx) {
-    val_vars <- sel_vars
-  } else { # index isn't selected
-    inform(sprintf("Selecting index: \"%s\"", idx_chr))
-    sel_data <- vec_cbind(sel_data, !!idx_chr := data[[idx_chr]])
-    val_vars <- names(sel_data)
+  if (!sel_idx) {
+    sel_vars <- c(idx_chr, sel_vars)
   }
 
-  # key of the reduced size (bf & af) but also different names
-  key_vars0 <- key_vars(data)
-  key_vars <- val_vars[vec_in(val_vars, key_vars0)]
-  key_nochange <- all(is.element(key_vars0, key_vars))
-
-  if (validate) {
-    vec_names <- names(val_vars)
-    validate <- !has_all_key(vec_names, data)
-  }
-
-  if (validate) {
-    sel_data <- retain_tsibble(sel_data, key_vars, index(data))
-  }
+  sel_data <- select(as_tibble(data), !!!sel_vars)
 
   build_tsibble(sel_data,
-    key = !!key_vars,
-    key_data = if (key_nochange) key_data(data) else NULL,
+    key = !!key_chr, key_data = key_data(data),
     index = !!index(data), index2 = !!index2(data),
-    ordered = is_ordered(data), interval = interval(data), validate = FALSE,
-    .drop = is_key_dropped(data)
-  )
+    ordered = is_ordered(data), interval = interval(data),
+    validate = FALSE, .drop = is_key_dropped(data))
 }
 
 has_index <- function(j, x) {

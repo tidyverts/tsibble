@@ -12,6 +12,7 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 ## Improvements
 
 * The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding for the same starting or ending time. (#147)
+* `select()` a tsibble now keeps both index and key by default. (#155)
 
 # tsibble 0.8.4
 

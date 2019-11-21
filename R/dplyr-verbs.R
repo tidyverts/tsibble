@@ -51,15 +51,6 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
 #' @export
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
-  lst_exprs <- map(lst_quos, quo_get_expr)
-  idx_chr <- index_var(.data)
-  rm_index <- sym(paste0("-", idx_chr))
-  if (any(lst_exprs == rm_index)) {
-    abort(sprintf(paste_inline(
-      "Column `%s` (index) can't be removed.",
-      "Do you need `as_tibble()` to work with data frame?"
-    ), idx_chr))
-  }
 
   named <- list_is_named(lst_quos)
   .data <- rename_tsibble(.data, !!!lst_quos[named])
@@ -126,17 +117,13 @@ mutate.tbl_ts <- function(.data, ...) {
 transmute.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(..., .named = TRUE)
   mut_data <- mutate(.data, !!!lst_quos)
-  idx_key <- c(key_vars(.data), index_var(.data))
-  vec_names <- union(idx_key, names(lst_quos))
-  select_tsibble(mut_data, !!!vec_names, validate = FALSE)
+  select_tsibble(mut_data, !!!names(lst_quos))
 }
 
 #' @export
 transmute.grouped_ts <- function(.data, ...) {
   res <- NextMethod()
-  # keeping index and key
-  idx_key <- c(key_vars(.data), index_var(.data))
-  tsbl <- select_tsibble(ungroup(.data), !!!idx_key, validate = FALSE)
+  tsbl <- select_tsibble(ungroup(.data))
   bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
 }
 

@@ -41,8 +41,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
     }
   }
   idx <- index(x)
-  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var,
-    validate = FALSE)
+  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var)
   tsbl_sel <- arrange(tsbl_sel, !!!key_vars, !!idx)
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = idx, frequency = frequency)
