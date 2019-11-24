@@ -7,10 +7,12 @@
 count_gaps(.data, .full = FALSE, .name = c(".from", ".to", ".n"))
 }
 \arguments{
-\item{.data}{A \code{tbl_ts}.}
+\item{.data}{A tsibble.}
 
-\item{.full}{\code{FALSE} to find gaps for each series within its own period.
-\code{TRUE} to find gaps over the entire time span of the data.}
+\item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
+fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
+Other options are \code{start()} and \code{end()}, suggesting to pad \code{NA} for the same
+\verb{min(<index>)} or \verb{max(<index>)} alignment time across the units.}
 
 \item{.name}{Strings to name new columns.}
 }
@@ -42,7 +44,9 @@ ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
   theme(legend.position = "bottom")
 }
 \seealso{
-Other implicit gaps handling: \code{\link{fill_gaps}},
-  \code{\link{has_gaps}}, \code{\link{scan_gaps}}
+Other implicit gaps handling: 
+\code{\link{fill_gaps}()},
+\code{\link{has_gaps}()},
+\code{\link{scan_gaps}()}
 }
 \concept{implicit gaps handling}

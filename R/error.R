@@ -59,3 +59,16 @@ bad_step_function <- function(.step) {
     abort("`.step` must be a positive integer.")
   }
 }
+
+pkg_not_available <- function(pkg, min_version = NULL) {
+  pkg_lgl <- requireNamespace(pkg, quietly = TRUE)
+  if (!pkg_lgl) {
+    if (is_null(min_version)) {
+      abort(sprintf("Package `%s` required.\nPlease install and try again.", pkg))
+    } else if (utils::packageVersion(pkg) >= min_version) {
+      abort(sprintf(
+        "Package `%s` (>= v%s) required.\nPlease install and try again.", 
+        pkg, min_version))
+    }
+  }
+}

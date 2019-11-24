@@ -1,4 +1,4 @@
-globalVariables(c(".rows"))
+globalVariables(c(".rows", "id"))
 
 #' Create a tsibble object
 #'
@@ -388,7 +388,7 @@ validate_index <- function(data, index) {
 validate_order <- function(x) {
   if (is_bare_logical(x)) {
     x
-  } else if (all(x < 0)) {
+  } else if (is_bare_numeric(x) && all(x < 0)) {
     TRUE
   } else if ((vec_duplicate_any(x)) > 0) {
     abort(sprintf("Duplicated indices: %s", comma(x[vec_duplicate_detect(x)])))
@@ -568,8 +568,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
 
 remove_tsibble_attrs <- function(x) {
   attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  # attr(x, "interval") <- NULL
-  attr(x, "interval") <- attr(x, "ordered") <- attr(x, "regular") <- NULL # will be removed
+  attr(x, "interval") <- NULL
   x
 }
 

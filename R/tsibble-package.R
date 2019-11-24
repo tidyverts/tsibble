@@ -74,7 +74,7 @@
 #' @importFrom stats frequency start end time ts as.ts tsp<-
 #' @importFrom anytime assertTime assertDate utcdate utctime anydate
 #' @importFrom lubridate make_date wday floor_date year month period
-#' @importFrom lubridate quarter is.POSIXct rollback force_tz tz
+#' @importFrom lubridate quarter is.POSIXct rollback force_tz tz is.POSIXt is.Date
 #' @importFrom lubridate decimal_date date_decimal round_date
 #' @importFrom lubridate seconds_to_period month<- weeks days as_date
 #' @importFrom purrr map map_dbl map_int map_chr map_lgl reduce imap

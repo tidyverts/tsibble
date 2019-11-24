@@ -4,26 +4,10 @@ type_sum.tbl_ts <- function(x) {
   "tsibble"
 }
 
-#' @export
-type_sum.yearweek <- function(x) {
-  "week"
-}
-
-#' @export
-type_sum.yearmonth <- function(x) {
-  "mth"
-}
-
-#' @export
-type_sum.yearquarter <- function(x) {
-  "qtr"
-}
-
 #' @importFrom tibble tbl_sum
 #' @export
 tbl_sum.tbl_ts <- function(x) {
-  int_x <- interval(x)
-  fnt_int <- format(int_x)
+  fnt_int <- format(interval(x))
   idx <- x[[index_var(x)]]
   if (has_tz(idx)) {
     tz <- angle_brackets(format_tz(idx))

@@ -101,104 +101,13 @@ full_weather %>%
 
 While collapsing rows (like `summarise()`), `group_by()` and `index_by()` will take care of updating the key and index respectively. This `index_by()` + `summarise()` combo can help with regularising a tsibble of irregular time space too.
 
-### Rolling with functional programming: `slide()`, `tile()`, `stretch()`
+## Moving forward with tsibble
 
-Temporal data often involves moving window calculations. Several functions in **tsibble** allow for different variations of moving windows using purrr-like syntax:
+An ecosystem, [the tidyver*ts*](http://tidyverts.org), is built around the tsibble object for tidy time series analysis.
 
-* `slide()`/`slide2()`/`pslide()`: sliding window with overlapping observations.
-* `tile()`/`tile2()`/`ptile()`: tiling window without overlapping observations.
-* `stretch()`/`stretch2()`/`pstretch()`: fixing an initial window and expanding to include more observations.
-
-<details><summary>Rolling window animation</summary>
-
-```{r animate, echo = FALSE, warning = FALSE, message = FALSE, eval = FALSE}
-library(tidyverse)
-library(gganimate)
-reveal_group <- function(data, group){
-  group <- enquo(group)
-  data <- as_tibble(data)
-  data <- transmute(
-    data, !! group,
-    .dt = map(map(!! group, seq_len), function(groups, data) {
-      data <- filter(data, !! group %in% groups)
-      select(data, !! expr(-!! group))
-    }, data
-  ))
-  unnest(data, .dt)
-}
-tourism_melb <- tourism %>% 
-  filter(Region == "Melbourne", Purpose == "Holiday")
-types <- forcats::fct_inorder(c("Slide", "Tile", "Stretch"))
-slide_window <- slider(tourism_melb$Quarter, .size = 4) %>%
-  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
-  mutate(ymin = -Inf, ymax = Inf, group = row_number(), type = types[1])
-slide_mean <- tourism_melb %>%
-  mutate(ma = slide_dbl(Trips, ~ mean(.x), .size = 4, .align = "r")) %>%
-  mutate(group = pmax(0, row_number() - 3), type = types[1])
-slide_revealed <- slide_mean %>%
-  reveal_group(group)
-
-tile_window <- tiler(tourism_melb$Quarter, .size = 4) %>%
-  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
-  mutate(ymin = -Inf, ymax = Inf, type = types[2])
-tile_window <- tile_window[c(rep(1:20, each = 4)), ] %>% 
-  mutate(group = row_number())
-tile_mean <- tibble(
-    Quarter = do.call("c", tile(tourism_melb$Quarter, ~ .x[2], .size = 4)),
-    ma = tile_dbl(tourism_melb$Trips, ~ mean(.x), .size = 4),
-    type = types[2]
-  )
-tile_mean <- tile_mean[c(rep(1:20, each = 4)), ] %>% 
-  mutate(group = row_number())
-tile_revealed <- tile_mean %>%
-  reveal_group(group)
-
-stretch_window <- stretcher(tourism_melb$Quarter, .init = 4) %>%
-  map_dfr(function(x) tibble(xmin = min(x), xmax = max(x))) %>%
-  mutate(ymin = -Inf, ymax = Inf, group = row_number(), type = types[3])
-stretch_mean <- tourism_melb %>%
-  mutate(
-    ma = stretch_dbl(Trips, ~ mean(.x), .init = 4),
-    group = pmax(0, row_number() - 3),
-    type = types[3]
-  )
-stretch_revealed <- stretch_mean %>%
-  reveal_group(group)
-
-window <- bind_rows(slide_window, tile_window, stretch_window)
-mean <- bind_rows(slide_mean, tile_mean, stretch_mean)
-revealed <- bind_rows(slide_revealed, tile_revealed, stretch_revealed)
-
-ggplot() +
-  geom_line(aes(x = Quarter, y = Trips), data = tourism_melb, colour = "grey", size = 1.2) +
-  geom_rect(aes(
-    xmin = xmin, xmax = xmax,
-    ymin = ymin, ymax = ymax,
-    group = group
-  ), data = window, 
-  fill = "#9ecae1", colour = "#9ecae1", size = 1.5, alpha = 0.6) +
-  geom_point(aes(x = Quarter, y = ma), data = mean, size = 2, colour = "#de2d26") +
-  geom_line(aes(x = Quarter, y = ma), data = revealed, size = 1.2, colour = "#de2d26") +
-  xlab("Quarter") +
-  ylab("Trips") +
-  facet_wrap(~ type, ncol = 1) +
-  theme_bw() +
-  transition_manual(group)
-```
-
-<img src="man/figures/animate-1.gif" align="center" />
-
-</details>
-
-For example, a moving average of window size 3 is carried out on hourly temperatures for each group (*origin*).
-
-```{r slide}
-full_weather %>% 
-  group_by_key() %>% 
-  mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 3))
-```
-
-Looking for rolling in parallel? Their multiprocessing equivalents are prefixed with `future_`. More examples can be found at [`vignette("window")`](https://tsibble.tidyverts.org/articles/window.html).
+* The [tsibbledata](https://tsibbledata.tidyverts.org) package curates a range of tsibble data examples to poke around the tsibble object.
+* The [feasts](https://feasts.tidyverts.org) package provides support for visualising the data and extracting time series features.
+* The [fable](https://fable.tidyverts.org) package provides common forecasting methods for tsibble, such as ARIMA and ETS. The [fabletools](https://fabletools.tidyverts.org) package, which is **fable** built upon, lays the modelling infrastructure to ease the programming with tsibble.
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](https://github.com/tidyverts/tsibble/blob/master/.github/CODE_OF_CONDUCT.md).

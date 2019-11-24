@@ -41,8 +41,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
     }
   }
   idx <- index(x)
-  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var,
-    validate = FALSE)
+  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var)
   tsbl_sel <- arrange(tsbl_sel, !!!key_vars, !!idx)
   if (is_empty(key_vars)) {
     finalise_ts(tsbl_sel, index = idx, frequency = frequency)
@@ -151,8 +150,8 @@ time.POSIXt <- function(x, frequency = NULL, ...) {
 #' @export
 #'
 #' @examples
-#' guess_frequency(yearquarter(seq(2016, 2018, by = 1 / 4)))
-#' guess_frequency(yearmonth(seq(2016, 2018, by = 1 / 12)))
+#' guess_frequency(yearquarter("2016 Q1") + 0:7)
+#' guess_frequency(yearmonth("2016 Jan") + 0:23)
 #' guess_frequency(seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1))
 #' guess_frequency(seq(
 #'   as.POSIXct("2017-01-01 00:00"), as.POSIXct("2017-01-10 23:00"),

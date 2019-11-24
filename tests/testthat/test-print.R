@@ -1,23 +1,4 @@
-context("pillar methods")
-library(pillar)
-
-a <- yearweek(seq(ymd("2017-02-01"), length.out = 12, by = "1 week"))
-x <- yearmonth(seq(2010, 2012, by = 1 / 12))
-y <- yearquarter(seq(2010, 2012, by = 1 / 4))
-
-test_that("pillar S3 methods", {
-  expect_equal(type_sum(a), "week")
-  expect_equal(is_vector_s3(x), TRUE)
-  expect_equal(type_sum(x), "mth")
-  expect_equal(is_vector_s3(x), TRUE)
-  expect_equal(type_sum(y), "qtr")
-  expect_equal(is_vector_s3(y), TRUE)
-  expect_equal(obj_sum(a), rep("week", length(a)))
-  expect_equal(obj_sum(x), rep("mth", length(x)))
-  expect_equal(obj_sum(y), rep("qtr", length(y)))
-
-  expect_equal(type_sum(pedestrian), "tsibble")
-})
+context("tbl_sum methods")
 
 tbl1 <- tsibble(
   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
@@ -25,7 +6,7 @@ tbl1 <- tsibble(
   index = date
 )
 tbl2 <- tsibble(
-  qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+  qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30),
   key = group, index = qtr

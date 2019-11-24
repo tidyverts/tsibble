@@ -28,10 +28,10 @@ as_tsibble.ts <- function(x, ..., tz = "UTC") {
 #' as_tsibble(z)
 #' as_tsibble(z, pivot_longer = FALSE)
 #' @export
-as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE, 
+as_tsibble.mts <- function(x, ..., tz = "UTC", pivot_longer = TRUE,
                            gather = deprecated()) {
   if (!is_missing(gather)) {
-    lifecycle::deprecate_stop("0.8.0", 
+    lifecycle::deprecate_stop("0.8.0",
       "as_tsibble(gather = )", "as_tsibble(pivot_longer = )")
   }
   if (pivot_longer) {
@@ -56,10 +56,41 @@ make_index_explicit <- function(x, tz = "UTC") {
 pivot_longer_tsibble <- function(x, tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   list2(
-    "index" := vec_repeat(idx, times = NCOL(x)), 
+    "index" := vec_repeat(idx, times = NCOL(x)),
     "key" := vec_repeat(colnames(x), each = vec_size(x)),
     "value" := vec_c(!!!unclass(x))
   )
+}
+
+# from ts time to dates
+time_to_date <- function(x, tz = "UTC", ...) {
+  freq <- frequency(x)
+  time_x <- round(as.numeric(time(x)), digits = 6) # floating
+  if (freq == 52) {
+    warn("Expected frequency of weekly data: 365.25 / 7 (approx 52.18), not  52.")
+  }
+  if (freq == 7) { # daily
+    start_year <- trunc(time_x[1])
+    as.Date(round_date(
+      date_decimal(start_year + (time_x - start_year) * 7 / 365),
+      unit = "day"
+    ))
+  } else if (round(freq, 2) == 52.18) { # weekly
+    yearweek(date_decimal(time_x))
+  } else if (freq > 4 && freq <= 12) { # monthly
+    yearmonth.yearmon(time_x)
+  } else if (freq > 1 && freq <= 4) { # quarterly
+    yearquarter.yearqtr(time_x)
+  } else if (freq == 1) { # yearly
+    time_x
+  } else {
+    if (end(x)[1] > 1581) {
+      date_x <- date_decimal(time_x, tz = tz)
+      round_date(date_x, unit = "seconds")
+    } else {
+      time_x
+    }
+  }
 }
 
 # nocov start

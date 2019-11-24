@@ -194,7 +194,6 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
-#' @inheritParams tile
 #' @param .id A character naming the new column `.id` containing the partition.
 #'
 #' @inheritSection slide_tsibble Rolling tsibble

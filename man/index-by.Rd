@@ -37,7 +37,7 @@ the new index. Use \code{ungroup()} to remove the index grouping vars.
 }
 \details{
 \itemize{
-\item A \code{index_by()}-ed tsibble is indicated by \code{@} in the "Groups" when
+\item A \code{index_by()}-ed tsibble is indicated by \verb{@} in the "Groups" when
 displaying on the screen.
 }
 }

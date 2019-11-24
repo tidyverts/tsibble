@@ -79,7 +79,7 @@ nest.tbl_ts <- function(.data, ...) {
     new_lst <- nest_names[map_lgl(tbl_nest, is_list)]
     old_lst <- data_names[map_lgl(.data, is_list)]
     lst_vars <- setdiff(new_lst, old_lst)
-    .data <- select_tsibble(ungroup(.data), !!!nest_vars, validate = FALSE)
+    .data <- remove_key(ungroup(.data), nest_vars)
     tbl_nest[[lst_vars]] <- lapply(tbl_nest[[lst_vars]],
       function(x) update_meta(x, .data))
     tbl_nest

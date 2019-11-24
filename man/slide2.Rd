@@ -9,23 +9,82 @@
 \alias{pslide_dfc}
 \title{Sliding window calculation over multiple inputs simultaneously}
 \usage{
-slide2(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+slide2(
+  .x,
+  .y,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 
-slide2_dfr(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
+slide2_dfr(
+  .x,
+  .y,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE,
+  .id = NULL
+)
 
-slide2_dfc(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+slide2_dfc(
+  .x,
+  .y,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 
-pslide(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+pslide(
+  .l,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 
-pslide_dfr(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
+pslide_dfr(
+  .l,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE,
+  .id = NULL
+)
 
-pslide_dfc(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+pslide_dfc(
+  .l,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 }
 \arguments{
 \item{.x, .y}{Objects to slide over simultaneously.}
@@ -148,10 +207,10 @@ my_diag <- function(...) {
   fit <- lm(Count ~ Time, data = data)
   tibble(fitted = fitted(fit), resid = residuals(fit))
 }
-pedestrian \%>\%
-  filter_index("2015-01") \%>\%
-  group_by_key() \%>\%
-  nest() \%>\%
+pedestrian %>%
+  filter_index("2015-01") %>%
+  group_by_key() %>%
+  nest() %>%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }
 }
@@ -161,7 +220,8 @@ pedestrian \%>\%
 \item \link{stretch2} for expanding more observations
 }
 
-Other sliding window functions: \code{\link{slide}}
+Other sliding window functions: 
+\code{\link{slide}()}
 }
 \concept{sliding window functions}
 \alias{slide2_lgl}

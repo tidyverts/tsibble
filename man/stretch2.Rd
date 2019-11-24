@@ -9,23 +9,36 @@
 \alias{pstretch_dfc}
 \title{Stretching window calculation over multiple simultaneously}
 \usage{
-stretch2(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+stretch2(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE)
 
-stretch2_dfr(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE, .id = NULL)
+stretch2_dfr(
+  .x,
+  .y,
+  .f,
+  ...,
+  .step = 1,
+  .init = 1,
+  .fill = NA,
+  .bind = FALSE,
+  .id = NULL
+)
 
-stretch2_dfc(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+stretch2_dfc(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE)
 
-pstretch(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+pstretch(.l, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE)
 
-pstretch_dfr(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE, .id = NULL)
+pstretch_dfr(
+  .l,
+  .f,
+  ...,
+  .step = 1,
+  .init = 1,
+  .fill = NA,
+  .bind = FALSE,
+  .id = NULL
+)
 
-pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+pstretch_dfc(.l, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE)
 }
 \arguments{
 \item{.x}{Objects to slide over simultaneously.}
@@ -119,7 +132,8 @@ tibble(
 \item \link{tile2} for tiling window without overlapping observations
 }
 
-Other stretching window functions: \code{\link{stretch}}
+Other stretching window functions: 
+\code{\link{stretch}()}
 }
 \concept{stretching window functions}
 \alias{stretch2_lgl}

@@ -6,14 +6,29 @@
 \alias{stretch_dfc}
 \title{Stretching window calculation}
 \usage{
-stretch(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE, .size = deprecated())
+stretch(
+  .x,
+  .f,
+  ...,
+  .step = 1,
+  .init = 1,
+  .fill = NA,
+  .bind = FALSE,
+  .size = deprecated()
+)
 
-stretch_dfr(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE, .id = NULL)
+stretch_dfr(
+  .x,
+  .f,
+  ...,
+  .step = 1,
+  .init = 1,
+  .fill = NA,
+  .bind = FALSE,
+  .id = NULL
+)
 
-stretch_dfc(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-  .bind = FALSE)
+stretch_dfc(.x, .f, ..., .step = 1, .init = 1, .fill = NA, .bind = FALSE)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -90,7 +105,8 @@ stretch(lst, ~., .step = 2, .fill = NULL)
 \item \link{tile} for tiling window without overlapping observations
 }
 
-Other stretching window functions: \code{\link{stretch2}}
+Other stretching window functions: 
+\code{\link{stretch2}()}
 }
 \concept{stretching window functions}
 \alias{stretch_lgl}

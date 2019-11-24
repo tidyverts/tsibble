@@ -3,17 +3,17 @@
 \name{as.tsibble}
 \alias{as.tsibble}
 \alias{is.tsibble}
-\alias{fill_na}
-\alias{id}
+\alias{time_unit}
+\alias{units_since}
 \title{Deprecated functions}
 \usage{
 as.tsibble(x, ...)
 
 is.tsibble(x)
 
-fill_na(.data, ..., .full = FALSE)
+time_unit(x)
 
-id(...)
+units_since(x)
 }
 \arguments{
 \item{x}{Other objects.}
@@ -24,10 +24,11 @@ id(...)
 }
 \description{
 \itemize{
-\item \code{is.tsibble()} \lifecycle{soft-deprecated}
-\item \code{as.tsibble()} \lifecycle{deprecated}
-\item \code{id()} \lifecycle{deprecated}
-\item \code{fill_na()} \lifecycle{defunct}
+\item \code{is.tsibble()} \lifecycle{deprecated}
+\item \code{time_unit()} \lifecycle{deprecated}
+\item \code{units_since()} \lifecycle{deprecated}
+\item \code{as.tsibble()} \lifecycle{defunct}
+\item \code{id()} \lifecycle{defunct}
 }
 }
 \keyword{internal}

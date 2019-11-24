@@ -148,16 +148,12 @@ test_that("filter() and slice() with .preserve = TRUE", {
   expect_identical(key_data(ped_fil1)$.rows, group_data(ped_fil2)$.rows)
   expect_identical(key_rows(ped_fil1), group_rows(ped_fil2))
   res <- as_tsibble(AirPassengers) %>%
-    filter_index(~"1949 Mar", .preserve = TRUE)
+    filter_index(~ "1949 Mar", .preserve = TRUE)
   expect_false(identical(key_rows(res), key_rows(as_tsibble(AirPassengers))))
 })
 
 test_that("select() and rename()", {
-  expect_error(select(tourism, -Quarter), "can't be removed.")
-  expect_error(select(tourism, Quarter), "is not a valid tsibble.")
-  expect_error(select(tourism, Region), "is not a valid tsibble.")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
-  expect_message(select(tourism, Region:Purpose), "Selecting index:")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
@@ -246,7 +242,7 @@ test_that("summarise()", {
 })
 
 tsbl <- tsibble(
-  qtr = rep(yearquarter(seq(2010, 2012.25, by = 1 / 4)), 3),
+  qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   a = rnorm(30),
   b = rnorm(30),
@@ -258,7 +254,7 @@ test_that("transmute()", {
   out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
   trans_tsbl <- tsbl %>% transmute(z = a / b)
-  expect_equal(colnames(trans_tsbl), c("group", "qtr", "z"))
+  expect_equal(colnames(trans_tsbl), c("qtr", "group", "z"))
 })
 
 test_that("transmute.grouped_ts()", {
@@ -269,7 +265,7 @@ test_that("transmute.grouped_ts()", {
   out2 <- pedestrian %>%
     group_by_key() %>%
     transmute()
-  expect_named(out2, c("Sensor", "Date_Time"))
+  expect_named(out2, c("Date_Time", "Sensor"))
 })
 
 test_that("distinct()", {
@@ -289,7 +285,7 @@ test_that("rename() scoped variants", {
 })
 
 date_character <- function(x) {
-  is.Date(x) || is.character(x)
+  is_yearquarter(x) || is.character(x)
 }
 
 test_that("select() scoped variants", {

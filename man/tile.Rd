@@ -78,7 +78,8 @@ tile(lst, ~., .size = 2)
 \item \link{stretch} for expanding more observations
 }
 
-Other tiling window functions: \code{\link{tile2}}
+Other tiling window functions: 
+\code{\link{tile2}()}
 }
 \concept{tiling window functions}
 \alias{tile_lgl}

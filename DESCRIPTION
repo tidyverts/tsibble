@@ -1,7 +1,7 @@
 Type: Package
 Package: tsibble
 Title: Tidy Temporal Data Frames and Tools
-Version: 0.8.5.9000
+Version: 0.8.9.9000
 Authors@R: 
     c(person(given = "Earo",
              family = "Wang",
@@ -38,18 +38,18 @@ Imports:
     rlang (>= 0.2.0),
     tibble (>= 2.0.1),
     tidyselect,
-    vctrs (>= 0.2.0)
+    vctrs (>= 0.2.0.9007)
 Suggests: 
     covr,
     crayon,
     furrr,
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 3.2.1.9000),
     hms,
     knitr,
     nanotime,
     nycflights13 (>= 1.0.0),
-    pillar (>= 1.0.1),
     rmarkdown,
+    scales (>= 1.1.0),
     spelling,
     testthat,
     tidyr (>= 1.0.0),
@@ -58,9 +58,12 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
+Remotes:
+    r-lib/vctrs,
+    tidyverse/ggplot2
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0

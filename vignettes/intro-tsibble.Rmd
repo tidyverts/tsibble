@@ -1,7 +1,6 @@
 ---
 title: "Introduction to tsibble"
 author: "Earo Wang"
-bibliography: references.bib
 biblio-style: authoryear-comp
 link-citations: yes
 output: rmarkdown::html_vignette
@@ -96,5 +95,3 @@ flights_tsbl
 ```
 
 To regularise an irregular tsibble, it can be achieved with `index_by()` + `summarise()`.
-
-## Reference

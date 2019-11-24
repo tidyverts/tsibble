@@ -8,16 +8,29 @@
 \alias{as_tsibble.hts}
 \title{Coerce to a tsibble object}
 \usage{
-as_tsibble(x, key = NULL, index, regular = TRUE, validate = TRUE,
-  .drop = TRUE, ...)
+as_tsibble(
+  x,
+  key = NULL,
+  index,
+  regular = TRUE,
+  validate = TRUE,
+  .drop = TRUE,
+  ...
+)
 
-\method{as_tsibble}{data.frame}(x, key = NULL, index, regular = TRUE,
-  validate = TRUE, .drop = TRUE, ...)
+\method{as_tsibble}{data.frame}(
+  x,
+  key = NULL,
+  index,
+  regular = TRUE,
+  validate = TRUE,
+  .drop = TRUE,
+  ...
+)
 
 \method{as_tsibble}{ts}(x, ..., tz = "UTC")
 
-\method{as_tsibble}{mts}(x, ..., tz = "UTC", pivot_longer = TRUE,
-  gather = deprecated())
+\method{as_tsibble}{mts}(x, ..., tz = "UTC", pivot_longer = TRUE, gather = deprecated())
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
