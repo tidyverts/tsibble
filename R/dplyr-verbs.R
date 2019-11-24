@@ -9,7 +9,7 @@
 #' * `summarise()` reduces a sequence of values over time instead of a single summary,
 #' as well as dropping empty keys/groups.
 #'
-#' @param .data A `tbl_ts`.
+#' @param .data,data A `tbl_ts`.
 #' @param ... Same arguments accepted as its tidyverse generic.
 #' @inheritParams dplyr::filter
 #' @details

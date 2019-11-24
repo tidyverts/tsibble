@@ -30,15 +30,12 @@
 \method{summarise}{tbl_ts}(.data, ...)
 }
 \arguments{
-\item{.data}{A \code{tbl_ts}.}
+\item{.data, data}{A \code{tbl_ts}.}
 
 \item{...}{Same arguments accepted as its tidyverse generic.}
 
 \item{.preserve}{when \code{FALSE} (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.}
-
-\item{data}{A tbl. All main verbs are S3 generics and provide methods
-for \code{\link[=tbl_df]{tbl_df()}}, \code{\link[dtplyr:tbl_dt]{dtplyr::tbl_dt()}} and \code{\link[dbplyr:tbl_dbi]{dbplyr::tbl_dbi()}}.}
 }
 \description{
 \itemize{
