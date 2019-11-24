@@ -34,24 +34,24 @@ holiday_aus <- function(year, state = "national") {
   )
   nat <- holiday_aus_national(year)
   if (state == "VIC") {
-    nat <- bind_rows(nat, holiday_aus_vic(year))
+    nat <- vec_rbind(nat, holiday_aus_vic(year))
   } else if (state == "NSW") {
-    nat <- bind_rows(nat, holiday_aus_nsw(year))
+    nat <- vec_rbind(nat, holiday_aus_nsw(year))
   } else if (state == "ACT") {
-    nat <- bind_rows(nat, holiday_aus_act(year))
+    nat <- vec_rbind(nat, holiday_aus_act(year))
   } else if (state == "NT") {
-    nat <- bind_rows(nat, holiday_aus_nt(year))
+    nat <- vec_rbind(nat, holiday_aus_nt(year))
   } else if (state == "QLD") {
-    nat <- bind_rows(nat, holiday_aus_qld(year))
+    nat <- vec_rbind(nat, holiday_aus_qld(year))
   } else if (state == "SA") {
-    nat <- bind_rows(nat, holiday_aus_sa(year)) %>%
+    nat <- vec_rbind(nat, holiday_aus_sa(year)) %>%
       mutate(holiday = ifelse(
         holiday == "Boxing Day", "Proclamation Day", holiday
       ))
   } else if (state == "TAS") {
-    nat <- bind_rows(nat, holiday_aus_tas(year))
+    nat <- vec_rbind(nat, holiday_aus_tas(year))
   } else if (state == "WA") {
-    nat <- bind_rows(nat, holiday_aus_wa(year))
+    nat <- vec_rbind(nat, holiday_aus_wa(year))
   }
   arrange(nat, date)
 }
@@ -78,7 +78,7 @@ holiday_aus_act <- function(year) {
     filter(holiday == "Reconciliation Day", year(date) < 2018)
   out %>%
     anti_join(recon_rm, by = c("holiday", "date")) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_nt <- function(year) {
@@ -97,7 +97,7 @@ holiday_aus_nt <- function(year) {
     holiday = rep(c("May Day", "Picnic Day"), each = year_length),
     date = c(may_day, picnic)
   ) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_qld <- function(year) {
@@ -118,7 +118,7 @@ holiday_aus_qld <- function(year) {
     holiday = rep(c("Labour Day", "Queen's Birthday"), each = year_length),
     date = c(may_day, queens)
   ) %>%
-    bind_rows(easter_break(year))
+    vec_rbind(easter_break(year))
 }
 
 holiday_aus_sa <- function(year) {
@@ -165,7 +165,7 @@ holiday_aus_sa <- function(year) {
   out %>%
     anti_join(mar_cup_rm, by = c("holiday", "date")) %>%
     anti_join(may_cup_rm, by = c("holiday", "date")) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_nsw <- function(year) {
@@ -180,7 +180,7 @@ holiday_aus_nsw <- function(year) {
     holiday = rep("Labour Day", each = year_length),
     date = labour
   ) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_tas <- function(year) {
@@ -198,7 +198,7 @@ holiday_aus_tas <- function(year) {
     holiday = rep("Eight Hours Day", each = year_length),
     date = labour
   ) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_vic <- function(year) {
@@ -231,7 +231,7 @@ holiday_aus_vic <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, melb_cup)
   ) %>%
-    bind_rows(easter_break(year), queens_birthday(year))
+    vec_rbind(easter_break(year), queens_birthday(year))
 }
 
 holiday_aus_wa <- function(year) {
@@ -254,7 +254,7 @@ holiday_aus_wa <- function(year) {
     holiday = rep(hdays_labels, each = year_length),
     date = c(labour, western)
   ) %>%
-    bind_rows(easter_break(year))
+    vec_rbind(easter_break(year))
 }
 
 holiday_aus_national <- function(year) {

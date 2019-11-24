@@ -128,12 +128,12 @@ vec_cast.yearweek <- function(x, to, ...) {
 #' @method vec_cast.Date yearweek
 #' @export
 vec_cast.Date.yearweek <- function(x, to, ...) {
-  new_date(x)
+  new_date(as.double(vec_data(x)))
 }
 
 #' @export
 as.Date.yearweek <- function(x, ...) {
-  new_date(x)
+  new_date(as.double(vec_data(x)))
 }
 
 #' @method vec_cast.POSIXct yearweek
