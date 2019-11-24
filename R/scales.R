@@ -30,7 +30,7 @@ yearquarter_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearquarter <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
     trans = yearquarter_trans())
@@ -39,7 +39,7 @@ scale_x_yearquarter <- function(...) {
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearquarter <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
     trans = yearquarter_trans())
@@ -65,7 +65,7 @@ yearmonth_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearmonth <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
     trans = yearmonth_trans())
@@ -74,7 +74,7 @@ scale_x_yearmonth <- function(...) {
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearmonth <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
     trans = yearmonth_trans())
@@ -100,7 +100,7 @@ yearweek_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearweek <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
     trans = yearweek_trans())
@@ -109,7 +109,7 @@ scale_x_yearweek <- function(...) {
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearweek <- function(...) {
-  pkg_not_available("ggplot2")
+  pkg_not_available("ggplot2", "3.2.1.9000")
   pkg_not_available("scales", "1.1.0")
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_y_date(...),
     trans = yearweek_trans())

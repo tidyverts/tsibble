@@ -43,7 +43,7 @@ Suggests:
     covr,
     crayon,
     furrr,
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 3.2.1.9000),
     hms,
     knitr,
     nanotime,
@@ -59,7 +59,8 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes:
-    r-lib/vctrs
+    r-lib/vctrs,
+    tidyverse/ggplot2
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
