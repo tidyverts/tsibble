@@ -32,9 +32,8 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
       ordered = ordered, interval = interval, validate = validate
     ))
   }
-  new_key <- right_join(group_data(grouped_df(new, key_vars(old))), old_key,
-    by = key_vars(old)
-  )
+  grped_df <- grouped_df(new, key_vars(old), drop = key_drop_default(old))
+  new_key <- right_join(group_data(grped_df), old_key, by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
   restore_index_class(build_tsibble(new,

@@ -542,7 +542,7 @@ are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
   index <- sym(validate_index(data, !!enquo(index)))
   res <-
     mutate(
-      grouped_df(data, vars = key),
+      grouped_df(data, vars = key, drop = TRUE),
       !!"zzz" := duplicated.default(!!index, fromLast = from_last)
     )
   res$zzz
@@ -553,12 +553,13 @@ are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
 duplicates <- function(data, key = NULL, index) {
   key <- use_id(data, !!enquo(key))
   index <- sym(validate_index(data, !!enquo(index)))
-  ungroup(filter(grouped_df(data, vars = key), vec_duplicate_detect(!!index)))
+  grped_df <- grouped_df(data, vars = key, drop = TRUE)
+  ungroup(filter(grped_df, vec_duplicate_detect(!!index)))
 }
 
 duplicated_key_index <- function(data, key, index, key_data = NULL) {
   if (is_null(key_data)) {
-    keyed_data <- grouped_df(as_tibble(data), key)
+    keyed_data <- grouped_df(as_tibble(data), key, drop = TRUE)
   } else {
     keyed_data <- new_grouped_df(data, groups = key_data)
   }
