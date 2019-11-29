@@ -5,8 +5,8 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/tidyverts/tsibble.svg?branch=master)](https://travis-ci.org/tidyverts/tsibble)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/tsibble?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/tsibble)
+[![R build
+status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble)
 [![Coverage
 Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
@@ -66,7 +66,7 @@ weather_tsbl
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 2.611e+04 more rows
+#> # … with 26,110 more rows
 ```
 
 The **key** can be comprised of empty, one, or more variables. See
@@ -113,7 +113,7 @@ full_weather
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 2.618e+04 more rows
+#> # … with 26,185 more rows
 ```
 
 `fill_gaps()` also handles filling in time gaps by values or functions,
