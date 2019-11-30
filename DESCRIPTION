@@ -35,7 +35,7 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
-    rlang (>= 0.2.0),
+    rlang (>= 0.4.2),
     tibble (>= 2.0.1),
     tidyselect,
     vctrs (>= 0.2.0.9007)
@@ -66,4 +66,4 @@ Encoding: UTF-8
 Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.1

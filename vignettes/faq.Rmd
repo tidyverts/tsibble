@@ -32,7 +32,7 @@ mth <- make_date("2018") + months(0:3)
 tsibble(mth = mth, index = mth)
 ```
 
-The interval depends on the index class. It is unclear for this case to tell if it's daily data with implicit missingness or it's monthly data. If using `Date` underlying monthly data, each month could range from 28 to 31 days, which isn't regularly spaced. But class `yearmonth` puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to `POSIXct` for sub-daily data, `Date` for daily, `yearquarter` for quarterly, and etc. If you encounter this error "Can't obtain the interval due to mismatched index class.", it's the same underlying issue.
+The interval depends on the index class. It is unclear in this situation to tell if it's daily data with implicit missingness or it's monthly data. If using `Date` underlying monthly data, each month could range from 28 to 31 days, which isn't regularly spaced. But class `yearmonth` puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to `POSIXct` for sub-daily data, `Date` for daily, `yearquarter` for quarterly, and etc. If you encounter this error "Can't obtain the interval due to mismatched index class.", it's the same underlying issue.
 
 ```{r}
 tsibble(mth = yearmonth(mth), index = mth)

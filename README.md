@@ -158,10 +158,10 @@ While collapsing rows (like `summarise()`), `group_by()` and
 This `index_by()` + `summarise()` combo can help with regularising a
 tsibble of irregular time space too.
 
-## Moving forward with tsibble
+## Learn more about tsibble
 
 An ecosystem, [the tidyver*ts*](http://tidyverts.org), is built around
-the tsibble object for tidy time series analysis.
+the *tsibble* object for tidy time series analysis.
 
   - The [tsibbledata](https://tsibbledata.tidyverts.org) package curates
     a range of tsibble data examples to poke around the tsibble object.
