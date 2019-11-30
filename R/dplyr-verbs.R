@@ -65,9 +65,7 @@ select.tbl_ts <- function(.data, ...) {
   key_rm <- key_chr[paste0("-", key_chr) %in% vec_exprs]
   if (has_length(key_rm)) {
     key_ref <- select(key_data(.data), !!!key_rm)
-    if (is_empty(key_ref)) {
-      .data <- .data
-    } else if (vec_size(key_ref) == 1) {
+    if (vec_size(key_ref) == 1) {
       .data <- remove_key(.data, setdiff(key_chr, key_rm))
     } else {
       warn(sprintf(paste_inline(
