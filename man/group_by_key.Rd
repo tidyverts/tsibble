@@ -11,7 +11,7 @@ group_by_key(.data, ..., .drop = key_drop_default(.data))
 
 \item{...}{Ignored.}
 
-\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped. See \code{\link[=group_by_drop_default]{group_by_drop_default()}} for
+\item{.drop}{When \code{.drop = TRUE}, empty groups are dropped. See \code{\link[dplyr:group_by_drop_default]{group_by_drop_default()}} for
 what the default value is for this argument.}
 }
 \description{

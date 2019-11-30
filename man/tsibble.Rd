@@ -70,7 +70,7 @@ The \link{interval} function returns the interval associated with the tsibble.
 "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
 "year". An unrecognisable time interval is labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
-marked with \verb{!}.
+marked with \code{!}.
 \item Unknown: Not determined (\verb{?}), if it's an empty tsibble, or one entry for
 each key variable.
 }

@@ -32,9 +32,9 @@ my_diag <- function(...) {
   fit <- lm(Count ~ Time, data = data)
   tibble(fitted = fitted(fit), resid = residuals(fit))
 }
-pedestrian %>%
-  group_by_key() %>%
-  nest() %>%
+pedestrian \%>\%
+  group_by_key() \%>\%
+  nest() \%>\%
   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
 }
 # nocov start

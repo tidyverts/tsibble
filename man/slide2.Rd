@@ -207,10 +207,10 @@ my_diag <- function(...) {
   fit <- lm(Count ~ Time, data = data)
   tibble(fitted = fitted(fit), resid = residuals(fit))
 }
-pedestrian %>%
-  filter_index("2015-01") %>%
-  group_by_key() %>%
-  nest() %>%
+pedestrian \%>\%
+  filter_index("2015-01") \%>\%
+  group_by_key() \%>\%
+  nest() \%>\%
   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }
 }

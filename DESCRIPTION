@@ -60,6 +60,7 @@ RdMacros:
     lifecycle
 Remotes:
     r-lib/vctrs,
+    r-lib/tidyselect,
     tidyverse/ggplot2
 ByteCompile: true
 Encoding: UTF-8
