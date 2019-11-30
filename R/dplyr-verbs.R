@@ -98,6 +98,7 @@ rename.grouped_ts <- rename.tbl_ts
 #' @rdname tsibble-tidyverse
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
+  .data <- new_tsibble_data_mask(.data)
   mut_data <- mutate(as_tibble(.data), ...)
 
   idx_chr <- index_var(.data)
