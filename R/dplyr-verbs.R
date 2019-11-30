@@ -52,14 +52,29 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
 
-  lst_exprs <- map(lst_quos, quo_get_expr)
+  vec_exprs <- map_chr(lst_quos, function(x) expr_deparse(quo_get_expr(x)))
   idx_chr <- index_var(.data)
-  rm_index <- sym(paste0("-", idx_chr))
-  if (any(lst_exprs == rm_index)) {
+  idx_rm <- paste0("-", idx_chr)
+  if (idx_rm %in% vec_exprs) {
     warn(sprintf(paste_inline(
       "Column `%s` (index) can't be removed for a tsibble.",
       "Do you need `as_tibble()` to work with data frame?"
     ), idx_chr))
+  }
+  key_chr <- key_vars(.data)
+  key_rm <- key_chr[paste0("-", key_chr) %in% vec_exprs]
+  if (has_length(key_rm)) {
+    key_ref <- select(key_data(.data), !!!key_rm)
+    if (is_empty(key_ref)) {
+      .data <- .data
+    } else if (vec_size(key_ref) == 1) {
+      .data <- remove_key(.data, setdiff(key_chr, key_rm))
+    } else {
+      warn(sprintf(paste_inline(
+        "Columns `%s` (key) can't be removed for the tsibble.",
+        "Do you need `update_tsibble()` to update key?"
+      ), comma(key_rm)))
+    }
   }
 
   named <- list_is_named(lst_quos)
