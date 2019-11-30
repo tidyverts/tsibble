@@ -9,7 +9,9 @@ poke_tsibble_mask <- function(mask) {
 
 peek_tsibble_mask <- function() {
   context_tsibble_env[["..tsibble_mask"]] %||% 
-    abort("No tsibble data mask registered.")
+    abort(paste_inline(
+      "No tsibble data mask registered.",
+      "`keyed_*()` only works inside `mutate()` for a tsibble."))
 }
 
 scoped_tsibble_mask <- function(mask, frame = caller_env()) {
