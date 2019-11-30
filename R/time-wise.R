@@ -87,7 +87,8 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 
 keyed_lag <- function(var, n = 1L, default = NA) {
   data <- peek_tsibble_mask()
-  col <- sym(names(eval_select(expr({{ var }}), data)))
+  col <- names(eval_select(expr({{ var }}), data))
+  abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -95,13 +96,14 @@ keyed_lag <- function(var, n = 1L, default = NA) {
     grped_df <- ungroup(grped_df)
   }
   res_df <- mutate(grped_df,
-    !!idx_chr := tlag(!!col, n = n * tunits, default, !!index(data)))
+    !!idx_chr := tlag(!!sym(col), n = n * tunits, default, !!index(data)))
   res_df[[idx_chr]]
 }
 
 keyed_lead <- function(var, n = 1L, default = NA) {
   data <- peek_tsibble_mask()
-  col <- sym(names(eval_select(expr({{ var }}), data)))
+  col <- names(eval_select(expr({{ var }}), data))
+  abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -109,13 +111,14 @@ keyed_lead <- function(var, n = 1L, default = NA) {
     grped_df <- ungroup(grped_df)
   }
   res_df <- mutate(grped_df,
-    !!idx_chr := tlead(!!col, n = n * tunits, default, !!index(data)))
+    !!idx_chr := tlead(!!sym(col), n = n * tunits, default, !!index(data)))
   res_df[[idx_chr]]
 }
 
 keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
   data <- peek_tsibble_mask()
-  col <- sym(names(eval_select(expr({{ var }}), data)))
+  col <- names(eval_select(expr({{ var }}), data))
+  abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -123,6 +126,13 @@ keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
     grped_df <- ungroup(grped_df)
   }
   res_df <- mutate(grped_df,
-    !!idx_chr := tdifference(!!col, lag * tunits, differences, default, !!index(data)))
+    !!idx_chr := tdifference(!!sym(col), lag * tunits, differences, default,
+      !!index(data)))
   res_df[[idx_chr]]
+}
+
+abort_if_var_chr <- function(x) {
+  if (nchar(x) == 0) {
+    abort("Argument `var` only takes an unquoted variable.")
+  }
 }

@@ -25,3 +25,44 @@ test_that("difference() with `order_by`", {
   )
   expect_equal(sort(right$diff, na.last = FALSE), difference(tsbl$value))
 })
+
+yrmth <- yearmonth(c("1995-07", "1995-08", "1995-11", "1995-12", "1996-01", "1996-03"))
+vals <- c(1153, 1181, 1236, 1297, 1265, 1282)
+tsbl <- tsibble(mdate = yrmth, income = vals, index = mdate)
+
+test_that("keyed_[lag/lead/difference] error", {
+  expect_error(keyed_lag(1:10), "No tsibble data mask")
+  expect_error(
+    tsbl %>% mutate(l_income = keyed_lag(income, n = -2)), 
+    "non-negative")
+  expect_error(
+    tsbl %>% mutate(l_income = keyed_lag("income")), 
+    "unquoted")
+  expect_error(
+    tsbl %>% mutate(d_income = keyed_difference(income, lag = -2)), 
+    "positive")
+})
+
+test_that("keyed_[lag/lead/difference] result", {
+  res <- tsbl %>% 
+    mutate(
+      lag_income = keyed_lag(income),
+      lead_income = keyed_lead(income),
+      diff_income = keyed_difference(income)
+    )
+  expect_equal(res$lag_income, c(NA, 1153, NA, 1236, 1297, NA ))
+  expect_equal(res$lead_income, c(1181, NA, 1297, 1265, NA, NA))
+  expect_equal(res$diff_income, c(NA, -28, NA, -61, 32, NA))
+})
+
+test_that("keyed_[lag/lead/difference] for non-ordered data", {
+  res <- tsbl[6:1, ] %>% 
+    mutate(
+      lag_income = keyed_lag(income),
+      lead_income = keyed_lead(income),
+      diff_income = keyed_difference(income)
+    )
+  expect_equal(res$lag_income, rev(c(NA, 1153, NA, 1236, 1297, NA )))
+  expect_equal(res$lead_income, rev(c(1181, NA, 1297, 1265, NA, NA)))
+  expect_equal(res$diff_income, rev(c(NA, -28, NA, -61, 32, NA)))
+})
