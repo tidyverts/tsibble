@@ -153,6 +153,7 @@ test_that("filter() and slice() with .preserve = TRUE", {
 })
 
 test_that("select() and rename()", {
+  expect_warning(select(tourism, -Quarter), "can't be removed")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(

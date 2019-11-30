@@ -52,6 +52,16 @@ slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
 select.tbl_ts <- function(.data, ...) {
   lst_quos <- enquos(...)
 
+  lst_exprs <- map(lst_quos, quo_get_expr)
+  idx_chr <- index_var(.data)
+  rm_index <- sym(paste0("-", idx_chr))
+  if (any(lst_exprs == rm_index)) {
+    warn(sprintf(paste_inline(
+      "Column `%s` (index) can't be removed for a tsibble.",
+      "Do you need `as_tibble()` to work with data frame?"
+    ), idx_chr))
+  }
+
   named <- list_is_named(lst_quos)
   .data <- rename_tsibble(.data, !!!lst_quos[named])
 
@@ -80,7 +90,7 @@ mutate.tbl_ts <- function(.data, ...) {
   idx_chr <- index_var(.data)
   if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
     abort(sprintf(paste_inline(
-      "Column `%s` (index) can't be removed.",
+      "Column `%s` (index) can't be removed for a tsibble.",
       "Do you need `as_tibble()` to work with data frame?"
     ), idx_chr))
   }
