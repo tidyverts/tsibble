@@ -92,9 +92,9 @@ keyed_lag <- function(var, n = 1L, default = NA) {
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
   if (n_keys(data) == 1) {
-    res_df <- ungroup(grped_df)
+    grped_df <- ungroup(grped_df)
   }
-  res_df <- mutate(res_df,
+  res_df <- mutate(grped_df,
     !!idx_chr := tlag(!!col, n = n * tunits, default, !!index(data)))
   res_df[[idx_chr]]
 }
@@ -106,9 +106,9 @@ keyed_lead <- function(var, n = 1L, default = NA) {
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
   if (n_keys(data) == 1) {
-    res_df <- ungroup(grped_df)
+    grped_df <- ungroup(grped_df)
   }
-  res_df <- mutate(res_df,
+  res_df <- mutate(grped_df,
     !!idx_chr := tlead(!!col, n = n * tunits, default, !!index(data)))
   res_df[[idx_chr]]
 }
@@ -120,9 +120,9 @@ keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
   if (n_keys(data) == 1) {
-    res_df <- ungroup(grped_df)
+    grped_df <- ungroup(grped_df)
   }
-  res_df <- mutate(res_df,
+  res_df <- mutate(grped_df,
     !!idx_chr := tdifference(!!col, lag * tunits, differences, default, !!index(data)))
   res_df[[idx_chr]]
 }
