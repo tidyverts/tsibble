@@ -3,14 +3,12 @@
 #' @description
 #' \lifecycle{stable}
 #'
-#' @param x A numeric vector.
+#' @inheritParams dplyr::lag
 #' @param lag An positive integer indicating which lag to use.
 #' @param differences An positive integer indicating the order of the difference.
-#' @param default Value used for non-existent rows, defaults to `NA`.
-#' @param order_by Override the default ordering to use another vector.
 #'
 #' @return A numeric vector of the same length as `x`.
-#' @seealso [dplyr::lead] and [dplyr::lag]
+#' @seealso [keyed_lag], [keyed_lead], [keyed_difference], [dplyr::lead] and [dplyr::lag]
 #' @export
 #' @examples
 #' # examples from base
@@ -85,8 +83,45 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
   x
 }
 
+#' Tsibble-aware lag, lead, and difference operations
+#'
+#' They are specialist vector functions for tsibble, used in conjunction with
+#' `mutate()`/`transform()`. Unlike their counterparts, such as `lag()` and `lead()`,
+#' `keyed_*()` *take care of* temporal ordering and gaps, and do the right thing.
+#'
+#' @param var Unquoted variable.
+#' @inheritParams dplyr::lag 
+#' @inheritParams difference
+#'
+#' @rdname keyed-vec
+#' @export
+#' @examples
+#' library(dplyr)
+#' yrmth <- c("2018-07", "2018-08", "2018-11", "2018-12", "2019-01", "2019-03")
+#' tsbl <- tsibble(
+#'   yrmth = yearmonth(yrmth), 
+#'   income = c(1153, 1181, 1236, 1297, 1264, 1282),
+#'   index = yrmth)
+#' 
+#' tsbl %>% 
+#'   mutate(
+#'     lag_income = keyed_lag(income),
+#'     lead_income = keyed_lead(income),
+#'     diff_income = keyed_difference(income)
+#'   )
+#'
+#' # aware of key and gaps
+#' pedestrian %>% 
+#'   mutate(l_count = keyed_lag(Count))
+#' 
+#' # to replace the following chain
+#' pedestrian %>% 
+#'   fill_gaps() %>% 
+#'   group_by_key() %>% 
+#'   mutate(l_count = lag(Count))
 keyed_lag <- function(var, n = 1L, default = NA) {
-  data <- peek_tsibble_mask()
+  mask <- peek_tsibble_mask()
+  data <- mask$tsibble_data()
   col <- names(eval_select(expr({{ var }}), data))
   abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))
@@ -100,8 +135,11 @@ keyed_lag <- function(var, n = 1L, default = NA) {
   res_df[[idx_chr]]
 }
 
+#' @rdname keyed-vec
+#' @export
 keyed_lead <- function(var, n = 1L, default = NA) {
-  data <- peek_tsibble_mask()
+  mask <- peek_tsibble_mask()
+  data <- mask$tsibble_data()
   col <- names(eval_select(expr({{ var }}), data))
   abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))
@@ -115,8 +153,11 @@ keyed_lead <- function(var, n = 1L, default = NA) {
   res_df[[idx_chr]]
 }
 
+#' @rdname keyed-vec
+#' @export
 keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
-  data <- peek_tsibble_mask()
+  mask <- peek_tsibble_mask()
+  data <- mask$tsibble_data()
   col <- names(eval_select(expr({{ var }}), data))
   abort_if_var_chr(col)
   tunits <- default_time_units(interval(data))

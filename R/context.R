@@ -9,9 +9,8 @@ poke_tsibble_mask <- function(mask) {
 
 peek_tsibble_mask <- function() {
   context_tsibble_env[["..tsibble_mask"]] %||% 
-    abort(paste_inline(
-      "No tsibble data mask registered.",
-      "`keyed_*()` only works inside `mutate()` for a tsibble."))
+    abort(sprintf("`%s` should only be called in `mutate()` for a tsibble.",
+      deparse(sys.call(-1))))
 }
 
 scoped_tsibble_mask <- function(mask, frame = caller_env()) {
@@ -21,7 +20,20 @@ scoped_tsibble_mask <- function(mask, frame = caller_env()) {
   eval_bare(expr, frame)
 }
 
-new_tsibble_data_mask <- function(data) {
-  scoped_tsibble_mask(data, caller_env(n = 2))
-  data
-}
+TsibbleDataMask <- R6Class("TsibbleDataMask",
+  public = list(
+    initialize = function(data) {
+      frame <- caller_env(n = 2)
+      scoped_vars(names(data), frame)
+      scoped_tsibble_mask(self, frame)
+
+      private$data <- data
+    },
+
+    tsibble_data = function() {
+      private$data
+    }
+  ),
+
+  private = list(data = NULL)
+)

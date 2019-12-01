@@ -21,9 +21,9 @@ Authors@R:
              role = "aut",
              comment = c(ORCID = "0000-0001-6729-7695")))
 Description: Provides a 'tbl_ts' class (the 'tsibble') for
-    temporal data in an data- and model-oriented format. The 'tsibble' provides
-    tools to easily manipulate and analyse temporal data, such as filling in 
-    time gaps, aggregating over calendar periods, and etc.
+    temporal data in an data- and model-oriented format. The 'tsibble'
+    provides tools to easily manipulate and analyse temporal data, such as
+    filling in time gaps, aggregating over calendar periods, and etc.
 License: GPL-3
 URL: https://tsibble.tidyverts.org
 BugReports: https://github.com/tidyverts/tsibble/issues
@@ -35,9 +35,10 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
+    R6,
     rlang (>= 0.4.2),
     tibble (>= 2.0.1),
-    tidyselect,
+    tidyselect (>= 0.2.99.9000),
     vctrs (>= 0.2.0.9007)
 Suggests: 
     covr,
@@ -59,8 +60,8 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes:
-    r-lib/vctrs,
     r-lib/tidyselect,
+    r-lib/vctrs,
     tidyverse/ggplot2
 ByteCompile: true
 Encoding: UTF-8

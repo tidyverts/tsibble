@@ -7,15 +7,15 @@
 difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{a vector of values}
 
 \item{lag}{An positive integer indicating which lag to use.}
 
 \item{differences}{An positive integer indicating the order of the difference.}
 
-\item{default}{Value used for non-existent rows, defaults to \code{NA}.}
+\item{default}{value used for non-existent rows. Defaults to \code{NA}.}
 
-\item{order_by}{Override the default ordering to use another vector.}
+\item{order_by}{override the default ordering to use another vector}
 }
 \value{
 A numeric vector of the same length as \code{x}.
@@ -42,5 +42,5 @@ right <- mutate(scrambled, diff = difference(value, order_by = year))
 arrange(right, year)
 }
 \seealso{
-\link[dplyr:lead]{dplyr::lead} and \link[dplyr:lag]{dplyr::lag}
+\link{keyed_lag}, \link{keyed_lead}, \link{keyed_difference}, \link[dplyr:lead]{dplyr::lead} and \link[dplyr:lag]{dplyr::lag}
 }

@@ -87,6 +87,7 @@
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first
 #' @importFrom tibble new_tibble trunc_mat
 #' @importFrom lifecycle deprecated
+#' @importFrom R6 R6Class
 #' @import rlang tidyselect vctrs
 #' @examples
 #' # create a tsibble w/o a key ----
