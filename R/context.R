@@ -30,6 +30,17 @@ TsibbleDataMask <- R6Class("TsibbleDataMask",
       private$data <- data
     },
 
+    keyed_fn = function(var, data, fn, ...) {
+      idx_chr <- index_var(data)
+      grped_df <- new_grouped_df(data, groups = key_data(data))
+      if (n_keys(data) == 1) {
+        grped_df <- ungroup(grped_df)
+      }
+      res_df <- mutate(grped_df, 
+        !!idx_chr := fn(!!enquo(var), ..., order_by = !!index(data)))
+      res_df[[idx_chr]]
+    },
+
     tsibble_data = function() {
       private$data
     }

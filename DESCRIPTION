@@ -38,7 +38,7 @@ Imports:
     R6,
     rlang (>= 0.4.2),
     tibble (>= 2.0.1),
-    tidyselect (>= 0.2.99.9000),
+    tidyselect,
     vctrs (>= 0.2.0.9007)
 Suggests: 
     covr,
@@ -60,7 +60,6 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes:
-    r-lib/tidyselect,
     r-lib/vctrs,
     tidyverse/ggplot2
 ByteCompile: true

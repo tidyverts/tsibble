@@ -122,17 +122,11 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 keyed_lag <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ select }}), data))
-  abort_if_select_chr(col)
+  # col <- names(eval_select({{ select }}, data))
+  # abort_if_select_chr(col)
+  col <- names(vars_select(names(data), !!enquo(select)))
   tunits <- default_time_units(interval(data))
-  idx_chr <- index_var(data)
-  grped_df <- new_grouped_df(data, groups = key_data(data))
-  if (n_keys(data) == 1) {
-    grped_df <- ungroup(grped_df)
-  }
-  res_df <- mutate(grped_df,
-    !!idx_chr := tlag(!!sym(col), n = n * tunits, default, !!index(data)))
-  res_df[[idx_chr]]
+  mask$keyed_fn(!!sym(col), data = data, tlag, n = n * tunits, default)
 }
 
 #' @rdname keyed-vec
@@ -140,17 +134,9 @@ keyed_lag <- function(select, n = 1L, default = NA) {
 keyed_lead <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ select }}), data))
-  abort_if_select_chr(col)
+  col <- names(vars_select(names(data), !!enquo(select)))
   tunits <- default_time_units(interval(data))
-  idx_chr <- index_var(data)
-  grped_df <- new_grouped_df(data, groups = key_data(data))
-  if (n_keys(data) == 1) {
-    grped_df <- ungroup(grped_df)
-  }
-  res_df <- mutate(grped_df,
-    !!idx_chr := tlead(!!sym(col), n = n * tunits, default, !!index(data)))
-  res_df[[idx_chr]]
+  mask$keyed_fn(!!sym(col), data = data, tlead, n = n * tunits, default)
 }
 
 #' @rdname keyed-vec
@@ -158,18 +144,10 @@ keyed_lead <- function(select, n = 1L, default = NA) {
 keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ select }}), data))
-  abort_if_select_chr(col)
+  col <- names(vars_select(names(data), !!enquo(select)))
   tunits <- default_time_units(interval(data))
-  idx_chr <- index_var(data)
-  grped_df <- new_grouped_df(data, groups = key_data(data))
-  if (n_keys(data) == 1) {
-    grped_df <- ungroup(grped_df)
-  }
-  res_df <- mutate(grped_df,
-    !!idx_chr := tdifference(!!sym(col), lag * tunits, differences, default,
-      !!index(data)))
-  res_df[[idx_chr]]
+  mask$keyed_fn(!!sym(col), data = data, 
+    tdifference, lag = lag * tunits, differences, default)
 }
 
 abort_if_select_chr <- function(x) {

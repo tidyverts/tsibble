@@ -34,9 +34,9 @@ test_that("keyed_[lag/lead/difference] error", {
   expect_error(
     tsbl %>% mutate(l_income = keyed_lag(income, n = -2)), 
     "non-negative")
-  expect_error(
-    tsbl %>% mutate(l_income = keyed_lag("income")), 
-    "unquoted")
+  # expect_error(
+  #   tsbl %>% mutate(l_income = keyed_lag("income")), 
+  #   "unquoted")
   expect_error(
     tsbl %>% mutate(d_income = keyed_difference(income, lag = -2)), 
     "positive")
