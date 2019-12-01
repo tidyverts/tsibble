@@ -14,13 +14,15 @@ dont_know <- function(x, FUN) {
 
 abort_unknown_interval <- function(x) {
   if (unknown_interval(x)) {
-    abort("Can't proceed with tsibble of unknown interval.")
+    abort(sprintf("`%s` can't proceed with tsibble of unknown interval.",
+      deparse(sys.call(-1))))
   }
 }
 
 abort_if_irregular <- function(x) {
   if (!is_regular(x)) {
-    abort("Can't handle tsibble of irregular interval.")
+    abort(sprintf("`%s` can't handle tsibble of irregular interval.",
+      deparse(sys.call(-1))))
   }
 }
 

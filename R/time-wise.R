@@ -123,6 +123,7 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 keyed_lag <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$retrieve_data()
+  abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
   mask$map_per_key(!!enquo(select), data = data, tlag, n = n * tunits, default)
 }
@@ -132,6 +133,7 @@ keyed_lag <- function(select, n = 1L, default = NA) {
 keyed_lead <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$retrieve_data()
+  abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
   mask$map_per_key(!!enquo(select), data = data, tlead, n = n * tunits, default)
 }
@@ -141,6 +143,7 @@ keyed_lead <- function(select, n = 1L, default = NA) {
 keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$retrieve_data()
+  abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
   mask$map_per_key(!!enquo(select), data = data, 
     tdifference, lag = lag * tunits, differences, default)
