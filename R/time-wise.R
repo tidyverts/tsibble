@@ -89,7 +89,7 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #' `mutate()`/`transform()`. Unlike their counterparts, such as `lag()` and `lead()`,
 #' `keyed_*()` *take care of* temporal ordering and gaps, and do the right thing.
 #'
-#' @param var Unquoted variable.
+#' @param select Unquoted variable.
 #' @inheritParams dplyr::lag 
 #' @inheritParams difference
 #'
@@ -119,11 +119,11 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #'   fill_gaps() %>% 
 #'   group_by_key() %>% 
 #'   mutate(l_count = lag(Count))
-keyed_lag <- function(var, n = 1L, default = NA) {
+keyed_lag <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ var }}), data))
-  abort_if_var_chr(col)
+  col <- names(eval_select(expr({{ select }}), data))
+  abort_if_select_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -137,11 +137,11 @@ keyed_lag <- function(var, n = 1L, default = NA) {
 
 #' @rdname keyed-vec
 #' @export
-keyed_lead <- function(var, n = 1L, default = NA) {
+keyed_lead <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ var }}), data))
-  abort_if_var_chr(col)
+  col <- names(eval_select(expr({{ select }}), data))
+  abort_if_select_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -155,11 +155,11 @@ keyed_lead <- function(var, n = 1L, default = NA) {
 
 #' @rdname keyed-vec
 #' @export
-keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
+keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$tsibble_data()
-  col <- names(eval_select(expr({{ var }}), data))
-  abort_if_var_chr(col)
+  col <- names(eval_select(expr({{ select }}), data))
+  abort_if_select_chr(col)
   tunits <- default_time_units(interval(data))
   idx_chr <- index_var(data)
   grped_df <- new_grouped_df(data, groups = key_data(data))
@@ -172,8 +172,8 @@ keyed_difference <- function(var, lag = 1, differences = 1, default = NA) {
   res_df[[idx_chr]]
 }
 
-abort_if_var_chr <- function(x) {
+abort_if_select_chr <- function(x) {
   if (nchar(x) == 0) {
-    abort("Argument `var` only takes an unquoted variable.")
+    abort("Argument `select` only takes an unquoted variable.")
   }
 }

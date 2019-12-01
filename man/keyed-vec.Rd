@@ -6,14 +6,14 @@
 \alias{keyed_difference}
 \title{Tsibble-aware lag, lead, and difference operations}
 \usage{
-keyed_lag(var, n = 1L, default = NA)
+keyed_lag(select, n = 1L, default = NA)
 
-keyed_lead(var, n = 1L, default = NA)
+keyed_lead(select, n = 1L, default = NA)
 
-keyed_difference(var, lag = 1, differences = 1, default = NA)
+keyed_difference(select, lag = 1, differences = 1, default = NA)
 }
 \arguments{
-\item{var}{Unquoted variable.}
+\item{select}{Unquoted variable.}
 
 \item{n}{a positive integer of length 1, giving the number of positions to
 lead or lag by}
