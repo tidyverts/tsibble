@@ -99,7 +99,7 @@ rename.grouped_ts <- rename.tbl_ts
 #' @export
 mutate.tbl_ts <- function(.data, ...) {
   mask <- TsibbleDataMask$new(.data)
-  .data <- mask$tsibble_data()
+  .data <- mask$retrieve_data()
   mut_data <- mutate(as_tibble(.data), ...)
 
   idx_chr <- index_var(.data)

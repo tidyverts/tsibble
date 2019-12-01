@@ -9,7 +9,7 @@ poke_tsibble_mask <- function(mask) {
 
 peek_tsibble_mask <- function() {
   context_tsibble_env[["..tsibble_mask"]] %||% 
-    abort(sprintf("`%s` should only be called in `mutate()` for a tsibble.",
+    abort(sprintf("`%s` should only be called in `mutate(<tbl_ts>)`.",
       deparse(sys.call(-1))))
 }
 
@@ -30,7 +30,7 @@ TsibbleDataMask <- R6Class("TsibbleDataMask",
       private$data <- data
     },
 
-    keyed_fn = function(var, data, fn, ...) {
+    map_per_key = function(var, data, fn, ...) {
       idx_chr <- index_var(data)
       grped_df <- new_grouped_df(data, groups = key_data(data))
       if (n_keys(data) == 1) {
@@ -41,7 +41,7 @@ TsibbleDataMask <- R6Class("TsibbleDataMask",
       res_df[[idx_chr]]
     },
 
-    tsibble_data = function() {
+    retrieve_data = function() {
       private$data
     }
   ),

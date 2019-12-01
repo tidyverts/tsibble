@@ -9,9 +9,9 @@ difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 \arguments{
 \item{x}{a vector of values}
 
-\item{lag}{An positive integer indicating which lag to use.}
+\item{lag}{A positive integer indicating which lag to use.}
 
-\item{differences}{An positive integer indicating the order of the difference.}
+\item{differences}{A positive integer indicating the order of the difference.}
 
 \item{default}{value used for non-existent rows. Defaults to \code{NA}.}
 

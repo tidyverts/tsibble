@@ -20,14 +20,15 @@ lead or lag by}
 
 \item{default}{value used for non-existent rows. Defaults to \code{NA}.}
 
-\item{lag}{An positive integer indicating which lag to use.}
+\item{lag}{A positive integer indicating which lag to use.}
 
-\item{differences}{An positive integer indicating the order of the difference.}
+\item{differences}{A positive integer indicating the order of the difference.}
 }
 \description{
-They are specialist vector functions for tsibble, used in conjunction with
-\code{mutate()}/\code{transform()}. Unlike their counterparts, such as \code{lag()} and \code{lead()},
+They are specialist vector functions, used in tsibble data context inside
+\code{mutate()}/\code{transmute()}. Unlike their counterparts, such as \code{lag()} and \code{lead()},
 \verb{keyed_*()} \emph{take care of} temporal ordering and gaps, and do the right thing.
+They ignore the grouping data structure.
 }
 \examples{
 library(dplyr)
@@ -44,7 +45,7 @@ tsbl \%>\%
     diff_income = keyed_difference(income)
   )
 
-# aware of key and gaps
+# take care of key and gaps
 pedestrian \%>\% 
   mutate(l_count = keyed_lag(Count))
 

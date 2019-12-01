@@ -4,8 +4,8 @@
 #' \lifecycle{stable}
 #'
 #' @inheritParams dplyr::lag
-#' @param lag An positive integer indicating which lag to use.
-#' @param differences An positive integer indicating the order of the difference.
+#' @param lag A positive integer indicating which lag to use.
+#' @param differences A positive integer indicating the order of the difference.
 #'
 #' @return A numeric vector of the same length as `x`.
 #' @seealso [keyed_lag], [keyed_lead], [keyed_difference], [dplyr::lead] and [dplyr::lag]
@@ -85,9 +85,10 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 
 #' Tsibble-aware lag, lead, and difference operations
 #'
-#' They are specialist vector functions for tsibble, used in conjunction with
-#' `mutate()`/`transform()`. Unlike their counterparts, such as `lag()` and `lead()`,
+#' They are specialist vector functions, used in tsibble data context inside
+#' `mutate()`/`transmute()`. Unlike their counterparts, such as `lag()` and `lead()`,
 #' `keyed_*()` *take care of* temporal ordering and gaps, and do the right thing.
+#' They ignore the grouping data structure.
 #'
 #' @param select Unquoted variable.
 #' @inheritParams dplyr::lag 
@@ -110,7 +111,7 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #'     diff_income = keyed_difference(income)
 #'   )
 #'
-#' # aware of key and gaps
+#' # take care of key and gaps
 #' pedestrian %>% 
 #'   mutate(l_count = keyed_lag(Count))
 #' 
@@ -121,37 +122,26 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #'   mutate(l_count = lag(Count))
 keyed_lag <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
-  data <- mask$tsibble_data()
-  # col <- names(eval_select({{ select }}, data))
-  # abort_if_select_chr(col)
-  col <- names(vars_select(names(data), !!enquo(select)))
+  data <- mask$retrieve_data()
   tunits <- default_time_units(interval(data))
-  mask$keyed_fn(!!sym(col), data = data, tlag, n = n * tunits, default)
+  mask$map_per_key(!!enquo(select), data = data, tlag, n = n * tunits, default)
 }
 
 #' @rdname keyed-vec
 #' @export
 keyed_lead <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
-  data <- mask$tsibble_data()
-  col <- names(vars_select(names(data), !!enquo(select)))
+  data <- mask$retrieve_data()
   tunits <- default_time_units(interval(data))
-  mask$keyed_fn(!!sym(col), data = data, tlead, n = n * tunits, default)
+  mask$map_per_key(!!enquo(select), data = data, tlead, n = n * tunits, default)
 }
 
 #' @rdname keyed-vec
 #' @export
 keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
   mask <- peek_tsibble_mask()
-  data <- mask$tsibble_data()
-  col <- names(vars_select(names(data), !!enquo(select)))
+  data <- mask$retrieve_data()
   tunits <- default_time_units(interval(data))
-  mask$keyed_fn(!!sym(col), data = data, 
+  mask$map_per_key(!!enquo(select), data = data, 
     tdifference, lag = lag * tunits, differences, default)
-}
-
-abort_if_select_chr <- function(x) {
-  if (nchar(x) == 0) {
-    abort("Argument `select` only takes an unquoted variable.")
-  }
 }
