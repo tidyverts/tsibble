@@ -125,7 +125,8 @@ keyed_lag <- function(select, n = 1L, default = NA) {
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_per_key(!!enquo(select), data = data, tlag, n = n * tunits, default)
+  mask$map_keyed_chunks(!!enquo(select), data = data, 
+    tlag, n = n * tunits, default, index(data))
 }
 
 #' @rdname keyed-vec
@@ -135,7 +136,8 @@ keyed_lead <- function(select, n = 1L, default = NA) {
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_per_key(!!enquo(select), data = data, tlead, n = n * tunits, default)
+  mask$map_keyed_chunks(!!enquo(select), data = data, 
+    tlead, n = n * tunits, default, index(data))
 }
 
 #' @rdname keyed-vec
@@ -145,6 +147,6 @@ keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_per_key(!!enquo(select), data = data, 
-    tdifference, lag = lag * tunits, differences, default)
+  mask$map_keyed_chunks(!!enquo(select), data = data, 
+    tdifference, lag = lag * tunits, differences, default, index(data))
 }
