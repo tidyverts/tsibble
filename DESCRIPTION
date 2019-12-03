@@ -32,6 +32,7 @@ Depends:
 Imports: 
     anytime (>= 0.3.1),
     dplyr (>= 0.8.1),
+    ellipsis (>= 0.3.0),
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
@@ -42,7 +43,6 @@ Imports:
     vctrs (>= 0.2.0.9007)
 Suggests: 
     covr,
-    crayon,
     furrr,
     ggplot2 (>= 3.2.1.9000),
     hms,

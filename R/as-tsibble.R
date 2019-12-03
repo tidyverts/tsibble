@@ -114,6 +114,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 as_tsibble <- function(x, key = NULL, index, regular = TRUE,
                        validate = TRUE, .drop = TRUE, ...) {
   stopifnot(is_logical(regular, n = 1))
+  check_dots_used()
   UseMethod("as_tsibble")
 }
 

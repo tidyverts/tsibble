@@ -30,7 +30,7 @@ as_tsibble(
 
 \method{as_tsibble}{ts}(x, ..., tz = "UTC")
 
-\method{as_tsibble}{mts}(x, ..., tz = "UTC", pivot_longer = TRUE, gather = deprecated())
+\method{as_tsibble}{mts}(x, ..., tz = "UTC", pivot_longer = TRUE)
 }
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
@@ -56,8 +56,6 @@ are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 daily.}
 
 \item{pivot_longer}{\code{TRUE} gives a "longer" form of the data, otherwise as is.}
-
-\item{gather}{\lifecycle{defunct} Please use \code{pivot_longer} instead.}
 }
 \value{
 A tsibble object.

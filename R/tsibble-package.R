@@ -88,7 +88,7 @@
 #' @importFrom tibble new_tibble trunc_mat
 #' @importFrom lifecycle deprecated
 #' @importFrom R6 R6Class
-#' @import rlang tidyselect vctrs
+#' @import rlang tidyselect vctrs ellipsis
 #' @examples
 #' # create a tsibble w/o a key ----
 #' tsibble(
