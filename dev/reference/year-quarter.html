@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • tsibble</title>
+<title>Represent year-quarter — yearquarter • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Represent year-quarter — yearquarter" />
+<meta property="og:description" content="
+Create or coerce using yearquarter()." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +81,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -155,21 +157,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Represent year-quarter</h1>
+    
+    <div class="hidden name"><code>year-quarter.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="faq.html">Frequently Asked Questions and Answers</a></li>
-        <li><a href="implicit-na.html">Handle implicit missingness with tsibble</a></li>
-        <li><a href="intro-tsibble.html">Introduction to tsibble</a></li>
-        <li><a href="press.html">Press and testimonials</a></li>
-        <li><a href="window.html">A family of window functions</a></li>
-      </ul>
+    <div class="ref-description">
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+<p>Create or coerce using <code>yearquarter()</code>.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>yearquarter</span>(<span class='no'>x</span>)
+
+<span class='fu'>is_yearquarter</span>(<span class='no'>x</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Other object.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>year-quarter (<code>yearquarter</code>) objects.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other index functions: 
+<code><a href='year-month.html'>yearmonth</a>()</code>,
+<code><a href='year-week.html'>yearweek</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># coerce POSIXct/Dates to yearquarter</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-01-01"</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-12-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 quarter"</span>)
+<span class='fu'>yearquarter</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; &lt;yearquarter[4]&gt;
+#&gt; [1] "2016 Q1" "2016 Q2" "2016 Q3" "2016 Q4"</div><div class='input'>
+<span class='co'># parse characters</span>
+<span class='fu'>yearquarter</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 Q1"</span>, <span class='st'>"2018 Qtr1"</span>, <span class='st'>"2018 Quarter 1"</span>))</div><div class='output co'>#&gt; &lt;yearquarter[3]&gt;
+#&gt; [1] "2018 Q1" "2018 Q1" "2018 Q1"</div><div class='input'>
+<span class='co'># creat an empty yearquarter container</span>
+<span class='fu'>yearquarter</span>()</div><div class='output co'>#&gt; &lt;yearquarter[0]&gt;</div><div class='input'>
+<span class='co'># seq() and arithmetic</span>
+<span class='no'>qtr</span> <span class='kw'>&lt;-</span> <span class='fu'>yearquarter</span>(<span class='st'>"2017 Q1"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>qtr</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># by 1 quarter</span></div><div class='output co'>#&gt; &lt;yearquarter[10]&gt;
+#&gt;  [1] "2017 Q1" "2017 Q2" "2017 Q3" "2017 Q4" "2018 Q1" "2018 Q2" "2018 Q3"
+#&gt;  [8] "2018 Q4" "2019 Q1" "2019 Q2"</div><div class='input'><span class='no'>qtr</span> + <span class='fl'>0</span>:<span class='fl'>9</span></div><div class='output co'>#&gt; &lt;yearquarter[10]&gt;
+#&gt;  [1] "2017 Q1" "2017 Q2" "2017 Q3" "2017 Q4" "2018 Q1" "2018 Q2" "2018 Q3"
+#&gt;  [8] "2018 Q4" "2019 Q1" "2019 Q2"</div><div class='input'>
+<span class='co'># display formats</span>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>qtr</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%y Qtr%q"</span>)</div><div class='output co'>#&gt; [1] "17 Qtr1"</div><div class='input'>
+<span class='co'># units since 1970 Q1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span>(<span class='fu'>yearquarter</span>(<span class='st'>"1969 Q1"</span>) + <span class='fl'>0</span>:<span class='fl'>8</span>)</div><div class='output co'>#&gt; [1] -4 -3 -2 -1  0  1  2  3  4</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 

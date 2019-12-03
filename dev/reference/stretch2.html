@@ -102,7 +102,7 @@ stretch2_dfr() stretch2_dfc() return data frames using row-binding &amp;amp; col
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -183,23 +183,36 @@ arguments as <code>stretch2()</code>, but return vectors of the corresponding ty
 
     </div>
 
-    <pre class="usage"><span class='fu'>stretch2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>stretch2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>stretch2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>stretch2_dfr</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>stretch2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>stretch2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>pstretch</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>pstretch</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>pstretch_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>pstretch_dfr</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>pstretch_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>pstretch_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -277,7 +290,8 @@ names will be used if present.</p></td>
 <li><p><a href='tile2.html'>tile2</a> for tiling window without overlapping observations</p></li>
 </ul>
 
-<p>Other stretching window functions: <code><a href='stretch.html'>stretch</a></code></p></div>
+<p>Other stretching window functions: 
+<code><a href='stretch.html'>stretch</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
@@ -377,20 +391,20 @@ names will be used if present.</p></td>
 
 <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>pstretch</span>(<span class='no'>df</span>, <span class='kw'>function</span>(<span class='no'>...</span>) <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>)), <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-)</div><div class='output co'>#&gt; # A tibble: 365 x 1
+)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 1</span><span>
 #&gt;    data             
-#&gt;    &lt;list&gt;           
-#&gt;  1 &lt;lgl [1]&gt;        
-#&gt;  2 &lt;lgl [1]&gt;        
-#&gt;  3 &lt;lgl [1]&gt;        
-#&gt;  4 &lt;lgl [1]&gt;        
-#&gt;  5 &lt;lgl [1]&gt;        
-#&gt;  6 &lt;lgl [1]&gt;        
-#&gt;  7 &lt;lgl [1]&gt;        
-#&gt;  8 &lt;lgl [1]&gt;        
-#&gt;  9 &lt;lgl [1]&gt;        
-#&gt; 10 &lt;tibble [10 × 2]&gt;
-#&gt; # … with 355 more rows</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>&lt;lgl [1]&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>&lt;tibble [10 × 2]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -410,7 +424,7 @@ names will be used if present.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

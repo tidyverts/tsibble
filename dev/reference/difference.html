@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -165,31 +165,30 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>order_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>difference</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>order_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A numeric vector.</p></td>
+      <td><p>a vector of values</p></td>
     </tr>
     <tr>
       <th>lag</th>
-      <td><p>An positive integer indicating which lag to use.</p></td>
+      <td><p>A positive integer indicating which lag to use.</p></td>
     </tr>
     <tr>
       <th>differences</th>
-      <td><p>An positive integer indicating the order of the difference.</p></td>
+      <td><p>A positive integer indicating the order of the difference.</p></td>
     </tr>
     <tr>
       <th>default</th>
-      <td><p>Value used for non-existent rows, defaults to <code>NA</code>.</p></td>
+      <td><p>value used for non-existent rows. Defaults to <code>NA</code>.</p></td>
     </tr>
     <tr>
       <th>order_by</th>
-      <td><p>Override the default ordering to use another vector.</p></td>
+      <td><p>override the default ordering to use another vector</p></td>
     </tr>
     </table>
 
@@ -198,7 +197,7 @@
     <p>A numeric vector of the same length as <code>x</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://dplyr.tidyverse.org/reference/lead-lag.html'>dplyr::lead</a> and <a href='https://dplyr.tidyverse.org/reference/lead-lag.html'>dplyr::lag</a></p></div>
+    <div class='dont-index'><p><a href='keyed-vec.html'>keyed_lag</a>, <a href='keyed-vec.html'>keyed_lead</a>, <a href='keyed-vec.html'>keyed_difference</a>, <a href='https://dplyr.tidyverse.org/reference/lead-lag.html'>dplyr::lead</a> and <a href='https://dplyr.tidyverse.org/reference/lead-lag.html'>dplyr::lag</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># examples from base</span>
@@ -209,25 +208,25 @@
 <span class='no'>scrambled</span> <span class='kw'>&lt;-</span> <span class='no'>tsbl</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>tsbl</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
 #&gt; <span class='warning'>Suggest to sort by ``, `year` first.</span></div><div class='input'>
 <span class='no'>wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
-#&gt; <span class='warning'>Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>wrong</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; # A tsibble: 6 x 3 [1Y]
+#&gt; <span class='warning'>Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>wrong</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 6 x 3 [1Y]</span><span>
 #&gt;    year value  diff
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2000     0    -4
-#&gt; 2  2001     1     1
-#&gt; 3  2002     4    NA
-#&gt; 4  2003     9     8
-#&gt; 5  2004    16    -9
-#&gt; 6  2005    25    16</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>000     0    -</span><span style='color: #BB0000;'>4</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>001     1     1
+#&gt; </span><span style='color: #555555;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>002     4    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>003     9     8
+#&gt; </span><span style='color: #555555;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>004    16    -</span><span style='color: #BB0000;'>9</span><span>
+#&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>005    25    16</div><div class='input'>
 <span class='no'>right</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>scrambled</span>, <span class='kw'>diff</span> <span class='kw'>=</span> <span class='fu'>difference</span>(<span class='no'>value</span>, <span class='kw'>order_by</span> <span class='kw'>=</span> <span class='no'>year</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
-#&gt; <span class='warning'>Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>right</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; # A tsibble: 6 x 3 [1Y]
+#&gt; <span class='warning'>Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>right</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 6 x 3 [1Y]</span><span>
 #&gt;    year value  diff
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2000     0    NA
-#&gt; 2  2001     1     1
-#&gt; 3  2002     4     3
-#&gt; 4  2003     9     5
-#&gt; 5  2004    16     7
-#&gt; 6  2005    25     9</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>000     0    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>001     1     1
+#&gt; </span><span style='color: #555555;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>002     4     3
+#&gt; </span><span style='color: #555555;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>003     9     5
+#&gt; </span><span style='color: #555555;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>004    16     7
+#&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>005    25     9</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -248,7 +247,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

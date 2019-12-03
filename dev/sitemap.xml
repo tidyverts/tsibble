@@ -22,6 +22,9 @@
     <loc>https://tsibble.tidyverts.org/reference/count_gaps.html</loc>
   </url>
   <url>
+    <loc>https://tsibble.tidyverts.org/reference/default_time_units.html</loc>
+  </url>
+  <url>
     <loc>https://tsibble.tidyverts.org/reference/deprecated.html</loc>
   </url>
   <url>
@@ -82,13 +85,16 @@
     <loc>https://tsibble.tidyverts.org/reference/key_drop_default.html</loc>
   </url>
   <url>
+    <loc>https://tsibble.tidyverts.org/reference/keyed-vec.html</loc>
+  </url>
+  <url>
     <loc>https://tsibble.tidyverts.org/reference/measured-vars.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/new-data.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/new_interval.html</loc>
+    <loc>https://tsibble.tidyverts.org/reference/new-interval.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/new_tsibble.html</loc>
@@ -98,9 +104,6 @@
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/pedestrian.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/period.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/reexports.html</loc>
@@ -151,13 +154,13 @@
     <loc>https://tsibble.tidyverts.org/reference/time_in.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/time_unit.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/tourism.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/tsibble-package.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/tsibble-scales.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/tsibble-tidyverse.html</loc>
@@ -166,13 +169,22 @@
     <loc>https://tsibble.tidyverts.org/reference/tsibble.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/units_since.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/unnest_tsibble.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/update_tsibble.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/vctrs-compat.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/year-month.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/year-quarter.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/year-week.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/articles/faq.html</loc>

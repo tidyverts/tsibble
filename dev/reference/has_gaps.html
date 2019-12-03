@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -172,12 +172,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
+      <td><p>A tsibble.</p></td>
     </tr>
     <tr>
       <th>.full</th>
-      <td><p><code>FALSE</code> to find gaps for each series within its own period.
-<code>TRUE</code> to find gaps over the entire time span of the data.</p></td>
+      <td><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period. <code>TRUE</code>
+fills <code>NA</code> over the entire time span of the data (a.k.a. fully balanced panel).
+Other options are <code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> and <code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code>, suggesting to pad <code>NA</code> for the same
+<code>min(&lt;index&gt;)</code> or <code>max(&lt;index&gt;)</code> alignment time across the units.</p></td>
     </tr>
     <tr>
       <th>.name</th>
@@ -190,8 +192,10 @@
     <p>A tibble contains "key" variables and new column <code>.gaps</code> of <code>TRUE</code>/<code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other implicit gaps handling: <code><a href='count_gaps.html'>count_gaps</a></code>,
-  <code><a href='fill_gaps.html'>fill_gaps</a></code>, <code><a href='scan_gaps.html'>scan_gaps</a></code></p></div>
+    <div class='dont-index'><p>Other implicit gaps handling: 
+<code><a href='count_gaps.html'>count_gaps</a>()</code>,
+<code><a href='fill_gaps.html'>fill_gaps</a>()</code>,
+<code><a href='scan_gaps.html'>scan_gaps</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
@@ -200,15 +204,23 @@
   <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>6</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
 )
-<span class='fu'>has_gaps</span>(<span class='no'>harvest</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+<span class='fu'>has_gaps</span>(<span class='no'>harvest</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   &lt;chr&gt;  &lt;lgl&gt;
-#&gt; 1 cherry FALSE
-#&gt; 2 kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> cherry FALSE
+#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   &lt;chr&gt;  &lt;lgl&gt;
-#&gt; 1 cherry TRUE 
-#&gt; 2 kiwi   TRUE </div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> cherry TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>start</a></span>())</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   fruit  .gaps
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> cherry TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>end</a></span>())</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   fruit  .gaps
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> cherry FALSE
+#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -229,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

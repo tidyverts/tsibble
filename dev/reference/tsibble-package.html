@@ -96,7 +96,7 @@ variables in a data-centric format, which is built on top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -179,12 +179,12 @@ variables in a data-centric format, which is built on top of the tibble.</p>
 
 <p>An extensive range of indices are supported by tsibble: native time classes in R
 (such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>) and tsibble's new additions
-(such as <a href='period.html'>yearweek</a>, <a href='period.html'>yearmonth</a>, and <a href='period.html'>yearquarter</a>). Some commonly-used classes
+(such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>). Some commonly-used classes
 have built-in support too, including <code>ordered</code>, <code><a href='https://rdrr.io/pkg/hms/man/hms.html'>hms::hms</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>,
 <code><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>zoo::yearqtr</a></code>, and <code>nanotime</code>.</p>
 <p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
-by <a href='period.html'>yearmonth</a> or <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
+by <a href='year-month.html'>yearmonth</a> or <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
 months in a year ensures the regularity, 12 months every year. However, if
 using <code>Date</code>, a month containing days ranges from 28 to 31 days, which results
 in irregular time space. This is also applicable to year-week and year-quarter.</p>
@@ -263,40 +263,40 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 10 x 2 [1D]
+)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
-#&gt;    &lt;date&gt;        &lt;dbl&gt;
-#&gt;  1 2017-01-01 -1.03   
-#&gt;  2 2017-01-02  1.51   
-#&gt;  3 2017-01-03  0.347  
-#&gt;  4 2017-01-04  1.78   
-#&gt;  5 2017-01-05  0.387  
-#&gt;  6 2017-01-06 -0.919  
-#&gt;  7 2017-01-07 -1.58   
-#&gt;  8 2017-01-08 -0.0841 
-#&gt;  9 2017-01-09 -2.09   
-#&gt; 10 2017-01-10  0.00357</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.03</span><span>   
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02  1.51   
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03  0.347  
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04  1.78   
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05  0.387  
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06 -</span><span style='color: #BB0000;'>0.919</span><span>  
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>1.58</span><span>   
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>2.09</span><span>   
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10  0.003</span><span style='text-decoration: underline;'>57</span><span></div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
 <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='period.html'>yearquarter</a></span>(<span class='st'>"2010-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
+  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='year-quarter.html'>yearquarter</a></span>(<span class='st'>"2010-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1Q]
-#&gt; # Key:       group [3]
+)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
 #&gt;        qtr group  value
-#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;
-#&gt;  1 2010 Q1 x     -0.356
-#&gt;  2 2010 Q2 x      1.15 
-#&gt;  3 2010 Q3 x     -0.221
-#&gt;  4 2010 Q4 x      1.02 
-#&gt;  5 2011 Q1 x     -0.264
-#&gt;  6 2011 Q2 x      1.66 
-#&gt;  7 2011 Q3 x     -0.774
-#&gt;  8 2011 Q4 x     -0.924
-#&gt;  9 2012 Q1 x     -0.276
-#&gt; 10 2012 Q2 x     -0.593
-#&gt; # … with 20 more rows</div></pre>
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.356</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x      1.15 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x     -</span><span style='color: #BB0000;'>0.221</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x      1.02 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x     -</span><span style='color: #BB0000;'>0.264</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x      1.66 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.774</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.924</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x     -</span><span style='color: #BB0000;'>0.276</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.593</span><span>
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -311,11 +311,11 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
     </ul>
 
     <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a> (0000-0001-6448-5260)</p>
+    <p><strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a> (<a href='https://orcid.org/0000-0001-6448-5260'>ORCID</a>)</p>
 <p>Authors:</p><ul>
-<li><p>Di Cook (0000-0002-3813-7155) [thesis advisor]</p></li>
-<li><p>Rob Hyndman (0000-0002-2140-5352) [thesis advisor]</p></li>
-<li><p>Mitchell O'Hara-Wild (0000-0001-6729-7695)</p></li>
+<li><p>Di Cook (<a href='https://orcid.org/0000-0002-3813-7155'>ORCID</a>) [thesis advisor]</p></li>
+<li><p>Rob Hyndman (<a href='https://orcid.org/0000-0002-2140-5352'>ORCID</a>) [thesis advisor]</p></li>
+<li><p>Mitchell O'Hara-Wild (<a href='https://orcid.org/0000-0001-6729-7695'>ORCID</a>)</p></li>
 </ul>
 
 
@@ -329,7 +329,7 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

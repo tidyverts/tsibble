@@ -102,7 +102,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -183,23 +183,82 @@ arguments as <code>slide2()</code>, but return vectors of the corresponding type
 
     </div>
 
-    <pre class="usage"><span class='fu'>slide2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>slide2</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>slide2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>slide2_dfr</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>slide2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>slide2_dfc</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>pslide</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>pslide</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>pslide_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>pslide_dfr</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>pslide_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>pslide_dfc</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -284,7 +343,8 @@ names will be used if present.</p></td>
 <li><p><a href='stretch2.html'>stretch2</a> for expanding more observations</p></li>
 </ul>
 
-<p>Other sliding window functions: <code><a href='slide.html'>slide</a></code></p></div>
+<p>Other sliding window functions: 
+<code><a href='slide.html'>slide</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
@@ -401,46 +461,46 @@ names will be used if present.</p></td>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 3
-#&gt; # Groups:   group [2]
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   group [2]</span><span>
 #&gt;    group           data   slope
-#&gt;    &lt;fct&gt; &lt;list&lt;df[,3]&gt;&gt;   &lt;dbl&gt;
-#&gt;  1 a            [8 × 3] NA     
-#&gt;  2 a            [8 × 3] -0.0900
-#&gt;  3 a            [8 × 3]  2.86  
-#&gt;  4 a            [8 × 3]  1.45  
-#&gt;  5 a            [8 × 3]  2.04  
-#&gt;  6 a            [8 × 3]  3.03  
-#&gt;  7 a            [8 × 3]  1.88  
-#&gt;  8 a            [8 × 3]  1.14  
-#&gt;  9 b            [8 × 3] NA     
-#&gt; 10 b            [8 × 3]  0.401 
-#&gt; 11 b            [8 × 3]  4.74  
-#&gt; 12 b            [8 × 3]  0.745 
-#&gt; 13 b            [8 × 3]  1.84  
-#&gt; 14 b            [8 × 3]  2.64  
-#&gt; 15 b            [8 × 3]  0.959 
-#&gt; 16 b            [8 × 3]  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,3]&gt;&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> a            [8 × 3] </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'> 2</span><span> a            [8 × 3] -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> a            [8 × 3]  2.86  
+#&gt; </span><span style='color: #555555;'> 4</span><span> a            [8 × 3]  1.45  
+#&gt; </span><span style='color: #555555;'> 5</span><span> a            [8 × 3]  2.04  
+#&gt; </span><span style='color: #555555;'> 6</span><span> a            [8 × 3]  3.03  
+#&gt; </span><span style='color: #555555;'> 7</span><span> a            [8 × 3]  1.88  
+#&gt; </span><span style='color: #555555;'> 8</span><span> a            [8 × 3]  1.14  
+#&gt; </span><span style='color: #555555;'> 9</span><span> b            [8 × 3] </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'>10</span><span> b            [8 × 3]  0.401 
+#&gt; </span><span style='color: #555555;'>11</span><span> b            [8 × 3]  4.74  
+#&gt; </span><span style='color: #555555;'>12</span><span> b            [8 × 3]  0.745 
+#&gt; </span><span style='color: #555555;'>13</span><span> b            [8 × 3]  1.84  
+#&gt; </span><span style='color: #555555;'>14</span><span> b            [8 × 3]  2.64  
+#&gt; </span><span style='color: #555555;'>15</span><span> b            [8 × 3]  0.959 
+#&gt; </span><span style='color: #555555;'>16</span><span> b            [8 × 3]  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='year-month.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
 #&gt;       yrmth data                   ma
-#&gt;       &lt;mth&gt; &lt;list&gt;              &lt;dbl&gt;
-#&gt;  1 2015 Jan &lt;tsibble [744 × 5]&gt;   NA 
-#&gt;  2 2015 Feb &lt;tsibble [672 × 5]&gt;  424.
-#&gt;  3 2015 Mar &lt;tsibble [744 × 5]&gt;  477.
-#&gt;  4 2015 Apr &lt;tsibble [720 × 5]&gt;  459.
-#&gt;  5 2015 May &lt;tsibble [744 × 5]&gt;  463.
-#&gt;  6 2015 Jun &lt;tsibble [720 × 5]&gt;  489.
-#&gt;  7 2015 Jul &lt;tsibble [744 × 5]&gt;  513.
-#&gt;  8 2015 Aug &lt;tsibble [744 × 5]&gt;  508.
-#&gt;  9 2015 Sep &lt;tsibble [720 × 5]&gt;  500.
-#&gt; 10 2015 Oct &lt;tsibble [743 × 5]&gt;  508.
-#&gt; # … with 14 more rows</div><div class='input'><span class='co'># row-oriented workflow</span>
-<span class='co'># \dontrun{</span>
+#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2015 Jan </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>   </span><span style='color: #BB0000;'>NA</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2015 Feb </span><span style='color: #555555;'>&lt;tsibble [672 × 5]&gt;</span><span>  424.
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2015 Mar </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  477.
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2015 Apr </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  459.
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2015 May </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  463.
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2015 Jun </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  489.
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2015 Jul </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  513.
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2015 Aug </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  508.
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2015 Sep </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  500.
+#&gt; </span><span style='color: #555555;'>10</span><span> 2015 Oct </span><span style='color: #555555;'>&lt;tsibble [743 × 5]&gt;</span><span>  508.
+#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='co'># row-oriented workflow</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>)
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Count</span> ~ <span class='no'>Time</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>)
@@ -450,14 +510,8 @@ names will be used if present.</p></td>
   <span class='fu'><a href='filter_index.html'>filter_index</a></span>(<span class='st'>"2015-01"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt; # Groups:   Sensor [3]
-#&gt;   Sensor                        data                diag                 
-#&gt;   &lt;chr&gt;                         &lt;list&gt;              &lt;list&gt;               
-#&gt; 1 Birrarung Marr                &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
-#&gt; 2 QV Market-Elizabeth St (West) &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;
-#&gt; 3 Southern Cross Station        &lt;tsibble [744 × 4]&gt; &lt;tibble [33,457 × 2]&gt;</div><div class='input'># }
-</div></pre>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>diag</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dfr</span>(<span class='no'>.</span>, <span class='no'>my_diag</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>48</span>)))
+}</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -477,7 +531,7 @@ names will be used if present.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

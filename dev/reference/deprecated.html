@@ -52,9 +52,10 @@
 <meta property="og:description" content="
 
 is.tsibble() 
+time_unit() 
+units_since() 
 as.tsibble() 
 id() 
-fill_na() 
 
 " />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
@@ -100,7 +101,7 @@ fill_na()
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -171,10 +172,11 @@ fill_na()
     <div class="ref-description">
     
 <ul>
-<li><p><code>is.tsibble()</code> <img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p></li>
-<li><p><code>as.tsibble()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
-<li><p><code>id()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
-<li><p><code>fill_na()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
+<li><p><code>is.tsibble()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>time_unit()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>units_since()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>as.tsibble()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
+<li><p><code>id()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
 </ul>
 
     </div>
@@ -183,9 +185,9 @@ fill_na()
 
 <span class='fu'>is.tsibble</span>(<span class='no'>x</span>)
 
-<span class='fu'>fill_na</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>time_unit</span>(<span class='no'>x</span>)
 
-<span class='fu'>id</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>units_since</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,7 +224,7 @@ fill_na()
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

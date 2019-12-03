@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -277,6 +277,202 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="difference.html">difference()</a></code> </p>
+        </td>
+        <td><p>Lagged differences</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="time_in.html">time_in()</a></code> </p>
+        </td>
+        <td><p>If time falls in the ranges using compact expressions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="year-month.html">yearmonth()</a></code> <code><a href="year-month.html">is_yearmonth()</a></code> </p>
+        </td>
+        <td><p>Represent year-month</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="year-quarter.html">yearquarter()</a></code> <code><a href="year-quarter.html">is_yearquarter()</a></code> </p>
+        </td>
+        <td><p>Represent year-quarter</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> </p>
+        </td>
+        <td><p>Represent year-week (ISO) starting on Monday</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="guess_frequency.html">guess_frequency()</a></code> </p>
+        </td>
+        <td><p>Guess a time frequency from other index objects</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-calendar" class="hasAnchor"><a href="#section-calendar" class="anchor"></a>Calendar</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="holiday_aus.html">holiday_aus()</a></code> </p>
+        </td>
+        <td><p>Australian national and state-based public holiday</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-metadata" class="hasAnchor"><a href="#section-metadata" class="anchor"></a>Metadata</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="key.html">key()</a></code> <code><a href="key.html">key_vars()</a></code> </p>
+        </td>
+        <td><p>Return key variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> </p>
+        </td>
+        <td><p>Keyed data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="index-rd.html">index()</a></code> <code><a href="index-rd.html">index_var()</a></code> <code><a href="index-rd.html">index2()</a></code> <code><a href="index-rd.html">index2_var()</a></code> </p>
+        </td>
+        <td><p>Return index variable from a tsibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="measured-vars.html">measures()</a></code> <code><a href="measured-vars.html">measured_vars()</a></code> </p>
+        </td>
+        <td><p>Return measured variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="regular.html">interval()</a></code> <code><a href="regular.html">is_regular()</a></code> <code><a href="regular.html">is_ordered()</a></code> </p>
+        </td>
+        <td><p>Meta-information of a tsibble</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
+          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index classes with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval-pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of the tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="index_valid.html">index_valid()</a></code> </p>
+        </td>
+        <td><p>Add custom index support for a tsibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interval-pull.html">interval_pull()</a></code> </p>
+        </td>
+        <td><p>Pull time interval from a vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="new-interval.html">new_interval()</a></code> <code><a href="new-interval.html">is_regular_interval()</a></code> </p>
+        </td>
+        <td><p>Interval constructor for a tsibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="new_tsibble.html">new_tsibble()</a></code> </p>
+        </td>
+        <td><p>Create a subclass of a tsibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
+        </td>
+        <td><p>Low-level constructor for a tsibble object</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-coerce-to-other-objects" class="hasAnchor"><a href="#section-coerce-to-other-objects" class="anchor"></a>Coerce to other objects</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="as.ts.tbl_ts.html">as.ts(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Coerce a tsibble to a time series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="as-tibble.html">as.data.frame(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Coerce to a tibble or data frame</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="pedestrian.html">pedestrian</a></code> </p>
+        </td>
+        <td><p>Pedestrian counts in the city of Melbourne</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tourism.html">tourism</a></code> </p>
+        </td>
+        <td><p>Australian domestic overnight trips</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tidyverse-methods" class="hasAnchor"><a href="#section-tidyverse-methods" class="anchor"></a>Tidyverse methods</h2>
+          <p class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="tsibble-tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Tidyverse methods for tsibble</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
           <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and <code>furrr</code>-style parallel processing. <code><a href="../reference/slide_tsibble.html">slide_tsibble()</a></code>, <code><a href="../reference/tile_tsibble.html">tile_tsibble()</a></code>, <code><a href="../reference/stretch_tsibble.html">stretch_tsibble()</a></code> perform fast subsetting a tsibble by rolling rows.</p></p>
         </th>
@@ -378,196 +574,6 @@
         </td>
         <td><p>Tiling window in parallel</p></td>
       </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="difference.html">difference()</a></code> </p>
-        </td>
-        <td><p>Lagged differences</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="time_in.html">time_in()</a></code> </p>
-        </td>
-        <td><p>If time falls in the ranges using compact expressions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="period.html">yearweek()</a></code> <code><a href="period.html">is_53weeks()</a></code> <code><a href="period.html">yearmonth()</a></code> <code><a href="period.html">yearquarter()</a></code> </p>
-        </td>
-        <td><p>Represent year-week (ISO) starting on Monday, year-month or year-quarter objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="units_since.html">units_since()</a></code> </p>
-        </td>
-        <td><p>Time units since Unix Epoch</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="guess_frequency.html">guess_frequency()</a></code> </p>
-        </td>
-        <td><p>Guess a time frequency from other index objects</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-calendar" class="hasAnchor"><a href="#section-calendar" class="anchor"></a>Calendar</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="holiday_aus.html">holiday_aus()</a></code> </p>
-        </td>
-        <td><p>Australian national and state-based public holiday</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-metadata" class="hasAnchor"><a href="#section-metadata" class="anchor"></a>Metadata</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="key.html">key()</a></code> <code><a href="key.html">key_vars()</a></code> </p>
-        </td>
-        <td><p>Return key variables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> </p>
-        </td>
-        <td><p>Keyed data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="index-rd.html">index()</a></code> <code><a href="index-rd.html">index_var()</a></code> <code><a href="index-rd.html">index2()</a></code> <code><a href="index-rd.html">index2_var()</a></code> </p>
-        </td>
-        <td><p>Return index variable from a tsibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="measured-vars.html">measures()</a></code> <code><a href="measured-vars.html">measured_vars()</a></code> </p>
-        </td>
-        <td><p>Return measured variables</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="regular.html">interval()</a></code> <code><a href="regular.html">is_regular()</a></code> <code><a href="regular.html">is_ordered()</a></code> </p>
-        </td>
-        <td><p>Meta-information of a tsibble</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
-          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index classes with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval-pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of the tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="index_valid.html">index_valid()</a></code> </p>
-        </td>
-        <td><p>Add custom index support for a tsibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interval-pull.html">interval_pull()</a></code> </p>
-        </td>
-        <td><p>Pull time interval from a vector</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="new_interval.html">new_interval()</a></code> </p>
-        </td>
-        <td><p>Create a time interval</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="new_tsibble.html">new_tsibble()</a></code> </p>
-        </td>
-        <td><p>Create a subclass of a tsibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_tsibble.html">build_tsibble()</a></code> </p>
-        </td>
-        <td><p>Low-level constructor for a tsibble object</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-coerce-to-other-objects" class="hasAnchor"><a href="#section-coerce-to-other-objects" class="anchor"></a>Coerce to other objects</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="as.ts.tbl_ts.html">as.ts(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Coerce a tsibble to a time series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="as-tibble.html">as.data.frame(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Coerce to a tibble or data frame</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="pedestrian.html">pedestrian</a></code> </p>
-        </td>
-        <td><p>Pedestrian counts in the city of Melbourne</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tourism.html">tourism</a></code> </p>
-        </td>
-        <td><p>Australian domestic overnight trips</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tidyverse-methods" class="hasAnchor"><a href="#section-tidyverse-methods" class="anchor"></a>Tidyverse methods</h2>
-          <p class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="tsibble-tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidyverse methods for tsibble</p></td>
-      </tr>
     </tbody>
     </table>
   </div>
@@ -578,7 +584,6 @@
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-and-append-to-a-tsibble">Create/coerce and append to a tsibble</a></li>
       <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
-      <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
       <li><a href="#section-vector">Vector</a></li>
       <li><a href="#section-time">Time</a></li>
       <li><a href="#section-calendar">Calendar</a></li>
@@ -587,6 +592,7 @@
       <li><a href="#section-coerce-to-other-objects">Coerce to other objects</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-tidyverse-methods">Tidyverse methods</a></li>
+      <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
     </ul>
   </div>
 </div>
@@ -598,7 +604,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

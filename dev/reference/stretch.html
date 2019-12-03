@@ -102,7 +102,7 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -183,14 +183,29 @@ arguments as <code>stretch()</code>, but return vectors of the corresponding typ
 
     </div>
 
-    <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
+    <pre class="usage"><span class='fu'>stretch</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>stretch_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>stretch_dfr</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>stretch_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>stretch_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -266,7 +281,8 @@ variable will be created.</p>
 <li><p><a href='tile.html'>tile</a> for tiling window without overlapping observations</p></li>
 </ul>
 
-<p>Other stretching window functions: <code><a href='stretch2.html'>stretch2</a></code></p></div>
+<p>Other stretching window functions: 
+<code><a href='stretch2.html'>stretch2</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
@@ -307,7 +323,7 @@ variable will be created.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

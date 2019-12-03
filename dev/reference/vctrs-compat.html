@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • tsibble</title>
+<title>vctrs compatibility functions — vctrs-compat • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="vctrs compatibility functions — vctrs-compat" />
+<meta property="og:description" content="These functions are the extensions that allow tsibble objects to
+work with vctrs." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +81,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -155,21 +157,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>vctrs compatibility functions</h1>
+    
+    <div class="hidden name"><code>vctrs-compat.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="faq.html">Frequently Asked Questions and Answers</a></li>
-        <li><a href="implicit-na.html">Handle implicit missingness with tsibble</a></li>
-        <li><a href="intro-tsibble.html">Introduction to tsibble</a></li>
-        <li><a href="press.html">Press and testimonials</a></li>
-        <li><a href="window.html">A family of window functions</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>These functions are the extensions that allow tsibble objects to
+work with vctrs.</p>
     </div>
+
+    <pre class="usage"><span class='co'># S3 method for yearmonth</span>
+<span class='fu'>vec_cast</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearmonth</span>
+<span class='fu'>vec_ptype2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearmonth</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearmonth</span>
+<span class='fu'>obj_print_data</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>vec_cast</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>vec_ptype2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>obj_print_data</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearweek</span>
+<span class='fu'>vec_cast</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearweek</span>
+<span class='fu'>vec_ptype2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearweek</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearweek</span>
+<span class='fu'>obj_print_data</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Objects.</p></td>
+    </tr>
+    <tr>
+      <th>to</th>
+      <td><p>Type to cast to.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Used to pass along error message information.</p></td>
+    </tr>
+    </table>
+
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+    </ul>
+
   </div>
 </div>
 
