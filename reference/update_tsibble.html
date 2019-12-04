@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -165,8 +165,14 @@
     <p>Update key and index for a tsibble</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_tsibble</span>(<span class='no'>x</span>, <span class='no'>key</span>, <span class='no'>index</span>, <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>is_regular</a></span>(<span class='no'>x</span>), <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>))</pre>
+    <pre class="usage"><span class='fu'>update_tsibble</span>(
+  <span class='no'>x</span>,
+  <span class='no'>key</span>,
+  <span class='no'>index</span>,
+  <span class='kw'>regular</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>is_regular</a></span>(<span class='no'>x</span>),
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,39 +218,39 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; # A tsibble: 66,037 x 6 [1h]
-#&gt; # Key:       Sensor [4]
-#&gt; # Groups:    Sensor [4]
+  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 6 [1h]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count Hour_Since
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;drtn&gt;    
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630     0 secs
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826  3600 secs
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567  7200 secs
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264 10800 secs
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139 14400 secs
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77 18000 secs
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44 21600 secs
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56 25200 secs
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113 28800 secs
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166 32400 secs
-#&gt; # … with 66,027 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;drtn&gt;</span><span>    
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630     0 secs
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826  3600 secs
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567  7200 secs
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264 10800 secs
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139 14400 secs
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77 18000 secs
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44 21600 secs
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56 25200 secs
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113 28800 secs
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166 32400 secs
+#&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'>
 <span class='co'># update key: drop the variable "State" from the key</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; # A tsibble: 24,320 x 5 [1Q]
-#&gt; # Key:       Purpose, Region [304]
+  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Purpose, Region [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
-#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
-#&gt;  1 1998 Q1 Adelaide South Australia Business  135.
-#&gt;  2 1998 Q2 Adelaide South Australia Business  110.
-#&gt;  3 1998 Q3 Adelaide South Australia Business  166.
-#&gt;  4 1998 Q4 Adelaide South Australia Business  127.
-#&gt;  5 1999 Q1 Adelaide South Australia Business  137.
-#&gt;  6 1999 Q2 Adelaide South Australia Business  200.
-#&gt;  7 1999 Q3 Adelaide South Australia Business  169.
-#&gt;  8 1999 Q4 Adelaide South Australia Business  134.
-#&gt;  9 2000 Q1 Adelaide South Australia Business  154.
-#&gt; 10 2000 Q2 Adelaide South Australia Business  169.
-#&gt; # … with 24,310 more rows</div></pre>
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1998 Q1 Adelaide South Australia Business  135.
+#&gt; </span><span style='color: #555555;'> 2</span><span> 1998 Q2 Adelaide South Australia Business  110.
+#&gt; </span><span style='color: #555555;'> 3</span><span> 1998 Q3 Adelaide South Australia Business  166.
+#&gt; </span><span style='color: #555555;'> 4</span><span> 1998 Q4 Adelaide South Australia Business  127.
+#&gt; </span><span style='color: #555555;'> 5</span><span> 1999 Q1 Adelaide South Australia Business  137.
+#&gt; </span><span style='color: #555555;'> 6</span><span> 1999 Q2 Adelaide South Australia Business  200.
+#&gt; </span><span style='color: #555555;'> 7</span><span> 1999 Q3 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #555555;'> 8</span><span> 1999 Q4 Adelaide South Australia Business  134.
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2000 Q1 Adelaide South Australia Business  154.
+#&gt; </span><span style='color: #555555;'>10</span><span> 2000 Q2 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #555555;'># … with 24,310 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -264,7 +270,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@
     </tr>
     <tr>
       <th>.drop</th>
-      <td><p>When <code>.drop = TRUE</code>, empty groups are dropped. See <code>group_by_drop_default()</code> for
+      <td><p>When <code>.drop = TRUE</code>, empty groups are dropped. See <code><a href='https://dplyr.tidyverse.org/reference/group_by_drop_default.html'>group_by_drop_default()</a></code> for
 what the default value is for this argument.</p></td>
     </tr>
     </table>
@@ -188,22 +188,22 @@ what the default value is for this argument.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>group_by_key</span>()</div><div class='output co'>#&gt; # A tsibble: 24,320 x 5 [1Q]
-#&gt; # Key:       Region, State, Purpose [304]
-#&gt; # Groups:    Region, State, Purpose [304]
+  <span class='fu'>group_by_key</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Region, State, Purpose [304]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    Region, State, Purpose [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
-#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
-#&gt;  1 1998 Q1 Adelaide South Australia Business  135.
-#&gt;  2 1998 Q2 Adelaide South Australia Business  110.
-#&gt;  3 1998 Q3 Adelaide South Australia Business  166.
-#&gt;  4 1998 Q4 Adelaide South Australia Business  127.
-#&gt;  5 1999 Q1 Adelaide South Australia Business  137.
-#&gt;  6 1999 Q2 Adelaide South Australia Business  200.
-#&gt;  7 1999 Q3 Adelaide South Australia Business  169.
-#&gt;  8 1999 Q4 Adelaide South Australia Business  134.
-#&gt;  9 2000 Q1 Adelaide South Australia Business  154.
-#&gt; 10 2000 Q2 Adelaide South Australia Business  169.
-#&gt; # … with 24,310 more rows</div></pre>
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1998 Q1 Adelaide South Australia Business  135.
+#&gt; </span><span style='color: #555555;'> 2</span><span> 1998 Q2 Adelaide South Australia Business  110.
+#&gt; </span><span style='color: #555555;'> 3</span><span> 1998 Q3 Adelaide South Australia Business  166.
+#&gt; </span><span style='color: #555555;'> 4</span><span> 1998 Q4 Adelaide South Australia Business  127.
+#&gt; </span><span style='color: #555555;'> 5</span><span> 1999 Q1 Adelaide South Australia Business  137.
+#&gt; </span><span style='color: #555555;'> 6</span><span> 1999 Q2 Adelaide South Australia Business  200.
+#&gt; </span><span style='color: #555555;'> 7</span><span> 1999 Q3 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #555555;'> 8</span><span> 1999 Q4 Adelaide South Australia Business  134.
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2000 Q1 Adelaide South Australia Business  154.
+#&gt; </span><span style='color: #555555;'>10</span><span> 2000 Q2 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #555555;'># … with 24,310 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -222,7 +222,7 @@ what the default value is for this argument.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

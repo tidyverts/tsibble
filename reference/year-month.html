@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default value for .drop argument for key — key_drop_default • tsibble</title>
+<title>Represent year-month — yearmonth • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,9 @@
 
 
 
-<meta property="og:title" content="Default value for .drop argument for key — key_drop_default" />
-<meta property="og:description" content="Default value for .drop argument for key" />
+<meta property="og:title" content="Represent year-month — yearmonth" />
+<meta property="og:description" content="
+Create or coerce using yearmonth()." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -156,32 +157,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default value for .drop argument for key</h1>
+    <h1>Represent year-month</h1>
     
-    <div class="hidden name"><code>key_drop_default.Rd</code></div>
+    <div class="hidden name"><code>year-month.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Default value for .drop argument for key</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+<p>Create or coerce using <code>yearmonth()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>key_drop_default</span>(<span class='no'>.tbl</span>)</pre>
+    <pre class="usage"><span class='fu'>yearmonth</span>(<span class='no'>x</span>)
+
+<span class='fu'>is_yearmonth</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.tbl</th>
-      <td><p>A data frame</p></td>
+      <th>x</th>
+      <td><p>Other object.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>year-month (<code>yearmonth</code>) objects.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other index functions: 
+<code><a href='year-quarter.html'>yearquarter</a>()</code>,
+<code><a href='year-week.html'>yearweek</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># coerce POSIXct/Dates to yearmonth</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-01-01"</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-12-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>)
+<span class='fu'>yearmonth</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; &lt;yearmonth[12]&gt;
+#&gt;  [1] "2016 Jan" "2016 Feb" "2016 Mar" "2016 Apr" "2016 May" "2016 Jun"
+#&gt;  [7] "2016 Jul" "2016 Aug" "2016 Sep" "2016 Oct" "2016 Nov" "2016 Dec"</div><div class='input'>
+<span class='co'># parse characters</span>
+<span class='fu'>yearmonth</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 Jan"</span>, <span class='st'>"2018-01"</span>, <span class='st'>"2018 January"</span>))</div><div class='output co'>#&gt; &lt;yearmonth[3]&gt;
+#&gt; [1] "2018 Jan" "2018 Jan" "2018 Jan"</div><div class='input'>
+<span class='co'># creat an empty yearmonth container</span>
+<span class='fu'>yearmonth</span>()</div><div class='output co'>#&gt; &lt;yearmonth[0]&gt;</div><div class='input'>
+<span class='co'># seq() and arithmetic</span>
+<span class='no'>mth</span> <span class='kw'>&lt;-</span> <span class='fu'>yearmonth</span>(<span class='st'>"2017-11"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>mth</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># by 1 month</span></div><div class='output co'>#&gt; &lt;yearmonth[10]&gt;
+#&gt;  [1] "2017 Nov" "2017 Dec" "2018 Jan" "2018 Feb" "2018 Mar" "2018 Apr"
+#&gt;  [7] "2018 May" "2018 Jun" "2018 Jul" "2018 Aug"</div><div class='input'><span class='no'>mth</span> + <span class='fl'>0</span>:<span class='fl'>9</span></div><div class='output co'>#&gt; &lt;yearmonth[10]&gt;
+#&gt;  [1] "2017 Nov" "2017 Dec" "2018 Jan" "2018 Feb" "2018 Mar" "2018 Apr"
+#&gt;  [7] "2018 May" "2018 Jun" "2018 Jul" "2018 Aug"</div><div class='input'>
+<span class='co'># display formats</span>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>mth</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%y %m"</span>)</div><div class='output co'>#&gt; [1] "17 11"</div><div class='input'>
+<span class='co'># units since 1970 Jan</span>
+<span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span>(<span class='fu'>yearmonth</span>(<span class='st'>"1969 Jan"</span>) + <span class='fl'>0</span>:<span class='fl'>24</span>)</div><div class='output co'>#&gt;  [1] -12 -11 -10  -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6
+#&gt; [20]   7   8   9  10  11  12</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

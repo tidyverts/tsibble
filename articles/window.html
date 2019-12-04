@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -133,113 +133,113 @@
 <p>These functions handle all sorts of inputs (not limited to tsibble) and feature <em>purrr</em>-like interface. In this vignette, I will walk you through the <code><a href="../reference/slide.html">slide()</a></code> and its variants, but the example snippets are also applicable to <code><a href="../reference/tile.html">tile()</a></code> and <code><a href="../reference/stretch.html">stretch()</a></code>.</p>
 <p>In spirit of the <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> family, <code><a href="../reference/slide.html">slide()</a></code> accepts one input, <code><a href="../reference/slide2.html">slide2()</a></code> two inputs, and <code><a href="../reference/slide2.html">pslide()</a></code> multiple inputs, all of which always return lists for the sake of type stability. Other variants including <code><a href="../reference/slide.html">slide_lgl()</a></code>, <code><a href="../reference/slide.html">slide_int()</a></code>, <code><a href="../reference/slide.html">slide_dbl()</a></code>, <code><a href="../reference/slide.html">slide_chr()</a></code> return vectors of the corresponding type, as well as <code><a href="../reference/slide.html">slide_dfr()</a></code> and <code><a href="../reference/slide.html">slide_dfc()</a></code> for row-binding and column-binding data frames respectively. This full-fledged window family empowers users to build window-related workflows in all sorts of ways, from fixed window size to calendar periods, and from moving average to model fitting.</p>
 <p>The <code>pedestrian</code> dataset includes hourly pedestrian counts in the city of Melbourne, with <code>Sensor</code> as key and <code>Date_Time</code> as index. These windowed functions are index-based rolling for tackling general problems, rather than time indexed. Implicit missing values are thereby made explicit using <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and <code>.full = TRUE</code> warrants the equal time length of each sensor. This prepares the data inputs in the expected order.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tsibble)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">pedestrian_full &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="dt">.full =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">pedestrian_full</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; # A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; # … with 7.017e+04 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tsibble)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>pedestrian_full &lt;-<span class="st"> </span>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="dt">.full =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>pedestrian_full</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; # A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; # Key:       Sensor [4]</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # … with 7.017e+04 more rows</span></span></code></pre></div>
 <div id="fixed-window-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed-window-size" class="anchor"></a>Fixed window size</h2>
 <p>Moving average is one of the common techniques to smooth time series. We can apply daily window smoother (a fixed window size of 24) easily for each sensor. <code><a href="../reference/slide.html">slide()</a></code> returns an output the same length as the input with <code>.fill = NA</code> (by default) and <code>.align = "center-left"</code> padded at both sides of the data range, so that the result fits into <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in harmony. <code><a href="../reference/slide.html">slide_dbl()</a></code> produces the numeric vector returned by <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center-left"</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  ))</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h] &lt;Australia/Melbourne&gt;</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Sensor [4]</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; # Groups:    Sensor [4]</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count Daily_MA</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630       NA</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826       NA</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567       NA</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264       NA</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139       NA</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # … with 7.017e+04 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Daily_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(Count, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">.size =</span> <span class="dv">24</span>, <span class="dt">.align =</span> <span class="st">"center-left"</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  ))</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; # A tsibble: 70,176 x 6 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; # Key:       Sensor [4]</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; # Groups:    Sensor [4]</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count Daily_MA</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630       NA</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826       NA</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567       NA</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264       NA</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139       NA</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; # … with 7.017e+04 more rows</span></span></code></pre></div>
 <p>To make this even-order moving average symmetric, a second moving average with <code>.size = 2</code> should be applied to <code>Daily_MA</code>.</p>
 </div>
 <div id="flexible-calendar-period" class="section level2">
 <h2 class="hasAnchor">
 <a href="#flexible-calendar-period" class="anchor"></a>Flexible calendar period</h2>
 <p>What if the time period we’d like to slide over happens not to be a fixed window size, for example sliding over three months. The preprocessing step is to wrap observations into monthly subsets (a list of tsibbles) using <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">pedestrian_mth &lt;-<span class="st"> </span>pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">YrMth =</span> <span class="kw"><a href="../reference/period.html">yearmonth</a></span>(Date_Time)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span>Sensor, <span class="op">-</span>YrMth))</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">pedestrian_mth</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; # A tibble: 96 x 3</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   Sensor            YrMth data               </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;             </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # … with 91 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pedestrian_mth &lt;-<span class="st"> </span>pedestrian_full <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">YrMth =</span> <span class="kw"><a href="../reference/year-month.html">yearmonth</a></span>(Date_Time)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span>Sensor, <span class="op">-</span>YrMth))</span>
+<span id="cb3-4"><a href="#cb3-4"></a>pedestrian_mth</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; # A tibble: 96 x 3</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   Sensor            YrMth data               </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;             </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; # … with 91 more rows</span></span></code></pre></div>
 <p>Now it’s ready to (rock and) roll. When setting <code>.size = 1</code> in <code><a href="../reference/slide.html">slide()</a></code>, it behaves exactly the same as <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>, mapping over each element in the object. However, <code>(1)</code> a bundle of 3 subsets (<code>.size = 3</code>) needs to be binded first and then computed for average counts; <code>(2)</code> alternatively, <code>.bind = TRUE</code> takes care of binding data frames by row. The nicely-glued simple operations facilitate complex tasks in an easier-to-comprehend manner.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pedestrian_mth <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="co"># (1)</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="co"># mutate(Monthly_MA = slide_dbl(data, </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="co">#   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="co"># ))</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="co"># (2) equivalent to (1)</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.<span class="op">$</span>Count, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>, <span class="dt">.align =</span> <span class="st">"center"</span>, <span class="dt">.bind =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">  ))</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; # A tibble: 96 x 4</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; # Groups:   Sensor [4]</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;   Sensor            YrMth data                Monthly_MA</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;                   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;        NA </span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;       634.</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;       546.</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;       554.</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;       397.</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # … with 91 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pedestrian_mth <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Sensor) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="co"># (1)</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="co"># mutate(Monthly_MA = slide_dbl(data, </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="co">#   ~ mean(bind_rows(.)$Count, na.rm = TRUE), .size = 3, .align = "center"</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="co"># ))</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span><span class="co"># (2) equivalent to (1)</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Monthly_MA =</span> <span class="kw"><a href="../reference/slide.html">slide_dbl</a></span>(data, </span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(.<span class="op">$</span>Count, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">.size =</span> <span class="dv">3</span>, <span class="dt">.align =</span> <span class="st">"center"</span>, <span class="dt">.bind =</span> <span class="ot">TRUE</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  ))</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; # A tibble: 96 x 4</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; # Groups:   Sensor [4]</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;   Sensor            YrMth data                Monthly_MA</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;mth&gt; &lt;list&gt;                   &lt;dbl&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 1 Birrarung Marr 2015 Jan &lt;tsibble [744 × 4]&gt;        NA </span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 2 Birrarung Marr 2015 Feb &lt;tsibble [672 × 4]&gt;       634.</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 3 Birrarung Marr 2015 Mar &lt;tsibble [744 × 4]&gt;       546.</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 4 Birrarung Marr 2015 Apr &lt;tsibble [721 × 4]&gt;       554.</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 5 Birrarung Marr 2015 May &lt;tsibble [744 × 4]&gt;       397.</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; # … with 91 more rows</span></span></code></pre></div>
 </div>
 <div id="row-oriented-workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#row-oriented-workflow" class="anchor"></a>Row-oriented workflow</h2>
 <p>We have had a glimpse at <a href="https://github.com/jennybc/row-oriented-workflows">row-oriented workflow</a> to slide over consecutive months using <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code> in the preceding example. To leverage this workflow more, we can fit a linear model for each sensor simultaneously but independently, and in turn obtain its fitted values and residuals over weekly rolling windows. This is where <code><a href="../reference/slide2.html">pslide()</a></code> comes to play. It takes a list or a data frame (multiple inputs) and apply the custom function <code>my_diag()</code> to every rolling block. We start with a tsibble and end up with a diagnostic tibble of relatively larger size.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">my_diag &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  data &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(...)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">  fit &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Count <span class="op">~</span><span class="st"> </span>Time, <span class="dt">data =</span> data)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">fitted =</span> <span class="kw"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span>(fit), <span class="dt">resid =</span> <span class="kw"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span>(fit))</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">pedestrian <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/filter_index.html">filter_index</a></span>(<span class="op">~</span><span class="st"> "2015-03"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/slide2.html">pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; # Groups:   Sensor [4]</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   Sensor                        data                  diag                 </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt;                         &lt;list&gt;                &lt;list&gt;               </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 1 Birrarung Marr                &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4]&gt; &lt;tibble [145,321 × 2…</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2…</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>my_diag &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  data &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(...)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  fit &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Count <span class="op">~</span><span class="st"> </span>Time, <span class="dt">data =</span> data)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">fitted =</span> <span class="kw"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span>(fit), <span class="dt">resid =</span> <span class="kw"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span>(fit))</span>
+<span id="cb5-5"><a href="#cb5-5"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6"></a>pedestrian <span class="op">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw"><a href="../reference/filter_index.html">filter_index</a></span>(<span class="op">~</span><span class="st"> "2015-03"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/slide2.html">pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; # Groups:   Sensor [4]</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;   Sensor                        data                  diag                  </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;   &lt;chr&gt;                         &lt;list&gt;                &lt;list&gt;                </span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; 1 Birrarung Marr                &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2]&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; 2 Bourke Street Mall (North)    &lt;tsibble [1,032 × 4]&gt; &lt;tibble [145,321 × 2]&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; 3 QV Market-Elizabeth St (West) &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2]&gt;</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; 4 Southern Cross Station        &lt;tsibble [2,160 × 4]&gt; &lt;tibble [334,825 × 2]&gt;</span></span></code></pre></div>
 <p>Why <code><a href="../reference/slide.html">slide()</a></code> not working for this case? It is intended to work with a list, i.e. column-by-column for a data frame. However, here we perform a row-wise sliding over multiple columns of a data frame at one, <code><a href="../reference/slide2.html">pslide()</a></code> does the job for handling multiple lists. This example running a bit longer? Time to kick <a href="https://davisvaughan.github.io/furrr/"><strong>furrr</strong></a> in for parallel processing. Their multiprocessing counterparts are all prefixed with <code>future_</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(furrr)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">plan</span>(multiprocess)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">pedestrian <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/filter_index.html">filter_index</a></span>(<span class="op">~</span><span class="st"> "2015-03"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> <span class="kw"><a href="https://rdrr.io/pkg/furrr/man/future_map.html">future_map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/future-slide.html">future_pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(furrr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">plan</span>(multiprocess)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>pedestrian <span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="../reference/filter_index.html">filter_index</a></span>(<span class="op">~</span><span class="st"> "2015-03"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">diag =</span> <span class="kw"><a href="https://rdrr.io/pkg/furrr/man/future_map.html">future_map</a></span>(data, <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/future-slide.html">future_pslide_dfr</a></span>(., my_diag, <span class="dt">.size =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">7</span>)))</span></code></pre></div>
 </div>
 <div id="other-features" class="section level2">
 <h2 class="hasAnchor">
@@ -271,7 +271,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

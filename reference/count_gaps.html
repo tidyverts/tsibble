@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -172,12 +172,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
+      <td><p>A tsibble.</p></td>
     </tr>
     <tr>
       <th>.full</th>
-      <td><p><code>FALSE</code> to find gaps for each series within its own period.
-<code>TRUE</code> to find gaps over the entire time span of the data.</p></td>
+      <td><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period. <code>TRUE</code>
+fills <code>NA</code> over the entire time span of the data (a.k.a. fully balanced panel).
+Other options are <code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> and <code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code>, suggesting to pad <code>NA</code> for the same
+<code>min(&lt;index&gt;)</code> or <code>max(&lt;index&gt;)</code> alignment time across the units.</p></td>
     </tr>
     <tr>
       <th>.name</th>
@@ -196,34 +198,36 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other implicit gaps handling: <code><a href='fill_gaps.html'>fill_gaps</a></code>,
-  <code><a href='has_gaps.html'>has_gaps</a></code>, <code><a href='scan_gaps.html'>scan_gaps</a></code></p></div>
+    <div class='dont-index'><p>Other implicit gaps handling: 
+<code><a href='fill_gaps.html'>fill_gaps</a>()</code>,
+<code><a href='has_gaps.html'>has_gaps</a>()</code>,
+<code><a href='scan_gaps.html'>scan_gaps</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ped_gaps</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>count_gaps</span>(<span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>ped_gaps</span></div><div class='output co'>#&gt; # A tibble: 19 x 4
+<span class='no'>ped_gaps</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 19 x 4</span><span>
 #&gt;    Sensor                        .from               .to                    .n
-#&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt;
-#&gt;  1 Birrarung Marr                2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt;  2 Birrarung Marr                2015-05-07 00:00:00 2015-05-31 23:00:00   600
-#&gt;  3 Birrarung Marr                2015-10-06 00:00:00 2015-10-31 23:00:00   624
-#&gt;  4 Birrarung Marr                2015-11-05 00:00:00 2015-11-06 23:00:00    48
-#&gt;  5 Birrarung Marr                2015-11-20 00:00:00 2015-11-24 23:00:00   120
-#&gt;  6 Birrarung Marr                2015-11-26 00:00:00 2015-12-04 23:00:00   216
-#&gt;  7 Birrarung Marr                2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt;  8 Birrarung Marr                2016-04-08 00:00:00 2016-05-03 23:00:00   624
-#&gt;  9 Birrarung Marr                2016-10-29 00:00:00 2016-11-28 23:00:00   744
-#&gt; 10 Bourke Street Mall (North)    2015-01-01 00:00:00 2015-02-16 23:00:00  1128
-#&gt; 11 Bourke Street Mall (North)    2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 12 Bourke Street Mall (North)    2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt; 13 QV Market-Elizabeth St (West) 2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 14 QV Market-Elizabeth St (West) 2015-12-31 00:00:00 2015-12-31 23:00:00    24
-#&gt; 15 QV Market-Elizabeth St (West) 2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt; 16 Southern Cross Station        2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 17 Southern Cross Station        2016-03-08 02:00:00 2016-03-08 02:00:00     1
-#&gt; 18 Southern Cross Station        2016-03-29 02:00:00 2016-03-29 03:00:00     2
-#&gt; 19 Southern Cross Station        2016-04-03 02:00:00 2016-04-03 02:00:00     1</div><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr                2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span> 2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr                2015-05-07 </span><span style='color: #555555;'>00:00:00</span><span> 2015-05-31 </span><span style='color: #555555;'>23:00:00</span><span>   600
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr                2015-10-06 </span><span style='color: #555555;'>00:00:00</span><span> 2015-10-31 </span><span style='color: #555555;'>23:00:00</span><span>   624
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr                2015-11-05 </span><span style='color: #555555;'>00:00:00</span><span> 2015-11-06 </span><span style='color: #555555;'>23:00:00</span><span>    48
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr                2015-11-20 </span><span style='color: #555555;'>00:00:00</span><span> 2015-11-24 </span><span style='color: #555555;'>23:00:00</span><span>   120
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr                2015-11-26 </span><span style='color: #555555;'>00:00:00</span><span> 2015-12-04 </span><span style='color: #555555;'>23:00:00</span><span>   216
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr                2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span> 2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr                2016-04-08 </span><span style='color: #555555;'>00:00:00</span><span> 2016-05-03 </span><span style='color: #555555;'>23:00:00</span><span>   624
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr                2016-10-29 </span><span style='color: #555555;'>00:00:00</span><span> 2016-11-28 </span><span style='color: #555555;'>23:00:00</span><span>   744
+#&gt; </span><span style='color: #555555;'>10</span><span> Bourke Street Mall (North)    2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-02-16 </span><span style='color: #555555;'>23:00:00</span><span>  </span><span style='text-decoration: underline;'>1</span><span>128
+#&gt; </span><span style='color: #555555;'>11</span><span> Bourke Street Mall (North)    2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span> 2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>12</span><span> Bourke Street Mall (North)    2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span> 2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>13</span><span> QV Market-Elizabeth St (West) 2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span> 2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>14</span><span> QV Market-Elizabeth St (West) 2015-12-31 </span><span style='color: #555555;'>00:00:00</span><span> 2015-12-31 </span><span style='color: #555555;'>23:00:00</span><span>    24
+#&gt; </span><span style='color: #555555;'>15</span><span> QV Market-Elizabeth St (West) 2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span> 2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>16</span><span> Southern Cross Station        2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span> 2015-04-05 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>17</span><span> Southern Cross Station        2016-03-08 </span><span style='color: #555555;'>02:00:00</span><span> 2016-03-08 </span><span style='color: #555555;'>02:00:00</span><span>     1
+#&gt; </span><span style='color: #555555;'>18</span><span> Southern Cross Station        2016-03-29 </span><span style='color: #555555;'>02:00:00</span><span> 2016-03-29 </span><span style='color: #555555;'>03:00:00</span><span>     2
+#&gt; </span><span style='color: #555555;'>19</span><span> Southern Cross Station        2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span> 2016-04-03 </span><span style='color: #555555;'>02:00:00</span><span>     1</div><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span>(<span class='st'>"Please install the ggplot2 package to run these following examples."</span>)
 }
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
@@ -232,7 +236,7 @@
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.from</span>)) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.to</span>)) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count_gaps-1.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='img'><img src='count_gaps-1.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -253,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

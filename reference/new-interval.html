@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default value for .drop argument for key — key_drop_default • tsibble</title>
+<title>Interval constructor for a tsibble — new_interval • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,12 @@
 
 
 
-<meta property="og:title" content="Default value for .drop argument for key — key_drop_default" />
-<meta property="og:description" content="Default value for .drop argument for key" />
+<meta property="og:title" content="Interval constructor for a tsibble — new_interval" />
+<meta property="og:description" content="
+new_interval() creates an interval object.
+is_regular_interval() checks if the interval is regular.
+
+" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -156,32 +160,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default value for .drop argument for key</h1>
+    <h1>Interval constructor for a tsibble</h1>
     
-    <div class="hidden name"><code>key_drop_default.Rd</code></div>
+    <div class="hidden name"><code>new-interval.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Default value for .drop argument for key</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p><ul>
+<li><p><code>new_interval()</code> creates an interval object.</p></li>
+<li><p><code>is_regular_interval()</code> checks if the interval is regular.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>key_drop_default</span>(<span class='no'>.tbl</span>)</pre>
+    <pre class="usage"><span class='fu'>new_interval</span>(<span class='no'>...</span>, <span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+
+<span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.tbl</th>
-      <td><p>A data frame</p></td>
+      <th>...</th>
+      <td><p>A set of name-value pairs to specify default interval units: "year",
+"quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
+"microsecond", "nanosecond", "unit".</p></td>
+    </tr>
+    <tr>
+      <th>.regular</th>
+      <td><p>Logical. <code>FALSE</code> gives an irregular interval, and will ignore
+the <code>...</code> argument.</p></td>
+    </tr>
+    <tr>
+      <th>.others</th>
+      <td><p>A list name-value pairs that are not included in the <code>...</code>,
+to allow custom interval.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An interval.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>an "interval" class</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused arguments (hour = 1, minute = 30)</span></div><div class='input'>(<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='co'># irregular interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused argument (.regular = FALSE)</span></div><div class='input'><span class='fu'>new_interval</span>() <span class='co'># unknown interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in tz(start): argument "start" is missing, with no default</span></div><div class='input'><span class='fu'>new_interval</span>(<span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>semester</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='co'># custom interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused argument (.others = list(semester = 1))</span></div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='error'>Error in abort_not_interval(x): object 'x' not found</span></div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='error'>Error in abort_not_interval(x): object 'y' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

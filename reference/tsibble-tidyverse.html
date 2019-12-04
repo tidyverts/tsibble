@@ -104,7 +104,7 @@ as well as dropping empty keys/groups.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -215,7 +215,7 @@ as well as dropping empty keys/groups.</p></li>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
+      <th>.data, data</th>
       <td><p>A <code>tbl_ts</code>.</p></td>
     </tr>
     <tr>
@@ -242,74 +242,74 @@ to leave off the time context.</p>
 <span class='co'># Sum over sensors</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt;    Date_Time           Total
-#&gt;    &lt;dttm&gt;              &lt;int&gt;
-#&gt;  1 2015-01-01 00:00:00  2866
-#&gt;  2 2015-01-01 01:00:00  1535
-#&gt;  3 2015-01-01 02:00:00   994
-#&gt;  4 2015-01-01 03:00:00   569
-#&gt;  5 2015-01-01 04:00:00   311
-#&gt;  6 2015-01-01 05:00:00   159
-#&gt;  7 2015-01-01 06:00:00   129
-#&gt;  8 2015-01-01 07:00:00   146
-#&gt;  9 2015-01-01 08:00:00   258
-#&gt; 10 2015-01-01 09:00:00   419
-#&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># shortcut</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  </span><span style='text-decoration: underline;'>2</span><span>866
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span>  </span><span style='text-decoration: underline;'>1</span><span>535
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span>   994
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span>   569
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span>   311
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span>   159
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span>   129
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span>   146
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span>   258
+#&gt; </span><span style='color: #555555;'>10</span><span> 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span>   419
+#&gt; </span><span style='color: #555555;'># … with 17,532 more rows</span><span></div><div class='input'><span class='co'># shortcut</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt;    Date_Time           Total
-#&gt;    &lt;dttm&gt;              &lt;int&gt;
-#&gt;  1 2015-01-01 00:00:00  2866
-#&gt;  2 2015-01-01 01:00:00  1535
-#&gt;  3 2015-01-01 02:00:00   994
-#&gt;  4 2015-01-01 03:00:00   569
-#&gt;  5 2015-01-01 04:00:00   311
-#&gt;  6 2015-01-01 05:00:00   159
-#&gt;  7 2015-01-01 06:00:00   129
-#&gt;  8 2015-01-01 07:00:00   146
-#&gt;  9 2015-01-01 08:00:00   258
-#&gt; 10 2015-01-01 09:00:00   419
-#&gt; # … with 17,532 more rows</div><div class='input'><span class='co'># Back to tibble</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  </span><span style='text-decoration: underline;'>2</span><span>866
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span>  </span><span style='text-decoration: underline;'>1</span><span>535
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span>   994
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span>   569
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span>   311
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span>   159
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span>   129
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span>   146
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span>   258
+#&gt; </span><span style='color: #555555;'>10</span><span> 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span>   419
+#&gt; </span><span style='color: #555555;'># … with 17,532 more rows</span><span></div><div class='input'><span class='co'># Back to tibble</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 1
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
 #&gt;      Total
-#&gt;      &lt;int&gt;
-#&gt; 1 45483871</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 45</span><span style='text-decoration: underline;'>483</span><span>871</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
 <span class='co'># reshaping examples from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2009-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
   <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>))</div><div class='output co'>#&gt; # A tsibble: 30 x 3 [1D]
-#&gt; # Key:       stock [3]
+)</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1D]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       stock [3]</span><span>
 #&gt;    time       stock   price
-#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2009-01-01 X      0.747 
-#&gt;  2 2009-01-02 X      1.90  
-#&gt;  3 2009-01-03 X     -2.06  
-#&gt;  4 2009-01-04 X      0.0645
-#&gt;  5 2009-01-05 X     -0.265 
-#&gt;  6 2009-01-06 X     -0.447 
-#&gt;  7 2009-01-07 X     -1.41  
-#&gt;  8 2009-01-08 X     -0.506 
-#&gt;  9 2009-01-09 X     -0.270 
-#&gt; 10 2009-01-10 X     -1.09  
-#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; # A tsibble: 10 x 4 [1D]
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X      0.747 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02 X      1.90  
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03 X     -</span><span style='color: #BB0000;'>2.06</span><span>  
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04 X      0.064</span><span style='text-decoration: underline;'>5</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05 X     -</span><span style='color: #BB0000;'>0.265</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 X     -</span><span style='color: #BB0000;'>0.447</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07 X     -</span><span style='color: #BB0000;'>1.41</span><span>  
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 X     -</span><span style='color: #BB0000;'>0.506</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 X     -</span><span style='color: #BB0000;'>0.270</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 X     -</span><span style='color: #BB0000;'>1.09</span><span>  
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 4 [1D]</span><span>
 #&gt;    time             X       Y      Z
-#&gt;    &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 2009-01-01  0.747   0.724   2.82 
-#&gt;  2 2009-01-02  1.90   -0.671   3.97 
-#&gt;  3 2009-01-03 -2.06    2.73    4.58 
-#&gt;  4 2009-01-04  0.0645 -1.42   -4.96 
-#&gt;  5 2009-01-05 -0.265   1.32   10.6  
-#&gt;  6 2009-01-06 -0.447   0.582  -0.628
-#&gt;  7 2009-01-07 -1.41    0.396  -1.69 
-#&gt;  8 2009-01-08 -0.506  -2.41   -0.794
-#&gt;  9 2009-01-09 -0.270  -0.0796 -3.58 
-#&gt; 10 2009-01-10 -1.09    1.37    3.62 </div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  0.747   0.724   2.82 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02  1.90   -</span><span style='color: #BB0000;'>0.671</span><span>   3.97 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03 -</span><span style='color: #BB0000;'>2.06</span><span>    2.73    4.58 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04  0.064</span><span style='text-decoration: underline;'>5</span><span> -</span><span style='color: #BB0000;'>1.42</span><span>   -</span><span style='color: #BB0000;'>4.96</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05 -</span><span style='color: #BB0000;'>0.265</span><span>   1.32   10.6  
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 -</span><span style='color: #BB0000;'>0.447</span><span>   0.582  -</span><span style='color: #BB0000;'>0.628</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07 -</span><span style='color: #BB0000;'>1.41</span><span>    0.396  -</span><span style='color: #BB0000;'>1.69</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 -</span><span style='color: #BB0000;'>0.506</span><span>  -</span><span style='color: #BB0000;'>2.41</span><span>   -</span><span style='color: #BB0000;'>0.794</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 -</span><span style='color: #BB0000;'>0.270</span><span>  -</span><span style='color: #BB0000;'>0.079</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span> -</span><span style='color: #BB0000;'>3.58</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 -</span><span style='color: #BB0000;'>1.09</span><span>    1.37    3.62 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -329,7 +329,7 @@ to leave off the time context.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

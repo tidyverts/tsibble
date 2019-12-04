@@ -95,7 +95,7 @@ determine if the time needs ordering and the interval needs calculating." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -169,9 +169,17 @@ for creating a <code>tbl_ts</code> internally inside a function, and it allows d
 determine if the time needs ordering and the interval needs calculating.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsibble</span>(<span class='no'>x</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>index</span>,
-  <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>))</pre>
+    <pre class="usage"><span class='fu'>build_tsibble</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>index</span>,
+  <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>index</span>,
+  <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,7 +217,7 @@ the correct order. <code>FALSE</code> checks the ordering and may give a warning
     <tr>
       <th>interval</th>
       <td><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
-irregular interval. Use the specified interval via <code><a href='new_interval.html'>new_interval()</a></code> as is.</p></td>
+irregular interval. Use the specified interval via <code><a href='new-interval.html'>new_interval()</a></code> as is.</p></td>
     </tr>
     <tr>
       <th>validate</th>
@@ -230,22 +238,22 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
   <span class='fu'>build_tsibble</span>(
     <span class='kw'>key</span> <span class='kw'>=</span> !!<span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !!<span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
     <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
-#&gt; # Groups:    @ Date [731]
+  )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    @ Date [731]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # … with 66,027 more rows</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
+#&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -264,7 +272,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

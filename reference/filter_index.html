@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -209,119 +209,119 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># from the starting time to the end of Feb, 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # … with 4,526 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
+#&gt; </span><span style='color: #555555;'># … with 4,526 more rows</span><span></div><div class='input'>
 <span class='co'># entire Feb 2015, &amp; from the beginning of Aug 2016 to the end</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-02"</span>, <span class='st'>"2016-08"</span> ~ <span class='no'>.</span>)</div><div class='output co'>#&gt; # A tsibble: 16,244 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-02"</span>, <span class='st'>"2016-08"</span> ~ <span class='no'>.</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 16,244 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-02-01 00:00:00 2015-02-01     0   178
-#&gt;  2 Birrarung Marr 2015-02-01 01:00:00 2015-02-01     1    39
-#&gt;  3 Birrarung Marr 2015-02-01 02:00:00 2015-02-01     2    41
-#&gt;  4 Birrarung Marr 2015-02-01 03:00:00 2015-02-01     3    32
-#&gt;  5 Birrarung Marr 2015-02-01 04:00:00 2015-02-01     4    33
-#&gt;  6 Birrarung Marr 2015-02-01 05:00:00 2015-02-01     5    39
-#&gt;  7 Birrarung Marr 2015-02-01 06:00:00 2015-02-01     6    45
-#&gt;  8 Birrarung Marr 2015-02-01 07:00:00 2015-02-01     7    45
-#&gt;  9 Birrarung Marr 2015-02-01 08:00:00 2015-02-01     8    96
-#&gt; 10 Birrarung Marr 2015-02-01 09:00:00 2015-02-01     9   116
-#&gt; # … with 16,234 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-02-01     0   178
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-02-01     1    39
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-02-01     2    41
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-02-01     3    32
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-02-01     4    33
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-02-01     5    39
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-02-01     6    45
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-02-01     7    45
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-02-01     8    96
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-02-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-02-01     9   116
+#&gt; </span><span style='color: #555555;'># … with 16,234 more rows</span><span></div><div class='input'>
 <span class='co'># multiple time windows</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; # A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # … with 18,998 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
+#&gt; </span><span style='color: #555555;'># … with 18,998 more rows</span><span></div><div class='input'>
 <span class='co'># entire 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015"</span>)</div><div class='output co'>#&gt; # A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>filter_index</span>(<span class='st'>"2015"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # … with 32,266 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
+#&gt; </span><span style='color: #555555;'># … with 32,266 more rows</span><span></div><div class='input'>
 <span class='co'># specific</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-03-23 00:00:00 2015-03-23     0    39
-#&gt;  2 Birrarung Marr 2015-03-23 01:00:00 2015-03-23     1    24
-#&gt;  3 Birrarung Marr 2015-03-23 02:00:00 2015-03-23     2     1
-#&gt;  4 Birrarung Marr 2015-03-23 03:00:00 2015-03-23     3     3
-#&gt;  5 Birrarung Marr 2015-03-23 04:00:00 2015-03-23     4    16
-#&gt;  6 Birrarung Marr 2015-03-23 05:00:00 2015-03-23     5    36
-#&gt;  7 Birrarung Marr 2015-03-23 06:00:00 2015-03-23     6   178
-#&gt;  8 Birrarung Marr 2015-03-23 07:00:00 2015-03-23     7   462
-#&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
-#&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
-#&gt; # … with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>00:00:00</span><span> 2015-03-23     0    39
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>01:00:00</span><span> 2015-03-23     1    24
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>02:00:00</span><span> 2015-03-23     2     1
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>03:00:00</span><span> 2015-03-23     3     3
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>04:00:00</span><span> 2015-03-23     4    16
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>05:00:00</span><span> 2015-03-23     5    36
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>06:00:00</span><span> 2015-03-23     6   178
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>07:00:00</span><span> 2015-03-23     7   462
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>08:00:00</span><span> 2015-03-23     8   756
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>09:00:00</span><span> 2015-03-23     9   289
+#&gt; </span><span style='color: #555555;'># … with 20,170 more rows</span><span></div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-03-23 00:00:00 2015-03-23     0    39
-#&gt;  2 Birrarung Marr 2015-03-23 01:00:00 2015-03-23     1    24
-#&gt;  3 Birrarung Marr 2015-03-23 02:00:00 2015-03-23     2     1
-#&gt;  4 Birrarung Marr 2015-03-23 03:00:00 2015-03-23     3     3
-#&gt;  5 Birrarung Marr 2015-03-23 04:00:00 2015-03-23     4    16
-#&gt;  6 Birrarung Marr 2015-03-23 05:00:00 2015-03-23     5    36
-#&gt;  7 Birrarung Marr 2015-03-23 06:00:00 2015-03-23     6   178
-#&gt;  8 Birrarung Marr 2015-03-23 07:00:00 2015-03-23     7   462
-#&gt;  9 Birrarung Marr 2015-03-23 08:00:00 2015-03-23     8   756
-#&gt; 10 Birrarung Marr 2015-03-23 09:00:00 2015-03-23     9   289
-#&gt; # … with 20,170 more rows</div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; # A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>00:00:00</span><span> 2015-03-23     0    39
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>01:00:00</span><span> 2015-03-23     1    24
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>02:00:00</span><span> 2015-03-23     2     1
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>03:00:00</span><span> 2015-03-23     3     3
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>04:00:00</span><span> 2015-03-23     4    16
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>05:00:00</span><span> 2015-03-23     5    36
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>06:00:00</span><span> 2015-03-23     6   178
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>07:00:00</span><span> 2015-03-23     7   462
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>08:00:00</span><span> 2015-03-23     8   756
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>09:00:00</span><span> 2015-03-23     9   289
+#&gt; </span><span style='color: #555555;'># … with 20,170 more rows</span><span></div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-03-23 10:00:00 2015-03-23    10   199
-#&gt;  2 Birrarung Marr 2015-03-23 11:00:00 2015-03-23    11   120
-#&gt;  3 Birrarung Marr 2015-03-23 12:00:00 2015-03-23    12   317
-#&gt;  4 Birrarung Marr 2015-03-23 13:00:00 2015-03-23    13   583
-#&gt;  5 Birrarung Marr 2015-03-23 14:00:00 2015-03-23    14   265
-#&gt;  6 Birrarung Marr 2015-03-23 15:00:00 2015-03-23    15   275
-#&gt;  7 Birrarung Marr 2015-03-23 16:00:00 2015-03-23    16   409
-#&gt;  8 Birrarung Marr 2015-03-23 17:00:00 2015-03-23    17   698
-#&gt;  9 Birrarung Marr 2015-03-23 18:00:00 2015-03-23    18   546
-#&gt; 10 Birrarung Marr 2015-03-23 19:00:00 2015-03-23    19   276
-#&gt; # … with 20,097 more rows</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>10:00:00</span><span> 2015-03-23    10   199
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>11:00:00</span><span> 2015-03-23    11   120
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>12:00:00</span><span> 2015-03-23    12   317
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>13:00:00</span><span> 2015-03-23    13   583
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>14:00:00</span><span> 2015-03-23    14   265
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>15:00:00</span><span> 2015-03-23    15   275
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>16:00:00</span><span> 2015-03-23    16   409
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>17:00:00</span><span> 2015-03-23    17   698
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>18:00:00</span><span> 2015-03-23    18   546
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>19:00:00</span><span> 2015-03-23    19   276
+#&gt; </span><span style='color: #555555;'># … with 20,097 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -342,7 +342,7 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

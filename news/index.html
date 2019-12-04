@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -159,15 +159,40 @@
       
     </div>
 
-    <div id="tsibble-0-8-5" class="section level1">
+    <div id="tsibble-0899000" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-5" class="anchor"></a>tsibble 0.8.5<small> 2019-11-03 </small>
+<a href="#tsibble-0899000" class="anchor"></a>tsibble 0.8.9.9000<small> Unreleased </small>
+</h1>
+<p>This release marks the migration of tsibble’s S3 vector classes, such as <code>yearquarter</code>, <code>yearmonth</code>, <code>yearweek</code> and <code>interval</code>, to the new <strong>vctrs</strong> framework. The advantage of using <strong>vctrs</strong> may not be obvious until <strong>dplyr</strong> v0.9.0. But you will not receive the warning like “custom class dropped” when performing <code>mutate()</code> or <code>bind_rows()</code>.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>The “interval” class has been formally defined as a record type under the <strong>vctrs</strong> framework. The <code><a href="../reference/new-interval.html">new_interval()</a></code> uses new interface to create the interval and supports custom interval. This also leads to the change in the tsibble object. Old tsibble objects will receive an error for “a corrupt tsibble”.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">time_unit()</a></code> in favour of <code><a href="../reference/default_time_units.html">default_time_units()</a></code>.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">units_since()</a></code> in favour of <code><a href="https://rdrr.io/r/base/double.html">as.double()</a></code>.</li>
+<li>Defunct <code>id()</code> for creating the key.</li>
+</ul>
+</div>
+<div id="improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements</h2>
+<ul>
+<li>The <code>.full</code> argument in <code>*_gaps</code> support two more options, <code><a href="https://rdrr.io/r/stats/start.html">start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html">end()</a></code>, for padding for the same starting or ending time. (#147)</li>
+<li>
+<code>select()</code> a tsibble now keeps both index and key by default. (#155)</li>
+</ul>
+</div>
+</div>
+    <div id="tsibble-085" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-085" class="anchor"></a>tsibble 0.8.5<small> 2019-11-03 </small>
 </h1>
 <p>This is a maintenance release for CRAN fixes.</p>
 </div>
-    <div id="tsibble-0-8-4" class="section level1">
+    <div id="tsibble-084" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-4" class="anchor"></a>tsibble 0.8.4<small> 2019-09-17 </small>
+<a href="#tsibble-084" class="anchor"></a>tsibble 0.8.4<small> 2019-09-17 </small>
 </h1>
 <p>This is a maintenance release due to the changes in the upstream package.</p>
 <ul>
@@ -183,9 +208,9 @@
 <li>Rolling window functions, like <code><a href="../reference/slide.html">slide()</a></code>, are slided into the “questioning” lifecycle, in favour of the <strong>slide</strong> package. (#143)</li>
 </ul>
 </div>
-    <div id="tsibble-0-8-3" class="section level1">
+    <div id="tsibble-083" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-3" class="anchor"></a>tsibble 0.8.3<small> 2019-07-29 </small>
+<a href="#tsibble-083" class="anchor"></a>tsibble 0.8.3<small> 2019-07-29 </small>
 </h1>
 <ul>
 <li>Added lifecycle badges to functions.</li>
@@ -193,12 +218,12 @@
 <code><a href="../reference/index-by.html">index_by()</a></code> supports lambda expression (#91).</li>
 <li>Defunct argument <code>gather</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.mts()</a></code> in favour of <code>pivot_longer</code>.</li>
 <li>
-<code><a href="../reference/period.html">yearweek()</a></code> handles characters containing keywords “W”/“Wk”/“Week”, for example <code><a href="../reference/period.html">yearweek("2019 W03")</a></code>.</li>
+<code><a href="../reference/year-week.html">yearweek()</a></code> handles characters containing keywords “W”/“Wk”/“Week”, for example <code><a href="../reference/year-week.html">yearweek("2019 W03")</a></code>.</li>
 </ul>
 </div>
-    <div id="tsibble-0-8-2" class="section level1">
+    <div id="tsibble-082" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-2" class="anchor"></a>tsibble 0.8.2<small> 2019-06-10 </small>
+<a href="#tsibble-082" class="anchor"></a>tsibble 0.8.2<small> 2019-06-10 </small>
 </h1>
 <p>This is a patch release.</p>
 <ul>
@@ -208,9 +233,9 @@
 <li>Fixed floating issues for duplicated indices in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> (#128).</li>
 </ul>
 </div>
-    <div id="tsibble-0-8-1" class="section level1">
+    <div id="tsibble-081" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-1" class="anchor"></a>tsibble 0.8.1<small> 2019-06-03 </small>
+<a href="#tsibble-081" class="anchor"></a>tsibble 0.8.1<small> 2019-06-03 </small>
 </h1>
 <ul>
 <li>
@@ -221,36 +246,36 @@
 <li>When creating a tsibble, a warning might be issued for mismatch between interval and index representation.</li>
 <li>Fixed bugs in <code>semi_join.tbl_ts()</code> and <code>anti_join.tbl_ts()</code> without suffix (#122).</li>
 <li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
-<li>Defunct <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
+<li>Defunct <code>fill_na()</code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
 <li>Defunct <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 </ul>
 </div>
-    <div id="tsibble-0-8-0" class="section level1">
+    <div id="tsibble-080" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-8-0" class="anchor"></a>tsibble 0.8.0<small> 2019-04-28 </small>
+<a href="#tsibble-080" class="anchor"></a>tsibble 0.8.0<small> 2019-04-28 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>This release has undergone an overhaul to clean tsibble’s meta data: (1) attribute <code>regular</code> integrated to <code>interval</code>, (2) attribute <code>ordered</code> integrated to <code>index</code>. A previously stored tsibble object may receive a warning “corrupt tsibble object”.</li>
 <li>The <strong>dplyr</strong> and <strong>tidyr</strong> generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load <code><a href="https://rdrr.io/r/base/library.html">library(tidyverse)</a></code> in front.</li>
 </ul>
 </div>
-<div id="defunct-deprecated-functionsarguments" class="section level2">
+<div id="defunct--deprecated-functionsarguments" class="section level2">
 <h2 class="hasAnchor">
-<a href="#defunct-deprecated-functionsarguments" class="anchor"></a>Defunct &amp; deprecated functions/arguments</h2>
+<a href="#defunct--deprecated-functionsarguments" class="anchor"></a>Defunct &amp; deprecated functions/arguments</h2>
 <ul>
-<li>Deprecate <code><a href="../reference/deprecated.html">id()</a></code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
+<li>Deprecate <code>id()</code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
 <li>Deprecate of <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 <li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
 <li>Deprecate <code>gather = TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> in favour of <code>pivot_longer = TRUE</code>.</li>
-<li>Continue with deprecation of <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and will be defunct in the next release.</li>
+<li>Continue with deprecation of <code>fill_na()</code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and will be defunct in the next release.</li>
 </ul>
 </div>
-<div id="improvements" class="section level2">
+<div id="improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements" class="anchor"></a>Improvements</h2>
+<a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Support the interval of “quarter”, “month”, “week” &amp; “day” for <code>difftime</code>.</li>
 <li>Support the interval of “millisecond” &amp; “microsecond” for <code>hms</code>.</li>
@@ -258,7 +283,7 @@
 <li>Binary <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> operator between yearweek, yearmonth, and yearquarter returns class <code>difftime</code>.</li>
 <li>Added new argument <code>key_data</code> to <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> for the easy-to-reason purpose.</li>
 <li>
-<code><a href="../reference/period.html">yearquarter()</a></code> better supports strings that contains “Q”/“Qtr”/“Quarter”. (#107)</li>
+<code><a href="../reference/year-quarter.html">yearquarter()</a></code> better supports strings that contains “Q”/“Qtr”/“Quarter”. (#107)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -278,13 +303,13 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-7-0" class="section level1">
+    <div id="tsibble-070" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-7-0" class="anchor"></a>tsibble 0.7.0<small> 2019-02-18 </small>
+<a href="#tsibble-070" class="anchor"></a>tsibble 0.7.0<small> 2019-02-18 </small>
 </h1>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Following the changes in dplyr <code>v0.8.0</code> grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.</li>
 <li>Grouped tsibble (<code>grouped_ts</code>) is a subclassing of <code>grouped_df</code>.</li>
@@ -319,20 +344,20 @@
 <li>If grouped tsibble, <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> returns a grouped tsibble too.</li>
 </ul>
 </div>
-<div id="defunct-deprecated-functions" class="section level2">
+<div id="defunct--deprecated-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#defunct-deprecated-functions" class="anchor"></a>Defunct &amp; deprecated functions</h2>
+<a href="#defunct--deprecated-functions" class="anchor"></a>Defunct &amp; deprecated functions</h2>
 <ul>
 <li>Defunct <code>find_duplicates()</code>.</li>
-<li>Deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
+<li>Deprecated <code>fill_na()</code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
 <li>Defunct argument <code>.drop</code> in column-wise dplyr verbs.</li>
 <li>Defunct <code>key_by()</code> (no idea why it’s there).</li>
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-6-2" class="section level1">
+    <div id="tsibble-062" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-6-2" class="anchor"></a>tsibble 0.6.2<small> 2018-12-12 </small>
+<a href="#tsibble-062" class="anchor"></a>tsibble 0.6.2<small> 2018-12-12 </small>
 </h1>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
@@ -357,13 +382,13 @@
 <ul>
 <li>Defunct <code>split_by()</code> and <code>case_na()</code>.</li>
 <li>Deprecated <code>find_duplicates()</code>.</li>
-<li>Continue with soft-deprecation of <code><a href="../reference/deprecated.html">fill_na()</a></code>.</li>
+<li>Continue with soft-deprecation of <code>fill_na()</code>.</li>
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-6-1" class="section level1">
+    <div id="tsibble-061" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-6-1" class="anchor"></a>tsibble 0.6.1<small> 2018-12-05 </small>
+<a href="#tsibble-061" class="anchor"></a>tsibble 0.6.1<small> 2018-12-05 </small>
 </h1>
 <ul>
 <li>Fixed check errors on Fedora.</li>
@@ -372,19 +397,19 @@
 <code><a href="../reference/filter_index.html">filter_index()</a></code> works for a grouped tsibble.</li>
 </ul>
 </div>
-    <div id="tsibble-0-6-0" class="section level1">
+    <div id="tsibble-060" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-6-0" class="anchor"></a>tsibble 0.6.0<small> 2018-11-27 </small>
+<a href="#tsibble-060" class="anchor"></a>tsibble 0.6.0<small> 2018-11-27 </small>
 </h1>
 <p>This release simplifies the “key” structure. The nesting and crossing definition has been removed from the “key” specification. One or more variables forming the “key”, are required to identify observational units over time, but no longer assume the relationship between these variables. The nesting and crossing structure will be dealt with visualisation and forecasting reconciliation in downstream packages.</p>
-<div id="breaking-changes-2" class="section level2">
+<div id="breaking-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
 <code>count_gaps.tbl_ts()</code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed “.”.</li>
 <li>
-<code><a href="../reference/time_unit.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
+<code><a href="../reference/deprecated.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
 <li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial-slider.html">partial_slider()</a></code> and <code><a href="../reference/partial-slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
 <li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> requires a grouped df.</li>
 </ul>
@@ -401,7 +426,7 @@
 <li>New vignettes on handling implicit missingness and FAQ.</li>
 <li>
 <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code> creates a subclass of a tsibble.</li>
-<li>Renamed <code><a href="../reference/deprecated.html">fill_na()</a></code> to <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, for more expressive function name and consistency to <code><a href="../reference/has_gaps.html">has_gaps()</a></code> and <code><a href="../reference/count_gaps.html">count_gaps()</a></code>. Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>. (#71)</li>
+<li>Renamed <code>fill_na()</code> to <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, for more expressive function name and consistency to <code><a href="../reference/has_gaps.html">has_gaps()</a></code> and <code><a href="../reference/count_gaps.html">count_gaps()</a></code>. Soft-deprecated <code>fill_na()</code>. (#71)</li>
 <li>Added <code><a href="../reference/duplicates.html">is_duplicated()</a></code>, <code><a href="../reference/duplicates.html">are_duplicated()</a></code> and <code><a href="../reference/duplicates.html">duplicates()</a></code>.</li>
 <li>If <code>POSIXct</code>, time zone will be displayed in the header via <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>.</li>
 <li>Added index support for ordered factors.</li>
@@ -416,7 +441,7 @@
 <li>
 <code><a href="../reference/tsibble-tidyverse.html">slice.tbl_ts()</a></code> correctly handles logical <code>NA</code>.</li>
 <li>
-<code><a href="../reference/deprecated.html">fill_na()</a></code> will only replace implicit time gaps by values and functions, and leave originally explicit <code>NA</code> intact.</li>
+<code>fill_na()</code> will only replace implicit time gaps by values and functions, and leave originally explicit <code>NA</code> intact.</li>
 <li>
 <code><a href="https://tidyr.tidyverse.org/reference/fill.html">tidyr::fill()</a></code> gained support for class “grouped_ts”, and it is re-exported again. (#73)</li>
 </ul>
@@ -425,7 +450,7 @@
 <h2 class="hasAnchor">
 <a href="#misc-1" class="anchor"></a>Misc</h2>
 <ul>
-<li>Soft-deprecated <code><a href="../reference/deprecated.html">fill_na()</a></code>, in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
+<li>Soft-deprecated <code>fill_na()</code>, in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
 <li>Soft-deprecated <code>find_duplicates()</code>, in favour of <code><a href="../reference/duplicates.html">are_duplicated()</a></code>.</li>
 <li>Deprecated <code>case_na()</code>, and will be defunct in next release.</li>
 <li>Deprecated <code>split_by()</code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
@@ -435,9 +460,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-5-3" class="section level1">
+    <div id="tsibble-053" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-3" class="anchor"></a>tsibble 0.5.3<small> 2018-10-10 </small>
+<a href="#tsibble-053" class="anchor"></a>tsibble 0.5.3<small> 2018-10-10 </small>
 </h1>
 <div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
@@ -451,7 +476,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed warning in <code><a href="../reference/deprecated.html">fill_na()</a></code> for multiple replacements when using with <code>group_by()</code>, introduced in v0.5.1.</li>
+<li>Fixed warning in <code>fill_na()</code> for multiple replacements when using with <code>group_by()</code>, introduced in v0.5.1.</li>
 <li>
 <code>as_tsibble.grouped_df()</code> respected its existing groups and removed argument <code>group</code>. (#60)</li>
 <li>Preserve the ordering of key specification in <code><a href="../reference/tsibble-tidyverse.html">select.tbl_ts()</a></code>. (#63)</li>
@@ -465,9 +490,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-5-2" class="section level1">
+    <div id="tsibble-052" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-2" class="anchor"></a>tsibble 0.5.2<small> 2018-09-11 </small>
+<a href="#tsibble-052" class="anchor"></a>tsibble 0.5.2<small> 2018-09-11 </small>
 </h1>
 <div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
@@ -482,9 +507,9 @@
 <li>Argument <code>key</code> no longer accepted character.</li>
 </ul>
 </div>
-<div id="improvements-1" class="section level2">
+<div id="improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements</h2>
+<a href="#improvements-2" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Slightly faster <code>nest.tbl_ts()</code>.</li>
 <li>
@@ -501,9 +526,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-5-1" class="section level1">
+    <div id="tsibble-051" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-1" class="anchor"></a>tsibble 0.5.1<small> 2018-08-20 </small>
+<a href="#tsibble-051" class="anchor"></a>tsibble 0.5.1<small> 2018-08-20 </small>
 </h1>
 <div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
@@ -513,14 +538,14 @@
 <code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
 <li>Vectorised arithmetic operators (<code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> &amp; <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
-<code><a href="../reference/new_interval.html">new_interval()</a></code> creates an “interval” object with the specified values.</li>
+<code><a href="../reference/new-interval.html">new_interval()</a></code> creates an “interval” object with the specified values.</li>
 </ul>
 </div>
-<div id="improvements-2" class="section level2">
+<div id="improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements</h2>
+<a href="#improvements-3" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Faster performance in <code><a href="../reference/deprecated.html">fill_na()</a></code> for replacing values when <code>group_by()</code>.</li>
+<li>Faster performance in <code>fill_na()</code> for replacing values when <code>group_by()</code>.</li>
 <li>Speed improvement when subsetting yearweek, yearmonth and yearquarter using <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code>.</li>
 </ul>
 </div>
@@ -546,9 +571,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-5-0" class="section level1">
+    <div id="tsibble-050" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-5-0" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
+<a href="#tsibble-050" class="anchor"></a>tsibble 0.5.0<small> 2018-08-05 </small>
 </h1>
 <p>This release introduced the breaking changes to the “interval” class to make tsibble better support finer time resolution (e.g. millisecond, microsecond, and nanosecond). The “interval” format changes from upper case to short hand. To support new time index class, only <code><a href="../reference/index_valid.html">index_valid()</a></code> and <code>pull_interval()</code> need to be defined now.</p>
 <div id="new-features-5" class="section level2">
@@ -565,9 +590,9 @@
 <li>A new vignette on window functions.</li>
 </ul>
 </div>
-<div id="improvements-3" class="section level2">
+<div id="improvements-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-3" class="anchor"></a>Improvements</h2>
+<a href="#improvements-4" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Speed improvement for internals when it’s a known valid tsibble. (#43)</li>
 <li>Better support “millisecond” and “microsecond”.</li>
@@ -580,7 +605,7 @@
 <li>Replaced <code>NA</code> or <code>NULL</code> with <code>0</code> in the “interval” class to make the representation simpler.</li>
 <li>The <code>interval</code> class has new slots of “millisecond”, “microsecond”, “nanosecond”.</li>
 <li>
-<code><a href="../reference/time_unit.html">time_unit()</a></code> is a function instead of S3 generic, and made index extension a bit easier.</li>
+<code><a href="../reference/deprecated.html">time_unit()</a></code> is a function instead of S3 generic, and made index extension a bit easier.</li>
 </ul>
 </div>
 <div id="bug-fixes-7" class="section level2">
@@ -603,13 +628,13 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-4-0" class="section level1">
+    <div id="tsibble-040" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-4-0" class="anchor"></a>tsibble 0.4.0<small> 2018-07-06 </small>
+<a href="#tsibble-040" class="anchor"></a>tsibble 0.4.0<small> 2018-07-06 </small>
 </h1>
-<div id="breaking-changes-3" class="section level2">
+<div id="breaking-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-4" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Restructured windowed functions to follow the <code>purrr</code> style exactly (#35):
 <ul>
@@ -634,26 +659,26 @@
 <li>New <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Australian national and state-based public holiday.</li>
 <li>Defined <code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> for year-week, year-month, and year-quarter.</li>
 <li>
-<code><a href="../reference/period.html">yearweek()</a></code>, <code><a href="../reference/period.html">yearmonth()</a></code>, <code><a href="../reference/period.html">yearquarter()</a></code> supported for character.</li>
+<code><a href="../reference/year-week.html">yearweek()</a></code>, <code><a href="../reference/year-month.html">yearmonth()</a></code>, <code><a href="../reference/year-quarter.html">yearquarter()</a></code> supported for character.</li>
 <li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (#33).</li>
-<li>New S3 generics <code><a href="../reference/units_since.html">units_since()</a></code> for index classes.</li>
-<li>New <code><a href="../reference/period.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
+<li>New S3 generics <code><a href="../reference/deprecated.html">units_since()</a></code> for index classes.</li>
+<li>New <code><a href="../reference/year-week.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
 <li>New S3 generics <code>key_sum()</code> for extending tsibble.</li>
 </ul>
 </div>
-<div id="improvements-4" class="section level2">
+<div id="improvements-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-4" class="anchor"></a>Improvements</h2>
+<a href="#improvements-5" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
 <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> removed the <code>tsp</code> attribute from the <code>value</code> column.</li>
 <li>Dropped the “lst_col” attribute from <code>lst_ts</code> (#25).</li>
 <li>More informative error message when a data frame is passed to <code><a href="../reference/tsibble.html">tsibble()</a></code>.</li>
-<li>More informative error message for <code><a href="../reference/deprecated.html">fill_na()</a></code> and <code>count_gaps</code> when a tsibble of unknown interval.</li>
+<li>More informative error message for <code>fill_na()</code> and <code>count_gaps</code> when a tsibble of unknown interval.</li>
 <li>
 <code>as_tsibble.tbl_ts()</code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (#34).</li>
 <li>
-<code><a href="../reference/deprecated.html">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
+<code>id()</code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (#36).</li>
 <li>
 <code><a href="../reference/tsibble-tidyverse.html">select.tbl_ts()</a></code> now preserved index.</li>
 </ul>
@@ -677,9 +702,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-3-0" class="section level1">
+    <div id="tsibble-030" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-3-0" class="anchor"></a>tsibble 0.3.0<small> 2018-05-29 </small>
+<a href="#tsibble-030" class="anchor"></a>tsibble 0.3.0<small> 2018-05-29 </small>
 </h1>
 <p>The <strong>tsibble</strong> package has a hexagon logo now! Thanks Mitch (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>).</p>
 <div id="new-functions" class="section level2">
@@ -705,9 +730,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-2-0" class="section level1">
+    <div id="tsibble-020" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-2-0" class="anchor"></a>tsibble 0.2.0<small> 2018-05-11 </small>
+<a href="#tsibble-020" class="anchor"></a>tsibble 0.2.0<small> 2018-05-11 </small>
 </h1>
 <p>This release (hopefully) marks the stability of a tsibble data object (<code>tbl_ts</code>). A <code>tbl_ts</code> contains the following components:</p>
 <ul>
@@ -718,15 +743,15 @@
 <li>
 <code>index2</code>: why do we need the second index? It means re-indexing <strong>to</strong> a variable, not the second index. It is identical to the <code>index</code> most time, but start deviating when using <code><a href="../reference/index-by.html">index_by()</a></code>. <code><a href="../reference/index-by.html">index_by()</a></code> works similarly to <code>group_by()</code>, but groups the index only. The dplyr verbs, like <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>, <code>mutate()</code>, operates on each time group of the data defined by <code><a href="../reference/index-by.html">index_by()</a></code>. You may wonder why introducing a new function rather than using <code>group_by()</code> that users are most familiar with. It’s because time is indispensable to a tsibble, <code><a href="../reference/index-by.html">index_by()</a></code> provides a trace to understanding how the index changes. For this purpose, <code>group_by()</code> is just too general. For example, <code><a href="../reference/index-by.html">index_by()</a></code> + <code>summarise()</code> aggregates data to less granular time period, leading to the update in index, which is nicely and intuitively handled now.</li>
 <li>
-<code>interval</code>: an <code>interval</code> class to save a list of time intervals. It computes the greatest common factor from the time difference of the <code>index</code> column, which should give a sensible interval for the almost all the cases, compared to minimal time distance. It also depends on the time representation. For example, if the data is monthly, the index is suggested to use a <code><a href="../reference/period.html">yearmonth()</a></code> format instead of <code>Date</code>, as <code>Date</code> only gives the number of days not the number of months.</li>
+<code>interval</code>: an <code>interval</code> class to save a list of time intervals. It computes the greatest common factor from the time difference of the <code>index</code> column, which should give a sensible interval for the almost all the cases, compared to minimal time distance. It also depends on the time representation. For example, if the data is monthly, the index is suggested to use a <code><a href="../reference/year-month.html">yearmonth()</a></code> format instead of <code>Date</code>, as <code>Date</code> only gives the number of days not the number of months.</li>
 <li>
 <code>regular</code>: since a tsibble factors in the implicit missing cases, whether the data is regular or not cannot be determined. This relies on the user’s specification.</li>
 <li>
 <code>ordered</code>: time-wise and rolling window functions assume data of temporal ordering. A tsibble will be sorted by its time index. If a key is explicitly declared, the key will be sorted first and followed by arranging time in ascending order. If it’s not in time order, it broadcasts a warning.</li>
 </ul>
-<div id="breaking-changes-4" class="section level2">
+<div id="breaking-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-4" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-5" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Deprecated <code>tsummarise()</code> and its scoped variants. It can be replaced by the combo <code><a href="../reference/index-by.html">index_by()</a></code> + <code>summarise()</code> (#20). <code>tsummarise()</code> provides an unintuitive interface where the first argument keeps the same size of the index, but the remaining arguments reduces rows to a single one. Analogously, it does <code>group_by()</code> and then <code>summarise()</code>. The proposed <code><a href="../reference/index-by.html">index_by()</a></code> solves the issue of index update.</li>
 <li>Renamed <code>inform_duplicates()</code> (defunct) to <code>find_duplicates()</code> to better reflect its functionality.</li>
@@ -746,7 +771,7 @@
 <code><a href="../reference/index-by.html">index_by()</a></code> groups time index, as the counterpart of <code>group_by()</code> in temporal context.</li>
 <li>A new S3 generic <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code>gaps()</code> counts time gaps (implicit missing observations in time).</li>
 <li>
-<code><a href="../reference/period.html">yearweek()</a></code> creates and coerces to a year-week object. (#17)</li>
+<code><a href="../reference/year-week.html">yearweek()</a></code> creates and coerces to a year-week object. (#17)</li>
 </ul>
 </div>
 <div id="api-changes" class="section level2">
@@ -761,12 +786,12 @@
 <code>group_by.tbl_ts()</code> behaves exactly the same as <code>group_by.tbl_df</code> now. Grouping variables are temporary for data manipulation. Nested or crossed variables are not the type that <code>group_by()</code> thinks.</li>
 </ul>
 </div>
-<div id="improvements-5" class="section level2">
+<div id="improvements-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#improvements-5" class="anchor"></a>Improvements</h2>
+<a href="#improvements-6" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Added overall time span to the <code>glimpse.tbl_ts()</code>.</li>
-<li>Slightly improved the speed of <code><a href="../reference/deprecated.html">fill_na()</a></code>.</li>
+<li>Slightly improved the speed of <code>fill_na()</code>.</li>
 </ul>
 </div>
 <div id="bug-fixes-9" class="section level2">
@@ -789,9 +814,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-1-5" class="section level1">
+    <div id="tsibble-015" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-1-5" class="anchor"></a>tsibble 0.1.5<small> 2018-04-01 </small>
+<a href="#tsibble-015" class="anchor"></a>tsibble 0.1.5<small> 2018-04-01 </small>
 </h1>
 <p>This release introduces major changes into the underlying <code>tbl_ts</code> object:</p>
 <ul>
@@ -839,9 +864,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-1-3" class="section level1">
+    <div id="tsibble-013" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-1-3" class="anchor"></a>tsibble 0.1.3<small> 2018-02-20 </small>
+<a href="#tsibble-013" class="anchor"></a>tsibble 0.1.3<small> 2018-02-20 </small>
 </h1>
 <div id="new-functions-3" class="section level2">
 <h2 class="hasAnchor">
@@ -871,9 +896,9 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-1-2" class="section level1">
+    <div id="tsibble-012" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-1-2" class="anchor"></a>tsibble 0.1.2<small> 2018-01-27 </small>
+<a href="#tsibble-012" class="anchor"></a>tsibble 0.1.2<small> 2018-01-27 </small>
 </h1>
 <p>This release marks the complete support of dplyr key verbs.</p>
 <div id="reexported-functions" class="section level2">
@@ -916,17 +941,17 @@
 </ul>
 </div>
 </div>
-    <div id="tsibble-0-1-0" class="section level1">
+    <div id="tsibble-010" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-1-0" class="anchor"></a>tsibble 0.1.0<small> 2018-01-09 </small>
+<a href="#tsibble-010" class="anchor"></a>tsibble 0.1.0<small> 2018-01-09 </small>
 </h1>
 <ul>
 <li>Initial release on CRAN.</li>
 </ul>
 </div>
-    <div id="tsibble-0-0-1" class="section level1">
+    <div id="tsibble-001" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-0-0-1" class="anchor"></a>tsibble 0.0.1<small> Unreleased </small>
+<a href="#tsibble-001" class="anchor"></a>tsibble 0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
@@ -939,28 +964,29 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tsibble-0-8-5">0.8.5</a></li>
-        <li><a href="#tsibble-0-8-4">0.8.4</a></li>
-        <li><a href="#tsibble-0-8-3">0.8.3</a></li>
-        <li><a href="#tsibble-0-8-2">0.8.2</a></li>
-        <li><a href="#tsibble-0-8-1">0.8.1</a></li>
-        <li><a href="#tsibble-0-8-0">0.8.0</a></li>
-        <li><a href="#tsibble-0-7-0">0.7.0</a></li>
-        <li><a href="#tsibble-0-6-2">0.6.2</a></li>
-        <li><a href="#tsibble-0-6-1">0.6.1</a></li>
-        <li><a href="#tsibble-0-6-0">0.6.0</a></li>
-        <li><a href="#tsibble-0-5-3">0.5.3</a></li>
-        <li><a href="#tsibble-0-5-2">0.5.2</a></li>
-        <li><a href="#tsibble-0-5-1">0.5.1</a></li>
-        <li><a href="#tsibble-0-5-0">0.5.0</a></li>
-        <li><a href="#tsibble-0-4-0">0.4.0</a></li>
-        <li><a href="#tsibble-0-3-0">0.3.0</a></li>
-        <li><a href="#tsibble-0-2-0">0.2.0</a></li>
-        <li><a href="#tsibble-0-1-5">0.1.5</a></li>
-        <li><a href="#tsibble-0-1-3">0.1.3</a></li>
-        <li><a href="#tsibble-0-1-2">0.1.2</a></li>
-        <li><a href="#tsibble-0-1-0">0.1.0</a></li>
-        <li><a href="#tsibble-0-0-1">0.0.1</a></li>
+        <li><a href="#tsibble-0899000">0.8.9.9000</a></li>
+        <li><a href="#tsibble-085">0.8.5</a></li>
+        <li><a href="#tsibble-084">0.8.4</a></li>
+        <li><a href="#tsibble-083">0.8.3</a></li>
+        <li><a href="#tsibble-082">0.8.2</a></li>
+        <li><a href="#tsibble-081">0.8.1</a></li>
+        <li><a href="#tsibble-080">0.8.0</a></li>
+        <li><a href="#tsibble-070">0.7.0</a></li>
+        <li><a href="#tsibble-062">0.6.2</a></li>
+        <li><a href="#tsibble-061">0.6.1</a></li>
+        <li><a href="#tsibble-060">0.6.0</a></li>
+        <li><a href="#tsibble-053">0.5.3</a></li>
+        <li><a href="#tsibble-052">0.5.2</a></li>
+        <li><a href="#tsibble-051">0.5.1</a></li>
+        <li><a href="#tsibble-050">0.5.0</a></li>
+        <li><a href="#tsibble-040">0.4.0</a></li>
+        <li><a href="#tsibble-030">0.3.0</a></li>
+        <li><a href="#tsibble-020">0.2.0</a></li>
+        <li><a href="#tsibble-015">0.1.5</a></li>
+        <li><a href="#tsibble-013">0.1.3</a></li>
+        <li><a href="#tsibble-012">0.1.2</a></li>
+        <li><a href="#tsibble-010">0.1.0</a></li>
+        <li><a href="#tsibble-001">0.0.1</a></li>
       </ul>
     </div>
   </div>
@@ -974,7 +1000,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

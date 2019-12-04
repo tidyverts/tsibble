@@ -98,7 +98,7 @@ the new index. Use ungroup() to remove the index grouping vars." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
       </span>
     </div>
 
@@ -192,9 +192,9 @@ A lambda expression is supported, for example <code>~ as.Date(.)</code> where <c
 to the index variable.
 The index functions that can be used, but not limited:</p><ul>
 <li><p><a href='http://lubridate.tidyverse.org/reference/year.html'>lubridate::year</a>: yearly aggregation</p></li>
-<li><p><a href='period.html'>yearquarter</a>: quarterly aggregation</p></li>
-<li><p><a href='period.html'>yearmonth</a>: monthly aggregation</p></li>
-<li><p><a href='period.html'>yearweek</a>: weekly aggregation</p></li>
+<li><p><a href='year-quarter.html'>yearquarter</a>: quarterly aggregation</p></li>
+<li><p><a href='year-month.html'>yearmonth</a>: monthly aggregation</p></li>
+<li><p><a href='year-week.html'>yearweek</a>: weekly aggregation</p></li>
 <li><p><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a> or <a href='http://lubridate.tidyverse.org/reference/as_date.html'>lubridate::as_date</a>: daily aggregation</p></li>
 <li><p><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date</a>, <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date</a>, or <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a>:
 fine-resolution aggregation</p></li>
@@ -214,45 +214,45 @@ displaying on the screen.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'>index_by</span>()</div><div class='output co'>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
-#&gt; # Groups:    @ Date_Time [17,542]
+    <pre class="examples"><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'>index_by</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    @ Date_Time [17,542]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77
-#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44
-#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56
-#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113
-#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166
-#&gt; # … with 66,027 more rows</div><div class='input'><span class='co'># Monthly counts across sensors</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
+#&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'><span class='co'># Monthly counts across sensors</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>monthly_ped</span> <span class='kw'>&lt;-</span> <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>index_by</span>(<span class='kw'>Year_Month</span> <span class='kw'>=</span> ~ <span class='fu'><a href='period.html'>yearmonth</a></span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>index_by</span>(<span class='kw'>Year_Month</span> <span class='kw'>=</span> ~ <span class='fu'><a href='year-month.html'>yearmonth</a></span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>Count</span>)
   )
-<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; # A tsibble: 95 x 4 [1M]
-#&gt; # Key:       Sensor [4]
+<span class='no'>monthly_ped</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 95 x 4 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Year_Month Max_Count Min_Count
-#&gt;    &lt;chr&gt;               &lt;mth&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt;  1 Birrarung Marr   2015 Jan      5524         1
-#&gt;  2 Birrarung Marr   2015 Feb     10121         1
-#&gt;  3 Birrarung Marr   2015 Mar      9858         1
-#&gt;  4 Birrarung Marr   2015 Apr      7293         1
-#&gt;  5 Birrarung Marr   2015 May      5129         1
-#&gt;  6 Birrarung Marr   2015 Jun      7556         0
-#&gt;  7 Birrarung Marr   2015 Jul     11224         1
-#&gt;  8 Birrarung Marr   2015 Aug      5684         0
-#&gt;  9 Birrarung Marr   2015 Sep      7757         0
-#&gt; 10 Birrarung Marr   2015 Oct      7085         1
-#&gt; # … with 85 more rows</div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; Year_Month</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr   2015 Jan      </span><span style='text-decoration: underline;'>5</span><span>524         1
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr   2015 Feb     </span><span style='text-decoration: underline;'>10</span><span>121         1
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr   2015 Mar      </span><span style='text-decoration: underline;'>9</span><span>858         1
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr   2015 Apr      </span><span style='text-decoration: underline;'>7</span><span>293         1
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr   2015 May      </span><span style='text-decoration: underline;'>5</span><span>129         1
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr   2015 Jun      </span><span style='text-decoration: underline;'>7</span><span>556         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr   2015 Jul     </span><span style='text-decoration: underline;'>11</span><span>224         1
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr   2015 Aug      </span><span style='text-decoration: underline;'>5</span><span>684         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr   2015 Sep      </span><span style='text-decoration: underline;'>7</span><span>757         0
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr   2015 Oct      </span><span style='text-decoration: underline;'>7</span><span>085         1
+#&gt; </span><span style='color: #555555;'># … with 85 more rows</span><span></div><div class='input'><span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>monthly_ped</span>)</div><div class='output co'>#&gt; Year_Month</div><div class='input'>
 <span class='co'># Using existing variable</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
@@ -260,61 +260,61 @@ displaying on the screen.</p></li>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
     <span class='kw'>Max_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Count</span>),
     <span class='kw'>Min_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>Count</span>)
-  )</div><div class='output co'>#&gt; # A tsibble: 2,752 x 4 [1D]
-#&gt; # Key:       Sensor [4]
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 2,752 x 4 [1D]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date       Max_Count Min_Count
-#&gt;    &lt;chr&gt;          &lt;date&gt;         &lt;int&gt;     &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01      1630        44
-#&gt;  2 Birrarung Marr 2015-01-02       352         1
-#&gt;  3 Birrarung Marr 2015-01-03       226         3
-#&gt;  4 Birrarung Marr 2015-01-04       852         4
-#&gt;  5 Birrarung Marr 2015-01-05      1427         3
-#&gt;  6 Birrarung Marr 2015-01-06       937         5
-#&gt;  7 Birrarung Marr 2015-01-07       708         4
-#&gt;  8 Birrarung Marr 2015-01-08       568         9
-#&gt;  9 Birrarung Marr 2015-01-09      1629         5
-#&gt; 10 Birrarung Marr 2015-01-10      2439        10
-#&gt; # … with 2,742 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01      </span><span style='text-decoration: underline;'>1</span><span>630        44
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-02       352         1
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-03       226         3
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-04       852         4
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-05      </span><span style='text-decoration: underline;'>1</span><span>427         3
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-06       937         5
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-07       708         4
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-08       568         9
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-09      </span><span style='text-decoration: underline;'>1</span><span>629         5
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-10      </span><span style='text-decoration: underline;'>2</span><span>439        10
+#&gt; </span><span style='color: #555555;'># … with 2,742 more rows</span><span></div><div class='input'>
 <span class='co'># Attempt to aggregate to 4-hour interval, with the effects of DST</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Date_Time4</span> <span class='kw'>=</span> ~ <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span>(<span class='no'>.</span>, <span class='st'>"4 hour"</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; # A tsibble: 16,528 x 3 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total_Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 16,512 x 3 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time4          Total_Count
-#&gt;    &lt;chr&gt;          &lt;dttm&gt;                    &lt;int&gt;
-#&gt;  1 Birrarung Marr 2015-01-01 00:00:00        3287
-#&gt;  2 Birrarung Marr 2015-01-01 04:00:00         316
-#&gt;  3 Birrarung Marr 2015-01-01 08:00:00         995
-#&gt;  4 Birrarung Marr 2015-01-01 12:00:00        2117
-#&gt;  5 Birrarung Marr 2015-01-01 16:00:00        1829
-#&gt;  6 Birrarung Marr 2015-01-01 20:00:00         406
-#&gt;  7 Birrarung Marr 2015-01-02 00:00:00          44
-#&gt;  8 Birrarung Marr 2015-01-02 04:00:00         555
-#&gt;  9 Birrarung Marr 2015-01-02 08:00:00        1193
-#&gt; 10 Birrarung Marr 2015-01-02 12:00:00         822
-#&gt; # … with 16,518 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>                    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span>        </span><span style='text-decoration: underline;'>3</span><span>287
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span>         316
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span>         995
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>12:00:00</span><span>        </span><span style='text-decoration: underline;'>2</span><span>117
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>16:00:00</span><span>        </span><span style='text-decoration: underline;'>1</span><span>829
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>20:00:00</span><span>         406
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>00:00:00</span><span>          44
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>04:00:00</span><span>         555
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>08:00:00</span><span>        </span><span style='text-decoration: underline;'>1</span><span>193
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>12:00:00</span><span>         822
+#&gt; </span><span style='color: #555555;'># … with 16,502 more rows</span><span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lubridate</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='co'># Annual trips by Region and State</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> ~ <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Region</span>, <span class='no'>State</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; # A tsibble: 1,520 x 4 [1Y]
-#&gt; # Key:       Region, State [76]
-#&gt; # Groups:    Region [76]
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 1,520 x 4 [1Y]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Region, State [76]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    Region [76]</span><span>
 #&gt;    Region   State            Year Total
-#&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 Adelaide South Australia  1998 2226.
-#&gt;  2 Adelaide South Australia  1999 2218.
-#&gt;  3 Adelaide South Australia  2000 2418.
-#&gt;  4 Adelaide South Australia  2001 2264.
-#&gt;  5 Adelaide South Australia  2002 2275.
-#&gt;  6 Adelaide South Australia  2003 2203.
-#&gt;  7 Adelaide South Australia  2004 2437.
-#&gt;  8 Adelaide South Australia  2005 2034.
-#&gt;  9 Adelaide South Australia  2006 2225.
-#&gt; 10 Adelaide South Australia  2007 2317.
-#&gt; # … with 1,510 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>1</span><span>998 </span><span style='text-decoration: underline;'>2</span><span>226.
+#&gt; </span><span style='color: #555555;'> 2</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>1</span><span>999 </span><span style='text-decoration: underline;'>2</span><span>218.
+#&gt; </span><span style='color: #555555;'> 3</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>2</span><span>418.
+#&gt; </span><span style='color: #555555;'> 4</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>001 </span><span style='text-decoration: underline;'>2</span><span>264.
+#&gt; </span><span style='color: #555555;'> 5</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>002 </span><span style='text-decoration: underline;'>2</span><span>275.
+#&gt; </span><span style='color: #555555;'> 6</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>003 </span><span style='text-decoration: underline;'>2</span><span>203.
+#&gt; </span><span style='color: #555555;'> 7</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>2</span><span>437.
+#&gt; </span><span style='color: #555555;'> 8</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>005 </span><span style='text-decoration: underline;'>2</span><span>034.
+#&gt; </span><span style='color: #555555;'> 9</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>006 </span><span style='text-decoration: underline;'>2</span><span>225.
+#&gt; </span><span style='color: #555555;'>10</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>007 </span><span style='text-decoration: underline;'>2</span><span>317.
+#&gt; </span><span style='color: #555555;'># … with 1,510 more rows</span><span></div><div class='input'>
 <span class='co'># Rouding to financial year, using a custom function</span>
 <span class='no'>financial_year</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>date</span>) {
   <span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)
@@ -322,7 +322,7 @@ displaying on the screen.</p></li>
 }
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> ~ <span class='fu'>financial_year</span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; <span class='error'>Error in financial_year(.): could not find function "financial_year"</span></div></pre>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; <span class='error'>Error in financial_year(.): could not find function "financial_year"</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -342,7 +342,7 @@ displaying on the screen.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
