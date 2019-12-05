@@ -7,7 +7,7 @@
 * URL: https://fable.tidyverts.org
 * BugReports: https://github.com/tidyverts/fable/issues
 * Date/Publication: 2019-09-23 15:10:06 UTC
-* Number of recursive dependencies: 89
+* Number of recursive dependencies: 99
 
 Run `revdep_details(,"fable")` for more info
 
@@ -15,63 +15,96 @@ Run `revdep_details(,"fable")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking whether package ‘fable’ can be installed ... ERROR
     ```
-    ...
-    
-    > tsibbledata::global_economy %>% 
-    +   filter(Country == "Australia") %>%
-    +   model(ARIMA(log(GDP) ~ Population))
-    Error: Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─`%>%`(...)
-    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  5. [39m      └─`_fseq`(`_lhs`)
-    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
-    [90m  7. [39m          └─function_list[[i]](value)
-    [90m  8. [39m            ├─dplyr::filter(., Country == "Australia")
-    [90m  9. [39m            └─tsibble:::filter.tbl_ts(., Country == "Australia")
-    [90m 10. [39m              └─tsibble:::by_row(...)
-    [90m 11. [39m                └─tsibble:::update_meta(tbl, .data, ordered = ordered, interval = interval(.data))
-    [90m 12. [39m                  ├─tsibble:::restore_index_class(...)
-    [90m 13. [39m                  │ └─tsibble::
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ══════════════════════════════════════════════════════
-      [ OK: 30 | SKIPPED: 1 | WARNINGS: 31 | FAILED: 55 ]
-      1. Failure: Automatic ARIMA selection (@test-arima.R#10) 
-      2. Failure: Automatic ARIMA selection (@test-arima.R#19) 
-      3. Failure: Automatic ARIMA selection (@test-arima.R#26) 
-      4. Failure: Manual ARIMA selection (@test-arima.R#37) 
-      5. Failure: Manual ARIMA selection (@test-arima.R#42) 
-      6. Error: Manual ARIMA selection (@test-arima.R#47) 
-      7. Failure: ARIMA with bad inputs (@test-arima.R#91) 
-      8. Failure: ARIMA with bad inputs (@test-arima.R#97) 
-      9. Failure: ARIMA with bad inputs (@test-arima.R#103) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking whether package ‘fable’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘fabletools::scale_x_yearmonth’ by ‘tsibble::scale_x_yearmonth’ when loading ‘fable’
-      Warning: replacing previous import ‘fabletools::scale_x_yearweek’ by ‘tsibble::scale_x_yearweek’ when loading ‘fable’
-      Warning: replacing previous import ‘fabletools::scale_x_yearquarter’ by ‘tsibble::scale_x_yearquarter’ when loading ‘fable’
+    Installation failed.
     See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fable/new/fable.Rcheck/00install.out’ for details.
     ```
 
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘fable’ ...
+** package ‘fable’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etsTargetFunction.cpp -o etsTargetFunction.o
+In file included from etsTargetFunction.cpp:3:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp.h:27:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/RcppCommon.h:128:
+/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp/exceptions.h:109:53: warning: all paths through this function will call itself [-Winfinite-recursion]
+    inline void warning(const std::string& message) {        // #nocov start
+                                                    ^
+1 warning generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etsTargetFunctionWrapper.cpp -o etsTargetFunctionWrapper.o
+In file included from etsTargetFunctionWrapper.cpp:10:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp.h:27:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/RcppCommon.h:128:
+/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp/exceptions.h:109:53: warning: all paths through this function will call itself [-Winfinite-recursion]
+    inline void warning(const std::string& message) {        // #nocov start
+                                                    ^
+1 warning generated.
+clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etscalc.c -o etscalc.o
+clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o fable.so etsTargetFunction.o etsTargetFunctionWrapper.o etscalc.o registerDynamicSymbol.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
+installing to /Users/earo/Rpkg/tsibble/revdep/checks.noindex/fable/new/fable.Rcheck/00LOCK-fable/00new/fable/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘fabletools’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
+Error: package ‘fabletools’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘fable’
+* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fable/new/fable.Rcheck/fable’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘fable’ ...
+** package ‘fable’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etsTargetFunction.cpp -o etsTargetFunction.o
+In file included from etsTargetFunction.cpp:3:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp.h:27:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/RcppCommon.h:128:
+/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp/exceptions.h:109:53: warning: all paths through this function will call itself [-Winfinite-recursion]
+    inline void warning(const std::string& message) {        // #nocov start
+                                                    ^
+1 warning generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etsTargetFunctionWrapper.cpp -o etsTargetFunctionWrapper.o
+In file included from etsTargetFunctionWrapper.cpp:10:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp.h:27:
+In file included from /Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/RcppCommon.h:128:
+/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include/Rcpp/exceptions.h:109:53: warning: all paths through this function will call itself [-Winfinite-recursion]
+    inline void warning(const std::string& message) {        // #nocov start
+                                                    ^
+1 warning generated.
+clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c etscalc.c -o etscalc.o
+clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/earo/Rpkg/tsibble/revdep/library.noindex/fable/Rcpp/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o fable.so etsTargetFunction.o etsTargetFunctionWrapper.o etscalc.o registerDynamicSymbol.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
+installing to /Users/earo/Rpkg/tsibble/revdep/checks.noindex/fable/old/fable.Rcheck/00LOCK-fable/00new/fable/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (fable)
+
+```
 # fabletools
 
 <details>
@@ -81,7 +114,7 @@ Run `revdep_details(,"fable")` for more info
 * URL: http://fabletools.tidyverts.org/
 * BugReports: https://github.com/tidyverts/fabletools/issues
 * Date/Publication: 2019-09-16 10:50:02 UTC
-* Number of recursive dependencies: 82
+* Number of recursive dependencies: 92
 
 Run `revdep_details(,"fabletools")` for more info
 
@@ -89,63 +122,50 @@ Run `revdep_details(,"fabletools")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking whether package ‘fabletools’ can be installed ... ERROR
     ```
-    ...
-    
-        intersect, setdiff, setequal, union
-    
-    Warning: Incompatible methods ("<.Date", "<.vctrs_vctr") for "<"
-    Error: Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─`%>%`(...)
-    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  5. [39m      └─`_fseq`(`_lhs`)
-    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
-    [90m  7. [39m          └─function_list[[i]](value)
-    [90m  8. [39m            ├─dplyr::filter(., Quarter < yearquarter("2006 Q1"))
-    [90m  9. [39m            └─tsibble:::filter.tbl_ts(., Quarter < yearquarter("2006 Q1"))
-    [90m 10. [39m              └─tsibble:::by_row(...)
-    [90m 11. [39m                └─tsibble:::update_meta(tbl, .data, ordered = ordered, interval = interval(.data))
-    [90m 12. [39m                  ├─tsibble:::restore_index_class(...)
-    [90m 13. [39m                 
-    Execution halted
+    Installation failed.
+    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fabletools/new/fabletools.Rcheck/00install.out’ for details.
     ```
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       
-      7: `units_since()` is deprecated as of tsibble 0.9.0.
-      Please use `as.double()` instead.
-      [90mThis warning is displayed once per session.[39m
-      [90mCall `lifecycle::last_warnings()` to see where this warning was generated.[39m 
-      8: 2 errors (1 unique) encountered for ets
-      [2] No common type for `..1` <interval> and `..2` <double>.
-       
-      9: 2 errors (1 unique) encountered for lm
-      [2] No common type for `..1` <interval> and `..2` <double>.
-       
-      10: 1 error encountered for var
-      [1] No common type for `..1` <interval> and `..2` <double>.
-       
-      Execution halted
-    ```
+## Installation
 
-*   checking for unstated dependencies in examples ... WARNING
-    ```
-    Registered S3 methods overwritten by 'fabletools':
-      method                 from   
-      scale_type.yearmonth   tsibble
-      scale_type.yearquarter tsibble
-      scale_type.yearweek    tsibble
-    ```
+### Devel
 
+```
+* installing *source* package ‘fabletools’ ...
+** package ‘fabletools’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> namespaceImport -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘fabletools’
+* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fabletools/new/fabletools.Rcheck/fabletools’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘fabletools’ ...
+** package ‘fabletools’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (fabletools)
+
+```
 # feasts
 
 <details>
@@ -155,9 +175,150 @@ Run `revdep_details(,"fabletools")` for more info
 * URL: http://feasts.tidyverts.org/
 * BugReports: https://github.com/tidyverts/feasts/issues
 * Date/Publication: 2019-09-02 14:10:06 UTC
-* Number of recursive dependencies: 80
+* Number of recursive dependencies: 90
 
 Run `revdep_details(,"feasts")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘feasts’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/feasts/new/feasts.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘feasts’ ...
+** package ‘feasts’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘fabletools’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
+Error: package ‘fabletools’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘feasts’
+* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/feasts/new/feasts.Rcheck/feasts’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘feasts’ ...
+** package ‘feasts’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (feasts)
+
+```
+# fpp3
+
+<details>
+
+* Version: 0.1
+* Source code: https://github.com/cran/fpp3
+* URL: https://github.com/robjhyndman/fpp3-package, https://OTexts.org/fpp3/
+* BugReports: https://github.com/robjhyndman/fpp3-package
+* Date/Publication: 2019-10-09 15:00:05 UTC
+* Number of recursive dependencies: 54
+
+Run `revdep_details(,"fpp3")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘fpp3’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fpp3/new/fpp3.Rcheck/00install.out’ for details.
+    ```
+
+## Newly fixed
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘dplyr’ ‘fable’ ‘fabletools’ ‘feasts’ ‘ggplot2’ ‘lubridate’ ‘tibble’
+      ‘tidyr’ ‘tsibble’ ‘tsibbledata’
+      All declared Imports should be used.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘fpp3’ ...
+** package ‘fpp3’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+Error: package or namespace load failed for ‘fpp3’:
+ .onAttach failed in attachNamespace() for 'fpp3', details:
+  call: NULL
+  error: package or namespace load failed for ‘tsibble’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ namespace ‘vctrs’ 0.2.0 is already loaded, but >= 0.2.0.9007 is required
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fpp3/new/fpp3.Rcheck/fpp3’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘fpp3’ ...
+** package ‘fpp3’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (fpp3)
+
+```
+# gravitas
+
+<details>
+
+* Version: 0.1.0
+* Source code: https://github.com/cran/gravitas
+* URL: https://github.com/Sayani07/gravitas/
+* BugReports: https://github.com/Sayani07/gravitas/issues
+* Date/Publication: 2019-11-05 14:30:02 UTC
+* Number of recursive dependencies: 94
+
+Run `revdep_details(,"gravitas")` for more info
 
 </details>
 
@@ -166,10 +327,6 @@ Run `revdep_details(,"feasts")` for more info
 *   checking examples ... ERROR
     ```
     ...
-    
-        scale_x_yearmonth, scale_x_yearquarter, scale_x_yearweek
-    
-    > library(tsibbledata)
     > library(dplyr)
     
     Attaching package: ‘dplyr’
@@ -182,10 +339,14 @@ Run `revdep_details(,"feasts")` for more info
     
         intersect, setdiff, setequal, union
     
-    > 
-    > vic_elec %>% ACF(Temperature)
-    Error in !is_regular(.data) : invalid argument type
-    Calls: %>% ... <Anonymous> -> ACF -> build_cf -> check_gaps -> has_gaps
+    > library(ggplot2)
+    > library(lvplot)
+    > # Search for granularities
+    > smart_meter10 %>%
+    +   search_gran(highest_unit = "week")
+    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+      namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
+    Calls: %>% ... getNamespace -> loadNamespace -> namespaceImport -> loadNamespace
     Execution halted
     ```
 
@@ -194,82 +355,21 @@ Run `revdep_details(,"feasts")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ testthat results  ══════════════════════════════════════════════════════
-      [ OK: 9 | SKIPPED: 2 | WARNINGS: 8 | FAILED: 20 ]
-      1. Error: ACF (@test-cf.R#13) 
-      2. Error: PACF (@test-cf.R#43) 
-      3. Error: CCF (@test-cf.R#74) 
-      4. Error: Additive classical decomposition (@test-classical.R#5) 
-      5. Error: Multiplicative classical decomposition (@test-classical.R#28) 
-      6. Error: guerrero() (@test-features.R#8) 
-      7. Error: unit root features (@test-features.R#18) 
-      8. Error: basic features (@test-features.R#29) 
-      9. Error: *cf features (@test-features.R#40) 
-      1. ...
+      [90m 3. [39mbase:::tryCatchList(expr, classes, parentenv, handlers)
+      [90m 4. [39mbase:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
+      [90m 5. [39mvalue[[3L]](cond)
+      
+      ══ testthat results  ═══════════════════════════════════════
+      [ OK: 73 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 6 ]
+      1. Error: (unknown) (@test-create_gran.R#9) 
+      2. Error: (unknown) (@test-gran_advice.R#9) 
+      3. Error: (unknown) (@test-harmony.R#9) 
+      4. Error: (unknown) (@test-is_harmony.R#9) 
+      5. Error: (unknown) (@test-prob_plot.R#6) 
+      6. Error: (unknown) (@test-search_gran.R#8) 
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    gg_season: no visible binding for global variable ‘id’
-    gg_subseries: no visible binding for global variable ‘id’
-    Undefined global functions or variables:
-      id
-    ```
-
-# fpp3
-
-<details>
-
-* Version: 0.1
-* Source code: https://github.com/cran/fpp3
-* URL: https://github.com/robjhyndman/fpp3-package, https://OTexts.org/fpp3/
-* BugReports: https://github.com/robjhyndman/fpp3-package
-* Date/Publication: 2019-10-09 15:00:05 UTC
-* Number of recursive dependencies: 53
-
-Run `revdep_details(,"fpp3")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### ** Examples
-    > 
-    > 
-    > aus_airpassengers
-    Error: Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m├─(function (x, ...) ...
-    [90m  2. [39m└─tibble:::print.tbl(x)
-    [90m  3. [39m  ├─tibble:::cat_line(format(x, ..., n = n, width = width, n_extra = n_extra))
-    [90m  4. [39m  │ ├─base::cat(paste0(..., "\n"), sep = "")
-    [90m  5. [39m  │ └─base::paste0(..., "\n")
-    [90m  6. [39m  ├─base::format(x, ..., n = n, width = width, n_extra = n_extra)
-    [90m  7. [39m  └─tsibble:::format.tbl_ts(x, ..., n = n, width = width, n_extra = n_extra)
-    [90m  8. [39m    ├─base::format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
-    [90m  9. [39m    └─tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra)
-    [90m 10. [39m      ├─base::as.data.frame(head(x, n))
-    [90m 11. [39m      ├─utils::head(x, n)
-    [90m 12. [39m      └─utils:::head.data.frame(x, n)
-    [90m 13. [39m        ├─x[seq_len(n), , drop = FALSE]
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘fable’ ‘fabletools’ ‘feasts’ ‘ggplot2’ ‘lubridate’ ‘tibble’
-      ‘tidyr’ ‘tsibble’ ‘tsibbledata’
-      All declared Imports should be used.
     ```
 
 # pmdplyr
@@ -281,7 +381,7 @@ Run `revdep_details(,"fpp3")` for more info
 * URL: https://nickch-k.github.io/pmdplyr, https://github.com/NickCH-K/pmdplyr
 * BugReports: https://github.com/NickCH-K/pmdplyr/issues
 * Date/Publication: 2019-08-26 09:50:02 UTC
-* Number of recursive dependencies: 96
+* Number of recursive dependencies: 106
 
 Run `revdep_details(,"pmdplyr")` for more info
 
@@ -289,23 +389,111 @@ Run `revdep_details(,"pmdplyr")` for more info
 
 ## Newly broken
 
+*   checking examples ... ERROR
+    ```
+    ...
+    > ### Aliases: panel_convert
+    > 
+    > ### ** Examples
+    > 
+    > # Only run examples if the relevant packages are installed
+    > pkgs <- utils::installed.packages()
+    > 
+    > data(Scorecard)
+    > 
+    > # The example will turn a pibble to everything else
+    > # But starting with another type will of course work!
+    > S_pibble <- as_pibble(Scorecard, .i = unitid, .t = year)
+    > 
+    > # Get a tsibble
+    > if ("tsibble" %in% pkgs) {
+    +   head(panel_convert(S_pibble, to = "tsibble"))
+    + }
+    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+      namespace ‘vctrs’ 0.2.0 is already loaded, but >= 0.2.0.9007 is required
+    Calls: head ... getNamespace -> loadNamespace -> namespaceImport -> loadNamespace
+    Execution halted
+    ```
+
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      12: stop_incompatible_cast(x, to, x_arg = x_arg, to_arg = to_arg)
-      13: stop_incompatible(x, y, details = details, ..., x_arg = x_arg, y_arg = to_arg, 
-             message = message, .subclass = c(.subclass, "vctrs_error_incompatible_cast"))
-      14: stop_vctrs(message, .subclass = c(.subclass, "vctrs_error_incompatible"), x = x, 
-             y = y, details = details, ...)
-      15: abort(message, .subclass = c(.subclass, "vctrs_error"), ...)
-      16: signal_abort(cnd)
+      [1mBacktrace:[22m
+      [90m 1. [39mtsibble::tsibble
+      [90m 2. [39mbase::getExportedValue(pkg, name)
+      [90m 3. [39mbase::asNamespace(ns)
+      [90m 4. [39mbase::getNamespace(ns)
+      [90m 5. [39mbase::loadNamespace(name)
+      [90m 7. [39mbase::loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])
       
-      ══ testthat results  ══════════════════════════════════════════════════════
-      [ OK: 297 | SKIPPED: 0 | WARNINGS: 16 | FAILED: 2 ]
-      1. Error: panel_convert input failstates (@test-bad_input.R#166) 
-      2. Error: pibble tsibble conversion (@test-panel_convert.R#23) 
+      ══ testthat results  ═══════════════════════════════════════
+      [ OK: 290 | SKIPPED: 0 | WARNINGS: 13 | FAILED: 2 ]
+      1. Error: panel_convert input failstates (@test-bad_input.R#165) 
+      2. Error: (unknown) (@test-panel_convert.R#14) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+# sugrrants
+
+<details>
+
+* Version: 0.2.4
+* Source code: https://github.com/cran/sugrrants
+* URL: https://pkg.earo.me/sugrrants
+* BugReports: https://github.com/earowang/sugrrants/issues
+* Date/Publication: 2019-04-06 04:40:03 UTC
+* Number of recursive dependencies: 95
+
+Run `revdep_details(,"sugrrants")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘sugrrants-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: frame_calendar
+    > ### Title: Rearrange a temporal data frame to a calendar-based data format
+    > ###   using linear algebra
+    > ### Aliases: frame_calendar prettify
+    > 
+    > ### ** Examples
+    > 
+    > library(dplyr, warn.conflicts = FALSE)
+    > # compute the calendar layout for the data frame
+    > calendar_df <- pedestrian %>%
+    +   filter(Sensor_ID == 13, Year == 2016) %>%
+    +   frame_calendar(x = Time, y = Hourly_Counts, date = Date, nrow = 4)
+    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+      namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
+    Calls: %>% ... getNamespace -> loadNamespace -> namespaceImport -> loadNamespace
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════
+      [ OK: 8 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 15 ]
+      1. Error: Multiple y's and NA's (@test-calendar.R#11) 
+      2. Error: Variable scoping (@test-calendar.R#30) 
+      3. Failure: Some column names of data are used in the function (@test-calendar.R#38) 
+      4. Failure: Some column names of data are used in the function (@test-calendar.R#43) 
+      5. Failure: Some column names of data are used in the function (@test-calendar.R#48) 
+      6. Failure: Some column names of data are used in the function (@test-calendar.R#53) 
+      7. Error: Some column names of data are used in the function (@test-calendar.R#58) 
+      8. Error: The argument calendar (@test-calendar.R#83) 
+      9. Error: The tsibble data (@test-calendar.R#125) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
@@ -320,7 +508,7 @@ Run `revdep_details(,"pmdplyr")` for more info
 * URL: http://tsibbledata.tidyverts.org/
 * BugReports: https://github.com/tidyverts/tsibbledata/issues
 * Date/Publication: 2019-06-15 07:30:03 UTC
-* Number of recursive dependencies: 46
+* Number of recursive dependencies: 47
 
 Run `revdep_details(,"tsibbledata")` for more info
 
@@ -330,27 +518,20 @@ Run `revdep_details(,"tsibbledata")` for more info
 
 *   checking examples ... ERROR
     ```
-    ...
+    Running examples in ‘tsibbledata-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: olympic_running
+    > ### Title: Fastest running times for Olympic races
+    > ### Aliases: olympic_running
+    > ### Keywords: datasets
+    > 
     > ### ** Examples
     > 
-    > 
-    > vic_elec
-    Error: Detecting a corrupt tsibble object, and please reconstruct with `as_tsibble()`.
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m├─(function (x, ...) ...
-    [90m  2. [39m└─tibble:::print.tbl(x)
-    [90m  3. [39m  ├─tibble:::cat_line(format(x, ..., n = n, width = width, n_extra = n_extra))
-    [90m  4. [39m  │ ├─base::cat(paste0(..., "\n"), sep = "")
-    [90m  5. [39m  │ └─base::paste0(..., "\n")
-    [90m  6. [39m  ├─base::format(x, ..., n = n, width = width, n_extra = n_extra)
-    [90m  7. [39m  └─tsibble:::format.tbl_ts(x, ..., n = n, width = width, n_extra = n_extra)
-    [90m  8. [39m    ├─base::format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
-    [90m  9. [39m    └─tibble::trunc_mat(x, n = n, width = width, n_extra = n_extra)
-    [90m 10. [39m      ├─base::as.data.frame(head(x, n))
-    [90m 11. [39m      ├─utils::head(x, n)
-    [90m 12. [39m      └─utils:::head.data.frame(x, n)
-    [90m 13. [39m        ├─x[seq_len(n), , drop = FALSE]
+    > library(ggplot2)
+    > library(tsibble)
+    Error: package or namespace load failed for ‘tsibble’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+     namespace ‘vctrs’ 0.2.0 is being loaded, but >= 0.2.0.9007 is required
     Execution halted
     ```
 
