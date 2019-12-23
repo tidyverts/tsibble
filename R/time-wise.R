@@ -58,7 +58,7 @@ diff_impl <- function(x, lag = 1L, differences = 1L, default = NA, relative = FA
         for (i in seq_len(differences)) {
             x <- x[i1] - x[-length(x):-(length(x)-lag+1L)]
         }
-    } else {
+    } else if (relative == TRUE) {
         for (i in seq_len(differences)) {
             x <- (x[i1] - x[-length(x):-(length(x)-lag+1L)]) / abs(x[1L:(length(x)-lag)])
         }
@@ -90,13 +90,17 @@ tlead <- function(x, n = 1L, default = NA, order_by) {
   lag_lead(x, n, default, order_by, "lead")
 }
 
-tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
+tdifference <- function(x, lag = 1, differences = 1, default = NA, relative = FALSE, order_by) {
   if (lag < 1 || differences < 1) {
     abort("`lag` and `differences` must be positive integers.")
   }
   idx <- vec_match(order_by - lag, order_by)
   for (i in seq_len(differences)) {
-    x <- vec_slice(x, idx) - x
+    if (relative == FALSE) {
+      x <- vec_slice(x, idx) - x
+    } else if (relative == TRUE) {
+      x <- (vec_slice(x, idx) - x) / abs(x)
+    }
   }
   idx_na <- vec_in(idx, NA)
   vec_slice(x, idx_na) <- default
