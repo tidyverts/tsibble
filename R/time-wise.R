@@ -38,7 +38,7 @@ difference <- function(x, lag = 1L, differences = 1L, default = NA,
         abort("Relative change is not defined when the reference value is 0.")
     }
     if (relative == TRUE && differences > 1L) {
-        warning("Relative `differences` greater than 1 are relative differences of relative differences")
+        warning("Relative `differences` > 1 are relative differences of relative differences")
     }
     if (lag * differences >= length(x)) {
         abort("Number of observations must exceed `lag * differences`.")
@@ -115,7 +115,7 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by, rel
 #' They ignore the grouping data structure.
 #'
 #' @param select Unquoted variable.
-#' @inheritParams dplyr::lag 
+#' @inheritParams dplyr::lag
 #' @inheritParams difference
 #'
 #' @rdname keyed-vec
@@ -124,11 +124,11 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by, rel
 #' library(dplyr)
 #' yrmth <- c("2018-07", "2018-08", "2018-11", "2018-12", "2019-01", "2019-03")
 #' tsbl <- tsibble(
-#'   yrmth = yearmonth(yrmth), 
+#'   yrmth = yearmonth(yrmth),
 #'   income = c(1153, 1181, 1236, 1297, 1264, 1282),
 #'   index = yrmth)
-#' 
-#' tsbl %>% 
+#'
+#' tsbl %>%
 #'   mutate(
 #'     lag_income = keyed_lag(income),
 #'     lead_income = keyed_lead(income),
@@ -136,20 +136,20 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by, rel
 #'   )
 #'
 #' # take care of key and gaps
-#' pedestrian %>% 
+#' pedestrian %>%
 #'   mutate(l_count = keyed_lag(Count))
-#' 
+#'
 #' # to replace the following chain
-#' pedestrian %>% 
-#'   fill_gaps() %>% 
-#'   group_by_key() %>% 
+#' pedestrian %>%
+#'   fill_gaps() %>%
+#'   group_by_key() %>%
 #'   mutate(l_count = lag(Count))
 keyed_lag <- function(select, n = 1L, default = NA) {
   mask <- peek_tsibble_mask()
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_keyed_chunks(!!enquo(select), data = data, 
+  mask$map_keyed_chunks(!!enquo(select), data = data,
     tlag, n = n * tunits, default, index(data))
 }
 
@@ -160,7 +160,7 @@ keyed_lead <- function(select, n = 1L, default = NA) {
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_keyed_chunks(!!enquo(select), data = data, 
+  mask$map_keyed_chunks(!!enquo(select), data = data,
     tlead, n = n * tunits, default, index(data))
 }
 
@@ -171,6 +171,6 @@ keyed_difference <- function(select, lag = 1L, differences = 1L, default = NA, r
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
-  mask$map_keyed_chunks(!!enquo(select), data = data, 
-    tdifference, lag = lag * tunits, differences, default, relative, index(data))
+  mask$map_keyed_chunks(!!enquo(select), data = data,
+    tdifference, lag = lag * tunits, differences, default, index(data), relative)
 }
