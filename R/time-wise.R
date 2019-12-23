@@ -129,7 +129,6 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #'     lag_income = keyed_lag(income),
 #'     lead_income = keyed_lead(income),
 #'     diff_income = keyed_difference(income),
-#'     rel_diff_income = 
 #'   )
 #'
 #' # take care of key and gaps
