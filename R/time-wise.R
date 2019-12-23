@@ -6,6 +6,7 @@
 #' @inheritParams dplyr::lag
 #' @param lag A positive integer indicating which lag to use.
 #' @param differences A positive integer indicating the order of the difference.
+#' @param relative A logical indicating whether the result is a relative difference or not.
 #'
 #' @return A numeric vector of the same length as `x`.
 #' @seealso [keyed_lag], [keyed_lead], [keyed_difference], [dplyr::lead] and [dplyr::lag]
@@ -17,6 +18,7 @@
 #' x <- cumsum(cumsum(1:10))
 #' difference(x, lag = 2)
 #' difference(x, differences = 2)
+#' difference(x, relative = TRUE)
 #' # Use order_by if data not already ordered (example from dplyr)
 #' library(dplyr, warn.conflicts = FALSE)
 #' tsbl <- tsibble(year = 2000:2005, value = (0:5)^2, index = year)
@@ -27,23 +29,41 @@
 #'
 #' right <- mutate(scrambled, diff = difference(value, order_by = year))
 #' arrange(right, year)
-difference <- function(x, lag = 1, differences = 1, default = NA,
-                       order_by = NULL) {
-  if (lag < 1 || differences < 1) {
-    abort("`lag` and `differences` must be positive integers.")
-  }
-  if (is_null(order_by)) {
-    diff_impl(x, lag = lag, differences = differences, default = default)
-  } else {
-    with_order(order_by, diff_impl, x,
-      lag = lag, differences = differences, default = default
-    )
-  }
+difference <- function(x, lag = 1L, differences = 1L, default = NA,
+                       order_by = NULL, relative = FALSE) {
+    if (lag < 1L || differences < 1L) {
+        abort("`lag` and `differences` must be positive integers.")
+    }
+    if (relative == TRUE && any(x == 0)) {
+        abort("Relative change is not defined when the reference value is 0.")
+    }
+    if (relative == TRUE && differences > 1L) {
+        warning("Relative `differences` greater than 1 are relative differences of relative differences")
+    }
+    if (lag * differences >= length(x)) {
+        abort("Number of observations must exceed `lag * differences`.")
+    }
+    if (is_null(order_by)) {
+        diff_impl(x, lag = lag, differences = differences, default = default, relative = relative)
+    } else {
+        with_order(order_by, diff_impl, x,
+                   lag = lag, differences = differences, default = default, relative = relative
+        )
+    }
 }
 
-diff_impl <- function(x, lag = 1, differences = 1, default = NA) {
-  diff_x <- diff(x, lag = lag, differences = differences)
-  vec_c(vec_repeat(default, lag * differences), diff_x)
+diff_impl <- function(x, lag = 1L, differences = 1L, default = NA, relative = FALSE) {
+    i1 <- -seq_len(lag)
+    if (relative == FALSE) {
+        for (i in seq_len(differences)) {
+            x <- x[i1] - x[-length(x):-(length(x)-lag+1L)]
+        }
+    } else {
+        for (i in seq_len(differences)) {
+            x <- (x[i1] - x[-length(x):-(length(x)-lag+1L)]) / abs(x[1L:(length(x)-lag)])
+        }
+    }
+    vec_c(vec_repeat(default, lag * differences), x)
 }
 
 lag_lead <- function(x, n = 1L, default = NA, order_by, op = c("lead", "lag")) {
@@ -108,7 +128,8 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by) {
 #'   mutate(
 #'     lag_income = keyed_lag(income),
 #'     lead_income = keyed_lead(income),
-#'     diff_income = keyed_difference(income)
+#'     diff_income = keyed_difference(income),
+#'     rel_diff_income = 
 #'   )
 #'
 #' # take care of key and gaps
@@ -142,11 +163,11 @@ keyed_lead <- function(select, n = 1L, default = NA) {
 
 #' @rdname keyed-vec
 #' @export
-keyed_difference <- function(select, lag = 1, differences = 1, default = NA) {
+keyed_difference <- function(select, lag = 1L, differences = 1L, default = NA, relative = FALSE) {
   mask <- peek_tsibble_mask()
   data <- mask$retrieve_data()
   abort_if_irregular(data)
   tunits <- default_time_units(interval(data))
   mask$map_keyed_chunks(!!enquo(select), data = data, 
-    tdifference, lag = lag * tunits, differences, default, index(data))
+    tdifference, lag = lag * tunits, differences, default, relative, index(data))
 }
