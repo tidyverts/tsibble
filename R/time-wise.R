@@ -90,7 +90,7 @@ tlead <- function(x, n = 1L, default = NA, order_by) {
   lag_lead(x, n, default, order_by, "lead")
 }
 
-tdifference <- function(x, lag = 1, differences = 1, default = NA, relative = FALSE, order_by) {
+tdifference <- function(x, lag = 1, differences = 1, default = NA, order_by, relative = FALSE) {
   if (lag < 1 || differences < 1) {
     abort("`lag` and `differences` must be positive integers.")
   }
@@ -132,8 +132,7 @@ tdifference <- function(x, lag = 1, differences = 1, default = NA, relative = FA
 #'   mutate(
 #'     lag_income = keyed_lag(income),
 #'     lead_income = keyed_lead(income),
-#'     diff_income = keyed_difference(income),
-#'     rel_diff_income = 
+#'     diff_income = keyed_difference(income)
 #'   )
 #'
 #' # take care of key and gaps
