@@ -10,8 +10,12 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 ## New features
 
 * Added `keyed_lag()`, `keyed_lead()`, and `keyed_difference()` that can be called in `mutate(<tbl_ts>)` to respect tsibble's key and gaps. This improves efficiency in computing time and memory size.
-* The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding for the same starting or ending time. (#147)
+* The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding to the same starting or ending time. (#147)
 * `select()` a tsibble now keeps both index and key by default. (#155)
+
+## Bug fixes
+
+* Fixed bug in `as.ts.tbl_ts()` for ignoring implicit missings. (#160)
 
 # tsibble 0.8.5
 

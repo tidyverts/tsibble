@@ -56,7 +56,7 @@ test_that("as.ts.tbl_ts()", {
   y <- as_tsibble(x)
   expect_equal(
     as.double(as.ts(y, frequency = freq)),
-    as.double(x[,c(3, 1, 4, 2)])
+    as.double(x)
   )
 })
 

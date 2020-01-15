@@ -22,6 +22,7 @@
 #' x2 <- as_tsibble(EuStockMarkets)
 #' head(as.ts(x2, frequency = 260))
 as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
+  stopifnot(!is_null(fill))
   value <- enquo(value)
   key_vars <- key(x)
   if (length(key_vars) > 1) {
@@ -41,49 +42,35 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
     }
   }
   idx <- index(x)
-  tsbl_sel <- select_tsibble(x, !!idx, !!!key_vars, !!value_var)
-  tsbl_sel <- arrange(tsbl_sel, !!!key_vars, !!idx)
-  if (is_empty(key_vars)) {
-    finalise_ts(tsbl_sel, index = idx, frequency = frequency)
-  } else {
-    mat_ts <- pivot_wider_ts(tsbl_sel, fill = fill)
-    finalise_ts(mat_ts, index = idx, frequency = frequency)
-  }
+  vars_fill <- vec_init(fill, n = length(value_var))
+  vars_fill[] <- fill
+  vars_fill <- set_names(vars_fill, nm = value_var)
+  tsbl_sel <- fill_gaps(
+    select_tsibble(x, !!idx, !!!key_vars, !!value_var),
+    !!!vars_fill, .full = TRUE)
+  pivot_wider_ts(tsbl_sel, frequency = frequency)
 }
 
-pivot_wider_ts <- function(data, fill = NA_real_) {
-  stopifnot(!is_null(fill))
+pivot_wider_ts <- function(data, frequency = NULL) {
   index <- index_var(data)
   df_rows <- data[[index]]
-  rows <- vec_sort(vec_unique(df_rows))
-  row_idx <- vec_match(df_rows, rows)
+  idx_time <- time(df_rows)
+  rows <- vec_unique(df_rows)
   key_rows <- key_rows(data)
-  col_idx <- rep(seq_along(key_rows), times = map_int(key_rows, length))
-  col_idx <- vec_slice(col_idx, vec_c(!!!key_rows))
-  val_idx <- new_data_frame(list(row = row_idx, col = col_idx))
-  values <- data[[measured_vars(data)]]
-  nrow <- vec_size(rows)
-  ncol <- vec_size(key_rows)
-  vec <- vec_init(fill, n = nrow * ncol)
-  vec[] <- fill
-  vec_slice(vec, val_idx$row + nrow * (val_idx$col - 1L)) <- values
-  res <- set_names(vec_init(list(), ncol), key_data(data)[[1]])
-  for (i in 1:ncol) {
-    res[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
+  mvars <- measured_vars(data)
+  if (has_length(mvars, 1)) {
+    res <- data[[mvars]]
+  } else {
+    res <- data[mvars]
   }
-  vec_cbind(!!index := rows, !!!res)
-}
-
-finalise_ts <- function(data, index, frequency = NULL) {
-  idx_time <- time(pull(data, !!index))
-  out <- select(as_tibble(data), -!!index)
-  if (NCOL(out) == 1) {
-    out <- out[[1]]
+  if (!is_empty(key_vars(data))) {
+    res <- matrix(res, ncol = vec_size(key_rows))
+    colnames(res) <- vec_unique(data[[key_vars(data)]])
   }
   if (is_null(frequency)) {
     frequency <- frequency(idx_time)
   }
-  ts(out, start(idx_time), frequency = frequency)
+  ts(res, start(idx_time), frequency = frequency)
 }
 
 #' @export
