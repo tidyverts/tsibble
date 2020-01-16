@@ -4,6 +4,7 @@
 \alias{yearweek}
 \alias{is_yearweek}
 \alias{is_53weeks}
+\alias{year.yearweek}
 \title{Represent year-week (ISO) starting on Monday}
 \usage{
 yearweek(x)
@@ -11,6 +12,8 @@ yearweek(x)
 is_yearweek(x)
 
 is_53weeks(year)
+
+\method{year}{yearweek}(x)
 }
 \arguments{
 \item{x}{Other object.}
