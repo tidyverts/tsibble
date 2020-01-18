@@ -17,6 +17,10 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 
 * Fixed bug in `as.ts.tbl_ts()` for ignoring implicit missings. (#160)
 
+# tsibble 0.8.6
+
+This is a maintenance release due to upcoming `tidyselect` changes.
+
 # tsibble 0.8.5
 
 This is a maintenance release for CRAN fixes.
