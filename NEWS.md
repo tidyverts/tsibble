@@ -1,3 +1,7 @@
+# tsibble 0.8.6
+
+This is a maintenance release due to upcoming `tidyselect` changes.
+
 # tsibble 0.8.5
 
 This is a maintenance release for CRAN fixes.
