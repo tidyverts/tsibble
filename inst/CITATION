@@ -4,8 +4,9 @@ citEntry(entry = "article",
   author = "Earo Wang and Dianne Cook and Rob J Hyndman",
   title = "A new tidy data structure to support exploration and modeling of temporal data",
   journal = "Journal of Computational and Graphical Statistics",
-  year = "2019",
+  year = "2020",
   doi = "10.1080/10618600.2019.1695624",
-  textVersion = "Wang, E, D Cook, and RJ Hyndman (2019). A new tidy data structure to support exploration and modeling of temporal data. Journal of Computational and Graphical Statistics. doi:10.1080/10618600.2019.1695624."
+  URL = "https://doi.org/10.1080/10618600.2019.1695624",
+  textVersion = "Wang, E, D Cook, and RJ Hyndman (2020). A new tidy data structure to support exploration and modeling of temporal data. Journal of Computational and Graphical Statistics. doi:10.1080/10618600.2019.1695624."
 )
 
