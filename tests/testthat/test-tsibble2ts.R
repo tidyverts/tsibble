@@ -101,3 +101,12 @@ test_that("guess_frequency() for one observation #124", {
   expect_identical(frequency(as.ts(one_obs)), 7)
   expect_identical(frequency(as.ts(one_obs, frequency = 12)), 12)
 })
+
+test_that("as.ts() automatically fills implicit missings #160", {
+  my_tsbl <- as_tsibble(data.frame(
+    date = structure(c(18058, 18059, 18060, 18061, 18064, 18065, 18066, 18067, 18072, 18073), class = "Date"),
+    val = rnorm(10)), index = date)
+  expect_identical(
+    as.ts(fill_gaps(my_tsbl), frequency = 365.25),
+    as.ts((my_tsbl), frequency = 365.25))
+})
