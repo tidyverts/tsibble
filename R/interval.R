@@ -40,8 +40,8 @@ interval_pull.POSIXt <- function(x) {
     hour = period$hour,
     minute = period$minute,
     second = period$second %/% 1,
-    millisecond = period$second %% 1 %/% 1e-3,
-    microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
+    millisecond = (period$second %% 1 * 1e3) %/% 1,
+    microsecond = (period$second %% 1 * 1e3) %% 1 * 1e3
   )
 }
 
