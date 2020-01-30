@@ -23,7 +23,7 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' \lifecycle{questioning}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.**
+#' using the [slider](https://davisvaughan.github.io/slider) package.**
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
@@ -133,7 +133,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' \lifecycle{questioning}
 #'
 #' The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.
+#' using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.
@@ -604,7 +604,7 @@ slider_msg <- function() {
 #' \lifecycle{questioning}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slide](https://davisvaughan.github.io/slide) package.**
+#' using the [slider](https://davisvaughan.github.io/slider) package.**
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
