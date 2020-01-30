@@ -144,7 +144,7 @@ names will be used if present.}
 \lifecycle{questioning}
 
 The rolling window family will be deprecated in the future. Please consider
-using the \href{https://davisvaughan.github.io/slide}{slide} package.
+using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
 Rolling window with overlapping observations:
 \itemize{

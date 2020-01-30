@@ -54,7 +54,7 @@ Only applies to \code{_dfr} variant.}
 \lifecycle{questioning}
 
 \strong{The rolling window family will be deprecated in the future. Please consider
-using the \href{https://davisvaughan.github.io/slide}{slide} package.}
+using the \href{https://davisvaughan.github.io/slider}{slider} package.}
 
 Tiling window without overlapping observations:
 \itemize{
