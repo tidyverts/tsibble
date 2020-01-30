@@ -31,7 +31,9 @@ has_gaps(harvest)
 has_gaps(harvest, .full = TRUE)
 }
 \seealso{
-Other implicit gaps handling: \code{\link{count_gaps}},
-  \code{\link{fill_gaps}}, \code{\link{scan_gaps}}
+Other implicit gaps handling: 
+\code{\link{count_gaps}()},
+\code{\link{fill_gaps}()},
+\code{\link{scan_gaps}()}
 }
 \concept{implicit gaps handling}

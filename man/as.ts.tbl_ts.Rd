@@ -4,8 +4,7 @@
 \alias{as.ts.tbl_ts}
 \title{Coerce a tsibble to a time series}
 \usage{
-\method{as.ts}{tbl_ts}(x, value, frequency = NULL, fill = NA_real_,
-  ...)
+\method{as.ts}{tbl_ts}(x, value, frequency = NULL, fill = NA_real_, ...)
 }
 \arguments{
 \item{x}{A \code{tbl_ts} object.}

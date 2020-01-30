@@ -5,11 +5,23 @@
 \alias{partial_pslider}
 \title{Partially splits the input to a list according to the rolling window size.}
 \usage{
-partial_slider(.x, .size = 1, .step = 1, .fill = NA,
-  .align = "right", .bind = FALSE)
+partial_slider(
+  .x,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .align = "right",
+  .bind = FALSE
+)
 
-partial_pslider(..., .size = 1, .step = 1, .fill = NA,
-  .align = "right", .bind = FALSE)
+partial_pslider(
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .align = "right",
+  .bind = FALSE
+)
 }
 \arguments{
 \item{.x}{An object to slide over.}

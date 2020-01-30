@@ -6,14 +6,42 @@
 \alias{slide_dfc}
 \title{Sliding window calculation}
 \usage{
-slide(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+slide(
+  .x,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 
-slide_dfr(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE, .id = NULL)
+slide_dfr(
+  .x,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE,
+  .id = NULL
+)
 
-slide_dfc(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
-  .partial = FALSE, .align = "right", .bind = FALSE)
+slide_dfc(
+  .x,
+  .f,
+  ...,
+  .size = 1,
+  .step = 1,
+  .fill = NA,
+  .partial = FALSE,
+  .align = "right",
+  .bind = FALSE
+)
 }
 \arguments{
 \item{.x}{An object to slide over.}
@@ -111,7 +139,8 @@ slide(lst, ~., .size = 2)
 \item \link{stretch} for expanding more observations
 }
 
-Other sliding window functions: \code{\link{slide2}}
+Other sliding window functions: 
+\code{\link{slide2}()}
 }
 \concept{sliding window functions}
 \alias{slide_lgl}

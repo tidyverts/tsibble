@@ -4,8 +4,14 @@
 \alias{build_tsibble_meta}
 \title{Low-level & high-performance constructor for a tsibble object}
 \usage{
-build_tsibble_meta(x, key_data = NULL, index, index2, ordered = NULL,
-  interval = NULL)
+build_tsibble_meta(
+  x,
+  key_data = NULL,
+  index,
+  index2,
+  ordered = NULL,
+  interval = NULL
+)
 }
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}

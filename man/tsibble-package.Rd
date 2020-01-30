@@ -52,7 +52,7 @@ The \link{interval} function returns the interval associated with the tsibble.
 "year". An unrecognisable time interval is labelled as "unit".
 \item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
 marked with \code{!}.
-\item Unknown: Not determined (\code{?}), if it's an empty tsibble, or one entry for
+\item Unknown: Not determined (\verb{?}), if it's an empty tsibble, or one entry for
 each key variable.
 }
 
@@ -72,7 +72,7 @@ When the interval cannot be obtained due to the mismatched index format, an
 error is issued.
 }
 
-The interval is invariant to subsetting, such as \code{filter()}, \code{slice()}, and \code{[.tbl_ts}.
+The interval is invariant to subsetting, such as \code{filter()}, \code{slice()}, and \verb{[.tbl_ts}.
 But if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.
@@ -81,7 +81,7 @@ time scales, the interval gets re-calculated.
 \section{Time zone}{
 
 Time zone corresponding to index will be displayed if index is \code{POSIXct}.
-\code{?} means that the obtained time zone is a zero-length character "".
+\verb{?} means that the obtained time zone is a zero-length character "".
 }
 
 \section{Print options}{
@@ -114,13 +114,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Earo Wang \email{earo.wang@gmail.com} (0000-0001-6448-5260)
+\strong{Maintainer}: Earo Wang \email{earo.wang@gmail.com} (\href{https://orcid.org/0000-0001-6448-5260}{ORCID})
 
 Authors:
 \itemize{
-  \item Di Cook (0000-0002-3813-7155) [thesis advisor]
-  \item Rob Hyndman (0000-0002-2140-5352) [thesis advisor]
-  \item Mitchell O'Hara-Wild (0000-0001-6729-7695)
+  \item Di Cook (\href{https://orcid.org/0000-0002-3813-7155}{ORCID}) [thesis advisor]
+  \item Rob Hyndman (\href{https://orcid.org/0000-0002-2140-5352}{ORCID}) [thesis advisor]
+  \item Mitchell O'Hara-Wild (\href{https://orcid.org/0000-0001-6729-7695}{ORCID})
 }
 
 }
