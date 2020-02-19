@@ -55,6 +55,10 @@ test_that("if it's a tsibble", {
   expect_true(is_regular(tsbl2))
 })
 
+test_that("logical i inputs #162", {
+  expect_equal(tsbl[c(TRUE, TRUE, rep(FALSE, 8)), ], tsbl[1:2, ])
+})
+
 dat_x <- tibble::tribble(
   ~date, ~group1, ~group2, ~value,
   ymd("2017-10-01"), "a", "x", 1,

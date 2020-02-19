@@ -25,7 +25,7 @@
   new_key <- cn[cn %in% key_vars(x)]
 
   if (!missing(i)) {
-    if (vec_duplicate_any(i) > 0 && is.numeric(i)) return(as_tibble(res))
+    if (is.numeric(i) && vec_duplicate_any(i) > 0) return(as_tibble(res))
   }
 
   not_tsibble <- !(index_var(x) %in% cn) || vec_size(res) > vec_size(x)
