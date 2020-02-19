@@ -146,7 +146,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
     idx <- index(tsbl)
   }
 
-  key <- use_id(unnested_data, !!enquo(key))
+  key <- eval_select(enquo(key), data = unnested_data)
   idx_chr <- as_string(idx)
   class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(

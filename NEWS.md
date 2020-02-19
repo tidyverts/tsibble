@@ -6,6 +6,8 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 
 * The "interval" class has been formally defined as a record type under the **vctrs** framework. The `new_interval()` uses new interface to create the interval and supports custom interval. This also leads to the change in the tsibble object.
 * Old tsibble objects will receive an error for "a corrupt tsibble".
+* Remove `is.tsibble()`.
+* Defunct `as.tsibble()`.
 
 ## New features
 
@@ -19,7 +21,7 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 
 # tsibble 0.8.6
 
-This is a maintenance release due to upcoming `tidyselect` changes.
+This is a maintenance release due to `tidyselect` v1.0.0 changes.
 
 # tsibble 0.8.5
 

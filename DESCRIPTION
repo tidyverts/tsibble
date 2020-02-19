@@ -39,7 +39,7 @@ Imports:
     R6,
     rlang (>= 0.4.2),
     tibble (>= 2.0.1),
-    tidyselect,
+    tidyselect (>= 1.0.0),
     vctrs (>= 0.2.2)
 Suggests: 
     covr,
@@ -60,11 +60,10 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes:
-    r-lib/vctrs,
     tidyverse/ggplot2
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2

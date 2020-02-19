@@ -256,8 +256,8 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     assert_key_data(key_data)
     key <- head(names(key_data), -1L)
   }
-  key_sym <- use_id(x, !!enquo(key))
-  key_vars <- syms(unname(key_sym))
+  key_pos <- eval_select(enquo(key), data = x)
+  key_vars <- syms(names(x)[key_pos])
 
   tbl <- as_tibble(x)
   # extract or pass the index var
@@ -528,7 +528,7 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 #' are_duplicated(harvest, key = fruit, index = year, from_last = TRUE)
 #' duplicates(harvest, key = fruit, index = year)
 is_duplicated <- function(data, key = NULL, index) {
-  key <- use_id(data, !!enquo(key))
+  key <- names(eval_select(enquo(key), data = data))
   index <- sym(validate_index(data, !!enquo(index)))
   duplicated_key_index(data, key = key, index = index)
 }
@@ -539,7 +539,7 @@ is_duplicated <- function(data, key = NULL, index) {
 #' @rdname duplicates
 #' @export
 are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
-  key <- use_id(data, !!enquo(key))
+  key <- names(eval_select(enquo(key), data = data))
   index <- sym(validate_index(data, !!enquo(index)))
   res <-
     mutate(
@@ -552,7 +552,7 @@ are_duplicated <- function(data, key = NULL, index, from_last = FALSE) {
 #' @rdname duplicates
 #' @export
 duplicates <- function(data, key = NULL, index) {
-  key <- use_id(data, !!enquo(key))
+  key <- names(eval_select(enquo(key), data = data))
   index <- sym(validate_index(data, !!enquo(index)))
   grped_df <- grouped_df(data, vars = key, drop = TRUE)
   ungroup(filter(grped_df, vec_duplicate_detect(!!index)))
