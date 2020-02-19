@@ -189,12 +189,21 @@
 <li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring implicit missings. (#160)</li>
 </ul>
 </div>
+<div id="deprecated-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deprecated-functions" class="anchor"></a>Deprecated functions</h2>
+<ul>
+<li>Deprecated window functions in favour of the {slider} package. (#143)</li>
+<li>Remove <code><a href="../reference/deprecated.html">is.tsibble()</a></code>.</li>
+<li>Defunct <code>as.tsibble()</code>.</li>
+</ul>
+</div>
 </div>
     <div id="tsibble-086" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-086" class="anchor"></a>tsibble 0.8.6<small> Unreleased </small>
+<a href="#tsibble-086" class="anchor"></a>tsibble 0.8.6<small> 2020-01-31 </small>
 </h1>
-<p>This is a maintenance release due to upcoming <code>tidyselect</code> changes.</p>
+<p>This is a maintenance release due to <code>tidyselect</code> v1.0.0 changes.</p>
 </div>
     <div id="tsibble-085" class="section level1">
 <h1 class="page-header">
@@ -257,7 +266,7 @@
 <code><a href="../reference/index-by.html">index_by()</a></code> allows for grouping index variable; and <code>group_by()</code> will throw out an error for grouping index.</li>
 <li>When creating a tsibble, a warning might be issued for mismatch between interval and index representation.</li>
 <li>Fixed bugs in <code>semi_join.tbl_ts()</code> and <code>anti_join.tbl_ts()</code> without suffix (#122).</li>
-<li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
+<li>Deprecate <code>as.tsibble()</code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>.</li>
 <li>Defunct <code>fill_na()</code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>.</li>
 <li>Defunct <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 </ul>
@@ -280,7 +289,7 @@
 <ul>
 <li>Deprecate <code>id()</code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
 <li>Deprecate of <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
-<li>Deprecate <code><a href="../reference/deprecated.html">as.tsibble()</a></code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
+<li>Deprecate <code>as.tsibble()</code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
 <li>Deprecate <code>gather = TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> in favour of <code>pivot_longer = TRUE</code>.</li>
 <li>Continue with deprecation of <code>fill_na()</code> in favour of <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, and will be defunct in the next release.</li>
 </ul>
@@ -466,7 +475,7 @@
 <li>Soft-deprecated <code>find_duplicates()</code>, in favour of <code><a href="../reference/duplicates.html">are_duplicated()</a></code>.</li>
 <li>Deprecated <code>case_na()</code>, and will be defunct in next release.</li>
 <li>Deprecated <code>split_by()</code>, which is under development as S3 generic in <strong>dplyr</strong>.</li>
-<li>Soft-deprecated <code><a href="../reference/deprecated.html">as.tsibble()</a></code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
+<li>Soft-deprecated <code>as.tsibble()</code>, following <code>as.tibble()</code> in <strong>tibble</strong>.</li>
 <li>Deprecated <code>.drop</code> argument in column-wise verbs, and suggested to use <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>.</li>
 <li>If <code>select()</code> doesn’t select index, it will inform users and automatically select it.</li>
 </ul>

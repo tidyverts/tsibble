@@ -6,7 +6,6 @@ articles:
   implicit-na: implicit-na.html
   intro-tsibble: intro-tsibble.html
   press: press.html
-  window: window.html
 urls:
   reference: https://tsibble.tidyverts.org/reference
   article: https://tsibble.tidyverts.org/articles

@@ -50,8 +50,7 @@
 
 <meta property="og:title" content="Sliding window calculation — slide" />
 <meta property="og:description" content="
-The rolling window family will be deprecated in the future. Please consider
-using the slider package.
+Please consider using the slider package.
 Rolling window with overlapping observations:
 slide() always returns a list.
 slide_lgl(), slide_int(), slide_dbl(), slide_chr() use the same
@@ -171,9 +170,8 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
-<p><strong>The rolling window family will be deprecated in the future. Please consider
-using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</strong></p>
+    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+<p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide()</code> always returns a list.</p></li>
 <li><p><code>slide_lgl()</code>, <code>slide_int()</code>, <code>slide_dbl()</code>, <code>slide_chr()</code> use the same
@@ -307,14 +305,7 @@ Window contains observations outside of the vector will return the value <code>.
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p><a href='future-slide.html'>future_slide</a> for parallel processing</p></li>
-<li><p><a href='tile.html'>tile</a> for tiling window without overlapping observations</p></li>
-<li><p><a href='stretch.html'>stretch</a> for expanding more observations</p></li>
-</ul>
-
-<p>Other sliding window functions: 
+    <div class='dont-index'><p>Other sliding window functions: 
 <code><a href='slide2.html'>slide2</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
