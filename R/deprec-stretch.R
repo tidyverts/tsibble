@@ -6,10 +6,9 @@ nrow2 <- function(.x) {
 #' Stretching window calculation
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
@@ -26,11 +25,6 @@ nrow2 <- function(.x) {
 #' @rdname stretch
 #' @export
 #' @family stretching window functions
-#' @seealso
-#' * [future_stretch] for stretching window in parallel
-#' * [slide] for sliding window with overlapping observations
-#' * [tile] for tiling window without overlapping observations
-#'
 #' @examples
 #' x <- 1:5
 #' stretch_dbl(x, mean, .step = 2)
@@ -88,10 +82,9 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' Stretching window calculation over multiple simultaneously
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.
@@ -243,6 +236,11 @@ pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' stretcher(df, .step = 2)
 #' pstretcher(df, df, .step = 2)
 stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
+  lifecycle::deprecate_warn("0.9.0", "stretch()", "slider::slide()")
+  stretcher2(.x, .step, .init, .bind)
+}
+
+stretcher2 <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   bad_window_function(.step)
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` must be a positive integer.")
@@ -291,7 +289,7 @@ pstretcher <- function(..., .step = 1, .init = 1, .bind = FALSE) { # parallel sl
 #' harvest %>%
 #'   stretch_tsibble()
 stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
-  lst_indices <- map(key_rows(.x), stretcher, .step = .step, .init = .init)
+  lst_indices <- map(key_rows(.x), stretcher2, .step = .step, .init = .init)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
@@ -330,10 +328,9 @@ incr <- function(.init, .step) {
 #' Stretching window in parallel
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
 #' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,

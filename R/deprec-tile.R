@@ -1,10 +1,9 @@
 #' Tiling window calculation
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
@@ -61,10 +60,9 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' Tiling window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.
@@ -76,9 +74,6 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @rdname tile2
 #' @export
 #' @family tiling window functions
-#' @seealso
-#' * [slide2] for sliding window with overlapping observations
-#' * [stretch2] for expanding more observations
 #' @examples
 #' x <- 1:5
 #' y <- 6:10
@@ -171,6 +166,11 @@ ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 #' ptiler(df, .size = 2)
 #' ptiler(df, df, .size = 2)
 tiler <- function(.x, .size = 1, .bind = FALSE) {
+  lifecycle::deprecate_warn("0.9.0", "tile()", "slider::slide()")
+  tiler2(.x, .size, .bind)
+}
+
+tiler2 <- function(.x, .size = 1, .bind = FALSE) {
   bad_window_function(.size)
   abort_not_lst(.x, .bind = .bind)
   len_x <- NROW(.x)
@@ -209,14 +209,14 @@ ptiler <- function(..., .size = 1, .bind = FALSE) { # parallel tiling
 #' harvest %>%
 #'   tile_tsibble(.size = 2)
 tile_tsibble <- function(.x, .size = 1, .id = ".id") {
-  lst_indices <- map(key_rows(.x), tiler, .size = .size)
+  lst_indices <- map(key_rows(.x), tiler2, .size = .size)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
 #' Tiling window in parallel
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
 #' using the [slider](https://davisvaughan.github.io/slider) package.**

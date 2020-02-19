@@ -20,10 +20,9 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' Sliding window calculation
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
@@ -50,10 +49,6 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
 #' @rdname slide
 #' @export
 #' @family sliding window functions
-#' @seealso
-#' * [future_slide] for parallel processing
-#' * [tile] for tiling window without overlapping observations
-#' * [stretch] for expanding more observations
 #' @details The `slide()` function attempts to tackle more general problems using
 #' the purrr-like syntax. For some specialist functions like `mean` and `sum`,
 #' you may like to check out for **RcppRoll** for faster performance.
@@ -130,10 +125,9 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' Sliding window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
-#' The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.
@@ -350,6 +344,11 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' slider(df, .size = 2)
 #' pslider(df, df, .size = 2)
 slider <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
+  lifecycle::deprecate_warn("0.9.0", "slide()", "slider::slide()")
+  slider2(.x, .size, .step, .bind)
+}
+
+slider2 <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
   .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
@@ -435,7 +434,7 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' harvest %>%
 #'   slide_tsibble(.size = 2)
 slide_tsibble <- function(.x, .size = 1, .step = 1, .id = ".id") {
-  lst_indices <- map(key_rows(.x), slider, .size = .size, .step = .step)
+  lst_indices <- map(key_rows(.x), slider2, .size = .size, .step = .step)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
@@ -601,7 +600,7 @@ slider_msg <- function() {
 #' Sliding window in parallel
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{soft-deprecated}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
 #' using the [slider](https://davisvaughan.github.io/slider) package.**
