@@ -40,7 +40,7 @@ Imports:
     rlang (>= 0.4.2),
     tibble (>= 2.0.1),
     tidyselect,
-    vctrs (>= 0.2.0.9007)
+    vctrs (>= 0.2.2)
 Suggests: 
     covr,
     furrr,
