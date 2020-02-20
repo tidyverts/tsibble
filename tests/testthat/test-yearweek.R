@@ -66,3 +66,7 @@ test_that("vec_c() for yearweek()", {
   # expect_identical(vec_c(x, dttm), rep(dttm, times = 2))
   expect_identical(vec_c(dates, x), c(dates, x))
 })
+
+test_that("year() for extracting correct year #161", {
+  expect_equal(year(yearweek("1992 W01")), 1992)
+})
