@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — as.tsibble • tsibble</title>
+<title>Deprecated functions — is.tsibble • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,14 +48,12 @@
 
 
 
-<meta property="og:title" content="Deprecated functions — as.tsibble" />
+<meta property="og:title" content="Deprecated functions — is.tsibble" />
 <meta property="og:description" content="
 
 is.tsibble() 
 time_unit() 
 units_since() 
-as.tsibble() 
-id() 
 
 " />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
@@ -123,16 +121,10 @@ id()
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -172,18 +164,14 @@ id()
     <div class="ref-description">
     
 <ul>
-<li><p><code>is.tsibble()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
+<li><p><code>is.tsibble()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
 <li><p><code>time_unit()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
 <li><p><code>units_since()</code> <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></li>
-<li><p><code>as.tsibble()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
-<li><p><code>id()</code> <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>as.tsibble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='fu'>is.tsibble</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>is.tsibble</span>(<span class='no'>x</span>)
 
 <span class='fu'>time_unit</span>(<span class='no'>x</span>)
 
@@ -197,12 +185,12 @@ id()
       <td><p>Other objects.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Variables passed to tsibble()/as_tsibble().</p></td>
-    </tr>
-    <tr>
       <th>.data</th>
       <td><p>A tsibble.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Variables passed to tsibble()/as_tsibble().</p></td>
     </tr>
     </table>
 

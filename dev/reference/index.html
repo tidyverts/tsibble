@@ -114,16 +114,10 @@
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -284,6 +278,12 @@
       <tr>
         
         <td>
+          <p><code><a href="keyed-vec.html">keyed_lag()</a></code> <code><a href="keyed-vec.html">keyed_lead()</a></code> <code><a href="keyed-vec.html">keyed_difference()</a></code> </p>
+        </td>
+        <td><p>Tsibble-aware lag, lead, and difference operations</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="difference.html">difference()</a></code> </p>
         </td>
         <td><p>Lagged differences</p></td>
@@ -316,7 +316,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> </p>
+          <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> <code><a href="year-week.html">year(<i>&lt;yearweek&gt;</i>)</a></code> </p>
         </td>
         <td><p>Represent year-week (ISO) starting on Monday</p></td>
       </tr><tr>
@@ -470,110 +470,6 @@
         </td>
         <td><p>Tidyverse methods for tsibble</p></td>
       </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-a-family-of-window-functions" class="hasAnchor"><a href="#section-a-family-of-window-functions" class="anchor"></a>A family of window functions</h2>
-          <p class="section-desc"><p>Map and roll over a list of elements. It features <code>purrr</code>-like interface and <code>furrr</code>-style parallel processing. <code><a href="../reference/slide_tsibble.html">slide_tsibble()</a></code>, <code><a href="../reference/tile_tsibble.html">tile_tsibble()</a></code>, <code><a href="../reference/stretch_tsibble.html">stretch_tsibble()</a></code> perform fast subsetting a tsibble by rolling rows.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="slide_tsibble.html">slide_tsibble()</a></code> </p>
-        </td>
-        <td><p>Perform sliding windows on a tsibble by row</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tile_tsibble.html">tile_tsibble()</a></code> </p>
-        </td>
-        <td><p>Perform tiling windows on a tsibble by row</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stretch_tsibble.html">stretch_tsibble()</a></code> </p>
-        </td>
-        <td><p>Perform stretching windows on a tsibble by row</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="slide.html">slide()</a></code> <code><a href="slide.html">slide_dfr()</a></code> <code><a href="slide.html">slide_dfc()</a></code> </p>
-        </td>
-        <td><p>Sliding window calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="slide2.html">slide2()</a></code> <code><a href="slide2.html">slide2_dfr()</a></code> <code><a href="slide2.html">slide2_dfc()</a></code> <code><a href="slide2.html">pslide()</a></code> <code><a href="slide2.html">pslide_dfr()</a></code> <code><a href="slide2.html">pslide_dfc()</a></code> </p>
-        </td>
-        <td><p>Sliding window calculation over multiple inputs simultaneously</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="slider.html">slider()</a></code> <code><a href="slider.html">pslider()</a></code> </p>
-        </td>
-        <td><p>Splits the input to a list according to the rolling window size.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="partial-slider.html">partial_slider()</a></code> <code><a href="partial-slider.html">partial_pslider()</a></code> </p>
-        </td>
-        <td><p>Partially splits the input to a list according to the rolling window size.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tile.html">tile()</a></code> <code><a href="tile.html">tile_dfr()</a></code> <code><a href="tile.html">tile_dfc()</a></code> </p>
-        </td>
-        <td><p>Tiling window calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tile2.html">tile2()</a></code> <code><a href="tile2.html">tile2_dfr()</a></code> <code><a href="tile2.html">tile2_dfc()</a></code> <code><a href="tile2.html">ptile()</a></code> <code><a href="tile2.html">ptile_dfr()</a></code> <code><a href="tile2.html">ptile_dfc()</a></code> </p>
-        </td>
-        <td><p>Tiling window calculation over multiple inputs simultaneously</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tiler.html">tiler()</a></code> <code><a href="tiler.html">ptiler()</a></code> </p>
-        </td>
-        <td><p>Splits the input to a list according to the tiling window size.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stretch.html">stretch()</a></code> <code><a href="stretch.html">stretch_dfr()</a></code> <code><a href="stretch.html">stretch_dfc()</a></code> </p>
-        </td>
-        <td><p>Stretching window calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stretch2.html">stretch2()</a></code> <code><a href="stretch2.html">stretch2_dfr()</a></code> <code><a href="stretch2.html">stretch2_dfc()</a></code> <code><a href="stretch2.html">pstretch()</a></code> <code><a href="stretch2.html">pstretch_dfr()</a></code> <code><a href="stretch2.html">pstretch_dfc()</a></code> </p>
-        </td>
-        <td><p>Stretching window calculation over multiple simultaneously</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stretcher.html">stretcher()</a></code> <code><a href="stretcher.html">pstretcher()</a></code> </p>
-        </td>
-        <td><p>Split the input to a list according to the stretching window size.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="future-slide.html">future_slide()</a></code> </p>
-        </td>
-        <td><p>Sliding window in parallel</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="future-stretch.html">future_stretch()</a></code> </p>
-        </td>
-        <td><p>Stretching window in parallel</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="future-tile.html">future_tile()</a></code> </p>
-        </td>
-        <td><p>Tiling window in parallel</p></td>
-      </tr>
     </tbody>
     </table>
   </div>
@@ -592,7 +488,6 @@
       <li><a href="#section-coerce-to-other-objects">Coerce to other objects</a></li>
       <li><a href="#section-data">Data</a></li>
       <li><a href="#section-tidyverse-methods">Tidyverse methods</a></li>
-      <li><a href="#section-a-family-of-window-functions">A family of window functions</a></li>
     </ul>
   </div>
 </div>

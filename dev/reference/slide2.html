@@ -50,8 +50,7 @@
 
 <meta property="og:title" content="Sliding window calculation over multiple inputs simultaneously — slide2" />
 <meta property="og:description" content="
-The rolling window family will be deprecated in the future. Please consider
-using the slide package.
+Please consider using the slider package.
 Rolling window with overlapping observations:
 slide2() and pslide() always returns a list.
 slide2_lgl(), slide2_int(), slide2_dbl(), slide2_chr() use the same
@@ -124,16 +123,10 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -171,9 +164,8 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
-<p>The rolling window family will be deprecated in the future. Please consider
-using the <a href='https://davisvaughan.github.io/slide'>slide</a> package.</p>
+    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+<p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide2()</code> and <code>pslide()</code> always returns a list.</p></li>
 <li><p><code>slide2_lgl()</code>, <code>slide2_int()</code>, <code>slide2_dbl()</code>, <code>slide2_chr()</code> use the same
@@ -463,24 +455,24 @@ names will be used if present.</p></td>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>slope</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>data</span>, ~ <span class='fu'>pslide_dbl</span>(<span class='no'>.</span>, <span class='no'>slope</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   group [2]</span><span>
-#&gt;    group           data   slope
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,3]&gt;&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> a            [8 × 3] </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 2</span><span> a            [8 × 3] -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> a            [8 × 3]  2.86  
-#&gt; </span><span style='color: #555555;'> 4</span><span> a            [8 × 3]  1.45  
-#&gt; </span><span style='color: #555555;'> 5</span><span> a            [8 × 3]  2.04  
-#&gt; </span><span style='color: #555555;'> 6</span><span> a            [8 × 3]  3.03  
-#&gt; </span><span style='color: #555555;'> 7</span><span> a            [8 × 3]  1.88  
-#&gt; </span><span style='color: #555555;'> 8</span><span> a            [8 × 3]  1.14  
-#&gt; </span><span style='color: #555555;'> 9</span><span> b            [8 × 3] </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'>10</span><span> b            [8 × 3]  0.401 
-#&gt; </span><span style='color: #555555;'>11</span><span> b            [8 × 3]  4.74  
-#&gt; </span><span style='color: #555555;'>12</span><span> b            [8 × 3]  0.745 
-#&gt; </span><span style='color: #555555;'>13</span><span> b            [8 × 3]  1.84  
-#&gt; </span><span style='color: #555555;'>14</span><span> b            [8 × 3]  2.64  
-#&gt; </span><span style='color: #555555;'>15</span><span> b            [8 × 3]  0.959 
-#&gt; </span><span style='color: #555555;'>16</span><span> b            [8 × 3]  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
+#&gt;    group data               slope
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'> 2</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.86  
+#&gt; </span><span style='color: #555555;'> 4</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.45  
+#&gt; </span><span style='color: #555555;'> 5</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.04  
+#&gt; </span><span style='color: #555555;'> 6</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  3.03  
+#&gt; </span><span style='color: #555555;'> 7</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.88  
+#&gt; </span><span style='color: #555555;'> 8</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.14  
+#&gt; </span><span style='color: #555555;'> 9</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'>10</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.401 
+#&gt; </span><span style='color: #555555;'>11</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  4.74  
+#&gt; </span><span style='color: #555555;'>12</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.745 
+#&gt; </span><span style='color: #555555;'>13</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.84  
+#&gt; </span><span style='color: #555555;'>14</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.64  
+#&gt; </span><span style='color: #555555;'>15</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.959 
+#&gt; </span><span style='color: #555555;'>16</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='year-month.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
