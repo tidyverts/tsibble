@@ -8,6 +8,9 @@ template:
       api_key: b7cf533da009fba6bd7a07d530e0824e
       index_name: tsibble
 
+development:
+  mode: auto
+
 authors:
   Earo Wang:
     href: https://earo.me
@@ -116,12 +119,8 @@ navbar:
       href: articles/intro-tsibble.html
     - text: Handle implicit missingess with tsibble
       href: articles/implicit-na.html
-    - text: Window functions
-      href: articles/window.html
   - text: FAQ
     href: articles/faq.html
-  - text: Press
-    href: articles/press.html
   - text: News
     href: news/index.html
   right:
