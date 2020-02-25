@@ -199,11 +199,17 @@ summarise.tbl_ts <- function(.data, ...) {
 
 #' @importFrom dplyr group_by_drop_default
 #' @export
-group_by.tbl_ts <- function(.data, ..., add = FALSE,
-                            .drop = group_by_drop_default(.data)) {
+group_by.tbl_ts <- function(.data, ..., .add = FALSE,
+                            .drop = group_by_drop_default(.data),
+                            add = FALSE) {
+  if (!missing(add)) {
+    warning("The `add` argument of `group_by()` is deprecated as of dplyr 1.0.0. Please use `.add`.")
+    .add <- add
+  }
+  
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
-  if (add) grp_vars <- union(group_vars(.data), grp_vars)
+  if (.add) grp_vars <- union(group_vars(.data), grp_vars)
   if (is_empty(grp_vars)) return(.data)
 
   index <- index_var(.data)
