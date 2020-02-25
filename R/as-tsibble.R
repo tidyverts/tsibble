@@ -325,7 +325,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (idx_lgl) {
-    x <- group_by(x, !!sym(index2), add = TRUE)
+    x <- group_by(x, !!sym(index2), .add = TRUE)
   }
   grp_data <- x %@% "groups"
   x <- new_tibble(x,
