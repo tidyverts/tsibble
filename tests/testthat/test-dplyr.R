@@ -17,7 +17,7 @@ test_that("group_by()", {
   expect_error(group_by(pedestrian, Date_Time, Sensor), "a grouping variable.")
   grped_df <- pedestrian %>%
     group_by(Date) %>%
-    group_by(Sensor, add = TRUE)
+    group_by(Sensor, .add = TRUE)
   expect_length(group_vars(grped_df), 2)
   expect_identical(group_vars(grped_df), c("Date", "Sensor"))
   grped_df <- pedestrian %>%
@@ -39,7 +39,7 @@ test_that("group_by()", {
 test_that("group_by_key()", {
   grped_t <- tourism %>%
     group_by(Purpose) %>%
-    group_by(Region, State, add = TRUE)
+    group_by(Region, State, .add = TRUE)
   expect_length(group_vars(grped_t), 3)
   expect_equal(group_by_key(tourism), grped_t)
 
