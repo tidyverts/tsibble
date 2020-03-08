@@ -61,3 +61,7 @@ test_that("vec_c() for yearquarter()", {
   # expect_identical(vec_c(yearquarter(x), dttm), rep(dttm, times = 2))
   expect_identical(vec_c(dates, yearquarter(x)), c(dates, yearquarter(x)))
 })
+
+test_that("format.yearquarter() with NA presence #170", {
+  expect_equal(format(c(yearquarter("1970 Q1"), NA)), c("1970 Q1", NA))
+})
