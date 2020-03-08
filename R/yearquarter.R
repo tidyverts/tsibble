@@ -282,6 +282,8 @@ format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   x <- as_date(x)
   qtr <- quarter(x)
   qtr_sub <- map_chr(qtr, function(z) gsub("%q", z, x = format))
+  qtr_sub[is.na(qtr_sub)] <- "-" # NA formats cause errors
+
   format.Date(x, format = qtr_sub)
 }
 
