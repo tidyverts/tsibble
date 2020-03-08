@@ -70,3 +70,7 @@ test_that("vec_c() for yearweek()", {
 test_that("year() for extracting correct year #161", {
   expect_equal(year(yearweek("1992 W01")), 1992)
 })
+
+test_that("format.yearweek() with NA presence", {
+  expect_equal(format(c(yearweek("1970 W1"), NA)), c("1970 W01", NA))
+})

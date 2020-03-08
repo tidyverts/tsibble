@@ -268,9 +268,12 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   mth <- month(x)
   wk <- strftime(x, "%V")
   shift_year <- period(1, units = "year")
-  x[mth == 1 & wk == "53"] <- x[mth == 1 & wk == "53"] - shift_year
-  x[mth == 12 & wk == "01"] <- x[mth == 12 & wk == "01"] + shift_year
+  lgl1 <- !is.na(x) & mth == 1 & wk == "53"
+  lgl2 <- !is.na(x) & mth == 12 & wk == "01"
+  x[lgl1] <- x[lgl1] - shift_year
+  x[lgl2] <- x[lgl2] + shift_year
   wk_sub <- map_chr(wk, ~ gsub("%V", ., x = format))
+  wk_sub[is.na(wk_sub)] <- "-"
   format.Date(x, format = wk_sub)
 }
 
