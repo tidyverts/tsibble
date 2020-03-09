@@ -1,4 +1,3 @@
-# nocov start
 replace_fn_names <- function(fn, replace = list(), ns = NULL) {
   rec_fn <- function(cl) {
     if (!is_call(cl)) {
@@ -15,7 +14,36 @@ replace_fn_names <- function(fn, replace = list(), ns = NULL) {
   body(fn) <- rec_fn(body(fn))
   fn
 }
-# nocov end
+
+check_valid_window <- function(.size, .align) {
+  if (is_even(.size) && .align %in% c("c", "centre", "center")) {
+    abort(sprintf(
+      "Can't use `.align = %s` for even window `.size`.\nPlease specify `.align = 'center-left'` or `.align = 'center-right'`.",
+      .align
+    ))
+  }
+}
+
+abort_not_lst <- function(.x, .bind = FALSE) {
+  if (!is.list(.x) && .bind) {
+    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
+  }
+}
+
+bad_window_function <- function(.size) {
+  if (!is_integerish(.size, n = 1)) {
+    abort("`.size` must be an integer.")
+  }
+  if (.size == 0) {
+    abort("`.size` must not be 0.")
+  }
+}
+
+bad_step_function <- function(.step) {
+  if (.step <= 0 || !is_integerish(.step, n = 1)) {
+    abort("`.step` must be a positive integer.")
+  }
+}
 
 #' Sliding window calculation
 #'
