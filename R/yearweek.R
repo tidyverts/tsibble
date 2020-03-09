@@ -165,6 +165,12 @@ vec_cast.yearweek.yearweek <- function(x, to, ...) {
   new_yearweek(x)
 }
 
+#' @method vec_cast.character yearweek
+#' @export
+vec_cast.character.yearweek <- function(x, to, ...) {
+  format(x)
+}
+
 #' @rdname vctrs-compat
 #' @keywords internal
 #' @method vec_ptype2 yearweek
