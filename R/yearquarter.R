@@ -178,7 +178,7 @@ vec_cast.yearquarter.yearquarter <- function(x, to, ...) {
 #' @method vec_cast.character yearquarter
 #' @export
 vec_cast.character.yearquarter <- function(x, to, ...) {
-  format.Date(x)
+  format(x)
 }
 
 #' @rdname vctrs-compat
