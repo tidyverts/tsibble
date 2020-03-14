@@ -78,6 +78,14 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' are sure that it's a valid input, specify `FALSE` to skip the checks.
 #' @param ... Other arguments passed on to individual methods.
 #'
+#' @inheritSection tsibble-package Index
+#'
+#' @inheritSection tsibble-package Key
+#'
+#' @inheritSection tsibble-package Interval
+#'
+#' @details A tsibble is sorted by its key first and index.
+#'
 #' @return A tsibble object.
 #' @rdname as-tsibble
 #' @seealso [tsibble]
@@ -93,16 +101,18 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 #' as_tsibble(tbl1, index = date)
 #'
 #' # coerce tibble to tsibble with a single variable for key
-#' # "date" is automatically considered as the index var, and "group" is the key
+#' # use `yearquarter()` to represent quarterly data
 #' tbl2 <- tibble(
-#'   mth = rep(yearmonth("2017-01") + 0:9, 3),
+#'   qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
 #'   group = rep(c("x", "y", "z"), each = 10),
 #'   value = rnorm(30)
 #' )
+#' # "qtr" is automatically considered as the index var
 #' as_tsibble(tbl2, key = group)
-#' as_tsibble(tbl2, key = group, index = mth)
+#' as_tsibble(tbl2, key = group, index = qtr)
 #'
 #' # create a tsibble with multiple variables for key
+#' # use `yearmonth()` to represent monthly data
 #' tbl3 <- tibble(
 #'   mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
 #'   xyz = rep(c("x", "y", "z"), each = 9),
