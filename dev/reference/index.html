@@ -221,7 +221,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
+          <h2 id="section-tsibble-verbs" class="hasAnchor"><a href="#section-tsibble-verbs" class="anchor"></a>Tsibble verbs</h2>
           <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
@@ -271,7 +271,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
+          <h2 id="section-vector-operations-in-tsibble-context" class="hasAnchor"><a href="#section-vector-operations-in-tsibble-context" class="anchor"></a>Vector operations in tsibble context</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -291,17 +291,11 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-index-classes" class="hasAnchor"><a href="#section-index-classes" class="anchor"></a>Index classes</h2>
+          <p class="section-desc"><p>New S3 classes to reprent year-week, year-month, and year-quarter.</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="time_in.html">time_in()</a></code> </p>
-        </td>
-        <td><p>If time falls in the ranges using compact expressions</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="year-month.html">yearmonth()</a></code> <code><a href="year-month.html">is_yearmonth()</a></code> </p>
@@ -319,6 +313,18 @@
           <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> <code><a href="year-week.html">year(<i>&lt;yearweek&gt;</i>)</a></code> </p>
         </td>
         <td><p>Represent year-week (ISO) starting on Monday</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tsibble-scales.html">scale_x_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_y_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_x_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_y_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_x_yearweek()</a></code> <code><a href="tsibble-scales.html">scale_y_yearweek()</a></code> </p>
+        </td>
+        <td><p>tsibble scales for ggplot2</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="time_in.html">time_in()</a></code> </p>
+        </td>
+        <td><p>If time falls in the ranges using compact expressions</p></td>
       </tr><tr>
         
         <td>
@@ -479,9 +485,9 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-and-append-to-a-tsibble">Create/coerce and append to a tsibble</a></li>
-      <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
-      <li><a href="#section-vector">Vector</a></li>
-      <li><a href="#section-time">Time</a></li>
+      <li><a href="#section-tsibble-verbs">Tsibble verbs</a></li>
+      <li><a href="#section-vector-operations-in-tsibble-context">Vector operations in tsibble context</a></li>
+      <li><a href="#section-index-classes">Index classes</a></li>
       <li><a href="#section-calendar">Calendar</a></li>
       <li><a href="#section-metadata">Metadata</a></li>
       <li><a href="#section-extend-tsibble">Extend tsibble</a></li>
