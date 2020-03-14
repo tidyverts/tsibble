@@ -121,4 +121,27 @@ test_that("fill()", {
       as_tibble() %>%
       fill(kilo, .direction = "down")
   )
+  expect_is(fill(harvest_fill, kilo), "tbl_ts")
+  expect_is(fill(group_by_key(harvest_fill), kilo), "grouped_ts")
+})
+
+test_that("drop_na() #173", {
+  expect_equal(
+    harvest_fill %>%
+      group_by_key() %>%
+      drop_na(),
+    harvest_fill %>%
+      as_tibble() %>%
+      group_by(fruit) %>%
+      drop_na()
+  )
+  expect_equal(
+    harvest_fill %>%
+      drop_na(),
+    harvest_fill %>%
+      as_tibble() %>%
+      drop_na()
+  )
+  expect_is(drop_na(harvest_fill), "tbl_ts")
+  expect_is(drop_na(group_by_key(harvest_fill)), "grouped_ts")
 })

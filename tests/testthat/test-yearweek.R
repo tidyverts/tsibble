@@ -5,6 +5,7 @@ dates <- seq(as.Date("1969-12-29"), length.out = 3, by = "1 week") + 0
 dttm <- as.POSIXct(dates, tz = "UTC")
 
 test_that("is_53weeks()", {
+  expect_equal(is_53weeks(NULL), FALSE)
   expect_equal(is_53weeks(2015:2016), c(TRUE, FALSE))
   expect_error(is_53weeks("2015"), "positive integers.")
 })
@@ -14,6 +15,7 @@ test_that("input types for yearweek()", {
   expect_identical(yearweek(dttm), x)
   expect_identical(yearweek(dates), x)
   expect_identical(yearweek(x), x)
+  expect_identical(yearweek(), x[0])
 })
 
 test_that("character type for yearweek()", {
@@ -38,6 +40,7 @@ test_that("vec_arith() for yearweek()", {
   expect_identical(x + 1:3, yearweek(c("1970 W02", "1970 W04", "1970 W06")))
   expect_identical(x - 1, yearweek(c("1969 W52", "1970 W01", "1970 W02")))
   expect_identical(+ x, x)
+  expect_identical(- x, x)
   expect_identical(1 + x, x + 1)
   expect_identical(x - x, as.difftime(rep(0, 3), units = "weeks"))
   expect_error(x + x, class = "vctrs_error_incompatible_op")
@@ -52,21 +55,26 @@ test_that("vec_compare() for yearweek()", {
 
 test_that("vec_cast() for yearweek()", {
   expect_identical(as.Date(x), dates)
+  expect_identical(as.character(x), format(x))
   expect_identical(vec_cast(x, to = double()), as.double(x))
   expect_identical(vec_cast(x, to = new_date()), dates)
-  # expect_identical(as.POSIXct(x), dttm)
+  expect_identical(vec_data(as.POSIXct(x)), vec_data(dttm))
   expect_identical(as.POSIXlt(x), as.POSIXlt(dttm, tz = "UTC"))
-  # expect_identical(vec_cast(x, to = new_datetime()), dttm)
+  expect_identical(vec_data(vec_cast(x, to = new_datetime())), vec_data(dttm))
 })
 
 test_that("vec_c() for yearweek()", {
   expect_identical(vec_c(dates, x), rep(dates, times = 2))
   expect_identical(vec_c(x, dates), rep(dates, times = 2))
-  # expect_identical(vec_c(dttm, x), rep(dttm, times = 2))
-  # expect_identical(vec_c(x, dttm), rep(dttm, times = 2))
+  expect_identical(vec_data(vec_c(dttm, x)), vec_data(rep(dttm, times = 2)))
+  expect_identical(vec_data(vec_c(x, dttm)), vec_data(rep(dttm, times = 2)))
   expect_identical(vec_c(dates, x), c(dates, x))
 })
 
 test_that("year() for extracting correct year #161", {
   expect_equal(year(yearweek("1992 W01")), 1992)
+})
+
+test_that("format.yearweek() with NA presence", {
+  expect_equal(format(c(yearweek("1970 W1"), NA)), c("1970 W01", NA))
 })
