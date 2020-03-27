@@ -15,11 +15,11 @@ update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
     retain_tsibble(new, key = key(old), index = index(old))
     validate <- FALSE
   }
-  restore_index_class(build_tsibble(new,
+  build_tsibble(new,
     key = !!key_vars(old), index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate,
     .drop = is_key_dropped(old)
-  ), old)
+  )
 }
 
 # preserve key data
@@ -36,20 +36,10 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
   new_key <- right_join(group_data(grped_df), old_key, by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
   new_key[[".rows"]][null_lgl] <- list(integer())
-  restore_index_class(build_tsibble(new,
+  build_tsibble(new,
     key_data = new_key, index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate
-  ), old)
-}
-
-restore_index_class <- function(new, old) {
-  old_idx <- index2_var(old)
-  new_idx <- index2_var(new)
-  class(new[[new_idx]]) <- class(old[[old_idx]])
-  if (!identical(interval(new), interval(old))) {
-    attr(new, "interval") <- interval_pull(new[[new_idx]])
-  }
-  new
+  )
 }
 
 rename_tsibble <- function(.data, ...) {

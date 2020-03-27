@@ -31,16 +31,16 @@ Depends:
     R (>= 3.2.0)
 Imports: 
     anytime (>= 0.3.1),
-    dplyr (>= 0.8.1),
+    dplyr (>= 0.8.99),
     ellipsis (>= 0.3.0),
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
     R6,
     rlang (>= 0.4.2),
-    tibble (>= 2.0.1),
+    tibble (>= 2.99),
     tidyselect (>= 1.0.0),
-    vctrs (>= 0.2.2)
+    vctrs (>= 0.2.99)
 Suggests: 
     covr,
     furrr,
@@ -59,6 +59,10 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
+Remotes:
+    tidyverse/dplyr,
+    tidyverse/tibble,
+    r-lib/vctrs
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
