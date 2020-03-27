@@ -61,6 +61,7 @@ RdMacros:
     lifecycle
 Remotes:
     tidyverse/ggplot2
+    tidyverse/dplyr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
