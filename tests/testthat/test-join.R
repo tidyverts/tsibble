@@ -1,5 +1,3 @@
-context("dplyr join family in tsibble")
-
 x <- tsibble(
   year = rep(2016:2017, 2), grp = rep(letters[1:2], each = 2),
   key = grp, index = year

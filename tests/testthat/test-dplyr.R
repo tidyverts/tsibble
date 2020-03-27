@@ -1,6 +1,5 @@
 library(lubridate)
 library(dplyr)
-context("dplyr verbs for tsibble")
 
 pedestrian <- pedestrian %>%
   group_by(Sensor) %>%
@@ -133,8 +132,6 @@ test_that("filter() and slice()", {
   expect_identical(slice(pedestrian, c(1, NA)), slice(pedestrian, 1L))
   expect_identical(slice(pedestrian, c(1, NA, 100000)), slice(pedestrian, 1L))
   expect_warning(slice(pedestrian, 3:1), warn_msg)
-  expect_error(slice(pedestrian, c(3, 3)), "Duplicated")
-  expect_error(slice(pedestrian, 3, 3), "only accepts one expression.")
   expect_identical(slice(pedestrian, -(1:10)), pedestrian[-(1:10), ])
   expect_identical(slice(pedestrian, -(10:1)), slice(pedestrian, -(1:10)))
 })

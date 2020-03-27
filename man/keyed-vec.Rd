@@ -15,10 +15,10 @@ keyed_difference(select, lag = 1, differences = 1, default = NA)
 \arguments{
 \item{select}{Unquoted variable.}
 
-\item{n}{a positive integer of length 1, giving the number of positions to
+\item{n}{Positive integer of length 1, giving the number of positions to
 lead or lag by}
 
-\item{default}{value used for non-existent rows. Defaults to \code{NA}.}
+\item{default}{Value used for non-existent rows. Defaults to \code{NA}.}
 
 \item{lag}{A positive integer indicating which lag to use.}
 

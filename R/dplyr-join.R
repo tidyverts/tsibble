@@ -30,13 +30,3 @@ inner_join.tbl_ts <- left_join.tbl_ts
 
 #' @export
 full_join.tbl_ts <- left_join.tbl_ts
-
-#' @export
-semi_join.tbl_ts <- function(x, ...) {
-  update_meta(NextMethod(), x,
-    ordered = is_ordered(x), interval = is_regular(x), validate = FALSE
-  )
-}
-
-#' @export
-anti_join.tbl_ts <- semi_join.tbl_ts

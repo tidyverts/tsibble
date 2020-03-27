@@ -4,14 +4,16 @@
 \name{pedestrian}
 \alias{pedestrian}
 \title{Pedestrian counts in the city of Melbourne}
-\format{A tsibble with 66,071 rows and 5 variables:
+\format{
+A tsibble with 66,071 rows and 5 variables:
 \itemize{
 \item \strong{Sensor}: Sensor names (key)
 \item \strong{Date_Time}: Date time when the pedestrian counts are recorded (index)
 \item \strong{Date}: Date when the pedestrian counts are recorded
 \item \strong{Time}: Hour associated with Date_Time
 \item \strong{Counts}: Hourly pedestrian counts
-}}
+}
+}
 \usage{
 pedestrian
 }

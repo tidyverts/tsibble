@@ -398,7 +398,7 @@ validate_index <- function(data, index) {
 
 validate_order <- function(x) {
   if (is_bare_logical(x)) {
-    x
+    any(x)
   } else if (is_bare_numeric(x) && all(x < 0)) {
     TRUE
   } else if ((vec_duplicate_any(x)) > 0) {

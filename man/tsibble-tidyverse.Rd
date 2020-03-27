@@ -3,8 +3,6 @@
 \name{tsibble-tidyverse}
 \alias{tsibble-tidyverse}
 \alias{arrange.tbl_ts}
-\alias{filter.tbl_ts}
-\alias{slice.tbl_ts}
 \alias{select.tbl_ts}
 \alias{rename.tbl_ts}
 \alias{mutate.tbl_ts}
@@ -14,10 +12,6 @@
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
-
-\method{filter}{tbl_ts}(.data, ..., .preserve = FALSE)
-
-\method{slice}{tbl_ts}(.data, ..., .preserve = FALSE)
 
 \method{select}{tbl_ts}(.data, ...)
 
@@ -33,9 +27,6 @@
 \item{.data, data}{A \code{tbl_ts}.}
 
 \item{...}{Same arguments accepted as its tidyverse generic.}
-
-\item{.preserve}{when \code{FALSE} (the default), the grouping structure
-is recalculated based on the resulting data, otherwise it is kept as is.}
 }
 \description{
 \itemize{

@@ -23,29 +23,12 @@
 #' @rdname tsibble-tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  arr_data <- NextMethod()
+  arr_data <- arrange(as_tibble(.data), ...)
   update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }
 
 #' @export
 arrange.grouped_ts <- arrange.tbl_ts
-
-#' @rdname tsibble-tidyverse
-filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  by_row(filter, .data, ordered = is_ordered(.data), ..., .preserve = .preserve)
-}
-
-#' @rdname tsibble-tidyverse
-#' @export
-slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  pos <- enquos(...)
-  if (length(pos) > 1) {
-    abort("`slice()` only accepts one expression.")
-  }
-  pos_df <- summarise(as_tibble(.data), !!".pos_col" := list2(!!pos[[1]]))
-  ascending <- all(map_lgl(pos_df[[".pos_col"]], validate_order))
-  by_row(slice, .data, ordered = ascending, ..., .preserve = .preserve)
-}
 
 #' @rdname tsibble-tidyverse
 #' @export

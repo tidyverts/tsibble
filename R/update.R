@@ -1,13 +1,3 @@
-by_row <- function(FUN, .data, ordered = TRUE, ..., .preserve = FALSE) {
-  FUN <- match.fun(FUN, descend = FALSE)
-  tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
-  if (.preserve) {
-    update_meta2(tbl, .data, ordered = ordered, interval = interval(.data))
-  } else {
-    update_meta(tbl, .data, ordered = ordered, interval = interval(.data))
-  }
-}
-
 # put new data with existing attributes (update key)
 update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
                         validate = FALSE) {
@@ -33,9 +23,9 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
     ))
   }
   grped_df <- grouped_df(new, key_vars(old), drop = key_drop_default(old))
-  new_key <- right_join(group_data(grped_df), old_key, by = key_vars(old))
+  new_key <- left_join(old_key, group_data(grped_df), by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
-  new_key[[".rows"]][null_lgl] <- list(integer())
+  new_key[[".rows"]][null_lgl] <- list_of(integer())
   build_tsibble(new,
     key_data = new_key, index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate
