@@ -202,11 +202,7 @@ summarise.tbl_ts <- function(.data, ...) {
 group_by.tbl_ts <- function(.data, ..., .add = FALSE,
                             .drop = group_by_drop_default(.data),
                             add = FALSE) {
-  if (!missing(add)) {
-    warning("The `add` argument of `group_by()` is deprecated as of dplyr 1.0.0. Please use `.add`.")
-    .add <- add
-  }
-  
+
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (.add) grp_vars <- union(group_vars(.data), grp_vars)
