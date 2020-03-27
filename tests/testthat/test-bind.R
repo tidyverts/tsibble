@@ -1,5 +1,3 @@
-context("bind tsibble")
-
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
 dat_x <- tibble(
   date = rep(idx_day, 2),

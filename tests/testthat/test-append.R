@@ -1,5 +1,4 @@
-context("append_row() for a tsibble")
-
+library(dplyr)
 library(lubridate)
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
 dat_x <- tibble(

@@ -20,7 +20,7 @@ rbind.tbl_ts <- function(...) {
     abort("Can't row-bind tsibbles of different regularities.")
   }
   x <- vec_rbind(...)
-  x <- retain_tsibble(x, syms(lst_key[[1]]), sym(lst_index[[1]]))
+  x <- retain_tsibble(x, lst_key[[1]], sym(lst_index[[1]]))
   build_tsibble(x,
     key = !!lst_key[[1]], index = !!lst_index[[1]],
     ordered = NULL, interval = lgl_reg[1], validate = FALSE

@@ -4,7 +4,7 @@
 #' likely to be issued.
 #' * `slice()`: if row numbers are not in ascending order, a warning is likely to
 #' be issued.
-#' * `select()`: keeps the variables you mention as well as the index.
+#' * `select()`: keeps the variables you mention as well as the index and key.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` reduces a sequence of values over time instead of a single summary,
 #' as well as dropping empty keys/groups.
@@ -77,48 +77,6 @@ rename.tbl_ts <- function(.data, ...) {
 
 #' @export
 rename.grouped_ts <- rename.tbl_ts
-
-#' @rdname tsibble-tidyverse
-#' @export
-mutate.tbl_ts <- function(.data, ...) {
-  mask <- TsibbleDataMask$new(.data)
-  .data <- mask$retrieve_data()
-  mut_data <- mutate(as_tibble(.data), ...)
-
-  idx_chr <- index_var(.data)
-  if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
-    abort(sprintf(paste_inline(
-      "Column `%s` (index) can't be removed for a tsibble.",
-      "Do you need `as_tibble()` to work with data frame?"
-    ), idx_chr))
-  }
-
-  lst_quos <- enquos(..., .named = TRUE)
-  vec_names <- names(lst_quos)
-  # either key or index is present in ...
-  # suggests that the operations are done on these variables
-  # validate = TRUE to check if tsibble still holds
-  val_idx <- has_index(vec_names, .data)
-  if (val_idx) interval <- TRUE else interval <- interval(.data)
-
-  val_key <- has_any_key(vec_names, .data)
-  if (val_key) {
-    key_vars <- setdiff(names(mut_data), measured_vars(.data))
-    .data <- remove_key(.data, key_vars)
-  }
-
-  validate <- val_idx || val_key
-  if (validate) {
-    mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
-  }
-  build_tsibble(
-    mut_data,
-    key = !!key_vars(.data),
-    key_data = if (val_key) NULL else key_data(.data), index = !!index(.data),
-    index2 = !!index2(.data), ordered = is_ordered(.data), interval = interval,
-    validate = FALSE, .drop = is_key_dropped(.data)
-  )
-}
 
 #' @rdname tsibble-tidyverse
 #' @export

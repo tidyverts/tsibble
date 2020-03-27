@@ -5,7 +5,6 @@
 \alias{arrange.tbl_ts}
 \alias{select.tbl_ts}
 \alias{rename.tbl_ts}
-\alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
 \alias{gather.tbl_ts}
@@ -16,8 +15,6 @@
 \method{select}{tbl_ts}(.data, ...)
 
 \method{rename}{tbl_ts}(.data, ...)
-
-\method{mutate}{tbl_ts}(.data, ...)
 
 \method{transmute}{tbl_ts}(.data, ...)
 
@@ -34,7 +31,7 @@
 likely to be issued.
 \item \code{slice()}: if row numbers are not in ascending order, a warning is likely to
 be issued.
-\item \code{select()}: keeps the variables you mention as well as the index.
+\item \code{select()}: keeps the variables you mention as well as the index and key.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.
