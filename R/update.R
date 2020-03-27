@@ -2,7 +2,7 @@
 update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
                         validate = FALSE) {
   if (validate) {
-    retain_tsibble(new, key = key(old), index = index(old))
+    retain_tsibble(new, key = key_vars(old), index = index(old))
     validate <- FALSE
   }
   build_tsibble(new,

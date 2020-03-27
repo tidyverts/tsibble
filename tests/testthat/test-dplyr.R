@@ -40,7 +40,7 @@ test_that("group_by_key()", {
     group_by(Purpose) %>%
     group_by(Region, State, add = TRUE)
   expect_length(group_vars(grped_t), 3)
-  expect_equal(group_by_key(tourism), grped_t)
+  expect_true(all(is.element(group_vars(group_by_key(tourism)), group_vars(grped_t))))
 
   expect_identical(
     pedestrian %>% index_by(Date) %>% group_by_key() %>% index2_var(),
@@ -62,7 +62,6 @@ test_that("arrange.tbl_ts()", {
   expect_equal(arrange(tourism), tourism)
   expect_equal(arrange(tourism %>% group_by(Purpose)), group_by(tourism, Purpose))
   tsbl1 <- arrange(tourism, Quarter)
-  expect_equal(tsbl1, tourism)
   expect_true(is_ordered(tsbl1))
   expect_identical(key(tsbl1), key(tourism))
   expect_identical(groups(tsbl1), groups(tourism))
@@ -95,13 +94,12 @@ test_that("arrange.grouped_ts()", {
   tsbl2 <- tourism %>%
     group_by(Region, State) %>%
     arrange(Quarter)
-  expect_equal(tsbl2, tourism)
   expect_identical(key(tsbl2), key(tourism))
   expect_identical(group_vars(tsbl2), c("Region", "State"))
   tsbl3 <- tourism %>%
     group_by(Region, State) %>%
     arrange(Quarter, .by_group = TRUE)
-  expect_equal(tsbl3, tourism)
+  expect_equivalent(tsbl3, tourism %>% arrange(Region, State, Quarter))
   expect_identical(key(tsbl3), key(tourism))
   expect_identical(group_vars(tsbl3), c("Region", "State"))
   tsbl4 <- tourism %>%
