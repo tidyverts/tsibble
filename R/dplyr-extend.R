@@ -55,3 +55,14 @@ dplyr_col_modify.tbl_ts <- function(data, cols) {
 
 #' @export
 dplyr_col_modify.grouped_ts <- dplyr_col_modify.tbl_ts
+
+#' @export
+dplyr_reconstruct.tbl_ts <- function(data, template) {
+  validate_tsibble(data, key_vars(template), index_var(template))
+  update_meta(data, template,
+    ordered = is_ordered(template), interval = is_regular(template),
+    validate = FALSE)
+}
+
+#' @export
+dplyr_reconstruct.grouped_ts <- dplyr_reconstruct.tbl_ts
