@@ -92,9 +92,9 @@ index_by.tbl_ts <- function(.data, ...) {
   }
   idx2_data <- ungrp <- new_data_frame(.data)
   if (is_empty(exprs)) {
-    idx2 <- index(.data)
+    idx2 <- index_var(.data)
   } else {
-    idx2 <- sym(names(quos_auto_name(exprs)))
+    idx2 <- names(quos_auto_name(exprs))
     expr <- exprs[[1]]
     expr_f <- quo_get_expr(expr)
     if (is_formula(expr_f)) { # lambda expression
@@ -104,12 +104,16 @@ index_by.tbl_ts <- function(.data, ...) {
       idx2_data <- mutate(ungrp, !!idx2 := !!expr)
     }
   }
-  tbl <- group_by(idx2_data, !!!groups(.data), !!idx2, .drop = FALSE)
+  tbl <- grouped_df(idx2_data, union(group_vars(.data), idx2), drop = FALSE)
   build_tsibble(tbl,
     key_data = key_data(.data), index = !!idx, index2 = !!idx2,
     ordered = is_ordered(.data), interval = interval(.data),
     validate = FALSE
   )
+}
+
+index_by_prepare <- function(.data, ...) {
+  
 }
 
 mutate_index2 <- function(.data, .vars) {
