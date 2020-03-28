@@ -129,6 +129,9 @@ summarise.tbl_ts <- function(.data, ...) {
   )
 }
 
+#' @export
+summarise.grouped_ts <- summarise.tbl_ts
+
 #' @importFrom dplyr group_by_drop_default
 #' @export
 group_by.tbl_ts <- function(.data, ..., add = FALSE,
@@ -195,12 +198,4 @@ ungroup.tbl_ts <- function(x, ...) {
 
 distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
-}
-
-group_by_drop_default <- function(.tbl) {
-  tryCatch({
-    !identical(attr(group_data(.tbl), ".drop"), FALSE)
-  }, error = function(e) {
-    TRUE
-  })
 }

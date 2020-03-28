@@ -198,7 +198,7 @@ test_that("index_by() with pedestrian", {
   expect_named(ped_sum2, c("Sensor", "yrmth2", "Total"))
   expect_identical(index(ped_sum2), rlang::sym("yrmth2"))
   expect_identical(index2(ped_sum2), index(ped_sum2))
-  expect_identical(groups(ped_sum2), NULL)
+  expect_identical(groups(ped_sum2), list())
   ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)

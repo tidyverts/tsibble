@@ -234,7 +234,7 @@ test_that("summarise()", {
   tsbl2 <- tourism %>%
     group_by(Region, State, Purpose) %>%
     summarise(Trips = sum(Trips))
-  expect_equal(tourism, tsbl2)
+  expect_equivalent(tourism %>% select(names(tsbl2)), tsbl2)
   expect_identical(key(tourism), key(tsbl2))
   expect_identical(index(tourism), index(tsbl2))
   expect_identical(is_regular(tourism), is_regular(tsbl2))
@@ -242,8 +242,6 @@ test_that("summarise()", {
     group_by(Region, State, Purpose) %>%
     summarise(Obs = n())
   expect_identical(nrow(tsbl3), nrow(tourism))
-
-  expect_error(pedestrian %>% summarise(month = yearmonth(Date_Time)))
 })
 
 tsbl <- tsibble(
