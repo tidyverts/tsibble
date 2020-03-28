@@ -1,4 +1,3 @@
-context("tidyr verbs for tsibble")
 library(tidyr)
 
 tsbl <- tsibble(
@@ -27,7 +26,7 @@ test_that("spread()", {
   out_grp <- tsbl %>%
     group_by(group) %>%
     spread(key = group, value = value)
-  expect_equal(groups(out_grp), NULL)
+  expect_equal(groups(out_grp), list())
   out2 <- tourism %>%
     spread(key = Purpose, value = Trips)
   expect_equal(key_vars(out2), c("Region", "State"))
@@ -105,7 +104,7 @@ harvest <- tsibble(
 harvest_fill <- fill_gaps(harvest, .full = TRUE)
 
 test_that("fill()", {
-  expect_equal(
+  expect_equivalent(
     harvest_fill %>%
       group_by_key() %>%
       fill(kilo, .direction = "down"),
@@ -114,7 +113,7 @@ test_that("fill()", {
       group_by(fruit) %>%
       fill(kilo, .direction = "down")
   )
-  expect_equal(
+  expect_equivalent(
     harvest_fill %>%
       fill(kilo, .direction = "down"),
     harvest_fill %>%
@@ -126,7 +125,7 @@ test_that("fill()", {
 })
 
 test_that("drop_na() #173", {
-  expect_equal(
+  expect_equivalent(
     harvest_fill %>%
       group_by_key() %>%
       drop_na(),
@@ -135,7 +134,7 @@ test_that("drop_na() #173", {
       group_by(fruit) %>%
       drop_na()
   )
-  expect_equal(
+  expect_equivalent(
     harvest_fill %>%
       drop_na(),
     harvest_fill %>%
