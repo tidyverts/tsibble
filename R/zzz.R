@@ -10,6 +10,8 @@
   s3_register("tidyr::spread", "tbl_ts")
   s3_register("tidyr::fill", "grouped_ts")
   s3_register("tidyr::fill", "tbl_ts")
+  s3_register("tidyr::drop_na", "tbl_ts")
+  s3_register("tidyr::drop_na", "grouped_ts")
   s3_register("tidyr::nest", "tbl_ts")
   s3_register("tidyr::nest", "grouped_ts")
   s3_register("tidyr::unnest", "tbl_ts")

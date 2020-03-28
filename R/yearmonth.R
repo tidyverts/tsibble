@@ -73,7 +73,7 @@ yearmonth.yearmonth <- function(x) {
 
 #' @export
 yearmonth.numeric <- function(x) {
-  new_yearquarter(0) + x
+  new_yearmonth(0) + x
 }
 
 #' @export
@@ -153,6 +153,12 @@ vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
 #' @export
 vec_cast.yearmonth.yearmonth <- function(x, to, ...) {
   new_yearmonth(x)
+}
+
+#' @method vec_cast.character yearmonth
+#' @export
+vec_cast.character.yearmonth <- function(x, to, ...) {
+  format(x)
 }
 
 #' @rdname vctrs-compat

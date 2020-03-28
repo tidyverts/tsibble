@@ -10,6 +10,9 @@ test_that("input types for yearquarter()", {
   expect_identical(yearquarter(dates), expected)
   expect_identical(yearquarter(expected), expected)
   expect_identical(yearquarter(x), expected)
+  expect_identical(yearquarter(), expected[0])
+  expect_identical(yearquarter(c("2019-07-01", "2018-01-01")), expected)
+  expect_identical(yearquarter(c(198, 192)), expected)
 })
 
 test_that("yearquarter() for characters #107", {
@@ -33,6 +36,7 @@ test_that("vec_arith() for yearquarter()", {
   expect_identical(yearquarter(x) + 1:2, yearquarter(c("2019 Q4", "2018 Q3")))
   expect_identical(yearquarter(x) - 1, yearquarter(c("2019 Q2", "2017 Q4")))
   expect_identical(+ yearquarter(x), yearquarter(x))
+  expect_identical(- yearquarter(x), yearquarter(x))
   expect_identical(1 + yearquarter(x), yearquarter(x) + 1)
   expect_equal(yearquarter(x) - yearquarter(x), rep(0, 2))
   expect_error(yearquarter(x) + yearquarter(x), class = "vctrs_error_incompatible_op")
@@ -47,17 +51,28 @@ test_that("vec_compare() for yearquarter()", {
 
 test_that("vec_cast() for yearquarter()", {
   expect_identical(as.Date(yearquarter(x)), dates)
+  expect_identical(as.character(yearquarter(x)), x)
   expect_identical(vec_cast(yearquarter(x), to = double()), as.double(yearquarter(x)))
   expect_identical(vec_cast(yearquarter(x), to = new_date()), dates)
-  # expect_identical(as.POSIXct(yearquarter(x)), dttm)
+  expect_identical(vec_data(as.POSIXct(yearquarter(x))), vec_data(dttm))
   expect_identical(as.POSIXlt(yearquarter(x)), as.POSIXlt(dttm))
-  # expect_identical(vec_cast(yearquarter(x), to = new_datetime()), dttm)
+  expect_identical(
+    vec_data(vec_cast(yearquarter(x), to = new_datetime())), 
+    vec_data(dttm))
 })
 
 test_that("vec_c() for yearquarter()", {
   expect_identical(vec_c(dates, yearquarter(x)), rep(dates, times = 2))
   expect_identical(vec_c(yearquarter(x), dates), rep(dates, times = 2))
-  # expect_identical(vec_c(dttm, yearquarter(x)), rep(dttm, times = 2))
-  # expect_identical(vec_c(yearquarter(x), dttm), rep(dttm, times = 2))
+  expect_identical(
+    vec_data(vec_c(dttm, yearquarter(x))),
+    vec_data(rep(dttm, times = 2)))
+  expect_identical(
+    vec_data(vec_c(yearquarter(x), dttm)),
+    vec_data(rep(dttm, times = 2)))
   expect_identical(vec_c(dates, yearquarter(x)), c(dates, yearquarter(x)))
+})
+
+test_that("format.yearquarter() with NA presence #170", {
+  expect_equal(format(c(yearquarter("1970 Q1"), NA)), c("1970 Q1", NA))
 })

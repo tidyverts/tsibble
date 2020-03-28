@@ -40,7 +40,7 @@ reference:
     - new_data
     - is_duplicated
 
-- title: Time-based verbs
+- title: Tsibble verbs
   desc: >
     Verbs that manipulate data in time-based context. Inspect implicit time
     gaps with `has_gaps()`, `scan_gaps()`, `count_gaps()` and `fill_gaps()`. 
@@ -56,15 +56,18 @@ reference:
     - group_by_key
     - filter_index
 
-- title: Vector
+- title: Vector operations in tsibble context
   contents:
     - keyed_lag
     - difference
 
-- title: Time
+- title: Index classes
+  desc: >
+    New S3 classes to reprent year-week, year-month, and year-quarter.
   contents:
-    - time_in
     - starts_with("year")
+    - starts_with("scale")
+    - time_in
     - guess_frequency
 
 - title: Calendar

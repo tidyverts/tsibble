@@ -11,7 +11,6 @@
 #' )
 #' (stocksm <- stocks %>% gather(stock, price, -time))
 #' stocksm %>% spread(stock, price)
-
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))
@@ -166,3 +165,10 @@ fill.tbl_ts <- function(data, ..., .direction = c("down", "up")) {
 }
 
 fill.grouped_ts <- fill.tbl_ts
+
+drop_na.tbl_ts <- function(data, ...) {
+  res <- NextMethod()
+  update_meta2(res, data, ordered = is_ordered(data), interval = interval(data))
+}
+
+drop_na.grouped_ts <- drop_na.tbl_ts

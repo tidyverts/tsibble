@@ -63,6 +63,77 @@ A tsibble object.
 \description{
 \lifecycle{stable}
 }
+\details{
+A tsibble is sorted by its key first and index.
+}
+\section{Index}{
+
+An extensive range of indices are supported by tsibble: native time classes in R
+(such as \code{Date}, \code{POSIXct}, and \code{difftime}) and tsibble's new additions
+(such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}). Some commonly-used classes
+have built-in support too, including \code{ordered}, \code{hms::hms}, \code{zoo::yearmon},
+\code{zoo::yearqtr}, and \code{nanotime}.
+
+For a \code{tbl_ts} of regular interval, a choice of index representation has to
+be made. For example, a monthly data should correspond to time index created
+by \link{yearmonth} or \code{zoo::yearmon}, instead of \code{Date} or \code{POSIXct}. Because
+months in a year ensures the regularity, 12 months every year. However, if
+using \code{Date}, a month containing days ranges from 28 to 31 days, which results
+in irregular time space. This is also applicable to year-week and year-quarter.
+
+Tsibble supports arbitrary index classes, as long as they can be ordered from
+past to future. To support a custom class, you need to define \code{\link[=index_valid]{index_valid()}}
+for the class and calculate the interval through \code{\link[=interval_pull]{interval_pull()}}.
+}
+
+\section{Key}{
+
+Key variable(s) together with the index uniquely identifies each record:
+\itemize{
+\item Empty: an implicit variable. \code{NULL} resulting in a univariate time series.
+\item A single variable: For example, \code{data(pedestrian)} use the bare \code{Sensor} as
+the key.
+\item Multiple variables: For example, Declare \code{key = c(Region, State, Purpose)}
+for \code{data(tourism)}.
+Key can be created in conjunction with tidy selectors like \code{starts_with()}.
+}
+}
+
+\section{Interval}{
+
+The \link{interval} function returns the interval associated with the tsibble.
+\itemize{
+\item Regular: the value and its time unit including "nanosecond", "microsecond",
+"millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
+"year". An unrecognisable time interval is labelled as "unit".
+\item Irregular: \code{as_tsibble(regular = FALSE)} gives the irregular tsibble. It is
+marked with \code{!}.
+\item Unknown: Not determined (\verb{?}), if it's an empty tsibble, or one entry for
+each key variable.
+}
+
+An interval is obtained based on the corresponding index representation:
+\itemize{
+\item integerish numerics between 1582 and 2499: "year" (\code{Y}). Note the year of
+1582 saw the beginning of the Gregorian Calendar switch.
+\item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
+\item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
+\item \code{yearweek}: "week" (\code{W})
+\item \code{Date}: "day" (\code{D})
+\item \code{difftime}: "week" (\code{W}), "day" (D), "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})
+\item \code{POSIXt}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
+\item \code{nanotime}: "nanosecond" (\code{ns})
+\item other numerics &\code{ordered} (ordered factor): "unit"
+When the interval cannot be obtained due to the mismatched index format, an
+error is issued.
+}
+
+The interval is invariant to subsetting, such as \code{filter()}, \code{slice()}, and \verb{[.tbl_ts}.
+But if the result is an empty tsibble, the interval is always unknown.
+When joining a tsibble with other data sources and aggregating to different
+time scales, the interval gets re-calculated.
+}
+
 \examples{
 # coerce tibble to tsibble w/o a key
 tbl1 <- tibble(
@@ -74,16 +145,18 @@ as_tsibble(tbl1)
 as_tsibble(tbl1, index = date)
 
 # coerce tibble to tsibble with a single variable for key
-# "date" is automatically considered as the index var, and "group" is the key
+# use `yearquarter()` to represent quarterly data
 tbl2 <- tibble(
-  mth = rep(yearmonth("2017-01") + 0:9, 3),
+  qtr = rep(yearquarter("2010 Q1") + 0:9, 3),
   group = rep(c("x", "y", "z"), each = 10),
   value = rnorm(30)
 )
+# "qtr" is automatically considered as the index var
 as_tsibble(tbl2, key = group)
-as_tsibble(tbl2, key = group, index = mth)
+as_tsibble(tbl2, key = group, index = qtr)
 
 # create a tsibble with multiple variables for key
+# use `yearmonth()` to represent monthly data
 tbl3 <- tibble(
   mth = rep(yearmonth("2010 Jan") + 0:8, each = 3),
   xyz = rep(c("x", "y", "z"), each = 9),
