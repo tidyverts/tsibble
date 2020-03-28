@@ -33,37 +33,10 @@ arrange.grouped_ts <- arrange.tbl_ts
 #' @rdname tsibble-tidyverse
 #' @export
 select.tbl_ts <- function(.data, ...) {
-  lst_quos <- enquos(...)
-
-  vec_exprs <- map_chr(lst_quos, function(x) expr_deparse(quo_get_expr(x)))
-  idx_chr <- index_var(.data)
-  idx_rm <- paste0("-", idx_chr)
-  if (idx_rm %in% vec_exprs) {
-    warn(sprintf(paste_inline(
-      "Column `%s` (index) can't be removed for a tsibble.",
-      "Do you need `as_tibble()` to work with data frame?"
-    ), idx_chr))
-  }
-  key_chr <- key_vars(.data)
-  key_rm <- key_chr[paste0("-", key_chr) %in% vec_exprs]
-  if (has_length(key_rm)) {
-    key_ref <- select(key_data(.data), !!!key_rm)
-    if (vec_size(key_ref) == 1) {
-      .data <- remove_key(.data, setdiff(key_chr, key_rm))
-    } else {
-      warn(sprintf(paste_inline(
-        "Columns `%s` (key) can't be removed for the tsibble.",
-        "Do you need `update_tsibble()` to update key?"
-      ), comma(key_rm)))
-    }
-  }
-
-  named <- list_is_named(lst_quos)
-  .data <- rename(.data, !!!lst_quos[named])
-
-  lst_env <- map(lst_quos, quo_get_env)[named]
-  lst_quos[named] <- as_quosures(names(lst_quos)[named], env = lst_env)
-  select_tsibble(.data, !!!lst_quos)
+  loc <- eval_select(expr(c(...)), .data)
+  data_cp <- .data
+  names(data_cp)[loc] <- names(loc)
+  bind_tsibble(NextMethod(), data_cp, position = "after")
 }
 
 #' @export
@@ -72,17 +45,11 @@ select.grouped_ts <- select.tbl_ts
 #' @rdname tsibble-tidyverse
 #' @export
 transmute.tbl_ts <- function(.data, ...) {
-  lst_quos <- enquos(..., .named = TRUE)
-  mut_data <- mutate(.data, !!!lst_quos)
-  select_tsibble(mut_data, !!!names(lst_quos))
+  bind_tsibble(NextMethod(), .data, position = "before")
 }
 
 #' @export
-transmute.grouped_ts <- function(.data, ...) {
-  res <- NextMethod()
-  tsbl <- select_tsibble(ungroup(.data))
-  bind_cols(tsbl, res[, !(names(res) %in% names(tsbl))])
-}
+transmute.grouped_ts <- transmute.tbl_ts
 
 #' @rdname tsibble-tidyverse
 #' @examples
@@ -135,9 +102,7 @@ summarise.grouped_ts <- summarise.tbl_ts
 #' @importFrom dplyr group_by_drop_default
 #' @export
 group_by.tbl_ts <- function(.data, ..., .add = FALSE,
-                            .drop = group_by_drop_default(.data),
-                            add = FALSE) {
-
+                            .drop = group_by_drop_default(.data)) {
   lst_quos <- enquos(..., .named = TRUE)
   grp_vars <- names(lst_quos)
   if (.add) grp_vars <- union(group_vars(.data), grp_vars)

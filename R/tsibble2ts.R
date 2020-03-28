@@ -41,7 +41,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
   vars_fill <- vec_repeat(fill, length(value_var))
   vars_fill <- set_names(vars_fill, nm = value_var)
   tsbl_sel <- fill_gaps(
-    select_tsibble(x, !!idx, !!!key_vars, !!value_var),
+    select(x, !!idx, !!!key_vars, !!value_var),
     !!!vars_fill, .full = TRUE)
   pivot_wider_ts(tsbl_sel, frequency = frequency)
 }

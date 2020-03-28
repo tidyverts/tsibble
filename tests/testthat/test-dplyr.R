@@ -148,8 +148,6 @@ test_that("filter() and slice() with .preserve = TRUE", {
 })
 
 test_that("select() and rename()", {
-  expect_warning(select(tourism, -Quarter), "can't be removed")
-  expect_warning(select(tourism, -State), "can't be removed")
   expect_is(select(tourism, Region:Purpose), "tbl_ts")
   expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
@@ -167,7 +165,7 @@ test_that("select() and rename()", {
   expect_named(select(tourism_mel, -Region), cols[-2])
   expect_named(select(tourism_mel, -State), cols[-3])
   expect_named(select(tourism_mel, -Purpose), cols[-4])
-  expect_named(select(tourism_mel, Trips), cols)
+  expect_named(select(tourism_mel, Trips), c("Trips", "Quarter"))
   expect_named(select(tourism_mel, -Region, -State, -Purpose), cols[c(1, 5)])
 })
 

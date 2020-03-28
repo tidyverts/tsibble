@@ -72,29 +72,22 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
 #' @export
 `names<-.grouped_ts` <- `names<-.tbl_ts`
 
-select_tsibble <- function(data, ...) {
-  sel_vars <- vars_select(names(data), ...)
-
-  key_chr <- key_vars(data)
-  sel_key <- sel_vars[vec_in(sel_vars, key_chr)]
-  all_key <- all(is.element(key_chr, sel_key))
-  if (!all_key) {
-    sel_vars <- c(setdiff(key_chr, sel_key), sel_vars)
+bind_tsibble <- function(data, template, position = c("before", "after")) {
+  data <- as_tibble(data)
+  data_cols <- names(data)
+  key_vars <- setdiff(key_vars(template), data_cols)
+  key_data <- select(key_data(template), key_vars)
+  if (vec_size(key_data) == 1) {
+    template <- remove_key(template, setdiff(key_vars(template), key_vars))
   }
-
-  idx_chr <- index_var(data)
-  sel_idx <- vec_in(idx_chr, sel_vars)
-  if (!sel_idx) {
-    sel_vars <- c(idx_chr, sel_vars)
+  tsbl_vars <- setdiff(c(index_var(template), key_vars(template)), data_cols)
+  if (position == "before") {
+    res <- bind_cols(template[tsbl_vars], data)
+  } else {
+    res <- bind_cols(data, template[tsbl_vars])
   }
-
-  sel_data <- select(as_tibble(data), !!!sel_vars)
-
-  build_tsibble(sel_data,
-    key = !!key_chr, key_data = key_data(data),
-    index = !!index(data), index2 = !!index2(data),
-    ordered = is_ordered(data), interval = interval(data),
-    validate = FALSE, .drop = is_key_dropped(data))
+  update_meta(res, template,
+    ordered = is_ordered(template), interval = interval(template))
 }
 
 has_index <- function(j, x) {
