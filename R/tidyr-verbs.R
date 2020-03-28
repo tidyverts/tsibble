@@ -23,7 +23,7 @@ gather.tbl_ts <- function(data, key = "key", value = "value", ...,
       c(quo_name(key), quo_name(value), quo_name(index(data)))
     )
   }
-  vars <- vars_select(names(data), !!!exprs)
+  vars <- names(eval_select(expr(c(...)), data))
   data <- mutate_index2(data, vars)
   tbl <- tidyr::gather(
     as_tibble(data),

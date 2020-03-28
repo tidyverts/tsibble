@@ -85,7 +85,7 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 
   if (!is_empty(lst_exprs)) { # any replacement
     # error handling
-    vars_select(measured_vars(.data), !!!names(lst_exprs))
+    eval_select(names(lst_exprs), .data)
     replaced_df <- ungroup(summarise(as_tibble(.data), !!!lst_exprs))
     by_name <- intersect(names(gap_data), names(replaced_df))
     if (is_empty(by_name)) { # by value
