@@ -1,25 +1,15 @@
-by_row <- function(FUN, .data, ordered = TRUE, ..., .preserve = FALSE) {
-  FUN <- match.fun(FUN, descend = FALSE)
-  tbl <- FUN(as_tibble(.data), ..., .preserve = .preserve)
-  if (.preserve) {
-    update_meta2(tbl, .data, ordered = ordered, interval = interval(.data))
-  } else {
-    update_meta(tbl, .data, ordered = ordered, interval = interval(.data))
-  }
-}
-
 # put new data with existing attributes (update key)
 update_meta <- function(new, old, ordered = TRUE, interval = TRUE,
                         validate = FALSE) {
   if (validate) {
-    retain_tsibble(new, key = key(old), index = index(old))
+    retain_tsibble(new, key = key_vars(old), index = index(old))
     validate <- FALSE
   }
-  restore_index_class(build_tsibble(new,
+  build_tsibble(new,
     key = !!key_vars(old), index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate,
     .drop = is_key_dropped(old)
-  ), old)
+  )
 }
 
 # preserve key data
@@ -33,51 +23,54 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
     ))
   }
   grped_df <- grouped_df(new, key_vars(old), drop = key_drop_default(old))
-  new_key <- right_join(group_data(grped_df), old_key, by = key_vars(old))
+  new_key <- left_join(old_key, group_data(grped_df), by = key_vars(old))
   null_lgl <- map_lgl(new_key[[".rows"]], is_null)
-  new_key[[".rows"]][null_lgl] <- list(integer())
-  restore_index_class(build_tsibble(new,
+  new_key[[".rows"]][null_lgl] <- list_of(integer())
+  build_tsibble(new,
     key_data = new_key, index = !!index(old), index2 = !!index2(old),
     ordered = ordered, interval = interval, validate = validate
-  ), old)
+  )
 }
 
-restore_index_class <- function(new, old) {
-  old_idx <- index2_var(old)
-  new_idx <- index2_var(new)
-  class(new[[new_idx]]) <- class(old[[old_idx]])
-  if (!identical(interval(new), interval(old))) {
-    attr(new, "interval") <- interval_pull(new[[new_idx]])
+#' @export
+`names<-.tbl_ts` <- function(x, value) {
+  data <- as_tibble(x)
+  names(data) <- value
+  x_names <- names(x)
+
+  idx <- index_var(x)
+  idx_loc <- match(intersect(idx, x_names), x_names)
+  idx_name <- value[idx_loc]
+  
+  idx2 <- index2_var(x)
+  idx2_loc <- match(intersect(idx2, x_names), x_names)
+  idx2_name <- value[idx2_loc]
+
+  key <- key_data(x)
+  key_loc <- match(intersect(names(key), x_names), x_names)
+  key_names <- c(value[key_loc], ".rows")
+  if (!identical(key_names, names(key))) {
+    names(key) <- c(value[key_loc], ".rows")
   }
-  new
-}
 
-rename_tsibble <- function(.data, ...) {
-  names_dat <- names(.data)
-  lst_quos <- enquos(...)
-  if (is_empty(lst_quos)) return(.data)
-
-  val_vars <- vars_rename(names_dat, !!!lst_quos)
-  old_idx <- index_var(.data)
-  old_idx2 <- index2_var(.data)
-  old_key <- key_vars(.data)
-  old_grp <- group_vars(.data)
-
-  new_names <- names(val_vars)
-  new_idx <- new_names[old_idx == val_vars]
-  attr(new_idx, "ordered") <- is_ordered(.data)
-  new_idx2 <- new_names[old_idx2 == val_vars]
-  new_key <- new_names[val_vars %in% old_key]
-  new_grp <- new_names[val_vars %in% old_grp]
-  attr(.data, "index") <- new_idx
-  attr(.data, "index2") <- new_idx2
-  names(attr(.data, "key")) <- c(new_key, ".rows")
-  if (!is_empty(old_grp)) {
-    names(attr(.data, "groups")) <- c(new_grp, ".rows")
+  if (is_grouped_ts(x)) {
+    groups <- group_data(x)
+    group_loc <- match(intersect(names(groups), x_names), x_names)
+    group_names <- c(value[group_loc], ".rows")
+    if (!identical(group_names, names(groups))) {
+      names(groups) <- c(value[group_loc], ".rows")
+    }
   }
-  names(.data) <- new_names
-  .data
+
+  build_tsibble_meta(data,
+    key_data = key,
+    index = idx_name, index2 = idx2_name, ordered = is_ordered(x),
+    interval = interval(x)
+  )
 }
+
+#' @export
+`names<-.grouped_ts` <- `names<-.tbl_ts`
 
 select_tsibble <- function(data, ...) {
   sel_vars <- vars_select(names(data), ...)

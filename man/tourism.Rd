@@ -4,7 +4,8 @@
 \name{tourism}
 \alias{tourism}
 \title{Australian domestic overnight trips}
-\format{A tsibble with 23,408 rows and 5 variables:
+\format{
+A tsibble with 23,408 rows and 5 variables:
 \itemize{
 \item \strong{Quarter}: Year quarter (index)
 \item \strong{Region}: The tourism regions are formed through the aggregation of
@@ -20,7 +21,8 @@ needs
 \item "Other reason"
 }
 \item \strong{Trips}: Overnight trips in thousands
-}}
+}
+}
 \usage{
 tourism
 }

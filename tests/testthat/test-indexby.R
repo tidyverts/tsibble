@@ -1,5 +1,3 @@
-context("index_by() + verbs")
-
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:01"),
   ymd_hms("2017-01-01 00:00:05"),
@@ -104,11 +102,11 @@ test_that("index_by() with group_by()", {
     index_by(yrmth = yearmonth(date)) %>%
     summarise(value = sum(value))
   expect_is(res1, "tbl_ts")
-  expect_equal(
+  expect_equivalent(
     as_tibble(res1),
     tibble(
-      yrmth = yearmonth(ymd("2017-01-01")),
       group = c("a", "b"),
+      yrmth = yearmonth(ymd("2017-01-01")),
       value = c(5L, 10L)
     )
   )
@@ -185,7 +183,7 @@ test_that("index_by() with pedestrian", {
   ped_ref <- as_tibble(pedestrian) %>%
     group_by(yrmth = yearmonth(Date)) %>%
     filter(Date_Time == min(Date_Time))
-  expect_equal(ped_fil, ped_ref)
+  expect_equivalent(ped_fil, ped_ref)
   ped_ren <- ped_fil %>%
     rename(yrmth2 = yrmth)
   expect_identical(index2(ped_ren), rlang::sym("yrmth2"))
@@ -200,7 +198,7 @@ test_that("index_by() with pedestrian", {
   expect_named(ped_sum2, c("Sensor", "yrmth2", "Total"))
   expect_identical(index(ped_sum2), rlang::sym("yrmth2"))
   expect_identical(index2(ped_sum2), index(ped_sum2))
-  expect_identical(groups(ped_sum2), NULL)
+  expect_identical(groups(ped_sum2), list())
   ped_mut <- pedestrian %>%
     index_by(Date) %>%
     mutate(ttl = sum(Count), prop = Count / ttl)

@@ -1,5 +1,3 @@
-context("interval")
-
 test_that("multiple arguments matching", {
   expect_error(
     new_interval(y = 1, m = 2, mi = 3, second = 4),

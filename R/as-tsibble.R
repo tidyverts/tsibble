@@ -398,7 +398,7 @@ validate_index <- function(data, index) {
 
 validate_order <- function(x) {
   if (is_bare_logical(x)) {
-    x
+    any(x)
   } else if (is_bare_numeric(x) && all(x < 0)) {
     TRUE
   } else if ((vec_duplicate_any(x)) > 0) {
@@ -491,15 +491,12 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #' @examples
 #' as_tibble(pedestrian)
 as_tibble.tbl_ts <- function(x, ...) {
-  x <- remove_tsibble_attrs(x)
-  class(x) <- c("tbl_df", "tbl", "data.frame")
-  x
+  new_tibble(vec_data(x), nrow = nrow(x))
 }
 
 as_tibble.grouped_ts <- function(x, ...) {
-  x <- remove_tsibble_attrs(x)
-  class(x) <- c("grouped_df", "tbl_df", "tbl", "data.frame")
-  x
+  new_tibble(vec_data(x), nrow = nrow(x),
+    groups = group_data(x), class = "grouped_df")
 }
 
 as_tibble.grouped_df <- function(x, ...) {
@@ -509,8 +506,7 @@ as_tibble.grouped_df <- function(x, ...) {
 #' @rdname as-tibble
 #' @export
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
-  x <- as_tibble(x)
-  NextMethod()
+  new_data_frame(vec_data(x), n = nrow(x))
 }
 
 #' Test duplicated observations determined by key and index variables
@@ -576,12 +572,6 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
   }
   res <- summarise(keyed_data, !!"zzz" := vec_duplicate_any(!!sym(index)))
   any(res$zzz > 0)
-}
-
-remove_tsibble_attrs <- function(x) {
-  attr(x, "key") <- attr(x, "index") <- attr(x, "index2") <- NULL
-  attr(x, "interval") <- NULL
-  x
 }
 
 assert_key_data <- function(x) {

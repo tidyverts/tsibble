@@ -1,5 +1,3 @@
-context("filter_index()")
-
 x <- c("2016", "2016-10", "2016-12-09")
 
 test_that("class: Date", {

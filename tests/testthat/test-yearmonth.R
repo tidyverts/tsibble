@@ -1,5 +1,3 @@
-context("yearmonth()")
-
 x <- c("2019 Sep", "2018 Jan")
 dates <- as.Date(c("2019-09-01", "2018-01-01"))
 dttm <- as.POSIXct(c("2019-09-01", "2018-01-01"), tz = "UTC")

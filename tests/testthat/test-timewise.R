@@ -1,5 +1,3 @@
-context("time-wise functions")
-
 test_that("difference() input", {
   expect_error(difference(1:10, lag = -1), "must be positive integers.")
   expect_error(difference(1:10, differences = -1), "must be positive integers.")
@@ -32,18 +30,18 @@ tsbl <- tsibble(mdate = yrmth, income = vals, index = mdate)
 
 test_that("keyed_[lag/lead/difference] error", {
   expect_error(
-    tsbl %>% mutate(l_income = keyed_lag(income, n = -2)), 
+    tsbl %>% mutate(l_income = keyed_lag(income, n = -2)),
     "non-negative")
   # expect_error(
-  #   tsbl %>% mutate(l_income = keyed_lag("income")), 
+  #   tsbl %>% mutate(l_income = keyed_lag("income")),
   #   "unquoted")
   expect_error(
-    tsbl %>% mutate(d_income = keyed_difference(income, lag = -2)), 
+    tsbl %>% mutate(d_income = keyed_difference(income, lag = -2)),
     "positive")
 })
 
 test_that("keyed_[lag/lead/difference] result", {
-  res <- tsbl %>% 
+  res <- tsbl %>%
     mutate(
       lag_income = keyed_lag(income),
       lead_income = keyed_lead(income),
@@ -55,7 +53,7 @@ test_that("keyed_[lag/lead/difference] result", {
 })
 
 test_that("keyed_[lag/lead/difference] for non-ordered data", {
-  res <- tsbl[6:1, ] %>% 
+  res <- tsbl[6:1, ] %>%
     mutate(
       lag_income = keyed_lag(income),
       lead_income = keyed_lead(income),

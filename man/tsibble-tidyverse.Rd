@@ -3,11 +3,7 @@
 \name{tsibble-tidyverse}
 \alias{tsibble-tidyverse}
 \alias{arrange.tbl_ts}
-\alias{filter.tbl_ts}
-\alias{slice.tbl_ts}
 \alias{select.tbl_ts}
-\alias{rename.tbl_ts}
-\alias{mutate.tbl_ts}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
 \alias{gather.tbl_ts}
@@ -15,15 +11,7 @@
 \usage{
 \method{arrange}{tbl_ts}(.data, ...)
 
-\method{filter}{tbl_ts}(.data, ..., .preserve = FALSE)
-
-\method{slice}{tbl_ts}(.data, ..., .preserve = FALSE)
-
 \method{select}{tbl_ts}(.data, ...)
-
-\method{rename}{tbl_ts}(.data, ...)
-
-\method{mutate}{tbl_ts}(.data, ...)
 
 \method{transmute}{tbl_ts}(.data, ...)
 
@@ -33,9 +21,6 @@
 \item{.data, data}{A \code{tbl_ts}.}
 
 \item{...}{Same arguments accepted as its tidyverse generic.}
-
-\item{.preserve}{when \code{FALSE} (the default), the grouping structure
-is recalculated based on the resulting data, otherwise it is kept as is.}
 }
 \description{
 \itemize{
@@ -43,7 +28,7 @@ is recalculated based on the resulting data, otherwise it is kept as is.}
 likely to be issued.
 \item \code{slice()}: if row numbers are not in ascending order, a warning is likely to
 be issued.
-\item \code{select()}: keeps the variables you mention as well as the index.
+\item \code{select()}: keeps the variables you mention as well as the index and key.
 \item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
 \item \code{summarise()} reduces a sequence of values over time instead of a single summary,
 as well as dropping empty keys/groups.

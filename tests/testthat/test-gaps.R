@@ -1,5 +1,3 @@
-context("fill_gaps() & count_gaps() for a tsibble")
-
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
 dat_x <- tibble(
   date = idx_day,
@@ -106,7 +104,7 @@ test_that("fill_gaps() for a grouped_ts", {
     group_by(group) %>%
     fill_gaps(value = sum(value), .full = TRUE)
   expect_identical(dim(full_tsbl), c(10L, 3L))
-  expect_equal(
+  expect_equivalent(
     as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
       date = c(ymd("2017-01-01"), ymd("2017-01-13")),
@@ -121,7 +119,7 @@ test_that("fill.tbl_ts(.full = TRUE)", {
     fill_gaps(.full = TRUE) %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
-  expect_equal(
+  expect_equivalent(
     as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
       date = c(ymd("2017-01-01"), ymd("2017-01-13")),
@@ -136,7 +134,7 @@ test_that("fill.tbl_ts(.full = FALSE)", {
     fill_gaps() %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
-  expect_equal(
+  expect_equivalent(
     as_tibble(full_tsbl[8, ]),
     tibble(
       date = ymd("2017-01-13"),

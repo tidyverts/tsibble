@@ -4,7 +4,7 @@
 #' likely to be issued.
 #' * `slice()`: if row numbers are not in ascending order, a warning is likely to
 #' be issued.
-#' * `select()`: keeps the variables you mention as well as the index.
+#' * `select()`: keeps the variables you mention as well as the index and key.
 #' * `transmute()`: keeps the variable you operate on, as well as the index and key.
 #' * `summarise()` reduces a sequence of values over time instead of a single summary,
 #' as well as dropping empty keys/groups.
@@ -23,29 +23,12 @@
 #' @rdname tsibble-tidyverse
 #' @export
 arrange.tbl_ts <- function(.data, ...) {
-  arr_data <- NextMethod()
+  arr_data <- arrange(as_tibble(.data), ...)
   update_meta(arr_data, .data, ordered = FALSE, interval = interval(.data))
 }
 
 #' @export
 arrange.grouped_ts <- arrange.tbl_ts
-
-#' @rdname tsibble-tidyverse
-filter.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  by_row(filter, .data, ordered = is_ordered(.data), ..., .preserve = .preserve)
-}
-
-#' @rdname tsibble-tidyverse
-#' @export
-slice.tbl_ts <- function(.data, ..., .preserve = FALSE) {
-  pos <- enquos(...)
-  if (length(pos) > 1) {
-    abort("`slice()` only accepts one expression.")
-  }
-  pos_df <- summarise(as_tibble(.data), !!".pos_col" := list2(!!pos[[1]]))
-  ascending <- all(map_lgl(pos_df[[".pos_col"]], validate_order))
-  by_row(slice, .data, ordered = ascending, ..., .preserve = .preserve)
-}
 
 #' @rdname tsibble-tidyverse
 #' @export
@@ -76,7 +59,7 @@ select.tbl_ts <- function(.data, ...) {
   }
 
   named <- list_is_named(lst_quos)
-  .data <- rename_tsibble(.data, !!!lst_quos[named])
+  .data <- rename(.data, !!!lst_quos[named])
 
   lst_env <- map(lst_quos, quo_get_env)[named]
   lst_quos[named] <- as_quosures(names(lst_quos)[named], env = lst_env)
@@ -85,57 +68,6 @@ select.tbl_ts <- function(.data, ...) {
 
 #' @export
 select.grouped_ts <- select.tbl_ts
-
-#' @rdname tsibble-tidyverse
-#' @export
-rename.tbl_ts <- function(.data, ...) {
-  rename_tsibble(.data, ...)
-}
-
-#' @export
-rename.grouped_ts <- rename.tbl_ts
-
-#' @rdname tsibble-tidyverse
-#' @export
-mutate.tbl_ts <- function(.data, ...) {
-  mask <- TsibbleDataMask$new(.data)
-  .data <- mask$retrieve_data()
-  mut_data <- mutate(as_tibble(.data), ...)
-
-  idx_chr <- index_var(.data)
-  if (is_false(idx_chr %in% names(mut_data))) { # index has been removed
-    abort(sprintf(paste_inline(
-      "Column `%s` (index) can't be removed for a tsibble.",
-      "Do you need `as_tibble()` to work with data frame?"
-    ), idx_chr))
-  }
-
-  lst_quos <- enquos(..., .named = TRUE)
-  vec_names <- names(lst_quos)
-  # either key or index is present in ...
-  # suggests that the operations are done on these variables
-  # validate = TRUE to check if tsibble still holds
-  val_idx <- has_index(vec_names, .data)
-  if (val_idx) interval <- TRUE else interval <- interval(.data)
-
-  val_key <- has_any_key(vec_names, .data)
-  if (val_key) {
-    key_vars <- setdiff(names(mut_data), measured_vars(.data))
-    .data <- remove_key(.data, key_vars)
-  }
-
-  validate <- val_idx || val_key
-  if (validate) {
-    mut_data <- retain_tsibble(mut_data, key(.data), index(.data))
-  }
-  build_tsibble(
-    mut_data,
-    key = !!key_vars(.data),
-    key_data = if (val_key) NULL else key_data(.data), index = !!index(.data),
-    index2 = !!index2(.data), ordered = is_ordered(.data), interval = interval,
-    validate = FALSE, .drop = is_key_dropped(.data)
-  )
-}
 
 #' @rdname tsibble-tidyverse
 #' @export
@@ -196,6 +128,9 @@ summarise.tbl_ts <- function(.data, ...) {
     validate = FALSE
   )
 }
+
+#' @export
+summarise.grouped_ts <- summarise.tbl_ts
 
 #' @importFrom dplyr group_by_drop_default
 #' @export
@@ -265,12 +200,4 @@ ungroup.tbl_ts <- function(x, ...) {
 
 distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
-}
-
-group_by_drop_default <- function(.tbl) {
-  tryCatch({
-    !identical(attr(group_data(.tbl), ".drop"), FALSE)
-  }, error = function(e) {
-    TRUE
-  })
 }

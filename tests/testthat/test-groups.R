@@ -1,5 +1,3 @@
-# context("group_*()")
-#
 # sx_fct <- pedestrian %>%
 #   mutate(Sensor = as.factor(Sensor)) %>%
 #   filter(Sensor == "Southern Cross Station")

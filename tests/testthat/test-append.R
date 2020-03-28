@@ -1,5 +1,4 @@
-context("append_row() for a tsibble")
-
+library(dplyr)
 library(lubridate)
 idx_day <- seq.Date(ymd("2017-01-01"), ymd("2017-01-20"), by = 4)
 dat_x <- tibble(
@@ -24,7 +23,7 @@ test_that("an irregular tbl_ts", {
 test_that("4 day interval", {
   tsbl <- as_tsibble(dat_x, index = date)
   ref_tbl <- tibble(date = ymd("2017-01-21"), value = NA_real_)
-  expect_equal(append_row(tsbl)[6, ], ref_tbl)
+  expect_equivalent(append_row(tsbl)[6, ], ref_tbl)
   expect_error(append_row(tsbl, 1:3), "a positive")
 })
 

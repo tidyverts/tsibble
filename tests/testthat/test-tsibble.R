@@ -1,5 +1,3 @@
-context("as_tsibble() w/o key for data of long form")
-
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:00"),
   ymd_hms("2017-01-01 00:00:04"),
@@ -306,8 +304,6 @@ test_that("ordered factor with 2 unit interval", {
   expect_identical(format(interval(tsbl)), "2")
   expect_identical(fill_gaps(tsbl), tsbl)
 })
-
-context("as_tsibble() with a single key for data of long form")
 
 idx_day <- seq.Date(ymd("2017-02-01"), ymd("2017-02-05"), by = 1)
 dat_x <- tibble(
