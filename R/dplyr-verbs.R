@@ -59,7 +59,7 @@ select.tbl_ts <- function(.data, ...) {
   }
 
   named <- list_is_named(lst_quos)
-  .data <- rename_tsibble(.data, !!!lst_quos[named])
+  .data <- rename(.data, !!!lst_quos[named])
 
   lst_env <- map(lst_quos, quo_get_env)[named]
   lst_quos[named] <- as_quosures(names(lst_quos)[named], env = lst_env)
@@ -68,15 +68,6 @@ select.tbl_ts <- function(.data, ...) {
 
 #' @export
 select.grouped_ts <- select.tbl_ts
-
-#' @rdname tsibble-tidyverse
-#' @export
-rename.tbl_ts <- function(.data, ...) {
-  rename_tsibble(.data, ...)
-}
-
-#' @export
-rename.grouped_ts <- rename.tbl_ts
 
 #' @rdname tsibble-tidyverse
 #' @export

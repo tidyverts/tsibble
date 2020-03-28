@@ -335,3 +335,14 @@ test_that("summarise() scoped variants", {
     ref_tsbl
   )
 })
+
+test_that("rename() for renaming key", {
+  bm <- pedestrian %>%
+    filter(Sensor == "Birrarung Marr") %>%
+    update_tsibble(key = NULL)
+  key_bm <- rename(bm, "sensor" = "Sensor")
+  expect_equal(key_vars(key_bm), character(0))
+  expect_true("sensor" %in% names(key_bm))
+  key_t <- tourism %>%
+    rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
+})

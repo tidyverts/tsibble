@@ -32,32 +32,45 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
   )
 }
 
-rename_tsibble <- function(.data, ...) {
-  names_dat <- names(.data)
-  lst_quos <- enquos(...)
-  if (is_empty(lst_quos)) return(.data)
+#' @export
+`names<-.tbl_ts` <- function(x, value) {
+  data <- as_tibble(x)
+  names(data) <- value
+  x_names <- names(x)
 
-  val_vars <- vars_rename(names_dat, !!!lst_quos)
-  old_idx <- index_var(.data)
-  old_idx2 <- index2_var(.data)
-  old_key <- key_vars(.data)
-  old_grp <- group_vars(.data)
+  idx <- index_var(x)
+  idx_loc <- match(intersect(idx, x_names), x_names)
+  idx_name <- value[idx_loc]
+  
+  idx2 <- index2_var(x)
+  idx2_loc <- match(intersect(idx2, x_names), x_names)
+  idx2_name <- value[idx2_loc]
 
-  new_names <- names(val_vars)
-  new_idx <- new_names[old_idx == val_vars]
-  attr(new_idx, "ordered") <- is_ordered(.data)
-  new_idx2 <- new_names[old_idx2 == val_vars]
-  new_key <- new_names[val_vars %in% old_key]
-  new_grp <- new_names[val_vars %in% old_grp]
-  attr(.data, "index") <- new_idx
-  attr(.data, "index2") <- new_idx2
-  names(attr(.data, "key")) <- c(new_key, ".rows")
-  if (!is_empty(old_grp)) {
-    names(attr(.data, "groups")) <- c(new_grp, ".rows")
+  key <- key_data(x)
+  key_loc <- match(intersect(names(key), x_names), x_names)
+  key_names <- c(value[key_loc], ".rows")
+  if (!identical(key_names, names(key))) {
+    names(key) <- c(value[key_loc], ".rows")
   }
-  names(.data) <- new_names
-  .data
+
+  if (is_grouped_ts(x)) {
+    groups <- group_data(x)
+    group_loc <- match(intersect(names(groups), x_names), x_names)
+    group_names <- c(value[group_loc], ".rows")
+    if (!identical(group_names, names(groups))) {
+      names(groups) <- c(value[group_loc], ".rows")
+    }
+  }
+
+  build_tsibble_meta(data,
+    key_data = key,
+    index = idx_name, index2 = idx2_name, ordered = is_ordered(x),
+    interval = interval(x)
+  )
 }
+
+#' @export
+`names<-.grouped_ts` <- `names<-.tbl_ts`
 
 select_tsibble <- function(data, ...) {
   sel_vars <- vars_select(names(data), ...)

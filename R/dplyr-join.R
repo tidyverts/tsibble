@@ -8,7 +8,7 @@ rename_join_tsibble <- function(x, y, by = NULL, suffix = c(".x", ".y")) {
 
   names <- paste0(common_names, suffix[1])
   names(common_names) <- names
-  rename_tsibble(x, !!!common_names)
+  rename(x, !!!common_names)
 }
 
 #' @export

@@ -112,10 +112,6 @@ index_by.tbl_ts <- function(.data, ...) {
   )
 }
 
-index_by_prepare <- function(.data, ...) {
-  
-}
-
 mutate_index2 <- function(.data, .vars) {
   chr <- intersect(index2_var(.data), .vars)
   if (!is_empty(chr)) {

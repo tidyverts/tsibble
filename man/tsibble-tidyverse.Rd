@@ -4,7 +4,6 @@
 \alias{tsibble-tidyverse}
 \alias{arrange.tbl_ts}
 \alias{select.tbl_ts}
-\alias{rename.tbl_ts}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
 \alias{gather.tbl_ts}
@@ -13,8 +12,6 @@
 \method{arrange}{tbl_ts}(.data, ...)
 
 \method{select}{tbl_ts}(.data, ...)
-
-\method{rename}{tbl_ts}(.data, ...)
 
 \method{transmute}{tbl_ts}(.data, ...)
 
