@@ -83,7 +83,7 @@
 #' @importFrom dplyr arrange filter select mutate transmute summarise rename
 #' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
 #' @importFrom dplyr group_rows groups new_grouped_df is_grouped_df
-#' @importFrom dplyr left_join right_join full_join inner_join
+#' @importFrom dplyr left_join right_join full_join inner_join anti_join
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first
 #' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
 #' @importFrom tibble new_tibble trunc_mat
