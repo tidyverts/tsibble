@@ -52,7 +52,7 @@ Suggests:
     rmarkdown,
     scales (>= 1.1.0),
     spelling,
-    testthat,
+    testthat (>= 2.3.2),
     tidyr (>= 1.0.0),
     timeDate
 VignetteBuilder: 

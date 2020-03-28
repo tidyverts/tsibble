@@ -1,5 +1,3 @@
-context("yearquarter()")
-
 x <- c("2019 Q3", "2018 Q1")
 dates <- as.Date(c("2019-07-01", "2018-01-01"))
 dttm <- as.POSIXct(c("2019-07-01", "2018-01-01"), tz = "UTC")

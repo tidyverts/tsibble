@@ -1,5 +1,3 @@
-context("tbl_sum methods")
-
 tbl1 <- tsibble(
   date = seq(as.Date("2017-01-01"), as.Date("2017-01-10"), by = 1),
   value = rnorm(10),

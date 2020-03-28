@@ -1,5 +1,3 @@
-context("Australian national and state based public holiday")
-
 nat_2018 <- tibble::tibble(
   holiday = c(
     "New Year's Day", "Australia Day", "Good Friday", "Easter Monday",

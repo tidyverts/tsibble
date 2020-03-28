@@ -1,5 +1,3 @@
-context("deprecated functions and arguments")
-
 test_that("corrupt tsibble object", {
   attr(pedestrian, "regular") <- TRUE
   expect_warning(format(pedestrian), "corrupt tsibble")

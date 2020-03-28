@@ -1,5 +1,3 @@
-context("key for tsibble")
-
 test_that("rename_tsibble()", {
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr") %>%

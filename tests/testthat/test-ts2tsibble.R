@@ -1,5 +1,3 @@
-context("as_tsibble() for ts objects")
-
 test_that("a ts with different frequnecy", {
   x1 <- ts(1:10)
   tsbl1 <- as_tsibble(x1)

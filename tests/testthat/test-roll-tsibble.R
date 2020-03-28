@@ -1,5 +1,3 @@
-context("rolling tsibble")
-
 harvest <- tsibble(
   year = rep(2010:2012, 2),
   fruit = rep(c("kiwi", "cherry"), each = 3),

@@ -1,5 +1,3 @@
-context("yearweek()")
-
 x <- yearweek(as.Date("1970-01-01")) + 0:2
 dates <- seq(as.Date("1969-12-29"), length.out = 3, by = "1 week") + 0
 dttm <- as.POSIXct(dates, tz = "UTC")
