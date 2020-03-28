@@ -25,16 +25,16 @@ test_that("bind_rows() for custom index class #78", {
 })
 
 test_that("bind_rows() for mixed key properties", {
-  expect_error(bind_rows(update_tsibble(vic, regular = FALSE), nsw), "Can't")
+  expect_identical(
+    format(interval(bind_rows(update_tsibble(vic, regular = FALSE))), nsw), "!")
   res2 <- bind_rows(
     update_tsibble(vic, regular = FALSE),
     update_tsibble(nsw, regular = FALSE)
   )
   expect_identical(format(interval(res2)), "!")
-  expect_error(bind_rows(rename(vic, State1 = State), nsw), "different keys")
-  expect_error(bind_rows(rename(vic, YrQtr = Quarter), nsw), "different indexes")
+  expect_error(bind_rows(rename(vic, YrQtr = Quarter), nsw), "valid")
 })
 
-test_that("cbind()", {
-  expect_is(cbind(tsbl, tsbl), "tbl_ts")
+test_that("bind_cols()", {
+  expect_is(bind_cols(tsbl, value2 = 2), "tbl_ts")
 })
