@@ -36,7 +36,6 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
-    R6,
     rlang (>= 0.4.2),
     tibble (>= 2.99),
     tidyselect (>= 1.0.0),

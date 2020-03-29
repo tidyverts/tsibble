@@ -184,10 +184,7 @@ dplyr_row_slice.grouped_ts <- dplyr_row_slice.tbl_ts
 
 #' @export
 dplyr_col_modify.tbl_ts <- function(data, cols) {
-  mask <- TsibbleDataMask$new(data)
-  data <- mask$retrieve_data()
   res <- NextMethod()
-
   idx_chr <- index_var(data)
   if (is_false(idx_chr %in% names(res))) { # index has been removed
     abort(sprintf(paste_inline(
@@ -197,7 +194,7 @@ dplyr_col_modify.tbl_ts <- function(data, cols) {
   }
 
   vec_names <- names(cols)
-  # either key or index is present in ...
+  # either key or index is present in `cols`
   # suggests that the operations are done on these variables
   # validate = TRUE to check if tsibble still holds
   val_idx <- has_index(vec_names, data)
