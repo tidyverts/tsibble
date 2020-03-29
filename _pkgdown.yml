@@ -56,9 +56,8 @@ reference:
     - group_by_key
     - filter_index
 
-- title: Vector operations in tsibble context
+- title: Vector operations
   contents:
-    - keyed_lag
     - difference
 
 - title: Index classes
