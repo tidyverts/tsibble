@@ -38,7 +38,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
     }
   }
   idx <- index(x)
-  vars_fill <- vec_repeat(fill, length(value_var))
+  vars_fill <- vec_rep(fill, length(value_var))
   vars_fill <- set_names(vars_fill, nm = value_var)
   tsbl_sel <- fill_gaps(
     select(x, !!idx, !!!key_vars, !!value_var),

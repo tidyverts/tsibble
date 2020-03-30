@@ -61,7 +61,7 @@ RdMacros:
 Remotes:
     tidyverse/dplyr,
     tidyverse/tibble,
-    r-lib/vctrs
+    r-lib/vctrs@82920fe
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB

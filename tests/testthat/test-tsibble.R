@@ -105,7 +105,7 @@ test_that("POSIXt with 1 second interval", {
   expect_identical(quo_text(index(tsbl)), "date_time")
   expect_identical(default_time_units(interval_pull(tsbl$date_time)), 1)
   expect_identical(key(tsbl), list())
-  expect_identical(format(groups(tsbl)), "NULL")
+  expect_identical(groups(tsbl), list())
   expect_identical(format(interval(tsbl)), "1s")
   expect_true(is_regular(tsbl))
   # expect_equal(key_size(tsbl), 5)
@@ -317,7 +317,7 @@ test_that("A single key", {
   tsbl <- as_tsibble(dat_x, key = group, index = date)
   expect_identical(as_tsibble(dat_x, key = "group", index = date), tsbl)
   expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
-  expect_identical(format(groups(tsbl)), "NULL")
+  expect_identical(groups(tsbl), list())
   # expect_equal(key_size(tsbl), c(5, 5))
   expect_equal(n_keys(tsbl), 2)
 })
@@ -392,9 +392,6 @@ test_that("build_tsibble()", {
   idx2 <- index2_var(tsbl)
   expect_equal(idx2, "Date")
   expect_is(tsbl, "grouped_ts")
-
-  idx_drop <- dplyr::bind_rows(tsbl, tsbl)
-  expect_error(print(idx_drop), "dropped somehow")
 
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = NULL), "NULL."

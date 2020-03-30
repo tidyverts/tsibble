@@ -50,8 +50,8 @@ make_index_explicit <- function(x, tz = "UTC") {
 pivot_longer_tsibble <- function(x, tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   list2(
-    "index" := vec_repeat(idx, times = NCOL(x)),
-    "key" := vec_repeat(colnames(x), each = vec_size(x)),
+    "index" := vec_rep(idx, times = NCOL(x)),
+    "key" := vec_rep_each(colnames(x), vec_size(x)),
     "value" := vec_c(!!!unclass(x))
   )
 }
