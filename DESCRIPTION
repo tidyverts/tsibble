@@ -37,7 +37,7 @@ Imports:
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
     rlang (>= 0.4.2),
-    tibble (>= 2.99),
+    tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
     vctrs (>= 0.2.99)
 Suggests: 
@@ -60,8 +60,7 @@ RdMacros:
     lifecycle
 Remotes:
     tidyverse/dplyr,
-    tidyverse/tibble,
-    r-lib/vctrs@82920fe
+    r-lib/vctrs
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
