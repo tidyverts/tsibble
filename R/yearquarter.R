@@ -48,12 +48,12 @@ yearquarter.NULL <- function(x) {
 }
 
 #' @export
-yearquarter.POSIXt <- function(x) {
+yearquarter.POSIXct <- function(x) {
   new_yearquarter(floor_date(as_date(x), unit = "quarters"))
 }
 
 #' @export
-yearquarter.Date <- yearquarter.POSIXt
+yearquarter.Date <- yearquarter.POSIXct
 
 #' @export
 yearquarter.character <- function(x) {
@@ -80,10 +80,10 @@ yearquarter.character <- function(x) {
 }
 
 #' @export
-yearquarter.yearweek <- yearquarter.POSIXt
+yearquarter.yearweek <- yearquarter.POSIXct
 
 #' @export
-yearquarter.yearmonth <- yearquarter.POSIXt
+yearquarter.yearmonth <- yearquarter.POSIXct
 
 #' @export
 yearquarter.yearquarter <- function(x) {
@@ -190,15 +190,15 @@ vec_ptype2.yearquarter <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearquarter", y)
 }
 
-#' @method vec_ptype2.yearquarter POSIXt
+#' @method vec_ptype2.yearquarter POSIXct
 #' @export
-vec_ptype2.yearquarter.POSIXt <- function(x, y, ...) {
+vec_ptype2.yearquarter.POSIXct <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.POSIXt yearquarter
+#' @method vec_ptype2.POSIXct yearquarter
 #' @export
-vec_ptype2.POSIXt.yearquarter <- function(x, y, ...) {
+vec_ptype2.POSIXct.yearquarter <- function(x, y, ...) {
   new_datetime()
 }
 

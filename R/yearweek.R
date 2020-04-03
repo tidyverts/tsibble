@@ -54,12 +54,12 @@ yearweek.numeric <- function(x) {
 }
 
 #' @export
-yearweek.POSIXt <- function(x) {
+yearweek.POSIXct <- function(x) {
   new_yearweek(floor_date(as_date(x), unit = "weeks", week_start = 1))
 }
 
 #' @export
-yearweek.Date <- yearweek.POSIXt
+yearweek.Date <- yearweek.POSIXct
 
 #' @export
 yearweek.character <- function(x) {
@@ -180,15 +180,15 @@ vec_ptype2.yearweek <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearweek", y)
 }
 
-#' @method vec_ptype2.yearweek POSIXt
+#' @method vec_ptype2.yearweek POSIXct
 #' @export
-vec_ptype2.yearweek.POSIXt <- function(x, y, ...) {
+vec_ptype2.yearweek.POSIXct <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.POSIXt yearweek
+#' @method vec_ptype2.POSIXct yearweek
 #' @export
-vec_ptype2.POSIXt.yearweek <- function(x, y, ...) {
+vec_ptype2.POSIXct.yearweek <- function(x, y, ...) {
   new_datetime()
 }
 

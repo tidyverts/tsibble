@@ -48,7 +48,7 @@ yearmonth.NULL <- function(x) {
 }
 
 #' @export
-yearmonth.POSIXt <- function(x) {
+yearmonth.POSIXct <- function(x) {
   new_yearmonth(floor_date(as_date(x), unit = "months"))
 }
 
@@ -64,7 +64,7 @@ yearmonth.character <- function(x) {
 }
 
 #' @export
-yearmonth.yearweek <- yearmonth.POSIXt
+yearmonth.yearweek <- yearmonth.POSIXct
 
 #' @export
 yearmonth.yearmonth <- function(x) {
@@ -170,15 +170,15 @@ vec_ptype2.yearmonth <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearmonth", y)
 }
 
-#' @method vec_ptype2.yearmonth POSIXt
+#' @method vec_ptype2.yearmonth POSIXct
 #' @export
-vec_ptype2.yearmonth.POSIXt <- function(x, y, ...) {
+vec_ptype2.yearmonth.POSIXct <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.POSIXt yearmonth
+#' @method vec_ptype2.POSIXct yearmonth
 #' @export
-vec_ptype2.POSIXt.yearmonth <- function(x, y, ...) {
+vec_ptype2.POSIXct.yearmonth <- function(x, y, ...) {
   new_datetime()
 }
 
