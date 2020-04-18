@@ -4,6 +4,7 @@
 \name{vctrs-compat}
 \alias{vctrs-compat}
 \alias{vec_ptype2.tbl_ts}
+\alias{vec_cast.tbl_ts}
 \alias{vec_cast.yearmonth}
 \alias{vec_ptype2.yearmonth}
 \alias{vec_arith.yearmonth}
@@ -19,6 +20,8 @@
 \title{vctrs compatibility functions}
 \usage{
 \method{vec_ptype2}{tbl_ts}(x, y, ...)
+
+\method{vec_cast}{tbl_ts}(x, to, ...)
 
 \method{vec_cast}{yearmonth}(x, to, ...)
 

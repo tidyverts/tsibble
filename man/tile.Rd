@@ -48,7 +48,7 @@ a variable with that name, storing either the name (if \code{.x} is named) or
 the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, no
 variable will be created.
 
-Only applies to \code{_dfr} variant.}
+Only applies to \verb{_dfr} variant.}
 }
 \description{
 \lifecycle{soft-deprecated}
