@@ -224,10 +224,21 @@ dplyr_col_modify.grouped_ts <- dplyr_col_modify.tbl_ts
 
 #' @export
 dplyr_reconstruct.tbl_ts <- function(data, template) {
+  template <- rename_join_tsibble(data, template)
   update_meta(data, template,
     ordered = NULL, interval = is_regular(template),
     validate = TRUE)
 }
 
 #' @export
-dplyr_reconstruct.grouped_ts <- dplyr_reconstruct.tbl_ts
+dplyr_reconstruct.grouped_ts <- function(data, template) {
+  data <- grouped_df(data, group_vars(template))
+  dplyr_reconstruct.tbl_ts(data, template)
+}
+
+rename_join_tsibble <- function(data, template) {
+  nm <- names(template)
+  key_idx_pos <- vec_match(c(index_var(template), key_vars(template)), nm)
+  names(template)[key_idx_pos] <- names(data)[key_idx_pos]
+  template
+}
