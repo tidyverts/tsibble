@@ -10,28 +10,19 @@ vec_ptype2.tbl_ts.tbl_ts <- function(x, y, ...) {
 
 #' @export
 vec_ptype2.data.frame.tbl_ts <- function(x, y, ...) {
-  vctrs:::df_ptype2(x, y)
+  vctrs:::df_ptype2(x, y, ...)
 }
+
+#' @export
+vec_ptype2.tbl_ts.data.frame <- vec_ptype2.data.frame.tbl_ts
 
 #' @export
 vec_ptype2.tbl_df.tbl_ts <- function(x, y, ...) {
-  vctrs:::tib_ptype2(x, y)
+  vctrs:::tib_ptype2(x, y, ...)
 }
 
 #' @export
-vec_ptype2.tbl_ts.tbl_df <- vec_ptype2.tbl_ts.tbl_ts
-
-vec_ptype2.grouped_ts.tbl_ts <- function(x, y, ...) {
-  
-}
-
-vec_ptype2.grouped_ts.grouped_ts <- function(x, y, ...) {
-  
-}
-
-vec_ptype2.grouped_ts.data.frame <- function(x, y, ...) {
-  
-}
+vec_ptype2.tbl_ts.tbl_df <- vec_ptype2.tbl_df.tbl_ts
 
 tsibble_ptype2 <- function(x, y, ...) {
   idx_x <- index_var(x)
@@ -42,8 +33,8 @@ tsibble_ptype2 <- function(x, y, ...) {
     }
     key_x <- union(key_x, key_vars(y))
   }
-  lst <- vctrs:::tib_ptype2(x, y, ...)
-  build_tsibble_meta(lst, key_data = new_key_data(lst[key_x]),
+  out <- vctrs:::tib_ptype2(x, y, ...)
+  build_tsibble_meta(out, key_data = new_key_data(out[key_x]),
     index = idx_x, index2 = idx_x, ordered = TRUE,
     interval = new_interval())
 }
