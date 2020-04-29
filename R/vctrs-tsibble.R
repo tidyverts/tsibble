@@ -38,10 +38,7 @@ tsibble_ptype2 <- function(x, y, ...) {
     }
     key_x <- union(key_x, key_vars(y))
   }
-  tbl_x <- as_tibble(x)
-  tbl_y <- as_tibble(y)
-  union_names <- union(names(x), names(y))
-  lst <- new_data_frame(rep_named(union_names, union(tbl_x[0, ], tbl_y[0, ])))
+  lst <- vctrs:::tib_ptype2(x, y)
   build_tsibble_meta(lst, key_data = new_key_data(lst[key_x]),
     index = idx_x, index2 = idx_x, ordered = TRUE,
     interval = new_interval())
