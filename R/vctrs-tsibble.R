@@ -1,3 +1,12 @@
+#' Internal vctrs methods
+#'
+#' These methods are the extensions that allow tsibble objects to
+#' work with vctrs.
+#'
+#' @keywords internal
+#' @name tsibble-vctrs
+NULL
+
 #' @rdname tsibble-vctrs
 #' @export
 vec_ptype2.tbl_ts <- function(x, y, ...) {

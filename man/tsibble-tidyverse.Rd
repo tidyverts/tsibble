@@ -17,24 +17,44 @@
 \item{...}{Same arguments accepted as its tidyverse generic.}
 }
 \description{
-\itemize{
-\item \code{arrange()}: if not arranging key and index in past-to-future order, a warning is
-likely to be issued.
-\item \code{slice()}: if row numbers are not in ascending order, a warning is likely to
-be issued.
-\item \code{select()}: keeps the variables you mention as well as the index and key.
-\item \code{transmute()}: keeps the variable you operate on, as well as the index and key.
-\item \code{summarise()} reduces a sequence of values over time instead of a single summary,
-as well as dropping empty keys/groups.
-}
+Tidyverse methods for tsibble
 }
 \details{
-Column-wise verbs, including \code{select()}, \code{transmute()}, \code{summarise()},
-\code{mutate()} & \code{transmute()}, keep the time context hanging around. That is,
-the index variable cannot be dropped for a tsibble. If any key variable
-is changed, it will validate whether it's a tsibble internally. Use \code{as_tibble()}
-to leave off the time context.
+Current dplyr verbs that support tsibble:
+
+\code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}}, \code{\link[dplyr:select]{dplyr::select()}},
+\code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:summarise]{dplyr::summarise()}}, \code{\link[dplyr:group_by]{dplyr::group_by()}},
+\code{\link[dplyr:left_join]{dplyr::left_join()}}, \code{\link[dplyr:right_join]{dplyr::right_join()}}, \code{\link[dplyr:full_join]{dplyr::full_join()}},
+\code{\link[dplyr:inner_join]{dplyr::inner_join()}}, \code{\link[dplyr:semi_join]{dplyr::semi_join()}}, \code{\link[dplyr:anti_join]{dplyr::anti_join()}},
+\code{\link[dplyr:nest_join]{dplyr::nest_join()}}
+
+Current tidyr verbs that support tsibble:
+
+\code{\link[tidyr:gather]{tidyr::gather()}}, \code{\link[tidyr:spread]{tidyr::spread()}}, \code{\link[tidyr:nest]{tidyr::nest()}}, \code{\link[tidyr:fill]{tidyr::fill()}},
+\code{\link[tidyr:drop_na]{tidyr::drop_na()}}
 }
+\section{Column-wise verbs}{
+
+\itemize{
+\item The index variable cannot be dropped for a tsibble object.
+\item When any key variable is modified, a check on the validity of the resulting
+tsibble will be performed internally.
+\item Use \code{as_tibble()} to convert tsibble to a general data frame.
+}
+}
+
+\section{Row-wise verbs}{
+
+A warning is likely to be issued, if observations are not arranged in
+past-to-future order.
+}
+
+\section{Join verbs}{
+
+Joining with other data sources triggers the check on the validity of the
+resulting tsibble.
+}
+
 \examples{
 library(dplyr, warn.conflicts = FALSE)
 # Sum over sensors

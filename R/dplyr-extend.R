@@ -1,23 +1,36 @@
 #' Tidyverse methods for tsibble
 #'
-#' * `arrange()`: if not arranging key and index in past-to-future order, a warning is
-#' likely to be issued.
-#' * `slice()`: if row numbers are not in ascending order, a warning is likely to
-#' be issued.
-#' * `select()`: keeps the variables you mention as well as the index and key.
-#' * `transmute()`: keeps the variable you operate on, as well as the index and key.
-#' * `summarise()` reduces a sequence of values over time instead of a single summary,
-#' as well as dropping empty keys/groups.
+#' @section Column-wise verbs:
+#' * The index variable cannot be dropped for a tsibble object.
+#' * When any key variable is modified, a check on the validity of the resulting
+#' tsibble will be performed internally.
+#' * Use `as_tibble()` to convert tsibble to a general data frame.
+#'
+#' @details
+#' Current dplyr verbs that support tsibble:
+#'
+#' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()], [dplyr::select()],
+#' [dplyr::transmute()], [dplyr::mutate()], [dplyr::summarise()], [dplyr::group_by()],
+#' [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
+#' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
+#' [dplyr::nest_join()]
+#'
+#' Current tidyr verbs that support tsibble:
+#'
+#' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
+#' [tidyr::drop_na()]
+#' 
+#' @section Row-wise verbs:
+#' A warning is likely to be issued, if observations are not arranged in
+#' past-to-future order.
+#'
+#' @section Join verbs:
+#' Joining with other data sources triggers the check on the validity of the
+#' resulting tsibble.
 #'
 #' @param .data,data A `tbl_ts`.
 #' @param ... Same arguments accepted as its tidyverse generic.
 #' @inheritParams dplyr::filter
-#' @details
-#' Column-wise verbs, including `select()`, `transmute()`, `summarise()`,
-#' `mutate()` & `transmute()`, keep the time context hanging around. That is,
-#' the index variable cannot be dropped for a tsibble. If any key variable
-#' is changed, it will validate whether it's a tsibble internally. Use `as_tibble()`
-#' to leave off the time context.
 #'
 #' @name tsibble-tidyverse
 NULL
