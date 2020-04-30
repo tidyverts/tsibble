@@ -88,7 +88,6 @@
 #' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
 #' @importFrom tibble new_tibble trunc_mat
 #' @importFrom lifecycle deprecated
-#' @importFrom R6 R6Class
 #' @import rlang tidyselect vctrs ellipsis
 #' @examples
 #' # create a tsibble w/o a key ----

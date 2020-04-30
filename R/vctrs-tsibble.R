@@ -1,3 +1,4 @@
+#' @rdname tsibble-vctrs
 #' @export
 vec_ptype2.tbl_ts <- function(x, y, ...) {
   UseMethod("vec_ptype2.tbl_ts", y)
@@ -41,6 +42,7 @@ new_key_data <- function(x) {
   tibble(!!!x, !!".rows" := list_of(.ptype = integer()))
 }
 
+#' @rdname tsibble-vctrs
 #' @export
 vec_cast.tbl_ts <- function(x, to, ...) {
   UseMethod("vec_cast.tbl_ts")

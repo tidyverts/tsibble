@@ -1,12 +1,8 @@
-#' vctrs compatibility functions
+#' Internal vctrs methods
 #'
-#' These functions are the extensions that allow tsibble objects to
+#' These methods are the extensions that allow tsibble objects to
 #' work with vctrs.
 #'
-#' @param x Objects.
-#' @param to Type to cast to.
-#' @param ... Used to pass along error message information.
-#'
-#' @name vctrs-compat
-#'
+#' @keywords internal
+#' @name tsibble-vctrs
 NULL
