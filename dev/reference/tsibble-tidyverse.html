@@ -49,18 +49,16 @@
 
 
 <meta property="og:title" content="Tidyverse methods for tsibble — tsibble-tidyverse" />
-<meta property="og:description" content="
-
-arrange(): if not arranging key and index in past-to-future order, a warning is
-likely to be issued.
-slice(): if row numbers are not in ascending order, a warning is likely to
-be issued.
-select(): keeps the variables you mention as well as the index.
-transmute(): keeps the variable you operate on, as well as the index and key.
-summarise() reduces a sequence of values over time instead of a single summary,
-as well as dropping empty keys/groups.
-
-" />
+<meta property="og:description" content="Current dplyr verbs that support tsibble:
+dplyr::filter(), dplyr::slice(), dplyr::arrange(), dplyr::select(),
+dplyr::transmute(), dplyr::mutate(), dplyr::summarise(), dplyr::relocate(),
+dplyr::group_by(), dplyr::group_split(),
+dplyr::left_join(), dplyr::right_join(), dplyr::full_join(),
+dplyr::inner_join(), dplyr::semi_join(), dplyr::anti_join(),
+dplyr::nest_join()
+Current tidyr verbs that support tsibble:
+tidyr::gather(), tidyr::spread(), tidyr::nest(), tidyr::fill(),
+tidyr::drop_na()" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -167,39 +165,19 @@ as well as dropping empty keys/groups.
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>arrange()</code>: if not arranging key and index in past-to-future order, a warning is
-likely to be issued.</p></li>
-<li><p><code>slice()</code>: if row numbers are not in ascending order, a warning is likely to
-be issued.</p></li>
-<li><p><code>select()</code>: keeps the variables you mention as well as the index.</p></li>
-<li><p><code>transmute()</code>: keeps the variable you operate on, as well as the index and key.</p></li>
-<li><p><code>summarise()</code> reduces a sequence of values over time instead of a single summary,
-as well as dropping empty keys/groups.</p></li>
-</ul>
-
+    <p>Current dplyr verbs that support tsibble:</p>
+<p><code><a href='https://dplyr.tidyverse.org/reference/filter.html'>dplyr::filter()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/slice.html'>dplyr::slice()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arrange()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::transmute()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarise()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/relocate.html'>dplyr::relocate()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/group_split.html'>dplyr::group_split()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::left_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::right_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::full_join()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::inner_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>dplyr::semi_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>dplyr::anti_join()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/nest_join.html'>dplyr::nest_join()</a></code></p>
+<p>Current tidyr verbs that support tsibble:</p>
+<p><code><a href='https://tidyr.tidyverse.org/reference/gather.html'>tidyr::gather()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/spread.html'>tidyr::spread()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>tidyr::nest()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/fill.html'>tidyr::fill()</a></code>,
+<code><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>tidyr::drop_na()</a></code></p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>arrange</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>slice</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>select</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>rename</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>mutate</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
 <span class='fu'>transmute</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
@@ -216,20 +194,31 @@ as well as dropping empty keys/groups.</p></li>
       <th>...</th>
       <td><p>Same arguments accepted as its tidyverse generic.</p></td>
     </tr>
-    <tr>
-      <th>.preserve</th>
-      <td><p>when <code>FALSE</code> (the default), the grouping structure
-is recalculated based on the resulting data, otherwise it is kept as is.</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="column-wise-verbs"><a class="anchor" href="#column-wise-verbs"></a>Column-wise verbs</h2>
 
-    <p>Column-wise verbs, including <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise()</a></code>,
-<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code> &amp; <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute()</a></code>, keep the time context hanging around. That is,
-the index variable cannot be dropped for a tsibble. If any key variable
-is changed, it will validate whether it's a tsibble internally. Use <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble()</a></code>
-to leave off the time context.</p>
+    
+
+<ul>
+<li><p>The index variable cannot be dropped for a tsibble object.</p></li>
+<li><p>When any key variable is modified, a check on the validity of the resulting
+tsibble will be performed internally.</p></li>
+<li><p>Use <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble()</a></code> to convert tsibble to a general data frame.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="row-wise-verbs"><a class="anchor" href="#row-wise-verbs"></a>Row-wise verbs</h2>
+
+    
+
+<p>A warning is likely to be issued, if observations are not arranged in
+past-to-future order.</p>
+    <h2 class="hasAnchor" id="join-verbs"><a class="anchor" href="#join-verbs"></a>Join verbs</h2>
+
+    
+
+<p>Joining with other data sources triggers the check on the validity of the
+resulting tsibble.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -281,35 +270,37 @@ to leave off the time context.</p>
 #&gt; </span><span style='color: #555555;'># Key:       stock [3]</span><span>
 #&gt;    time       stock   price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X      0.747 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02 X      1.90  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03 X     -</span><span style='color: #BB0000;'>2.06</span><span>  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04 X      0.064</span><span style='text-decoration: underline;'>5</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05 X     -</span><span style='color: #BB0000;'>0.265</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 X     -</span><span style='color: #BB0000;'>0.447</span><span> 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07 X     -</span><span style='color: #BB0000;'>1.41</span><span>  
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 X     -</span><span style='color: #BB0000;'>0.506</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 X     -</span><span style='color: #BB0000;'>0.270</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 X     -</span><span style='color: #BB0000;'>1.09</span><span>  
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X      1.49  
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02 X     -</span><span style='color: #BB0000;'>0.659</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03 X      0.537 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04 X      0.747 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05 X      1.90  
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 X     -</span><span style='color: #BB0000;'>2.06</span><span>  
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07 X      0.064</span><span style='text-decoration: underline;'>5</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 X     -</span><span style='color: #BB0000;'>0.265</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 X     -</span><span style='color: #BB0000;'>0.447</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 X     -</span><span style='color: #BB0000;'>1.41</span><span>  
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 4 [1D]</span><span>
-#&gt;    time             X       Y      Z
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  0.747   0.724   2.82 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02  1.90   -</span><span style='color: #BB0000;'>0.671</span><span>   3.97 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03 -</span><span style='color: #BB0000;'>2.06</span><span>    2.73    4.58 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04  0.064</span><span style='text-decoration: underline;'>5</span><span> -</span><span style='color: #BB0000;'>1.42</span><span>   -</span><span style='color: #BB0000;'>4.96</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05 -</span><span style='color: #BB0000;'>0.265</span><span>   1.32   10.6  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 -</span><span style='color: #BB0000;'>0.447</span><span>   0.582  -</span><span style='color: #BB0000;'>0.628</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07 -</span><span style='color: #BB0000;'>1.41</span><span>    0.396  -</span><span style='color: #BB0000;'>1.69</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 -</span><span style='color: #BB0000;'>0.506</span><span>  -</span><span style='color: #BB0000;'>2.41</span><span>   -</span><span style='color: #BB0000;'>0.794</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 -</span><span style='color: #BB0000;'>0.270</span><span>  -</span><span style='color: #BB0000;'>0.079</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span> -</span><span style='color: #BB0000;'>3.58</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 -</span><span style='color: #BB0000;'>1.09</span><span>    1.37    3.62 </div></span></pre>
+#&gt;    time             X      Y      Z
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  1.49   -</span><span style='color: #BB0000;'>1.01</span><span>  -</span><span style='color: #BB0000;'>4.81</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02 -</span><span style='color: #BB0000;'>0.659</span><span>  -</span><span style='color: #BB0000;'>0.540</span><span> -</span><span style='color: #BB0000;'>0.159</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03  0.537  -</span><span style='color: #BB0000;'>2.17</span><span>   2.75 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04  0.747   0.724  2.82 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05  1.90   -</span><span style='color: #BB0000;'>0.671</span><span>  3.97 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 -</span><span style='color: #BB0000;'>2.06</span><span>    2.73   4.58 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07  0.064</span><span style='text-decoration: underline;'>5</span><span> -</span><span style='color: #BB0000;'>1.42</span><span>  -</span><span style='color: #BB0000;'>4.96</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 -</span><span style='color: #BB0000;'>0.265</span><span>   1.32  10.6  
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 -</span><span style='color: #BB0000;'>0.447</span><span>   0.582 -</span><span style='color: #BB0000;'>0.628</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 -</span><span style='color: #BB0000;'>1.41</span><span>    0.396 -</span><span style='color: #BB0000;'>1.69</span><span> </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#column-wise-verbs">Column-wise verbs</a></li>
+      <li><a href="#row-wise-verbs">Row-wise verbs</a></li>
+      <li><a href="#join-verbs">Join verbs</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

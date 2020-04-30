@@ -134,7 +134,7 @@
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#&gt; # … with 2.611e+04 more rows</code></pre>
+#&gt; # … with 26,110 more rows</code></pre>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only column involving the timestamps, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> defaults it to the index variable; alternatively, the index can be specified by the argument <code>index = time_hour</code> to disable the verbose message.</p>
 <p>Except for index, a tsibble requires “key”, which defines subjects or individuals measured over time. In this example, the <code>origin</code> variable is the identifier, which is passed to the argument <code>key</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. <strong>Each observation should be uniquely identified by index and key</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. When creating a tsibble, the key will be sorted first, followed by arranging time from past to recent.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>weather_tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as-tsibble.html">as_tsibble</a></span>(weather, <span class="dt">key =</span> origin)</span></code></pre></div>
@@ -149,7 +149,7 @@
 #&gt; 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #&gt; 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #&gt; 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#&gt; # … with 2.611e+04 more rows</code></pre>
+#&gt; # … with 26,110 more rows</code></pre>
 <p>An interval is automatically obtained based on the corresponding time representation:</p>
 <ul>
 <li>
@@ -218,7 +218,7 @@
 #&gt; 3  2013    11     5     1548           1540         8     1708           1725
 #&gt; 4  2013    11     6     1535           1540        -5     1657           1725
 #&gt; 5  2013    11     7     1549           1540         9     1733           1725
-#&gt; # … with 3.368e+05 more rows, and 12 more variables: arr_delay &lt;dbl&gt;,
+#&gt; # … with 336,771 more rows, and 12 more variables: arr_delay &lt;dbl&gt;,
 #&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
 #&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,
 #&gt; #   sched_dep_datetime &lt;dttm&gt;</code></pre>
