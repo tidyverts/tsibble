@@ -8,7 +8,7 @@
 #' @param differences A positive integer indicating the order of the difference.
 #'
 #' @return A numeric vector of the same length as `x`.
-#' @seealso [keyed_lag], [keyed_lead], [keyed_difference], [dplyr::lead] and [dplyr::lag]
+#' @seealso [dplyr::lead] and [dplyr::lag]
 #' @export
 #' @examples
 #' # examples from base

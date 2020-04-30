@@ -59,6 +59,9 @@ yearweek.POSIXct <- function(x) {
 }
 
 #' @export
+yearweek.POSIXlt <- yearweek.POSIXct
+
+#' @export
 yearweek.Date <- yearweek.POSIXct
 
 #' @export
@@ -109,6 +112,11 @@ is.numeric.yearweek <- function(x) {
   FALSE
 }
 
+#' @export
+tz.yearweek <- function(x) {
+  "UTC"
+}
+
 # diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
 #   out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
 #     lag = lag, differences = differences
@@ -116,105 +124,76 @@ is.numeric.yearweek <- function(x) {
 #   structure(out, class = "difftime", units = "weeks")
 # }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method vec_cast yearweek
+#' @rdname tsibble-vctrs
 #' @export
-#' @export vec_cast.yearweek
 vec_cast.yearweek <- function(x, to, ...) {
   UseMethod("vec_cast.yearweek")
 }
 
-#' @method vec_cast.Date yearweek
 #' @export
 vec_cast.Date.yearweek <- function(x, to, ...) {
   new_date(as.double(vec_data(x)))
 }
 
 #' @export
-as.Date.yearweek <- function(x, ...) {
-  new_date(as.double(vec_data(x)))
-}
-
-#' @method vec_cast.POSIXct yearweek
-#' @export
 vec_cast.POSIXct.yearweek <- function(x, to, ...) {
   as.POSIXct(new_date(x), ...)
 }
 
-#' @method vec_cast.double yearweek
 #' @export
 vec_cast.double.yearweek <- function(x, to, ...) {
   as.double((as_date(x) - as_date("1969-12-29")) / 7)
 }
 
 #' @export
-as.POSIXlt.yearweek <- function(x, tz = "", ...) {
-  as.POSIXlt(new_date(x), tz = tz, ...)
-}
-
-#' @method vec_cast.POSIXlt yearweek
-#' @export
-vec_cast.POSIXlt.yearweek <- function(x, to, ...) { # not working
+vec_cast.POSIXlt.yearweek <- function(x, to, ...) {
   as.POSIXlt(new_date(x), ...)
 }
 
-#' @method vec_cast.yearweek yearweek
 #' @export
 vec_cast.yearweek.yearweek <- function(x, to, ...) {
   new_yearweek(x)
 }
 
-#' @method vec_cast.character yearweek
 #' @export
 vec_cast.character.yearweek <- function(x, to, ...) {
   format(x)
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method vec_ptype2 yearweek
+#' @rdname tsibble-vctrs
 #' @export
-#' @export vec_ptype2.yearweek
 vec_ptype2.yearweek <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearweek", y)
 }
 
-#' @method vec_ptype2.yearweek POSIXct
 #' @export
 vec_ptype2.yearweek.POSIXct <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.POSIXct yearweek
 #' @export
 vec_ptype2.POSIXct.yearweek <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.yearweek Date
 #' @export
 vec_ptype2.yearweek.Date <- function(x, y, ...) {
   new_date()
 }
 
-#' @method vec_ptype2.yearweek yearweek
 #' @export
 vec_ptype2.yearweek.yearweek <- function(x, y, ...) {
   new_yearweek()
 }
 
-#' @method vec_ptype2.Date yearweek
 #' @export
 vec_ptype2.Date.yearweek <- function(x, y, ...) {
   new_date()
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
+#' @rdname tsibble-vctrs
 #' @method vec_arith yearweek
 #' @export
-#' @export vec_arith.yearweek
 vec_arith.yearweek <- function(op, x, y, ...) {
   UseMethod("vec_arith.yearweek", y)
 }
@@ -283,11 +262,7 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   format.Date(x, format = wk_sub)
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method obj_print_data yearweek
 #' @export
-#' @export obj_print_data.yearweek
 obj_print_data.yearweek <- function(x, ...) {
   if (length(x) == 0) return()
   print(format(x))

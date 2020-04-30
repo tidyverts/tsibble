@@ -32,7 +32,7 @@ test_that("bind_rows() for mixed key properties", {
     update_tsibble(nsw, regular = FALSE)
   )
   expect_identical(format(interval(res2)), "!")
-  expect_error(bind_rows(rename(vic, YrQtr = Quarter), nsw), "valid")
+  expect_error(bind_rows(rename(vic, YrQtr = Quarter), nsw), "No common index variable")
 })
 
 test_that("bind_cols()", {

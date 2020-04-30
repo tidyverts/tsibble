@@ -53,6 +53,9 @@ yearquarter.POSIXct <- function(x) {
 }
 
 #' @export
+yearquarter.POSIXlt <- yearquarter.POSIXct
+
+#' @export
 yearquarter.Date <- yearquarter.POSIXct
 
 #' @export
@@ -119,6 +122,11 @@ is.numeric.yearquarter <- function(x) {
   FALSE
 }
 
+#' @export
+tz.yearquarter <- function(x) {
+  "UTC"
+}
+
 # diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
 #   out <- diff((year(x) - 1970) * 4 + quarter(x),
 #     lag = lag, differences = differences
@@ -126,105 +134,76 @@ is.numeric.yearquarter <- function(x) {
 #   structure(out, class = "difftime", units = "quarters")
 # }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method vec_cast yearquarter
+#' @rdname tsibble-vctrs
 #' @export
-#' @export vec_cast.yearquarter
 vec_cast.yearquarter <- function(x, to, ...) {
   UseMethod("vec_cast.yearquarter")
 }
 
 #' @export
-as.Date.yearquarter <- function(x, ...) {
-  new_date(x)
-}
-
-#' @method vec_cast.Date yearquarter
-#' @export
 vec_cast.Date.yearquarter <- function(x, to, ...) {
   new_date(x)
 }
 
-#' @method vec_cast.POSIXct yearquarter
 #' @export
 vec_cast.POSIXct.yearquarter <- function(x, to, ...) {
   as.POSIXct(new_date(x), ...)
 }
 
-#' @method vec_cast.double yearquarter
 #' @export
 vec_cast.double.yearquarter <- function(x, to, ...) {
   as.double((year(x) - 1970) * 4 + quarter(x) - 1)
 }
 
 #' @export
-as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
-  as.POSIXlt(new_date(x), tz = tz, ...)
-}
-
-#' @method vec_cast.POSIXlt yearquarter
-#' @export
-vec_cast.POSIXlt.yearquarter <- function(x, to, ...) { # not working
+vec_cast.POSIXlt.yearquarter <- function(x, to, ...) {
   as.POSIXlt(new_date(x), ...)
 }
 
-#' @method vec_cast.yearquarter yearquarter
 #' @export
 vec_cast.yearquarter.yearquarter <- function(x, to, ...) {
   new_yearquarter(x)
 }
 
-#' @method vec_cast.character yearquarter
 #' @export
 vec_cast.character.yearquarter <- function(x, to, ...) {
   format(x)
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method vec_ptype2 yearquarter
+#' @rdname tsibble-vctrs
 #' @export
-#' @export vec_ptype2.yearquarter
 vec_ptype2.yearquarter <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearquarter", y)
 }
 
-#' @method vec_ptype2.yearquarter POSIXct
 #' @export
 vec_ptype2.yearquarter.POSIXct <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.POSIXct yearquarter
 #' @export
 vec_ptype2.POSIXct.yearquarter <- function(x, y, ...) {
   new_datetime()
 }
 
-#' @method vec_ptype2.yearquarter Date
 #' @export
 vec_ptype2.yearquarter.Date <- function(x, y, ...) {
   new_date()
 }
 
-#' @method vec_ptype2.yearquarter yearquarter
 #' @export
 vec_ptype2.yearquarter.yearquarter <- function(x, y, ...) {
   new_yearquarter()
 }
 
-#' @method vec_ptype2.Date yearquarter
 #' @export
 vec_ptype2.Date.yearquarter <- function(x, y, ...) {
   new_date()
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
+#' @rdname tsibble-vctrs
 #' @method vec_arith yearquarter
 #' @export
-#' @export vec_arith.yearquarter
 vec_arith.yearquarter <- function(op, x, y, ...) {
   UseMethod("vec_arith.yearquarter", y)
 }
@@ -287,11 +266,8 @@ format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   format.Date(x, format = qtr_sub)
 }
 
-#' @rdname vctrs-compat
-#' @keywords internal
-#' @method obj_print_data yearquarter
+#' @rdname tsibble-vctrs
 #' @export
-#' @export obj_print_data.yearquarter
 obj_print_data.yearquarter <- function(x, ...) {
   if (length(x) == 0) return()
   print(format(x))
