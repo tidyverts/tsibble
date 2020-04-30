@@ -229,6 +229,7 @@ end.POSIXct <- function(x, y = NULL, ...) {
 start.yearweek <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearweek")
     y <- as.character(as_date(yearweek(y)))
   }
   yearweek(start(x = x, y = y))
@@ -237,6 +238,7 @@ start.yearweek <- function(x, y = NULL, ...) {
 end.yearweek <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearweek")
     y <- as.character(as_date(yearweek(y)))
   }
   yearweek(end(x = x, y = y)) + 1
@@ -245,6 +247,7 @@ end.yearweek <- function(x, y = NULL, ...) {
 start.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearmonth")
     y <- as.character(as_date(yearmonth(y)))
   }
   yearmonth(start(x = x, y = y))
@@ -253,6 +256,7 @@ start.yearmonth <- function(x, y = NULL, ...) {
 end.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearmonth")
     y <- as.character(as_date(yearmonth(y)))
   }
   yearmonth(end(x = x, y = y)) + 1
@@ -261,6 +265,7 @@ end.yearmonth <- function(x, y = NULL, ...) {
 start.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearquarter")
     y <- as.character(as_date(yearquarter(y)))
   }
   yearquarter(start(x = x, y = y))
@@ -269,6 +274,7 @@ start.yearquarter <- function(x, y = NULL, ...) {
 end.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
+    abort_not_chr(y, class = "yearquarter")
     y <- as.character(as_date(yearquarter(y)))
   }
   yearquarter(end(x = x, y = y)) + 1
