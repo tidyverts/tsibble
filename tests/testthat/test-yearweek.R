@@ -56,9 +56,9 @@ test_that("vec_cast() for yearweek()", {
   expect_identical(as.character(x), format(x))
   expect_identical(vec_cast(x, to = double()), as.double(x))
   expect_identical(vec_cast(x, to = new_date()), dates)
-  expect_identical(vec_data(as.POSIXct(x)), vec_data(dttm))
+  expect_identical(as.POSIXct(x), dttm)
   expect_identical(as.POSIXlt(x), as.POSIXlt(dttm, tz = "UTC"))
-  expect_identical(vec_data(vec_cast(x, to = new_datetime())), vec_data(dttm))
+  expect_identical(vec_cast(x, to = new_datetime()), dttm)
 })
 
 test_that("vec_c() for yearweek()", {

@@ -1,12 +1,6 @@
 #' Tidyverse methods for tsibble
 #'
-#' @section Column-wise verbs:
-#' * The index variable cannot be dropped for a tsibble object.
-#' * When any key variable is modified, a check on the validity of the resulting
-#' tsibble will be performed internally.
-#' * Use `as_tibble()` to convert tsibble to a general data frame.
-#'
-#' @details
+#' @description
 #' Current dplyr verbs that support tsibble:
 #'
 #' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()], [dplyr::select()],
@@ -20,6 +14,12 @@
 #' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
 #' [tidyr::drop_na()]
 #' 
+#' @section Column-wise verbs:
+#' * The index variable cannot be dropped for a tsibble object.
+#' * When any key variable is modified, a check on the validity of the resulting
+#' tsibble will be performed internally.
+#' * Use `as_tibble()` to convert tsibble to a general data frame.
+#'
 #' @section Row-wise verbs:
 #' A warning is likely to be issued, if observations are not arranged in
 #' past-to-future order.

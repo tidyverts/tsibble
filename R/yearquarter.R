@@ -53,6 +53,9 @@ yearquarter.POSIXct <- function(x) {
 }
 
 #' @export
+yearquarter.POSIXlt <- yearquarter.POSIXct
+
+#' @export
 yearquarter.Date <- yearquarter.POSIXct
 
 #' @export
@@ -119,6 +122,11 @@ is.numeric.yearquarter <- function(x) {
   FALSE
 }
 
+#' @export
+tz.yearquarter <- function(x) {
+  "UTC"
+}
+
 # diff.yearquarter <- function(x, lag = 1, differences = 1, ...) {
 #   out <- diff((year(x) - 1970) * 4 + quarter(x),
 #     lag = lag, differences = differences
@@ -130,11 +138,6 @@ is.numeric.yearquarter <- function(x) {
 #' @export
 vec_cast.yearquarter <- function(x, to, ...) {
   UseMethod("vec_cast.yearquarter")
-}
-
-#' @export
-as.Date.yearquarter <- function(x, ...) {
-  new_date(x)
 }
 
 #' @export
@@ -153,12 +156,7 @@ vec_cast.double.yearquarter <- function(x, to, ...) {
 }
 
 #' @export
-as.POSIXlt.yearquarter <- function(x, tz = "", ...) {
-  as.POSIXlt(new_date(x), tz = tz, ...)
-}
-
-#' @export
-vec_cast.POSIXlt.yearquarter <- function(x, to, ...) { # not working
+vec_cast.POSIXlt.yearquarter <- function(x, to, ...) {
   as.POSIXlt(new_date(x), ...)
 }
 

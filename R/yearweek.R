@@ -59,6 +59,9 @@ yearweek.POSIXct <- function(x) {
 }
 
 #' @export
+yearweek.POSIXlt <- yearweek.POSIXct
+
+#' @export
 yearweek.Date <- yearweek.POSIXct
 
 #' @export
@@ -109,6 +112,11 @@ is.numeric.yearweek <- function(x) {
   FALSE
 }
 
+#' @export
+tz.yearweek <- function(x) {
+  "UTC"
+}
+
 # diff.yearweek <- function(x, lag = 1, differences = 1, ...) {
 #   out <- diff((as_date(x) - as_date("1969-12-29")) / 7,
 #     lag = lag, differences = differences
@@ -128,11 +136,6 @@ vec_cast.Date.yearweek <- function(x, to, ...) {
 }
 
 #' @export
-as.Date.yearweek <- function(x, ...) {
-  new_date(as.double(vec_data(x)))
-}
-
-#' @export
 vec_cast.POSIXct.yearweek <- function(x, to, ...) {
   as.POSIXct(new_date(x), ...)
 }
@@ -143,12 +146,7 @@ vec_cast.double.yearweek <- function(x, to, ...) {
 }
 
 #' @export
-as.POSIXlt.yearweek <- function(x, tz = "", ...) {
-  as.POSIXlt(new_date(x), tz = tz, ...)
-}
-
-#' @export
-vec_cast.POSIXlt.yearweek <- function(x, to, ...) { # not working
+vec_cast.POSIXlt.yearweek <- function(x, to, ...) {
   as.POSIXlt(new_date(x), ...)
 }
 

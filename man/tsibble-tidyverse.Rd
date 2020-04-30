@@ -17,9 +17,6 @@
 \item{...}{Same arguments accepted as its tidyverse generic.}
 }
 \description{
-Tidyverse methods for tsibble
-}
-\details{
 Current dplyr verbs that support tsibble:
 
 \code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}}, \code{\link[dplyr:select]{dplyr::select()}},

@@ -53,6 +53,9 @@ yearmonth.POSIXct <- function(x) {
 }
 
 #' @export
+yearmonth.POSIXlt <- yearmonth.POSIXct
+
+#' @export
 yearmonth.Date <- function(x) {
   new_yearmonth(floor_date(x, unit = "months"))
 }
@@ -99,6 +102,11 @@ is.numeric.yearmonth <- function(x) {
   FALSE
 }
 
+#' @export
+tz.yearmonth <- function(x) {
+  "UTC"
+}
+
 # diff.yearmonth <- function(x, lag = 1, differences = 1, ...) {
 #   out <- diff((year(x) - 1970) * 12 + month(x),
 #     lag = lag, differences = differences
@@ -110,11 +118,6 @@ is.numeric.yearmonth <- function(x) {
 #' @export
 vec_cast.yearmonth <- function(x, to, ...) {
   UseMethod("vec_cast.yearmonth")
-}
-
-#' @export
-as.Date.yearmonth <- function(x, ...) {
-  new_date(x)
 }
 
 #' @export
@@ -133,12 +136,7 @@ vec_cast.double.yearmonth <- function(x, to, ...) {
 }
 
 #' @export
-as.POSIXlt.yearmonth <- function(x, tz = "", ...) {
-  as.POSIXlt(new_date(x), tz = tz, ...)
-}
-
-#' @export
-vec_cast.POSIXlt.yearmonth <- function(x, to, ...) { # not working
+vec_cast.POSIXlt.yearmonth <- function(x, to, ...) {
   as.POSIXlt(new_date(x), ...)
 }
 
