@@ -4,7 +4,8 @@
 #' Current dplyr verbs that support tsibble:
 #'
 #' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()], [dplyr::select()],
-#' [dplyr::transmute()], [dplyr::mutate()], [dplyr::summarise()], [dplyr::group_by()],
+#' [dplyr::transmute()], [dplyr::mutate()], [dplyr::summarise()], [dplyr::relocate()],
+#' [dplyr::group_by()], [dplyr::group_split()],
 #' [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
 #' [dplyr::nest_join()]
@@ -176,6 +177,13 @@ ungroup.tbl_ts <- function(x, ...) {
   x
 }
 
+#' @importFrom dplyr group_split
+#' @export
+group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
+  ungrouped_tbl <- ungroup(.tbl)
+  group_split(ungrouped_tbl, !!!groups(.tbl), keep = keep)
+}
+
 distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
 }
@@ -239,7 +247,7 @@ dplyr_col_modify.grouped_ts <- dplyr_col_modify.tbl_ts
 dplyr_reconstruct.tbl_ts <- function(data, template) {
   template <- rename_join_tsibble(data, template)
   update_meta(data, template,
-    ordered = NULL, interval = is_regular(template),
+    ordered = is_ordered(template), interval = is_regular(template),
     validate = TRUE)
 }
 

@@ -36,7 +36,7 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
-    rlang (>= 0.4.2),
+    rlang (>= 0.4.5.9000),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
     vctrs (>= 0.2.99)
@@ -60,7 +60,8 @@ RdMacros:
     lifecycle
 Remotes:
     tidyverse/dplyr,
-    r-lib/vctrs#1061
+    r-lib/rlang,
+    r-lib/vctrs
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
