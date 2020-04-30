@@ -1,15 +1,14 @@
 # tsibble 0.8.9.9000
 
-This release marks the migration of tsibble's S3 vector classes, such as `yearquarter`, `yearmonth`, `yearweek` and `interval`, to the new **vctrs** framework. You will not receive the warning like "custom class dropped" when performing `mutate()` or `bind_rows()` later.
+This release marks the tsibble's adaption to the new **vctrs** framework.
 
 ## Breaking changes
 
-* The "interval" class has been formally defined as a record type under the **vctrs** framework. The `new_interval()` uses new interface to create the interval and supports custom interval. This also leads to the change in the tsibble object.
-* Old tsibble objects will receive an error for "a corrupt tsibble".
+* The "interval" class has been formally defined as a record type under the **vctrs** framework. The `new_interval()` uses a new interface to create the interval and supports custom interval. Old tsibble objects will receive an error for "a corrupt tsibble".
 
-## New features
+## Improvements
 
-* The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding to the same starting or ending time. (#147)
+* The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding `NA` to either starting or ending time. (#147)
 * `select()` a tsibble now keeps both index and key by default. (#155)
 * Added `tidyr::drop_na()` support for tsibble. (#173)
 
@@ -20,6 +19,7 @@ This release marks the migration of tsibble's S3 vector classes, such as `yearqu
 ## Deprecated functions
 
 * Deprecated window functions in favour of the {slider} package. (#143)
+* Deprecated `units_since()` in favour of `vec_cast()`.
 * Remove `is.tsibble()`.
 * Defunct `as.tsibble()`.
 
