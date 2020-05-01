@@ -5,8 +5,7 @@
 #'
 #' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
 #' [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
-#' [dplyr::summarise()],
-#' [dplyr::group_by()], [dplyr::group_split()],
+#' [dplyr::summarise()], [dplyr::group_by()],
 #' [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
 #' [dplyr::nest_join()]
@@ -176,13 +175,6 @@ ungroup.grouped_ts <- function(x, ...) {
 ungroup.tbl_ts <- function(x, ...) {
   attr(x, "index2") <- index_var(x)
   x
-}
-
-#' @importFrom dplyr group_split
-#' @export
-group_split.grouped_ts <- function(.tbl, ..., keep = TRUE) {
-  ungrouped_tbl <- ungroup(.tbl)
-  group_split(ungrouped_tbl, !!!groups(.tbl), keep = keep)
 }
 
 distinct.tbl_ts <- function(.data, ...) {
