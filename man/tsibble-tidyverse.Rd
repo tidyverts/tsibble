@@ -19,8 +19,9 @@
 \description{
 Current dplyr verbs that support tsibble:
 
-\code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}}, \code{\link[dplyr:select]{dplyr::select()}},
-\code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:summarise]{dplyr::summarise()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+\code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}},
+\code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+\code{\link[dplyr:summarise]{dplyr::summarise()}},
 \code{\link[dplyr:group_by]{dplyr::group_by()}}, \code{\link[dplyr:group_split]{dplyr::group_split()}},
 \code{\link[dplyr:left_join]{dplyr::left_join()}}, \code{\link[dplyr:right_join]{dplyr::right_join()}}, \code{\link[dplyr:full_join]{dplyr::full_join()}},
 \code{\link[dplyr:inner_join]{dplyr::inner_join()}}, \code{\link[dplyr:semi_join]{dplyr::semi_join()}}, \code{\link[dplyr:anti_join]{dplyr::anti_join()}},

@@ -3,8 +3,9 @@
 #' @description
 #' Current dplyr verbs that support tsibble:
 #'
-#' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()], [dplyr::select()],
-#' [dplyr::transmute()], [dplyr::mutate()], [dplyr::summarise()], [dplyr::relocate()],
+#' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
+#' [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
+#' [dplyr::summarise()],
 #' [dplyr::group_by()], [dplyr::group_split()],
 #' [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
