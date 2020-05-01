@@ -16,7 +16,11 @@ append_row(.data, n = 1L, ...)
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{n}{An integer indicates the number of key-index pair to append.}
+\item{n}{An integer indicates the number of key-index pair to append. If
+\itemize{
+\item \code{n > 0}, future observations
+\item \code{n < 0}, past observations
+}}
 
 \item{...}{Passed to individual S3 method.}
 
@@ -26,7 +30,7 @@ and key, otherwise only index and key.}
 \description{
 \lifecycle{stable}
 
-\code{append_row()}: add new rows to the end of a tsibble by filling a key-index
+\code{append_row()}: add new rows to the start/end of a tsibble by filling a key-index
 pair and \code{NA} for measured variables.
 
 \code{append_case()} is an alias of \code{append_row()}.
@@ -35,6 +39,8 @@ pair and \code{NA} for measured variables.
 new_data(pedestrian)
 new_data(pedestrian, keep_all = TRUE)
 new_data(pedestrian, n = 3)
+new_data(pedestrian, n = -2)
+
 tsbl <- tsibble(
   date = rep(as.Date("2017-01-01") + 0:2, each = 2),
   group = rep(letters[1:2], 3),
@@ -43,4 +49,5 @@ tsbl <- tsibble(
 )
 append_row(tsbl)
 append_row(tsbl, n = 2)
+append_row(tsbl, n = -2)
 }

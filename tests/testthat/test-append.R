@@ -24,7 +24,9 @@ test_that("4 day interval", {
   tsbl <- as_tsibble(dat_x, index = date)
   ref_tbl <- tibble(date = ymd("2017-01-21"), value = NA_real_)
   expect_equivalent(append_row(tsbl)[6, ], ref_tbl)
-  expect_error(append_row(tsbl, 1:3), "a positive")
+  ref_tbl2 <- tibble(date = ymd("2016-12-28"), value = NA_real_)
+  expect_equivalent(append_row(tsbl, n = -1)[1, ], ref_tbl2)
+  expect_error(append_row(tsbl, 1:3), "an integer")
 })
 
 tourism <- tourism %>%

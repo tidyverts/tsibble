@@ -6,10 +6,14 @@ This release marks the tsibble's adaption to the new **vctrs** framework.
 
 * The "interval" class has been formally defined as a record type under the **vctrs** framework. The `new_interval()` uses a new interface to create the interval and supports custom interval. Old tsibble objects will receive an error for "a corrupt tsibble".
 
-## Improvements
+## New features
 
 * The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding `NA` to either starting or ending time. (#147)
 * `select()` a tsibble now keeps both index and key by default. (#155)
+* The argument `n` in `new_data()` and `append_row()` supports negative integer, appending past observations to the data. (#186)
+
+## Improvements
+
 * Added `tidyr::drop_na()` support for tsibble. (#173)
 
 ## Bug fixes
