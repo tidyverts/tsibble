@@ -316,9 +316,9 @@ displaying on the screen.</p></li>
 }
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>index_by</span>(<span class='kw'>Year</span> <span class='kw'>=</span> ~ <span class='fu'>financial_year</span>(<span class='no'>.</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; <span class='error'>Error: `mutate()` argument `Year` errored.</span>
-#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> `Year` is `f(Quarter)`.</span>
-#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> could not find function "financial_year"</span></div></span></pre>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Trips</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `Year`.</span>
+#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> could not find function "financial_year"</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `Year` is `f(Quarter)`.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
