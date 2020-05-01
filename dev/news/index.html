@@ -157,7 +157,7 @@
 <h1 class="page-header">
 <a href="#tsibble-0899000" class="anchor"></a>tsibble 0.8.9.9000<small> Unreleased </small>
 </h1>
-<p>This release marks the tsibble’s adaption to the new <strong>vctrs</strong> framework.</p>
+<p>This release uses the new <strong>vctrs</strong> framework in {tsibble}.</p>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
@@ -170,8 +170,6 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>The <code>.full</code> argument in <code>*_gaps</code> support two more options, <code><a href="https://rdrr.io/r/stats/start.html">start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html">end()</a></code>, for padding <code>NA</code> to either starting or ending time. (#147)</li>
-<li>
-<code>select()</code> a tsibble now keeps both index and key by default. (#155)</li>
 <li>The argument <code>n</code> in <code><a href="../reference/new-data.html">new_data()</a></code> and <code><a href="../reference/new-data.html">append_row()</a></code> supports negative integer, appending past observations to the data. (#186)</li>
 </ul>
 </div>
@@ -179,6 +177,8 @@
 <h2 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
+<li>
+<code>select()</code> a tsibble now keeps both index and key by default. (#155)</li>
 <li>Added <code><a href="https://tidyr.tidyverse.org/reference/drop_na.html">tidyr::drop_na()</a></code> support for tsibble. (#173)</li>
 </ul>
 </div>
