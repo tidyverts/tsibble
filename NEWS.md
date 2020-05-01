@@ -1,6 +1,6 @@
 # tsibble 0.8.9.9000
 
-This release marks the tsibble's adaption to the new **vctrs** framework.
+This release uses the new **vctrs** framework in {tsibble}.
 
 ## Breaking changes
 
@@ -9,11 +9,11 @@ This release marks the tsibble's adaption to the new **vctrs** framework.
 ## New features
 
 * The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding `NA` to either starting or ending time. (#147)
-* `select()` a tsibble now keeps both index and key by default. (#155)
 * The argument `n` in `new_data()` and `append_row()` supports negative integer, appending past observations to the data. (#186)
 
 ## Improvements
 
+* `select()` a tsibble now keeps both index and key by default. (#155)
 * Added `tidyr::drop_na()` support for tsibble. (#173)
 
 ## Bug fixes
