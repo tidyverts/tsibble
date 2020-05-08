@@ -39,7 +39,7 @@ Imports:
     rlang (>= 0.4.5.9000),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
-    vctrs (>= 0.2.99)
+    vctrs (>= 0.3.0)
 Suggests: 
     covr,
     furrr,
@@ -61,7 +61,6 @@ RdMacros:
 Remotes:
     tidyverse/dplyr,
     r-lib/rlang,
-    r-lib/vctrs
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
