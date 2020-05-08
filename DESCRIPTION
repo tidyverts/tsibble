@@ -60,7 +60,7 @@ RdMacros:
     lifecycle
 Remotes:
     tidyverse/dplyr,
-    r-lib/rlang,
+    r-lib/rlang
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
