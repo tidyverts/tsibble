@@ -14,7 +14,7 @@
 #'
 #' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
 #' [tidyr::drop_na()]
-#' 
+#'
 #' @section Column-wise verbs:
 #' * The index variable cannot be dropped for a tsibble object.
 #' * When any key variable is modified, a check on the validity of the resulting
@@ -198,7 +198,7 @@ dplyr_row_slice.grouped_ts <- dplyr_row_slice.tbl_ts
 
 #' @export
 dplyr_col_modify.tbl_ts <- function(data, cols) {
-  res <- NextMethod()
+  res <- dplyr_col_modify(as_tibble(data), cols)
   idx_chr <- index_var(data)
   if (is_false(idx_chr %in% names(res))) { # index has been removed
     abort(sprintf(paste_inline(
