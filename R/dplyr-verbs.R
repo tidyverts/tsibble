@@ -1,7 +1,7 @@
 #' Tidyverse methods for tsibble
 #'
 #' @description
-#' Current dplyr verbs that support tsibble:
+#' Current dplyr verbs that tsibble has support for:
 #'
 #' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
 #' [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
@@ -10,7 +10,7 @@
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
 #' [dplyr::nest_join()]
 #'
-#' Current tidyr verbs that support tsibble:
+#' Current tidyr verbs that tsibble has support for:
 #'
 #' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
 #' [tidyr::drop_na()]
