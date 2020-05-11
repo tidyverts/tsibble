@@ -51,7 +51,7 @@ variable will be created.
 Only applies to \verb{_dfr} variant.}
 }
 \description{
-\lifecycle{soft-deprecated}
+\lifecycle{deprecated}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 

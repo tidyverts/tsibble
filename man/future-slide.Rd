@@ -4,7 +4,7 @@
 \alias{future_slide()}
 \title{Sliding window in parallel}
 \description{
-\lifecycle{soft-deprecated}
+\lifecycle{deprecated}
 
 \strong{The rolling window family will be deprecated in the future. Please consider
 using the \href{https://davisvaughan.github.io/slider}{slider} package.}

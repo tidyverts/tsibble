@@ -97,7 +97,7 @@ Only applies to \verb{_dfr} variant.}
 if \code{.fill != NULL}, it always returns the same length as input.
 }
 \description{
-\lifecycle{soft-deprecated}
+\lifecycle{deprecated}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 

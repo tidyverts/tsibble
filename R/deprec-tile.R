@@ -1,7 +1,7 @@
 #' Tiling window calculation
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -60,7 +60,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' Tiling window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -216,7 +216,7 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
 #' Tiling window in parallel
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
 #' using the [slider](https://davisvaughan.github.io/slider) package.**

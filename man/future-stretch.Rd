@@ -4,7 +4,7 @@
 \alias{future_stretch()}
 \title{Stretching window in parallel}
 \description{
-\lifecycle{soft-deprecated}
+\lifecycle{deprecated}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 

@@ -6,7 +6,7 @@ nrow2 <- function(.x) {
 #' Stretching window calculation
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -19,7 +19,6 @@ nrow2 <- function(.x) {
 #' @inheritParams slide
 #' @param .init A positive integer for an initial window size.
 #' @param .step A positive integer for incremental step.
-#' @param .size \lifecycle{defunct} Please use `.step` instead.
 #'
 #' @return if `.fill != NULL`, it always returns the same length as input.
 #' @rdname stretch
@@ -32,10 +31,7 @@ nrow2 <- function(.x) {
 #' lst <- list(x = x, y = 6:10, z = 11:15)
 #' stretch(lst, ~., .step = 2, .fill = NULL)
 stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
-                    .bind = FALSE, .size = deprecated()) {
-  if (!is_missing(.size)) {
-    lifecycle::deprecate_stop("0.8.0", "stretch(.size = )", "stretch(.step = )")
-  }
+                    .bind = FALSE) {
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
   out <- map(lst_x, .f, ...)
   pad_stretch(out,
@@ -82,7 +78,7 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' Stretching window calculation over multiple simultaneously
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -328,7 +324,7 @@ incr <- function(.init, .step) {
 #' Stretching window in parallel
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'

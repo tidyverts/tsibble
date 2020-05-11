@@ -48,7 +48,7 @@ bad_step_function <- function(.step) {
 #' Sliding window calculation
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -153,7 +153,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' Sliding window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -628,7 +628,7 @@ slider_msg <- function() {
 #' Sliding window in parallel
 #'
 #' @description
-#' \lifecycle{soft-deprecated}
+#' \lifecycle{deprecated}
 #'
 #' **The rolling window family will be deprecated in the future. Please consider
 #' using the [slider](https://davisvaughan.github.io/slider) package.**

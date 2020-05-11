@@ -90,7 +90,7 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-\lifecycle{soft-deprecated}
+\lifecycle{deprecated}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
