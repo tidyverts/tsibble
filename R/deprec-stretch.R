@@ -239,12 +239,15 @@ stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
 stretcher2 <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   bad_window_function(.step)
   if (!is_integerish(.init, n = 1) || .init < 1) {
-    abort("`.init` must be a positive integer.")
+    abort("`.init` only accepts a positive integer.")
   }
   if (is.data.frame(.x)) .x <- as.list(.x)
   len_x <- NROW(.x)
+  if (len_x == 1) {
+    abort("`.x` of length one cannot be stretched.")
+  }
   if (len_x <= .init) {
-    abort(sprintf("`.init` must be less than %s.", len_x))
+    abort(sprintf("`.init` must be less than the length of `.x` (%s).", len_x))
   }
   abs_size <- abs(.step)
   counter <- incr(.init = .init, .step = abs_size)
