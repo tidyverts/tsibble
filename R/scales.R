@@ -10,6 +10,11 @@
 #' @name tsibble-scales
 NULL
 
+scale_fun_pkg_check <- function() {
+  pkg_not_available("ggplot2", "3.3.0")
+  pkg_not_available("scales", "1.1.0")
+}
+
 scale_type.yearquarter <- function(x) c("yearquarter", "date", "continuous")
 
 yearquarter_trans <- function() {
@@ -30,18 +35,52 @@ yearquarter_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearquarter <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
-  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_x_date(...),
     trans = yearquarter_trans())
 }
 
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearquarter <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
-  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_y_date(...),
+    trans = yearquarter_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_colour_yearquarter <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_colour_date(...),
+    trans = yearquarter_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_color_yearquarter <- scale_colour_yearquarter
+
+#' @rdname tsibble-scales
+#' @export
+scale_alpha_yearquarter <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_alpha_date(...),
+    trans = yearquarter_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_fill_yearquarter <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_fill_date(...),
+    trans = yearquarter_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_size_yearquarter <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_size_date(...),
     trans = yearquarter_trans())
 }
 
@@ -65,8 +104,7 @@ yearmonth_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearmonth <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
+  scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
     trans = yearmonth_trans())
 }
@@ -74,9 +112,44 @@ scale_x_yearmonth <- function(...) {
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearmonth <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
+  scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
+    trans = yearmonth_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_colour_yearmonth <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_colour_date(...),
+    trans = yearmonth_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_color_yearmonth <- scale_colour_yearmonth
+
+#' @rdname tsibble-scales
+#' @export
+scale_alpha_yearmonth <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_alpha_date(...),
+    trans = yearmonth_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_fill_yearmonth <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_fill_date(...),
+    trans = yearmonth_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_size_yearmonth <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_size_date(...),
     trans = yearmonth_trans())
 }
 
@@ -100,8 +173,7 @@ yearweek_trans <- function() {
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearweek <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
+  scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
     trans = yearweek_trans())
 }
@@ -109,8 +181,43 @@ scale_x_yearweek <- function(...) {
 #' @rdname tsibble-scales
 #' @export
 scale_y_yearweek <- function(...) {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
+  scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_y_date(...),
+    trans = yearweek_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_colour_yearweek <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_colour_date(...),
+    trans = yearweek_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_color_yearweek <- scale_colour_yearweek
+
+#' @rdname tsibble-scales
+#' @export
+scale_alpha_yearweek <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_alpha_date(...),
+    trans = yearweek_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_fill_yearweek <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_fill_date(...),
+    trans = yearweek_trans())
+}
+
+#' @rdname tsibble-scales
+#' @export
+scale_size_yearweek <- function(...) {
+  scale_fun_pkg_check()
+  ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_size_date(...),
     trans = yearweek_trans())
 }

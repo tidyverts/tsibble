@@ -1,6 +1,6 @@
 # tsibble 0.8.9.9000
 
-This release uses the new **vctrs** framework in {tsibble}.
+This release uses the **vctrs** package internally in {tsibble}.
 
 ## Breaking changes
 
@@ -10,6 +10,7 @@ This release uses the new **vctrs** framework in {tsibble}.
 
 * The `.full` argument in `*_gaps` support two more options, `start()` and `end()`, for padding `NA` to either starting or ending time. (#147)
 * The argument `n` in `new_data()` and `append_row()` supports negative integer, appending past observations to the data. (#186)
+* New set of `scale_[x/y/colour/size/alpha/fill]_year*()` for custom ggplot2 scales.
 
 ## Improvements
 
