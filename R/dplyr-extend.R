@@ -80,7 +80,7 @@ transmute.grouped_ts <- transmute.tbl_ts
 #'   as_tibble() %>%
 #'   summarise(Total = sum(Count))
 #' @export
-summarise.tbl_ts <- function(.data, ...) {
+summarise.tbl_ts <- function(.data, ..., .groups = NULL) {
   # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for
   # empty groups. Bc information is unavailable over the time range for empty
   # groups.
@@ -95,11 +95,20 @@ summarise.tbl_ts <- function(.data, ...) {
   nonkey_quos <- lst_quos[nonkey]
 
   grped_data <- as_tibble(index_by(.data, !!idx2))
-  sum_data <-
-    group_by(
-      summarise(grped_data, !!!nonkey_quos),
-      !!!head(groups(grped_data), -2) # remove index2 and last grp
-    )
+  sum_tbl <- summarise(grped_data, !!!nonkey_quos, .groups = .groups)
+
+  groups_handler <- function(group_vars, .groups = NULL) {
+    if (is_null(.groups) || .groups == "drop_last") {
+      head(group_vars, -2) # remove index2 and last grp
+    } else if (.groups == "drop") {
+      character()
+    } else if (.groups == "keep") {
+      head(group_vars, -1)
+    } # not sure how to handle "rowwise" for tsibble yet
+  }
+
+  sum_data <- grouped_df(sum_tbl,
+    groups_handler(group_vars(grped_data), .groups = .groups))
   if (identical(idx, idx2)) int <- is_regular(.data) else int <- TRUE
   grps <- setdiff(group_vars(.data), idx2_chr)
 
@@ -183,9 +192,10 @@ distinct.tbl_ts <- function(.data, ...) {
 
 #' @export
 dplyr_row_slice.tbl_ts <- function(data, i, ..., preserve = FALSE) {
-  loc_df <- summarise(as_tibble(data), !!".loc" := list2(i))
+  tbl <- as_tibble(data)
+  loc_df <- summarise(tbl, !!".loc" := list2(i))
   ascending <- all(map_lgl(loc_df[[".loc"]], validate_order))
-  res <- NextMethod()
+  res <- dplyr_row_slice(tbl, i, ..., preserve = preserve)
   if (preserve) {
     update_meta2(res, data, ordered = ascending, interval = interval(data))
   } else {
