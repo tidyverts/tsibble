@@ -89,3 +89,11 @@ vec_cast.tbl_df.tbl_ts <- function(x, to, ...) {
 vec_cast.data.frame.tbl_ts <- function(x, to, ...) {
   df_cast(x, to, ...)
 }
+
+#' @export
+vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
+  # assuming `i` in order and no duplicates, minimal check for performance reason
+  build_tsibble(x,
+    key = key_vars(to), index = index_var(to), index2 = index2_var(to),
+    ordered = TRUE, validate = FALSE, .drop = key_drop_default(to))
+}
