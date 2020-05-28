@@ -17,33 +17,34 @@ tourism <- tourism %>%
   slice(1:10) %>%
   ungroup()
 
-test_that("spread()", {
+test_that("pivot_wider()", {
   out <- tsbl %>%
-    spread(key = group, value = value)
+    pivot_wider(names_from = group, values_from = value)
   expect_is(out, "tbl_ts")
   expect_equal(key(out), list())
   expect_named(out, c("qtr", "x", "y", "z"))
   out_grp <- tsbl %>%
     group_by(group) %>%
-    spread(key = group, value = value)
+    pivot_wider(names_from = group, values_from = value)
   expect_equal(groups(out_grp), list())
   out2 <- tourism %>%
-    spread(key = Purpose, value = Trips)
+    pivot_wider(names_from = Purpose, values_from = Trips)
   expect_equal(key_vars(out2), c("Region", "State"))
   expect_equal(ncol(out2), 7)
   out3 <- tourism %>%
-    spread(key = State, value = Trips)
+    pivot_wider(names_from = State, values_from = Trips)
   expect_equal(key_vars(out3), c("Region", "Purpose"))
   expect_equal(ncol(out3), 8 + 3)
-  expect_error(tsbl %>% spread(qtr, value = value), "can't be spread.")
+  expect_error(tsbl %>% 
+    pivot_wider(qtr, names_from = qtr, values_from = value), "can't be widened.")
   out4 <- tourism %>%
     group_by(Purpose) %>%
-    spread(key = State, value = Trips)
+    pivot_wider(names_from = State, values_from = Trips)
   expect_is(out4, "grouped_ts")
   expect_equal(group_vars(out4), "Purpose")
   out5 <- tourism %>%
     index_by(year = year(Quarter)) %>%
-    spread(key = State, value = Trips)
+    pivot_wider(names_from = State, values_from = Trips)
   expect_is(out5, "grouped_ts")
   expect_equal(group_vars(out5), "year")
 })
@@ -51,14 +52,13 @@ test_that("spread()", {
 tsbl2 <- tsbl %>%
   spread(key = group, value = value)
 
-test_that("gather()", {
+test_that("pivot_longer()", {
   out <- tsbl2 %>%
-    gather(key = key, value = value, x:z)
+    pivot_longer(x:z, names_to = "key", values_to = "value")
   expect_equal(dim(out), c(30, 3))
   expect_equal(key_vars(out), "key")
-  # expect_equal(key_size(out), rep(10, 3))
   out2 <- tsbl2 %>%
-    gather(key = key, value = value)
+    pivot_longer(-qtr, names_to = "key", values_to = "value")
   expect_identical(out, out2)
 })
 

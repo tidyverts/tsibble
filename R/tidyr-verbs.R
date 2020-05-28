@@ -37,7 +37,7 @@ pivot_wider.tbl_ts <- function(data, id_cols = NULL, names_from = name, ...) {
   key_var <- vars_pull(names(data), !!enquo(names_from))
   if (has_index(key_var, data)) {
     abort(c(
-      sprintf("Column `%s` (index) can't be spread.", key_var),
+      sprintf("Column `%s` (index) can't be widened.", key_var),
       i = "Please use `as_tibble()` to coerce."
     ))
   }
