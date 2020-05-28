@@ -1,3 +1,5 @@
+globalVariables(c("name"))
+
 #' @rdname tsibble-tidyverse
 #' @usage NULL
 #' @examples

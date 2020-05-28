@@ -69,3 +69,4 @@ ggproto
 tidyver
 tsibbledata
 vctrs
+rowwise
