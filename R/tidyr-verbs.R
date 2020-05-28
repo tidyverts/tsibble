@@ -9,8 +9,53 @@
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
 #' )
-#' (stocksm <- stocks %>% gather(stock, price, -time))
-#' stocksm %>% spread(stock, price)
+#' (stocksm <- stocks %>% 
+#'     pivot_longer(-time, names_to = "stock", values_to = "price"))
+#' stocksm %>% 
+#'   pivot_wider(names_from = stock, values_from = price)
+pivot_longer.tbl_ts <- function(data, cols, names_to = "name", ...) {
+  if (!has_length(names_to)) {
+    abort("`pivot_longer(<tsibble>)` can't accept zero-length `names_to`.")
+  }
+  if (".value" %in% names_to) {
+    abort("`pivot_longer(<tsibble>)` can't accept the special \".value\" in `names_to`.")
+  }
+  new_key <- c(key_vars(data), names_to)
+  vars <- names(eval_select(enquo(cols), data))
+  data <- mutate_index2(data, vars)
+  tbl <- tidyr::pivot_longer(as_tibble(data),
+    cols = !!enquo(cols), names_to = names_to, ...)
+  build_tsibble(tbl,
+    key = !!new_key, index = !!index(data), index2 = !!index2(data),
+    ordered = is_ordered(data), interval = interval(data), validate = FALSE
+  )
+}
+
+pivot_wider.tbl_ts <- function(data, id_cols = NULL, names_from = name, ...) {
+  key_var <- vars_pull(names(data), !!enquo(names_from))
+  if (has_index(key_var, data)) {
+    abort(paste_inline(
+      sprintf("Column `%s` (index) can't be spread.", key_var),
+      "Please use `as_tibble()` to coerce."
+    ))
+  }
+  key_left <- setdiff(key_vars(data), key_var)
+  new_key <- key_vars(remove_key(data, .vars = key_left))
+
+  tbl <- tidyr::pivot_wider(as_tibble(data),
+    id_cols = !!enquo(id_cols), names_from = !!enquo(names_from), ...)
+  tbl <- retain_tsibble(tbl, new_key, index(data))
+
+  vars <- names(tbl)
+  data <- mutate_index2(data, vars)
+  build_tsibble(
+    tbl,
+    key = !!new_key, index = !!index(data), index2 = !!index2(data),
+    ordered = is_ordered(data), interval = is_regular(data),
+    validate = FALSE
+  )
+}
+
 gather.tbl_ts <- function(data, key = "key", value = "value", ...,
                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   key <- as_string(enexpr(key))

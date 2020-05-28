@@ -2,6 +2,8 @@
 .onLoad <- function(...) {
   s3_register("dplyr::distinct", "tbl_ts")
 
+  s3_register("tidyr::pivot_longer", "tbl_ts")
+  s3_register("tidyr::pivot_wider", "tbl_ts")
   s3_register("tidyr::gather", "tbl_ts")
   s3_register("tidyr::spread", "tbl_ts")
   s3_register("tidyr::fill", "grouped_ts")

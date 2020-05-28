@@ -4,7 +4,7 @@
 \alias{tsibble-tidyverse}
 \alias{transmute.tbl_ts}
 \alias{summarise.tbl_ts}
-\alias{gather.tbl_ts}
+\alias{pivot_longer.tbl_ts}
 \title{Tidyverse methods for tsibble}
 \usage{
 \method{transmute}{tbl_ts}(.data, ...)
@@ -74,6 +74,8 @@ stocks <- tsibble(
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
 )
-(stocksm <- stocks \%>\% gather(stock, price, -time))
-stocksm \%>\% spread(stock, price)
+(stocksm <- stocks \%>\% 
+    pivot_longer(-time, names_to = "stock", values_to = "price"))
+stocksm \%>\% 
+  pivot_wider(names_from = stock, values_from = price)
 }

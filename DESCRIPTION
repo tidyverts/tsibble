@@ -36,7 +36,7 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     purrr (>= 0.2.3),
-    rlang (>= 0.4.5.9000),
+    rlang (>= 0.4.6),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
     vctrs (>= 0.3.0)
@@ -52,15 +52,14 @@ Suggests:
     scales (>= 1.1.0),
     spelling,
     testthat (>= 2.3.2),
-    tidyr (>= 1.0.0),
+    tidyr (>= 1.1.0),
     timeDate
 VignetteBuilder: 
     knitr
 RdMacros: 
     lifecycle
 Remotes:
-    tidyverse/dplyr,
-    r-lib/rlang
+    tidyverse/dplyr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
