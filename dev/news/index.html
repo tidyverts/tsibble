@@ -157,7 +157,7 @@
 <h1 class="page-header">
 <a href="#tsibble-0899000" class="anchor"></a>tsibble 0.8.9.9000<small> Unreleased </small>
 </h1>
-<p>This release uses the new <strong>vctrs</strong> framework in {tsibble}.</p>
+<p>This release uses the <strong>vctrs</strong> package internally in {tsibble}.</p>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
@@ -169,8 +169,10 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li>The <code>.full</code> argument in <code>*_gaps</code> support two more options, <code><a href="https://rdrr.io/r/stats/start.html">start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html">end()</a></code>, for padding <code>NA</code> to either starting or ending time. (#147)</li>
+<li>The <code>.full</code> argument in <code>*_gaps</code> supports two more options, <code><a href="https://rdrr.io/r/stats/start.html">start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html">end()</a></code>, for padding <code>NA</code> to either starting or ending time. (#147)</li>
 <li>The argument <code>n</code> in <code><a href="../reference/new-data.html">new_data()</a></code> and <code><a href="../reference/new-data.html">append_row()</a></code> supports negative integer, appending past observations to the data. (#186)</li>
+<li>New set of <code>scale_[x/y/colour/size/alpha/fill]_year*()</code> for custom ggplot2 scales.</li>
+<li>Added <code>pivot_longer()</code> and <code>pivot_wider()</code> supporting methods for tsibble.</li>
 </ul>
 </div>
 <div id="improvements" class="section level2">
@@ -579,7 +581,7 @@
 <li>Respected the ordering of input variables while creating the key.</li>
 <li>Fixed “attempt to select less than one element in integerOneIndex” error message in <code>unnest.lst_ts()</code>.</li>
 <li>Fixed incorrect interval when doing join operations for custom index class. (#52)</li>
-<li>Avoided warnings when character input for key and value in <code><a href="../reference/tsibble-tidyverse.html">gather.tbl_ts()</a></code>. (#54)</li>
+<li>Avoided warnings when character input for key and value in <code>gather.tbl_ts()</code>. (#54)</li>
 </ul>
 </div>
 <div id="misc-3" class="section level2">
