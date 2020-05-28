@@ -63,7 +63,7 @@ globalVariables(c(".", ".gaps"))
 #' # use fill() to fill `NA` by previous/next entry
 #' pedestrian %>%
 #'   group_by_key() %>%
-#'   fill_gaps() %>% 
+#'   fill_gaps() %>%
 #'   tidyr::fill(Count, .direction = "down")
 fill_gaps <- function(.data, ..., .full = FALSE) {
   UseMethod("fill_gaps")
@@ -95,7 +95,8 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
     }
   }
   grps <- groups(.data)
-  full_data <- group_by(bind_rows(as_tibble(gap_data), .data), !!!grps)
+  full_data <- group_by(vec_rbind(as_tibble(gap_data), as_tibble(.data)),
+    !!!grps)
   full_data <- full_data[names(.data)] # keep the original order
   update_meta(full_data, .data, ordered = NULL, interval = interval(.data))
 }
@@ -326,7 +327,7 @@ unwrap <- function(.data, .col) {
     vec_seq_along(.data), vapply(.data[[lst_col]], vec_size, integer(1))
   )
   res <- vec_slice(res, row_indices)[setdiff(names(.data), lst_col)]
-  vec_cbind(res, bind_rows(!!!.data[[lst_col]]))
+  vec_cbind(res, vec_rbind(!!!.data[[lst_col]]))
 }
 
 abort_invalid_full_arg <- function() {
