@@ -77,3 +77,12 @@
 
 #' @export
 `[.grouped_ts` <- `[.tbl_ts`
+
+#' @export
+`$<-.tbl_ts` <- function(x, name, value) {
+  if (name %in% c(key_vars(x), index_var(x))) {
+    x <- as_tibble(x)
+    return(NextMethod())
+  }
+  NextMethod()
+}

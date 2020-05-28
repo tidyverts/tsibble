@@ -2,6 +2,7 @@
 
 S3method("$",interval)
 S3method("$",tbl_ts)
+S3method("$<-",tbl_ts)
 S3method("[",grouped_ts)
 S3method("[",tbl_ts)
 S3method("[[",interval)

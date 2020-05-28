@@ -70,7 +70,7 @@ if (!requireNamespace("tidyr", quietly = TRUE)) {
 # use fill() to fill `NA` by previous/next entry
 pedestrian \%>\%
   group_by_key() \%>\%
-  fill_gaps() \%>\% 
+  fill_gaps() \%>\%
   tidyr::fill(Count, .direction = "down")
 }
 \seealso{
