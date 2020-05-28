@@ -1,71 +1,3 @@
-# ezplot
-
-<details>
-
-* Version: 0.5.0
-* Source code: https://github.com/cran/ezplot
-* Date/Publication: 2020-05-09 19:50:02 UTC
-* Number of recursive dependencies: 99
-
-Run `revdep_details(,"ezplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ezplot’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/ezplot/new/ezplot.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tsibble’
-      All declared Imports should be used.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ezplot’ ...
-** package ‘ezplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> namespaceImport -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘ezplot’
-* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/ezplot/new/ezplot.Rcheck/ezplot’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ezplot’ ...
-** package ‘ezplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ezplot)
-
-```
 # fable
 
 <details>
@@ -122,8 +54,8 @@ installing to /Users/earo/Rpkg/tsibble/revdep/checks.noindex/fable/new/fable.Rch
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘fabletools’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.3.0 is required
+Error: package or namespace load failed for ‘fabletools’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘dplyr’ 0.8.5 is being loaded, but >= 0.8.99 is required
 Error: package ‘fabletools’ could not be loaded
 Execution halted
 ERROR: lazy loading failed for package ‘fable’
@@ -207,9 +139,9 @@ Run `revdep_details(,"fabletools")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.3.0 is required
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> namespaceImport -> loadNamespace
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘dplyr’ 0.8.5 is being loaded, but >= 0.8.99 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘fabletools’
 * removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/fabletools/new/fabletools.Rcheck/fabletools’
@@ -268,8 +200,8 @@ Run `revdep_details(,"feasts")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘fabletools’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.3.0 is required
+Error: package or namespace load failed for ‘fabletools’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘dplyr’ 0.8.5 is being loaded, but >= 0.8.99 is required
 Error: package ‘fabletools’ could not be loaded
 Execution halted
 ERROR: lazy loading failed for package ‘feasts’
@@ -348,8 +280,8 @@ Run `revdep_details(,"fpp3")` for more info
 Error: package or namespace load failed for ‘fpp3’:
  .onAttach failed in attachNamespace() for 'fpp3', details:
   call: NULL
-  error: package or namespace load failed for ‘dplyr’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘vctrs’ 0.2.4 is already loaded, but >= 0.2.99.9011 is required
+  error: package or namespace load failed for ‘tsibble’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
 Error: loading failed
 Execution halted
 ERROR: loading failed
@@ -394,18 +326,27 @@ Run `revdep_details(,"gravitas")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘gravitas-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: create_gran
-    > ### Title: Build dynamic temporal granularities
-    > ### Aliases: create_gran
-    > 
-    > ### ** Examples
-    > 
+    ...
     > library(dplyr)
-    Error: package or namespace load failed for ‘dplyr’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
+    
+    Attaching package: ‘dplyr’
+    
+    The following objects are masked from ‘package:stats’:
+    
+        filter, lag
+    
+    The following objects are masked from ‘package:base’:
+    
+        intersect, setdiff, setequal, union
+    
+    > library(ggplot2)
+    > library(lvplot)
+    > # Search for granularities
+    > smart_meter10 %>%
+    +   search_gran(highest_unit = "week")
+    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
+    Calls: %>% ... namespaceImportFrom -> asNamespace -> loadNamespace
     Execution halted
     ```
 
@@ -414,110 +355,33 @@ Run `revdep_details(,"gravitas")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      [90m 3. [39mbase:::tryCatchList(expr, classes, parentenv, handlers)
+      [90m 4. [39mbase:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
+      [90m 5. [39mvalue[[3L]](cond)
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 45 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 34 ]
-      1. Error: build_gran expected output minute_hhour (@test-build_gran.R#27) 
-      2. Error: build_gran expected output month_semester (@test-build_gran.R#35) 
-      3. Error: build_gran expected output week_semester (@test-build_gran.R#43) 
-      4. Error: build_gran expected output second_hhour (@test-build_gran.R#47) 
-      5. Error: (unknown) (@test-create_gran.R#8) 
-      6. Error: day_fortnight outputs a numeric value (@test-day-order-up.R#13) 
-      7. Error: day_fortnight expected output (@test-day-order-up.R#17) 
-      8. Error: day_fortnight output length equals input length (@test-day-order-up.R#21) 
-      9. Error: day_semester outputs a numeric value (@test-day-order-up.R#32) 
-      1. ...
+      [ OK: 73 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 6 ]
+      1. Error: (unknown) (@test-create_gran.R#9) 
+      2. Error: (unknown) (@test-gran_advice.R#9) 
+      3. Error: (unknown) (@test-harmony.R#9) 
+      4. Error: (unknown) (@test-is_harmony.R#9) 
+      5. Error: (unknown) (@test-prob_plot.R#6) 
+      6. Error: (unknown) (@test-search_gran.R#8) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# nullabor
-
-<details>
-
-* Version: 0.3.9
-* Source code: https://github.com/cran/nullabor
-* URL: http://github.com/dicook/nullabor
-* BugReports: http://github.com/dicook/nullabor/issues
-* Date/Publication: 2020-02-25 21:50:02 UTC
-* Number of recursive dependencies: 94
-
-Run `revdep_details(,"nullabor")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘nullabor’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/nullabor/new/nullabor.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘forecast’ ‘rlang’ ‘tsibble’ ‘viridis’
-      All declared Imports should be used.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘nullabor’ ...
-** package ‘nullabor’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> namespaceImport -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘nullabor’
-* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/nullabor/new/nullabor.Rcheck/nullabor’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘nullabor’ ...
-** package ‘nullabor’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (nullabor)
-
-```
 # pmdplyr
 
 <details>
 
-* Version: 0.3.1
+* Version: 0.3.1.1
 * Source code: https://github.com/cran/pmdplyr
 * URL: https://nickch-k.github.io/pmdplyr, https://github.com/NickCH-K/pmdplyr
 * BugReports: https://github.com/NickCH-K/pmdplyr/issues
-* Date/Publication: 2020-03-09 19:30:02 UTC
-* Number of recursive dependencies: 101
+* Date/Publication: 2020-05-15 08:47:17 UTC
+* Number of recursive dependencies: 106
 
 Run `revdep_details(,"pmdplyr")` for more info
 
@@ -525,55 +389,54 @@ Run `revdep_details(,"pmdplyr")` for more info
 
 ## Newly broken
 
-*   checking whether package ‘pmdplyr’ can be installed ... ERROR
+*   checking examples ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/pmdplyr/new/pmdplyr.Rcheck/00install.out’ for details.
+    ...
+    > ### Aliases: panel_convert
+    > 
+    > ### ** Examples
+    > 
+    > # Only run examples if the relevant packages are installed
+    > pkgs <- utils::installed.packages()
+    > 
+    > data(Scorecard)
+    > 
+    > # The example will turn a pibble to everything else
+    > # But starting with another type will of course work!
+    > S_pibble <- as_pibble(Scorecard, .i = unitid, .t = year)
+    > 
+    > # Get a tsibble
+    > if ("tsibble" %in% pkgs) {
+    +   head(panel_convert(S_pibble, to = "tsibble"))
+    + }
+    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
+    Calls: head ... namespaceImportFrom -> asNamespace -> loadNamespace
+    Execution halted
     ```
 
-## Installation
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      [1mBacktrace:[22m
+      [90m 1. [39mtsibble::tsibble
+      [90m 2. [39mbase::getExportedValue(pkg, name)
+      [90m 3. [39mbase::asNamespace(ns)
+      [90m 4. [39mbase::getNamespace(ns)
+      [90m 5. [39mbase::loadNamespace(name)
+      [90m 8. [39mbase::loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 290 | SKIPPED: 0 | WARNINGS: 13 | FAILED: 2 ]
+      1. Error: panel_convert input failstates (@test-bad_input.R#165) 
+      2. Error: (unknown) (@test-panel_convert.R#14) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘pmdplyr’ ...
-** package ‘pmdplyr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘dplyr’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-Error: package ‘dplyr’ could not be loaded
-Execution halted
-ERROR: lazy loading failed for package ‘pmdplyr’
-* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/pmdplyr/new/pmdplyr.Rcheck/pmdplyr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘pmdplyr’ ...
-** package ‘pmdplyr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (pmdplyr)
-
-```
 # RTL
 
 <details>
@@ -582,7 +445,7 @@ ERROR: lazy loading failed for package ‘pmdplyr’
 * Source code: https://github.com/cran/RTL
 * URL: https://github.com/risktoollib/RTL
 * Date/Publication: 2020-02-23 18:50:02 UTC
-* Number of recursive dependencies: 138
+* Number of recursive dependencies: 136
 
 Run `revdep_details(,"RTL")` for more info
 
@@ -595,16 +458,17 @@ Run `revdep_details(,"RTL")` for more info
     Running examples in ‘RTL-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: bond
-    > ### Title: 'bond'
-    > ### Aliases: bond
+    > ### Name: chart_zscore
+    > ### Title: 'chart_zscore'
+    > ### Aliases: chart_zscore
     > 
     > ### ** Examples
     > 
-    > bond(ytm = 0.05, C = 0.05,T2M = 1,m = 2,output = "price")
-    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-      namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-    Calls: bond ... getNamespace -> loadNamespace -> namespaceImport -> loadNamespace
+    > chart_zscore(df = ng_storage, title = "NG Storage Z Score",
+    + per = "yearweek", output = "stl", chart = "seasons")
+    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
+    Calls: chart_zscore ... namespaceImportFrom -> asNamespace -> loadNamespace
     Execution halted
     ```
 
@@ -638,115 +502,23 @@ Run `revdep_details(,"sugrrants")` for more info
 
 ## Newly broken
 
-*   checking whether package ‘sugrrants’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/sugrrants/new/sugrrants.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sugrrants’ ...
-** package ‘sugrrants’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  namespace ‘vctrs’ 0.2.4 is already loaded, but >= 0.2.99.9011 is required
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> namespaceImport -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘sugrrants’
-* removing ‘/Users/earo/Rpkg/tsibble/revdep/checks.noindex/sugrrants/new/sugrrants.Rcheck/sugrrants’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sugrrants’ ...
-** package ‘sugrrants’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (sugrrants)
-
-```
-# tsbox
-
-<details>
-
-* Version: 0.2.1
-* Source code: https://github.com/cran/tsbox
-* URL: https://www.tsbox.help
-* BugReports: https://github.com/christophsax/tsbox/issues
-* Date/Publication: 2020-04-29 19:20:03 UTC
-* Number of recursive dependencies: 93
-
-Run `revdep_details(,"tsbox")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > head(x.ts)
-         mdeaths fdeaths
-    [1,]    2134     901
-    [2,]    1863     689
-    [3,]    1877     827
-    [4,]    1877     677
-    [5,]    1492     522
-    [6,]    1249     406
-    > head(ts_df(x.ts))
-           id       time value
-    1 mdeaths 1974-01-01  2134
-    2 mdeaths 1974-02-01  1863
-    3 mdeaths 1974-03-01  1877
-    4 mdeaths 1974-04-01  1877
-    5 mdeaths 1974-05-01  1492
-    6 mdeaths 1974-06-01  1249
-    > 
-    > suppressMessages(library(dplyr))
-    Error: package or namespace load failed for ‘dplyr’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      namespace 'dplyr' 0.8.5 is already loaded, but >= 0.8.99 is required
+      [1mBacktrace:[22m
+      [90m  9. [39mtsibble::as_tsibble(., key = Sensor_Name, index = Date_Time)
+      [90m 10. [39mbase::getExportedValue(pkg, name)
+      [90m 11. [39mbase::asNamespace(ns)
+      [90m 12. [39mbase::getNamespace(ns)
+      [90m 13. [39mbase::loadNamespace(name)
+      [90m 16. [39mbase::loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 355 | SKIPPED: 16 | WARNINGS: 0 | FAILED: 13 ]
-      1. Error: arithmetic operations work properly (@test_arithmetic.R#31) 
-      2. Error: df aggregation using date_ functions is working (@test_date_utils.R#10) 
-      3. Error: time_shift is working (@test_date_utils.R#47) 
-      4. Error: works with df with improper col classes (@test_dirty.R#8) 
-      5. Error: time column of daily data is treated as Date (#114) (@test_dirty.R#25) 
-      6. Error: minimal example works (@test_nyc_flights.R#10) 
-      7. Error: colname guessing works as expected (@test_object_conversion.R#187) 
-      8. Error: conversions work with multiple ids 
-      9. Error: (unknown) (@test_time_conversion.R#4) 
-      1. ...
+      [ OK: 34 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
+      1. Error: The tsibble data (@test-calendar.R#124) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -783,8 +555,8 @@ Run `revdep_details(,"tsibbledata")` for more info
     > 
     > library(ggplot2)
     > library(tsibble)
-    Error: package or namespace load failed for ‘tsibble’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     namespace ‘vctrs’ 0.2.4 is already loaded, but >= 0.3.0 is required
+    Error: package or namespace load failed for ‘tsibble’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+     namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
     Execution halted
     ```
 
@@ -799,50 +571,6 @@ Run `revdep_details(,"tsibbledata")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 2 marked UTF-8 strings
-    ```
-
-# TSstudio
-
-<details>
-
-* Version: 0.1.6
-* Source code: https://github.com/cran/TSstudio
-* URL: https://github.com/RamiKrispin/TSstudio
-* BugReports: https://github.com/RamiKrispin/TSstudio/issues
-* Date/Publication: 2020-01-21 05:30:02 UTC
-* Number of recursive dependencies: 136
-
-Run `revdep_details(,"TSstudio")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘TSstudio-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Coffee_Prices
-    > ### Title: Coffee Prices: Robusta and Arabica
-    > ### Aliases: Coffee_Prices
-    > ### Keywords: datasets
-    > 
-    > ### ** Examples
-    > 
-    > ts_plot(Coffee_Prices)
-    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-      namespace ‘vctrs’ 0.2.4 is already loaded, but >= 0.2.99.9011 is required
-    Calls: ts_plot ... asNamespace -> loadNamespace -> namespaceImport -> loadNamespace
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘forecastHybrid’
-      All declared Imports should be used.
     ```
 
 # UKgrid
@@ -874,9 +602,9 @@ Run `revdep_details(,"UKgrid")` for more info
     > ### ** Examples
     > 
     > df <- extract_grid(type = "tsibble", columns = "ND", start = 2017)
-    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-      namespace ‘vctrs’ 0.2.4 is being loaded, but >= 0.2.99.9011 is required
-    Calls: extract_grid ... getNamespace -> loadNamespace -> namespaceImport -> loadNamespace
+    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      namespace ‘dplyr’ 0.8.5 is already loaded, but >= 0.8.99 is required
+    Calls: extract_grid ... namespaceImportFrom -> asNamespace -> loadNamespace
     Execution halted
     ```
 
@@ -885,18 +613,18 @@ Run `revdep_details(,"UKgrid")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      [90m 10. [39mbase::getExportedValue(pkg, name)
-      [90m 11. [39mbase::asNamespace(ns)
-      [90m 12. [39mbase::getNamespace(ns)
-      [90m 13. [39mbase::loadNamespace(name)
-      [90m 15. [39mbase::loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])
+      [90m 2. [39mtsibble::yearmonth
+      [90m 3. [39mbase::getExportedValue(pkg, name)
+      [90m 4. [39mbase::asNamespace(ns)
+      [90m 5. [39mbase::getNamespace(ns)
+      [90m 6. [39mbase::loadNamespace(name)
+      [90m 9. [39mbase::loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 0 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 4 ]
+      [ OK: 3 | SKIPPED: 0 | WARNINGS: 1 | FAILED: 3 ]
       1. Error: Test basic object (@test-obj_class.R#5) 
       2. Error: Using arguments - tsibble with hourly aggregation and two variables (@test-obj_class.R#14) 
-      3. Error: Using arguments - xts with monthly aggregation, pulling two variables (@test-obj_class.R#23) 
-      4. Error: Using arguments - tsibble with monthly aggregation, pulling two variables (@test-obj_class.R#33) 
+      3. Error: Using arguments - tsibble with monthly aggregation, pulling two variables (@test-obj_class.R#33) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -919,28 +647,6 @@ Run `revdep_details(,"USgrid")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘USgrid-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Cal_elec
-    > ### Title: Demand for California Independent System Operator (CISO)
-    > ### Aliases: Cal_elec
-    > ### Keywords: datasets time-series
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > data(Cal_elec)
-    > 
-    > library(plotly)
-    Loading required package: ggplot2
-    Error: package or namespace load failed for ‘plotly’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     namespace ‘vctrs’ 0.2.4 is already loaded, but >= 0.2.99.9011 is required
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
@@ -951,7 +657,7 @@ Run `revdep_details(,"USgrid")` for more info
       [90m  6. [39mbase::asNamespace(ns)
       [90m  7. [39mbase::getNamespace(ns)
       [90m  8. [39mbase::loadNamespace(name)
-      [90m 10. [39mbase::loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])
+      [90m 11. [39mbase::loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]])
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
       [ OK: 6 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 3 ]
