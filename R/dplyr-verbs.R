@@ -133,9 +133,9 @@ group_by.tbl_ts <- function(.data, ..., .add = FALSE,
 
   index <- index_var(.data)
   if (index %in% grp_vars) {
-    err <- sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index)
-    hint <- "Did you mean `index_by()`?"
-    abort(paste_inline(err, hint))
+    abort(c(
+      sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index), 
+      i = "Did you mean `index_by()`?"))
   }
 
   grp_key <- identical(grp_vars, key_vars(.data)) &&
@@ -211,10 +211,9 @@ dplyr_col_modify.tbl_ts <- function(data, cols) {
   res <- dplyr_col_modify(as_tibble(data), cols)
   idx_chr <- index_var(data)
   if (is_false(idx_chr %in% names(res))) { # index has been removed
-    abort(sprintf(paste_inline(
+    abort(c(
       "Column `%s` (index) can't be removed for a tsibble.",
-      "Do you need `as_tibble()` to work with data frame?"
-    ), idx_chr))
+      i = sprintf("Do you need `as_tibble()` to work with data frame?"), idx_chr))
   }
 
   vec_names <- names(cols)

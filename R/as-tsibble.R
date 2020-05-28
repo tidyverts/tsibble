@@ -418,10 +418,10 @@ validate_index_order <- function(data, key_data, index) {
   if (!ordered) {
     idx_txt <- backticks(index)
     key_txt <- backticks(head(names(key_data), -1L))
-    warn(sprintf(paste_inline(
+    warn(c(
       "Current temporal ordering may yield unexpected results.",
-      "Suggest to sort by %s first."
-    ), comma(c(key_txt, idx_txt), sep = "")))
+      i = sprintf("Suggest to sort by %s first.", comma(c(key_txt, idx_txt), sep = ""))
+    ))
   }
   ordered
 }
@@ -440,9 +440,9 @@ validate_interval <- function(data, key_data, index, interval) {
     abort(sprintf(msg_interval, class(interval)[1]))
   }
   if (unknown_interval(interval) && (nrows > vec_size(key_data))) {
-    abort(paste_inline(
+    abort(c(
       "Can't obtain the interval due to the mismatched index class.",
-      "Please see `vignette(\"FAQ\")` for details."
+      i = "Please see `vignette(\"FAQ\")` for details."
     ))
   }
   interval
@@ -453,9 +453,9 @@ validate_interval <- function(data, key_data, index, interval) {
 validate_tsibble <- function(data, key, index, key_data = NULL) {
   is_dup <- duplicated_key_index(data, key, index, key_data)
   if (is_dup) {
-    header <- "A valid tsibble must have distinct rows identified by key and index."
-    hint <- "Please use `duplicates()` to check the duplicated rows."
-    abort(paste_inline(header, hint))
+    abort(c(
+      "A valid tsibble must have distinct rows identified by key and index.", 
+      i = "Please use `duplicates()` to check the duplicated rows."))
   }
   data
 }
@@ -464,9 +464,9 @@ validate_tsibble <- function(data, key, index, key_data = NULL) {
 retain_tsibble <- function(data, key, index) {
   is_dup <- duplicated_key_index(data, key, index)
   if (is_dup) {
-    header <- "The result is not a valid tsibble."
-    hint <- "Do you need `as_tibble()` to work with data frame?"
-    abort(paste_inline(header, hint))
+    abort(c(
+      "The result is not a valid tsibble.",
+      i = "Do you need `as_tibble()` to work with data frame?"))
   }
   data
 }
@@ -475,7 +475,9 @@ retain_tsibble <- function(data, key, index) {
 format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
   is_index_null(x)
   if (!is_null(x %@% "regular") || !is_null(x %@% "ordered")) {
-    warn("`.data`. is a corrupt tsibble object, please reconstruct with `as_tsibble()`.")
+    warn(c(
+      "`.data`. is a corrupt tsibble object.",
+      i = "Please reconstruct with `as_tsibble()`."))
   }
   format(trunc_mat(x, n = n, width = width, n_extra = n_extra))
 }

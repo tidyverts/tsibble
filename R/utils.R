@@ -31,10 +31,6 @@ cat_line <- function(...) {
   cat(paste0(..., "\n"), sep = "")
 }
 
-paste_inline <- function(...) {
-  paste(..., sep = "\n")
-}
-
 dim_tbl_ts <- function(x) {
   dim_x <- dim(x)
   format_dim <- map_chr(dim_x, big_mark)

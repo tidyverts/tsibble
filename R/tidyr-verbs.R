@@ -34,9 +34,9 @@ pivot_longer.tbl_ts <- function(data, cols, names_to = "name", ...) {
 pivot_wider.tbl_ts <- function(data, id_cols = NULL, names_from = name, ...) {
   key_var <- vars_pull(names(data), !!enquo(names_from))
   if (has_index(key_var, data)) {
-    abort(paste_inline(
+    abort(c(
       sprintf("Column `%s` (index) can't be spread.", key_var),
-      "Please use `as_tibble()` to coerce."
+      i = "Please use `as_tibble()` to coerce."
     ))
   }
   key_left <- setdiff(key_vars(data), key_var)
@@ -86,9 +86,9 @@ spread.tbl_ts <- function(data, key, value, ...) {
   value <- enexpr(value)
   key_var <- vars_pull(names(data), !!key)
   if (has_index(key_var, data)) {
-    abort(paste_inline(
+    abort(c(
       sprintf("Column `%s` (index) can't be spread.", key_var),
-      "Please use `as_tibble()` to coerce."
+      i = "Please use `as_tibble()` to coerce."
     ))
   }
   key_left <- setdiff(key_vars(data), key_var)
