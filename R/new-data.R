@@ -54,7 +54,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 
   out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {
-    out <- vec_rbind(.data[0L, ], out)
+    out <- vec_rbind(new_data_frame(.data[0L, ]), out)
   } else { # reorder column names according to the data input
     out <- out[setdiff(names(.data), measured_vars(.data))]
   }
@@ -86,7 +86,7 @@ append_row <- function(.data, n = 1L, ...) {
 #' @export
 append_row.tbl_ts <- function(.data, n = 1L, ...) {
   new_data <- new_data(.data, n = n)
-  out <- vec_rbind(.data, new_data)
+  out <- vec_rbind(as_tibble(.data), as_tibble(new_data))
   ord <- is_ordered(.data)
   if (ord) ord <- NULL # re-order
   update_meta(out, .data, ordered = ord, interval = interval(.data))

@@ -132,14 +132,14 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
     sum_data <- summarise(keyed_tbl,
       !!idx_chr := list2(tibble(!!idx_chr := seq_generator(!!idx, int)))
     )
-  } else if (.full == sym("start()")) {
+  } else if (.full == expr("start()")) {
     start <- min(keyed_tbl[[idx_chr]])
     sum_data <- summarise(keyed_tbl,
       !!idx_chr := list2(tibble(
         !!idx_chr := seq_generator(c(start, max(!!idx)), int)
       ))
     )
-  } else if (.full == sym("end()")) {
+  } else if (.full == expr("end()")) {
     end <- max(keyed_tbl[[idx_chr]])
     sum_data <- summarise(keyed_tbl,
       !!idx_chr := list2(tibble(

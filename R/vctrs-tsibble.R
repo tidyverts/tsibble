@@ -97,3 +97,8 @@ vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
     key = key_vars(to), index = index_var(to), index2 = index2_var(to),
     ordered = TRUE, validate = FALSE, .drop = key_drop_default(to))
 }
+
+#' @export
+vec_proxy.tbl_ts <- function(x, ...) {
+  new_data_frame(x)
+}
