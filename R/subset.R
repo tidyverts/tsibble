@@ -42,7 +42,8 @@
   }
 
   cn <- names(res)
-  not_tsibble <- !(index_var(x) %in% cn) || vec_size(res) > vec_size(x)
+  nr <- vec_size(x)
+  not_tsibble <- !(index_var(x) %in% cn) || vec_size(res) > nr || any(i > nr)
   if (not_tsibble) return(as_tibble(res))
 
   if (!is_null(i)) {
