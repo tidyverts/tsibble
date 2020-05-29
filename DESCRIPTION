@@ -31,7 +31,7 @@ Depends:
     R (>= 3.2.0)
 Imports: 
     anytime (>= 0.3.1),
-    dplyr (>= 0.8.99),
+    dplyr (>= 1.0.0),
     ellipsis (>= 0.3.0),
     lifecycle,
     lubridate (>= 1.7.0),
@@ -58,8 +58,6 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
-Remotes:
-    tidyverse/dplyr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
