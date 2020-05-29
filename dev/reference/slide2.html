@@ -478,20 +478,9 @@ names will be used if present.</p></td>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='year-month.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
-#&gt;       yrmth data                   ma
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2015 Jan </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>   </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2015 Feb </span><span style='color: #555555;'>&lt;tsibble [672 × 5]&gt;</span><span>  424.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2015 Mar </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  477.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2015 Apr </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  459.
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2015 May </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  463.
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2015 Jun </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  489.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2015 Jul </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  513.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2015 Aug </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  508.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2015 Sep </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  500.
-#&gt; </span><span style='color: #555555;'>10</span><span> 2015 Oct </span><span style='color: #555555;'>&lt;tsibble [743 × 5]&gt;</span><span>  508.
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='co'># row-oriented workflow</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `ma`.</span>
+#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Column `Date_Time` (index) must not contain `NA`.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `ma` is `slide_dbl(data, ~mean(.$Count), .size = 2, .bind = TRUE)`.</span></div><div class='input'><span class='co'># row-oriented workflow</span>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>)
