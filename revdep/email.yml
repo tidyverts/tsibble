@@ -1,4 +1,10 @@
-release_date: ???
-rel_release_date: ???
-my_news_url: ???
-release_version: ???
+release_date: June 1
+rel_release_date: three days
+my_news_url: https://github.com/tidyverts/tsibble/blob/master/NEWS.md
+release_version: 0.9.0
+release_details: |
+  This release introduces some underlying changes to the tsibble data object.
+  If your package provides tsibble data examples, you may need to reconstruct
+  those tsibble objects.
+
+  Sorry for the short notice.
