@@ -16,7 +16,7 @@
 
 \item{...}{Same arguments accepted as its tidyverse generic.}
 
-\item{.groups}{See \link[dplyr:summarise]{dplyr::summarise}}
+\item{.groups}{See \code{\link[dplyr:summarise]{dplyr::summarise()}}}
 }
 \description{
 Current dplyr verbs that tsibble has support for:

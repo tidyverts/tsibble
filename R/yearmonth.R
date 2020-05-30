@@ -5,6 +5,11 @@
 #'
 #' Create or coerce using `yearmonth()`.
 #'
+#' @section Display:
+#' Use `format()` to display `yearweek`, `yearmonth`, and `yearquarter` objects
+#' in required formats.
+#' Please see [`strptime()`] details for supported conversion specifications.
+#'
 #' @param x Other object.
 #'
 #' @return year-month (`yearmonth`) objects.

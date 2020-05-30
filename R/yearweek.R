@@ -5,7 +5,9 @@
 #'
 #' Create or coerce using `yearweek()`.
 #'
-#' @param x Other object.
+#' @inheritSection yearmonth Display
+#'
+#' @inheritParams yearmonth
 #'
 #' @return year-week (`yearweek`) objects.
 #'

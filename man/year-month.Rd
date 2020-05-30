@@ -20,6 +20,13 @@ year-month (\code{yearmonth}) objects.
 
 Create or coerce using \code{yearmonth()}.
 }
+\section{Display}{
+
+Use \code{format()} to display \code{yearweek}, \code{yearmonth}, and \code{yearquarter} objects
+in required formats.
+Please see \code{\link[=strptime]{strptime()}} details for supported conversion specifications.
+}
+
 \examples{
 # coerce POSIXct/Dates to yearmonth
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 month")

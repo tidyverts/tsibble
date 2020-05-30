@@ -5,7 +5,9 @@
 #'
 #' Create or coerce using `yearquarter()`.
 #'
-#' @param x Other object.
+#' @inheritSection yearmonth Display
+#'
+#' @inheritParams yearmonth
 #'
 #' @return year-quarter (`yearquarter`) objects.
 #'

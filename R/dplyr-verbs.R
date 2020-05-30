@@ -32,7 +32,7 @@
 #' @param .data,data A `tbl_ts`.
 #' @param ... Same arguments accepted as its tidyverse generic.
 #' @inheritParams dplyr::filter
-#' @param .groups See [dplyr::summarise]
+#' @param .groups See [dplyr::summarise()]
 #'
 #' @name tsibble-tidyverse
 NULL
