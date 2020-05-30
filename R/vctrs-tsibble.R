@@ -102,3 +102,12 @@ vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
 vec_proxy.tbl_ts <- function(x, ...) {
   new_data_frame(x)
 }
+
+#' @export
+vec_restore.grouped_ts <- function(x, to, ..., n = NULL) {
+  x <- NextMethod()
+  vec_restore.tbl_ts(x, to)
+}
+
+#' @export
+vec_proxy.grouped_ts <- vec_proxy.tbl_ts
