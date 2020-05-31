@@ -87,7 +87,6 @@
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first
 #' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
 #' @importFrom tibble new_tibble trunc_mat
-#' @importFrom lifecycle deprecated
 #' @import rlang tidyselect vctrs ellipsis
 #' @examples
 #' # create a tsibble w/o a key ----
