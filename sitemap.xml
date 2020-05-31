@@ -85,9 +85,6 @@
     <loc>https://tsibble.tidyverts.org/reference/key_drop_default.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/keyed-vec.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/measured-vars.html</loc>
   </url>
   <url>
@@ -166,6 +163,9 @@
     <loc>https://tsibble.tidyverts.org/reference/tsibble-tidyverse.html</loc>
   </url>
   <url>
+    <loc>https://tsibble.tidyverts.org/reference/tsibble-vctrs.html</loc>
+  </url>
+  <url>
     <loc>https://tsibble.tidyverts.org/reference/tsibble.html</loc>
   </url>
   <url>
@@ -173,9 +173,6 @@
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/update_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/vctrs-compat.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/year-month.html</loc>
@@ -194,8 +191,5 @@
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/articles/intro-tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/press.html</loc>
   </url>
 </urlset>

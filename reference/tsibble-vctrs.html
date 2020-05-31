@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default value for .drop argument for key — key_drop_default • tsibble</title>
+<title>Internal vctrs methods — tsibble-vctrs • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,9 @@
 
 
 
-<meta property="og:title" content="Default value for .drop argument for key — key_drop_default" />
-<meta property="og:description" content="Default value for .drop argument for key" />
+<meta property="og:title" content="Internal vctrs methods — tsibble-vctrs" />
+<meta property="og:description" content="These methods are the extensions that allow tsibble objects to
+work with vctrs." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -150,32 +151,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default value for .drop argument for key</h1>
+    <h1>Internal vctrs methods</h1>
     
-    <div class="hidden name"><code>key_drop_default.Rd</code></div>
+    <div class="hidden name"><code>tsibble-vctrs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Default value for .drop argument for key</p>
+    <p>These methods are the extensions that allow tsibble objects to
+work with vctrs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>key_drop_default</span>(<span class='no'>.tbl</span>)</pre>
+    <pre class="usage"><span class='fu'>vec_ptype2.tbl_ts</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>.tbl</th>
-      <td><p>A data frame</p></td>
-    </tr>
-    </table>
+<span class='fu'>vec_cast.tbl_ts</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_cast.yearmonth</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_ptype2.yearmonth</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearmonth</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearmonth</span>
+<span class='fu'>obj_print_data</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_cast.yearquarter</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_ptype2.yearquarter</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearquarter</span>
+<span class='fu'>obj_print_data</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_cast.yearweek</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)
+
+<span class='fu'>vec_ptype2.yearweek</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for yearweek</span>
+<span class='fu'>vec_arith</span>(<span class='no'>op</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>

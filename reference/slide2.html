@@ -101,7 +101,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -123,16 +123,10 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -170,7 +164,7 @@ slide2_dfr() slide2_dfc() return data frames using row-binding &amp;amp; column-
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
 <p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide2()</code> and <code>pslide()</code> always returns a list.</p></li>
@@ -462,42 +456,31 @@ names will be used if present.</p></td>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='no'>slope</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   group [2]</span><span>
 #&gt;    group data               slope
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 2</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> -</span><span style='color: #BB0000;'>0.090</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.86  
-#&gt; </span><span style='color: #555555;'> 4</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.45  
-#&gt; </span><span style='color: #555555;'> 5</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.04  
-#&gt; </span><span style='color: #555555;'> 6</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  3.03  
-#&gt; </span><span style='color: #555555;'> 7</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.88  
-#&gt; </span><span style='color: #555555;'> 8</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.14  
+#&gt; </span><span style='color: #555555;'> 2</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  4.64  
+#&gt; </span><span style='color: #555555;'> 3</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.33  
+#&gt; </span><span style='color: #555555;'> 4</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.36  
+#&gt; </span><span style='color: #555555;'> 5</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.24  
+#&gt; </span><span style='color: #555555;'> 6</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.92  
+#&gt; </span><span style='color: #555555;'> 7</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.262 
+#&gt; </span><span style='color: #555555;'> 8</span><span> a     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.058</span><span style='text-decoration: underline;'>5</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span> </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'>10</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.401 
-#&gt; </span><span style='color: #555555;'>11</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  4.74  
-#&gt; </span><span style='color: #555555;'>12</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.745 
-#&gt; </span><span style='color: #555555;'>13</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.84  
-#&gt; </span><span style='color: #555555;'>14</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.64  
-#&gt; </span><span style='color: #555555;'>15</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.959 
-#&gt; </span><span style='color: #555555;'>16</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.54  </div><div class='input'><span class='co'>## window over 2 months</span>
+#&gt; </span><span style='color: #555555;'>10</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  3.42  
+#&gt; </span><span style='color: #555555;'>11</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  3.20  
+#&gt; </span><span style='color: #555555;'>12</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.029</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #555555;'>13</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  1.20  
+#&gt; </span><span style='color: #555555;'>14</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  2.42  
+#&gt; </span><span style='color: #555555;'>15</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  3.30  
+#&gt; </span><span style='color: #555555;'>16</span><span> b     </span><span style='color: #555555;'>&lt;tibble [8 × 3]&gt;</span><span>  0.583 </div><div class='input'><span class='co'>## window over 2 months</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Sensor</span> <span class='kw'>==</span> <span class='st'>"Southern Cross Station"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='kw'>yrmth</span> <span class='kw'>=</span> <span class='fu'><a href='year-month.html'>yearmonth</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>yrmth</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
-#&gt;       yrmth data                   ma
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2015 Jan </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>   </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2015 Feb </span><span style='color: #555555;'>&lt;tsibble [672 × 5]&gt;</span><span>  424.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2015 Mar </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  477.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2015 Apr </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  459.
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2015 May </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  463.
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2015 Jun </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  489.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2015 Jul </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  513.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2015 Aug </span><span style='color: #555555;'>&lt;tsibble [744 × 5]&gt;</span><span>  508.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2015 Sep </span><span style='color: #555555;'>&lt;tsibble [720 × 5]&gt;</span><span>  500.
-#&gt; </span><span style='color: #555555;'>10</span><span> 2015 Oct </span><span style='color: #555555;'>&lt;tsibble [743 × 5]&gt;</span><span>  508.
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='co'># row-oriented workflow</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ma</span> <span class='kw'>=</span> <span class='fu'><a href='slide.html'>slide_dbl</a></span>(<span class='no'>data</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>$<span class='no'>Count</span>), <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `ma`.</span>
+#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Column `Date_Time` (index) must not contain `NA`.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `ma` is `slide_dbl(data, ~mean(.$Count), .size = 2, .bind = TRUE)`.</span></div><div class='input'><span class='co'># row-oriented workflow</span>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>my_diag</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
   <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>)

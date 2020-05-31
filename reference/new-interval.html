@@ -97,7 +97,7 @@ is_regular_interval() checks if the interval is regular.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -119,16 +119,10 @@ is_regular_interval() checks if the interval is regular.
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -207,7 +201,11 @@ to allow custom interval.</p></td>
     <p>an "interval" class</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>30</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused arguments (hour = 1, minute = 30)</span></div><div class='input'>(<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='co'># irregular interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused argument (.regular = FALSE)</span></div><div class='input'><span class='fu'>new_interval</span>() <span class='co'># unknown interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in tz(start): argument "start" is missing, with no default</span></div><div class='input'><span class='fu'>new_interval</span>(<span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>semester</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='co'># custom interval</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'new_interval' is deprecated; use 'interval' instead. Deprecated in version '1.5.0'.</span></div><div class='output co'>#&gt; <span class='error'>Error in interval(...): unused argument (.others = list(semester = 1))</span></div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='error'>Error in abort_not_interval(x): object 'x' not found</span></div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='error'>Error in abort_not_interval(x): object 'y' not found</span></div></pre>
+    <pre class="examples"><div class='input'>(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>30</span>))</div><div class='output co'>#&gt; &lt;interval[1]&gt;
+#&gt; [1] 1h 30m</div><div class='input'>(<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='co'># irregular interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
+#&gt; [1] !</div><div class='input'><span class='fu'>new_interval</span>() <span class='co'># unknown interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
+#&gt; [1] ?</div><div class='input'><span class='fu'>new_interval</span>(<span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>semester</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='co'># custom interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
+#&gt; [1] 1semester</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

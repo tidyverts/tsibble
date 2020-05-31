@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -68,16 +68,10 @@
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -133,7 +127,7 @@
 #&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
 #&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # … with 6.603e+04 more rows</code></pre>
+#&gt; # … with 66,032 more rows</code></pre>
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../reference/has_gaps.html">has_gaps</a></span>(pedestrian, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 4 x 2
@@ -191,7 +185,7 @@
 #&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
 #&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # … with 7.017e+04 more rows</code></pre>
+#&gt; # … with 70,171 more rows</code></pre>
 <p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>pedestrian <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="dt">Count =</span> 0L, <span class="dt">.full =</span> <span class="ot">TRUE</span>)</span>

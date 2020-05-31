@@ -101,7 +101,7 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -123,16 +123,10 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -170,7 +164,7 @@ stretch_dfr() stretch_dfc() return data frames using row-binding &amp;amp; colum
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
 <p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Fixing an initial window and expanding more observations:</p><ul>
 <li><p><code>stretch()</code> always returns a list.</p></li>
@@ -181,16 +175,7 @@ arguments as <code>stretch()</code>, but return vectors of the corresponding typ
 
     </div>
 
-    <pre class="usage"><span class='fu'>stretch</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
+    <pre class="usage"><span class='fu'>stretch</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.init</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>stretch_dfr</span>(
   <span class='no'>.x</span>,
@@ -253,11 +238,6 @@ on <code>.align</code> (<code>NA</code> by default).  <code>NULL</code> means no
 If <code>.x</code> is a list of data frames, row binding is carried out.</p></td>
     </tr>
     <tr>
-      <th>.size</th>
-      <td><p><img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' />
- Please use <code>.step</code> instead.</p></td>
-    </tr>
-    <tr>
       <th>.id</th>
       <td><p>Either a string or <code>NULL</code>. If a string, the output will contain
 a variable with that name, storing either the name (if <code>.x</code> is named) or
@@ -279,7 +259,7 @@ variable will be created.</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
 <span class='fu'>stretch_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `stretch()` is deprecated as of tsibble 0.9.0.</span>
 #&gt; <span class='warning'>Please use `slider::slide()` instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; [1]  1 NA  2 NA  3</div><div class='input'><span class='fu'>stretch_lgl</span>(<span class='no'>x</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE    NA FALSE    NA  TRUE</div><div class='input'><span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
 <span class='fu'>stretch</span>(<span class='no'>lst</span>, ~<span class='no'>.</span>, <span class='kw'>.step</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x

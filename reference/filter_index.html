@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -115,16 +115,10 @@
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -186,8 +180,9 @@ Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <cod
     </tr>
     <tr>
       <th>.preserve</th>
-      <td><p>when <code>FALSE</code> (the default), the grouping structure
-is recalculated based on the resulting data, otherwise it is kept as is.</p></td>
+      <td><p>Relevant when the <code>.data</code> input is grouped.
+If <code>.preserve = FALSE</code> (the default), the grouping structure
+is recalculated based on the resulting data, otherwise the grouping is kept as is.</p></td>
     </tr>
     </table>
 
@@ -209,7 +204,7 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># from the starting time to the end of Feb, 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>

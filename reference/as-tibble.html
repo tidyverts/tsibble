@@ -93,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -115,16 +115,10 @@
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -166,10 +160,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>x</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>optional</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,21 +172,6 @@
     <tr>
       <th>...</th>
       <td><p>Ignored.</p></td>
-    </tr>
-    <tr>
-      <th>row.names</th>
-      <td><p><code>NULL</code> or a character vector giving the row
-    names for the data frame.  Missing values are not allowed.</p></td>
-    </tr>
-    <tr>
-      <th>optional</th>
-      <td><p>logical. If <code>TRUE</code>, setting row names and
-    converting column names (to syntactic names: see
-    <code><a href='https://rdrr.io/r/base/make.names.html'>make.names</a></code>) is optional.  Note that all of <span style="R">R</span>'s
-    <span class="pkg">base</span> package <code><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame()</a></code> methods use
-    <code>optional</code> only for column names treatment, basically with the
-    meaning of <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>(*, check.names = !optional)</code>.
-    See also the <code>make.names</code> argument of the <code>matrix</code> method.</p></td>
     </tr>
     </table>
 

@@ -101,7 +101,7 @@ tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-bind
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -123,16 +123,10 @@ tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-bind
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -170,7 +164,7 @@ tile_dfr() tile_dfc() return data frames using row-binding &amp;amp; column-bind
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
 <p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Tiling window without overlapping observations:</p><ul>
 <li><p><code>tile()</code> always returns a list.</p></li>
@@ -253,7 +247,7 @@ variable will be created.</p>
 <span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
 <span class='fu'>tile_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `tile()` is deprecated as of tsibble 0.9.0.</span>
 #&gt; <span class='warning'>Please use `slider::slide()` instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; [1] 1.5 3.5 5.0</div><div class='input'><span class='fu'>tile_lgl</span>(<span class='no'>x</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE</div><div class='input'><span class='fu'>tile</span>(<span class='no'>lst</span>, ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$x
 #&gt; [1] 1 2 3 4 5

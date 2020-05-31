@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -114,16 +114,10 @@
     <li>
       <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
     </li>
-    <li>
-      <a href="../articles/window.html">Window functions</a>
-    </li>
   </ul>
 </li>
 <li>
   <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../articles/press.html">Press</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -227,7 +221,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-time-based-verbs" class="hasAnchor"><a href="#section-time-based-verbs" class="anchor"></a>Time-based verbs</h2>
+          <h2 id="section-tsibble-verbs" class="hasAnchor"><a href="#section-tsibble-verbs" class="anchor"></a>Tsibble verbs</h2>
           <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
@@ -277,17 +271,25 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-vector" class="hasAnchor"><a href="#section-vector" class="anchor"></a>Vector</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-tidyverse-methods" class="hasAnchor"><a href="#section-tidyverse-methods" class="anchor"></a>Tidyverse methods</h2>
+          <p class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="keyed-vec.html">keyed_lag()</a></code> <code><a href="keyed-vec.html">keyed_lead()</a></code> <code><a href="keyed-vec.html">keyed_difference()</a></code> </p>
+          <p><code><a href="tsibble-tidyverse.html">tsibble-tidyverse</a></code> </p>
         </td>
-        <td><p>Tsibble-aware lag, lead, and difference operations</p></td>
-      </tr><tr>
+        <td><p>Tidyverse methods for tsibble</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-vector-operations" class="hasAnchor"><a href="#section-vector-operations" class="anchor"></a>Vector operations</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="difference.html">difference()</a></code> </p>
@@ -297,17 +299,11 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-time" class="hasAnchor"><a href="#section-time" class="anchor"></a>Time</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-index-classes" class="hasAnchor"><a href="#section-index-classes" class="anchor"></a>Index classes</h2>
+          <p class="section-desc"><p>New S3 classes to reprent year-week, year-month, and year-quarter.</p></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="time_in.html">time_in()</a></code> </p>
-        </td>
-        <td><p>If time falls in the ranges using compact expressions</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="year-month.html">yearmonth()</a></code> <code><a href="year-month.html">is_yearmonth()</a></code> </p>
@@ -322,9 +318,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> <code><a href="year-week.html">year(<i>&lt;yearweek&gt;</i>)</a></code> </p>
+          <p><code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code> </p>
         </td>
         <td><p>Represent year-week (ISO) starting on Monday</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="time_in.html">time_in()</a></code> </p>
+        </td>
+        <td><p>If time falls in the ranges using compact expressions</p></td>
       </tr><tr>
         
         <td>
@@ -438,7 +440,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="as-tibble.html">as.data.frame(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
+          <p><code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Coerce to a tibble or data frame</p></td>
       </tr>
@@ -462,20 +464,6 @@
         </td>
         <td><p>Australian domestic overnight trips</p></td>
       </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tidyverse-methods" class="hasAnchor"><a href="#section-tidyverse-methods" class="anchor"></a>Tidyverse methods</h2>
-          <p class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="tsibble-tidyverse.html">arrange(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">filter(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">slice(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">select(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">rename(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">mutate(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">transmute(<i>&lt;tbl_ts&gt;</i>)</a></code> <code><a href="tsibble-tidyverse.html">summarise(<i>&lt;tbl_ts&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidyverse methods for tsibble</p></td>
-      </tr>
     </tbody>
     </table>
   </div>
@@ -485,15 +473,15 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-overview">Overview</a></li>
       <li><a href="#section-create-coerce-and-append-to-a-tsibble">Create/coerce and append to a tsibble</a></li>
-      <li><a href="#section-time-based-verbs">Time-based verbs</a></li>
-      <li><a href="#section-vector">Vector</a></li>
-      <li><a href="#section-time">Time</a></li>
+      <li><a href="#section-tsibble-verbs">Tsibble verbs</a></li>
+      <li><a href="#section-tidyverse-methods">Tidyverse methods</a></li>
+      <li><a href="#section-vector-operations">Vector operations</a></li>
+      <li><a href="#section-index-classes">Index classes</a></li>
       <li><a href="#section-calendar">Calendar</a></li>
       <li><a href="#section-metadata">Metadata</a></li>
       <li><a href="#section-extend-tsibble">Extend tsibble</a></li>
       <li><a href="#section-coerce-to-other-objects">Coerce to other objects</a></li>
       <li><a href="#section-data">Data</a></li>
-      <li><a href="#section-tidyverse-methods">Tidyverse methods</a></li>
     </ul>
   </div>
 </div>
