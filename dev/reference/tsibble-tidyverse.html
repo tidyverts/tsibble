@@ -57,9 +57,8 @@ dplyr::left_join(), dplyr::right_join(), dplyr::full_join(),
 dplyr::inner_join(), dplyr::semi_join(), dplyr::anti_join(),
 dplyr::nest_join()
 Current tidyr verbs that tsibble has support for:
-tidyr::pivot_longer(), tidyr::pivot_wider(),
-tidyr::gather(), tidyr::spread(),
-tidyr::nest(), tidyr::fill(), tidyr::drop_na()" />
+tidyr::gather(), tidyr::spread(), tidyr::nest(), tidyr::fill(),
+tidyr::drop_na()" />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -174,33 +173,11 @@ tidyr::nest(), tidyr::fill(), tidyr::drop_na()" />
 <code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::inner_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>dplyr::semi_join()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>dplyr::anti_join()</a></code>,
 <code><a href='https://dplyr.tidyverse.org/reference/nest_join.html'>dplyr::nest_join()</a></code></p>
 <p>Current tidyr verbs that tsibble has support for:</p>
-<p><code><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>tidyr::pivot_longer()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>tidyr::pivot_wider()</a></code>,
-<code><a href='https://tidyr.tidyverse.org/reference/gather.html'>tidyr::gather()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/spread.html'>tidyr::spread()</a></code>,
-<code><a href='https://tidyr.tidyverse.org/reference/nest.html'>tidyr::nest()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/fill.html'>tidyr::fill()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>tidyr::drop_na()</a></code></p>
+<p><code><a href='https://tidyr.tidyverse.org/reference/gather.html'>tidyr::gather()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/spread.html'>tidyr::spread()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>tidyr::nest()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/fill.html'>tidyr::fill()</a></code>,
+<code><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>tidyr::drop_na()</a></code></p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>transmute</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>summarise</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>.data, data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Same arguments accepted as its tidyverse generic.</p></td>
-    </tr>
-    <tr>
-      <th>.groups</th>
-      <td><p>See <a href='https://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarise</a></p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="column-wise-verbs"><a class="anchor" href="#column-wise-verbs"></a>Column-wise verbs</h2>
 
@@ -265,7 +242,8 @@ resulting tsibble.</p>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
 #&gt;      Total
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 45</span><span style='text-decoration: underline;'>483</span><span>871</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
+#&gt; </span><span style='color: #555555;'>1</span><span> 45</span><span style='text-decoration: underline;'>483</span><span>871</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
 <span class='co'># reshaping examples from tidyr</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2009-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
@@ -273,7 +251,7 @@ resulting tsibble.</p>
   <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span>(-<span class='no'>time</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"stock"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"price"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1D]</span><span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span>(-<span class='no'>time</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"stock"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"price"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       stock [3]</span><span>
 #&gt;    time       stock  price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -305,7 +283,6 @@ resulting tsibble.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#column-wise-verbs">Column-wise verbs</a></li>
       <li><a href="#row-wise-verbs">Row-wise verbs</a></li>
       <li><a href="#join-verbs">Join verbs</a></li>

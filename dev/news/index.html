@@ -461,7 +461,7 @@
 <a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed unexpected error message for <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> that requires package “timeDate”.</li>
-<li>Fixed <code><a href="../reference/tsibble-tidyverse.html">summarise.tbl_ts()</a></code>, <code>select.tbl_ts()</code> &amp; <code>fill_na.tbl_ts()</code> scoping issue (#67).</li>
+<li>Fixed <code>summarise.tbl_ts()</code>, <code>select.tbl_ts()</code> &amp; <code>fill_na.tbl_ts()</code> scoping issue (#67).</li>
 <li>
 <code>slice.tbl_ts()</code> correctly handles logical <code>NA</code>.</li>
 <li>
@@ -822,7 +822,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-10" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed <code><a href="../reference/tsibble-tidyverse.html">transmute.tbl_ts()</a></code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
+<li>Fixed <code>transmute.tbl_ts()</code> for a univariate time series due to unregistered tidyselect helpers. (#9).</li>
 <li>Fixed bug in <code>select.tbl_ts()</code> and <code>rename.tbl_ts()</code> for not preserving grouped variables (#12).</li>
 <li>Fixed bug in <code>select.tbl_ts()</code> and <code>rename.tbl_ts()</code> for renaming grouped variables.</li>
 </ul>
@@ -906,7 +906,7 @@
 <li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code>tsummarise()</code> instead of any position in the call.</li>
 <li>
-<code><a href="../reference/tsibble-tidyverse.html">transmute.tbl_ts()</a></code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
+<code>transmute.tbl_ts()</code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
 <li>Depends on purrr (&gt;= 0.2.3)</li>
 </ul>
 </div>
@@ -947,8 +947,8 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-13" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fix bug in <code><a href="../reference/tsibble-tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="https://dplyr.tidyverse.org/reference/context.html">dplyr::n()</a></code>.</li>
-<li>In <code><a href="../reference/tsibble-tidyverse.html">summarise.tbl_ts()</a></code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
+<li>Fix bug in <code>summarise.tbl_ts()</code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="https://dplyr.tidyverse.org/reference/context.html">dplyr::n()</a></code>.</li>
+<li>In <code>summarise.tbl_ts()</code> and <code>tsummarise.tbl_ts()</code>, one grouping level should be dropped for the consistency with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for a grouped <code>tbl_ts</code>.</li>
 <li>Fix incorrect group and key indices.</li>
 <li>
 <code>NULL</code> and <code>tbl_ts</code> are supported in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. An empty tsibble is not allowed.</li>

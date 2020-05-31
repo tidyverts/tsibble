@@ -212,10 +212,25 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span class='error'>Error: object 'Hour_Since' not found</span></div><div class='input'>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 6 [1h]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:    Sensor [4]</span><span>
+#&gt;    Sensor         Date_Time           Date        Time Count Hour_Since
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;drtn&gt;</span><span>    
+#&gt; </span><span style='color: #555555;'> 1</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span> 2015-01-01     0  </span><span style='text-decoration: underline;'>1</span><span>630     0 secs
+#&gt; </span><span style='color: #555555;'> 2</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>01:00:00</span><span> 2015-01-01     1   826  3600 secs
+#&gt; </span><span style='color: #555555;'> 3</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>02:00:00</span><span> 2015-01-01     2   567  7200 secs
+#&gt; </span><span style='color: #555555;'> 4</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>03:00:00</span><span> 2015-01-01     3   264 10800 secs
+#&gt; </span><span style='color: #555555;'> 5</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>04:00:00</span><span> 2015-01-01     4   139 14400 secs
+#&gt; </span><span style='color: #555555;'> 6</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>05:00:00</span><span> 2015-01-01     5    77 18000 secs
+#&gt; </span><span style='color: #555555;'> 7</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>06:00:00</span><span> 2015-01-01     6    44 21600 secs
+#&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>07:00:00</span><span> 2015-01-01     7    56 25200 secs
+#&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113 28800 secs
+#&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166 32400 secs
+#&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'>
 <span class='co'># update key: drop the variable "State" from the key</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Purpose, Region [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
