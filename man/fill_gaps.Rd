@@ -17,10 +17,12 @@ existing \code{NA} untouched.
 \item filled by values or functions.
 }}
 
-\item{.full}{\code{FALSE} inserts \code{NA} for each keyed unit within its own period. \code{TRUE}
-fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
-Other options are \code{start()} and \code{end()}, suggesting to pad \code{NA} for the same
-\verb{min(<index>)} or \verb{max(<index>)} alignment time across the units.}
+\item{.full}{\itemize{
+\item \code{FALSE} inserts \code{NA} for each keyed unit within its own period.
+\item \code{TRUE} fills \code{NA} over the entire time span of the data (a.k.a. fully balanced panel).
+\item \code{start()} pad \code{NA} to the same starting point (i.e. \verb{min(<index>)}) across units.
+\item \code{end()} pad \code{NA} to the same ending point (i.e. \verb{max(<index>)}) across units.
+}}
 }
 \description{
 \lifecycle{stable}

@@ -10,10 +10,11 @@ globalVariables(c(".", ".gaps"))
 #' existing `NA` untouched.
 #' * empty: filled with default `NA`.
 #' * filled by values or functions.
-#' @param .full `FALSE` inserts `NA` for each keyed unit within its own period. `TRUE`
-#' fills `NA` over the entire time span of the data (a.k.a. fully balanced panel).
-#' Other options are `start()` and `end()`, suggesting to pad `NA` for the same
-#' `min(<index>)` or `max(<index>)` alignment time across the units.
+#' @param .full
+#' * `FALSE` inserts `NA` for each keyed unit within its own period.
+#' * `TRUE` fills `NA` over the entire time span of the data (a.k.a. fully balanced panel).
+#' * `start()` pad `NA` to the same starting point (i.e. `min(<index>)`) across units.
+#' * `end()` pad `NA` to the same ending point (i.e. `max(<index>)`) across units.
 #'
 #' @family implicit gaps handling
 #' @seealso [tidyr::fill], [tidyr::replace_na] for handling missing values `NA`.
