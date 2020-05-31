@@ -506,7 +506,7 @@ as_tibble.grouped_df <- function(x, ...) {
 #' @keywords internal
 #' @export
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
-  new_data_frame(vec_data(x), n = nrow(x))
+  new_data_frame(vec_data(x))
 }
 
 #' Test duplicated observations determined by key and index variables
