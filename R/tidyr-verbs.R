@@ -139,7 +139,7 @@ unnest_check_tsibble <- function(data, key, index) {
 #' Unnest a data frame consisting of tsibbles to a tsibble
 #'
 #' @description
-#' \lifecycle{questioning}
+#' \lifecycle{deprecated}
 #'
 #' @param data A data frame contains homogenous tsibbles in the list-columns.
 #' @param cols Names of columns to unnest.
@@ -147,6 +147,7 @@ unnest_check_tsibble <- function(data, key, index) {
 #' @keywords internal
 #' @export
 unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
+  # seems not working anymore
   if (!is_installed("tidyr") && utils::packageVersion("tidyr") >= "0.9.0") {
     abort("Package 'tidyr' (>= v1.0.0) required for `unnest_tsibble()`.")
   }
@@ -177,7 +178,7 @@ unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
     idx <- index(tsbl)
   }
 
-  key <- eval_select(enquo(key), data = unnested_data)
+  key <- names(eval_select(enquo(key), data = unnested_data))
   idx_chr <- as_string(idx)
   class(unnested_data[[idx_chr]]) <- class(tsbl[[idx_chr]])
   build_tsibble(

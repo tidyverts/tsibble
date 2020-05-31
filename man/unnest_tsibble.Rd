@@ -20,6 +20,6 @@ of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify \code{FALSE} to skip the checks.}
 }
 \description{
-\lifecycle{questioning}
+\lifecycle{deprecated}
 }
 \keyword{internal}

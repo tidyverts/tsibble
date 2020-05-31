@@ -266,8 +266,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     assert_key_data(key_data)
     key <- head(names(key_data), -1L)
   }
-  key_pos <- eval_select(enquo(key), data = x)
-  key_vars <- syms(names(x)[key_pos])
+  key_vars <- names(eval_select(enquo(key), data = x))
 
   tbl <- as_tibble(x)
   # extract or pass the index var
@@ -288,11 +287,11 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   }
   # arrange index from past to future for each key value
   if (vec_size(tbl) == 0 || is_null(ordered)) { # first time to create a tsibble
-    tbl <- arrange(tbl, !!!key_vars, !!sym(index))
+    tbl <- arrange(tbl, !!!syms(key_vars), !!sym(index))
     ordered <- TRUE
   }
   if (!is_key_data) {
-    key_data <- group_data(group_by(tbl, !!!key_vars, .drop = .drop))
+    key_data <- group_data(grouped_df(tbl, vars = key_vars, drop = .drop))
   }
   if (!ordered) { # if false, double check
     ordered <- validate_index_order(tbl, key_data, index)
@@ -335,7 +334,7 @@ build_tsibble_meta <- function(x, key_data = NULL, index, index2,
   # convert grouped_df to tsibble:
   # the `groups` arg must be supplied, otherwise returns a `tbl_ts` not grouped
   if (idx_lgl) {
-    x <- group_by(x, !!sym(index2), .add = TRUE)
+    x <- grouped_df(x, vars = union(group_vars(x), index2))
   }
   grp_data <- x %@% "groups"
   x <- new_tibble(x,
