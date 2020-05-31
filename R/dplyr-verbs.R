@@ -3,15 +3,17 @@
 #' @description
 #' Current dplyr verbs that tsibble has support for:
 #'
-#' [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
-#' [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
+#' * [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
+#' * [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
 #' [dplyr::summarise()], [dplyr::group_by()],
-#' [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
+#' * [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
 #' [dplyr::nest_join()]
+#' * [dplyr::bind_rows()], [dplyr::bind_cols()]
 #'
 #' Current tidyr verbs that tsibble has support for:
 #'
+#' [tidyr::pivot_longer()], [tidyr::pivot_wider()],
 #' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
 #' [tidyr::drop_na()]
 #'

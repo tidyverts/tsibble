@@ -5,16 +5,19 @@
 \title{Tidyverse methods for tsibble}
 \description{
 Current dplyr verbs that tsibble has support for:
-
-\code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}},
-\code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+\itemize{
+\item \code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}},
+\item \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
 \code{\link[dplyr:summarise]{dplyr::summarise()}}, \code{\link[dplyr:group_by]{dplyr::group_by()}},
-\code{\link[dplyr:left_join]{dplyr::left_join()}}, \code{\link[dplyr:right_join]{dplyr::right_join()}}, \code{\link[dplyr:full_join]{dplyr::full_join()}},
+\item \code{\link[dplyr:left_join]{dplyr::left_join()}}, \code{\link[dplyr:right_join]{dplyr::right_join()}}, \code{\link[dplyr:full_join]{dplyr::full_join()}},
 \code{\link[dplyr:inner_join]{dplyr::inner_join()}}, \code{\link[dplyr:semi_join]{dplyr::semi_join()}}, \code{\link[dplyr:anti_join]{dplyr::anti_join()}},
 \code{\link[dplyr:nest_join]{dplyr::nest_join()}}
+\item \code{\link[dplyr:bind_rows]{dplyr::bind_rows()}}, \code{\link[dplyr:bind_cols]{dplyr::bind_cols()}}
+}
 
 Current tidyr verbs that tsibble has support for:
 
+\code{\link[tidyr:pivot_longer]{tidyr::pivot_longer()}}, \code{\link[tidyr:pivot_wider]{tidyr::pivot_wider()}},
 \code{\link[tidyr:gather]{tidyr::gather()}}, \code{\link[tidyr:spread]{tidyr::spread()}}, \code{\link[tidyr:nest]{tidyr::nest()}}, \code{\link[tidyr:fill]{tidyr::fill()}},
 \code{\link[tidyr:drop_na]{tidyr::drop_na()}}
 }

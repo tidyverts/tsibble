@@ -12,6 +12,7 @@ This release uses the **vctrs** package internally in {tsibble}.
 * The argument `n` in `new_data()` and `append_row()` supports negative integer, appending past observations to the data. (#186)
 * New set of `scale_[x/y/colour/size/alpha/fill]_year*()` for custom ggplot2 scales.
 * Added `pivot_longer()` and `pivot_wider()` supporting methods for tsibble.
+* `bind_rows()` and `bind_cols()` are now possible for tsibble with dplyr v1.0.0.
 
 ## Improvements
 
