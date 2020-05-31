@@ -1,4 +1,4 @@
-# tsibble 0.8.9.9000
+# tsibble 0.9.0
 
 This release uses the **vctrs** package internally in {tsibble}.
 
