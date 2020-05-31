@@ -13,9 +13,9 @@
 #'
 #' Current tidyr verbs that tsibble has support for:
 #'
-#' [tidyr::pivot_longer()], [tidyr::pivot_wider()],
-#' [tidyr::gather()], [tidyr::spread()], [tidyr::nest()], [tidyr::fill()],
-#' [tidyr::drop_na()]
+#' * [tidyr::pivot_longer()], [tidyr::pivot_wider()],
+#' [tidyr::gather()], [tidyr::spread()],
+#' * [tidyr::nest()], [tidyr::fill()], [tidyr::drop_na()]
 #'
 #' @section Column-wise verbs:
 #' * The index variable cannot be dropped for a tsibble object.
@@ -35,6 +35,7 @@
 #' @name tsibble-tidyverse
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
+#' # `summarise()` a tsibble always aggregates over time
 #' # Sum over sensors
 #' pedestrian %>%
 #'   index_by() %>%
@@ -48,7 +49,6 @@
 #'   summarise(Total = sum(Count))
 #'
 #' library(tidyr)
-#' # reshaping examples from tidyr
 #' stocks <- tsibble(
 #'   time = as.Date("2009-01-01") + 0:9,
 #'   X = rnorm(10, 0, 1),

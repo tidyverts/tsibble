@@ -16,10 +16,11 @@ Current dplyr verbs that tsibble has support for:
 }
 
 Current tidyr verbs that tsibble has support for:
-
-\code{\link[tidyr:pivot_longer]{tidyr::pivot_longer()}}, \code{\link[tidyr:pivot_wider]{tidyr::pivot_wider()}},
-\code{\link[tidyr:gather]{tidyr::gather()}}, \code{\link[tidyr:spread]{tidyr::spread()}}, \code{\link[tidyr:nest]{tidyr::nest()}}, \code{\link[tidyr:fill]{tidyr::fill()}},
-\code{\link[tidyr:drop_na]{tidyr::drop_na()}}
+\itemize{
+\item \code{\link[tidyr:pivot_longer]{tidyr::pivot_longer()}}, \code{\link[tidyr:pivot_wider]{tidyr::pivot_wider()}},
+\code{\link[tidyr:gather]{tidyr::gather()}}, \code{\link[tidyr:spread]{tidyr::spread()}},
+\item \code{\link[tidyr:nest]{tidyr::nest()}}, \code{\link[tidyr:fill]{tidyr::fill()}}, \code{\link[tidyr:drop_na]{tidyr::drop_na()}}
+}
 }
 \section{Column-wise verbs}{
 
@@ -45,6 +46,7 @@ resulting tsibble.
 
 \examples{
 library(dplyr, warn.conflicts = FALSE)
+# `summarise()` a tsibble always aggregates over time
 # Sum over sensors
 pedestrian \%>\%
   index_by() \%>\%
@@ -58,7 +60,6 @@ pedestrian \%>\%
   summarise(Total = sum(Count))
 
 library(tidyr)
-# reshaping examples from tidyr
 stocks <- tsibble(
   time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),
