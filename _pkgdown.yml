@@ -56,6 +56,13 @@ reference:
     - group_by_key
     - filter_index
 
+- title: Tidyverse methods
+  desc: >
+    Dplyr and tidyr verbs that support manipulating and reshaping `tbl_ts` in
+    time-based context.
+  contents:
+    - tsibble-tidyverse
+
 - title: Vector operations
   contents:
     - difference
@@ -102,13 +109,6 @@ reference:
   contents:
     - pedestrian
     - tourism
-
-- title: Tidyverse methods
-  desc: >
-    Dplyr and tidyr verbs that support manipulating and reshaping `tbl_ts` in
-    time-based context.
-  contents:
-    - tsibble-tidyverse
 
 navbar:
   type: default
