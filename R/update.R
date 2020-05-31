@@ -82,7 +82,7 @@ bind_tsibble <- function(data, template, position = c("before", "after")) {
   }
   tsbl_vars <- setdiff(c(index_var(template), key_vars(template)), data_cols)
   if (position == "before") {
-    res <- bind_cols(template[tsbl_vars], data)
+    res <- bind_cols(as_tibble(template)[tsbl_vars], data)
   } else {
     res <- bind_cols(data, template[tsbl_vars])
   }
