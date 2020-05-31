@@ -170,10 +170,12 @@
     </tr>
     <tr>
       <th>.full</th>
-      <td><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period. <code>TRUE</code>
-fills <code>NA</code> over the entire time span of the data (a.k.a. fully balanced panel).
-Other options are <code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> and <code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code>, suggesting to pad <code>NA</code> for the same
-<code>min(&lt;index&gt;)</code> or <code>max(&lt;index&gt;)</code> alignment time across the units.</p></td>
+      <td><ul>
+<li><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period.</p></li>
+<li><p><code>TRUE</code> fills <code>NA</code> over the entire time span of the data (a.k.a. fully balanced panel).</p></li>
+<li><p><code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> pad <code>NA</code> to the same starting point (i.e. <code>min(&lt;index&gt;)</code>) across units.</p></li>
+<li><p><code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code> pad <code>NA</code> to the same ending point (i.e. <code>max(&lt;index&gt;)</code>) across units.</p></li>
+</ul></td>
     </tr>
     </table>
 
