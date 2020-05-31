@@ -39,7 +39,7 @@ documented in \code{?Sys.timezone()}, using \code{Sys.setenv(TZ = "GB")} for exa
 \examples{
 # from the starting time to the end of Feb, 2015
 pedestrian \%>\%
-  filter_index(~"2015-02")
+  filter_index(~ "2015-02")
 
 # entire Feb 2015, & from the beginning of Aug 2016 to the end
 pedestrian \%>\%
