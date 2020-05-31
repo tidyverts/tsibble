@@ -16,6 +16,7 @@ Multiprocessing equivalents of \code{\link[=slide]{slide()}}, \code{\link[=tile]
 future specific options to use with the workers.
 }
 }
+\keyword{internal}
 \alias{future_tile}
 \alias{future_tile2}
 \alias{future_ptile}

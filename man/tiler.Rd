@@ -37,3 +37,4 @@ ptiler(list(x, y), list(y))
 ptiler(df, .size = 2)
 ptiler(df, df, .size = 2)
 }
+\keyword{internal}

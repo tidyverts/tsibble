@@ -135,6 +135,7 @@ Other stretching window functions:
 \code{\link{stretch}()}
 }
 \concept{stretching window functions}
+\keyword{internal}
 \alias{stretch2_lgl}
 \alias{stretch2_chr}
 \alias{stretch2_dbl}

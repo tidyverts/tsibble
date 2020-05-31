@@ -136,6 +136,7 @@ Other sliding window functions:
 \code{\link{slide2}()}
 }
 \concept{sliding window functions}
+\keyword{internal}
 \alias{slide_lgl}
 \alias{slide_chr}
 \alias{slide_int}

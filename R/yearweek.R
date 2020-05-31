@@ -309,7 +309,6 @@ is_53weeks <- function(year) {
   p_year(year) == 4 | p_year(pre_year) == 3
 }
 
-#' @rdname year-week
 #' @export
 year.yearweek <- function(x) {
   x <- as_date(x)

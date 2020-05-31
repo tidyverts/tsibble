@@ -39,6 +39,7 @@ pedestrian \%>\%
 }
 # nocov start
 }
+\keyword{internal}
 \alias{future_slide}
 \alias{future_slide2}
 \alias{future_pslide}

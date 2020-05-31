@@ -139,7 +139,7 @@ as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE,
   )
 }
 
-#' @rdname as-tsibble
+#' @keywords internal
 #' @export
 as_tsibble.data.frame <- as_tsibble.tbl_df
 
@@ -486,7 +486,6 @@ format.tbl_ts <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #'
 #' @param x A `tbl_ts`.
 #' @param ... Ignored.
-#' @inheritParams base::as.data.frame
 #'
 #' @rdname as-tibble
 #' @export
@@ -505,7 +504,7 @@ as_tibble.grouped_df <- function(x, ...) {
   x
 }
 
-#' @rdname as-tibble
+#' @keywords internal
 #' @export
 as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
   new_data_frame(vec_data(x), n = nrow(x))

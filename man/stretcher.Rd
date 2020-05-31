@@ -36,3 +36,4 @@ stretcher(lst, .step = 2)
 stretcher(df, .step = 2)
 pstretcher(df, df, .step = 2)
 }
+\keyword{internal}

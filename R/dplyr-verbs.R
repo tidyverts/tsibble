@@ -29,12 +29,34 @@
 #' Joining with other data sources triggers the check on the validity of the
 #' resulting tsibble.
 #'
-#' @param .data,data A `tbl_ts`.
-#' @param ... Same arguments accepted as its tidyverse generic.
-#' @inheritParams dplyr::filter
-#' @param .groups See [dplyr::summarise()]
-#'
+#' @usage NULL
 #' @name tsibble-tidyverse
+#' @examples
+#' library(dplyr, warn.conflicts = FALSE)
+#' # Sum over sensors
+#' pedestrian %>%
+#'   index_by() %>%
+#'   summarise(Total = sum(Count))
+#' # shortcut
+#' pedestrian %>%
+#'   summarise(Total = sum(Count))
+#' # Back to tibble
+#' pedestrian %>%
+#'   as_tibble() %>%
+#'   summarise(Total = sum(Count))
+#'
+#' library(tidyr)
+#' # reshaping examples from tidyr
+#' stocks <- tsibble(
+#'   time = as.Date("2009-01-01") + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
+#' )
+#' (stocksm <- stocks %>% 
+#'   pivot_longer(-time, names_to = "stock", values_to = "price"))
+#' stocksm %>% 
+#'   pivot_wider(names_from = stock, values_from = price)
 NULL
 
 #' @export
@@ -57,7 +79,6 @@ select.tbl_ts <- function(.data, ...) {
 #' @export
 select.grouped_ts <- select.tbl_ts
 
-#' @rdname tsibble-tidyverse
 #' @export
 transmute.tbl_ts <- function(.data, ...) {
   bind_tsibble(NextMethod(), .data, position = "before")
@@ -66,20 +87,6 @@ transmute.tbl_ts <- function(.data, ...) {
 #' @export
 transmute.grouped_ts <- transmute.tbl_ts
 
-#' @rdname tsibble-tidyverse
-#' @examples
-#' library(dplyr, warn.conflicts = FALSE)
-#' # Sum over sensors
-#' pedestrian %>%
-#'   index_by() %>%
-#'   summarise(Total = sum(Count))
-#' # shortcut
-#' pedestrian %>%
-#'   summarise(Total = sum(Count))
-#' # Back to tibble
-#' pedestrian %>%
-#'   as_tibble() %>%
-#'   summarise(Total = sum(Count))
 #' @export
 summarise.tbl_ts <- function(.data, ..., .groups = NULL) {
   # Unlike summarise.grouped_df(), summarise.tbl_ts() doesn't compute values for

@@ -29,8 +29,7 @@ They are useful for preparing the tsibble for time series cross validation.
 They all return a tsibble including a new column \code{.id} as part of the key. The
 output dimension will increase considerably with \code{slide_tsibble()} and
 \code{stretch_tsibble()}, which is likely to run out of memory when the data is
-large. Alternatively, you could construct cross validation using \code{pslide()}
-and \code{pstretch()} to avoid the memory issue.
+large.
 }
 
 \examples{

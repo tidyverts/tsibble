@@ -74,6 +74,7 @@ bad_step_function <- function(.step) {
 #' If `.x` is a list of data frames, row binding is carried out.
 #'
 #' @return if `.fill != NULL`, it always returns the same length as input.
+#' @keywords internal
 #' @rdname slide
 #' @export
 #' @family sliding window functions
@@ -166,6 +167,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' @param .x,.y Objects to slide over simultaneously.
 #' @inheritParams slide
 #'
+#' @keywords internal
 #' @rdname slide2
 #' @export
 #' @family sliding window functions
@@ -356,6 +358,7 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' @param .bind If `.x` is a list or data frame, the input will be flattened
 #' to a list of data frames.
 #' @inheritParams slide
+#' @keywords internal
 #' @rdname slider
 #' @seealso [partial_slider], [partial_pslider] for partial sliding
 #' @export
@@ -404,6 +407,7 @@ pslider <- function(..., .size = 1, .step = 1, .bind = FALSE) {
 #' Partially splits the input to a list according to the rolling window size.
 #'
 #' @inheritParams slide
+#' @keywords internal
 #' @rdname partial-slider
 #' @export
 #' @examples
@@ -448,8 +452,7 @@ partial_pslider <- function(..., .size = 1, .step = 1, .fill = NA,
 #' They all return a tsibble including a new column `.id` as part of the key. The
 #' output dimension will increase considerably with `slide_tsibble()` and
 #' `stretch_tsibble()`, which is likely to run out of memory when the data is
-#' large. Alternatively, you could construct cross validation using `pslide()`
-#' and `pstretch()` to avoid the memory issue.
+#' large.
 #' @family rolling tsibble
 #' @export
 #' @examples
@@ -642,6 +645,7 @@ slider_msg <- function() {
 #' @details
 #' It requires the package **furrr** to be installed. Please refer to [furrr](https://davisvaughan.github.io/furrr/) for performance and detailed usage.
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("slide", "slide2", "pslide"), '}'), paste0('\\alias{future_slide_', suffix, '}'), paste0('\\alias{future_slide2_', suffix, '}'), paste0('\\alias{future_pslide_', suffix, '}'))}
+#' @keywords internal
 #' @name future_slide()
 #' @rdname future-slide
 #' @exportPattern ^future_

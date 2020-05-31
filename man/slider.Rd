@@ -42,3 +42,4 @@ pslider(df, df, .size = 2)
 \seealso{
 \link{partial_slider}, \link{partial_pslider} for partial sliding
 }
+\keyword{internal}

@@ -81,6 +81,7 @@ Other tiling window functions:
 \code{\link{tile2}()}
 }
 \concept{tiling window functions}
+\keyword{internal}
 \alias{tile_lgl}
 \alias{tile_chr}
 \alias{tile_dbl}

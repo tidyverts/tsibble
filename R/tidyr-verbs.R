@@ -1,20 +1,5 @@
 globalVariables(c("name"))
 
-#' @rdname tsibble-tidyverse
-#' @usage NULL
-#' @examples
-#' library(tidyr)
-#' # reshaping examples from tidyr
-#' stocks <- tsibble(
-#'   time = as.Date("2009-01-01") + 0:9,
-#'   X = rnorm(10, 0, 1),
-#'   Y = rnorm(10, 0, 2),
-#'   Z = rnorm(10, 0, 4)
-#' )
-#' (stocksm <- stocks %>% 
-#'     pivot_longer(-time, names_to = "stock", values_to = "price"))
-#' stocksm %>% 
-#'   pivot_wider(names_from = stock, values_from = price)
 pivot_longer.tbl_ts <- function(data, cols, names_to = "name", ...) {
   if (!has_length(names_to)) {
     abort("`pivot_longer(<tsibble>)` can't accept zero-length `names_to`.")

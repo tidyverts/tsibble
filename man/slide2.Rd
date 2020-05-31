@@ -223,6 +223,7 @@ Other sliding window functions:
 \code{\link{slide}()}
 }
 \concept{sliding window functions}
+\keyword{internal}
 \alias{slide2_lgl}
 \alias{slide2_chr}
 \alias{slide2_int}

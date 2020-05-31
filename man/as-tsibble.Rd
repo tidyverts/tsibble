@@ -2,23 +2,11 @@
 % Please edit documentation in R/as-tsibble.R, R/ts2tsibble.R
 \name{as_tsibble}
 \alias{as_tsibble}
-\alias{as_tsibble.data.frame}
 \alias{as_tsibble.ts}
 \alias{as_tsibble.mts}
-\alias{as_tsibble.hts}
 \title{Coerce to a tsibble object}
 \usage{
 as_tsibble(
-  x,
-  key = NULL,
-  index,
-  regular = TRUE,
-  validate = TRUE,
-  .drop = TRUE,
-  ...
-)
-
-\method{as_tsibble}{data.frame}(
   x,
   key = NULL,
   index,

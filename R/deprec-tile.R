@@ -13,6 +13,7 @@
 #'
 #' @inheritParams slide
 #'
+#' @keywords internal
 #' @rdname tile
 #' @export
 #' @family tiling window functions
@@ -71,6 +72,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' * `tile2_dfr()` `tile2_dfc()` return data frames using row-binding & column-binding.
 #'
 #' @inheritParams slide2
+#' @keywords internal
 #' @rdname tile2
 #' @export
 #' @family tiling window functions
@@ -150,6 +152,7 @@ ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 #' Splits the input to a list according to the tiling window size.
 #'
 #' @inheritParams slider
+#' @keywords internal
 #' @rdname tiler
 #' @export
 #' @examples
@@ -227,6 +230,7 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
 #' future specific options to use with the workers.
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("tile", "tile2", "ptile"), '}'), paste0('\\alias{future_tile_', suffix, '}'), paste0('\\alias{future_tile2_', suffix, '}'), paste0('\\alias{future_ptile_', suffix, '}'))}
+#' @keywords internal
 #' @name future_tile()
 #' @rdname future-tile
 #' @exportPattern ^future_

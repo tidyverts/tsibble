@@ -91,6 +91,7 @@ Other stretching window functions:
 \code{\link{stretch2}()}
 }
 \concept{stretching window functions}
+\keyword{internal}
 \alias{stretch_lgl}
 \alias{stretch_chr}
 \alias{stretch_dbl}

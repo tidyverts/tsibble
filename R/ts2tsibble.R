@@ -99,8 +99,7 @@ as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
   }
 }
 
-#' @rdname as-tsibble
-#' @usage NULL
+#' @keywords internal
 #' @export
 as_tsibble.hts <- function(x, ..., tz = "UTC") {
   full_labs <- extract_labels(x)

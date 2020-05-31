@@ -21,6 +21,7 @@ nrow2 <- function(.x) {
 #' @param .step A positive integer for incremental step.
 #'
 #' @return if `.fill != NULL`, it always returns the same length as input.
+#' @keywords internal
 #' @rdname stretch
 #' @export
 #' @family stretching window functions
@@ -91,6 +92,7 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @inheritParams slide2
 #' @inheritParams stretch
 #'
+#' @keywords internal
 #' @rdname stretch2
 #' @export
 #' @family stretching window functions
@@ -218,6 +220,7 @@ pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @param .x An objects to be split.
 #' @param ... Multiple objects to be split in parallel.
 #' @inheritParams stretch
+#' @keywords internal
 #' @rdname stretcher
 #' @export
 #' @examples
@@ -338,6 +341,7 @@ incr <- function(.init, .step) {
 #' future specific options to use with the workers.
 #'
 #' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("stretch", "stretch2", "pstretch"), '}'), paste0('\\alias{future_stretch_', suffix, '}'), paste0('\\alias{future_stretch2_', suffix, '}'), paste0('\\alias{future_pstretch_', suffix, '}'))}
+#' @keywords internal
 #' @name future_stretch()
 #' @rdname future-stretch
 #' @exportPattern ^future_

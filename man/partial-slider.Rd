@@ -52,3 +52,4 @@ x <- c(1, NA_integer_, 3:5)
 slider(x, .size = 3)
 partial_slider(x, .size = 3)
 }
+\keyword{internal}
