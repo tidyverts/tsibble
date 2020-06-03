@@ -90,24 +90,24 @@ vec_cast.data.frame.tbl_ts <- function(x, to, ...) {
   df_cast(x, to, ...)
 }
 
-#' @export
-vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
-  # assuming `i` in order and no duplicates, minimal check for performance reason
-  build_tsibble(x,
-    key = key_vars(to), index = index_var(to), index2 = index2_var(to),
-    ordered = TRUE, validate = FALSE, .drop = key_drop_default(to))
-}
-
-#' @export
-vec_proxy.tbl_ts <- function(x, ...) {
-  new_data_frame(x)
-}
-
-#' @export
-vec_restore.grouped_ts <- function(x, to, ..., n = NULL) {
-  x <- NextMethod()
-  vec_restore.tbl_ts(x, to)
-}
-
-#' @export
-vec_proxy.grouped_ts <- vec_proxy.tbl_ts
+# #' @export
+# vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
+#   # assuming `i` in order and no duplicates, minimal check for performance reason
+#   build_tsibble(x,
+#     key = key_vars(to), index = index_var(to), index2 = index2_var(to),
+#     ordered = TRUE, validate = FALSE, .drop = key_drop_default(to))
+# }
+#
+# #' @export
+# vec_proxy.tbl_ts <- function(x, ...) {
+#   new_data_frame(x)
+# }
+#
+# #' @export
+# vec_restore.grouped_ts <- function(x, to, ..., n = NULL) {
+#   x <- NextMethod()
+#   vec_restore.tbl_ts(x, to)
+# }
+#
+# #' @export
+# vec_proxy.grouped_ts <- vec_proxy.tbl_ts
