@@ -61,6 +61,15 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   update_meta(out, .data, ordered = is_ord, interval = interval(.data))
 }
 
+#' @export
+new_data.grouped_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
+  inform(c(
+    "Grouping structure is ignored.",
+    i = "`ungroup()` to silence this message."
+  ))
+  NextMethod()
+}
+
 #' @description
 #' `append_row()`: add new rows to the start/end of a tsibble by filling a key-index
 #' pair and `NA` for measured variables.
