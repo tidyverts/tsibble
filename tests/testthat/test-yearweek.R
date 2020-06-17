@@ -1,6 +1,6 @@
 x <- yearweek(as.Date("1970-01-01")) + 0:2
 dates <- seq(as.Date("1969-12-29"), length.out = 3, by = "1 week") + 0
-dttm <- as.POSIXct(dates, tz = "UTC")
+dttm <- .POSIXct(as.POSIXct(dates), tz = "UTC")
 
 test_that("is_53weeks()", {
   expect_equal(is_53weeks(NULL), FALSE)
@@ -56,9 +56,9 @@ test_that("vec_cast() for yearweek()", {
   expect_identical(as.character(x), format(x))
   expect_identical(vec_cast(x, to = double()), as.double(x))
   expect_identical(vec_cast(x, to = new_date()), dates)
-  expect_identical(as.POSIXct(x), dttm)
-  expect_identical(as.POSIXlt(x), as.POSIXlt(dttm, tz = "UTC"))
-  expect_identical(vec_cast(x, to = new_datetime()), dttm)
+  expect_identical(.POSIXct(as.POSIXct(x), tz = "UTC"), dttm)
+  expect_identical(as.POSIXlt(x), as.POSIXlt(dttm))
+  expect_identical(.POSIXct(vec_cast(x, to = new_datetime()), tz = "UTC"), dttm)
 })
 
 test_that("vec_c() for yearweek()", {
