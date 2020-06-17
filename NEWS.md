@@ -1,5 +1,7 @@
 # tsibble 0.9.1
 
+* Fixed bugs when `summarise()` with grouped factors. (#197)
+
 # tsibble 0.9.0
 
 This release uses the **vctrs** package internally in {tsibble}.

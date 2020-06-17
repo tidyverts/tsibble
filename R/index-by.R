@@ -104,7 +104,7 @@ index_by.tbl_ts <- function(.data, ...) {
       idx2_data <- mutate(ungrp, !!idx2 := !!expr)
     }
   }
-  tbl <- grouped_df(idx2_data, union(group_vars(.data), idx2), drop = FALSE)
+  tbl <- grouped_df(idx2_data, union(group_vars(.data), idx2), drop = TRUE)
   build_tsibble(tbl,
     key_data = key_data(.data), index = !!idx, index2 = !!idx2,
     ordered = is_ordered(.data), interval = interval(.data),
