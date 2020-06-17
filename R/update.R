@@ -76,7 +76,7 @@ bind_tsibble <- function(data, template, position = c("before", "after")) {
   data <- as_tibble(data)
   data_cols <- names(data)
   key_vars <- setdiff(key_vars(template), data_cols)
-  key_data <- select(key_data(template), key_vars)
+  key_data <- vec_unique(select(key_data(template), key_vars))
   if (vec_size(key_data) == 1) {
     template <- remove_key(template, setdiff(key_vars(template), key_vars))
   }

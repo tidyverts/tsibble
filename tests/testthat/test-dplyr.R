@@ -342,3 +342,10 @@ test_that("rename() for renaming key", {
   key_t <- tourism %>%
     rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
 })
+
+test_that("drop redundant key #196", {
+  sim_tourism <- tourism %>% 
+    filter(Purpose == "Holiday") %>% 
+    select(-Purpose)
+  expect_equal(key_vars(sim_tourism), c("Region", "State"))
+})
