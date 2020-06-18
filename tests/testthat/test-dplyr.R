@@ -332,6 +332,16 @@ test_that("summarise() scoped variants", {
   )
 })
 
+test_that("index_by() + summarise() for grouping factors #197", {
+  expect_silent({
+    tourism %>%
+      mutate(across(where(is.character), as.factor)) %>% 
+      index_by(Year = year(Quarter)) %>%
+      group_by(Region, State) %>% 
+      summarise(Trips = sum(Trips))
+  }) 
+})
+
 test_that("rename() for renaming key", {
   bm <- pedestrian %>%
     filter(Sensor == "Birrarung Marr") %>%
