@@ -1,7 +1,10 @@
 # tsibble 0.9.1
 
 * Fixed bugs when `summarise()` with grouped factors. (#197)
+* Improved `scale_year*()` default breaks. (#195)
+* Fixed bugs when `index_by()` + `summarise()` with grouped factors. (#197)
 * Fixed `select()` when removing redundant key. (#196)
+* `vec_slice()` updates tsibble data attributes.
 
 # tsibble 0.9.0
 
