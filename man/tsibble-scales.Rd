@@ -68,7 +68,7 @@ scale_fill_yearweek(...)
 scale_size_yearweek(...)
 }
 \arguments{
-\item{...}{Arguments passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}.}
+\item{...}{Arguments passed to \code{\link[ggplot2:scale_x_continuous]{ggplot2::scale_x_continuous()}}.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
