@@ -53,22 +53,20 @@ yearmonth.NULL <- function(x) {
 }
 
 #' @export
-yearmonth.POSIXct <- function(x) {
-  new_yearmonth(floor_date(as_date(x), unit = "months"))
+yearmonth.Date <- function(x) {
+  new_yearmonth((year(x) - 1970) * 12 + month(x) - 1)
 }
+
+#' @export
+yearmonth.POSIXct <- yearmonth.Date
 
 #' @export
 yearmonth.POSIXlt <- yearmonth.POSIXct
 
 #' @export
-yearmonth.Date <- function(x) {
-  new_yearmonth(floor_date(x, unit = "months"))
-}
-
-#' @export
 yearmonth.character <- function(x) {
   assertDate(x)
-  new_yearmonth(anydate(x))
+  yearmonth.Date(anydate(x))
 }
 
 #' @export
@@ -81,15 +79,14 @@ yearmonth.yearmonth <- function(x) {
 
 #' @export
 yearmonth.numeric <- function(x) {
-  new_yearmonth(0) + x
+  new_yearmonth(x)
 }
 
 #' @export
 yearmonth.yearmon <- function(x) {
   year <- trunc(x)
-  month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
-  result <- make_date(year, month, 1)
-  new_yearmonth(result)
+  month <- round((x %% 1) * 12) %% 12
+  new_yearmonth((year - 1970) * 12 + month)
 }
 
 new_yearmonth <- function(x = double()) {
@@ -127,22 +124,32 @@ vec_cast.yearmonth <- function(x, to, ...) {
 
 #' @export
 vec_cast.Date.yearmonth <- function(x, to, ...) {
-  new_date(x)
+  dates <- paste(yearmonth_year(x), yearmonth_month(x), 1, sep = "-")
+  dates[is.na(x)] <- NA
+  as_date(dates)
+}
+
+yearmonth_year <- function(x) {
+  1970 + unclass(x) %/% 12
+}
+
+yearmonth_month <- function(x) {
+  1 + round((unclass(x) / 12) %% 1 * 12)
 }
 
 #' @export
 vec_cast.POSIXct.yearmonth <- function(x, to, ...) {
-  as.POSIXct(new_date(x), ...)
+  as.POSIXct(as_date(x), ...)
 }
 
 #' @export
 vec_cast.double.yearmonth <- function(x, to, ...) {
-  as.double((year(x) - 1970) * 12 + month(x) - 1)
+  unclass(x)
 }
 
 #' @export
 vec_cast.POSIXlt.yearmonth <- function(x, to, ...) {
-  as.POSIXlt(new_date(x), ...)
+  as.POSIXlt(as_date(x), ...)
 }
 
 #' @export
@@ -203,9 +210,9 @@ vec_arith.yearmonth.default <- function(op, x, y, ...) {
 #' @export
 vec_arith.yearmonth.numeric <- function(op, x, y, ...) {
   if (op == "+") {
-    new_yearmonth(as_date(x) + period(months = y))
+    new_yearmonth(unclass(x) + y)
   } else if (op == "-") {
-    new_yearmonth(as_date(x) - period(months = y))
+    new_yearmonth(unclass(x) - y)
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -215,7 +222,7 @@ vec_arith.yearmonth.numeric <- function(op, x, y, ...) {
 #' @export
 vec_arith.yearmonth.yearmonth <- function(op, x, y, ...) {
   if (op == "-") {
-    as.double(x) - as.double(y)
+    unclass(x) - unclass(y)
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -225,7 +232,7 @@ vec_arith.yearmonth.yearmonth <- function(op, x, y, ...) {
 #' @export
 vec_arith.numeric.yearmonth <- function(op, x, y, ...) {
   if (op == "+") {
-    yearmonth(period(months = x) + as_date(y))
+    new_yearmonth(x + unclass(y))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -243,7 +250,7 @@ vec_arith.yearmonth.MISSING <- function(op, x, y, ...) {
 
 #' @export
 format.yearmonth <- function(x, format = "%Y %b", ...) {
-  format.Date(new_date(x), format = format, ...)
+  format.Date(as.Date(x), format = format, ...)
 }
 
 #' @rdname tsibble-vctrs
@@ -256,6 +263,29 @@ obj_print_data.yearmonth <- function(x, ...) {
 #' @export
 vec_ptype_abbr.yearmonth <- function(x, ...) {
   "mth"
+}
+
+#' @export
+vec_math.yearmonth <- function(.fn, .x, ...) {
+  .fn <- switch(.fn,
+    "is.nan" = is_nan_yearmonth,
+    "is.finite" = is_finite_yearmonth,
+    "is.infinite" = is_infinite_yearmonth,
+    abort(sprintf("%s is not supported for <yearmonth>.", deparse(.fn)))
+  )
+  .fn(.x, ...)
+}
+
+is_nan_yearmonth <- function(x) {
+  vector("logical", vec_size(x))
+}
+
+is_finite_yearmonth <- function(x) {
+  !vec_equal_na(x)
+}
+
+is_infinite_yearmonth <- function(x) {
+  vector("logical", vec_size(x))
 }
 
 #' @export
