@@ -1,8 +1,6 @@
 ## Release summary
 
-This release will be compatible with dplyr v1.0.0. Some failing packages are related to dplyr updates.
-
-The underlying tsibble data structure has also changed. Some failing packages that provide tsibble data examples are required to reconstruct their tsibble objects.
+This is a patch release. It fixed a unit test failed on CRAN osx platforms that use the `US/Eastern` time zone.
 
 ## Test environments
 
@@ -20,7 +18,4 @@ R CMD check succeeded
 
 ## revdepcheck results
 
-We checked 17 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 7 new problems
- * We failed to check 4 packages
+We haven't checked reverse dependencies.
