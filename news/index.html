@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -153,9 +153,21 @@
       
     </div>
 
+    <div id="tsibble-091" class="section level1">
+<h1 class="page-header">
+<a href="#tsibble-091" class="anchor"></a>tsibble 0.9.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed bugs when <code><a href="../reference/index-by.html">index_by()</a></code> + <code>summarise()</code> with grouped factors. (#197)</li>
+<li>Fixed <code>select()</code> when removing redundant key. (#196)</li>
+<li>Added a new message in <code>new_data.grouped_ts()</code> to inform “grouping structure is ignored”. (#193)</li>
+<li>
+<code>vec_slice()</code> updates tsibble data attributes.</li>
+</ul>
+</div>
     <div id="tsibble-090" class="section level1">
 <h1 class="page-header">
-<a href="#tsibble-090" class="anchor"></a>tsibble 0.9.0<small> Unreleased </small>
+<a href="#tsibble-090" class="anchor"></a>tsibble 0.9.0<small> 2020-06-04 </small>
 </h1>
 <p>This release uses the <strong>vctrs</strong> package internally in {tsibble}.</p>
 <div id="breaking-changes" class="section level2">
@@ -990,6 +1002,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tsibble-091">0.9.1</a></li>
         <li><a href="#tsibble-090">0.9.0</a></li>
         <li><a href="#tsibble-086">0.8.6</a></li>
         <li><a href="#tsibble-085">0.8.5</a></li>
