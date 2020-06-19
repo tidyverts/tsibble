@@ -33,6 +33,10 @@ yearquarter_trans <- function() {
   )
 }
 
+fullseq.yearquarter <- function(range, size, ...) {
+  scales::fullseq(as_date(range), size = size, ...)
+}
+
 #' @rdname tsibble-scales
 #' @export
 scale_x_yearquarter <- function(...) {
@@ -100,6 +104,10 @@ yearmonth_trans <- function() {
       yearmonth(scales::breaks_pretty()(as_date(x)))
     }
   )
+}
+
+fullseq.yearmonth <- function(range, size, ...) {
+  scales::fullseq(as_date(range), size = size, ...)
 }
 
 #' @rdname tsibble-scales
@@ -170,6 +178,10 @@ yearweek_trans <- function() {
       yearweek(scales::breaks_pretty()(as_date(x)))
     }
   )
+}
+
+fullseq.yearweek <- function(range, size, ...) {
+  scales::fullseq(as_date(range), size = size, ...)
 }
 
 #' @rdname tsibble-scales
