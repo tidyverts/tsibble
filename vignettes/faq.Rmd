@@ -69,7 +69,7 @@ tsbl2 <- tsibble(
   station = "B",
   index = time, key = station
 ) %>% print()
-rbind(tsbl1, tsbl2)
+bind_rows(tsbl1, tsbl2)
 ```
 
 Certainly you can. But tsibble only allows for one interval, because station `A` is thought of as time gaps involved. If you want to analyse them differently, it is recommended to have separate tsibbles instead.
