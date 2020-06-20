@@ -1,5 +1,7 @@
 # tsibble 0.9.2
 
+* Added index support for `lubridate::Period`. (#42)
+
 # tsibble 0.9.1
 
 * Fixed bugs when `index_by()` + `summarise()` with grouped factors. (#197)

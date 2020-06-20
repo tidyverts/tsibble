@@ -16,11 +16,11 @@ update_tsibble(
 \arguments{
 \item{x}{A tsibble.}
 
-\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
 empty key, and \code{c()} for multiple variables. It works with tidy selector
 (e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
 
-\item{index}{A bare (or unquoted) variable to specify the time index variable.}
+\item{index}{A variable to specify the time index variable.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
 interval is determined by the greatest common divisor of index column, if \code{TRUE}.}

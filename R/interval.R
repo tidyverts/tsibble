@@ -7,7 +7,7 @@
 #' components as the "interval" class.
 #'
 #' @param x A vector of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`,
-#' `difftime`/`hms`, `ordered`, `integer`, `numeric`, and `nanotime`.
+#' `difftime`/`hms`, `Period`, `ordered`, `integer`, `numeric`, and `nanotime`.
 #'
 #' @details Extend tsibble to support custom time indexes by defining S3 generics
 #' `index_valid()` and `interval_pull()` for them.
@@ -82,6 +82,21 @@ interval_pull.hms <- function(x) { # for hms package
     second = period$second %/% 1,
     millisecond = period$second %% 1 %/% 1e-3,
     microsecond = period$second %% 1 %/% 1e-6 %% 1e+3
+  )
+}
+
+#' @export
+interval_pull.Period <- function(x) {
+  second_int <- gcd_interval(x$second)
+  new_interval(
+    year = gcd_interval(x$year),
+    month = gcd_interval(x$month),
+    day = gcd_interval(x$day),
+    hour = gcd_interval(x$hour),
+    minute = gcd_interval(x$minute),
+    second = second_int %/% 1,
+    millisecond = round(second_int %% 1 %/% 1e-3),
+    microsecond = round(second_int %% 1 %/% 1e-6 %% 1e+3)
   )
 }
 

@@ -51,6 +51,9 @@ index_valid.nanotime <- index_valid.POSIXt
 index_valid.ordered <- index_valid.POSIXt
 
 #' @export
+index_valid.Period <- index_valid.POSIXt
+
+#' @export
 index_valid.numeric <- function(x) {
   NA
 }

@@ -19,14 +19,14 @@ build_tsibble(
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
 
-\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
 empty key, and \code{c()} for multiple variables. It works with tidy selector
 (e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
 
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}
 
-\item{index}{A bare (or unquoted) variable to specify the time index variable.}
+\item{index}{A variable to specify the time index variable.}
 
 \item{index2}{A candidate of \code{index} to update the index to a new one when
 \link{index_by}. By default, it's identical to \code{index}.}

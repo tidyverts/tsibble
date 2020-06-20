@@ -6,11 +6,11 @@
 #' variables in a data-centric format, which is built on top of the tibble.
 #'
 #' @section Index:
-#' An extensive range of indices are supported by tsibble: native time classes in R
-#' (such as `Date`, `POSIXct`, and `difftime`) and tsibble's new additions
-#' (such as [yearweek], [yearmonth], and [yearquarter]). Some commonly-used classes
-#' have built-in support too, including `ordered`, `hms::hms`, `zoo::yearmon`,
-#' `zoo::yearqtr`, and `nanotime`.
+#' An extensive range of indices are supported by tsibble:
+#' * native time classes in R (such as `Date`, `POSIXct`, and `difftime`)
+#' * tsibble's new additions (such as [yearweek], [yearmonth], and [yearquarter]).
+#' * other commonly-used classes: `ordered`, `hms::hms`, `lubridate::period`,
+#' `zoo::yearmon`, `zoo::yearqtr`, and `nanotime::nanotime`.
 #'
 #' For a `tbl_ts` of regular interval, a choice of index representation has to
 #' be made. For example, a monthly data should correspond to time index created
@@ -26,8 +26,7 @@
 #' @section Key:
 #' Key variable(s) together with the index uniquely identifies each record:
 #' * Empty: an implicit variable. `NULL` resulting in a univariate time series.
-#' * A single variable: For example, `data(pedestrian)` use the bare `Sensor` as
-#' the key.
+#' * A single variable: For example, `data(pedestrian)` uses `Sensor` as the key.
 #' * Multiple variables: For example, Declare `key = c(Region, State, Purpose)`
 #' for `data(tourism)`.
 #' Key can be created in conjunction with tidy selectors like `starts_with()`.
@@ -50,14 +49,17 @@
 #' * `yearweek`: "week" (`W`)
 #' * `Date`: "day" (`D`)
 #' * `difftime`: "week" (`W`), "day" (D), "hour" (`h`), "minute" (`m`), "second" (`s`)
-#' * `POSIXt`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
+#' * `POSIXt`/`hms`: "hour" (`h`), "minute" (`m`), "second" (`s`), "millisecond" (`us`),
+#' "microsecond" (`ms`)
+#' * `period`: "year" (`Y`), "month" (`M`), "day" (`D`), "hour" (`h`),
+#' "minute" (`m`), "second" (`s`), "millisecond" (`us`), "microsecond" (`ms`)
 #' * `nanotime`: "nanosecond" (`ns`)
 #' * other numerics &`ordered` (ordered factor): "unit"
 #' When the interval cannot be obtained due to the mismatched index format, an
 #' error is issued.
 #'
 #' The interval is invariant to subsetting, such as `filter()`, `slice()`, and `[.tbl_ts`.
-#' But if the result is an empty tsibble, the interval is always unknown.
+#' However, if the result is an empty tsibble, the interval is always unknown.
 #' When joining a tsibble with other data sources and aggregating to different
 #' time scales, the interval gets re-calculated.
 #'

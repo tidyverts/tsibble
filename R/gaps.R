@@ -291,14 +291,22 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
 seq_generator <- function(x, interval = NULL) {
   if (is_empty(x)) return(x)
 
-  min_x <- min(x)
-  max_x <- max(x)
   if (is_null(interval)) {
     interval <- interval_pull(x)
   }
+
+  if (lubridate::is.period(x)) {
+    abort("Class `period` not supported yet.")
+    # x <- vec_sort(x)
+    # min_x <- x[1]
+    # max_x <- x[vec_size(x)]
+  }
+
   tunit <- default_time_units(interval)
   if (tunit == 0) return(x)
 
+  min_x <- min(x)
+  max_x <- max(x)
   res <- tryCatch(
     seq(min_x, max_x, tunit),
     error = function(e) NULL,

@@ -15,11 +15,11 @@ duplicates(data, key = NULL, index)
 \arguments{
 \item{data}{A data frame for creating a tsibble.}
 
-\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
 empty key, and \code{c()} for multiple variables. It works with tidy selector
 (e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
 
-\item{index}{A bare (or unquoted) variable to specify the time index variable.}
+\item{index}{A variable to specify the time index variable.}
 
 \item{from_last}{\code{TRUE} does the duplication check from the last of identical
 elements.}

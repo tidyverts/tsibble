@@ -5,10 +5,10 @@ globalVariables(c(".rows", "id"))
 #' \lifecycle{stable}
 #'
 #' @param ... A set of name-value pairs.
-#' @param key Unquoted variable(s) that uniquely determine time indices. `NULL` for
+#' @param key Variable(s) that uniquely determine time indices. `NULL` for
 #' empty key, and `c()` for multiple variables. It works with tidy selector
 #' (e.g. [dplyr::starts_with()]).
-#' @param index A bare (or unquoted) variable to specify the time index variable.
+#' @param index A variable to specify the time index variable.
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
 #' interval is determined by the greatest common divisor of index column, if `TRUE`.
 #' @param .drop If `TRUE`, empty key groups are dropped.

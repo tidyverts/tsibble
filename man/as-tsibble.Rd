@@ -23,11 +23,11 @@ as_tsibble(
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
 
-\item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
+\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
 empty key, and \code{c()} for multiple variables. It works with tidy selector
 (e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
 
-\item{index}{A bare (or unquoted) variable to specify the time index variable.}
+\item{index}{A variable to specify the time index variable.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
 interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
@@ -56,11 +56,13 @@ A tsibble is sorted by its key first and index.
 }
 \section{Index}{
 
-An extensive range of indices are supported by tsibble: native time classes in R
-(such as \code{Date}, \code{POSIXct}, and \code{difftime}) and tsibble's new additions
-(such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}). Some commonly-used classes
-have built-in support too, including \code{ordered}, \code{hms::hms}, \code{zoo::yearmon},
-\code{zoo::yearqtr}, and \code{nanotime}.
+An extensive range of indices are supported by tsibble:
+\itemize{
+\item native time classes in R (such as \code{Date}, \code{POSIXct}, and \code{difftime})
+\item tsibble's new additions (such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}).
+\item other commonly-used classes: \code{ordered}, \code{hms::hms}, \code{lubridate::period},
+\code{zoo::yearmon}, \code{zoo::yearqtr}, and \code{nanotime::nanotime}.
+}
 
 For a \code{tbl_ts} of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
@@ -79,8 +81,7 @@ for the class and calculate the interval through \code{\link[=interval_pull]{int
 Key variable(s) together with the index uniquely identifies each record:
 \itemize{
 \item Empty: an implicit variable. \code{NULL} resulting in a univariate time series.
-\item A single variable: For example, \code{data(pedestrian)} use the bare \code{Sensor} as
-the key.
+\item A single variable: For example, \code{data(pedestrian)} uses \code{Sensor} as the key.
 \item Multiple variables: For example, Declare \code{key = c(Region, State, Purpose)}
 for \code{data(tourism)}.
 Key can be created in conjunction with tidy selectors like \code{starts_with()}.
@@ -109,7 +110,10 @@ An interval is obtained based on the corresponding index representation:
 \item \code{yearweek}: "week" (\code{W})
 \item \code{Date}: "day" (\code{D})
 \item \code{difftime}: "week" (\code{W}), "day" (D), "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})
-\item \code{POSIXt}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
+\item \code{POSIXt}/\code{hms}: "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}),
+"microsecond" (\code{ms})
+\item \code{period}: "year" (\code{Y}), "month" (\code{M}), "day" (\code{D}), "hour" (\code{h}),
+"minute" (\code{m}), "second" (\code{s}), "millisecond" (\code{us}), "microsecond" (\code{ms})
 \item \code{nanotime}: "nanosecond" (\code{ns})
 \item other numerics &\code{ordered} (ordered factor): "unit"
 When the interval cannot be obtained due to the mismatched index format, an
@@ -117,7 +121,7 @@ error is issued.
 }
 
 The interval is invariant to subsetting, such as \code{filter()}, \code{slice()}, and \verb{[.tbl_ts}.
-But if the result is an empty tsibble, the interval is always unknown.
+However, if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.
 }

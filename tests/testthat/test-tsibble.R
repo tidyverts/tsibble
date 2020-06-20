@@ -253,6 +253,18 @@ test_that("Year with 10 years interval", {
   expect_identical(default_time_units(interval_pull(tsbl$year)), 10)
 })
 
+idx_year <- lubridate::period(year = seq.int(60, 100, by = 10))
+dat_x <- tibble(
+  year = idx_year,
+  value = rnorm(5)
+)
+
+test_that("Period with 10 years interval", {
+  expect_identical(index_valid(dat_x$year), TRUE)
+  tsbl <- as_tsibble(dat_x, index = year)
+  expect_is(tsbl, "tbl_ts")
+  expect_identical(format(interval(tsbl)), "10Y")
+})
 
 test_that("Difftime with 2 days interval", {
   idx_time <- as.difftime(as.Date("2019-03-01") - as.Date("2019-02-28")) + c(0, 2, 4, 6, 8)
