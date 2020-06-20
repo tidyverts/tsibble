@@ -7,12 +7,12 @@
 Current dplyr verbs that tsibble has support for:
 \itemize{
 \item \code{\link[dplyr:filter]{dplyr::filter()}}, \code{\link[dplyr:slice]{dplyr::slice()}}, \code{\link[dplyr:arrange]{dplyr::arrange()}}
-\item \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:transmute]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+\item \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:mutate]{dplyr::transmute()}}, \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
 \code{\link[dplyr:summarise]{dplyr::summarise()}}, \code{\link[dplyr:group_by]{dplyr::group_by()}}
-\item \code{\link[dplyr:left_join]{dplyr::left_join()}}, \code{\link[dplyr:right_join]{dplyr::right_join()}}, \code{\link[dplyr:full_join]{dplyr::full_join()}},
-\code{\link[dplyr:inner_join]{dplyr::inner_join()}}, \code{\link[dplyr:semi_join]{dplyr::semi_join()}}, \code{\link[dplyr:anti_join]{dplyr::anti_join()}},
+\item \code{\link[dplyr:mutate-joins]{dplyr::left_join()}}, \code{\link[dplyr:mutate-joins]{dplyr::right_join()}}, \code{\link[dplyr:mutate-joins]{dplyr::full_join()}},
+\code{\link[dplyr:mutate-joins]{dplyr::inner_join()}}, \code{\link[dplyr:filter-joins]{dplyr::semi_join()}}, \code{\link[dplyr:filter-joins]{dplyr::anti_join()}},
 \code{\link[dplyr:nest_join]{dplyr::nest_join()}}
-\item \code{\link[dplyr:bind_rows]{dplyr::bind_rows()}}, \code{\link[dplyr:bind_cols]{dplyr::bind_cols()}}
+\item \code{\link[dplyr:bind]{dplyr::bind_rows()}}, \code{\link[dplyr:bind]{dplyr::bind_cols()}}
 }
 
 Current tidyr verbs that tsibble has support for:

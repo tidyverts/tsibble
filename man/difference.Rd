@@ -42,5 +42,5 @@ right <- mutate(scrambled, diff = difference(value, order_by = year))
 arrange(right, year)
 }
 \seealso{
-\link[dplyr:lead]{dplyr::lead} and \link[dplyr:lag]{dplyr::lag}
+\link[dplyr:lead-lag]{dplyr::lead} and \link[dplyr:lead-lag]{dplyr::lag}
 }

@@ -21,7 +21,7 @@ build_tsibble(
 
 \item{key}{Unquoted variable(s) that uniquely determine time indices. \code{NULL} for
 empty key, and \code{c()} for multiple variables. It works with tidy selector
-(e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}).}
+(e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
 
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}
