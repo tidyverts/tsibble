@@ -3,9 +3,9 @@
 #' @description
 #' Current dplyr verbs that tsibble has support for:
 #'
-#' * [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()],
+#' * [dplyr::filter()], [dplyr::slice()], [dplyr::arrange()]
 #' * [dplyr::select()], [dplyr::transmute()], [dplyr::mutate()], [dplyr::relocate()],
-#' [dplyr::summarise()], [dplyr::group_by()],
+#' [dplyr::summarise()], [dplyr::group_by()]
 #' * [dplyr::left_join()], [dplyr::right_join()], [dplyr::full_join()],
 #' [dplyr::inner_join()], [dplyr::semi_join()], [dplyr::anti_join()],
 #' [dplyr::nest_join()]
@@ -14,7 +14,7 @@
 #' Current tidyr verbs that tsibble has support for:
 #'
 #' * [tidyr::pivot_longer()], [tidyr::pivot_wider()],
-#' [tidyr::gather()], [tidyr::spread()],
+#' [tidyr::gather()], [tidyr::spread()]
 #' * [tidyr::nest()], [tidyr::fill()], [tidyr::drop_na()]
 #'
 #' @section Column-wise verbs:
