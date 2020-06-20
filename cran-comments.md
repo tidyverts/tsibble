@@ -1,3 +1,5 @@
+Fixed the "Non-file package-anchored link(s) in documentation object" warning, and resubmitted to CRAN.
+
 ## Release summary
 
 This is a patch release. It fixed a unit test failed on CRAN osx platforms that use the `US/Eastern` time zone.
