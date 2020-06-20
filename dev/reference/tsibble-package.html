@@ -171,11 +171,13 @@ variables in a data-centric format, which is built on top of the tibble.</p>
 
     
 
-<p>An extensive range of indices are supported by tsibble: native time classes in R
-(such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>) and tsibble's new additions
-(such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>). Some commonly-used classes
-have built-in support too, including <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>,
-<code><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>zoo::yearqtr</a></code>, and <code>nanotime</code>.</p>
+<p>An extensive range of indices are supported by tsibble:</p><ul>
+<li><p>native time classes in R (such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>)</p></li>
+<li><p>tsibble's new additions (such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>).</p></li>
+<li><p>other commonly-used classes: <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period</a></code>,
+<code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>zoo::yearqtr</a></code>, and <code><a href='https://rdrr.io/pkg/nanotime/man/nanotime.html'>nanotime::nanotime</a></code>.</p></li>
+</ul>
+
 <p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
 by <a href='year-month.html'>yearmonth</a> or <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
@@ -191,8 +193,7 @@ for the class and calculate the interval through <code><a href='interval-pull.ht
 
 <p>Key variable(s) together with the index uniquely identifies each record:</p><ul>
 <li><p>Empty: an implicit variable. <code>NULL</code> resulting in a univariate time series.</p></li>
-<li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> use the bare <code>Sensor</code> as
-the key.</p></li>
+<li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> uses <code>Sensor</code> as the key.</p></li>
 <li><p>Multiple variables: For example, Declare <code>key = c(Region, State, Purpose)</code>
 for <code><a href='https://rdrr.io/r/utils/data.html'>data(tourism)</a></code>.
 Key can be created in conjunction with tidy selectors like <code>starts_with()</code>.</p></li>
@@ -220,7 +221,10 @@ each key variable.</p></li>
 <li><p><code>yearweek</code>: "week" (<code>W</code>)</p></li>
 <li><p><code>Date</code>: "day" (<code>D</code>)</p></li>
 <li><p><code>difftime</code>: "week" (<code>W</code>), "day" (D), "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>)</p></li>
-<li><p><code>POSIXt</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
+<li><p><code>POSIXt</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>),
+"microsecond" (<code>ms</code>)</p></li>
+<li><p><code>period</code>: "year" (<code>Y</code>), "month" (<code>M</code>), "day" (<code>D</code>), "hour" (<code>h</code>),
+"minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
 <li><p><code>nanotime</code>: "nanosecond" (<code>ns</code>)</p></li>
 <li><p>other numerics &amp;<code>ordered</code> (ordered factor): "unit"
 When the interval cannot be obtained due to the mismatched index format, an
@@ -228,7 +232,7 @@ error is issued.</p></li>
 </ul>
 
 <p>The interval is invariant to subsetting, such as <code><a href='https://rdrr.io/r/stats/filter.html'>filter()</a></code>, <code>slice()</code>, and <code>[.tbl_ts</code>.
-But if the result is an empty tsibble, the interval is always unknown.
+However, if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.</p>
     <h2 class="hasAnchor" id="time-zone"><a class="anchor" href="#time-zone"></a>Time zone</h2>
