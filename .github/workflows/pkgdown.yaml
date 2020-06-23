@@ -10,6 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: 'release'
       - uses: r-lib/actions/setup-pandoc@master
       - name: Install dependencies
         run: |
