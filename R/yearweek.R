@@ -284,7 +284,7 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
   }
-  yearweek(seq_date(
+  new_yearweek(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
   ))

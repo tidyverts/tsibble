@@ -313,8 +313,8 @@ seq_date <- function(from, to, by, length.out = NULL, along.with = NULL, ...) {
   if (missing(by)) {
     from <- unclass(as.Date(from))
     to <- unclass(as.Date(to))
-    res <- seq.int(from, to, length.out = length.out)
-    return(structure(res, class = "Date"))
+    res <- as.double(seq.int(from, to, length.out = length.out))
+    return(new_date(res))
   }
   if (length(by) != 1L) {
     stop("'by' must be of length 1")
@@ -362,7 +362,6 @@ seq_date <- function(from, to, by, length.out = NULL, along.with = NULL, ...) {
       to0 <- unclass(as.Date(to))
       res <- seq.int(0, to0 - from, by) + from
     }
-    res <- structure(res, class = "Date")
   } else {
     r1 <- as.POSIXlt(from)
     if (valid == 5L) {
@@ -398,6 +397,6 @@ seq_date <- function(from, to, by, length.out = NULL, along.with = NULL, ...) {
       res[res >= to]
     }
   }
-  res
+  new_date(as.double(res))
 }
 # nocov end

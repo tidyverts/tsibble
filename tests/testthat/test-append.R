@@ -56,6 +56,6 @@ test_that("`keep_all = TRUE", {
 })
 
 test_that("yearweek #199", {
-  tsbl <- tsibble(yw = yearmonth(0:9), grp = rep(1:2, each = 5), key = grp)
-  expect_silent(new_data(tsbl, n = 5))
+  tsbl <- tsibble(yw = yearweek(0:9), grp = rep(1:2, each = 5), key = grp)
+  expect_is(new_data(tsbl, n = 5)$yw, "yearweek")
 })
