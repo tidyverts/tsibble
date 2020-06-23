@@ -302,26 +302,33 @@ seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (time_units == 0) return(x)
 
   min_x <- min(x)
-  if (is.null(length_out)) {
-    max_x <- max(x)
-    args <- list2(from = min_x, to = max_x, by = time_units)
-  } else {
-    args <- list2(from = min_x, by = time_units, length.out = length_out)
+  seq_call <- quote(seq(from = min_x, to = max(x), by = time_units, 
+    length.out = length_out))
+  if (!is.null(length_out)) {
+    seq_call <- call_modify(seq_call, to = zap())
   }
   res <- tryCatch(
-    eval_bare(call2("seq", !!!args)),
+    eval_bare(seq_call),
     error = function(e) NULL,
     warning = function(w) NULL
   )
   if (!is.null(res)) return(res)
 
   # no seq.* available
-  if (is.null(length_out)) {
-    args <- list2(from = 0, to = as.double(max_x - min_x), by = time_units)
-  } else {
-    args <- list2(from = 0, by = time_units, length.out = length_out)
+  seq_call2 <- quote(seq.int(from = 0, to = as.double(max(x) - min_x),
+    by = time_units, length.out = length_out))
+  if (!is.null(length_out)) {
+    seq_call2 <- call_modify(seq_call2, to = zap())
   }
-  res2 <- min_x + eval_bare(call2("seq.int", !!!args))
+  msg <- sprintf("Neither `+` nor `seq()` are defined for class %s", class(x)[1L])
+  res2 <- tryCatch(
+    min_x + eval_bare(seq_call2),
+    error = function(e) {
+      e$call <- NULL
+      e$message <- msg
+      stop(e)
+    }
+  )
   if (inherits(x, "hms")) { # workaround for hms
     res2 <- hms::as_hms(res2)
   }

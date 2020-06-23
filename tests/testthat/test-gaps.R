@@ -206,5 +206,5 @@ test_that("seq_generator()", {
   interval_pull.xxx <- function(x) {
     new_interval(unit = 1)
   }
-  expect_error(seq_generator(y, default_time_units(interval_pull(y))))
+  expect_error(seq_generator(y, default_time_units(interval_pull(y))), "defined")
 })
