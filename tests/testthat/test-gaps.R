@@ -201,10 +201,10 @@ test_that("Error in tbl_gaps()", {
 
 test_that("seq_generator()", {
   x <- nanotime::nanotime("1970-01-01T00:00:00.000000001+00:00") + c(0:3, 5:9)
-  expect_length(seq_generator(x), 10)
+  expect_length(seq_generator(x, default_time_units(interval_pull(x))), 10)
   y <- structure(c("x", "y"), class = "xxx")
   interval_pull.xxx <- function(x) {
     new_interval(unit = 1)
   }
-  expect_error(seq_generator(y, interval_pull(y)), "defined")
+  expect_error(seq_generator(y, default_time_units(interval_pull(y))))
 })

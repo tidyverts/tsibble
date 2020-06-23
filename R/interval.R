@@ -192,7 +192,7 @@ new_interval <- function(..., .regular = TRUE, .others = list()) {
     x_units <- paste(names_default[is.na(pidx)], collapse = ", ")
     abort(sprintf("Invalid argument: %s.", x_units))
   }
-  default <- eval_tidy(call2("default_interval", !!!default))
+  default <- eval_bare(call2("default_interval", !!!default))
   out <- dots_list(!!!default, !!!.others, .homonyms = "error")
   if (!(all(map_lgl(out, ~ has_length(., 1))))) {
     abort("Only accepts one input for each argument, not empty or multiple.")

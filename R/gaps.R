@@ -122,6 +122,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   if (unknown_interval(int) || !is_regular(.data)) {
     return(.data[0L, c(key_vars(.data), idx_chr)])
   }
+  int <- default_time_units(int)
 
   key <- key(.data)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))
@@ -187,7 +188,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
 count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
-  int <- interval(.data)
+  int <- default_time_units(interval(.data))
   idx <- index(.data)
 
   gap_data <- scan_gaps(.data, .full = !!enquo(.full))
@@ -232,7 +233,7 @@ has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
   }
 
   .full <- quo_get_expr(enquo(.full))
-  int <- interval(.data)
+  int <- default_time_units(interval(.data))
   idx <- index(.data)
   idx_chr <- as_string(idx)
   grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
@@ -288,12 +289,8 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
   )
 }
 
-seq_generator <- function(x, interval = NULL) {
+seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (is_empty(x)) return(x)
-
-  if (is_null(interval)) {
-    interval <- interval_pull(x)
-  }
 
   if (lubridate::is.period(x)) {
     abort("Class `period` not supported yet.")
@@ -302,27 +299,29 @@ seq_generator <- function(x, interval = NULL) {
     # max_x <- x[vec_size(x)]
   }
 
-  tunit <- default_time_units(interval)
-  if (tunit == 0) return(x)
+  if (time_units == 0) return(x)
 
   min_x <- min(x)
-  max_x <- max(x)
+  if (is.null(length_out)) {
+    max_x <- max(x)
+    args <- list2(from = min_x, to = max_x, by = time_units)
+  } else {
+    args <- list2(from = min_x, by = time_units, length.out = length_out)
+  }
   res <- tryCatch(
-    seq(min_x, max_x, tunit),
+    eval_bare(call2("seq", !!!args)),
     error = function(e) NULL,
     warning = function(w) NULL
   )
-  if (!is_null(res)) return(res)
+  if (!is.null(res)) return(res)
 
   # no seq.* available
-  res2 <- tryCatch(
-    min_x + seq.int(0, as.double(max_x - min_x), tunit),
-    error = function(e) {
-      e$call <- NULL
-      e$message <- sprintf("Neither `+` nor `seq()` are defined for class %s", class(x)[1L])
-      stop(e)
-    }
-  )
+  if (is.null(length_out)) {
+    args <- list2(from = 0, to = as.double(max_x - min_x), by = time_units)
+  } else {
+    args <- list2(from = 0, by = time_units, length.out = length_out)
+  }
+  res2 <- min_x + eval_bare(call2("seq.int", !!!args))
   if (inherits(x, "hms")) { # workaround for hms
     res2 <- hms::as_hms(res2)
   }
