@@ -54,3 +54,8 @@ test_that("`keep_all = TRUE", {
   new_t <- new_data(tourism, keep_all = TRUE)
   expect_equal(dim(new_t), c(n_keys(tourism), NCOL(tourism)))
 })
+
+test_that("yearweek #199", {
+  tsbl <- tsibble(yw = yearmonth(0:9), grp = rep(1:2, each = 5), key = grp)
+  expect_silent(new_data(tsbl, n = 5))
+})

@@ -1,5 +1,6 @@
 # tsibble 0.9.2
 
+* Fixed bug in `new_data()` for the `yearweek` class. (#199)
 * Added index support for `lubridate::Period`. (#42)
 
 # tsibble 0.9.1
