@@ -51,8 +51,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
   }
   new_lst <- mutate(regrped_df, 
     !!idx := list2(
-      tibble(!!idx := seq_generator(!!idx, tunit, length_out = abs(n) + 1)[-1]))
-  )
+      !!idx := seq_generator(!!idx, tunit, length_out = abs(n) + 1)[-1]))
 
   out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {

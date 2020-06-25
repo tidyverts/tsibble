@@ -129,25 +129,18 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   if (is_true(.full)) {
     idx_full <- seq_generator(keyed_tbl[[idx_chr]], int)
     sum_data <-
-      summarise(keyed_tbl, !!idx_chr := list2(tibble(!!idx_chr := idx_full)))
+      summarise(keyed_tbl, !!idx_chr := list2(!!idx_chr := idx_full))
   } else if (is_false(.full)) {
     sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(tibble(!!idx_chr := seq_generator(!!idx, int)))
-    )
+      !!idx_chr := list2(!!idx_chr := seq_generator(!!idx, int)))
   } else if (.full == expr("start()")) {
     start <- min(keyed_tbl[[idx_chr]])
     sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(tibble(
-        !!idx_chr := seq_generator(c(start, max(!!idx)), int)
-      ))
-    )
+      !!idx_chr := list2(!!idx_chr := seq_generator(c(start, max(!!idx)), int)))
   } else if (.full == expr("end()")) {
     end <- max(keyed_tbl[[idx_chr]])
     sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(tibble(
-        !!idx_chr := seq_generator(c(min(!!idx), end), int)
-      ))
-    )
+      !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), end), int)))
   } else {
     abort_invalid_full_arg()
   }
@@ -202,10 +195,9 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
   idx_full <- seq_generator(.data[[as_string(idx)]], int)
   grped_tbl <- new_grouped_df(gap_data, groups = key_data(gap_data))
   lst_out <- summarise(grped_tbl,
-    !!".gaps" := list2(tbl_gaps(!!idx, idx_full, .name = .name)))
+    !!".gaps" := tbl_gaps(!!idx, idx_full, .name = .name))
 
-  out <- unwrap(lst_out, .gaps)
-  tibble(!!!out)
+  vec_cbind(lst_out[key_vars(.data)], vec_cbind(!!!lst_out$.gaps))
 }
 
 #' Does a tsibble have implicit gaps in time?
@@ -282,11 +274,11 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
   to <- cumsum(gap_idx)
   from <- vec_c(1, to[-vec_size(to)] + 1)
   nobs <- gap_idx[lgl_rle]
-  tibble(
+  new_data_frame(list2(
     !!.name[1] := y[from][lgl_rle],
     !!.name[2] := y[to][lgl_rle],
     !!.name[3] := nobs
-  )
+  ))
 }
 
 seq_generator <- function(x, time_units = NULL, length_out = NULL) {
@@ -342,7 +334,7 @@ unwrap <- function(.data, .col) {
     vec_seq_along(.data), vapply(.data[[lst_col]], vec_size, integer(1))
   )
   res <- vec_slice(res, row_indices)[setdiff(names(.data), lst_col)]
-  vec_cbind(res, vec_rbind(!!!.data[[lst_col]]))
+  vec_cbind(res, !!lst_col := vec_c(!!!.data[[lst_col]], .name_spec = zap()))
 }
 
 abort_invalid_full_arg <- function() {

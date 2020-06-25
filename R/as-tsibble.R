@@ -400,7 +400,7 @@ validate_order <- function(x) {
     any(x)
   } else if (is_bare_numeric(x) && all(x < 0)) {
     TRUE
-  } else if ((vec_duplicate_any(x)) > 0) {
+  } else if (vec_duplicate_any(x) > 0) {
     abort(sprintf("Duplicated indices: %s", comma(x[vec_duplicate_detect(x)])))
   } else {
     is_ascending(x, na.rm = TRUE, strictly = TRUE)
