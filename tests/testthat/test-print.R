@@ -48,3 +48,11 @@ test_that("tbl_sum.grouped_ts()", {
     )
   )
 })
+
+test_that("plot message issued", {
+  expect_message(
+    plot(pedestrian),
+    paste0 ("The 'autoplot' function from the 'feasts' package is ",
+            "recommended for plotting 'tsibble' objects")
+  )
+})
