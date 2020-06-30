@@ -203,15 +203,15 @@ interval is determined by the greatest common divisor of index column, if <code>
 <li><p>native time classes in R (such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>)</p></li>
 <li><p>tsibble's new additions (such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>).</p></li>
 <li><p>other commonly-used classes: <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period</a></code>,
-<code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>zoo::yearqtr</a></code>, and <code><a href='https://rdrr.io/pkg/nanotime/man/nanotime.html'>nanotime::nanotime</a></code>.</p></li>
+and <code><a href='https://rdrr.io/pkg/nanotime/man/nanotime.html'>nanotime::nanotime</a></code>.</p></li>
 </ul>
 
 <p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
-by <a href='year-month.html'>yearmonth</a> or <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
-months in a year ensures the regularity, 12 months every year. However, if
-using <code>Date</code>, a month containing days ranges from 28 to 31 days, which results
-in irregular time space. This is also applicable to year-week and year-quarter.</p>
+by <a href='year-month.html'>yearmonth</a>, instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year
+ensures the regularity, 12 months every year. However, if using <code>Date</code>, a
+month containing days ranges from 28 to 31 days, which results in irregular
+time space. This is also applicable to year-week and year-quarter.</p>
 <p>Tsibble supports arbitrary index classes, as long as they can be ordered from
 past to future. To support a custom class, you need to define <code><a href='index_valid.html'>index_valid()</a></code>
 for the class and calculate the interval through <code><a href='interval-pull.html'>interval_pull()</a></code>.</p>
