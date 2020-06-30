@@ -575,7 +575,7 @@ duplicated_key_index <- function(data, key, index, key_data = NULL) {
 }
 
 assert_key_data <- function(x) {
-  nc <- NCOL(x)
+  nc <- length(x)
   if (is_false(
     is.data.frame(x) &&
     nc > 0 &&

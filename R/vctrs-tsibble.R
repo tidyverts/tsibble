@@ -48,7 +48,7 @@ tsibble_ptype2 <- function(x, y, ...) {
 }
 
 new_key_data <- function(x) {
-  tibble(!!!x, !!".rows" := list_of(.ptype = integer()))
+  new_tibble(list2(!!!x, !!".rows" := list_of(.ptype = integer())), nrow = 0)
 }
 
 #' @rdname tsibble-vctrs

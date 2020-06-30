@@ -50,7 +50,7 @@ make_index_explicit <- function(x, tz = "UTC") {
 pivot_longer_tsibble <- function(x, tz = "UTC") {
   idx <- time_to_date(x, tz = tz)
   list2(
-    "index" := vec_rep(idx, times = NCOL(x)),
+    "index" := vec_rep(idx, times = ncol(x)),
     "key" := vec_rep_each(colnames(x), vec_size(x)),
     "value" := vec_c(!!!unclass(x))
   )
@@ -92,7 +92,7 @@ time_to_date <- function(x, tz = "UTC") {
 #' @keywords internal
 #' @export
 as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
-  if (NCOL(x) == 1) {
+  if (ncol(x) == 1) {
     as_tsibble.ts(x, ..., tz = tz)
   } else {
     as_tsibble.mts(x, ..., tz = tz, pivot_longer = pivot_longer)

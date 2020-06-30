@@ -43,7 +43,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
     last_entry <- summarise(grped_df, !!idx := min(!!idx))
     tunit <- -tunit
   }
-  if (NCOL(key_data) == 1) { # no key
+  if (length(key_data) == 1) { # no key
     regrped_df <- last_entry
   } else {
     meta_grps <- mutate(key_data, .rows = list2(!!!vec_seq_along(last_entry)))
