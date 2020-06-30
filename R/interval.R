@@ -122,20 +122,10 @@ interval_pull.yearmonth <- function(x) {
 }
 
 #' @export
-interval_pull.yearmon <- function(x) {
-  interval_pull(yearmonth(x))
-}
-
-#' @export
 interval_pull.yearquarter <- function(x) {
   qtr <- as.double(x)
   nqtrs <- gcd_interval(qtr)
   new_interval(quarter = nqtrs)
-}
-
-#' @export
-interval_pull.yearqtr <- function(x) {
-  interval_pull(yearquarter(x))
 }
 
 #' @export

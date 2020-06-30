@@ -61,15 +61,15 @@ An extensive range of indices are supported by tsibble:
 \item native time classes in R (such as \code{Date}, \code{POSIXct}, and \code{difftime})
 \item tsibble's new additions (such as \link{yearweek}, \link{yearmonth}, and \link{yearquarter}).
 \item other commonly-used classes: \code{ordered}, \code{hms::hms}, \code{lubridate::period},
-\code{zoo::yearmon}, \code{zoo::yearqtr}, and \code{nanotime::nanotime}.
+and \code{nanotime::nanotime}.
 }
 
 For a \code{tbl_ts} of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
-by \link{yearmonth} or \code{zoo::yearmon}, instead of \code{Date} or \code{POSIXct}. Because
-months in a year ensures the regularity, 12 months every year. However, if
-using \code{Date}, a month containing days ranges from 28 to 31 days, which results
-in irregular time space. This is also applicable to year-week and year-quarter.
+by \link{yearmonth}, instead of \code{Date} or \code{POSIXct}. Because months in a year
+ensures the regularity, 12 months every year. However, if using \code{Date}, a
+month containing days ranges from 28 to 31 days, which results in irregular
+time space. This is also applicable to year-week and year-quarter.
 
 Tsibble supports arbitrary index classes, as long as they can be ordered from
 past to future. To support a custom class, you need to define \code{\link[=index_valid]{index_valid()}}
@@ -105,8 +105,8 @@ An interval is obtained based on the corresponding index representation:
 \itemize{
 \item integerish numerics between 1582 and 2499: "year" (\code{Y}). Note the year of
 1582 saw the beginning of the Gregorian Calendar switch.
-\item \code{yearquarter}/\code{yearqtr}: "quarter" (\code{Q})
-\item \code{yearmonth}/\code{yearmon}: "month" (\code{M})
+\item \code{yearquarter}: "quarter" (\code{Q})
+\item \code{yearmonth}: "month" (\code{M})
 \item \code{yearweek}: "week" (\code{W})
 \item \code{Date}: "day" (\code{D})
 \item \code{difftime}: "week" (\code{W}), "day" (D), "hour" (\code{h}), "minute" (\code{m}), "second" (\code{s})

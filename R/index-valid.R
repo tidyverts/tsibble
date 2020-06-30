@@ -36,13 +36,19 @@ index_valid.yearweek <- index_valid.POSIXt
 index_valid.yearmonth <- index_valid.POSIXt
 
 #' @export
-index_valid.yearmon <- index_valid.yearmonth
+index_valid.yearmon <- function(x) {
+  abort(c("No index support for class \"yearmon\".",
+    i = "Please use `yearmonth()` to convert first."))
+}
 
 #' @export
 index_valid.yearquarter <- index_valid.POSIXt
 
 #' @export
-index_valid.yearqtr <- index_valid.yearquarter
+index_valid.yearqtr <- function(x) {
+  abort(c("No index support for class \"yearqtr\".",
+    i = "Please use `yearquarter()` to convert first."))
+}
 
 #' @export
 index_valid.nanotime <- index_valid.POSIXt
