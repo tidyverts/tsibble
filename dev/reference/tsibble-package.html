@@ -261,7 +261,13 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date        value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01  0.462
@@ -280,7 +286,13 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>),
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
+)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
 #&gt;        qtr group    value
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>

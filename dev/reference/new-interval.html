@@ -51,6 +51,8 @@
 <meta property="og:title" content="Interval constructor for a tsibble — new_interval" />
 <meta property="og:description" content="
 new_interval() creates an interval object.
+gcd_interval() computes the greatest common divisor for the difference
+of numerics.
 is_regular_interval() checks if the interval is regular.
 
 " />
@@ -162,6 +164,8 @@ is_regular_interval() checks if the interval is regular.
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p><ul>
 <li><p><code>new_interval()</code> creates an interval object.</p></li>
+<li><p><code>gcd_interval()</code> computes the greatest common divisor for the difference
+of numerics.</p></li>
 <li><p><code>is_regular_interval()</code> checks if the interval is regular.</p></li>
 </ul>
 
@@ -169,7 +173,9 @@ is_regular_interval() checks if the interval is regular.
 
     <pre class="usage"><span class='fu'>new_interval</span>(<span class='no'>...</span>, <span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
 
-<span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)
+
+<span class='fu'>gcd_interval</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,7 +211,7 @@ to allow custom interval.</p></td>
 #&gt; [1] 1h 30m</div><div class='input'>(<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>new_interval</span>(<span class='kw'>.regular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='co'># irregular interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
 #&gt; [1] !</div><div class='input'><span class='fu'>new_interval</span>() <span class='co'># unknown interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
 #&gt; [1] ?</div><div class='input'><span class='fu'>new_interval</span>(<span class='kw'>.others</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>semester</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='co'># custom interval</span></div><div class='output co'>#&gt; &lt;interval[1]&gt;
-#&gt; [1] 1semester</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+#&gt; [1] 1semester</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_regular_interval</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>gcd_interval</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>6</span>))</div><div class='output co'>#&gt; [1] 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

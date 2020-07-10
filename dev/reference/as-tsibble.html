@@ -306,7 +306,13 @@ time scales, the interval gets re-calculated.</p>
   <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
@@ -319,7 +325,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.247</span><span>  
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.244</span><span>  
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'><span class='co'># supply the index to suppress the message</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl1</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
@@ -340,7 +352,13 @@ time scales, the interval gets re-calculated.</p>
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>)
 )
 <span class='co'># "qtr" is automatically considered as the index var</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
 #&gt;        qtr group   value
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -354,7 +372,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.052</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x      0.543 
 #&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.914</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>tbl2</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>qtr</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
 #&gt;        qtr group   value
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -377,7 +401,13 @@ time scales, the interval gets re-calculated.</p>
   <span class='kw'>abc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>9</span>),
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>27</span>)
 )
-<span class='fu'>as_tsibble</span>(<span class='no'>tbl3</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>xyz</span>, <span class='no'>abc</span>))</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 27 x 4 [1M]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>tbl3</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>xyz</span>, <span class='no'>abc</span>))</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 27 x 4 [1M]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       xyz, abc [9]</span><span>
 #&gt;         mth xyz   abc     value
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -392,7 +422,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2010 Mar x     c      0.118 
 #&gt; </span><span style='color: #555555;'>10</span><span> 2010 Apr y     a     -</span><span style='color: #BB0000;'>1.91</span><span>  
 #&gt; </span><span style='color: #555555;'># … with 17 more rows</span><span></div><div class='input'><span class='co'># coerce ts to tsibble</span>
-<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 144 x 2 [1M]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 144 x 2 [1M]</span><span>
 #&gt;       index value
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 1949 Jan   112
@@ -405,7 +441,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 1949 Aug   148
 #&gt; </span><span style='color: #555555;'> 9</span><span> 1949 Sep   136
 #&gt; </span><span style='color: #555555;'>10</span><span> 1949 Oct   119
-#&gt; </span><span style='color: #555555;'># … with 134 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 289 x 2 [1Y]</span><span>
+#&gt; </span><span style='color: #555555;'># … with 134 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.year</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 289 x 2 [1Y]</span><span>
 #&gt;    index value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>  </span><span style='text-decoration: underline;'>1</span><span>700     5
@@ -418,7 +460,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>1</span><span>707    20
 #&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>708    10
 #&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>1</span><span>709     8
-#&gt; </span><span style='color: #555555;'># … with 279 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 3,177 x 2 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># … with 279 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>sunspot.month</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 3,177 x 2 [1M]</span><span>
 #&gt;       index value
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 1749 Jan  58  
@@ -431,7 +479,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 1749 Aug  66.3
 #&gt; </span><span style='color: #555555;'> 9</span><span> 1749 Sep  75.9
 #&gt; </span><span style='color: #555555;'>10</span><span> 1749 Oct  75.5
-#&gt; </span><span style='color: #555555;'># … with 3,167 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 89 x 2 [1Q]</span><span>
+#&gt; </span><span style='color: #555555;'># … with 3,167 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>austres</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 89 x 2 [1Q]</span><span>
 #&gt;      index  value
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 1971 Q2 </span><span style='text-decoration: underline;'>13</span><span>067.
@@ -446,7 +500,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 1973 Q3 </span><span style='text-decoration: underline;'>13</span><span>553.
 #&gt; </span><span style='color: #555555;'># … with 79 more rows</span><span></div><div class='input'><span class='co'># coerce mts to tsibble</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>300</span>), <span class='fl'>100</span>, <span class='fl'>3</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1961</span>, <span class='fl'>1</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
-<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 300 x 3 [1M]</span><span>
+<span class='fu'>as_tsibble</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 300 x 3 [1M]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       key [3]</span><span>
 #&gt;       index key       value
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -460,7 +520,13 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 1961 Aug Series 1  1.32 
 #&gt; </span><span style='color: #555555;'> 9</span><span> 1961 Sep Series 1  0.524
 #&gt; </span><span style='color: #555555;'>10</span><span> 1961 Oct Series 1  0.607
-#&gt; </span><span style='color: #555555;'># … with 290 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 100 x 4 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># … with 290 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>z</span>, <span class='kw'>pivot_longer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 100 x 4 [1M]</span><span>
 #&gt;       index `Series 1` `Series 2` `Series 3`
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 1961 Jan      0.132      0.364   -</span><span style='color: #BB0000;'>0.968</span><span>  

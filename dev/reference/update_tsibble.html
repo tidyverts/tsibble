@@ -212,7 +212,13 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Hour_Since</span> <span class='kw'>=</span> <span class='no'>Date_Time</span> - <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>Date_Time</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 6 [1h]</span><span>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>Hour_Since</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 6 [1h]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count Hour_Since
@@ -230,7 +236,13 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 #&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'>
 <span class='co'># update key: drop the variable "State" from the key</span>
 <span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+  <span class='fu'>update_tsibble</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Purpose</span>, <span class='no'>Region</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Purpose, Region [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>

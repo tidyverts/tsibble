@@ -204,7 +204,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># from the starting time to the end of Feb, 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(~ <span class='st'>"2015-02"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -221,7 +227,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'># … with 4,526 more rows</span><span></div><div class='input'>
 <span class='co'># entire Feb 2015, &amp; from the beginning of Aug 2016 to the end</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-02"</span>, <span class='st'>"2016-08"</span> ~ <span class='no'>.</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 16,244 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-02"</span>, <span class='st'>"2016-08"</span> ~ <span class='no'>.</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 16,244 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -238,7 +250,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'># … with 16,234 more rows</span><span></div><div class='input'>
 <span class='co'># multiple time windows</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(~<span class='st'>"2015-02"</span>, <span class='st'>"2015-08"</span> ~ <span class='st'>"2015-09"</span>, <span class='st'>"2015-12"</span> ~ <span class='st'>"2016-02"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 19,008 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -255,7 +273,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'># … with 18,998 more rows</span><span></div><div class='input'>
 <span class='co'># entire 2015</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 32,276 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -272,7 +296,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'># … with 32,266 more rows</span><span></div><div class='input'>
 <span class='co'># specific</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -287,7 +317,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>08:00:00</span><span> 2015-03-23     8   756
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>09:00:00</span><span> 2015-03-23     9   289
 #&gt; </span><span style='color: #555555;'># … with 20,170 more rows</span><span></div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23"</span> ~ <span class='st'>"2015-10-31"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,180 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -302,7 +338,13 @@ documented in <code>?Sys.timezone()</code>, using <code><a href='https://rdrr.io
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>08:00:00</span><span> 2015-03-23     8   756
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-03-23 </span><span style='color: #555555;'>09:00:00</span><span> 2015-03-23     9   289
 #&gt; </span><span style='color: #555555;'># … with 20,170 more rows</span><span></div><div class='input'><span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>filter_index</span>(<span class='st'>"2015-03-23 10"</span> ~ <span class='st'>"2015-10-31 12"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 20,107 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
