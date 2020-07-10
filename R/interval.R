@@ -310,7 +310,7 @@ has_tz <- function(x) {
 setOldClass("interval")
 
 #' @importMethodsFrom lubridate as.period
-setMethod("as.period", signature(x = "interval"), function(x, ...) {
+setMethod("as.period", "interval", function(x, ...) {
   period(
     year = x$year, 
     month = x$quarter * 3 + x$month,
@@ -321,6 +321,6 @@ setMethod("as.period", signature(x = "interval"), function(x, ...) {
 })
 
 #' @importMethodsFrom lubridate as.duration
-setMethod("as.duration", signature(x = "interval"), function(x, ...) {
+setMethod("as.duration", "interval", function(x, ...) {
   as.duration(as.period(x))
 })

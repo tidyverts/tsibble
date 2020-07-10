@@ -125,17 +125,6 @@ unnest.tbl_ts <- function(data, ...) {
   NextMethod()
 }
 
-# used for unnest() to check if the tsibble holds
-unnest_check_tsibble <- function(data, key, index) {
-  is_dup <- duplicated_key_index(data, key, index)
-  if (is_dup) {
-    header <- "The result is not a valid tsibble.\n"
-    hint <- "Do you forget argument `key` in `unnest()` to create the key?."
-    abort(paste0(header, hint))
-  }
-  data
-}
-
 #' Unnest a data frame consisting of tsibbles to a tsibble
 #'
 #' @description
@@ -147,7 +136,6 @@ unnest_check_tsibble <- function(data, key, index) {
 #' @keywords internal
 #' @export
 unnest_tsibble <- function(data, cols, key = NULL, validate = TRUE) {
-  # seems not working anymore
   if (!is_installed("tidyr") && utils::packageVersion("tidyr") >= "0.9.0") {
     abort("Package 'tidyr' (>= v1.0.0) required for `unnest_tsibble()`.")
   }
