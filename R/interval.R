@@ -305,3 +305,25 @@ has_tz <- function(x) {
   tz <- attr(x, "tzone")[[1]]
   !(is_null(tz) && !inherits(x, "POSIXt"))
 }
+
+#' @importFrom methods setOldClass setMethod
+#' @exportClass interval
+setOldClass("interval")
+
+#' @importMethodsFrom lubridate as.period
+#' @export
+setMethod("as.period", signature(x = "interval"), function(x, ...) {
+  period(
+    year = x$year, 
+    month = x$quarter * 3 + x$month,
+    day = x$week * 7 + x$day,
+    hour = x$hour,
+    minute = x$minute,
+    second = x$second + x$millisecond / 1e3 + x$microsecond / 1e6)
+})
+
+#' @importMethodsFrom lubridate as.duration
+#' @export
+setMethod("as.duration", signature(x = "interval"), function(x, ...) {
+  as.duration(as.period(x))
+})

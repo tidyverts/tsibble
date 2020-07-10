@@ -35,6 +35,7 @@ Imports:
     ellipsis (>= 0.3.0),
     lifecycle,
     lubridate (>= 1.7.0),
+    methods,
     purrr (>= 0.2.3),
     rlang (>= 0.4.6),
     tibble (>= 3.0.0),
