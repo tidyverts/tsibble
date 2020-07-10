@@ -6,12 +6,11 @@
 #' Assuming regularly spaced time, the `interval_pull()` returns a list of time
 #' components as the "interval" class.
 #'
-#' @param x A vector of `POSIXct`, `Date`, `yearweek`, `yearmonth`, `yearquarter`,
-#' `difftime`/`hms`, `Period`, `ordered`, `integer`, `numeric`, and `nanotime`.
+#' @param x A vector of index-like class.
 #'
 #' @details Extend tsibble to support custom time indexes by defining S3 generics
 #' `index_valid()` and `interval_pull()` for them.
-#' @return an "interval" class (a list) includes "year",
+#' @return An "interval" class (a list) includes "year",
 #' "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 #' "microsecond", "nanosecond", "unit".
 #'
@@ -152,6 +151,8 @@ interval_pull.ordered <- function(x) {
 #' @description
 #' \lifecycle{stable}
 #' * `new_interval()` creates an interval object.
+#' * `gcd_interval()` computes the greatest common divisor for the difference
+#' of numerics.
 #' * `is_regular_interval()` checks if the interval is regular.
 #'
 #' @param ... A set of name-value pairs to specify default interval units: "year",
@@ -161,6 +162,7 @@ interval_pull.ordered <- function(x) {
 #' the `...` argument.
 #' @param .others A list name-value pairs that are not included in the `...`,
 #' to allow custom interval.
+#' @param x A vector of numerics.
 #'
 #' @return an "interval" class
 #' @rdname new-interval
@@ -270,6 +272,10 @@ abort_not_interval <- function(x) {
   }
 }
 
+#' @rdname new-interval
+#' @export
+#' @examples
+#' gcd_interval(c(1, 3, 5, 6))
 # regular time interval is obtained from the greatest common divisor of positive
 # time distances.
 gcd_interval <- function(x) {

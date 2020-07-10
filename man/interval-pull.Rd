@@ -7,11 +7,10 @@
 interval_pull(x)
 }
 \arguments{
-\item{x}{A vector of \code{POSIXct}, \code{Date}, \code{yearweek}, \code{yearmonth}, \code{yearquarter},
-\code{difftime}/\code{hms}, \code{Period}, \code{ordered}, \code{integer}, \code{numeric}, and \code{nanotime}.}
+\item{x}{A vector of index-like class.}
 }
 \value{
-an "interval" class (a list) includes "year",
+An "interval" class (a list) includes "year",
 "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 "microsecond", "nanosecond", "unit".
 }

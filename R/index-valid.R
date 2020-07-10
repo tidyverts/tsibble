@@ -5,7 +5,7 @@
 #'
 #' S3 method to add an index type support for a tsibble.
 #'
-#' @param x An object of index type that the tsibble supports.
+#' @param x An object of index type supported by tsibble.
 #'
 #' @details This method is primarily used for adding an index type support in
 #' [as_tsibble].

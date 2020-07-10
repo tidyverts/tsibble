@@ -3,11 +3,14 @@
 \name{new_interval}
 \alias{new_interval}
 \alias{is_regular_interval}
+\alias{gcd_interval}
 \title{Interval constructor for a tsibble}
 \usage{
 new_interval(..., .regular = TRUE, .others = list())
 
 is_regular_interval(x)
+
+gcd_interval(x)
 }
 \arguments{
 \item{...}{A set of name-value pairs to specify default interval units: "year",
@@ -29,6 +32,8 @@ an "interval" class
 \lifecycle{stable}
 \itemize{
 \item \code{new_interval()} creates an interval object.
+\item \code{gcd_interval()} computes the greatest common divisor for the difference
+of numerics.
 \item \code{is_regular_interval()} checks if the interval is regular.
 }
 }
@@ -39,4 +44,5 @@ new_interval() # unknown interval
 new_interval(.others = list(semester = 1)) # custom interval
 is_regular_interval(x)
 is_regular_interval(y)
+gcd_interval(c(1, 3, 5, 6))
 }

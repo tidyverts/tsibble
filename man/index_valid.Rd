@@ -7,7 +7,7 @@
 index_valid(x)
 }
 \arguments{
-\item{x}{An object of index type that the tsibble supports.}
+\item{x}{An object of index type supported by tsibble.}
 }
 \value{
 \code{TRUE}/\code{FALSE} or \code{NA} (unsure)
