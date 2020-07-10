@@ -220,8 +220,8 @@
 <a href="#deprecated-functions" class="anchor"></a>Deprecated functions</h2>
 <ul>
 <li>Deprecated window functions in favour of the {slider} package. (#143)</li>
-<li>Deprecated <code><a href="../reference/deprecated.html">units_since()</a></code> in favour of <code>vec_cast()</code>.</li>
-<li>Remove <code><a href="../reference/deprecated.html">is.tsibble()</a></code>.</li>
+<li>Deprecated <code>units_since()</code> in favour of <code>vec_cast()</code>.</li>
+<li>Remove <code>is.tsibble()</code>.</li>
 <li>Defunct <code>as.tsibble()</code>.</li>
 </ul>
 </div>
@@ -245,7 +245,7 @@
 <p>This is a maintenance release due to the changes in the upstream package.</p>
 <ul>
 <li>Removed strong dependency of tidyr to <code>Suggests</code>.</li>
-<li>Soft deprecated <code><a href="../reference/deprecated.html">is.tsibble()</a></code>.</li>
+<li>Soft deprecated <code>is.tsibble()</code>.</li>
 <li>
 <code><a href="../reference/has_gaps.html">has_gaps()</a></code> &amp; <code><a href="../reference/count_gaps.html">count_gaps()</a></code> gained a new argument <code>.name</code> for naming new columns.</li>
 <li>Improved the speed performance for <code><a href="../reference/new-data.html">new_data()</a></code>/<code><a href="../reference/new-data.html">append_row()</a></code>.</li>
@@ -457,7 +457,7 @@
 <li>
 <code>count_gaps.tbl_ts()</code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed “.”.</li>
 <li>
-<code><a href="../reference/deprecated.html">time_unit()</a></code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
+<code>time_unit()</code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
 <li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial-slider.html">partial_slider()</a></code> and <code><a href="../reference/partial-slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
 <li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> requires a grouped df.</li>
 </ul>
@@ -653,7 +653,7 @@
 <li>Replaced <code>NA</code> or <code>NULL</code> with <code>0</code> in the “interval” class to make the representation simpler.</li>
 <li>The <code>interval</code> class has new slots of “millisecond”, “microsecond”, “nanosecond”.</li>
 <li>
-<code><a href="../reference/deprecated.html">time_unit()</a></code> is a function instead of S3 generic, and made index extension a bit easier.</li>
+<code>time_unit()</code> is a function instead of S3 generic, and made index extension a bit easier.</li>
 </ul>
 </div>
 <div id="bug-fixes-8" class="section level2">
@@ -709,7 +709,7 @@
 <li>
 <code><a href="../reference/year-week.html">yearweek()</a></code>, <code><a href="../reference/year-month.html">yearmonth()</a></code>, <code><a href="../reference/year-quarter.html">yearquarter()</a></code> supported for character.</li>
 <li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (#33).</li>
-<li>New S3 generics <code><a href="../reference/deprecated.html">units_since()</a></code> for index classes.</li>
+<li>New S3 generics <code>units_since()</code> for index classes.</li>
 <li>New <code><a href="../reference/year-week.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
 <li>New S3 generics <code>key_sum()</code> for extending tsibble.</li>
 </ul>
