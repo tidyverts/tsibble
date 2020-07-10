@@ -307,11 +307,9 @@ has_tz <- function(x) {
 }
 
 #' @importFrom methods setOldClass setMethod
-#' @exportClass interval
 setOldClass("interval")
 
 #' @importMethodsFrom lubridate as.period
-#' @export
 setMethod("as.period", signature(x = "interval"), function(x, ...) {
   period(
     year = x$year, 
@@ -323,7 +321,6 @@ setMethod("as.period", signature(x = "interval"), function(x, ...) {
 })
 
 #' @importMethodsFrom lubridate as.duration
-#' @export
 setMethod("as.duration", signature(x = "interval"), function(x, ...) {
   as.duration(as.period(x))
 })
