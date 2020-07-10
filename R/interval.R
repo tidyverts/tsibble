@@ -314,10 +314,11 @@ setMethod("as.period", "interval", function(x, ...) {
   period(
     year = x$year, 
     month = x$quarter * 3 + x$month,
-    day = x$week * 7 + x$day,
+    week = x$week,
+    day = x$day,
     hour = x$hour,
     minute = x$minute,
-    second = x$second + x$millisecond / 1e3 + x$microsecond / 1e6)
+    second = x$second + x$millisecond / 1e3 + x$microsecond / 1e6 + x$nanosecond / 1e9)
 })
 
 #' @importMethodsFrom lubridate as.duration
