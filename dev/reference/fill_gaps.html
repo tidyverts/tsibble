@@ -205,13 +205,7 @@ existing <code>NA</code> untouched.</p><ul>
 )
 
 <span class='co'># gaps as default `NA`</span>
-<span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 3 [1Y]</span><span>
+<span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;     year fruit   kilo
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -224,13 +218,7 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; </span><span style='color: #555555;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       2
 #&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10
-#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 kiwi      </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>start</a></span>())</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 9 x 3 [1Y]</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 kiwi      </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>start</a></span>())</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 9 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -242,13 +230,7 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       3
 #&gt; </span><span style='color: #555555;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       2
 #&gt; </span><span style='color: #555555;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10</div><div class='input'><span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>end</a></span>())</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 9 x 3 [1Y]</span><span>
+#&gt; </span><span style='color: #555555;'>9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10</div><div class='input'><span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>end</a></span>())</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 9 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -261,13 +243,7 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; </span><span style='color: #555555;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10
 #&gt; </span><span style='color: #555555;'>9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 kiwi      </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='no'>full_harvest</span> <span class='kw'>&lt;-</span> <span class='fu'>fill_gaps</span>(<span class='no'>harvest</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>full_harvest</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
+<span class='no'>full_harvest</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -281,13 +257,7 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; </span><span style='color: #555555;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10</div><div class='input'>
 <span class='co'># replace gaps with a specific value</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -301,13 +271,7 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; </span><span style='color: #555555;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>013 kiwi      10</div><div class='input'>
 <span class='co'># replace gaps using a function by variable</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -322,13 +286,7 @@ existing <code>NA</code> untouched.</p><ul>
 <span class='co'># replace gaps using a function for each group</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    fruit [2]</span><span>
 #&gt;    year fruit   kilo
@@ -345,13 +303,7 @@ existing <code>NA</code> untouched.</p><ul>
 <span class='no'>harvest</span>[<span class='fl'>2</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>kilo</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       fruit [2]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    fruit [2]</span><span>
 #&gt;    year fruit   kilo
@@ -367,13 +319,7 @@ existing <code>NA</code> untouched.</p><ul>
 <span class='co'># replace NA</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill_gaps</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'>fill_gaps</span>(<span class='kw'>Count</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>Count</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
@@ -396,13 +342,7 @@ existing <code>NA</code> untouched.</p><ul>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>fill_gaps</span>() <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>Count</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='no'>Count</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count

@@ -221,13 +221,7 @@ resulting tsibble.</p>
 <span class='co'># Sum over sensors</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='index-by.html'>index_by</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt;    Date_Time           Total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  </span><span style='text-decoration: underline;'>2</span><span>866
@@ -242,13 +236,7 @@ resulting tsibble.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span>   419
 #&gt; </span><span style='color: #555555;'># … with 17,532 more rows</span><span></div><div class='input'><span class='co'># shortcut</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 17,542 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt;    Date_Time           Total
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2015-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  </span><span style='text-decoration: underline;'>2</span><span>866
@@ -264,13 +252,7 @@ resulting tsibble.</p>
 #&gt; </span><span style='color: #555555;'># … with 17,532 more rows</span><span></div><div class='input'><span class='co'># Back to tibble</span>
 <span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>Total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
 #&gt;      Total
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 45</span><span style='text-decoration: underline;'>483</span><span>871</div><div class='input'>
@@ -281,13 +263,7 @@ resulting tsibble.</p>
   <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )</div><div class='output co'>#&gt; <span class='message'>Using `time` as index variable.</span></div><div class='input'>(<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span>(-<span class='no'>time</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"stock"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"price"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1D]</span><span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span>(-<span class='no'>time</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"stock"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"price"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       stock [3]</span><span>
 #&gt;    time       stock  price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -302,13 +278,7 @@ resulting tsibble.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-03 Z      2.75 
 #&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-04 X      0.747
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>stock</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>price</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 4 [1D]</span><span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>stock</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>price</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 4 [1D]</span><span>
 #&gt;    time             X      Y      Z
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  1.49   -</span><span style='color: #BB0000;'>1.01</span><span>  -</span><span style='color: #BB0000;'>4.81</span><span> 

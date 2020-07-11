@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Represent year-week (ISO) starting on Monday — yearweek • tsibble</title>
+<title>Represent year-week based on the ISO 8601 standard (with flexible start day) — yearweek • tsibble</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,7 @@
 
 
 
-<meta property="og:title" content="Represent year-week (ISO) starting on Monday — yearweek" />
+<meta property="og:title" content="Represent year-week based on the ISO 8601 standard (with flexible start day) — yearweek" />
 <meta property="og:description" content="
 Create or coerce using yearweek()." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
@@ -151,7 +151,7 @@ Create or coerce using yearweek()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Represent year-week (ISO) starting on Monday</h1>
+    <h1>Represent year-week based on the ISO 8601 standard (with flexible start day)</h1>
     
     <div class="hidden name"><code>year-week.Rd</code></div>
     </div>
@@ -161,11 +161,11 @@ Create or coerce using yearweek()." />
 <p>Create or coerce using <code>yearweek()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yearweek</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>yearweek</span>(<span class='no'>x</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>1</span>))
 
 <span class='fu'>is_yearweek</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_53weeks</span>(<span class='no'>year</span>)</pre>
+<span class='fu'>is_53weeks</span>(<span class='no'>year</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>1</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,8 +175,14 @@ Create or coerce using yearweek()." />
       <td><p>Other object.</p></td>
     </tr>
     <tr>
+      <th>week_start</th>
+      <td><p>An integer between 1 (Monday) and 7 (Sunday) to specify
+the day on which week starts following ISO conventions. Default to 1 (Monday).
+Use <code><a href='https://rdrr.io/r/base/options.html'>options(lubridate.week.start = 7)</a></code> to set this parameter globally.</p></td>
+    </tr>
+    <tr>
       <th>year</th>
-      <td><p>A vector of years.</p></td>
+      <td><p>A vector of integers.</p></td>
     </tr>
     </table>
 
@@ -209,12 +215,19 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 #&gt; [31] "2016 W30" "2016 W31" "2016 W32" "2016 W33" "2016 W34" "2016 W35"
 #&gt; [37] "2016 W36" "2016 W37" "2016 W38" "2016 W39" "2016 W40" "2016 W41"
 #&gt; [43] "2016 W42" "2016 W43" "2016 W44" "2016 W45" "2016 W46" "2016 W47"
+#&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"</div><div class='input'><span class='fu'>yearweek</span>(<span class='no'>x</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; &lt;yearweek[53]&gt;
+#&gt;  [1] "2015 W52" "2016 W01" "2016 W02" "2016 W03" "2016 W04" "2016 W05"
+#&gt;  [7] "2016 W06" "2016 W07" "2016 W08" "2016 W09" "2016 W10" "2016 W11"
+#&gt; [13] "2016 W12" "2016 W13" "2016 W14" "2016 W15" "2016 W16" "2016 W17"
+#&gt; [19] "2016 W18" "2016 W19" "2016 W20" "2016 W21" "2016 W22" "2016 W23"
+#&gt; [25] "2016 W24" "2016 W25" "2016 W26" "2016 W27" "2016 W28" "2016 W29"
+#&gt; [31] "2016 W30" "2016 W31" "2016 W32" "2016 W33" "2016 W34" "2016 W35"
+#&gt; [37] "2016 W36" "2016 W37" "2016 W38" "2016 W39" "2016 W40" "2016 W41"
+#&gt; [43] "2016 W42" "2016 W43" "2016 W44" "2016 W45" "2016 W46" "2016 W47"
 #&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"</div><div class='input'>
 <span class='co'># parse characters</span>
 <span class='fu'>yearweek</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 W01"</span>, <span class='st'>"2018 Wk01"</span>, <span class='st'>"2018 Week 1"</span>))</div><div class='output co'>#&gt; &lt;yearweek[3]&gt;
 #&gt; [1] "2018 W01" "2018 W01" "2018 W01"</div><div class='input'>
-<span class='co'># creat an empty yearweek container</span>
-<span class='fu'>yearweek</span>()</div><div class='output co'>#&gt; &lt;yearweek[0]&gt;</div><div class='input'>
 <span class='co'># seq() and arithmetic</span>
 <span class='no'>wk1</span> <span class='kw'>&lt;-</span> <span class='fu'>yearweek</span>(<span class='st'>"2017 W50"</span>)
 <span class='no'>wk2</span> <span class='kw'>&lt;-</span> <span class='fu'>yearweek</span>(<span class='st'>"2018 W12"</span>)
@@ -224,10 +237,7 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 #&gt;  [1] "2017 W50" "2017 W51" "2017 W52" "2018 W01" "2018 W02" "2018 W03"
 #&gt;  [7] "2018 W04" "2018 W05" "2018 W06" "2018 W07"</div><div class='input'>
 <span class='co'># display formats</span>
-<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>wk1</span>, <span class='no'>wk2</span>), <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%V/%Y"</span>)</div><div class='output co'>#&gt; [1] "50/2017" "12/2018"</div><div class='input'>
-<span class='co'># units since 1969-12-29</span>
-<span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span>(<span class='fu'>yearweek</span>(<span class='st'>"1969 W41"</span>) + <span class='fl'>0</span>:<span class='fl'>24</span>)</div><div class='output co'>#&gt;  [1] -12 -11 -10  -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6
-#&gt; [20]   7   8   9  10  11  12</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>2015</span>:<span class='fl'>2016</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>wk1</span>, <span class='no'>wk2</span>), <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%V/%Y"</span>)</div><div class='output co'>#&gt; [1] "50/2017" "12/2018"</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>2015</span>:<span class='fl'>2016</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>1969</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>1969</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
