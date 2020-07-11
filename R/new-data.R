@@ -55,7 +55,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 
   out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {
-    out <- vec_rbind(grped_df[0L, ], out)
+    out <- vec_rbind(vec_slice(.data, 0L), out)
   } else { # reorder column names according to the data input
     out <- out[setdiff(names(.data), measured_vars(.data))]
   }

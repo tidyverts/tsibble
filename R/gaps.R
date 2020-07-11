@@ -120,7 +120,8 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   idx <- index(.data)
   idx_chr <- as_string(idx)
   if (unknown_interval(int) || !is_regular(.data)) {
-    return(.data[0L, c(key_vars(.data), idx_chr)])
+    data0 <- vec_slice(.data, 0)
+    return(data0[c(key_vars(.data), idx_chr)])
   }
   int <- default_time_units(int)
 
@@ -146,7 +147,8 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   }
   ref_data <- unwrap(sum_data, !!idx)
   if (vec_size(ref_data) == vec_size(.data)) {
-    .data[0L, c(key_vars(.data), idx_chr)]
+    data0 <- vec_slice(.data, 0)
+    data0[c(key_vars(.data), idx_chr)]
   } else {
     gap_data <- anti_join(ref_data, .data, by = c(key_vars(.data), idx_chr))
     update_meta(gap_data, .data, ordered = NULL, interval = interval(.data))
@@ -186,7 +188,8 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
 
   gap_data <- scan_gaps(.data, .full = !!enquo(.full))
   if (vec_size(gap_data) == 0L) {
-    data_key <- .data[0L, key_vars(.data)]
+    data0 <- vec_slice(.data, 0)
+    data_key <- data0[key_vars(.data)]
     idx_vals <- .data[[as_string(idx)]][0L]
     out <- vec_cbind(data_key, tbl_gaps(idx_vals, idx_vals, .name = .name))
     return(out)
