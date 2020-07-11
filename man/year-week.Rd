@@ -4,18 +4,22 @@
 \alias{yearweek}
 \alias{is_yearweek}
 \alias{is_53weeks}
-\title{Represent year-week (ISO) starting on Monday}
+\title{Represent year-week based on the ISO 8601 standard (with flexible start day)}
 \usage{
-yearweek(x)
+yearweek(x, week_start = getOption("lubridate.week.start", 1))
 
 is_yearweek(x)
 
-is_53weeks(year)
+is_53weeks(year, week_start = getOption("lubridate.week.start", 1))
 }
 \arguments{
 \item{x}{Other object.}
 
-\item{year}{A vector of years.}
+\item{week_start}{An integer between 1 (Monday) and 7 (Sunday) to specify
+the day on which week starts following ISO conventions. Default to 1 (Monday).
+Use \code{options(lubridate.week.start = 7)} to set this parameter globally.}
+
+\item{year}{A vector of integers.}
 }
 \value{
 year-week (\code{yearweek}) objects.
@@ -38,12 +42,10 @@ Please see \code{\link[=strptime]{strptime()}} details for supported conversion 
 # coerce POSIXct/Dates to yearweek
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 week")
 yearweek(x)
+yearweek(x, week_start = 7)
 
 # parse characters
 yearweek(c("2018 W01", "2018 Wk01", "2018 Week 1"))
-
-# creat an empty yearweek container
-yearweek()
 
 # seq() and arithmetic
 wk1 <- yearweek("2017 W50")
@@ -53,10 +55,9 @@ wk1 + 0:9
 
 # display formats
 format(c(wk1, wk2), format = "\%V/\%Y")
-
-# units since 1969-12-29
-as.double(yearweek("1969 W41") + 0:24)
 is_53weeks(2015:2016)
+is_53weeks(1969)
+is_53weeks(1969, week_start = 7)
 }
 \seealso{
 Other index functions: 

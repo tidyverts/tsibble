@@ -3,6 +3,7 @@
 * Fixed bug in `new_data()` for the `yearweek` class. (#199)
 * Added index support for `lubridate::Period`. (#42)
 * Added {lubridate}'s S4 methods `as.period()` and `as.duration()` for interval class. (#206)
+* `yearweek()` gained a new argument `week_start` to specify the start week day based on ISO 8601 standard. (#205)
 
 # tsibble 0.9.1
 

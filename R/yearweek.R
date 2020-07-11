@@ -1,4 +1,4 @@
-#' Represent year-week (ISO) starting on Monday
+#' Represent year-week based on the ISO 8601 standard (with flexible start day)
 #'
 #' @description
 #' \lifecycle{stable}
@@ -8,6 +8,9 @@
 #' @inheritSection yearmonth Display
 #'
 #' @inheritParams yearmonth
+#' @param week_start An integer between 1 (Monday) and 7 (Sunday) to specify
+#' the day on which week starts following ISO conventions. Default to 1 (Monday).
+#' Use `options(lubridate.week.start = 7)` to set this parameter globally.
 #'
 #' @return year-week (`yearweek`) objects.
 #'
@@ -18,12 +21,10 @@
 #' # coerce POSIXct/Dates to yearweek
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 week")
 #' yearweek(x)
+#' yearweek(x, week_start = 7)
 #'
 #' # parse characters
 #' yearweek(c("2018 W01", "2018 Wk01", "2018 Week 1"))
-#'
-#' # creat an empty yearweek container
-#' yearweek()
 #'
 #' # seq() and arithmetic
 #' wk1 <- yearweek("2017 W50")
@@ -33,31 +34,34 @@
 #'
 #' # display formats
 #' format(c(wk1, wk2), format = "%V/%Y")
-#'
-#' # units since 1969-12-29
-#' as.double(yearweek("1969 W41") + 0:24)
-yearweek <- function(x) {
+yearweek <- function(x, week_start = getOption("lubridate.week.start", 1)) {
   UseMethod("yearweek")
 }
 
 #' @export
-yearweek.default <- function(x) {
+yearweek.default <- function(x,
+                             week_start = getOption("lubridate.week.start", 1)) {
   dont_know(x, "yearweek")
 }
 
 #' @export
-yearweek.NULL <- function(x) {
-  new_yearweek()
+yearweek.NULL <- function(x, 
+                          week_start = getOption("lubridate.week.start", 1)) {
+  new_yearweek(double(), week_start = week_start)
 }
 
 #' @export
-yearweek.numeric <- function(x) {
-  new_yearweek(-3) + x
+yearweek.numeric <- function(x,
+                             week_start = getOption("lubridate.week.start", 1)) {
+  # anchor to "1970 W01" regardless of dates
+  new_yearweek(new_date(-4 + week_start) + x * 7, week_start)
 }
 
 #' @export
-yearweek.POSIXct <- function(x) {
-  new_yearweek(floor_date(as_date(x), unit = "weeks", week_start = 1))
+yearweek.POSIXct <- function(x,
+                             week_start = getOption("lubridate.week.start", 1)) {
+  new_yearweek(floor_date(as_date(x), unit = "weeks", week_start = week_start),
+    week_start = week_start)
 }
 
 #' @export
@@ -67,7 +71,8 @@ yearweek.POSIXlt <- yearweek.POSIXct
 yearweek.Date <- yearweek.POSIXct
 
 #' @export
-yearweek.character <- function(x) {
+yearweek.character <- function(x,
+                               week_start = getOption("lubridate.week.start", 1)) {
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
   if (all(grepl("^(w|wk|week)$", key_words, ignore.case = TRUE))) {
     yr_week <- regmatches(x, gregexpr("[[:digit:]]+", x))
@@ -82,25 +87,33 @@ yearweek.character <- function(x) {
     if (any(week > 53)) {
       abort("Weeks can't be greater than 53.")
     }
-    check_53 <- !is_53weeks(yr) & (week > 52)
+    check_53 <- !is_53weeks(yr, week_start) & (week > 52)
     if (any(check_53)) {
       abort(sprintf("Year %s can't be 53 weeks.", comma(yr[check_53])))
     }
-    last_mon_last_year <- make_date(yr, 1, 5) - wday(make_date(yr, 1, 3)) - 7
-    new_yearweek(last_mon_last_year + week * 7)
+    convert_week_to_date(yr, week, week_start)
   } else {
     assertDate(x)
-    yearweek(anydate(x))
+    yearweek(anydate(x), week_start)
   }
 }
 
+
 #' @export
-yearweek.yearweek <- function(x) {
+yearweek.yearweek <- function(x,
+                              week_start = getOption("lubridate.week.start", NULL)) {
+  if (!is.null(week_start)) {
+    warn("`week_start` is ignored.")
+  }
   x
 }
 
-new_yearweek <- function(x = double()) {
-  new_vctr(x, class = "yearweek")
+new_yearweek <- function(x = double(), week_start = 1) {
+  new_vctr(x, week_start = week_start, class = "yearweek")
+}
+
+week_start <- function(x) {
+  attr(x, "week_start")
 }
 
 #' @rdname year-week
@@ -134,7 +147,7 @@ vec_cast.yearweek <- function(x, to, ...) {
 
 #' @export
 vec_cast.Date.yearweek <- function(x, to, ...) {
-  new_date(as.double(vec_data(x)))
+  new_date(x)
 }
 
 #' @export
@@ -144,7 +157,7 @@ vec_cast.POSIXct.yearweek <- function(x, to, ...) {
 
 #' @export
 vec_cast.double.yearweek <- function(x, to, ...) {
-  as.double((as_date(x) - as_date("1969-12-29")) / 7)
+  as.double((as_date(x) - as_date("1969-12-29") - week_start(x) + 1) / 7)
 }
 
 #' @export
@@ -154,7 +167,7 @@ vec_cast.POSIXlt.yearweek <- function(x, to, ...) {
 
 #' @export
 vec_cast.yearweek.yearweek <- function(x, to, ...) {
-  new_yearweek(x)
+  new_yearweek(x, week_start(x))
 }
 
 #' @export
@@ -210,9 +223,9 @@ vec_arith.yearweek.default <- function(op, x, y, ...) {
 #' @export
 vec_arith.yearweek.numeric <- function(op, x, y, ...) {
   if (op == "+") {
-    new_yearweek(as_date(x) + y * 7)
+    new_yearweek(as_date(x) + y * 7, week_start(x))
   } else if (op == "-") {
-    new_yearweek(as_date(x) - y * 7)
+    new_yearweek(as_date(x) - y * 7, week_start(x))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -222,7 +235,7 @@ vec_arith.yearweek.numeric <- function(op, x, y, ...) {
 #' @export
 vec_arith.numeric.yearweek <- function(op, x, y, ...) {
   if (op == "+") {
-    yearweek(x * 7 + as_date(y))
+    yearweek(x * 7 + as_date(y), week_start(y))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -251,15 +264,17 @@ vec_arith.yearweek.MISSING <- function(op, x, y, ...) {
 
 #' @export
 format.yearweek <- function(x, format = "%Y W%V", ...) {
+  wk_start <- week_start(x)
   x <- as_date(x)
   mth <- month(x)
-  wk <- strftime(x, "%V")
+  wk <- extract_week(x, week_start = wk_start)
   shift_year <- period(1, units = "year")
-  lgl1 <- !is.na(x) & mth == 1 & wk == "53"
-  lgl2 <- !is.na(x) & mth == 12 & wk == "01"
+  lgl1 <- !is.na(x) & mth == 1 & wk == 53
+  lgl2 <- !is.na(x) & mth == 12 & wk == 1
   x[lgl1] <- x[lgl1] - shift_year
   x[lgl2] <- x[lgl2] + shift_year
-  wk_sub <- map_chr(wk, ~ gsub("%V", ., x = format))
+  wk_chr <- formatC(wk, width = 2, flag = "0")
+  wk_sub <- map_chr(wk_chr, ~ gsub("%V", ., x = format))
   wk_sub[is.na(wk_sub)] <- "-"
   format.Date(x, format = wk_sub)
 }
@@ -280,6 +295,7 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
                          ...) {
   bad_by(by)
   by_mth <- paste(by, "week")
+  wk_start <- week_start(from)
   from <- vec_cast(from, new_date())
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
@@ -287,32 +303,55 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
   new_yearweek(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
-  ))
+  ), wk_start)
 }
 
 #' @rdname year-week
-#' @param year A vector of years.
+#' @param year A vector of integers.
+#' @inheritParams yearweek
 #' @return `TRUE`/`FALSE` if the year has 53 ISO weeks.
 #' @export
 #' @examples
 #' is_53weeks(2015:2016)
-is_53weeks <- function(year) {
+#' is_53weeks(1969)
+#' is_53weeks(1969, week_start = 7)
+is_53weeks <- function(year,
+                       week_start = getOption("lubridate.week.start", 1)) {
   if (is_empty(year)) return(FALSE)
 
   if (!is_integerish(year) || any(year < 1)) {
     abort("Argument `year` must be positive integers.")
   }
-  pre_year <- year - 1
-  p_year <- function(year) {
-    (year + floor(year / 4) - floor(year / 100) + floor(year / 400)) %% 7
-  }
-  p_year(year) == 4 | p_year(pre_year) == 3
+  last_days <- make_date(year, 12, 31)
+  last_weeks <- floor_date(last_days, "week", week_start = week_start)
+  extract_week(last_weeks, week_start) == 53
 }
 
 #' @export
 year.yearweek <- function(x) {
+  wk <- extract_week(x, week_start(x))
   x <- as_date(x)
   mth <- month(x)
-  wk <- strftime(x, "%V")
-  year(x) - (mth == 1 & wk == "53") + (mth == 12 & wk == "01")
+  year(x) - (mth == 1 & wk == 53) + (mth == 12 & wk == 1)
+}
+
+extract_week <- function(x, week_start) {
+  date <- as_date(x) + (4 - wday(x, week_start = week_start))
+  jan1 <- as.double(make_date(year(date), 1, 1))
+  1 + (as.double(date) - jan1) %/% 7
+}
+
+convert_week_to_date <- function(year, week, week_start) {
+  shift_num <- vec_init_along(year)
+  for (i in seq_along(year)) {
+    yr_wk_max <- (is_53weeks(1970:year[i], week_start) + 52)
+    sign <- sign(year[i] - 1970)
+    if (sign > 0) {
+      nweeks <- head(yr_wk_max * sign, -1)
+    } else {
+      nweeks <- tail(yr_wk_max * sign, -1)
+    }
+    shift_num[i] <- sum(nweeks) + week[i] - 1
+  }
+  yearweek(0, week_start) + shift_num
 }

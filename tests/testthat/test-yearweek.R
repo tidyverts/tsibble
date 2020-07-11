@@ -6,6 +6,8 @@ test_that("is_53weeks()", {
   expect_equal(is_53weeks(NULL), FALSE)
   expect_equal(is_53weeks(2015:2016), c(TRUE, FALSE))
   expect_error(is_53weeks("2015"), "positive integers.")
+  expect_equal(is_53weeks(1969), FALSE)
+  expect_equal(is_53weeks(1969, week_start = 7), TRUE)
 })
 
 test_that("input types for yearweek()", {
@@ -31,6 +33,9 @@ test_that("character type for yearweek()", {
 
 test_that("yearweek.character() underlying dates", {
   expect_equal(as.Date(yearweek("1970 W01")), as.Date("1969-12-29"))
+  expect_equal(
+    as.Date(yearweek("1970 W01", week_start = 7)),
+    as.Date("1970-01-04"))
   expect_equal(as.Date(yearweek("2019 W12")), as.Date("2019-03-18"))
 })
 
@@ -71,8 +76,36 @@ test_that("vec_c() for yearweek()", {
 
 test_that("year() for extracting correct year #161", {
   expect_equal(year(yearweek("1992 W01")), 1992)
+  date <- as.Date("1969-12-29")
+  expect_equal(year(yearweek(date, week_start = 7)), 1969)
+  expect_equal(year(yearweek(date, week_start = 1)), 1970)
 })
 
 test_that("format.yearweek() with NA presence", {
   expect_equal(format(c(yearweek("1970 W1"), NA)), c("1970 W01", NA))
+})
+
+x2 <- yearweek(as.Date("1970-01-01"), week_start = 7) + 0:2
+dates2 <- seq(as.Date("1969-12-28"), length.out = 3, by = "1 week") + 0
+dttm2 <- .POSIXct(as.POSIXct(dates2), tz = "UTC")
+
+test_that("week_start for yearweek() #205", {
+  expect_identical(yearweek(1:3, 7), yearweek("1970 W1", 7) + 1:3)
+  expect_identical(yearweek(dttm2, 7), x2)
+  expect_identical(yearweek(dates2, 7), x2)
+  expect_warning(yearweek(x2, week_start = 1), "ignored")
+
+  expect_identical(x2 + 1:3, yearweek(c("1970 W01", "1970 W03", "1970 W05"), 7))
+  expect_identical(x2 - 1, yearweek(c("1969 W52", "1969 W53", "1970 W01"), 7))
+  expect_identical(+ x2, x2)
+  expect_identical(- x2, x2)
+  expect_identical(1 + x2, x2 + 1)
+
+  expect_identical(as.Date(x2), dates2)
+  expect_identical(as.character(x2), format(x2))
+  expect_identical(vec_cast(x2, to = double()), as.double(x2))
+  expect_identical(vec_cast(x2, to = new_date()), dates2)
+  expect_identical(.POSIXct(as.POSIXct(x2), tz = "UTC"), dttm2)
+  expect_identical(as.POSIXlt(x2), as.POSIXlt(dttm2))
+  expect_identical(.POSIXct(vec_cast(x2, to = new_datetime()), tz = "UTC"), dttm2)
 })
