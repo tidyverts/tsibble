@@ -55,7 +55,7 @@ test_that("vec_cast() for yearquarter()", {
   expect_identical(vec_data(as.POSIXct(yearquarter(x))), vec_data(dttm))
   expect_identical(as.POSIXlt(yearquarter(x)), as.POSIXlt(dttm))
   expect_identical(
-    vec_data(vec_cast(yearquarter(x), to = new_datetime())), 
+    vec_data(vec_cast(yearquarter(x), to = new_datetime())),
     vec_data(dttm))
 })
 
@@ -73,4 +73,15 @@ test_that("vec_c() for yearquarter()", {
 
 test_that("format.yearquarter() with NA presence #170", {
   expect_equal(format(c(yearquarter("1970 Q1"), NA)), c("1970 Q1", NA))
+})
+
+test_that("fiscal_start for yearquarter() #174", {
+  expected <- yearquarter(dates, fiscal_start = 6)
+  expect_identical(
+    yearquarter(c("2020 Q1", "2018 Q3"), fiscal_start = 6),
+    expected)
+  expect_identical(as_date(expected), dates - period(month = 1))
+  expect_identical(
+    expected + 1,
+    yearquarter(c("2020 Q2", "2018 Q4"), 6))
 })

@@ -8,6 +8,7 @@
 #' @inheritSection yearmonth Display
 #'
 #' @inheritParams yearmonth
+#' @inheritParams lubridate::quarter
 #'
 #' @return year-quarter (`yearquarter`) objects.
 #'
@@ -18,12 +19,10 @@
 #' # coerce POSIXct/Dates to yearquarter
 #' x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 quarter")
 #' yearquarter(x)
+#' yearquarter(x, fiscal_start = 6)
 #'
 #' # parse characters
 #' yearquarter(c("2018 Q1", "2018 Qtr1", "2018 Quarter 1"))
-#'
-#' # creat an empty yearquarter container
-#' yearquarter()
 #'
 #' # seq() and arithmetic
 #' qtr <- yearquarter("2017 Q1")
@@ -32,26 +31,30 @@
 #'
 #' # display formats
 #' format(qtr, format = "%y Qtr%q")
-#'
-#' # units since 1970 Q1
-#' as.double(yearquarter("1969 Q1") + 0:8)
-yearquarter <- function(x) {
+yearquarter <- function(x, fiscal_start = 1) {
   UseMethod("yearquarter")
 }
 
 #' @export
-yearquarter.default <- function(x) {
+yearquarter.default <- function(x, fiscal_start = 1) {
   dont_know(x, "yearquarter")
 }
 
 #' @export
-yearquarter.NULL <- function(x) {
-  new_yearquarter()
+yearquarter.NULL <- function(x, fiscal_start = 1) {
+  new_yearquarter(double(), fiscal_start = 1)
 }
 
 #' @export
-yearquarter.POSIXct <- function(x) {
-  new_yearquarter(floor_date(as_date(x), unit = "quarters"))
+yearquarter.POSIXct <- function(x, fiscal_start = 1) {
+  yr <- year(x)
+  mth <- fiscal_start + (month(x) - fiscal_start) %/% 3 * 3
+  mth0 <- mth == 0
+  mth1 <- mth == -1
+  mth[mth0] <- 12
+  mth[mth1] <- 11
+  yr[mth0 | mth1] <- yr[mth0 | mth1] - 1
+  new_yearquarter(make_date(yr, mth), fiscal_start)
 }
 
 #' @export
@@ -61,7 +64,7 @@ yearquarter.POSIXlt <- yearquarter.POSIXct
 yearquarter.Date <- yearquarter.POSIXct
 
 #' @export
-yearquarter.character <- function(x) {
+yearquarter.character <- function(x, fiscal_start = 1) {
   # exact matching with q, qtr, or quarter
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
   if (all(grepl("^(q|qtr|quarter)$", key_words, ignore.case = TRUE))) {
@@ -77,10 +80,10 @@ yearquarter.character <- function(x) {
     if (any(qtr > 4)) {
       abort("Quarters can't be greater than 4.")
     }
-    new_yearquarter(make_date(yr, qtr * 3 - 2))
+    yearquarter(4 * (yr - 1970) + qtr - 1, fiscal_start)
   } else {
     assertDate(x)
-    new_yearquarter(anydate(x))
+    yearquarter(anydate(x), fiscal_start)
   }
 }
 
@@ -91,26 +94,34 @@ yearquarter.yearweek <- yearquarter.POSIXct
 yearquarter.yearmonth <- yearquarter.POSIXct
 
 #' @export
-yearquarter.yearquarter <- function(x) {
+yearquarter.yearquarter <- function(x, fiscal_start = NULL) {
+  if (!is.null(fiscal_start)) {
+    warn("`fiscal_start` is ignored.")
+  }
   x
 }
 
 #' @export
-yearquarter.numeric <- function(x) {
-  new_yearquarter(0) + x
+yearquarter.numeric <- function(x, fiscal_start = 1) {
+  date0 <- make_date(1969 + as.integer(fiscal_start == 1), fiscal_start)
+  new_yearquarter(date0 + period(month = x * 3), fiscal_start)
 }
 
 #' @export
-yearquarter.yearqtr <- function(x) {
+yearquarter.yearqtr <- function(x, fiscal_start = 1) {
   year <- trunc(x)
   last_month <- trunc((x %% 1) * 4 + 1) * 3
-  first_month <- formatC(last_month - 2, flag = 0, width = 2)
+  first_month <- last_month - 2
   result <- make_date(year, first_month, 1)
-  new_yearquarter(result)
+  new_yearquarter(result, fiscal_start)
 }
 
-new_yearquarter <- function(x = double()) {
-  new_vctr(x, class = "yearquarter")
+new_yearquarter <- function(x = double(), fiscal_start = 1) {
+  new_vctr(x, fiscal_start = fiscal_start, class = "yearquarter")
+}
+
+fiscal_start <- function(x) {
+  attr(x, "fiscal_start") %||% 1
 }
 
 #' @rdname year-quarter
@@ -154,7 +165,8 @@ vec_cast.POSIXct.yearquarter <- function(x, to, ...) {
 
 #' @export
 vec_cast.double.yearquarter <- function(x, to, ...) {
-  as.double((year(x) - 1970) * 4 + quarter(x) - 1)
+  base <- yearquarter(0, fiscal_start(x))
+  4 * (year(x) - year(base)) + quarter(x) - quarter(base)
 }
 
 #' @export
@@ -164,7 +176,7 @@ vec_cast.POSIXlt.yearquarter <- function(x, to, ...) {
 
 #' @export
 vec_cast.yearquarter.yearquarter <- function(x, to, ...) {
-  new_yearquarter(x)
+  new_yearquarter(x, fiscal_start(x))
 }
 
 #' @export
@@ -220,9 +232,9 @@ vec_arith.yearquarter.default <- function(op, x, y, ...) {
 #' @export
 vec_arith.yearquarter.numeric <- function(op, x, y, ...) {
   if (op == "+") {
-    new_yearquarter(as_date(x) + period(months = y * 3))
+    new_yearquarter(as_date(x) + period(months = y * 3), fiscal_start(x))
   } else if (op == "-") {
-    new_yearquarter(as_date(x) - period(months = y * 3))
+    new_yearquarter(as_date(x) - period(months = y * 3), fiscal_start(x))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -242,7 +254,7 @@ vec_arith.yearquarter.yearquarter <- function(op, x, y, ...) {
 #' @export
 vec_arith.numeric.yearquarter <- function(op, x, y, ...) {
   if (op == "+") {
-    yearquarter(period(months = x * 3) + as_date(y))
+    yearquarter(period(months = x * 3) + as_date(y), fiscal_start(y))
   } else {
     stop_incompatible_op(op, x, y)
   }
@@ -260,12 +272,13 @@ vec_arith.yearquarter.MISSING <- function(op, x, y, ...) {
 
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
-  x <- as_date(x)
-  qtr <- quarter(x)
+  fs <- fiscal_start(x)
+  yrqtr <- quarter(x, with_year = TRUE, fiscal_start = fs) 
+  yr <- trunc(yrqtr)
+  qtr <- round(yrqtr %% 1 * 10)
   qtr_sub <- map_chr(qtr, function(z) gsub("%q", z, x = format))
   qtr_sub[is.na(qtr_sub)] <- "-" # NA formats cause errors
-
-  format.Date(x, format = qtr_sub)
+  format.Date(make_date(yr, qtr * 3 - 2), format = qtr_sub)
 }
 
 #' @rdname tsibble-vctrs
@@ -285,6 +298,7 @@ seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
   bad_by(by)
   by_mth <- paste(by, "quarter")
+  fs <- fiscal_start(from)
   from <- vec_cast(from, new_date())
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
@@ -292,7 +306,7 @@ seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
   new_yearquarter(seq_date(
     from = from, to = to, by = by_mth, length.out = length.out,
     along.with = along.with, ...
-  ))
+  ), fs)
 }
 
 seq.ordered <- function(from, to, by, ...) {
@@ -302,4 +316,17 @@ seq.ordered <- function(from, to, by, ...) {
   idx_to <- which(lvls %in% to)
   idx <- seq.int(idx_from, idx_to, by = by)
   ordered(lvls[idx], levels = lvls)
+}
+
+#' @rdname year-quarter
+#' @export
+#' @examples
+#'
+#' # `fiscal_year()` helps to extract fiscal year
+#' y <- yearquarter(as.Date("2020-06-01"), fiscal_start = 6)
+#' fiscal_year(y)
+#' lubridate::year(y) # calendar years
+fiscal_year <- function(x) {
+  stopifnot(is_yearquarter(x))
+  trunc(quarter(x, TRUE, fiscal_start(x)))
 }

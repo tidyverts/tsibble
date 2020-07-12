@@ -113,7 +113,7 @@ new_yearweek <- function(x = double(), week_start = 1) {
 }
 
 week_start <- function(x) {
-  attr(x, "week_start")
+  attr(x, "week_start") %||% 1 # avoid breaking changes
 }
 
 #' @rdname year-week

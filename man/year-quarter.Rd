@@ -3,14 +3,19 @@
 \name{yearquarter}
 \alias{yearquarter}
 \alias{is_yearquarter}
+\alias{fiscal_year}
 \title{Represent year-quarter}
 \usage{
-yearquarter(x)
+yearquarter(x, fiscal_start = 1)
 
 is_yearquarter(x)
+
+fiscal_year(x)
 }
 \arguments{
 \item{x}{Other object.}
+
+\item{fiscal_start}{numeric indicating the starting month of a fiscal year}
 }
 \value{
 year-quarter (\code{yearquarter}) objects.
@@ -31,12 +36,10 @@ Please see \code{\link[=strptime]{strptime()}} details for supported conversion 
 # coerce POSIXct/Dates to yearquarter
 x <- seq(as.Date("2016-01-01"), as.Date("2016-12-31"), by = "1 quarter")
 yearquarter(x)
+yearquarter(x, fiscal_start = 6)
 
 # parse characters
 yearquarter(c("2018 Q1", "2018 Qtr1", "2018 Quarter 1"))
-
-# creat an empty yearquarter container
-yearquarter()
 
 # seq() and arithmetic
 qtr <- yearquarter("2017 Q1")
@@ -46,8 +49,10 @@ qtr + 0:9
 # display formats
 format(qtr, format = "\%y Qtr\%q")
 
-# units since 1970 Q1
-as.double(yearquarter("1969 Q1") + 0:8)
+# `fiscal_year()` helps to extract fiscal year
+y <- yearquarter(as.Date("2020-06-01"), fiscal_start = 6)
+fiscal_year(y)
+lubridate::year(y) # calendar years
 }
 \seealso{
 Other index functions: 

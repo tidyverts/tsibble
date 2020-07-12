@@ -35,9 +35,6 @@ yearmonth(x)
 # parse characters
 yearmonth(c("2018 Jan", "2018-01", "2018 January"))
 
-# creat an empty yearmonth container
-yearmonth()
-
 # seq() and arithmetic
 mth <- yearmonth("2017-11")
 seq(mth, length.out = 10, by = 1) # by 1 month
