@@ -199,8 +199,6 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 <span class='co'># parse characters</span>
 <span class='fu'>yearmonth</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 Jan"</span>, <span class='st'>"2018-01"</span>, <span class='st'>"2018 January"</span>))</div><div class='output co'>#&gt; &lt;yearmonth[3]&gt;
 #&gt; [1] "2018 Jan" "2018 Jan" "2018 Jan"</div><div class='input'>
-<span class='co'># creat an empty yearmonth container</span>
-<span class='fu'>yearmonth</span>()</div><div class='output co'>#&gt; &lt;yearmonth[0]&gt;</div><div class='input'>
 <span class='co'># seq() and arithmetic</span>
 <span class='no'>mth</span> <span class='kw'>&lt;-</span> <span class='fu'>yearmonth</span>(<span class='st'>"2017-11"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>mth</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># by 1 month</span></div><div class='output co'>#&gt; &lt;yearmonth[10]&gt;

@@ -161,9 +161,11 @@ Create or coerce using yearquarter()." />
 <p>Create or coerce using <code>yearquarter()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yearquarter</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>yearquarter</span>(<span class='no'>x</span>, <span class='kw'>fiscal_start</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'>is_yearquarter</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is_yearquarter</span>(<span class='no'>x</span>)
+
+<span class='fu'>fiscal_year</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,6 +173,10 @@ Create or coerce using yearquarter()." />
     <tr>
       <th>x</th>
       <td><p>Other object.</p></td>
+    </tr>
+    <tr>
+      <th>fiscal_start</th>
+      <td><p>numeric indicating the starting month of a fiscal year</p></td>
     </tr>
     </table>
 
@@ -194,12 +200,11 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
     <pre class="examples"><div class='input'><span class='co'># coerce POSIXct/Dates to yearquarter</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-01-01"</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-12-31"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 quarter"</span>)
 <span class='fu'>yearquarter</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; &lt;yearquarter[4]&gt;
-#&gt; [1] "2016 Q1" "2016 Q2" "2016 Q3" "2016 Q4"</div><div class='input'>
+#&gt; [1] "2016 Q1" "2016 Q2" "2016 Q3" "2016 Q4"</div><div class='input'><span class='fu'>yearquarter</span>(<span class='no'>x</span>, <span class='kw'>fiscal_start</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; &lt;yearquarter[4]&gt;
+#&gt; [1] "2016 Q3" "2016 Q4" "2017 Q1" "2017 Q2"</div><div class='input'>
 <span class='co'># parse characters</span>
 <span class='fu'>yearquarter</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 Q1"</span>, <span class='st'>"2018 Qtr1"</span>, <span class='st'>"2018 Quarter 1"</span>))</div><div class='output co'>#&gt; &lt;yearquarter[3]&gt;
 #&gt; [1] "2018 Q1" "2018 Q1" "2018 Q1"</div><div class='input'>
-<span class='co'># creat an empty yearquarter container</span>
-<span class='fu'>yearquarter</span>()</div><div class='output co'>#&gt; &lt;yearquarter[0]&gt;</div><div class='input'>
 <span class='co'># seq() and arithmetic</span>
 <span class='no'>qtr</span> <span class='kw'>&lt;-</span> <span class='fu'>yearquarter</span>(<span class='st'>"2017 Q1"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>qtr</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># by 1 quarter</span></div><div class='output co'>#&gt; &lt;yearquarter[10]&gt;
@@ -209,8 +214,9 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 #&gt;  [8] "2018 Q4" "2019 Q1" "2019 Q2"</div><div class='input'>
 <span class='co'># display formats</span>
 <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>qtr</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%y Qtr%q"</span>)</div><div class='output co'>#&gt; [1] "17 Qtr1"</div><div class='input'>
-<span class='co'># units since 1970 Q1</span>
-<span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span>(<span class='fu'>yearquarter</span>(<span class='st'>"1969 Q1"</span>) + <span class='fl'>0</span>:<span class='fl'>8</span>)</div><div class='output co'>#&gt; [1] -4 -3 -2 -1  0  1  2  3  4</div></pre>
+<span class='co'># `fiscal_year()` helps to extract fiscal year</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>yearquarter</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2020-06-01"</span>), <span class='kw'>fiscal_start</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+<span class='fu'>fiscal_year</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 2021</div><div class='input'><span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>y</span>) <span class='co'># calendar years</span></div><div class='output co'>#&gt; [1] 2020</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
