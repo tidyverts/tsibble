@@ -53,7 +53,10 @@ yearquarter.POSIXct <- function(x, fiscal_start = 1) {
   mth1 <- mth == -1
   mth[mth0] <- 12
   mth[mth1] <- 11
-  yr[mth0 | mth1] <- yr[mth0 | mth1] - 1
+  lgl <- mth0 | mth1
+  if (sum(lgl, na.rm = TRUE) > 0) {
+    yr[lgl] <- yr[lgl] - 1
+  }
   new_yearquarter(make_date(yr, mth), fiscal_start)
 }
 
@@ -273,7 +276,7 @@ vec_arith.yearquarter.MISSING <- function(op, x, y, ...) {
 #' @export
 format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   fs <- fiscal_start(x)
-  yrqtr <- quarter(x, with_year = TRUE, fiscal_start = fs) 
+  yrqtr <- quarter(x, with_year = TRUE, fiscal_start = fs)
   yr <- trunc(yrqtr)
   qtr <- round(yrqtr %% 1 * 10)
   qtr_sub <- map_chr(qtr, function(z) gsub("%q", z, x = format))
