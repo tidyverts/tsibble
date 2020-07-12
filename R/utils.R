@@ -78,3 +78,10 @@ format_tz <- function(x) {
     tz
   }
 }
+
+#' @export
+plot.tbl_ts <- function(x, ...) {
+  message ("The 'autoplot' function from the 'feasts' package is ",
+           "recommended for plotting 'tsibble' objects")
+  plot.default(x, ...)
+}
