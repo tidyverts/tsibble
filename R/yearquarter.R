@@ -302,6 +302,15 @@ obj_print_data.yearquarter <- function(x, ...) {
 }
 
 #' @export
+obj_print_footer.yearquarter <- function(x, ...) {
+  cat_line("# Year starts on: ", fmt_month(fiscal_start(x)))
+}
+
+fmt_month <- function(x) {
+  month.name[x]
+}
+
+#' @export
 vec_ptype_abbr.yearquarter <- function(x, ...) {
   "qtr"
 }

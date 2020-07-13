@@ -291,6 +291,23 @@ obj_print_data.yearweek <- function(x, ...) {
 }
 
 #' @export
+obj_print_footer.yearweek <- function(x, ...) {
+  cat_line("# Week starts on: ", fmt_week(week_start(x)))
+}
+
+fmt_week <- function(x) {
+  switch(x,
+    `1` = "Monday",
+    `2` = "Tuesday",
+    `3` = "Wednesday",
+    `4` = "Thursday",
+    `5` = "Friday",
+    `6` = "Saturday",
+    `7` = "Sunday"
+  )
+}
+
+#' @export
 vec_ptype_abbr.yearweek <- function(x, ...) {
   "week"
 }
