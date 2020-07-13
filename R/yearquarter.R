@@ -54,9 +54,7 @@ yearquarter.POSIXct <- function(x, fiscal_start = 1) {
   mth[mth0] <- 12
   mth[mth1] <- 11
   lgl <- mth0 | mth1
-  if (sum(lgl, na.rm = TRUE) > 0) {
-    yr[lgl] <- yr[lgl] - 1
-  }
+  vec_slice(yr, lgl) <- vec_slice(yr, lgl) - 1
   new_yearquarter(make_date(yr, mth), fiscal_start)
 }
 
