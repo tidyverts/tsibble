@@ -1,5 +1,7 @@
 globalVariables(c(".rows"))
 
+setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
+
 #' Create a tsibble object
 #'
 #' \lifecycle{stable}

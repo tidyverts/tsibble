@@ -307,7 +307,7 @@ has_tz <- function(x) {
 }
 
 #' @importFrom methods setOldClass setMethod
-setOldClass("interval")
+setOldClass(c("interval", "vctrs_rcrd", "vctrs_vctr"))
 
 #' @importMethodsFrom lubridate as.period
 setMethod("as.period", "interval", function(x, ...) {
