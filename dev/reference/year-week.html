@@ -215,7 +215,8 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 #&gt; [31] "2016 W30" "2016 W31" "2016 W32" "2016 W33" "2016 W34" "2016 W35"
 #&gt; [37] "2016 W36" "2016 W37" "2016 W38" "2016 W39" "2016 W40" "2016 W41"
 #&gt; [43] "2016 W42" "2016 W43" "2016 W44" "2016 W45" "2016 W46" "2016 W47"
-#&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"</div><div class='input'><span class='fu'>yearweek</span>(<span class='no'>x</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; &lt;yearweek[53]&gt;
+#&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"
+#&gt; # Week starts on: Monday</div><div class='input'><span class='fu'>yearweek</span>(<span class='no'>x</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; &lt;yearweek[53]&gt;
 #&gt;  [1] "2015 W52" "2016 W01" "2016 W02" "2016 W03" "2016 W04" "2016 W05"
 #&gt;  [7] "2016 W06" "2016 W07" "2016 W08" "2016 W09" "2016 W10" "2016 W11"
 #&gt; [13] "2016 W12" "2016 W13" "2016 W14" "2016 W15" "2016 W16" "2016 W17"
@@ -224,18 +225,22 @@ Please see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></
 #&gt; [31] "2016 W30" "2016 W31" "2016 W32" "2016 W33" "2016 W34" "2016 W35"
 #&gt; [37] "2016 W36" "2016 W37" "2016 W38" "2016 W39" "2016 W40" "2016 W41"
 #&gt; [43] "2016 W42" "2016 W43" "2016 W44" "2016 W45" "2016 W46" "2016 W47"
-#&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"</div><div class='input'>
+#&gt; [49] "2016 W48" "2016 W49" "2016 W50" "2016 W51" "2016 W52"
+#&gt; # Week starts on: Sunday</div><div class='input'>
 <span class='co'># parse characters</span>
 <span class='fu'>yearweek</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2018 W01"</span>, <span class='st'>"2018 Wk01"</span>, <span class='st'>"2018 Week 1"</span>))</div><div class='output co'>#&gt; &lt;yearweek[3]&gt;
-#&gt; [1] "2018 W01" "2018 W01" "2018 W01"</div><div class='input'>
+#&gt; [1] "2018 W01" "2018 W01" "2018 W01"
+#&gt; # Week starts on: Monday</div><div class='input'>
 <span class='co'># seq() and arithmetic</span>
 <span class='no'>wk1</span> <span class='kw'>&lt;-</span> <span class='fu'>yearweek</span>(<span class='st'>"2017 W50"</span>)
 <span class='no'>wk2</span> <span class='kw'>&lt;-</span> <span class='fu'>yearweek</span>(<span class='st'>"2018 W12"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='no'>wk1</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>wk2</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; &lt;yearweek[8]&gt;
 #&gt; [1] "2017 W50" "2017 W52" "2018 W02" "2018 W04" "2018 W06" "2018 W08" "2018 W10"
-#&gt; [8] "2018 W12"</div><div class='input'><span class='no'>wk1</span> + <span class='fl'>0</span>:<span class='fl'>9</span></div><div class='output co'>#&gt; &lt;yearweek[10]&gt;
+#&gt; [8] "2018 W12"
+#&gt; # Week starts on: Monday</div><div class='input'><span class='no'>wk1</span> + <span class='fl'>0</span>:<span class='fl'>9</span></div><div class='output co'>#&gt; &lt;yearweek[10]&gt;
 #&gt;  [1] "2017 W50" "2017 W51" "2017 W52" "2018 W01" "2018 W02" "2018 W03"
-#&gt;  [7] "2018 W04" "2018 W05" "2018 W06" "2018 W07"</div><div class='input'>
+#&gt;  [7] "2018 W04" "2018 W05" "2018 W06" "2018 W07"
+#&gt; # Week starts on: Monday</div><div class='input'>
 <span class='co'># display formats</span>
 <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>wk1</span>, <span class='no'>wk2</span>), <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%V/%Y"</span>)</div><div class='output co'>#&gt; [1] "50/2017" "12/2018"</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>2015</span>:<span class='fl'>2016</span>)</div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>1969</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is_53weeks</span>(<span class='fl'>1969</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
