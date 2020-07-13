@@ -288,10 +288,7 @@ seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (is_empty(x)) return(x)
 
   if (lubridate::is.period(x)) {
-    abort("Class `period` not supported yet.")
-    # x <- vec_sort(x)
-    # min_x <- x[1]
-    # max_x <- x[vec_size(x)]
+    abort("No `seq()` support for class `period` from {lubridate}.")
   }
 
   if (time_units == 0) return(x)
