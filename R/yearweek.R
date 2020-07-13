@@ -100,15 +100,17 @@ yearweek.character <- function(x,
 
 
 #' @export
-yearweek.yearweek <- function(x,
-                              week_start = getOption("lubridate.week.start", NULL)) {
-  if (!is.null(week_start)) {
-    warn("`week_start` is ignored.")
-  }
-  x
+yearweek.yearweek <- function(x, week_start = attr(x, "week_start")) {
+  new_yearweek(new_date(x) + week_start - week_start(x), week_start)
 }
 
 new_yearweek <- function(x = double(), week_start = 1) {
+  if (!has_length(week_start, 1)) {
+    abort("`week_start` must be of length 1.")
+  }
+  if (week_start < 1 || week_start > 7) {
+    abort("`week_start` only accepts a value between 1 and 7.")
+  }
   new_vctr(x, week_start = week_start, class = "yearweek")
 }
 
@@ -167,7 +169,7 @@ vec_cast.POSIXlt.yearweek <- function(x, to, ...) {
 
 #' @export
 vec_cast.yearweek.yearweek <- function(x, to, ...) {
-  new_yearweek(x, week_start(x))
+  yearweek(x, week_start(to))
 }
 
 #' @export
@@ -198,6 +200,9 @@ vec_ptype2.yearweek.Date <- function(x, y, ...) {
 
 #' @export
 vec_ptype2.yearweek.yearweek <- function(x, y, ...) {
+  if (week_start(x) != week_start(y)) {
+    abort("Can't combine <yearweek> with different `week_start`.")
+  }
   new_yearweek()
 }
 

@@ -67,6 +67,7 @@ test_that("vec_cast() for yearweek()", {
 })
 
 test_that("vec_c() for yearweek()", {
+  expect_error(c(x, yearweek(0, 7)), "combine")
   expect_identical(vec_c(dates, x), rep(dates, times = 2))
   expect_identical(vec_c(x, dates), rep(dates, times = 2))
   expect_identical(vec_data(vec_c(dttm, x)), vec_data(rep(dttm, times = 2)))
@@ -90,10 +91,14 @@ dates2 <- seq(as.Date("1969-12-28"), length.out = 3, by = "1 week") + 0
 dttm2 <- .POSIXct(as.POSIXct(dates2), tz = "UTC")
 
 test_that("week_start for yearweek() #205", {
+  expect_error(yearweek(1:3, 1:3), "length 1.")
+  expect_error(yearweek(1:3, 8), "between")
   expect_identical(yearweek(1:3, 7), yearweek("1970 W1", 7) + 1:3)
   expect_identical(yearweek(dttm2, 7), x2)
   expect_identical(yearweek(dates2, 7), x2)
-  expect_warning(yearweek(x2, week_start = 1), "ignored")
+  expect_identical(
+    yearweek(x2, week_start = 1), 
+    yearweek(c("1969 W52", "1970 W01", "1970 W02"), week_start = 1))
 
   expect_identical(x2 + 1:3, yearweek(c("1970 W01", "1970 W03", "1970 W05"), 7))
   expect_identical(x2 - 1, yearweek(c("1969 W52", "1969 W53", "1970 W01"), 7))

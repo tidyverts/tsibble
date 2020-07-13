@@ -60,6 +60,7 @@ test_that("vec_cast() for yearquarter()", {
 })
 
 test_that("vec_c() for yearquarter()", {
+  expect_error(vec_c(yearquarter(x), yearquarter(x, 2)), "combine")
   expect_identical(vec_c(dates, yearquarter(x)), rep(dates, times = 2))
   expect_identical(vec_c(yearquarter(x), dates), rep(dates, times = 2))
   expect_identical(
@@ -76,6 +77,11 @@ test_that("format.yearquarter() with NA presence #170", {
 })
 
 test_that("fiscal_start for yearquarter() #174", {
+  expect_error(yearquarter(1:3, 1:3), "length 1.")
+  expect_error(yearquarter(1:3, 13), "between")
+  expect_identical(yearquarter(yearquarter(1), 6), yearquarter(1, 6))
+  expect_identical(yearquarter(yearquarter(1, 6), 1), yearquarter(1))
+
   expected <- yearquarter(dates, fiscal_start = 6)
   expect_identical(
     yearquarter(c("2020 Q1", "2018 Q3"), fiscal_start = 6),

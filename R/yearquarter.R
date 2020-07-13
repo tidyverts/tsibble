@@ -97,11 +97,12 @@ yearquarter.yearweek <- yearquarter.POSIXct
 yearquarter.yearmonth <- yearquarter.POSIXct
 
 #' @export
-yearquarter.yearquarter <- function(x, fiscal_start = NULL) {
-  if (!is.null(fiscal_start)) {
-    warn("`fiscal_start` is ignored.")
-  }
-  x
+yearquarter.yearquarter <- function(x, fiscal_start = attr(x, "fiscal_start")) {
+  fs <- fiscal_start(x)
+  mth <- fiscal_start - fs
+  new_yearquarter(
+    new_date(x) + period(year = -(fs == 1) + (fiscal_start == 1), month = mth),
+    fiscal_start)
 }
 
 #' @export
@@ -120,6 +121,12 @@ yearquarter.yearqtr <- function(x, fiscal_start = 1) {
 }
 
 new_yearquarter <- function(x = double(), fiscal_start = 1) {
+  if (!has_length(fiscal_start, 1)) {
+    abort("`fiscal_start` must be of length 1.")
+  }
+  if (fiscal_start < 1 || fiscal_start > 12) {
+    abort("`fiscal_start` only accepts a value between 1 and 12.")
+  }
   new_vctr(x, fiscal_start = fiscal_start, class = "yearquarter")
 }
 
@@ -179,7 +186,7 @@ vec_cast.POSIXlt.yearquarter <- function(x, to, ...) {
 
 #' @export
 vec_cast.yearquarter.yearquarter <- function(x, to, ...) {
-  new_yearquarter(x, fiscal_start(x))
+  yearquarter(x, fiscal_start(to))
 }
 
 #' @export
@@ -210,6 +217,9 @@ vec_ptype2.yearquarter.Date <- function(x, y, ...) {
 
 #' @export
 vec_ptype2.yearquarter.yearquarter <- function(x, y, ...) {
+  if (fiscal_start(x) != fiscal_start(y)) {
+    abort("Can't combine <yearquarter> with different `fiscal_start`.")
+  }
   new_yearquarter()
 }
 
