@@ -1,3 +1,5 @@
+# nocov start
+
 #' tsibble scales for ggplot2
 #'
 #' Defines ggplot2 scales for tsibble custom index: [yearweek], [yearmonth],
@@ -235,3 +237,5 @@ scale_size_yearweek <- function(...) {
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_size_date(...),
     trans = yearweek_trans())
 }
+
+# nocov end

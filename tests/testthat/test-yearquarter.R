@@ -85,3 +85,9 @@ test_that("fiscal_start for yearquarter() #174", {
     expected + 1,
     yearquarter(c("2020 Q2", "2018 Q4"), 6))
 })
+
+test_that("fiscal_year()", {
+  expect_error(fiscal_year(2020), "not TRUE")
+  expect_equal(fiscal_year(yearquarter("2020 Q1", fiscal_start = 6)), 2020)
+  expect_equal(lubridate::year(yearquarter("2020 Q1", fiscal_start = 6)), 2019)
+})

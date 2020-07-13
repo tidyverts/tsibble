@@ -13,11 +13,6 @@ is_even <- function(x) {
   (abs(x) %% 2) == 0
 }
 
-list_is_named <- function(x) {
-  nms <- names(x)
-  map_lgl(nms, ~ . != "")
-}
-
 # ref: tibble:::big_mark
 big_mark <- function(x, ...) {
   mark <- if (identical(getOption("OutDec"), ",")) "." else ","

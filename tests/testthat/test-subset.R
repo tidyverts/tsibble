@@ -90,10 +90,10 @@ test_that("subset 2 variables in a tsibble", {
 #   expect_is({tsbl[4, 2] <- "c"; tsbl}, "tbl_ts")
 #   expect_identical({tsbl[2, "value"] <- 1; tsbl[, 1:3]}, tsbl[, 1:3])
 # })
-#
-# test_that("`$<-.tbl_ts", {
-#   expect_error(tsbl$date <- 0, "Can't retain")
-#   expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
-#   expect_is({tsbl$value2 <- 0; tsbl}, "tbl_ts")
-#   expect_equal({tsbl$value2 <- 0; NCOL(tsbl)}, 5)
-# })
+
+test_that("`$<-.tbl_ts", {
+  expect_is({tsbl$value <- 0; tsbl}, "tbl_ts")
+  expect_is({tsbl$value2 <- 0; tsbl}, "tbl_ts")
+  expect_equal({tsbl$value2 <- 0; NCOL(tsbl)}, 5)
+  expect_is({tsbl$date <- 0; tsbl}, "tbl_df")
+})

@@ -108,3 +108,7 @@ test_that("as.ts() automatically fills implicit missings #160", {
     as.ts(fill_gaps(my_tsbl), frequency = 365.25),
     as.ts((my_tsbl), frequency = 365.25))
 })
+
+test_that("as.ts() for multiple keys", {
+  expect_error(as.ts(tourism), "the key of multiple")
+})

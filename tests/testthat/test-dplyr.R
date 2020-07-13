@@ -120,6 +120,7 @@ test_that("filter() and slice()", {
   expect_identical(key(tsbl2), key(tourism))
   expect_identical(group_vars(tsbl2), key_vars(tourism))
   expect_identical(index(tsbl2), index(tourism))
+  expect_error(slice(tourism, rep(1, 2)), "Duplicated")
   tsbl3 <- slice(tourism, 1:3)
   expect_identical(dim(tsbl3), c(3L, ncol(tourism)))
   tsbl4 <- tourism %>%
