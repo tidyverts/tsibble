@@ -122,11 +122,15 @@ summarise.tbl_ts <- function(.data, ..., .groups = NULL) {
   if (identical(idx, idx2)) int <- is_regular(.data) else int <- TRUE
   grps <- setdiff(group_vars(.data), idx2_chr)
 
-  build_tsibble(
-    sum_data,
+  # since summarise() handles a vector of length n, it may violate validity
+  validate <- vec_size(sum_data) > vec_size(group_data(grped_data))
+  if (validate) {
+    sum_data <- retain_tsibble(sum_data, grps, idx2)
+  }
+
+  build_tsibble(sum_data,
     key = !!grps, index = !!idx2, ordered = TRUE, interval = int,
-    validate = FALSE
-  )
+    validate = FALSE)
 }
 
 #' @export

@@ -227,6 +227,7 @@ test_that("mutate()", {
 })
 
 test_that("summarise()", {
+  expect_error(tourism %>% summarise(qtl = quantile(Trips)), "valid")
   tsbl1 <- tourism %>%
     summarise(AllTrips = sum(Trips))
   expect_identical(ncol(tsbl1), 2L)
