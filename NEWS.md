@@ -1,7 +1,7 @@
 # tsibble 0.9.2
 
 * Fixed bug in `new_data()` for the `yearweek` class. (#199)
-* Added index support for `lubridate::Period`. (#42)
+* Added index support for `lubridate::Period`, since `Period` can be ordered now. (#42)
 * Added {lubridate}'s S4 methods `as.period()` and `as.duration()` for interval class. (#206)
 * `yearweek()` gained a new argument `week_start` to specify the day on which week starts based on ISO 8601 standard. (#205)
 * `yearquarter()` gained a new argument `fiscal_start` to specify the starting month of a fiscal year. (#174)

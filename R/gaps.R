@@ -287,10 +287,6 @@ tbl_gaps <- function(x, y, .name = c(".from", ".to", ".n")) {
 seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (is_empty(x)) return(x)
 
-  if (lubridate::is.period(x)) {
-    abort("No `seq()` support for class `period` from {lubridate}.")
-  }
-
   if (time_units == 0) return(x)
 
   min_x <- min(x)
