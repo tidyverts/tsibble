@@ -72,7 +72,6 @@ reference:
     New S3 classes to reprent year-week, year-month, and year-quarter.
   contents:
     - starts_with("year")
-    - starts_with("scale")
     - time_in
     - guess_frequency
 
