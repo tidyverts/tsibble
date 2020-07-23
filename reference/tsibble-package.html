@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -54,7 +58,6 @@ The tsibble package provides a data class of tbl_ts to represent tidy
 temporal data. A tsibble consists of a time index, key, and other measured
 variables in a data-centric format, which is built on top of the tibble." />
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -82,7 +85,7 @@ variables in a data-centric format, which is built on top of the tibble." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,7 +99,7 @@ variables in a data-centric format, which is built on top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
       </span>
     </div>
 
@@ -154,7 +157,7 @@ variables in a data-centric format, which is built on top of the tibble." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tsibble: tidy temporal data frames and tools</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/tsibble/blob/master/R/tsibble-package.R'><code>R/tsibble-package.R</code></a></small>
     <div class="hidden name"><code>tsibble-package.Rd</code></div>
     </div>
 
@@ -171,17 +174,19 @@ variables in a data-centric format, which is built on top of the tibble.</p>
 
     
 
-<p>An extensive range of indices are supported by tsibble: native time classes in R
-(such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>) and tsibble's new additions
-(such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>). Some commonly-used classes
-have built-in support too, including <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>,
-<code><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>zoo::yearqtr</a></code>, and <code>nanotime</code>.</p>
+<p>An extensive range of indices are supported by tsibble:</p><ul>
+<li><p>native time classes in R (such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>)</p></li>
+<li><p>tsibble's new additions (such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>).</p></li>
+<li><p>other commonly-used classes: <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period</a></code>,
+and <code><a href='https://rdrr.io/pkg/nanotime/man/nanotime.html'>nanotime::nanotime</a></code>.</p></li>
+</ul>
+
 <p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
-by <a href='year-month.html'>yearmonth</a> or <code><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>zoo::yearmon</a></code>, instead of <code>Date</code> or <code>POSIXct</code>. Because
-months in a year ensures the regularity, 12 months every year. However, if
-using <code>Date</code>, a month containing days ranges from 28 to 31 days, which results
-in irregular time space. This is also applicable to year-week and year-quarter.</p>
+by <a href='year-month.html'>yearmonth</a>, instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year
+ensures the regularity, 12 months every year. However, if using <code>Date</code>, a
+month containing days ranges from 28 to 31 days, which results in irregular
+time space. This is also applicable to year-week and year-quarter.</p>
 <p>Tsibble supports arbitrary index classes, as long as they can be ordered from
 past to future. To support a custom class, you need to define <code><a href='index_valid.html'>index_valid()</a></code>
 for the class and calculate the interval through <code><a href='interval-pull.html'>interval_pull()</a></code>.</p>
@@ -191,8 +196,7 @@ for the class and calculate the interval through <code><a href='interval-pull.ht
 
 <p>Key variable(s) together with the index uniquely identifies each record:</p><ul>
 <li><p>Empty: an implicit variable. <code>NULL</code> resulting in a univariate time series.</p></li>
-<li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> use the bare <code>Sensor</code> as
-the key.</p></li>
+<li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> uses <code>Sensor</code> as the key.</p></li>
 <li><p>Multiple variables: For example, Declare <code>key = c(Region, State, Purpose)</code>
 for <code><a href='https://rdrr.io/r/utils/data.html'>data(tourism)</a></code>.
 Key can be created in conjunction with tidy selectors like <code>starts_with()</code>.</p></li>
@@ -215,12 +219,15 @@ each key variable.</p></li>
 <p>An interval is obtained based on the corresponding index representation:</p><ul>
 <li><p>integerish numerics between 1582 and 2499: "year" (<code>Y</code>). Note the year of
 1582 saw the beginning of the Gregorian Calendar switch.</p></li>
-<li><p><code>yearquarter</code>/<code>yearqtr</code>: "quarter" (<code>Q</code>)</p></li>
-<li><p><code>yearmonth</code>/<code>yearmon</code>: "month" (<code>M</code>)</p></li>
+<li><p><code>yearquarter</code>: "quarter" (<code>Q</code>)</p></li>
+<li><p><code>yearmonth</code>: "month" (<code>M</code>)</p></li>
 <li><p><code>yearweek</code>: "week" (<code>W</code>)</p></li>
 <li><p><code>Date</code>: "day" (<code>D</code>)</p></li>
 <li><p><code>difftime</code>: "week" (<code>W</code>), "day" (D), "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>)</p></li>
-<li><p><code>POSIXt</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
+<li><p><code>POSIXt</code>/<code>hms</code>: "hour" (<code>h</code>), "minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>),
+"microsecond" (<code>ms</code>)</p></li>
+<li><p><code>period</code>: "year" (<code>Y</code>), "month" (<code>M</code>), "day" (<code>D</code>), "hour" (<code>h</code>),
+"minute" (<code>m</code>), "second" (<code>s</code>), "millisecond" (<code>us</code>), "microsecond" (<code>ms</code>)</p></li>
 <li><p><code>nanotime</code>: "nanosecond" (<code>ns</code>)</p></li>
 <li><p>other numerics &amp;<code>ordered</code> (ordered factor): "unit"
 When the interval cannot be obtained due to the mismatched index format, an
@@ -228,7 +235,7 @@ error is issued.</p></li>
 </ul>
 
 <p>The interval is invariant to subsetting, such as <code><a href='https://rdrr.io/r/stats/filter.html'>filter()</a></code>, <code>slice()</code>, and <code>[.tbl_ts</code>.
-But if the result is an empty tsibble, the interval is always unknown.
+However, if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.</p>
     <h2 class="hasAnchor" id="time-zone"><a class="anchor" href="#time-zone"></a>Time zone</h2>
@@ -292,27 +299,10 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 #&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.774</span><span>  
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#index">Index</a></li>
-      <li><a href="#key">Key</a></li>
-      <li><a href="#interval">Interval</a></li>
-      <li><a href="#time-zone">Time zone</a></li>
-      <li><a href="#print-options">Print options</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a> (<a href='https://orcid.org/0000-0001-6448-5260'>ORCID</a>)</p>
-<p>Authors:</p><ul>
-<li><p>Di Cook (<a href='https://orcid.org/0000-0002-3813-7155'>ORCID</a>) [thesis advisor]</p></li>
-<li><p>Rob Hyndman (<a href='https://orcid.org/0000-0002-2140-5352'>ORCID</a>) [thesis advisor]</p></li>
-<li><p>Mitchell O'Hara-Wild (<a href='https://orcid.org/0000-0001-6729-7695'>ORCID</a>)</p></li>
-</ul>
-
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -323,7 +313,7 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
