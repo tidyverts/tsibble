@@ -1,3 +1,17 @@
+#' Deprecated functions
+#'
+#' @description
+#' * `is.tsibble()` \lifecycle{defunct}
+#'
+#' @param x Other objects.
+#'
+#' @rdname deprecated
+#' @export
+#' @keywords internal
+is.tsibble <- function(x) {
+  lifecycle::deprecate_stop("0.8.4", "is.tsibble()", "is_tsibble()")
+}
+
 globalVariables(c(".rows"))
 
 setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))

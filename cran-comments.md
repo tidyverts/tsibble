@@ -1,6 +1,4 @@
-## Release summary
-
-This is a patch release.
+This is a re-submission that I fix the unexported function note spot in the {TSstudio} package.
 
 ## Test environments
 
