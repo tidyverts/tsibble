@@ -1,3 +1,6 @@
+# tsibble 0.9.3
+
+
 # tsibble 0.9.2
 
 * Fixed bug in `new_data()` for the `yearweek` class. (#199)
