@@ -55,9 +55,9 @@
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
 #' )
-#' (stocksm <- stocks %>% 
+#' (stocksm <- stocks %>%
 #'   pivot_longer(-time, names_to = "stock", values_to = "price"))
-#' stocksm %>% 
+#' stocksm %>%
 #'   pivot_wider(names_from = stock, values_from = price)
 NULL
 
@@ -148,7 +148,7 @@ group_by.tbl_ts <- function(.data, ..., .add = FALSE,
   index <- index_var(.data)
   if (index %in% grp_vars) {
     abort(c(
-      sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index), 
+      sprintf("Column `%s` (index) can't be a grouping variable for a tsibble.", index),
       i = "Did you mean `index_by()`?"))
   }
 

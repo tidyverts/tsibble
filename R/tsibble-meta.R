@@ -38,10 +38,11 @@ key_vars.tbl_ts <- function(x) {
   head(names(keys), -1L)
 }
 
-#' Keyed data
+#' Key metadata
 #'
 #' @param .data A tsibble
 #' @rdname key-data
+#' @seealso [dplyr::group_data]
 #' @export
 #' @examples
 #' key_data(pedestrian)
@@ -61,8 +62,12 @@ key_rows <- function(.data) {
 }
 
 #' @rdname key-data
-#' @usage NULL
-#' @keywords internal
+#' @export
+key_size <- function(x) {
+  lengths(key_rows(x))
+}
+
+#' @rdname key-data
 #' @export
 n_keys <- function(x) {
   vec_size(key_data(x))

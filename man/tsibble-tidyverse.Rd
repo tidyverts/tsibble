@@ -66,8 +66,8 @@ stocks <- tsibble(
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
 )
-(stocksm <- stocks \%>\% 
+(stocksm <- stocks \%>\%
   pivot_longer(-time, names_to = "stock", values_to = "price"))
-stocksm \%>\% 
+stocksm \%>\%
   pivot_wider(names_from = stock, values_from = price)
 }

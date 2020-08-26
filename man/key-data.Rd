@@ -3,20 +3,27 @@
 \name{key_data}
 \alias{key_data}
 \alias{key_rows}
+\alias{key_size}
 \alias{n_keys}
-\title{Keyed data}
+\title{Key metadata}
 \usage{
 key_data(.data)
 
 key_rows(.data)
+
+key_size(x)
+
+n_keys(x)
 }
 \arguments{
 \item{.data}{A tsibble}
 }
 \description{
-Keyed data
+Key metadata
 }
 \examples{
 key_data(pedestrian)
 }
-\keyword{internal}
+\seealso{
+\link[dplyr:group_data]{dplyr::group_data}
+}
