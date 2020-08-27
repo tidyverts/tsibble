@@ -12,6 +12,7 @@
 #'
 #' @return year-quarter (`yearquarter`) objects.
 #'
+#' @seealso [scale_x_yearquarter] and others for ggplot2 scales
 #' @family index functions
 #' @rdname year-quarter
 #' @export

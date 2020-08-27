@@ -60,6 +60,8 @@ is_53weeks(1969)
 is_53weeks(1969, week_start = 7)
 }
 \seealso{
+\link{scale_x_yearweek} and others for ggplot2 scales
+
 Other index functions: 
 \code{\link{yearmonth}()},
 \code{\link{yearquarter}()}

@@ -47,6 +47,8 @@ format(mth, format = "\%y \%m")
 as.double(yearmonth("1969 Jan") + 0:24)
 }
 \seealso{
+\link{scale_x_yearmonth} and others for ggplot2 scales
+
 Other index functions: 
 \code{\link{yearquarter}()},
 \code{\link{yearweek}()}

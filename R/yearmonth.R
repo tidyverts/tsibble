@@ -14,6 +14,7 @@
 #'
 #' @return year-month (`yearmonth`) objects.
 #'
+#' @seealso [scale_x_yearmonth] and others for ggplot2 scales
 #' @family index functions
 #' @rdname year-month
 #' @export

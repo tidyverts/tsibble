@@ -14,6 +14,7 @@
 #'
 #' @return year-week (`yearweek`) objects.
 #'
+#' @seealso [scale_x_yearweek] and others for ggplot2 scales
 #' @family index functions
 #' @rdname year-week
 #' @export
