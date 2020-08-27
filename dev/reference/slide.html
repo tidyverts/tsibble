@@ -167,7 +167,7 @@ slide_dfr() &amp;amp; slide_dfc() return data frames using row-binding &amp;amp;
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
+    <p><img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p>
 <p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
 <p>Rolling window with overlapping observations:</p><ul>
 <li><p><code>slide()</code> always returns a list.</p></li>
@@ -305,28 +305,6 @@ Window contains observations outside of the vector will return the value <code>.
     <div class='dont-index'><p>Other sliding window functions: 
 <code><a href='slide2.html'>slide2</a>()</code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>15</span>)
-<span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_dbl</span>(<span class='no'>x</span>, <span class='no'>mean</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div><div class='output co'>#&gt; [1]  NA 1.5 2.5 3.5 4.5</div><div class='input'><span class='fu'>slide_lgl</span>(<span class='no'>x</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>) <span class='kw'>&gt;</span> <span class='fl'>2</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1]    NA FALSE  TRUE  TRUE  TRUE</div><div class='input'><span class='fu'>slide</span>(<span class='no'>lst</span>, ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] NA
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[2]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[3]]
-#&gt; [[3]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; [[3]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

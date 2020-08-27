@@ -270,30 +270,30 @@ resulting tsibble.</p>
 #&gt; </span><span style='color: #555555;'># Key:       stock [3]</span><span>
 #&gt;    time       stock  price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X      1.49 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-01 Y     -</span><span style='color: #BB0000;'>1.01</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-01 Z     -</span><span style='color: #BB0000;'>4.81</span><span> 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-02 X     -</span><span style='color: #BB0000;'>0.659</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-02 Y     -</span><span style='color: #BB0000;'>0.540</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-02 Z     -</span><span style='color: #BB0000;'>0.159</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-03 X      0.537
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-03 Y     -</span><span style='color: #BB0000;'>2.17</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-03 Z      2.75 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-04 X      0.747
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X      0.497
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-01 Y     -</span><span style='color: #BB0000;'>0.168</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-01 Z     -</span><span style='color: #BB0000;'>3.74</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-02 X      0.779
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-02 Y     -</span><span style='color: #BB0000;'>4.02</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-02 Z      1.17 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-03 X      1.51 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-03 Y     -</span><span style='color: #BB0000;'>1.03</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-03 Z      0.191
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-04 X     -</span><span style='color: #BB0000;'>1.82</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>stock</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>price</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 4 [1D]</span><span>
-#&gt;    time             X      Y      Z
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  1.49   -</span><span style='color: #BB0000;'>1.01</span><span>  -</span><span style='color: #BB0000;'>4.81</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02 -</span><span style='color: #BB0000;'>0.659</span><span>  -</span><span style='color: #BB0000;'>0.540</span><span> -</span><span style='color: #BB0000;'>0.159</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03  0.537  -</span><span style='color: #BB0000;'>2.17</span><span>   2.75 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04  0.747   0.724  2.82 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05  1.90   -</span><span style='color: #BB0000;'>0.671</span><span>  3.97 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 -</span><span style='color: #BB0000;'>2.06</span><span>    2.73   4.58 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07  0.064</span><span style='text-decoration: underline;'>5</span><span> -</span><span style='color: #BB0000;'>1.42</span><span>  -</span><span style='color: #BB0000;'>4.96</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 -</span><span style='color: #BB0000;'>0.265</span><span>   1.32  10.6  
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 -</span><span style='color: #BB0000;'>0.447</span><span>   0.582 -</span><span style='color: #BB0000;'>0.628</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 -</span><span style='color: #BB0000;'>1.41</span><span>    0.396 -</span><span style='color: #BB0000;'>1.69</span><span> </div></span></pre>
+#&gt;    time            X      Y      Z
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01  0.497 -</span><span style='color: #BB0000;'>0.168</span><span> -</span><span style='color: #BB0000;'>3.74</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2009-01-02  0.779 -</span><span style='color: #BB0000;'>4.02</span><span>   1.17 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2009-01-03  1.51  -</span><span style='color: #BB0000;'>1.03</span><span>   0.191
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2009-01-04 -</span><span style='color: #BB0000;'>1.82</span><span>   0.203  1.78 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2009-01-05  0.788 -</span><span style='color: #BB0000;'>0.112</span><span>  2.67 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2009-01-06 -</span><span style='color: #BB0000;'>0.973</span><span> -</span><span style='color: #BB0000;'>4.86</span><span>  -</span><span style='color: #BB0000;'>1.25</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2009-01-07  0.893 -</span><span style='color: #BB0000;'>1.25</span><span>  10.1  
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08  0.763 -</span><span style='color: #BB0000;'>1.75</span><span>  -</span><span style='color: #BB0000;'>1.68</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09  0.651  0.571  5.35 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 -</span><span style='color: #BB0000;'>0.536</span><span>  0.688 -</span><span style='color: #BB0000;'>0.893</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

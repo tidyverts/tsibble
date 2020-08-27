@@ -278,16 +278,16 @@ time scales, the interval gets re-calculated.</p>
 )</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date         value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>0.198</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02 -</span><span style='color: #BB0000;'>0.895</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03  0.904 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04  0.079</span><span style='text-decoration: underline;'>6</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05 -</span><span style='color: #BB0000;'>1.26</span><span>  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  1.03  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>0.731</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.190</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09  0.529 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10  0.550 </div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01  0.593 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02 -</span><span style='color: #BB0000;'>0.065</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>0.701</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>0.529</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05  0.170 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  0.114 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>0.796</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.236</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09  1.19  
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10  0.188 </div><div class='input'>
 <span class='co'># create a tsibble with a single variable for key</span>
 <span class='fu'>tsibble</span>(
   <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='year-quarter.html'>yearquarter</a></span>(<span class='st'>"2010 Q1"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
@@ -298,16 +298,16 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
 #&gt;        qtr group   value
 #&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x      0.550 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x     -</span><span style='color: #BB0000;'>0.660</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      0.057</span><span style='text-decoration: underline;'>4</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>2.81</span><span>  
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x     -</span><span style='color: #BB0000;'>0.912</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>0.782</span><span> 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.664</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x      0.626 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x     -</span><span style='color: #BB0000;'>0.507</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x      0.270 
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x      1.04  
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x     -</span><span style='color: #BB0000;'>0.450</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x     -</span><span style='color: #BB0000;'>0.709</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x      0.030</span><span style='text-decoration: underline;'>4</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x     -</span><span style='color: #BB0000;'>0.450</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x      0.671 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x      1.77  
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x      0.635 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x      0.368 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x      1.38  
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'>
 <span class='co'># create a tsibble with multiple variables for key</span>
 <span class='fu'>tsibble</span>(
@@ -320,16 +320,16 @@ time scales, the interval gets re-calculated.</p>
 #&gt; </span><span style='color: #555555;'># Key:       xyz, abc [9]</span><span>
 #&gt;         mth xyz   abc    value
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Jan x     a      0.259
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Feb x     a     -</span><span style='color: #BB0000;'>0.334</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Mar x     a      0.587
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Jan x     b     -</span><span style='color: #BB0000;'>0.806</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2010 Feb x     b      1.64 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2010 Mar x     b     -</span><span style='color: #BB0000;'>0.150</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2010 Jan x     c      0.106
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2010 Feb x     c     -</span><span style='color: #BB0000;'>0.644</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2010 Mar x     c     -</span><span style='color: #BB0000;'>1.71</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2010 Apr y     a      1.43 
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Jan x     a     -</span><span style='color: #BB0000;'>1.24</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Feb x     a     -</span><span style='color: #BB0000;'>1.23</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Mar x     a      0.115
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Jan x     b     -</span><span style='color: #BB0000;'>1.06</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2010 Feb x     b      0.229
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2010 Mar x     b      1.50 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2010 Jan x     c     -</span><span style='color: #BB0000;'>1.04</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2010 Feb x     c      0.622
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2010 Mar x     c     -</span><span style='color: #BB0000;'>0.574</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2010 Apr y     a     -</span><span style='color: #BB0000;'>1.17</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 17 more rows</span><span></div><div class='input'>
 <span class='co'># create a tsibble containing "key" and "index" as column names</span>
 <span class='fu'>tsibble</span>(!!!<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -339,18 +339,18 @@ time scales, the interval gets re-calculated.</p>
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>key</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>index</span>
 )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       key [3]</span><span>
-#&gt;      index key     value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.095</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x     -</span><span style='color: #BB0000;'>2.50</span><span>  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      0.167 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x      0.350 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x      1.43  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x      0.766 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x      1.17  
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.137</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x     -</span><span style='color: #BB0000;'>0.515</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x      1.52  
+#&gt;      index key    value
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.481</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x      0.897
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x     -</span><span style='color: #BB0000;'>0.519</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>0.903</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x      1.06 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x      1.60 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x      0.960
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.142</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x     -</span><span style='color: #BB0000;'>0.985</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x      0.287
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
