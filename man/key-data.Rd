@@ -16,7 +16,7 @@ key_size(x)
 n_keys(x)
 }
 \arguments{
-\item{.data}{A tsibble}
+\item{.data, x}{A tsibble}
 }
 \description{
 Key metadata

@@ -1,5 +1,6 @@
 # tsibble 0.9.3
 
+* Dropped the support of `summarise()` scoped variants, and made `dplyr::across()` compatible with `summarise.tbl_ts()`.
 
 # tsibble 0.9.2
 

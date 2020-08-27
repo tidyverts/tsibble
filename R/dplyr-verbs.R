@@ -97,15 +97,8 @@ summarise.tbl_ts <- function(.data, ..., .groups = NULL) {
   idx <- index(.data)
   idx2 <- index2(.data)
 
-  # workaround for scoped variants
-  lst_quos <- enquos(..., .named = TRUE)
-  idx_chr <- as_string(idx)
-  idx2_chr <- as_string(idx2)
-  nonkey <- setdiff(names(lst_quos), c(key_vars(.data), idx_chr, idx2_chr))
-  nonkey_quos <- lst_quos[nonkey]
-
   grped_data <- as_tibble(index_by(.data, !!idx2))
-  sum_tbl <- summarise(grped_data, !!!nonkey_quos, .groups = .groups)
+  sum_tbl <- summarise(grped_data, ..., .groups = .groups)
 
   groups_handler <- function(group_vars, .groups = NULL) {
     if (is_null(.groups) || .groups == "drop_last") {
@@ -114,13 +107,15 @@ summarise.tbl_ts <- function(.data, ..., .groups = NULL) {
       character()
     } else if (.groups == "keep") {
       head(group_vars, -1)
-    } # not sure how to handle "rowwise" for tsibble yet
+    } else { # not sure how to handle "rowwise" for tsibble yet
+      abort("Don't know how to handle \"rowwise\" for a tsibble.")
+    }
   }
 
   sum_data <- grouped_df(sum_tbl,
     groups_handler(group_vars(grped_data), .groups = .groups))
   if (identical(idx, idx2)) int <- is_regular(.data) else int <- TRUE
-  grps <- setdiff(group_vars(.data), idx2_chr)
+  grps <- setdiff(group_vars(.data), as_string(idx2))
 
   # since summarise() handles a vector of length n, it may violate validity
   validate <- vec_size(sum_data) > vec_size(group_data(grped_data))

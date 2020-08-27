@@ -40,7 +40,7 @@ key_vars.tbl_ts <- function(x) {
 
 #' Key metadata
 #'
-#' @param .data A tsibble
+#' @param .data,x A tsibble
 #' @rdname key-data
 #' @seealso [dplyr::group_data]
 #' @export
