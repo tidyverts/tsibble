@@ -29,43 +29,13 @@ scale_x_yearquarter(...)
 
 scale_y_yearquarter(...)
 
-scale_colour_yearquarter(...)
-
-scale_color_yearquarter(...)
-
-scale_alpha_yearquarter(...)
-
-scale_fill_yearquarter(...)
-
-scale_size_yearquarter(...)
-
 scale_x_yearmonth(...)
 
 scale_y_yearmonth(...)
 
-scale_colour_yearmonth(...)
-
-scale_color_yearmonth(...)
-
-scale_alpha_yearmonth(...)
-
-scale_fill_yearmonth(...)
-
-scale_size_yearmonth(...)
-
 scale_x_yearweek(...)
 
 scale_y_yearweek(...)
-
-scale_colour_yearweek(...)
-
-scale_color_yearweek(...)
-
-scale_alpha_yearweek(...)
-
-scale_fill_yearweek(...)
-
-scale_size_yearweek(...)
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}}.}
