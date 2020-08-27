@@ -66,7 +66,7 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -77,18 +77,6 @@ Tiling window without overlapping observations:
 arguments as \code{tile2()}, but return vectors of the corresponding type.
 \item \code{tile2_dfr()} \code{tile2_dfc()} return data frames using row-binding & column-binding.
 }
-}
-\examples{
-x <- 1:5
-y <- 6:10
-z <- 11:15
-lst <- list(x = x, y = y, z = z)
-df <- as.data.frame(lst)
-tile2(x, y, sum, .size = 2)
-tile2(lst, lst, ~., .size = 2)
-tile2(df, df, ~., .size = 2)
-ptile(lst, sum, .size = 1)
-ptile(list(lst, lst), ~., .size = 2)
 }
 \seealso{
 Other tiling window functions: 

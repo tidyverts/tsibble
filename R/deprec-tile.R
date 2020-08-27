@@ -1,7 +1,7 @@
 #' Tiling window calculation
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -18,16 +18,9 @@
 #' @export
 #' @family tiling window functions
 #' @seealso
-#' * [future_tile] for tiling window in parallel
 #' * [slide] for sliding window with overlapping observations
 #' * [stretch] for expanding more observations
 #'
-#' @examples
-#' x <- 1:5
-#' lst <- list(x = x, y = 6:10, z = 11:15)
-#' tile_dbl(x, mean, .size = 2)
-#' tile_lgl(x, ~ mean(.) > 2, .size = 2)
-#' tile(lst, ~., .size = 2)
 tile <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
   lst_x <- tiler(.x, .size = .size, .bind = .bind)
   map(lst_x, .f, ...)
@@ -61,7 +54,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' Tiling window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -76,17 +69,6 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @rdname tile2
 #' @export
 #' @family tiling window functions
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#' tile2(x, y, sum, .size = 2)
-#' tile2(lst, lst, ~., .size = 2)
-#' tile2(df, df, ~., .size = 2)
-#' ptile(lst, sum, .size = 1)
-#' ptile(list(lst, lst), ~., .size = 2)
 tile2 <- function(.x, .y, .f, ..., .size = 1, .bind = FALSE) {
   lst <- ptiler(.x, .y, .size = .size, .bind = .bind)
   map2(lst[[1]], lst[[2]], .f, ...)
@@ -155,21 +137,8 @@ ptile_dfc <- function(.l, .f, ..., .size = 1, .bind = FALSE) {
 #' @keywords internal
 #' @rdname tiler
 #' @export
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#'
-#' tiler(x, .size = 2)
-#' tiler(lst, .size = 2)
-#' ptiler(lst, .size = 2)
-#' ptiler(list(x, y), list(y))
-#' ptiler(df, .size = 2)
-#' ptiler(df, df, .size = 2)
 tiler <- function(.x, .size = 1, .bind = FALSE) {
-  lifecycle::deprecate_warn("0.9.0", "tile()", "slider::slide()")
+  lifecycle::deprecate_stop("0.9.0", "tile()", "slider::slide()")
   tiler2(.x, .size, .bind)
 }
 
@@ -215,47 +184,3 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
   lst_indices <- map(key_rows(.x), tiler2, .size = .size)
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
-
-#' Tiling window in parallel
-#'
-#' @description
-#' \lifecycle{deprecated}
-#'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
-#' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
-#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
-#' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
-#' * Extra arguments `.progress` and `.options` for enabling progress bar and the
-#' future specific options to use with the workers.
-#'
-#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("tile", "tile2", "ptile"), '}'), paste0('\\alias{future_tile_', suffix, '}'), paste0('\\alias{future_tile2_', suffix, '}'), paste0('\\alias{future_ptile_', suffix, '}'))}
-#' @keywords internal
-#' @name future_tile()
-#' @rdname future-tile
-#' @exportPattern ^future_
-# nocov start
-assign("future_tile", replace_fn_names(tile, list(map = "future_map"), ns = "furrr"))
-assign("future_tile2", replace_fn_names(tile2, list(map2 = "future_map2"), ns = "furrr"))
-assign("future_ptile", replace_fn_names(ptile, list(pmap = "future_pmap"), ns = "furrr"))
-assign("future_tile_dfr", replace_fn_names(tile_dfr, list(tile = "future_tile")))
-assign("future_tile2_dfr", replace_fn_names(tile2_dfr, list(tile2 = "future_tile2")))
-assign("future_ptile_dfr", replace_fn_names(ptile_dfr, list(ptile = "future_ptile")))
-assign("future_tile_dfc", replace_fn_names(tile_dfc, list(tile = "future_tile")))
-assign("future_tile2_dfc", replace_fn_names(tile2_dfc, list(tile2 = "future_tile2")))
-assign("future_ptile_dfc", replace_fn_names(ptile_dfc, list(ptile = "future_ptile")))
-for (type in c("lgl", "chr", "int", "dbl")) {
-  assign(
-    paste0("future_tile_", type),
-    replace_fn_names(tile, list(map = paste0("future_map_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_tile2_", type),
-    replace_fn_names(tile2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_ptile_", type),
-    replace_fn_names(ptile, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
-  )
-}
-# nocov end

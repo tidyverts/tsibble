@@ -6,7 +6,7 @@ nrow2 <- function(.x) {
 #' Stretching window calculation
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -25,12 +25,6 @@ nrow2 <- function(.x) {
 #' @rdname stretch
 #' @export
 #' @family stretching window functions
-#' @examples
-#' x <- 1:5
-#' stretch_dbl(x, mean, .step = 2)
-#' stretch_lgl(x, ~ mean(.) > 2, .step = 2)
-#' lst <- list(x = x, y = 6:10, z = 11:15)
-#' stretch(lst, ~., .step = 2, .fill = NULL)
 stretch <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
                     .bind = FALSE) {
   lst_x <- stretcher(.x, .step = .step, .init = .init, .bind = .bind)
@@ -79,7 +73,7 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' Stretching window calculation over multiple simultaneously
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -100,28 +94,6 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' * [slide2] for sliding window with overlapping observations
 #' * [tile2] for tiling window without overlapping observations
 #'
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#' stretch2(x, y, sum, .step = 2)
-#' stretch2(lst, lst, ~., .step = 2)
-#' stretch2(df, df, ~., .step = 2)
-#' pstretch(lst, sum, .step = 1)
-#' pstretch(list(lst, lst), ~., .step = 2)
-#'
-#' ###
-#' # row-wise stretching over data frame
-#' ###
-#'
-#' x <- as.Date("2017-01-01") + 0:364
-#' df <- data.frame(x = x, y = seq_along(x))
-#'
-#' tibble(
-#'   data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
-#' )
 stretch2 <- function(.x, .y, .f, ..., .step = 1, .init = 1, .fill = NA,
                      .bind = FALSE) {
   lst <- pstretcher(.x, .y, .step = .step, .init = .init, .bind = .bind)
@@ -223,19 +195,8 @@ pstretch_dfc <- function(.l, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @keywords internal
 #' @rdname stretcher
 #' @export
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#'
-#' stretcher(x, .step = 2)
-#' stretcher(lst, .step = 2)
-#' stretcher(df, .step = 2)
-#' pstretcher(df, df, .step = 2)
 stretcher <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
-  lifecycle::deprecate_warn("0.9.0", "stretch()", "slider::slide()")
+  lifecycle::deprecate_stop("0.9.0", "stretch()", "slider::slide()")
   stretcher2(.x, .step, .init, .bind)
 }
 
@@ -326,47 +287,3 @@ incr <- function(.init, .step) {
     .init
   }
 }
-
-#' Stretching window in parallel
-#'
-#' @description
-#' \lifecycle{deprecated}
-#'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
-#'
-#' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
-#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
-#' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
-#' * Extra arguments `.progress` and `.options` for enabling progress bar and the
-#' future specific options to use with the workers.
-#'
-#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("stretch", "stretch2", "pstretch"), '}'), paste0('\\alias{future_stretch_', suffix, '}'), paste0('\\alias{future_stretch2_', suffix, '}'), paste0('\\alias{future_pstretch_', suffix, '}'))}
-#' @keywords internal
-#' @name future_stretch()
-#' @rdname future-stretch
-#' @exportPattern ^future_
-# nocov start
-assign("future_stretch", replace_fn_names(stretch, list(map = "future_map"), ns = "furrr"))
-assign("future_stretch2", replace_fn_names(stretch2, list(map2 = "future_map2"), ns = "furrr"))
-assign("future_pstretch", replace_fn_names(pstretch, list(pmap = "future_pmap"), ns = "furrr"))
-assign("future_stretch_dfr", replace_fn_names(stretch_dfr, list(stretch = "future_stretch")))
-assign("future_stretch2_dfr", replace_fn_names(stretch2_dfr, list(stretch2 = "future_stretch2")))
-assign("future_pstretch_dfr", replace_fn_names(pstretch_dfr, list(pstretch = "future_pstretch")))
-assign("future_stretch_dfc", replace_fn_names(stretch_dfc, list(stretch = "future_stretch")))
-assign("future_stretch2_dfc", replace_fn_names(stretch2_dfc, list(stretch2 = "future_stretch2")))
-assign("future_pstretch_dfc", replace_fn_names(pstretch_dfc, list(pstretch = "future_pstretch")))
-for (type in c("lgl", "chr", "int", "dbl")) {
-  assign(
-    paste0("future_stretch_", type),
-    replace_fn_names(stretch, list(map = paste0("future_map_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_stretch2_", type),
-    replace_fn_names(stretch2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_pstretch_", type),
-    replace_fn_names(pstretch, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
-  )
-}
-# nocov end

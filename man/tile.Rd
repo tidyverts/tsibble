@@ -51,7 +51,7 @@ variable will be created.
 Only applies to \verb{_dfr} variant.}
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -63,16 +63,8 @@ arguments as \code{tile()}, but return vectors of the corresponding type.
 \item \code{tile_dfr()} \code{tile_dfc()} return data frames using row-binding & column-binding.
 }
 }
-\examples{
-x <- 1:5
-lst <- list(x = x, y = 6:10, z = 11:15)
-tile_dbl(x, mean, .size = 2)
-tile_lgl(x, ~ mean(.) > 2, .size = 2)
-tile(lst, ~., .size = 2)
-}
 \seealso{
 \itemize{
-\item \link{future_tile} for tiling window in parallel
 \item \link{slide} for sliding window with overlapping observations
 \item \link{stretch} for expanding more observations
 }

@@ -48,7 +48,7 @@ bad_step_function <- function(.step) {
 #' Sliding window calculation
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -90,13 +90,6 @@ bad_step_function <- function(.step) {
 #' * `.partial = FALSE` restricts calculations to be done on complete sliding windows.
 #' Window contains observations outside of the vector will return the value `.fill`.
 #'
-#' @examples
-#' x <- 1:5
-#' lst <- list(x = x, y = 6:10, z = 11:15)
-#' slide_dbl(x, mean, .size = 2)
-#' slide_dbl(x, mean, .size = 2, align = "center")
-#' slide_lgl(x, ~ mean(.) > 2, .size = 2)
-#' slide(lst, ~., .size = 2)
 slide <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
                   .partial = FALSE, .align = "right", .bind = FALSE) {
   if (.partial) {
@@ -154,7 +147,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' Sliding window calculation over multiple inputs simultaneously
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' \lifecycle{defunct}
 #'
 #' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
 #'
@@ -176,45 +169,6 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' * [stretch2] for expanding more observations
 #'
 #' @export
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#' slide2(x, y, sum, .size = 2)
-#' slide2(lst, lst, ~., .size = 2)
-#' slide2(df, df, ~., .size = 2)
-#' pslide(lst, ~., .size = 1)
-#' pslide(list(lst, lst), ~., .size = 2)
-#'
-#' ###
-#' # row-wise sliding over data frame
-#' ###
-#'
-#' if (!requireNamespace("tidyr", quietly = TRUE)) {
-#'   stop("Please install the 'tidyr' package to run these following examples.")
-#' }
-#' library(tidyr)
-#' library(dplyr)
-#' my_df <- data.frame(
-#'   group = rep(letters[1:2], each = 8),
-#'   x = c(1:8, 8:1),
-#'   y = 2 * c(1:8, 8:1) + rnorm(16),
-#'   date = rep(as.Date("2016-06-01") + 0:7, 2)
-#' )
-#'
-#' slope <- function(...) {
-#'   data <- list(...)
-#'   fm <- lm(y ~ x, data = data)
-#'   coef(fm)[[2]]
-#' }
-#'
-#' my_df %>%
-#'   group_by(group) %>%
-#'   nest() %>%
-#'   mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) %>%
-#'   unnest(slope)
 slide2 <- function(.x, .y, .f, ..., .size = 1, .step = 1, .fill = NA,
                    .partial = FALSE, .align = "right", .bind = FALSE) {
   if (.partial) {
@@ -319,27 +273,6 @@ pslide_dfr <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
 
 #' @rdname slide2
 #' @export
-#' @examples
-#' ## window over 2 months
-#' pedestrian %>%
-#'   filter(Sensor == "Southern Cross Station") %>%
-#'   index_by(yrmth = yearmonth(Date_Time)) %>%
-#'   nest(data = -yrmth) %>%
-#'   ungroup() %>% 
-#'   mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
-#' # row-oriented workflow
-#' \dontrun{
-#' my_diag <- function(...) {
-#'   data <- list(...)
-#'   fit <- lm(Count ~ Time, data = data)
-#'   tibble(fitted = fitted(fit), resid = residuals(fit))
-#' }
-#' pedestrian %>%
-#'   filter_index("2015-01") %>%
-#'   group_by_key() %>%
-#'   nest() %>%
-#'   mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
-#' }
 pslide_dfc <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
                        .partial = FALSE, .align = "right", .bind = FALSE) {
   out <- pslide(
@@ -362,20 +295,8 @@ pslide_dfc <- function(.l, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' @rdname slider
 #' @seealso [partial_slider], [partial_pslider] for partial sliding
 #' @export
-#' @examples
-#' x <- 1:5
-#' y <- 6:10
-#' z <- 11:15
-#' lst <- list(x = x, y = y, z = z)
-#' df <- as.data.frame(lst)
-#'
-#' slider(x, .size = 2)
-#' slider(lst, .size = 2)
-#' pslider(list(x, y), list(y))
-#' slider(df, .size = 2)
-#' pslider(df, df, .size = 2)
 slider <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
-  lifecycle::deprecate_warn("0.9.0", "slide()", "slider::slide()")
+  lifecycle::deprecate_stop("0.9.0", "slide()", "slider::slide()")
   slider2(.x, .size, .step, .bind)
 }
 
@@ -410,10 +331,6 @@ pslider <- function(..., .size = 1, .step = 1, .bind = FALSE) {
 #' @keywords internal
 #' @rdname partial-slider
 #' @export
-#' @examples
-#' x <- c(1, NA_integer_, 3:5)
-#' slider(x, .size = 3)
-#' partial_slider(x, .size = 3)
 partial_slider <- function(.x, .size = 1, .step = 1, .fill = NA,
                            .align = "right", .bind = FALSE) {
   check_valid_window(.size, .align)
@@ -626,68 +543,5 @@ bind_df <- function(x, .size, .fill = NA, .id = NULL, byrow = TRUE) {
 
 slider_msg <- function() {
   "`abs(.size)` (%s) must not be larger than the length (%s) of the input."
-}
-
-#' Sliding window in parallel
-#'
-#' @description
-#' \lifecycle{deprecated}
-#'
-#' **The rolling window family will be deprecated in the future. Please consider
-#' using the [slider](https://davisvaughan.github.io/slider) package.**
-#'
-#' Multiprocessing equivalents of [slide()], [tile()], [stretch()] prefixed by `future_`.
-#' * Variants for corresponding types: `future_*_lgl()`, `future_*_int()`,
-#' `future_*_dbl()`, `future_*_chr()`, `future_*_dfr()`, `future_*_dfc()`.
-#' * Extra arguments `.progress` and `.options` for enabling progress bar and the
-#' future specific options to use with the workers.
-#'
-#' @details
-#' It requires the package **furrr** to be installed. Please refer to [furrr](https://davisvaughan.github.io/furrr/) for performance and detailed usage.
-#' @evalRd {suffix <- c("lgl", "chr", "int", "dbl", "dfr", "dfc"); c(paste0('\\alias{future_', c("slide", "slide2", "pslide"), '}'), paste0('\\alias{future_slide_', suffix, '}'), paste0('\\alias{future_slide2_', suffix, '}'), paste0('\\alias{future_pslide_', suffix, '}'))}
-#' @keywords internal
-#' @name future_slide()
-#' @rdname future-slide
-#' @exportPattern ^future_
-#' @examples
-#' if (!requireNamespace("furrr", quietly = TRUE)) {
-#'   stop("Please install the furrr package to run these following examples.")
-#' }
-#' \dontrun{
-#' library(furrr)
-#' plan(multiprocess)
-#' my_diag <- function(...) {
-#'   data <- list(...)
-#'   fit <- lm(Count ~ Time, data = data)
-#'   tibble(fitted = fitted(fit), resid = residuals(fit))
-#' }
-#' pedestrian %>%
-#'   group_by_key() %>%
-#'   nest() %>%
-#'   mutate(diag = future_map(data, ~ future_pslide_dfr(., my_diag, .size = 48)))
-#' }
-#' # nocov start
-assign("future_slide", replace_fn_names(slide, list(map = "future_map"), ns = "furrr"))
-assign("future_slide2", replace_fn_names(slide2, list(map2 = "future_map2"), ns = "furrr"))
-assign("future_pslide", replace_fn_names(pslide, list(pmap = "future_pmap"), ns = "furrr"))
-assign("future_slide_dfr", replace_fn_names(slide_dfr, list(slide = "future_slide")))
-assign("future_slide2_dfr", replace_fn_names(slide2_dfr, list(slide2 = "future_slide2")))
-assign("future_pslide_dfr", replace_fn_names(pslide_dfr, list(pslide = "future_pslide")))
-assign("future_slide_dfc", replace_fn_names(slide_dfc, list(slide = "future_slide")))
-assign("future_slide2_dfc", replace_fn_names(slide2_dfc, list(slide2 = "future_slide2")))
-assign("future_pslide_dfc", replace_fn_names(pslide_dfc, list(pslide = "future_pslide")))
-for (type in c("lgl", "chr", "int", "dbl")) {
-  assign(
-    paste0("future_slide_", type),
-    replace_fn_names(slide, list(map = paste0("future_map_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_slide2_", type),
-    replace_fn_names(slide2, list(map2 = paste0("future_map2_", type)), ns = "furrr")
-  )
-  assign(
-    paste0("future_pslide_", type),
-    replace_fn_names(pslide, list(pmap = paste0("future_pmap_", type)), ns = "furrr")
-  )
 }
 # nocov end

@@ -47,9 +47,4 @@ If \code{.x} is a list of data frames, row binding is carried out.}
 \description{
 Partially splits the input to a list according to the rolling window size.
 }
-\examples{
-x <- c(1, NA_integer_, 3:5)
-slider(x, .size = 3)
-partial_slider(x, .size = 3)
-}
 \keyword{internal}

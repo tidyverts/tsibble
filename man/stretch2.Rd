@@ -90,7 +90,7 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -101,29 +101,6 @@ Fixing an initial window and expanding more observations:
 arguments as \code{stretch2()}, but return vectors of the corresponding type.
 \item \code{stretch2_dfr()} \code{stretch2_dfc()} return data frames using row-binding & column-binding.
 }
-}
-\examples{
-x <- 1:5
-y <- 6:10
-z <- 11:15
-lst <- list(x = x, y = y, z = z)
-df <- as.data.frame(lst)
-stretch2(x, y, sum, .step = 2)
-stretch2(lst, lst, ~., .step = 2)
-stretch2(df, df, ~., .step = 2)
-pstretch(lst, sum, .step = 1)
-pstretch(list(lst, lst), ~., .step = 2)
-
-###
-# row-wise stretching over data frame
-###
-
-x <- as.Date("2017-01-01") + 0:364
-df <- data.frame(x = x, y = seq_along(x))
-
-tibble(
-  data = pstretch(df, function(...) as_tibble(list(...)), .init = 10)
-)
 }
 \seealso{
 \itemize{

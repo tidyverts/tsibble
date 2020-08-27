@@ -24,16 +24,4 @@ If \code{.x} is a list of data frames, row binding is carried out.}
 \description{
 Split the input to a list according to the stretching window size.
 }
-\examples{
-x <- 1:5
-y <- 6:10
-z <- 11:15
-lst <- list(x = x, y = y, z = z)
-df <- as.data.frame(lst)
-
-stretcher(x, .step = 2)
-stretcher(lst, .step = 2)
-stretcher(df, .step = 2)
-pstretcher(df, df, .step = 2)
-}
 \keyword{internal}

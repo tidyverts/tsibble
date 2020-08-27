@@ -67,7 +67,7 @@ Only applies to \verb{_dfr} variant.}
 if \code{.fill != NULL}, it always returns the same length as input.
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -78,13 +78,6 @@ Fixing an initial window and expanding more observations:
 arguments as \code{stretch()}, but return vectors of the corresponding type.
 \item \code{stretch_dfr()} \code{stretch_dfc()} return data frames using row-binding & column-binding.
 }
-}
-\examples{
-x <- 1:5
-stretch_dbl(x, mean, .step = 2)
-stretch_lgl(x, ~ mean(.) > 2, .step = 2)
-lst <- list(x = x, y = 6:10, z = 11:15)
-stretch(lst, ~., .step = 2, .fill = NULL)
 }
 \seealso{
 Other stretching window functions: 

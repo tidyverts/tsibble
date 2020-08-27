@@ -141,7 +141,7 @@ determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -151,66 +151,6 @@ Rolling window with overlapping observations:
 \item \code{slide2_lgl()}, \code{slide2_int()}, \code{slide2_dbl()}, \code{slide2_chr()} use the same
 arguments as \code{slide2()}, but return vectors of the corresponding type.
 \item \code{slide2_dfr()} \code{slide2_dfc()} return data frames using row-binding & column-binding.
-}
-}
-\examples{
-x <- 1:5
-y <- 6:10
-z <- 11:15
-lst <- list(x = x, y = y, z = z)
-df <- as.data.frame(lst)
-slide2(x, y, sum, .size = 2)
-slide2(lst, lst, ~., .size = 2)
-slide2(df, df, ~., .size = 2)
-pslide(lst, ~., .size = 1)
-pslide(list(lst, lst), ~., .size = 2)
-
-###
-# row-wise sliding over data frame
-###
-
-if (!requireNamespace("tidyr", quietly = TRUE)) {
-  stop("Please install the 'tidyr' package to run these following examples.")
-}
-library(tidyr)
-library(dplyr)
-my_df <- data.frame(
-  group = rep(letters[1:2], each = 8),
-  x = c(1:8, 8:1),
-  y = 2 * c(1:8, 8:1) + rnorm(16),
-  date = rep(as.Date("2016-06-01") + 0:7, 2)
-)
-
-slope <- function(...) {
-  data <- list(...)
-  fm <- lm(y ~ x, data = data)
-  coef(fm)[[2]]
-}
-
-my_df \%>\%
-  group_by(group) \%>\%
-  nest() \%>\%
-  mutate(slope = purrr::map(data, ~ pslide_dbl(., slope, .size = 2))) \%>\%
-  unnest(slope)
-## window over 2 months
-pedestrian \%>\%
-  filter(Sensor == "Southern Cross Station") \%>\%
-  index_by(yrmth = yearmonth(Date_Time)) \%>\%
-  nest(data = -yrmth) \%>\%
-  ungroup() \%>\% 
-  mutate(ma = slide_dbl(data, ~ mean(.$Count), .size = 2, .bind = TRUE))
-# row-oriented workflow
-\dontrun{
-my_diag <- function(...) {
-  data <- list(...)
-  fit <- lm(Count ~ Time, data = data)
-  tibble(fitted = fitted(fit), resid = residuals(fit))
-}
-pedestrian \%>\%
-  filter_index("2015-01") \%>\%
-  group_by_key() \%>\%
-  nest() \%>\%
-  mutate(diag = purrr::map(data, ~ pslide_dfr(., my_diag, .size = 48)))
 }
 }
 \seealso{

@@ -97,7 +97,7 @@ Only applies to \verb{_dfr} variant.}
 if \code{.fill != NULL}, it always returns the same length as input.
 }
 \description{
-\lifecycle{deprecated}
+\lifecycle{defunct}
 
 Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
 
@@ -122,14 +122,6 @@ outside of the vector will be treated as value of \code{.fill}, which will be pa
 \item \code{.partial = FALSE} restricts calculations to be done on complete sliding windows.
 Window contains observations outside of the vector will return the value \code{.fill}.
 }
-}
-\examples{
-x <- 1:5
-lst <- list(x = x, y = 6:10, z = 11:15)
-slide_dbl(x, mean, .size = 2)
-slide_dbl(x, mean, .size = 2, align = "center")
-slide_lgl(x, ~ mean(.) > 2, .size = 2)
-slide(lst, ~., .size = 2)
 }
 \seealso{
 Other sliding window functions: 
