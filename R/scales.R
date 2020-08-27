@@ -8,7 +8,6 @@
 #' @param ... Arguments passed to [`ggplot2::scale_x_date()`].
 #'
 #' @return A ggproto object inheriting from `Scale`
-#' @keywords internal
 #'
 #' @name tsibble-scales
 NULL
@@ -140,7 +139,6 @@ scale_colour_yearmonth <- function(...) {
 #' @export
 scale_color_yearmonth <- scale_colour_yearmonth
 
-#' @keywords internal
 #' @rdname tsibble-scales
 #' @export
 scale_alpha_yearmonth <- function(...) {

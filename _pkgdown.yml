@@ -69,11 +69,12 @@ reference:
 
 - title: Index classes
   desc: >
-    New S3 classes to reprent year-week, year-month, and year-quarter.
+    New S3 classes to represent year-week, year-month, and year-quarter.
   contents:
     - starts_with("year")
     - time_in
     - guess_frequency
+    - starts_with("scale")
 
 - title: Calendar
   contents:

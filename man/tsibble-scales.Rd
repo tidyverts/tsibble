@@ -77,4 +77,3 @@ A ggproto object inheriting from \code{Scale}
 Defines ggplot2 scales for tsibble custom index: \link{yearweek}, \link{yearmonth},
 and \link{yearquarter}.
 }
-\keyword{internal}
