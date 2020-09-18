@@ -10,13 +10,13 @@
 |collate  |en_AU.UTF-8                  |
 |ctype    |en_AU.UTF-8                  |
 |tz       |Pacific/Auckland             |
-|date     |2020-07-24                   |
+|date     |2020-09-18                   |
 
 # Dependencies
 
 |package |old   |new        |Δ  |
 |:-------|:-----|:----------|:--|
-|tsibble |0.9.1 |0.9.1.9000 |*  |
+|tsibble |0.9.2 |0.9.2.9000 |*  |
 
 # Revdeps
 
