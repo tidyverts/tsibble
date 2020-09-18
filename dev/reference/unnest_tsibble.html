@@ -162,7 +162,7 @@
     <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
     </div>
 
-    <pre class="usage"><span class='fu'>unnest_tsibble</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>unnest_tsibble</span>(<span class='kw'>data</span>, <span class='kw'>cols</span>, key = <span class='kw'>NULL</span>, validate = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +179,7 @@
       <th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+(e.g. <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>dplyr::starts_with()</a></code>).</p></td>
     </tr>
     <tr>
       <th>validate</th>
@@ -205,7 +205,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -164,7 +164,7 @@
 2016-12-31 at 4 sensors in the city of Melbourne.</p>
     </div>
 
-    <pre class="usage"><span class='no'>pedestrian</span></pre>
+    <pre class="usage"><span class='kw'>pedestrian</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -182,10 +182,11 @@
     <p><a href='https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp'>Melbourne Open Data Portal</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pedestrian</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pedestrian</span>)
 <span class='co'># make implicit missingness to be explicit ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='fill_gaps.html'>fill_gaps</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='fill_gaps.html'>fill_gaps</a></span>()
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -200,10 +201,11 @@
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
 #&gt; </span><span style='color: #555555;'># … with 69,038 more rows</span><span></div><div class='input'><span class='co'># compute daily maximum counts across sensors ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='index-by.html'>index_by</a></span>(<span class='no'>Date</span>) <span class='kw'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>MaxC</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Count</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 2,752 x 3 [1D]</span><span>
+<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='index_by.html'>index_by</a></span>(<span class='kw'>Date</span>) <span class='op'>%&gt;%</span> <span class='co'># group by Date and use it as new index</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(MaxC = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>Count</span>))
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 2,752 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date        MaxC
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -233,7 +235,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

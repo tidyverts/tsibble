@@ -163,7 +163,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tbl_ts</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>as.ts</a></span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>as.ts</a></span>(<span class='kw'>x</span>, <span class='kw'>value</span>, frequency = <span class='kw'>NULL</span>, fill = <span class='fl'>NA_real_</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,8 +198,9 @@ preferred frequency is passed to <code><a href='https://rdrr.io/r/stats/ts.html'
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># a monthly series</span>
-<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as-tsibble.html'>as_tsibble</a></span>(<span class='no'>AirPassengers</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>as.ts</a></span>(<span class='no'>x1</span>)</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+<span class='kw'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_tsibble.html'>as_tsibble</a></span>(<span class='kw'>AirPassengers</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>as.ts</a></span>(<span class='kw'>x1</span>)
+</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
 #&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
 #&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
@@ -227,7 +228,7 @@ preferred frequency is passed to <code><a href='https://rdrr.io/r/stats/ts.html'
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

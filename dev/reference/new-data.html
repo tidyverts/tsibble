@@ -168,12 +168,12 @@ pair and <code>NA</code> for measured variables.</p>
 <p><code>append_case()</code> is an alias of <code>append_row()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>new_data</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>new_data</span>(<span class='kw'>.data</span>, n = <span class='fl'>1L</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for tbl_ts</span>
-<span class='fu'>new_data</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>keep_all</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>new_data</span>(<span class='kw'>.data</span>, n = <span class='fl'>1L</span>, keep_all = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>append_row</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>append_row</span>(<span class='kw'>.data</span>, n = <span class='fl'>1L</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,21 +202,24 @@ and key, otherwise only index and key.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>new_data</span>(<span class='kw'>pedestrian</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 4 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;   Sensor                        Date_Time          
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'>1</span><span> Birrarung Marr                2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> Bourke Street Mall (North)    2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span> QV Market-Elizabeth St (West) 2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>, <span class='kw'>keep_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 4 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='kw'>pedestrian</span>, keep_all = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 4 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;   Sensor                        Date_Time           Date        Time Count
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> Birrarung Marr                2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> Bourke Street Mall (North)    2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span> QV Market-Elizabeth St (West) 2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 12 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='kw'>pedestrian</span>, n = <span class='fl'>3</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 12 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor                        Date_Time          
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>             
@@ -231,7 +234,8 @@ and key, otherwise only index and key.</p></td>
 #&gt; </span><span style='color: #555555;'> 9</span><span> QV Market-Elizabeth St (West) 2017-01-01 </span><span style='color: #555555;'>02:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>10</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>00:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>11</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>01:00:00</span><span>
-#&gt; </span><span style='color: #555555;'>12</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>02:00:00</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='no'>pedestrian</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>12</span><span> Southern Cross Station        2017-01-01 </span><span style='color: #555555;'>02:00:00</span><span></div><div class='input'><span class='fu'>new_data</span>(<span class='kw'>pedestrian</span>, n = <span class='op'>-</span><span class='fl'>2</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;   Sensor                        Date_Time          
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>             
@@ -243,12 +247,14 @@ and key, otherwise only index and key.</p></td>
 #&gt; </span><span style='color: #555555;'>6</span><span> QV Market-Elizabeth St (West) 2014-12-31 </span><span style='color: #555555;'>23:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>7</span><span> Southern Cross Station        2014-12-31 </span><span style='color: #555555;'>22:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>8</span><span> Southern Cross Station        2014-12-31 </span><span style='color: #555555;'>23:00:00</span><span></div><div class='input'>
-<span class='no'>tsbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>2</span>),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>3</span>),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>),
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1D]</span><span>
+<span class='kw'>tsbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
+  date = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>2</span>, each = <span class='fl'>2</span>),
+  group = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>], <span class='fl'>3</span>),
+  value = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>),
+  key = <span class='kw'>group</span>
+)
+</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='input'><span class='fu'>append_row</span>(<span class='kw'>tsbl</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 8 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [2]</span><span>
 #&gt;   date       group  value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -259,7 +265,8 @@ and key, otherwise only index and key.</p></td>
 #&gt; </span><span style='color: #555555;'>5</span><span> 2017-01-01 b     -</span><span style='color: #BB0000;'>0.670</span><span>
 #&gt; </span><span style='color: #555555;'>6</span><span> 2017-01-02 b      1.32 
 #&gt; </span><span style='color: #555555;'>7</span><span> 2017-01-03 b      0.514
-#&gt; </span><span style='color: #555555;'>8</span><span> 2017-01-04 b     </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 3 [1D]</span><span>
+#&gt; </span><span style='color: #555555;'>8</span><span> 2017-01-04 b     </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='kw'>tsbl</span>, n = <span class='fl'>2</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [2]</span><span>
 #&gt;    date       group  value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -272,7 +279,8 @@ and key, otherwise only index and key.</p></td>
 #&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-02 b      1.32 
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-03 b      0.514
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-04 b     </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-05 b     </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='no'>tsbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 3 [1D]</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-05 b     </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='fu'>append_row</span>(<span class='kw'>tsbl</span>, n = <span class='op'>-</span><span class='fl'>2</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 3 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [2]</span><span>
 #&gt;    date       group  value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -301,7 +309,7 @@ and key, otherwise only index and key.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

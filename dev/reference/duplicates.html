@@ -172,11 +172,11 @@ duplicates(): identical key-index data entries.
 
     </div>
 
-    <pre class="usage"><span class='fu'>is_duplicated</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>)
+    <pre class="usage"><span class='fu'>is_duplicated</span>(<span class='kw'>data</span>, key = <span class='kw'>NULL</span>, <span class='kw'>index</span>)
 
-<span class='fu'>are_duplicated</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>, <span class='kw'>from_last</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>are_duplicated</span>(<span class='kw'>data</span>, key = <span class='kw'>NULL</span>, <span class='kw'>index</span>, from_last = <span class='fl'>FALSE</span>)
 
-<span class='fu'>duplicates</span>(<span class='no'>data</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>index</span>)</pre>
+<span class='fu'>duplicates</span>(<span class='kw'>data</span>, key = <span class='kw'>NULL</span>, <span class='kw'>index</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,7 +189,7 @@ duplicates(): identical key-index data entries.
       <th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+(e.g. <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>dplyr::starts_with()</a></code>).</p></td>
     </tr>
     <tr>
       <th>index</th>
@@ -204,12 +204,16 @@ elements.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2011</span>, <span class='fl'>2013</span>, <span class='fl'>2011</span>, <span class='fl'>2012</span>, <span class='fl'>2014</span>, <span class='fl'>2014</span>),
-  <span class='kw'>fruit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='st'>"cherry"</span>),
-  <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>7</span>)
+    <pre class="examples"><div class='input'><span class='kw'>harvest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  year = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2011</span>, <span class='fl'>2013</span>, <span class='fl'>2011</span>, <span class='fl'>2012</span>, <span class='fl'>2014</span>, <span class='fl'>2014</span>),
+  fruit = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), each = <span class='fl'>3</span>), <span class='st'>"cherry"</span>),
+  kilo = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size = <span class='fl'>7</span>)
 )
-<span class='fu'>is_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>from_last</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</div><div class='input'><span class='fu'>duplicates</span>(<span class='no'>harvest</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 3</span><span>
+<span class='fu'>is_duplicated</span>(<span class='kw'>harvest</span>, key = <span class='kw'>fruit</span>, index = <span class='kw'>year</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='kw'>harvest</span>, key = <span class='kw'>fruit</span>, index = <span class='kw'>year</span>)
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</div><div class='input'><span class='fu'>are_duplicated</span>(<span class='kw'>harvest</span>, key = <span class='kw'>fruit</span>, index = <span class='kw'>year</span>, from_last = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</div><div class='input'><span class='fu'>duplicates</span>(<span class='kw'>harvest</span>, key = <span class='kw'>fruit</span>, index = <span class='kw'>year</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 3</span><span>
 #&gt;    year fruit   kilo
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
@@ -229,7 +233,7 @@ elements.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

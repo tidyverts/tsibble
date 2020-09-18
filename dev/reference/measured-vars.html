@@ -162,9 +162,9 @@
     <p>Return measured variables</p>
     </div>
 
-    <pre class="usage"><span class='fu'>measures</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>measures</span>(<span class='kw'>x</span>)
 
-<span class='fu'>measured_vars</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>measured_vars</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +177,8 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>measures</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='fu'>measures</span>(<span class='kw'>pedestrian</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; Date
 #&gt; 
 #&gt; [[2]]
@@ -185,10 +186,13 @@
 #&gt; 
 #&gt; [[3]]
 #&gt; Count
-#&gt; </div><div class='input'><span class='fu'>measures</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>measures</span>(<span class='kw'>tourism</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; Trips
 #&gt; </div><div class='input'>
-<span class='fu'>measured_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] "Date"  "Time"  "Count"</div><div class='input'><span class='fu'>measured_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Trips"</div></pre>
+<span class='fu'>measured_vars</span>(<span class='kw'>pedestrian</span>)
+</div><div class='output co'>#&gt; [1] "Date"  "Time"  "Count"</div><div class='input'><span class='fu'>measured_vars</span>(<span class='kw'>tourism</span>)
+</div><div class='output co'>#&gt; [1] "Trips"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +208,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -116,9 +116,11 @@
     
     
 <p>Assuming you have <a href="https://pkg.earo.me/tsibble/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tsibble</span>)
-<span class="no">pedestrian</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tsibble.tidyverts.org">tsibble</a></span>)
+<span class="kw">pedestrian</span>
+</pre></div>
 <pre><code>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
 #&gt;   Sensor         Date_Time           Date        Time Count
@@ -130,7 +132,9 @@
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
 #&gt; # … with 66,032 more rows</code></pre>
 <p>Indeed each sensor has gaps in time.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span>(<span class="no">pedestrian</span>, <span class="kw">.full</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span>(<span class="kw">pedestrian</span>, .full = <span class="fl">TRUE</span>)
+</pre></div>
 <pre><code>#&gt; # A tibble: 4 x 2
 #&gt;   Sensor                        .gaps
 #&gt;   &lt;chr&gt;                         &lt;lgl&gt;
@@ -139,9 +143,11 @@
 #&gt; 3 QV Market-Elizabeth St (West) TRUE 
 #&gt; 4 Southern Cross Station        TRUE</code></pre>
 <p>So where are these gaps? <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> gives a detailed report of missing observations. <code><a href="../reference/count_gaps.html">count_gaps()</a></code> presents a summarised table about the individual time gap alongside the number of missing observations for each key. It is clear that Birrarung Marr exhibits many chunks of missingness, while Bourke Street Mall (North) displays as many consecutive missingness as 1128. If <code>.full = FALSE</code>, the opening gap for Bourke Street Mall (North) will not be recognised.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">ped_gaps</span> <span class="kw">&lt;-</span> <span class="no">pedestrian</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span>(<span class="kw">.full</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">ped_gaps</span></pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">ped_gaps</span> <span class="op">&lt;-</span> <span class="kw">pedestrian</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span>(.full = <span class="fl">TRUE</span>)
+<span class="kw">ped_gaps</span>
+</pre></div>
 <pre><code>#&gt; # A tibble: 19 x 4
 #&gt;    Sensor                        .from               .to                    .n
 #&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt;
@@ -165,18 +171,22 @@
 #&gt; 18 Southern Cross Station        2016-03-29 02:00:00 2016-03-29 03:00:00     2
 #&gt; 19 Southern Cross Station        2016-04-03 02:00:00 2016-04-03 02:00:00     1</code></pre>
 <p>These gaps can be visually presented using <strong>ggplot2</strong> as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">Sensor</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">Sensor</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">ymin</span> <span class="kw">=</span> <span class="no">.from</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">.to</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">y</span> <span class="kw">=</span> <span class="no">.from</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">y</span> <span class="kw">=</span> <span class="no">.to</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">"bottom"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Sensor</span>, colour = <span class="kw">Sensor</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(ymin = <span class="kw">.from</span>, ymax = <span class="kw">.to</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(y = <span class="kw">.from</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(y = <span class="kw">.to</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(legend.position = <span class="st">"bottom"</span>)
+</pre></div>
 <p><img src="implicit-na_files/figure-html/ggplot-gaps-1.png" width="672"></p>
 <p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">ped_full</span> <span class="kw">&lt;-</span> <span class="no">pedestrian</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="kw">.full</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">ped_full</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">ped_full</span> <span class="op">&lt;-</span> <span class="kw">pedestrian</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(.full = <span class="fl">TRUE</span>)
+<span class="kw">ped_full</span>
+</pre></div>
 <pre><code>#&gt; # A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;
 #&gt; # Key:       Sensor [4]
 #&gt;   Sensor         Date_Time           Date        Time Count
@@ -188,11 +198,13 @@
 #&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
 #&gt; # … with 70,171 more rows</code></pre>
 <p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">pedestrian</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="kw">Count</span> <span class="kw">=</span> <span class="fl">0L</span>, <span class="kw">.full</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">pedestrian</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(<span class="kw">Count</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Count</span>), <span class="kw">.full</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">pedestrian</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(Count = <span class="fl">0L</span>, .full = <span class="fl">TRUE</span>)
+<span class="kw">pedestrian</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span>(Count = <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">Count</span>), .full = <span class="fl">TRUE</span>)
+</pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -208,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

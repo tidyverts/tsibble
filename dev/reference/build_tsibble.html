@@ -167,15 +167,15 @@ determine if the time needs ordering and the interval needs calculating.</p>
     </div>
 
     <pre class="usage"><span class='fu'>build_tsibble</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>index</span>,
-  <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>index</span>,
-  <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>x</span>)
+  <span class='kw'>x</span>,
+  key = <span class='kw'>NULL</span>,
+  key_data = <span class='kw'>NULL</span>,
+  <span class='kw'>index</span>,
+  index2 = <span class='kw'>index</span>,
+  ordered = <span class='kw'>NULL</span>,
+  interval = <span class='fl'>TRUE</span>,
+  validate = <span class='fl'>TRUE</span>,
+  .drop = <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='kw'>x</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -189,7 +189,7 @@ determine if the time needs ordering and the interval needs calculating.</p>
       <th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code>).</p></td>
+(e.g. <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>dplyr::starts_with()</a></code>).</p></td>
     </tr>
     <tr>
       <th>key_data</th>
@@ -203,7 +203,7 @@ frame is supplied, the argument <code>key</code> will be ignored.</p></td>
     <tr>
       <th>index2</th>
       <td><p>A candidate of <code>index</code> to update the index to a new one when
-<a href='index-by.html'>index_by</a>. By default, it's identical to <code>index</code>.</p></td>
+<a href='index_by.html'>index_by</a>. By default, it's identical to <code>index</code>.</p></td>
     </tr>
     <tr>
       <th>ordered</th>
@@ -214,7 +214,7 @@ the correct order. <code>FALSE</code> checks the ordering and may give a warning
     <tr>
       <th>interval</th>
       <td><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
-irregular interval. Use the specified interval via <code><a href='new-interval.html'>new_interval()</a></code> as is.</p></td>
+irregular interval. Use the specified interval via <code><a href='new_interval.html'>new_interval()</a></code> as is.</p></td>
     </tr>
     <tr>
       <th>validate</th>
@@ -231,11 +231,12 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
-<span class='no'>pedestrian</span> <span class='kw'>%&gt;%</span>
+<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
   <span class='fu'>build_tsibble</span>(
-    <span class='kw'>key</span> <span class='kw'>=</span> !!<span class='fu'><a href='key.html'>key_vars</a></span>(<span class='no'>.</span>), <span class='kw'>index</span> <span class='kw'>=</span> !!<span class='fu'><a href='index-rd.html'>index</a></span>(<span class='no'>.</span>), <span class='kw'>index2</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-    <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='regular.html'>interval</a></span>(<span class='no'>.</span>)
-  )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
+    key = <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='key.html'>key_vars</a></span>(<span class='kw'>.</span>), index = <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='index.html'>index</a></span>(<span class='kw'>.</span>), index2 = <span class='kw'>Date</span>,
+    interval = <span class='fu'><a href='interval.html'>interval</a></span>(<span class='kw'>.</span>)
+  )
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    @ Date [731]</span><span>
 #&gt;    Sensor         Date_Time           Date        Time Count
@@ -266,7 +267,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
