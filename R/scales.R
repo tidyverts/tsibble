@@ -28,10 +28,15 @@ yearquarter_trans <- function() {
     inverse = function(x) {
       yearquarter(scales::date_trans()$inverse(x))
     },
-    breaks = function(x) {
-      yearquarter(scales::breaks_pretty()(as_date(x)))
-    }
+    breaks = yearquarter_breaks()
   )
+}
+
+yearquarter_breaks <- function(n = 5) {
+  force(n)
+  function(x) {
+    yearquarter(scales::breaks_pretty(n)(as_date(x)))
+  }
 }
 
 fullseq.yearquarter <- function(range, size, ...) {
@@ -106,10 +111,15 @@ yearmonth_trans <- function() {
     inverse = function(x) {
       yearmonth(scales::date_trans()$inverse(x))
     },
-    breaks = function(x) {
-      yearmonth(scales::breaks_pretty()(as_date(x)))
-    }
+    breaks = yearmonth_breaks()
   )
+}
+
+yearmonth_breaks <- function(n = 5) {
+  force(n)
+  function(x) {
+    yearmonth(scales::breaks_pretty(n)(as_date(x)))
+  }
 }
 
 fullseq.yearmonth <- function(range, size, ...) {
@@ -184,10 +194,15 @@ yearweek_trans <- function() {
     inverse = function(x) {
       yearweek(scales::date_trans()$inverse(x))
     },
-    breaks = function(x) {
-      yearweek(scales::breaks_pretty()(as_date(x)))
-    }
+    breaks = yearweek_breaks()
   )
+}
+
+yearweek_breaks <- function(n = 5) {
+  force(n)
+  function(x) {
+    yearweek(scales::breaks_pretty(n)(as_date(x)))
+  }
 }
 
 fullseq.yearweek <- function(range, size, ...) {
