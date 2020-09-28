@@ -12,6 +12,17 @@ test_that("input types for yearmonth()", {
   expect_identical(yearmonth(c(596, 576)), expected)
 })
 
+test_that("%Ym%M format for yearmonth()", {
+  expect_identical(yearmonth("2018 M01"), yearmonth("2018 Jan"))
+  expect_identical(yearmonth("2018 M1"), yearmonth("2018 Jan"))
+  expect_identical(yearmonth("2018mon01"), yearmonth("2018 Jan"))
+  expect_identical(yearmonth("2018 month 12"), yearmonth("2018 Dec"))
+  expect_error(yearmonth("201M1"))
+  expect_error(yearmonth("2018M13"))
+  expect_error(yearmonth("201M811"))
+  expect_error(yearmonth(c("2018M1", "2018 Feb", "2018M3")))
+})
+
 test_that("vec_arith() for yearmonth()", {
   expect_identical(yearmonth(x) + 1:2, yearmonth(c("2019 Oct", "2018 Mar")))
   expect_identical(yearmonth(x) - 1, yearmonth(c("2019 Aug", "2017 Dec")))
