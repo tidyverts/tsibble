@@ -116,10 +116,9 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tsibble.tidyverts.org">tsibble</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org">lubridate</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></pre></div>
 <blockquote>
 <p><em>Error: “Can’t obtain the interval due to the mismatched index class.”</em></p>
 </blockquote>
@@ -127,9 +126,8 @@
 <p><em>I have monthly data and coerce it to a tsibble. Why does tsibble give one-day interval <code>[1D]</code> instead of one-month <code>[1M]</code>?</em></p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">mth</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_date</a></span>(<span class="st">"2018"</span>) <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="fl">0</span><span class="op">:</span><span class="fl">3</span>)
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(mth = <span class="kw">mth</span>, index = <span class="kw">mth</span>)
-</pre></div>
+<span class="va">mth</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_date</a></span><span class="op">(</span><span class="st">"2018"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>mth <span class="op">=</span> <span class="va">mth</span>, index <span class="op">=</span> <span class="va">mth</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1D]
 #&gt;   mth       
 #&gt;   &lt;date&gt;    
@@ -139,8 +137,7 @@
 #&gt; 4 2018-04-01</code></pre>
 <p>The interval depends on the index class. It is unclear in this situation to tell if it’s daily data with implicit missingness or it’s monthly data. If using <code>Date</code> underlying monthly data, each month could range from 28 to 31 days, which isn’t regularly spaced. But class <code>yearmonth</code> puts emphasis on 12 months per year, which is clearly regularly spaced and the accurate representation for aggregations over months. This applies to <code>POSIXct</code> for sub-daily data, <code>Date</code> for daily, <code>yearquarter</code> for quarterly, and etc. If you encounter this error “Can’t obtain the interval due to mismatched index class.”, it’s the same underlying issue.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(mth = <span class="fu"><a href="../reference/yearmonth.html">yearmonth</a></span>(<span class="kw">mth</span>), index = <span class="kw">mth</span>)
-</pre></div>
+<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>mth <span class="op">=</span> <span class="fu"><a href="../reference/yearmonth.html">yearmonth</a></span><span class="op">(</span><span class="va">mth</span><span class="op">)</span>, index <span class="op">=</span> <span class="va">mth</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1M]
 #&gt;        mth
 #&gt;      &lt;mth&gt;
@@ -154,10 +151,9 @@
 </blockquote>
 <p>Yes, tsibble respects time zones throughout the package. All index functions including <code><a href="../reference/yearweek.html">yearweek()</a></code>, <code><a href="../reference/yearmonth.html">yearmonth()</a></code>, <code><a href="../reference/yearquarter.html">yearquarter()</a></code>, and <code><a href="../reference/time_in.html">time_in()</a></code> take care of time zones, and will NOT convert to “UTC”. The interval obtained from the data also respects the time zone, by converting to seconds. The following example demonstrates how tsibble handles daylight savings.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_h</a></span>(<span class="st">"2015-04-05 01"</span>, tz = <span class="st">"Australia/Melbourne"</span>)
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_h</a></span><span class="op">(</span><span class="st">"2015-04-05 01"</span>, tz <span class="op">=</span> <span class="st">"Australia/Melbourne"</span><span class="op">)</span>
 <span class="co"># base arithmetic respect tz</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(time = <span class="kw">x</span> <span class="op">+</span> (<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">9</span>)) <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span>, index = <span class="kw">time</span>)
-</pre></div>
+<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span>, index <span class="op">=</span> <span class="va">time</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [3h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             
@@ -167,8 +163,7 @@
 #&gt; 4 2015-04-05 09:00:00</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># lubridate arithmetic doesn't respect tz</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(time = <span class="kw">x</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">9</span>)), index = <span class="kw">time</span>)
-</pre></div>
+<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>, index <span class="op">=</span> <span class="va">time</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 1 [1h] &lt;Australia/Melbourne&gt;
 #&gt;   time               
 #&gt;   &lt;dttm&gt;             
@@ -182,12 +177,11 @@
 <p><em>I have multiple units measured at different time intervals. Can I put them into one tsibble?</em></p>
 </blockquote>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">tsbl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(
-  time = <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(<span class="fl">2018</span>) <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span>(<span class="fl">0</span><span class="op">:</span><span class="fl">3</span>),
-  station = <span class="st">"A"</span>,
-  index = <span class="kw">time</span>, key = <span class="kw">station</span>
-) <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>()
-</pre></div>
+<span class="va">tsbl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="fl">2018</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,
+  station <span class="op">=</span> <span class="st">"A"</span>,
+  index <span class="op">=</span> <span class="va">time</span>, key <span class="op">=</span> <span class="va">station</span>
+<span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 2 [1h] &lt;UTC&gt;
 #&gt; # Key:       station [1]
 #&gt;   time                station
@@ -197,12 +191,11 @@
 #&gt; 3 2018-01-01 02:00:00 A      
 #&gt; 4 2018-01-01 03:00:00 A</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw">tsbl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsibble.html">tsibble</a></span>(
-  time = <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(<span class="fl">2018</span>) <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">90</span>, by = <span class="fl">30</span>)),
-  station = <span class="st">"B"</span>,
-  index = <span class="kw">time</span>, key = <span class="kw">station</span>
-) <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>()
-</pre></div>
+<span class="va">tsbl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="fl">2018</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">90</span>, by <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span>,
+  station <span class="op">=</span> <span class="st">"B"</span>,
+  index <span class="op">=</span> <span class="va">time</span>, key <span class="op">=</span> <span class="va">station</span>
+<span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 2 [30m] &lt;UTC&gt;
 #&gt; # Key:       station [1]
 #&gt;   time                station
@@ -212,8 +205,7 @@
 #&gt; 3 2018-01-01 01:00:00 B      
 #&gt; 4 2018-01-01 01:30:00 B</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">tsbl1</span>, <span class="kw">tsbl2</span>)
-</pre></div>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">tsbl1</span>, <span class="va">tsbl2</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 8 x 2 [30m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station
@@ -232,13 +224,12 @@
 <p><em>I have multiple units measured at the same time interval. But the tsibble interval doesn’t look correct.</em></p>
 </blockquote>
 <div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(<span class="fl">2018</span>) <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span>(<span class="fl">0</span><span class="op">:</span><span class="fl">1</span>)
-<span class="kw">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(  
-  time = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">x</span>, <span class="kw">x</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span>(<span class="fl">15</span>)),
-  station = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="fl">2</span>)
-)
-<span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span>(<span class="kw">tbl</span>, index = <span class="kw">time</span>, key = <span class="kw">station</span>)
-</pre></div>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="fl">2018</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>  
+  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span><span class="op">)</span>,
+  station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl</span>, index <span class="op">=</span> <span class="va">time</span>, key <span class="op">=</span> <span class="va">station</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 2 [1m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station
@@ -249,10 +240,9 @@
 #&gt; 4 2018-01-01 00:16:00 B</code></pre>
 <p>Each station shares the common 15-minute interval, but the date-times don’t align. Rounding them is a quick way to fix it, if binning time doesn’t matter to the analysis. If it does, please organise them in different tables.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="kw">tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(time = <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span>(<span class="kw">time</span>, unit = <span class="st">"15 mins"</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span>(index = <span class="kw">time</span>, key = <span class="kw">station</span>)
-</pre></div>
+<span class="va">tbl</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">time</span>, unit <span class="op">=</span> <span class="st">"15 mins"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">time</span>, key <span class="op">=</span> <span class="va">station</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 4 x 2 [15m] &lt;UTC&gt;
 #&gt; # Key:       station [2]
 #&gt;   time                station

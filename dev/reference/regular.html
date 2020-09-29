@@ -174,11 +174,11 @@ is_ordered checks if a tsibble is ordered by key and index.
 
     </div>
 
-    <pre class="usage"><span class='fu'>interval</span>(<span class='kw'>x</span>)
+    <pre class="usage"><span class='fu'>interval</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is_regular</span>(<span class='kw'>x</span>)
+<span class='fu'>is_regular</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is_ordered</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>is_ordered</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,9 +191,9 @@ is_ordered checks if a tsibble is ordered by key and index.
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interval</span>(<span class='kw'>pedestrian</span>)
-</div><div class='output co'>#&gt; <span class='warning'>Warning: tz(): Don't know how to compute timezone for object of class tbl_ts/tbl_df/tbl/data.frame; returning "UTC". This warning will become an error in the next major version of lubridate.</span></div><div class='output co'>#&gt; &lt;Interval[0]&gt;</div><div class='input'><span class='fu'>is_regular</span>(<span class='kw'>pedestrian</span>)
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span>(<span class='kw'>pedestrian</span>)
+    <pre class="examples"><div class='input'><span class='fu'>interval</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: tz(): Don't know how to compute timezone for object of class tbl_ts/tbl_df/tbl/data.frame; returning "UTC". This warning will become an error in the next major version of lubridate.</span></div><div class='output co'>#&gt; &lt;Interval[0]&gt;</div><div class='input'><span class='fu'>is_regular</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_ordered</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

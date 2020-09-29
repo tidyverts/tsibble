@@ -121,13 +121,12 @@
 <a href="#contextual-semantics-index-and-key" class="anchor"></a>Contextual semantics: index and key</h2>
 <p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a tsibble object, and <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code> is an S3 method to coerce other objects to a tsibble. An object that a vector/matrix underlies, such as <code>ts</code> and <code>mts</code>, can be automated to a tsibble using <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code> without any specification. If it is a tibble or data frame, <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code> requires a little more setup in order to declare the index and key variables.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org">lubridate</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tsibble.tidyverts.org">tsibble</a></span>)
-<span class="kw">weather</span> <span class="op">&lt;-</span> <span class="kw">nycflights13</span>::<span class="kw"><a href="https://rdrr.io/pkg/nycflights13/man/weather.html">weather</a></span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">origin</span>, <span class="kw">time_hour</span>, <span class="kw">temp</span>, <span class="kw">humid</span>, <span class="kw">precip</span>)
-<span class="kw">weather</span>
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
+<span class="va">weather</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/weather.html">weather</a></span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">time_hour</span>, <span class="va">temp</span>, <span class="va">humid</span>, <span class="va">precip</span><span class="op">)</span>
+<span class="va">weather</span></pre></div>
 <pre><code>#&gt; # A tibble: 26,115 x 5
 #&gt;   origin time_hour            temp humid precip
 #&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -140,12 +139,10 @@
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only column involving the timestamps, <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code> defaults it to the index variable; alternatively, the index can be specified by the argument <code>index = time_hour</code> to disable the verbose message.</p>
 <p>Except for index, a tsibble requires “key”, which defines subjects or individuals measured over time. In this example, the <code>origin</code> variable is the identifier, which is passed to the argument <code>key</code> in <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code>. <strong>Each observation should be uniquely identified by index and key</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. When creating a tsibble, the key will be sorted first, followed by arranging time from past to recent.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">weather_tsbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span>(<span class="kw">weather</span>, key = <span class="kw">origin</span>)
-</pre></div>
+<span class="va">weather_tsbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">weather</span>, key <span class="op">=</span> <span class="va">origin</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; Using `time_hour` as index variable.</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">weather_tsbl</span>
-</pre></div>
+<span class="va">weather_tsbl</span></pre></div>
 <pre><code>#&gt; # A tsibble: 26,115 x 5 [1h] &lt;America/New_York&gt;
 #&gt; # Key:       origin [3]
 #&gt;   origin time_hour            temp humid precip
@@ -183,14 +180,13 @@
 <a href="#data-pipeline" class="anchor"></a>Data pipeline</h2>
 <p>This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common temporal analysis tasks. For example, <code><a href="../reference/index_by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index_by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from the index <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">weather_tsbl</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span>() <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/index_by.html">index_by</a></span>(date = <span class="op">~</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span>(<span class="kw">.</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(
-    temp_high = <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">temp</span>, na.rm = <span class="fl">TRUE</span>),
-    temp_low = <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="kw">temp</span>, na.rm = <span class="fl">TRUE</span>)
-  )
-</pre></div>
+<span class="va">weather_tsbl</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/index_by.html">index_by</a></span><span class="op">(</span>date <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    temp_high <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">temp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    temp_low <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">temp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">)</span></pre></div>
 <pre><code>#&gt; # A tsibble: 1,092 x 4 [1D]
 #&gt; # Key:       origin [3]
 #&gt;   origin date       temp_high temp_low
@@ -207,20 +203,18 @@
 <a href="#irregular-time-interval" class="anchor"></a>Irregular time interval</h2>
 <p>Note that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see <code><a href="../reference/tsibble.html">?tsibble</a></code>). The option <code>regular</code>, by default, is set to <code>TRUE</code> in <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code>. Specify <code>regular</code> to <code>FALSE</code> to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">flights</span> <span class="op">&lt;-</span> <span class="kw">nycflights13</span>::<span class="kw"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(sched_dep_datetime = 
-    <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span>(<span class="kw">year</span>, <span class="kw">month</span>, <span class="kw">day</span>, <span class="kw">hour</span>, <span class="kw">minute</span>, tz = <span class="st">"America/New_York"</span>))
-</pre></div>
+<span class="va">flights</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sched_dep_datetime <span class="op">=</span> 
+    <span class="fu"><a href="http://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p>The key contains columns <code>carrier</code> and <code>flight</code> to identify observational units over time, from a passenger’s point of view. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">flights_tsbl</span> <span class="op">&lt;-</span> <span class="kw">flights</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span>(
-    key = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">carrier</span>, <span class="kw">flight</span>), 
-    index = <span class="kw">sched_dep_datetime</span>, 
-    regular = <span class="fl">FALSE</span>
-  )
-<span class="kw">flights_tsbl</span>
-</pre></div>
+<span class="va">flights_tsbl</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/as_tsibble.html">as_tsibble</a></span><span class="op">(</span>
+    key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">carrier</span>, <span class="va">flight</span><span class="op">)</span>, 
+    index <span class="op">=</span> <span class="va">sched_dep_datetime</span>, 
+    regular <span class="op">=</span> <span class="cn">FALSE</span>
+  <span class="op">)</span>
+<span class="va">flights_tsbl</span></pre></div>
 <pre><code>#&gt; # A tsibble: 336,776 x 20 [!] &lt;America/New_York&gt;
 #&gt; # Key:       carrier, flight [5,725]
 #&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time

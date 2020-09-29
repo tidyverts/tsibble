@@ -162,9 +162,9 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_tsibble</span>(<span class='kw'>x</span>)
+    <pre class="usage"><span class='fu'>is_tsibble</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is_grouped_ts</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>is_grouped_ts</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,15 +181,15 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># A tibble is not a tsibble ----</span>
-<span class='kw'>tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  date = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-10-01"</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-10-31"</span>), by = <span class='fl'>1</span>),
-  value = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>31</span>)
-)
-<span class='fu'>is_tsibble</span>(<span class='kw'>tbl</span>)
+<span class='va'>tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-10-01"</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-10-31"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>31</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'>is_tsibble</span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># A tsibble ----</span>
-<span class='kw'>tsbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_tsibble.html'>as_tsibble</a></span>(<span class='kw'>tbl</span>, index = <span class='kw'>date</span>)
-<span class='fu'>is_tsibble</span>(<span class='kw'>tsbl</span>)
+<span class='va'>tsbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_tsibble.html'>as_tsibble</a></span><span class='op'>(</span><span class='va'>tbl</span>, index <span class='op'>=</span> <span class='va'>date</span><span class='op'>)</span>
+<span class='fu'>is_tsibble</span><span class='op'>(</span><span class='va'>tsbl</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

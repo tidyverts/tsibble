@@ -162,7 +162,7 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>group_by_key</span>(<span class='kw'>.data</span>, <span class='kw'>...</span>, .drop = <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='kw'>.data</span>))</pre>
+    <pre class="usage"><span class='fu'>group_by_key</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, .drop <span class='op'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span><span class='op'>(</span><span class='va'>.data</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,8 +185,8 @@ grouped with <code>.drop = FALSE</code>. See <code><a href='https://dplyr.tidyve
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>tourism</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>group_by_key</span>()
+    <pre class="examples"><div class='input'><span class='va'>tourism</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>group_by_key</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Region, State, Purpose [304]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Region, State, Purpose [304]</span><span>

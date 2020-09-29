@@ -166,17 +166,17 @@ for creating a <code>tbl_ts</code> internally inside a function, and it allows d
 determine if the time needs ordering and the interval needs calculating.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsibble</span>(
-  <span class='kw'>x</span>,
-  key = <span class='kw'>NULL</span>,
-  key_data = <span class='kw'>NULL</span>,
-  <span class='kw'>index</span>,
-  index2 = <span class='kw'>index</span>,
-  ordered = <span class='kw'>NULL</span>,
-  interval = <span class='fl'>TRUE</span>,
-  validate = <span class='fl'>TRUE</span>,
-  .drop = <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='kw'>x</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>build_tsibble</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  key <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key_data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>index</span>,
+  index2 <span class='op'>=</span> <span class='va'>index</span>,
+  ordered <span class='op'>=</span> <span class='cn'>NULL</span>,
+  interval <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  validate <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .drop <span class='op'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,11 +231,11 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Prepare `pedestrian` to use a new index `Date` ----</span>
-<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>build_tsibble</span>(
-    key = <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='key.html'>key_vars</a></span>(<span class='kw'>.</span>), index = <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='index.html'>index</a></span>(<span class='kw'>.</span>), index2 = <span class='kw'>Date</span>,
-    interval = <span class='fu'><a href='interval.html'>interval</a></span>(<span class='kw'>.</span>)
-  )
+<span class='va'>pedestrian</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>build_tsibble</span><span class='op'>(</span>
+    key <span class='op'>=</span> <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='key.html'>key_vars</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, index <span class='op'>=</span> <span class='op'>!</span><span class='op'>!</span><span class='fu'><a href='index.html'>index</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, index2 <span class='op'>=</span> <span class='va'>Date</span>,
+    interval <span class='op'>=</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>
+  <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    @ Date [731]</span><span>

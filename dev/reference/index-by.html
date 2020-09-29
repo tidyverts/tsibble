@@ -172,7 +172,7 @@ of the index, similar to <code><a href='https://dplyr.tidyverse.org/reference/gr
 the new index. Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup()</a></code> to remove the index grouping vars.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>index_by</span>(<span class='kw'>.data</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>index_by</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,7 +211,7 @@ displaying on the screen.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span> <span class='fu'>index_by</span>()
+    <pre class="examples"><div class='input'><span class='va'>pedestrian</span> <span class='op'>%&gt;%</span> <span class='fu'>index_by</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    @ Date_Time [17,542]</span><span>
@@ -228,15 +228,15 @@ displaying on the screen.</p></li>
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>08:00:00</span><span> 2015-01-01     8   113
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166
 #&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'><span class='co'># Monthly counts across sensors</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts = <span class='fl'>FALSE</span>)
-<span class='kw'>monthly_ped</span> <span class='op'>&lt;-</span> <span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span>(Year_Month = <span class='op'>~</span> <span class='fu'><a href='yearmonth.html'>yearmonth</a></span>(<span class='kw'>.</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
-    Max_Count = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>Count</span>),
-    Min_Count = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>Count</span>)
-  )
-<span class='kw'>monthly_ped</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>monthly_ped</span> <span class='op'>&lt;-</span> <span class='va'>pedestrian</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Year_Month <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='yearmonth.html'>yearmonth</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    Max_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span>,
+    Min_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='va'>monthly_ped</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 95 x 4 [1M]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Year_Month Max_Count Min_Count
@@ -251,16 +251,16 @@ displaying on the screen.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> Birrarung Marr   2015 Aug      </span><span style='text-decoration: underline;'>5</span><span>684         0
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr   2015 Sep      </span><span style='text-decoration: underline;'>7</span><span>757         0
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr   2015 Oct      </span><span style='text-decoration: underline;'>7</span><span>085         1
-#&gt; </span><span style='color: #555555;'># … with 85 more rows</span><span></div><div class='input'><span class='fu'><a href='index.html'>index</a></span>(<span class='kw'>monthly_ped</span>)
+#&gt; </span><span style='color: #555555;'># … with 85 more rows</span><span></div><div class='input'><span class='fu'><a href='index.html'>index</a></span><span class='op'>(</span><span class='va'>monthly_ped</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Year_Month</div><div class='input'>
 <span class='co'># Using existing variable</span>
-<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span>(<span class='kw'>Date</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(
-    Max_Count = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>Count</span>),
-    Min_Count = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>Count</span>)
-  )
+<span class='va'>pedestrian</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    Max_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span>,
+    Min_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span>
+  <span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 2,752 x 4 [1D]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date       Max_Count Min_Count
@@ -277,10 +277,10 @@ displaying on the screen.</p></li>
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-10      </span><span style='text-decoration: underline;'>2</span><span>439        10
 #&gt; </span><span style='color: #555555;'># … with 2,742 more rows</span><span></div><div class='input'>
 <span class='co'># Attempt to aggregate to 4-hour interval, with the effects of DST</span>
-<span class='kw'>pedestrian</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span>() <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span>(Date_Time4 = <span class='op'>~</span> <span class='kw'>lubridate</span>::<span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span>(<span class='kw'>.</span>, <span class='st'>"4 hour"</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(Total_Count = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>Count</span>))
+<span class='va'>pedestrian</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='group_by_key.html'>group_by_key</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Date_Time4 <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='st'>"4 hour"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Total_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 16,512 x 3 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time4          Total_Count
@@ -296,12 +296,12 @@ displaying on the screen.</p></li>
 #&gt; </span><span style='color: #555555;'> 9</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>08:00:00</span><span>        </span><span style='text-decoration: underline;'>1</span><span>193
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-02 </span><span style='color: #555555;'>12:00:00</span><span>         822
 #&gt; </span><span style='color: #555555;'># … with 16,502 more rows</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://lubridate.tidyverse.org'>lubridate</a></span>, warn.conflicts = <span class='fl'>FALSE</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># Annual trips by Region and State</span>
-<span class='kw'>tourism</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span>(Year = <span class='op'>~</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='kw'>.</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>Region</span>, <span class='kw'>State</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(Total = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>Trips</span>))
+<span class='va'>tourism</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Year <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Region</span>, <span class='va'>State</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Total <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Trips</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 1,520 x 4 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Region, State [76]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Region [76]</span><span>
@@ -319,13 +319,13 @@ displaying on the screen.</p></li>
 #&gt; </span><span style='color: #555555;'>10</span><span> Adelaide South Australia  </span><span style='text-decoration: underline;'>2</span><span>007 </span><span style='text-decoration: underline;'>2</span><span>317.
 #&gt; </span><span style='color: #555555;'># … with 1,510 more rows</span><span></div><div class='input'>
 <span class='co'># Rouding to financial year, using a custom function</span>
-<span class='kw'>financial_year</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>date</span>) {
-  <span class='kw'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='kw'>date</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/quarter.html'>quarter</a></span>(<span class='kw'>date</span>) <span class='op'>&lt;=</span> <span class='fl'>2</span>, <span class='kw'>year</span>, <span class='kw'>year</span> <span class='op'>+</span> <span class='fl'>1</span>)
-}
-<span class='kw'>tourism</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span>(Year = <span class='op'>~</span> <span class='fu'>financial_year</span>(<span class='kw'>.</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(Total = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>Trips</span>))
+<span class='va'>financial_year</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/quarter.html'>quarter</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>2</span>, <span class='va'>year</span>, <span class='va'>year</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>tourism</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Year <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>financial_year</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Total <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Trips</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `Year`.</span>
 #&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> could not find function "financial_year"</span>
 #&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `Year` is `f(Quarter)`.</span></div></span></pre>

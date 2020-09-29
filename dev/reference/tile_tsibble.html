@@ -162,7 +162,7 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>tile_tsibble</span>(<span class='kw'>.x</span>, .size = <span class='fl'>1</span>, .id = <span class='st'>".id"</span>)</pre>
+    <pre class="usage"><span class='fu'>tile_tsibble</span><span class='op'>(</span><span class='va'>.x</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .id <span class='op'>=</span> <span class='st'>".id"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,14 +201,14 @@ large.</p>
 <code><a href='stretch_tsibble.html'>stretch_tsibble</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>harvest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  year = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span>, <span class='fl'>2</span>),
-  fruit = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), each = <span class='fl'>3</span>),
-  kilo = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size = <span class='fl'>6</span>),
-  key = <span class='kw'>fruit</span>, index = <span class='kw'>year</span>
-)
-<span class='kw'>harvest</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>tile_tsibble</span>(.size = <span class='fl'>2</span>)
+    <pre class="examples"><div class='input'><span class='va'>harvest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span><span class='op'>(</span>
+  year <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  fruit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
+  kilo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>,
+  key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span>
+<span class='op'>)</span>
+<span class='va'>harvest</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>tile_tsibble</span><span class='op'>(</span>.size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 6 x 4 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       .id, fruit [4]</span><span>
 #&gt;    year fruit   kilo   .id
