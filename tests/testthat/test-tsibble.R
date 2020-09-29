@@ -435,3 +435,8 @@ test_that("update_tsibble() for different index and index2", {
     "Date"
   )
 })
+
+test_that("build_tsibble() zero slices of grouped tsibbles don't crash #194", {
+  ped2 <- pedestrian %>% group_by(Sensor)
+  expect_equal(nrow(ped2[0,]), 0L)
+})
