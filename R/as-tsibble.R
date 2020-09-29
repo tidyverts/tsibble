@@ -213,7 +213,7 @@ as_tsibble.NULL <- function(x, ...) {
 #'   update_tsibble(index = Hour_Since)
 #'
 #' # update key: drop the variable "State" from the key
-#' tourism %>% 
+#' tourism %>%
 #'   update_tsibble(key = c(Purpose, Region))
 update_tsibble <- function(x, key, index, regular = is_regular(x),
                            validate = TRUE, .drop = key_drop_default(x)) {
@@ -302,7 +302,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
   # arrange index from past to future for each key value
-  if (vec_size(tbl) == 0 || is_null(ordered)) { # first time to create a tsibble
+  if ((vec_size(tbl) == 0 || is_null(ordered)) && nrow(tbl) > 0) { # first time to create a tsibble
     tbl <- arrange(tbl, !!!syms(key_vars), !!sym(index))
     ordered <- TRUE
   }
@@ -469,7 +469,7 @@ validate_tsibble <- function(data, key, index, key_data = NULL) {
   is_dup <- duplicated_key_index(data, key, index, key_data)
   if (is_dup) {
     abort(c(
-      "A valid tsibble must have distinct rows identified by key and index.", 
+      "A valid tsibble must have distinct rows identified by key and index.",
       i = "Please use `duplicates()` to check the duplicated rows."))
   }
   data
