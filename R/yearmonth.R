@@ -66,7 +66,7 @@ yearmonth.Date <- function(x) {
 #' @export
 yearmonth.character <- function(x) {
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
-  search_expr <- "^[[:digit:]]{1~4}[[:space:]]*(m|mon|month)[[:space:]]*[[:digit:]]{1~4}$"
+  search_expr <- "^[[:digit:]]{1~4}(m|mon|month)[[:digit:]]{1~4}$"
   if (all(grepl(search_expr, key_words, ignore.case = TRUE))) {
     yr_mon <- regmatches(x, gregexpr("[[:digit:]]+", x))
     digits_lgl <- map_lgl(yr_mon, ~ !has_length(.x, 2))
