@@ -2,6 +2,7 @@
 
 * Dropped the support of `summarise_all()`, and made `dplyr::across()` compatible with `summarise.tbl_ts()`.
 * Defunct rolling functions in favour of {slider}.
+* Added input support for `%Y M%M` format to `yearmonth()`. (#142)
 
 # tsibble 0.9.2
 
