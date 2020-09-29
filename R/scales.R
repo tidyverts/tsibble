@@ -32,6 +32,15 @@ yearquarter_trans <- function() {
   )
 }
 
+yearquarter_get_breaks <- function(self, limits = self$get_limits()) {
+  breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
+
+  # (non-)redundant censoring because of non-invertibility of transforms
+  breaks <- scales::censor(breaks, limits, only.finite = FALSE)
+
+  breaks
+}
+
 yearquarter_breaks <- function(n = 5) {
   force(n)
   function(x) {
@@ -48,7 +57,9 @@ fullseq.yearquarter <- function(range, size, ...) {
 scale_x_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_x_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks
+    )
 }
 
 #' @rdname tsibble-scales
@@ -56,7 +67,8 @@ scale_x_yearquarter <- function(...) {
 scale_y_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_y_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -65,7 +77,8 @@ scale_y_yearquarter <- function(...) {
 scale_colour_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_colour_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -79,7 +92,8 @@ scale_color_yearquarter <- scale_colour_yearquarter
 scale_alpha_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_alpha_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -88,7 +102,8 @@ scale_alpha_yearquarter <- function(...) {
 scale_fill_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_fill_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -97,7 +112,8 @@ scale_fill_yearquarter <- function(...) {
 scale_size_yearquarter <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearquarter", ggplot2::scale_size_date(...),
-    trans = yearquarter_trans())
+    trans = yearquarter_trans(),
+    get_breaks = yearquarter_get_breaks)
 }
 
 scale_type.yearmonth <- function(x) c("yearmonth", "date", "continuous")
@@ -115,6 +131,8 @@ yearmonth_trans <- function() {
   )
 }
 
+yearmonth_get_breaks <- yearquarter_get_breaks
+
 yearmonth_breaks <- function(n = 5) {
   force(n)
   function(x) {
@@ -131,7 +149,8 @@ fullseq.yearmonth <- function(range, size, ...) {
 scale_x_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_x_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -139,7 +158,8 @@ scale_x_yearmonth <- function(...) {
 scale_y_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_y_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -148,7 +168,8 @@ scale_y_yearmonth <- function(...) {
 scale_colour_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_colour_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -162,7 +183,8 @@ scale_color_yearmonth <- scale_colour_yearmonth
 scale_alpha_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_alpha_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -171,7 +193,8 @@ scale_alpha_yearmonth <- function(...) {
 scale_fill_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_fill_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -180,7 +203,8 @@ scale_fill_yearmonth <- function(...) {
 scale_size_yearmonth <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearmonth", ggplot2::scale_size_date(...),
-    trans = yearmonth_trans())
+    trans = yearmonth_trans(),
+    get_breaks = yearmonth_get_breaks)
 }
 
 scale_type.yearweek <- function(x) c("yearweek", "date", "continuous")
@@ -198,6 +222,8 @@ yearweek_trans <- function() {
   )
 }
 
+yearweek_get_breaks <- yearquarter_get_breaks
+
 yearweek_breaks <- function(n = 5) {
   force(n)
   function(x) {
@@ -214,7 +240,8 @@ fullseq.yearweek <- function(range, size, ...) {
 scale_x_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_x_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -222,7 +249,8 @@ scale_x_yearweek <- function(...) {
 scale_y_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_y_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -231,7 +259,8 @@ scale_y_yearweek <- function(...) {
 scale_colour_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_colour_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -245,7 +274,8 @@ scale_color_yearweek <- scale_colour_yearweek
 scale_alpha_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_alpha_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -254,7 +284,8 @@ scale_alpha_yearweek <- function(...) {
 scale_fill_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_fill_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 #' @rdname tsibble-scales
@@ -263,7 +294,8 @@ scale_fill_yearweek <- function(...) {
 scale_size_yearweek <- function(...) {
   scale_fun_pkg_check()
   ggplot2::ggproto("ScaleContinuousYearweek", ggplot2::scale_size_date(...),
-    trans = yearweek_trans())
+    trans = yearweek_trans(),
+    get_breaks = yearweek_get_breaks)
 }
 
 # nocov end
