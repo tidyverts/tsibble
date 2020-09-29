@@ -33,12 +33,9 @@ yearquarter_trans <- function() {
 }
 
 yearquarter_get_breaks <- function(self, limits = self$get_limits()) {
-  breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
-
+  breaks <- ggplot2::ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
   # (non-)redundant censoring because of non-invertibility of transforms
-  breaks <- scales::censor(breaks, limits, only.finite = FALSE)
-
-  breaks
+  scales::censor(breaks, limits, only.finite = FALSE)
 }
 
 yearquarter_breaks <- function(n = 5) {
