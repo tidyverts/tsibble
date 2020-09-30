@@ -301,11 +301,9 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
   if (!is_empty(is_index_in_keys)) {
     abort(sprintf("Column `%s` can't be both index and key.", idx_chr[[1]]))
   }
-  # tibbles with no rows are trivially ordered
-  nr <- vec_size(tbl)
-  if (nr == 0) {
+  if (vec_size(tbl) == 0) { # tibbles with no rows are trivially ordered
     ordered <- TRUE
-  } else if ((nr == 0 || is_null(ordered))) { # first time to create a tsibble
+  } else if (is_null(ordered)) { # first time to create a tsibble
     # arrange index from past to future for each key value
     tbl <- arrange(tbl, !!!syms(key_vars), !!sym(index))
     ordered <- TRUE
