@@ -19,7 +19,10 @@ Authors@R:
       person(given = "Mitchell",
              family = "O'Hara-Wild",
              role = "aut",
-             comment = c(ORCID = "0000-0001-6729-7695")))
+             comment = c(ORCID = "0000-0001-6729-7695")),
+      person(given = "David",
+             family = "Holt",
+             role = "ctb"))
 Description: Provides a 'tbl_ts' class (the 'tsibble') for
     temporal data in an data- and model-oriented format. The 'tsibble'
     provides tools to easily manipulate and analyse temporal data, such as

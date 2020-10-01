@@ -65,8 +65,27 @@ yearmonth.Date <- function(x) {
 
 #' @export
 yearmonth.character <- function(x) {
-  assertDate(x)
-  new_yearmonth(anydate(x))
+  key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
+  search_expr <- "^[[:digit:]]{1~4}(m|mon|month)[[:digit:]]{1~4}$"
+  if (all(grepl(search_expr, key_words, ignore.case = TRUE))) {
+    yr_mon <- regmatches(x, gregexpr("[[:digit:]]+", x))
+    digits_lgl <- map_lgl(yr_mon, ~ !has_length(.x, 2))
+    digits_len <- map_int(yr_mon, ~ sum(nchar(.x)))
+    digits_ind <- nchar(flatten_chr(yr_mon))
+    if (any(digits_lgl) || any(digits_len < 5) || any(digits_len > 6) || 3 == digits_ind) {
+      abort("Character strings are not in a standard unambiguous format.")
+    }
+    yr_lgl <- map(yr_mon, ~ grepl("[[:digit:]]{4}", .x))
+    yr <- as.integer(map2_chr(yr_mon, yr_lgl, ~ .x[.y]))
+    mon <- as.integer(map2_chr(yr_mon, yr_lgl, ~ .x[!.y]))
+    if (any(mon > 12)) {
+      abort("Months can't be greater than 12.")
+    }
+    yearmonth(12 * (yr - 1970) + mon - 1)
+  } else {
+    assertDate(x)
+    new_yearmonth(anydate(x))
+  }
 }
 
 #' @export
