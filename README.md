@@ -9,8 +9,6 @@ status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](h
 [![Coverage
 Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adapting the [tidy data
@@ -71,7 +69,7 @@ for details.
 
 The **interval** is computed from index based on the representation,
 ranging from year to nanosecond, from numerics to ordered factors. The
-table below shows how tsibble interprets the common time formats.
+table below shows how tsibble interprets some common time formats.
 
 | **Interval** | **Class**                 |
 |--------------|---------------------------|
@@ -81,6 +79,9 @@ table below shows how tsibble interprets the common time formats.
 | Weekly       | `yearweek`                |
 | Daily        | `Date`/`difftime`         |
 | Subdaily     | `POSIXt`/`difftime`/`hms` |
+
+A full list of index classes supported by tsibble can be found in
+`package?tsibble`.
 
 ### `fill_gaps()` to turn implicit missing values into explicit missing values
 

@@ -11,7 +11,6 @@ output:
 [![R build status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
 [![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -59,7 +58,7 @@ weather_tsbl
 
 The **key** can be comprised of empty, one, or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](https://tsibble.tidyverts.org/articles/intro-tsibble.html) for details.
 
-The **interval** is computed from index based on the representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.
+The **interval** is computed from index based on the representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets some common time formats.
 
 | **Interval** | **Class**                 |
 |--------------|---------------------------|
@@ -69,6 +68,8 @@ The **interval** is computed from index based on the representation, ranging fro
 | Weekly       | `yearweek`                |
 | Daily        | `Date`/`difftime`         |
 | Subdaily     | `POSIXt`/`difftime`/`hms` |
+
+A full list of index classes supported by tsibble can be found in `package?tsibble`.
 
 ### `fill_gaps()` to turn implicit missing values into explicit missing values
 
