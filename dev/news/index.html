@@ -161,8 +161,10 @@
 <a href="#tsibble-093" class="anchor"></a>tsibble 0.9.3<small> Unreleased </small>
 </h1>
 <ul>
-<li>Dropped the support of <code><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all()</a></code>, and made <code><a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::across()</a></code> compatible with <code>summarise.tbl_ts()</code>.</li>
 <li>Defunct rolling functions in favour of {slider}.</li>
+<li>Dropped the support of <code><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all()</a></code>, and made <code><a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::across()</a></code> compatible with <code>summarise.tbl_ts()</code>.</li>
+<li>Fixed bug in custom ggplot scaling functions for out-of-limit breaks. (<a href='https://github.com/tidyverts/tsibble/issues/195'>#195</a>, <a href='https://github.com/tidyverts/tsibble/issues/219'>#219</a>, <a href='https://github.com/TylerGrantSmith'>@TylerGrantSmith</a>)</li>
+<li>Fixed crashing bug in <code>grouped_ts[0L, ]</code>. (<a href='https://github.com/tidyverts/tsibble/issues/194'>#194</a>, <a href='https://github.com/TylerGrantSmith'>@TylerGrantSmith</a>)</li>
 </ul>
 </div>
     <div id="tsibble-092" class="section level1">
