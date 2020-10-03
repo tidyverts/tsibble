@@ -233,7 +233,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 #&gt; </span><span style='color: #555555;'>10</span><span> Birrarung Marr 2015-01-01 </span><span style='color: #555555;'>09:00:00</span><span> 2015-01-01     9   166 32400 secs
 #&gt; </span><span style='color: #555555;'># … with 66,027 more rows</span><span></div><div class='input'>
 <span class='co'># update key: drop the variable "State" from the key</span>
-<span class='va'>tourism</span> <span class='op'>%&gt;%</span> 
+<span class='va'>tourism</span> <span class='op'>%&gt;%</span>
   <span class='fu'>update_tsibble</span><span class='op'>(</span>key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>Purpose</span>, <span class='va'>Region</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Purpose, Region [304]</span><span>

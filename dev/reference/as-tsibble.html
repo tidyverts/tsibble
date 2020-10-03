@@ -260,7 +260,7 @@ for the class and calculate the interval through <code><a href='interval_pull.ht
 <li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> uses <code>Sensor</code> as the key.</p></li>
 <li><p>Multiple variables: For example, Declare <code>key = c(Region, State, Purpose)</code>
 for <code><a href='https://rdrr.io/r/utils/data.html'>data(tourism)</a></code>.
-Key can be created in conjunction with tidy selectors like <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with()</a></code>.</p></li>
+Key can be created in conjunction with tidy selectors like <code>starts_with()</code>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
@@ -295,7 +295,7 @@ When the interval cannot be obtained due to the mismatched index format, an
 error is issued.</p></li>
 </ul>
 
-<p>The interval is invariant to subsetting, such as <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice()</a></code>, and <code>[.tbl_ts</code>.
+<p>The interval is invariant to subsetting, such as <code><a href='https://rdrr.io/r/stats/filter.html'>filter()</a></code>, <code>slice()</code>, and <code>[.tbl_ts</code>.
 However, if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.</p>
