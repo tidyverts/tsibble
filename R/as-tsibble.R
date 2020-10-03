@@ -513,8 +513,7 @@ as_tibble.tbl_ts <- function(x, ...) {
 }
 
 as_tibble.grouped_ts <- function(x, ...) {
-  new_tibble(vec_data(x), nrow = nrow(x),
-    groups = group_data(x), class = "grouped_df")
+  new_grouped_df(x, groups = group_data(x))
 }
 
 as_tibble.grouped_df <- function(x, ...) {
