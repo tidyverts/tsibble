@@ -69,7 +69,7 @@ if \code{.fill != NULL}, it always returns the same length as input.
 \description{
 \lifecycle{defunct}
 
-Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
+Please consider using the \href{https://davisvaughan.github.io/slider/}{slider} package.
 
 Fixing an initial window and expanding more observations:
 \itemize{

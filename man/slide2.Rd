@@ -143,7 +143,7 @@ names will be used if present.}
 \description{
 \lifecycle{defunct}
 
-Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
+Please consider using the \href{https://davisvaughan.github.io/slider/}{slider} package.
 
 Rolling window with overlapping observations:
 \itemize{

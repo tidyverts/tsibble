@@ -46,6 +46,6 @@ pedestrian \%>\%
   update_tsibble(index = Hour_Since)
 
 # update key: drop the variable "State" from the key
-tourism \%>\% 
+tourism \%>\%
   update_tsibble(key = c(Purpose, Region))
 }

@@ -53,7 +53,7 @@ Only applies to \verb{_dfr} variant.}
 \description{
 \lifecycle{defunct}
 
-Please consider using the \href{https://davisvaughan.github.io/slider}{slider} package.
+Please consider using the \href{https://davisvaughan.github.io/slider/}{slider} package.
 
 Tiling window without overlapping observations:
 \itemize{

@@ -127,4 +127,9 @@ Authors:
   \item Mitchell O'Hara-Wild (\href{https://orcid.org/0000-0001-6729-7695}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Tyler Smith [contributor]
+}
+
 }

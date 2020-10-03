@@ -8,7 +8,7 @@ nrow2 <- function(.x) {
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch()` always returns a list.
@@ -75,7 +75,7 @@ stretch_dfc <- function(.x, .f, ..., .step = 1, .init = 1, .fill = NA,
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Fixing an initial window and expanding more observations:
 #' * `stretch2()` and `pstretch()` always returns a list.

@@ -3,7 +3,7 @@
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile()` always returns a list.
@@ -56,7 +56,7 @@ tile_dfc <- function(.x, .f, ..., .size = 1, .bind = FALSE) {
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Tiling window without overlapping observations:
 #' * `tile2()` and `ptile()` always returns a list.

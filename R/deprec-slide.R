@@ -50,7 +50,7 @@ bad_step_function <- function(.step) {
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide()` always returns a list.
@@ -149,7 +149,7 @@ slide_dfc <- function(.x, .f, ..., .size = 1, .step = 1, .fill = NA,
 #' @description
 #' \lifecycle{defunct}
 #'
-#' Please consider using the [slider](https://davisvaughan.github.io/slider) package.
+#' Please consider using the [slider](https://davisvaughan.github.io/slider/) package.
 #'
 #' Rolling window with overlapping observations:
 #' * `slide2()` and `pslide()` always returns a list.

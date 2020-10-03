@@ -10,7 +10,7 @@ output:
 
 [![R build status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
 [![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ```{r, echo = FALSE}
@@ -57,7 +57,7 @@ weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
 weather_tsbl
 ```
 
-The **key** can be comprised of empty, one, or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](http://tsibble.tidyverts.org/articles/intro-tsibble.html) for details.
+The **key** can be comprised of empty, one, or more variables. See `package?tsibble` and [`vignette("intro-tsibble")`](https://tsibble.tidyverts.org/articles/intro-tsibble.html) for details.
 
 The **interval** is computed from index based on the representation, ranging from year to nanosecond, from numerics to ordered factors. The table below shows how tsibble interprets the common time formats.
 
