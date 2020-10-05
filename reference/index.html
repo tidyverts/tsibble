@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -186,7 +186,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-create-coerce-and-append-to-a-tsibble" class="hasAnchor"><a href="#section-create-coerce-and-append-to-a-tsibble" class="anchor"></a>Create/coerce and append to a tsibble</h2>
-          <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>.</p></p>
+          <p class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>.</p></p>
         </th>
       </tr>
       
@@ -235,7 +235,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-tsibble-verbs" class="hasAnchor"><a href="#section-tsibble-verbs" class="anchor"></a>Tsibble verbs</h2>
-          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
+          <p class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index_by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></p>
         </th>
       </tr>
       
@@ -328,7 +328,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-index-classes" class="hasAnchor"><a href="#section-index-classes" class="anchor"></a>Index classes</h2>
-          <p class="section-desc"><p>New S3 classes to reprent year-week, year-month, and year-quarter.</p></p>
+          <p class="section-desc"><p>New S3 classes to represent year-week, year-month, and year-quarter.</p></p>
         </th>
       </tr>
       
@@ -366,6 +366,12 @@
           <p><code><a href="guess_frequency.html">guess_frequency()</a></code> </p>
         </td>
         <td><p>Guess a time frequency from other index objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tsibble-scales.html">scale_x_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_y_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_x_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_y_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_x_yearweek()</a></code> <code><a href="tsibble-scales.html">scale_y_yearweek()</a></code> </p>
+        </td>
+        <td><p>tsibble scales for ggplot2</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -407,9 +413,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> </p>
+          <p><code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> <code><a href="key-data.html">key_size()</a></code> <code><a href="key-data.html">n_keys()</a></code> </p>
         </td>
-        <td><p>Keyed data</p></td>
+        <td><p>Key metadata</p></td>
       </tr><tr>
         
         <td>
@@ -433,7 +439,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-extend-tsibble" class="hasAnchor"><a href="#section-extend-tsibble" class="anchor"></a>Extend tsibble</h2>
-          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index classes with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval-pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of the tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
+          <p class="section-desc"><p>Add <strong>tsibble</strong> support for custom index classes with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval_pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of the tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></p>
         </th>
       </tr>
       
@@ -540,7 +546,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

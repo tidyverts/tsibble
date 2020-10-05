@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -162,9 +162,9 @@
     <p><code>key()</code> returns a list of symbols; <code>key_vars()</code> gives a character vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>key</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>key</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>key_vars</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>key_vars</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,10 +177,13 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>key</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='fu'>key</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; Sensor
-#&gt; </div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; [1] "Sensor"</div><div class='input'>
-<span class='fu'>key</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>key_vars</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Sensor"</div><div class='input'>
+<span class='fu'>key</span><span class='op'>(</span><span class='va'>tourism</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; Region
 #&gt; 
 #&gt; [[2]]
@@ -188,7 +191,8 @@
 #&gt; 
 #&gt; [[3]]
 #&gt; Purpose
-#&gt; </div><div class='input'><span class='fu'>key_vars</span>(<span class='no'>tourism</span>)</div><div class='output co'>#&gt; [1] "Region"  "State"   "Purpose"</div></pre>
+#&gt; </div><div class='input'><span class='fu'>key_vars</span><span class='op'>(</span><span class='va'>tourism</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Region"  "State"   "Purpose"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +208,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

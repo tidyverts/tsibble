@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>group_by_key</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span>(<span class='no'>.data</span>))</pre>
+    <pre class="usage"><span class='fu'>group_by_key</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, .drop <span class='op'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span><span class='op'>(</span><span class='va'>.data</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,15 +177,17 @@
     </tr>
     <tr>
       <th>.drop</th>
-      <td><p>When <code>.drop = TRUE</code>, empty groups are dropped. See <code><a href='https://dplyr.tidyverse.org/reference/group_by_drop_default.html'>group_by_drop_default()</a></code> for
-what the default value is for this argument.</p></td>
+      <td><p>Drop groups formed by factor levels that don't appear in the
+data? The default is <code>TRUE</code> except when <code>.data</code> has been previously
+grouped with <code>.drop = FALSE</code>. See <code><a href='https://dplyr.tidyverse.org/reference/group_by_drop_default.html'>group_by_drop_default()</a></code> for details.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>tourism</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>group_by_key</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+    <pre class="examples"><div class='input'><span class='va'>tourism</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>group_by_key</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Region, State, Purpose [304]</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:    Region, State, Purpose [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
@@ -216,7 +218,7 @@ what the default value is for this argument.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

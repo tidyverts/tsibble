@@ -104,7 +104,7 @@ tile2_dfr() tile2_dfc() return data frames using row-binding &amp;amp; column-bi
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -167,8 +167,8 @@ tile2_dfr() tile2_dfc() return data frames using row-binding &amp;amp; column-bi
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
-<p>Please consider using the <a href='https://davisvaughan.github.io/slider'>slider</a> package.</p>
+    <p><img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle' /></p>
+<p>Please consider using the <a href='https://davisvaughan.github.io/slider/'>slider</a> package.</p>
 <p>Tiling window without overlapping observations:</p><ul>
 <li><p><code>tile2()</code> and <code>ptile()</code> always returns a list.</p></li>
 <li><p><code>tile2_lgl()</code>, <code>tile2_int()</code>, <code>tile2_dbl()</code>, <code>tile2_chr()</code> use the same
@@ -178,17 +178,17 @@ arguments as <code>tile2()</code>, but return vectors of the corresponding type.
 
     </div>
 
-    <pre class="usage"><span class='fu'>tile2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>tile2</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>tile2_dfr</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>tile2_dfr</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span>, .id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>tile2_dfc</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>tile2_dfc</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ptile</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>ptile</span><span class='op'>(</span><span class='va'>.l</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ptile_dfr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>ptile_dfr</span><span class='op'>(</span><span class='va'>.l</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span>, .id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>ptile_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>ptile_dfc</span><span class='op'>(</span><span class='va'>.l</span>, <span class='va'>.f</span>, <span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,72 +254,6 @@ names will be used if present.</p></td>
     <div class='dont-index'><p>Other tiling window functions: 
 <code><a href='tile.html'>tile</a>()</code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
-<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>lst</span>)
-<span class='fu'>tile2</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 16
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 24
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 15
-#&gt; </div><div class='input'><span class='fu'>tile2</span>(<span class='no'>lst</span>, <span class='no'>lst</span>, ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[1]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>tile2</span>(<span class='no'>df</span>, <span class='no'>df</span>, ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;   x y  z
-#&gt; 1 1 6 11
-#&gt; 2 2 7 12
-#&gt; 
-#&gt; [[2]]
-#&gt;   x y  z
-#&gt; 3 3 8 13
-#&gt; 4 4 9 14
-#&gt; 
-#&gt; [[3]]
-#&gt;   x  y  z
-#&gt; 5 5 10 15
-#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='no'>lst</span>, <span class='no'>sum</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 18
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 21
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 24
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] 27
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] 30
-#&gt; </div><div class='input'><span class='fu'>ptile</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>lst</span>, <span class='no'>lst</span>), ~<span class='no'>.</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[1]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -335,7 +269,7 @@ names will be used if present.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

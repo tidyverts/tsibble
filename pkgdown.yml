@@ -1,11 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   faq: faq.html
   implicit-na: implicit-na.html
   intro-tsibble: intro-tsibble.html
-last_built: 2020-07-24T10:16Z
+last_built: 2020-10-05T20:59Z
 urls:
   reference: https://tsibble.tidyverts.org/reference
   article: https://tsibble.tidyverts.org/articles

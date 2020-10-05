@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
     <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>tile_tsibble</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='st'>".id"</span>)</pre>
+    <pre class="usage"><span class='fu'>tile_tsibble</span><span class='op'>(</span><span class='va'>.x</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .id <span class='op'>=</span> <span class='st'>".id"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,23 +201,24 @@ large.</p>
 <code><a href='stretch_tsibble.html'>stretch_tsibble</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>harvest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2010</span>:<span class='fl'>2012</span>, <span class='fl'>2</span>),
-  <span class='kw'>fruit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-  <span class='kw'>kilo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>6</span>),
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>fruit</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='no'>year</span>
-)
-<span class='no'>harvest</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>tile_tsibble</span>(<span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 6 x 4 [1Y]</span><span>
+    <pre class="examples"><div class='input'><span class='va'>harvest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span><span class='op'>(</span>
+  year <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  fruit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"kiwi"</span>, <span class='st'>"cherry"</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
+  kilo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>,
+  key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span>
+<span class='op'>)</span>
+<span class='va'>harvest</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>tile_tsibble</span><span class='op'>(</span>.size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 6 x 4 [1Y]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       .id, fruit [4]</span><span>
 #&gt;    year fruit   kilo   .id
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 cherry     4     1
-#&gt; </span><span style='color: #555555;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     3     1
-#&gt; </span><span style='color: #555555;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       2     1
-#&gt; </span><span style='color: #555555;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       5     1
-#&gt; </span><span style='color: #555555;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     8     2
-#&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi      10     2</div></span></pre>
+#&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 cherry     1     1
+#&gt; </span><span style='color: #555555;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 cherry     2     1
+#&gt; </span><span style='color: #555555;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010 kiwi       3     1
+#&gt; </span><span style='color: #555555;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011 kiwi       4     1
+#&gt; </span><span style='color: #555555;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 cherry     5     2
+#&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012 kiwi       6     2</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -233,7 +234,7 @@ large.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

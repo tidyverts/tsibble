@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
     <p>Scan a tsibble for implicit missing observations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scan_gaps</span>(<span class='no'>.data</span>, <span class='kw'>.full</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>scan_gaps</span><span class='op'>(</span><span class='va'>.data</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,7 +190,8 @@
 <code><a href='has_gaps.html'>has_gaps</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>scan_gaps</span>(<span class='no'>pedestrian</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 3,011 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>scan_gaps</span><span class='op'>(</span><span class='va'>pedestrian</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 3,011 x 2 [1h] &lt;Australia/Melbourne&gt;</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       Sensor [4]</span><span>
 #&gt;    Sensor         Date_Time          
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>             
@@ -220,7 +221,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

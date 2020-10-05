@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -162,9 +162,9 @@
     <p>Splits the input to a list according to the tiling window size.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tiler</span>(<span class='no'>.x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>tiler</span><span class='op'>(</span><span class='va'>.x</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ptiler</span>(<span class='no'>...</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>ptiler</span><span class='op'>(</span><span class='va'>...</span>, .size <span class='op'>=</span> <span class='fl'>1</span>, .bind <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,117 +190,6 @@ to a list of data frames.</p></td>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>:<span class='fl'>10</span>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>:<span class='fl'>15</span>
-<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>lst</span>)
-
-<span class='fu'>tiler</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 1 2
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 3 4
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 5
-#&gt; </div><div class='input'><span class='fu'>tiler</span>(<span class='no'>lst</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[1]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ptiler</span>(<span class='no'>lst</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]][[1]]
-#&gt; [[1]][[1]]$x
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; [[1]][[1]]$y
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[1]][[2]]
-#&gt; [[1]][[2]]$z
-#&gt; [1] 11 12 13 14 15
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ptiler</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>x</span>, <span class='no'>y</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]][[1]]
-#&gt; [[1]][[1]][[1]]
-#&gt; [1] 1 2 3 4 5
-#&gt; 
-#&gt; 
-#&gt; [[1]][[2]]
-#&gt; [[1]][[2]][[1]]
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]][[1]]
-#&gt; [[2]][[1]][[1]]
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; [[2]][[2]]
-#&gt; [[2]][[2]][[1]]
-#&gt; [1]  6  7  8  9 10
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ptiler</span>(<span class='no'>df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]][[1]]
-#&gt;   x y  z
-#&gt; 1 1 6 11
-#&gt; 2 2 7 12
-#&gt; 
-#&gt; [[1]][[2]]
-#&gt;   x y  z
-#&gt; 3 3 8 13
-#&gt; 4 4 9 14
-#&gt; 
-#&gt; [[1]][[3]]
-#&gt;   x  y  z
-#&gt; 5 5 10 15
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ptiler</span>(<span class='no'>df</span>, <span class='no'>df</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]][[1]]
-#&gt;   x y  z
-#&gt; 1 1 6 11
-#&gt; 2 2 7 12
-#&gt; 
-#&gt; [[1]][[2]]
-#&gt;   x y  z
-#&gt; 3 3 8 13
-#&gt; 4 4 9 14
-#&gt; 
-#&gt; [[1]][[3]]
-#&gt;   x  y  z
-#&gt; 5 5 10 15
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]][[1]]
-#&gt;   x y  z
-#&gt; 1 1 6 11
-#&gt; 2 2 7 12
-#&gt; 
-#&gt; [[2]][[2]]
-#&gt;   x y  z
-#&gt; 3 3 8 13
-#&gt; 4 4 9 14
-#&gt; 
-#&gt; [[2]][[3]]
-#&gt;   x  y  z
-#&gt; 5 5 10 15
-#&gt; 
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -316,7 +205,7 @@ to a list of data frames.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

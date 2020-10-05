@@ -99,7 +99,7 @@ variables in a data-centric format, which is built on top of the tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -176,20 +176,20 @@ variables in a data-centric format, which is built on top of the tibble.</p>
 
 <p>An extensive range of indices are supported by tsibble:</p><ul>
 <li><p>native time classes in R (such as <code>Date</code>, <code>POSIXct</code>, and <code>difftime</code>)</p></li>
-<li><p>tsibble's new additions (such as <a href='year-week.html'>yearweek</a>, <a href='year-month.html'>yearmonth</a>, and <a href='year-quarter.html'>yearquarter</a>).</p></li>
+<li><p>tsibble's new additions (such as <a href='yearweek.html'>yearweek</a>, <a href='yearmonth.html'>yearmonth</a>, and <a href='yearquarter.html'>yearquarter</a>).</p></li>
 <li><p>other commonly-used classes: <code>ordered</code>, <code><a href='https://hms.tidyverse.org/reference/hms.html'>hms::hms</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period</a></code>,
 and <code><a href='https://rdrr.io/pkg/nanotime/man/nanotime.html'>nanotime::nanotime</a></code>.</p></li>
 </ul>
 
 <p>For a <code>tbl_ts</code> of regular interval, a choice of index representation has to
 be made. For example, a monthly data should correspond to time index created
-by <a href='year-month.html'>yearmonth</a>, instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year
+by <a href='yearmonth.html'>yearmonth</a>, instead of <code>Date</code> or <code>POSIXct</code>. Because months in a year
 ensures the regularity, 12 months every year. However, if using <code>Date</code>, a
 month containing days ranges from 28 to 31 days, which results in irregular
 time space. This is also applicable to year-week and year-quarter.</p>
 <p>Tsibble supports arbitrary index classes, as long as they can be ordered from
 past to future. To support a custom class, you need to define <code><a href='index_valid.html'>index_valid()</a></code>
-for the class and calculate the interval through <code><a href='interval-pull.html'>interval_pull()</a></code>.</p>
+for the class and calculate the interval through <code><a href='interval_pull.html'>interval_pull()</a></code>.</p>
     <h2 class="hasAnchor" id="key"><a class="anchor" href="#key"></a>Key</h2>
 
     
@@ -199,19 +199,19 @@ for the class and calculate the interval through <code><a href='interval-pull.ht
 <li><p>A single variable: For example, <code><a href='https://rdrr.io/r/utils/data.html'>data(pedestrian)</a></code> uses <code>Sensor</code> as the key.</p></li>
 <li><p>Multiple variables: For example, Declare <code>key = c(Region, State, Purpose)</code>
 for <code><a href='https://rdrr.io/r/utils/data.html'>data(tourism)</a></code>.
-Key can be created in conjunction with tidy selectors like <code>starts_with()</code>.</p></li>
+Key can be created in conjunction with tidy selectors like <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with()</a></code>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="interval"><a class="anchor" href="#interval"></a>Interval</h2>
 
     
 
-<p>The <a href='regular.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
+<p>The <a href='interval.html'>interval</a> function returns the interval associated with the tsibble.</p><ul>
 <li><p>Regular: the value and its time unit including "nanosecond", "microsecond",
 "millisecond", "second", "minute", "hour", "day", "week", "month", "quarter",
 "year". An unrecognisable time interval is labelled as "unit".</p></li>
-<li><p>Irregular: <code><a href='as-tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
-marked with <code>!</code>.</p></li>
+<li><p>Irregular: <code><a href='as_tsibble.html'>as_tsibble(regular = FALSE)</a></code> gives the irregular tsibble. It is
+marked with <code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>.</p></li>
 <li><p>Unknown: Not determined (<code>?</code>), if it's an empty tsibble, or one entry for
 each key variable.</p></li>
 </ul>
@@ -234,7 +234,7 @@ When the interval cannot be obtained due to the mismatched index format, an
 error is issued.</p></li>
 </ul>
 
-<p>The interval is invariant to subsetting, such as <code><a href='https://rdrr.io/r/stats/filter.html'>filter()</a></code>, <code>slice()</code>, and <code>[.tbl_ts</code>.
+<p>The interval is invariant to subsetting, such as <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter()</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice()</a></code>, and <code>[.tbl_ts</code>.
 However, if the result is an empty tsibble, the interval is always unknown.
 When joining a tsibble with other data sources and aggregating to different
 time scales, the interval gets re-calculated.</p>
@@ -258,45 +258,61 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 </ul>
 
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Earo Wang <a href='mailto:earo.wang@gmail.com'>earo.wang@gmail.com</a> (<a href='https://orcid.org/0000-0001-6448-5260'>ORCID</a>)</p>
+<p>Authors:</p><ul>
+<li><p>Di Cook (<a href='https://orcid.org/0000-0002-3813-7155'>ORCID</a>) [thesis advisor]</p></li>
+<li><p>Rob Hyndman (<a href='https://orcid.org/0000-0002-2140-5352'>ORCID</a>) [thesis advisor]</p></li>
+<li><p>Mitchell O'Hara-Wild (<a href='https://orcid.org/0000-0001-6729-7695'>ORCID</a>)</p></li>
+</ul>
+
+<p>Other contributors:</p><ul>
+<li><p>Tyler Smith [contributor]</p></li>
+</ul>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create a tsibble w/o a key ----</span>
-<span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2017-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>)
-)</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
-#&gt;    date        value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01  0.462
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02 -</span><span style='color: #BB0000;'>0.323</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>1.29</span><span> 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>1.03</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05  1.51 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  0.347
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07  1.78 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08  0.387
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.919</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>1.58</span><span> </div><div class='input'>
+<span class='fu'><a href='tsibble.html'>tsibble</a></span><span class='op'>(</span>
+  date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>9</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+#&gt;    date         value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>0.061</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02  0.095</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>0.543</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04  0.498 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05 -</span><span style='color: #BB0000;'>0.041</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  0.496 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07  0.901 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08  1.62  
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09  0.379 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.169</span><span> </div><div class='input'>
 <span class='co'># create a tsibble with one key ----</span>
-<span class='fu'><a href='tsibble.html'>tsibble</a></span>(
-  <span class='kw'>qtr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='year-quarter.html'>yearquarter</a></span>(<span class='st'>"2010-01"</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>, <span class='fl'>3</span>),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>),
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>group</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
+<span class='fu'><a href='tsibble.html'>tsibble</a></span><span class='op'>(</span>
+  qtr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='yearquarter.html'>yearquarter</a></span><span class='op'>(</span><span class='st'>"2010-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>9</span>, <span class='fl'>3</span><span class='op'>)</span>,
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>,
+  key <span class='op'>=</span> <span class='va'>group</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
 #&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
-#&gt;        qtr group    value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x     -</span><span style='color: #BB0000;'>2.09</span><span>   
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      0.003</span><span style='text-decoration: underline;'>57</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>0.356</span><span>  
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x      1.15   
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>0.221</span><span>  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x      1.02   
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.264</span><span>  
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x      1.66   
-#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.774</span><span>  
+#&gt;        qtr group  value
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.542</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x     -</span><span style='color: #BB0000;'>1.45</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      0.180
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x      0.498
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x     -</span><span style='color: #BB0000;'>1.29</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x      0.755
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.267</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x      0.642
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x     -</span><span style='color: #BB0000;'>0.417</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>1.22</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -313,7 +329,7 @@ refer to <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>ti
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
