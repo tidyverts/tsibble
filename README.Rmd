@@ -83,7 +83,7 @@ full_weather <- weather_tsbl %>%
 full_weather
 ```
 
-`fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](http://tsibble.tidyverts.org/articles/implicit-na.html).
+`fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times. Wanna a quick overview of implicit missing values? Check out [`vignette("implicit-na")`](https://tsibble.tidyverts.org/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -103,7 +103,7 @@ While collapsing rows (like `summarise()`), `group_by()` and `index_by()` will t
 
 ## Learn more about tsibble
 
-An ecosystem, [the tidyver*ts*](http://tidyverts.org), is built around the *tsibble* object for tidy time series analysis.
+An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around the *tsibble* object for tidy time series analysis.
 
 * The [tsibbledata](https://tsibbledata.tidyverts.org) package curates a range of tsibble data examples to poke around the tsibble object.
 * The [feasts](https://feasts.tidyverts.org) package provides support for visualising the data and extracting time series features.

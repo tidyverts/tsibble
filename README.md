@@ -113,7 +113,7 @@ in time series analysis, which is easily done using `fill()` from
 `fill_gaps()` also handles filling in time gaps by values or functions,
 and respects time zones for date-times. Wanna a quick overview of
 implicit missing values? Check out
-[`vignette("implicit-na")`](http://tsibble.tidyverts.org/articles/implicit-na.html).
+[`vignette("implicit-na")`](https://tsibble.tidyverts.org/articles/implicit-na.html).
 
 ### `index_by()` + `summarise()` to aggregate over calendar periods
 
@@ -153,7 +153,7 @@ tsibble of irregular time space too.
 Learn more about tsibble
 ------------------------
 
-An ecosystem, [the tidyver*ts*](http://tidyverts.org), is built around
+An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around
 the *tsibble* object for tidy time series analysis.
 
 -   The [tsibbledata](https://tsibbledata.tidyverts.org) package curates
