@@ -66,7 +66,7 @@ yearmonth.Date <- function(x) {
 #' @export
 yearmonth.character <- function(x) {
   assertDate(x)
-  new_yearmonth(anydate(x))
+  yearmonth(anydate(x))
 }
 
 #' @export

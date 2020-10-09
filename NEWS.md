@@ -1,3 +1,7 @@
+# tsibble 0.9.4
+
+* Fixed bug in different `yearmonth()` underlying data for character inputs. (#226)
+
 # tsibble 0.9.3
 
 * Defunct rolling functions in favour of {slider}.

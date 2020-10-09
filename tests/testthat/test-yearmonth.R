@@ -62,3 +62,7 @@ test_that("yearmonth() #89", {
     ))))
   )
 })
+
+test_that("yearmonth() #226", {
+  expect_equal(yearmonth("2020-01-01"), yearmonth("2020-01-02"))
+})
