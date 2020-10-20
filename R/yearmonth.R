@@ -259,16 +259,23 @@ vec_ptype_abbr.yearmonth <- function(x, ...) {
 #' @export
 seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
                           ...) {
-  bad_by(by)
-  by_mth <- paste(by, "month")
   from <- vec_cast(from, new_date())
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
   }
-  new_yearmonth(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
-    along.with = along.with, ...
-  ))
+  if (missing(by)) {
+    new_yearmonth(seq_date(
+      from = from, to = to, length.out = length.out,
+      along.with = along.with, ...
+    ))
+  } else {
+    bad_by(by)
+    by_mth <- paste(by, "month")
+    new_yearmonth(seq_date(
+      from = from, to = to, by = by_mth, length.out = length.out,
+      along.with = along.with, ...
+    ))
+  }
 }
 
 bad_by <- function(by) {
