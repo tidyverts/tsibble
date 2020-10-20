@@ -1,6 +1,7 @@
 # tsibble 0.9.4
 
 * Fixed bug in different `yearmonth()` underlying data for character inputs. (#226)
+* Fixed C stack error when index contains NA with `as_tsibble()`. (#229)
 
 # tsibble 0.9.3
 

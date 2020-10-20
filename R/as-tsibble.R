@@ -401,7 +401,7 @@ validate_index <- function(data, index) {
     idx_pos <- vec_in(names, chr_index)
     val_lgl <- val_idx[idx_pos]
     if (is.na(val_lgl)) {
-      return(chr_index)
+      NULL
     } else if (!val_lgl) {
       cls_idx <- vapply(data, function(x) class(x)[1], character(1))
       abort(sprintf("Unsupported index type: %s", cls_idx[idx_pos]))

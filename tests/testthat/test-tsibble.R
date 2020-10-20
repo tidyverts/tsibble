@@ -441,3 +441,13 @@ test_that("build_tsibble() zero slices of grouped tsibbles don't crash #194", {
   expect_equal(nrow(ped2[0, ]), 0L)
   expect_is(ped2[0, ], "grouped_ts")
 })
+
+test_that("Numeric index contains NA #229", {
+  example_data <- tibble::tribble(
+    ~year,                           ~unit_name, ~visitors,
+     1939,             "Badlands National Park",    205100,
+       NA,       "Honouliuli National Monument",        NA,
+     1934, "Fort Donelson National Battlefield",     27127
+    )
+  expect_error(as_tsibble(example_data, index = year), "must not contain `NA`")
+})
