@@ -92,7 +92,7 @@ time_to_date <- function(x, tz = "UTC") {
 #' @keywords internal
 #' @export
 as_tsibble.msts <- function(x, ..., tz = "UTC", pivot_longer = TRUE) {
-  if (ncol(x) == 1) {
+  if (NCOL(x) == 1) {
     as_tsibble.ts(x, ..., tz = tz)
   } else {
     as_tsibble.mts(x, ..., tz = tz, pivot_longer = pivot_longer)
