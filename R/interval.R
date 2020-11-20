@@ -297,7 +297,8 @@ gcd_interval <- function(x) {
 }
 
 is_quarter.POSIXt <- function(x) {
-  all(diff(lubridate::month(x)) %% 3 == 0)
+  .years <- diff(lubridate::year(x)) < 1
+  all(diff(lubridate::month(x)) %% 3 == 0) && length(.years) > sum(.years)
 }
 
 quarter_multiple.POSIXt <- function(x) {
@@ -329,7 +330,7 @@ setOldClass(c("interval", "vctrs_rcrd", "vctrs_vctr"))
 #' @importMethodsFrom lubridate as.period
 setMethod("as.period", "interval", function(x, ...) {
   period(
-    year = x$year, 
+    year = x$year,
     month = x$quarter * 3 + x$month,
     week = x$week,
     day = x$day,
