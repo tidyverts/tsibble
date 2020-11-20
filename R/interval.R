@@ -36,6 +36,9 @@ interval_pull.POSIXt <- function(x) {
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
   new_interval(
+    year = period$year,
+    month = period$month,
+    day = period$day,
     hour = period$hour,
     minute = period$minute,
     second = period$second %/% 1,
@@ -312,7 +315,7 @@ setOldClass(c("interval", "vctrs_rcrd", "vctrs_vctr"))
 #' @importMethodsFrom lubridate as.period
 setMethod("as.period", "interval", function(x, ...) {
   period(
-    year = x$year, 
+    year = x$year,
     month = x$quarter * 3 + x$month,
     week = x$week,
     day = x$day,
