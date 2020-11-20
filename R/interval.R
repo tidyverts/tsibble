@@ -297,8 +297,7 @@ gcd_interval <- function(x) {
 }
 
 is_quarter.POSIXt <- function(x) {
-  .years <- diff(lubridate::year(x)) < 1
-  all(diff(lubridate::month(x)) %% 3 == 0) && length(.years) > sum(.years)
+  all(diff(lubridate::month(x)) %% 3 == 0) && diff(x) < 365
 }
 
 quarter_multiple.POSIXt <- function(x) {
