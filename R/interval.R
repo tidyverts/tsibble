@@ -32,16 +32,25 @@ interval_pull.default <- function(x) {
 #' @export
 # Assume date is regularly spaced
 interval_pull.POSIXt <- function(x) {
-  dttm <- as.double(x)
-  nhms <- gcd_interval(dttm)
-  period <- split_period(nhms)
-  new_interval(
-    hour = period$hour,
-    minute = period$minute,
-    second = period$second %/% 1,
-    millisecond = (period$second %% 1 * 1e3) %/% 1,
-    microsecond = (period$second %% 1 * 1e3) %% 1 * 1e3
-  )
+  if (is_quarter.POSIXt(x)) {
+    new_interval(
+      quarter = quarter_multiple.POSIXt(x)
+    )
+  } else {
+    dttm <- as.double(x)
+    nhms <- gcd_interval(dttm)
+    period <- split_period(nhms)
+    new_interval(
+      year = period$year,
+      month = period$month,
+      day = period$day,
+      hour = period$hour,
+      minute = period$minute,
+      second = period$second %/% 1,
+      millisecond = (period$second %% 1 * 1e3) %/% 1,
+      microsecond = (period$second %% 1 * 1e3) %% 1 * 1e3
+    )
+  }
 }
 
 #' @export
@@ -285,6 +294,14 @@ gcd_interval <- function(x) {
     unique_x <- vec_unique(round(abs(diff(x)), digits = 6))
     gcd_vector(unique_x)
   }
+}
+
+is_quarter.POSIXt <- function(x) {
+  all(diff(lubridate::month(x)) %% 3 == 0)
+}
+
+quarter_multiple.POSIXt <- function(x) {
+  unique(diff(lubridate::month(x)) %% 3 + 1)
 }
 
 gcd <- function(a, b) {
