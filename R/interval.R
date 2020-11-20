@@ -301,7 +301,10 @@ is_quarter.POSIXt <- function(x) {
 }
 
 quarter_multiple.POSIXt <- function(x) {
-  unique(diff(lubridate::month(x)) %% 3 + 1)
+  .x <- diff(lubridate::month(x)) %% 3 + 1
+  .u <- unique(.x)
+  tab <- tabulate(match(.x, .u))
+  .u[tab == max(tab)]
 }
 
 gcd <- function(a, b) {
