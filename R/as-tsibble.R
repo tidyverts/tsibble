@@ -448,7 +448,7 @@ validate_interval <- function(data, key_data, index, interval) {
   is_interval <- inherits(interval, "interval")
   msg_interval <- "Argument `interval` must be class interval, not %s."
   if (is_false(interval) || is_null(interval)) {
-    interval <- irregular()
+    interval <- irregular_interval(data[[index]])
   } else if (nrows == 0) {
     interval <- new_interval()
   } else if (is_true(interval)) {

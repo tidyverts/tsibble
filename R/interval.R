@@ -272,6 +272,34 @@ abort_not_interval <- function(x) {
   }
 }
 
+.mode <- function(.) {
+
+  .u <- unique(.)
+  tab <- tabulate(match(., .u))
+  .u[tab == max(tab)]
+
+}
+
+
+.ints <- setNames(c("year", "quarter", "month", "week", "day", "hour", "minute", "second"), c("year", "quarter", "month", "week", "day", "hour", "minute", "second"))
+.ints <- purrr::map(.ints, getFromNamespace, ns = "lubridate")
+
+irregular_interval <- function(x) {
+
+    dfx <- purrr::map(.ints, ~{
+      .out <- sort(.mode(round(abs(diff(rlang::exec(.x, x))), digits = 6)))
+      .out[.out > 0][1]
+      })
+
+    dfx <- dfx[min(which(purrr::map_lgl(dfx, ~any(.x > 0))))]
+
+    inform(paste0("Using ",dfx," ", names(dfx), " as interval."))
+
+    new_interval(
+      !!!dfx
+    )
+}
+
 #' @rdname new-interval
 #' @export
 #' @examples
@@ -285,6 +313,22 @@ gcd_interval <- function(x) {
     unique_x <- vec_unique(round(abs(diff(x)), digits = 6))
     gcd_vector(unique_x)
   }
+}
+
+
+
+is_quarter.POSIXt <- function(x) {
+  # difference in months
+  .df <- diff(lubridate::month(x))
+  # the majority should not be zero, all should be divisible by 3 and it shouldnt be greater than year
+  .mode(.df) != 0 && all(.df %% 3 == 0) && diff(x) < 365
+}
+
+
+
+quarter_multiple.POSIXt <- function(x) {
+  .x <- diff(lubridate::month(x)) / 3
+  .mode(.x[.x > 0])
 }
 
 gcd <- function(a, b) {
