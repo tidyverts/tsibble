@@ -293,11 +293,18 @@ irregular_interval <- function(x) {
 
     dfx <- dfx[min(which(purrr::map_lgl(dfx, ~any(.x > 0))))]
 
-    inform(paste0("Using ",dfx," ", names(dfx), " as interval."))
 
-    new_interval(
-      !!!dfx
-    )
+
+    if (is.null(dfx[[1]])) {
+      inform(paste0("Unable to determine interval."))
+      irregular()
+    } else {
+      inform(paste0("Using ",dfx," ", names(dfx), " as interval."))
+      new_interval(
+        !!!dfx
+      )
+    }
+
 }
 
 #' @rdname new-interval
@@ -356,7 +363,7 @@ setOldClass(c("interval", "vctrs_rcrd", "vctrs_vctr"))
 #' @importMethodsFrom lubridate as.period
 setMethod("as.period", "interval", function(x, ...) {
   period(
-    year = x$year, 
+    year = x$year,
     month = x$quarter * 3 + x$month,
     week = x$week,
     day = x$day,
