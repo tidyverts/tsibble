@@ -290,8 +290,20 @@ seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (time_units == 0) return(x)
 
   min_x <- min(x)
-  seq_call <- quote(seq(from = min_x, to = max(x), by = time_units, 
-    length.out = length_out))
+  if (is.list(time_units)) {
+    .unit <- names(time_units)
+    if (.unit == "quarter") {
+      .yq <- yearquarter(x)
+      seq_call <- quote(seq(min(.yq), max(.yq), by = 1))
+    } else {
+      seq_call <- quote(seq(min_x, max(x), by = paste(time_units, names(time_units))))
+    }
+
+  } else {
+    seq_call <- quote(seq(from = min_x, to = max(x), by = time_units,
+                          length.out = length_out))
+  }
+
   if (!is.null(length_out)) {
     seq_call <- call_modify(seq_call, to = zap())
   }

@@ -256,12 +256,17 @@ format.interval <- function(x, ...) {
 default_time_units <- function(x) {
   abort_not_interval(x)
   x <- vec_data(x)
+  .l <- x > 0
+  if (any(.l[,c("year", "quarter", "month", "week", "day")])) {
+    rlang::list2(!!names(x)[.l] := x[.l])
+  } else {
     x[["microsecond"]] <- x[["microsecond"]] * 1e-6
     x[["millisecond"]] <- x[["millisecond"]] * 1e-3
     x[["minute"]] <- x[["minute"]] * 60
     x[["hour"]] <- x[["hour"]] * 3600
     sum(vec_c(!!!x))
   }
+}
 
 abort_not_interval <- function(x) {
   if (!inherits(x, "vctrs_rcrd")) {
