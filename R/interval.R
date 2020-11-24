@@ -297,15 +297,14 @@ irregular_interval <- function(x) {
       .out <- sort(table(round(.diffs, digits = 6)))
       })
     # Always gets the maximum of the largest duration
-    dfx <- strsplit(names(which.max(unlist(dfx))), "\\.")[[1]]
-    dfx <- rlang::list2(!!dfx[1] := as.numeric(dfx[2]))
-
-
-
-    if (is.null(dfx[[1]])) {
+    dfx <- unlist(dfx)
+    if (rlang::is_empty(dfx)) {
       inform(paste0("Unable to determine interval."))
       irregular()
     } else {
+      dfx <- strsplit(names(which.max()), "\\.")[[1]]
+      dfx <- rlang::list2(!!dfx[1] := as.numeric(dfx[2]))
+
       inform(paste0("Using ",dfx," ", names(dfx), " as interval."))
       new_interval(
         !!!dfx
