@@ -256,12 +256,12 @@ format.interval <- function(x, ...) {
 default_time_units <- function(x) {
   abort_not_interval(x)
   x <- vec_data(x)
-  x[["microsecond"]] <- x[["microsecond"]] * 1e-6
-  x[["millisecond"]] <- x[["millisecond"]] * 1e-3
-  x[["minute"]] <- x[["minute"]] * 60
-  x[["hour"]] <- x[["hour"]] * 3600
-  sum(vec_c(!!!x))
-}
+    x[["microsecond"]] <- x[["microsecond"]] * 1e-6
+    x[["millisecond"]] <- x[["millisecond"]] * 1e-3
+    x[["minute"]] <- x[["minute"]] * 60
+    x[["hour"]] <- x[["hour"]] * 3600
+    sum(vec_c(!!!x))
+  }
 
 abort_not_interval <- function(x) {
   if (!inherits(x, "vctrs_rcrd")) {
@@ -287,11 +287,13 @@ abort_not_interval <- function(x) {
 irregular_interval <- function(x) {
 
     dfx <- purrr::map(.ints, ~{
-      .out <- sort(.mode(round(abs(diff(rlang::exec(.x, x))), digits = 6)))
-      .out[.out > 0][1]
+      .diffs <- abs(diff(rlang::exec(.x, x)))
+      .diffs <- .diffs[.diffs > 0]
+      .out <- sort(table(round(.diffs, digits = 6)))
       })
-
-    dfx <- dfx[min(which(purrr::map_lgl(dfx, ~any(.x > 0))))]
+    # Always gets the maximum of the largest duration
+    dfx <- strsplit(names(which.max(unlist(dfx))), "\\.")[[1]]
+    dfx <- rlang::list2(!!dfx[1] := as.numeric(dfx[2]))
 
 
 
