@@ -302,7 +302,7 @@ irregular_interval <- function(x) {
       inform(paste0("Unable to determine interval."))
       irregular()
     } else {
-      dfx <- strsplit(names(which.max()), "\\.")[[1]]
+      dfx <- strsplit(names(dfx[which.max(dfx)]), "\\.")[[1]]
       dfx <- rlang::list2(!!dfx[1] := as.numeric(dfx[2]))
 
       inform(paste0("Using ",dfx," ", names(dfx), " as interval."))
