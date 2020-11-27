@@ -11,7 +11,7 @@ ped_null <- pedestrian %>%
 
 test_that("dplyr verbs for empty tsibble", {
   expect_equal(NROW(ped_null), 0L)
-  expect_is(ped_null %>% group_by(Sensor), "grouped_ts")
+  expect_s3_class(ped_null %>% group_by(Sensor), "grouped_ts")
   expect_equal(NROW(ped_null %>% mutate(Count1 = Count + 1)), 0L)
   expect_equal(NROW(ped_null %>% transmute(Count1 = Count + 1)), 0L)
   expect_equal(NROW(ped_null %>% summarise(Count1 = sum(Count))), 0L)

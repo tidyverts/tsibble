@@ -10,11 +10,11 @@ test_that("multiple arguments matching", {
 int <- new_interval(hour = 1, minute = 30)
 
 test_that("interval class", {
-  expect_is(int, "interval")
+  expect_s3_class(int, "interval")
   expect_equal(format(int), "1h 30m")
-  expect_is(new_interval(), "interval")
+  expect_s3_class(new_interval(), "interval")
   expect_equal(format(new_interval()), "?")
-  expect_is(new_interval(.regular = FALSE), "interval")
+  expect_s3_class(new_interval(.regular = FALSE), "interval")
   expect_equal(format(new_interval(.regular = FALSE)), "!")
 })
 

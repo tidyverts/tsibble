@@ -96,7 +96,7 @@ tourism <- tourism %>%
 test_that("fill_gaps() for yearquarter", {
   full_tsbl <- tourism %>%
     fill_gaps()
-  expect_is(full_tsbl$Quarter, "yearquarter")
+  expect_s3_class(full_tsbl$Quarter, "yearquarter")
 })
 
 test_that("fill_gaps() for a grouped_ts", {
@@ -104,13 +104,13 @@ test_that("fill_gaps() for a grouped_ts", {
     group_by(group) %>%
     fill_gaps(value = sum(value), .full = TRUE)
   expect_identical(dim(full_tsbl), c(10L, 3L))
-  expect_equivalent(
+  expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
       date = c(ymd("2017-01-01"), ymd("2017-01-13")),
       group = c("a", "b"),
       value = c(4L, 8L)
-    )
+    ), ignore_attr = TRUE
   )
 })
 
@@ -119,13 +119,13 @@ test_that("fill.tbl_ts(.full = TRUE)", {
     fill_gaps(.full = TRUE) %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
-  expect_equivalent(
+  expect_equal(
     as_tibble(full_tsbl[c(1, 9), ]),
     tibble(
       date = c(ymd("2017-01-01"), ymd("2017-01-13")),
       group = c("a", "b"),
       value = c(1L, 2L)
-    )
+    ), ignore_attr = TRUE
   )
 })
 
@@ -134,13 +134,13 @@ test_that("fill.tbl_ts(.full = FALSE)", {
     fill_gaps() %>%
     group_by(group) %>%
     tidyr::fill(value, .direction = "up")
-  expect_equivalent(
+  expect_equal(
     as_tibble(full_tsbl[8, ]),
     tibble(
       date = ymd("2017-01-13"),
       group = "b",
       value = 2L
-    )
+    ), ignore_attr = TRUE
   )
 })
 

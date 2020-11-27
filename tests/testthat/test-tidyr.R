@@ -20,7 +20,7 @@ tourism <- tourism %>%
 test_that("pivot_wider()", {
   out <- tsbl %>%
     pivot_wider(names_from = group, values_from = value)
-  expect_is(out, "tbl_ts")
+  expect_s3_class(out, "tbl_ts")
   expect_equal(key(out), list())
   expect_named(out, c("qtr", "x", "y", "z"))
   out_grp <- tsbl %>%
@@ -40,12 +40,12 @@ test_that("pivot_wider()", {
   out4 <- tourism %>%
     group_by(Purpose) %>%
     pivot_wider(names_from = State, values_from = Trips)
-  expect_is(out4, "grouped_ts")
+  expect_s3_class(out4, "grouped_ts")
   expect_equal(group_vars(out4), "Purpose")
   out5 <- tourism %>%
     index_by(year = year(Quarter)) %>%
     pivot_wider(names_from = State, values_from = Trips)
-  expect_is(out5, "grouped_ts")
+  expect_s3_class(out5, "grouped_ts")
   expect_equal(group_vars(out5), "year")
 })
 
@@ -63,10 +63,10 @@ test_that("pivot_longer()", {
 })
 
 test_that("nest()", {
-  expect_is(pedestrian %>% nest(data = -Date_Time), "tbl_ts")
+  expect_s3_class(pedestrian %>% nest(data = -Date_Time), "tbl_ts")
   expect_named(tourism %>% nest(Trips = -Purpose), c("Purpose", "Trips"))
   expect_named(pedestrian %>% nest(data = -Date_Time), c("Date_Time", "data"))
-  expect_is(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
+  expect_s3_class(pedestrian %>% nest(data = c(Date, Count)), "tbl_ts")
   expect_named(pedestrian %>% nest(data = dplyr::everything()), "data")
   expect_named(pedestrian %>% nest(data = -Sensor), c("Sensor", "data"))
   expect_named(
@@ -90,7 +90,7 @@ test_that("unnest_tsibble()", {
   expect_error(nest2_t %>% unnest_tsibble(cols = c(value, qtl)), "A valid tsibble.")
   out <- nest2_t %>%
     unnest_tsibble(cols = c(value, qtl), key = c(key_vars(tourism), qtl))
-  expect_is(out, "tbl_ts")
+  expect_s3_class(out, "tbl_ts")
   expect_equal(NCOL(out), 6)
 })
 
@@ -104,43 +104,43 @@ harvest <- tsibble(
 harvest_fill <- fill_gaps(harvest, .full = TRUE)
 
 test_that("fill()", {
-  expect_equivalent(
+  expect_equal(
     harvest_fill %>%
       group_by_key() %>%
       fill(kilo, .direction = "down"),
     harvest_fill %>%
       as_tibble() %>%
       group_by(fruit) %>%
-      fill(kilo, .direction = "down")
+      fill(kilo, .direction = "down"), ignore_attr = TRUE
   )
-  expect_equivalent(
+  expect_equal(
     harvest_fill %>%
       fill(kilo, .direction = "down"),
     harvest_fill %>%
       as_tibble() %>%
-      fill(kilo, .direction = "down")
+      fill(kilo, .direction = "down"), ignore_attr = TRUE
   )
-  expect_is(fill(harvest_fill, kilo), "tbl_ts")
-  expect_is(fill(group_by_key(harvest_fill), kilo), "grouped_ts")
+  expect_s3_class(fill(harvest_fill, kilo), "tbl_ts")
+  expect_s3_class(fill(group_by_key(harvest_fill), kilo), "grouped_ts")
 })
 
 test_that("drop_na() #173", {
-  expect_equivalent(
+  expect_equal(
     harvest_fill %>%
       group_by_key() %>%
       drop_na(),
     harvest_fill %>%
       as_tibble() %>%
       group_by(fruit) %>%
-      drop_na()
+      drop_na(), ignore_attr = TRUE
   )
-  expect_equivalent(
+  expect_equal(
     harvest_fill %>%
       drop_na(),
     harvest_fill %>%
       as_tibble() %>%
-      drop_na()
+      drop_na(), ignore_attr = TRUE
   )
-  expect_is(drop_na(harvest_fill), "tbl_ts")
-  expect_is(drop_na(group_by_key(harvest_fill)), "grouped_ts")
+  expect_s3_class(drop_na(harvest_fill), "tbl_ts")
+  expect_s3_class(drop_na(group_by_key(harvest_fill)), "grouped_ts")
 })

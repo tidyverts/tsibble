@@ -23,9 +23,9 @@ test_that("an irregular tbl_ts", {
 test_that("4 day interval", {
   tsbl <- as_tsibble(dat_x, index = date)
   ref_tbl <- tibble(date = ymd("2017-01-21"), value = NA_real_)
-  expect_equivalent(append_row(tsbl)[6, ], ref_tbl)
+  expect_equal(append_row(tsbl)[6, ], ref_tbl, ignore_attr = TRUE)
   ref_tbl2 <- tibble(date = ymd("2016-12-28"), value = NA_real_)
-  expect_equivalent(append_row(tsbl, n = -1)[1, ], ref_tbl2)
+  expect_equal(append_row(tsbl, n = -1)[1, ], ref_tbl2, ignore_attr = TRUE)
   expect_error(append_row(tsbl, 1:3), "an integer")
 })
 
@@ -57,5 +57,5 @@ test_that("`keep_all = TRUE", {
 
 test_that("yearweek #199", {
   tsbl <- tsibble(yw = yearweek(0:9), grp = rep(1:2, each = 5), key = grp)
-  expect_is(new_data(tsbl, n = 5)$yw, "yearweek")
+  expect_s3_class(new_data(tsbl, n = 5)$yw, "yearweek")
 })

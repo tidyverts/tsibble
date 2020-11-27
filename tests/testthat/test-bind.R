@@ -11,7 +11,7 @@ tsbl2 <- mutate(tsbl, date = date + rep(5:9, each = 2), value2 = 2)
 test_that("bind_rows()", {
   expect_error(bind_rows(tsbl, tsbl), "is not a valid tsibble.")
   expect_identical(bind_rows(tsbl[1, ], tsbl[-1, ]), tsbl)
-  expect_is(bind_rows(tsbl, tsbl2), "tbl_ts")
+  expect_s3_class(bind_rows(tsbl, tsbl2), "tbl_ts")
 })
 
 vic <- tourism %>%
@@ -21,7 +21,7 @@ nsw <- tourism %>%
 
 test_that("bind_rows() for custom index class #78", {
   res <- bind_rows(vic, nsw)
-  expect_is(res$Quarter, "yearquarter")
+  expect_s3_class(res$Quarter, "yearquarter")
 })
 
 test_that("bind_rows() for mixed key properties", {
@@ -36,5 +36,5 @@ test_that("bind_rows() for mixed key properties", {
 })
 
 test_that("bind_cols()", {
-  expect_is(bind_cols(tsbl, value2 = 2), "tbl_ts")
+  expect_s3_class(bind_cols(tsbl, value2 = 2), "tbl_ts")
 })

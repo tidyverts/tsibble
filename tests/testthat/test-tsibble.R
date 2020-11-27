@@ -1,3 +1,4 @@
+set.seed(2020)
 idx_second <- seq(
   ymd_hms("2017-01-01 00:00:00"),
   ymd_hms("2017-01-01 00:00:04"),
@@ -100,8 +101,8 @@ test_that("POSIXt with 1 second interval", {
   expect_message(tsbl <- as_tsibble(dat_x), "Using `date_time` as index variable.")
   expect_identical(tbl_sum(tsbl), c("A tsibble" = "5 x 2 [1s] <UTC>"))
   expect_error(as_tsibble(dat_x, key = date_time))
-  expect_is(tsbl, "tbl_ts")
-  expect_is(index(tsbl), "name")
+  expect_s3_class(tsbl, "tbl_ts")
+  expect_type(index(tsbl), "symbol")
   expect_identical(quo_text(index(tsbl)), "date_time")
   expect_identical(default_time_units(interval_pull(tsbl$date_time)), 1)
   expect_identical(key(tsbl), list())
@@ -185,7 +186,7 @@ dat_x <- tibble(
 test_that("Date with 4 days interval", {
   expect_identical(index_valid(dat_x$date), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "4D")
   expect_identical(default_time_units(interval_pull(tsbl$date)), 4)
 })
@@ -196,8 +197,8 @@ dat_x <- tibble(yrwk = idx_week, value = rnorm(5))
 test_that("Year week with 1 week interval", {
   expect_identical(index_valid(dat_x$yrwk), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1W\\]")
-  expect_is(tsbl, "tbl_ts")
+  expect_snapshot_output(print(tsbl))
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1W")
   expect_identical(default_time_units(interval_pull(tsbl$yrwk)), 1)
 })
@@ -214,9 +215,9 @@ dat_x <- tibble(
 test_that("Year month with 1 month interval", {
   expect_identical(index_valid(dat_x$yrmth), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_output(print(tsbl), "A tsibble: 5 x 2 \\[1M\\]")
-  expect_is(tsbl, "tbl_ts")
-  expect_is(as_tsibble(tsbl, validate = TRUE), "tbl_ts")
+  expect_snapshot_output(print(tsbl))
+  expect_s3_class(tsbl, "tbl_ts")
+  expect_s3_class(as_tsibble(tsbl, validate = TRUE), "tbl_ts")
   expect_identical(format(interval(tsbl)), "1M")
   expect_identical(default_time_units(interval_pull(tsbl$yrmth)), 1)
 })
@@ -233,7 +234,7 @@ dat_x <- tibble(
 test_that("Year quarter with 1 quarter interval", {
   expect_identical(index_valid(dat_x$yrqtr), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1Q")
   expect_identical(default_time_units(interval_pull(tsbl$yrqtr)), 1)
 })
@@ -248,7 +249,7 @@ test_that("Year with 10 years interval", {
   expect_identical(index_valid(dat_x$year), NA)
   expect_error(as_tsibble(dat_x))
   tsbl <- as_tsibble(dat_x, index = year)
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "10Y")
   expect_identical(default_time_units(interval_pull(tsbl$year)), 10)
 })
@@ -262,7 +263,7 @@ dat_x <- tibble(
 test_that("Period with 10 years interval", {
   expect_identical(index_valid(dat_x$year), TRUE)
   tsbl <- as_tsibble(dat_x, index = year)
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "10Y")
 })
 
@@ -271,7 +272,7 @@ test_that("Difftime with 2 days interval", {
   dat_x <- tibble(time = idx_time, value = rnorm(5))
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "2D")
   expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
@@ -283,7 +284,7 @@ test_that("Difftime with 1 minute interval", {
   dat_x <- tibble(time = idx_time, value = rnorm(5))
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "1m")
   expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
@@ -301,7 +302,7 @@ test_that("Difftime with 1 day interval", {
   dat_x <- tibble(time = idx_time, value = rnorm(5))
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "24h")
   expect_identical(fill_gaps(tsbl[-2, ], value = tsbl$value[2]), tsbl)
 })
@@ -312,7 +313,7 @@ dat_x <- tibble(time = idx_time, value = rnorm(3))
 test_that("ordered factor with 2 unit interval", {
   expect_identical(index_valid(dat_x$time), TRUE)
   expect_message(tsbl <- as_tsibble(dat_x))
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
   expect_identical(format(interval(tsbl)), "2")
   expect_identical(fill_gaps(tsbl), tsbl)
 })
@@ -328,7 +329,7 @@ test_that("A single key", {
   expect_error(as_tsibble(dat_x, index = date), "A valid tsibble")
   tsbl <- as_tsibble(dat_x, key = group, index = date)
   expect_identical(as_tsibble(dat_x, key = "group", index = date), tsbl)
-  expect_output(print(tsbl), "A tsibble: 10 x 3 \\[1D\\]")
+  expect_snapshot_output(print(tsbl))
   expect_identical(groups(tsbl), list())
   # expect_equal(key_size(tsbl), c(5, 5))
   expect_equal(n_keys(tsbl), 2)
@@ -347,7 +348,7 @@ test_that("Duplicated identifier: key", {
 test_that("validate = FALSE", {
   dat_x$group <- rep(letters[1:2], c(6, 4))
   tsbl <- as_tsibble(dat_x, key = group, index = date, validate = FALSE)
-  expect_is(tsbl, "tbl_ts")
+  expect_s3_class(tsbl, "tbl_ts")
 })
 
 dat_x <- tribble(
@@ -386,8 +387,8 @@ test_that("as_tsibble.tbl_ts & as_tsibble.grouped_df", {
   expect_identical(ped, pedestrian)
   grped_ped <- pedestrian %>% group_by(Date)
   expect_equal(as_tsibble(grped_ped), grped_ped)
-  expect_is(as_tsibble(tbl, key = group, index = mth), "tbl_ts")
-  expect_is(as_tsibble(tbl, key = group, index = mth), "grouped_ts")
+  expect_s3_class(as_tsibble(tbl, key = group, index = mth), "tbl_ts")
+  expect_s3_class(as_tsibble(tbl, key = group, index = mth), "grouped_ts")
 })
 
 test_that("build_tsibble()", {
@@ -403,7 +404,7 @@ test_that("build_tsibble()", {
   )
   idx2 <- index2_var(tsbl)
   expect_equal(idx2, "Date")
-  expect_is(tsbl, "grouped_ts")
+  expect_s3_class(tsbl, "grouped_ts")
 
   expect_error(
     build_tsibble(pedestrian, key = Sensor, index = NULL), "NULL."
@@ -439,7 +440,7 @@ test_that("update_tsibble() for different index and index2", {
 test_that("build_tsibble() zero slices of grouped tsibbles don't crash #194", {
   ped2 <- pedestrian %>% group_by(Sensor)
   expect_equal(nrow(ped2[0, ]), 0L)
-  expect_is(ped2[0, ], "grouped_ts")
+  expect_s3_class(ped2[0, ], "grouped_ts")
 })
 
 test_that("Numeric index contains NA #229", {

@@ -101,8 +101,8 @@ test_that("index_by() with group_by()", {
     group_by(group) %>%
     index_by(yrmth = yearmonth(date)) %>%
     summarise(value = sum(value))
-  expect_is(res1, "tbl_ts")
-  expect_equivalent(
+  expect_s3_class(res1, "tbl_ts")
+  expect_equal(
     as_tibble(res1),
     tibble(
       group = c("a", "b"),
@@ -125,13 +125,13 @@ test_that("summarise() with across()", {
   ts_if <- tsbl4 %>%
     index_by(date2 = yearmonth(date)) %>%
     summarise(across(where(is.numeric), mean))
-  expect_is(ts_if[["date2"]], "yearmonth")
+  expect_s3_class(ts_if[["date2"]], "yearmonth")
   expect_named(ts_if, c("date2", "value1", "value2", "value3"))
   expect_equal(nrow(ts_if), 1)
   ts_at <- tsbl4 %>%
     index_by(date2 = yearmonth(date)) %>%
     summarise(across(c("value1", "value3"), mean))
-  expect_is(ts_at[["date2"]], "yearmonth")
+  expect_s3_class(ts_at[["date2"]], "yearmonth")
   expect_named(ts_at, c("date2", "value1", "value3"))
   expect_equal(nrow(ts_at), 1)
 })
@@ -159,7 +159,7 @@ test_that("scoped variants with group_by()", {
 test_that("index_by() with pedestrian", {
   ped_idx <- pedestrian %>%
     index_by(yrmth = yearmonth(Date))
-  expect_is(ped_idx, "grouped_ts")
+  expect_s3_class(ped_idx, "grouped_ts")
   expect_identical(index2(ped_idx), rlang::sym("yrmth"))
   expect_named(ped_idx, c(names(pedestrian), "yrmth"))
   ped_fil <- ped_idx %>%
@@ -167,7 +167,7 @@ test_that("index_by() with pedestrian", {
   ped_ref <- as_tibble(pedestrian) %>%
     group_by(yrmth = yearmonth(Date)) %>%
     filter(Date_Time == min(Date_Time))
-  expect_equivalent(ped_fil, ped_ref)
+  expect_equal(ped_fil, ped_ref, ignore_attr = TRUE)
   ped_ren <- ped_fil %>%
     rename(yrmth2 = yrmth)
   expect_identical(index2(ped_ren), rlang::sym("yrmth2"))

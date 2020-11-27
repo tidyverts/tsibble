@@ -78,7 +78,7 @@ test_that("warnings for arrange a univariate time series", {
 })
 
 test_that("expect warnings from arrange.tbl_ts()", {
-  expect_is(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
+  expect_s3_class(pedestrian %>% arrange(desc(Sensor), Date_Time), "tbl_ts")
   expect_warning(pedestrian %>% arrange(Time), warn_msg)
   expect_warning(pedestrian %>% arrange(Sensor, desc(Date_Time)), warn_msg)
   expect_warning(pedestrian %>% arrange(desc(Date_Time)), warn_msg)
@@ -99,7 +99,7 @@ test_that("arrange.grouped_ts()", {
   tsbl3 <- tourism %>%
     group_by(Region, State) %>%
     arrange(Quarter, .by_group = TRUE)
-  expect_equivalent(tsbl3, tourism %>% arrange(Region, State, Quarter))
+  expect_equal(tsbl3, tourism %>% arrange(Region, State, Quarter), ignore_attr = TRUE)
   expect_identical(key(tsbl3), key(tourism))
   expect_identical(group_vars(tsbl3), c("Region", "State"))
   tsbl4 <- tourism %>%
@@ -149,8 +149,8 @@ test_that("filter() and slice() with .preserve = TRUE", {
 })
 
 test_that("select() and rename()", {
-  expect_is(select(tourism, Region:Purpose), "tbl_ts")
-  expect_is(select(tourism, Quarter:Purpose), "tbl_ts")
+  expect_s3_class(select(tourism, Region:Purpose), "tbl_ts")
+  expect_s3_class(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
     "Index"
@@ -234,7 +234,7 @@ test_that("summarise()", {
   tsbl2 <- tourism %>%
     group_by(Region, State, Purpose) %>%
     summarise(Trips = sum(Trips))
-  expect_equivalent(tourism %>% select(names(tsbl2)), tsbl2)
+  expect_equal(tourism %>% select(names(tsbl2)), tsbl2, ignore_attr = TRUE)
   expect_identical(key(tourism), key(tsbl2))
   expect_identical(index(tourism), index(tsbl2))
   expect_identical(is_regular(tourism), is_regular(tsbl2))
@@ -337,11 +337,11 @@ test_that("summarise() scoped variants", {
 test_that("index_by() + summarise() for grouping factors #197", {
   expect_silent({
     tourism %>%
-      mutate(across(where(is.character), as.factor)) %>% 
+      mutate(across(where(is.character), as.factor)) %>%
       index_by(Year = year(Quarter)) %>%
-      group_by(Region, State) %>% 
+      group_by(Region, State) %>%
       summarise(Trips = sum(Trips))
-  }) 
+  })
 })
 
 test_that("rename() for renaming key", {
@@ -356,8 +356,8 @@ test_that("rename() for renaming key", {
 })
 
 test_that("drop redundant key #196", {
-  sim_tourism <- tourism %>% 
-    filter(Purpose == "Holiday") %>% 
+  sim_tourism <- tourism %>%
+    filter(Purpose == "Holiday") %>%
     select(-Purpose)
   expect_equal(key_vars(sim_tourism), c("Region", "State"))
 })

@@ -25,9 +25,9 @@ test_that("a tsibble with different frequnecy", {
   tsbl5 <- tsbl4 %>%
     mutate(value2 = rnorm(10))
   expect_equal(ncol(as.ts(tsbl5)), 2)
-  expect_is(as.ts(tsbl5), "mts")
+  expect_s3_class(as.ts(tsbl5), "mts")
   expect_equal(NCOL(as.ts(tsbl5, value = value2)), 1)
-  expect_is(as.ts(tsbl5, value = value2), "ts")
+  expect_s3_class(as.ts(tsbl5, value = value2), "ts")
 })
 
 test_that("a tsibble with a single key", {
@@ -62,7 +62,7 @@ test_that("a tsibble with more than one measured vars", {
   expect_error(as.ts(harvest), "Can't determine column `value`:")
   expect_error(as.ts(harvest, value = year), "`value` must be one of them:")
   y <- as.ts(harvest, value = kilo)
-  expect_is(y, "mts")
+  expect_s3_class(y, "mts")
   expect_equal(frequency(y), 1)
   expect_equal(ncol(y), 2)
   expect_equal(nrow(y), length(unique(harvest[["year"]])))
@@ -77,7 +77,7 @@ test_that("as.ts.tbl_ts(fill = )", {
 test_that("time.* and guess_frequency.*", {
   dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
   y <- time(dat)
-  expect_is(y, "ts")
+  expect_s3_class(y, "ts")
   expect_equal(frequency(y), 7)
   expect_equal(guess_frequency(dat), 7)
   dat_min <- seq(
