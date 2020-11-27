@@ -263,7 +263,7 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
   }
-  if (missing(by)) {
+  if (is_missing(by)) {
     new_yearmonth(seq_date(
       from = from, to = to, length.out = length.out,
       along.with = along.with, ...

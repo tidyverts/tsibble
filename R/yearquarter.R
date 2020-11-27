@@ -317,17 +317,24 @@ vec_ptype_abbr.yearquarter <- function(x, ...) {
 #' @export
 seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
                             ...) {
-  bad_by(by)
-  by_mth <- paste(by, "quarter")
   fs <- fiscal_start(from)
   from <- vec_cast(from, new_date())
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
   }
-  new_yearquarter(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
-    along.with = along.with, ...
-  ), fs)
+  if (is_missing(by)) {
+    new_yearquarter(seq_date(
+      from = from, to = to, length.out = length.out,
+      along.with = along.with, ...
+    ), fs)
+  } else {
+    bad_by(by)
+    by_qtr <- paste(by, "quarter")
+    new_yearquarter(seq_date(
+      from = from, to = to, by = by_qtr, length.out = length.out,
+      along.with = along.with, ...
+    ), fs)
+  }
 }
 
 seq.ordered <- function(from, to, by, ...) {

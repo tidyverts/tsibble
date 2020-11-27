@@ -66,3 +66,8 @@ test_that("yearmonth() #89", {
 test_that("yearmonth() #226", {
   expect_equal(yearmonth("2020-01-01"), yearmonth("2020-01-02"))
 })
+
+test_that("yearmonth() with missing `by` #228", {
+  expect_length(seq(yearmonth("2020-01-01"), yearmonth("2020-06-01"),
+    length.out = 3), 3)
+})

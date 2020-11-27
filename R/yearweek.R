@@ -316,17 +316,24 @@ vec_ptype_abbr.yearweek <- function(x, ...) {
 #' @export
 seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
                          ...) {
-  bad_by(by)
-  by_mth <- paste(by, "week")
   wk_start <- week_start(from)
   from <- vec_cast(from, new_date())
   if (!is_missing(to)) {
     to <- vec_cast(to, new_date())
   }
-  new_yearweek(seq_date(
-    from = from, to = to, by = by_mth, length.out = length.out,
-    along.with = along.with, ...
-  ), wk_start)
+  if (is_missing(by)) {
+    new_yearweek(seq_date(
+      from = from, to = to, length.out = length.out,
+      along.with = along.with, ...
+    ), wk_start)
+  } else {
+    bad_by(by)
+    by_week <- paste(by, "week")
+    new_yearweek(seq_date(
+      from = from, to = to, by = by_week, length.out = length.out,
+      along.with = along.with, ...
+    ), wk_start)
+  }
 }
 
 #' @rdname year-week

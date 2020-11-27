@@ -114,3 +114,8 @@ test_that("week_start for yearweek() #205", {
   expect_identical(as.POSIXlt(x2), as.POSIXlt(dttm2))
   expect_identical(.POSIXct(vec_cast(x2, to = new_datetime()), tz = "UTC"), dttm2)
 })
+
+test_that("yearweek() with missing `by` #228", {
+  expect_length(seq(yearweek("2020-01-01"), yearweek("2020-02-01"),
+    length.out = 3), 3)
+})

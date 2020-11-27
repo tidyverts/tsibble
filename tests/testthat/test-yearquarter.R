@@ -97,3 +97,8 @@ test_that("fiscal_year()", {
   expect_equal(fiscal_year(yearquarter("2020 Q1", fiscal_start = 6)), 2020)
   expect_equal(lubridate::year(yearquarter("2020 Q1", fiscal_start = 6)), 2019)
 })
+
+test_that("yearquarter() with missing `by` #228", {
+  expect_length(seq(yearquarter("2020-01-01"), yearquarter("2020-12-01"),
+    length.out = 3), 3)
+})
