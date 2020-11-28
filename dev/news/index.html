@@ -163,6 +163,9 @@
 <ul>
 <li>Fixed bug in different <code><a href="../reference/yearmonth.html">yearmonth()</a></code> underlying data for character inputs. (<a href='https://github.com/tidyverts/tsibble/issues/226'>#226</a>)</li>
 <li>Fixed C stack error when index contains NA with <code><a href="../reference/as_tsibble.html">as_tsibble()</a></code>. (<a href='https://github.com/tidyverts/tsibble/issues/229'>#229</a>)</li>
+<li>Fixed bug when <code>by</code> is missing in <code>year*()</code>. (<a href='https://github.com/tidyverts/tsibble/issues/228'>#228</a>)</li>
+<li>Removed rolling functions.</li>
+<li>Removed dependency of {purrr}.</li>
 </ul>
 </div>
     <div id="tsibble-093" class="section level1">
@@ -280,7 +283,7 @@
 <li>Added the support for <code>POSIXlt</code> as index.</li>
 <li>When the interval cannot be obtained due to the mismatched index class, an error is issued instead of a warning before.</li>
 <li>The interval is invariant to subsetting, such as <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>, and <code>[.tbl_ts</code>.</li>
-<li>Rolling window functions, like <code><a href="../reference/slide.html">slide()</a></code>, are slided into the “questioning” lifecycle, in favour of the <strong>slide</strong> package. (<a href='https://github.com/tidyverts/tsibble/issues/143'>#143</a>)</li>
+<li>Rolling window functions, like <code>slide()</code>, are slided into the “questioning” lifecycle, in favour of the <strong>slide</strong> package. (<a href='https://github.com/tidyverts/tsibble/issues/143'>#143</a>)</li>
 </ul>
 </div>
     <div id="tsibble-083" class="section level1">
@@ -334,7 +337,7 @@
 <a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>This release has undergone an overhaul to clean tsibble’s meta data: (1) attribute <code>regular</code> integrated to <code>interval</code>, (2) attribute <code>ordered</code> integrated to <code>index</code>. A previously stored tsibble object may receive a warning “corrupt tsibble object”.</li>
-<li>The <strong>dplyr</strong> and <strong>tidyr</strong> generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load <code>library(tidyverse)</code> in front.</li>
+<li>The <strong>dplyr</strong> and <strong>tidyr</strong> generics are no longer re-exported. Instead they will be registered on load, which means you need to explicitly load <code><a href="https://rdrr.io/r/base/library.html">library(tidyverse)</a></code> in front.</li>
 </ul>
 </div>
 <div id="defunct--deprecated-functionsarguments" class="section level2">
@@ -388,9 +391,9 @@
 <ul>
 <li>Following the changes in dplyr <code>v0.8.0</code> grouped data frames, tsibble allows for empty key values and disregards the lazily stored key. All operations now recalculate the keying structure.</li>
 <li>Grouped tsibble (<code>grouped_ts</code>) is a subclassing of <code>grouped_df</code>.</li>
-<li>The argument <code>.size</code> is retired in <code><a href="../reference/stretch.html">stretch()</a></code> in favour of <code>.step</code>.</li>
+<li>The argument <code>.size</code> is retired in <code>stretch()</code> in favour of <code>.step</code>.</li>
 <li>
-<code><a href="../reference/stretch.html">stretch()</a></code> gained a new <code>.fill = NA</code> argument, which returns the same length as the input. To restore the previous behaviour, please use <code>.fill = NULL</code>. (<a href='https://github.com/tidyverts/tsibble/issues/88'>#88</a>)</li>
+<code>stretch()</code> gained a new <code>.fill = NA</code> argument, which returns the same length as the input. To restore the previous behaviour, please use <code>.fill = NULL</code>. (<a href='https://github.com/tidyverts/tsibble/issues/88'>#88</a>)</li>
 </ul>
 </div>
 <div id="new-features-1" class="section level2">
@@ -400,7 +403,7 @@
 <li>
 <code><a href="../reference/slide_tsibble.html">slide_tsibble()</a></code>, <code><a href="../reference/tile_tsibble.html">tile_tsibble()</a></code>, <code><a href="../reference/stretch_tsibble.html">stretch_tsibble()</a></code> provide fast and shorthand subsetting tsibble by rolling rows.</li>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code> gained a new <code>.step</code> argument for calculating at every specified step instead of every single step.</li>
+<code>slide()</code> gained a new <code>.step</code> argument for calculating at every specified step instead of every single step.</li>
 <li>
 <code><a href="../reference/update_tsibble.html">update_tsibble()</a></code> to update key and index a bit easier.</li>
 </ul>
@@ -485,7 +488,7 @@
 <code>count_gaps.tbl_ts()</code> returns a tibble containing gaps for each key value rather than an overall gap, which is consistent with the rest of tsibble methods. And all output column names that are not supplied by users gain a prefixed “.”.</li>
 <li>
 <code>time_unit()</code> accepts <code>interval</code> input instead of time vectors to avoid overheads, also marked as internal function.</li>
-<li>Separate partial sliding from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> as new functions <code><a href="../reference/partial_slider.html">partial_slider()</a></code> and <code><a href="../reference/partial_slider.html">partial_pslider()</a></code>. Argument <code>.partial</code> is removed from <code><a href="../reference/slider.html">slider()</a></code> and <code><a href="../reference/slider.html">pslider()</a></code> to feature a simpler interface.</li>
+<li>Separate partial sliding from <code>slider()</code> and <code>pslider()</code> as new functions <code>partial_slider()</code> and <code>partial_pslider()</code>. Argument <code>.partial</code> is removed from <code>slider()</code> and <code>pslider()</code> to feature a simpler interface.</li>
 <li>Removed argument <code>group</code> from <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>. In order to construct a grouped tsibble, <code>x</code> requires a grouped df.</li>
 </ul>
 </div>
@@ -610,7 +613,7 @@
 <a href="#new-features-5" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code><a href="../reference/tile.html">tile()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
+<code>tile()</code> gained a new argument <code>.bind = FALSE</code>.</li>
 <li>Vectorised arithmetic operators (<code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> &amp; <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
 <code><a href="../reference/new_interval.html">new_interval()</a></code> creates an “interval” object with the specified values.</li>
@@ -640,7 +643,7 @@
 <a href="#misc-3" class="anchor"></a>Misc</h2>
 <ul>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code> &amp; <code><a href="../reference/stretch.html">stretch()</a></code> use the same coercion rules as <code><a href="https://dplyr.tidyverse.org/reference/combine.html">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
+<code>slide()</code> &amp; <code>stretch()</code> use the same coercion rules as <code><a href="https://dplyr.tidyverse.org/reference/combine.html">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
 <li>Avoid strong dependency on <code>pillar</code>.</li>
 <li>Setting row names on a tsibble is deprecated, which is consistent with <code>tibble</code>.</li>
 </ul>
@@ -658,10 +661,10 @@
 <li>Added “nanotime” support for nanoseconds.</li>
 <li>Added scoped variant <code><a href="../reference/group_by_key.html">group_by_key()</a></code> to easily group the key variables.</li>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
+<code>slide()</code> gained a new argument <code>.align = "right"</code> to align at “right”, “center”, or “left”. If window size is even for center alignment, either “center-right” or “center-left” is needed.</li>
 <li>Defined arithmetic operators (<code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> &amp; <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) for yearweek, yearmonth, and yearquarter.</li>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code> and <code><a href="../reference/stretch.html">stretch()</a></code> gained a new argument <code>.bind = FALSE</code>.</li>
+<code>slide()</code> and <code>stretch()</code> gained a new argument <code>.bind = FALSE</code>.</li>
 <li>A new vignette on window functions.</li>
 </ul>
 </div>
@@ -689,9 +692,9 @@
 <ul>
 <li>Fixed warning in <code>format.yearweek()</code>.</li>
 <li>Fixed <code>group_by.lst_ts()</code> for dropping the grouping information.</li>
-<li>Fixed <code><a href="../reference/stretch2.html">stretch2()</a></code> only applying <code>.f</code> to one input.</li>
+<li>Fixed <code>stretch2()</code> only applying <code>.f</code> to one input.</li>
 <li>Fixed NSE in <code>as_tsibble.grouped_df()</code> for groups. (<a href='https://github.com/tidyverts/tsibble/issues/44'>#44</a>)</li>
-<li>Fixed bug in <code>.fill = NULL</code> for <code><a href="../reference/slide.html">slide()</a></code>.</li>
+<li>Fixed bug in <code>.fill = NULL</code> for <code>slide()</code>.</li>
 </ul>
 </div>
 <div id="misc-4" class="section level2">
@@ -714,17 +717,17 @@
 <li>Restructured windowed functions to follow the <code>purrr</code> style exactly (<a href='https://github.com/tidyverts/tsibble/issues/35'>#35</a>):
 <ul>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code> return lists only instead of numerics before.</li>
-<li>added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code> to map over multiple inputs simultaneously.</li>
-<li>added other type-stable variants such as <code><a href="../reference/slide.html">slide_dbl()</a></code>, <code><a href="../reference/slide.html">slide_int()</a></code>, <code><a href="../reference/slide.html">slide_chr()</a></code>, <code><a href="../reference/slide.html">slide_lgl()</a></code>.</li>
+<code>slide()</code>, <code>tile()</code>, <code>stretch()</code> return lists only instead of numerics before.</li>
+<li>added <code>slide2()</code>, <code>pslide()</code> to map over multiple inputs simultaneously.</li>
+<li>added other type-stable variants such as <code>slide_dbl()</code>, <code>slide_int()</code>, <code>slide_chr()</code>, <code>slide_lgl()</code>.</li>
 <li>A negative window size results in a backward moving direction.</li>
 <li>
-<code><a href="../reference/slide.html">slide()</a></code> gained a new argument <code>.partial</code> to support partial sliding.</li>
+<code>slide()</code> gained a new argument <code>.partial</code> to support partial sliding.</li>
 </ul>
 </li>
-<li>Renamed <code>x</code> to <code>.x</code> in <code><a href="../reference/slider.html">slider()</a></code>, <code><a href="../reference/tiler.html">tiler()</a></code>, <code><a href="../reference/stretcher.html">stretcher()</a></code>.</li>
+<li>Renamed <code>x</code> to <code>.x</code> in <code>slider()</code>, <code>tiler()</code>, <code>stretcher()</code>.</li>
 <li>
-<code><a href="../reference/slider.html">pslider()</a></code>, <code><a href="../reference/tiler.html">ptiler()</a></code>, <code><a href="../reference/stretcher.html">pstretcher()</a></code> support multiple inputs now, and split them in parallel.</li>
+<code>pslider()</code>, <code>ptiler()</code>, <code>pstretcher()</code> support multiple inputs now, and split them in parallel.</li>
 </ul>
 </div>
 <div id="new-features-7" class="section level2">
@@ -735,7 +738,7 @@
 <li>Defined <code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> for year-week, year-month, and year-quarter.</li>
 <li>
 <code><a href="../reference/yearweek.html">yearweek()</a></code>, <code><a href="../reference/yearmonth.html">yearmonth()</a></code>, <code><a href="../reference/yearquarter.html">yearquarter()</a></code> supported for character.</li>
-<li>Added <code><a href="../reference/slide2.html">slide2()</a></code>, <code><a href="../reference/slide2.html">pslide()</a></code>, <code><a href="../reference/tile2.html">tile2()</a></code>, <code><a href="../reference/tile2.html">ptile()</a></code>, <code><a href="../reference/stretch2.html">stretch2()</a></code>, <code><a href="../reference/stretch2.html">pstretch()</a></code> to slide over multiple inputs simultaneously (<a href='https://github.com/tidyverts/tsibble/issues/33'>#33</a>).</li>
+<li>Added <code>slide2()</code>, <code>pslide()</code>, <code>tile2()</code>, <code>ptile()</code>, <code>stretch2()</code>, <code>pstretch()</code> to slide over multiple inputs simultaneously (<a href='https://github.com/tidyverts/tsibble/issues/33'>#33</a>).</li>
 <li>New S3 generics <code>units_since()</code> for index classes.</li>
 <li>New <code><a href="../reference/yearweek.html">is_53weeks()</a></code> for determine if the year has 53 ISO weeks.</li>
 <li>New S3 generics <code>key_sum()</code> for extending tsibble.</li>
@@ -954,7 +957,7 @@
 <h2 class="hasAnchor">
 <a href="#api-changes-1" class="anchor"></a>API changes</h2>
 <ul>
-<li>The windowed functions, including <code><a href="../reference/slide.html">slide()</a></code>, <code><a href="../reference/tile.html">tile()</a></code>, <code><a href="../reference/stretch.html">stretch()</a></code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code><a href="../reference/slide.html">slide_dfr()</a></code> (a row-binding data frame), <code><a href="../reference/slide.html">slide_dfc()</a></code> (a column-binding data frame).</li>
+<li>The windowed functions, including <code>slide()</code>, <code>tile()</code>, <code>stretch()</code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code>slide_dfr()</code> (a row-binding data frame), <code>slide_dfc()</code> (a column-binding data frame).</li>
 <li>The <code>index</code> variable must sit in the first name-value pair in <code>tsummarise()</code> instead of any position in the call.</li>
 <li>
 <code>transmute.tbl_ts()</code> keeps the newly created variables along with index and keys, instead of throwing an error before.</li>
