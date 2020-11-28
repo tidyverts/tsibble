@@ -40,7 +40,6 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     methods,
-    purrr (>= 0.2.3),
     rlang (>= 0.4.6),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),

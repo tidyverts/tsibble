@@ -71,14 +71,14 @@ yearquarter.character <- function(x, fiscal_start = 1) {
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
   if (all(grepl("^(q|qtr|quarter)$", key_words, ignore.case = TRUE))) {
     yr_qtr <- regmatches(x, gregexpr("[[:digit:]]+", x))
-    digits_lgl <- map_lgl(yr_qtr, ~ !has_length(.x, 2))
-    digits_len <- map_int(yr_qtr, ~ sum(nchar(.x)))
+    digits_lgl <- map_lgl(yr_qtr, function(.x) !has_length(.x, 2))
+    digits_len <- map_int(yr_qtr, function(.x) sum(nchar(.x)))
     if (any(digits_lgl) || any(digits_len != 5)) {
       abort("Character strings are not in a standard unambiguous format.")
     }
-    yr_lgl <- map(yr_qtr, ~ grepl("[[:digit:]]{4}", .x))
-    yr <- as.integer(map2_chr(yr_qtr, yr_lgl, ~ .x[.y]))
-    qtr <- as.integer(map2_chr(yr_qtr, yr_lgl, ~ .x[!.y]))
+    yr_lgl <- map(yr_qtr, function(.x) grepl("[[:digit:]]{4}", .x))
+    yr <- as.integer(map2_chr(yr_qtr, yr_lgl, function(.x, .y) .x[.y]))
+    qtr <- as.integer(map2_chr(yr_qtr, yr_lgl, function(.x, .y) .x[!.y]))
     if (any(qtr > 4)) {
       abort("Quarters can't be greater than 4.")
     }

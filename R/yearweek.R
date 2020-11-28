@@ -77,14 +77,14 @@ yearweek.character <- function(x,
   key_words <- regmatches(x, gregexpr("[[:alpha:]]+", x))
   if (all(grepl("^(w|wk|week)$", key_words, ignore.case = TRUE))) {
     yr_week <- regmatches(x, gregexpr("[[:digit:]]+", x))
-    digits_lgl <- map_lgl(yr_week, ~ !has_length(.x, 2))
-    digits_len <- map_int(yr_week, ~ sum(nchar(.x)))
+    digits_lgl <- map_lgl(yr_week, function(.x) !has_length(.x, 2))
+    digits_len <- map_int(yr_week, function(.x) sum(nchar(.x)))
     if (any(digits_lgl) || any(digits_len < 5)) {
       abort("Character strings are not in a standard unambiguous format.")
     }
-    yr_lgl <- map(yr_week, ~ grepl("[[:digit:]]{4}", .x))
-    yr <- as.integer(map2_chr(yr_week, yr_lgl, ~ .x[.y]))
-    week <- as.integer(map2_chr(yr_week, yr_lgl, ~ .x[!.y]))
+    yr_lgl <- map(yr_week, function(.x) grepl("[[:digit:]]{4}", .x))
+    yr <- as.integer(map2_chr(yr_week, yr_lgl, function(.x, .y) .x[.y]))
+    week <- as.integer(map2_chr(yr_week, yr_lgl, function(.x, .y) .x[!.y]))
     if (any(week > 53)) {
       abort("Weeks can't be greater than 53.")
     }
@@ -280,7 +280,7 @@ format.yearweek <- function(x, format = "%Y W%V", ...) {
   vec_slice(x, lgl1) <- vec_slice(x, lgl1) - shift_year
   vec_slice(x, lgl2) <- vec_slice(x, lgl2) + shift_year
   wk_chr <- formatC(wk, width = 2, flag = "0")
-  wk_sub <- map_chr(wk_chr, ~ gsub("%V", ., x = format))
+  wk_sub <- map_chr(wk_chr, function(.x) gsub("%V", .x, x = format))
   wk_sub[is.na(wk_sub)] <- "-"
   format.Date(x, format = wk_sub)
 }

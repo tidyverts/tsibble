@@ -88,7 +88,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
   id_indices <-
     unlist(map(
       indices,
-      ~ imap(.x, ~ rep.int(.y, length(.x)))
+      function(.x) imap(.x, function(.x, .y) rep.int(.y, length(.x)))
     ), use.names = FALSE)
   res <-
     group_by(
@@ -181,7 +181,7 @@ stretcher2 <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   counter <- incr(.init = .init, .step = abs_size)
   if (sign(.step) < 0) .x <- rev(.x)
   ncall <- seq_len(floor((len_x - .init) / abs_size))
-  incr_lst <- c(list(seq_len(.init)), map(ncall, ~ seq_len(counter())))
+  incr_lst <- c(list(seq_len(.init)), map(ncall, function(z) seq_len(counter())))
   out <- map(incr_lst, function(idx) .x[idx])
   if (.bind) bind_lst(out) else out
 }
