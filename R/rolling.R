@@ -1,5 +1,5 @@
-slider2 <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
-  .x <- check_slider_input(.x, .size = .size, .step = .step, .bind = .bind)
+slider2 <- function(.x, .size = 1, .step = 1) {
+  .x <- check_slider_input(.x, .size = .size, .step = .step)
   len_x <- NROW(.x)
   abs_size <- abs(.size)
   if (abs_size > len_x) {
@@ -11,25 +11,14 @@ slider2 <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
   } else {
     lst_idx <- seq.int(len_x, abs_size, by = sign * .step)
   }
-  out <- map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
-  if (.bind) bind_lst(out) else out
+  map(lst_idx, function(idx) .x[idx:(idx + sign * (abs_size - 1))])
 }
 
-check_slider_input <- function(.x, .size = 1, .step = 1, .bind = FALSE) {
+check_slider_input <- function(.x, .size = 1, .step = 1) {
   bad_window_function(.size)
   bad_step_function(.step)
-  abort_not_lst(.x, .bind = .bind)
   if (is.data.frame(.x)) .x <- as.list(.x)
   .x
-}
-
-bind_lst <- function(x) {
-  type_elements <- flatten_chr(purrr::modify_depth(x, 2, ~ typeof(.)[1]))
-  if (all(type_elements == "list")) {
-    lapply(x, bind_rows)
-  } else {
-    lapply(x, combine)
-  }
 }
 
 #' Perform sliding windows on a tsibble by row
@@ -127,15 +116,13 @@ tile_tsibble <- function(.x, .size = 1, .id = ".id") {
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
-tiler2 <- function(.x, .size = 1, .bind = FALSE) {
+tiler2 <- function(.x, .size = 1) {
   bad_window_function(.size)
-  abort_not_lst(.x, .bind = .bind)
   len_x <- NROW(.x)
   seq_x <- seq_len(len_x)
   denom <- len_x + 1
   frac <- ceiling((seq_x %% denom) / .size)
-  out <- unname(split(.x, frac, drop = TRUE))
-  if (.bind) bind_lst(out) else out
+  unname(split(.x, frac, drop = TRUE))
 }
 
 #' Perform stretching windows on a tsibble by row
@@ -164,7 +151,7 @@ stretch_tsibble <- function(.x, .step = 1, .init = 1, .id = ".id") {
   roll_tsibble(.x, indices = lst_indices, .id = .id)
 }
 
-stretcher2 <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
+stretcher2 <- function(.x, .step = 1, .init = 1) {
   bad_window_function(.step)
   if (!is_integerish(.init, n = 1) || .init < 1) {
     abort("`.init` only accepts a positive integer.")
@@ -182,8 +169,7 @@ stretcher2 <- function(.x, .step = 1, .init = 1, .bind = FALSE) {
   if (sign(.step) < 0) .x <- rev(.x)
   ncall <- seq_len(floor((len_x - .init) / abs_size))
   incr_lst <- c(list(seq_len(.init)), map(ncall, function(z) seq_len(counter())))
-  out <- map(incr_lst, function(idx) .x[idx])
-  if (.bind) bind_lst(out) else out
+  map(incr_lst, function(idx) .x[idx])
 }
 
 bad_window_function <- function(.size) {
@@ -198,12 +184,6 @@ bad_window_function <- function(.size) {
 bad_step_function <- function(.step) {
   if (.step <= 0 || !is_integerish(.step, n = 1)) {
     abort("`.step` must be a positive integer.")
-  }
-}
-
-abort_not_lst <- function(.x, .bind = FALSE) {
-  if (!is.list(.x) && .bind) {
-    abort(sprintf("`.bind = TRUE` only accepts list, not %s.", typeof(.x)))
   }
 }
 

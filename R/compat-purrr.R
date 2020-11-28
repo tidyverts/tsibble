@@ -200,5 +200,4 @@ vec_index <- function(x) {
   names(x) %||% seq_along(x)
 }
 
-
 # nocov end
