@@ -88,9 +88,6 @@
     <loc>https://tsibble.tidyverts.org/reference/new_tsibble.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/partial-slider.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/pedestrian.html</loc>
   </url>
   <url>
@@ -103,40 +100,13 @@
     <loc>https://tsibble.tidyverts.org/reference/scan_gaps.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/slide.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/slide2.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/slide_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/slider.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/stretch.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/stretch2.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/stretch_tsibble.html</loc>
   </url>
   <url>
-    <loc>https://tsibble.tidyverts.org/reference/stretcher.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tile.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tile2.html</loc>
-  </url>
-  <url>
     <loc>https://tsibble.tidyverts.org/reference/tile_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tiler.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/time_in.html</loc>
