@@ -21,6 +21,8 @@ principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
 4.  Each observational unit should be measured at a common **interval**,
     if regularly spaced.
 
+Data with those properties are commonly known as **panel data** or **longitudinal data** and are pervasive in many areas, from economics and finance to psychology and biology. **tsibble** offers some handy functions to explore and prepare that kind of data to further investigations or statistical/econometric analyses with packages like [plm](https://cran.r-project.org/web/packages/plm/index.html) and [panelr](https://github.com/jacob-long/panelr).
+
 ## Installation
 
 You could install the stable version on CRAN:
