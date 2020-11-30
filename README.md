@@ -1,8 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-tsibble <img src="man/figures/logo.png" align="right" />
-========================================================
+# tsibble <img src="man/figures/logo.png" align="right" />
 
 [![R build
 status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
@@ -22,20 +21,22 @@ principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
 4.  Each observational unit should be measured at a common **interval**,
     if regularly spaced.
 
-Installation
-------------
+## Installation
 
 You could install the stable version on CRAN:
 
-    install.packages("tsibble")
+``` r
+install.packages("tsibble")
+```
 
 You could install the development version from Github using
 
-    # install.packages("remotes")
-    remotes::install_github("tidyverts/tsibble")
+``` r
+# install.packages("remotes")
+remotes::install_github("tidyverts/tsibble")
+```
 
-Get started
------------
+## Get started
 
 ### Coerce to a tsibble with `as_tsibble()`
 
@@ -45,22 +46,24 @@ For example, in the `weather` data from the package `nycflights13`, the
 and the `origin` as **key**. Other columns can be considered as measured
 variables.
 
-    library(dplyr)
-    library(tsibble)
-    weather <- nycflights13::weather %>% 
-      select(origin, time_hour, temp, humid, precip)
-    weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
-    weather_tsbl
-    #> # A tsibble: 26,115 x 5 [1h] <America/New_York>
-    #> # Key:       origin [3]
-    #>   origin time_hour            temp humid precip
-    #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
-    #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
-    #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
-    #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
-    #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
-    #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-    #> # … with 26,110 more rows
+``` r
+library(dplyr)
+library(tsibble)
+weather <- nycflights13::weather %>% 
+  select(origin, time_hour, temp, humid, precip)
+weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
+weather_tsbl
+#> # A tsibble: 26,115 x 5 [1h] <America/New_York>
+#> # Key:       origin [3]
+#>   origin time_hour            temp humid precip
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#> # … with 26,110 more rows
+```
 
 The **key** can be comprised of empty, one, or more variables. See
 `package?tsibble` and
@@ -93,22 +96,24 @@ common to replaces `NA`s with its previous observation for each origin
 in time series analysis, which is easily done using `fill()` from
 **tidyr**.
 
-    full_weather <- weather_tsbl %>%
-      fill_gaps(precip = 0) %>% 
-      group_by_key() %>% 
-      tidyr::fill(temp, humid, .direction = "down")
-    full_weather
-    #> # A tsibble: 26,190 x 5 [1h] <America/New_York>
-    #> # Key:       origin [3]
-    #> # Groups:    origin [3]
-    #>   origin time_hour            temp humid precip
-    #>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
-    #> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
-    #> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
-    #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
-    #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
-    #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-    #> # … with 26,185 more rows
+``` r
+full_weather <- weather_tsbl %>%
+  fill_gaps(precip = 0) %>% 
+  group_by_key() %>% 
+  tidyr::fill(temp, humid, .direction = "down")
+full_weather
+#> # A tsibble: 26,190 x 5 [1h] <America/New_York>
+#> # Key:       origin [3]
+#> # Groups:    origin [3]
+#>   origin time_hour            temp humid precip
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#> # … with 26,185 more rows
+```
 
 `fill_gaps()` also handles filling in time gaps by values or functions,
 and respects time zones for date-times. Wanna a quick overview of
@@ -119,39 +124,40 @@ implicit missing values? Check out
 
 `index_by()` is the counterpart of `group_by()` in temporal context, but
 it groups the index only. In conjunction with `index_by()`,
-`summarise()` and its scoped variants aggregate interested variables
-over calendar periods. `index_by()` goes hand in hand with the index
-functions including `as.Date()`, `yearweek()`, `yearmonth()`, and
-`yearquarter()`, as well as other friends from **lubridate**. For
-example, it would be of interest in computing average temperature and
-total precipitation per month, by applying `yearmonth()` to the index
-variable (referred to as `.`).
+`summarise()` aggregates interested variables over time periods.
+`index_by()` goes hand in hand with the index functions including
+`as.Date()`, `yearweek()`, `yearmonth()`, and `yearquarter()`, as well
+as other friends from **lubridate**. For example, it would be of
+interest in computing average temperature and total precipitation per
+month, by applying `yearmonth()` to the index variable (referred to as
+`.`).
 
-    full_weather %>%
-      group_by_key() %>%
-      index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates
-      summarise(
-        avg_temp = mean(temp, na.rm = TRUE),
-        ttl_precip = sum(precip, na.rm = TRUE)
-      )
-    #> # A tsibble: 36 x 4 [1M]
-    #> # Key:       origin [3]
-    #>   origin year_month avg_temp ttl_precip
-    #>   <chr>       <mth>    <dbl>      <dbl>
-    #> 1 EWR      2013 Jan     35.6       3.53
-    #> 2 EWR      2013 Feb     34.2       3.83
-    #> 3 EWR      2013 Mar     40.1       3   
-    #> 4 EWR      2013 Apr     53.0       1.47
-    #> 5 EWR      2013 May     63.3       5.44
-    #> # … with 31 more rows
+``` r
+full_weather %>%
+  group_by_key() %>%
+  index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates
+  summarise(
+    avg_temp = mean(temp, na.rm = TRUE),
+    ttl_precip = sum(precip, na.rm = TRUE)
+  )
+#> # A tsibble: 36 x 4 [1M]
+#> # Key:       origin [3]
+#>   origin year_month avg_temp ttl_precip
+#>   <chr>       <mth>    <dbl>      <dbl>
+#> 1 EWR      2013 Jan     35.6       3.53
+#> 2 EWR      2013 Feb     34.2       3.83
+#> 3 EWR      2013 Mar     40.1       3   
+#> 4 EWR      2013 Apr     53.0       1.47
+#> 5 EWR      2013 May     63.3       5.44
+#> # … with 31 more rows
+```
 
 While collapsing rows (like `summarise()`), `group_by()` and
 `index_by()` will take care of updating the key and index respectively.
 This `index_by()` + `summarise()` combo can help with regularising a
 tsibble of irregular time space too.
 
-Learn more about tsibble
-------------------------
+## Learn more about tsibble
 
 An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around
 the *tsibble* object for tidy time series analysis.
