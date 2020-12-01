@@ -358,3 +358,27 @@ fiscal_year <- function(x) {
   stopifnot(is_yearquarter(x))
   trunc(quarter(x, TRUE, fiscal_start(x)))
 }
+
+#' @export
+union.yearquarter <- function(x, y, ...) {
+  if (!inherits(y, "yearquarter")) {
+    stop("'y' must be of class 'yearquarter'")
+  }
+  unique(vec_c(x, y))
+}
+
+#' @export
+intersect.yearquarter <- function(x, y, ...) {
+  if (!inherits(y, "yearquarter")) {
+    stop("'y' must be of class 'yearquarter'")
+  }
+  x[vec_in(x,y)]
+}
+
+#' @export
+setdiff.yearquarter <- function(x, y, ...) {
+  if (!inherits(y, "yearquarter")) {
+    stop("'y' must be of class 'yearquarter'")
+  }
+  c(x[!vec_in(x, y)], y[!vec_in(y, x)])
+}

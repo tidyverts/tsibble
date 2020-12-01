@@ -278,6 +278,30 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
   }
 }
 
+#' @export
+union.yearmonth <- function(x, y, ...) {
+  if (!inherits(y, "yearmonth")) {
+    stop("'y' must be of class 'yearmonth'")
+  }
+  unique(vec_c(x, y))
+}
+
+#' @export
+intersect.yearmonth <- function(x, y, ...) {
+  if (!inherits(y, "yearmonth")) {
+    stop("'y' must be of class 'yearmonth'")
+  }
+  x[vec_in(x,y)]
+}
+
+#' @export
+setdiff.yearmonth <- function(x, y, ...) {
+  if (!inherits(y, "yearmonth")) {
+    stop("'y' must be of class 'yearmonth'")
+  }
+  c(x[!vec_in(x, y)], y[!vec_in(y, x)])
+}
+
 bad_by <- function(by) {
   if (!is_bare_numeric(by, n = 1)) {
     abort("`by` only takes a numeric.")

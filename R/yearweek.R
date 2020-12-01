@@ -46,7 +46,7 @@ yearweek.default <- function(x,
 }
 
 #' @export
-yearweek.NULL <- function(x, 
+yearweek.NULL <- function(x,
                           week_start = getOption("lubridate.week.start", 1)) {
   new_yearweek(double(), week_start = week_start)
 }
@@ -384,4 +384,28 @@ convert_week_to_date <- function(year, week, week_start) {
     shift_num[i] <- sum(nweeks) + week[i] - 1
   }
   yearweek(0, week_start) + shift_num
+}
+
+#' @export
+union.yearweek <- function(x, y, ...) {
+  if (!inherits(y, "yearweek")) {
+    stop("'y' must be of class 'yearweek'")
+  }
+  unique(vec_c(x, y))
+}
+
+#' @export
+intersect.yearweek <- function(x, y, ...) {
+  if (!inherits(y, "yearweek")) {
+    stop("'y' must be of class 'yearweek'")
+  }
+  x[vec_in(x,y)]
+}
+
+#' @export
+setdiff.yearweek <- function(x, y, ...) {
+  if (!inherits(y, "yearweek")) {
+    stop("'y' must be of class 'yearweek'")
+  }
+  c(x[!vec_in(x, y)], y[!vec_in(y, x)])
 }

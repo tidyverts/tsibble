@@ -71,3 +71,27 @@ test_that("yearmonth() with missing `by` #228", {
   expect_length(seq(yearmonth("2020-01-01"), yearmonth("2020-06-01"),
     length.out = 3), 3)
 })
+
+test_that("yearmonth() set operations", {
+  expect_identical(intersect(yearmonth("2020 Jan") + 0:6,
+                             yearmonth("2020 Jan") + 3:9),
+                   yearmonth("2020 Jan") + 3:6)
+
+  expect_error(intersect(yearmonth("2020 Jan") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearmonth'")
+
+  expect_identical(union(yearmonth("2020 Jan") + 0:6,
+                         yearmonth("2020 Jan") + 3:9),
+                   yearmonth("2020 Jan") + 0:9)
+
+  expect_error(union(yearmonth("2020 Jan") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearmonth'")
+
+  expect_identical(setdiff(yearmonth("2020 Jan") + 0:6,
+                           yearmonth("2020 Jan") + 3:9),
+                   yearmonth("2020 Jan") + c(0:2, 7:9))
+
+  expect_error(setdiff(yearmonth("2020 Jan") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearmonth'")
+})
+
