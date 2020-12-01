@@ -43,7 +43,8 @@ Imports:
     rlang (>= 0.4.6),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
-    vctrs (>= 0.3.1)
+    vctrs (>= 0.3.1),
+    generics
 Suggests: 
     covr,
     ggplot2 (>= 3.3.0),
