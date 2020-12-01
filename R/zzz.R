@@ -20,5 +20,15 @@
   s3_register("scales::fullseq", "yearquarter")
   s3_register("scales::fullseq", "yearmonth")
   s3_register("scales::fullseq", "yearweek")
+  s3_register("generics::intersect", "yearquarter")
+  s3_register("generics::intersect", "yearmonth")
+  s3_register("generics::intersect", "yearweek")
+  s3_register("generics::union", "yearquarter")
+  s3_register("generics::union", "yearmonth")
+  s3_register("generics::union", "yearweek")
+  s3_register("generics::setdiff", "yearquarter")
+  s3_register("generics::setdiff", "yearmonth")
+  s3_register("generics::setdiff", "yearweek")
+
 }
 # nocov end
