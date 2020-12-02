@@ -361,24 +361,24 @@ fiscal_year <- function(x) {
 
 #' @export
 union.yearquarter <- function(x, y, ...) {
-  if (!inherits(y, "yearquarter")) {
-    stop("'y' must be of class 'yearquarter'")
+  if (!is_yearquarter(y)) {
+    abort("'y' must be of class 'yearquarter'")
   }
-  unique(vec_c(x, y))
+  vec_unique(vec_c(x, y))
 }
 
 #' @export
 intersect.yearquarter <- function(x, y, ...) {
-  if (!inherits(y, "yearquarter")) {
-    stop("'y' must be of class 'yearquarter'")
+  if (!is_yearquarter(y)) {
+    abort("'y' must be of class 'yearquarter'")
   }
-  x[vec_in(x,y)]
+  vec_slice(x, vec_in(x,y))
 }
 
 #' @export
 setdiff.yearquarter <- function(x, y, ...) {
-  if (!inherits(y, "yearquarter")) {
-    stop("'y' must be of class 'yearquarter'")
+  if (!is_yearquarter(y)) {
+    abort("'y' must be of class 'yearquarter'")
   }
-  c(x[!vec_in(x, y)], y[!vec_in(y, x)])
+  vec_c(vec_slice(x, !vec_in(x, y)), vec_slice(y, !vec_in(y, x)))
 }

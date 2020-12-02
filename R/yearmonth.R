@@ -279,27 +279,30 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
 }
 
 #' @export
+#' @method union yearmonth
 union.yearmonth <- function(x, y, ...) {
-  if (!inherits(y, "yearmonth")) {
-    stop("'y' must be of class 'yearmonth'")
+  if (!is_yearmonth(y)) {
+    abort("'y' must be of class 'yearmonth'")
   }
-  unique(vec_c(x, y))
+  vec_unique(vec_c(x, y))
 }
 
 #' @export
+#' @method intersect yearmonth
 intersect.yearmonth <- function(x, y, ...) {
-  if (!inherits(y, "yearmonth")) {
-    stop("'y' must be of class 'yearmonth'")
+  if (!is_yearmonth(y)) {
+    abort("'y' must be of class 'yearmonth'")
   }
-  x[vec_in(x,y)]
+  vec_slice(x, vec_in(x, y))
 }
 
 #' @export
+#' @method setdiff yearmonth
 setdiff.yearmonth <- function(x, y, ...) {
-  if (!inherits(y, "yearmonth")) {
-    stop("'y' must be of class 'yearmonth'")
+  if (!is_yearmonth(y)) {
+    abort("'y' must be of class 'yearmonth'")
   }
-  c(x[!vec_in(x, y)], y[!vec_in(y, x)])
+  vec_c(vec_slice(x, !vec_in(x, y)), vec_slice(y, !vec_in(y, x)))
 }
 
 bad_by <- function(by) {
