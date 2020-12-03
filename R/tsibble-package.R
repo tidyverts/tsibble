@@ -14,7 +14,7 @@
 #'
 #' For a `tbl_ts` of regular interval, a choice of index representation has to
 #' be made. For example, a monthly data should correspond to time index created
-#' by [yearmonth], instead of `Date` or `POSIXct`. Because months in a year 
+#' by [yearmonth], instead of `Date` or `POSIXct`. Because months in a year
 #' ensures the regularity, 12 months every year. However, if using `Date`, a
 #' month containing days ranges from 28 to 31 days, which results in irregular
 #' time space. This is also applicable to year-week and year-quarter.
@@ -87,6 +87,7 @@
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first
 #' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
 #' @importFrom tibble new_tibble trunc_mat
+#' @importFrom generics setdiff union intersect
 #' @import rlang tidyselect vctrs ellipsis
 #' @examples
 #' # create a tsibble w/o a key ----

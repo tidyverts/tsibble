@@ -22,7 +22,11 @@ Authors@R:
              comment = c(ORCID = "0000-0001-6729-7695")),
       person(given = "Tyler",
              family = "Smith",
-             role = "ctb")
+             role = "ctb"),
+      person(given = "Wil",
+             family = "Davis",
+             role = "ctb",
+             email = "william.davis@worthingtonindustries.com")
       )
 Description: Provides a 'tbl_ts' class (the 'tsibble') for
     temporal data in an data- and model-oriented format. The 'tsibble'
@@ -43,7 +47,8 @@ Imports:
     rlang (>= 0.4.6),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
-    vctrs (>= 0.3.1)
+    vctrs (>= 0.3.1),
+    generics
 Suggests: 
     covr,
     ggplot2 (>= 3.3.0),

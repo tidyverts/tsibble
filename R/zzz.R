@@ -20,5 +20,6 @@
   s3_register("scales::fullseq", "yearquarter")
   s3_register("scales::fullseq", "yearmonth")
   s3_register("scales::fullseq", "yearweek")
+
 }
 # nocov end

@@ -97,7 +97,7 @@ test_that("week_start for yearweek() #205", {
   expect_identical(yearweek(dttm2, 7), x2)
   expect_identical(yearweek(dates2, 7), x2)
   expect_identical(
-    yearweek(x2, week_start = 1), 
+    yearweek(x2, week_start = 1),
     yearweek(c("1969 W52", "1970 W01", "1970 W02"), week_start = 1))
 
   expect_identical(x2 + 1:3, yearweek(c("1970 W01", "1970 W03", "1970 W05"), 7))
@@ -118,4 +118,39 @@ test_that("week_start for yearweek() #205", {
 test_that("yearweek() with missing `by` #228", {
   expect_length(seq(yearweek("2020-01-01"), yearweek("2020-02-01"),
     length.out = 3), 3)
+})
+
+test_that("yearweek() set operations", {
+  expect_identical(intersect(yearweek("2020 W1") + 0:6,
+                             yearweek("2020 W1") + 3:9),
+                   yearweek("2020 W1") + 3:6)
+
+  expect_error(intersect(yearweek("2020 W1") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearweek'")
+  expect_error(intersect(
+    yearweek("2020 W1"),
+    yearweek("2020 W1", week_start = 2)
+  ))
+
+  expect_identical(union(yearweek("2020 W1") + 0:6,
+                         yearweek("2020 W1") + 3:9),
+                   yearweek("2020 W1") + 0:9)
+
+  expect_error(union(yearweek("2020 W1") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearweek'")
+  expect_error(union(
+    yearweek("2020 W1"),
+    yearweek("2020 W1", week_start = 2)
+  ))
+
+  expect_identical(setdiff(yearweek("2020 W1") + 0:6,
+                           yearweek("2020 W1") + 3:9),
+                   yearweek("2020 W1") + c(0:2, 7:9))
+
+  expect_error(setdiff(yearweek("2020 W1") + 0:6, Sys.Date()),
+               "'y' must be of class 'yearweek'")
+  expect_error(setdiff(
+    yearweek("2020 W1"),
+    yearweek("2020 W1", week_start = 2)
+  ))
 })
