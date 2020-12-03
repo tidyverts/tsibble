@@ -67,7 +67,7 @@
 #'   group_by(Region, State) %>%
 #'   summarise(Total = sum(Trips))
 #'
-#' # Rouding to financial year, using a custom function
+#' # Rounding to financial year, using a custom function
 #' financial_year <- function(date) {
 #'   year <- year(date)
 #'   ifelse(quarter(date) <= 2, year, year + 1)
