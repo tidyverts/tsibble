@@ -26,8 +26,7 @@ Authors@R:
       person(given = "Wil",
              family = "Davis",
              role = "ctb",
-             email = "william.davis@worthingtonindustries.com")
-      )
+             email = "william.davis@worthingtonindustries.com"))
 Description: Provides a 'tbl_ts' class (the 'tsibble') for
     temporal data in an data- and model-oriented format. The 'tsibble'
     provides tools to easily manipulate and analyse temporal data, such as
@@ -41,14 +40,14 @@ Imports:
     anytime (>= 0.3.1),
     dplyr (>= 1.0.0),
     ellipsis (>= 0.3.0),
+    generics,
     lifecycle,
     lubridate (>= 1.7.0),
     methods,
     rlang (>= 0.4.6),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
-    vctrs (>= 0.3.1),
-    generics
+    vctrs (>= 0.3.1)
 Suggests: 
     covr,
     ggplot2 (>= 3.3.0),
@@ -66,8 +65,8 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
-Config/testthat/edition: 3
 ByteCompile: true
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 LazyData: true

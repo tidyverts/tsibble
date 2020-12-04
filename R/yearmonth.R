@@ -278,32 +278,42 @@ seq.yearmonth <- function(from, to, by, length.out = NULL, along.with = NULL,
   }
 }
 
+
+#' @importFrom generics union
 #' @export
-#' @method union yearmonth
-union.yearmonth <- function(x, y, ...) {
-  if (!is_yearmonth(y)) {
-    abort("'y' must be of class 'yearmonth'")
+generics::union
+
+#' @importFrom generics intersect
+#' @export
+generics::intersect
+
+#' @importFrom generics setdiff
+#' @export
+generics::setdiff
+
+set_ops <- function(class = "yearmonth", op = "intersect") {
+  force(class)
+  force(op)
+  fun <- switch(op,
+    "union" = function(x, y, ...) vec_unique(vec_c(x, y)),
+    "intersect" = function(x, y, ...) vec_slice(x, vec_in(x, y)),
+    "setdiff" = function(x, y, ...)
+      vec_unique(if (length(x) || length(y)) x[is.na(vec_match(x, y))] else x)
+  )
+  function(x, y, ...) {
+    abort_if_not(y, class)
+    fun(x, y, ...)
   }
-  vec_unique(vec_c(x, y))
 }
 
 #' @export
-#' @method intersect yearmonth
-intersect.yearmonth <- function(x, y, ...) {
-  if (!is_yearmonth(y)) {
-    abort("'y' must be of class 'yearmonth'")
-  }
-  vec_slice(x, vec_in(x, y))
-}
+union.yearmonth <- set_ops("yearmonth", op = "union")
 
 #' @export
-#' @method setdiff yearmonth
-setdiff.yearmonth <- function(x, y, ...) {
-  if (!is_yearmonth(y)) {
-    abort("'y' must be of class 'yearmonth'")
-  }
-  vec_c(vec_slice(x, !vec_in(x, y)), vec_slice(y, !vec_in(y, x)))
-}
+intersect.yearmonth <- set_ops("yearmonth", op = "intersect")
+
+#' @export
+setdiff.yearmonth <- set_ops("yearmonth", op = "setdiff")
 
 bad_by <- function(by) {
   if (!is_bare_numeric(by, n = 1)) {

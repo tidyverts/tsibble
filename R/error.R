@@ -1,3 +1,10 @@
+abort_if_not <- function(x, class) {
+  if (!inherits(x, class)) {
+    abort(sprintf("`%s` must be of class \"%s\".", deparse(substitute(x)), class))
+  }
+  
+}
+
 is_index_null <- function(x) {
   if (is_null(x %@% "index")) {
     abort("The `index` has been dropped somehow. Please reconstruct tsibble.")

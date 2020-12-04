@@ -73,25 +73,20 @@ test_that("yearmonth() with missing `by` #228", {
 })
 
 test_that("yearmonth() set operations", {
-  expect_identical(intersect(yearmonth("2020 Jan") + 0:6,
-                             yearmonth("2020 Jan") + 3:9),
-                   yearmonth("2020 Jan") + 3:6)
+  date <- as.Date("2020-01-01")
+  expect_identical(
+    intersect(yearmonth(date) + 0:6, yearmonth(date) + 3:9),
+    yearmonth(date) + intersect(0:6, 3:9))
 
-  expect_error(intersect(yearmonth("2020 Jan") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearmonth'")
+  expect_error(intersect(yearmonth(date) + 0:6, date),
+    "`y` must be of class \"yearmonth\".")
 
-  expect_identical(union(yearmonth("2020 Jan") + 0:6,
-                         yearmonth("2020 Jan") + 3:9),
-                   yearmonth("2020 Jan") + 0:9)
+  expect_identical(
+    union(yearmonth(date) + 0:6, yearmonth(date) + 3:9),
+    yearmonth(date) + 0:9)
 
-  expect_error(union(yearmonth("2020 Jan") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearmonth'")
-
-  expect_identical(setdiff(yearmonth("2020 Jan") + 0:6,
-                           yearmonth("2020 Jan") + 3:9),
-                   yearmonth("2020 Jan") + c(0:2, 7:9))
-
-  expect_error(setdiff(yearmonth("2020 Jan") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearmonth'")
+  expect_identical(
+    setdiff(yearmonth(date) + 0:6, yearmonth(date) + 3:9),
+    yearmonth(date) + setdiff(0:6, 3:9))
 })
 

@@ -1,10 +1,11 @@
-# tsibble 0.9.4
+# tsibble 1.0.0
 
 * Fixed bug in different `yearmonth()` underlying data for character inputs. (#226)
 * Fixed C stack error when index contains NA with `as_tsibble()`. (#229)
 * Fixed bug when `by` is missing in `year*()`. (#228)
 * Removed rolling functions.
 * Removed dependency of {purrr}.
+* Added set operations (`intersect()`, `union()`, and `setdiff()`) for `year*` class. (#235, @wkdavis)
 
 # tsibble 0.9.3
 

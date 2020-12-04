@@ -104,37 +104,24 @@ test_that("yearquarter() with missing `by` #228", {
 })
 
 test_that("yearquarter() set operations", {
-  expect_identical(intersect(yearquarter("2020 Q1") + 0:6,
-                             yearquarter("2020 Q1") + 3:9),
-                   yearquarter("2020 Q1") + 3:6)
-
-  expect_error(intersect(yearquarter("2020 Q1") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearquarter'")
+  expect_identical(
+    intersect(yearquarter("2020 Q1") + 0:6, yearquarter("2020 Q1") + 3:9),
+    yearquarter("2020 Q1") + intersect(0:6, 3:9))
   expect_error(intersect(
     yearquarter("2020 Q1"),
     yearquarter("2020 Q1", fiscal_start = 2)
   ))
 
-  expect_identical(union(yearquarter("2020 Q1") + 0:6,
-                         yearquarter("2020 Q1") + 3:9),
-                   yearquarter("2020 Q1") + 0:9)
-
-  expect_error(union(yearquarter("2020 Q1") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearquarter'")
+  expect_identical(
+    union(yearquarter("2020 Q1") + 0:6, yearquarter("2020 Q1") + 3:9),
+    yearquarter("2020 Q1") + 0:9)
   expect_error(union(
     yearquarter("2020 Q1"),
     yearquarter("2020 Q1", fiscal_start = 2)
   ))
 
-  expect_identical(setdiff(yearquarter("2020 Q1") + 0:6,
-                           yearquarter("2020 Q1") + 3:9),
-                   yearquarter("2020 Q1") + c(0:2, 7:9))
-
-  expect_error(setdiff(yearquarter("2020 Q1") + 0:6, Sys.Date()),
-               "'y' must be of class 'yearquarter'")
-  expect_error(setdiff(
-    yearquarter("2020 Q1"),
-    yearquarter("2020 Q1", fiscal_start = 2)
-  ))
+  expect_identical(
+    setdiff(yearquarter("2020 Q1") + 0:6, yearquarter("2020 Q1") + 3:9),
+    yearquarter("2020 Q1") + setdiff(0:6, 3:9))
 })
 

@@ -130,6 +130,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Tyler Smith [contributor]
+  \item Wil Davis \email{william.davis@worthingtonindustries.com} [contributor]
 }
 
 }

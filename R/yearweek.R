@@ -387,25 +387,10 @@ convert_week_to_date <- function(year, week, week_start) {
 }
 
 #' @export
-union.yearweek <- function(x, y, ...) {
-  if (!is_yearweek(y)) {
-    abort("'y' must be of class 'yearweek'")
-  }
-  vec_unique(vec_c(x, y))
-}
+union.yearweek <- set_ops("yearweek", op = "union")
 
 #' @export
-intersect.yearweek <- function(x, y, ...) {
-  if (!is_yearweek(y)) {
-    abort("'y' must be of class 'yearweek'")
-  }
-  vec_slice(x, vec_in(x,y))
-}
+intersect.yearweek <- set_ops("yearweek", op = "intersect")
 
 #' @export
-setdiff.yearweek <- function(x, y, ...) {
-  if (!is_yearweek(y)) {
-    abort("'y' must be of class 'yearweek'")
-  }
-  vec_c(vec_slice(x, !vec_in(x, y)), vec_slice(y, !vec_in(y, x)))
-}
+setdiff.yearweek <- set_ops("yearweek", op = "setdiff")
