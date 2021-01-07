@@ -6,6 +6,7 @@
 * Removed rolling functions.
 * Removed dependency of {purrr}.
 * Added set operations (`intersect()`, `union()`, and `setdiff()`) for `year*` class. (#235, @wkdavis)
+* Fixed bug in `full_join()` that produces an output with wrong temporal order. (#247)
 
 # tsibble 0.9.3
 
