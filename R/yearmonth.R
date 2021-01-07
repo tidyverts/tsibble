@@ -65,8 +65,12 @@ yearmonth.Date <- function(x) {
 
 #' @export
 yearmonth.character <- function(x) {
+  fmts <- c("%B %Y", "%b %Y", "%Y M%m", "%Y m%m")
+  addFormats(fmts)
   assertDate(x)
-  yearmonth(anydate(x))
+  dates <- anydate(x)
+  removeFormats(fmts)
+  yearmonth(dates)
 }
 
 #' @export

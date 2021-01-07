@@ -75,6 +75,7 @@
 #' @importFrom utils head tail
 #' @importFrom stats frequency start end time ts as.ts tsp<-
 #' @importFrom anytime assertTime assertDate utcdate utctime anydate
+#' @importFrom anytime addFormats removeFormats
 #' @importFrom lubridate make_date wday floor_date year month period as.period
 #' @importFrom lubridate as.duration
 #' @importFrom lubridate quarter is.POSIXct rollback force_tz tz is.POSIXt is.Date

@@ -90,3 +90,6 @@ test_that("yearmonth() set operations", {
     yearmonth(date) + setdiff(0:6, 3:9))
 })
 
+test_that("yearmonth() for `2019 M01` #142", {
+  expect_identical(yearmonth("2019 M01"), yearmonth("2019-01-01"))
+})
