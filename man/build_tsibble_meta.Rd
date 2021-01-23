@@ -21,8 +21,7 @@ frame is supplied, the argument \code{key} will be ignored.}
 
 \item{index, index2}{Quoted variable name.}
 
-\item{ordered}{The default of \code{NULL} arranges the key variable(s) first and
-then index from past to future. \code{TRUE} suggests to skip the ordering as \code{x} in
+\item{ordered}{\code{TRUE} suggests to skip the ordering as \code{x} in
 the correct order. \code{FALSE} checks the ordering and may give a warning.}
 
 \item{interval}{\code{TRUE} automatically calculates the interval, and \code{FALSE} for

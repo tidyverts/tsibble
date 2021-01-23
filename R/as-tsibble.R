@@ -337,6 +337,8 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
 #' high performance.
 #'
 #' @inheritParams build_tsibble
+#' @param ordered `TRUE` suggests to skip the ordering as `x` in
+#' the correct order. `FALSE` checks the ordering and may give a warning.
 #' @param index,index2 Quoted variable name.
 #'
 #' @keywords internal
