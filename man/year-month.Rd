@@ -5,12 +5,14 @@
 \alias{is_yearmonth}
 \title{Represent year-month}
 \usage{
-yearmonth(x)
+yearmonth(x, ...)
 
 is_yearmonth(x)
 }
 \arguments{
 \item{x}{Other object.}
+
+\item{...}{Further arguments to methods.}
 }
 \value{
 year-month (\code{yearmonth}) objects.
