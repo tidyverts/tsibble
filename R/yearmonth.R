@@ -65,7 +65,7 @@ yearmonth.Date <- function(x, ...) {
 }
 
 #' @export
-yearmonth.character <- function(x, format = NULL) {
+yearmonth.character <- function(x, format = NULL, ...) {
   fmts <- c("%B %Y", "%b %Y", "%Y M%m", "%Y m%m")
   dates <- with_anytime_formats({
     assertDate(x)
