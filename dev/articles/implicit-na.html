@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -101,8 +101,7 @@
 
       
 
-      </header><script src="implicit-na_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="implicit-na_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="implicit-na_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="implicit-na_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Handle implicit missingness with tsibble</h1>
@@ -116,7 +115,7 @@
 
     
     
-<p>Assuming you have <a href="https://pkg.earo.me/tsibble/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
+<p>Assuming you have <a href="https://tsibble.tidyverts.org/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
@@ -170,7 +169,7 @@
 #&gt; 19 Southern Cross Station        2016-04-03 02:00:00 2016-04-03 02:00:00     1</code></pre>
 <p>These gaps can be visually presented using <strong>ggplot2</strong> as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">.from</span>, ymax <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.from</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>

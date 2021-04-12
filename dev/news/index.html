@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -156,9 +156,9 @@
       <small>Source: <a href='https://github.com/tidyverts/tsibble/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tsibble-094" class="section level1">
-<h1 class="page-header" data-toc-text="0.9.4">
-<a href="#tsibble-094" class="anchor"></a>tsibble 0.9.4<small> Unreleased </small>
+    <div id="tsibble-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#tsibble-100" class="anchor"></a>tsibble 1.0.0<small> 2021-02-20 </small>
 </h1>
 <ul>
 <li>Fixed bug in different <code><a href="../reference/yearmonth.html">yearmonth()</a></code> underlying data for character inputs. (<a href='https://github.com/tidyverts/tsibble/issues/226'>#226</a>)</li>
@@ -166,6 +166,10 @@
 <li>Fixed bug when <code>by</code> is missing in <code>year*()</code>. (<a href='https://github.com/tidyverts/tsibble/issues/228'>#228</a>)</li>
 <li>Removed rolling functions.</li>
 <li>Removed dependency of {purrr}.</li>
+<li>Added set operations (<code><a href="https://generics.r-lib.org/reference/setops.html">intersect()</a></code>, <code><a href="https://generics.r-lib.org/reference/setops.html">union()</a></code>, and <code><a href="https://generics.r-lib.org/reference/setops.html">setdiff()</a></code>) for <code>year*</code> class. (<a href='https://github.com/tidyverts/tsibble/issues/235'>#235</a>, <a href='https://github.com/wkdavis'>@wkdavis</a>)</li>
+<li>Fixed bug in <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code> that produces an output with wrong temporal order. (<a href='https://github.com/tidyverts/tsibble/issues/247'>#247</a>)</li>
+<li>
+<code><a href="../reference/yearmonth.html">yearmonth()</a></code> supported more character formats. (<a href='https://github.com/tidyverts/tsibble/issues/142'>#142</a>)</li>
 </ul>
 </div>
     <div id="tsibble-093" class="section level1">

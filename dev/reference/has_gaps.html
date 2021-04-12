@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -204,26 +204,26 @@
   key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span>
 <span class='op'>)</span>
 <span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> cherry FALSE
-#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> cherry FALSE
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> cherry TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>start</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> cherry TRUE 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>start</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> cherry TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>end</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> cherry TRUE 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> kiwi   TRUE </div><div class='input'><span class='fu'>has_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/start.html'>end</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   fruit  .gaps
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> cherry FALSE
-#&gt; </span><span style='color: #555555;'>2</span><span> kiwi   TRUE </div></span></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> cherry FALSE
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> kiwi   TRUE </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

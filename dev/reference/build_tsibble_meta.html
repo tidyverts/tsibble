@@ -98,7 +98,7 @@ high performance." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ high performance." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -161,7 +161,7 @@ high performance." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p><code>build_tsibble_meta()</code> does much less checks than <code><a href='build_tsibble.html'>build_tsibble()</a></code> for
 high performance.</p>
     </div>
@@ -193,8 +193,7 @@ frame is supplied, the argument <code>key</code> will be ignored.</p></td>
     </tr>
     <tr>
       <th>ordered</th>
-      <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
-then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
+      <td><p><code>TRUE</code> suggests to skip the ordering as <code>x</code> in
 the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></td>
     </tr>
     <tr>
