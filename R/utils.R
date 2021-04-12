@@ -73,3 +73,12 @@ format_tz <- function(x) {
     tz
   }
 }
+
+#' @importFrom anytime getFormats addFormats removeFormats
+with_anytime_formats <- function(expr, formats_before = NULL, formats_after = NULL){
+  on.exit(removeFormats(c(formats_before, formats_after)))
+  old_formats <- getFormats()
+  removeFormats(old_formats)
+  addFormats(rev(c(formats_before, old_formats, formats_after)))
+  expr
+}

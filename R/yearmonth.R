@@ -11,6 +11,7 @@
 #' Please see [`strptime()`] details for supported conversion specifications.
 #'
 #' @param x Other object.
+#' @param ... Further arguments to methods.
 #'
 #' @return year-month (`yearmonth`) objects.
 #'
@@ -36,22 +37,22 @@
 #'
 #' # units since 1970 Jan
 #' as.double(yearmonth("1969 Jan") + 0:24)
-yearmonth <- function(x) {
+yearmonth <- function(x, ...) {
   UseMethod("yearmonth")
 }
 
 #' @export
-yearmonth.default <- function(x) {
+yearmonth.default <- function(x, ...) {
   dont_know(x, "yearmonth")
 }
 
 #' @export
-yearmonth.NULL <- function(x) {
+yearmonth.NULL <- function(x, ...) {
   new_yearmonth()
 }
 
 #' @export
-yearmonth.POSIXct <- function(x) {
+yearmonth.POSIXct <- function(x, ...) {
   new_yearmonth(floor_date(as_date(x), unit = "months"))
 }
 
@@ -59,17 +60,17 @@ yearmonth.POSIXct <- function(x) {
 yearmonth.POSIXlt <- yearmonth.POSIXct
 
 #' @export
-yearmonth.Date <- function(x) {
+yearmonth.Date <- function(x, ...) {
   new_yearmonth(floor_date(x, unit = "months"))
 }
 
 #' @export
-yearmonth.character <- function(x) {
+yearmonth.character <- function(x, format = NULL, ...) {
   fmts <- c("%B %Y", "%b %Y", "%Y M%m", "%Y m%m")
-  addFormats(fmts)
-  assertDate(x)
-  dates <- anydate(x)
-  removeFormats(fmts)
+  dates <- with_anytime_formats({
+    assertDate(x)
+    anydate(x)
+  }, formats_before = format, formats_after = fmts)
   yearmonth(dates)
 }
 
@@ -77,17 +78,17 @@ yearmonth.character <- function(x) {
 yearmonth.yearweek <- yearmonth.POSIXct
 
 #' @export
-yearmonth.yearmonth <- function(x) {
+yearmonth.yearmonth <- function(x, ...) {
   x
 }
 
 #' @export
-yearmonth.numeric <- function(x) {
+yearmonth.numeric <- function(x, ...) {
   new_yearmonth(0) + x
 }
 
 #' @export
-yearmonth.yearmon <- function(x) {
+yearmonth.yearmon <- function(x, ...) {
   year <- trunc(x)
   month <- formatC(round((x %% 1) * 12) %% 12 + 1, flag = 0, width = 2)
   result <- make_date(year, month, 1)
