@@ -159,7 +159,7 @@
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
     </div>
 
     <pre class="usage"><span class='fu'>group_by_key</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, .drop <span class='op'>=</span> <span class='fu'><a href='key_drop_default.html'>key_drop_default</a></span><span class='op'>(</span><span class='va'>.data</span><span class='op'>)</span><span class='op'>)</span></pre>
@@ -187,22 +187,22 @@ grouped with <code>.drop = FALSE</code>. See <code><a href='https://dplyr.tidyve
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>tourism</span> <span class='op'>%&gt;%</span>
   <span class='fu'>group_by_key</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 24,320 x 5 [1Q]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       Region, State, Purpose [304]</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:    Region, State, Purpose [304]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 24,320 x 5 [1Q]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       Region, State, Purpose [304]</span><span>
+#&gt; </span><span style='color: #949494;'># Groups:    Region, State, Purpose [304]</span><span>
 #&gt;    Quarter Region   State           Purpose  Trips
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1998 Q1 Adelaide South Australia Business  135.
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1998 Q2 Adelaide South Australia Business  110.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1998 Q3 Adelaide South Australia Business  166.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1998 Q4 Adelaide South Australia Business  127.
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1999 Q1 Adelaide South Australia Business  137.
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1999 Q2 Adelaide South Australia Business  200.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1999 Q3 Adelaide South Australia Business  169.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1999 Q4 Adelaide South Australia Business  134.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2000 Q1 Adelaide South Australia Business  154.
-#&gt; </span><span style='color: #555555;'>10</span><span> 2000 Q2 Adelaide South Australia Business  169.
-#&gt; </span><span style='color: #555555;'># … with 24,310 more rows</span><span></div></span></pre>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1998 Q1 Adelaide South Australia Business  135.
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1998 Q2 Adelaide South Australia Business  110.
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1998 Q3 Adelaide South Australia Business  166.
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1998 Q4 Adelaide South Australia Business  127.
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1999 Q1 Adelaide South Australia Business  137.
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1999 Q2 Adelaide South Australia Business  200.
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1999 Q3 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1999 Q4 Adelaide South Australia Business  134.
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2000 Q1 Adelaide South Australia Business  154.
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2000 Q2 Adelaide South Australia Business  169.
+#&gt; </span><span style='color: #949494;'># … with 24,310 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

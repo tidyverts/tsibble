@@ -159,7 +159,7 @@
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
     </div>
 
     <pre class="usage"><span class='fu'>as_tsibble</span><span class='op'>(</span>
@@ -310,33 +310,33 @@ time scales, the interval gets re-calculated.</p>
   value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>Using `date` as index variable.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02  0.255  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>2.44</span><span>   
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05  0.622  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  1.15   
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>1.82</span><span>   
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.247</span><span>  
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.244</span><span>  
-#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'><span class='co'># supply the index to suppress the message</span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2017-01-02  0.255  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>2.44</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2017-01-05  0.622  
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2017-01-06  1.15   
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>1.82</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.247</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.244</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'><span class='co'># supply the index to suppress the message</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl1</span>, index <span class='op'>=</span> <span class='va'>date</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 10 x 2 [1D]</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 10 x 2 [1D]</span><span>
 #&gt;    date          value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02  0.255  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>2.44</span><span>   
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05  0.622  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06  1.15   
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>1.82</span><span>   
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.247</span><span>  
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.244</span><span>  
-#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2017-01-01 -</span><span style='color: #BB0000;'>1.40</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2017-01-02  0.255  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2017-01-03 -</span><span style='color: #BB0000;'>2.44</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2017-01-04 -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2017-01-05  0.622  
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2017-01-06  1.15   
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2017-01-07 -</span><span style='color: #BB0000;'>1.82</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2017-01-08 -</span><span style='color: #BB0000;'>0.247</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2017-01-09 -</span><span style='color: #BB0000;'>0.244</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2017-01-10 -</span><span style='color: #BB0000;'>0.283</span><span>  </div><div class='input'>
 <span class='co'># coerce tibble to tsibble with a single variable for key</span>
 <span class='co'># use `yearquarter()` to represent quarterly data</span>
 <span class='va'>tbl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
@@ -346,36 +346,36 @@ time scales, the interval gets re-calculated.</p>
 <span class='op'>)</span>
 <span class='co'># "qtr" is automatically considered as the index var</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl2</span>, key <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>Using `qtr` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 30 x 3 [1Q]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       group [3]</span><span>
 #&gt;        qtr group   value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.554</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x      0.629 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      2.07  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>1.63</span><span>  
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x      0.512 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>1.86</span><span>  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.522</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.052</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x      0.543 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.914</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl2</span>, key <span class='op'>=</span> <span class='va'>group</span>, index <span class='op'>=</span> <span class='va'>qtr</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 30 x 3 [1Q]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       group [3]</span><span>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.554</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2010 Q2 x      0.629 
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2010 Q3 x      2.07  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>1.63</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2011 Q1 x      0.512 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>1.86</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.522</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.052</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2012 Q1 x      0.543 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.914</span><span> 
+#&gt; </span><span style='color: #949494;'># … with 20 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl2</span>, key <span class='op'>=</span> <span class='va'>group</span>, index <span class='op'>=</span> <span class='va'>qtr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 30 x 3 [1Q]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       group [3]</span><span>
 #&gt;        qtr group   value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.554</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Q2 x      0.629 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Q3 x      2.07  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>1.63</span><span>  
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2011 Q1 x      0.512 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>1.86</span><span>  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.522</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.052</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2012 Q1 x      0.543 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.914</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;qtr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2010 Q1 x     -</span><span style='color: #BB0000;'>0.554</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2010 Q2 x      0.629 
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2010 Q3 x      2.07  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2010 Q4 x     -</span><span style='color: #BB0000;'>1.63</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2011 Q1 x      0.512 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2011 Q2 x     -</span><span style='color: #BB0000;'>1.86</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2011 Q3 x     -</span><span style='color: #BB0000;'>0.522</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2011 Q4 x     -</span><span style='color: #BB0000;'>0.052</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2012 Q1 x      0.543 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2012 Q2 x     -</span><span style='color: #BB0000;'>0.914</span><span> 
+#&gt; </span><span style='color: #949494;'># … with 20 more rows</span><span></div><div class='input'>
 <span class='co'># create a tsibble with multiple variables for key</span>
 <span class='co'># use `yearmonth()` to represent monthly data</span>
 <span class='va'>tbl3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
@@ -385,109 +385,109 @@ time scales, the interval gets re-calculated.</p>
   value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>27</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>tbl3</span>, key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>xyz</span>, <span class='va'>abc</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 27 x 4 [1M]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       xyz, abc [9]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>Using `mth` as index variable.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 27 x 4 [1M]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       xyz, abc [9]</span><span>
 #&gt;         mth xyz   abc     value
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2010 Jan x     a      0.070</span><span style='text-decoration: underline;'>0</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2010 Feb x     a     -</span><span style='color: #BB0000;'>0.251</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2010 Mar x     a      0.046</span><span style='text-decoration: underline;'>5</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2010 Jan x     b     -</span><span style='color: #BB0000;'>0.639</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2010 Feb x     b      0.445 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2010 Mar x     b      0.578 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2010 Jan x     c     -</span><span style='color: #BB0000;'>0.050</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2010 Feb x     c      2.76  
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2010 Mar x     c      0.118 
-#&gt; </span><span style='color: #555555;'>10</span><span> 2010 Apr y     a     -</span><span style='color: #BB0000;'>1.91</span><span>  
-#&gt; </span><span style='color: #555555;'># … with 17 more rows</span><span></div><div class='input'><span class='co'># coerce ts to tsibble</span>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2010 Jan x     a      0.070</span><span style='text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2010 Feb x     a     -</span><span style='color: #BB0000;'>0.251</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2010 Mar x     a      0.046</span><span style='text-decoration: underline;'>5</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2010 Jan x     b     -</span><span style='color: #BB0000;'>0.639</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2010 Feb x     b      0.445 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2010 Mar x     b      0.578 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2010 Jan x     c     -</span><span style='color: #BB0000;'>0.050</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2010 Feb x     c      2.76  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2010 Mar x     c      0.118 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2010 Apr y     a     -</span><span style='color: #BB0000;'>1.91</span><span>  
+#&gt; </span><span style='color: #949494;'># … with 17 more rows</span><span></div><div class='input'><span class='co'># coerce ts to tsibble</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 144 x 2 [1M]</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 144 x 2 [1M]</span><span>
 #&gt;       index value
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1949 Jan   112
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1949 Feb   118
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1949 Mar   132
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1949 Apr   129
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1949 May   121
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1949 Jun   135
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1949 Jul   148
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1949 Aug   148
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1949 Sep   136
-#&gt; </span><span style='color: #555555;'>10</span><span> 1949 Oct   119
-#&gt; </span><span style='color: #555555;'># … with 134 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>sunspot.year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 289 x 2 [1Y]</span><span>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1949 Jan   112
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1949 Feb   118
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1949 Mar   132
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1949 Apr   129
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1949 May   121
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1949 Jun   135
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1949 Jul   148
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1949 Aug   148
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1949 Sep   136
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1949 Oct   119
+#&gt; </span><span style='color: #949494;'># … with 134 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>sunspot.year</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 289 x 2 [1Y]</span><span>
 #&gt;    index value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>  </span><span style='text-decoration: underline;'>1</span><span>700     5
-#&gt; </span><span style='color: #555555;'> 2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>701    11
-#&gt; </span><span style='color: #555555;'> 3</span><span>  </span><span style='text-decoration: underline;'>1</span><span>702    16
-#&gt; </span><span style='color: #555555;'> 4</span><span>  </span><span style='text-decoration: underline;'>1</span><span>703    23
-#&gt; </span><span style='color: #555555;'> 5</span><span>  </span><span style='text-decoration: underline;'>1</span><span>704    36
-#&gt; </span><span style='color: #555555;'> 6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>705    58
-#&gt; </span><span style='color: #555555;'> 7</span><span>  </span><span style='text-decoration: underline;'>1</span><span>706    29
-#&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>1</span><span>707    20
-#&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>708    10
-#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>1</span><span>709     8
-#&gt; </span><span style='color: #555555;'># … with 279 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>sunspot.month</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 3,177 x 2 [1M]</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  </span><span style='text-decoration: underline;'>1</span><span>700     5
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>701    11
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  </span><span style='text-decoration: underline;'>1</span><span>702    16
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  </span><span style='text-decoration: underline;'>1</span><span>703    23
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  </span><span style='text-decoration: underline;'>1</span><span>704    36
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>705    58
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  </span><span style='text-decoration: underline;'>1</span><span>706    29
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  </span><span style='text-decoration: underline;'>1</span><span>707    20
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>708    10
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  </span><span style='text-decoration: underline;'>1</span><span>709     8
+#&gt; </span><span style='color: #949494;'># … with 279 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>sunspot.month</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 3,177 x 2 [1M]</span><span>
 #&gt;       index value
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1749 Jan  58  
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1749 Feb  62.6
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1749 Mar  70  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1749 Apr  55.7
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1749 May  85  
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1749 Jun  83.5
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1749 Jul  94.8
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1749 Aug  66.3
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1749 Sep  75.9
-#&gt; </span><span style='color: #555555;'>10</span><span> 1749 Oct  75.5
-#&gt; </span><span style='color: #555555;'># … with 3,167 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>austres</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 89 x 2 [1Q]</span><span>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1749 Jan  58  
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1749 Feb  62.6
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1749 Mar  70  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1749 Apr  55.7
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1749 May  85  
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1749 Jun  83.5
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1749 Jul  94.8
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1749 Aug  66.3
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1749 Sep  75.9
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1749 Oct  75.5
+#&gt; </span><span style='color: #949494;'># … with 3,167 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>austres</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 89 x 2 [1Q]</span><span>
 #&gt;      index  value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;qtr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1971 Q2 </span><span style='text-decoration: underline;'>13</span><span>067.
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1971 Q3 </span><span style='text-decoration: underline;'>13</span><span>130.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1971 Q4 </span><span style='text-decoration: underline;'>13</span><span>198.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1972 Q1 </span><span style='text-decoration: underline;'>13</span><span>254.
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1972 Q2 </span><span style='text-decoration: underline;'>13</span><span>304.
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1972 Q3 </span><span style='text-decoration: underline;'>13</span><span>354.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1972 Q4 </span><span style='text-decoration: underline;'>13</span><span>409.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1973 Q1 </span><span style='text-decoration: underline;'>13</span><span>459.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1973 Q2 </span><span style='text-decoration: underline;'>13</span><span>504.
-#&gt; </span><span style='color: #555555;'>10</span><span> 1973 Q3 </span><span style='text-decoration: underline;'>13</span><span>553.
-#&gt; </span><span style='color: #555555;'># … with 79 more rows</span><span></div><div class='input'><span class='co'># coerce mts to tsibble</span>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;qtr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1971 Q2 </span><span style='text-decoration: underline;'>13</span><span>067.
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1971 Q3 </span><span style='text-decoration: underline;'>13</span><span>130.
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1971 Q4 </span><span style='text-decoration: underline;'>13</span><span>198.
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1972 Q1 </span><span style='text-decoration: underline;'>13</span><span>254.
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1972 Q2 </span><span style='text-decoration: underline;'>13</span><span>304.
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1972 Q3 </span><span style='text-decoration: underline;'>13</span><span>354.
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1972 Q4 </span><span style='text-decoration: underline;'>13</span><span>409.
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1973 Q1 </span><span style='text-decoration: underline;'>13</span><span>459.
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1973 Q2 </span><span style='text-decoration: underline;'>13</span><span>504.
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1973 Q3 </span><span style='text-decoration: underline;'>13</span><span>553.
+#&gt; </span><span style='color: #949494;'># … with 79 more rows</span><span></div><div class='input'><span class='co'># coerce mts to tsibble</span>
 <span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>300</span><span class='op'>)</span>, <span class='fl'>100</span>, <span class='fl'>3</span><span class='op'>)</span>, start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1961</span>, <span class='fl'>1</span><span class='op'>)</span>, frequency <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>
 <span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 300 x 3 [1M]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       key [3]</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 300 x 3 [1M]</span><span>
+#&gt; </span><span style='color: #949494;'># Key:       key [3]</span><span>
 #&gt;       index key       value
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1961 Jan Series 1  0.132
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1961 Feb Series 1  0.489
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1961 Mar Series 1 -</span><span style='color: #BB0000;'>1.70</span><span> 
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1961 Apr Series 1 -</span><span style='color: #BB0000;'>1.47</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1961 May Series 1  0.284
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1961 Jun Series 1  1.34 
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1961 Jul Series 1  0.237
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1961 Aug Series 1  1.32 
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1961 Sep Series 1  0.524
-#&gt; </span><span style='color: #555555;'>10</span><span> 1961 Oct Series 1  0.607
-#&gt; </span><span style='color: #555555;'># … with 290 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>z</span>, pivot_longer <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tsibble: 100 x 4 [1M]</span><span>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1961 Jan Series 1  0.132
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1961 Feb Series 1  0.489
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1961 Mar Series 1 -</span><span style='color: #BB0000;'>1.70</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1961 Apr Series 1 -</span><span style='color: #BB0000;'>1.47</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1961 May Series 1  0.284
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1961 Jun Series 1  1.34 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1961 Jul Series 1  0.237
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1961 Aug Series 1  1.32 
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1961 Sep Series 1  0.524
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1961 Oct Series 1  0.607
+#&gt; </span><span style='color: #949494;'># … with 290 more rows</span><span></div><div class='input'><span class='fu'>as_tsibble</span><span class='op'>(</span><span class='va'>z</span>, pivot_longer <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 100 x 4 [1M]</span><span>
 #&gt;       index `Series 1` `Series 2` `Series 3`
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1961 Jan      0.132      0.364   -</span><span style='color: #BB0000;'>0.968</span><span>  
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1961 Feb      0.489     -</span><span style='color: #BB0000;'>0.286</span><span>   -</span><span style='color: #BB0000;'>0.103</span><span>  
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1961 Mar     -</span><span style='color: #BB0000;'>1.70</span><span>       0.518    0.240  
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1961 Apr     -</span><span style='color: #BB0000;'>1.47</span><span>      -</span><span style='color: #BB0000;'>0.103</span><span>    0.060</span><span style='text-decoration: underline;'>9</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1961 May      0.284     -</span><span style='color: #BB0000;'>0.974</span><span>   -</span><span style='color: #BB0000;'>2.18</span><span>   
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1961 Jun      1.34       1.27    -</span><span style='color: #BB0000;'>0.118</span><span>  
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1961 Jul      0.237      0.961    0.112  
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1961 Aug      1.32       0.769    0.007</span><span style='text-decoration: underline;'>89</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1961 Sep      0.524      1.04     1.88   
-#&gt; </span><span style='color: #555555;'>10</span><span> 1961 Oct      0.607     -</span><span style='color: #BB0000;'>0.474</span><span>    2.16   
-#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div></span></pre>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;mth&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1961 Jan      0.132      0.364   -</span><span style='color: #BB0000;'>0.968</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1961 Feb      0.489     -</span><span style='color: #BB0000;'>0.286</span><span>   -</span><span style='color: #BB0000;'>0.103</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1961 Mar     -</span><span style='color: #BB0000;'>1.70</span><span>       0.518    0.240  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1961 Apr     -</span><span style='color: #BB0000;'>1.47</span><span>      -</span><span style='color: #BB0000;'>0.103</span><span>    0.060</span><span style='text-decoration: underline;'>9</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1961 May      0.284     -</span><span style='color: #BB0000;'>0.974</span><span>   -</span><span style='color: #BB0000;'>2.18</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1961 Jun      1.34       1.27    -</span><span style='color: #BB0000;'>0.118</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1961 Jul      0.237      0.961    0.112  
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1961 Aug      1.32       0.769    0.007</span><span style='text-decoration: underline;'>89</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1961 Sep      0.524      1.04     1.88   
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1961 Oct      0.607     -</span><span style='color: #BB0000;'>0.474</span><span>    2.16   
+#&gt; </span><span style='color: #949494;'># … with 90 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
