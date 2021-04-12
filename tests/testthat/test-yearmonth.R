@@ -94,6 +94,6 @@ test_that("yearmonth() for `2019 M01` #142", {
   expect_identical(yearmonth("2019 M01"), yearmonth("2019-01-01"))
 })
 
-test_that("yearmonth() for `2020-12` #150", {
+test_that("yearmonth() for `2020-12` #250", {
   expect_identical(yearmonth("2020-12"), yearmonth("2020-12-01"))
 })

@@ -1,3 +1,7 @@
+# tsibble 1.0.1
+
+* Fixed format bug in `yearmonth()`. (#250, @mitchelloharawild)
+
 # tsibble 1.0.0
 
 * Fixed bug in different `yearmonth()` underlying data for character inputs. (#226)
