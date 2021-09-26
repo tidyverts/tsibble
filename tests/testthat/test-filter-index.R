@@ -31,6 +31,11 @@ test_that("class: year*", {
   expect_equal(time_in(x, "2014 Q1" ~ .), c(FALSE, FALSE, TRUE))
 })
 
+test_that("class: yearweek with no-default week start #261", {
+  yrwk <- new_yearweek(unique(pedestrian$Date), week_start = 7)
+  expect_equal(start(yrwk), yearweek(as.Date("2015-01-01"), week_start = 7))
+})
+
 si <- sessionInfo()
 is_fedora <- grepl("Fedora", si$running, ignore.case = TRUE)
 is_london <- Sys.timezone() == "Europe/London"

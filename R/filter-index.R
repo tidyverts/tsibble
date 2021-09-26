@@ -227,21 +227,23 @@ end.POSIXct <- function(x, y = NULL, ...) {
 }
 
 start.yearweek <- function(x, y = NULL, ...) {
+  wk_start <- week_start(x)
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearweek")
-    y <- as.character(as_date(yearweek(y)))
+    y <- as.character(as_date(yearweek(y, week_start = wk_start)))
   }
-  yearweek(start(x = x, y = y))
+  yearweek(start(x = x, y = y), week_start = wk_start)
 }
 
 end.yearweek <- function(x, y = NULL, ...) {
+  wk_start <- week_start(x)
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearweek")
-    y <- as.character(as_date(yearweek(y)))
+    y <- as.character(as_date(yearweek(y, week_start = wk_start)))
   }
-  yearweek(end(x = x, y = y)) + 1
+  yearweek(end(x = x, y = y), week_start = wk_start) + 1
 }
 
 start.yearmonth <- function(x, y = NULL, ...) {

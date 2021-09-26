@@ -1,6 +1,7 @@
 # tsibble 1.1.0
 
 * Supported `rbind()` and `cbind()` for tsibble, by forwarding to `vec_rbind()` and `vec_cbind()`. (#256)
+* Fixed bug in `filter_in()` for `yearweek` class with non-default week start. (#261)
 
 # tsibble 1.0.1
 
