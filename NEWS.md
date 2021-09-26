@@ -1,4 +1,4 @@
-# tsibble 1.1.0.9999
+# tsibble 1.1.0
 
 * Supported `rbind()` and `cbind()` for tsibble, by forwarding to `vec_rbind()` and `vec_cbind()`. (#256)
 
