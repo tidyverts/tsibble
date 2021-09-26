@@ -21,7 +21,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
   stopifnot(!is_null(fill))
   value <- enquo(value)
   key_vars <- key(x)
-  if (length(key_vars) > 1) {
+  if (length(key_vars) > 1 && n_keys(x) > 1) {
     abort("Can't proceed with the key of multiple variables.")
   }
   mvars <- measured_vars(x)
@@ -58,8 +58,9 @@ pivot_wider_ts <- function(data, frequency = NULL) {
   } else {
     res <- data[mvars]
   }
-  if (!is_empty(key_vars(data))) {
-    res <- matrix(res, ncol = vec_size(key_rows))
+  nseries <- vec_size(key_rows)
+  if (nseries > 1) {
+    res <- matrix(res, ncol = nseries)
     colnames(res) <- vec_unique(data[[key_vars(data)]])
   }
   if (is_null(frequency)) {

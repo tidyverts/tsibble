@@ -37,6 +37,12 @@ test_that("a tsibble with a single key", {
   expect_identical(x, y1)
 })
 
+test_that("a tsibble with a single key but multiple variables #261", {
+  ts <- ts(5, start = 1, end = 12)
+  tsbl <- tsibble(i = 1:12, q = 5, a = "x", b = "y", index = "i", key = c(a, b))
+  expect_identical(as.ts(tsbl), ts)
+})
+
 harvest <- tsibble(
   year = c(2010, 2011, 2013, 2011, 2012, 2014),
   fruit = rep(c("kiwi", "cherry"), each = 3),
