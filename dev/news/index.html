@@ -162,6 +162,8 @@
 </h1>
 <ul>
 <li>Supported <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> and <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> for tsibble, by forwarding to <code>vec_rbind()</code> and <code>vec_cbind()</code>. (<a href='https://github.com/tidyverts/tsibble/issues/256'>#256</a>)</li>
+<li>Fixed bug in <code>filter_in()</code> for <code>yearweek</code> class with non-default week start. (<a href='https://github.com/tidyverts/tsibble/issues/261'>#261</a>)</li>
+<li>Improved <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> to better handle a tsibble of multiple key variables but single value. (<a href='https://github.com/tidyverts/tsibble/issues/258'>#258</a>)</li>
 </ul>
 </div>
     <div id="tsibble-101" class="section level1">
