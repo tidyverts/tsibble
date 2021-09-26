@@ -1,3 +1,7 @@
+# tsibble 1.1.0.9999
+
+* Supported `rbind()` and `cbind()` for tsibble, by forwarding to `vec_rbind()` and `vec_cbind()`. (#256)
+
 # tsibble 1.0.1
 
 * Fixed format bug in `yearmonth()`. (#250, @mitchelloharawild)

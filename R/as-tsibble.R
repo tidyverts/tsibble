@@ -604,3 +604,15 @@ assert_key_data <- function(x) {
     abort("The `key` attribute must be a data frame with its last column called `.rows`.")
   }
 }
+
+#' @keywords internal
+#' @export
+rbind.tbl_ts <- function(...) {
+  dplyr::bind_rows(!!!list(...))
+}
+
+#' @keywords internal
+#' @export
+cbind.tbl_ts <- function(...) {
+  dplyr::bind_cols(!!!list(...))
+}
