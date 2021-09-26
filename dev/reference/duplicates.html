@@ -101,7 +101,7 @@ duplicates(): identical key-index data entries.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.1.9999</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@ duplicates(): identical key-index data entries.
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -213,11 +213,11 @@ elements.</p></td>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>are_duplicated</span><span class='op'>(</span><span class='va'>harvest</span>, key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</div><div class='input'><span class='fu'>are_duplicated</span><span class='op'>(</span><span class='va'>harvest</span>, key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span>, from_last <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</div><div class='input'><span class='fu'>duplicates</span><span class='op'>(</span><span class='va'>harvest</span>, key <span class='op'>=</span> <span class='va'>fruit</span>, index <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 3</span>
 #&gt;    year fruit   kilo
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry    10
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014 cherry     4</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>2</span>014 cherry    10
+#&gt; <span style='color: #BCBCBC;'>2</span>  <span style='text-decoration: underline;'>2</span>014 cherry     4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

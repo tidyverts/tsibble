@@ -5,7 +5,7 @@ articles:
   faq: faq.html
   implicit-na: implicit-na.html
   intro-tsibble: intro-tsibble.html
-last_built: 2021-04-12T07:15Z
+last_built: 2021-09-26T21:30Z
 urls:
   reference: https://tsibble.tidyverts.org/reference
   article: https://tsibble.tidyverts.org/articles

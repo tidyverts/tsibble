@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.1.9999</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -208,31 +208,31 @@
 <span class='va'>tsbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tsibble.html'>tsibble</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span>, value <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>, index <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span>
 <span class='va'>scrambled</span> <span class='op'>&lt;-</span> <span class='va'>tsbl</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>tsbl</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
-#&gt; <span class='warning'><span style='color: #0000BB;'>ℹ</span><span> Suggest to sort by ``, `year` first.</span></div><div class='input'>
+#&gt; <span class='warning'><span style='color: #0000BB;'>ℹ</span> Suggest to sort by ``, `year` first.</span></div><div class='input'>
 <span class='va'>wrong</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>scrambled</span>, diff <span class='op'>=</span> <span class='fu'>difference</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
-#&gt; <span class='warning'></span><span style='color: #0000BB;'>ℹ</span><span> Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>wrong</span>, <span class='va'>year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 6 x 3 [1Y]</span><span>
+#&gt; <span class='warning'><span style='color: #0000BB;'>ℹ</span> Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>wrong</span>, <span class='va'>year</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 6 x 3 [1Y]</span>
 #&gt;    year value  diff
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>000     0   -</span><span style='color: #BB0000;'>25</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>001     1    -</span><span style='color: #BB0000;'>3</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>002     4    -</span><span style='color: #BB0000;'>5</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>003     9     9
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>004    16    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>005    25     9</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>2</span>000     0   -<span style='color: #BB0000;'>25</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>  <span style='text-decoration: underline;'>2</span>001     1    -<span style='color: #BB0000;'>3</span>
+#&gt; <span style='color: #BCBCBC;'>3</span>  <span style='text-decoration: underline;'>2</span>002     4    -<span style='color: #BB0000;'>5</span>
+#&gt; <span style='color: #BCBCBC;'>4</span>  <span style='text-decoration: underline;'>2</span>003     9     9
+#&gt; <span style='color: #BCBCBC;'>5</span>  <span style='text-decoration: underline;'>2</span>004    16    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>6</span>  <span style='text-decoration: underline;'>2</span>005    25     9</div><div class='input'>
 <span class='va'>right</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>scrambled</span>, diff <span class='op'>=</span> <span class='fu'>difference</span><span class='op'>(</span><span class='va'>value</span>, order_by <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Current temporal ordering may yield unexpected results.</span>
-#&gt; <span class='warning'></span><span style='color: #0000BB;'>ℹ</span><span> Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>right</span>, <span class='va'>year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tsibble: 6 x 3 [1Y]</span><span>
+#&gt; <span class='warning'><span style='color: #0000BB;'>ℹ</span> Suggest to sort by ``, `year` first.</span></div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>right</span>, <span class='va'>year</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 6 x 3 [1Y]</span>
 #&gt;    year value  diff
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>000     0    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>001     1     1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>002     4     3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>003     9     5
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>004    16     7
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>005    25     9</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>2</span>000     0    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>  <span style='text-decoration: underline;'>2</span>001     1     1
+#&gt; <span style='color: #BCBCBC;'>3</span>  <span style='text-decoration: underline;'>2</span>002     4     3
+#&gt; <span style='color: #BCBCBC;'>4</span>  <span style='text-decoration: underline;'>2</span>003     9     5
+#&gt; <span style='color: #BCBCBC;'>5</span>  <span style='text-decoration: underline;'>2</span>004    16     7
+#&gt; <span style='color: #BCBCBC;'>6</span>  <span style='text-decoration: underline;'>2</span>005    25     9</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

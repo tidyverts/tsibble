@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.1.9999</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/tidyverts/tsibble">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,7 +133,7 @@
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 4 x 2
+<pre><code>#&gt; # A tibble: 4 × 2
 #&gt;   Sensor                        .gaps
 #&gt;   &lt;chr&gt;                         &lt;lgl&gt;
 #&gt; 1 Birrarung Marr                TRUE 
@@ -145,7 +145,7 @@
 <code class="sourceCode R"><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">ped_gaps</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 19 x 4
+<pre><code>#&gt; # A tibble: 19 × 4
 #&gt;    Sensor                        .from               .to                    .n
 #&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt;
 #&gt;  1 Birrarung Marr                2015-04-05 02:00:00 2015-04-05 02:00:00     1
