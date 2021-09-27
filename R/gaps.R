@@ -131,10 +131,10 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
   int <- default_time_units(int)
 
   key <- key(.data)
-  is_start <- is_null(.start)
-  is_end <- is_null(.end)
+  is_start <- !is_null(.start)
+  is_end <- !is_null(.end)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))
-  if (!is_start) {
+  if (is_start) {
     start <- min(keyed_tbl[[idx_chr]])
     if (.start > start) {
       abort(sprintf(
@@ -144,7 +144,7 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
       !!idx_chr := list2(!!idx_chr := seq_generator(c(.start, max(!!idx)), int)))
     keyed_tbl <- group_by(unwrap(keyed_lst, !!idx), !!!key)
   }
-  if (!is_end) {
+  if (is_end) {
     end <- max(keyed_tbl[[idx_chr]])
     if (.end < end) {
       abort(sprintf(
@@ -154,25 +154,29 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
       !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), .end), int)))
     keyed_tbl <- group_by(unwrap(keyed_lst, !!idx), !!!key)
   }
-  if (is_true(.full)) {
-    idx_full <- seq_generator(keyed_tbl[[idx_chr]], int)
-    sum_data <-
-      summarise(keyed_tbl, !!idx_chr := list2(!!idx_chr := idx_full))
-  } else if (is_false(.full)) {
-    sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(!!idx_chr := seq_generator(!!idx, int)))
-  } else if (.full == expr("start()")) {
-    start <- min(keyed_tbl[[idx_chr]])
-    sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(!!idx_chr := seq_generator(c(start, max(!!idx)), int)))
-  } else if (.full == expr("end()")) {
-    end <- max(keyed_tbl[[idx_chr]])
-    sum_data <- summarise(keyed_tbl,
-      !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), end), int)))
+  if (is_start && is_end) {
+    ref_data <- keyed_tbl
   } else {
-    abort_invalid_full_arg()
+    if (is_true(.full)) {
+      idx_full <- seq_generator(keyed_tbl[[idx_chr]], int)
+      sum_data <-
+        summarise(keyed_tbl, !!idx_chr := list2(!!idx_chr := idx_full))
+    } else if (is_false(.full)) {
+      sum_data <- summarise(keyed_tbl,
+        !!idx_chr := list2(!!idx_chr := seq_generator(!!idx, int)))
+    } else if (.full == expr("start()")) {
+      start <- min(keyed_tbl[[idx_chr]])
+      sum_data <- summarise(keyed_tbl,
+        !!idx_chr := list2(!!idx_chr := seq_generator(c(start, max(!!idx)), int)))
+    } else if (.full == expr("end()")) {
+      end <- max(keyed_tbl[[idx_chr]])
+      sum_data <- summarise(keyed_tbl,
+        !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), end), int)))
+    } else {
+      abort_invalid_full_arg()
+    }
+    ref_data <- unwrap(sum_data, !!idx)
   }
-  ref_data <- unwrap(sum_data, !!idx)
   if (vec_size(ref_data) == vec_size(.data)) {
     data0 <- vec_slice(.data, 0)
     data0[c(key_vars(.data), idx_chr)]
