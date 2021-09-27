@@ -162,7 +162,7 @@
     <p>Scan a tsibble for implicit missing observations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scan_gaps</span><span class='op'>(</span><span class='va'>.data</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>scan_gaps</span><span class='op'>(</span><span class='va'>.data</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span>, .start <span class='op'>=</span> <span class='cn'>NULL</span>, .end <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +179,16 @@
 <li><p><code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> pad <code>NA</code> to the same starting point (i.e. <code>min(&lt;index&gt;)</code>) across units.</p></li>
 <li><p><code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code> pad <code>NA</code> to the same ending point (i.e. <code>max(&lt;index&gt;)</code>) across units.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>.start</th>
+      <td><p>Set custom starting/ending time that allows to expand the
+existing time spans.</p></td>
+    </tr>
+    <tr>
+      <th>.end</th>
+      <td><p>Set custom starting/ending time that allows to expand the
+existing time spans.</p></td>
     </tr>
     </table>
 

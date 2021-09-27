@@ -162,7 +162,7 @@
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>fill_gaps</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fill_gaps</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span>, .start <span class='op'>=</span> <span class='cn'>NULL</span>, .end <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,6 +188,11 @@ existing <code>NA</code> untouched.</p><ul>
 <li><p><code><a href='https://rdrr.io/r/stats/start.html'>start()</a></code> pad <code>NA</code> to the same starting point (i.e. <code>min(&lt;index&gt;)</code>) across units.</p></li>
 <li><p><code><a href='https://rdrr.io/r/stats/start.html'>end()</a></code> pad <code>NA</code> to the same ending point (i.e. <code>max(&lt;index&gt;)</code>) across units.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>.start, .end</th>
+      <td><p>Set custom starting/ending time that allows to expand the
+existing time spans.</p></td>
     </tr>
     </table>
 
@@ -248,7 +253,27 @@ existing <code>NA</code> untouched.</p><ul>
 #&gt; <span style='color: #BCBCBC;'>6</span>  <span style='text-decoration: underline;'>2</span>011 kiwi       2
 #&gt; <span style='color: #BCBCBC;'>7</span>  <span style='text-decoration: underline;'>2</span>012 kiwi      <span style='color: #BB0000;'>NA</span>
 #&gt; <span style='color: #BCBCBC;'>8</span>  <span style='text-decoration: underline;'>2</span>013 kiwi      10
-#&gt; <span style='color: #BCBCBC;'>9</span>  <span style='text-decoration: underline;'>2</span>014 kiwi      <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='va'>full_harvest</span> <span class='op'>&lt;-</span> <span class='fu'>fill_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+#&gt; <span style='color: #BCBCBC;'>9</span>  <span style='text-decoration: underline;'>2</span>014 kiwi      <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='fu'>fill_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .start <span class='op'>=</span> <span class='fl'>2009</span>, .end <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 16 x 3 [1Y]</span>
+#&gt; <span style='color: #949494;'># Key:       fruit [2]</span>
+#&gt;     year fruit   kilo
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>009 cherry    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>010 cherry    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>011 cherry     4
+#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>012 cherry     5
+#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>013 cherry    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>014 cherry     8
+#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>015 cherry    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>016 cherry    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>009 kiwi      <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>010 kiwi       3
+#&gt; <span style='color: #BCBCBC;'>11</span>  <span style='text-decoration: underline;'>2</span>011 kiwi       2
+#&gt; <span style='color: #BCBCBC;'>12</span>  <span style='text-decoration: underline;'>2</span>012 kiwi      <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>13</span>  <span style='text-decoration: underline;'>2</span>013 kiwi      10
+#&gt; <span style='color: #BCBCBC;'>14</span>  <span style='text-decoration: underline;'>2</span>014 kiwi      <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>15</span>  <span style='text-decoration: underline;'>2</span>015 kiwi      <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>16</span>  <span style='text-decoration: underline;'>2</span>016 kiwi      <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='va'>full_harvest</span> <span class='op'>&lt;-</span> <span class='fu'>fill_gaps</span><span class='op'>(</span><span class='va'>harvest</span>, .full <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>full_harvest</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 8 x 3 [1Y]</span>
 #&gt; <span style='color: #949494;'># Key:       fruit [2]</span>
