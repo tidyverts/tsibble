@@ -1,6 +1,8 @@
 # nocov start
 .onLoad <- function(...) {
   s3_register("dplyr::distinct", "tbl_ts")
+  s3_register("dplyr::tally", "tbl_ts")
+  s3_register("dplyr::count", "tbl_ts")
 
   s3_register("tidyr::pivot_longer", "tbl_ts")
   s3_register("tidyr::pivot_wider", "tbl_ts")

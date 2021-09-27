@@ -199,6 +199,14 @@ distinct.tbl_ts <- function(.data, ...) {
   dplyr::distinct(as_tibble(.data), ...)
 }
 
+tally.tbl_ts <- function(x, wt = NULL, sort = FALSE, name = NULL) {
+  dplyr::tally(as_tibble(x), wt = !!enquo(wt), sort = sort, name = name)
+}
+
+count.tbl_ts <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
+  dplyr::count(as_tibble(x), ..., wt = !!enquo(wt), sort = sort, name = name)
+}
+
 #' @export
 dplyr_row_slice.tbl_ts <- function(data, i, ..., preserve = FALSE) {
   tbl <- as_tibble(data)
