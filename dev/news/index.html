@@ -165,6 +165,7 @@
 <li>Fixed bug in <code>filter_in()</code> for <code>yearweek</code> class with non-default week start. (<a href='https://github.com/tidyverts/tsibble/issues/261'>#261</a>)</li>
 <li>Improved <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> to better handle a tsibble of multiple key variables but single value. (<a href='https://github.com/tidyverts/tsibble/issues/258'>#258</a>)</li>
 <li>Added new argument <code>.start</code> and <code>.end</code> to <code>*_gaps()</code> for custom starting and ending time. (<a href='https://github.com/tidyverts/tsibble/issues/259'>#259</a>)</li>
+<li>Fixed bug in <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (<a href='https://github.com/tidyverts/tsibble/issues/251'>#251</a>)</li>
 </ul>
 </div>
     <div id="tsibble-101" class="section level1">
