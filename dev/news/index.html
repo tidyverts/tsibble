@@ -164,8 +164,9 @@
 <li>Supported <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> and <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> for tsibble, by forwarding to <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols()</a></code>. (<a href='https://github.com/tidyverts/tsibble/issues/256'>#256</a>)</li>
 <li>Fixed bug in <code>filter_in()</code> for <code>yearweek</code> class with different week starts of than the default. (<a href='https://github.com/tidyverts/tsibble/issues/261'>#261</a>)</li>
 <li>Improved <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> to better handle a tsibble of multiple key variables but single value. (<a href='https://github.com/tidyverts/tsibble/issues/258'>#258</a>)</li>
-<li>Added new argument <code>.start</code> and <code>.end</code> to <code>*_gaps()</code> for custom starting and ending time. (<a href='https://github.com/tidyverts/tsibble/issues/259'>#259</a>)</li>
+<li>Added new arguments <code>.start</code> and <code>.end</code> to <code>*_gaps()</code> for custom starting and ending time. (<a href='https://github.com/tidyverts/tsibble/issues/259'>#259</a>)</li>
 <li>Fixed bug in <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (<a href='https://github.com/tidyverts/tsibble/issues/251'>#251</a>)</li>
+<li>Added <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> S3 methods for tsibble to behave like tibble input, and hence <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_tally()</a></code>. (<a href='https://github.com/tidyverts/tsibble/issues/232'>#232</a>)</li>
 </ul>
 </div>
     <div id="tsibble-101" class="section level1">
