@@ -319,12 +319,7 @@ holiday_aus_national <- function(year) {
   boxing_wday <- wday(boxing)
   # Substitute for Sat/Sun 26 Dec
   boxing <- as_date(ifelse(
-    boxing_wday == 1, # Sunday
-    boxing + days(1), # shift to next Monday
-    boxing
-  ))
-  boxing <- as_date(ifelse(
-    boxing_wday == 7, # Saturday
+    boxing_wday %in% c(1, 7), # Sunday/Saturday
     boxing + days(2), # shift to next Monday
     boxing
   ))

@@ -4,6 +4,7 @@
 * Fixed bug in `filter_in()` for `yearweek` class with non-default week start. (#261)
 * Improved `as.ts.tbl_ts()` to better handle a tsibble of multiple key variables but single value. (#258)
 * Added new argument `.start` and `.end` to `*_gaps()` for custom starting and ending time. (#259)
+* Fixed bug in `holiday_aus()` for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (#251)
 
 # tsibble 1.0.1
 
