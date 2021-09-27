@@ -4,7 +4,7 @@
 \alias{fill_gaps}
 \title{Turn implicit missing values into explicit missing values}
 \usage{
-fill_gaps(.data, ..., .full = FALSE)
+fill_gaps(.data, ..., .full = FALSE, .start = NULL, .end = NULL)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -23,6 +23,9 @@ existing \code{NA} untouched.
 \item \code{start()} pad \code{NA} to the same starting point (i.e. \verb{min(<index>)}) across units.
 \item \code{end()} pad \code{NA} to the same ending point (i.e. \verb{max(<index>)}) across units.
 }}
+
+\item{.start, .end}{Set custom starting/ending time that allows to expand the
+existing time spans.}
 }
 \description{
 \lifecycle{stable}
@@ -39,6 +42,7 @@ harvest <- tsibble(
 fill_gaps(harvest, .full = TRUE)
 fill_gaps(harvest, .full = start())
 fill_gaps(harvest, .full = end())
+fill_gaps(harvest, .start = 2009, .end = 2016)
 full_harvest <- fill_gaps(harvest, .full = FALSE)
 full_harvest
 

@@ -4,7 +4,13 @@
 \alias{count_gaps}
 \title{Count implicit gaps}
 \usage{
-count_gaps(.data, .full = FALSE, .name = c(".from", ".to", ".n"))
+count_gaps(
+  .data,
+  .full = FALSE,
+  .name = c(".from", ".to", ".n"),
+  .start = NULL,
+  .end = NULL
+)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -17,6 +23,12 @@ count_gaps(.data, .full = FALSE, .name = c(".from", ".to", ".n"))
 }}
 
 \item{.name}{Strings to name new columns.}
+
+\item{.start}{Set custom starting/ending time that allows to expand the
+existing time spans.}
+
+\item{.end}{Set custom starting/ending time that allows to expand the
+existing time spans.}
 }
 \value{
 A tibble contains:

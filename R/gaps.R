@@ -15,6 +15,8 @@ globalVariables(c(".", ".gaps"))
 #' * `TRUE` fills `NA` over the entire time span of the data (a.k.a. fully balanced panel).
 #' * `start()` pad `NA` to the same starting point (i.e. `min(<index>)`) across units.
 #' * `end()` pad `NA` to the same ending point (i.e. `max(<index>)`) across units.
+#' @param .start,.end Set custom starting/ending time that allows to expand the
+#' existing time spans.
 #'
 #' @family implicit gaps handling
 #' @seealso [tidyr::fill], [tidyr::replace_na] for handling missing values `NA`.
@@ -31,6 +33,7 @@ globalVariables(c(".", ".gaps"))
 #' fill_gaps(harvest, .full = TRUE)
 #' fill_gaps(harvest, .full = start())
 #' fill_gaps(harvest, .full = end())
+#' fill_gaps(harvest, .start = 2009, .end = 2016)
 #' full_harvest <- fill_gaps(harvest, .full = FALSE)
 #' full_harvest
 #'
@@ -66,7 +69,7 @@ globalVariables(c(".", ".gaps"))
 #'   group_by_key() %>%
 #'   fill_gaps() %>%
 #'   tidyr::fill(Count, .direction = "down")
-fill_gaps <- function(.data, ..., .full = FALSE) {
+fill_gaps <- function(.data, ..., .full = FALSE, .start = NULL, .end = NULL) {
   UseMethod("fill_gaps")
 }
 
@@ -76,11 +79,13 @@ fill_gaps.data.frame <- function(.data, ...) {
 }
 
 #' @export
-fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
+fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE,
+  .start = NULL, .end = NULL) {
   nrows <- vec_size(.data)
   if (nrows == 0L || nrows == 1L) return(.data)
 
-  gap_data <- scan_gaps(.data, .full = !!enquo(.full))
+  gap_data <- scan_gaps(.data, .full = !!enquo(.full),
+    .start = .start, .end = .end)
   lst_exprs <- enquos(..., .named = TRUE)
   if (vec_size(gap_data) == 0 && !is_empty(lst_exprs)) return(.data)
 
@@ -109,12 +114,12 @@ fill_gaps.tbl_ts <- function(.data, ..., .full = FALSE) {
 #' @export
 #' @examples
 #' scan_gaps(pedestrian)
-scan_gaps <- function(.data, .full = FALSE) {
+scan_gaps <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
   UseMethod("scan_gaps")
 }
 
 #' @export
-scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
+scan_gaps.tbl_ts <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
   .full <- quo_get_expr(enquo(.full))
   int <- interval(.data)
   idx <- index(.data)
@@ -126,7 +131,29 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
   int <- default_time_units(int)
 
   key <- key(.data)
+  is_start <- is_null(.start)
+  is_end <- is_null(.end)
   keyed_tbl <- new_grouped_df(.data, groups = key_data(.data))
+  if (!is_start) {
+    start <- min(keyed_tbl[[idx_chr]])
+    if (.start > start) {
+      abort(sprintf(
+        "Argument `.start` can only take a value earlier than %s.", start))
+    }
+    keyed_lst <- summarise(keyed_tbl,
+      !!idx_chr := list2(!!idx_chr := seq_generator(c(.start, max(!!idx)), int)))
+    keyed_tbl <- group_by(unwrap(keyed_lst, !!idx), !!!key)
+  }
+  if (!is_end) {
+    end <- max(keyed_tbl[[idx_chr]])
+    if (.end < end) {
+      abort(sprintf(
+        "Argument `.end` can only take a value later than %s.", end))
+    }
+    keyed_lst <- summarise(keyed_tbl,
+      !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), .end), int)))
+    keyed_tbl <- group_by(unwrap(keyed_lst, !!idx), !!!key)
+  }
   if (is_true(.full)) {
     idx_full <- seq_generator(keyed_tbl[[idx_chr]], int)
     sum_data <-
@@ -182,11 +209,13 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE) {
 #'   geom_point(aes(y = .to)) +
 #'   coord_flip() +
 #'   theme(legend.position = "bottom")
-count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
+count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n"),
+  .start = NULL, .end = NULL) {
   int <- default_time_units(interval(.data))
   idx <- index(.data)
 
-  gap_data <- scan_gaps(.data, .full = !!enquo(.full))
+  gap_data <- scan_gaps(.data, .full = !!enquo(.full),
+    .start = .start, .end = .end)
   if (vec_size(gap_data) == 0L) {
     data0 <- vec_slice(.data, 0)
     data_key <- data0[key_vars(.data)]
@@ -220,7 +249,8 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n")) {
 #' has_gaps(harvest, .full = TRUE)
 #' has_gaps(harvest, .full = start())
 #' has_gaps(harvest, .full = end())
-has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
+has_gaps <- function(.data, .full = FALSE, .name = ".gaps",
+  .start = NULL, .end = NULL) {
   stopifnot(has_length(.name, 1))
   if (!is_regular(.data) || vec_size(.data) == 0L) {
     key_data <- key_data(.data)[key_vars(.data)]
@@ -231,27 +261,33 @@ has_gaps <- function(.data, .full = FALSE, .name = ".gaps") {
   int <- default_time_units(interval(.data))
   idx <- index(.data)
   idx_chr <- as_string(idx)
-  grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
-  if (is_true(.full)) {
-    idx_full <- seq_generator(.data[[idx_chr]], int)
-    res <- summarise(grped_tbl,
-      !!.name := (length(idx_full) - length(!!idx)) > 0)
-  } else if (is_false(.full)) {
-    res <- summarise(grped_tbl,
-      !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
-    )
-  } else if (.full == sym("start()")) {
-    start <- min(.data[[idx_chr]])
-    res <- summarise(grped_tbl,
-      !!.name := (length(seq_generator(c(start, max(!!idx)), int)) - length(!!idx)) > 0
-    )
-  } else if (.full == sym("end()")) {
-    end <- max(.data[[idx_chr]])
-    res <- summarise(grped_tbl,
-      !!.name := (length(seq_generator(c(min(!!idx), end), int)) - length(!!idx)) > 0
-    )
+  if (!is_null(.start) || !is_null(.end)) {
+    gaps_data <- scan_gaps(.data, .full = !!.full, .start = .start, .end = .end)
+    grped_tbl <- grouped_df(gaps_data, key_vars(.data), drop = FALSE)
+    res <- summarise(grped_tbl, !!.name := length(!!idx) > 0)
   } else {
-    abort_invalid_full_arg()
+    grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
+    if (is_true(.full)) {
+      idx_full <- seq_generator(.data[[idx_chr]], int)
+      res <- summarise(grped_tbl,
+        !!.name := (length(idx_full) - length(!!idx)) > 0)
+    } else if (is_false(.full)) {
+      res <- summarise(grped_tbl,
+        !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
+      )
+    } else if (.full == sym("start()")) {
+      start <- min(.data[[idx_chr]])
+      res <- summarise(grped_tbl,
+        !!.name := (length(seq_generator(c(start, max(!!idx)), int)) - length(!!idx)) > 0
+      )
+    } else if (.full == sym("end()")) {
+      end <- max(.data[[idx_chr]])
+      res <- summarise(grped_tbl,
+        !!.name := (length(seq_generator(c(min(!!idx), end), int)) - length(!!idx)) > 0
+      )
+    } else {
+      abort_invalid_full_arg()
+    }
   }
   tibble(!!!res)
 }

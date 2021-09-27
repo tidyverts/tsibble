@@ -3,6 +3,7 @@
 * Supported `rbind()` and `cbind()` for tsibble, by forwarding to `vec_rbind()` and `vec_cbind()`. (#256)
 * Fixed bug in `filter_in()` for `yearweek` class with non-default week start. (#261)
 * Improved `as.ts.tbl_ts()` to better handle a tsibble of multiple key variables but single value. (#258)
+* Added new argument `.start` and `.end` to `*_gaps()` for custom starting and ending time. (#259)
 
 # tsibble 1.0.1
 

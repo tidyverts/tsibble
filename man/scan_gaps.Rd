@@ -4,7 +4,7 @@
 \alias{scan_gaps}
 \title{Scan a tsibble for implicit missing observations}
 \usage{
-scan_gaps(.data, .full = FALSE)
+scan_gaps(.data, .full = FALSE, .start = NULL, .end = NULL)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -15,6 +15,12 @@ scan_gaps(.data, .full = FALSE)
 \item \code{start()} pad \code{NA} to the same starting point (i.e. \verb{min(<index>)}) across units.
 \item \code{end()} pad \code{NA} to the same ending point (i.e. \verb{max(<index>)}) across units.
 }}
+
+\item{.start}{Set custom starting/ending time that allows to expand the
+existing time spans.}
+
+\item{.end}{Set custom starting/ending time that allows to expand the
+existing time spans.}
 }
 \description{
 Scan a tsibble for implicit missing observations

@@ -4,7 +4,7 @@
 \alias{has_gaps}
 \title{Does a tsibble have implicit gaps in time?}
 \usage{
-has_gaps(.data, .full = FALSE, .name = ".gaps")
+has_gaps(.data, .full = FALSE, .name = ".gaps", .start = NULL, .end = NULL)
 }
 \arguments{
 \item{.data}{A tsibble.}
@@ -17,6 +17,12 @@ has_gaps(.data, .full = FALSE, .name = ".gaps")
 }}
 
 \item{.name}{Strings to name new columns.}
+
+\item{.start}{Set custom starting/ending time that allows to expand the
+existing time spans.}
+
+\item{.end}{Set custom starting/ending time that allows to expand the
+existing time spans.}
 }
 \value{
 A tibble contains "key" variables and new column \code{.gaps} of \code{TRUE}/\code{FALSE}.
