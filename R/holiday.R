@@ -304,13 +304,8 @@ holiday_aus_national <- function(year) {
   christmas_wday <- wday(christmas)
   # Substitute for Sat/Sun 25 Dec
   christmas <- as_date(ifelse(
-    christmas_wday == 1, # Sunday
+    christmas_wday %in% c(1, 7), # Sunday/Sat
     christmas + days(2), # shift to next Tuesday
-    christmas
-  ))
-  christmas <- as_date(ifelse(
-    christmas_wday == 7, # Saturday
-    christmas + days(2), # shift to next Monday
     christmas
   ))
   public_holidays[[counter()]] <- christmas
@@ -324,7 +319,7 @@ holiday_aus_national <- function(year) {
     boxing
   ))
   public_holidays[[counter()]] <- boxing
-  public_holidays <- as_date(unlist(public_holidays, recursive = FALSE))
+  public_holidays <- as_date(vec_c(!!!public_holidays))
 
   # Holiday labels
   hdays_labels <- c(
