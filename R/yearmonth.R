@@ -54,6 +54,15 @@ yearmonth.NULL <- function(x, ...) {
 }
 
 #' @export
+yearmonth.logical <- function(x, ...) {
+  if (is.logical(x) && all(is.na(x))) {
+    new_yearmonth(0) + NA_real_
+  } else {
+    dont_know(x, "yearmonth")
+  }
+}
+
+#' @export
 yearmonth.POSIXct <- function(x, ...) {
   new_yearmonth(floor_date(as_date(x), unit = "months"))
 }
@@ -66,6 +75,7 @@ yearmonth.Date <- function(x, ...) {
   new_yearmonth(floor_date(x, unit = "months"))
 }
 
+#' @rdname year-month
 #' @export
 yearmonth.character <- function(x, format = NULL, ...) {
   fmts <- c("%B %Y", "%b %Y", "%Y M%m", "%Y m%m")

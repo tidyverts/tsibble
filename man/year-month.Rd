@@ -2,10 +2,13 @@
 % Please edit documentation in R/yearmonth.R
 \name{yearmonth}
 \alias{yearmonth}
+\alias{yearmonth.character}
 \alias{is_yearmonth}
 \title{Represent year-month}
 \usage{
 yearmonth(x, ...)
+
+\method{yearmonth}{character}(x, format = NULL, ...)
 
 is_yearmonth(x)
 }

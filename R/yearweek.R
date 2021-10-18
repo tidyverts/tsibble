@@ -52,6 +52,15 @@ yearweek.NULL <- function(x,
 }
 
 #' @export
+yearweek.logical <- function(x, ...) {
+  if (is.logical(x) && all(is.na(x))) {
+    new_yearweek(0) + NA_real_
+  } else {
+    dont_know(x, "yearweek")
+  }
+}
+
+#' @export
 yearweek.numeric <- function(x,
                              week_start = getOption("lubridate.week.start", 1)) {
   # anchor to "1970 W01" regardless of dates

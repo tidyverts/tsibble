@@ -47,6 +47,15 @@ yearquarter.NULL <- function(x, fiscal_start = 1) {
 }
 
 #' @export
+yearquarter.logical <- function(x, ...) {
+  if (is.logical(x) && all(is.na(x))) {
+    new_yearquarter(0) + NA_real_
+  } else {
+    dont_know(x, "yearquarter")
+  }
+}
+
+#' @export
 yearquarter.POSIXct <- function(x, fiscal_start = 1) {
   yr <- year(x)
   mth <- fiscal_start + (month(x) - fiscal_start) %/% 3 * 3
