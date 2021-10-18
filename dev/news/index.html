@@ -167,7 +167,9 @@
 <li>Added new arguments <code>.start</code> and <code>.end</code> to <code>*_gaps()</code> for custom starting and ending time. (<a href='https://github.com/tidyverts/tsibble/issues/259'>#259</a>)</li>
 <li>Fixed bug in <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (<a href='https://github.com/tidyverts/tsibble/issues/251'>#251</a>)</li>
 <li>Added <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> S3 methods for tsibble to behave like tibble input, and hence <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_tally()</a></code>. (<a href='https://github.com/tidyverts/tsibble/issues/232'>#232</a>)</li>
-<li>Added a warning to <code>yearmonth.character()</code> when inputs are all numbers without delimiter. (<a href='https://github.com/tidyverts/tsibble/issues/264'>#264</a>)</li>
+<li>Added a warning to <code><a href="../reference/yearmonth.html">yearmonth.character()</a></code> when inputs are all numbers without delimiter. (<a href='https://github.com/tidyverts/tsibble/issues/264'>#264</a>)</li>
+<li>
+<code>NA</code> is accepted in <code>yearxxx()</code>, instead of errors before.</li>
 </ul>
 </div>
     <div id="tsibble-101" class="section level1">
