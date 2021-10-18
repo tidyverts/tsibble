@@ -167,6 +167,7 @@
 <li>Added new arguments <code>.start</code> and <code>.end</code> to <code>*_gaps()</code> for custom starting and ending time. (<a href='https://github.com/tidyverts/tsibble/issues/259'>#259</a>)</li>
 <li>Fixed bug in <code><a href="../reference/holiday_aus.html">holiday_aus()</a></code> for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (<a href='https://github.com/tidyverts/tsibble/issues/251'>#251</a>)</li>
 <li>Added <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> S3 methods for tsibble to behave like tibble input, and hence <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">add_tally()</a></code>. (<a href='https://github.com/tidyverts/tsibble/issues/232'>#232</a>)</li>
+<li>Added a warning to <code>yearmonth.character()</code> when inputs are all numbers without delimiter. (<a href='https://github.com/tidyverts/tsibble/issues/264'>#264</a>)</li>
 </ul>
 </div>
     <div id="tsibble-101" class="section level1">
@@ -211,7 +212,7 @@
 <ul>
 <li>Fixed bug in <code><a href="../reference/new_data.html">new_data()</a></code> for the <code>yearweek</code> class. (<a href='https://github.com/tidyverts/tsibble/issues/199'>#199</a>)</li>
 <li>Added index support for <code>lubridate::Period</code>, since <code>Period</code> can be ordered now. (<a href='https://github.com/tidyverts/tsibble/issues/42'>#42</a>)</li>
-<li>Added {lubridate}’s S4 methods <code><a href="http://lubridate.tidyverse.org/reference/as.period.html">as.period()</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/as.duration.html">as.duration()</a></code> for interval class. (<a href='https://github.com/tidyverts/tsibble/issues/206'>#206</a>)</li>
+<li>Added {lubridate}’s S4 methods <code><a href="https://lubridate.tidyverse.org/reference/as.period.html">as.period()</a></code> and <code><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration()</a></code> for interval class. (<a href='https://github.com/tidyverts/tsibble/issues/206'>#206</a>)</li>
 <li>
 <code><a href="../reference/yearweek.html">yearweek()</a></code> gained a new argument <code>week_start</code> to specify the day on which week starts based on ISO 8601 standard. (<a href='https://github.com/tidyverts/tsibble/issues/205'>#205</a>)</li>
 <li>

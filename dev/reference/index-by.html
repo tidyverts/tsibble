@@ -188,14 +188,14 @@ expression is required for either an existing variable or a name-value pair.
 A lambda expression is supported, for example <code>~ as.Date(.)</code> where <code>.</code> refers
 to the index variable.
 The index functions that can be used, but not limited:</p><ul>
-<li><p><a href='http://lubridate.tidyverse.org/reference/year.html'>lubridate::year</a>: yearly aggregation</p></li>
+<li><p><a href='https://lubridate.tidyverse.org/reference/year.html'>lubridate::year</a>: yearly aggregation</p></li>
 <li><p><a href='yearquarter.html'>yearquarter</a>: quarterly aggregation</p></li>
 <li><p><a href='yearmonth.html'>yearmonth</a>: monthly aggregation</p></li>
 <li><p><a href='yearweek.html'>yearweek</a>: weekly aggregation</p></li>
-<li><p><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a> or <a href='http://lubridate.tidyverse.org/reference/as_date.html'>lubridate::as_date</a>: daily aggregation</p></li>
-<li><p><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date</a>, <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date</a>, or <a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a>:
+<li><p><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a> or <a href='https://lubridate.tidyverse.org/reference/as_date.html'>lubridate::as_date</a>: daily aggregation</p></li>
+<li><p><a href='https://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date</a>, <a href='https://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date</a>, or <a href='https://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a>:
 fine-resolution aggregation</p></li>
-<li><p>Extract time components functions, such as <code><a href='http://lubridate.tidyverse.org/reference/hour.html'>lubridate::hour()</a></code> &amp; <code><a href='http://lubridate.tidyverse.org/reference/day.html'>lubridate::day()</a></code></p></li>
+<li><p>Extract time components functions, such as <code><a href='https://lubridate.tidyverse.org/reference/hour.html'>lubridate::hour()</a></code> &amp; <code><a href='https://lubridate.tidyverse.org/reference/day.html'>lubridate::day()</a></code></p></li>
 <li><p>other index functions from other packages or self-defined functions</p></li>
 </ul></td>
     </tr>
@@ -279,7 +279,7 @@ displaying on the screen.</p></li>
 <span class='co'># Attempt to aggregate to 4-hour interval, with the effects of DST</span>
 <span class='va'>pedestrian</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='group_by_key.html'>group_by_key</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span><span class='op'>(</span>Date_Time4 <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='st'>"4 hour"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Date_Time4 <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='st'>"4 hour"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Total_Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Count</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 16,512 x 3 [1h] &lt;Australia/Melbourne&gt;</span>
 #&gt; <span style='color: #949494;'># Key:       Sensor [4]</span>
@@ -299,7 +299,7 @@ displaying on the screen.</p></li>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># Annual trips by Region and State</span>
 <span class='va'>tourism</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>index_by</span><span class='op'>(</span>Year <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>index_by</span><span class='op'>(</span>Year <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Region</span>, <span class='va'>State</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Total <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Trips</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tsibble: 1,520 x 4 [1Y]</span>
@@ -320,8 +320,8 @@ displaying on the screen.</p></li>
 #&gt; <span style='color: #949494;'># … with 1,510 more rows</span></div><div class='input'>
 <span class='co'># Rounding to financial year, using a custom function</span>
 <span class='va'>financial_year</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/quarter.html'>quarter</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>2</span>, <span class='va'>year</span>, <span class='va'>year</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+  <span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/quarter.html'>quarter</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>2</span>, <span class='va'>year</span>, <span class='va'>year</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='va'>tourism</span> <span class='op'>%&gt;%</span>
   <span class='fu'>index_by</span><span class='op'>(</span>Year <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>financial_year</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
