@@ -13,6 +13,9 @@ is_yearmonth(x)
 \item{x}{Other object.}
 
 \item{...}{Further arguments to methods.}
+
+\item{format}{A vector of strings to specify additional formats of \code{x} (e.g. \verb{\%Y\%m}),
+if a warning or an error occurs.}
 }
 \value{
 year-month (\code{yearmonth}) objects.
