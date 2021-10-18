@@ -6,6 +6,7 @@
 * Added new arguments `.start` and `.end` to `*_gaps()` for custom starting and ending time. (#259)
 * Fixed bug in `holiday_aus()` for Boxing Day. If falling on Sat/Sun, the holiday should be forwarded to 2 days. (#251)
 * Added `count()` and `tally()` S3 methods for tsibble to behave like tibble input, and hence `add_count()` and `add_tally()`. (#232)
+* Added a warning to `yearmonth.character()` when inputs are all numbers without delimiter. (#264)
 
 # tsibble 1.0.1
 

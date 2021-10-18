@@ -11,6 +11,8 @@
 #' Please see [`strptime()`] details for supported conversion specifications.
 #'
 #' @param x Other object.
+#' @param format A vector of strings to specify additional formats of `x` (e.g. `%Y%m`),
+#' if a warning or an error occurs.
 #' @param ... Further arguments to methods.
 #'
 #' @return year-month (`yearmonth`) objects.
@@ -71,6 +73,13 @@ yearmonth.character <- function(x, format = NULL, ...) {
     assertDate(x)
     anydate(x)
   }, formats_before = format, formats_after = fmts)
+  if (is_null(format)) {
+    if (any(!grepl("\\D", x))) { # all numbers without delimiter
+      warn(c(
+        "`yearmonth()` may yield unexpected results.", 
+        i = "Please use arg `format` to supply formats."))
+    }
+  }
   yearmonth(dates)
 }
 
