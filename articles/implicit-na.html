@@ -34,6 +34,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -79,8 +81,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tidyverts/tsibble">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/tidyverts/tsibble" class="external-link external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -104,10 +106,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Handle implicit missingness with tsibble</h1>
-                        <h4 class="author">Earo Wang</h4>
+                        <h4 data-toc-skip class="author">Earo Wang</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/vignettes/implicit-na.Rmd"><code>vignettes/implicit-na.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/vignettes/implicit-na.Rmd" class="external-link external-link"><code>vignettes/implicit-na.Rmd</code></a></small>
       <div class="hidden name"><code>implicit-na.Rmd</code></div>
 
     </div>
@@ -116,88 +118,88 @@
     
 <p>Assuming you have <a href="https://tsibble.tidyverts.org/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
 <span class="va">pedestrian</span></code></pre></div>
-<pre><code>#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+<pre><code>#&gt;  [38;5;246m# A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt; [39m
+#&gt;  [38;5;246m# Key:       Sensor [4] [39m
 #&gt;   Sensor         Date_Time           Date        Time Count
-#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # … with 66,032 more rows</code></pre>
+#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m           [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;date&gt; [39m [23m      [3m [38;5;246m&lt;int&gt; [39m [23m  [3m [38;5;246m&lt;int&gt; [39m [23m
+#&gt;  [38;5;250m1 [39m Birrarung Marr 2015-01-01  [38;5;246m00:00:00 [39m 2015-01-01     0   [4m1 [24m630
+#&gt;  [38;5;250m2 [39m Birrarung Marr 2015-01-01  [38;5;246m01:00:00 [39m 2015-01-01     1   826
+#&gt;  [38;5;250m3 [39m Birrarung Marr 2015-01-01  [38;5;246m02:00:00 [39m 2015-01-01     2   567
+#&gt;  [38;5;250m4 [39m Birrarung Marr 2015-01-01  [38;5;246m03:00:00 [39m 2015-01-01     3   264
+#&gt;  [38;5;250m5 [39m Birrarung Marr 2015-01-01  [38;5;246m04:00:00 [39m 2015-01-01     4   139
+#&gt;  [38;5;246m# … with 66,032 more rows [39m</code></pre>
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 4 x 2
+<pre><code>#&gt;  [38;5;246m# A tibble: 4 × 2 [39m
 #&gt;   Sensor                        .gaps
-#&gt;   &lt;chr&gt;                         &lt;lgl&gt;
-#&gt; 1 Birrarung Marr                TRUE 
-#&gt; 2 Bourke Street Mall (North)    TRUE 
-#&gt; 3 QV Market-Elizabeth St (West) TRUE 
-#&gt; 4 Southern Cross Station        TRUE</code></pre>
+#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m                          [3m [38;5;246m&lt;lgl&gt; [39m [23m
+#&gt;  [38;5;250m1 [39m Birrarung Marr                TRUE 
+#&gt;  [38;5;250m2 [39m Bourke Street Mall (North)    TRUE 
+#&gt;  [38;5;250m3 [39m QV Market-Elizabeth St (West) TRUE 
+#&gt;  [38;5;250m4 [39m Southern Cross Station        TRUE</code></pre>
 <p>So where are these gaps? <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> gives a detailed report of missing observations. <code><a href="../reference/count_gaps.html">count_gaps()</a></code> presents a summarised table about the individual time gap alongside the number of missing observations for each key. It is clear that Birrarung Marr exhibits many chunks of missingness, while Bourke Street Mall (North) displays as many consecutive missingness as 1128. If <code>.full = FALSE</code>, the opening gap for Bourke Street Mall (North) will not be recognised.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">ped_gaps</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 19 x 4
+<pre><code>#&gt;  [38;5;246m# A tibble: 19 × 4 [39m
 #&gt;    Sensor                        .from               .to                    .n
-#&gt;    &lt;chr&gt;                         &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt;
-#&gt;  1 Birrarung Marr                2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt;  2 Birrarung Marr                2015-05-07 00:00:00 2015-05-31 23:00:00   600
-#&gt;  3 Birrarung Marr                2015-10-06 00:00:00 2015-10-31 23:00:00   624
-#&gt;  4 Birrarung Marr                2015-11-05 00:00:00 2015-11-06 23:00:00    48
-#&gt;  5 Birrarung Marr                2015-11-20 00:00:00 2015-11-24 23:00:00   120
-#&gt;  6 Birrarung Marr                2015-11-26 00:00:00 2015-12-04 23:00:00   216
-#&gt;  7 Birrarung Marr                2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt;  8 Birrarung Marr                2016-04-08 00:00:00 2016-05-03 23:00:00   624
-#&gt;  9 Birrarung Marr                2016-10-29 00:00:00 2016-11-28 23:00:00   744
-#&gt; 10 Bourke Street Mall (North)    2015-01-01 00:00:00 2015-02-16 23:00:00  1128
-#&gt; 11 Bourke Street Mall (North)    2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 12 Bourke Street Mall (North)    2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt; 13 QV Market-Elizabeth St (West) 2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 14 QV Market-Elizabeth St (West) 2015-12-31 00:00:00 2015-12-31 23:00:00    24
-#&gt; 15 QV Market-Elizabeth St (West) 2016-04-03 02:00:00 2016-04-03 02:00:00     1
-#&gt; 16 Southern Cross Station        2015-04-05 02:00:00 2015-04-05 02:00:00     1
-#&gt; 17 Southern Cross Station        2016-03-08 02:00:00 2016-03-08 02:00:00     1
-#&gt; 18 Southern Cross Station        2016-03-29 02:00:00 2016-03-29 03:00:00     2
-#&gt; 19 Southern Cross Station        2016-04-03 02:00:00 2016-04-03 02:00:00     1</code></pre>
+#&gt;     [3m [38;5;246m&lt;chr&gt; [39m [23m                          [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;int&gt; [39m [23m
+#&gt;  [38;5;250m 1 [39m Birrarung Marr                2015-04-05  [38;5;246m02:00:00 [39m 2015-04-05  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m 2 [39m Birrarung Marr                2015-05-07  [38;5;246m00:00:00 [39m 2015-05-31  [38;5;246m23:00:00 [39m   600
+#&gt;  [38;5;250m 3 [39m Birrarung Marr                2015-10-06  [38;5;246m00:00:00 [39m 2015-10-31  [38;5;246m23:00:00 [39m   624
+#&gt;  [38;5;250m 4 [39m Birrarung Marr                2015-11-05  [38;5;246m00:00:00 [39m 2015-11-06  [38;5;246m23:00:00 [39m    48
+#&gt;  [38;5;250m 5 [39m Birrarung Marr                2015-11-20  [38;5;246m00:00:00 [39m 2015-11-24  [38;5;246m23:00:00 [39m   120
+#&gt;  [38;5;250m 6 [39m Birrarung Marr                2015-11-26  [38;5;246m00:00:00 [39m 2015-12-04  [38;5;246m23:00:00 [39m   216
+#&gt;  [38;5;250m 7 [39m Birrarung Marr                2016-04-03  [38;5;246m02:00:00 [39m 2016-04-03  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m 8 [39m Birrarung Marr                2016-04-08  [38;5;246m00:00:00 [39m 2016-05-03  [38;5;246m23:00:00 [39m   624
+#&gt;  [38;5;250m 9 [39m Birrarung Marr                2016-10-29  [38;5;246m00:00:00 [39m 2016-11-28  [38;5;246m23:00:00 [39m   744
+#&gt;  [38;5;250m10 [39m Bourke Street Mall (North)    2015-01-01  [38;5;246m00:00:00 [39m 2015-02-16  [38;5;246m23:00:00 [39m   [4m1 [24m128
+#&gt;  [38;5;250m11 [39m Bourke Street Mall (North)    2015-04-05  [38;5;246m02:00:00 [39m 2015-04-05  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m12 [39m Bourke Street Mall (North)    2016-04-03  [38;5;246m02:00:00 [39m 2016-04-03  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m13 [39m QV Market-Elizabeth St (West) 2015-04-05  [38;5;246m02:00:00 [39m 2015-04-05  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m14 [39m QV Market-Elizabeth St (West) 2015-12-31  [38;5;246m00:00:00 [39m 2015-12-31  [38;5;246m23:00:00 [39m    24
+#&gt;  [38;5;250m15 [39m QV Market-Elizabeth St (West) 2016-04-03  [38;5;246m02:00:00 [39m 2016-04-03  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m16 [39m Southern Cross Station        2015-04-05  [38;5;246m02:00:00 [39m 2015-04-05  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m17 [39m Southern Cross Station        2016-03-08  [38;5;246m02:00:00 [39m 2016-03-08  [38;5;246m02:00:00 [39m     1
+#&gt;  [38;5;250m18 [39m Southern Cross Station        2016-03-29  [38;5;246m02:00:00 [39m 2016-03-29  [38;5;246m03:00:00 [39m     2
+#&gt;  [38;5;250m19 [39m Southern Cross Station        2016-04-03  [38;5;246m02:00:00 [39m 2016-04-03  [38;5;246m02:00:00 [39m     1</code></pre>
 <p>These gaps can be visually presented using <strong>ggplot2</strong> as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">.from</span>, ymax <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.from</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">.from</span>, ymax <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.from</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></code></pre></div>
 <p><img src="implicit-na_files/figure-html/ggplot-gaps-1.png" width="672"></p>
 <p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ped_full</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">ped_full</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">ped_full</span></code></pre></div>
-<pre><code>#&gt; # A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;
-#&gt; # Key:       Sensor [4]
+<pre><code>#&gt;  [38;5;246m# A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt; [39m
+#&gt;  [38;5;246m# Key:       Sensor [4] [39m
 #&gt;   Sensor         Date_Time           Date        Time Count
-#&gt;   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;
-#&gt; 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630
-#&gt; 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826
-#&gt; 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567
-#&gt; 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264
-#&gt; 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139
-#&gt; # … with 70,171 more rows</code></pre>
+#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m           [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;date&gt; [39m [23m      [3m [38;5;246m&lt;int&gt; [39m [23m  [3m [38;5;246m&lt;int&gt; [39m [23m
+#&gt;  [38;5;250m1 [39m Birrarung Marr 2015-01-01  [38;5;246m00:00:00 [39m 2015-01-01     0   [4m1 [24m630
+#&gt;  [38;5;250m2 [39m Birrarung Marr 2015-01-01  [38;5;246m01:00:00 [39m 2015-01-01     1   826
+#&gt;  [38;5;250m3 [39m Birrarung Marr 2015-01-01  [38;5;246m02:00:00 [39m 2015-01-01     2   567
+#&gt;  [38;5;250m4 [39m Birrarung Marr 2015-01-01  [38;5;246m03:00:00 [39m 2015-01-01     3   264
+#&gt;  [38;5;250m5 [39m Birrarung Marr 2015-01-01  [38;5;246m04:00:00 [39m 2015-01-01     4   139
+#&gt;  [38;5;246m# … with 70,171 more rows [39m</code></pre>
 <p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pedestrian</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fl">0L</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">pedestrian</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -209,11 +211,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://earo.me">Earo Wang</a>, <a href="http://dicook.org">Di Cook</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>, <a href="http://mitchelloharawild.com">Mitchell O'Hara-Wild</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://earo.me" class="external-link external-link">Earo Wang</a>, <a href="http://dicook.org" class="external-link external-link">Di Cook</a>, <a href="http://robjhyndman.com" class="external-link external-link">Rob Hyndman</a>, <a href="http://mitchelloharawild.com" class="external-link external-link">Mitchell O’Hara-Wild</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>
