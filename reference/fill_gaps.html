@@ -129,14 +129,14 @@ existing time spans.</p></td>
 <span class="co">#&gt;     year fruit   kilo</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1  2010 cherry    NA</span>
-<span class="co">#&gt;  2  2011 cherry     4</span>
-<span class="co">#&gt;  3  2012 cherry     1</span>
+<span class="co">#&gt;  2  2011 cherry     1</span>
+<span class="co">#&gt;  3  2012 cherry     6</span>
 <span class="co">#&gt;  4  2013 cherry    NA</span>
-<span class="co">#&gt;  5  2014 cherry     6</span>
-<span class="co">#&gt;  6  2010 kiwi       8</span>
-<span class="co">#&gt;  7  2011 kiwi      10</span>
+<span class="co">#&gt;  5  2014 cherry     9</span>
+<span class="co">#&gt;  6  2010 kiwi       2</span>
+<span class="co">#&gt;  7  2011 kiwi       5</span>
 <span class="co">#&gt;  8  2012 kiwi      NA</span>
-<span class="co">#&gt;  9  2013 kiwi       9</span>
+<span class="co">#&gt;  9  2013 kiwi       7</span>
 <span class="co">#&gt; 10  2014 kiwi      NA</span>
 <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">start</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tsibble: 9 x 3 [1Y]</span>
@@ -144,27 +144,27 @@ existing time spans.</p></td>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
 <span class="co">#&gt; 1  2010 cherry    NA</span>
-<span class="co">#&gt; 2  2011 cherry     4</span>
-<span class="co">#&gt; 3  2012 cherry     1</span>
+<span class="co">#&gt; 2  2011 cherry     1</span>
+<span class="co">#&gt; 3  2012 cherry     6</span>
 <span class="co">#&gt; 4  2013 cherry    NA</span>
-<span class="co">#&gt; 5  2014 cherry     6</span>
-<span class="co">#&gt; 6  2010 kiwi       8</span>
-<span class="co">#&gt; 7  2011 kiwi      10</span>
+<span class="co">#&gt; 5  2014 cherry     9</span>
+<span class="co">#&gt; 6  2010 kiwi       2</span>
+<span class="co">#&gt; 7  2011 kiwi       5</span>
 <span class="co">#&gt; 8  2012 kiwi      NA</span>
-<span class="co">#&gt; 9  2013 kiwi       9</span>
+<span class="co">#&gt; 9  2013 kiwi       7</span>
 <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">end</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tsibble: 9 x 3 [1Y]</span>
 <span class="co">#&gt; # Key:       fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
-<span class="co">#&gt; 2  2012 cherry     1</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
+<span class="co">#&gt; 2  2012 cherry     6</span>
 <span class="co">#&gt; 3  2013 cherry    NA</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
 <span class="co">#&gt; 7  2012 kiwi      NA</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 <span class="co">#&gt; 9  2014 kiwi      NA</span>
 <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .start <span class="op">=</span> <span class="fl">2009</span>, .end <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span>
 <span class="co">#&gt; # A tsibble: 16 x 3 [1Y]</span>
@@ -173,17 +173,17 @@ existing time spans.</p></td>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1  2009 cherry    NA</span>
 <span class="co">#&gt;  2  2010 cherry    NA</span>
-<span class="co">#&gt;  3  2011 cherry     4</span>
-<span class="co">#&gt;  4  2012 cherry     1</span>
+<span class="co">#&gt;  3  2011 cherry     1</span>
+<span class="co">#&gt;  4  2012 cherry     6</span>
 <span class="co">#&gt;  5  2013 cherry    NA</span>
-<span class="co">#&gt;  6  2014 cherry     6</span>
+<span class="co">#&gt;  6  2014 cherry     9</span>
 <span class="co">#&gt;  7  2015 cherry    NA</span>
 <span class="co">#&gt;  8  2016 cherry    NA</span>
 <span class="co">#&gt;  9  2009 kiwi      NA</span>
-<span class="co">#&gt; 10  2010 kiwi       8</span>
-<span class="co">#&gt; 11  2011 kiwi      10</span>
+<span class="co">#&gt; 10  2010 kiwi       2</span>
+<span class="co">#&gt; 11  2011 kiwi       5</span>
 <span class="co">#&gt; 12  2012 kiwi      NA</span>
-<span class="co">#&gt; 13  2013 kiwi       9</span>
+<span class="co">#&gt; 13  2013 kiwi       7</span>
 <span class="co">#&gt; 14  2014 kiwi      NA</span>
 <span class="co">#&gt; 15  2015 kiwi      NA</span>
 <span class="co">#&gt; 16  2016 kiwi      NA</span>
@@ -193,14 +193,14 @@ existing time spans.</p></td>
 <span class="co">#&gt; # Key:       fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
-<span class="co">#&gt; 2  2012 cherry     1</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
+<span class="co">#&gt; 2  2012 cherry     6</span>
 <span class="co">#&gt; 3  2013 cherry    NA</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
 <span class="co">#&gt; 7  2012 kiwi      NA</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 
 <span class="co"># replace gaps with a specific value</span>
 <span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -209,14 +209,14 @@ existing time spans.</p></td>
 <span class="co">#&gt; # Key:       fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
-<span class="co">#&gt; 2  2012 cherry     1</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
+<span class="co">#&gt; 2  2012 cherry     6</span>
 <span class="co">#&gt; 3  2013 cherry     0</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
 <span class="co">#&gt; 7  2012 kiwi       0</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 
 <span class="co"># replace gaps using a function by variable</span>
 <span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -225,14 +225,14 @@ existing time spans.</p></td>
 <span class="co">#&gt; # Key:       fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
-<span class="co">#&gt; 2  2012 cherry     1</span>
-<span class="co">#&gt; 3  2013 cherry    38</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
-<span class="co">#&gt; 7  2012 kiwi      38</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
+<span class="co">#&gt; 2  2012 cherry     6</span>
+<span class="co">#&gt; 3  2013 cherry    30</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
+<span class="co">#&gt; 7  2012 kiwi      30</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 
 <span class="co"># replace gaps using a function for each group</span>
 <span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -243,14 +243,14 @@ existing time spans.</p></td>
 <span class="co">#&gt; # Groups:    fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
-<span class="co">#&gt; 2  2012 cherry     1</span>
-<span class="co">#&gt; 3  2013 cherry    11</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
-<span class="co">#&gt; 7  2012 kiwi      27</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
+<span class="co">#&gt; 2  2012 cherry     6</span>
+<span class="co">#&gt; 3  2013 cherry    16</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
+<span class="co">#&gt; 7  2012 kiwi      14</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 
 <span class="co"># leaves existing `NA` untouched</span>
 <span class="va">harvest</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
@@ -262,14 +262,14 @@ existing time spans.</p></td>
 <span class="co">#&gt; # Groups:    fruit [2]</span>
 <span class="co">#&gt;    year fruit   kilo</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     4</span>
+<span class="co">#&gt; 1  2011 cherry     1</span>
 <span class="co">#&gt; 2  2012 cherry    NA</span>
 <span class="co">#&gt; 3  2013 cherry    10</span>
-<span class="co">#&gt; 4  2014 cherry     6</span>
-<span class="co">#&gt; 5  2010 kiwi       8</span>
-<span class="co">#&gt; 6  2011 kiwi      10</span>
-<span class="co">#&gt; 7  2012 kiwi      27</span>
-<span class="co">#&gt; 8  2013 kiwi       9</span>
+<span class="co">#&gt; 4  2014 cherry     9</span>
+<span class="co">#&gt; 5  2010 kiwi       2</span>
+<span class="co">#&gt; 6  2011 kiwi       5</span>
+<span class="co">#&gt; 7  2012 kiwi      14</span>
+<span class="co">#&gt; 8  2013 kiwi       7</span>
 
 <span class="co"># replace NA</span>
 <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>

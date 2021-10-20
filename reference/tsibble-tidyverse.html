@@ -192,32 +192,32 @@ resulting tsibble.</p>
 <span class="co">#&gt; # Key:       stock [3]</span>
 <span class="co">#&gt;    time       stock  price</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2009-01-01 X      0.374</span>
-<span class="co">#&gt;  2 2009-01-01 Y      2.18 </span>
-<span class="co">#&gt;  3 2009-01-01 Z     -7.65 </span>
-<span class="co">#&gt;  4 2009-01-02 X     -1.55 </span>
-<span class="co">#&gt;  5 2009-01-02 Y      1.33 </span>
-<span class="co">#&gt;  6 2009-01-02 Z     -4.20 </span>
-<span class="co">#&gt;  7 2009-01-03 X      0.906</span>
-<span class="co">#&gt;  8 2009-01-03 Y     -3.23 </span>
-<span class="co">#&gt;  9 2009-01-03 Z     -4.02 </span>
-<span class="co">#&gt; 10 2009-01-04 X     -0.463</span>
+<span class="co">#&gt;  1 2009-01-01 X      0.802</span>
+<span class="co">#&gt;  2 2009-01-01 Y      2.14 </span>
+<span class="co">#&gt;  3 2009-01-01 Z      3.60 </span>
+<span class="co">#&gt;  4 2009-01-02 X     -1.30 </span>
+<span class="co">#&gt;  5 2009-01-02 Y     -0.627</span>
+<span class="co">#&gt;  6 2009-01-02 Z      1.75 </span>
+<span class="co">#&gt;  7 2009-01-03 X     -1.32 </span>
+<span class="co">#&gt;  8 2009-01-03 Y      1.02 </span>
+<span class="co">#&gt;  9 2009-01-03 Z      2.20 </span>
+<span class="co">#&gt; 10 2009-01-04 X      0.803</span>
 <span class="co">#&gt; # … with 20 more rows</span>
 <span class="va">stocksm</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">stock</span>, values_from <span class="op">=</span> <span class="va">price</span><span class="op">)</span>
 <span class="co">#&gt; # A tsibble: 10 x 4 [1D]</span>
-<span class="co">#&gt;    time            X       Y      Z</span>
-<span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2009-01-01  0.374  2.18   -7.65 </span>
-<span class="co">#&gt;  2 2009-01-02 -1.55   1.33   -4.20 </span>
-<span class="co">#&gt;  3 2009-01-03  0.906 -3.23   -4.02 </span>
-<span class="co">#&gt;  4 2009-01-04 -0.463 -0.781  -2.47 </span>
-<span class="co">#&gt;  5 2009-01-05 -0.744  0.0221  3.10 </span>
-<span class="co">#&gt;  6 2009-01-06  0.815  2.34   -3.26 </span>
-<span class="co">#&gt;  7 2009-01-07  1.13  -1.03   -1.97 </span>
-<span class="co">#&gt;  8 2009-01-08 -1.54   0.781  -5.49 </span>
-<span class="co">#&gt;  9 2009-01-09 -1.83  -0.891   3.44 </span>
-<span class="co">#&gt; 10 2009-01-10  0.891 -1.23    0.149</span>
+<span class="co">#&gt;    time            X      Y     Z</span>
+<span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2009-01-01  0.802  2.14   3.60</span>
+<span class="co">#&gt;  2 2009-01-02 -1.30  -0.627  1.75</span>
+<span class="co">#&gt;  3 2009-01-03 -1.32   1.02   2.20</span>
+<span class="co">#&gt;  4 2009-01-04  0.803  2.27   4.94</span>
+<span class="co">#&gt;  5 2009-01-05 -0.700  2.67   6.43</span>
+<span class="co">#&gt;  6 2009-01-06 -1.03  -1.23   1.32</span>
+<span class="co">#&gt;  7 2009-01-07  1.19   1.42  -1.83</span>
+<span class="co">#&gt;  8 2009-01-08  1.92   1.93   3.41</span>
+<span class="co">#&gt;  9 2009-01-09  1.94  -1.50  -1.86</span>
+<span class="co">#&gt; 10 2009-01-10  0.383  0.132  1.76</span>
 </code></pre></div>
     </div>
   </div>
