@@ -9,11 +9,3 @@ tibble::as_tibble
 #' @importFrom tibble tibble
 #' @export
 tibble::tibble
-
-#' @importFrom rlang !!
-#' @export
-rlang::`!!`
-
-#' @importFrom rlang !!!
-#' @export
-rlang::`!!!`

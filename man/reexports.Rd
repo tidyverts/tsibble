@@ -6,8 +6,6 @@
 \alias{\%>\%}
 \alias{as_tibble}
 \alias{tibble}
-\alias{!!}
-\alias{!!!}
 \alias{union}
 \alias{intersect}
 \alias{setdiff}
@@ -21,8 +19,6 @@ below to see their documentation.
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
 
   \item{generics}{\code{\link[generics:setops]{intersect}}, \code{\link[generics:setops]{setdiff}}, \code{\link[generics:setops]{union}}}
-
-  \item{rlang}{\code{\link[rlang:bang-bang]{!!}}, \code{\link[rlang:bang-bang]{!!!}}}
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}}
 }}
