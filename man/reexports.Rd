@@ -22,7 +22,7 @@ below to see their documentation.
 
   \item{generics}{\code{\link[generics:setops]{intersect}}, \code{\link[generics:setops]{setdiff}}, \code{\link[generics:setops]{union}}}
 
-  \item{rlang}{\code{\link[rlang:nse-force]{!!}}, \code{\link[rlang:nse-force]{!!!}}}
+  \item{rlang}{\code{\link[rlang:bang-bang]{!!}}, \code{\link[rlang:bang-bang]{!!!}}}
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}}
 }}

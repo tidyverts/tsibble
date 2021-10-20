@@ -43,6 +43,7 @@ check_slider_input <- function(.x, .size = 1, .step = 1) {
 #' `stretch_tsibble()`, which is likely to run out of memory when the data is
 #' large.
 #' @family rolling tsibble
+#' @keywords internal
 #' @export
 #' @examples
 #' harvest <- tsibble(
@@ -101,6 +102,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
 #'
 #' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
+#' @keywords internal
 #' @export
 #' @examples
 #' harvest <- tsibble(
@@ -136,6 +138,7 @@ tiler2 <- function(.x, .size = 1) {
 #'
 #' @inheritSection slide_tsibble Rolling tsibble
 #' @family rolling tsibble
+#' @keywords internal
 #' @export
 #' @examples
 #' harvest <- tsibble(

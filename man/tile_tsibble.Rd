@@ -46,3 +46,4 @@ Other rolling tsibble:
 \code{\link{stretch_tsibble}()}
 }
 \concept{rolling tsibble}
+\keyword{internal}
