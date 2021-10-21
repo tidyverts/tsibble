@@ -79,18 +79,18 @@
     <p>Australian national and state-based public holiday</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/holiday_aus.html">holiday_aus</a></span><span class="op">(</span><span class="va">year</span>, state <span class="op">=</span> <span class="st">"national"</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">holiday_aus</span><span class="op">(</span><span class="va">year</span>, state <span class="op">=</span> <span class="st">"national"</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>year</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>year</th>
       <td><p>A vector of integer(s) indicating year(s).</p></td>
     </tr><tr><th>state</th>
       <td><p>A state in Australia including "ACT", "NSW", "NT", "QLD", "SA",
 "TAS", "VIC", "WA", as well as "national".</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A tibble consisting of <code>holiday</code> labels and their associated dates
@@ -107,41 +107,41 @@ in the year(s).</p>
     <h2>References</h2>
     <p><a href="https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays" class="external-link">Public holidays</a></p>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/holiday_aus.html">holiday_aus</a></span><span class="op">(</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"VIC"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 12 × 2</span>
-<span class="co">#&gt;    holiday          date      </span>
-<span class="co">#&gt;    &lt;chr&gt;            &lt;date&gt;    </span>
-<span class="co">#&gt;  1 New Year's Day   2016-01-01</span>
-<span class="co">#&gt;  2 Australia Day    2016-01-26</span>
-<span class="co">#&gt;  3 Labour Day       2016-03-14</span>
-<span class="co">#&gt;  4 Good Friday      2016-03-25</span>
-<span class="co">#&gt;  5 Easter Saturday  2016-03-26</span>
-<span class="co">#&gt;  6 Easter Sunday    2016-03-27</span>
-<span class="co">#&gt;  7 Easter Monday    2016-03-28</span>
-<span class="co">#&gt;  8 ANZAC Day        2016-04-25</span>
-<span class="co">#&gt;  9 Queen's Birthday 2016-06-13</span>
-<span class="co">#&gt; 10 Melbourne Cup    2016-11-01</span>
-<span class="co">#&gt; 11 Boxing Day       2016-12-26</span>
-<span class="co">#&gt; 12 Christmas Day    2016-12-27</span>
-<span class="fu"><a href="../reference/holiday_aus.html">holiday_aus</a></span><span class="op">(</span><span class="fl">2013</span><span class="op">:</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"ACT"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 44 × 2</span>
-<span class="co">#&gt;    holiday          date      </span>
-<span class="co">#&gt;    &lt;chr&gt;            &lt;date&gt;    </span>
-<span class="co">#&gt;  1 New Year's Day   2013-01-01</span>
-<span class="co">#&gt;  2 Australia Day    2013-01-28</span>
-<span class="co">#&gt;  3 Canberra Day     2013-03-11</span>
-<span class="co">#&gt;  4 Good Friday      2013-03-29</span>
-<span class="co">#&gt;  5 Easter Saturday  2013-03-30</span>
-<span class="co">#&gt;  6 Easter Sunday    2013-03-31</span>
-<span class="co">#&gt;  7 Easter Monday    2013-04-01</span>
-<span class="co">#&gt;  8 ANZAC Day        2013-04-25</span>
-<span class="co">#&gt;  9 Queen's Birthday 2013-06-10</span>
-<span class="co">#&gt; 10 Christmas Day    2013-12-25</span>
-<span class="co">#&gt; # … with 34 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"VIC"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    holiday          date      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> New Year's Day   2016-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Australia Day    2016-01-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Labour Day       2016-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Good Friday      2016-03-25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Easter Saturday  2016-03-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Easter Sunday    2016-03-27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Easter Monday    2016-03-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ANZAC Day        2016-04-25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Queen's Birthday 2016-06-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Melbourne Cup    2016-11-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Boxing Day       2016-12-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Christmas Day    2016-12-27</span>
+<span class="r-in"><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2013</span><span class="op">:</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"ACT"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 44 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    holiday          date      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> New Year's Day   2013-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Australia Day    2013-01-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Canberra Day     2013-03-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Good Friday      2013-03-29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Easter Saturday  2013-03-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Easter Sunday    2013-03-31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Easter Monday    2013-04-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ANZAC Day        2013-04-25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Queen's Birthday 2013-06-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Christmas Day    2013-12-25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 34 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

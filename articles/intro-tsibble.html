@@ -81,7 +81,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tidyverts/tsibble" class="external-link external-link">
+  <a href="https://github.com/tidyverts/tsibble" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +109,7 @@
                         <h4 data-toc-skip class="author">Earo Wang</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/vignettes/intro-tsibble.Rmd" class="external-link external-link"><code>vignettes/intro-tsibble.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/vignettes/intro-tsibble.Rmd" class="external-link"><code>vignettes/intro-tsibble.Rmd</code></a></small>
       <div class="hidden name"><code>intro-tsibble.Rmd</code></div>
 
     </div>
@@ -127,33 +127,32 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
 <span class="va">weather</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/weather.html" class="external-link">weather</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">time_hour</span>, <span class="va">temp</span>, <span class="va">humid</span>, <span class="va">precip</span><span class="op">)</span>
-<span class="va">weather</span></code></pre></div>
-<pre><code>#&gt;  [38;5;246m# A tibble: 26,115 × 5 [39m
-#&gt;   origin time_hour            temp humid precip
-#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m   [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;dbl&gt; [39m [23m  [3m [38;5;246m&lt;dbl&gt; [39m [23m   [3m [38;5;246m&lt;dbl&gt; [39m [23m
-#&gt;  [38;5;250m1 [39m EWR    2013-01-01  [38;5;246m01:00:00 [39m  39.0  59.4      0
-#&gt;  [38;5;250m2 [39m EWR    2013-01-01  [38;5;246m02:00:00 [39m  39.0  61.6      0
-#&gt;  [38;5;250m3 [39m EWR    2013-01-01  [38;5;246m03:00:00 [39m  39.0  64.4      0
-#&gt;  [38;5;250m4 [39m EWR    2013-01-01  [38;5;246m04:00:00 [39m  39.9  62.2      0
-#&gt;  [38;5;250m5 [39m EWR    2013-01-01  [38;5;246m05:00:00 [39m  39.0  64.4      0
-#&gt;  [38;5;246m# … with 26,110 more rows [39m</code></pre>
+<span class="va">weather</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 26,115 × 5</span></span>
+<span class="co">#&gt;   origin time_hour            temp humid precip</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> EWR    2013-01-01 <span style="color: #949494;">01:00:00</span>  39.0  59.4      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> EWR    2013-01-01 <span style="color: #949494;">02:00:00</span>  39.0  61.6      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> EWR    2013-01-01 <span style="color: #949494;">03:00:00</span>  39.0  64.4      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> EWR    2013-01-01 <span style="color: #949494;">04:00:00</span>  39.9  62.2      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> EWR    2013-01-01 <span style="color: #949494;">05:00:00</span>  39.0  64.4      0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 26,110 more rows</span></span></code></pre></div>
 <p>The <code>weather</code> data included in the package <code>nycflights13</code> contains the hourly meteorological records (such as temperature, humid and precipitation) over the year of 2013 at three stations (i.e. JFK, LGA and EWR) in New York City. Since the <code>time_hour</code> is the only column involving the timestamps, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> defaults it to the index variable; alternatively, the index can be specified by the argument <code>index = time_hour</code> to disable the verbose message.</p>
 <p>Except for index, a tsibble requires “key”, which defines subjects or individuals measured over time. In this example, the <code>origin</code> variable is the identifier, which is passed to the argument <code>key</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. <strong>Each observation should be uniquely identified by index and key</strong> in a valid tsibble. Others—<code>temp</code>, <code>humid</code> and <code>precip</code>—are referred to as measured variables. When creating a tsibble, the key will be sorted first, followed by arranging time from past to recent.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather_tsbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">weather</span>, key <span class="op">=</span> <span class="va">origin</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; Using `time_hour` as index variable.</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather_tsbl</span></code></pre></div>
-<pre><code>#&gt;  [38;5;246m# A tsibble: 26,115 x 5 [1h] &lt;America/New_York&gt; [39m
-#&gt;  [38;5;246m# Key:       origin [3] [39m
-#&gt;   origin time_hour            temp humid precip
-#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m   [3m [38;5;246m&lt;dttm&gt; [39m [23m               [3m [38;5;246m&lt;dbl&gt; [39m [23m  [3m [38;5;246m&lt;dbl&gt; [39m [23m   [3m [38;5;246m&lt;dbl&gt; [39m [23m
-#&gt;  [38;5;250m1 [39m EWR    2013-01-01  [38;5;246m01:00:00 [39m  39.0  59.4      0
-#&gt;  [38;5;250m2 [39m EWR    2013-01-01  [38;5;246m02:00:00 [39m  39.0  61.6      0
-#&gt;  [38;5;250m3 [39m EWR    2013-01-01  [38;5;246m03:00:00 [39m  39.0  64.4      0
-#&gt;  [38;5;250m4 [39m EWR    2013-01-01  [38;5;246m04:00:00 [39m  39.9  62.2      0
-#&gt;  [38;5;250m5 [39m EWR    2013-01-01  [38;5;246m05:00:00 [39m  39.0  64.4      0
-#&gt;  [38;5;246m# … with 26,110 more rows [39m</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">weather_tsbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">weather</span>, key <span class="op">=</span> <span class="va">origin</span><span class="op">)</span>
+<span class="co">#&gt; Using `time_hour` as index variable.</span>
+<span class="va">weather_tsbl</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tsibble: 26,115 x 5 [1h] &lt;America/New_York&gt;</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Key:       origin [3]</span></span>
+<span class="co">#&gt;   origin time_hour            temp humid precip</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> EWR    2013-01-01 <span style="color: #949494;">01:00:00</span>  39.0  59.4      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> EWR    2013-01-01 <span style="color: #949494;">02:00:00</span>  39.0  61.6      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> EWR    2013-01-01 <span style="color: #949494;">03:00:00</span>  39.0  64.4      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> EWR    2013-01-01 <span style="color: #949494;">04:00:00</span>  39.9  62.2      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> EWR    2013-01-01 <span style="color: #949494;">05:00:00</span>  39.0  64.4      0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 26,110 more rows</span></span></code></pre></div>
 <p>An interval is automatically obtained based on the corresponding time representation:</p>
 <ul>
 <li>
@@ -180,55 +179,55 @@
 <h2 id="data-pipeline">Data pipeline<a class="anchor" aria-label="anchor" href="#data-pipeline"></a>
 </h2>
 <p>This tidy data representation most naturally supports thinking of operations on the data as building blocks, forming part of a “data pipeline” in time-based context. Users who are familiar with tidyverse would find it easier to perform common temporal analysis tasks. For example, <code><a href="../reference/index-by.html">index_by()</a></code> is the counterpart of <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> in temporal context, but it only groups the time index. <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code> is used to summarise daily highs and lows at each station. As a result, the index is updated to the <code>date</code> with one-day interval from the index <code>time_hour</code>; two new variables are created and computed for daily maximum and minimum temperatures.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">weather_tsbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/index-by.html">index_by</a></span><span class="op">(</span>date <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_date</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>
     temp_high <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">temp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
     temp_low <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">temp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
-<pre><code>#&gt;  [38;5;246m# A tsibble: 1,092 x 4 [1D] [39m
-#&gt;  [38;5;246m# Key:       origin [3] [39m
-#&gt;   origin date       temp_high temp_low
-#&gt;    [3m [38;5;246m&lt;chr&gt; [39m [23m   [3m [38;5;246m&lt;date&gt; [39m [23m          [3m [38;5;246m&lt;dbl&gt; [39m [23m     [3m [38;5;246m&lt;dbl&gt; [39m [23m
-#&gt;  [38;5;250m1 [39m EWR    2013-01-01      41       28.0
-#&gt;  [38;5;250m2 [39m EWR    2013-01-02      34.0     24.1
-#&gt;  [38;5;250m3 [39m EWR    2013-01-03      34.0     26.1
-#&gt;  [38;5;250m4 [39m EWR    2013-01-04      39.9     28.9
-#&gt;  [38;5;250m5 [39m EWR    2013-01-05      44.1     32  
-#&gt;  [38;5;246m# … with 1,087 more rows [39m</code></pre>
+  <span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tsibble: 1,092 x 4 [1D]</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Key:       origin [3]</span></span>
+<span class="co">#&gt;   origin date       temp_high temp_low</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> EWR    2013-01-01      41       28.0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> EWR    2013-01-02      34.0     24.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> EWR    2013-01-03      34.0     26.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> EWR    2013-01-04      39.9     28.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> EWR    2013-01-05      44.1     32  </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1,087 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="irregular-time-interval">Irregular time interval<a class="anchor" aria-label="anchor" href="#irregular-time-interval"></a>
 </h2>
 <p>Note that the tsibble handles regularly-spaced temporal data well, from seconds to years based on its time representation (see <code><a href="../reference/tsibble.html">?tsibble</a></code>). The option <code>regular</code>, by default, is set to <code>TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. Specify <code>regular</code> to <code>FALSE</code> to create a tsibble for the data collected at irregular time interval. Below shows the scheduled date time of the flights in New York:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flights</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html" class="external-link">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sched_dep_datetime <span class="op">=</span> 
     <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html" class="external-link">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The key contains columns <code>carrier</code> and <code>flight</code> to identify observational units over time, from a passenger’s point of view. With <code>regular = FALSE</code>, it turns to an irregularly-spaced tsibble, where <code>[!]</code> highlights the irregularity.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flights_tsbl</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span>
     key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">carrier</span>, <span class="va">flight</span><span class="op">)</span>, 
     index <span class="op">=</span> <span class="va">sched_dep_datetime</span>, 
     regular <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>
-<span class="va">flights_tsbl</span></code></pre></div>
-<pre><code>#&gt;  [38;5;246m# A tsibble: 336,776 x 20 [!] &lt;America/New_York&gt; [39m
-#&gt;  [38;5;246m# Key:       carrier, flight [5,725] [39m
-#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#&gt;    [3m [38;5;246m&lt;int&gt; [39m [23m  [3m [38;5;246m&lt;int&gt; [39m [23m  [3m [38;5;246m&lt;int&gt; [39m [23m     [3m [38;5;246m&lt;int&gt; [39m [23m           [3m [38;5;246m&lt;int&gt; [39m [23m      [3m [38;5;246m&lt;dbl&gt; [39m [23m     [3m [38;5;246m&lt;int&gt; [39m [23m           [3m [38;5;246m&lt;int&gt; [39m [23m
-#&gt;  [38;5;250m1 [39m   [4m2 [24m013    11     3      [4m1 [24m531            [4m1 [24m540        - [31m9 [39m      [4m1 [24m653            [4m1 [24m725
-#&gt;  [38;5;250m2 [39m   [4m2 [24m013    11     4      [4m1 [24m539            [4m1 [24m540        - [31m1 [39m      [4m1 [24m712            [4m1 [24m725
-#&gt;  [38;5;250m3 [39m   [4m2 [24m013    11     5      [4m1 [24m548            [4m1 [24m540         8      [4m1 [24m708            [4m1 [24m725
-#&gt;  [38;5;250m4 [39m   [4m2 [24m013    11     6      [4m1 [24m535            [4m1 [24m540        - [31m5 [39m      [4m1 [24m657            [4m1 [24m725
-#&gt;  [38;5;250m5 [39m   [4m2 [24m013    11     7      [4m1 [24m549            [4m1 [24m540         9      [4m1 [24m733            [4m1 [24m725
-#&gt;  [38;5;246m# … with 336,771 more rows, and 12 more variables: arr_delay &lt;dbl&gt;, [39m
-#&gt;  [38;5;246m#   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, [39m
-#&gt;  [38;5;246m#   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, [39m
-#&gt;  [38;5;246m#   sched_dep_datetime &lt;dttm&gt; [39m</code></pre>
+<span class="va">flights_tsbl</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tsibble: 336,776 x 20 [!] &lt;America/New_York&gt;</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Key:       carrier, flight [5,725]</span></span>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>013    11     3     <span style="text-decoration: underline;">1</span>531           <span style="text-decoration: underline;">1</span>540        -<span style="color: #BB0000;">9</span>     <span style="text-decoration: underline;">1</span>653           <span style="text-decoration: underline;">1</span>725</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>013    11     4     <span style="text-decoration: underline;">1</span>539           <span style="text-decoration: underline;">1</span>540        -<span style="color: #BB0000;">1</span>     <span style="text-decoration: underline;">1</span>712           <span style="text-decoration: underline;">1</span>725</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013    11     5     <span style="text-decoration: underline;">1</span>548           <span style="text-decoration: underline;">1</span>540         8     <span style="text-decoration: underline;">1</span>708           <span style="text-decoration: underline;">1</span>725</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>013    11     6     <span style="text-decoration: underline;">1</span>535           <span style="text-decoration: underline;">1</span>540        -<span style="color: #BB0000;">5</span>     <span style="text-decoration: underline;">1</span>657           <span style="text-decoration: underline;">1</span>725</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>013    11     7     <span style="text-decoration: underline;">1</span>549           <span style="text-decoration: underline;">1</span>540         9     <span style="text-decoration: underline;">1</span>733           <span style="text-decoration: underline;">1</span>725</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 336,771 more rows, and 12 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   sched_dep_datetime &lt;dttm&gt;</span></span></code></pre></div>
 <p>To regularise an irregular tsibble, it can be achieved with <code><a href="../reference/index-by.html">index_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code>.</p>
 </div>
   </div>
@@ -245,12 +244,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://earo.me" class="external-link external-link">Earo Wang</a>, <a href="http://dicook.org" class="external-link external-link">Di Cook</a>, <a href="http://robjhyndman.com" class="external-link external-link">Rob Hyndman</a>, <a href="http://mitchelloharawild.com" class="external-link external-link">Mitchell O’Hara-Wild</a>.</p>
+<p>Developed by <a href="https://earo.me" class="external-link">Earo Wang</a>, <a href="http://dicook.org" class="external-link">Di Cook</a>, <a href="http://robjhyndman.com" class="external-link">Rob Hyndman</a>, <a href="http://mitchelloharawild.com" class="external-link">Mitchell O’Hara-Wild</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>

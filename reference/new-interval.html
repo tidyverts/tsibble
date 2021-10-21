@@ -82,22 +82,21 @@ is_regular_interval() checks if the interval is regular.
     </div>
 
     <div class="ref-description">
-    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p><ul><li><p><code><a href="../reference/new-interval.html">new_interval()</a></code> creates an interval object.</p></li>
-<li><p><code><a href="../reference/new-interval.html">gcd_interval()</a></code> computes the greatest common divisor for the difference
+    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p><ul><li><p><code>new_interval()</code> creates an interval object.</p></li>
+<li><p><code>gcd_interval()</code> computes the greatest common divisor for the difference
 of numerics.</p></li>
-<li><p><code><a href="../reference/new-interval.html">is_regular_interval()</a></code> checks if the interval is regular.</p></li>
+<li><p><code>is_regular_interval()</code> checks if the interval is regular.</p></li>
 </ul></div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/new-interval.html">new_interval</a></span><span class="op">(</span><span class="va">...</span>, .regular <span class="op">=</span> <span class="cn">TRUE</span>, .others <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">new_interval</span><span class="op">(</span><span class="va">...</span>, .regular <span class="op">=</span> <span class="cn">TRUE</span>, .others <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/new-interval.html">is_regular_interval</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu">is_regular_interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/new-interval.html">gcd_interval</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<span class="fu">gcd_interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>...</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>...</th>
       <td><p>A set of name-value pairs to specify default interval units: "year",
 "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond",
 "microsecond", "nanosecond", "unit".</p></td>
@@ -111,32 +110,33 @@ to allow custom interval.</p></td>
       <td><p>An interval.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>an "interval" class</p>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new-interval.html">new_interval</a></span><span class="op">(</span>hour <span class="op">=</span> <span class="fl">1</span>, minute <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;interval[1]&gt;</span>
-<span class="co">#&gt; [1] 1h 30m</span>
-<span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new-interval.html">new_interval</a></span><span class="op">(</span>.regular <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co"># irregular interval</span>
-<span class="co">#&gt; &lt;interval[1]&gt;</span>
-<span class="co">#&gt; [1] !</span>
-<span class="fu"><a href="../reference/new-interval.html">new_interval</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># unknown interval</span>
-<span class="co">#&gt; &lt;interval[1]&gt;</span>
-<span class="co">#&gt; [1] ?</span>
-<span class="fu"><a href="../reference/new-interval.html">new_interval</a></span><span class="op">(</span>.others <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>semester <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># custom interval</span>
-<span class="co">#&gt; &lt;interval[1]&gt;</span>
-<span class="co">#&gt; [1] 1semester</span>
-<span class="fu"><a href="../reference/new-interval.html">is_regular_interval</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
-<span class="fu"><a href="../reference/new-interval.html">is_regular_interval</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="fu"><a href="../reference/new-interval.html">gcd_interval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">new_interval</span><span class="op">(</span>hour <span class="op">=</span> <span class="fl">1</span>, minute <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;interval[1]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1h 30m</span>
+<span class="r-in"><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">new_interval</span><span class="op">(</span>.regular <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co"># irregular interval</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;interval[1]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] !</span>
+<span class="r-in"><span class="fu">new_interval</span><span class="op">(</span><span class="op">)</span> <span class="co"># unknown interval</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;interval[1]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ?</span>
+<span class="r-in"><span class="fu">new_interval</span><span class="op">(</span>.others <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>semester <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># custom interval</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;interval[1]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1semester</span>
+<span class="r-in"><span class="fu">is_regular_interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span class="fu">is_regular_interval</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span class="fu">gcd_interval</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 </code></pre></div>
     </div>
   </div>

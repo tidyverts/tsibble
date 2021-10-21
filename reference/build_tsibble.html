@@ -78,13 +78,12 @@ determine if the time needs ordering and the interval needs calculating."><meta 
     </div>
 
     <div class="ref-description">
-    <p><code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> creates a <code>tbl_ts</code> object with more controls. It is useful
+    <p><code>build_tsibble()</code> creates a <code>tbl_ts</code> object with more controls. It is useful
 for creating a <code>tbl_ts</code> internally inside a function, and it allows developers to
 determine if the time needs ordering and the interval needs calculating.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/build_tsibble.html">build_tsibble</a></span><span class="op">(</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">build_tsibble</span><span class="op">(</span>
   <span class="va">x</span>,
   key <span class="op">=</span> <span class="cn">NULL</span>,
   key_data <span class="op">=</span> <span class="cn">NULL</span>,
@@ -93,12 +92,12 @@ determine if the time needs ordering and the interval needs calculating.</p>
   ordered <span class="op">=</span> <span class="cn">NULL</span>,
   interval <span class="op">=</span> <span class="cn">TRUE</span>,
   validate <span class="op">=</span> <span class="cn">TRUE</span>,
-  .drop <span class="op">=</span> <span class="fu"><a href="../reference/key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></td>
     </tr><tr><th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
@@ -127,32 +126,33 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
       <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Prepare `pedestrian` to use a new index `Date` ----</span>
-<span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/build_tsibble.html">build_tsibble</a></span><span class="op">(</span>
-    key <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="../reference/key.html">key_vars</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="../reference/index-rd.html">index</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index2 <span class="op">=</span> <span class="va">Date</span>,
-    interval <span class="op">=</span> <span class="fu"><a href="../reference/regular.html">interval</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span>
-<span class="co">#&gt; # Key:       Sensor [4]</span>
-<span class="co">#&gt; # Groups:    @ Date [731]</span>
-<span class="co">#&gt;    Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span>
-<span class="co">#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span>
-<span class="co">#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span>
-<span class="co">#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span>
-<span class="co">#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span>
-<span class="co">#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77</span>
-<span class="co">#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44</span>
-<span class="co">#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56</span>
-<span class="co">#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113</span>
-<span class="co">#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166</span>
-<span class="co">#&gt; # … with 66,027 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Prepare `pedestrian` to use a new index `Date` ----</span></span>
+<span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">build_tsibble</span><span class="op">(</span></span>
+<span class="r-in">    key <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="key.html">key_vars</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="index-rd.html">index</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index2 <span class="op">=</span> <span class="va">Date</span>,</span>
+<span class="r-in">    interval <span class="op">=</span> <span class="fu"><a href="regular.html">interval</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    @ Date [731]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time           Date        Time Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">05:00:00</span> 2015-01-01     5    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">06:00:00</span> 2015-01-01     6    44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">07:00:00</span> 2015-01-01     7    56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">08:00:00</span> 2015-01-01     8   113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">09:00:00</span> 2015-01-01     9   166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 66,027 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

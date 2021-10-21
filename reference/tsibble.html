@@ -79,12 +79,11 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span><span class="va">...</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span>, regular <span class="op">=</span> <span class="cn">TRUE</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">tsibble</span><span class="op">(</span><span class="va">...</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span>, regular <span class="op">=</span> <span class="cn">TRUE</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>...</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>...</th>
       <td><p>A set of name-value pairs.</p></td>
     </tr><tr><th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
@@ -99,6 +98,7 @@ interval is determined by the greatest common divisor of index column, if <code>
       <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A tsibble object.</p>
@@ -170,101 +170,101 @@ time scales, the interval gets re-calculated.</p>
     <h2>See also</h2>
     <div class="dont-index"><p><a href="build_tsibble.html">build_tsibble</a></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a tsibble w/o a key</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
-  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; Using `date` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 10 x 2 [1D]</span>
-<span class="co">#&gt;    date        value</span>
-<span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2017-01-01 -0.219</span>
-<span class="co">#&gt;  2 2017-01-02 -0.438</span>
-<span class="co">#&gt;  3 2017-01-03 -1.49 </span>
-<span class="co">#&gt;  4 2017-01-04  1.55 </span>
-<span class="co">#&gt;  5 2017-01-05 -0.872</span>
-<span class="co">#&gt;  6 2017-01-06  0.677</span>
-<span class="co">#&gt;  7 2017-01-07  0.443</span>
-<span class="co">#&gt;  8 2017-01-08  1.29 </span>
-<span class="co">#&gt;  9 2017-01-09  0.323</span>
-<span class="co">#&gt; 10 2017-01-10 -2.00 </span>
-
-<span class="co"># create a tsibble with a single variable for key</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
-  qtr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>,
-  key <span class="op">=</span> <span class="va">group</span>
-<span class="op">)</span>
-<span class="co">#&gt; Using `qtr` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 30 x 3 [1Q]</span>
-<span class="co">#&gt; # Key:       group [3]</span>
-<span class="co">#&gt;        qtr group  value</span>
-<span class="co">#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Q1 x     -0.115</span>
-<span class="co">#&gt;  2 2010 Q2 x     -0.602</span>
-<span class="co">#&gt;  3 2010 Q3 x     -0.780</span>
-<span class="co">#&gt;  4 2010 Q4 x     -1.28 </span>
-<span class="co">#&gt;  5 2011 Q1 x     -0.498</span>
-<span class="co">#&gt;  6 2011 Q2 x      0.131</span>
-<span class="co">#&gt;  7 2011 Q3 x      0.144</span>
-<span class="co">#&gt;  8 2011 Q4 x     -1.85 </span>
-<span class="co">#&gt;  9 2012 Q1 x     -0.626</span>
-<span class="co">#&gt; 10 2012 Q2 x      0.314</span>
-<span class="co">#&gt; # … with 20 more rows</span>
-
-<span class="co"># create a tsibble with multiple variables for key</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
-  mth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2010 Jan"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,
-  xyz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,
-  abc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, times <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span>,
-  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">abc</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; Using `mth` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 27 x 4 [1M]</span>
-<span class="co">#&gt; # Key:       xyz, abc [9]</span>
-<span class="co">#&gt;         mth xyz   abc     value</span>
-<span class="co">#&gt;       &lt;mth&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Jan x     a     -0.299 </span>
-<span class="co">#&gt;  2 2010 Feb x     a     -0.301 </span>
-<span class="co">#&gt;  3 2010 Mar x     a     -0.554 </span>
-<span class="co">#&gt;  4 2010 Jan x     b      1.37  </span>
-<span class="co">#&gt;  5 2010 Feb x     b      0.0283</span>
-<span class="co">#&gt;  6 2010 Mar x     b      1.13  </span>
-<span class="co">#&gt;  7 2010 Jan x     c      0.0418</span>
-<span class="co">#&gt;  8 2010 Feb x     c     -0.328 </span>
-<span class="co">#&gt;  9 2010 Mar x     c     -1.37  </span>
-<span class="co">#&gt; 10 2010 Apr y     a      3.29  </span>
-<span class="co">#&gt; # … with 17 more rows</span>
-
-<span class="co"># create a tsibble containing "key" and "index" as column names</span>
-<span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,
-  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span>,
-  key <span class="op">=</span> <span class="va">key</span>, index <span class="op">=</span> <span class="va">index</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 30 x 3 [1Q]</span>
-<span class="co">#&gt; # Key:       key [3]</span>
-<span class="co">#&gt;      index key    value</span>
-<span class="co">#&gt;      &lt;qtr&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Q1 x      1.00 </span>
-<span class="co">#&gt;  2 2010 Q2 x     -0.173</span>
-<span class="co">#&gt;  3 2010 Q3 x      1.00 </span>
-<span class="co">#&gt;  4 2010 Q4 x     -1.89 </span>
-<span class="co">#&gt;  5 2011 Q1 x     -0.854</span>
-<span class="co">#&gt;  6 2011 Q2 x      0.918</span>
-<span class="co">#&gt;  7 2011 Q3 x     -0.802</span>
-<span class="co">#&gt;  8 2011 Q4 x      0.517</span>
-<span class="co">#&gt;  9 2012 Q1 x     -1.42 </span>
-<span class="co">#&gt; 10 2012 Q2 x      0.944</span>
-<span class="co">#&gt; # … with 20 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create a tsibble w/o a key</span></span>
+<span class="r-in"><span class="fu">tsibble</span><span class="op">(</span></span>
+<span class="r-in">  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `date` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 10 x 2 [1D]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    date        value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01 -<span style="color: #BB0000;">0.920</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02  0.360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03 -<span style="color: #BB0000;">1.93</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04  1.84 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05 -<span style="color: #BB0000;">0.280</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06  0.396</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07  2.48 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08 -<span style="color: #BB0000;">1.14</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09  0.228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10  0.744</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># create a tsibble with a single variable for key</span></span>
+<span class="r-in"><span class="fu">tsibble</span><span class="op">(</span></span>
+<span class="r-in">  qtr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>,</span>
+<span class="r-in">  key <span class="op">=</span> <span class="va">group</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `qtr` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 30 x 3 [1Q]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       group [3]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        qtr group   value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x     -<span style="color: #BB0000;">1.28</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x     -<span style="color: #BB0000;">1.28</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x     -<span style="color: #BB0000;">1.91</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x     -<span style="color: #BB0000;">1.25</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x     -<span style="color: #BB0000;">1.58</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x     -<span style="color: #BB0000;">1.43</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x     -<span style="color: #BB0000;">0.342</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x      0.091<span style="text-decoration: underline;">3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x     -<span style="color: #BB0000;">0.505</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x      1.95  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># create a tsibble with multiple variables for key</span></span>
+<span class="r-in"><span class="fu">tsibble</span><span class="op">(</span></span>
+<span class="r-in">  mth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2010 Jan"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  xyz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
+<span class="r-in">  abc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, times <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span>,</span>
+<span class="r-in">  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">abc</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `mth` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 27 x 4 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       xyz, abc [9]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         mth xyz   abc     value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Jan x     a     -<span style="color: #BB0000;">0.027</span><span style="color: #BB0000; text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Feb x     a     -<span style="color: #BB0000;">0.632</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Mar x     a      1.17  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Jan x     b     -<span style="color: #BB0000;">0.654</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2010 Feb x     b      0.301 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2010 Mar x     b      1.30  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2010 Jan x     c     -<span style="color: #BB0000;">0.782</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2010 Feb x     c     -<span style="color: #BB0000;">0.946</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2010 Mar x     c     -<span style="color: #BB0000;">0.739</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2010 Apr y     a      0.312 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 17 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># create a tsibble containing "key" and "index" as column names</span></span>
+<span class="r-in"><span class="fu">tsibble</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">  key <span class="op">=</span> <span class="va">key</span>, index <span class="op">=</span> <span class="va">index</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 30 x 3 [1Q]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       key [3]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      index key     value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x      0.811 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x      1.52  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x     -<span style="color: #BB0000;">0.288</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x      0.056<span style="text-decoration: underline;">4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x      0.058<span style="text-decoration: underline;">8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x     -<span style="color: #BB0000;">0.167</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x      0.417 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x      0.999 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x     -<span style="color: #BB0000;">1.71</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x     -<span style="color: #BB0000;">0.647</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

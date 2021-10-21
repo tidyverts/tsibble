@@ -79,40 +79,40 @@
     <p>Return measured variables</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/measured-vars.html">measures</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">measures</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/measured-vars.html">measured_vars</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<span class="fu">measured_vars</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>A <code>tbl_ts</code>.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/measured-vars.html">measures</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; Date</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; Time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; Count</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/measured-vars.html">measures</a></span><span class="op">(</span><span class="va">tourism</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; Trips</span>
-<span class="co">#&gt; </span>
-
-<span class="fu"><a href="../reference/measured-vars.html">measured_vars</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Date"  "Time"  "Count"</span>
-<span class="fu"><a href="../reference/measured-vars.html">measured_vars</a></span><span class="op">(</span><span class="va">tourism</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Trips"</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">measures</span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Time</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">measures</span><span class="op">(</span><span class="va">tourism</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Trips</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">measured_vars</span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"  "Time"  "Count"</span>
+<span class="r-in"><span class="fu">measured_vars</span><span class="op">(</span><span class="va">tourism</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Trips"</span>
 </code></pre></div>
     </div>
   </div>

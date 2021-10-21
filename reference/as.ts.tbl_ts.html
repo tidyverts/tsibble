@@ -79,13 +79,12 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># S3 method for tbl_ts</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tbl_ts</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, frequency <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NA_real_</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>A <code>tbl_ts</code> object.</p></td>
     </tr><tr><th>value</th>
       <td><p>A measured variable of interest to be spread over columns, if
@@ -99,30 +98,31 @@ preferred frequency is passed to <code><a href="https://rdrr.io/r/stats/ts.html"
       <td><p>Ignored for the function.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A <code>ts</code> object.</p>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># a monthly series</span>
-<span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
-<span class="co">#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
-<span class="co">#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118</span>
-<span class="co">#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140</span>
-<span class="co">#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166</span>
-<span class="co">#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194</span>
-<span class="co">#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201</span>
-<span class="co">#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229</span>
-<span class="co">#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278</span>
-<span class="co">#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306</span>
-<span class="co">#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336</span>
-<span class="co">#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337</span>
-<span class="co">#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405</span>
-<span class="co">#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># a monthly series</span></span>
+<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1949 112 118 132 129 121 135 148 148 136 119 104 118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1950 115 126 141 135 125 149 170 170 158 133 114 140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1951 145 150 178 163 172 178 199 199 184 162 146 166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1952 171 180 193 181 183 218 230 242 209 191 172 194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1953 196 196 236 235 229 243 264 272 237 211 180 201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1954 204 188 235 227 234 264 302 293 259 229 203 229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1955 242 233 267 269 270 315 364 347 312 274 237 278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1956 284 277 317 313 318 374 413 405 355 306 271 306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1957 315 301 356 348 355 422 465 467 404 347 305 336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1958 340 318 362 348 363 435 491 505 404 359 310 337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1959 360 342 406 396 420 472 548 559 463 407 362 405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1960 417 391 419 461 472 535 622 606 508 461 390 432</span>
 </code></pre></div>
     </div>
   </div>

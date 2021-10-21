@@ -79,12 +79,11 @@
     <p>Scan a tsibble for implicit missing observations</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scan_gaps.html">scan_gaps</a></span><span class="op">(</span><span class="va">.data</span>, .full <span class="op">=</span> <span class="cn">FALSE</span>, .start <span class="op">=</span> <span class="cn">NULL</span>, .end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">scan_gaps</span><span class="op">(</span><span class="va">.data</span>, .full <span class="op">=</span> <span class="cn">FALSE</span>, .start <span class="op">=</span> <span class="cn">NULL</span>, .end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
       <td><p>A tsibble.</p></td>
     </tr><tr><th>.full</th>
       <td><ul><li><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period.</p></li>
@@ -100,6 +99,7 @@ existing time spans.</p></td>
 existing time spans.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other implicit gaps handling: 
@@ -107,26 +107,26 @@ existing time spans.</p></td>
 <code><a href="fill_gaps.html">fill_gaps</a>()</code>,
 <code><a href="has_gaps.html">has_gaps</a>()</code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scan_gaps.html">scan_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 3,011 x 2 [1h] &lt;Australia/Melbourne&gt;</span>
-<span class="co">#&gt; # Key:       Sensor [4]</span>
-<span class="co">#&gt;    Sensor         Date_Time          </span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;dttm&gt;             </span>
-<span class="co">#&gt;  1 Birrarung Marr 2015-04-05 02:00:00</span>
-<span class="co">#&gt;  2 Birrarung Marr 2015-05-07 00:00:00</span>
-<span class="co">#&gt;  3 Birrarung Marr 2015-05-07 01:00:00</span>
-<span class="co">#&gt;  4 Birrarung Marr 2015-05-07 02:00:00</span>
-<span class="co">#&gt;  5 Birrarung Marr 2015-05-07 03:00:00</span>
-<span class="co">#&gt;  6 Birrarung Marr 2015-05-07 04:00:00</span>
-<span class="co">#&gt;  7 Birrarung Marr 2015-05-07 05:00:00</span>
-<span class="co">#&gt;  8 Birrarung Marr 2015-05-07 06:00:00</span>
-<span class="co">#&gt;  9 Birrarung Marr 2015-05-07 07:00:00</span>
-<span class="co">#&gt; 10 Birrarung Marr 2015-05-07 08:00:00</span>
-<span class="co">#&gt; # … with 3,001 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">scan_gaps</span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 3,011 x 2 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Birrarung Marr 2015-04-05 <span style="color: #949494;">02:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">01:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">02:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">03:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">04:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">05:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">06:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">07:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-05-07 <span style="color: #949494;">08:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3,001 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

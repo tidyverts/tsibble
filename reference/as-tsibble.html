@@ -79,8 +79,7 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">as_tsibble</span><span class="op">(</span>
   <span class="va">x</span>,
   key <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">index</span>,
@@ -91,14 +90,14 @@
 <span class="op">)</span>
 
 <span class="co"># S3 method for ts</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>
+<span class="fu">as_tsibble</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>
 
 <span class="co"># S3 method for mts</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, tz <span class="op">=</span> <span class="st">"UTC"</span>, pivot_longer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu">as_tsibble</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, tz <span class="op">=</span> <span class="st">"UTC"</span>, pivot_longer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>Other objects to be coerced to a tsibble (<code>tbl_ts</code>).</p></td>
     </tr><tr><th>key</th>
       <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
@@ -124,6 +123,7 @@ daily.</p></td>
       <td><p><code>TRUE</code> gives a "longer" form of the data, otherwise as is.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A tsibble object.</p>
@@ -195,207 +195,207 @@ time scales, the interval gets re-calculated.</p>
     <h2>See also</h2>
     <div class="dont-index"><p><a href="tsibble.html">tsibble</a></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># coerce tibble to tsibble w/o a key</span>
-<span class="va">tbl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
-  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl1</span><span class="op">)</span>
-<span class="co">#&gt; Using `date` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 10 x 2 [1D]</span>
-<span class="co">#&gt;    date         value</span>
-<span class="co">#&gt;    &lt;date&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2017-01-01 -0.870 </span>
-<span class="co">#&gt;  2 2017-01-02 -0.0670</span>
-<span class="co">#&gt;  3 2017-01-03  0.291 </span>
-<span class="co">#&gt;  4 2017-01-04 -1.43  </span>
-<span class="co">#&gt;  5 2017-01-05 -0.886 </span>
-<span class="co">#&gt;  6 2017-01-06  0.172 </span>
-<span class="co">#&gt;  7 2017-01-07  0.297 </span>
-<span class="co">#&gt;  8 2017-01-08  0.509 </span>
-<span class="co">#&gt;  9 2017-01-09  1.14  </span>
-<span class="co">#&gt; 10 2017-01-10 -0.404 </span>
-<span class="co"># supply the index to suppress the message</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl1</span>, index <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 10 x 2 [1D]</span>
-<span class="co">#&gt;    date         value</span>
-<span class="co">#&gt;    &lt;date&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2017-01-01 -0.870 </span>
-<span class="co">#&gt;  2 2017-01-02 -0.0670</span>
-<span class="co">#&gt;  3 2017-01-03  0.291 </span>
-<span class="co">#&gt;  4 2017-01-04 -1.43  </span>
-<span class="co">#&gt;  5 2017-01-05 -0.886 </span>
-<span class="co">#&gt;  6 2017-01-06  0.172 </span>
-<span class="co">#&gt;  7 2017-01-07  0.297 </span>
-<span class="co">#&gt;  8 2017-01-08  0.509 </span>
-<span class="co">#&gt;  9 2017-01-09  1.14  </span>
-<span class="co">#&gt; 10 2017-01-10 -0.404 </span>
-
-<span class="co"># coerce tibble to tsibble with a single variable for key</span>
-<span class="co"># use `yearquarter()` to represent quarterly data</span>
-<span class="va">tbl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
-  qtr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co"># "qtr" is automatically considered as the index var</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl2</span>, key <span class="op">=</span> <span class="va">group</span><span class="op">)</span>
-<span class="co">#&gt; Using `qtr` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 30 x 3 [1Q]</span>
-<span class="co">#&gt; # Key:       group [3]</span>
-<span class="co">#&gt;        qtr group    value</span>
-<span class="co">#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Q1 x     -1.37   </span>
-<span class="co">#&gt;  2 2010 Q2 x     -0.00775</span>
-<span class="co">#&gt;  3 2010 Q3 x      0.367  </span>
-<span class="co">#&gt;  4 2010 Q4 x     -0.328  </span>
-<span class="co">#&gt;  5 2011 Q1 x     -0.377  </span>
-<span class="co">#&gt;  6 2011 Q2 x     -0.357  </span>
-<span class="co">#&gt;  7 2011 Q3 x     -0.519  </span>
-<span class="co">#&gt;  8 2011 Q4 x     -0.141  </span>
-<span class="co">#&gt;  9 2012 Q1 x     -0.479  </span>
-<span class="co">#&gt; 10 2012 Q2 x     -0.916  </span>
-<span class="co">#&gt; # … with 20 more rows</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl2</span>, key <span class="op">=</span> <span class="va">group</span>, index <span class="op">=</span> <span class="va">qtr</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 30 x 3 [1Q]</span>
-<span class="co">#&gt; # Key:       group [3]</span>
-<span class="co">#&gt;        qtr group    value</span>
-<span class="co">#&gt;      &lt;qtr&gt; &lt;chr&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Q1 x     -1.37   </span>
-<span class="co">#&gt;  2 2010 Q2 x     -0.00775</span>
-<span class="co">#&gt;  3 2010 Q3 x      0.367  </span>
-<span class="co">#&gt;  4 2010 Q4 x     -0.328  </span>
-<span class="co">#&gt;  5 2011 Q1 x     -0.377  </span>
-<span class="co">#&gt;  6 2011 Q2 x     -0.357  </span>
-<span class="co">#&gt;  7 2011 Q3 x     -0.519  </span>
-<span class="co">#&gt;  8 2011 Q4 x     -0.141  </span>
-<span class="co">#&gt;  9 2012 Q1 x     -0.479  </span>
-<span class="co">#&gt; 10 2012 Q2 x     -0.916  </span>
-<span class="co">#&gt; # … with 20 more rows</span>
-
-<span class="co"># create a tsibble with multiple variables for key</span>
-<span class="co"># use `yearmonth()` to represent monthly data</span>
-<span class="va">tbl3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
-  mth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2010 Jan"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,
-  xyz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,
-  abc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, times <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">tbl3</span>, key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">abc</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Using `mth` as index variable.</span>
-<span class="co">#&gt; # A tsibble: 27 x 4 [1M]</span>
-<span class="co">#&gt; # Key:       xyz, abc [9]</span>
-<span class="co">#&gt;         mth xyz   abc     value</span>
-<span class="co">#&gt;       &lt;mth&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2010 Jan x     a     -0.561 </span>
-<span class="co">#&gt;  2 2010 Feb x     a      0.519 </span>
-<span class="co">#&gt;  3 2010 Mar x     a      0.396 </span>
-<span class="co">#&gt;  4 2010 Jan x     b      0.125 </span>
-<span class="co">#&gt;  5 2010 Feb x     b     -1.37  </span>
-<span class="co">#&gt;  6 2010 Mar x     b     -1.19  </span>
-<span class="co">#&gt;  7 2010 Jan x     c      1.27  </span>
-<span class="co">#&gt;  8 2010 Feb x     c     -0.352 </span>
-<span class="co">#&gt;  9 2010 Mar x     c     -0.0127</span>
-<span class="co">#&gt; 10 2010 Apr y     a     -0.0593</span>
-<span class="co">#&gt; # … with 17 more rows</span>
-<span class="co"># coerce ts to tsibble</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 144 x 2 [1M]</span>
-<span class="co">#&gt;       index value</span>
-<span class="co">#&gt;       &lt;mth&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1949 Jan   112</span>
-<span class="co">#&gt;  2 1949 Feb   118</span>
-<span class="co">#&gt;  3 1949 Mar   132</span>
-<span class="co">#&gt;  4 1949 Apr   129</span>
-<span class="co">#&gt;  5 1949 May   121</span>
-<span class="co">#&gt;  6 1949 Jun   135</span>
-<span class="co">#&gt;  7 1949 Jul   148</span>
-<span class="co">#&gt;  8 1949 Aug   148</span>
-<span class="co">#&gt;  9 1949 Sep   136</span>
-<span class="co">#&gt; 10 1949 Oct   119</span>
-<span class="co">#&gt; # … with 134 more rows</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">sunspot.year</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 289 x 2 [1Y]</span>
-<span class="co">#&gt;    index value</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1700     5</span>
-<span class="co">#&gt;  2  1701    11</span>
-<span class="co">#&gt;  3  1702    16</span>
-<span class="co">#&gt;  4  1703    23</span>
-<span class="co">#&gt;  5  1704    36</span>
-<span class="co">#&gt;  6  1705    58</span>
-<span class="co">#&gt;  7  1706    29</span>
-<span class="co">#&gt;  8  1707    20</span>
-<span class="co">#&gt;  9  1708    10</span>
-<span class="co">#&gt; 10  1709     8</span>
-<span class="co">#&gt; # … with 279 more rows</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">sunspot.month</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 3,177 x 2 [1M]</span>
-<span class="co">#&gt;       index value</span>
-<span class="co">#&gt;       &lt;mth&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1749 Jan  58  </span>
-<span class="co">#&gt;  2 1749 Feb  62.6</span>
-<span class="co">#&gt;  3 1749 Mar  70  </span>
-<span class="co">#&gt;  4 1749 Apr  55.7</span>
-<span class="co">#&gt;  5 1749 May  85  </span>
-<span class="co">#&gt;  6 1749 Jun  83.5</span>
-<span class="co">#&gt;  7 1749 Jul  94.8</span>
-<span class="co">#&gt;  8 1749 Aug  66.3</span>
-<span class="co">#&gt;  9 1749 Sep  75.9</span>
-<span class="co">#&gt; 10 1749 Oct  75.5</span>
-<span class="co">#&gt; # … with 3,167 more rows</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">austres</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 89 x 2 [1Q]</span>
-<span class="co">#&gt;      index  value</span>
-<span class="co">#&gt;      &lt;qtr&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1971 Q2 13067.</span>
-<span class="co">#&gt;  2 1971 Q3 13130.</span>
-<span class="co">#&gt;  3 1971 Q4 13198.</span>
-<span class="co">#&gt;  4 1972 Q1 13254.</span>
-<span class="co">#&gt;  5 1972 Q2 13304.</span>
-<span class="co">#&gt;  6 1972 Q3 13354.</span>
-<span class="co">#&gt;  7 1972 Q4 13409.</span>
-<span class="co">#&gt;  8 1973 Q1 13459.</span>
-<span class="co">#&gt;  9 1973 Q2 13504.</span>
-<span class="co">#&gt; 10 1973 Q3 13553.</span>
-<span class="co">#&gt; # … with 79 more rows</span>
-<span class="co"># coerce mts to tsibble</span>
-<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">300</span><span class="op">)</span>, <span class="fl">100</span>, <span class="fl">3</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1961</span>, <span class="fl">1</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 300 x 3 [1M]</span>
-<span class="co">#&gt; # Key:       key [3]</span>
-<span class="co">#&gt;       index key        value</span>
-<span class="co">#&gt;       &lt;mth&gt; &lt;chr&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1961 Jan Series 1  0.423 </span>
-<span class="co">#&gt;  2 1961 Feb Series 1  0.654 </span>
-<span class="co">#&gt;  3 1961 Mar Series 1  0.446 </span>
-<span class="co">#&gt;  4 1961 Apr Series 1 -0.860 </span>
-<span class="co">#&gt;  5 1961 May Series 1  0.0900</span>
-<span class="co">#&gt;  6 1961 Jun Series 1  0.268 </span>
-<span class="co">#&gt;  7 1961 Jul Series 1  1.31  </span>
-<span class="co">#&gt;  8 1961 Aug Series 1  0.104 </span>
-<span class="co">#&gt;  9 1961 Sep Series 1  0.154 </span>
-<span class="co">#&gt; 10 1961 Oct Series 1 -0.252 </span>
-<span class="co">#&gt; # … with 290 more rows</span>
-<span class="fu"><a href="../reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">z</span>, pivot_longer <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 100 x 4 [1M]</span>
-<span class="co">#&gt;       index `Series 1` `Series 2` `Series 3`</span>
-<span class="co">#&gt;       &lt;mth&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1961 Jan     0.423    -0.764      -1.17  </span>
-<span class="co">#&gt;  2 1961 Feb     0.654     1.54        0.0795</span>
-<span class="co">#&gt;  3 1961 Mar     0.446    -0.517      -2.30  </span>
-<span class="co">#&gt;  4 1961 Apr    -0.860     1.69       -0.0127</span>
-<span class="co">#&gt;  5 1961 May     0.0900   -0.221       0.196 </span>
-<span class="co">#&gt;  6 1961 Jun     0.268     0.957      -0.377 </span>
-<span class="co">#&gt;  7 1961 Jul     1.31      0.00350     0.314 </span>
-<span class="co">#&gt;  8 1961 Aug     0.104     0.0415     -0.412 </span>
-<span class="co">#&gt;  9 1961 Sep     0.154    -0.852       0.105 </span>
-<span class="co">#&gt; 10 1961 Oct    -0.252     1.87       -0.402 </span>
-<span class="co">#&gt; # … with 90 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># coerce tibble to tsibble w/o a key</span></span>
+<span class="r-in"><span class="va">tbl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span class="r-in">  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">tbl1</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `date` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 10 x 2 [1D]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    date         value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01  0.284 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02 -<span style="color: #BB0000;">0.990</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03  0.200 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04 -<span style="color: #BB0000;">0.922</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05 -<span style="color: #BB0000;">0.345</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06  0.011<span style="text-decoration: underline;">4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07  1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08 -<span style="color: #BB0000;">0.629</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09 -<span style="color: #BB0000;">0.975</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10  1.06  </span>
+<span class="r-in"><span class="co"># supply the index to suppress the message</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">tbl1</span>, index <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 10 x 2 [1D]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    date         value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01  0.284 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02 -<span style="color: #BB0000;">0.990</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03  0.200 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04 -<span style="color: #BB0000;">0.922</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05 -<span style="color: #BB0000;">0.345</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06  0.011<span style="text-decoration: underline;">4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07  1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08 -<span style="color: #BB0000;">0.629</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09 -<span style="color: #BB0000;">0.975</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10  1.06  </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># coerce tibble to tsibble with a single variable for key</span></span>
+<span class="r-in"><span class="co"># use `yearquarter()` to represent quarterly data</span></span>
+<span class="r-in"><span class="va">tbl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span class="r-in">  qtr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="year-quarter.html">yearquarter</a></span><span class="op">(</span><span class="st">"2010 Q1"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span class="co"># "qtr" is automatically considered as the index var</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">tbl2</span>, key <span class="op">=</span> <span class="va">group</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `qtr` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 30 x 3 [1Q]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       group [3]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        qtr group  value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x     -<span style="color: #BB0000;">0.975</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x      0.276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x      0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x     -<span style="color: #BB0000;">0.153</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x     -<span style="color: #BB0000;">1.16</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x     -<span style="color: #BB0000;">1.13</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x     -<span style="color: #BB0000;">1.56</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x      0.541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x     -<span style="color: #BB0000;">0.173</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x      1.25 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more rows</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">tbl2</span>, key <span class="op">=</span> <span class="va">group</span>, index <span class="op">=</span> <span class="va">qtr</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 30 x 3 [1Q]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       group [3]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        qtr group  value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x     -<span style="color: #BB0000;">0.975</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x      0.276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x      0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x     -<span style="color: #BB0000;">0.153</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x     -<span style="color: #BB0000;">1.16</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x     -<span style="color: #BB0000;">1.13</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x     -<span style="color: #BB0000;">1.56</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x      0.541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x     -<span style="color: #BB0000;">0.173</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x      1.25 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># create a tsibble with multiple variables for key</span></span>
+<span class="r-in"><span class="co"># use `yearmonth()` to represent monthly data</span></span>
+<span class="r-in"><span class="va">tbl3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span class="r-in">  mth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="year-month.html">yearmonth</a></span><span class="op">(</span><span class="st">"2010 Jan"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  xyz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
+<span class="r-in">  abc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, times <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">tbl3</span>, key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">abc</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using `mth` as index variable.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 27 x 4 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       xyz, abc [9]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         mth xyz   abc     value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Jan x     a      0.541 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Feb x     a     -<span style="color: #BB0000;">0.172</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Mar x     a     -<span style="color: #BB0000;">0.465</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Jan x     b      0.410 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2010 Feb x     b      1.52  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2010 Mar x     b      1.38  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2010 Jan x     c     -<span style="color: #BB0000;">0.121</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2010 Feb x     c     -<span style="color: #BB0000;">0.338</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2010 Mar x     c      0.083<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2010 Apr y     a      0.096<span style="text-decoration: underline;">0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 17 more rows</span></span>
+<span class="r-in"><span class="co"># coerce ts to tsibble</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 144 x 2 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       index value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1949 Jan   112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1949 Feb   118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1949 Mar   132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1949 Apr   129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1949 May   121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1949 Jun   135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1949 Jul   148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1949 Aug   148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1949 Sep   136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1949 Oct   119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 134 more rows</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">sunspot.year</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 289 x 2 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    index value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>700     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>701    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>702    16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>703    23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>704    36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>705    58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>706    29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>707    20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>708    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>709     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 279 more rows</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">sunspot.month</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 3,177 x 2 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       index value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1749 Jan  58  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1749 Feb  62.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1749 Mar  70  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1749 Apr  55.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1749 May  85  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1749 Jun  83.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1749 Jul  94.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1749 Aug  66.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1749 Sep  75.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1749 Oct  75.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3,167 more rows</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">austres</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 89 x 2 [1Q]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      index  value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1971 Q2 <span style="text-decoration: underline;">13</span>067.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1971 Q3 <span style="text-decoration: underline;">13</span>130.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1971 Q4 <span style="text-decoration: underline;">13</span>198.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1972 Q1 <span style="text-decoration: underline;">13</span>254.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1972 Q2 <span style="text-decoration: underline;">13</span>304.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1972 Q3 <span style="text-decoration: underline;">13</span>354.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1972 Q4 <span style="text-decoration: underline;">13</span>409.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1973 Q1 <span style="text-decoration: underline;">13</span>459.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1973 Q2 <span style="text-decoration: underline;">13</span>504.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1973 Q3 <span style="text-decoration: underline;">13</span>553.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 79 more rows</span></span>
+<span class="r-in"><span class="co"># coerce mts to tsibble</span></span>
+<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">300</span><span class="op">)</span>, <span class="fl">100</span>, <span class="fl">3</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1961</span>, <span class="fl">1</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 300 x 3 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       key [3]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       index key        value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1961 Jan Series 1 -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1961 Feb Series 1  1.64  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1961 Mar Series 1 -<span style="color: #BB0000;">0.731</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1961 Apr Series 1 -<span style="color: #BB0000;">1.66</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1961 May Series 1  0.419 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1961 Jun Series 1  0.139 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1961 Jul Series 1 -<span style="color: #BB0000;">0.131</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1961 Aug Series 1 -<span style="color: #BB0000;">0.786</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1961 Sep Series 1 -<span style="color: #BB0000;">0.192</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1961 Oct Series 1 -<span style="color: #BB0000;">1.20</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 290 more rows</span></span>
+<span class="r-in"><span class="fu">as_tsibble</span><span class="op">(</span><span class="va">z</span>, pivot_longer <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 100 x 4 [1M]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       index `Series 1` `Series 2` `Series 3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1961 Jan    -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">1</span>    -<span style="color: #BB0000;">0.037</span><span style="color: #BB0000; text-decoration: underline;">5</span>     -<span style="color: #BB0000;">0.172</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1961 Feb     1.64      -<span style="color: #BB0000;">0.946</span>      -<span style="color: #BB0000;">0.854</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1961 Mar    -<span style="color: #BB0000;">0.731</span>     -<span style="color: #BB0000;">0.606</span>      -<span style="color: #BB0000;">2.65</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1961 Apr    -<span style="color: #BB0000;">1.66</span>      -<span style="color: #BB0000;">0.988</span>      -<span style="color: #BB0000;">2.16</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1961 May     0.419      2.60       -<span style="color: #BB0000;">1.20</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1961 Jun     0.139     -<span style="color: #BB0000;">0.314</span>       0.318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1961 Jul    -<span style="color: #BB0000;">0.131</span>     -<span style="color: #BB0000;">0.436</span>       0.192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1961 Aug    -<span style="color: #BB0000;">0.786</span>     -<span style="color: #BB0000;">0.764</span>       1.93 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1961 Sep    -<span style="color: #BB0000;">0.192</span>      1.97       -<span style="color: #BB0000;">0.401</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1961 Oct    -<span style="color: #BB0000;">1.20</span>       1.48       -<span style="color: #BB0000;">0.638</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

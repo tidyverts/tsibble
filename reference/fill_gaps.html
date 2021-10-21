@@ -79,12 +79,11 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, .full <span class="op">=</span> <span class="cn">FALSE</span>, .start <span class="op">=</span> <span class="cn">NULL</span>, .end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">fill_gaps</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, .full <span class="op">=</span> <span class="cn">FALSE</span>, .start <span class="op">=</span> <span class="cn">NULL</span>, .end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
       <td><p>A tsibble.</p></td>
     </tr><tr><th>...</th>
       <td><p>A set of name-value pairs. The values provided will only replace
@@ -103,6 +102,7 @@ existing <code>NA</code> untouched.</p><ul><li><p>empty: filled with default <co
 existing time spans.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">tidyr::fill</a>, <a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">tidyr::replace_na</a> for handling missing values <code>NA</code>.</p>
@@ -111,211 +111,211 @@ existing time spans.</p></td>
 <code><a href="has_gaps.html">has_gaps</a>()</code>,
 <code><a href="scan_gaps.html">scan_gaps</a>()</code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsibble.html">tsibble</a></span><span class="op">(</span>
-  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2011</span>, <span class="fl">2013</span>, <span class="fl">2011</span>, <span class="fl">2012</span>, <span class="fl">2014</span><span class="op">)</span>,
-  fruit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kiwi"</span>, <span class="st">"cherry"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,
-  kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,
-  key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span>
-<span class="op">)</span>
-
-<span class="co"># gaps as default `NA`</span>
-<span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 10 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;     year fruit   kilo</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1  2010 cherry    NA</span>
-<span class="co">#&gt;  2  2011 cherry     1</span>
-<span class="co">#&gt;  3  2012 cherry     6</span>
-<span class="co">#&gt;  4  2013 cherry    NA</span>
-<span class="co">#&gt;  5  2014 cherry     9</span>
-<span class="co">#&gt;  6  2010 kiwi       2</span>
-<span class="co">#&gt;  7  2011 kiwi       5</span>
-<span class="co">#&gt;  8  2012 kiwi      NA</span>
-<span class="co">#&gt;  9  2013 kiwi       7</span>
-<span class="co">#&gt; 10  2014 kiwi      NA</span>
-<span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">start</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 9 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2010 cherry    NA</span>
-<span class="co">#&gt; 2  2011 cherry     1</span>
-<span class="co">#&gt; 3  2012 cherry     6</span>
-<span class="co">#&gt; 4  2013 cherry    NA</span>
-<span class="co">#&gt; 5  2014 cherry     9</span>
-<span class="co">#&gt; 6  2010 kiwi       2</span>
-<span class="co">#&gt; 7  2011 kiwi       5</span>
-<span class="co">#&gt; 8  2012 kiwi      NA</span>
-<span class="co">#&gt; 9  2013 kiwi       7</span>
-<span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">end</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 9 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry     6</span>
-<span class="co">#&gt; 3  2013 cherry    NA</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi      NA</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-<span class="co">#&gt; 9  2014 kiwi      NA</span>
-<span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .start <span class="op">=</span> <span class="fl">2009</span>, .end <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 16 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;     year fruit   kilo</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1  2009 cherry    NA</span>
-<span class="co">#&gt;  2  2010 cherry    NA</span>
-<span class="co">#&gt;  3  2011 cherry     1</span>
-<span class="co">#&gt;  4  2012 cherry     6</span>
-<span class="co">#&gt;  5  2013 cherry    NA</span>
-<span class="co">#&gt;  6  2014 cherry     9</span>
-<span class="co">#&gt;  7  2015 cherry    NA</span>
-<span class="co">#&gt;  8  2016 cherry    NA</span>
-<span class="co">#&gt;  9  2009 kiwi      NA</span>
-<span class="co">#&gt; 10  2010 kiwi       2</span>
-<span class="co">#&gt; 11  2011 kiwi       5</span>
-<span class="co">#&gt; 12  2012 kiwi      NA</span>
-<span class="co">#&gt; 13  2013 kiwi       7</span>
-<span class="co">#&gt; 14  2014 kiwi      NA</span>
-<span class="co">#&gt; 15  2015 kiwi      NA</span>
-<span class="co">#&gt; 16  2016 kiwi      NA</span>
-<span class="va">full_harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">full_harvest</span>
-<span class="co">#&gt; # A tsibble: 8 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry     6</span>
-<span class="co">#&gt; 3  2013 cherry    NA</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi      NA</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-
-<span class="co"># replace gaps with a specific value</span>
-<span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>kilo <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 8 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry     6</span>
-<span class="co">#&gt; 3  2013 cherry     0</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi       0</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-
-<span class="co"># replace gaps using a function by variable</span>
-<span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 8 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry     6</span>
-<span class="co">#&gt; 3  2013 cherry    30</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi      30</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-
-<span class="co"># replace gaps using a function for each group</span>
-<span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 8 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt; # Groups:    fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry     6</span>
-<span class="co">#&gt; 3  2013 cherry    16</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi      14</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-
-<span class="co"># leaves existing `NA` untouched</span>
-<span class="va">harvest</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
-<span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 8 x 3 [1Y]</span>
-<span class="co">#&gt; # Key:       fruit [2]</span>
-<span class="co">#&gt; # Groups:    fruit [2]</span>
-<span class="co">#&gt;    year fruit   kilo</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2011 cherry     1</span>
-<span class="co">#&gt; 2  2012 cherry    NA</span>
-<span class="co">#&gt; 3  2013 cherry    10</span>
-<span class="co">#&gt; 4  2014 cherry     9</span>
-<span class="co">#&gt; 5  2010 kiwi       2</span>
-<span class="co">#&gt; 6  2011 kiwi       5</span>
-<span class="co">#&gt; 7  2012 kiwi      14</span>
-<span class="co">#&gt; 8  2013 kiwi       7</span>
-
-<span class="co"># replace NA</span>
-<span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span>
-<span class="co">#&gt; # Key:       Sensor [4]</span>
-<span class="co">#&gt; # Groups:    Sensor [4]</span>
-<span class="co">#&gt;    Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span>
-<span class="co">#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span>
-<span class="co">#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span>
-<span class="co">#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span>
-<span class="co">#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span>
-<span class="co">#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77</span>
-<span class="co">#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44</span>
-<span class="co">#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56</span>
-<span class="co">#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113</span>
-<span class="co">#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166</span>
-<span class="co">#&gt; # … with 69,038 more rows</span>
-
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tidyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Please install the 'tidyr' package to run these following examples."</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co"># use fill() to fill `NA` by previous/next entry</span>
-<span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">fill</a></span><span class="op">(</span><span class="va">Count</span>, .direction <span class="op">=</span> <span class="st">"down"</span><span class="op">)</span>
-<span class="co">#&gt; # A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span>
-<span class="co">#&gt; # Key:       Sensor [4]</span>
-<span class="co">#&gt; # Groups:    Sensor [4]</span>
-<span class="co">#&gt;    Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span>
-<span class="co">#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span>
-<span class="co">#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span>
-<span class="co">#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span>
-<span class="co">#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span>
-<span class="co">#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77</span>
-<span class="co">#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44</span>
-<span class="co">#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56</span>
-<span class="co">#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113</span>
-<span class="co">#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166</span>
-<span class="co">#&gt; # … with 69,038 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="tsibble.html">tsibble</a></span><span class="op">(</span></span>
+<span class="r-in">  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2011</span>, <span class="fl">2013</span>, <span class="fl">2011</span>, <span class="fl">2012</span>, <span class="fl">2014</span><span class="op">)</span>,</span>
+<span class="r-in">  fruit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kiwi"</span>, <span class="st">"cherry"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
+<span class="r-in">  key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># gaps as default `NA`</span></span>
+<span class="r-in"><span class="fu">fill_gaps</span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 10 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>010 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>013 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>012 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>014 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-in"><span class="fu">fill_gaps</span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">start</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 9 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>010 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>013 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>012 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"><span class="fu">fill_gaps</span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html" class="external-link">end</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 9 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>  <span style="text-decoration: underline;">2</span>014 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-in"><span class="fu">fill_gaps</span><span class="op">(</span><span class="va">harvest</span>, .start <span class="op">=</span> <span class="fl">2009</span>, .end <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 16 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>009 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>010 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>013 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>015 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>016 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>009 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>  <span style="text-decoration: underline;">2</span>012 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>  <span style="text-decoration: underline;">2</span>014 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>  <span style="text-decoration: underline;">2</span>015 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span>  <span style="text-decoration: underline;">2</span>016 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-in"><span class="va">full_harvest</span> <span class="op">&lt;-</span> <span class="fu">fill_gaps</span><span class="op">(</span><span class="va">harvest</span>, .full <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">full_harvest</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 8 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># replace gaps with a specific value</span></span>
+<span class="r-in"><span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span>kilo <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 8 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># replace gaps using a function by variable</span></span>
+<span class="r-in"><span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 8 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry    36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi      36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># replace gaps using a function for each group</span></span>
+<span class="r-in"><span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 8 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry    22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi      14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># leaves existing `NA` untouched</span></span>
+<span class="r-in"><span class="va">harvest</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span class="r-in"><span class="va">harvest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span>kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">kilo</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 8 x 3 [1Y]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    fruit [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>011 cherry     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>012 cherry    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>013 cherry    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>014 cherry     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>011 kiwi       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>012 kiwi      14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>013 kiwi       8</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># replace NA</span></span>
+<span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time           Date        Time Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">05:00:00</span> 2015-01-01     5    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">06:00:00</span> 2015-01-01     6    44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">07:00:00</span> 2015-01-01     7    56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">08:00:00</span> 2015-01-01     8   113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">09:00:00</span> 2015-01-01     9   166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 69,038 more rows</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tidyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Please install the 'tidyr' package to run these following examples."</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="co"># use fill() to fill `NA` by previous/next entry</span></span>
+<span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">fill_gaps</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">fill</a></span><span class="op">(</span><span class="va">Count</span>, .direction <span class="op">=</span> <span class="st">"down"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 69,048 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    Sensor [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time           Date        Time Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">05:00:00</span> 2015-01-01     5    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">06:00:00</span> 2015-01-01     6    44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">07:00:00</span> 2015-01-01     7    56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">08:00:00</span> 2015-01-01     8   113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">09:00:00</span> 2015-01-01     9   166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 69,038 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

@@ -79,37 +79,37 @@
     <p>Coerce to a tibble or data frame</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># S3 method for tbl_ts</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tbl_ts</span>
 <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>A <code>tbl_ts</code>.</p></td>
     </tr><tr><th>...</th>
       <td><p>Ignored.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 66,037 × 5</span>
-<span class="co">#&gt;    Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630</span>
-<span class="co">#&gt;  2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826</span>
-<span class="co">#&gt;  3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567</span>
-<span class="co">#&gt;  4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264</span>
-<span class="co">#&gt;  5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139</span>
-<span class="co">#&gt;  6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77</span>
-<span class="co">#&gt;  7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44</span>
-<span class="co">#&gt;  8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56</span>
-<span class="co">#&gt;  9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113</span>
-<span class="co">#&gt; 10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166</span>
-<span class="co">#&gt; # … with 66,027 more rows</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 66,037 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time           Date        Time Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">05:00:00</span> 2015-01-01     5    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">06:00:00</span> 2015-01-01     6    44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">07:00:00</span> 2015-01-01     7    56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">08:00:00</span> 2015-01-01     8   113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">09:00:00</span> 2015-01-01     9   166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 66,027 more rows</span></span>
 </code></pre></div>
     </div>
   </div>
