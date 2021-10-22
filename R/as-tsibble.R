@@ -608,11 +608,15 @@ assert_key_data <- function(x) {
 #' @keywords internal
 #' @export
 rbind.tbl_ts <- function(...) {
-  dplyr::bind_rows(!!!list(...))
+  abort(c(
+    "Not supported for tsibble.", 
+    i = "Please use `dplyr::bind_rows()` instead."))
 }
 
 #' @keywords internal
 #' @export
 cbind.tbl_ts <- function(...) {
-  dplyr::bind_cols(!!!list(...))
+  abort(c(
+    "Not supported for tsibble.", 
+    i = "Please use `dplyr::bind_cols()` instead."))
 }
