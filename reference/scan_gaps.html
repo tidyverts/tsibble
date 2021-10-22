@@ -81,25 +81,22 @@
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">scan_gaps</span><span class="op">(</span><span class="va">.data</span>, .full <span class="op">=</span> <span class="cn">FALSE</span>, .start <span class="op">=</span> <span class="cn">NULL</span>, .end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
-      <td><p>A tsibble.</p></td>
-    </tr><tr><th>.full</th>
-      <td><ul><li><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period.</p></li>
+    
+
+<dl><dt>.data</dt><dd><p>A tsibble.</p></dd>
+</dl><dl><dt>.full</dt><dd><p></p><ul><li><p><code>FALSE</code> inserts <code>NA</code> for each keyed unit within its own period.</p></li>
 <li><p><code>TRUE</code> fills <code>NA</code> over the entire time span of the data (a.k.a. fully balanced panel).</p></li>
 <li><p><code><a href="https://rdrr.io/r/stats/start.html" class="external-link">start()</a></code> pad <code>NA</code> to the same starting point (i.e. <code>min(&lt;index&gt;)</code>) across units.</p></li>
 <li><p><code><a href="https://rdrr.io/r/stats/start.html" class="external-link">end()</a></code> pad <code>NA</code> to the same ending point (i.e. <code>max(&lt;index&gt;)</code>) across units.</p></li>
-</ul></td>
-    </tr><tr><th>.start</th>
-      <td><p>Set custom starting/ending time that allows to expand the
-existing time spans.</p></td>
-    </tr><tr><th>.end</th>
-      <td><p>Set custom starting/ending time that allows to expand the
-existing time spans.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+</ul></dd>
+</dl><dl><dt>.start</dt><dd><p>Set custom starting/ending time that allows to expand the
+existing time spans.</p></dd>
+</dl><dl><dt>.end</dt><dd><p>Set custom starting/ending time that allows to expand the
+existing time spans.</p></dd>
+</dl></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other implicit gaps handling: 

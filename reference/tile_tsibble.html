@@ -81,17 +81,15 @@
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">tile_tsibble</span><span class="op">(</span><span class="va">.x</span>, .size <span class="op">=</span> <span class="fl">1</span>, .id <span class="op">=</span> <span class="st">".id"</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.x</th>
-      <td><p>A tsibble.</p></td>
-    </tr><tr><th>.size</th>
-      <td><p>A positive integer for window size.</p></td>
-    </tr><tr><th>.id</th>
-      <td><p>A character naming the new column <code>.id</code> containing the partition.</p></td>
-    </tr></table></div>
+    
 
-    <div id="ref-sections">
+<dl><dt>.x</dt><dd><p>A tsibble.</p></dd>
+</dl><dl><dt>.size</dt><dd><p>A positive integer for window size.</p></dd>
+</dl><dl><dt>.id</dt><dd><p>A character naming the new column <code>.id</code> containing the partition.</p></dd>
+</dl></div>
     <div id="rolling-tsibble">
     <h2>Rolling tsibble</h2>
     
@@ -128,12 +126,12 @@ large.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       .id, fruit [4]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo   .id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>010 cherry     6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>011 cherry     5     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>010 kiwi       9     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>011 kiwi       3     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>010 cherry     8     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>011 cherry     3     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>010 kiwi       7     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>011 kiwi       1     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>012 cherry    10     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>012 kiwi       4     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>012 kiwi       2     2</span>
 </code></pre></div>
     </div>
   </div>

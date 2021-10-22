@@ -88,28 +88,23 @@
   .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A tsibble.</p></td>
-    </tr><tr><th>key</th>
-      <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
-empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></td>
-    </tr><tr><th>index</th>
-      <td><p>A variable to specify the time index variable.</p></td>
-    </tr><tr><th>regular</th>
-      <td><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
-interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></td>
-    </tr><tr><th>validate</th>
-      <td><p><code>TRUE</code> suggests to verify that each key or each combination
-of key variables leads to unique time indices (i.e. a valid tsibble). If you
-are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
-    </tr><tr><th>.drop</th>
-      <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
-    </tr></table></div>
+    
 
-    <div id="ref-sections">
+<dl><dt>x</dt><dd><p>A tsibble.</p></dd>
+</dl><dl><dt>key</dt><dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
+(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+</dl><dl><dt>index</dt><dd><p>A variable to specify the time index variable.</p></dd>
+</dl><dl><dt>regular</dt><dd><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></dd>
+</dl><dl><dt>validate</dt><dd><p><code>TRUE</code> suggests to verify that each key or each combination
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
+</dl><dl><dt>.drop</dt><dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
+</dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>Unspecified arguments will inherit the attributes from <code>x</code>.</p>

@@ -82,23 +82,19 @@
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tbl_ts</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, frequency <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NA_real_</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A <code>tbl_ts</code> object.</p></td>
-    </tr><tr><th>value</th>
-      <td><p>A measured variable of interest to be spread over columns, if
-multiple measures.</p></td>
-    </tr><tr><th>frequency</th>
-      <td><p>A smart frequency with the default <code>NULL</code>. If set, the
-preferred frequency is passed to <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>.</p></td>
-    </tr><tr><th>fill</th>
-      <td><p>A value to replace missing values.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Ignored for the function.</p></td>
-    </tr></table></div>
+    
 
-    <div id="ref-sections">
+<dl><dt>x</dt><dd><p>A <code>tbl_ts</code> object.</p></dd>
+</dl><dl><dt>value</dt><dd><p>A measured variable of interest to be spread over columns, if
+multiple measures.</p></dd>
+</dl><dl><dt>frequency</dt><dd><p>A smart frequency with the default <code>NULL</code>. If set, the
+preferred frequency is passed to <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>.</p></dd>
+</dl><dl><dt>fill</dt><dd><p>A value to replace missing values.</p></dd>
+</dl><dl><dt>...</dt><dd><p>Ignored for the function.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A <code>ts</code> object.</p>

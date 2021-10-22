@@ -95,38 +95,30 @@ determine if the time needs ordering and the interval needs calculating.</p>
   .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></td>
-    </tr><tr><th>key</th>
-      <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
-empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></td>
-    </tr><tr><th>key_data</th>
-      <td><p>A data frame containing key variables and <code>.rows</code>. When a data
-frame is supplied, the argument <code>key</code> will be ignored.</p></td>
-    </tr><tr><th>index</th>
-      <td><p>A variable to specify the time index variable.</p></td>
-    </tr><tr><th>index2</th>
-      <td><p>A candidate of <code>index</code> to update the index to a new one when
-<a href="index-by.html">index_by</a>. By default, it's identical to <code>index</code>.</p></td>
-    </tr><tr><th>ordered</th>
-      <td><p>The default of <code>NULL</code> arranges the key variable(s) first and
-then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
-the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></td>
-    </tr><tr><th>interval</th>
-      <td><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
-irregular interval. Use the specified interval via <code><a href="new-interval.html">new_interval()</a></code> as is.</p></td>
-    </tr><tr><th>validate</th>
-      <td><p><code>TRUE</code> suggests to verify that each key or each combination
-of key variables leads to unique time indices (i.e. a valid tsibble). If you
-are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></td>
-    </tr><tr><th>.drop</th>
-      <td><p>If <code>TRUE</code>, empty key groups are dropped.</p></td>
-    </tr></table></div>
+    
 
-    <div id="ref-sections">
+<dl><dt>x</dt><dd><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></dd>
+</dl><dl><dt>key</dt><dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
+(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+</dl><dl><dt>key_data</dt><dd><p>A data frame containing key variables and <code>.rows</code>. When a data
+frame is supplied, the argument <code>key</code> will be ignored.</p></dd>
+</dl><dl><dt>index</dt><dd><p>A variable to specify the time index variable.</p></dd>
+</dl><dl><dt>index2</dt><dd><p>A candidate of <code>index</code> to update the index to a new one when
+<a href="index-by.html">index_by</a>. By default, it's identical to <code>index</code>.</p></dd>
+</dl><dl><dt>ordered</dt><dd><p>The default of <code>NULL</code> arranges the key variable(s) first and
+then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
+the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></dd>
+</dl><dl><dt>interval</dt><dd><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
+irregular interval. Use the specified interval via <code><a href="new-interval.html">new_interval()</a></code> as is.</p></dd>
+</dl><dl><dt>validate</dt><dd><p><code>TRUE</code> suggests to verify that each key or each combination
+of key variables leads to unique time indices (i.e. a valid tsibble). If you
+are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
+</dl><dl><dt>.drop</dt><dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
+</dl></div>
     </div>
 
     <div id="examples">

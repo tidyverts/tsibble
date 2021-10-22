@@ -81,24 +81,23 @@
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_index</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, .preserve <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
-      <td><p>A tsibble.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Formulas that specify start and end periods (inclusive), or strings.</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
+    
+
+<dl><dt>.data</dt><dd><p>A tsibble.</p></dd>
+</dl><dl><dt>...</dt><dd><p>Formulas that specify start and end periods (inclusive), or strings.
+</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
 <li><p><code>start ~ end</code>: from specified beginning to ending periods.</p></li>
 <li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.
 Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <code>yearweek</code>, <code>yearmonth</code>/<code>yearmon</code>,
 <code>yearquarter</code>/<code>yearqtr</code>, <code>hms</code>/<code>difftime</code> &amp; <code>numeric</code>.</p></li>
-</ul></td>
-    </tr><tr><th>.preserve</th>
-      <td><p>Relevant when the <code>.data</code> input is grouped.
+</ul></dd>
+</dl><dl><dt>.preserve</dt><dd><p>Relevant when the <code>.data</code> input is grouped.
 If <code>.preserve = FALSE</code> (the default), the grouping structure
-is recalculated based on the resulting data, otherwise the grouping is kept as is.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+is recalculated based on the resulting data, otherwise the grouping is kept as is.</p></dd>
+</dl></div>
     <div id="system-time-zone-europe-london-">
     <h2>System Time Zone ("Europe/London")</h2>
     

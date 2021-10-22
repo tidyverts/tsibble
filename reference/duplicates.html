@@ -92,22 +92,19 @@ duplicates(): identical key-index data entries.
 
 <span class="fu">duplicates</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>data</th>
-      <td><p>A data frame for creating a tsibble.</p></td>
-    </tr><tr><th>key</th>
-      <td><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
-empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></td>
-    </tr><tr><th>index</th>
-      <td><p>A variable to specify the time index variable.</p></td>
-    </tr><tr><th>from_last</th>
-      <td><p><code>TRUE</code> does the duplication check from the last of identical
-elements.</p></td>
-    </tr></table></div>
+    
 
-    <div id="ref-sections">
+<dl><dt>data</dt><dd><p>A data frame for creating a tsibble.</p></dd>
+</dl><dl><dt>key</dt><dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
+empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
+(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+</dl><dl><dt>index</dt><dd><p>A variable to specify the time index variable.</p></dd>
+</dl><dl><dt>from_last</dt><dd><p><code>TRUE</code> does the duplication check from the last of identical
+elements.</p></dd>
+</dl></div>
     </div>
 
     <div id="examples">
@@ -127,8 +124,8 @@ elements.</p></td>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>014 cherry     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>014 cherry    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>014 cherry     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>014 cherry     3</span>
 </code></pre></div>
     </div>
   </div>

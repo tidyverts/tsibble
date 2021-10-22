@@ -91,16 +91,18 @@ the new index. Use <code><a href="https://dplyr.tidyverse.org/reference/group_by
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">index_by</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>.data</th>
-      <td><p>A <code>tbl_ts</code>.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>If empty, grouping the current index. If not empty, a single
+    
+
+<dl><dt>.data</dt><dd><p>A <code>tbl_ts</code>.</p></dd>
+</dl><dl><dt>...</dt><dd><p>If empty, grouping the current index. If not empty, a single
 expression is required for either an existing variable or a name-value pair.
 A lambda expression is supported, for example <code>~ as.Date(.)</code> where <code>.</code> refers
 to the index variable.
-The index functions that can be used, but not limited:</p><ul><li><p><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">lubridate::year</a>: yearly aggregation</p></li>
+The index functions that can be used, but not limited:
+</p><ul><li><p><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">lubridate::year</a>: yearly aggregation</p></li>
 <li><p><a href="year-quarter.html">yearquarter</a>: quarterly aggregation</p></li>
 <li><p><a href="year-month.html">yearmonth</a>: monthly aggregation</p></li>
 <li><p><a href="year-week.html">yearweek</a>: weekly aggregation</p></li>
@@ -109,10 +111,8 @@ The index functions that can be used, but not limited:</p><ul><li><p><a href="ht
 fine-resolution aggregation</p></li>
 <li><p>Extract time components functions, such as <code><a href="https://lubridate.tidyverse.org/reference/hour.html" class="external-link">lubridate::hour()</a></code> &amp; <code><a href="https://lubridate.tidyverse.org/reference/day.html" class="external-link">lubridate::day()</a></code></p></li>
 <li><p>other index functions from other packages or self-defined functions</p></li>
-</ul></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+</ul></dd>
+</dl></div>
     <div id="details">
     <h2>Details</h2>
     
