@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://tsibble.tidyverts.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/articles/faq.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/articles/implicit-na.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/articles/intro-tsibble.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://tsibble.tidyverts.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/as-tibble.html</loc>
@@ -56,6 +89,9 @@
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/index-rd.html</loc>
+  </url>
+  <url>
+    <loc>https://tsibble.tidyverts.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/index_valid.html</loc>
@@ -143,14 +179,5 @@
   </url>
   <url>
     <loc>https://tsibble.tidyverts.org/reference/year-week.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/faq.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/implicit-na.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/intro-tsibble.html</loc>
   </url>
 </urlset>
