@@ -2,11 +2,14 @@
 % Please edit documentation in R/yearquarter.R
 \name{yearquarter}
 \alias{yearquarter}
+\alias{make_yearquarter}
 \alias{is_yearquarter}
 \alias{fiscal_year}
 \title{Represent year-quarter}
 \usage{
 yearquarter(x, fiscal_start = 1)
+
+make_yearquarter(year = 1970L, quarter = 1L, fiscal_start = 1)
 
 is_yearquarter(x)
 
@@ -16,6 +19,8 @@ fiscal_year(x)
 \item{x}{Other object.}
 
 \item{fiscal_start}{numeric indicating the starting month of a fiscal year}
+
+\item{year, quarter}{A vector of numerics give years and quarters.}
 }
 \value{
 year-quarter (\code{yearquarter}) objects.
@@ -48,6 +53,9 @@ qtr + 0:9
 
 # display formats
 format(qtr, format = "\%y Qtr\%q")
+
+make_yearquarter(year = 2021, quarter = 2:3)
+make_yearquarter(year = 2020:2021, quarter = 2:3)
 
 # `fiscal_year()` helps to extract fiscal year
 y <- yearquarter(as.Date("2020-06-01"), fiscal_start = 6)

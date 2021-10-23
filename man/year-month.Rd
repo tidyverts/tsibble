@@ -2,11 +2,14 @@
 % Please edit documentation in R/yearmonth.R
 \name{yearmonth}
 \alias{yearmonth}
+\alias{make_yearmonth}
 \alias{yearmonth.character}
 \alias{is_yearmonth}
 \title{Represent year-month}
 \usage{
 yearmonth(x, ...)
+
+make_yearmonth(year = 1970L, month = 1L)
 
 \method{yearmonth}{character}(x, format = NULL, ...)
 
@@ -16,6 +19,8 @@ is_yearmonth(x)
 \item{x}{Other object.}
 
 \item{...}{Further arguments to methods.}
+
+\item{year, month}{A vector of numerics give years and months.}
 
 \item{format}{A vector of strings to specify additional formats of \code{x} (e.g. \verb{\%Y\%m}),
 if a warning or an error occurs.}
@@ -53,6 +58,9 @@ format(mth, format = "\%y \%m")
 
 # units since 1970 Jan
 as.double(yearmonth("1969 Jan") + 0:24)
+
+make_yearmonth(year = 2021, month = 10:11)
+make_yearmonth(year = 2020:2021, month = 10:11)
 }
 \seealso{
 \link{scale_x_yearmonth} and others for ggplot2 scales

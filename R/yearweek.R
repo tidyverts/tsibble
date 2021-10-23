@@ -39,6 +39,19 @@ yearweek <- function(x, week_start = getOption("lubridate.week.start", 1)) {
   UseMethod("yearweek")
 }
 
+#' @rdname year-week
+#' @param year,week A vector of numerics give years and weeks.
+#' @export
+#' @examples
+#'
+#' make_yearweek(year = 2021, week = 10:11)
+#' make_yearweek(year = 2020:2021, week = 10:11)
+make_yearweek <- function(year = 1970L, week = 1L,
+  week_start = getOption("lubridate.week.start", 1)) {
+  lst <- vec_recycle_common(year = year, week = week)
+  convert_week_to_date(lst$year, lst$week, week_start)
+}
+
 #' @export
 yearweek.default <- function(x,
                              week_start = getOption("lubridate.week.start", 1)) {
@@ -107,7 +120,6 @@ yearweek.character <- function(x,
     yearweek(anydate(x), week_start)
   }
 }
-
 
 #' @export
 yearweek.yearweek <- function(x, week_start = attr(x, "week_start")) {
@@ -346,11 +358,11 @@ seq.yearweek <- function(from, to, by, length.out = NULL, along.with = NULL,
 }
 
 #' @rdname year-week
-#' @param year A vector of integers.
 #' @inheritParams yearweek
 #' @return `TRUE`/`FALSE` if the year has 53 ISO weeks.
 #' @export
 #' @examples
+#'
 #' is_53weeks(2015:2016)
 #' is_53weeks(1969)
 #' is_53weeks(1969, week_start = 7)

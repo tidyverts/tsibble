@@ -1,3 +1,7 @@
+# tsibble 1.1.1
+
+* New functions `make_year*()` to easily supply time components.
+
 # tsibble 1.1.0
 
 * Abort `rbind()` and `cbind()` for tsibble, and suggest to use `bind_rows()` and `bind_cols()` instead. (#256)

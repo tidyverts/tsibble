@@ -17,7 +17,7 @@ test_that("yearquarter() for characters #107", {
   expect_error(yearquarter("2013 Qt 3"), "cannot be expressed as Date type")
   expect_error(yearquarter("Qtrr 5 2015"), "cannot be expressed as Date type")
   expect_error(yearquarter("Quar 5 2015"), "cannot be expressed as Date type")
-  expect_error(yearquarter("Q5 2015"), "can't be greater than 4.")
+  expect_error(yearquarter("Q5 2015"), "greater than 4.")
   expect_error(yearquarter("Q2015"), "unambiguous")
   expect_error(yearquarter(c("Q2015", "Q2 2015")), "unambiguous")
   expect_identical(

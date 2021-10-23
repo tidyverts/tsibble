@@ -2,11 +2,18 @@
 % Please edit documentation in R/yearweek.R
 \name{yearweek}
 \alias{yearweek}
+\alias{make_yearweek}
 \alias{is_yearweek}
 \alias{is_53weeks}
 \title{Represent year-week based on the ISO 8601 standard (with flexible start day)}
 \usage{
 yearweek(x, week_start = getOption("lubridate.week.start", 1))
+
+make_yearweek(
+  year = 1970L,
+  week = 1L,
+  week_start = getOption("lubridate.week.start", 1)
+)
 
 is_yearweek(x)
 
@@ -19,7 +26,7 @@ is_53weeks(year, week_start = getOption("lubridate.week.start", 1))
 the day on which week starts following ISO conventions. Default to 1 (Monday).
 Use \code{options(lubridate.week.start = 7)} to set this parameter globally.}
 
-\item{year}{A vector of integers.}
+\item{year, week}{A vector of numerics give years and weeks.}
 }
 \value{
 year-week (\code{yearweek}) objects.
@@ -55,6 +62,10 @@ wk1 + 0:9
 
 # display formats
 format(c(wk1, wk2), format = "\%V/\%Y")
+
+make_yearweek(year = 2021, week = 10:11)
+make_yearweek(year = 2020:2021, week = 10:11)
+
 is_53weeks(2015:2016)
 is_53weeks(1969)
 is_53weeks(1969, week_start = 7)

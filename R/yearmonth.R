@@ -43,6 +43,18 @@ yearmonth <- function(x, ...) {
   UseMethod("yearmonth")
 }
 
+#' @rdname year-month
+#' @param year,month A vector of numerics give years and months.
+#' @export
+#' @examples
+#'
+#' make_yearmonth(year = 2021, month = 10:11)
+#' make_yearmonth(year = 2020:2021, month = 10:11)
+make_yearmonth <- function(year = 1970L, month = 1L) {
+  lst <- vec_recycle_common(year = year, month = month)
+  new_yearmonth(make_date(lst$year, lst$month, 1))
+}
+
 #' @export
 yearmonth.default <- function(x, ...) {
   dont_know(x, "yearmonth")

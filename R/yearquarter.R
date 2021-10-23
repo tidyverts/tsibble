@@ -36,6 +36,21 @@ yearquarter <- function(x, fiscal_start = 1) {
   UseMethod("yearquarter")
 }
 
+#' @rdname year-quarter
+#' @param year,quarter A vector of numerics give years and quarters.
+#' @export
+#' @examples
+#'
+#' make_yearquarter(year = 2021, quarter = 2:3)
+#' make_yearquarter(year = 2020:2021, quarter = 2:3)
+make_yearquarter <- function(year = 1970L, quarter = 1L, fiscal_start = 1) {
+  lst <- vec_recycle_common(year = year, quarter = quarter)
+  if (any(lst$quarter > 4 | lst$quarter < 1)) {
+    abort("Quarters can't be less than 1 or greater than 4.")
+  }
+  yearquarter(4 * (lst$year - 1970) + lst$quarter - 1, fiscal_start)
+}
+
 #' @export
 yearquarter.default <- function(x, fiscal_start = 1) {
   dont_know(x, "yearquarter")
@@ -88,8 +103,8 @@ yearquarter.character <- function(x, fiscal_start = 1) {
     yr_lgl <- map(yr_qtr, function(.x) grepl("[[:digit:]]{4}", .x))
     yr <- as.integer(map2_chr(yr_qtr, yr_lgl, function(.x, .y) .x[.y]))
     qtr <- as.integer(map2_chr(yr_qtr, yr_lgl, function(.x, .y) .x[!.y]))
-    if (any(qtr > 4)) {
-      abort("Quarters can't be greater than 4.")
+    if (any(qtr > 4 | qtr < 1)) {
+      abort("Quarters can't be less than 1 or greater than 4.")
     }
     yearquarter(4 * (yr - 1970) + qtr - 1, fiscal_start)
   } else {
