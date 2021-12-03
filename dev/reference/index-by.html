@@ -196,7 +196,7 @@ displaying on the screen.</p></li>
 <span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">index_by</span><span class="op">(</span>Date_Time4 <span class="op">=</span> <span class="op">~</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">floor_date</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"4 hour"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>Total_Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 16,512 x 3 [1h] &lt;Australia/Melbourne&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 16,528 x 3 [1h] &lt;Australia/Melbourne&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Sensor         Date_Time4          Total_Count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -210,7 +210,7 @@ displaying on the screen.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Birrarung Marr 2015-01-02 <span style="color: #949494;">04:00:00</span>         555</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-02 <span style="color: #949494;">08:00:00</span>        <span style="text-decoration: underline;">1</span>193</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-02 <span style="color: #949494;">12:00:00</span>         822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 16,502 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 16,518 more rows</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># Annual trips by Region and State</span></span>
