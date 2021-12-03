@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unnest a data frame consisting of tsibbles to a tsibble</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/tidyr-verbs.R" class="external-link"><code>R/tidyr-verbs.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/tidyr-verbs.R" class="external-link"><code>R/tidyr-verbs.R</code></a></small>
     <div class="hidden name"><code>unnest_tsibble.Rd</code></div>
     </div>
 
@@ -79,23 +79,25 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">unnest_tsibble</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, key <span class="op">=</span> <span class="cn">NULL</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">unnest_tsibble</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, key <span class="op">=</span> <span class="cn">NULL</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>data</dt><dd><p>A data frame contains homogenous tsibbles in the list-columns.</p></dd>
-</dl><dl><dt>cols</dt><dd><p>Names of columns to unnest.</p></dd>
-</dl><dl><dt>key</dt><dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
+    <dl><dt>data</dt>
+<dd><p>A data frame contains homogenous tsibbles in the list-columns.</p></dd>
+<dt>cols</dt>
+<dd><p>Names of columns to unnest.</p></dd>
+<dt>key</dt>
+<dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
 (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
-</dl><dl><dt>validate</dt><dd><p><code>TRUE</code> suggests to verify that each key or each combination
+<dt>validate</dt>
+<dd><p><code>TRUE</code> suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
 </dl></div>
-    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -109,7 +111,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

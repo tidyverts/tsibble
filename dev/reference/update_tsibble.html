@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update key and index for a tsibble</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/as-tsibble.R" class="external-link"><code>R/as-tsibble.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/as-tsibble.R" class="external-link"><code>R/as-tsibble.R</code></a></small>
     <div class="hidden name"><code>update_tsibble.Rd</code></div>
     </div>
 
@@ -79,7 +79,8 @@
     <p>Update key and index for a tsibble</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">update_tsibble</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">update_tsibble</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">key</span>,
   <span class="va">index</span>,
@@ -87,33 +88,36 @@
   validate <span class="op">=</span> <span class="cn">TRUE</span>,
   .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>x</dt><dd><p>A tsibble.</p></dd>
-</dl><dl><dt>key</dt><dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
+    <dl><dt>x</dt>
+<dd><p>A tsibble.</p></dd>
+<dt>key</dt>
+<dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
 (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
-</dl><dl><dt>index</dt><dd><p>A variable to specify the time index variable.</p></dd>
-</dl><dl><dt>regular</dt><dd><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
+<dt>index</dt>
+<dd><p>A variable to specify the time index variable.</p></dd>
+<dt>regular</dt>
+<dd><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
 interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></dd>
-</dl><dl><dt>validate</dt><dd><p><code>TRUE</code> suggests to verify that each key or each combination
+<dt>validate</dt>
+<dd><p><code>TRUE</code> suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
-</dl><dl><dt>.drop</dt><dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
+<dt>.drop</dt>
+<dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
 </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>Unspecified arguments will inherit the attributes from <code>x</code>.</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># update index</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># update index</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -168,7 +172,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

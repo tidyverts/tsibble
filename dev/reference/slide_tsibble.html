@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Perform sliding windows on a tsibble by row</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/rolling.R" class="external-link"><code>R/rolling.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/rolling.R" class="external-link"><code>R/rolling.R</code></a></small>
     <div class="hidden name"><code>slide_tsibble.Rd</code></div>
     </div>
 
@@ -79,18 +79,21 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#questioning" class="external-link"><img src="figures/lifecycle-questioning.svg" alt="[Questioning]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">slide_tsibble</span><span class="op">(</span><span class="va">.x</span>, .size <span class="op">=</span> <span class="fl">1</span>, .step <span class="op">=</span> <span class="fl">1</span>, .id <span class="op">=</span> <span class="st">".id"</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">slide_tsibble</span><span class="op">(</span><span class="va">.x</span>, .size <span class="op">=</span> <span class="fl">1</span>, .step <span class="op">=</span> <span class="fl">1</span>, .id <span class="op">=</span> <span class="st">".id"</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>.x</dt><dd><p>A tsibble.</p></dd>
-</dl><dl><dt>.size</dt><dd><p>A positive integer for window size.</p></dd>
-</dl><dl><dt>.step</dt><dd><p>A positive integer for calculating at every specified step
+    <dl><dt>.x</dt>
+<dd><p>A tsibble.</p></dd>
+<dt>.size</dt>
+<dd><p>A positive integer for window size.</p></dd>
+<dt>.step</dt>
+<dd><p>A positive integer for calculating at every specified step
 instead of every single step.</p></dd>
-</dl><dl><dt>.id</dt><dd><p>A character naming the new column <code>.id</code> containing the partition.</p></dd>
+<dt>.id</dt>
+<dd><p>A character naming the new column <code>.id</code> containing the partition.</p></dd>
 </dl></div>
     <div id="rolling-tsibble">
     <h2>Rolling tsibble</h2>
@@ -112,11 +115,10 @@ large.</p>
 <code><a href="stretch_tsibble.html">stretch_tsibble</a>()</code>,
 <code><a href="tile_tsibble.html">tile_tsibble</a>()</code></p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="tsibble.html">tsibble</a></span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="tsibble.html">tsibble</a></span><span class="op">(</span></span>
 <span class="r-in">  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2010</span><span class="op">:</span><span class="fl">2012</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span class="r-in">  fruit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kiwi"</span>, <span class="st">"cherry"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span class="r-in">  kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
@@ -128,14 +130,14 @@ large.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       .id, fruit [4]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo   .id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>010 cherry     6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>011 cherry     1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>010 kiwi       4     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>011 kiwi       9     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>011 cherry     1     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>012 cherry     3     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>011 kiwi       9     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>012 kiwi       5     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>010 cherry     7     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>011 cherry     9     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>010 kiwi       8     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>011 kiwi       5     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>011 cherry     9     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>012 cherry     6     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>  <span style="text-decoration: underline;">2</span>011 kiwi       5     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>  <span style="text-decoration: underline;">2</span>012 kiwi       2     2</span>
 </code></pre></div>
     </div>
   </div>
@@ -150,7 +152,7 @@ large.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

@@ -74,7 +74,7 @@ variables in a data-centric format, which is built on top of the tibble."><meta 
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tsibble: tidy temporal data frames and tools</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/tsibble-package.R" class="external-link"><code>R/tsibble-package.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/tsibble-package.R" class="external-link"><code>R/tsibble-package.R</code></a></small>
     <div class="hidden name"><code>tsibble-package.Rd</code></div>
     </div>
 
@@ -86,7 +86,6 @@ variables in a data-centric format, which is built on top of the tibble.</p>
     </div>
 
 
-    <div id="ref-sections">
     <div id="index">
     <h2>Index</h2>
     
@@ -175,11 +174,10 @@ refer to <a href="https://tibble.tidyverse.org/reference/tibble-package.html" cl
 </ul><p>Other contributors:</p><ul><li><p>Tyler Smith [contributor]</p></li>
 <li><p>Wil Davis <a href="mailto:william.davis@worthingtonindustries.com">william.davis@worthingtonindustries.com</a> [contributor]</p></li>
 </ul></div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create a tsibble w/o a key ----</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create a tsibble w/o a key ----</span></span>
 <span class="r-in"><span class="fu"><a href="tsibble.html">tsibble</a></span><span class="op">(</span></span>
 <span class="r-in">  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,</span>
 <span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
@@ -188,16 +186,16 @@ refer to <a href="https://tibble.tidyverse.org/reference/tibble-package.html" cl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 10 x 2 [1D]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    date        value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01  0.384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02  1.76 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03  0.293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04 -<span style="color: #BB0000;">1.18</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05 -<span style="color: #BB0000;">0.976</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06 -<span style="color: #BB0000;">1.27</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07 -<span style="color: #BB0000;">0.177</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08 -<span style="color: #BB0000;">0.849</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09  0.656</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10  1.54 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01  0.522</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02 -<span style="color: #BB0000;">0.214</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03 -<span style="color: #BB0000;">0.522</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04  0.257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05 -<span style="color: #BB0000;">1.13</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06  0.372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07  0.494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08 -<span style="color: #BB0000;">1.27</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09 -<span style="color: #BB0000;">0.103</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10  0.674</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create a tsibble with one key ----</span></span>
 <span class="r-in"><span class="fu"><a href="tsibble.html">tsibble</a></span><span class="op">(</span></span>
@@ -211,16 +209,16 @@ refer to <a href="https://tibble.tidyverse.org/reference/tibble-package.html" cl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       group [3]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        qtr group   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x     -<span style="color: #BB0000;">0.238</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x      0.861 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x      0.088<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x     -<span style="color: #BB0000;">1.26</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x      1.36  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x     -<span style="color: #BB0000;">0.347</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x     -<span style="color: #BB0000;">0.837</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x     -<span style="color: #BB0000;">2.39</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x     -<span style="color: #BB0000;">0.397</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x     -<span style="color: #BB0000;">0.163</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2010 Q1 x     -<span style="color: #BB0000;">1.30</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2010 Q2 x     -<span style="color: #BB0000;">0.647</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2010 Q3 x     -<span style="color: #BB0000;">0.063</span><span style="color: #BB0000; text-decoration: underline;">7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2010 Q4 x      0.567 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2011 Q1 x     -<span style="color: #BB0000;">0.908</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2011 Q2 x      0.014<span style="text-decoration: underline;">2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2011 Q3 x     -<span style="color: #BB0000;">0.200</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2011 Q4 x     -<span style="color: #BB0000;">0.434</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2012 Q1 x      2.65  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2012 Q2 x     -<span style="color: #BB0000;">1.33</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more rows</span></span>
 </code></pre></div>
     </div>
@@ -236,7 +234,7 @@ refer to <a href="https://tibble.tidyverse.org/reference/tibble-package.html" cl
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

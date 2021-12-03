@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>If time falls in the ranges using compact expressions</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/filter-index.R" class="external-link"><code>R/filter-index.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/filter-index.R" class="external-link"><code>R/filter-index.R</code></a></small>
     <div class="hidden name"><code>time_in.Rd</code></div>
     </div>
 
@@ -79,17 +79,17 @@
     <p>This function respects time zone and encourages compact expressions.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">time_in</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">time_in</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>x</dt><dd><p>A vector of time index, such as classes <code>POSIXct</code>, <code>Date</code>, <code>yearweek</code>,
+    <dl><dt>x</dt>
+<dd><p>A vector of time index, such as classes <code>POSIXct</code>, <code>Date</code>, <code>yearweek</code>,
 <code>yearmonth</code>, <code>yearquarter</code>, <code>hms</code>/<code>difftime</code>, and <code>numeric</code>.</p></dd>
-</dl><dl><dt>...</dt><dd><p>Formulas that specify start and end periods (inclusive), or strings.
-</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
+<dt>...</dt>
+<dd><p>Formulas that specify start and end periods (inclusive), or strings.</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
 <li><p><code>start ~ end</code>: from specified beginning to ending periods.</p></li>
 <li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.
 Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <code>yearweek</code>, <code>yearmonth</code>/<code>yearmon</code>,
@@ -116,11 +116,10 @@ documented in <code>?Sys.timezone()</code>, using <code>Sys.setenv(TZ = "GB")</c
     <h2>See also</h2>
     <div class="dont-index"><p><a href="filter_index.html">filter_index</a> for filtering tsibble</p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">$</span><span class="va">Date_Time</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">pedestrian</span><span class="op">$</span><span class="va">Date_Time</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">lgl</span> <span class="op">&lt;-</span> <span class="fu">time_in</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span><span class="st">"2015-02"</span>, <span class="st">"2015-08"</span> <span class="op">~</span> <span class="st">"2015-09"</span>, <span class="st">"2015-12"</span> <span class="op">~</span> <span class="st">"2016-02"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">lgl</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span>
@@ -182,7 +181,7 @@ documented in <code>?Sys.timezone()</code>, using <code>Sys.setenv(TZ = "GB")</c
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>
