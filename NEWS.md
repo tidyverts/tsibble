@@ -1,6 +1,7 @@
 # tsibble 1.1.1
 
 * New functions `make_year*()` to easily supply time components.
+* Supported `stats::start()` and `stats::end()` for the `.full` argument in `*_gaps()`, when `*_gaps()` are used in other packages. (#269)
 
 # tsibble 1.1.0
 

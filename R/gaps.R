@@ -164,11 +164,13 @@ scan_gaps.tbl_ts <- function(.data, .full = FALSE, .start = NULL, .end = NULL) {
     } else if (is_false(.full)) {
       sum_data <- summarise(keyed_tbl,
         !!idx_chr := list2(!!idx_chr := seq_generator(!!idx, int)))
-    } else if (.full == expr("start()")) {
+    } else if (call_name(.full) == "start") {
+      abort_if_args_present(.full)
       start <- min(keyed_tbl[[idx_chr]])
       sum_data <- summarise(keyed_tbl,
         !!idx_chr := list2(!!idx_chr := seq_generator(c(start, max(!!idx)), int)))
-    } else if (.full == expr("end()")) {
+    } else if (call_name(.full) == "end") {
+      abort_if_args_present(.full)
       end <- max(keyed_tbl[[idx_chr]])
       sum_data <- summarise(keyed_tbl,
         !!idx_chr := list2(!!idx_chr := seq_generator(c(min(!!idx), end), int)))
@@ -279,12 +281,14 @@ has_gaps <- function(.data, .full = FALSE, .name = ".gaps",
       res <- summarise(grped_tbl,
         !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
       )
-    } else if (.full == sym("start()")) {
+    } else if (call_name(.full) == "start") {
+      abort_if_args_present(.full)
       start <- min(.data[[idx_chr]])
       res <- summarise(grped_tbl,
         !!.name := (length(seq_generator(c(start, max(!!idx)), int)) - length(!!idx)) > 0
       )
-    } else if (.full == sym("end()")) {
+    } else if (call_name(.full) == "end") {
+      abort_if_args_present(.full)
       end <- max(.data[[idx_chr]])
       res <- summarise(grped_tbl,
         !!.name := (length(seq_generator(c(min(!!idx), end), int)) - length(!!idx)) > 0
@@ -375,4 +379,10 @@ unwrap <- function(.data, .col) {
 
 abort_invalid_full_arg <- function() {
   abort("`.full` only accepts `TRUE`, `FALSE`, `start()`, or `end()`.")
+}
+
+abort_if_args_present <- function(.full) {
+  if (!has_length(call_args(.full), 0)) {
+    abort("`.full` expects `start()`/`end()` with no arguments.")
+  }
 }
