@@ -163,8 +163,8 @@ test_that("count_gaps(.full = )", {
     .n = 1L
   )
   expect_equal(full_tbl_f, b)
-  expect_error(count_gaps(tsbl, .name = NULL), class = "dplyr_error")
-  expect_error(count_gaps(tsbl, .name = 1:4), class = "dplyr_error")
+  expect_error(count_gaps(tsbl, .name = NULL))
+  expect_error(count_gaps(tsbl, .name = 1:4))
   expect_named(
     count_gaps(tsbl, .name = c("from", "to", "n")),
     c("group", "from", "to", "n")
