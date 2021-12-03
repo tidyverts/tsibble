@@ -9,7 +9,7 @@ output:
 # tsibble <img src="man/figures/logo.png" align="right" />
 
 [![R build status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
-[![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
+[![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/main/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
 ```{r, echo = FALSE}
@@ -110,5 +110,5 @@ An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around the *ts
 * The [fable](https://fable.tidyverts.org) package provides common forecasting methods for tsibble, such as ARIMA and ETS. The [fabletools](https://fabletools.tidyverts.org) package, which is **fable** built upon, lays the modelling infrastructure to ease the programming with tsibble.
 
 ---
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/tidyverts/tsibble/blob/master/.github/CODE_OF_CONDUCT.md).
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/tidyverts/tsibble/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.

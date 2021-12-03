@@ -6,8 +6,8 @@
 [![R build
 status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
 [![Coverage
-Status](https://codecov.io/gh/tidyverts/tsibble/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=master)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+Status](https://codecov.io/gh/tidyverts/tsibble/branch/main/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=main)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adapting the [tidy data
@@ -175,5 +175,5 @@ the *tsibble* object for tidy time series analysis.
 ------------------------------------------------------------------------
 
 Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/tidyverts/tsibble/blob/master/.github/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/tidyverts/tsibble/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
