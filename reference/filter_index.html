@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A shorthand for filtering time index for a tsibble</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/filter-index.R" class="external-link"><code>R/filter-index.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/filter-index.R" class="external-link"><code>R/filter-index.R</code></a></small>
     <div class="hidden name"><code>filter_index.Rd</code></div>
     </div>
 
@@ -79,22 +79,23 @@
     <p>This shorthand respects time zones and encourages compact expressions.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_index</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, .preserve <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_index</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, .preserve <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>.data</dt><dd><p>A tsibble.</p></dd>
-</dl><dl><dt>...</dt><dd><p>Formulas that specify start and end periods (inclusive), or strings.
-</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
+    <dl><dt>.data</dt>
+<dd><p>A tsibble.</p></dd>
+<dt>...</dt>
+<dd><p>Formulas that specify start and end periods (inclusive), or strings.</p><ul><li><p><code>~ end</code> or <code>. ~ end</code>: from the very beginning to a specified ending period.</p></li>
 <li><p><code>start ~ end</code>: from specified beginning to ending periods.</p></li>
 <li><p><code>start ~ .</code>: from a specified beginning to the very end of the data.
 Supported index type: <code>POSIXct</code> (to seconds), <code>Date</code>, <code>yearweek</code>, <code>yearmonth</code>/<code>yearmon</code>,
 <code>yearquarter</code>/<code>yearqtr</code>, <code>hms</code>/<code>difftime</code> &amp; <code>numeric</code>.</p></li>
 </ul></dd>
-</dl><dl><dt>.preserve</dt><dd><p>Relevant when the <code>.data</code> input is grouped.
+<dt>.preserve</dt>
+<dd><p>Relevant when the <code>.data</code> input is grouped.
 If <code>.preserve = FALSE</code> (the default), the grouping structure
 is recalculated based on the resulting data, otherwise the grouping is kept as is.</p></dd>
 </dl></div>
@@ -114,11 +115,10 @@ documented in <code>?Sys.timezone()</code>, using <code>Sys.setenv(TZ = "GB")</c
     <h2>See also</h2>
     <div class="dont-index"><p><a href="time_in.html">time_in</a> for a vector of time index</p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># from the starting time to the end of Feb, 2015</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># from the starting time to the end of Feb, 2015</span></span>
 <span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">filter_index</span><span class="op">(</span><span class="op">~</span> <span class="st">"2015-02"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 4,536 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
@@ -260,7 +260,7 @@ documented in <code>?Sys.timezone()</code>, using <code>Sys.setenv(TZ = "GB")</c
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>

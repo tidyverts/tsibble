@@ -24,7 +24,7 @@ Create or coerce using yearquarter()."><meta property="og:image" content="https:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -72,7 +72,7 @@ Create or coerce using yearquarter()."><meta property="og:image" content="https:
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Represent year-quarter</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/yearquarter.R" class="external-link"><code>R/yearquarter.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/yearquarter.R" class="external-link"><code>R/yearquarter.R</code></a></small>
     <div class="hidden name"><code>year-quarter.Rd</code></div>
     </div>
 
@@ -81,19 +81,24 @@ Create or coerce using yearquarter()."><meta property="og:image" content="https:
 <p>Create or coerce using <code>yearquarter()</code>.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">yearquarter</span><span class="op">(</span><span class="va">x</span>, fiscal_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">yearquarter</span><span class="op">(</span><span class="va">x</span>, fiscal_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="fu">make_yearquarter</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">1970L</span>, quarter <span class="op">=</span> <span class="fl">1L</span>, fiscal_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="fu">is_yearquarter</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 
 <span class="fu">fiscal_year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>x</dt><dd><p>Other object.</p></dd>
-</dl><dl><dt>fiscal_start</dt><dd><p>numeric indicating the starting month of a fiscal year</p></dd>
+    <dl><dt>x</dt>
+<dd><p>Other object.</p></dd>
+<dt>fiscal_start</dt>
+<dd><p>numeric indicating the starting month of a fiscal year</p></dd>
+<dt>year, quarter</dt>
+<dd><p>A vector of numerics give years and quarters.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -114,11 +119,10 @@ Please see <code><a href="https://rdrr.io/r/base/strptime.html" class="external-
 <code><a href="year-month.html">yearmonth</a>()</code>,
 <code><a href="year-week.html">yearweek</a>()</code></p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># coerce POSIXct/Dates to yearquarter</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># coerce POSIXct/Dates to yearquarter</span></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-12-31"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"1 quarter"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">yearquarter</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;yearquarter[4]&gt;</span>
@@ -152,6 +156,15 @@ Please see <code><a href="https://rdrr.io/r/base/strptime.html" class="external-
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">qtr</span>, format <span class="op">=</span> <span class="st">"%y Qtr%q"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "17 Qtr1"</span>
 <span class="r-in"></span>
+<span class="r-in"><span class="fu">make_yearquarter</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2021</span>, quarter <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;yearquarter[2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2021 Q2" "2021 Q3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Year starts on: January</span>
+<span class="r-in"><span class="fu">make_yearquarter</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2020</span><span class="op">:</span><span class="fl">2021</span>, quarter <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;yearquarter[2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2020 Q2" "2021 Q3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Year starts on: January</span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># `fiscal_year()` helps to extract fiscal year</span></span>
 <span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">yearquarter</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-06-01"</span><span class="op">)</span>, fiscal_start <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">fiscal_year</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
@@ -172,7 +185,7 @@ Please see <code><a href="https://rdrr.io/r/base/strptime.html" class="external-
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>

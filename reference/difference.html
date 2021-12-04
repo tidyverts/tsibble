@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Lagged differences</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/master/R/time-wise.R" class="external-link"><code>R/time-wise.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/R/time-wise.R" class="external-link"><code>R/time-wise.R</code></a></small>
     <div class="hidden name"><code>difference.Rd</code></div>
     </div>
 
@@ -79,18 +79,22 @@
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">difference</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">1</span>, differences <span class="op">=</span> <span class="fl">1</span>, default <span class="op">=</span> <span class="cn">NA</span>, order_by <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">difference</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">1</span>, differences <span class="op">=</span> <span class="fl">1</span>, default <span class="op">=</span> <span class="cn">NA</span>, order_by <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>x</dt><dd><p>Vector of values</p></dd>
-</dl><dl><dt>lag</dt><dd><p>A positive integer indicating which lag to use.</p></dd>
-</dl><dl><dt>differences</dt><dd><p>A positive integer indicating the order of the difference.</p></dd>
-</dl><dl><dt>default</dt><dd><p>Value used for non-existent rows. Defaults to <code>NA</code>.</p></dd>
-</dl><dl><dt>order_by</dt><dd><p>Override the default ordering to use another vector or column</p></dd>
+    <dl><dt>x</dt>
+<dd><p>Vector of values</p></dd>
+<dt>lag</dt>
+<dd><p>A positive integer indicating which lag to use.</p></dd>
+<dt>differences</dt>
+<dd><p>A positive integer indicating the order of the difference.</p></dd>
+<dt>default</dt>
+<dd><p>Value used for non-existent rows. Defaults to <code>NA</code>.</p></dd>
+<dt>order_by</dt>
+<dd><p>Override the default ordering to use another vector or column</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -100,11 +104,10 @@
     <h2>See also</h2>
     <div class="dont-index"><p><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">dplyr::lead</a> and <a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">dplyr::lag</a></p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># examples from base</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># examples from base</span></span>
 <span class="r-in"><span class="fu">difference</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] NA NA  2  2  2  2  2  2  2  2</span>
 <span class="r-in"><span class="fu">difference</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -128,12 +131,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 6 x 3 [1Y]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    year value  diff</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>000     0   -<span style="color: #BB0000;">25</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>001     1    <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>002     4    -<span style="color: #BB0000;">5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>003     9    -<span style="color: #BB0000;">7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>004    16    15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>005    25    21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>000     0    -<span style="color: #BB0000;">4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>001     1    -<span style="color: #BB0000;">8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>002     4   -<span style="color: #BB0000;">12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>003     9   -<span style="color: #BB0000;">16</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>004    16    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>005    25    25</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">right</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">scrambled</span>, diff <span class="op">=</span> <span class="fu">difference</span><span class="op">(</span><span class="va">value</span>, order_by <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Current temporal ordering may yield unexpected results.</span>
@@ -162,7 +165,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>
