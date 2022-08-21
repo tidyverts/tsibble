@@ -1,3 +1,7 @@
+# tsibble 1.1.2
+
+* Re-document to fix HTML issues in .Rd
+
 # tsibble 1.1.1
 
 * New functions `make_year*()` to easily supply time components.

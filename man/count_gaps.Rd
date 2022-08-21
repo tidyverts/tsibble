@@ -24,10 +24,7 @@ count_gaps(
 
 \item{.name}{Strings to name new columns.}
 
-\item{.start}{Set custom starting/ending time that allows to expand the
-existing time spans.}
-
-\item{.end}{Set custom starting/ending time that allows to expand the
+\item{.start, .end}{Set custom starting/ending time that allows to expand the
 existing time spans.}
 }
 \value{

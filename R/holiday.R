@@ -16,8 +16,6 @@ globalVariables("holiday")
 #' * Royal Queensland Show for Queensland, which is for Brisbane only
 #'
 #' This function requires "timeDate" to be installed.
-#' @references
-#' [Public holidays](https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays)
 #' @export
 #'
 #' @examples

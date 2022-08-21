@@ -33,6 +33,3 @@ This function requires "timeDate" to be installed.
 holiday_aus(2016, state = "VIC")
 holiday_aus(2013:2016, state = "ACT")
 }
-\references{
-\href{https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays}{Public holidays}
-}

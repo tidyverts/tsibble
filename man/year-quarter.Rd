@@ -18,7 +18,7 @@ fiscal_year(x)
 \arguments{
 \item{x}{Other object.}
 
-\item{fiscal_start}{numeric indicating the starting month of a fiscal year}
+\item{fiscal_start}{numeric indicating the starting month of a fiscal year.}
 
 \item{year, quarter}{A vector of numerics give years and quarters.}
 }

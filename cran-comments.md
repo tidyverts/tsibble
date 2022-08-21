@@ -1,6 +1,6 @@
 ## Test environments
 
-* local mac OS install, R 4.0.4
+* local mac OS install, R 4.2.0
 * ubuntu 20.04 (on github actions), R-devel, R-release
 * mac OS 10.15.4 (on github actions) R-release
 * Microsoft Windows Server 2019 10.0.17763 (on github actions) R-release
@@ -13,7 +13,4 @@ R CMD check succeeded
 
 ## revdepcheck results
 
-We checked all reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 0 packages
+This release is a resubmission and fixed an URL that gives 500 error; I didn't re-check revdeps.

@@ -5,7 +5,7 @@
 \alias{tsibble-package}
 \title{tsibble: tidy temporal data frames and tools}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: style='text-align: right;'}}
 The \strong{tsibble} package provides a data class of \code{tbl_ts} to represent tidy
 temporal data. A tsibble consists of a time index, key, and other measured
 variables in a data-centric format, which is built on top of the tibble.
