@@ -1,3 +1,7 @@
+# tsibble 1.1.3
+
+* Fixed the argument of `.full` in `*_gaps()` when inputs like `T`, `F` are valid. (#275)
+
 # tsibble 1.1.2
 
 * Re-document to fix HTML issues in .Rd

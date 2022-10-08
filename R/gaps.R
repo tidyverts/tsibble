@@ -263,7 +263,7 @@ has_gaps <- function(.data, .full = FALSE, .name = ".gaps",
     return(tibble(!!!key_data, !!.name := FALSE))
   }
 
-  .full <- quo_get_expr(enquo(.full))
+  .full <- enquo(.full)
   int <- default_time_units(interval(.data))
   idx <- index(.data)
   idx_chr <- as_string(idx)
@@ -273,28 +273,36 @@ has_gaps <- function(.data, .full = FALSE, .name = ".gaps",
     res <- summarise(grped_tbl, !!.name := length(!!idx) > 0)
   } else {
     grped_tbl <- new_grouped_df(.data, groups = key_data(.data))
-    if (is_true(.full)) {
-      idx_full <- seq_generator(.data[[idx_chr]], int)
-      res <- summarise(grped_tbl,
-        !!.name := (length(idx_full) - length(!!idx)) > 0)
-    } else if (is_false(.full)) {
-      res <- summarise(grped_tbl,
-        !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
-      )
-    } else if (call_name(.full) == "start") {
-      abort_if_args_present(.full)
-      start <- min(.data[[idx_chr]])
-      res <- summarise(grped_tbl,
-        !!.name := (length(seq_generator(c(start, max(!!idx)), int)) - length(!!idx)) > 0
-      )
-    } else if (call_name(.full) == "end") {
-      abort_if_args_present(.full)
-      end <- max(.data[[idx_chr]])
-      res <- summarise(grped_tbl,
-        !!.name := (length(seq_generator(c(min(!!idx), end), int)) - length(!!idx)) > 0
-      )
+    lgl <- !quo_is_symbol(.full) & !quo_is_call(.full)
+    if (lgl || quo_is_symbol(.full)) {
+      .full <- eval_tidy(.full)
+      if (is_true(.full)) {
+        idx_full <- seq_generator(.data[[idx_chr]], int)
+        res <- summarise(grped_tbl,
+          !!.name := (length(idx_full) - length(!!idx)) > 0)
+      } else if (is_false(.full)) {
+        res <- summarise(grped_tbl,
+          !!.name := (length(seq_generator(!!idx, int)) - length(!!idx)) > 0
+        )
+      } else {
+        abort_invalid_full_arg()
+      }
     } else {
-      abort_invalid_full_arg()
+      if (call_name(.full) == "start") {
+        abort_if_args_present(.full)
+        start <- min(.data[[idx_chr]])
+        res <- summarise(grped_tbl,
+          !!.name := (length(seq_generator(c(start, max(!!idx)), int)) - length(!!idx)) > 0
+        )
+      } else if (call_name(.full) == "end") {
+        abort_if_args_present(.full)
+        end <- max(.data[[idx_chr]])
+        res <- summarise(grped_tbl,
+          !!.name := (length(seq_generator(c(min(!!idx), end), int)) - length(!!idx)) > 0
+        )
+      } else {
+        abort_invalid_full_arg()
+      }
     }
   }
   tibble(!!!res)
