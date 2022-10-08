@@ -1,6 +1,7 @@
 # tsibble 1.1.3
 
 * Fixed the argument of `.full` in `*_gaps()` when inputs like `T`, `F` are valid. (#275)
+* Fixed validation of `index2` in `build_tsibble()` when a column name contains "index". (#284)
 
 # tsibble 1.1.2
 

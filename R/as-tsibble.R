@@ -78,7 +78,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
   tbl <- tibble(!!!dots)
   index <- enquo(index)
   build_tsibble(tbl,
-    key = !!enquo(key), index = !!index, interval = regular,
+    key = !!enquo(key), index = !!index, index2 = !!index, interval = regular,
     .drop = .drop
   )
 }
@@ -150,7 +150,7 @@ as_tsibble.tbl_df <- function(x, key = NULL, index, regular = TRUE,
                               validate = TRUE, .drop = TRUE, ...) {
   index <- enquo(index)
   build_tsibble(x,
-    key = !!enquo(key), index = !!index, interval = regular,
+    key = !!enquo(key), index = !!index, index2 = !!index, interval = regular,
     validate = validate, .drop = .drop
   )
 }
