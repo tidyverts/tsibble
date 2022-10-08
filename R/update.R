@@ -41,7 +41,7 @@ update_meta2 <- function(new, old, ordered = TRUE, interval = TRUE,
   idx <- index_var(x)
   idx_loc <- match(intersect(idx, x_names), x_names)
   idx_name <- value[idx_loc]
-  
+
   idx2 <- index2_var(x)
   idx2_loc <- match(intersect(idx2, x_names), x_names)
   idx2_name <- value[idx2_loc]
@@ -76,7 +76,7 @@ bind_tsibble <- function(data, template, position = c("before", "after")) {
   data <- as_tibble(data)
   data_cols <- names(data)
   key_vars <- setdiff(key_vars(template), data_cols)
-  key_data <- vec_unique(select(key_data(template), key_vars))
+  key_data <- vec_unique(select(key_data(template), all_of(key_vars)))
   if (vec_size(key_data) == 1) {
     template <- remove_key(template, setdiff(key_vars(template), key_vars))
   }
