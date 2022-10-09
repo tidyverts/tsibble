@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -80,35 +80,46 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">update_tsibble</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">key</span>,
-  <span class="va">index</span>,
-  regular <span class="op">=</span> <span class="fu"><a href="regular.html">is_regular</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
-  validate <span class="op">=</span> <span class="cn">TRUE</span>,
-  .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">update_tsibble</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">key</span>,</span>
+<span>  <span class="va">index</span>,</span>
+<span>  regular <span class="op">=</span> <span class="fu"><a href="regular.html">is_regular</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>  validate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A tsibble.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+(e.g. <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+
+
 <dt>index</dt>
 <dd><p>A variable to specify the time index variable.</p></dd>
+
+
 <dt>regular</dt>
 <dd><p>Regular time interval (<code>TRUE</code>) or irregular (<code>FALSE</code>). The
 interval is determined by the greatest common divisor of index column, if <code>TRUE</code>.</p></dd>
+
+
 <dt>validate</dt>
 <dd><p><code>TRUE</code> suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
+
+
 <dt>.drop</dt>
 <dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -117,12 +128,12 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># update index</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Hour_Since <span class="op">=</span> <span class="va">Date_Time</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">Date_Time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">update_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">Hour_Since</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># update index</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Hour_Since <span class="op">=</span> <span class="va">Date_Time</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">Date_Time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">update_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">Hour_Since</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 66,037 x 6 [1h]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    Sensor [4]</span></span>
@@ -139,10 +150,10 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">08:00:00</span> 2015-01-01     8   113 28800 secs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">09:00:00</span> 2015-01-01     9   166 32400 secs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 66,027 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># update key: drop the variable "State" from the key</span></span>
-<span class="r-in"><span class="va">tourism</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">update_tsibble</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Purpose</span>, <span class="va">Region</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># update key: drop the variable "State" from the key</span></span></span>
+<span class="r-in"><span><span class="va">tourism</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">update_tsibble</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Purpose</span>, <span class="va">Region</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 24,320 x 5 [1Q]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Purpose, Region [304]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Quarter Region   State           Purpose  Trips</span>
@@ -172,7 +183,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

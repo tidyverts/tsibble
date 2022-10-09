@@ -25,7 +25,7 @@ determine if the time needs ordering and the interval needs calculating."><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -34,7 +34,7 @@ determine if the time needs ordering and the interval needs calculating."><meta 
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -84,58 +84,75 @@ determine if the time needs ordering and the interval needs calculating.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_tsibble</span><span class="op">(</span>
-  <span class="va">x</span>,
-  key <span class="op">=</span> <span class="cn">NULL</span>,
-  key_data <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">index</span>,
-  index2 <span class="op">=</span> <span class="va">index</span>,
-  ordered <span class="op">=</span> <span class="cn">NULL</span>,
-  interval <span class="op">=</span> <span class="cn">TRUE</span>,
-  validate <span class="op">=</span> <span class="cn">TRUE</span>,
-  .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_tsibble</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  key_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">index</span>,</span>
+<span>  index2 <span class="op">=</span> <span class="va">index</span>,</span>
+<span>  ordered <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  interval <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  validate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .drop <span class="op">=</span> <span class="fu"><a href="key_drop_default.html">key_drop_default</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+(e.g. <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+
+
 <dt>key_data</dt>
 <dd><p>A data frame containing key variables and <code>.rows</code>. When a data
 frame is supplied, the argument <code>key</code> will be ignored.</p></dd>
+
+
 <dt>index</dt>
 <dd><p>A variable to specify the time index variable.</p></dd>
+
+
 <dt>index2</dt>
 <dd><p>A candidate of <code>index</code> to update the index to a new one when
 <a href="index-by.html">index_by</a>. By default, it's identical to <code>index</code>.</p></dd>
+
+
 <dt>ordered</dt>
 <dd><p>The default of <code>NULL</code> arranges the key variable(s) first and
 then index from past to future. <code>TRUE</code> suggests to skip the ordering as <code>x</code> in
 the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></dd>
+
+
 <dt>interval</dt>
 <dd><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
 irregular interval. Use the specified interval via <code><a href="new-interval.html">new_interval()</a></code> as is.</p></dd>
+
+
 <dt>validate</dt>
 <dd><p><code>TRUE</code> suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
 are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.</p></dd>
+
+
 <dt>.drop</dt>
 <dd><p>If <code>TRUE</code>, empty key groups are dropped.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Prepare `pedestrian` to use a new index `Date` ----</span></span>
-<span class="r-in"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">build_tsibble</span><span class="op">(</span></span>
-<span class="r-in">    key <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="key.html">key_vars</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="index-rd.html">index</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index2 <span class="op">=</span> <span class="va">Date</span>,</span>
-<span class="r-in">    interval <span class="op">=</span> <span class="fu"><a href="regular.html">interval</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Prepare `pedestrian` to use a new index `Date` ----</span></span></span>
+<span class="r-in"><span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">build_tsibble</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    key <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="key.html">key_vars</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="index-rd.html">index</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, index2 <span class="op">=</span> <span class="va">Date</span>,</span></span>
+<span class="r-in"><span>    interval <span class="op">=</span> <span class="fu"><a href="regular.html">interval</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:       Sensor [4]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:    @ Date [731]</span></span>
@@ -166,7 +183,7 @@ are sure that it's a valid input, specify <code>FALSE</code> to skip the checks.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

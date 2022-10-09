@@ -28,7 +28,7 @@ duplicates(): identical key-index data entries.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -37,7 +37,7 @@ duplicates(): identical key-index data entries.
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -87,47 +87,54 @@ duplicates(): identical key-index data entries.
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">is_duplicated</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span><span class="op">)</span>
-
-<span class="fu">are_duplicated</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span>, from_last <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">duplicates</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_duplicated</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span>, from_last <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">duplicates</span><span class="op">(</span><span class="va">data</span>, key <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">index</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>A data frame for creating a tsibble.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
 empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+(e.g. <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+
+
 <dt>index</dt>
 <dd><p>A variable to specify the time index variable.</p></dd>
+
+
 <dt>from_last</dt>
 <dd><p><code>TRUE</code> does the duplication check from the last of identical
 elements.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span class="r-in">  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2011</span>, <span class="fl">2013</span>, <span class="fl">2011</span>, <span class="fl">2012</span>, <span class="fl">2014</span>, <span class="fl">2014</span><span class="op">)</span>,</span>
-<span class="r-in">  fruit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kiwi"</span>, <span class="st">"cherry"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, <span class="st">"cherry"</span><span class="op">)</span>,</span>
-<span class="r-in">  kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">is_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">harvest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2011</span>, <span class="fl">2013</span>, <span class="fl">2011</span>, <span class="fl">2012</span>, <span class="fl">2014</span>, <span class="fl">2014</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  fruit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kiwi"</span>, <span class="st">"cherry"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, <span class="st">"cherry"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  kilo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span>
-<span class="r-in"><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span>, from_last <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span>, from_last <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</span>
-<span class="r-in"><span class="fu">duplicates</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">duplicates</span><span class="op">(</span><span class="va">harvest</span>, key <span class="op">=</span> <span class="va">fruit</span>, index <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    year fruit   kilo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>014 cherry    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>014 cherry     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>014 cherry     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>014 cherry     8</span>
 </code></pre></div>
     </div>
   </div>
@@ -142,7 +149,7 @@ elements.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

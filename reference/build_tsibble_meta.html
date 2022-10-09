@@ -25,7 +25,7 @@ high performance."><meta property="og:image" content="https://tsibble.tidyverts.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -34,7 +34,7 @@ high performance."><meta property="og:image" content="https://tsibble.tidyverts.
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -84,31 +84,40 @@ high performance.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_tsibble_meta</span><span class="op">(</span>
-  <span class="va">x</span>,
-  key_data <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">index</span>,
-  <span class="va">index2</span>,
-  ordered <span class="op">=</span> <span class="cn">NULL</span>,
-  interval <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_tsibble_meta</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  key_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">index</span>,</span>
+<span>  <span class="va">index2</span>,</span>
+<span>  ordered <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  interval <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>data.frame</code>, <code>tbl_df</code>, <code>tbl_ts</code>, or other tabular objects.</p></dd>
+
+
 <dt>key_data</dt>
 <dd><p>A data frame containing key variables and <code>.rows</code>. When a data
 frame is supplied, the argument <code>key</code> will be ignored.</p></dd>
+
+
 <dt>index, index2</dt>
 <dd><p>Quoted variable name.</p></dd>
+
+
 <dt>ordered</dt>
 <dd><p><code>TRUE</code> suggests to skip the ordering as <code>x</code> in
 the correct order. <code>FALSE</code> checks the ordering and may give a warning.</p></dd>
+
+
 <dt>interval</dt>
 <dd><p><code>TRUE</code> automatically calculates the interval, and <code>FALSE</code> for
 irregular interval. Use the specified interval via <code><a href="new-interval.html">new_interval()</a></code> as is.</p></dd>
+
 </dl></div>
 
   </div>
@@ -123,7 +132,7 @@ irregular interval. Use the specified interval via <code><a href="new-interval.h
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

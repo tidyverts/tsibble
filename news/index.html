@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,6 +75,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.3" id="tsibble-113">tsibble 1.1.3<a class="anchor" aria-label="anchor" href="#tsibble-113"></a></h2>
+<ul><li>Fixed the argument of <code>.full</code> in <code>*_gaps()</code> when inputs like <code>T</code>, <code>F</code> are valid. (<a href="https://github.com/tidyverts/tsibble/issues/275" class="external-link">#275</a>)</li>
+<li>Fixed validation of <code>index2</code> in <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> when a column name contains “index”. (<a href="https://github.com/tidyverts/tsibble/issues/284" class="external-link">#284</a>)</li>
+<li>No longer export <code><a href="https://rdrr.io/r/stats/time.html" class="external-link">time()</a></code> methods (renamed to <code>time_ts()</code>) to contaminate <code><a href="https://rdrr.io/r/stats/time.html" class="external-link">time()</a></code> in <code><a href="https://rdrr.io/r/stats/window.html" class="external-link">stats::window()</a></code>. (<a href="https://github.com/tidyverts/tsibble/issues/277" class="external-link">#277</a>)</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.2" id="tsibble-112">tsibble 1.1.2<small>2022-08-21</small><a class="anchor" aria-label="anchor" href="#tsibble-112"></a></h2>
+<ul><li>Re-document to fix HTML issues in .Rd</li></ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.1" id="tsibble-111">tsibble 1.1.1<small>2021-12-03</small><a class="anchor" aria-label="anchor" href="#tsibble-111"></a></h2>
 <ul><li>New functions <code>make_year*()</code> to easily supply time components.</li>
 <li>Supported <code><a href="https://rdrr.io/r/stats/start.html" class="external-link">stats::start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html" class="external-link">stats::end()</a></code> for the <code>.full</code> argument in <code>*_gaps()</code>, when <code>*_gaps()</code> are used in other packages. (<a href="https://github.com/tidyverts/tsibble/issues/269" class="external-link">#269</a>)</li>
@@ -93,8 +102,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="tsibble-101">tsibble 1.0.1<small>2021-04-12</small><a class="anchor" aria-label="anchor" href="#tsibble-101"></a></h2>
-<ul><li>Fixed format bug in <code><a href="../reference/year-month.html">yearmonth()</a></code>. (<a href="https://github.com/tidyverts/tsibble/issues/250" class="external-link">#250</a>, <a href="https://github.com/mitchelloharawild" class="external-link">@mitchelloharawild</a>)</li>
-</ul></div>
+<ul><li>Fixed format bug in <code><a href="../reference/year-month.html">yearmonth()</a></code>. (<a href="https://github.com/tidyverts/tsibble/issues/250" class="external-link">#250</a>, <a href="https://github.com/mitchelloharawild" class="external-link">@mitchelloharawild</a>)</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="tsibble-100">tsibble 1.0.0<small>2021-02-20</small><a class="anchor" aria-label="anchor" href="#tsibble-100"></a></h2>
 <ul><li>Fixed bug in different <code><a href="../reference/year-month.html">yearmonth()</a></code> underlying data for character inputs. (<a href="https://github.com/tidyverts/tsibble/issues/226" class="external-link">#226</a>)</li>
@@ -137,8 +145,7 @@
 <p>This release uses the <strong>vctrs</strong> package internally in {tsibble}.</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-9-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
-<ul><li>The “interval” class has been formally defined as a record type under the <strong>vctrs</strong> framework. The <code><a href="../reference/new-interval.html">new_interval()</a></code> uses a new interface to create the interval and supports custom interval. Old tsibble objects will receive an error for “a corrupt tsibble”.</li>
-</ul></div>
+<ul><li>The “interval” class has been formally defined as a record type under the <strong>vctrs</strong> framework. The <code><a href="../reference/new-interval.html">new_interval()</a></code> uses a new interface to create the interval and supports custom interval. Old tsibble objects will receive an error for “a corrupt tsibble”.</li></ul></div>
 <div class="section level3">
 <h3 id="new-features-0-9-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h3>
 <ul><li>The <code>.full</code> argument in <code>*_gaps</code> supports two more options, <code><a href="https://rdrr.io/r/stats/start.html" class="external-link">start()</a></code> and <code><a href="https://rdrr.io/r/stats/start.html" class="external-link">end()</a></code>, for padding <code>NA</code> to either starting or ending time. (<a href="https://github.com/tidyverts/tsibble/issues/147" class="external-link">#147</a>)</li>
@@ -156,8 +163,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-9-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-9-0"></a></h3>
-<ul><li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring implicit missings. (<a href="https://github.com/tidyverts/tsibble/issues/160" class="external-link">#160</a>)</li>
-</ul></div>
+<ul><li>Fixed bug in <code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> for ignoring implicit missings. (<a href="https://github.com/tidyverts/tsibble/issues/160" class="external-link">#160</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="deprecated-functions-0-9-0">Deprecated functions<a class="anchor" aria-label="anchor" href="#deprecated-functions-0-9-0"></a></h3>
 <ul><li>Deprecated window functions in favour of the {slider} package. (<a href="https://github.com/tidyverts/tsibble/issues/143" class="external-link">#143</a>)</li>
@@ -387,8 +393,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="misc-0-5-3">Misc<a class="anchor" aria-label="anchor" href="#misc-0-5-3"></a></h3>
-<ul><li>Soft-deprecated <code>case_na()</code> &amp; <code>split_by()</code>.</li>
-</ul></div>
+<ul><li>Soft-deprecated <code>case_na()</code> &amp; <code>split_by()</code>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.2" id="tsibble-052">tsibble 0.5.2<small>2018-09-11</small><a class="anchor" aria-label="anchor" href="#tsibble-052"></a></h2>
@@ -490,8 +495,7 @@
 <h2 class="page-header" data-toc-text="0.4.0" id="tsibble-040">tsibble 0.4.0<small>2018-07-06</small><a class="anchor" aria-label="anchor" href="#tsibble-040"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-0-4-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-4-0"></a></h3>
-<ul><li>Restructured windowed functions to follow the <code>purrr</code> style exactly (<a href="https://github.com/tidyverts/tsibble/issues/35" class="external-link">#35</a>):
-<ul><li>
+<ul><li>Restructured windowed functions to follow the <code>purrr</code> style exactly (<a href="https://github.com/tidyverts/tsibble/issues/35" class="external-link">#35</a>):<ul><li>
 <code>slide()</code>, <code>tile()</code>, <code>stretch()</code> return lists only instead of numerics before.</li>
 <li>added <code>slide2()</code>, <code>pslide()</code> to map over multiple inputs simultaneously.</li>
 <li>added other type-stable variants such as <code>slide_dbl()</code>, <code>slide_int()</code>, <code>slide_chr()</code>, <code>slide_lgl()</code>.</li>
@@ -538,8 +542,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="misc-0-4-0">Misc<a class="anchor" aria-label="anchor" href="#misc-0-4-0"></a></h3>
-<ul><li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li>
-</ul></div>
+<ul><li>Suggested on <code>nycflights13 &gt;= 1.0.0</code>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="tsibble-030">tsibble 0.3.0<small>2018-05-29</small><a class="anchor" aria-label="anchor" href="#tsibble-030"></a></h2>
@@ -551,12 +554,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="defunct-0-3-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-0-3-0"></a></h3>
-<ul><li>retired <code>tsummarise()</code>.</li>
-</ul></div>
+<ul><li>retired <code>tsummarise()</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="internal-changes-0-3-0">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-0-3-0"></a></h3>
-<ul><li>If <code>index2</code> deviates from <code>index</code> (using <code><a href="../reference/index-by.html">index_by()</a></code>), the <code>index2</code> will be part of grouping variables.</li>
-</ul></div>
+<ul><li>If <code>index2</code> deviates from <code>index</code> (using <code><a href="../reference/index-by.html">index_by()</a></code>), the <code>index2</code> will be part of grouping variables.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="tsibble-020">tsibble 0.2.0<small>2018-05-11</small><a class="anchor" aria-label="anchor" href="#tsibble-020"></a></h2>
@@ -629,8 +630,7 @@
 <li>The “key” attribute in a <code>tbl_ts</code> object is an unnamed list of symbols.</li>
 </ul><div class="section level3">
 <h3 id="new-functions-0-1-5">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-1-5"></a></h3>
-<ul><li>“key” helpers:
-<ul><li>
+<ul><li>“key” helpers:<ul><li>
 <code>key_update()</code> to change/update the keys for a given tsibble.</li>
 <li>
 <code>unkey()</code> as an S3 method for a tsibble of key size &lt; 2.</li>
@@ -659,8 +659,7 @@
 <h2 class="page-header" data-toc-text="0.1.3" id="tsibble-013">tsibble 0.1.3<small>2018-02-20</small><a class="anchor" aria-label="anchor" href="#tsibble-013"></a></h2>
 <div class="section level3">
 <h3 id="new-functions-0-1-3">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-1-3"></a></h3>
-<ul><li>Added the scoped variants for <code>tsummarise()</code> including <code>tsummarise_all()</code>, <code>tsummarise_if()</code>, <code>tsummarise_at()</code>.</li>
-</ul></div>
+<ul><li>Added the scoped variants for <code>tsummarise()</code> including <code>tsummarise_all()</code>, <code>tsummarise_if()</code>, <code>tsummarise_at()</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="api-changes-0-1-3">API changes<a class="anchor" aria-label="anchor" href="#api-changes-0-1-3"></a></h3>
 <ul><li>The windowed functions, including <code>slide()</code>, <code>tile()</code>, <code>stretch()</code>, are no longer defined as S3 methods. Several new variants have been introduced for the purpose of type stability, like <code>slide_lst()</code> (a list), <code>slide_dfr()</code> (a row-binding data frame), <code>slide_dfc()</code> (a column-binding data frame).</li>
@@ -689,8 +688,7 @@
 <div class="section level3">
 <h3 id="new-functions-0-1-2">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-1-2"></a></h3>
 <ul><li>
-<code>inform_duplicates()</code> informs which row has duplicated elements of key and index variables.</li>
-</ul></div>
+<code>inform_duplicates()</code> informs which row has duplicated elements of key and index variables.</li></ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-2"></a></h3>
 <ul><li>Fix bug in <code>summarise.tbl_ts()</code> and <code>tsummarise.tbl_ts()</code>, when calling functions with no parameters like <code><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">dplyr::n()</a></code>.</li>
@@ -709,8 +707,7 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="tsibble-010">tsibble 0.1.0<small>2018-01-09</small><a class="anchor" aria-label="anchor" href="#tsibble-010"></a></h2>
-<ul><li>Initial release on CRAN.</li>
-</ul></div>
+<ul><li>Initial release on CRAN.</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="tsibble-001">tsibble 0.0.1<a class="anchor" aria-label="anchor" href="#tsibble-001"></a></h2>
 <ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
@@ -730,7 +727,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

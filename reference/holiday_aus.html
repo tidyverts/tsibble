@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -80,20 +80,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">holiday_aus</span><span class="op">(</span><span class="va">year</span>, state <span class="op">=</span> <span class="st">"national"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">holiday_aus</span><span class="op">(</span><span class="va">year</span>, state <span class="op">=</span> <span class="st">"national"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>year</dt>
 <dd><p>A vector of integer(s) indicating year(s).</p></dd>
+
+
 <dt>state</dt>
 <dd><p>A state in Australia including "ACT", "NSW", "NT", "QLD", "SA",
 "TAS", "VIC", "WA", as well as "national".</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A tibble consisting of <code>holiday</code> labels and their associated dates
+    
+
+<p>A tibble consisting of <code>holiday</code> labels and their associated dates
 in the year(s).</p>
     </div>
     <div id="details">
@@ -103,14 +108,10 @@ in the year(s).</p>
 <li><p>Royal Queensland Show for Queensland, which is for Brisbane only</p></li>
 </ul><p>This function requires "timeDate" to be installed.</p>
     </div>
-    <div id="references">
-    <h2>References</h2>
-    <p><a href="https://www.australia.gov.au/about-australia/special-dates-and-events/public-holidays" class="external-link">Public holidays</a></p>
-    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"VIC"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"VIC"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    holiday          date      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
@@ -126,7 +127,7 @@ in the year(s).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Melbourne Cup    2016-11-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Boxing Day       2016-12-26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Christmas Day    2016-12-27</span>
-<span class="r-in"><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2013</span><span class="op">:</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"ACT"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">holiday_aus</span><span class="op">(</span><span class="fl">2013</span><span class="op">:</span><span class="fl">2016</span>, state <span class="op">=</span> <span class="st">"ACT"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 44 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    holiday          date      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
@@ -155,7 +156,7 @@ in the year(s).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

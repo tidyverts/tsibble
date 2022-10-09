@@ -48,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -118,88 +118,88 @@
     
 <p>Assuming you have <a href="https://tsibble.tidyverts.org/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span>
-<span class="va">pedestrian</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># Key:       Sensor [4]</span></span>
-<span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 66,032 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
+<span><span class="va">pedestrian</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tsibble: 66,037 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Key:       Sensor [4]</span></span></span>
+<span><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 66,032 more rows</span></span></span></code></pre></div>
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="co">#&gt;   Sensor                        .gaps</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr                TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bourke Street Mall (North)    TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> QV Market-Elizabeth St (West) TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Southern Cross Station        TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">#&gt;   Sensor                        .gaps</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr                TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bourke Street Mall (North)    TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> QV Market-Elizabeth St (West) TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Southern Cross Station        TRUE</span></span></code></pre></div>
 <p>So where are these gaps? <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> gives a detailed report of missing observations. <code><a href="../reference/count_gaps.html">count_gaps()</a></code> presents a summarised table about the individual time gap alongside the number of missing observations for each key. It is clear that Birrarung Marr exhibits many chunks of missingness, while Bourke Street Mall (North) displays as many consecutive missingness as 1128. If <code>.full = FALSE</code>, the opening gap for Bourke Street Mall (North) will not be recognised.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">ped_gaps</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 4</span></span>
-<span class="co">#&gt;    Sensor                        .from               .to                    .n</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Birrarung Marr                2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Birrarung Marr                2015-05-07 <span style="color: #949494;">00:00:00</span> 2015-05-31 <span style="color: #949494;">23:00:00</span>   600</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Birrarung Marr                2015-10-06 <span style="color: #949494;">00:00:00</span> 2015-10-31 <span style="color: #949494;">23:00:00</span>   624</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Birrarung Marr                2015-11-05 <span style="color: #949494;">00:00:00</span> 2015-11-06 <span style="color: #949494;">23:00:00</span>    48</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Birrarung Marr                2015-11-20 <span style="color: #949494;">00:00:00</span> 2015-11-24 <span style="color: #949494;">23:00:00</span>   120</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Birrarung Marr                2015-11-26 <span style="color: #949494;">00:00:00</span> 2015-12-04 <span style="color: #949494;">23:00:00</span>   216</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Birrarung Marr                2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Birrarung Marr                2016-04-08 <span style="color: #949494;">00:00:00</span> 2016-05-03 <span style="color: #949494;">23:00:00</span>   624</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Birrarung Marr                2016-10-29 <span style="color: #949494;">00:00:00</span> 2016-11-28 <span style="color: #949494;">23:00:00</span>   744</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Bourke Street Mall (North)    2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-02-16 <span style="color: #949494;">23:00:00</span>  <span style="text-decoration: underline;">1</span>128</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Bourke Street Mall (North)    2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> Bourke Street Mall (North)    2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">13</span> QV Market-Elizabeth St (West) 2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">14</span> QV Market-Elizabeth St (West) 2015-12-31 <span style="color: #949494;">00:00:00</span> 2015-12-31 <span style="color: #949494;">23:00:00</span>    24</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">15</span> QV Market-Elizabeth St (West) 2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">16</span> Southern Cross Station        2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">17</span> Southern Cross Station        2016-03-08 <span style="color: #949494;">02:00:00</span> 2016-03-08 <span style="color: #949494;">02:00:00</span>     1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">18</span> Southern Cross Station        2016-03-29 <span style="color: #949494;">02:00:00</span> 2016-03-29 <span style="color: #949494;">03:00:00</span>     2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">19</span> Southern Cross Station        2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ped_gaps</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 4</span></span></span>
+<span><span class="co">#&gt;    Sensor                        .from               .to                    .n</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Birrarung Marr                2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Birrarung Marr                2015-05-07 <span style="color: #949494;">00:00:00</span> 2015-05-31 <span style="color: #949494;">23:00:00</span>   600</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Birrarung Marr                2015-10-06 <span style="color: #949494;">00:00:00</span> 2015-10-31 <span style="color: #949494;">23:00:00</span>   624</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Birrarung Marr                2015-11-05 <span style="color: #949494;">00:00:00</span> 2015-11-06 <span style="color: #949494;">23:00:00</span>    48</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Birrarung Marr                2015-11-20 <span style="color: #949494;">00:00:00</span> 2015-11-24 <span style="color: #949494;">23:00:00</span>   120</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Birrarung Marr                2015-11-26 <span style="color: #949494;">00:00:00</span> 2015-12-04 <span style="color: #949494;">23:00:00</span>   216</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Birrarung Marr                2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Birrarung Marr                2016-04-08 <span style="color: #949494;">00:00:00</span> 2016-05-03 <span style="color: #949494;">23:00:00</span>   624</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Birrarung Marr                2016-10-29 <span style="color: #949494;">00:00:00</span> 2016-11-28 <span style="color: #949494;">23:00:00</span>   744</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Bourke Street Mall (North)    2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-02-16 <span style="color: #949494;">23:00:00</span>  <span style="text-decoration: underline;">1</span>128</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Bourke Street Mall (North)    2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> Bourke Street Mall (North)    2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> QV Market-Elizabeth St (West) 2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> QV Market-Elizabeth St (West) 2015-12-31 <span style="color: #949494;">00:00:00</span> 2015-12-31 <span style="color: #949494;">23:00:00</span>    24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> QV Market-Elizabeth St (West) 2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> Southern Cross Station        2015-04-05 <span style="color: #949494;">02:00:00</span> 2015-04-05 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> Southern Cross Station        2016-03-08 <span style="color: #949494;">02:00:00</span> 2016-03-08 <span style="color: #949494;">02:00:00</span>     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> Southern Cross Station        2016-03-29 <span style="color: #949494;">02:00:00</span> 2016-03-29 <span style="color: #949494;">03:00:00</span>     2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> Southern Cross Station        2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></span></code></pre></div>
 <p>These gaps can be visually presented using <strong>ggplot2</strong> as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">.from</span>, ymax <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.from</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">.from</span>, ymax <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.from</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.to</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="implicit-na_files/figure-html/ggplot-gaps-1.png" width="672"></p>
 <p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ped_full</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">ped_full</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># Key:       Sensor [4]</span></span>
-<span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 70,171 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ped_full</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ped_full</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tsibble: 70,176 x 5 [1h] &lt;Australia/Melbourne&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Key:       Sensor [4]</span></span></span>
+<span><span class="co">#&gt;   Sensor         Date_Time           Date        Time Count</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">00:00:00</span> 2015-01-01     0  <span style="text-decoration: underline;">1</span>630</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">01:00:00</span> 2015-01-01     1   826</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 70,171 more rows</span></span></span></code></pre></div>
 <p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fl">0L</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fl">0L</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -217,7 +217,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
