@@ -2,7 +2,7 @@
 
 * Fixed the argument of `.full` in `*_gaps()` when inputs like `T`, `F` are valid. (#275)
 * Fixed validation of `index2` in `build_tsibble()` when a column name contains "index". (#284)
-* No longer export `time()` methods (renamed to `time_ts()`) to contaminate `time()` in `stats::window()`. (#277) 
+* No longer export `time()` methods (renamed to `time_ts()`) to avoid contaminating `time()` in `stats::window()`. (#277) 
 
 # tsibble 1.1.2
 

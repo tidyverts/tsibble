@@ -13,4 +13,7 @@ R CMD check succeeded
 
 ## revdepcheck results
 
-This release is a resubmission and fixed an URL that gives 500 error; I didn't re-check revdeps.
+We checked 27 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
