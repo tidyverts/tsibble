@@ -101,15 +101,23 @@ time_in <- function(x, ...) {
       f <- new_formula(f, f)
     }
     env <- f_env(f)
-    lhs[[i]] <- start(x, eval_bare(is_dot_null(f_lhs(f)), env = env))
-    rhs[[i]] <- end(x, eval_bare(is_dot_null(f_rhs(f)), env = env))
+    lhs[[i]] <- start_window(x, eval_bare(is_dot_null(f_lhs(f)), env = env))
+    rhs[[i]] <- end_window(x, eval_bare(is_dot_null(f_rhs(f)), env = env))
     lgl[[i]] <- eval_bare(x >= lhs[[i]] & x < rhs[[i]])
   }
 
   reduce(lgl, `|`)
 }
 
-start.numeric <- function(x, y = NULL, ...) {
+start_window <- function(x, y = NULL, ...) {
+  UseMethod("start_window")
+}
+
+end_window <- function(x, y = NULL, ...) {
+  UseMethod("end_window")
+}
+
+start_window.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
   } else {
@@ -117,7 +125,7 @@ start.numeric <- function(x, y = NULL, ...) {
   }
 }
 
-end.numeric <- function(x, y = NULL, ...) {
+end_window.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + 1
   } else {
@@ -125,7 +133,7 @@ end.numeric <- function(x, y = NULL, ...) {
   }
 }
 
-start.difftime <- function(x, y = NULL, ...) {
+start_window.difftime <- function(x, y = NULL, ...) {
   if (!requireNamespace("hms", quietly = TRUE)) {
     abort("Package `hms` required.\nPlease install and try again.")
   }
@@ -137,7 +145,7 @@ start.difftime <- function(x, y = NULL, ...) {
   }
 }
 
-end.difftime <- function(x, y = NULL, ...) {
+end_window.difftime <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     hms::as_hms(max(x) + 1)
   } else {
@@ -147,7 +155,7 @@ end.difftime <- function(x, y = NULL, ...) {
   }
 }
 
-start.Date <- function(x, y = NULL, ...) {
+start_window.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
   } else {
@@ -159,7 +167,7 @@ start.Date <- function(x, y = NULL, ...) {
   }
 }
 
-end.Date <- function(x, y = NULL, ...) {
+end_window.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + period(1, "day")
   } else {
@@ -185,7 +193,7 @@ end.Date <- function(x, y = NULL, ...) {
   }
 }
 
-start.POSIXct <- function(x, y = NULL, ...) {
+start_window.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
   } else {
@@ -196,7 +204,7 @@ start.POSIXct <- function(x, y = NULL, ...) {
   }
 }
 
-end.POSIXct <- function(x, y = NULL, ...) {
+end_window.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + period(1, "second")
   } else {
@@ -226,80 +234,80 @@ end.POSIXct <- function(x, y = NULL, ...) {
   }
 }
 
-start.yearweek <- function(x, y = NULL, ...) {
+start_window.yearweek <- function(x, y = NULL, ...) {
   wk_start <- week_start(x)
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearweek")
     y <- as.character(as_date(yearweek(y, week_start = wk_start)))
   }
-  yearweek(start(x = x, y = y), week_start = wk_start)
+  yearweek(start_window(x = x, y = y), week_start = wk_start)
 }
 
-end.yearweek <- function(x, y = NULL, ...) {
+end_window.yearweek <- function(x, y = NULL, ...) {
   wk_start <- week_start(x)
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearweek")
     y <- as.character(as_date(yearweek(y, week_start = wk_start)))
   }
-  yearweek(end(x = x, y = y), week_start = wk_start) + 1
+  yearweek(end_window(x = x, y = y), week_start = wk_start) + 1
 }
 
-start.yearmonth <- function(x, y = NULL, ...) {
+start_window.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearmonth")
     y <- as.character(as_date(yearmonth(y)))
   }
-  yearmonth(start(x = x, y = y))
+  yearmonth(start_window(x = x, y = y))
 }
 
-end.yearmonth <- function(x, y = NULL, ...) {
+end_window.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearmonth")
     y <- as.character(as_date(yearmonth(y)))
   }
-  yearmonth(end(x = x, y = y)) + 1
+  yearmonth(end_window(x = x, y = y)) + 1
 }
 
-start.yearquarter <- function(x, y = NULL, ...) {
+start_window.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearquarter")
     y <- as.character(as_date(yearquarter(y)))
   }
-  yearquarter(start(x = x, y = y))
+  yearquarter(start_window(x = x, y = y))
 }
 
-end.yearquarter <- function(x, y = NULL, ...) {
+end_window.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
     abort_not_chr(y, class = "yearquarter")
     y <- as.character(as_date(yearquarter(y)))
   }
-  yearquarter(end(x = x, y = y)) + 1
+  yearquarter(end_window(x = x, y = y)) + 1
 }
 
-start.yearmon <- function(x, y = NULL, ...) {
+start_window.yearmon <- function(x, y = NULL, ...) {
   x <- yearmonth(x)
-  start(x, y = y)
+  start_window(x, y = y)
 }
 
-end.yearmon <- function(x, y = NULL, ...) {
+end_window.yearmon <- function(x, y = NULL, ...) {
   x <- yearmonth(x)
-  end(x, y = y)
+  end_window(x, y = y)
 }
 
-start.yearqtr <- function(x, y = NULL, ...) {
+start_window.yearqtr <- function(x, y = NULL, ...) {
   x <- yearquarter(x)
-  start(x, y = y)
+  start_window(x, y = y)
 }
 
-end.yearqtr <- function(x, y = NULL, ...) {
+end_window.yearqtr <- function(x, y = NULL, ...) {
   x <- yearquarter(x)
-  end(x, y = y)
+  end_window(x, y = y)
 }
 
 is_dot_null <- function(x) { # x is a sym

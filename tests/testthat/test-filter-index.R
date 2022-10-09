@@ -1,29 +1,29 @@
 x <- c("2016", "2016-10", "2016-12-09")
 
 test_that("class: Date", {
-  expect_error(start(pedestrian$Date, 2017), "Must be")
-  expect_equal(start(pedestrian$Date), as.Date("2015-01-01"))
+  expect_error(start_window(pedestrian$Date, 2017), "Must be")
+  expect_equal(start_window(pedestrian$Date), as.Date("2015-01-01"))
   expect_equal(
-    start(pedestrian$Date, x),
+    start_window(pedestrian$Date, x),
     as.Date(c("2016-01-01", "2016-10-01", "2016-12-09"))
   )
-  expect_equal(end(pedestrian$Date), as.Date("2017-01-01"))
+  expect_equal(end_window(pedestrian$Date), as.Date("2017-01-01"))
   expect_equal(
-    end(pedestrian$Date, x),
+    end_window(pedestrian$Date, x),
     as.Date(c("2017-01-01", "2016-11-01", "2016-12-10"))
   )
 })
 
 test_that("class: year*", {
   yrwk <- new_yearweek(unique(pedestrian$Date))
-  expect_equal(start(yrwk), yearweek(as.Date("2015-01-01")))
+  expect_equal(start_window(yrwk), yearweek(as.Date("2015-01-01")))
   expect_equal(
-    start(yrwk, x),
+    start_window(yrwk, x),
     yearweek(as.Date(c("2015-12-28", "2016-09-26", "2016-12-05")))
   )
-  expect_equal(end(pedestrian$Date), as.Date("2017-01-01"))
+  expect_equal(end_window(pedestrian$Date), as.Date("2017-01-01"))
   expect_equal(
-    end(pedestrian$Date, x),
+    end_window(pedestrian$Date, x),
     as.Date(c("2017-01-01", "2016-11-01", "2016-12-10"))
   )
   x <- yearquarter(c("2013 Q3", "2013 Qtr 3", "Quarter 4 2015"))
@@ -33,7 +33,7 @@ test_that("class: year*", {
 
 test_that("class: yearweek with no-default week start #261", {
   yrwk <- new_yearweek(unique(pedestrian$Date), week_start = 7)
-  expect_equal(start(yrwk), yearweek(as.Date("2015-01-01"), week_start = 7))
+  expect_equal(start_window(yrwk), yearweek(as.Date("2015-01-01"), week_start = 7))
 })
 
 si <- sessionInfo()
@@ -45,18 +45,18 @@ tz <- "Australia/Melbourne"
 
 test_that("class: POSIXct", {
   skip_on_cran()
-  expect_error(start(pedestrian$Date_Time, 2017), "Must be")
-  expect_equal(start(pedestrian$Date_Time), ymd("2015-01-01", tz = tz))
+  expect_error(start_window(pedestrian$Date_Time, 2017), "Must be")
+  expect_equal(start_window(pedestrian$Date_Time), ymd("2015-01-01", tz = tz))
   expect_equal(
-    start(pedestrian$Date_Time, y),
+    start_window(pedestrian$Date_Time, y),
     ymd_hm(
       c("2016-01-01 00:00", "2016-10-01 00:00", "2016-12-09 00:00", "2016-12-09 10:00"),
       tz = tz
     )
   )
-  expect_equal(end(pedestrian$Date_Time), ymd_hms("2016-12-31 23:00:01", tz = tz))
+  expect_equal(end_window(pedestrian$Date_Time), ymd_hms("2016-12-31 23:00:01", tz = tz))
   expect_equal(
-    end(pedestrian$Date_Time, y),
+    end_window(pedestrian$Date_Time, y),
     ymd_hms(
       c("2017-01-01 00:00:00", "2016-11-01 00:00:00", "2016-12-10 00:00:00", "2016-12-09 10:00:01"),
       tz = tz
@@ -66,12 +66,12 @@ test_that("class: POSIXct", {
 
 test_that("class: hms", {
   z <- hms::as_hms(unique(pedestrian$Date_Time))
-  expect_error(start(z, y = 11), "Must be")
-  expect_equal(start(z), hms::as_hms("00:00:00"))
-  # expect_error(start(z, y = "11:00"), "cannot be expressed as difftime")
-  expect_equal(start(z, y = "11:00:00"), hms::as_hms("11:00:00"))
-  expect_equal(end(z), hms::as_hms("23:00:01"))
-  expect_equal(end(z, y = "21:00:00"), hms::as_hms("21:00:01"))
+  expect_error(start_window(z, y = 11), "Must be")
+  expect_equal(start_window(z), hms::as_hms("00:00:00"))
+  # expect_error(start_window(z, y = "11:00"), "cannot be expressed as difftime")
+  expect_equal(start_window(z, y = "11:00:00"), hms::as_hms("11:00:00"))
+  expect_equal(end_window(z), hms::as_hms("23:00:01"))
+  expect_equal(end_window(z, y = "21:00:00"), hms::as_hms("21:00:01"))
 })
 
 test_that("filter_index()", {

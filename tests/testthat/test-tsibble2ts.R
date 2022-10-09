@@ -82,8 +82,7 @@ test_that("as.ts.tbl_ts(fill = )", {
 
 test_that("time.* and guess_frequency.*", {
   dat <- seq(as.Date("2017-01-01"), as.Date("2017-01-31"), by = 1)
-  y <- time(dat)
-  expect_s3_class(y, "ts")
+  y <- time_ts(dat)
   expect_equal(frequency(y), 7)
   expect_equal(guess_frequency(dat), 7)
   dat_min <- seq(

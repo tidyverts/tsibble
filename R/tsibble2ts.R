@@ -49,7 +49,7 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
 pivot_wider_ts <- function(data, frequency = NULL) {
   index <- index_var(data)
   df_rows <- data[[index]]
-  idx_time <- time(df_rows)
+  idx_time <- time_ts(df_rows)
   rows <- vec_unique(df_rows)
   key_rows <- key_rows(data)
   mvars <- measured_vars(data)
@@ -69,34 +69,33 @@ pivot_wider_ts <- function(data, frequency = NULL) {
   ts(res, start(idx_time), frequency = frequency)
 }
 
-#' @export
-time.yearweek <- function(x, ...) {
+time_ts <- function(x, ...) {
+  UseMethod("time_ts")
+}
+
+time_ts.yearweek <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- decimal_date(x)
   ts(y, start = min0(y), frequency = freq)
 }
 
-#' @export
-time.yearmonth <- function(x, ...) {
+time_ts.yearmonth <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- year(x) + (month(x) - 1) / freq
   ts(y, start = min0(y), frequency = freq)
 }
 
-#' @export
-time.yearquarter <- function(x, ...) {
+time_ts.yearquarter <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- year(x) + (quarter(x) - 1) / freq
   ts(y, start = min0(y), frequency = freq)
 }
 
-#' @export
-time.numeric <- function(x, ...) {
+time_ts.numeric <- function(x, ...) {
   ts(x, start = min0(x), frequency = 1)
 }
 
-#' @export
-time.Date <- function(x, frequency = NULL, ...) {
+time_ts.Date <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)
   }
@@ -104,8 +103,7 @@ time.Date <- function(x, frequency = NULL, ...) {
   ts(x, start = min0(y), frequency = frequency)
 }
 
-#' @export
-time.POSIXt <- function(x, frequency = NULL, ...) {
+time_ts.POSIXt <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)
   }
