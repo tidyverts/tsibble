@@ -200,7 +200,7 @@ start_window.POSIXct <- function(x, y = NULL, ...) {
     abort_not_chr(y, class = "POSIXct")
     assertTime(y)
     y <- utctime(y, tz = "UTC")
-    force_tz(y, tz(x), roll = TRUE)
+    force_tz(y, tz(x), roll_dst = c("boundary", "post"))
   }
 }
 
@@ -215,7 +215,7 @@ end_window.POSIXct <- function(x, y = NULL, ...) {
     lgl_yrmth <- nchar(y) < 9 & nchar(y) > 4
     lgl_yr <- nchar(y) < 5
     y <- utctime(y, tz = "UTC")
-    y <- force_tz(y, tz(x), roll = TRUE)
+    y <- force_tz(y, tz(x), roll_dst = c("boundary", "post"))
     if (any(lgl_date)) {
       y[lgl_date] <- y[lgl_date] + period(1, "day")
     }
