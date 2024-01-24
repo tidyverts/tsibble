@@ -232,7 +232,7 @@ count_gaps <- function(.data, .full = FALSE, .name = c(".from", ".to", ".n"),
 
   idx_full <- seq_generator(.data[[as_string(idx)]], int)
   grped_tbl <- new_grouped_df(gap_data, groups = key_data(gap_data))
-  lst_out <- summarise(grped_tbl,
+  lst_out <- reframe(grped_tbl,
     !!".gaps" := tbl_gaps(!!idx, idx_full, .name = .name))
 
   vec_cbind(lst_out[key_vars(.data)], vec_cbind(!!!lst_out$.gaps))
@@ -342,7 +342,7 @@ seq_generator <- function(x, time_units = NULL, length_out = NULL) {
   if (time_units == 0) return(x)
 
   min_x <- min(x)
-  seq_call <- quote(seq(from = min_x, to = max(x), by = time_units, 
+  seq_call <- quote(seq(from = min_x, to = max(x), by = time_units,
     length.out = length_out))
   if (!is.null(length_out)) {
     seq_call <- call_modify(seq_call, to = zap())
