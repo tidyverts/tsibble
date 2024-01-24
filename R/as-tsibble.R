@@ -1,17 +1,3 @@
-#' Deprecated functions
-#'
-#' @description
-#' * `is.tsibble()` \lifecycle{defunct}
-#'
-#' @param x Other objects.
-#'
-#' @rdname deprecated
-#' @export
-#' @keywords internal
-is.tsibble <- function(x) {
-  lifecycle::deprecate_stop("0.8.4", "is.tsibble()", "is_tsibble()")
-}
-
 globalVariables(c(".rows"))
 
 setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
@@ -609,7 +595,7 @@ assert_key_data <- function(x) {
 #' @export
 rbind.tbl_ts <- function(...) {
   abort(c(
-    "Not supported for tsibble.", 
+    "Not supported for tsibble.",
     i = "Please use `dplyr::bind_rows()` instead."))
 }
 
@@ -617,6 +603,6 @@ rbind.tbl_ts <- function(...) {
 #' @export
 cbind.tbl_ts <- function(...) {
   abort(c(
-    "Not supported for tsibble.", 
+    "Not supported for tsibble.",
     i = "Please use `dplyr::bind_cols()` instead."))
 }
