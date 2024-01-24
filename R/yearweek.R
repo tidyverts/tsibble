@@ -227,7 +227,7 @@ vec_ptype2.yearweek.yearweek <- function(x, y, ...) {
   if (week_start(x) != week_start(y)) {
     abort("Can't combine <yearweek> with different `week_start`.")
   }
-  new_yearweek()
+  new_yearweek(week_start = week_start(x))
 }
 
 #' @export

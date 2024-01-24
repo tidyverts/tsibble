@@ -245,7 +245,7 @@ vec_ptype2.yearquarter.yearquarter <- function(x, y, ...) {
   if (fiscal_start(x) != fiscal_start(y)) {
     abort("Can't combine <yearquarter> with different `fiscal_start`.")
   }
-  new_yearquarter()
+  new_yearquarter(fiscal_start = fiscal_start(x))
 }
 
 #' @export
