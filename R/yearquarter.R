@@ -181,6 +181,7 @@ tz.yearquarter <- function(x) {
 # }
 
 #' @rdname tsibble-vctrs
+#' @method vec_cast yearquarter
 #' @export
 vec_cast.yearquarter <- function(x, to, ...) {
   UseMethod("vec_cast.yearquarter")
@@ -218,6 +219,7 @@ vec_cast.character.yearquarter <- function(x, to, ...) {
 }
 
 #' @rdname tsibble-vctrs
+#' @method vec_ptype2 yearquarter
 #' @export
 vec_ptype2.yearquarter <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearquarter", y)

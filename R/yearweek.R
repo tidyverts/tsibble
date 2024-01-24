@@ -164,6 +164,7 @@ tz.yearweek <- function(x) {
 # }
 
 #' @rdname tsibble-vctrs
+#' @method vec_cast yearweek
 #' @export
 vec_cast.yearweek <- function(x, to, ...) {
   UseMethod("vec_cast.yearweek")
@@ -200,6 +201,7 @@ vec_cast.character.yearweek <- function(x, to, ...) {
 }
 
 #' @rdname tsibble-vctrs
+#' @method vec_ptype2 yearweek
 #' @export
 vec_ptype2.yearweek <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearweek", y)

@@ -18,29 +18,29 @@
 \alias{vec_arith.yearweek}
 \title{Internal vctrs methods}
 \usage{
-vec_ptype2.tbl_ts(x, y, ...)
+\method{vec_ptype2}{tbl_ts}(x, y, ...)
 
-vec_cast.tbl_ts(x, to, ...)
+\method{vec_cast}{tbl_ts}(x, to, ...)
 
-vec_cast.yearmonth(x, to, ...)
+\method{vec_cast}{yearmonth}(x, to, ...)
 
-vec_ptype2.yearmonth(x, y, ...)
+\method{vec_ptype2}{yearmonth}(x, y, ...)
 
 \method{vec_arith}{yearmonth}(op, x, y, ...)
 
 \method{obj_print_data}{yearmonth}(x, ...)
 
-vec_cast.yearquarter(x, to, ...)
+\method{vec_cast}{yearquarter}(x, to, ...)
 
-vec_ptype2.yearquarter(x, y, ...)
+\method{vec_ptype2}{yearquarter}(x, y, ...)
 
 \method{vec_arith}{yearquarter}(op, x, y, ...)
 
 \method{obj_print_data}{yearquarter}(x, ...)
 
-vec_cast.yearweek(x, to, ...)
+\method{vec_cast}{yearweek}(x, to, ...)
 
-vec_ptype2.yearweek(x, y, ...)
+\method{vec_ptype2}{yearweek}(x, y, ...)
 
 \method{vec_arith}{yearweek}(op, x, y, ...)
 }

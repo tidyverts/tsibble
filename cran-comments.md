@@ -1,6 +1,6 @@
 ## Test environments
 
-* local mac OS install, R 4.2.0
+* local mac OS install, R 4.3.0
 * ubuntu 20.04 (on github actions), R-devel, R-release
 * mac OS 10.15.4 (on github actions) R-release
 * Microsoft Windows Server 2019 10.0.17763 (on github actions) R-release

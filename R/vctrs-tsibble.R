@@ -8,6 +8,7 @@
 NULL
 
 #' @rdname tsibble-vctrs
+#' @method vec_ptype2 tbl_ts
 #' @export
 vec_ptype2.tbl_ts <- function(x, y, ...) {
   UseMethod("vec_ptype2.tbl_ts", y)
@@ -52,6 +53,7 @@ new_key_data <- function(x) {
 }
 
 #' @rdname tsibble-vctrs
+#' @method vec_cast tbl_ts
 #' @export
 vec_cast.tbl_ts <- function(x, to, ...) {
   UseMethod("vec_cast.tbl_ts")

@@ -98,7 +98,7 @@ yearmonth.character <- function(x, format = NULL, ...) {
   if (is_null(format)) {
     if (any(!grepl("\\D", x))) { # all numbers without delimiter
       warn(c(
-        "`yearmonth()` may yield unexpected results.", 
+        "`yearmonth()` may yield unexpected results.",
         i = "Please use arg `format` to supply formats."))
     }
   }
@@ -154,6 +154,7 @@ tz.yearmonth <- function(x) {
 # }
 
 #' @rdname tsibble-vctrs
+#' @method vec_cast yearmonth
 #' @export
 vec_cast.yearmonth <- function(x, to, ...) {
   UseMethod("vec_cast.yearmonth")
@@ -190,6 +191,7 @@ vec_cast.character.yearmonth <- function(x, to, ...) {
 }
 
 #' @rdname tsibble-vctrs
+#' @method vec_ptype2 yearmonth
 #' @export
 vec_ptype2.yearmonth <- function(x, y, ...) {
   UseMethod("vec_ptype2.yearmonth", y)

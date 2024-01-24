@@ -7,15 +7,20 @@
 difference(x, lag = 1, differences = 1, default = NA, order_by = NULL)
 }
 \arguments{
-\item{x}{Vector of values}
+\item{x}{A vector}
 
 \item{lag}{A positive integer indicating which lag to use.}
 
 \item{differences}{A positive integer indicating the order of the difference.}
 
-\item{default}{Value used for non-existent rows. Defaults to \code{NA}.}
+\item{default}{The value used to pad \code{x} back to its original size after the
+lag or lead has been applied. The default, \code{NULL}, pads with a missing
+value. If supplied, this must be a vector with size 1, which will be cast
+to the type of \code{x}.}
 
-\item{order_by}{Override the default ordering to use another vector or column}
+\item{order_by}{An optional secondary vector that defines the ordering to use
+when applying the lag or lead to \code{x}. If supplied, this must be the same
+size as \code{x}.}
 }
 \value{
 A numeric vector of the same length as \code{x}.
