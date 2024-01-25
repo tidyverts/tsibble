@@ -9,7 +9,6 @@
 #' * **Date**: Date when the pedestrian counts are recorded
 #' * **Time**: Hour associated with Date_Time
 #' * **Counts**: Hourly pedestrian counts
-#' @references [Melbourne Open Data Portal](https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp)
 #' @docType data
 #' @name pedestrian
 #' @usage pedestrian

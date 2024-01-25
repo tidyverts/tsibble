@@ -9,7 +9,6 @@ output:
 # tsibble <img src="man/figures/logo.png" align="right" />
 
 [![R build status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
-[![Coverage Status](https://codecov.io/gh/tidyverts/tsibble/branch/main/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
 ```{r, echo = FALSE}

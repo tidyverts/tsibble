@@ -5,8 +5,6 @@
 
 [![R build
 status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
-[![Coverage
-Status](https://codecov.io/gh/tidyverts/tsibble/branch/main/graph/badge.svg)](https://codecov.io/github/tidyverts/tsibble?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
 
 The **tsibble** package provides a data infrastructure for tidy temporal
@@ -62,7 +60,7 @@ weather_tsbl
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 26,110 more rows
+#> # ℹ 26,110 more rows
 ```
 
 The **key** can be comprised of empty, one, or more variables. See
@@ -112,7 +110,7 @@ full_weather
 #> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
 #> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
 #> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
-#> # … with 26,185 more rows
+#> # ℹ 26,185 more rows
 ```
 
 `fill_gaps()` also handles filling in time gaps by values or functions,
@@ -149,7 +147,7 @@ full_weather %>%
 #> 3 EWR      2013 Mar     40.1       3   
 #> 4 EWR      2013 Apr     53.0       1.47
 #> 5 EWR      2013 May     63.3       5.44
-#> # … with 31 more rows
+#> # ℹ 31 more rows
 ```
 
 While collapsing rows (like `summarise()`), `group_by()` and
@@ -162,15 +160,15 @@ tsibble of irregular time space too.
 An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around
 the *tsibble* object for tidy time series analysis.
 
--   The [tsibbledata](https://tsibbledata.tidyverts.org) package curates
-    a range of tsibble data examples to poke around the tsibble object.
--   The [feasts](https://feasts.tidyverts.org) package provides support
-    for visualising the data and extracting time series features.
--   The [fable](https://fable.tidyverts.org) package provides common
-    forecasting methods for tsibble, such as ARIMA and ETS. The
-    [fabletools](https://fabletools.tidyverts.org) package, which is
-    **fable** built upon, lays the modelling infrastructure to ease the
-    programming with tsibble.
+- The [tsibbledata](https://tsibbledata.tidyverts.org) package curates a
+  range of tsibble data examples to poke around the tsibble object.
+- The [feasts](https://feasts.tidyverts.org) package provides support
+  for visualising the data and extracting time series features.
+- The [fable](https://fable.tidyverts.org) package provides common
+  forecasting methods for tsibble, such as ARIMA and ETS. The
+  [fabletools](https://fabletools.tidyverts.org) package, which is
+  **fable** built upon, lays the modelling infrastructure to ease the
+  programming with tsibble.
 
 ------------------------------------------------------------------------
 

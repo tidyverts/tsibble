@@ -32,7 +32,4 @@ pedestrian \%>\%
   index_by(Date) \%>\% # group by Date and use it as new index
   summarise(MaxC = max(Count))
 }
-\references{
-\href{https://data.melbourne.vic.gov.au/Transport-Movement/Pedestrian-volume-updated-monthly-/b2ak-trbp}{Melbourne Open Data Portal}
-}
 \keyword{datasets}
