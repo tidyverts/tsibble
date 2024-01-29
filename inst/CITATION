@@ -1,6 +1,6 @@
 citHeader("To cite tsibble in publications, please use:")
 
-citEntry(entry = "article",
+bibentry(bibtype = "Article",
   author = "Earo Wang and Dianne Cook and Rob J Hyndman",
   title = "A new tidy data structure to support exploration and modeling of temporal data",
   journal = "Journal of Computational and Graphical Statistics",

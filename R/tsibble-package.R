@@ -104,3 +104,13 @@
 #'   key = group
 #' )
 "_PACKAGE"
+
+## This function is never called
+## Exists to suppress this NOTE:
+## "Namespaces in Imports field not imported from:"
+## https://github.com/opencpu/opencpu/blob/10469ee3ddde0d0dca85bd96d2873869d1a64cd6/R/utils.R#L156-L165
+stub <- function() {
+  ## I have to use curl directly somewhere, if I import it.
+  ## I have to import it if I want to state a minimum version.
+  if (FALSE) lifecycle::deprecate_soft()
+}
