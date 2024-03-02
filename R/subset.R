@@ -51,7 +51,7 @@
   }
 
   new_key <- cn[cn %in% key_vars(x)]
-  maybe_tsibble <- n_keys(x) > 1 && !all(is.element(key(x), new_key))
+  maybe_tsibble <- n_keys(x) > 1 && !all(is.element(key_vars(x), new_key))
 
   # Column subsetting only
   if (is_null(i) && !is_null(j) && maybe_tsibble) return(as_tibble(res))
