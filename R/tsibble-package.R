@@ -71,7 +71,6 @@
 #' The tsibble package fully utilises the `print` method from the tibble. Please
 #' refer to [tibble::tibble-package] to change display options.
 #'
-#' @aliases NULL tsibble-package
 #' @examples
 #' # create a tsibble w/o a key ----
 #' tsibble(
