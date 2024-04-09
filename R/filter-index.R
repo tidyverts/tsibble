@@ -117,6 +117,7 @@ end_window <- function(x, y = NULL, ...) {
   UseMethod("end_window")
 }
 
+#' @export
 start_window.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
@@ -125,6 +126,7 @@ start_window.numeric <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 end_window.numeric <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + 1
@@ -133,6 +135,7 @@ end_window.numeric <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 start_window.difftime <- function(x, y = NULL, ...) {
   if (!requireNamespace("hms", quietly = TRUE)) {
     abort("Package `hms` required.\nPlease install and try again.")
@@ -145,6 +148,7 @@ start_window.difftime <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 end_window.difftime <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     hms::as_hms(max(x) + 1)
@@ -155,6 +159,7 @@ end_window.difftime <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 start_window.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
@@ -167,6 +172,7 @@ start_window.Date <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 end_window.Date <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + period(1, "day")
@@ -193,6 +199,7 @@ end_window.Date <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 start_window.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     min(x)
@@ -204,6 +211,7 @@ start_window.POSIXct <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 end_window.POSIXct <- function(x, y = NULL, ...) {
   if (is_null(y)) {
     max(x) + period(1, "second")
@@ -234,6 +242,7 @@ end_window.POSIXct <- function(x, y = NULL, ...) {
   }
 }
 
+#' @export
 start_window.yearweek <- function(x, y = NULL, ...) {
   wk_start <- week_start(x)
   x <- as_date(x)
@@ -244,6 +253,7 @@ start_window.yearweek <- function(x, y = NULL, ...) {
   yearweek(start_window(x = x, y = y), week_start = wk_start)
 }
 
+#' @export
 end_window.yearweek <- function(x, y = NULL, ...) {
   wk_start <- week_start(x)
   x <- as_date(x)
@@ -254,6 +264,7 @@ end_window.yearweek <- function(x, y = NULL, ...) {
   yearweek(end_window(x = x, y = y), week_start = wk_start) + 1
 }
 
+#' @export
 start_window.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
@@ -263,6 +274,7 @@ start_window.yearmonth <- function(x, y = NULL, ...) {
   yearmonth(start_window(x = x, y = y))
 }
 
+#' @export
 end_window.yearmonth <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
@@ -272,6 +284,7 @@ end_window.yearmonth <- function(x, y = NULL, ...) {
   yearmonth(end_window(x = x, y = y)) + 1
 }
 
+#' @export
 start_window.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
@@ -281,6 +294,7 @@ start_window.yearquarter <- function(x, y = NULL, ...) {
   yearquarter(start_window(x = x, y = y))
 }
 
+#' @export
 end_window.yearquarter <- function(x, y = NULL, ...) {
   x <- as_date(x)
   if (!is_null(y)) {
@@ -290,21 +304,25 @@ end_window.yearquarter <- function(x, y = NULL, ...) {
   yearquarter(end_window(x = x, y = y)) + 1
 }
 
+#' @export
 start_window.yearmon <- function(x, y = NULL, ...) {
   x <- yearmonth(x)
   start_window(x, y = y)
 }
 
+#' @export
 end_window.yearmon <- function(x, y = NULL, ...) {
   x <- yearmonth(x)
   end_window(x, y = y)
 }
 
+#' @export
 start_window.yearqtr <- function(x, y = NULL, ...) {
   x <- yearquarter(x)
   start_window(x, y = y)
 }
 
+#' @export
 end_window.yearqtr <- function(x, y = NULL, ...) {
   x <- yearquarter(x)
   end_window(x, y = y)

@@ -73,28 +73,33 @@ time_ts <- function(x, ...) {
   UseMethod("time_ts")
 }
 
+#' @export
 time_ts.yearweek <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- decimal_date(x)
   ts(y, start = min0(y), frequency = freq)
 }
 
+#' @export
 time_ts.yearmonth <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- year(x) + (month(x) - 1) / freq
   ts(y, start = min0(y), frequency = freq)
 }
 
+#' @export
 time_ts.yearquarter <- function(x, ...) {
   freq <- guess_frequency(x)
   y <- year(x) + (quarter(x) - 1) / freq
   ts(y, start = min0(y), frequency = freq)
 }
 
+#' @export
 time_ts.numeric <- function(x, ...) {
   ts(x, start = min0(x), frequency = 1)
 }
 
+#' @export
 time_ts.Date <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)
@@ -103,6 +108,7 @@ time_ts.Date <- function(x, frequency = NULL, ...) {
   ts(x, start = min0(y), frequency = frequency)
 }
 
+#' @export
 time_ts.POSIXt <- function(x, frequency = NULL, ...) {
   if (is.null(frequency)) {
     frequency <- guess_frequency(x)

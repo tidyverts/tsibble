@@ -363,6 +363,7 @@ seq.yearquarter <- function(from, to, by, length.out = NULL, along.with = NULL,
   }
 }
 
+#' @export
 seq.ordered <- function(from, to, by, ...) {
   bad_by(by)
   lvls <- levels(from)
