@@ -6,7 +6,10 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/tidyverts/tsibble/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverts/tsibble/actions/workflows/R-CMD-check.yaml)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tsibble)](https://CRAN.R-project.org/package=tsibble)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverts/tsibble/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverts/tsibble?branch=main)
 <!-- badges: end -->
 
 The **tsibble** package provides a data infrastructure for tidy temporal
