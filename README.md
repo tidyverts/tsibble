@@ -3,9 +3,11 @@
 
 # tsibble <img src="man/figures/logo.png" align="right" />
 
-[![R build
-status](https://github.com/tidyverts/tsibble/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/tsibble/actions?workflow=R-CMD-check)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/tidyverts/tsibble/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverts/tsibble/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/tsibble)](https://cran.r-project.org/package=tsibble)
+<!-- badges: end -->
 
 The **tsibble** package provides a data infrastructure for tidy temporal
 data with wrangling tools. Adapting the [tidy data
