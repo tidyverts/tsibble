@@ -16,7 +16,7 @@ is_grouped_ts(x)
 TRUE if the object inherits from the tbl_ts class.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 # A tibble is not a tsibble ----

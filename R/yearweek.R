@@ -1,7 +1,7 @@
 #' Represent year-week based on the ISO 8601 standard (with flexible start day)
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' Create or coerce using `yearweek()`.
 #'

@@ -1,7 +1,7 @@
 #' Lagged differences
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @inheritParams dplyr::lag
 #' @param lag A positive integer indicating which lag to use.

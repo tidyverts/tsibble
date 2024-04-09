@@ -10,7 +10,7 @@ guess_frequency(x)
 \item{x}{An index object including "yearmonth", "yearquarter", "Date" and others.}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 A possible frequency passed to the \code{ts()} function
 }

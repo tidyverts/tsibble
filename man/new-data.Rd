@@ -28,7 +28,7 @@ append_row(.data, n = 1L, ...)
 and key, otherwise only index and key.}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{append_row()}: add new rows to the start/end of a tsibble by filling a key-index
 pair and \code{NA} for measured variables.

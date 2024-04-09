@@ -1,7 +1,7 @@
 #' Represent year-quarter
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' Create or coerce using `yearquarter()`.
 #'

@@ -16,7 +16,7 @@ data? The default is \code{TRUE} except when \code{.data} has been previously
 grouped with \code{.drop = FALSE}. See \code{\link[dplyr:group_by_drop_default]{group_by_drop_default()}} for details.}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 tourism \%>\%

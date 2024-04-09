@@ -1,6 +1,6 @@
 #' New tsibble data and append new observations to a tsibble
 #'
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param .data A `tbl_ts`.
 #' @param n An integer indicates the number of key-index pair to append. If

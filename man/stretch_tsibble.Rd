@@ -16,7 +16,7 @@ stretch_tsibble(.x, .step = 1, .init = 1, .id = ".id")
 \item{.id}{A character naming the new column \code{.id} containing the partition.}
 }
 \description{
-\lifecycle{questioning}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 }
 \section{Rolling tsibble}{
 

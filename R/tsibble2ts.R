@@ -1,6 +1,6 @@
 #' Coerce a tsibble to a time series
 #'
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param x A `tbl_ts` object.
 #' @param value A measured variable of interest to be spread over columns, if
@@ -120,7 +120,7 @@ time_ts.POSIXt <- function(x, frequency = NULL, ...) {
 #' Guess a time frequency from other index objects
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' A possible frequency passed to the `ts()` function
 #'

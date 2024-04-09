@@ -29,7 +29,7 @@ if a warning or an error occurs.}
 year-month (\code{yearmonth}) objects.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Create or coerce using \code{yearmonth()}.
 }

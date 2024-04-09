@@ -26,7 +26,7 @@ fiscal_year(x)
 year-quarter (\code{yearquarter}) objects.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Create or coerce using \code{yearquarter()}.
 }

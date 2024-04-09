@@ -4,7 +4,7 @@ setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
 
 #' Create a tsibble object
 #'
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param ... A set of name-value pairs.
 #' @param key Variable(s) that uniquely determine time indices. `NULL` for
@@ -71,7 +71,7 @@ tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
 
 #' Coerce to a tsibble object
 #'
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param x Other objects to be coerced to a tsibble (`tbl_ts`).
 #' @inheritParams tsibble
@@ -317,7 +317,7 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
 #' Low-level & high-performance constructor for a tsibble object
 #'
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' `build_tsibble_meta()` does much less checks than `build_tsibble()` for
 #' high performance.
@@ -518,7 +518,7 @@ as.data.frame.tbl_ts <- function(x, row.names = NULL, optional = FALSE, ...) {
 #' Test duplicated observations determined by key and index variables
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' * `is_duplicated()`: a logical scalar if the data exist duplicated observations.
 #' * `are_duplicated()`: a logical vector, the same length as the row number of `data`.

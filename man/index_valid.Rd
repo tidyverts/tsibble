@@ -13,7 +13,7 @@ index_valid(x)
 \code{TRUE}/\code{FALSE} or \code{NA} (unsure)
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 S3 method to add an index type support for a tsibble.
 }

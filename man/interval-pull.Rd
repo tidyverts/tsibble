@@ -15,7 +15,7 @@ An "interval" class (a list) includes "year",
 "microsecond", "nanosecond", "unit".
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Assuming regularly spaced time, the \code{interval_pull()} returns a list of time
 components as the "interval" class.

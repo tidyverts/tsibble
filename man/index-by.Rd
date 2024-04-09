@@ -27,7 +27,7 @@ fine-resolution aggregation
 }}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{index_by()} is the counterpart of \code{group_by()} in temporal context, but it
 only groups the time index. The following operation is applied to each partition

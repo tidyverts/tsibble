@@ -214,7 +214,7 @@ is_ordered <- function(x) {
 #' If the object is a tsibble
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param x An object.
 #'
