@@ -8,6 +8,7 @@
 ^codecov\.yml$
 ^docs$
 ^_pkgdown\.yml$
+^pkgdown$
 ^cran-comments\.md$
 ^\.github$
 ^revdep$
