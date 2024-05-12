@@ -1,3 +1,5 @@
+* Fix `difference()` giving extra NA values when the time series is shorter than the lag length. (#310, @mitchelloharawild)
+
 # tsibble 1.1.4
 
 * Fixed `vec_ptype2()` for `yearweek` and `yearquarter` for non-default week start. (#299)
