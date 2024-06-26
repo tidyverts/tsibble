@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="tsibble">
 <title>Handle implicit missingness with tsibble • tsibble</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,14 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Handle implicit missingness with tsibble">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Handle implicit missingness with tsibble">
 <meta property="og:description" content="tsibble">
 <meta property="og:image" content="https://tsibble.tidyverts.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -33,90 +31,90 @@
   gtag('config', 'UA-83007123-4');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">tsibble</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-primary" data-bs-theme="default"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">tsibble</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Vignettes
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/intro-tsibble.html">Introduction to tsibble</a>
-    </li>
-    <li>
-      <a href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../articles/faq.html">FAQ</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/tidyverts/tsibble" class="external-link">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-</div>
-      </form>
-      
-    </div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/intro-tsibble.html">Introduction to tsibble</a>
+    <a class="dropdown-item" href="../articles/implicit-na.html">Handle implicit missingess with tsibble</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/faq.html">FAQ</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">News</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidyverts/tsibble/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="implicit-na_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Handle implicit missingness with tsibble</h1>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Handle implicit missingness with tsibble</h1>
                         <h4 data-toc-skip class="author">Earo Wang</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverts/tsibble/blob/HEAD/vignettes/implicit-na.Rmd" class="external-link"><code>vignettes/implicit-na.Rmd</code></a></small>
-      <div class="hidden name"><code>implicit-na.Rmd</code></div>
-
+      <div class="d-none name"><code>implicit-na.Rmd</code></div>
     </div>
 
     
     
-<p>Assuming you have <a href="https://tsibble.tidyverts.org/articles/intro-tsibble.html">set up a tsibble</a>, you are ready for undertaking analysis in temporal context. Many time operations, such as lag and lead, assume an intact vector input ordered in time. To avoid inviting these errors into the analysis, it is a good practice to inspect any <strong>implicit missingness</strong> of the tsibble before analysis. A handful of tools are provided to understand and tackle missing values: (1) <code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2) <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3) <code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit ones, along with imputing by values or functions. These functions have a common argument <code>.full</code>. If <code>FALSE</code> (default) looks into the time period for each key, otherwise the full-length time span. The <code>pedestrian</code> data contains hourly tallies of pedestrians at four counting sensors in 2015 and 2016 in inner Melbourne.</p>
+<p>Assuming you have <a href="https://tsibble.tidyverts.org/articles/intro-tsibble.html">set up
+a tsibble</a>, you are ready for undertaking analysis in temporal
+context. Many time operations, such as lag and lead, assume an intact
+vector input ordered in time. To avoid inviting these errors into the
+analysis, it is a good practice to inspect any <strong>implicit
+missingness</strong> of the tsibble before analysis. A handful of tools
+are provided to understand and tackle missing values: (1)
+<code><a href="../reference/has_gaps.html">has_gaps()</a></code> checks if there exists implicit missingness; (2)
+<code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> reports all implicit missing entries; (3)
+<code><a href="../reference/count_gaps.html">count_gaps()</a></code> summarises the time ranges that are absent
+from the data; (4) <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> turns them into explicit
+ones, along with imputing by values or functions. These functions have a
+common argument <code>.full</code>. If <code>FALSE</code> (default)
+looks into the time period for each key, otherwise the full-length time
+span. The <code>pedestrian</code> data contains hourly tallies of
+pedestrians at four counting sensors in 2015 and 2016 in inner
+Melbourne.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org">tsibble</a></span><span class="op">)</span></span>
@@ -130,7 +128,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 66,032 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 66,032 more rows</span></span></span></code></pre></div>
 <p>Indeed each sensor has gaps in time.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/has_gaps.html">has_gaps</a></span><span class="op">(</span><span class="va">pedestrian</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -141,7 +139,14 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bourke Street Mall (North)    TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> QV Market-Elizabeth St (West) TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Southern Cross Station        TRUE</span></span></code></pre></div>
-<p>So where are these gaps? <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> gives a detailed report of missing observations. <code><a href="../reference/count_gaps.html">count_gaps()</a></code> presents a summarised table about the individual time gap alongside the number of missing observations for each key. It is clear that Birrarung Marr exhibits many chunks of missingness, while Bourke Street Mall (North) displays as many consecutive missingness as 1128. If <code>.full = FALSE</code>, the opening gap for Bourke Street Mall (North) will not be recognised.</p>
+<p>So where are these gaps? <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> gives a detailed
+report of missing observations. <code><a href="../reference/count_gaps.html">count_gaps()</a></code> presents a
+summarised table about the individual time gap alongside the number of
+missing observations for each key. It is clear that Birrarung Marr
+exhibits many chunks of missingness, while Bourke Street Mall (North)
+displays as many consecutive missingness as 1128. If
+<code>.full = FALSE</code>, the opening gap for Bourke Street Mall
+(North) will not be recognised.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped_gaps</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/count_gaps.html">count_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -168,7 +173,10 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> Southern Cross Station        2016-03-08 <span style="color: #949494;">02:00:00</span> 2016-03-08 <span style="color: #949494;">02:00:00</span>     1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> Southern Cross Station        2016-03-29 <span style="color: #949494;">02:00:00</span> 2016-03-29 <span style="color: #949494;">03:00:00</span>     2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> Southern Cross Station        2016-04-03 <span style="color: #949494;">02:00:00</span> 2016-04-03 <span style="color: #949494;">02:00:00</span>     1</span></span></code></pre></div>
-<p>These gaps can be visually presented using <strong>ggplot2</strong> as follows. There are two points popping out to us at all sensors, probably due to the fact that the system skipped the extra hour when switching from daylight savings to standard time.</p>
+<p>These gaps can be visually presented using <strong>ggplot2</strong>
+as follows. There are two points popping out to us at all sensors,
+probably due to the fact that the system skipped the extra hour when
+switching from daylight savings to standard time.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ped_gaps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sensor</span>, colour <span class="op">=</span> <span class="va">Sensor</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -178,7 +186,12 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="implicit-na_files/figure-html/ggplot-gaps-1.png" width="672"></p>
-<p>We have learned if any missing periods and where, and we enlarge the tsibble to include explicit <code>NA</code> (previously as implicit missingness). The function <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> takes care of filling the key and index, and leaves other variables filled by the default <code>NA</code>. The <code>pedestrian</code> data initially contains 66037 and gets augmented to 70176.</p>
+<p>We have learned if any missing periods and where, and we enlarge the
+tsibble to include explicit <code>NA</code> (previously as implicit
+missingness). The function <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code> takes care of
+filling the key and index, and leaves other variables filled by the
+default <code>NA</code>. The <code>pedestrian</code> data initially
+contains 66037 and gets augmented to 70176.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped_full</span> <span class="op">&lt;-</span> <span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>.full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -192,52 +205,35 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">02:00:00</span> 2015-01-01     2   567</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">03:00:00</span> 2015-01-01     3   264</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Birrarung Marr 2015-01-01 <span style="color: #949494;">04:00:00</span> 2015-01-01     4   139</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 70,171 more rows</span></span></span></code></pre></div>
-<p>Other than <code>NA</code>, a set of name-value pairs goes along with <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as desired.</p>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 70,171 more rows</span></span></span></code></pre></div>
+<p>Other than <code>NA</code>, a set of name-value pairs goes along with
+<code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>, by imputing values or functions as
+desired.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fl">0L</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">pedestrian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/group_by_key.html">group_by_key</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/fill_gaps.html">fill_gaps</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span>, .full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by <a href="https://earo.me" class="external-link">Earo Wang</a>, <a href="http://dicook.org" class="external-link">Di Cook</a>, <a href="http://robjhyndman.com" class="external-link">Rob Hyndman</a>, <a href="http://mitchelloharawild.com" class="external-link">Mitchell O’Hara-Wild</a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by <a href="https://earo.me" class="external-link">Earo Wang</a>, <a href="https://www.dicook.org/" class="external-link">Di Cook</a>, <a href="https://robjhyndman.com/" class="external-link">Rob Hyndman</a>, <a href="https://blog.mitchelloharawild.com/" class="external-link">Mitchell O’Hara-Wild</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'b7cf533da009fba6bd7a07d530e0824e',
-    indexName: 'tsibble',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
