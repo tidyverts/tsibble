@@ -34,7 +34,7 @@ year-week (\code{yearweek}) objects.
 \code{TRUE}/\code{FALSE} if the year has 53 ISO weeks.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Create or coerce using \code{yearweek()}.
 }

@@ -24,7 +24,7 @@ interval is determined by the greatest common divisor of index column, if \code{
 A tsibble object.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 A tsibble is sorted by its key first and index.

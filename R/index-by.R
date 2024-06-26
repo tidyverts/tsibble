@@ -1,7 +1,7 @@
 #' Group by time index and collapse with `summarise()`
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' `index_by()` is the counterpart of `group_by()` in temporal context, but it
 #' only groups the time index. The following operation is applied to each partition

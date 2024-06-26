@@ -23,7 +23,7 @@ check_slider_input <- function(.x, .size = 1, .step = 1) {
 
 #' Perform sliding windows on a tsibble by row
 #'
-#' \lifecycle{questioning}
+#' `r lifecycle::badge('questioning')`
 #'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
@@ -94,7 +94,7 @@ roll_tsibble <- function(.x, indices, .id = ".id") {
 
 #' Perform tiling windows on a tsibble by row
 #'
-#' \lifecycle{questioning}
+#' `r lifecycle::badge('questioning')`
 #'
 #' @param .x A tsibble.
 #' @param .size A positive integer for window size.
@@ -129,7 +129,7 @@ tiler2 <- function(.x, .size = 1) {
 
 #' Perform stretching windows on a tsibble by row
 #'
-#' \lifecycle{questioning}
+#' `r lifecycle::badge('questioning')`
 #'
 #' @param .x A tsibble.
 #' @param .step A positive integer for incremental step.

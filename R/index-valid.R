@@ -1,7 +1,7 @@
 #' Add custom index support for a tsibble
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' S3 method to add an index type support for a tsibble.
 #'

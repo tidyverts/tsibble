@@ -25,7 +25,7 @@ empty key, and \code{c()} for multiple variables. It works with tidy selector
 elements.}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \itemize{
 \item \code{is_duplicated()}: a logical scalar if the data exist duplicated observations.
 \item \code{are_duplicated()}: a logical vector, the same length as the row number of \code{data}.

@@ -128,7 +128,7 @@ unnest.tbl_ts <- function(data, ...) {
 #' Unnest a data frame consisting of tsibbles to a tsibble
 #'
 #' @description
-#' \lifecycle{deprecated}
+#' `r lifecycle::badge('deprecated')`
 #'
 #' @param data A data frame contains homogenous tsibbles in the list-columns.
 #' @param cols Names of columns to unnest.

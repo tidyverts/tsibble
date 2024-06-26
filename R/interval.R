@@ -1,7 +1,7 @@
 #' Pull time interval from a vector
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' Assuming regularly spaced time, the `interval_pull()` returns a list of time
 #' components as the "interval" class.
@@ -149,7 +149,7 @@ interval_pull.ordered <- function(x) {
 #' Interval constructor for a tsibble
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #' * `new_interval()` creates an interval object.
 #' * `gcd_interval()` computes the greatest common divisor for the difference
 #' of numerics.
@@ -248,7 +248,7 @@ format.interval <- function(x, ...) {
 
 #' Time units from tsibble's "interval" class used for `seq(by = )`
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' @param x An interval.
 #' @export

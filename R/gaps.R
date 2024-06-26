@@ -2,7 +2,7 @@ globalVariables(c(".", ".gaps"))
 
 #' Turn implicit missing values into explicit missing values
 #'
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param .data A tsibble.
 #' @param ... A set of name-value pairs. The values provided will only replace

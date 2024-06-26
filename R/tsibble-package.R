@@ -71,24 +71,6 @@
 #' The tsibble package fully utilises the `print` method from the tibble. Please
 #' refer to [tibble::tibble-package] to change display options.
 #'
-#' @aliases NULL tsibble-package
-#' @importFrom utils head tail
-#' @importFrom stats frequency start end time ts as.ts tsp<-
-#' @importFrom anytime assertTime assertDate utcdate utctime anydate
-#' @importFrom anytime addFormats removeFormats
-#' @importFrom lubridate make_date wday floor_date year month period as.period
-#' @importFrom lubridate as.duration
-#' @importFrom lubridate quarter is.POSIXct rollback force_tz tz is.POSIXt is.Date
-#' @importFrom lubridate decimal_date date_decimal round_date
-#' @importFrom lubridate seconds_to_period month<- weeks days as_date
-#' @importFrom dplyr arrange filter select mutate transmute summarise rename
-#' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
-#' @importFrom dplyr group_rows groups new_grouped_df is_grouped_df
-#' @importFrom dplyr left_join right_join full_join inner_join anti_join
-#' @importFrom dplyr bind_rows bind_cols combine with_order pull first reframe
-#' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
-#' @importFrom tibble new_tibble trunc_mat
-#' @import rlang tidyselect vctrs ellipsis
 #' @examples
 #' # create a tsibble w/o a key ----
 #' tsibble(
@@ -114,3 +96,25 @@ stub <- function() {
   ## I have to import it if I want to state a minimum version.
   if (FALSE) lifecycle::deprecate_soft()
 }
+
+## usethis namespace: start
+#' @importFrom lifecycle deprecated
+#' @importFrom utils head tail
+#' @importFrom stats frequency start end time ts as.ts tsp<-
+#' @importFrom anytime assertTime assertDate utcdate utctime anydate
+#' @importFrom anytime addFormats removeFormats
+#' @importFrom lubridate make_date wday floor_date year month period as.period
+#' @importFrom lubridate as.duration
+#' @importFrom lubridate quarter is.POSIXct rollback force_tz tz is.POSIXt is.Date
+#' @importFrom lubridate decimal_date date_decimal round_date
+#' @importFrom lubridate seconds_to_period month<- weeks days as_date
+#' @importFrom dplyr arrange filter select mutate transmute summarise rename
+#' @importFrom dplyr group_by ungroup group_data grouped_df group_vars
+#' @importFrom dplyr group_rows groups new_grouped_df is_grouped_df
+#' @importFrom dplyr left_join right_join full_join inner_join anti_join
+#' @importFrom dplyr bind_rows bind_cols combine with_order pull first reframe
+#' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
+#' @importFrom tibble new_tibble trunc_mat
+#' @import rlang tidyselect vctrs ellipsis
+## usethis namespace: end
+NULL

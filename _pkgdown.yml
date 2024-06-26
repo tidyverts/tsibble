@@ -1,12 +1,10 @@
 url: https://tsibble.tidyverts.org
 
 template:
+  bootstrap: 5
+  bootswatch: cosmo
   params:
-    bootswatch: cosmo
     ganalytics: UA-83007123-4
-    docsearch:
-      api_key: b7cf533da009fba6bd7a07d530e0824e
-      index_name: tsibble
 
 development:
   mode: auto
@@ -15,16 +13,16 @@ authors:
   Earo Wang:
     href: https://earo.me
   Di Cook:
-    href: http://dicook.org
+    href: https://www.dicook.org/
   Rob Hyndman:
-    href: http://robjhyndman.com
+    href: https://robjhyndman.com/
   Mitchell O'Hara-Wild:
-    href: http://mitchelloharawild.com
+    href: https://blog.mitchelloharawild.com/
 
 reference:
 - title: Overview
   desc: >
-    Describes the key components underlying a **tsibble**, or `tbl_ts`: index, 
+    Describes the key components underlying a **tsibble**, or `tbl_ts`: index,
     key, interval.
   contents:
     - tsibble-package
@@ -43,9 +41,9 @@ reference:
 - title: Tsibble verbs
   desc: >
     Verbs that manipulate data in time-based context. Inspect implicit time
-    gaps with `has_gaps()`, `scan_gaps()`, `count_gaps()` and `fill_gaps()`. 
-    `filter_index()` is a shorthand for filtering time index. `index_by()` and 
-    `group_by_key()` create a grouped tsibble, or `grouped_ts`, but how the data 
+    gaps with `has_gaps()`, `scan_gaps()`, `count_gaps()` and `fill_gaps()`.
+    `filter_index()` is a shorthand for filtering time index. `index_by()` and
+    `group_by_key()` create a grouped tsibble, or `grouped_ts`, but how the data
     looks remains unchanged. Both requires to work with other `tidyverse` verbs.
   contents:
     - has_gaps
@@ -93,7 +91,7 @@ reference:
   desc: >
     Add **tsibble** support for custom index classes with `index_valid()` &
     `interval_pull()`.  `build_tsibble()` provides low-level construction for
-    tsibble. Create a subclass of the tsibble with `new_tsibble()`. 
+    tsibble. Create a subclass of the tsibble with `new_tsibble()`.
   contents:
     - index_valid
     - interval_pull
@@ -126,6 +124,3 @@ navbar:
     href: articles/faq.html
   - text: News
     href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverts/tsibble

@@ -29,7 +29,7 @@ to allow custom interval.}
 an "interval" class
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \itemize{
 \item \code{new_interval()} creates an interval object.
 \item \code{gcd_interval()} computes the greatest common divisor for the difference

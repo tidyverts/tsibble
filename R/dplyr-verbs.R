@@ -166,7 +166,7 @@ group_by.tbl_ts <- function(.data, ..., .add = FALSE,
 #' Group by key variables
 #'
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge('stable')`
 #'
 #' @param .data A `tbl_ts` object.
 #' @param ... Ignored.
