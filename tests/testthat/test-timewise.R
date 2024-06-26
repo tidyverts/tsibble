@@ -21,3 +21,8 @@ test_that("difference() with `order_by`", {
   #   right <- mutate(scrambled, diff = difference(value, order_by = year)), msg)
   # expect_equal(sort(right$diff, na.last = FALSE), difference(tsbl$value))
 })
+
+
+test_that("difference() with short time series (#310)", {
+  expect_length(difference(1, differences = 3), 1L)
+})
