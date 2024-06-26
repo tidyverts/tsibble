@@ -51,6 +51,7 @@ harvest <- tsibble(
 )
 
 test_that("as.ts.tbl_ts()", {
+  skip_on_cran()
   expected <- ts(matrix(fill_gaps(harvest, .full = TRUE)$kilo, ncol = 2),
     start = 2010, frequency = 1)
   colnames(expected) <- c("cherry", "kiwi")

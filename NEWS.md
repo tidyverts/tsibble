@@ -1,3 +1,5 @@
+# tsibble 1.1.5
+
 * Fix `difference()` giving extra NA values when the time series is shorter than the lag length. (#310, @mitchelloharawild)
 
 # tsibble 1.1.4
