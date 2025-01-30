@@ -1,183 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tsibble.tidyverts.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/ISSUE_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/faq.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/implicit-na.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/articles/intro-tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/as-tibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/as-tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/as.ts.tbl_ts.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/build_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/build_tsibble_meta.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/count_gaps.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/default_time_units.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/difference.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/duplicates.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/fill_gaps.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/filter_index.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/group_by_key.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/guess_frequency.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/has_gaps.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/holiday_aus.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/index-by.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/index-rd.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/index_valid.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/interval-pull.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/is-tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/key-data.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/key.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/key_drop_default.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/measured-vars.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/new-data.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/new-interval.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/new_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/pedestrian.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/regular.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/scan_gaps.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/slide_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/stretch_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tile_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/time_in.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tourism.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tsibble-package.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tsibble-scales.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tsibble-tidyverse.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tsibble-vctrs.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/unnest_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/update_tsibble.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/year-month.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/year-quarter.html</loc>
-  </url>
-  <url>
-    <loc>https://tsibble.tidyverts.org/reference/year-week.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://tsibble.tidyverts.org/404.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/CONTRIBUTING.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/ISSUE_TEMPLATE.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/LICENSE.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/SUPPORT.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/articles/faq.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/articles/implicit-na.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/articles/index.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/articles/intro-tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/authors.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/index.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/news/index.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/as-tibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/as-tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/as.ts.tbl_ts.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/build_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/build_tsibble_meta.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/count_gaps.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/default_time_units.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/difference.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/duplicates.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/fill_gaps.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/filter_index.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/group_by_key.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/guess_frequency.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/has_gaps.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/holiday_aus.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/index-by.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/index-rd.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/index.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/index_valid.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/interval-pull.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/is-tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/key-data.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/key.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/key_drop_default.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/measured-vars.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/new-data.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/new-interval.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/new_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/pedestrian.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/reexports.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/regular.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/scan_gaps.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/slide_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/stretch_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tile_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/time_in.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tourism.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tsibble-package.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tsibble-scales.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tsibble-tidyverse.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tsibble-vctrs.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/unnest_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/update_tsibble.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/year-month.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/year-quarter.html</loc></url>
+<url><loc>https://tsibble.tidyverts.org/reference/year-week.html</loc></url>
 </urlset>
+
