@@ -13,7 +13,4 @@ R CMD check succeeded
 
 ## revdepcheck results
 
-We checked 35 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 2 packages: fable and UComp
+I haven't done any reverse dependencies check, since I've skipped some tests about this submission.
