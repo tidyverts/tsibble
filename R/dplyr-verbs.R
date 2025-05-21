@@ -1,3 +1,6 @@
+# tidy evaluation pronouns
+globalVariables(c(".data", ".env"))
+
 #' Tidyverse methods for tsibble
 #'
 #' @description
@@ -210,7 +213,7 @@ count.tbl_ts <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
 #' @export
 dplyr_row_slice.tbl_ts <- function(data, i, ..., preserve = FALSE) {
   tbl <- as_tibble(data)
-  loc_df <- summarise(tbl, !!".loc" := list2(i))
+  loc_df <- summarise(tbl, !!".loc" := list2(.env$i))
   ascending <- all(map_lgl(loc_df[[".loc"]], validate_order))
   res <- dplyr_row_slice(tbl, i, ..., preserve = preserve)
   if (preserve) {
