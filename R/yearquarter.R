@@ -125,7 +125,8 @@ yearquarter.yearquarter <- function(x, fiscal_start = attr(x, "fiscal_start")) {
   mth <- fiscal_start - fs
   new_yearquarter(
     new_date(x) + period(year = -(fs == 1) + (fiscal_start == 1), month = mth),
-    fiscal_start)
+    fiscal_start
+  )
 }
 
 #' @export
@@ -316,13 +317,17 @@ format.yearquarter <- function(x, format = "%Y Q%q", ...) {
   qtr <- round(yrqtr %% 1 * 10)
   qtr_sub <- map_chr(formatC(qtr), function(z) gsub("%q", z, x = format))
   qtr_sub[is.na(qtr_sub)] <- "-" # NA formats cause errors
-  format.Date(make_date(yr, qtr * 3 - 2), format = qtr_sub)
+  dates <- make_date(yr, qtr * 3 - 2)
+  names(dates) <- names(x)
+  format.Date(dates, format = qtr_sub)
 }
 
 #' @rdname tsibble-vctrs
 #' @export
 obj_print_data.yearquarter <- function(x, ...) {
-  if (length(x) == 0) return()
+  if (length(x) == 0) {
+    return()
+  }
   print(format(x))
 }
 
@@ -394,4 +399,3 @@ intersect.yearquarter <- set_ops("yearquarter", op = "intersect")
 
 #' @export
 setdiff.yearquarter <- set_ops("yearquarter", op = "setdiff")
-
