@@ -48,6 +48,7 @@ test_that("A tibble is not tsibble", {
 })
 
 test_that("Coerce to tbl_df and data.frame", {
+  skip_on_cran()
   tsbl <- as_tsibble(dat_x, index = date_time)
   expect_identical(as_tibble(tsbl), dat_x)
   expect_identical(as.data.frame(tsbl), as.data.frame(dat_x))

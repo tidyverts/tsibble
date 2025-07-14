@@ -361,3 +361,14 @@ test_that("drop redundant key #196", {
     select(-Purpose)
   expect_equal(key_vars(sim_tourism), c("Region", "State"))
 })
+
+test_that("filter() with `i` name in data #317", {
+  tsibble::tsibble(
+    i = rep(1:5, 2),
+    k = c(rep('a', 5), rep('b', 5)),
+    x = c(rnorm(5), rpois(5, 1)),
+    key = k,
+    index = i
+  ) %>%
+    filter(k == 'a')
+})
