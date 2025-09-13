@@ -22,7 +22,7 @@ globalVariables("holiday")
 #' holiday_aus(2016, state = "VIC")
 #' holiday_aus(2013:2016, state = "ACT")
 holiday_aus <- function(year, state = "national") {
-  pkg_not_available("timeDate")
+  check_installed("timeDate")
   if (!is_integerish(year)) {
     abort("Argument `year` must be integers.")
   }
