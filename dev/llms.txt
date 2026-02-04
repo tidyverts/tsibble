@@ -1,0 +1,386 @@
+# tsibble
+
+The **tsibble** package provides a data infrastructure for tidy temporal
+data with wrangling tools. Adapting the [tidy data
+principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
+*tsibble* is a data- and model-oriented object. In *tsibble*:
+
+1.  Index is a variable with inherent ordering from past to present.
+2.  Key is a set of variables that define observational units over time.
+3.  Each observation should be uniquely identified by **index** and
+    **key**.
+4.  Each observational unit should be measured at a common **interval**,
+    if regularly spaced.
+
+## Installation
+
+You could install the stable version on CRAN:
+
+``` r
+install.packages("tsibble")
+```
+
+You could install the development version from Github using
+
+``` r
+# install.packages("remotes")
+remotes::install_github("tidyverts/tsibble")
+```
+
+## Get started
+
+### Coerce to a tsibble with `as_tsibble()`
+
+To coerce a data frame to *tsibble*, we need to declare key and index.
+For example, in the `weather` data from the package `nycflights13`, the
+`time_hour` containing the date-times should be declared as **index**,
+and the `origin` as **key**. Other columns can be considered as measured
+variables.
+
+``` r
+library(dplyr)
+library(tsibble)
+weather <- nycflights13::weather %>% 
+  select(origin, time_hour, temp, humid, precip)
+weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
+weather_tsbl
+#> # A tsibble: 26,115 x 5 [1h] <America/New_York>
+#> # Key:       origin [3]
+#>   origin time_hour            temp humid precip
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#> # ℹ 26,110 more rows
+```
+
+The **key** can be comprised of empty, one, or more variables. See
+[`package?tsibble`](https://tsibble.tidyverts.org/dev/reference/tsibble-package.md)
+and
+[`vignette("intro-tsibble")`](https://tsibble.tidyverts.org/articles/intro-tsibble.html)
+for details.
+
+The **interval** is computed from index based on the representation,
+ranging from year to nanosecond, from numerics to ordered factors. The
+table below shows how tsibble interprets some common time formats.
+
+| **Interval** | **Class**                 |
+|--------------|---------------------------|
+| Annual       | `integer`/`double`        |
+| Quarterly    | `yearquarter`             |
+| Monthly      | `yearmonth`               |
+| Weekly       | `yearweek`                |
+| Daily        | `Date`/`difftime`         |
+| Subdaily     | `POSIXt`/`difftime`/`hms` |
+
+A full list of index classes supported by tsibble can be found in
+[`package?tsibble`](https://tsibble.tidyverts.org/dev/reference/tsibble-package.md).
+
+### `fill_gaps()` to turn implicit missing values into explicit missing values
+
+Often there are implicit missing cases in time series. If the
+observations are made at regular time interval, we could turn these
+implicit missingness to be explicit simply using
+[`fill_gaps()`](https://tsibble.tidyverts.org/dev/reference/fill_gaps.md),
+filling gaps in precipitation (`precip`) with 0 in the meanwhile. It is
+quite common to replaces `NA`s with its previous observation for each
+origin in time series analysis, which is easily done using `fill()` from
+**tidyr**.
+
+``` r
+full_weather <- weather_tsbl %>%
+  fill_gaps(precip = 0) %>% 
+  group_by_key() %>% 
+  tidyr::fill(temp, humid, .direction = "down")
+full_weather
+#> # A tsibble: 26,190 x 5 [1h] <America/New_York>
+#> # Key:       origin [3]
+#> # Groups:    origin [3]
+#>   origin time_hour            temp humid precip
+#>   <chr>  <dttm>              <dbl> <dbl>  <dbl>
+#> 1 EWR    2013-01-01 01:00:00  39.0  59.4      0
+#> 2 EWR    2013-01-01 02:00:00  39.0  61.6      0
+#> 3 EWR    2013-01-01 03:00:00  39.0  64.4      0
+#> 4 EWR    2013-01-01 04:00:00  39.9  62.2      0
+#> 5 EWR    2013-01-01 05:00:00  39.0  64.4      0
+#> # ℹ 26,185 more rows
+```
+
+[`fill_gaps()`](https://tsibble.tidyverts.org/dev/reference/fill_gaps.md)
+also handles filling in time gaps by values or functions, and respects
+time zones for date-times. Wanna a quick overview of implicit missing
+values? Check out
+[`vignette("implicit-na")`](https://tsibble.tidyverts.org/articles/implicit-na.html).
+
+### `index_by()` + `summarise()` to aggregate over calendar periods
+
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md)
+is the counterpart of
+[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html) in
+temporal context, but it groups the index only. In conjunction with
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md),
+[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
+aggregates interested variables over time periods.
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md)
+goes hand in hand with the index functions including
+[`as.Date()`](https://rdrr.io/r/base/as.Date.html),
+[`yearweek()`](https://tsibble.tidyverts.org/dev/reference/year-week.md),
+[`yearmonth()`](https://tsibble.tidyverts.org/dev/reference/year-month.md),
+and
+[`yearquarter()`](https://tsibble.tidyverts.org/dev/reference/year-quarter.md),
+as well as other friends from **lubridate**. For example, it would be of
+interest in computing average temperature and total precipitation per
+month, by applying
+[`yearmonth()`](https://tsibble.tidyverts.org/dev/reference/year-month.md)
+to the index variable (referred to as `.`).
+
+``` r
+full_weather %>%
+  group_by_key() %>%
+  index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates
+  summarise(
+    avg_temp = mean(temp, na.rm = TRUE),
+    ttl_precip = sum(precip, na.rm = TRUE)
+  )
+#> # A tsibble: 36 x 4 [1M]
+#> # Key:       origin [3]
+#>   origin year_month avg_temp ttl_precip
+#>   <chr>       <mth>    <dbl>      <dbl>
+#> 1 EWR      2013 Jan     35.6       3.53
+#> 2 EWR      2013 Feb     34.2       3.83
+#> 3 EWR      2013 Mar     40.1       3   
+#> 4 EWR      2013 Apr     53.0       1.47
+#> 5 EWR      2013 May     63.3       5.44
+#> # ℹ 31 more rows
+```
+
+While collapsing rows (like
+[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)),
+[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html) and
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md)
+will take care of updating the key and index respectively. This
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md) +
+[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
+combo can help with regularising a tsibble of irregular time space too.
+
+## Learn more about tsibble
+
+An ecosystem, [the tidyver*ts*](https://tidyverts.org/), is built around
+the *tsibble* object for tidy time series analysis.
+
+- The [tsibbledata](https://tsibbledata.tidyverts.org) package curates a
+  range of tsibble data examples to poke around the tsibble object.
+- The [feasts](https://feasts.tidyverts.org) package provides support
+  for visualising the data and extracting time series features.
+- The [fable](https://fable.tidyverts.org) package provides common
+  forecasting methods for tsibble, such as ARIMA and ETS. The
+  [fabletools](https://fabletools.tidyverts.org) package, which is
+  **fable** built upon, lays the modelling infrastructure to ease the
+  programming with tsibble.
+
+------------------------------------------------------------------------
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://github.com/tidyverts/tsibble/blob/main/.github/CODE_OF_CONDUCT.md).
+By participating in this project you agree to abide by its terms.
+
+# Package index
+
+## Overview
+
+Describes the key components underlying a **tsibble**, or `tbl_ts`:
+index, key, interval.
+
+- [`tsibble-package`](https://tsibble.tidyverts.org/dev/reference/tsibble-package.md)
+  : tsibble: tidy temporal data frames and tools
+
+## Create/coerce and append to a tsibble
+
+[`tsibble()`](https://tsibble.tidyverts.org/dev/reference/tsibble.md)
+creates a `tbl_ts`;
+[`as_tsibble()`](https://tsibble.tidyverts.org/dev/reference/as-tsibble.md)
+coerces other objects to `tbl_ts`.
+
+- [`tsibble()`](https://tsibble.tidyverts.org/dev/reference/tsibble.md)
+  **\[stable\]** : Create a tsibble object
+- [`as_tsibble()`](https://tsibble.tidyverts.org/dev/reference/as-tsibble.md)
+  **\[stable\]** : Coerce to a tsibble object
+- [`is_tsibble()`](https://tsibble.tidyverts.org/dev/reference/is-tsibble.md)
+  [`is_grouped_ts()`](https://tsibble.tidyverts.org/dev/reference/is-tsibble.md)
+  **\[stable\]** : If the object is a tsibble
+- [`update_tsibble()`](https://tsibble.tidyverts.org/dev/reference/update_tsibble.md)
+  : Update key and index for a tsibble
+- [`new_data()`](https://tsibble.tidyverts.org/dev/reference/new-data.md)
+  [`append_row()`](https://tsibble.tidyverts.org/dev/reference/new-data.md)
+  **\[stable\]** : New tsibble data and append new observations to a
+  tsibble
+- [`is_duplicated()`](https://tsibble.tidyverts.org/dev/reference/duplicates.md)
+  [`are_duplicated()`](https://tsibble.tidyverts.org/dev/reference/duplicates.md)
+  [`duplicates()`](https://tsibble.tidyverts.org/dev/reference/duplicates.md)
+  **\[stable\]** : Test duplicated observations determined by key and
+  index variables
+
+## Tsibble verbs
+
+Verbs that manipulate data in time-based context. Inspect implicit time
+gaps with
+[`has_gaps()`](https://tsibble.tidyverts.org/dev/reference/has_gaps.md),
+[`scan_gaps()`](https://tsibble.tidyverts.org/dev/reference/scan_gaps.md),
+[`count_gaps()`](https://tsibble.tidyverts.org/dev/reference/count_gaps.md)
+and
+[`fill_gaps()`](https://tsibble.tidyverts.org/dev/reference/fill_gaps.md).
+[`filter_index()`](https://tsibble.tidyverts.org/dev/reference/filter_index.md)
+is a shorthand for filtering time index.
+[`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md)
+and
+[`group_by_key()`](https://tsibble.tidyverts.org/dev/reference/group_by_key.md)
+create a grouped tsibble, or `grouped_ts`, but how the data looks
+remains unchanged. Both requires to work with other `tidyverse` verbs.
+
+- [`has_gaps()`](https://tsibble.tidyverts.org/dev/reference/has_gaps.md)
+  : Does a tsibble have implicit gaps in time?
+
+- [`scan_gaps()`](https://tsibble.tidyverts.org/dev/reference/scan_gaps.md)
+  : Scan a tsibble for implicit missing observations
+
+- [`count_gaps()`](https://tsibble.tidyverts.org/dev/reference/count_gaps.md)
+  : Count implicit gaps
+
+- [`fill_gaps()`](https://tsibble.tidyverts.org/dev/reference/fill_gaps.md)
+  **\[stable\]** : Turn implicit missing values into explicit missing
+  values
+
+- [`index_by()`](https://tsibble.tidyverts.org/dev/reference/index-by.md)
+  **\[stable\]** :
+
+  Group by time index and collapse with
+  [`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
+
+- [`group_by_key()`](https://tsibble.tidyverts.org/dev/reference/group_by_key.md)
+  **\[stable\]** : Group by key variables
+
+- [`filter_index()`](https://tsibble.tidyverts.org/dev/reference/filter_index.md)
+  : A shorthand for filtering time index for a tsibble
+
+## Tidyverse methods
+
+Dplyr and tidyr verbs that support manipulating and reshaping `tbl_ts`
+in time-based context.
+
+- [`tsibble-tidyverse`](https://tsibble.tidyverts.org/dev/reference/tsibble-tidyverse.md)
+  : Tidyverse methods for tsibble
+
+## Vector operations
+
+- [`difference()`](https://tsibble.tidyverts.org/dev/reference/difference.md)
+  **\[stable\]** : Lagged differences
+
+## Index classes
+
+New S3 classes to represent year-week, year-month, and year-quarter.
+
+- [`yearmonth()`](https://tsibble.tidyverts.org/dev/reference/year-month.md)
+  [`make_yearmonth()`](https://tsibble.tidyverts.org/dev/reference/year-month.md)
+  [`is_yearmonth()`](https://tsibble.tidyverts.org/dev/reference/year-month.md)
+  **\[stable\]** : Represent year-month
+- [`yearquarter()`](https://tsibble.tidyverts.org/dev/reference/year-quarter.md)
+  [`make_yearquarter()`](https://tsibble.tidyverts.org/dev/reference/year-quarter.md)
+  [`is_yearquarter()`](https://tsibble.tidyverts.org/dev/reference/year-quarter.md)
+  [`fiscal_year()`](https://tsibble.tidyverts.org/dev/reference/year-quarter.md)
+  **\[stable\]** : Represent year-quarter
+- [`yearweek()`](https://tsibble.tidyverts.org/dev/reference/year-week.md)
+  [`make_yearweek()`](https://tsibble.tidyverts.org/dev/reference/year-week.md)
+  [`is_yearweek()`](https://tsibble.tidyverts.org/dev/reference/year-week.md)
+  [`is_53weeks()`](https://tsibble.tidyverts.org/dev/reference/year-week.md)
+  **\[stable\]** : Represent year-week based on the ISO 8601 standard
+  (with flexible start day)
+- [`time_in()`](https://tsibble.tidyverts.org/dev/reference/time_in.md)
+  : If time falls in the ranges using compact expressions
+- [`guess_frequency()`](https://tsibble.tidyverts.org/dev/reference/guess_frequency.md)
+  **\[stable\]** : Guess a time frequency from other index objects
+- [`scale_x_yearquarter()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  [`scale_y_yearquarter()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  [`scale_x_yearmonth()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  [`scale_y_yearmonth()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  [`scale_x_yearweek()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  [`scale_y_yearweek()`](https://tsibble.tidyverts.org/dev/reference/tsibble-scales.md)
+  : tsibble scales for ggplot2
+
+## Calendar
+
+- [`holiday_aus()`](https://tsibble.tidyverts.org/dev/reference/holiday_aus.md)
+  : Australian national and state-based public holiday
+
+## Metadata
+
+- [`key()`](https://tsibble.tidyverts.org/dev/reference/key.md)
+  [`key_vars()`](https://tsibble.tidyverts.org/dev/reference/key.md) :
+  Return key variables
+- [`key_data()`](https://tsibble.tidyverts.org/dev/reference/key-data.md)
+  [`key_rows()`](https://tsibble.tidyverts.org/dev/reference/key-data.md)
+  [`key_size()`](https://tsibble.tidyverts.org/dev/reference/key-data.md)
+  [`n_keys()`](https://tsibble.tidyverts.org/dev/reference/key-data.md)
+  : Key metadata
+- [`index()`](https://tsibble.tidyverts.org/dev/reference/index-rd.md)
+  [`index_var()`](https://tsibble.tidyverts.org/dev/reference/index-rd.md)
+  [`index2()`](https://tsibble.tidyverts.org/dev/reference/index-rd.md)
+  [`index2_var()`](https://tsibble.tidyverts.org/dev/reference/index-rd.md)
+  : Return index variable from a tsibble
+- [`measures()`](https://tsibble.tidyverts.org/dev/reference/measured-vars.md)
+  [`measured_vars()`](https://tsibble.tidyverts.org/dev/reference/measured-vars.md)
+  : Return measured variables
+- [`interval()`](https://tsibble.tidyverts.org/dev/reference/regular.md)
+  [`is_regular()`](https://tsibble.tidyverts.org/dev/reference/regular.md)
+  [`is_ordered()`](https://tsibble.tidyverts.org/dev/reference/regular.md)
+  : Meta-information of a tsibble
+
+## Extend tsibble
+
+Add **tsibble** support for custom index classes with
+[`index_valid()`](https://tsibble.tidyverts.org/dev/reference/index_valid.md)
+&
+[`interval_pull()`](https://tsibble.tidyverts.org/dev/reference/interval-pull.md).
+[`build_tsibble()`](https://tsibble.tidyverts.org/dev/reference/build_tsibble.md)
+provides low-level construction for tsibble. Create a subclass of the
+tsibble with
+[`new_tsibble()`](https://tsibble.tidyverts.org/dev/reference/new_tsibble.md).
+
+- [`index_valid()`](https://tsibble.tidyverts.org/dev/reference/index_valid.md)
+  **\[stable\]** : Add custom index support for a tsibble
+- [`interval_pull()`](https://tsibble.tidyverts.org/dev/reference/interval-pull.md)
+  **\[stable\]** : Pull time interval from a vector
+- [`new_interval()`](https://tsibble.tidyverts.org/dev/reference/new-interval.md)
+  [`is_regular_interval()`](https://tsibble.tidyverts.org/dev/reference/new-interval.md)
+  [`gcd_interval()`](https://tsibble.tidyverts.org/dev/reference/new-interval.md)
+  **\[stable\]** : Interval constructor for a tsibble
+- [`new_tsibble()`](https://tsibble.tidyverts.org/dev/reference/new_tsibble.md)
+  : Create a subclass of a tsibble
+- [`build_tsibble()`](https://tsibble.tidyverts.org/dev/reference/build_tsibble.md)
+  : Low-level constructor for a tsibble object
+
+## Coerce to other objects
+
+- [`as.ts(`*`<tbl_ts>`*`)`](https://tsibble.tidyverts.org/dev/reference/as.ts.tbl_ts.md)
+  **\[stable\]** : Coerce a tsibble to a time series
+- [`as_tibble(`*`<tbl_ts>`*`)`](https://tsibble.tidyverts.org/dev/reference/as-tibble.md)
+  : Coerce to a tibble or data frame
+
+## Data
+
+- [`pedestrian`](https://tsibble.tidyverts.org/dev/reference/pedestrian.md)
+  : Pedestrian counts in the city of Melbourne
+- [`tourism`](https://tsibble.tidyverts.org/dev/reference/tourism.md) :
+  Australian domestic overnight trips
+
+# Articles
+
+### All vignettes
+
+- [Frequently Asked Questions and
+  Answers](https://tsibble.tidyverts.org/dev/articles/faq.md):
+- [Handle implicit missingness with
+  tsibble](https://tsibble.tidyverts.org/dev/articles/implicit-na.md):
+- [Introduction to
+  tsibble](https://tsibble.tidyverts.org/dev/articles/intro-tsibble.md):
