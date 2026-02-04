@@ -269,8 +269,13 @@ build_tsibble <- function(x, key = NULL, key_data = NULL, index, index2 = index,
     key <- head(names(key_data), -1L)
   }
   key_vars <- names(eval_select(enquo(key), data = x))
-
+  
   tbl <- as_tibble(x)
+  # Restore groups from `x`
+  if (dplyr::is_grouped_df(x)) {
+    tbl <- dplyr::new_grouped_df(tbl, group_data(x))
+  }
+
   # extract or pass the index var
   qindex <- enquo(index)
   index <- validate_index(tbl, !!qindex)
@@ -503,11 +508,6 @@ as_tibble.tbl_ts <- function(x, ...) {
 #' @export
 as_tibble.grouped_ts <- function(x, ...) {
   new_grouped_df(x, groups = group_data(x))
-}
-
-#' @export
-as_tibble.grouped_df <- function(x, ...) {
-  x
 }
 
 #' @export
