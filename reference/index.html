@@ -47,8 +47,7 @@
 
       <div class="section-desc"><p>Describes the key components underlying a <strong>tsibble</strong>, or <code>tbl_ts</code>: index, key, interval.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -64,8 +63,7 @@
 
       <div class="section-desc"><p><code><a href="../reference/tsibble.html">tsibble()</a></code> creates a <code>tbl_ts</code>; <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> coerces other objects to <code>tbl_ts</code>.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -76,31 +74,36 @@
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Create a tsibble object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="as-tsibble.html">as_tsibble()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Coerce to a tsibble object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is-tsibble.html">is_tsibble()</a></code> <code><a href="is-tsibble.html">is_grouped_ts()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>If the object is a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="update_tsibble.html">update_tsibble()</a></code>
 
         </dt>
         <dd>Update key and index for a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="new-data.html">new_data()</a></code> <code><a href="new-data.html">append_row()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>New tsibble data and append new observations to a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="duplicates.html">is_duplicated()</a></code> <code><a href="duplicates.html">are_duplicated()</a></code> <code><a href="duplicates.html">duplicates()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
@@ -111,8 +114,7 @@
 
       <div class="section-desc"><p>Verbs that manipulate data in time-based context. Inspect implicit time gaps with <code><a href="../reference/has_gaps.html">has_gaps()</a></code>, <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code>, <code><a href="../reference/count_gaps.html">count_gaps()</a></code> and <code><a href="../reference/fill_gaps.html">fill_gaps()</a></code>. <code><a href="../reference/filter_index.html">filter_index()</a></code> is a shorthand for filtering time index. <code><a href="../reference/index-by.html">index_by()</a></code> and <code><a href="../reference/group_by_key.html">group_by_key()</a></code> create a grouped tsibble, or <code>grouped_ts</code>, but how the data looks remains unchanged. Both requires to work with other <code>tidyverse</code> verbs.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -123,37 +125,43 @@
 
         </dt>
         <dd>Does a tsibble have implicit gaps in time?</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="scan_gaps.html">scan_gaps()</a></code>
 
         </dt>
         <dd>Scan a tsibble for implicit missing observations</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="count_gaps.html">count_gaps()</a></code>
 
         </dt>
         <dd>Count implicit gaps</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fill_gaps.html">fill_gaps()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Turn implicit missing values into explicit missing values</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="index-by.html">index_by()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Group by time index and collapse with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="group_by_key.html">group_by_key()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Group by key variables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="filter_index.html">filter_index()</a></code>
 
@@ -164,8 +172,7 @@
 
       <div class="section-desc"><p>Dplyr and tidyr verbs that support manipulating and reshaping <code>tbl_ts</code> in time-based context.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -181,8 +188,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -198,8 +204,7 @@
 
       <div class="section-desc"><p>New S3 classes to represent year-week, year-month, and year-quarter.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -210,31 +215,36 @@
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Represent year-month</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="year-quarter.html">yearquarter()</a></code> <code><a href="year-quarter.html">make_yearquarter()</a></code> <code><a href="year-quarter.html">is_yearquarter()</a></code> <code><a href="year-quarter.html">fiscal_year()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Represent year-quarter</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="year-week.html">yearweek()</a></code> <code><a href="year-week.html">make_yearweek()</a></code> <code><a href="year-week.html">is_yearweek()</a></code> <code><a href="year-week.html">is_53weeks()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Represent year-week based on the ISO 8601 standard (with flexible start day)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="time_in.html">time_in()</a></code>
 
         </dt>
         <dd>If time falls in the ranges using compact expressions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="guess_frequency.html">guess_frequency()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Guess a time frequency from other index objects</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="tsibble-scales.html">scale_x_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_y_yearquarter()</a></code> <code><a href="tsibble-scales.html">scale_x_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_y_yearmonth()</a></code> <code><a href="tsibble-scales.html">scale_x_yearweek()</a></code> <code><a href="tsibble-scales.html">scale_y_yearweek()</a></code>
 
@@ -245,8 +255,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -262,8 +271,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -274,25 +282,29 @@
 
         </dt>
         <dd>Return key variables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="key-data.html">key_data()</a></code> <code><a href="key-data.html">key_rows()</a></code> <code><a href="key-data.html">key_size()</a></code> <code><a href="key-data.html">n_keys()</a></code>
 
         </dt>
         <dd>Key metadata</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="index-rd.html">index()</a></code> <code><a href="index-rd.html">index_var()</a></code> <code><a href="index-rd.html">index2()</a></code> <code><a href="index-rd.html">index2_var()</a></code>
 
         </dt>
         <dd>Return index variable from a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="measured-vars.html">measures()</a></code> <code><a href="measured-vars.html">measured_vars()</a></code>
 
         </dt>
         <dd>Return measured variables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="regular.html">interval()</a></code> <code><a href="regular.html">is_regular()</a></code> <code><a href="regular.html">is_ordered()</a></code>
 
@@ -303,8 +315,7 @@
 
       <div class="section-desc"><p>Add <strong>tsibble</strong> support for custom index classes with <code><a href="../reference/index_valid.html">index_valid()</a></code> &amp; <code><a href="../reference/interval-pull.html">interval_pull()</a></code>. <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code> provides low-level construction for tsibble. Create a subclass of the tsibble with <code><a href="../reference/new_tsibble.html">new_tsibble()</a></code>.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -315,25 +326,29 @@
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Add custom index support for a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="interval-pull.html">interval_pull()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Pull time interval from a vector</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="new-interval.html">new_interval()</a></code> <code><a href="new-interval.html">is_regular_interval()</a></code> <code><a href="new-interval.html">gcd_interval()</a></code>
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Interval constructor for a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="new_tsibble.html">new_tsibble()</a></code>
 
         </dt>
         <dd>Create a subclass of a tsibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="build_tsibble.html">build_tsibble()</a></code>
 
@@ -344,8 +359,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -356,7 +370,8 @@
           <span class="badge lifecycle lifecycle-stable">stable</span>
         </dt>
         <dd>Coerce a tsibble to a time series</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="as-tibble.html">as_tibble(<i>&lt;tbl_ts&gt;</i>)</a></code>
 
@@ -367,8 +382,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -379,7 +393,8 @@
 
         </dt>
         <dd>Pedestrian counts in the city of Melbourne</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="tourism.html">tourism</a></code>
 
@@ -395,7 +410,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
