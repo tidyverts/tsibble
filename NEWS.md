@@ -1,5 +1,8 @@
 # tsibble (development version)
 
+* Fixed `scan_gaps()` failing with data containing the `int` column name.
+* Removed `as_tibble.grouped_df()` to prevent masking `dplyr::as_tibble.grouped_df()`.
+
 # tsibble 1.1.5
 
 * Fix `difference()` giving extra NA values when the time series is shorter than the lag length. (#310, @mitchelloharawild)
