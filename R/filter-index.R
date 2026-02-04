@@ -137,9 +137,7 @@ end_window.numeric <- function(x, y = NULL, ...) {
 
 #' @export
 start_window.difftime <- function(x, y = NULL, ...) {
-  if (!requireNamespace("hms", quietly = TRUE)) {
-    abort("Package `hms` required.\nPlease install and try again.")
-  }
+  check_installed("hms")
   if (is_null(y)) {
     hms::as_hms(min(x))
   } else {

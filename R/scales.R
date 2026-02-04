@@ -13,8 +13,8 @@
 NULL
 
 scale_fun_pkg_check <- function() {
-  pkg_not_available("ggplot2", "3.3.0")
-  pkg_not_available("scales", "1.1.0")
+  check_installed("ggplot2", version = "3.3.0")
+  check_installed("scales", version = "1.1.0")
 }
 
 scale_type.yearquarter <- function(x) c("yearquarter", "date", "continuous")

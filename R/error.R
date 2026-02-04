@@ -38,16 +38,3 @@ not_tsibble <- function(x) {
     abort(sprintf("%s is not a tsibble.", deparse(substitute(x))))
   }
 }
-
-pkg_not_available <- function(pkg, min_version = NULL) {
-  pkg_lgl <- requireNamespace(pkg, quietly = TRUE)
-  if (!pkg_lgl) {
-    abort(sprintf("Package `%s` required.\nPlease install and try again.", pkg))
-  } else if (pkg_lgl && is_null(min_version)) {
-    return()
-  } else if (utils::packageVersion(pkg) < min_version) {
-    abort(sprintf(
-      "Package `%s` (>= v%s) required.\nPlease install and try again.", 
-      pkg, min_version))
-  }
-}
