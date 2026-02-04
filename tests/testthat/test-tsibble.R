@@ -1,9 +1,5 @@
 set.seed(2020)
-idx_second <- seq(
-  ymd_hms("2017-01-01 00:00:00"),
-  ymd_hms("2017-01-01 00:00:04"),
-  by = 1
-)
+idx_second <- as.POSIXct("2017-01-01 00:00:00", tz = "UTC") + 0:4
 dat_x <- tibble(
   date_time = idx_second,
   value = rnorm(5)
