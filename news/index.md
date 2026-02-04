@@ -372,9 +372,8 @@ CRAN release: 2019-04-28
 
 ### Defunct & deprecated functions/arguments
 
-- Deprecate [`id()`](https://dplyr.tidyverse.org/reference/defunct.html)
-  for creating key for the consistence of tidy selectors, and will be
-  defunct as of v0.9.0.
+- Deprecate `id()` for creating key for the consistence of tidy
+  selectors, and will be defunct as of v0.9.0.
 - Deprecate of `pull_interval()` in favour of
   [`interval_pull()`](https://tsibble.tidyverts.org/reference/interval-pull.md).
 - Deprecate `as.tsibble()` in favour of
@@ -703,7 +702,7 @@ CRAN release: 2018-08-20
 ### Misc
 
 - `slide()` & `stretch()` use the same coercion rules as
-  [`dplyr::combine()`](https://dplyr.tidyverse.org/reference/combine.html)
+  [`dplyr::combine()`](https://dplyr.tidyverse.org/reference/defunct.html)
   now, if `.bind = TRUE`.
 - Avoid strong dependency on `pillar`.
 - Setting row names on a tsibble is deprecated, which is consistent with
@@ -816,8 +815,7 @@ CRAN release: 2018-07-06
   tsibble of unknown interval.
 - `as_tsibble.tbl_ts()` & `as_tsibble.grouped_ts()` now return self
   ([\#34](https://github.com/tidyverts/tsibble/issues/34)).
-- [`id()`](https://dplyr.tidyverse.org/reference/defunct.html) is used
-  in the tsibble context
+- `id()` is used in the tsibble context
   (e.g. [`as_tsibble()`](https://tsibble.tidyverts.org/reference/as-tsibble.md),
   [`tsibble()`](https://tsibble.tidyverts.org/reference/tsibble.md),
   [`build_tsibble()`](https://tsibble.tidyverts.org/reference/build_tsibble.md))

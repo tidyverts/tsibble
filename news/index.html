@@ -215,7 +215,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="defunct--deprecated-functionsarguments-0-8-0">Defunct &amp; deprecated functions/arguments<a class="anchor" aria-label="anchor" href="#defunct--deprecated-functionsarguments-0-8-0"></a></h3>
-<ul><li>Deprecate <code><a href="https://dplyr.tidyverse.org/reference/defunct.html" class="external-link">id()</a></code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
+<ul><li>Deprecate <code>id()</code> for creating key for the consistence of tidy selectors, and will be defunct as of v0.9.0.</li>
 <li>Deprecate of <code>pull_interval()</code> in favour of <code><a href="../reference/interval-pull.html">interval_pull()</a></code>.</li>
 <li>Deprecate <code>as.tsibble()</code> in favour of <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>. The warning is displayed once per session.</li>
 <li>Deprecate <code>gather = TRUE</code> in <code><a href="../reference/as-tsibble.html">as_tsibble.ts()</a></code> in favour of <code>pivot_longer = TRUE</code>.</li>
@@ -429,7 +429,7 @@
 <div class="section level3">
 <h3 id="misc-0-5-1">Misc<a class="anchor" aria-label="anchor" href="#misc-0-5-1"></a></h3>
 <ul><li>
-<code>slide()</code> &amp; <code>stretch()</code> use the same coercion rules as <code><a href="https://dplyr.tidyverse.org/reference/combine.html" class="external-link">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
+<code>slide()</code> &amp; <code>stretch()</code> use the same coercion rules as <code><a href="https://dplyr.tidyverse.org/reference/defunct.html" class="external-link">dplyr::combine()</a></code> now, if <code>.bind = TRUE</code>.</li>
 <li>Avoid strong dependency on <code>pillar</code>.</li>
 <li>Setting row names on a tsibble is deprecated, which is consistent with <code>tibble</code>.</li>
 </ul></div>
@@ -512,7 +512,7 @@
 <li>
 <code>as_tsibble.tbl_ts()</code> &amp; <code>as_tsibble.grouped_ts()</code> now return self (<a href="https://github.com/tidyverts/tsibble/issues/34" class="external-link">#34</a>).</li>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/defunct.html" class="external-link">id()</a></code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (<a href="https://github.com/tidyverts/tsibble/issues/36" class="external-link">#36</a>).</li>
+<code>id()</code> is used in the tsibble context (e.g. <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code>, <code><a href="../reference/tsibble.html">tsibble()</a></code>, <code><a href="../reference/build_tsibble.html">build_tsibble()</a></code>) regardless of the conflicts with dplyr or plyr, to avoid frustrating message (<a href="https://github.com/tidyverts/tsibble/issues/36" class="external-link">#36</a>).</li>
 <li>
 <code>select.tbl_ts()</code> now preserved index.</li>
 </ul></div>
