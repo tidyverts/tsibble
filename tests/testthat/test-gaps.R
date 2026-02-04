@@ -208,3 +208,13 @@ test_that("seq_generator()", {
   }
   expect_error(seq_generator(y, default_time_units(interval_pull(y))), "defined")
 })
+
+test_that("issue #323: scan_gaps/has_gaps with column named `int`", {
+  x_bug <- tsibble::tsibble(
+    time = 1:5,
+    int  = 1L,
+    index = time
+  )
+
+  expect_s3_class(tsibble::scan_gaps(x_bug), "tbl_ts")
+})
