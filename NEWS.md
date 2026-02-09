@@ -1,3 +1,5 @@
+# tsibble (development version)
+
 # tsibble 1.2.0
 
 * Fixed `scan_gaps()` failing with data containing the `int` column name.
