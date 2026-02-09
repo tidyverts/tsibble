@@ -27,6 +27,20 @@ summary.yearmonth <- function(object, digits = 12L, ...) {
 }
 
 #' @export
+summary.yearweek <- function(object, digits = 12L, ...) {
+  x <- summary.default(unclass(object), digits = digits, ...)
+  if (m <- match("NA's", names(x), 0L)) {
+    NAs <- as.integer(x[m])
+    x <- x[-m]
+    attr(x, "NAs") <- NAs
+  }
+  output <- yearweek(.Date(unclass(x)))
+  attributes(output) <- attributes(x)
+  class(output) <- c("summarycal", class(object))
+  output
+}
+
+#' @export
 format.summarycal <- function(x, ...) {
   xx <- x
   class(xx) <- class(x)[-1]
