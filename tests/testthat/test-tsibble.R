@@ -449,3 +449,29 @@ test_that("Numeric index contains NA #229", {
     )
   expect_error(as_tsibble(example_data, index = year), "must not contain `NA`")
 })
+
+test_that("tsibble() allows sequential column building #289", {
+  # Test that later columns can reference earlier columns
+  result <- tsibble(
+    date = as.Date("2017-01-01") + 0:9,
+    value = rnorm(length(date)),
+    index = date
+  )
+  
+  expect_s3_class(result, "tbl_ts")
+  expect_equal(nrow(result), 10)
+  expect_equal(ncol(result), 2)
+  expect_equal(index_var(result), "date")
+  
+  # Test with multiple sequential references
+  result2 <- tsibble(
+    x = 1:5,
+    y = x * 2,
+    z = y + x,
+    index = x
+  )
+  
+  expect_equal(result2$x, 1:5)
+  expect_equal(result2$y, c(2, 4, 6, 8, 10))
+  expect_equal(result2$z, c(3, 6, 9, 12, 15))
+})

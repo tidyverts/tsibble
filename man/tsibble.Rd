@@ -7,6 +7,8 @@
 tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 }
 \arguments{
+\item{...}{A set of name-value pairs.}
+
 \item{key}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Variable(s) that uniquely
 determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
 \code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
@@ -26,10 +28,13 @@ interval is determined by the greatest common divisor of the index column, if \c
 A tsibble object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-#' @param ... A set of name-value pairs.
+\code{tsibble()} constructs a tsibble (a time series tibble). Like \code{\link[tibble:tibble]{tibble::tibble()}},
+the \code{tsibble()} function builds columns sequentially. When defining a column,
+you can refer to columns created earlier in the call.
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 A tsibble is sorted by its key first and index.
 }
 \section{Index}{

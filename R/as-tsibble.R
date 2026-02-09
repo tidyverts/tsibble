@@ -4,8 +4,12 @@ setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
 
 #' Create a tsibble object
 #'
+#' `tsibble()` constructs a tsibble (a time series tibble). Like [tibble::tibble()],
+#' the `tsibble()` function builds columns sequentially. When defining a column, 
+#' you can refer to columns created earlier in the call.
+#' 
 #' `r lifecycle::badge('stable')`
-#'#' @param ... A set of name-value pairs.
+#' @param ... A set of name-value pairs.
 #' @param key <[`tidy-select`][dplyr_tidy_select]> Variable(s) that uniquely 
 #' determine time indices. `NULL` for an empty key, unquoted column names (e.g. 
 #' `x`) for a single variable, and `c()` for multiple variables (e.g. `c(x, y)`).
@@ -63,8 +67,7 @@ setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
 #' @export
 tsibble <- function(..., key = NULL, index, regular = TRUE, .drop = TRUE) {
   stopifnot(is_logical(regular, n = 1))
-  dots <- list2(...)
-  tbl <- tibble(!!!dots)
+  tbl <- tibble(...)
   index <- enquo(index)
   build_tsibble(tbl,
     key = !!enquo(key), index = !!index, index2 = !!index, interval = regular,
