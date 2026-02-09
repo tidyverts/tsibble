@@ -21,7 +21,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/tidyverts/tsibble/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/tidyverts/tsibble/blob/v1.2.0/inst/CITATION)
 
 Wang, E, D Cook, and RJ Hyndman (2020). A new tidy data structure to
 support exploration and modeling of temporal data, Journal of
