@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **[Earo Wang](https://earo.me)**. Author, maintainer.
+- **[Earo Wang](https://earo.me)**. Author.
   [](https://orcid.org/0000-0001-6448-5260)
 
 - **[Di Cook](https://www.dicook.org/)**. Author, thesis advisor.
@@ -12,7 +12,7 @@
   [](https://orcid.org/0000-0002-2140-5352)
 
 - **[Mitchell O'Hara-Wild](https://blog.mitchelloharawild.com/)**.
-  Author. [](https://orcid.org/0000-0001-6729-7695)
+  Author, maintainer. [](https://orcid.org/0000-0001-6729-7695)
 
 - **Tyler Smith**. Contributor.
 
