@@ -32,7 +32,7 @@ Description: Provides a 'tbl_ts' class (the 'tsibble') for
     provides tools to easily manipulate and analyse temporal data, such as
     filling in time gaps and aggregating over calendar periods.
 License: GPL-3
-URL: https://tsibble.tidyverts.org
+URL: https://tsibble.tidyverts.org, https://github.com/tidyverts/tsibble
 BugReports: https://github.com/tidyverts/tsibble/issues
 Depends: 
     R (>= 3.2.0)
