@@ -149,7 +149,7 @@ test_that("filter() and slice() with .preserve = TRUE", {
 })
 
 test_that("select() and rename()", {
-  expect_s3_class(select(tourism, Quarter, Region:Purpose), "tbl_ts")
+  expect_s3_class(select(tourism, Region:Purpose), "tbl_ts")
   expect_s3_class(select(tourism, Quarter:Purpose), "tbl_ts")
   expect_equal(
     quo_name(index(select(tourism, Index = Quarter, Region:Purpose))),
@@ -166,7 +166,7 @@ test_that("select() and rename()", {
   expect_named(select(tourism_mel, -Region), cols[-2])
   expect_named(select(tourism_mel, -State), cols[-3])
   expect_named(select(tourism_mel, -Purpose), cols[-4])
-  expect_named(select(tourism_mel, Quarter, Trips), c("Quarter", "Trips"))
+  expect_named(select(tourism_mel, Trips), c("Trips", "Quarter"))
   expect_named(select(tourism_mel, -Region, -State, -Purpose), cols[c(1, 5)])
 })
 
@@ -254,21 +254,21 @@ tsbl <- tsibble(
 )
 
 test_that("transmute()", {
-  out <- tourism %>% transmute(Quarter, Region = paste(Region, State))
+  out <- tourism %>% transmute(Region = paste(Region, State))
   expect_equal(ncol(out), 4)
-  trans_tsbl <- tsbl %>% transmute(qtr, group, z = a / b)
+  trans_tsbl <- tsbl %>% transmute(z = a / b)
   expect_equal(colnames(trans_tsbl), c("qtr", "group", "z"))
 })
 
 test_that("transmute.grouped_ts()", {
   out <- pedestrian %>%
     group_by(Time) %>%
-    transmute(Date_Time)
+    transmute()
   expect_equal(ncol(out), 3)
   out2 <- pedestrian %>%
     group_by_key() %>%
-    transmute(Date_Time)
-  expect_named(out2, c("Sensor", "Date_Time"))
+    transmute()
+  expect_named(out2, c("Date_Time", "Sensor"))
 })
 
 test_that("distinct()", {
@@ -353,33 +353,6 @@ test_that("rename() for renaming key", {
   expect_true("sensor" %in% names(key_bm))
   key_t <- tourism %>%
     rename("purpose" = "Purpose", "region" = "Region", "trip" = "Trips")
-})
-
-test_that("warning when index is automatically re-added #308", {
-  test_ts <- tsibble(
-    date = as.Date('2024-01-01') + 0:2,
-    value = 1:3
-  )
-  
-  # select() without index should warn
-  expect_warning(
-    result <- select(test_ts, value),
-    "Index variable `date` was dropped"
-  )
-  expect_true("date" %in% names(result))
-  
-  # transmute() without index should warn
-  expect_warning(
-    result2 <- transmute(test_ts, value2 = value * 2),
-    "Index variable `date` was dropped"
-  )
-  expect_true("date" %in% names(result2))
-  
-  # select() with index should not warn
-  expect_no_warning(
-    result3 <- select(test_ts, date, value)
-  )
-  expect_equal(names(result3), c("date", "value"))
 })
 
 test_that("drop redundant key #196", {

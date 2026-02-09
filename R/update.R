@@ -81,16 +81,6 @@ bind_tsibble <- function(data, template, position = c("before", "after")) {
     template <- remove_key(template, setdiff(key_vars(template), key_vars))
   }
   tsbl_vars <- setdiff(c(index_var(template), key_vars(template)), data_cols)
-  
-  # Warn if index variable was dropped
-  idx_var <- index_var(template)
-  if (idx_var %in% tsbl_vars) {
-    warn(sprintf(
-      "Index variable `%s` was dropped but has been automatically re-added.\nUse `as_tibble()` first if you want to remove the index.",
-      idx_var
-    ))
-  }
-  
   if (position == "before") {
     res <- bind_cols(as_tibble(template)[tsbl_vars], data)
   } else {
