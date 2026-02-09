@@ -124,22 +124,24 @@ Useful links:
 
 - <https://tsibble.tidyverts.org>
 
+- <https://github.com/tidyverts/tsibble>
+
 - Report bugs at <https://github.com/tidyverts/tsibble/issues>
 
 ## Author
 
-**Maintainer**: Earo Wang <earo.wang@gmail.com>
-([ORCID](https://orcid.org/0000-0001-6448-5260))
+**Maintainer**: Mitchell O'Hara-Wild <mail@mitchelloharawild.com>
+([ORCID](https://orcid.org/0000-0001-6729-7695))
 
 Authors:
+
+- Earo Wang ([ORCID](https://orcid.org/0000-0001-6448-5260))
 
 - Di Cook ([ORCID](https://orcid.org/0000-0002-3813-7155)) \[thesis
   advisor\]
 
 - Rob Hyndman ([ORCID](https://orcid.org/0000-0002-2140-5352)) \[thesis
   advisor\]
-
-- Mitchell O'Hara-Wild ([ORCID](https://orcid.org/0000-0001-6729-7695))
 
 Other contributors:
 

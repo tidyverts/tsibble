@@ -203,8 +203,8 @@ creates a `tbl_ts`;
 [`as_tsibble()`](https://tsibble.tidyverts.org/reference/as-tsibble.md)
 coerces other objects to `tbl_ts`.
 
-- [`tsibble()`](https://tsibble.tidyverts.org/reference/tsibble.md)
-  **\[stable\]** : Create a tsibble object
+- [`tsibble()`](https://tsibble.tidyverts.org/reference/tsibble.md) :
+  Create a tsibble object
 - [`as_tsibble()`](https://tsibble.tidyverts.org/reference/as-tsibble.md)
   **\[stable\]** : Coerce to a tsibble object
 - [`is_tsibble()`](https://tsibble.tidyverts.org/reference/is-tsibble.md)
@@ -316,20 +316,28 @@ New S3 classes to represent year-week, year-month, and year-quarter.
 
 - [`key()`](https://tsibble.tidyverts.org/reference/key.md)
   [`key_vars()`](https://tsibble.tidyverts.org/reference/key.md) :
-  Return key variables
+
+  or other tidyselect-compatible functions,
+  [`key_vars()`](https://tsibble.tidyverts.org/reference/key.md) acts as
+  a selection helper that automatically selects all key columns from the
+  tsibble.
+
 - [`key_data()`](https://tsibble.tidyverts.org/reference/key-data.md)
   [`key_rows()`](https://tsibble.tidyverts.org/reference/key-data.md)
   [`key_size()`](https://tsibble.tidyverts.org/reference/key-data.md)
   [`n_keys()`](https://tsibble.tidyverts.org/reference/key-data.md) :
   Key metadata
+
 - [`index()`](https://tsibble.tidyverts.org/reference/index-rd.md)
   [`index_var()`](https://tsibble.tidyverts.org/reference/index-rd.md)
   [`index2()`](https://tsibble.tidyverts.org/reference/index-rd.md)
   [`index2_var()`](https://tsibble.tidyverts.org/reference/index-rd.md)
   : Return index variable from a tsibble
+
 - [`measures()`](https://tsibble.tidyverts.org/reference/measured-vars.md)
   [`measured_vars()`](https://tsibble.tidyverts.org/reference/measured-vars.md)
   : Return measured variables
+
 - [`interval()`](https://tsibble.tidyverts.org/reference/regular.md)
   [`is_regular()`](https://tsibble.tidyverts.org/reference/regular.md)
   [`is_ordered()`](https://tsibble.tidyverts.org/reference/regular.md) :

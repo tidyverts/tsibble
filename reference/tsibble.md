@@ -1,6 +1,9 @@
 # Create a tsibble object
 
-**\[stable\]**
+`tsibble()` constructs a tsibble (a time series tibble). Like
+[`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html),
+the `tsibble()` function builds columns sequentially. When defining a
+column, you can refer to columns created earlier in the call.
 
 ## Usage
 
@@ -16,19 +19,28 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 
 - key:
 
-  Variable(s) that uniquely determine time indices. `NULL` for empty
-  key, and [`c()`](https://rdrr.io/r/base/c.html) for multiple
-  variables. It works with tidy selector (e.g.
-  [`dplyr::starts_with()`](https://dplyr.tidyverse.org/reference/reexports.html)).
+  \<[`tidy-select`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)\>
+  Variable(s) that uniquely determine time indices. `NULL` for an empty
+  key, unquoted column names (e.g. `x`) for a single variable, and
+  [`c()`](https://rdrr.io/r/base/c.html) for multiple variables (e.g.
+  `c(x, y)`). This argument also supports [tidy-select
+  expressions](https://tidyselect.r-lib.org/reference/language.html),
+  e.g.
+  [`dplyr::starts_with()`](https://dplyr.tidyverse.org/reference/reexports.html),
+  [`dplyr::all_of()`](https://dplyr.tidyverse.org/reference/reexports.html).
 
 - index:
 
-  A variable to specify the time index variable.
+  \<[`tidy-select`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)\>
+  A variable that contains time indices. This is commonly an unquoted
+  column name (e.g. `t`), but it can also be a [tidy-select
+  expression](https://tidyselect.r-lib.org/reference/language.html).
 
 - regular:
 
   Regular time interval (`TRUE`) or irregular (`FALSE`). The interval is
-  determined by the greatest common divisor of index column, if `TRUE`.
+  determined by the greatest common divisor of the index column, if
+  `TRUE`.
 
 - .drop:
 
@@ -39,6 +51,8 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 A tsibble object.
 
 ## Details
+
+**\[stable\]**
 
 A tsibble is sorted by its key first and index.
 

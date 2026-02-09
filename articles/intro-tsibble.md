@@ -1,9 +1,9 @@
 # Introduction to tsibble
 
-The **tsibble** package extends the
-[tidyverse](https://www.tidyverse.org) to temporal data. Built on top of
-the [tibble](https://tibble.tidyverse.org/), a tsibble (or `tbl_ts`) is
-a data- and model-oriented object. Compared to the conventional time
+The **tsibble** package extends the [tidyverse](https://tidyverse.org)
+to temporal data. Built on top of the
+[tibble](https://tibble.tidyverse.org/), a tsibble (or `tbl_ts`) is a
+data- and model-oriented object. Compared to the conventional time
 series objects in R, for example `ts`, `zoo`, and `xts`, the tsibble
 preserves time indices as the essential data column and makes
 heterogeneous data structures possible. Beyond the tibble-like

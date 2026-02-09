@@ -1,5 +1,38 @@
 # Changelog
 
+## tsibble 1.2.0
+
+- Fixed
+  [`scan_gaps()`](https://tsibble.tidyverts.org/reference/scan_gaps.md)
+  failing with data containing the `int` column name.
+- Removed `as_tibble.grouped_df()` to prevent masking
+  `dplyr::as_tibble.grouped_df()`.
+- Added [`summary()`](https://rdrr.io/r/base/summary.html) method for
+  time classes, allowing
+  [`summary()`](https://rdrr.io/r/base/summary.html) to be called on
+  tsibble objects.
+  ([\#319](https://github.com/tidyverts/tsibble/issues/319))
+- [`select()`](https://dplyr.tidyverse.org/reference/select.html) and
+  [`transmute()`](https://dplyr.tidyverse.org/reference/transmute.html)
+  now warn when the index variable is dropped and automatically
+  re-added.
+- [`tsibble()`](https://tsibble.tidyverts.org/reference/tsibble.md) now
+  builds columns sequentially, allowing columns to refer to previously
+  created columns in the call.
+  ([\#289](https://github.com/tidyverts/tsibble/issues/289))
+- Add tidyselect helpers for
+  [`index_var()`](https://tsibble.tidyverts.org/reference/index-rd.md),
+  [`key_vars()`](https://tsibble.tidyverts.org/reference/key.md) and
+  [`measured_vars()`](https://tsibble.tidyverts.org/reference/measured-vars.md).
+  ([\#314](https://github.com/tidyverts/tsibble/issues/314))
+- Documentation improvements.
+
+## tsibble 1.1.6
+
+CRAN release: 2025-01-30
+
+- Patch fix for CRAN check errors.
+
 ## tsibble 1.1.5
 
 CRAN release: 2024-06-27

@@ -6,7 +6,7 @@ have a question, please don’t use this form. Instead, ask on
 
 Please include a minimal reproducible example (AKA a reprex). If you’ve
 never heard of a [reprex](http://reprex.tidyverse.org/) before, start by
-reading <https://www.tidyverse.org/help/#reprex>.
+reading <https://tidyverse.org/help/#reprex>.
 
 ------------------------------------------------------------------------
 

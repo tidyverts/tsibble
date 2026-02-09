@@ -10,10 +10,10 @@ or used reprex before, you’re in for a treat! Seriously, reprex will
 make all of your R-question-asking endeavors easier (which is a pretty
 insane ROI for the five to ten minutes it’ll take you to learn what it’s
 all about). For additional reprex pointers, check out the [Get
-help!](https://www.tidyverse.org/help/) section of the tidyverse site.
+help!](https://tidyverse.org/help/) section of the tidyverse site.
 
 Armed with your reprex, the next step is to figure out [where to
-ask](https://www.tidyverse.org/help/#where-to-ask).
+ask](https://tidyverse.org/help/#where-to-ask).
 
 - If it’s a question: start with
   [community.rstudio.com](https://community.rstudio.com/), and/or
@@ -33,7 +33,7 @@ qualifiers](https://help.github.com/articles/searching-issues-and-pull-requests/
 `is:open` to search *all* issues in the repo, open or closed.
 
 If you *are* in the right place, and need to file an issue, please
-review the [“File issues”](https://www.tidyverse.org/contribute/#issues)
+review the [“File issues”](https://tidyverse.org/contribute/#issues)
 paragraph from the tidyverse contributing guidelines.
 
 Thanks for your help!

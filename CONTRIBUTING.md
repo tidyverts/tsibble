@@ -18,7 +18,7 @@ in the *source* file.
 Before you make a substantial pull request, you should always file an
 issue and make sure someone from the team agrees that it’s a problem. If
 you’ve found a bug, create an associated issue and illustrate the bug
-with a minimal [reprex](https://www.tidyverse.org/help/#reprex).
+with a minimal [reprex](https://tidyverse.org/help/#reprex).
 
 ### Pull request process
 
