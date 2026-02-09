@@ -68,8 +68,6 @@ measured_vars(tourism)
 # Use as a tidyselect helper to select only measured variables
 library(dplyr)
 tourism %>% select(measured_vars())
-#> Warning: Index variable `Quarter` was dropped but has been automatically re-added.
-#> Use `as_tibble()` first if you want to remove the index.
 #> # A tsibble: 24,320 x 5 [1Q]
 #> # Key:       Region, State, Purpose [304]
 #>    Trips Quarter Region   State           Purpose 
@@ -106,8 +104,6 @@ tourism %>% select(measured_vars(), key_vars(), index_var())
 
 # Use with other tidyselect functions
 pedestrian %>% select(measured_vars(), where(is.numeric))
-#> Warning: Index variable `Date_Time` was dropped but has been automatically re-added.
-#> Use `as_tibble()` first if you want to remove the index.
 #> # A tsibble: 66,037 x 5 [1h] <Australia/Melbourne>
 #> # Key:       Sensor [4]
 #>    Date        Time Count Date_Time           Sensor        
@@ -164,8 +160,6 @@ tourism %>% select(measured_vars(), key_vars(), index_var())
 
 # Use with other tidyselect functions
 pedestrian %>% select(measured_vars(), where(is.numeric))
-#> Warning: Index variable `Date_Time` was dropped but has been automatically re-added.
-#> Use `as_tibble()` first if you want to remove the index.
 #> # A tsibble: 66,037 x 5 [1h] <Australia/Melbourne>
 #> # Key:       Sensor [4]
 #>    Date        Time Count Date_Time           Sensor        
