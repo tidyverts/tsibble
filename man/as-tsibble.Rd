@@ -23,14 +23,18 @@ as_tsibble(
 \arguments{
 \item{x}{Other objects to be coerced to a tsibble (\code{tbl_ts}).}
 
-\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and \code{c()} for multiple variables. It works with tidy selector
-(e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
+\item{key}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Variable(s) that uniquely
+determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
+\code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
+This argument also supports \link[tidyselect:language]{tidy-select expressions},
+e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
 
-\item{index}{A variable to specify the time index variable.}
+\item{index}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> A variable that contains
+time indices. This is commonly an unquoted column name (e.g. \code{t}), but it can
+also be a \link[tidyselect:language]{tidy-select expression}.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
-interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
+interval is determined by the greatest common divisor of the index column, if \code{TRUE}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you

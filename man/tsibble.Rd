@@ -7,16 +7,18 @@
 tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 }
 \arguments{
-\item{...}{A set of name-value pairs.}
+\item{key}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Variable(s) that uniquely
+determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
+\code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
+This argument also supports \link[tidyselect:language]{tidy-select expressions},
+e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
 
-\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and \code{c()} for multiple variables. It works with tidy selector
-(e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
-
-\item{index}{A variable to specify the time index variable.}
+\item{index}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> A variable that contains
+time indices. This is commonly an unquoted column name (e.g. \code{t}), but it can
+also be a \link[tidyselect:language]{tidy-select expression}.}
 
 \item{regular}{Regular time interval (\code{TRUE}) or irregular (\code{FALSE}). The
-interval is determined by the greatest common divisor of index column, if \code{TRUE}.}
+interval is determined by the greatest common divisor of the index column, if \code{TRUE}.}
 
 \item{.drop}{If \code{TRUE}, empty key groups are dropped.}
 }
@@ -25,6 +27,7 @@ A tsibble object.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+#' @param ... A set of name-value pairs.
 }
 \details{
 A tsibble is sorted by its key first and index.

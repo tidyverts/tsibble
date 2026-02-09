@@ -19,14 +19,18 @@ build_tsibble(
 \arguments{
 \item{x}{A \code{data.frame}, \code{tbl_df}, \code{tbl_ts}, or other tabular objects.}
 
-\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and \code{c()} for multiple variables. It works with tidy selector
-(e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
+\item{key}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Variable(s) that uniquely
+determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
+\code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
+This argument also supports \link[tidyselect:language]{tidy-select expressions},
+e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
 
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}
 
-\item{index}{A variable to specify the time index variable.}
+\item{index}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> A variable that contains
+time indices. This is commonly an unquoted column name (e.g. \code{t}), but it can
+also be a \link[tidyselect:language]{tidy-select expression}.}
 
 \item{index2}{A candidate of \code{index} to update the index to a new one when
 \link{index_by}. By default, it's identical to \code{index}.}

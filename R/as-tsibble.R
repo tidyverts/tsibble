@@ -5,14 +5,17 @@ setOldClass(c("tbl_ts", "tbl_df", "tbl", "data.frame"))
 #' Create a tsibble object
 #'
 #' `r lifecycle::badge('stable')`
-#'
-#' @param ... A set of name-value pairs.
-#' @param key Variable(s) that uniquely determine time indices. `NULL` for
-#' empty key, and `c()` for multiple variables. It works with tidy selector
-#' (e.g. [dplyr::starts_with()]).
-#' @param index A variable to specify the time index variable.
+#'#' @param ... A set of name-value pairs.
+#' @param key <[`tidy-select`][dplyr_tidy_select]> Variable(s) that uniquely 
+#' determine time indices. `NULL` for an empty key, unquoted column names (e.g. 
+#' `x`) for a single variable, and `c()` for multiple variables (e.g. `c(x, y)`).
+#' This argument also supports [tidy-select expressions][tidyselect::language],
+#' e.g. [dplyr::starts_with()], [dplyr::all_of()].
+#' @param index <[`tidy-select`][dplyr_tidy_select]> A variable that contains 
+#' time indices. This is commonly an unquoted column name (e.g. `t`), but it can
+#' also be a [tidy-select expression][tidyselect::language].
 #' @param regular Regular time interval (`TRUE`) or irregular (`FALSE`). The
-#' interval is determined by the greatest common divisor of index column, if `TRUE`.
+#' interval is determined by the greatest common divisor of the index column, if `TRUE`.
 #' @param .drop If `TRUE`, empty key groups are dropped.
 #'
 #' @inheritSection tsibble-package Index

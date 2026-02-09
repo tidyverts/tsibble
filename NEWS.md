@@ -2,6 +2,7 @@
 
 * Fixed `scan_gaps()` failing with data containing the `int` column name.
 * Removed `as_tibble.grouped_df()` to prevent masking `dplyr::as_tibble.grouped_df()`.
+* Documentation improvements.
 
 # tsibble 1.1.6
 

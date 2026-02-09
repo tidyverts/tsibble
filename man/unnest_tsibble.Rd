@@ -11,9 +11,11 @@ unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 
 \item{cols}{Names of columns to unnest.}
 
-\item{key}{Variable(s) that uniquely determine time indices. \code{NULL} for
-empty key, and \code{c()} for multiple variables. It works with tidy selector
-(e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}).}
+\item{key}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Variable(s) that uniquely
+determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
+\code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
+This argument also supports \link[tidyselect:language]{tidy-select expressions},
+e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you
