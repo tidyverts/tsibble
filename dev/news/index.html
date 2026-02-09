@@ -47,6 +47,9 @@
 <h2 class="pkg-version" data-toc-text="development version" id="tsibble-development-version">tsibble (development version)<a class="anchor" aria-label="anchor" href="#tsibble-development-version"></a></h2>
 <ul><li>Fixed <code><a href="../reference/scan_gaps.html">scan_gaps()</a></code> failing with data containing the <code>int</code> column name.</li>
 <li>Removed <code>as_tibble.grouped_df()</code> to prevent masking <code>dplyr::as_tibble.grouped_df()</code>.</li>
+<li>Added <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> method for time classes, allowing <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to be called on tsibble objects. (<a href="https://github.com/tidyverts/tsibble/issues/319" class="external-link">#319</a>)</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute()</a></code> now warn when the index variable is dropped and automatically re-added.</li>
 <li>Documentation improvements.</li>
 </ul></div>
     <div class="section level2">
