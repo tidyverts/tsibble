@@ -20,6 +20,11 @@
   now builds columns sequentially, allowing columns to refer to
   previously created columns in the call.
   ([\#289](https://github.com/tidyverts/tsibble/issues/289))
+- Add tidyselect helpers for
+  [`index_var()`](https://tsibble.tidyverts.org/dev/reference/index-rd.md),
+  [`key_vars()`](https://tsibble.tidyverts.org/dev/reference/key.md) and
+  [`measured_vars()`](https://tsibble.tidyverts.org/dev/reference/measured-vars.md).
+  ([\#314](https://github.com/tidyverts/tsibble/issues/314))
 - Documentation improvements.
 
 ## tsibble 1.1.6
