@@ -2,6 +2,8 @@
 
 ## tsibble (development version)
 
+## tsibble 1.2.0
+
 - Fixed
   [`scan_gaps()`](https://tsibble.tidyverts.org/dev/reference/scan_gaps.md)
   failing with data containing the `int` column name.
@@ -12,10 +14,6 @@
   [`summary()`](https://rdrr.io/r/base/summary.html) to be called on
   tsibble objects.
   ([\#319](https://github.com/tidyverts/tsibble/issues/319))
-- [`select()`](https://dplyr.tidyverse.org/reference/select.html) and
-  [`transmute()`](https://dplyr.tidyverse.org/reference/transmute.html)
-  now warn when the index variable is dropped and automatically
-  re-added.
 - [`tsibble()`](https://tsibble.tidyverts.org/dev/reference/tsibble.md)
   now builds columns sequentially, allowing columns to refer to
   previously created columns in the call.
