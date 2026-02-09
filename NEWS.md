@@ -3,6 +3,7 @@
 * Fixed `scan_gaps()` failing with data containing the `int` column name.
 * Removed `as_tibble.grouped_df()` to prevent masking `dplyr::as_tibble.grouped_df()`.
 * Added `summary()` method for time classes, allowing `summary()` to be called on tsibble objects. (#319)
+* `select()` and `transmute()` now warn when the index variable is dropped and automatically re-added.
 * Documentation improvements.
 
 # tsibble 1.1.6

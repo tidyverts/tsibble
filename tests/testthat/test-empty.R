@@ -13,7 +13,7 @@ test_that("dplyr verbs for empty tsibble", {
   expect_equal(NROW(ped_null), 0L)
   expect_s3_class(ped_null %>% group_by(Sensor), "grouped_ts")
   expect_equal(NROW(ped_null %>% mutate(Count1 = Count + 1)), 0L)
-  expect_equal(NROW(ped_null %>% transmute(Count1 = Count + 1)), 0L)
+  expect_equal(NROW(ped_null %>% transmute(Date_Time, Count1 = Count + 1)), 0L)
   expect_equal(NROW(ped_null %>% summarise(Count1 = sum(Count))), 0L)
   expect_identical(ped_null %>% arrange(Count), ped_null)
   expect_identical(ped_null %>% slice(0), ped_null)
