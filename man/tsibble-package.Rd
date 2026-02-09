@@ -113,6 +113,7 @@ tsibble(
 Useful links:
 \itemize{
   \item \url{https://tsibble.tidyverts.org}
+  \item \url{https://github.com/tidyverts/tsibble}
   \item Report bugs at \url{https://github.com/tidyverts/tsibble/issues}
 }
 
