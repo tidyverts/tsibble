@@ -124,6 +124,8 @@ Useful links:
 
 - <https://tsibble.tidyverts.org>
 
+- <https://github.com/tidyverts/tsibble>
+
 - Report bugs at <https://github.com/tidyverts/tsibble/issues>
 
 ## Author
