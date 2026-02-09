@@ -1,16 +1,14 @@
 ## Test environments
-
-* local mac OS install, R 4.3.0
-* ubuntu 20.04 (on github actions), R-devel, R-release
-* mac OS 10.15.4 (on github actions) R-release
-* Microsoft Windows Server 2019 10.0.17763 (on github actions) R-release
+* local ubuntu 24.04 install, R 4.5.2
+* ubuntu-latest (on GitHub actions), R-devel, R-release, R-oldrel-1, R-oldrel-2, R-oldrel-3, R-oldrel-4
+* macOS-latest (on GitHub actions), R-release
+* windows-latest (on GitHub actions), R-release, R-oldrel-4
+* win-builder, R-devel, R-release, R-oldrelease
 
 ## R CMD check results
 
-0 errors v | 0 warnings v | 0 notes v
+0 errors | 0 warnings | 0 notes
 
-R CMD check succeeded
+## Revdep checks
 
-## revdepcheck results
-
-I haven't done any reverse dependencies check, since I've skipped some tests about this submission.
+All reverse dependencies have been checked, none have changed to worse.
