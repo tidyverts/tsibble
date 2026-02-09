@@ -8,10 +8,10 @@ Start by making a minimal **repr**oducible **ex**ample using the
 reprex before, you're in for a treat! Seriously, reprex will make all of your 
 R-question-asking endeavors easier (which is a pretty insane ROI for the five to 
 ten minutes it'll take you to learn what it's all about). For additional reprex
-pointers, check out the [Get help!](https://www.tidyverse.org/help/) section of
+pointers, check out the [Get help!](https://tidyverse.org/help/) section of
 the tidyverse site.
 
-Armed with your reprex, the next step is to figure out [where to ask](https://www.tidyverse.org/help/#where-to-ask). 
+Armed with your reprex, the next step is to figure out [where to ask](https://tidyverse.org/help/#where-to-ask). 
 
   * If it's a question: start with [community.rstudio.com](https://community.rstudio.com/), 
     and/or StackOverflow. There are more people there to answer questions.  
@@ -29,7 +29,7 @@ remove `is:open` to search _all_ issues in the repo, open or closed.
 
 
 If you _are_ in the right place, and need to file an issue, please review the 
-["File issues"](https://www.tidyverse.org/contribute/#issues) paragraph from 
+["File issues"](https://tidyverse.org/contribute/#issues) paragraph from 
 the tidyverse contributing guidelines.
 
 Thanks for your help!
