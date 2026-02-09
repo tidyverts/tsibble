@@ -66,9 +66,11 @@
 
 
 <dt id="arg-key">key<a class="anchor" aria-label="anchor" href="#arg-key"></a></dt>
-<dd><p>Variable(s) that uniquely determine time indices. <code>NULL</code> for
-empty key, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables. It works with tidy selector
-(e.g. <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::starts_with()</a></code>).</p></dd>
+<dd><p>&lt;<code><a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link">tidy-select</a></code>&gt; Variable(s) that uniquely
+determine time indices. <code>NULL</code> for an empty key, unquoted column names (e.g.
+<code>x</code>) for a single variable, and <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> for multiple variables (e.g. <code>c(x, y)</code>).
+This argument also supports <a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">tidy-select expressions</a>,
+e.g. <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::starts_with()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::all_of()</a></code>.</p></dd>
 
 
 <dt id="arg-validate">validate<a class="anchor" aria-label="anchor" href="#arg-validate"></a></dt>
