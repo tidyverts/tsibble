@@ -16,6 +16,10 @@
   [`transmute()`](https://dplyr.tidyverse.org/reference/transmute.html)
   now warn when the index variable is dropped and automatically
   re-added.
+- [`tsibble()`](https://tsibble.tidyverts.org/dev/reference/tsibble.md)
+  now builds columns sequentially, allowing columns to refer to
+  previously created columns in the call.
+  ([\#289](https://github.com/tidyverts/tsibble/issues/289))
 - Documentation improvements.
 
 ## tsibble 1.1.6

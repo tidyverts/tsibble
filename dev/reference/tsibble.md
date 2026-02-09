@@ -1,6 +1,9 @@
 # Create a tsibble object
 
-**\[stable\]** \#' @param ... A set of name-value pairs.
+`tsibble()` constructs a tsibble (a time series tibble). Like
+[`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html),
+the `tsibble()` function builds columns sequentially. When defining a
+column, you can refer to columns created earlier in the call.
 
 ## Usage
 
@@ -9,6 +12,10 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 ```
 
 ## Arguments
+
+- ...:
+
+  A set of name-value pairs.
 
 - key:
 
@@ -44,6 +51,8 @@ tsibble(..., key = NULL, index, regular = TRUE, .drop = TRUE)
 A tsibble object.
 
 ## Details
+
+**\[stable\]**
 
 A tsibble is sorted by its key first and index.
 

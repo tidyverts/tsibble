@@ -16,7 +16,7 @@ creates a `tbl_ts`;
 coerces other objects to `tbl_ts`.
 
 - [`tsibble()`](https://tsibble.tidyverts.org/dev/reference/tsibble.md)
-  **\[stable\]** : Create a tsibble object
+  : Create a tsibble object
 - [`as_tsibble()`](https://tsibble.tidyverts.org/dev/reference/as-tsibble.md)
   **\[stable\]** : Coerce to a tsibble object
 - [`is_tsibble()`](https://tsibble.tidyverts.org/dev/reference/is-tsibble.md)

@@ -50,6 +50,8 @@
 <li>Added <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> method for time classes, allowing <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to be called on tsibble objects. (<a href="https://github.com/tidyverts/tsibble/issues/319" class="external-link">#319</a>)</li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute()</a></code> now warn when the index variable is dropped and automatically re-added.</li>
+<li>
+<code><a href="../reference/tsibble.html">tsibble()</a></code> now builds columns sequentially, allowing columns to refer to previously created columns in the call. (<a href="https://github.com/tidyverts/tsibble/issues/289" class="external-link">#289</a>)</li>
 <li>Documentation improvements.</li>
 </ul></div>
     <div class="section level2">
