@@ -94,6 +94,15 @@ vec_cast.data.frame.tbl_ts <- function(x, to, ...) {
 
 #' @export
 vec_restore.tbl_ts <- function(x, to, ..., n = NULL) {
+  idx_var <- index_var(to)
+  
+  # During vctrs operations like list_unchop (used by unnest),
+  # intermediate data structures may have NA in the index.
+  # Return as tibble in these cases and let the operation complete.
+  if (idx_var %in% names(x) && anyNA(x[[idx_var]])) {
+    return(as_tibble(x))
+  }
+  
   # assuming `i` in order and no duplicates, minimal check for performance reason
   build_tsibble(x,
     key = key_vars(to), index = index_var(to), index2 = index2_var(to),

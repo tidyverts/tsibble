@@ -144,3 +144,42 @@ test_that("drop_na() #173", {
   expect_s3_class(drop_na(harvest_fill), "tbl_ts")
   expect_s3_class(drop_na(group_by_key(harvest_fill)), "grouped_ts")
 })
+
+test_that("unnest() with nested tsibbles #296", {
+  # Test basic unnesting of a single nested tsibble
+  test_data <- tibble(
+    a = 1,
+    b = list(tsibble(i = 1:10, x = rnorm(10), index = i))
+  )
+  
+  # unnest() should work and return a tibble
+  result_unnest <- unnest(test_data, b)
+  expect_s3_class(result_unnest, "tbl_df")
+  expect_equal(nrow(result_unnest), 10)
+  expect_equal(ncol(result_unnest), 3)
+  expect_named(result_unnest, c("a", "i", "x"))
+  
+  # unnest_tsibble() should work and return a tsibble
+  result_unnest_ts <- unnest_tsibble(test_data, b)
+  expect_s3_class(result_unnest_ts, "tbl_ts")
+  expect_equal(nrow(result_unnest_ts), 10)
+  expect_equal(index_var(result_unnest_ts), "i")
+  
+  # Test with multiple nested tsibbles
+  test_multi <- tibble(
+    a = 1:2,
+    b = list(
+      tsibble(i = 1:5, x = rnorm(5), index = i),
+      tsibble(i = 6:10, x = rnorm(5), index = i)
+    )
+  )
+  
+  result_multi <- unnest(test_multi, b)
+  expect_s3_class(result_multi, "tbl_df")
+  expect_equal(nrow(result_multi), 10)
+  
+  result_multi_ts <- unnest_tsibble(test_multi, b)
+  expect_s3_class(result_multi_ts, "tbl_ts")
+  expect_equal(nrow(result_multi_ts), 10)
+  expect_equal(index_var(result_multi_ts), "i")
+})
