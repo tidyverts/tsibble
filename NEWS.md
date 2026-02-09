@@ -5,6 +5,7 @@
 * Added `summary()` method for time classes, allowing `summary()` to be called on tsibble objects. (#319)
 * `select()` and `transmute()` now warn when the index variable is dropped and automatically re-added.
 * `tsibble()` now builds columns sequentially, allowing columns to refer to previously created columns in the call. (#289)
+* Add tidyselect helpers for `index_var()`, `key_vars()` and `measured_vars()`. (#314)
 * Documentation improvements.
 
 # tsibble 1.1.6

@@ -1,6 +1,38 @@
-#' Return key variables
+#' Return measured variables
 #'
-#' `key()` returns a list of symbols; `key_vars()` gives a character vector.
+#' @details
+#' `measures()` returns a list of symbols; `measured_vars()` gives a character vector.
+#'
+#' When used inside tidyverse functions like [dplyr::select()], [dplyr::relocate()],
+#' or other tidyselect-compatible functions, `measured_vars()` acts as a selection
+#' helper that automatically selects all measured variables (non-key, non-index
+#' columns) from the tsibble.
+#'
+#' @param x A `tbl_ts`.
+#'
+#' @rdname measured-vars
+#' @examples
+#' measures(pedestrian)
+#' measures(tourism)
+#'
+#' measured_vars(pedestrian)
+#' measured_vars(tourism)
+#'
+#' # Use as a tidyselect helper to select only measured variables
+#' library(dplyr)
+#' tourism %>% select(measured_vars())
+#'
+#' # Combine with key and index selectors
+#' tourism %>% select(measured_vars(), key_vars(), index_var())
+#'
+#' # Use with other tidyselect functions
+#' pedestrian %>% select(measured_vars(), where(is.numeric))
+#' @export
+measures <- function(x) {
+  UseMethod("measures")
+}
+#' or other tidyselect-compatible functions, `key_vars()` acts as a selection
+#' helper that automatically selects all key columns from the tsibble.
 #'
 #' @param x A tsibble.
 #'
@@ -11,6 +43,13 @@
 #'
 #' key(tourism)
 #' key_vars(tourism)
+#'
+#' # Use as a tidyselect helper
+#' library(dplyr)
+#' tourism %>% select(index_var(), key_vars())
+#'
+#' # Combine with other tidyselect functions
+#' tourism %>% relocate(key_vars(), .after = last_col())
 #' @export
 key <- function(x) {
   UseMethod("key")
@@ -37,6 +76,19 @@ key_vars.tbl_ts <- function(x) {
   keys <- key_data(x)
   head(names(keys), -1L)
 }
+
+#' @export
+key_vars.default <- function(x) {
+  if (!is_tsibble(tidyselect::peek_data())) {
+    rlang::abort(
+      "Cannot use `key_vars()` as a tidyselect helper in this context."
+    )
+  }
+  tidyselect::all_of(
+    key_vars(tidyselect::peek_data())
+  )
+}
+
 
 #' Key metadata
 #'
@@ -114,6 +166,14 @@ is_key_dropped <- function(x) {
 
 #' Return measured variables
 #'
+#' @details
+#' `measures()` returns a list of symbols; `measured_vars()` gives a character vector.
+#'
+#' When used inside tidyverse functions like [dplyr::select()], [dplyr::relocate()],
+#' or other tidyselect-compatible functions, `measured_vars()` acts as a selection
+#' helper that automatically selects all measured variables (non-key, non-index
+#' columns) from the tsibble.
+#'
 #' @param x A `tbl_ts`.
 #'
 #' @rdname measured-vars
@@ -123,6 +183,13 @@ is_key_dropped <- function(x) {
 #'
 #' measured_vars(pedestrian)
 #' measured_vars(tourism)
+#'
+#' # Use as a tidyselect helper to select measured variables
+#' library(dplyr)
+#' tourism %>% select(measured_vars(), key_vars(), index_var())
+#'
+#' # Use with other tidyselect functions
+#' pedestrian %>% select(measured_vars(), where(is.numeric))
 #' @export
 measures <- function(x) {
   UseMethod("measures")
@@ -147,13 +214,39 @@ measured_vars.tbl_ts <- function(x) {
   setdiff(all_vars, c(key_vars, idx_var))
 }
 
+#' @export
+measured_vars.default <- function(x) {
+  if (!is_tsibble(tidyselect::peek_data())) {
+    rlang::abort(
+      "Cannot use `measured_vars()` as a tidyselect helper in this context."
+    )
+  }
+  tidyselect::all_of(
+    measured_vars(tidyselect::peek_data())
+  )
+}
+
 #' Return index variable from a tsibble
+#'
+#' @details
+#' `index()` returns a symbol; `index_var()` gives a character string.
+#'
+#' When used inside tidyverse functions like [dplyr::select()], [dplyr::relocate()],
+#' or other tidyselect-compatible functions, `index_var()` acts as a selection
+#' helper that automatically selects the index column from the tsibble.
 #'
 #' @param x A tsibble object.
 #' @rdname index-rd
 #' @examples
 #' index(pedestrian)
 #' index_var(pedestrian)
+#'
+#' # Use as a tidyselect helper
+#' library(dplyr)
+#' tourism %>% select(index_var(), key_vars())
+#'
+#' # Use with relocate
+#' tourism %>% relocate(index_var(), .after = key_vars())
 #' @export
 index <- function(x) {
   sym(index_var(x))
@@ -162,8 +255,24 @@ index <- function(x) {
 #' @rdname index-rd
 #' @export
 index_var <- function(x) {
-  not_tsibble(x)
+  UseMethod("index_var")
+}
+
+#' @export
+index_var.tbl_ts <- function(x) {
   as_string(x %@% "index")
+}
+
+#' @export
+index_var.default <- function(x) {
+  if (!is_tsibble(tidyselect::peek_data())) {
+    rlang::abort(
+      "Cannot use `index_var()` as a tidyselect helper in this context."
+    )
+  }
+  tidyselect::all_of(
+    index_var(tidyselect::peek_data())
+  )
 }
 
 #' @rdname index-rd
@@ -175,8 +284,24 @@ index2 <- function(x) {
 #' @rdname index-rd
 #' @export
 index2_var <- function(x) {
-  not_tsibble(x)
+  UseMethod("index2_var")
+}
+
+#' @export
+index2_var.tbl_ts <- function(x) {
   x %@% "index2"
+}
+
+#' @export
+index2_var.default <- function(x) {
+  if (!is_tsibble(tidyselect::peek_data())) {
+    rlang::abort(
+      "Cannot use `index2_var()` as a tidyselect helper in this context."
+    )
+  }
+  tidyselect::all_of(
+    index2_var(tidyselect::peek_data())
+  )
 }
 
 #' Meta-information of a tsibble

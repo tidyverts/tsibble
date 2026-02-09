@@ -3,7 +3,8 @@
 \name{key}
 \alias{key}
 \alias{key_vars}
-\title{Return key variables}
+\title{or other tidyselect-compatible functions, \code{key_vars()} acts as a selection
+helper that automatically selects all key columns from the tsibble.}
 \usage{
 key(x)
 
@@ -13,7 +14,8 @@ key_vars(x)
 \item{x}{A tsibble.}
 }
 \description{
-\code{key()} returns a list of symbols; \code{key_vars()} gives a character vector.
+or other tidyselect-compatible functions, \code{key_vars()} acts as a selection
+helper that automatically selects all key columns from the tsibble.
 }
 \examples{
 key(pedestrian)
@@ -21,4 +23,11 @@ key_vars(pedestrian)
 
 key(tourism)
 key_vars(tourism)
+
+# Use as a tidyselect helper
+library(dplyr)
+tourism \%>\% select(index_var(), key_vars())
+
+# Combine with other tidyselect functions
+tourism \%>\% relocate(key_vars(), .after = last_col())
 }

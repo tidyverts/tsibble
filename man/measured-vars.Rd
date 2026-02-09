@@ -7,6 +7,8 @@
 \usage{
 measures(x)
 
+measures(x)
+
 measured_vars(x)
 }
 \arguments{
@@ -14,6 +16,23 @@ measured_vars(x)
 }
 \description{
 Return measured variables
+
+Return measured variables
+}
+\details{
+\code{measures()} returns a list of symbols; \code{measured_vars()} gives a character vector.
+
+When used inside tidyverse functions like \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+or other tidyselect-compatible functions, \code{measured_vars()} acts as a selection
+helper that automatically selects all measured variables (non-key, non-index
+columns) from the tsibble.
+
+\code{measures()} returns a list of symbols; \code{measured_vars()} gives a character vector.
+
+When used inside tidyverse functions like \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+or other tidyselect-compatible functions, \code{measured_vars()} acts as a selection
+helper that automatically selects all measured variables (non-key, non-index
+columns) from the tsibble.
 }
 \examples{
 measures(pedestrian)
@@ -21,4 +40,26 @@ measures(tourism)
 
 measured_vars(pedestrian)
 measured_vars(tourism)
+
+# Use as a tidyselect helper to select only measured variables
+library(dplyr)
+tourism \%>\% select(measured_vars())
+
+# Combine with key and index selectors
+tourism \%>\% select(measured_vars(), key_vars(), index_var())
+
+# Use with other tidyselect functions
+pedestrian \%>\% select(measured_vars(), where(is.numeric))
+measures(pedestrian)
+measures(tourism)
+
+measured_vars(pedestrian)
+measured_vars(tourism)
+
+# Use as a tidyselect helper to select measured variables
+library(dplyr)
+tourism \%>\% select(measured_vars(), key_vars(), index_var())
+
+# Use with other tidyselect functions
+pedestrian \%>\% select(measured_vars(), where(is.numeric))
 }

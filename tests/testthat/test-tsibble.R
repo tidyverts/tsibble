@@ -38,7 +38,7 @@ test_that("Argument regular is not logical", {
 test_that("A tibble is not tsibble", {
   expect_false(is_tsibble(dat_x))
   expect_error(key(dat_x), "Can't find the attribute key")
-  expect_error(index(dat_x), "tsibble")
+  expect_error(index(dat_x), "tidyselect")
   expect_error(interval(dat_x), "tsibble")
   expect_error(is_regular(dat_x), "tsibble")
 })

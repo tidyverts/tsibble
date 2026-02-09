@@ -21,7 +21,21 @@ index2_var(x)
 \description{
 Return index variable from a tsibble
 }
+\details{
+\code{index()} returns a symbol; \code{index_var()} gives a character string.
+
+When used inside tidyverse functions like \code{\link[dplyr:select]{dplyr::select()}}, \code{\link[dplyr:relocate]{dplyr::relocate()}},
+or other tidyselect-compatible functions, \code{index_var()} acts as a selection
+helper that automatically selects the index column from the tsibble.
+}
 \examples{
 index(pedestrian)
 index_var(pedestrian)
+
+# Use as a tidyselect helper
+library(dplyr)
+tourism \%>\% select(index_var(), key_vars())
+
+# Use with relocate
+tourism \%>\% relocate(index_var(), .after = key_vars())
 }
