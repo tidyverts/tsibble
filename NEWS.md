@@ -1,5 +1,7 @@
 # tsibble (development version)
 
+* Fixed `format.yearmonth()` incorrectly offseting years for non-week formats (e.g. `format = "%Y %b"`)
+
 # tsibble 1.2.0
 
 * Fixed `scan_gaps()` failing with data containing the `int` column name.
