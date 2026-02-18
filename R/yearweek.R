@@ -292,16 +292,11 @@ vec_arith.yearweek.MISSING <- function(op, x, y, ...) {
 }
 
 #' @export
-format.yearweek <- function(x, format = "%Y W%V", ...) {
+format.yearweek <- function(x, format = "%G W%V", ...) {
   wk_start <- week_start(x)
   x <- as_date(x)
-  mth <- month(x)
   wk <- extract_week(x, week_start = wk_start)
   shift_year <- period(1, units = "year")
-  lgl1 <- mth == 1 & wk == 53
-  lgl2 <- mth == 12 & wk == 1
-  vec_slice(x, lgl1) <- vec_slice(x, lgl1) - shift_year
-  vec_slice(x, lgl2) <- vec_slice(x, lgl2) + shift_year
   wk_chr <- formatC(wk, width = 2, flag = "0")
   wk_sub <- map_chr(wk_chr, function(.x) gsub("%V", .x, x = format))
   wk_sub[is.na(wk_sub)] <- "-"
