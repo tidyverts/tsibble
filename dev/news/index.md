@@ -2,6 +2,9 @@
 
 ## tsibble (development version)
 
+- Fixed `format.yearmonth()` incorrectly offseting years for non-week
+  formats (e.g. `format = "%Y %b"`)
+
 ## tsibble 1.2.0
 
 CRAN release: 2026-02-09
