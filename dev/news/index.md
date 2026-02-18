@@ -4,6 +4,8 @@
 
 ## tsibble 1.2.0
 
+CRAN release: 2026-02-09
+
 - Fixed
   [`scan_gaps()`](https://tsibble.tidyverts.org/dev/reference/scan_gaps.md)
   failing with data containing the `int` column name.
