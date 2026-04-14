@@ -43,6 +43,7 @@ Imports:
     lifecycle,
     lubridate (>= 1.7.0),
     methods,
+    mixtime,
     rlang (>= 1.0.0),
     tibble (>= 3.0.0),
     tidyselect (>= 1.0.0),
