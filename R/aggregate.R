@@ -80,3 +80,60 @@ parse_agg_spec <- function(expr){
   }
   unname(key_comb)
 }
+
+
+#' Temporal aggregation of the time index
+#' 
+#' Aggregate a tsibble with one or more levels of temporal aggregation. The 
+#' granularity of the aggregated time indices is determined by the `.granule` 
+#' argument, which is the chronons of the aggregated time indices.
+#' 
+#' @param data A tsibble.
+#' @param .granule A list of mixtime time units to be the linear time chronons of
+#'   the aggregated time indices. These time units are evaluated in the context 
+#'   of the index variable's calendar.
+#' 
+#' @seealso [aggregate_key()]
+#' 
+#' @examples
+#' library(tsibble)
+#' pedestrian %>% 
+#'   aggregate_index(
+#'     list(hour(12L), day(1L), month(1L), quarter(1L), year(1L)),
+#'     Count = sum(Count)
+#'   )
+#' 
+#' @export
+aggregate_index <- function(.data, .granule, ...){
+  UseMethod("aggregate_index")
+}
+
+#' @export
+aggregate_index.tbl_ts <- function(.data, .granule = NULL, ...){
+  idx <- index_var(.data)
+  cal <- mixtime::time_calendar(.data[[idx]])
+  kv <- key_vars(.data)
+  tu <- eval_tidy(enquo(.granule), data = cal, env = empty_env())
+  
+  # Temporal aggregations
+  .data <- as_tibble(.data)
+  agg_dt <- map(tu, function(x){
+    gd <- group_data(group_by(.data, !!idx := mixtime::mixtime(!!sym(idx), x), !!!syms(kv)))
+    gd[c(idx, kv, ".rows")]
+  })
+  agg_dt <- vctrs::vec_rbind(!!!agg_dt)
+  .data <- dplyr::new_grouped_df(.data, groups = agg_dt)
+  .data <- summarise(.data, ...)
+  
+  .data <- dplyr::new_grouped_df(.data, groups = agg_dt)
+  
+  # Re-order columns into index, keys, values order
+  .data <- .data[c(idx, kv, setdiff(colnames(.data), c(idx,kv)))]
+  
+  key_dt <- group_data(group_by(.data, !!!syms(kv)))
+  .data <- ungroup(.data)
+  
+  # Return tsibble
+  build_tsibble(.data, key_data = key_dt, index = idx, 
+                index2 = as_string(idx), ordered = TRUE)
+}
