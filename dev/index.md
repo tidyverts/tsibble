@@ -17,12 +17,14 @@ principles](https://tidyr.tidyverse.org/articles/tidy-data.html),
 You could install the stable version on CRAN:
 
 ``` r
+
 install.packages("tsibble")
 ```
 
 You could install the development version from Github using
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("tidyverts/tsibble")
 ```
@@ -38,6 +40,7 @@ and the `origin` as **key**. Other columns can be considered as measured
 variables.
 
 ``` r
+
 library(dplyr)
 library(tsibble)
 weather <- nycflights13::weather %>% 
@@ -90,6 +93,7 @@ origin in time series analysis, which is easily done using `fill()` from
 **tidyr**.
 
 ``` r
+
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% 
   group_by_key() %>% 
@@ -137,6 +141,7 @@ month, by applying
 to the index variable (referred to as `.`).
 
 ``` r
+
 full_weather %>%
   group_by_key() %>%
   index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates

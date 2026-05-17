@@ -27,6 +27,7 @@ requires a little more setup in order to declare the index and key
 variables.
 
 ``` r
+
 library(dplyr)
 library(lubridate)
 library(tsibble)
@@ -64,6 +65,7 @@ measured variables. When creating a tsibble, the key will be sorted
 first, followed by arranging time from past to recent.
 
 ``` r
+
 weather_tsbl <- as_tsibble(weather, key = origin)
 #> Using `time_hour` as index variable.
 weather_tsbl
@@ -121,6 +123,7 @@ index is updated to the `date` with one-day interval from the index
 maximum and minimum temperatures.
 
 ``` r
+
 weather_tsbl %>%
   group_by_key() %>%
   index_by(date = ~ as_date(.)) %>% 
@@ -152,6 +155,7 @@ at irregular time interval. Below shows the scheduled date time of the
 flights in New York:
 
 ``` r
+
 flights <- nycflights13::flights %>%
   mutate(sched_dep_datetime = 
     make_datetime(year, month, day, hour, minute, tz = "America/New_York"))
@@ -163,6 +167,7 @@ observational units over time, from a passenger’s point of view. With
 `[!]` highlights the irregularity.
 
 ``` r
+
 flights_tsbl <- flights %>%
   as_tsibble(
     key = c(carrier, flight), 

@@ -23,6 +23,7 @@ pedestrians at four counting sensors in 2015 and 2016 in inner
 Melbourne.
 
 ``` r
+
 library(dplyr)
 library(tsibble)
 pedestrian
@@ -41,6 +42,7 @@ pedestrian
 Indeed each sensor has gaps in time.
 
 ``` r
+
 has_gaps(pedestrian, .full = TRUE)
 #> # A tibble: 4 × 2
 #>   Sensor                        .gaps
@@ -63,6 +65,7 @@ Marr exhibits many chunks of missingness, while Bourke Street Mall
 be recognised.
 
 ``` r
+
 ped_gaps <- pedestrian %>% 
   count_gaps(.full = TRUE)
 ped_gaps
@@ -96,6 +99,7 @@ fact that the system skipped the extra hour when switching from daylight
 savings to standard time.
 
 ``` r
+
 library(ggplot2)
 ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
   geom_linerange(aes(ymin = .from, ymax = .to)) +
@@ -116,6 +120,7 @@ filled by the default `NA`. The `pedestrian` data initially contains
 66037 and gets augmented to 70176.
 
 ``` r
+
 ped_full <- pedestrian %>% 
   fill_gaps(.full = TRUE)
 ped_full
@@ -136,6 +141,7 @@ Other than `NA`, a set of name-value pairs goes along with
 by imputing values or functions as desired.
 
 ``` r
+
 pedestrian %>% 
   fill_gaps(Count = 0L, .full = TRUE)
 pedestrian %>% 

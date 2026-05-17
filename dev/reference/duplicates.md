@@ -67,6 +67,6 @@ duplicates(harvest, key = fruit, index = year)
 #> # A tibble: 2 × 3
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
-#> 1  2014 cherry     8
-#> 2  2014 cherry     5
+#> 1  2014 cherry    10
+#> 2  2014 cherry     4
 ```

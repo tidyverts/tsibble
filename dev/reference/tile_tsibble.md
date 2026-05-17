@@ -60,10 +60,10 @@ harvest %>%
 #> # Key:       .id, fruit [4]
 #>    year fruit   kilo   .id
 #>   <int> <chr>  <int> <int>
-#> 1  2010 cherry     6     1
-#> 2  2011 cherry     5     1
+#> 1  2010 cherry     1     1
+#> 2  2011 cherry     2     1
 #> 3  2010 kiwi       3     1
-#> 4  2011 kiwi       8     1
-#> 5  2012 cherry    10     2
-#> 6  2012 kiwi       2     2
+#> 4  2011 kiwi       4     1
+#> 5  2012 cherry     5     2
+#> 6  2012 kiwi       6     2
 ```

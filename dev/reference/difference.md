@@ -73,12 +73,12 @@ arrange(wrong, year)
 #> # A tsibble: 6 x 3 [1Y]
 #>    year value  diff
 #>   <int> <dbl> <dbl>
-#> 1  2000     0    NA
+#> 1  2000     0   -25
 #> 2  2001     1    -3
-#> 3  2002     4     4
-#> 4  2003     9    -7
-#> 5  2004    16    15
-#> 6  2005    25    16
+#> 3  2002     4    -5
+#> 4  2003     9     9
+#> 5  2004    16    NA
+#> 6  2005    25     9
 
 right <- mutate(scrambled, diff = difference(value, order_by = year))
 #> Warning: Current temporal ordering may yield unexpected results.

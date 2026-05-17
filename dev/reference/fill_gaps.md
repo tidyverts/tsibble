@@ -71,13 +71,13 @@ fill_gaps(harvest, .full = TRUE)
 #>    <dbl> <chr>  <int>
 #>  1  2010 cherry    NA
 #>  2  2011 cherry     4
-#>  3  2012 cherry     7
+#>  3  2012 cherry     5
 #>  4  2013 cherry    NA
-#>  5  2014 cherry    10
-#>  6  2010 kiwi       6
+#>  5  2014 cherry     8
+#>  6  2010 kiwi       3
 #>  7  2011 kiwi       2
 #>  8  2012 kiwi      NA
-#>  9  2013 kiwi       1
+#>  9  2013 kiwi      10
 #> 10  2014 kiwi      NA
 fill_gaps(harvest, .full = start())
 #> # A tsibble: 9 x 3 [1Y]
@@ -86,26 +86,26 @@ fill_gaps(harvest, .full = start())
 #>   <dbl> <chr>  <int>
 #> 1  2010 cherry    NA
 #> 2  2011 cherry     4
-#> 3  2012 cherry     7
+#> 3  2012 cherry     5
 #> 4  2013 cherry    NA
-#> 5  2014 cherry    10
-#> 6  2010 kiwi       6
+#> 5  2014 cherry     8
+#> 6  2010 kiwi       3
 #> 7  2011 kiwi       2
 #> 8  2012 kiwi      NA
-#> 9  2013 kiwi       1
+#> 9  2013 kiwi      10
 fill_gaps(harvest, .full = end())
 #> # A tsibble: 9 x 3 [1Y]
 #> # Key:       fruit [2]
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
-#> 2  2012 cherry     7
+#> 2  2012 cherry     5
 #> 3  2013 cherry    NA
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
 #> 7  2012 kiwi      NA
-#> 8  2013 kiwi       1
+#> 8  2013 kiwi      10
 #> 9  2014 kiwi      NA
 fill_gaps(harvest, .start = 2009, .end = 2016)
 #> # A tsibble: 16 x 3 [1Y]
@@ -115,16 +115,16 @@ fill_gaps(harvest, .start = 2009, .end = 2016)
 #>  1  2009 cherry    NA
 #>  2  2010 cherry    NA
 #>  3  2011 cherry     4
-#>  4  2012 cherry     7
+#>  4  2012 cherry     5
 #>  5  2013 cherry    NA
-#>  6  2014 cherry    10
+#>  6  2014 cherry     8
 #>  7  2015 cherry    NA
 #>  8  2016 cherry    NA
 #>  9  2009 kiwi      NA
-#> 10  2010 kiwi       6
+#> 10  2010 kiwi       3
 #> 11  2011 kiwi       2
 #> 12  2012 kiwi      NA
-#> 13  2013 kiwi       1
+#> 13  2013 kiwi      10
 #> 14  2014 kiwi      NA
 #> 15  2015 kiwi      NA
 #> 16  2016 kiwi      NA
@@ -135,13 +135,13 @@ full_harvest
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
-#> 2  2012 cherry     7
+#> 2  2012 cherry     5
 #> 3  2013 cherry    NA
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
 #> 7  2012 kiwi      NA
-#> 8  2013 kiwi       1
+#> 8  2013 kiwi      10
 
 # replace gaps with a specific value
 harvest %>%
@@ -151,13 +151,13 @@ harvest %>%
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
-#> 2  2012 cherry     7
+#> 2  2012 cherry     5
 #> 3  2013 cherry     0
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
 #> 7  2012 kiwi       0
-#> 8  2013 kiwi       1
+#> 8  2013 kiwi      10
 
 # replace gaps using a function by variable
 harvest %>%
@@ -167,13 +167,13 @@ harvest %>%
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
-#> 2  2012 cherry     7
-#> 3  2013 cherry    30
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 2  2012 cherry     5
+#> 3  2013 cherry    32
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
-#> 7  2012 kiwi      30
-#> 8  2013 kiwi       1
+#> 7  2012 kiwi      32
+#> 8  2013 kiwi      10
 
 # replace gaps using a function for each group
 harvest %>%
@@ -185,13 +185,13 @@ harvest %>%
 #>    year fruit   kilo
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
-#> 2  2012 cherry     7
-#> 3  2013 cherry    21
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 2  2012 cherry     5
+#> 3  2013 cherry    17
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
-#> 7  2012 kiwi       9
-#> 8  2013 kiwi       1
+#> 7  2012 kiwi      15
+#> 8  2013 kiwi      10
 
 # leaves existing `NA` untouched
 harvest[2, 3] <- NA
@@ -205,12 +205,12 @@ harvest %>%
 #>   <dbl> <chr>  <int>
 #> 1  2011 cherry     4
 #> 2  2012 cherry    NA
-#> 3  2013 cherry    14
-#> 4  2014 cherry    10
-#> 5  2010 kiwi       6
+#> 3  2013 cherry    12
+#> 4  2014 cherry     8
+#> 5  2010 kiwi       3
 #> 6  2011 kiwi       2
-#> 7  2012 kiwi       9
-#> 8  2013 kiwi       1
+#> 7  2012 kiwi      15
+#> 8  2013 kiwi      10
 
 # replace NA
 pedestrian %>%

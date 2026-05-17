@@ -1,6 +1,7 @@
 # Frequently Asked Questions and Answers
 
 ``` r
+
 library(dplyr)
 library(tsibble)
 library(lubridate)
@@ -13,6 +14,7 @@ library(lubridate)
 > one-day interval `[1D]` instead of one-month `[1M]`?*
 
 ``` r
+
 mth <- make_date("2018") + months(0:3)
 tsibble(mth = mth, index = mth)
 #> # A tsibble: 4 x 1 [1D]
@@ -36,6 +38,7 @@ interval due to mismatched index class.”, it’s the same underlying
 issue.
 
 ``` r
+
 tsibble(mth = yearmonth(mth), index = mth)
 #> # A tsibble: 4 x 1 [1M]
 #>        mth
@@ -63,6 +66,7 @@ seconds. The following example demonstrates how tsibble handles daylight
 savings.
 
 ``` r
+
 x <- ymd_h("2015-04-05 01", tz = "Australia/Melbourne")
 # base arithmetic respect tz
 tsibble(time = x + (c(0, 3, 6, 9)) * 60 * 60, index = time)
@@ -93,6 +97,7 @@ actual time is different from what you think it is.
 > them into one tsibble?*
 
 ``` r
+
 tsbl1 <- tsibble(
   time = make_datetime(2018) + hours(0:3),
   station = "A",
@@ -144,6 +149,7 @@ them differently, it is recommended to have separate tsibbles instead.
 > tsibble interval doesn’t look correct.*
 
 ``` r
+
 x <- make_datetime(2018) + minutes(0:1)
 tbl <- tibble(  
   time = c(x, x + minutes(15)),
@@ -166,6 +172,7 @@ doesn’t matter to the analysis. If it does, please organise them in
 different tables.
 
 ``` r
+
 tbl %>% 
   mutate(time = floor_date(time, unit = "15 mins")) %>% 
   as_tsibble(index = time, key = station)
