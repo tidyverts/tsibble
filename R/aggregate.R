@@ -94,6 +94,7 @@ parse_agg_spec <- function(expr){
 #'   of the index variable's calendar.
 #' @param .name The name of the additional key variable identifying the granule
 #'   of the aggregated time indices.
+#' @inheritParams dplyr::summarise
 #' 
 #' @seealso [aggregate_key()]
 #' 
@@ -105,11 +106,13 @@ parse_agg_spec <- function(expr){
 #'     Count = sum(Count)
 #'   )
 #' 
+#' @name aggregate_index
 #' @export
 aggregate_index <- function(.data, .granule, ...){
   UseMethod("aggregate_index")
 }
 
+#' @rdname aggregate_index
 #' @export
 aggregate_index.tbl_ts <- function(.data, .granule = NULL, ..., .name = ".granule"){
   idx <- index_var(.data)

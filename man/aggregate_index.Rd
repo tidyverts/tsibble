@@ -2,14 +2,30 @@
 % Please edit documentation in R/aggregate.R
 \name{aggregate_index}
 \alias{aggregate_index}
+\alias{aggregate_index.tbl_ts}
 \title{Temporal aggregation of the time index}
 \usage{
-aggregate_index(.data, .granule, ..., .name = ".granule")
+aggregate_index(.data, .granule, ...)
+
+\method{aggregate_index}{tbl_ts}(.data, .granule = NULL, ..., .name = ".granule")
 }
 \arguments{
+\item{.data}{A data frame, data frame extension (e.g. a tibble), or a
+lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
+more details.}
+
 \item{.granule}{A list of mixtime time units to be the linear time chronons of
 the aggregated time indices. These time units are evaluated in the context
 of the index variable's calendar.}
+
+\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Name-value pairs of
+summary functions. The name will be the name of the variable in the result.
+
+The value can be:
+\itemize{
+\item A vector of length 1, e.g. \code{min(x)}, \code{n()}, or \code{sum(is.na(y))}.
+\item A data frame with 1 row, to add multiple columns from a single expression.
+}}
 
 \item{.name}{The name of the additional key variable identifying the granule
 of the aggregated time indices.}
