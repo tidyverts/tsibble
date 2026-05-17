@@ -26,7 +26,7 @@ test_that("4 day interval", {
   expect_equal(append_row(tsbl)[6, ], ref_tbl, ignore_attr = TRUE)
   ref_tbl2 <- tibble(date = ymd("2016-12-28"), value = NA_real_)
   expect_equal(append_row(tsbl, n = -1)[1, ], ref_tbl2, ignore_attr = TRUE)
-  expect_error(append_row(tsbl, 1:3), "an integer")
+  expect_error(append_row(tsbl, 1:3), "a single value")
 })
 
 tourism <- tourism %>%

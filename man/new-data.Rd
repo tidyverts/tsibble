@@ -16,11 +16,11 @@ append_row(.data, n = 1L, ...)
 \arguments{
 \item{.data}{A \code{tbl_ts}.}
 
-\item{n}{An integer indicates the number of key-index pair to append. If
-\itemize{
-\item \code{n > 0}, future observations
-\item \code{n < 0}, past observations
-}}
+\item{n}{An integer or \verb{[mixtime::duration]} indicates the sequence size
+of new time indices to be generated. The sign of \code{n} determines the start
+and direction of the sequence, with positive values generating indices
+after the last time index and negative values generating indices before the
+first time index of each key group.}
 
 \item{...}{Passed to individual S3 method.}
 
@@ -40,6 +40,8 @@ new_data(pedestrian)
 new_data(pedestrian, keep_all = TRUE)
 new_data(pedestrian, n = 3)
 new_data(pedestrian, n = -2)
+
+new_data(pedestrian, n = mixtime::days(1L))
 
 tsbl <- tsibble(
   date = rep(as.Date("2017-01-01") + 0:2, each = 2),

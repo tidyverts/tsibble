@@ -3,9 +3,11 @@
 #' `r lifecycle::badge('stable')`
 #'
 #' @param .data A `tbl_ts`.
-#' @param n An integer indicates the number of key-index pair to append. If
-#' * `n > 0`, future observations
-#' * `n < 0`, past observations
+#' @param n An integer or `[mixtime::duration]` indicates the sequence size
+#'   of new time indices to be generated. The sign of `n` determines the start
+#'   and direction of the sequence, with positive values generating indices 
+#'   after the last time index and negative values generating indices before the
+#'   first time index of each key group.
 #' @param ... Passed to individual S3 method.
 #'
 #' @rdname new-data
@@ -23,10 +25,16 @@ new_data <- function(.data, n = 1L, ...) {
 #' new_data(pedestrian, keep_all = TRUE)
 #' new_data(pedestrian, n = 3)
 #' new_data(pedestrian, n = -2)
+#' 
+#' new_data(pedestrian, n = mixtime::days(1L))
 new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
-  if (!is_integerish(n, 1)) {
-    abort("Argument `n` must be an integer.")
+  if (vctrs::vec_size(n) != 1L) {
+    cli_abort("Argument {.arg n} must be a single value.")
   }
+  if (!(mixtime::is_time_duration(n) || is_integerish(n, 1))) {
+    cli_abort("Argument {.arg n} must be an integer or a {.help mixtime::duration}.")
+  }
+
   abort_if_irregular(.data)
   abort_unknown_interval(int <- interval(.data))
 
@@ -35,7 +43,7 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
 
   key_data <- key_data(.data)
   grped_df <- new_grouped_df(.data, groups = key_data)
-  if (n >= 0) {
+  if (n >= vec_cast(0, n)) {
     is_ord <- TRUE
     last_entry <- summarise(grped_df, !!idx := max(!!idx))
   } else {
@@ -49,11 +57,25 @@ new_data.tbl_ts <- function(.data, n = 1L, keep_all = FALSE, ...) {
     meta_grps <- mutate(key_data, .rows = list2(!!!vec_seq_along(last_entry)))
     regrped_df <- new_grouped_df(last_entry, groups = meta_grps)
   }
-  new_lst <- mutate(regrped_df, 
-    !!idx := list2(
-      !!idx := seq_generator(!!idx, tunit, length_out = abs(n) + 1)[-1]))
+  # If mixtime, use seq(from, from+n, by=chronon)
+  out <- if (mixtime::is_mixtime(eval_tidy(idx, data = regrped_df))) {
+    dplyr::reframe(
+      regrped_df, 
+      !!idx := seq(!!idx, !!idx + n, by = mixtime::time_chronon(!!idx))[-1]
+    )
+  # Otherwise, use seq_generator(from, tunit, length_out = abs(n) + 1)
+  } else {
+    if (mixtime::is_time_duration(n)) {
+      n <- as.numeric(
+        n / (mixtime::time_chronon(regrped_df[[length(regrped_df)]][[1]]) * tunit)
+      )
+    }
+    dplyr::reframe(
+      regrped_df, 
+      !!idx := seq_generator(!!idx, tunit, length_out = abs(n) + 1)[-1]
+    )
+  }
 
-  out <- unwrap(ungroup(new_lst), .col = !!idx)
   if (keep_all) {
     out <- vec_rbind(vec_slice(.data, 0L), out)
   } else { # reorder column names according to the data input
