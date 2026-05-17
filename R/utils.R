@@ -82,3 +82,14 @@ with_anytime_formats <- function(expr, formats_before = NULL, formats_after = NU
   addFormats(rev(c(formats_before, old_formats, formats_after)))
   expr
 }
+
+require_package <- function (pkg) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    cli::cli_abort(
+      c(
+        "The {.pkg {pkg}} package is required but not installed.",
+         "i" = "Please install it with {.run install.packages(\"{pkg}\")}"
+      )
+    )
+  }
+}

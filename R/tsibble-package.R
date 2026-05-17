@@ -115,6 +115,7 @@ stub <- function() {
 #' @importFrom dplyr bind_rows bind_cols combine with_order pull first reframe
 #' @importFrom dplyr dplyr_row_slice dplyr_col_modify dplyr_reconstruct
 #' @importFrom tibble new_tibble trunc_mat
+#' @importFrom cli cli_inform cli_warn cli_abort
 #' @import rlang tidyselect vctrs
 ## usethis namespace: end
 NULL
