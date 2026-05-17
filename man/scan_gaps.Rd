@@ -26,9 +26,9 @@ Scan a tsibble for implicit missing observations
 scan_gaps(pedestrian)
 }
 \seealso{
-Other implicit gaps handling: 
-\code{\link{count_gaps}()},
-\code{\link{fill_gaps}()},
-\code{\link{has_gaps}()}
+Other implicit gaps handling:
+\code{\link[=count_gaps]{count_gaps()}},
+\code{\link[=fill_gaps]{fill_gaps()}},
+\code{\link[=has_gaps]{has_gaps()}}
 }
 \concept{implicit gaps handling}

@@ -38,7 +38,7 @@ scale_x_yearweek(...)
 scale_y_yearweek(...)
 }
 \arguments{
-\item{...}{Arguments passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date()}}.}
+\item{...}{Arguments passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

@@ -65,8 +65,8 @@ lubridate::year(y) # calendar years
 \seealso{
 \link{scale_x_yearquarter} and others for ggplot2 scales
 
-Other index functions: 
-\code{\link{yearmonth}()},
-\code{\link{yearweek}()}
+Other index functions:
+\code{\link[=yearmonth]{yearmonth()}},
+\code{\link[=yearweek]{yearweek()}}
 }
 \concept{index functions}

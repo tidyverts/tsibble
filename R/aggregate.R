@@ -92,6 +92,8 @@ parse_agg_spec <- function(expr){
 #' @param .granule A list of mixtime time units to be the linear time chronons of
 #'   the aggregated time indices. These time units are evaluated in the context 
 #'   of the index variable's calendar.
+#' @param .name The name of the additional key variable identifying the granule
+#'   of the aggregated time indices.
 #' 
 #' @seealso [aggregate_key()]
 #' 
@@ -109,7 +111,7 @@ aggregate_index <- function(.data, .granule, ...){
 }
 
 #' @export
-aggregate_index.tbl_ts <- function(.data, .granule = NULL, ...){
+aggregate_index.tbl_ts <- function(.data, .granule = NULL, ..., .name = ".granule"){
   idx <- index_var(.data)
   cal <- mixtime::time_calendar(.data[[idx]])
   kv <- key_vars(.data)
@@ -118,22 +120,17 @@ aggregate_index.tbl_ts <- function(.data, .granule = NULL, ...){
   # Temporal aggregations
   .data <- as_tibble(.data)
   agg_dt <- map(tu, function(x){
-    gd <- group_data(group_by(.data, !!idx := mixtime::mixtime(!!sym(idx), x), !!!syms(kv)))
-    gd[c(idx, kv, ".rows")]
+    gd <- group_data(group_by(.data, !!idx := mixtime::mixtime(!!sym(idx), x), !!!syms(kv), !!.name := mixtime::duration(1L, x)))
+    gd[c(idx, kv, .name, ".rows")]
   })
   agg_dt <- vctrs::vec_rbind(!!!agg_dt)
-  .data <- dplyr::new_grouped_df(.data, groups = agg_dt)
-  .data <- summarise(.data, ...)
-  
-  .data <- dplyr::new_grouped_df(.data, groups = agg_dt)
+  .data <- dplyr::new_grouped_df(mutate(.data, !!.name := NA), groups = agg_dt)
+  .data <- summarise(.data, ..., .groups = "drop")
   
   # Re-order columns into index, keys, values order
-  .data <- .data[c(idx, kv, setdiff(colnames(.data), c(idx,kv)))]
-  
-  key_dt <- group_data(group_by(.data, !!!syms(kv)))
-  .data <- ungroup(.data)
+  .data <- .data[c(idx, kv, .name, setdiff(colnames(.data), c(idx, kv, .name)))]
   
   # Return tsibble
-  build_tsibble(.data, key_data = key_dt, index = idx, 
+  build_tsibble(.data, key = all_of(c(kv, .name)), index = idx, 
                 index2 = as_string(idx), ordered = TRUE)
 }

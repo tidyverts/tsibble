@@ -55,9 +55,9 @@ ggplot(ped_gaps, aes(x = Sensor, colour = Sensor)) +
   theme(legend.position = "bottom")
 }
 \seealso{
-Other implicit gaps handling: 
-\code{\link{fill_gaps}()},
-\code{\link{has_gaps}()},
-\code{\link{scan_gaps}()}
+Other implicit gaps handling:
+\code{\link[=fill_gaps]{fill_gaps()}},
+\code{\link[=has_gaps]{has_gaps()}},
+\code{\link[=scan_gaps]{scan_gaps()}}
 }
 \concept{implicit gaps handling}

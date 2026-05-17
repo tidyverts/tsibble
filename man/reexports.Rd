@@ -16,10 +16,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr:\%>\%]{\%>\%}}}
 
-  \item{generics}{\code{\link[generics:setops]{intersect}}, \code{\link[generics:setops]{setdiff}}, \code{\link[generics:setops]{union}}}
+  \item{generics}{\code{\link[generics:intersect]{intersect()}}, \code{\link[generics:setdiff]{setdiff()}}, \code{\link[generics:union]{union()}}}
 
-  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}}
+  \item{tibble}{\code{\link[tibble:as_tibble]{as_tibble()}}, \code{\link[tibble:tibble]{tibble()}}}
 }}
 

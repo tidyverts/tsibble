@@ -15,7 +15,7 @@ unnest_tsibble(data, cols, key = NULL, validate = TRUE)
 determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
 \code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
 This argument also supports \link[tidyselect:language]{tidy-select expressions},
-e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
+e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}, \code{\link[dplyr:all_of]{dplyr::all_of()}}.}
 
 \item{validate}{\code{TRUE} suggests to verify that each key or each combination
 of key variables leads to unique time indices (i.e. a valid tsibble). If you

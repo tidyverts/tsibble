@@ -123,6 +123,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com} (\href{https://orcid.org/0000-0001-6729-7695}{ORCID})
   \item Earo Wang (\href{https://orcid.org/0000-0001-6448-5260}{ORCID})
   \item Di Cook (\href{https://orcid.org/0000-0002-3813-7155}{ORCID}) [thesis advisor]
   \item Rob Hyndman (\href{https://orcid.org/0000-0002-2140-5352}{ORCID}) [thesis advisor]

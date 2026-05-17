@@ -23,7 +23,7 @@ build_tsibble(
 determine time indices. \code{NULL} for an empty key, unquoted column names (e.g.
 \code{x}) for a single variable, and \code{c()} for multiple variables (e.g. \code{c(x, y)}).
 This argument also supports \link[tidyselect:language]{tidy-select expressions},
-e.g. \code{\link[dplyr:reexports]{dplyr::starts_with()}}, \code{\link[dplyr:reexports]{dplyr::all_of()}}.}
+e.g. \code{\link[dplyr:starts_with]{dplyr::starts_with()}}, \code{\link[dplyr:all_of]{dplyr::all_of()}}.}
 
 \item{key_data}{A data frame containing key variables and \code{.rows}. When a data
 frame is supplied, the argument \code{key} will be ignored.}

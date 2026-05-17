@@ -44,9 +44,9 @@ harvest \%>\%
   slide_tsibble(.size = 2)
 }
 \seealso{
-Other rolling tsibble: 
-\code{\link{stretch_tsibble}()},
-\code{\link{tile_tsibble}()}
+Other rolling tsibble:
+\code{\link[=stretch_tsibble]{stretch_tsibble()}},
+\code{\link[=tile_tsibble]{tile_tsibble()}}
 }
 \concept{rolling tsibble}
 \keyword{internal}

@@ -40,9 +40,9 @@ has_gaps(harvest, .full = start())
 has_gaps(harvest, .full = end())
 }
 \seealso{
-Other implicit gaps handling: 
-\code{\link{count_gaps}()},
-\code{\link{fill_gaps}()},
-\code{\link{scan_gaps}()}
+Other implicit gaps handling:
+\code{\link[=count_gaps]{count_gaps()}},
+\code{\link[=fill_gaps]{fill_gaps()}},
+\code{\link[=scan_gaps]{scan_gaps()}}
 }
 \concept{implicit gaps handling}

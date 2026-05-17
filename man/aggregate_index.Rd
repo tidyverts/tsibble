@@ -4,12 +4,15 @@
 \alias{aggregate_index}
 \title{Temporal aggregation of the time index}
 \usage{
-aggregate_index(.data, .granule, ...)
+aggregate_index(.data, .granule, ..., .name = ".granule")
 }
 \arguments{
 \item{.granule}{A list of mixtime time units to be the linear time chronons of
 the aggregated time indices. These time units are evaluated in the context
 of the index variable's calendar.}
+
+\item{.name}{The name of the additional key variable identifying the granule
+of the aggregated time indices.}
 
 \item{data}{A tsibble.}
 }

@@ -65,8 +65,8 @@ make_yearmonth(year = 2020:2021, month = 10:11)
 \seealso{
 \link{scale_x_yearmonth} and others for ggplot2 scales
 
-Other index functions: 
-\code{\link{yearquarter}()},
-\code{\link{yearweek}()}
+Other index functions:
+\code{\link[=yearquarter]{yearquarter()}},
+\code{\link[=yearweek]{yearweek()}}
 }
 \concept{index functions}
