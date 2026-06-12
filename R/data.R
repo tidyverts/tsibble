@@ -9,6 +9,9 @@
 #' * **Date**: Date when the pedestrian counts are recorded
 #' * **Time**: Hour associated with Date_Time
 #' * **Counts**: Hourly pedestrian counts
+#' @source City of Melbourne, *Pedestrian Counting System (counts per hour)*,
+#'   <https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-monthly-counts-per-hour/information/>,
+#'   licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 #' @docType data
 #' @name pedestrian
 #' @usage pedestrian
@@ -42,7 +45,9 @@
 #'   - "Business"
 #'   - "Other reason"
 #' * **Trips**: Overnight trips in thousands
-#' @references [Tourism Research Australia](https://www.tra.gov.au)
+#' @source Commonwealth of Australia (Tourism Research Australia), *National Visitor Survey*,
+#'   <https://www.tra.gov.au>, licensed under
+#'   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 #' @docType data
 #' @name tourism
 #' @usage tourism
