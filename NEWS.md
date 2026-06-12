@@ -1,6 +1,7 @@
 # tsibble (development version)
 
 * Fixed `format.yearmonth()` incorrectly offseting years for non-week formats (e.g. `format = "%Y %b"`)
+* Added CC BY 4.0 attribution for the `pedestrian` dataset (City of Melbourne).
 
 # tsibble 1.2.0
 
