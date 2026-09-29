@@ -2,6 +2,10 @@
 
 * Fixed `format.yearmonth()` incorrectly offseting years for non-week formats (e.g. `format = "%Y %b"`)
 * Fixed `as.ts()` failing for weekly (`yearweek`) tsibbles with recent versions of lubridate.
+* Fixed `interval_pull()` for `POSIXct` indices spaced by whole days, which
+  dropped the day component and made `as_tsibble()` fail with "Can't obtain
+  the interval due to the mismatched index class". Such intervals are now
+  reported in hours (e.g. `[24h]`). (#286)
 
 # tsibble 1.2.0
 

@@ -18,11 +18,9 @@ test_that("A tsibble must not contain missing values in index", {
   )
 })
 
-test_that("A tsibble with unknown interval due to unexpected index class", {
-  expect_error(
-    tsibble(date = as.POSIXct(Sys.Date() + 0:9)),
-    "Can't obtain the interval"
-  )
+test_that("A POSIXct index with daily spacing has a 24 hour interval (#286)", {
+  tsbl <- tsibble(date = as.POSIXct(Sys.Date() + 0:9))
+  expect_identical(format_interval(interval(tsbl)), "24h")
 })
 
 test_that("Argument regular is not logical", {

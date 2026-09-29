@@ -36,7 +36,7 @@ interval_pull.POSIXt <- function(x) {
   nhms <- gcd_interval(dttm)
   period <- split_period(nhms)
   new_interval(
-    hour = period$hour,
+    hour = period$hour + period$day * 24,
     minute = period$minute,
     second = period$second %/% 1,
     millisecond = (period$second %% 1 * 1e3) %/% 1,
