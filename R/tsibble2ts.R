@@ -76,7 +76,7 @@ time_ts <- function(x, ...) {
 #' @export
 time_ts.yearweek <- function(x, ...) {
   freq <- guess_frequency(x)
-  y <- decimal_date(x)
+  y <- decimal_date(as.Date(x))
   ts(y, start = min0(y), frequency = freq)
 }
 

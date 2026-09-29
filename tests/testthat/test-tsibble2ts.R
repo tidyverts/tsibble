@@ -120,3 +120,18 @@ test_that("as.ts() automatically fills implicit missings #160", {
 test_that("as.ts() for multiple keys", {
   expect_error(as.ts(tourism), "the key of multiple")
 })
+
+test_that("as.ts() for weekly (yearweek) tsibbles", {
+  wk <- yearweek("2020 W01") + 0:9
+  tsbl <- tsibble(week = wk, value = 1:10, index = week)
+  y <- as.ts(tsbl)
+  expect_s3_class(y, "ts")
+  expect_equal(as.numeric(y), 1:10)
+  expect_equal(frequency(y), 52.18)
+  expect_equal(start(y), lubridate::decimal_date(as.Date("2019-12-30")))
+  expect_equal(frequency(time_ts(wk)), 52.18)
+  expect_equal(
+    as.numeric(time_ts(wk)),
+    lubridate::decimal_date(as.Date(wk))
+  )
+})

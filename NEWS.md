@@ -1,6 +1,7 @@
 # tsibble (development version)
 
 * Fixed `format.yearmonth()` incorrectly offseting years for non-week formats (e.g. `format = "%Y %b"`)
+* Fixed `as.ts()` failing for weekly (`yearweek`) tsibbles with recent versions of lubridate.
 
 # tsibble 1.2.0
 
