@@ -165,6 +165,9 @@ as_tsibble(AirPassengers)
 as_tsibble(sunspot.year)
 as_tsibble(sunspot.month)
 as_tsibble(austres)
+
+# a one-column matrix ts with a column name is treated like an mts
+as_tsibble(ts(matrix(1:12, dimnames = list(NULL, "all")), frequency = 12))
 # coerce mts to tsibble
 z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)

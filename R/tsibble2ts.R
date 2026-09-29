@@ -8,6 +8,12 @@
 #' @param frequency A smart frequency with the default `NULL`. If set, the
 #' preferred frequency is passed to `ts()`.
 #' @param fill A value to replace missing values.
+#' @param drop If `TRUE` (the default), a single series is returned as a
+#' vector `ts`. If `FALSE`, a single series is kept as a one-column matrix
+#' `ts`, whose column name is the key value (multiple key variables are
+#' pasted together with `"/"`), or the name of the measured variable if the
+#' tsibble has no key. It has no effect when there are multiple series, which
+#' always give a matrix.
 #' @param ... Ignored for the function.
 #'
 #' @return A `ts` object.
@@ -17,8 +23,17 @@
 #' # a monthly series
 #' x1 <- as_tsibble(AirPassengers)
 #' as.ts(x1)
-as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
+#'
+#' # keep a single series as a one-column matrix named by its key
+#' x2 <- tsibble(
+#'   year = 2000:2005, group = "all", value = 1:6,
+#'   index = year, key = group
+#' )
+#' as.ts(x2, drop = FALSE)
+as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_,
+                         drop = TRUE, ...) {
   stopifnot(!is_null(fill))
+  stopifnot(is_bool(drop))
   value <- enquo(value)
   key_vars <- key(x)
   if (length(key_vars) > 1 && n_keys(x) > 1) {
@@ -43,10 +58,10 @@ as.ts.tbl_ts <- function(x, value, frequency = NULL, fill = NA_real_, ...) {
   tsbl_sel <- fill_gaps(
     select(x, !!idx, !!!key_vars, !!value_var),
     !!!vars_fill, .full = TRUE)
-  pivot_wider_ts(tsbl_sel, frequency = frequency)
+  pivot_wider_ts(tsbl_sel, frequency = frequency, drop = drop)
 }
 
-pivot_wider_ts <- function(data, frequency = NULL) {
+pivot_wider_ts <- function(data, frequency = NULL, drop = TRUE) {
   index <- index_var(data)
   df_rows <- data[[index]]
   idx_time <- time_ts(df_rows)
@@ -62,6 +77,14 @@ pivot_wider_ts <- function(data, frequency = NULL) {
   if (nseries > 1) {
     res <- matrix(res, ncol = nseries)
     colnames(res) <- vec_unique(data[[key_vars(data)]])
+  } else if (!drop && has_length(mvars, 1)) {
+    kv <- key_vars(data)
+    nm <- if (is_empty(kv)) {
+      mvars
+    } else {
+      inject(paste(!!!unname(as.list(key_data(data)[kv])), sep = "/"))
+    }
+    res <- matrix(res, ncol = 1L, dimnames = list(NULL, nm))
   }
   if (is_null(frequency)) {
     frequency <- frequency(idx_time)

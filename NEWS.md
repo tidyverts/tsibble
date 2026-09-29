@@ -6,6 +6,11 @@
   dropped the day component and made `as_tsibble()` fail with "Can't obtain
   the interval due to the mismatched index class". Such intervals are now
   reported in hours (e.g. `[24h]`). (#286)
+* `as.ts.tbl_ts()` gains a `drop` argument. `drop = FALSE` returns a single
+  series as a one-column matrix `ts` named by its key value (or by the
+  measured variable when there is no key), rather than a vector `ts`.
+  Conversely, `as_tsibble()` now treats a one-column matrix `ts` with a
+  column name like an `mts`, keeping that name as the key. (#282)
 
 # tsibble 1.2.0
 

@@ -135,3 +135,72 @@ test_that("as.ts() for weekly (yearweek) tsibbles", {
     lubridate::decimal_date(as.Date(wk))
   )
 })
+
+test_that("as.ts(drop = FALSE) keeps a single series as a matrix #282", {
+  tsbl <- as_tsibble(
+    tibble(value = 1:12, key = "all", time = make_yearmonth(2000, 1:12)),
+    index = time, key = key
+  )
+  expected <- ts(
+    matrix(1:12, dimnames = list(NULL, "all")),
+    start = 2000, frequency = 12
+  )
+  expect_identical(as.ts(tsbl, drop = FALSE), expected)
+  expect_equal(
+    as.ts(tsbl, drop = FALSE),
+    structure(1:12, dim = c(12L, 1L), dimnames = list(NULL, "all"),
+      tsp = c(2000, 2000.91666666667, 12), class = "ts")
+  )
+  # default is unchanged
+  expect_identical(as.ts(tsbl), ts(1:12, start = 2000, frequency = 12))
+  expect_identical(as.ts(tsbl, drop = TRUE), as.ts(tsbl))
+
+  # no key: the measured variable names the column
+  no_key <- tsibble(i = 1:3, a = 1:3, index = i)
+  expect_identical(
+    as.ts(no_key, drop = FALSE),
+    ts(matrix(1:3, dimnames = list(NULL, "a")))
+  )
+  expect_identical(as.ts(no_key), ts(1:3))
+
+  # multiple key variables with a single series are pasted together
+  multi_key <- tsibble(
+    i = 1:3, q = 5, a = "x", b = "y",
+    index = "i", key = c(a, b)
+  )
+  expect_identical(
+    as.ts(multi_key, drop = FALSE),
+    ts(matrix(5, nrow = 3, dimnames = list(NULL, "x/y")))
+  )
+
+  # multiple series or measured variables are unaffected by `drop`
+  expect_identical(
+    as.ts(harvest, value = kilo, drop = FALSE),
+    as.ts(harvest, value = kilo)
+  )
+  two_vars <- tsibble(i = 1:3, a = 1:3, b = 4:6, index = i)
+  expect_identical(as.ts(two_vars, drop = FALSE), as.ts(two_vars))
+
+  expect_error(as.ts(tsbl, drop = NA), "is_bool")
+})
+
+test_that("a one-column matrix ts round trips via as_tsibble() #282", {
+  x <- ts(matrix(1:12, dimnames = list(NULL, "all")), start = 2000, frequency = 12)
+  tsbl <- as_tsibble(x)
+  expect_identical(key_vars(tsbl), "key")
+  expect_identical(unique(tsbl$key), "all")
+  expect_identical(as.ts(tsbl, drop = FALSE), x)
+  expect_identical(names(as_tsibble(x, pivot_longer = FALSE)), c("index", "all"))
+  # ts() names matrix columns by default, as for a multi-column mts
+  expect_identical(
+    unique(as_tsibble(ts(matrix(1:12), start = 2000, frequency = 12))$key),
+    "Series 1"
+  )
+  # a one-column matrix without column names is treated as a vector ts
+  unnamed <- ts(matrix(1:12), start = 2000, frequency = 12)
+  colnames(unnamed) <- NULL
+  expect_identical(
+    as_tsibble(unnamed),
+    as_tsibble(ts(1:12, start = 2000, frequency = 12))
+  )
+})

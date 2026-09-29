@@ -4,7 +4,7 @@
 \alias{as.ts.tbl_ts}
 \title{Coerce a tsibble to a time series}
 \usage{
-\method{as.ts}{tbl_ts}(x, value, frequency = NULL, fill = NA_real_, ...)
+\method{as.ts}{tbl_ts}(x, value, frequency = NULL, fill = NA_real_, drop = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{tbl_ts} object.}
@@ -16,6 +16,13 @@ multiple measures.}
 preferred frequency is passed to \code{ts()}.}
 
 \item{fill}{A value to replace missing values.}
+
+\item{drop}{If \code{TRUE} (the default), a single series is returned as a
+vector \code{ts}. If \code{FALSE}, a single series is kept as a one-column matrix
+\code{ts}, whose column name is the key value (multiple key variables are
+pasted together with \code{"/"}), or the name of the measured variable if the
+tsibble has no key. It has no effect when there are multiple series, which
+always give a matrix.}
 
 \item{...}{Ignored for the function.}
 }
@@ -29,4 +36,11 @@ A \code{ts} object.
 # a monthly series
 x1 <- as_tsibble(AirPassengers)
 as.ts(x1)
+
+# keep a single series as a one-column matrix named by its key
+x2 <- tsibble(
+  year = 2000:2005, group = "all", value = 1:6,
+  index = year, key = group
+)
+as.ts(x2, drop = FALSE)
 }

@@ -8,8 +8,14 @@
 #' as_tsibble(sunspot.year)
 #' as_tsibble(sunspot.month)
 #' as_tsibble(austres)
+#'
+#' # a one-column matrix ts with a column name is treated like an mts
+#' as_tsibble(ts(matrix(1:12, dimnames = list(NULL, "all")), frequency = 12))
 #' @export
 as_tsibble.ts <- function(x, ..., tz = "UTC") {
+  if (is.matrix(x) && !is_null(colnames(x))) {
+    return(as_tsibble.mts(x, ..., tz = tz))
+  }
   idx <- time_to_date(x, tz = tz)
   value <- as.numeric(x) # rm its ts class
   tbl <- tibble(index = idx, value = value)
