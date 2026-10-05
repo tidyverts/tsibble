@@ -355,6 +355,25 @@ as_tsibble(austres)
 #>  9 1973 Q2 13504.
 #> 10 1973 Q3 13553.
 #> # ℹ 79 more rows
+
+# a one-column matrix ts with a column name is treated like an mts
+as_tsibble(ts(matrix(1:12, dimnames = list(NULL, "all")), frequency = 12))
+#> # A tsibble: 12 x 3 [1M]
+#> # Key:       key [1]
+#>    index key   value
+#>    <mth> <chr> <int>
+#>  1 1 Jan all       1
+#>  2 1 Feb all       2
+#>  3 1 Mar all       3
+#>  4 1 Apr all       4
+#>  5 1 May all       5
+#>  6 1 Jun all       6
+#>  7 1 Jul all       7
+#>  8 1 Aug all       8
+#>  9 1 Sep all       9
+#> 10 1 Oct all      10
+#> 11 1 Nov all      11
+#> 12 1 Dec all      12
 # coerce mts to tsibble
 z <- ts(matrix(rnorm(300), 100, 3), start = c(1961, 1), frequency = 12)
 as_tsibble(z)

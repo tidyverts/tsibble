@@ -4,6 +4,24 @@
 
 - Fixed `format.yearmonth()` incorrectly offseting years for non-week
   formats (e.g. `format = "%Y %b"`)
+- Fixed [`as.ts()`](https://rdrr.io/r/stats/ts.html) failing for weekly
+  (`yearweek`) tsibbles with recent versions of lubridate.
+- Fixed
+  [`interval_pull()`](https://tsibble.tidyverts.org/dev/reference/interval-pull.md)
+  for `POSIXct` indices spaced by whole days, which dropped the day
+  component and made
+  [`as_tsibble()`](https://tsibble.tidyverts.org/dev/reference/as-tsibble.md)
+  fail with “Can’t obtain the interval due to the mismatched index
+  class”. Such intervals are now reported in hours (e.g. `[24h]`).
+  ([\#286](https://github.com/tidyverts/tsibble/issues/286))
+- [`as.ts.tbl_ts()`](https://tsibble.tidyverts.org/dev/reference/as.ts.tbl_ts.md)
+  gains a `drop` argument. `drop = FALSE` returns a single series as a
+  one-column matrix `ts` named by its key value (or by the measured
+  variable when there is no key), rather than a vector `ts`. Conversely,
+  [`as_tsibble()`](https://tsibble.tidyverts.org/dev/reference/as-tsibble.md)
+  now treats a one-column matrix `ts` with a column name like an `mts`,
+  keeping that name as the key.
+  ([\#282](https://github.com/tidyverts/tsibble/issues/282))
 
 ## tsibble 1.2.0
 

@@ -6,7 +6,7 @@
 
 ``` r
 # S3 method for class 'tbl_ts'
-as.ts(x, value, frequency = NULL, fill = NA_real_, ...)
+as.ts(x, value, frequency = NULL, fill = NA_real_, drop = TRUE, ...)
 ```
 
 ## Arguments
@@ -28,6 +28,15 @@ as.ts(x, value, frequency = NULL, fill = NA_real_, ...)
 - fill:
 
   A value to replace missing values.
+
+- drop:
+
+  If `TRUE` (the default), a single series is returned as a vector `ts`.
+  If `FALSE`, a single series is kept as a one-column matrix `ts`, whose
+  column name is the key value (multiple key variables are pasted
+  together with `"/"`), or the name of the measured variable if the
+  tsibble has no key. It has no effect when there are multiple series,
+  which always give a matrix.
 
 - ...:
 
@@ -56,4 +65,22 @@ as.ts(x1)
 #> 1958 340 318 362 348 363 435 491 505 404 359 310 337
 #> 1959 360 342 406 396 420 472 548 559 463 407 362 405
 #> 1960 417 391 419 461 472 535 622 606 508 461 390 432
+
+# keep a single series as a one-column matrix named by its key
+x2 <- tsibble(
+  year = 2000:2005, group = "all", value = 1:6,
+  index = year, key = group
+)
+as.ts(x2, drop = FALSE)
+#> Time Series:
+#> Start = 2000 
+#> End = 2005 
+#> Frequency = 1 
+#>      all
+#> [1,]   1
+#> [2,]   2
+#> [3,]   3
+#> [4,]   4
+#> [5,]   5
+#> [6,]   6
 ```

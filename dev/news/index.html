@@ -46,6 +46,10 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="tsibble-development-version">tsibble (development version)<a class="anchor" aria-label="anchor" href="#tsibble-development-version"></a></h2>
 <ul><li>Fixed <code>format.yearmonth()</code> incorrectly offseting years for non-week formats (e.g. <code>format = "%Y %b"</code>)</li>
+<li>Fixed <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts()</a></code> failing for weekly (<code>yearweek</code>) tsibbles with recent versions of lubridate.</li>
+<li>Fixed <code><a href="../reference/interval-pull.html">interval_pull()</a></code> for <code>POSIXct</code> indices spaced by whole days, which dropped the day component and made <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> fail with “Can’t obtain the interval due to the mismatched index class”. Such intervals are now reported in hours (e.g. <code>[24h]</code>). (<a href="https://github.com/tidyverts/tsibble/issues/286" class="external-link">#286</a>)</li>
+<li>
+<code><a href="../reference/as.ts.tbl_ts.html">as.ts.tbl_ts()</a></code> gains a <code>drop</code> argument. <code>drop = FALSE</code> returns a single series as a one-column matrix <code>ts</code> named by its key value (or by the measured variable when there is no key), rather than a vector <code>ts</code>. Conversely, <code><a href="../reference/as-tsibble.html">as_tsibble()</a></code> now treats a one-column matrix <code>ts</code> with a column name like an <code>mts</code>, keeping that name as the key. (<a href="https://github.com/tidyverts/tsibble/issues/282" class="external-link">#282</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="tsibble-120">tsibble 1.2.0<a class="anchor" aria-label="anchor" href="#tsibble-120"></a></h2><p class="text-muted">CRAN release: 2026-02-09</p>
@@ -731,7 +735,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
